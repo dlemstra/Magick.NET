@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Magick.NET", "Magick.NET\Magick.NET.vcxproj", "{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Web", "Magick.NET.Web\Magick.NET.Web.csproj", "{FAEF6535-4D08-4538-89DC-EE56176F6803}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		ReleaseQ16|Any CPU = ReleaseQ16|Any CPU
+		ReleaseQ16|Mixed Platforms = ReleaseQ16|Mixed Platforms
+		ReleaseQ16|Win32 = ReleaseQ16|Win32
+		ReleaseQ8|Any CPU = ReleaseQ8|Any CPU
+		ReleaseQ8|Mixed Platforms = ReleaseQ8|Mixed Platforms
+		ReleaseQ8|Win32 = ReleaseQ8|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ16|Any CPU.ActiveCfg = ReleaseQ16|Win32
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ16|Any CPU.Build.0 = ReleaseQ16|Win32
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ16|Mixed Platforms.ActiveCfg = ReleaseQ16|Win32
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ16|Mixed Platforms.Build.0 = ReleaseQ16|Win32
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ16|Win32.ActiveCfg = ReleaseQ16|Win32
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ16|Win32.Build.0 = ReleaseQ16|Win32
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ16|Win32.Deploy.0 = ReleaseQ16|Win32
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ8|Any CPU.ActiveCfg = ReleaseQ8|Win32
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ8|Any CPU.Build.0 = ReleaseQ8|Win32
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ8|Mixed Platforms.ActiveCfg = ReleaseQ8|Win32
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ8|Mixed Platforms.Build.0 = ReleaseQ8|Win32
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ8|Win32.ActiveCfg = ReleaseQ8|Win32
+		{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}.ReleaseQ8|Win32.Build.0 = ReleaseQ8|Win32
+		{FAEF6535-4D08-4538-89DC-EE56176F6803}.ReleaseQ16|Any CPU.ActiveCfg = Release|Any CPU
+		{FAEF6535-4D08-4538-89DC-EE56176F6803}.ReleaseQ16|Any CPU.Build.0 = Release|Any CPU
+		{FAEF6535-4D08-4538-89DC-EE56176F6803}.ReleaseQ16|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FAEF6535-4D08-4538-89DC-EE56176F6803}.ReleaseQ16|Mixed Platforms.Build.0 = Release|Any CPU
+		{FAEF6535-4D08-4538-89DC-EE56176F6803}.ReleaseQ16|Win32.ActiveCfg = Release|Any CPU
+		{FAEF6535-4D08-4538-89DC-EE56176F6803}.ReleaseQ8|Any CPU.ActiveCfg = Release|Any CPU
+		{FAEF6535-4D08-4538-89DC-EE56176F6803}.ReleaseQ8|Any CPU.Build.0 = Release|Any CPU
+		{FAEF6535-4D08-4538-89DC-EE56176F6803}.ReleaseQ8|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FAEF6535-4D08-4538-89DC-EE56176F6803}.ReleaseQ8|Mixed Platforms.Build.0 = Release|Any CPU
+		{FAEF6535-4D08-4538-89DC-EE56176F6803}.ReleaseQ8|Win32.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
