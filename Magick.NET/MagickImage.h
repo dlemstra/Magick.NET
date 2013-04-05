@@ -141,7 +141,7 @@ namespace ImageMagick
 			}
 			void set(MagickColor^ value)
 			{
-				Magick::Color* color = (Magick::Color*)value;
+				Magick::Color* color = value != nullptr ? value->CreateColor() : new Magick::Color();
 				Value->backgroundColor(*color);
 				delete color;
 			}
@@ -346,7 +346,7 @@ namespace ImageMagick
 			}
 			void set(MagickColor^ value)
 			{
-				Magick::Color* color = (Magick::Color*)value;
+				Magick::Color* color = value != nullptr ? value->CreateColor() : new Magick::Color();
 				Value->fillColor(*color);
 				delete color;
 			}
@@ -411,7 +411,7 @@ namespace ImageMagick
 			}
 			void set(MagickColor^ value)
 			{
-				Magick::Color* color = (Magick::Color*)value;
+				Magick::Color* color = value != nullptr ? value->CreateColor() : new Magick::Color();
 				Value->strokeColor(*color);
 				delete color;
 			}

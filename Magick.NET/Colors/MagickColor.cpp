@@ -48,6 +48,11 @@ namespace ImageMagick
 #endif
 	}
 	//==============================================================================================
+	Magick::Color* MagickColor::CreateColor()
+	{
+		return new Magick::Color(_Red, _Green, _Blue, _Alpha);
+	}
+	//==============================================================================================
 	MagickColor::MagickColor()
 	{
 		_Alpha = MaxMap;

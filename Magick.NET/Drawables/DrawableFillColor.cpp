@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void DrawableFillColor::Initialize(MagickColor^ color)
 	{
-		Magick::Color* magickColor = (Magick::Color*)color;
+		Magick::Color* magickColor = color->CreateColor();
 		Value = new Magick::DrawableFillColor(*magickColor);
 		delete magickColor;
 	}

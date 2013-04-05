@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void DrawableStrokeColor::Initialize(MagickColor^ color)
 	{
-		Magick::Color* magickColor = (Magick::Color*)color;
+		Magick::Color* magickColor = color->CreateColor();
 		Value = new Magick::DrawableStrokeColor(*magickColor);
 		delete magickColor;
 	}

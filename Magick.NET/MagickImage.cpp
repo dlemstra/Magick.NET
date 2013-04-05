@@ -42,7 +42,7 @@ namespace ImageMagick
 		Throw::IfNull("color", color);
 
 		MagickGeometry^ geometry = gcnew	MagickGeometry(width, height);
-		Magick::Color* background = (Magick::Color*)color;
+		Magick::Color* background = color->CreateColor();
 		Value = new Magick::Image(geometry, *background);
 		delete geometry;
 		delete background;
@@ -263,7 +263,7 @@ namespace ImageMagick
 	{
 		Throw::IfNull("color", color);
 
-		Magick::Color* magickColor = (Magick::Color*)color;
+		Magick::Color* magickColor = color->CreateColor();
 		MagickGeometry^ geometry = gcnew MagickGeometry(width, width);
 
 		try
@@ -473,7 +473,7 @@ namespace ImageMagick
 
 		try
 		{
-			Magick::Color* colorMap = (Magick::Color*)color;
+			Magick::Color* colorMap = color->CreateColor();
 			Value->colorMap(index, *colorMap);
 			delete colorMap;
 		}
@@ -491,7 +491,7 @@ namespace ImageMagick
 		Throw::IfNotIsPercentage("opacityBluePercentage", opacityBluePercentage);
 		Throw::IfNull("color", color);
 
-		Magick::Color* magickColor = (Magick::Color*)color;
+		Magick::Color* magickColor = color->CreateColor();
 
 		try
 		{
@@ -512,7 +512,7 @@ namespace ImageMagick
 		Throw::IfNotIsPercentage("opacityPercentage", opacityPercentage);
 		Throw::IfNull("color", color);
 
-		Magick::Color* magickColor = (Magick::Color*)color;
+		Magick::Color* magickColor = color->CreateColor();
 
 		try
 		{
