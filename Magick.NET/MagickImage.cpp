@@ -390,22 +390,50 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::ChromaBluePrimary(double x, double y)
 	{
-		Value->chromaBluePrimary(x, y);
+		try
+		{
+			Value->chromaBluePrimary(x, y);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::ChromaGreenPrimary(double x, double y)
 	{
-		Value->chromaGreenPrimary(x, y);
+		try
+		{
+			Value->chromaGreenPrimary(x, y);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::ChromaRedPrimary(double x, double y)
 	{
-		Value->chromaRedPrimary(x, y);
+		try
+		{
+			Value->chromaRedPrimary(x, y);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::ChromaWhitePoint(double x, double y)
 	{
-		Value->chromaWhitePoint(x, y);
+		try
+		{
+			Value->chromaWhitePoint(x, y);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::ColorAlpha(MagickColor^ color)
@@ -425,6 +453,34 @@ namespace ImageMagick
 
 		ReplaceImage(image->Value);
 		image->Value = NULL;
+	}
+	//==============================================================================================
+	MagickColor^ MagickImage::ColorMap(int index)
+	{
+		try
+		{
+			return gcnew MagickColor(Value->colorMap(index));
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::ColorMap(int index, MagickColor^ color)
+	{
+		Throw::IfNull("color", color);
+
+		try
+		{
+			Magick::Color* colorMap = (Magick::Color*)color;
+			Value->colorMap(index, *colorMap);
+			delete colorMap;
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::Colorize(int opacityRedPercentage, int opacityGreenPercentage,
@@ -777,6 +833,18 @@ namespace ImageMagick
 			Value->rows() == image->Value->rows() && 
 			Value->columns() == image->Value->columns() &&
 			Value->signature() == image->Value->signature();
+	}
+	//==============================================================================================
+	void MagickImage::Edge(double radius)
+	{
+		try
+		{
+			Value->edge(radius);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
 	}
 	//==============================================================================================
 	int MagickImage::GetHashCode()

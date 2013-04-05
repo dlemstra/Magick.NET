@@ -200,6 +200,62 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Associate a clip mask with the image. The clip mask must be the same dimensions as the
+		/// image. Pass null to unset an existing clip mask.
+		///</summary>
+		property MagickImage^ ClipMask
+		{
+			MagickImage^ get()
+			{
+				Magick::Image* image = new Magick::Image(Value->clipMask());
+				return gcnew MagickImage(image);
+			}
+			void set(MagickImage^ value)
+			{
+				if (value == nullptr)
+				{
+					Magick::Image* image = new Magick::Image();
+					Value->clipMask(*image);
+					delete image;
+				}
+				else
+				{
+					Value->clipMask(*value->Value);
+				}
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Colors within this distance are considered equal.
+		///</summary>
+		property double ColorFuzz
+		{
+			double get()
+			{
+				return Value->colorFuzz();
+			}
+			Void set(double value)
+			{
+				Value->colorFuzz(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Colormap size (number of colormap entries).
+		///</summary>
+		property int ColorMapSize
+		{
+			int get()
+			{
+				return Value->colorMapSize();
+			}
+			void set(int value)
+			{
+				Value->colorMapSize(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Color space of the image.
 		///</summary>
 		property ColorSpace ColorSpace
@@ -242,6 +298,40 @@ namespace ImageMagick
 			{
 				std::string comment; 
 				Value->comment(Marshaller::Marshal(value, comment));
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Vertical and horizontal resolution in pixels of the image.
+		///</summary>
+		property MagickGeometry^ Density
+		{
+			MagickGeometry^ get()
+			{
+				return gcnew MagickGeometry(Value->density());
+			}
+			void set(MagickGeometry^ value)
+			{
+				if (value == nullptr)
+					return;
+
+				Value->density(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Image depth (bits allocated to red/green/blue components).
+		///</summary>
+		//===========================================================================================
+		property int Depth
+		{
+			int get()
+			{
+				return Value->depth();
+			}
+			void set(int value)
+			{
+				Value->depth(value);
 			}
 		}
 		///==========================================================================================
@@ -653,6 +743,20 @@ namespace ImageMagick
 		void ColorAlpha(MagickColor^ color);
 		///==========================================================================================
 		///<summary>
+		// Get color at colormap position index.
+		///</summary>
+		///<param name="index">The position index.</param>
+		///<exception cref="MagickException"/>
+		MagickColor^ ColorMap(int index);
+		///==========================================================================================
+		///<summary>
+		// Set color at colormap position index.
+		///</summary>
+		///<param name="index">The position index.</param>
+		///<exception cref="MagickException"/>
+		void ColorMap(int index, MagickColor^ color);
+		///==========================================================================================
+		///<summary>
 		/// Apply a color matrix to the image channels.
 		///</summary>
 		///<param name="matrixColor">The color matrix to use.</param>
@@ -816,12 +920,20 @@ namespace ImageMagick
 		///<summary>
 		/// Determines whether the specified object is equal to the current image.
 		///</summary>
+		///<param name="obj">The object to compare this image with.</param>
 		virtual bool Equals(Object^ obj) override;
 		///==========================================================================================
 		///<summary>
 		/// Determines whether the specified image is equal to the current image.
 		///</summary>
+		///<param name="image">The image to compare this image with.</param>
 		bool Equals(MagickImage^ image);
+		///==========================================================================================
+		///<summary>
+		/// Edge image (hilight edges in image).
+		///</summary>
+		///<param name="radius">The radius of the pixel neighborhood.</param>
+		void Edge(double radius);
 		///==========================================================================================
 		///<summary>
 		/// Servers as a hash of this type.
