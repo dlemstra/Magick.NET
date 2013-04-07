@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MatrixColor::MatrixColor(int order)
 	{
-		Throw::IfTrue("order", (order < 1 || order > 6), "Invalid order specified.");
+		Throw::IfTrue("order", (order < 1) || (order > 6), "Invalid order specified.");
 
 		Initialize(order);
 	}

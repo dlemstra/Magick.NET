@@ -12,14 +12,18 @@
 // limitations under the License.
 //=================================================================================================
 #include "stdafx.h"
-#include "DrawableMiterLimit.h"
+#include "TypeMetric.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	DrawableMiterLimit::DrawableMiterLimit(int mitterLimit)
+	TypeMetric::TypeMetric(Magick::TypeMetric* metrics)
 	{
-		Value = new Magick::DrawableMiterLimit(mitterLimit);
+		_Ascent = metrics->ascent();
+		_Descent = metrics->descent();
+		_TextWidth = metrics->textWidth();
+		_TextHeight = metrics->textHeight();
+		_MaxHorizontalAdvance = metrics->maxHorizontalAdvance();
 	}
 	//==============================================================================================
 }

@@ -342,8 +342,14 @@
     <ClInclude Include="MagickNET.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\Endian.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
     <ClInclude Include="Enums\ClassType.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\TypeMetric.h">
+      <Filter>Header Files\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -573,6 +579,9 @@
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
     <ClCompile Include="MagickNET.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\TypeMetric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -27,7 +27,7 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		void Initialize(int xOffset, int yOffset, int width, int height, bool isPercentage);
+		void Initialize(long xOffset, long yOffset, int width, int height, bool isPercentage);
 		//===========================================================================================
 	internal:
 		//===========================================================================================
@@ -66,7 +66,7 @@ namespace ImageMagick
 		///<param name="width">The width.</param>
 		///<param name="height">The height.</param>
 		//===========================================================================================
-		MagickGeometry(int xOffset, int yOffset, int width, int height);
+		MagickGeometry(long xOffset, long yOffset, int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickGeometry class using the specified offsets, width
@@ -78,7 +78,7 @@ namespace ImageMagick
 		///<param name="height">The height.</param>
 		///<param name="isPercentage">True if the width and height are percentages.</param>
 		//===========================================================================================
-		MagickGeometry(int xOffset, int yOffset, int width, int height, bool isPercentage);
+		MagickGeometry(long xOffset, long yOffset, int width, int height, bool isPercentage);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickGeometry class using the specified rectangle.
@@ -134,13 +134,13 @@ namespace ImageMagick
 		///<summary>
 		/// X offset from origin
 		///</summary>
-		property int XOffset
+		property long XOffset
 		{
-			int get()
+			long get()
 			{
 				return Value->xNegative() ? -1 * Value->xOff() : Value->xOff();
 			}
-			void set(int value)
+			void set(long value)
 			{
 				Value->xOff(value);
 				Value->xNegative(value < 0);
@@ -150,13 +150,13 @@ namespace ImageMagick
 		///<summary>
 		/// Y offset from origin
 		///</summary>
-		property int YOffset
+		property long YOffset
 		{
-			int get()
+			long get()
 			{
 				return Value->yNegative() ? -1 * Value->yOff() : Value->yOff();
 			}
-			void set(int value)
+			void set(long value)
 			{
 				Value->yOff(value);
 				Value->yNegative(value < 0);

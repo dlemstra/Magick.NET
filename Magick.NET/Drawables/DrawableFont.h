@@ -56,8 +56,7 @@ namespace ImageMagick
 			void set(String^ value)
 			{
 				std::string font;
-				Marshaller::Marshal(value, font);
-				Value->font(font);
+				Value->font(Marshaller::Marshal(value, font));
 			}
 		}
 		//===========================================================================================

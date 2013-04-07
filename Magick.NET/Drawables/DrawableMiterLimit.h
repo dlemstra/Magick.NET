@@ -30,20 +30,20 @@ namespace ImageMagick
 		/// Creates a new DrawableMiterLimit instance.
 		///</summary>
 		///<param name="miterlimit">The miter limit.</param>
-		DrawableMiterLimit(double miterlimit);
+		DrawableMiterLimit(int miterlimit);
 		///==========================================================================================
 		///<summary>
 		/// The miter limit.
 		///</summary>
-		property double Miterlimit
+		property int Miterlimit
 		{
-			double get()
+			int get()
 			{
-				return (double)Value->miterlimit();
+				return Value->miterlimit();
 			}
-			void set(double value)
+			void set(int value)
 			{
-				Value->miterlimit((size_t)value);
+				Value->miterlimit(value);
 			}
 		}
 		//===========================================================================================

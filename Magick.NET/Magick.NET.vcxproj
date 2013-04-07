@@ -147,6 +147,7 @@
     <ClInclude Include="Drawables\Paths\Stdafx.h" />
     <ClInclude Include="Drawables\Paths\PathBase.h" />
     <ClInclude Include="Enums\ClassType.h" />
+    <ClInclude Include="Enums\Endian.h" />
     <ClInclude Include="Enums\FillRule.h" />
     <ClInclude Include="Enums\FontStretch.h" />
     <ClInclude Include="Enums\FontStyleType.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="Enums\Gravity.h" />
     <ClInclude Include="Colors\MagickColor.h" />
     <ClInclude Include="Colors\ColorBase.h" />
+    <ClInclude Include="Helpers\TypeMetric.h" />
     <ClInclude Include="Matrices\MatrixColor.h" />
     <ClInclude Include="Matrices\MatrixConvolve.h" />
     <ClInclude Include="MagickImageCollection.h" />
@@ -269,6 +271,7 @@
     <ClCompile Include="Colors\ColorYUV.cpp" />
     <ClCompile Include="Colors\MagickColor.cpp" />
     <ClCompile Include="Colors\ColorBase.cpp" />
+    <ClCompile Include="Helpers\TypeMetric.cpp" />
     <ClCompile Include="Matrices\MatrixColor.cpp" />
     <ClCompile Include="Matrices\MatrixConvolve.cpp" />
     <ClCompile Include="MagickImageCollection.cpp" />

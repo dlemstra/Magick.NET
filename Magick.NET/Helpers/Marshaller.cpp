@@ -13,7 +13,6 @@
 //=================================================================================================
 #include "stdafx.h"
 
-using namespace System;
 using namespace System::Runtime::InteropServices;
 
 namespace ImageMagick
@@ -21,6 +20,9 @@ namespace ImageMagick
 	//==============================================================================================
 	std::string& Marshaller::Marshal(String^ value, std::string &unmanagedValue)
 	{
+		if (value == nullptr)
+			return unmanagedValue;
+
 		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(value)).ToPointer();
 		unmanagedValue = chars;
 		Marshal::FreeHGlobal(IntPtr((void*)chars));

@@ -12,100 +12,88 @@
 // limitations under the License.
 //=================================================================================================
 #pragma once
-
-#include "DrawableWrapper.h"
-
-using namespace System::Text;
+#include "MagickWrapper.h"
 
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Encapsulation of the DrawableCompositeImage object.
+	/// Encapsulation of the ImageMagick TypeMetric object.
 	///</summary>
-	public ref class DrawableText sealed : DrawableWrapper<Magick::DrawableText>
+	public ref class TypeMetric sealed
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		void Initialize(double x, double y, String^ text, String^ encoding);
+		double _Ascent;
+		double _Descent;
+		double _MaxHorizontalAdvance;
+		double _TextWidth;
+		double _TextHeight;
+		//===========================================================================================
+	internal:
+		//===========================================================================================
+		TypeMetric(Magick::TypeMetric* metrics);
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Creates a new DrawableText instance.
+		/// Ascent, the distance in pixels from the text baseline to the highest/upper grid coordinate
+		/// used to place an outline point.
 		///</summary>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
-		///<param name="text">The text to draw.</param>
-		DrawableText(double x, double y, String^ text);
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableText instance.
-		///</summary>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
-		///<param name="text">The text to draw.</param>
-		///<param name="encoding">The encoding of the text.</param>
-		DrawableText(double x, double y, String^ text, Encoding^ encoding);
-		///==========================================================================================
-		///<summary>
-		/// The encoding of the text.
-		///</summary>
-		property String^ Encoding
-		{
-			void set(String^ value)
-			{
-				std::string encoding;
-				Value->encoding(Marshaller::Marshal(value, encoding));
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// The text to draw.
-		///</summary>
-		property String^ Text
-		{
-			String^ get()
-			{
-				return Marshaller::Marshal(Value->text());
-			}
-			void set(String^ value)
-			{
-				std::string text;
-				Value->text(Marshaller::Marshal(value, text));
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X coordinate.
-		///</summary>
-		property double X
+		property double Ascent
 		{
 			double get()
 			{
-				return Value->x();
-			}
-			void set(double value)
-			{
-				Value->x(value);
+				return _Ascent;
 			}
 		}
 		///==========================================================================================
 		///<summary>
-		/// The Y coordinate.
+		/// Descent, the distance in pixels from the baseline to the lowest grid coordinate used to
+		/// place an outline point. Always a negative value.
 		///</summary>
-		property double Y
+		property double Descent
 		{
 			double get()
 			{
-				return Value->y();
-			}
-			void set(double value)
-			{
-				Value->y(value);
+				return _Descent;
 			}
 		}
+		///==========================================================================================
+		///<summary>
+		/// Maximum horizontal advance in pixels.
+		///</summary>
+		property double MaxHorizontalAdvance
+		{
+			double get()
+			{
+				return _MaxHorizontalAdvance;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Text height in pixels.
+		///</summary>
+		property double TextHeight
+		{
+			double get()
+			{
+				return _TextHeight;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Text width in pixels.
+		///</summary>
+		property double TextWidth
+		{
+			double get()
+			{
+				return _TextWidth;
+			}
+		}
+		//===========================================================================================
 	};
 	//==============================================================================================
 }

@@ -22,8 +22,7 @@ namespace ImageMagick
 		Throw::IfNullOrEmpty("family", family);
 
 		std::string font;
-		Marshaller::Marshal(family, font);
-		Value = new Magick::DrawableFont(font);
+		Value = new Magick::DrawableFont(Marshaller::Marshal(family, font));
 	}
 	//==============================================================================================
 	DrawableFont::DrawableFont(String^ family, FontStyleType style, FontWeight weight, FontStretch stretch)
@@ -31,9 +30,8 @@ namespace ImageMagick
 		Throw::IfNullOrEmpty("family", family);
 
 		std::string font;
-		Marshaller::Marshal(family, font);
-		Value = new Magick::DrawableFont(font, (MagickCore::StyleType)style, (int)weight,
-			(MagickCore::StretchType)stretch);
+		Value = new Magick::DrawableFont(Marshaller::Marshal(family, font), (MagickCore::StyleType)style,
+			(int)weight, (MagickCore::StretchType)stretch);
 	}
 	//==============================================================================================
 }

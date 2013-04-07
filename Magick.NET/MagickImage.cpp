@@ -14,12 +14,38 @@
 #include "stdafx.h"
 #include "MagickImage.h"
 
+using namespace System::Globalization;
+
 namespace ImageMagick
 {
 	//==============================================================================================
 	MagickImage::MagickImage()
 	{
 		Value = new Magick::Image();
+	}
+	//==============================================================================================
+	String^ MagickImage::FormatedFileSize()
+	{
+		Decimal fileSize = FileSize;
+
+		String^ suffix = "";
+		if (fileSize > 1073741824)
+		{
+			fileSize /= 1073741824;
+			suffix = "GB";
+		}
+		else if (fileSize > 1048576)
+		{
+			fileSize /= 1048576;
+			suffix = "MB";
+		}
+		else if (fileSize > 1024)
+		{
+			fileSize /= 1024;
+			suffix = "kB";
+		}
+
+		return String::Format(CultureInfo::InvariantCulture, "{0:N2}{1}", fileSize, suffix);
 	}
 	//==============================================================================================
 	void MagickImage::ReplaceImage(Magick::Image* image)
@@ -70,7 +96,7 @@ namespace ImageMagick
 		AdaptiveThreshold(width, height, 0);
 	}
 	//==============================================================================================
-	void MagickImage::AdaptiveThreshold(int width, int height, int offset)
+	void MagickImage::AdaptiveThreshold(int width, int height, long offset)
 	{
 		try
 		{
@@ -565,12 +591,12 @@ namespace ImageMagick
 		return gcnew CompareResult(Value->meanErrorPerPixel(), Value->normalizedMaxError(), Value->normalizedMeanError());
 	}
 	//==============================================================================================
-	void MagickImage::Composite(MagickImage^ image, int xOffset, int yOffset)
+	void MagickImage::Composite(MagickImage^ image, long xOffset, long yOffset)
 	{
 		Composite(image, xOffset, yOffset, CompositeOperator::In);
 	}
 	//==============================================================================================
-	void MagickImage::Composite(MagickImage^ image, int xOffset, int yOffset, CompositeOperator compose)
+	void MagickImage::Composite(MagickImage^ image, long xOffset, long yOffset, CompositeOperator compose)
 	{
 		Throw::IfNull("image", image);
 
@@ -735,7 +761,7 @@ namespace ImageMagick
 		delete geometry;
 	}
 	//==============================================================================================
-	void MagickImage::CycleColormap(int amount)
+	void MagickImage::CycleColormap(long amount)
 	{
 		try
 		{
@@ -819,6 +845,35 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Edge(double radius)
+	{
+		try
+		{
+			Value->edge(radius);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Emboss()
+	{
+		Emboss(0.0, 1.0);
+	}
+	//==============================================================================================
+	void MagickImage::Emboss(double radius, double sigma)
+	{
+		try
+		{
+			Value->emboss(radius, sigma);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
 	bool MagickImage::Equals(Object^ obj)
 	{
 		return Equals(dynamic_cast<MagickImage^>(obj));
@@ -835,11 +890,426 @@ namespace ImageMagick
 			Value->signature() == image->Value->signature();
 	}
 	//==============================================================================================
-	void MagickImage::Edge(double radius)
+	void MagickImage::Extent(MagickGeometry^ geometry)
+	{
+		Throw::IfNull("geometry", geometry);
+
+		try
+		{
+			Value->extent(geometry);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Extent(MagickGeometry^ geometry, MagickColor^ backgroundColor)
+	{
+		Throw::IfNull("geometry", geometry);
+		Throw::IfNull("backgroundColor", backgroundColor);
+
+		Magick::Color* color = backgroundColor->CreateColor();
+
+		try
+		{
+			Value->extent(geometry, *color);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete color;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Extent(MagickGeometry^ geometry, Gravity gravity)
+	{
+		Throw::IfNull("geometry", geometry);
+
+		try
+		{
+			Value->extent(geometry, (MagickCore::GravityType)gravity);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Extent(MagickGeometry^ geometry, Gravity gravity, MagickColor^ backgroundColor)
+	{
+		Throw::IfNull("geometry", geometry);
+		Throw::IfNull("backgroundColor", backgroundColor);
+
+		Magick::Color* color = backgroundColor->CreateColor();
+
+		try
+		{
+			Value->extent(geometry, *color, (MagickCore::GravityType)gravity);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete color;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Flip()
 	{
 		try
 		{
-			Value->edge(radius);
+			Value->flip();
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFillColor(long x, long y, MagickColor^ color)
+	{
+		Throw::IfNull("color", color);
+
+		Magick::Color* fillColor = color->CreateColor();
+
+		try
+		{
+			Value->floodFillColor(x, y, *fillColor);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete fillColor;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFillColor(MagickGeometry^ geometry, MagickColor^ color)
+	{
+		Throw::IfNull("geometry", geometry);
+		Throw::IfNull("color", color);
+
+		Magick::Color* fillColor = color->CreateColor();
+
+		try
+		{
+			Value->floodFillColor(geometry, *fillColor);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete fillColor;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFillColor(long x, long y, MagickColor^ color, MagickColor^ borderColor)
+	{
+		Throw::IfNull("color", color);
+		Throw::IfNull("borderColor", borderColor);
+
+		Magick::Color* fillColor = color->CreateColor();
+		Magick::Color* fillBorderColor = borderColor->CreateColor();
+
+		try
+		{
+			Value->floodFillColor(x, y, *fillColor, *fillBorderColor);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete fillColor;
+			delete fillBorderColor;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFillColor(MagickGeometry^ geometry, MagickColor^ color, MagickColor^ borderColor)
+	{
+		Throw::IfNull("geometry", geometry);
+		Throw::IfNull("color", color);
+		Throw::IfNull("borderColor", borderColor);
+
+		Magick::Color* fillColor = color->CreateColor();
+		Magick::Color* fillBorderColor = borderColor->CreateColor();
+
+		try
+		{
+			Value->floodFillColor(geometry, *fillColor, *fillBorderColor);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete fillColor;
+			delete fillBorderColor;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFillOpacity(long x, long y, int opacity, PaintMethod paintMethod)
+	{
+		try
+		{
+			Value->floodFillOpacity(x, y, opacity, (MagickCore::PaintMethod)paintMethod);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFillTexture(long x, long y, MagickImage^ image)
+	{
+		Throw::IfNull("image", image);
+
+		try
+		{
+			Value->floodFillTexture(x, y, *image->Value);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFillTexture(MagickGeometry^ geometry, MagickImage^ image)
+	{
+		Throw::IfNull("geometry", geometry);
+		Throw::IfNull("image", image);
+
+		try
+		{
+			Value->floodFillTexture(geometry, *image->Value);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFillTexture(long x, long y, MagickImage^ image, MagickColor^ borderColor)
+	{
+		Throw::IfNull("image", image);
+		Throw::IfNull("borderColor", borderColor);
+
+		Magick::Color* fillBorderColor = borderColor->CreateColor();
+
+		try
+		{
+			Value->floodFillTexture(x, y, *image->Value, *fillBorderColor);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete fillBorderColor;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFillTexture(MagickGeometry^ geometry, MagickImage^ image, MagickColor^ borderColor)
+	{
+		Throw::IfNull("geometry", geometry);
+		Throw::IfNull("image", image);
+		Throw::IfNull("borderColor", borderColor);
+
+		Magick::Color* fillBorderColor = borderColor->CreateColor();
+
+		try
+		{
+			Value->floodFillTexture(geometry, *image->Value, *fillBorderColor);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete fillBorderColor;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Flop()
+	{
+		try
+		{
+			Value->flop();
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	TypeMetric^ MagickImage::FontTypeMetrics(String^ text)
+	{
+		Throw::IfNullOrEmpty("text", text);
+
+		Magick::TypeMetric* metric = new Magick::TypeMetric();
+
+		try
+		{
+			std::string fontText;
+			Marshaller::Marshal(text, fontText);
+			Value->fontTypeMetrics(fontText, metric);
+			return gcnew TypeMetric(metric);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete metric;
+		}
+	}
+	//==============================================================================================
+	String^ MagickImage::Format()
+	{
+		try
+		{
+			return Marshaller::Marshal(Value->format());
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Frame()
+	{
+		Frame(gcnew MagickGeometry(25, 25, 6, 6));
+	}
+	//==============================================================================================
+	void MagickImage::Frame(MagickGeometry^ geometry)
+	{
+		Throw::IfNull("geometry", geometry);
+
+		try
+		{
+			Value->frame(geometry);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Frame(int width, int height)
+	{
+		Frame(gcnew MagickGeometry(width, height, 6, 6));
+	}
+	//==============================================================================================
+	void MagickImage::Frame(int width, int height, long innerBevel, long outerBevel)
+	{
+		Frame(gcnew MagickGeometry(width, height, innerBevel, outerBevel));
+	}
+	//==============================================================================================
+	void MagickImage::Fx(String^ expression)
+	{
+		Throw::IfNullOrEmpty("expression", expression);
+
+		try
+		{
+			std::string fxExpression;
+			Marshaller::Marshal(expression, fxExpression);
+			Value->fx(fxExpression);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Fx(String^ expression, Channels channel)
+	{
+		Throw::IfNullOrEmpty("expression", expression);
+
+		try
+		{
+			std::string fxExpression;
+			Marshaller::Marshal(expression, fxExpression);
+			Value->fx(fxExpression, (MagickCore::ChannelType)channel);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	double MagickImage::Gamma()
+	{
+		try
+		{
+			return Value->gamma();
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Gamma(double value)
+	{
+		Gamma(value, value, value);
+	}
+	//==============================================================================================
+	void MagickImage::Gamma(double gammaRed, double gammaGreen, double gammaBlue)
+	{
+		try
+		{
+			Value->gamma(gammaRed, gammaGreen, gammaBlue);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::GaussianBlur(double width, double sigma)
+	{
+		try
+		{
+			Value->gaussianBlur(width, sigma);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::GaussianBlur(double width, double sigma, Channels channel)
+	{
+		try
+		{
+			Value->gaussianBlurChannel((MagickCore::ChannelType)channel, width, sigma);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	MagickGeometry^ MagickImage::Geometry()
+	{
+		try
+		{
+			return gcnew MagickGeometry(Value->geometry());
 		}
 		catch(Magick::Exception exception)
 		{
@@ -1005,6 +1475,12 @@ namespace ImageMagick
 		MagickBlob^ blob = MagickBlob::Create();
 		MagickWriter::Write(this->Value, (Magick::Blob*)blob);
 		return blob;
+	}
+	//==============================================================================================
+	String^ MagickImage::ToString()
+	{
+		return String::Format(CultureInfo::InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}",
+			ImageType, Width, Height, Depth, ColorSpace, FormatedFileSize());
 	}
 	//==============================================================================================
 	void MagickImage::Write(String^ fileName)

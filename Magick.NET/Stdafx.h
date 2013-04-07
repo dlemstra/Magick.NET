@@ -21,5 +21,7 @@
 #pragma warning(default: 4251)
 #pragma warning(default: 4996)
 
+using namespace System;
+
 #include "Helpers\Marshaller.h"
 #include "Helpers\Throw.h"

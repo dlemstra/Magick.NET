@@ -44,8 +44,7 @@ namespace ImageMagick
 			void set(String^ value)
 			{
 				std::string id;
-				Marshaller::Marshal(value, id);
-				Value->clip_path(id);
+				Value->clip_path(Marshaller::Marshal(value, id));
 			}
 		}
 		//===========================================================================================

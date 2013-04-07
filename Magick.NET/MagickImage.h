@@ -22,14 +22,18 @@
 #include "Enums\ColorType.h"
 #include "Enums\CompositeOperator.h"
 #include "Enums\DistortMethod.h"
+#include "Enums\Endian.h"
+#include "Enums\FillRule.h"
 #include "Enums\Gravity.h"
 #include "Enums\ImageType.h"
 #include "Enums\NoiseType.h"
+#include "Enums\PaintMethod.h"
 #include "Helpers\CompareResult.h"
 #include "Helpers\MagickException.h"
 #include "Helpers\MagickReader.h"
 #include "Helpers\MagickWrapper.h"
 #include "Helpers\MagickWriter.h"
+#include "Helpers\TypeMetric.h"
 #include "MagickBlob.h"
 #include "MagickGeometry.h"
 #include "Matrices\MatrixColor.h"
@@ -51,6 +55,8 @@ namespace ImageMagick
 		String^ _ReadWarning;
 		//===========================================================================================
 		MagickImage();
+		//===========================================================================================
+		String^ FormatedFileSize();
 		//===========================================================================================
 		void ReplaceImage(Magick::Image* image);
 		//===========================================================================================
@@ -336,7 +342,51 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Color to use when drawing inside an object
+		/// Endianness (little like Intel or big like SPARC) for image formats which support
+		/// endian-specific options.
+		///</summary>
+		//===========================================================================================
+		property Endian Endian
+		{
+			ImageMagick::Endian get()
+			{
+				return (ImageMagick::Endian)Value->endian();
+			}
+			void set(ImageMagick::Endian value)
+			{
+				Value->endian((MagickCore::EndianType)value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Exif profile (BLOB).
+		///</summary>
+		property MagickBlob^ ExifProfile
+		{
+			MagickBlob^ get()
+			{
+				Magick::Blob blob = Value->exifProfile();
+				return gcnew MagickBlob(blob);
+			}
+			void set(MagickBlob^ value)
+			{
+				Value->exifProfile(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Image file size.
+		///</summary>
+		property long FileSize
+		{
+			long get()
+			{
+				return Value->fileSize();
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Color to use when drawing inside an object.
 		///</summary>
 		property MagickColor^ FillColor
 		{
@@ -349,6 +399,77 @@ namespace ImageMagick
 				Magick::Color* color = value != nullptr ? value->CreateColor() : new Magick::Color();
 				Value->fillColor(*color);
 				delete color;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Pattern to use while filling drawn objects.
+		///</summary>
+		property MagickImage^ FillPattern
+		{
+			MagickImage^ get()
+			{
+				Magick::Image* image = new Magick::Image(Value->fillPattern());
+				return gcnew MagickImage(image);
+			}
+			void set(MagickImage^ value)
+			{
+				if (value == nullptr)
+				{
+					Magick::Image* image = new Magick::Image();
+					Value->fillPattern(*image);
+					delete image;
+				}
+				else
+				{
+					Value->fillPattern(*value->Value);
+				}
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Rule to use when filling drawn objects.
+		///</summary>
+		property FillRule FillRule
+		{
+			ImageMagick::FillRule get()
+			{
+				return (ImageMagick::FillRule)Value->fillRule();
+			}
+			void set(ImageMagick::FillRule value)
+			{
+				Value->fillRule((Magick::FillRule)value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Text rendering font.
+		///</summary>
+		property String^ Font
+		{
+			String^ get()
+			{
+				return Marshaller::Marshal(Value->font());
+			}
+			void set(String^ value)
+			{
+				std::string font;
+				Value->font(Marshaller::Marshal(value, font));
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Font point size.
+		///</summary>
+		property double FontPointsize
+		{
+			double get()
+			{
+				return Value->fontPointsize();
+			}
+			void set(double value)
+			{
+				Value->fontPointsize(value);
 			}
 		}
 		///==========================================================================================
@@ -509,7 +630,7 @@ namespace ImageMagick
 		///<param name="height">The height of the pixel neighborhood.</param>
 		///<param name="offset">Constant to subtract from pixel neighborhood mean.</param>
 		///<exception cref="MagickException"/>
-		void AdaptiveThreshold(int width, int height, int offset);
+		void AdaptiveThreshold(int width, int height, long offset);
 		///==========================================================================================
 		///<summary>
 		/// Add noise to image with the specified noise type.
@@ -778,7 +899,7 @@ namespace ImageMagick
 		///<param name="xOffset">The X offset from origin.</param>
 		///<param name="yOffset">The Y offset from origin.</param>
 		///<exception cref="MagickException"/>
-		void Composite(MagickImage^ image, int xOffset, int yOffset);
+		void Composite(MagickImage^ image, long xOffset, long yOffset);
 		//==========================================================================================
 		///<summary>
 		/// Compose an image onto another at specified offset using the specified algorithm.
@@ -788,7 +909,7 @@ namespace ImageMagick
 		///<param name="yOffset">The Y offset from origin.</param>
 		///<param name="compose">The algorithm to use.</param>
 		///<exception cref="MagickException"/>
-		void Composite(MagickImage^ image, int xOffset, int yOffset, CompositeOperator compose);
+		void Composite(MagickImage^ image, long xOffset, long yOffset, CompositeOperator compose);
 		//==========================================================================================
 		///<summary>
 		/// Compose an image onto another at specified offset using the 'In' operator.
@@ -877,7 +998,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="amount">Displace the colormap this amount.</param>
 		///<exception cref="MagickException"/>
-		void CycleColormap(int amount);
+		void CycleColormap(long amount);
 		///==========================================================================================
 		///<summary>
 		/// Despeckle image (reduce speckle noise).
@@ -909,12 +1030,14 @@ namespace ImageMagick
 		/// Draw on image using a single drawable.
 		///</summary>
 		///<param name="drawable">The drawable to draw on the image.</param>
+		///<exception cref="MagickException"/>
 		void Draw(DrawableBase^ drawable);
 		///==========================================================================================
 		///<summary>
 		/// Draw on image using a collection of drawables.
 		///</summary>
 		///<param name="drawables">The drawables to draw on the image.</param>
+		///<exception cref="MagickException"/>
 		void Draw(IEnumerable<DrawableBase^>^ drawables);
 		///==========================================================================================
 		///<summary>
@@ -933,7 +1056,260 @@ namespace ImageMagick
 		/// Edge image (hilight edges in image).
 		///</summary>
 		///<param name="radius">The radius of the pixel neighborhood.</param>
+		///<exception cref="MagickException"/>
 		void Edge(double radius);
+		///==========================================================================================
+		///<summary>
+		/// Emboss image (hilight edges with 3D effect) with default value (0x1).
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Emboss();
+		///==========================================================================================
+		///<summary>
+		/// Emboss image (hilight edges with 3D effect).
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		///<exception cref="MagickException"/>
+		void Emboss(double radius, double sigma);
+		///==========================================================================================
+		///<summary>
+		/// Extend the image as defined by the geometry.
+		///</summary>
+		///<param name="geometry">The geometry to extend the image to.</param>
+		///<exception cref="MagickException"/>
+		void Extent(MagickGeometry^ geometry);
+		///==========================================================================================
+		///<summary>
+		/// Extend the image as defined by the geometry.
+		///</summary>
+		///<param name="geometry">The geometry to extend the image to.</param>
+		///<param name="backgroundColor">The background color to use.</param>
+		///<exception cref="MagickException"/>
+		void Extent(MagickGeometry^ geometry, MagickColor^ backgroundColor);
+		///==========================================================================================
+		///<summary>
+		/// Extend the image as defined by the geometry.
+		///</summary>
+		///<param name="geometry">The geometry to extend the image to.</param>
+		///<param name="gravity">The placement gravity.</param>
+		///<exception cref="MagickException"/>
+		void Extent(MagickGeometry^ geometry, Gravity gravity);
+		///==========================================================================================
+		///<summary>
+		/// Extend the image as defined by the geometry.
+		///</summary>
+		///<param name="geometry">The geometry to extend the image to.</param>
+		///<param name="gravity">The placement gravity.</param>
+		///<param name="backgroundColor">The background color to use.</param>
+		///<exception cref="MagickException"/>
+		void Extent(MagickGeometry^ geometry, Gravity gravity, MagickColor^ backgroundColor);
+		///==========================================================================================
+		///<summary>
+		/// Flip image (reflect each scanline in the vertical direction).
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Flip();
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
+		/// of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<param name="color">The color to use.</param>
+		///<exception cref="MagickException"/>
+		void FloodFillColor(long x, long y, MagickColor^ color);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
+		/// of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="geometry">The position of the pixel.</param>
+		///<param name="color">The color to use.</param>
+		///<exception cref="MagickException"/>
+		void FloodFillColor(MagickGeometry^ geometry, MagickColor^ color);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
+		/// of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<param name="color">The color to use.</param>
+		///<param name="borderColor">The color of the border.</param>
+		///<exception cref="MagickException"/>
+		void FloodFillColor(long x, long y, MagickColor^ color, MagickColor^ borderColor);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill color across pixels that match the color of the target pixel and are neighbors
+		/// of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="geometry">The position of the pixel.</param>
+		///<param name="color">The color to use.</param>
+		///<param name="borderColor">The color of the border.</param>
+		///<exception cref="MagickException"/>
+		void FloodFillColor(MagickGeometry^ geometry, MagickColor^ color, MagickColor^ borderColor);
+		///==========================================================================================
+		///<summary>
+		/// Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
+		/// opacity value using method.
+		///</summary>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<param name="opacity">The opacity to use.</param>
+		///<param name="paintMethod">The paint method to use.</param>
+		///<exception cref="MagickException"/>
+		void FloodFillOpacity(long x, long y, int opacity, PaintMethod paintMethod);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
+		/// of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<param name="image">The image to use.</param>
+		///<exception cref="MagickException"/>
+		void FloodFillTexture(long x, long y, MagickImage^ image);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
+		/// of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="geometry">The position of the pixel.</param>
+		///<param name="image">The image to use.</param>
+		///<exception cref="MagickException"/>
+		void FloodFillTexture(MagickGeometry^ geometry, MagickImage^ image);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
+		/// of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<param name="image">The image to use.</param>
+		///<param name="borderColor">The color of the border.</param>
+		///<exception cref="MagickException"/>
+		void FloodFillTexture(long x, long y, MagickImage^ image, MagickColor^ borderColor);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
+		/// of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="geometry">The position of the pixel.</param>
+		///<param name="image">The image to use.</param>
+		///<param name="borderColor">The color of the border.</param>
+		///<exception cref="MagickException"/>
+		void FloodFillTexture(MagickGeometry^ geometry, MagickImage^ image, MagickColor^ borderColor);
+		///==========================================================================================
+		///<summary>
+		/// Flop image (reflect each scanline in the horizontal direction).
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Flop();
+		///==========================================================================================
+		///<summary>
+		/// Obtain font metrics for text string given current font, pointsize, and density settings.
+		///</summary>
+		///<exception cref="MagickException"/>
+		TypeMetric^ FontTypeMetrics(String^ text);
+		///==========================================================================================
+		///<summary>
+		/// Long image format description
+		///</summary>
+		///<exception cref="MagickException"/>
+		String^ Format();
+		///==========================================================================================
+		///<summary>
+		/// Frame image with the default geometry (25x25+6+6).
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Frame();
+		///==========================================================================================
+		///<summary>
+		/// Frame image with the specified geometry.
+		///</summary>
+		///<param name="geometry">The geometry of the frame.</param>
+		///<exception cref="MagickException"/>
+		void Frame(MagickGeometry^ geometry);
+		///==========================================================================================
+		///<summary>
+		/// Frame image with the specified with and height.
+		///</summary>
+		///<param name="width">The width of the frame.</param>
+		///<param name="height">The height of the frame.</param>
+		///<exception cref="MagickException"/>
+		void Frame(int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Frame image with the specified with, height, innerBevel and outerBevel.
+		///</summary>
+		///<param name="width">The width of the frame.</param>
+		///<param name="height">The height of the frame.</param>
+		///<param name="innerBevel">The inner bevel of the frame.</param>
+		///<param name="outerBevel">The outer bevel of the frame.</param>
+		///<exception cref="MagickException"/>
+		void Frame(int width, int height, long innerBevel, long outerBevel);
+		///==========================================================================================
+		///<summary>
+		/// Applies a mathematical expression to the image.
+		///</summary>
+		///<param name="expression">The expression to apply.</param>
+		///<exception cref="MagickException"/>
+		void Fx(String^ expression);
+		///==========================================================================================
+		///<summary>
+		/// Applies a mathematical expression to the image.
+		///</summary>
+		///<param name="expression">The expression to apply.</param>
+		///<param name="channel">The channel(s) to apply the expression to.</param>
+		///<exception cref="MagickException"/>
+		void Fx(String^ expression, Channels channel);
+		///==========================================================================================
+		///<summary>
+		/// Gamma level of the image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		double Gamma();
+		///==========================================================================================
+		///<summary>
+		/// Gamma correct image.
+		///</summary>
+		///<param name="value">The image gamma.</param>
+		///<exception cref="MagickException"/>
+		void Gamma(double value);
+		///==========================================================================================
+		///<summary>
+		/// Gamma correct image.
+		///</summary>
+		///<param name="gammeRed">The image gamma for the red channel.</param>
+		///<param name="gammeGreen">The image gamma for the green channel.</param>
+		///<param name="gammeBlue">The image gamma for the blue channel.</param>
+		///<exception cref="MagickException"/>
+		void Gamma(double gammeRed, double gammeGreen, double gammeBlue);
+		///==========================================================================================
+		///<summary>
+		/// Gaussian blur image.
+		///</summary>
+		///<param name="width">The number of neighbor pixels to be included in the convolution.</param>
+		///<param name="sigma">The standard deviation of the gaussian bell curve.</param>
+		///<exception cref="MagickException"/>
+		void GaussianBlur(double width, double sigma);
+		///==========================================================================================
+		///<summary>
+		/// Gaussian blur image.
+		///</summary>
+		///<param name="width">The number of neighbor pixels to be included in the convolution.</param>
+		///<param name="sigma">The standard deviation of the gaussian bell curve.</param>
+		///<param name="channel">The channel(s) to blur.</param>
+		///<exception cref="MagickException"/>
+		void GaussianBlur(double width, double sigma, Channels channel);
+		///==========================================================================================
+		///<summary>
+		/// Preferred size of the image when encoding.
+		///</summary>
+		///<exception cref="MagickException"/>
+		MagickGeometry^ Geometry();
 		///==========================================================================================
 		///<summary>
 		/// Servers as a hash of this type.
@@ -1053,6 +1429,11 @@ namespace ImageMagick
 		/// Converts this instance to a MagickBlob.
 		///</summary>
 		MagickBlob^ ToBlob();
+		///==========================================================================================
+		///<summary>
+		/// Returns a string that represents the current image.
+		///</summary>
+		virtual String^ ToString() override;
 		///==========================================================================================
 		///<summary>
 		/// Writes the image to the specified file name.
