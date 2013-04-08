@@ -16,7 +16,6 @@
     <Rule Id="CA1704" Action="None" />
     <Rule Id="CA1709" Action="None" />
     <Rule Id="CA1806" Action="None" />
-    <Rule Id="CA1814" Action="None" />
     <Rule Id="CA2217" Action="None" />
   </Rules>
 </RuleSet>

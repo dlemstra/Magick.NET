@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableMiterLimit::DrawableMiterLimit(int mitterLimit)
 	{
-		Value = new Magick::DrawableMiterLimit(mitterLimit);
+		BaseValue = new Magick::DrawableMiterLimit(mitterLimit);
 	}
 	//==============================================================================================
 }

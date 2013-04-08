@@ -22,16 +22,12 @@ namespace ImageMagick
 	public ref class PathWrapper abstract : PathBase
 	{
 		//===========================================================================================
-	protected:
+	protected private:
 		//===========================================================================================
 		PathWrapper(){};
 		//===========================================================================================
 		property TMagickObject* Value
 		{
-			void set(TMagickObject* value)
-			{
-				InternalValue = value;
-			}
 			TMagickObject* get()
 			{
 				return (TMagickObject*)InternalValue;

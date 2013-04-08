@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawablePopGraphicContext::DrawablePopGraphicContext()
 	{
-		Value = new Magick::DrawablePopGraphicContext();
+		BaseValue = new Magick::DrawablePopGraphicContext();
 	}
 	//==============================================================================================
 }

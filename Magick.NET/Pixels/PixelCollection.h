@@ -12,27 +12,35 @@
 // limitations under the License.
 //=================================================================================================
 #pragma once
+#include "PixelBaseCollection.h"
 
-#include "DrawableBase.h"
+using namespace System::Collections::Generic;
 
 namespace ImageMagick
-{	
-	//==============================================================================================
-	template<typename TMagickObject>
-	public ref class DrawableWrapper abstract : DrawableBase
+{
+	///=============================================================================================
+	///<summary>
+	/// Class that can be used to access the individual pixels of an image.
+	///</summary>
+	public ref class PixelCollection sealed : PixelBaseCollection
 	{
+		//===========================================================================================
+	private:
+		const Magick::PixelPacket* _Pixels;
 		//===========================================================================================
 	protected private:
 		//===========================================================================================
-		DrawableWrapper(){};
-		//===========================================================================================
-		property TMagickObject* Value
+		property const Magick::PixelPacket* Pixels
 		{
-			TMagickObject* get()
+			virtual const Magick::PixelPacket* get() override sealed
 			{
-				return (TMagickObject*)InternalValue;
+				return _Pixels;
 			}
 		}
+		//===========================================================================================
+	internal:
+		//===========================================================================================
+		PixelCollection(Magick::Image* image, int x, int y, int width, int height);
 		//===========================================================================================
 	};
 	//==============================================================================================

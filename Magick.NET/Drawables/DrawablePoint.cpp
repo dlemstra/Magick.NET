@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawablePoint::DrawablePoint(double x, double y)
 	{
-		Value = new Magick::DrawablePoint(x, y);
+		BaseValue = new Magick::DrawablePoint(x, y);
 	}
 	//==============================================================================================
 }

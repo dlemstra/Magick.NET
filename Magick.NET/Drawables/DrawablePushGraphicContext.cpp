@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawablePushGraphicContext::DrawablePushGraphicContext()
 	{
-		Value = new Magick::DrawablePushGraphicContext();
+		BaseValue = new Magick::DrawablePushGraphicContext();
 	}
 	//==============================================================================================
 }

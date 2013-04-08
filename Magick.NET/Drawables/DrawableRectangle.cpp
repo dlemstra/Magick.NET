@@ -20,7 +20,7 @@ namespace ImageMagick
 	void DrawableRectangle::Initialize(double upperLeftX, double upperLeftY, double lowerRightX,
 		double lowerRightY)
 	{
-		Value = new Magick::DrawableRectangle(upperLeftX, upperLeftY, lowerRightX, lowerRightY);
+		BaseValue = new Magick::DrawableRectangle(upperLeftX, upperLeftY, lowerRightX, lowerRightY);
 	}
 	//==============================================================================================
 	DrawableRectangle::DrawableRectangle(double upperLeftX, double upperLeftY, double lowerRightX,

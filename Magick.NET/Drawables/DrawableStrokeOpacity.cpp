@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableStrokeOpacity::DrawableStrokeOpacity(double opacity)
 	{
-		Value = new Magick::DrawableStrokeOpacity(opacity);
+		BaseValue = new Magick::DrawableStrokeOpacity(opacity);
 	}
 	//==============================================================================================
 }

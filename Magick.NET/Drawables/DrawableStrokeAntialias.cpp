@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableStrokeAntialias::DrawableStrokeAntialias(bool isEnabled)
 	{
-		Value = new Magick::DrawableStrokeAntialias(isEnabled);
+		BaseValue = new Magick::DrawableStrokeAntialias(isEnabled);
 	}
 	//==============================================================================================
 }

@@ -20,7 +20,7 @@ namespace ImageMagick
 	void DrawableTextUnderColor::Initialize(MagickColor^ color)
 	{
 		Magick::Color* magickColor = color->CreateColor();
-		Value = new Magick::DrawableTextUnderColor(*magickColor);
+		BaseValue = new Magick::DrawableTextUnderColor(*magickColor);
 		delete magickColor;
 	}
 	//==============================================================================================

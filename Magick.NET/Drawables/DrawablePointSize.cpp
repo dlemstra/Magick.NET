@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawablePointSize::DrawablePointSize(double pointSize)
 	{
-		Value = new Magick::DrawablePointSize(pointSize);
+		BaseValue = new Magick::DrawablePointSize(pointSize);
 	}
 	//==============================================================================================
 }

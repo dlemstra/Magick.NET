@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableScaling::DrawableScaling(double x, double y)
 	{
-		Value = new Magick::DrawableScaling(x, y);
+		BaseValue = new Magick::DrawableScaling(x, y);
 	}
 	//==============================================================================================
 }

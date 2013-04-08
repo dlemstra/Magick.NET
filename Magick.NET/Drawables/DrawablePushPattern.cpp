@@ -20,7 +20,7 @@ namespace ImageMagick
 	DrawablePushPattern::DrawablePushPattern(String^ id, int x, int y, int width, int height)
 	{
 		std::string patternID;
-		Value = new Magick::DrawablePushPattern(Marshaller::Marshal(id, patternID), x, y, width, height);
+		BaseValue = new Magick::DrawablePushPattern(Marshaller::Marshal(id, patternID), x, y, width, height);
 	}
 	//==============================================================================================
 }

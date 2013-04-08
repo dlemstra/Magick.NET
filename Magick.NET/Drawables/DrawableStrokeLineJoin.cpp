@@ -18,7 +18,7 @@ namespace ImageMagick
 {
 	DrawableStrokeLineJoin::DrawableStrokeLineJoin(ImageMagick::LineJoin lineJoin)
 	{
-		Value = new Magick::DrawableStrokeLineJoin((MagickCore::LineJoin)lineJoin);
+		BaseValue = new Magick::DrawableStrokeLineJoin((MagickCore::LineJoin)lineJoin);
 	}
 	//==============================================================================================
 }

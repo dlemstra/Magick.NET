@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawablePopClipPath::DrawablePopClipPath()
 	{
-		Value = new Magick::DrawablePopClipPath();
+		BaseValue = new Magick::DrawablePopClipPath();
 	}
 	//==============================================================================================
 }

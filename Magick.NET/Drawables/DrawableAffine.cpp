@@ -20,14 +20,14 @@ namespace ImageMagick
 	DrawableAffine::DrawableAffine(double scaleX, double scaleY, double shearX, double shearY,
 		double translateX, double translateY)
 	{
-		Value = new Magick::DrawableAffine(scaleX, scaleY, shearX, shearY, translateX, translateY);
+		BaseValue = new Magick::DrawableAffine(scaleX, scaleY, shearX, shearY, translateX, translateY);
 	}
 	//==============================================================================================
 	DrawableAffine::DrawableAffine(Matrix^ matrix)
 	{
 		Throw::IfNull("matrix", matrix);
 
-		Value = new Magick::DrawableAffine((double)matrix->Elements[0], (double)matrix->Elements[1],
+		BaseValue = new Magick::DrawableAffine((double)matrix->Elements[0], (double)matrix->Elements[1],
 			(double)matrix->Elements[2], (double)matrix->Elements[3], (double)matrix->Elements[4],
 			(double)matrix->Elements[5]);
 	}

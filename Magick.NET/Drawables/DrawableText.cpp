@@ -26,13 +26,13 @@ namespace ImageMagick
 
 		if (encoding == nullptr)
 		{
-			Value = new Magick::DrawableText(x, y, drawText);
+			BaseValue = new Magick::DrawableText(x, y, drawText);
 		}
 		else
 		{
 			std::string drawEncoding;
 			Marshaller::Marshal(encoding, drawEncoding);
-			Value =  new Magick::DrawableText(x, y, drawText, drawEncoding);
+			BaseValue = new Magick::DrawableText(x, y, drawText, drawEncoding);
 		}
 	}
 	//==============================================================================================

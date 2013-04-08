@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableRotation::DrawableRotation(double angle)
 	{
-		Value = new Magick::DrawableRotation(angle);
+		BaseValue = new Magick::DrawableRotation(angle);
 	}
 	//==============================================================================================
 }

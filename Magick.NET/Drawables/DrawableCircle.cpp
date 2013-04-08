@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableCircle::DrawableCircle(double originX, double originY, double perimeterX, double perimeterY)
 	{
-		Value = new Magick::DrawableCircle(originX, originY, perimeterX, perimeterY);
+		BaseValue = new Magick::DrawableCircle(originX, originY, perimeterX, perimeterY);
 	}
 	//==============================================================================================
 }

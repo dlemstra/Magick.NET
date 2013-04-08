@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableColor::DrawableColor(double x, double y, ImageMagick::PaintMethod paintMethod)
 	{
-		Value = new Magick::DrawableColor(x, y, (Magick::PaintMethod)paintMethod);
+		BaseValue = new Magick::DrawableColor(x, y, (Magick::PaintMethod)paintMethod);
 	}
 	//==============================================================================================
 }

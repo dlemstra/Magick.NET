@@ -28,7 +28,7 @@ namespace ImageMagick
 			pathList.push_back(*(enumerator->Current->InternalValue));
 		}
 
-		Value = new Magick::DrawablePath(pathList);
+		BaseValue = new Magick::DrawablePath(pathList);
 	}
 	//==============================================================================================
 }

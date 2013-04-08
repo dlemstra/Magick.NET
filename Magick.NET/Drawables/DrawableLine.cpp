@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableLine::DrawableLine(double startX, double startY, double endX, double endY)
 	{
-		Value = new Magick::DrawableLine(startX, startY, endX, endY);
+		BaseValue = new Magick::DrawableLine(startX, startY, endX, endY);
 	}
 	//==============================================================================================
 }

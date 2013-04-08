@@ -12,13 +12,39 @@
 // limitations under the License.
 //=================================================================================================
 #include "stdafx.h"
-#include "DrawableTextDecoration.h"
+#include "Pixel.h"
 
 namespace ImageMagick
 {
-	DrawableTextDecoration::DrawableTextDecoration(TextDecoration decoration)
+	//==============================================================================================
+	Pixel::Pixel(int x, int y, int channels)
 	{
-		BaseValue = new Magick::DrawableTextDecoration((MagickCore::DecorationType)decoration);
+		_X = x;
+		_Y = y;
+
+		int size = channels;
+		if (size < 0)
+			size = 1;
+		else if (size > 5)
+			size = 5;
+
+		_Values = gcnew array<Magick::Quantum>(size);
+	}
+	//==============================================================================================
+	Magick::Quantum Pixel::GetChannel(int channel)
+	{
+		if (channel < 0 || channel >= _Values->Length)
+			return 0;
+
+		return _Values[channel];
+	}
+	//==============================================================================================
+	void Pixel::SetChannel(int channel, Magick::Quantum value)
+	{
+		if (channel < 0 || channel >= _Values->Length)
+			return;
+
+		_Values[channel] = value;
 	}
 	//==============================================================================================
 }

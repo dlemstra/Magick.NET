@@ -12,13 +12,26 @@
 // limitations under the License.
 //=================================================================================================
 #include "stdafx.h"
-#include "DrawableTextDecoration.h"
+#include "PixelCollection.h"
 
 namespace ImageMagick
 {
-	DrawableTextDecoration::DrawableTextDecoration(TextDecoration decoration)
+	//==============================================================================================
+	PixelCollection::PixelCollection(Magick::Image* image, int x, int y, int width, int height)
+		: PixelBaseCollection(image, width, height)
 	{
-		BaseValue = new Magick::DrawableTextDecoration((MagickCore::DecorationType)decoration);
+		Throw::IfTrue("width", x + width > (int)image->size().width(), "Invalid X coordinate specified.");
+		Throw::IfTrue("height", y + height > (int)image->size().height(), "Invalid Y coordinate specified.");
+
+		try
+		{
+			_Pixels = View->getConst(x, y, width, height);
+			LoadIndexes();
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
 	}
 	//==============================================================================================
 }

@@ -27,7 +27,7 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		void Initialize(long xOffset, long yOffset, int width, int height, bool isPercentage);
+		void Initialize(int x, int y, int width, int height, bool isPercentage);
 		//===========================================================================================
 	internal:
 		//===========================================================================================
@@ -61,24 +61,24 @@ namespace ImageMagick
 		/// Initializes a new instance of the MagickGeometry class using the specified offsets, width
 		/// and height.
 		///</summary>
-		///<param name="xOffset">The X offset from origin.</param>
-		///<param name="yOffset">The Y offset from origin.</param>
+		///<param name="x">The X offset from origin.</param>
+		///<param name="y">The Y offset from origin.</param>
 		///<param name="width">The width.</param>
 		///<param name="height">The height.</param>
 		//===========================================================================================
-		MagickGeometry(long xOffset, long yOffset, int width, int height);
+		MagickGeometry(int x, int y, int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickGeometry class using the specified offsets, width
 		/// and height.
 		///</summary>
-		///<param name="xOffset">The X offset from origin.</param>
-		///<param name="yOffset">The Y offset from origin.</param>
+		///<param name="x">The X offset from origin.</param>
+		///<param name="y">The Y offset from origin.</param>
 		///<param name="width">The width.</param>
 		///<param name="height">The height.</param>
 		///<param name="isPercentage">True if the width and height are percentages.</param>
 		//===========================================================================================
-		MagickGeometry(long xOffset, long yOffset, int width, int height, bool isPercentage);
+		MagickGeometry(int x, int y, int width, int height, bool isPercentage);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickGeometry class using the specified rectangle.
@@ -134,13 +134,13 @@ namespace ImageMagick
 		///<summary>
 		/// X offset from origin
 		///</summary>
-		property long XOffset
+		property int X
 		{
-			long get()
+			int get()
 			{
 				return Value->xNegative() ? -1 * Value->xOff() : Value->xOff();
 			}
-			void set(long value)
+			void set(int value)
 			{
 				Value->xOff(value);
 				Value->xNegative(value < 0);
@@ -150,13 +150,13 @@ namespace ImageMagick
 		///<summary>
 		/// Y offset from origin
 		///</summary>
-		property long YOffset
+		property int Y
 		{
-			long get()
+			int get()
 			{
 				return Value->yNegative() ? -1 * Value->yOff() : Value->yOff();
 			}
-			void set(long value)
+			void set(int value)
 			{
 				Value->yOff(value);
 				Value->yNegative(value < 0);

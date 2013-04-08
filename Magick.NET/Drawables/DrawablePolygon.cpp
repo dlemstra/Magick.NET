@@ -28,7 +28,7 @@ namespace ImageMagick
 			magickCoordinates.push_back(Magick::Coordinate(coordinates[i]->X, coordinates[i]->Y));
 		}
 
-		Value = new Magick::DrawablePolygon(magickCoordinates);
+		BaseValue = new Magick::DrawablePolygon(magickCoordinates);
 	}
 	//==============================================================================================
 }

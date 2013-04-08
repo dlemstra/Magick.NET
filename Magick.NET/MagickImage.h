@@ -38,6 +38,8 @@
 #include "MagickGeometry.h"
 #include "Matrices\MatrixColor.h"
 #include "Matrices\MatrixConvolve.h"
+#include "Pixels\PixelCollection.h"
+#include "Pixels\WritablePixelCollection.h"
 
 using namespace System::Collections::Generic;
 
@@ -377,9 +379,9 @@ namespace ImageMagick
 		///<summary>
 		/// Image file size.
 		///</summary>
-		property long FileSize
+		property int FileSize
 		{
-			long get()
+			int get()
 			{
 				return Value->fileSize();
 			}
@@ -630,7 +632,7 @@ namespace ImageMagick
 		///<param name="height">The height of the pixel neighborhood.</param>
 		///<param name="offset">Constant to subtract from pixel neighborhood mean.</param>
 		///<exception cref="MagickException"/>
-		void AdaptiveThreshold(int width, int height, long offset);
+		void AdaptiveThreshold(int width, int height, int offset);
 		///==========================================================================================
 		///<summary>
 		/// Add noise to image with the specified noise type.
@@ -896,20 +898,20 @@ namespace ImageMagick
 		/// Compose an image onto another at specified offset using the 'In' operator.
 		///</summary>
 		///<param name="image">The image to composite with this image.</param>
-		///<param name="xOffset">The X offset from origin.</param>
-		///<param name="yOffset">The Y offset from origin.</param>
+		///<param name="x">The X offset from origin.</param>
+		///<param name="y">The Y offset from origin.</param>
 		///<exception cref="MagickException"/>
-		void Composite(MagickImage^ image, long xOffset, long yOffset);
+		void Composite(MagickImage^ image, int x, int y);
 		//==========================================================================================
 		///<summary>
 		/// Compose an image onto another at specified offset using the specified algorithm.
 		///</summary>
 		///<param name="image">The image to composite with this image.</param>
-		///<param name="xOffset">The X offset from origin.</param>
-		///<param name="yOffset">The Y offset from origin.</param>
+		///<param name="x">The X offset from origin.</param>
+		///<param name="y">The Y offset from origin.</param>
 		///<param name="compose">The algorithm to use.</param>
 		///<exception cref="MagickException"/>
-		void Composite(MagickImage^ image, long xOffset, long yOffset, CompositeOperator compose);
+		void Composite(MagickImage^ image, int x, int y, CompositeOperator compose);
 		//==========================================================================================
 		///<summary>
 		/// Compose an image onto another at specified offset using the 'In' operator.
@@ -998,7 +1000,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="amount">Displace the colormap this amount.</param>
 		///<exception cref="MagickException"/>
-		void CycleColormap(long amount);
+		void CycleColormap(int amount);
 		///==========================================================================================
 		///<summary>
 		/// Despeckle image (reduce speckle noise).
@@ -1119,7 +1121,7 @@ namespace ImageMagick
 		///<param name="y">The Y coordinate.</param>
 		///<param name="color">The color to use.</param>
 		///<exception cref="MagickException"/>
-		void FloodFillColor(long x, long y, MagickColor^ color);
+		void FloodFillColor(int x, int y, MagickColor^ color);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
@@ -1139,7 +1141,7 @@ namespace ImageMagick
 		///<param name="color">The color to use.</param>
 		///<param name="borderColor">The color of the border.</param>
 		///<exception cref="MagickException"/>
-		void FloodFillColor(long x, long y, MagickColor^ color, MagickColor^ borderColor);
+		void FloodFillColor(int x, int y, MagickColor^ color, MagickColor^ borderColor);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill color across pixels that match the color of the target pixel and are neighbors
@@ -1160,7 +1162,7 @@ namespace ImageMagick
 		///<param name="opacity">The opacity to use.</param>
 		///<param name="paintMethod">The paint method to use.</param>
 		///<exception cref="MagickException"/>
-		void FloodFillOpacity(long x, long y, int opacity, PaintMethod paintMethod);
+		void FloodFillOpacity(int x, int y, int opacity, PaintMethod paintMethod);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1170,7 +1172,7 @@ namespace ImageMagick
 		///<param name="y">The Y coordinate.</param>
 		///<param name="image">The image to use.</param>
 		///<exception cref="MagickException"/>
-		void FloodFillTexture(long x, long y, MagickImage^ image);
+		void FloodFillTexture(int x, int y, MagickImage^ image);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1190,7 +1192,7 @@ namespace ImageMagick
 		///<param name="image">The image to use.</param>
 		///<param name="borderColor">The color of the border.</param>
 		///<exception cref="MagickException"/>
-		void FloodFillTexture(long x, long y, MagickImage^ image, MagickColor^ borderColor);
+		void FloodFillTexture(int x, int y, MagickImage^ image, MagickColor^ borderColor);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1249,7 +1251,7 @@ namespace ImageMagick
 		///<param name="innerBevel">The inner bevel of the frame.</param>
 		///<param name="outerBevel">The outer bevel of the frame.</param>
 		///<exception cref="MagickException"/>
-		void Frame(int width, int height, long innerBevel, long outerBevel);
+		void Frame(int width, int height, int innerBevel, int outerBevel);
 		///==========================================================================================
 		///<summary>
 		/// Applies a mathematical expression to the image.
@@ -1310,6 +1312,34 @@ namespace ImageMagick
 		///</summary>
 		///<exception cref="MagickException"/>
 		MagickGeometry^ Geometry();
+		///==========================================================================================
+		///<summary>
+		/// Returns an read-only pixel collection that can be used to access the pixels of this image.
+		///</summary>
+		PixelCollection^ GetReadOnlyPixels();
+		///==========================================================================================
+		///<summary>
+		/// Returns an read-only pixel collection that can be used to access the pixels of this image.
+		///</summary>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<param name="width">The width of the pixel area.</param>
+		///<param name="height">The height of the pixel area.</param>
+		PixelCollection^ GetReadOnlyPixels(int x, int y, int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Returns an writable pixel collection that can be used to access the pixels of this image.
+		///</summary>
+		WritablePixelCollection^ GetWritablePixels();
+		///==========================================================================================
+		///<summary>
+		/// Returns an writable pixel collection that can be used to access the pixels of this image.
+		///</summary>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<param name="width">The width of the pixel area.</param>
+		///<param name="height">The height of the pixel area.</param>
+		WritablePixelCollection^ GetWritablePixels(int x, int y, int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Servers as a hash of this type.

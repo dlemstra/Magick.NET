@@ -22,7 +22,7 @@ namespace ImageMagick
 		Throw::IfNullOrEmpty("clipPath", clipPath);
 
 		std::string id;
-		Value = new Magick::DrawablePushClipPath(Marshaller::Marshal(clipPath, id));
+		BaseValue = new Magick::DrawablePushClipPath(Marshaller::Marshal(clipPath, id));
 	}
 	//==============================================================================================
 }

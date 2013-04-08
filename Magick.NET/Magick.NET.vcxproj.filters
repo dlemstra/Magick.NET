@@ -46,6 +46,12 @@
     <Filter Include="Source Files\Drawables\Paths">
       <UniqueIdentifier>{94296fd4-d7f9-40ce-bda4-0c3a7aca0662}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Pixels">
+      <UniqueIdentifier>{e69f5fc9-7174-4d7d-b5a1-099096577bb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Pixels">
+      <UniqueIdentifier>{76d21b26-d0ca-4ab3-bdb9-7e8aad917317}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
@@ -348,8 +354,20 @@
     <ClInclude Include="Enums\ClassType.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
+    <ClInclude Include="Pixels\Pixel.h">
+      <Filter>Header Files\Pixels</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixels\PixelBaseCollection.h">
+      <Filter>Header Files\Pixels</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixels\PixelCollection.h">
+      <Filter>Header Files\Pixels</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixels\WritablePixelCollection.h">
+      <Filter>Header Files\Pixels</Filter>
+    </ClInclude>
     <ClInclude Include="Helpers\TypeMetric.h">
-      <Filter>Header Files\Enums</Filter>
+      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -581,8 +599,20 @@
     <ClCompile Include="MagickNET.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pixels\Pixel.cpp">
+      <Filter>Source Files\Pixels</Filter>
+    </ClCompile>
+    <ClCompile Include="Pixels\PixelBaseCollection.cpp">
+      <Filter>Source Files\Pixels</Filter>
+    </ClCompile>
+    <ClCompile Include="Pixels\PixelCollection.cpp">
+      <Filter>Source Files\Pixels</Filter>
+    </ClCompile>
+    <ClCompile Include="Pixels\WritablePixelCollection.cpp">
+      <Filter>Source Files\Pixels</Filter>
+    </ClCompile>
     <ClCompile Include="Helpers\TypeMetric.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

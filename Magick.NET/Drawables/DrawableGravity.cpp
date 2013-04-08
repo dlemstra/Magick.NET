@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableGravity::DrawableGravity(ImageMagick::Gravity gravity)
 	{
-		Value = new Magick::DrawableGravity((MagickCore::GravityType)gravity);
+		BaseValue = new Magick::DrawableGravity((MagickCore::GravityType)gravity);
 	}
 	//==============================================================================================
 }

@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableDashOffset::DrawableDashOffset(double offset)
 	{
-		Value = new Magick::DrawableDashOffset(offset);
+		BaseValue = new Magick::DrawableDashOffset(offset);
 	}
 	//==============================================================================================
 }

@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableTranslation::DrawableTranslation(double x, double y)
 	{
-		Value = new Magick::DrawableTranslation(x, y);
+		BaseValue = new Magick::DrawableTranslation(x, y);
 	}
 	//==============================================================================================
 }

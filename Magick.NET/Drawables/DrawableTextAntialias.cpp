@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableTextAntialias::DrawableTextAntialias(bool isEnabled)
 	{
-		Value = new Magick::DrawableTextAntialias(isEnabled);
+		BaseValue = new Magick::DrawableTextAntialias(isEnabled);
 	}
 	//==============================================================================================
 }

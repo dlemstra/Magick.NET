@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableFillOpacity::DrawableFillOpacity(double opacity)
 	{
-		Value = new Magick::DrawableFillOpacity(opacity);
+		BaseValue = new Magick::DrawableFillOpacity(opacity);
 	}
 	//==============================================================================================
 }

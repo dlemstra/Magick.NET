@@ -200,6 +200,10 @@
     <ClInclude Include="Enums\NoiseType.h" />
     <ClInclude Include="Enums\PaintMethod.h" />
     <ClInclude Include="Helpers\Profile.h" />
+    <ClInclude Include="Pixels\Pixel.h" />
+    <ClInclude Include="Pixels\PixelCollection.h" />
+    <ClInclude Include="Pixels\PixelBaseCollection.h" />
+    <ClInclude Include="Pixels\WritablePixelCollection.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Helpers\Marshaller.h" />
@@ -285,6 +289,10 @@
     <ClCompile Include="Helpers\MagickWriter.cpp" />
     <ClCompile Include="Matrices\MatrixDouble.cpp" />
     <ClCompile Include="Helpers\Profile.cpp" />
+    <ClCompile Include="Pixels\Pixel.cpp" />
+    <ClCompile Include="Pixels\PixelCollection.cpp" />
+    <ClCompile Include="Pixels\PixelBaseCollection.cpp" />
+    <ClCompile Include="Pixels\WritablePixelCollection.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">Create</PrecompiledHeader>

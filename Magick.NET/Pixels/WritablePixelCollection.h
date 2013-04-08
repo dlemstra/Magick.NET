@@ -12,93 +12,60 @@
 // limitations under the License.
 //=================================================================================================
 #pragma once
+#include "../Helpers/MagickException.h"
+#include "PixelBaseCollection.h"
 
-#include "Helpers\MagickException.h"
-#include "Helpers\MagickWrapper.h"
-#include "Helpers\MagickWriter.h"
-
-using namespace System::IO;
+using namespace System::Collections::Generic;
 
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Encapsulation of the ImageMagick Blob object.
+	/// Class that can be used to access the individual pixels of an image and modify them.
 	///</summary>
-	public ref class MagickBlob sealed : MagickWrapper<Magick::Blob>
+	//==============================================================================================
+	public ref class WritablePixelCollection sealed : PixelBaseCollection
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		void Initialize(Stream^ stream);
+		Magick::PixelPacket* _Pixels;
 		//===========================================================================================
-		MagickBlob() {}
+		void SetPixel(Pixel^ pixel);
+		//===========================================================================================
+	protected private:
+		//===========================================================================================
+		property const Magick::PixelPacket* Pixels
+		{
+			virtual const Magick::PixelPacket* get() override sealed
+			{
+				return _Pixels;
+			}
+		}
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickBlob(Magick::Blob& blob);
-		//===========================================================================================
-		static operator Magick::Blob& (MagickBlob^ blob)
-		{
-			Throw::IfNull("blob", blob);
-
-			return *(blob->Value);
-		}
-		//===========================================================================================
-		static explicit operator Magick::Blob* (MagickBlob^ blob)
-		{
-			if (blob == nullptr)
-				return NULL;
-
-			return blob->Value;
-		}
-		//===========================================================================================
-		static MagickBlob^ Create();
+		WritablePixelCollection(Magick::Image* image, int x, int y, int width, int height);
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the MagickBlob class using the specified image data.
+		/// Changes the value of the specified pixel.
 		///</summary>
-		///<param name="data">The image data.</param>
-		MagickBlob(array<Byte>^ data);
+		///<param name="pixel">The pixel to set.</param>
+		void Set(Pixel^ pixel);
 		///==========================================================================================
 		///<summary>
-		/// Returns the length of the blob.
+		/// Changes the value of the specified pixels.
 		///</summary>
-		property int Length
-		{
-			int get()
-			{
-				return Value->length();
-			}
-		}
+		///<param name="pixels">The pixels to set.</param>
+		void Set(IEnumerable<Pixel^>^ pixels);
 		///==========================================================================================
 		///<summary>
-		/// Reads a blob from the specified fileName.
+		/// Transfers the image cache pixels to the image. If the current instance is read-only an
+		/// InvalidOperationException() will be thrown.
 		///</summary>
-		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		static MagickBlob^ Read(String^ fileName);
-		///==========================================================================================
-		///<summary>
-		/// Reads a blob from the specified stream.
-		///</summary>
-		///<param name="stream">The stream to read the image data from.</param>
-		static MagickBlob^ Read(Stream^ stream);
-		///==========================================================================================
-		///<summary>
-		/// Writes the blob to the specified file name.
-		///</summary>
-		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		///<exception cref="MagickException"/>
-		void Write(String^ fileName);
-		///==========================================================================================
-		///<summary>
-		/// Writes the blob to the specified file name.
-		///</summary>
-		///<param name="stream">The stream to write the image data to.</param>
-		///<exception cref="MagickException"/>
-		void Write(Stream^ stream);
+		void Write();
 		//===========================================================================================
 	};
 	//==============================================================================================

@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableSkewY::DrawableSkewY(double angle)
 	{
-		Value = new Magick::DrawableSkewY(angle);
+		BaseValue = new Magick::DrawableSkewY(angle);
 	}
 	//==============================================================================================
 }

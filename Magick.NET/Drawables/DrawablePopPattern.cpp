@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawablePopPattern::DrawablePopPattern()
 	{
-		Value = new Magick::DrawablePopPattern();
+		BaseValue = new Magick::DrawablePopPattern();
 	}
 	//==============================================================================================
 }

@@ -12,93 +12,107 @@
 // limitations under the License.
 //=================================================================================================
 #pragma once
-
-#include "Helpers\MagickException.h"
-#include "Helpers\MagickWrapper.h"
-#include "Helpers\MagickWriter.h"
-
-using namespace System::IO;
+#include "../Helpers/MagickException.h"
 
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Encapsulation of the ImageMagick Blob object.
+	/// Class that can be used to access an individual pixel of an image.
 	///</summary>
-	public ref class MagickBlob sealed : MagickWrapper<Magick::Blob>
+	public ref class Pixel sealed
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		void Initialize(Stream^ stream);
-		//===========================================================================================
-		MagickBlob() {}
-		//===========================================================================================
-	internal:
-		//===========================================================================================
-		MagickBlob(Magick::Blob& blob);
-		//===========================================================================================
-		static operator Magick::Blob& (MagickBlob^ blob)
-		{
-			Throw::IfNull("blob", blob);
-
-			return *(blob->Value);
-		}
-		//===========================================================================================
-		static explicit operator Magick::Blob* (MagickBlob^ blob)
-		{
-			if (blob == nullptr)
-				return NULL;
-
-			return blob->Value;
-		}
-		//===========================================================================================
-		static MagickBlob^ Create();
+		array<Magick::Quantum>^ _Values;
+		int _X;
+		int _Y;
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the MagickBlob class using the specified image data.
+		/// Creates a new Pixel instance.
 		///</summary>
-		///<param name="data">The image data.</param>
-		MagickBlob(array<Byte>^ data);
+		///<param name="x">The X coordinate of the pixel.</param>
+		///<param name="y">The Y coordinate of the pixel.</param>
+		///<param name="channels">The number of channels.</param>
+		Pixel(int x, int y, int channels);
 		///==========================================================================================
 		///<summary>
-		/// Returns the length of the blob.
+		/// Returns the value of the specified channel.
 		///</summary>
-		property int Length
+		property Magick::Quantum default[int]
 		{
-			int get()
+			Magick::Quantum get(int channel)
 			{
-				return Value->length();
+				return GetChannel(channel);
+			}
+			void set(int channel, Magick::Quantum value)
+			{
+				SetChannel(channel, value);
 			}
 		}
 		///==========================================================================================
 		///<summary>
-		/// Reads a blob from the specified fileName.
+		/// Returns the number of channels that the pixel contains.
 		///</summary>
-		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		static MagickBlob^ Read(String^ fileName);
+		property int Channels
+		{
+			int get()
+			{
+				return _Values->Length;
+			}
+		}
 		///==========================================================================================
 		///<summary>
-		/// Reads a blob from the specified stream.
+		/// The X coordinate of the pixel.
 		///</summary>
-		///<param name="stream">The stream to read the image data from.</param>
-		static MagickBlob^ Read(Stream^ stream);
+		property int X
+		{
+			int get()
+			{
+				return _X;
+			}
+			void set(int value)
+			{
+				if (value < 0)
+					return;
+
+				_X = value;
+			}
+		}
 		///==========================================================================================
 		///<summary>
-		/// Writes the blob to the specified file name.
+		/// The Y coordinate of the pixel.
 		///</summary>
-		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		///<exception cref="MagickException"/>
-		void Write(String^ fileName);
+		property int Y
+		{
+			int get()
+			{
+				return _Y;
+			}
+			void set(int value)
+			{
+				if (value < 0)
+					return;
+
+				_Y = value;
+			}
+		}
 		///==========================================================================================
 		///<summary>
-		/// Writes the blob to the specified file name.
+		/// Returns the value of the specified channel.
 		///</summary>
-		///<param name="stream">The stream to write the image data to.</param>
-		///<exception cref="MagickException"/>
-		void Write(Stream^ stream);
+		///<param name="channel">The channel to get the value of.</param>
+		Magick::Quantum GetChannel(int channel);
+		///==========================================================================================
+		///<summary>
+		/// Set the value of the specified channel.
+		///</summary>
+		///<param name="channel">The channel to set the value of.</param>
+		///<param name="value">The value.</param>
+		void SetChannel(int channel, Magick::Quantum value);
 		//===========================================================================================
 	};
 	//==============================================================================================

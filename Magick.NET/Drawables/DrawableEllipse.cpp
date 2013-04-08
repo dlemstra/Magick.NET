@@ -20,7 +20,7 @@ namespace ImageMagick
 	DrawableEllipse::DrawableEllipse(double originX, double originY, double radiusX, double radiusY, 
 		double startDegrees, double endDegrees)
 	{
-		Value = new Magick::DrawableEllipse(originX, originY, radiusX, radiusY, startDegrees, endDegrees);
+		BaseValue = new Magick::DrawableEllipse(originX, originY, radiusX, radiusY, startDegrees, endDegrees);
 	}
 	//==============================================================================================
 }

@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableStrokeWidth::DrawableStrokeWidth(double width)
 	{
-		Value = new Magick::DrawableStrokeWidth(width);
+		BaseValue = new Magick::DrawableStrokeWidth(width);
 	}
 	//==============================================================================================
 }

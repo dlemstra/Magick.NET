@@ -28,7 +28,7 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		void Initialize(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY);
+		void Initialize(int upperLeftX, int upperLeftY, int lowerRightX, int lowerRightY);
 		//===========================================================================================
 	public:
 		///==========================================================================================
@@ -39,7 +39,7 @@ namespace ImageMagick
 		///<param name="upperLeftY">The upper left Y coordinate.</param>
 		///<param name="lowerRightX">The lower right X coordinate.</param>
 		///<param name="lowerRightY">The lower right Y coordinate.</param>
-		DrawableViewbox(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY);
+		DrawableViewbox(int upperLeftX, int upperLeftY, int lowerRightX, int lowerRightY);
 		///==========================================================================================
 		///<summary>
 		/// Creates a new DrawableViewbox instance.

@@ -20,7 +20,7 @@ namespace ImageMagick
 	DrawableArc::DrawableArc(double startX, double startY, double endX, double endY, 
 		double startDegrees, double endDegrees)
 	{
-		Value = new Magick::DrawableArc(startX, startY, endX, endY, startDegrees, endDegrees);
+		BaseValue = new Magick::DrawableArc(startX, startY, endX, endY, startDegrees, endDegrees);
 	}
 	//==============================================================================================
 }

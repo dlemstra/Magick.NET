@@ -17,15 +17,15 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	void DrawableViewbox::Initialize(double upperLeftX, double upperLeftY, double lowerRightX,
-		double lowerRightY)
+	void DrawableViewbox::Initialize(int upperLeftX, int upperLeftY, int lowerRightX,
+		int lowerRightY)
 	{
-		Value = new Magick::DrawableViewbox((::size_t)upperLeftX, (::size_t)upperLeftY,
-			(::size_t)lowerRightX, (::size_t)lowerRightY);
+		BaseValue = new Magick::DrawableViewbox(upperLeftX, upperLeftY, lowerRightX,
+			lowerRightY);
 	}
 	//==============================================================================================
-	DrawableViewbox::DrawableViewbox(double upperLeftX, double upperLeftY, double lowerRightX,
-		double lowerRightY)
+	DrawableViewbox::DrawableViewbox(int upperLeftX, int upperLeftY, int lowerRightX,
+		int lowerRightY)
 	{
 		Initialize(upperLeftX, upperLeftY, lowerRightX, lowerRightY);
 	}

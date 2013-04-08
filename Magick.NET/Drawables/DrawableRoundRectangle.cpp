@@ -20,7 +20,7 @@ namespace ImageMagick
 	DrawableRoundRectangle::DrawableRoundRectangle(double centerX, double centerY, double width, 
 		double height, double cornerWidth, double cornerHeight)
 	{
-		Value = new Magick::DrawableRoundRectangle(centerX, centerY, width, height,
+		BaseValue = new Magick::DrawableRoundRectangle(centerX, centerY, width, height,
 			cornerWidth, cornerHeight);
 	}
 	//==============================================================================================

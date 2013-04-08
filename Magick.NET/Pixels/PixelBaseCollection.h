@@ -12,9 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 #pragma once
-
-#include "MagickImage.h"
-#include "Helpers\MagickReader.h"
+#include "Pixel.h"
 
 using namespace System::Collections::Generic;
 
@@ -22,56 +20,53 @@ namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Represents the collection of images.
+	/// Base class that can be used to access the individual pixels of an image.
 	///</summary>
-	public ref class MagickImageCollection sealed : IEnumerable<MagickImage^>
+	public ref class PixelBaseCollection abstract : IEnumerable<Pixel^>
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		std::list<Magick::Image>* _Images;
-		String^ _ReadWarning;
+		int _Channels;
+		int _Height;
+		Magick::IndexPacket* _Indexes;
+		Magick::Pixels* _View;
+		int _Width;
 		//===========================================================================================
-		MagickImageCollection();
+		PixelBaseCollection(){}
 		//===========================================================================================
-		!MagickImageCollection() 
-		{ 
-			if (_Images == NULL)
+		!PixelBaseCollection()
+		{
+			if (_View == NULL)
 				return;
 
-			delete _Images;
-			_Images = NULL;
+			delete _View;
+			_View = NULL;
 		}
 		//===========================================================================================
-		ref class MagickImageCollectionEnumerator sealed : IEnumerator<MagickImage^>
+		ref class PixelBaseCollectionEnumerator sealed : IEnumerator<Pixel^>
 		{
 			//========================================================================================
 		private:
-			MagickImageCollection^ _Collection;
-			int _Index;
+			PixelBaseCollection^ _Collection;
+			int _X;
+			int _Y;
 			//========================================================================================
 		public:
-			MagickImageCollectionEnumerator(MagickImageCollection^ collection)
-			{
-				_Collection = collection;
-				_Index = -1;
-			}
+			PixelBaseCollectionEnumerator(PixelBaseCollection^ collection);
 			//========================================================================================
-			~MagickImageCollectionEnumerator()
+			~PixelBaseCollectionEnumerator()
 			{
 			}
 			//========================================================================================
-			property MagickImage^ Current
+			property Pixel^ Current
 			{
-				virtual MagickImage^ get() = IEnumerator<MagickImage^>::Current::get
+				virtual Pixel^ get() = IEnumerator<Pixel^>::Current::get
 				{
-					if (_Index == -1)
+					if (_X == -1)
 						return nullptr;
 
-					std::list<Magick::Image>::iterator iter = _Collection->_Images->begin();
-					std::advance(iter, _Index);
-
-					return gcnew MagickImage(&*(iter));
+					return _Collection->CreatePixel(_X, _Y);
 				}
 			}
 			//========================================================================================
@@ -83,74 +78,100 @@ namespace ImageMagick
 				}
 			}
 			//========================================================================================
-			virtual bool MoveNext()
-			{
-				if (_Index + 1 == (int)_Collection->_Images->size())
-					return false;
-
-				_Index++;
-				return true;
-			}
+			virtual bool MoveNext();
 			//========================================================================================
-			virtual void Reset()
-			{
-				_Index = -1;
-			}
+			virtual void Reset();
 			//========================================================================================
 		};
 		//===========================================================================================
+		Pixel^ CreatePixel(int x, int y);
+		//===========================================================================================
+	protected private:
+		//===========================================================================================
+		PixelBaseCollection(Magick::Image* image, int width, int height);
+		//===========================================================================================
+		property const Magick::PixelPacket* Pixels
+		{
+			virtual const Magick::PixelPacket* get() abstract;
+		}
+		//===========================================================================================
+		property Magick::IndexPacket* Indexes
+		{
+			Magick::IndexPacket* get()
+			{
+				return _Indexes;
+			}
+		}
+		//===========================================================================================
+		property Magick::Pixels* View
+		{
+			Magick::Pixels* get()
+			{
+				return _View;
+			}
+		}
+		//===========================================================================================
+		int GetIndex(int x, int y);
+		//===========================================================================================
+		void LoadIndexes();
+		//===========================================================================================
 	public:
 		//===========================================================================================
-		~MagickImageCollection()
+		~PixelBaseCollection()
 		{
-			this->!MagickImageCollection();
+			this->!PixelBaseCollection();
 		}
 		///==========================================================================================
 		///<summary>
-		/// Returns the image at the specified index.
+		/// Returns the pixel at the specified coordinate.
 		///</summary>
-		property MagickImage^ default[int]
+		property Pixel^ default[int, int]
 		{
-			MagickImage^ get(int index)
+			Pixel^ get(int x, int y)
 			{
-				if (index < 0 || index > (int)_Images->size() - 1)
-					return nullptr;
-
-				std::list<Magick::Image>::iterator iter = _Images->begin();
-				std::advance(iter, index);
-
-				return gcnew MagickImage(&*(iter));
+				return Get(x, y);
 			}
 		}
 		///==========================================================================================
 		///<summary>
-		/// Returns the number of images in the collection.
+		/// Returns the number of channels that the image contains.
 		///</summary>
-		property int Count
+		property int Channels
 		{
 			int get()
 			{
-				return (int)_Images->size();
+				return _Channels;
 			}
 		}
 		///==========================================================================================
 		///<summary>
-		/// Returns the warning that occurred during the read operation.
+		/// Returns the height.
 		///</summary>
-		property String^ ReadWarning
+		property int Height
 		{
-			String^ get()
+			int get()
 			{
-				return _ReadWarning;
+				return _Height;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Returns the width.
+		///</summary>
+		property int Width
+		{
+			int get()
+			{
+				return _Width;
 			}
 		}
 		///==========================================================================================
 		///<summary>
 		/// Returns an enumerator that can iterate through the collection.
 		///</summary>
-		virtual IEnumerator<MagickImage^>^ GetEnumerator()
+		virtual IEnumerator<Pixel^>^ GetEnumerator()
 		{
-			return gcnew MagickImageCollectionEnumerator(this);
+			return gcnew PixelBaseCollectionEnumerator(this);
 		}
 		///==========================================================================================
 		///<summary>
@@ -158,23 +179,20 @@ namespace ImageMagick
 		///</summary>
 		virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator
 		{
-			return gcnew MagickImageCollectionEnumerator(this);
+			return gcnew PixelBaseCollectionEnumerator(this);
 		}
 		///==========================================================================================
 		///<summary>
-		/// Read all image frames.
+		/// Returns the pixel at the specified coordinate.
 		///</summary>
-		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		///<exception cref="MagickException"/>
-		static MagickImageCollection^ Read(String^ fileName);
+		///<param name="x">The X coordinate of the pixel.</param>
+		///<param name="y">The Y coordinate of the pixel.</param>
+		Pixel^ Get(int x, int y);
 		///==========================================================================================
 		///<summary>
-		/// Read all image frames.
+		/// Returns the values of the pixels as a multidimensional array.
 		///</summary>
-		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
-		///<exception cref="MagickException"/>
-		static MagickImageCollection^ Read(String^ fileName, ColorSpace colorSpace);
+		array<array<Magick::Quantum>^>^ GetValues();
 		//===========================================================================================
 	};
 	//==============================================================================================

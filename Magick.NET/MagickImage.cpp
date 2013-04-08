@@ -50,7 +50,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::ReplaceImage(Magick::Image* image)
 	{
-		if (!IsValueOwner)
+		if (!_IsValueOwner)
 			throw gcnew NotSupportedException("This method can only be used after you make a Copy of this image.");
 
 		delete Value;
@@ -59,7 +59,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage::MagickImage(Magick::Image* image)
 	{
-		IsValueOwner = false;
+		_IsValueOwner = false;
 		Value = image;
 	}
 	//==============================================================================================
@@ -96,7 +96,7 @@ namespace ImageMagick
 		AdaptiveThreshold(width, height, 0);
 	}
 	//==============================================================================================
-	void MagickImage::AdaptiveThreshold(int width, int height, long offset)
+	void MagickImage::AdaptiveThreshold(int width, int height, int offset)
 	{
 		try
 		{
@@ -591,18 +591,18 @@ namespace ImageMagick
 		return gcnew CompareResult(Value->meanErrorPerPixel(), Value->normalizedMaxError(), Value->normalizedMeanError());
 	}
 	//==============================================================================================
-	void MagickImage::Composite(MagickImage^ image, long xOffset, long yOffset)
+	void MagickImage::Composite(MagickImage^ image, int x, int y)
 	{
-		Composite(image, xOffset, yOffset, CompositeOperator::In);
+		Composite(image, x, y, CompositeOperator::In);
 	}
 	//==============================================================================================
-	void MagickImage::Composite(MagickImage^ image, long xOffset, long yOffset, CompositeOperator compose)
+	void MagickImage::Composite(MagickImage^ image, int x, int y, CompositeOperator compose)
 	{
 		Throw::IfNull("image", image);
 
 		try
 		{
-			Value->composite(*(image->Value), xOffset, yOffset, (MagickCore::CompositeOperator)compose);
+			Value->composite(*(image->Value), x, y, (MagickCore::CompositeOperator)compose);
 		}
 		catch(Magick::Exception exception)
 		{
@@ -726,34 +726,34 @@ namespace ImageMagick
 		switch(gravity)
 		{
 		case Gravity::North:
-			geometry->XOffset = (imageWidth - newWidth) / 2;
+			geometry->X = (imageWidth - newWidth) / 2;
 			break;
 		case Gravity::Northeast:
-			geometry->XOffset = imageWidth - newWidth;
+			geometry->X = imageWidth - newWidth;
 			break;
 		case Gravity::East:
-			geometry->XOffset = imageWidth - newWidth;
-			geometry->YOffset = (imageHeight - newHeight) / 2;
+			geometry->X = imageWidth - newWidth;
+			geometry->Y = (imageHeight - newHeight) / 2;
 			break;
 		case Gravity::Southeast:
-			geometry->XOffset = imageWidth - newWidth;
-			geometry->YOffset = imageHeight - newHeight;
+			geometry->X = imageWidth - newWidth;
+			geometry->Y = imageHeight - newHeight;
 			break;
 		case Gravity::South:
-			geometry->XOffset = (imageWidth - newWidth) / 2;
-			geometry->YOffset = imageHeight - newHeight;
+			geometry->X = (imageWidth - newWidth) / 2;
+			geometry->Y = imageHeight - newHeight;
 			break;
 		case Gravity::Southwest:
-			geometry->YOffset = imageHeight - newHeight;
+			geometry->Y = imageHeight - newHeight;
 			break;
 		case Gravity::West:
-			geometry->YOffset = (imageHeight - newHeight) / 2;
+			geometry->Y = (imageHeight - newHeight) / 2;
 			break;
 		case Gravity::Northwest:
 			break;
 		case Gravity::Center:
-			geometry->XOffset = (imageWidth - newWidth) / 2;
-			geometry->YOffset = (imageHeight - newHeight) / 2;
+			geometry->X = (imageWidth - newWidth) / 2;
+			geometry->Y = (imageHeight - newHeight) / 2;
 			break;
 		}
 
@@ -761,7 +761,7 @@ namespace ImageMagick
 		delete geometry;
 	}
 	//==============================================================================================
-	void MagickImage::CycleColormap(long amount)
+	void MagickImage::CycleColormap(int amount)
 	{
 		try
 		{
@@ -972,7 +972,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFillColor(long x, long y, MagickColor^ color)
+	void MagickImage::FloodFillColor(int x, int y, MagickColor^ color)
 	{
 		Throw::IfNull("color", color);
 
@@ -1013,7 +1013,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFillColor(long x, long y, MagickColor^ color, MagickColor^ borderColor)
+	void MagickImage::FloodFillColor(int x, int y, MagickColor^ color, MagickColor^ borderColor)
 	{
 		Throw::IfNull("color", color);
 		Throw::IfNull("borderColor", borderColor);
@@ -1060,7 +1060,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFillOpacity(long x, long y, int opacity, PaintMethod paintMethod)
+	void MagickImage::FloodFillOpacity(int x, int y, int opacity, PaintMethod paintMethod)
 	{
 		try
 		{
@@ -1072,7 +1072,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFillTexture(long x, long y, MagickImage^ image)
+	void MagickImage::FloodFillTexture(int x, int y, MagickImage^ image)
 	{
 		Throw::IfNull("image", image);
 
@@ -1101,7 +1101,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFillTexture(long x, long y, MagickImage^ image, MagickColor^ borderColor)
+	void MagickImage::FloodFillTexture(int x, int y, MagickImage^ image, MagickColor^ borderColor)
 	{
 		Throw::IfNull("image", image);
 		Throw::IfNull("borderColor", borderColor);
@@ -1215,7 +1215,7 @@ namespace ImageMagick
 		Frame(gcnew MagickGeometry(width, height, 6, 6));
 	}
 	//==============================================================================================
-	void MagickImage::Frame(int width, int height, long innerBevel, long outerBevel)
+	void MagickImage::Frame(int width, int height, int innerBevel, int outerBevel)
 	{
 		Frame(gcnew MagickGeometry(width, height, innerBevel, outerBevel));
 	}
@@ -1320,6 +1320,26 @@ namespace ImageMagick
 	int MagickImage::GetHashCode()
 	{
 		return Object::GetHashCode();
+	}
+	//==============================================================================================
+	PixelCollection^ MagickImage::GetReadOnlyPixels()
+	{
+		return gcnew PixelCollection(Value, 0, 0, Width, Height);
+	}
+	//==============================================================================================
+	PixelCollection^ MagickImage::GetReadOnlyPixels(int x, int y, int width, int height)
+	{
+		return gcnew PixelCollection(Value, x, y, width, height);
+	}
+	//==============================================================================================
+	WritablePixelCollection^ MagickImage::GetWritablePixels()
+	{
+		return gcnew WritablePixelCollection(Value, 0, 0, Width, Height);
+	}
+	//==============================================================================================
+	WritablePixelCollection^ MagickImage::GetWritablePixels(int x, int y, int width, int height)
+	{
+		return gcnew WritablePixelCollection(Value, x, y, width, height);
 	}
 	//==============================================================================================
 	MagickBlob^ MagickImage::Profile(String^ name)
