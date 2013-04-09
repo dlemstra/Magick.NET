@@ -25,11 +25,37 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		array<Magick::Quantum>^ _Values;
+		array<Magick::Quantum>^ _Value;
 		int _X;
 		int _Y;
 		//===========================================================================================
+		Pixel();
+		//===========================================================================================
+		static void CheckChannels(int channels);
+		//===========================================================================================
+		void Pixel::Initialize(int x, int y, array<Magick::Quantum>^ value);
+		//===========================================================================================
+	internal:
+		//===========================================================================================
+		property array<Magick::Quantum>^ Value
+		{
+			array<Magick::Quantum>^ get()
+			{
+				return _Value;
+			}
+		}
+		//===========================================================================================
+		static Pixel^ Create(int x, int y, array<Magick::Quantum>^ value);
+		//===========================================================================================
 	public:
+		///==========================================================================================
+		///<summary>
+		/// Creates a new Pixel instance.
+		///</summary>
+		///<param name="x">The X coordinate of the pixel.</param>
+		///<param name="y">The Y coordinate of the pixel.</param>
+		///<param name="value">The value of the pixel.</param>
+		Pixel(int x, int y, array<Magick::Quantum>^ value);
 		///==========================================================================================
 		///<summary>
 		/// Creates a new Pixel instance.
@@ -61,7 +87,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return _Values->Length;
+				return _Value->Length;
 			}
 		}
 		///==========================================================================================

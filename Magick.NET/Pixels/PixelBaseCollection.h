@@ -86,6 +86,8 @@ namespace ImageMagick
 		//===========================================================================================
 		Pixel^ CreatePixel(int x, int y);
 		//===========================================================================================
+		array<Magick::Quantum>^ GetValueUnchecked(int x, int y);
+		//===========================================================================================
 	protected private:
 		//===========================================================================================
 		PixelBaseCollection(Magick::Image* image, int width, int height);
@@ -111,6 +113,8 @@ namespace ImageMagick
 			}
 		}
 		//===========================================================================================
+		void CheckIndex(int x, int y);
+		//===========================================================================================
 		int GetIndex(int x, int y);
 		//===========================================================================================
 		void LoadIndexes();
@@ -129,7 +133,7 @@ namespace ImageMagick
 		{
 			Pixel^ get(int x, int y)
 			{
-				return Get(x, y);
+				return GetPixel(x, y);
 			}
 		}
 		///==========================================================================================
@@ -187,12 +191,19 @@ namespace ImageMagick
 		///</summary>
 		///<param name="x">The X coordinate of the pixel.</param>
 		///<param name="y">The Y coordinate of the pixel.</param>
-		Pixel^ Get(int x, int y);
+		Pixel^ GetPixel(int x, int y);
 		///==========================================================================================
 		///<summary>
-		/// Returns the values of the pixels as a multidimensional array.
+		/// Returns the value of the specified coordinate.
 		///</summary>
-		array<array<Magick::Quantum>^>^ GetValues();
+		///<param name="x">The X coordinate of the pixel.</param>
+		///<param name="y">The Y coordinate of the pixel.</param>
+		array<Magick::Quantum>^ GetValue(int x, int y);
+		///==========================================================================================
+		///<summary>
+		/// Returns the values of the pixels as an array.
+		///</summary>
+		array<Magick::Quantum>^ GetValues();
 		//===========================================================================================
 	};
 	//==============================================================================================

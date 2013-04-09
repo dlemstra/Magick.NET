@@ -31,7 +31,7 @@ namespace ImageMagick
 		//===========================================================================================
 		Magick::PixelPacket* _Pixels;
 		//===========================================================================================
-		void SetPixel(Pixel^ pixel);
+		void SetPixel(int x, int y, array<Magick::Quantum>^ value);
 		//===========================================================================================
 	protected private:
 		//===========================================================================================
@@ -62,8 +62,21 @@ namespace ImageMagick
 		void Set(IEnumerable<Pixel^>^ pixels);
 		///==========================================================================================
 		///<summary>
-		/// Transfers the image cache pixels to the image. If the current instance is read-only an
-		/// InvalidOperationException() will be thrown.
+		/// Changes the value of the specified pixel.
+		///</summary>
+		///<param name="x">The X coordinate of the pixel.</param>
+		///<param name="y">The Y coordinate of the pixel.</param>
+		///<param name="value">The value the pixel.</param>
+		void Set(int x, int y, array<Magick::Quantum>^ value);
+		///==========================================================================================
+		///<summary>
+		/// Changes the values of the specified pixels.
+		///</summary>
+		///<param name="values">The values of the pixels.</param>
+		void Set(array<Magick::Quantum>^ values);
+		///==========================================================================================
+		///<summary>
+		/// Writes the pixels to the image.
 		///</summary>
 		void Write();
 		//===========================================================================================

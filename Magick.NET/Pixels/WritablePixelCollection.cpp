@@ -17,22 +17,22 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	void WritablePixelCollection::SetPixel(Pixel^ pixel)
+	void WritablePixelCollection::SetPixel(int x, int y, array<Magick::Quantum>^ value)
 	{
-		if (pixel->Channels != Channels)
-			return;
+		CheckIndex(x, y);
+		Throw::IfTrue("pixel", value->Length != Channels, "Pixel should have the same amount of channels.");
 
-		int index = GetIndex(pixel->X, pixel->Y);
+		int index = GetIndex(x, y);
 
 		Magick::PixelPacket *p = _Pixels + index;
 
-		p->red = pixel[0];
-		p->green = pixel[1];
-		p->blue = pixel[2];
-		p->opacity = pixel[3];
+		p->red = value[0];
+		p->green = value[1];
+		p->blue = value[2];
+		p->opacity = value[3];
 
 		if (Channels == 5)
-			Indexes[index] = pixel[4];
+			Indexes[index] = value[4];
 	}
 	//==============================================================================================
 	WritablePixelCollection::WritablePixelCollection(Magick::Image* image, int x, int y, int width, int height)
@@ -55,20 +55,49 @@ namespace ImageMagick
 	void WritablePixelCollection::Set(Pixel^ pixel)
 	{
 		Throw::IfNull("pixel", pixel);
-		Throw::IfFalse("pixel", pixel->Channels == Channels, "Pixel should have the same amount of channels.");
 
-		SetPixel(pixel);
+		SetPixel(pixel->X, pixel->Y, pixel->Value);
 	}
 	//==============================================================================================
 	void WritablePixelCollection::Set(IEnumerable<Pixel^>^ pixels)
 	{
-		Throw::IfNull("pixel", pixels);
+		Throw::IfNull("pixels", pixels);
 
 		IEnumerator<Pixel^>^ enumerator = pixels->GetEnumerator();
 
 		while(enumerator->MoveNext())
 		{
-			SetPixel(enumerator->Current);
+			Set(enumerator->Current);
+		}
+	}
+	//==============================================================================================
+	void WritablePixelCollection::Set(int x, int y, array<Magick::Quantum>^ value)
+	{
+		Throw::IfNull("value", value);
+
+		SetPixel(x, y, value);
+	}
+	//==============================================================================================
+	void WritablePixelCollection::Set(array<Magick::Quantum>^ values)
+	{
+		Throw::IfNull("values", values);
+
+		long size = values->Length - Channels;
+		long i = 0;
+		int index = 0;
+		Magick::PixelPacket* p = _Pixels;
+
+		while (i < size)
+		{
+			p->red = values[i++];
+			p->green = values[i++];
+			p->blue = values[i++];
+			p->opacity = values[i++];
+
+			if (Channels == 5)
+				Indexes[index++] = values[i++];
+
+			p++;
 		}
 	}
 	//==============================================================================================

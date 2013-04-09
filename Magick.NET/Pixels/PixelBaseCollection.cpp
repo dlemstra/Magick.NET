@@ -48,20 +48,25 @@ namespace ImageMagick
 	//==============================================================================================
 	Pixel^ PixelBaseCollection::CreatePixel(int x, int y)
 	{
-		int index = GetIndex(x, y);
+		return Pixel::Create(x, y, GetValueUnchecked(x, y));
+	}
+	//==============================================================================================
+	array<Magick::Quantum>^ PixelBaseCollection::GetValueUnchecked(int x, int y)
+	{
+		array<Magick::Quantum>^ value = gcnew array<Magick::Quantum>(_Channels);
 
+		int index = GetIndex(x, y);
 		const Magick::PixelPacket* pixelPacket = Pixels + index;
 
-		Pixel^ pixel = gcnew Pixel(x, y, _Channels);
-		pixel[0] = pixelPacket->red;
-		pixel[1] = pixelPacket->green;
-		pixel[2] = pixelPacket->blue;
-		pixel[3] = pixelPacket->opacity;
+		value[0] = pixelPacket->red;
+		value[1] = pixelPacket->green;
+		value[2] = pixelPacket->blue;
+		value[3] = pixelPacket->opacity;
 
 		if (_Channels == 5)
-			pixel[4] = _Indexes[index];
+			value[4] = _Indexes[index];
 
-		return pixel;
+		return value;
 	}
 	//==============================================================================================
 	PixelBaseCollection::PixelBaseCollection(Magick::Image* image, int width, int height)
@@ -74,11 +79,14 @@ namespace ImageMagick
 		_Height = height;
 	}
 	//==============================================================================================
-	int PixelBaseCollection::GetIndex(int x, int y)
+	void PixelBaseCollection::CheckIndex(int x, int y)
 	{
 		Throw::IfFalse("x", x >= 0 && x < _Width, "Invalid X coordinate.");
 		Throw::IfFalse("y", y >= 0 && y < _Height, "Invalid Y coordinate.");
-
+	}
+	//==============================================================================================
+	int PixelBaseCollection::GetIndex(int x, int y)
+	{
 		return (y * _Width) + x;
 	}
 	//==============================================================================================
@@ -88,35 +96,41 @@ namespace ImageMagick
 		_Channels = _Indexes == NULL ? 4 : 5;
 	}
 	//==============================================================================================
-	Pixel^ PixelBaseCollection::Get(int x, int y)
+	Pixel^ PixelBaseCollection::GetPixel(int x, int y)
 	{
+		CheckIndex(x, y);
+
 		return CreatePixel(x, y);
 	}
 	//==============================================================================================
-	array<array<Magick::Quantum>^>^ PixelBaseCollection::GetValues()
+	array<Magick::Quantum>^ PixelBaseCollection::GetValue(int x, int y)
 	{
-		array<array<Magick::Quantum>^>^ result = gcnew array<array<Magick::Quantum>^>(_Width);
+		CheckIndex(x, y);
 
-		const Magick::PixelPacket* pixel = Pixels;
-		long size = _Height * _Channels;
+		return GetValueUnchecked(x, y);
+	}
+	//==============================================================================================
+	array<Magick::Quantum>^ PixelBaseCollection::GetValues()
+	{
+		long size = _Width * _Height * _Channels;
 
-		for (int x = 0; x < _Width; x++)
+		array<Magick::Quantum>^ result = gcnew array<Magick::Quantum>(size);
+
+		int index = 0;
+		long i = 0;
+		const Magick::PixelPacket* p = Pixels;
+
+		while (i < size)
 		{
-			result[x] = gcnew array<Magick::Quantum>(size);
+			result[i++] = p->red;
+			result[i++] = p->green;
+			result[i++] = p->blue;
+			result[i++] = p->opacity;
 
-			int q = 0;
-			for (int y = 0; y < _Height; y++)
-			{ 
-				result[x][q] = pixel->red;
-				result[x][++q] = pixel->green;
-				result[x][++q] = pixel->blue;
-				result[x][++q] = pixel->opacity;
+			if (_Channels == 5)
+				result[i++] = _Indexes[index++];
 
-				if (_Channels == 5)
-					result[x][++q] = _Indexes[y];
-
-				pixel++;
-			}
+			p++;
 		}
 
 		return result;

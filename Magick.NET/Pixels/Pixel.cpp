@@ -17,34 +17,58 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	Pixel::Pixel(int x, int y, int channels)
+	Pixel::Pixel()
+	{
+	}
+	//==============================================================================================
+	void Pixel::CheckChannels(int channels)
+	{
+		Throw::IfTrue("value", channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
+	}
+	//==============================================================================================
+	void Pixel::Initialize(int x, int y, array<Magick::Quantum>^ value)
 	{
 		_X = x;
 		_Y = y;
+		_Value = value;
+	}
+	//==============================================================================================
+	Pixel^ Pixel::Create(int x, int y, array<Magick::Quantum>^ value)
+	{
+		Pixel^ pixel = gcnew Pixel();
+		pixel->Initialize(x, y, value);
+		return pixel;
+	}
+	//==============================================================================================
+	Pixel::Pixel(int x, int y, int channels)
+	{
+		CheckChannels(channels);
 
-		int size = channels;
-		if (size < 0)
-			size = 1;
-		else if (size > 5)
-			size = 5;
+		Initialize(x, y, gcnew array<Magick::Quantum>(channels));
+	}
+	//==============================================================================================
+	Pixel::Pixel(int x, int y, array<Magick::Quantum>^ value)
+	{
+		Throw::IfNull("value", value);
+		CheckChannels(value->Length);
 
-		_Values = gcnew array<Magick::Quantum>(size);
+		Initialize(x, y, value);
 	}
 	//==============================================================================================
 	Magick::Quantum Pixel::GetChannel(int channel)
 	{
-		if (channel < 0 || channel >= _Values->Length)
+		if (channel < 0 || channel >= _Value->Length)
 			return 0;
 
-		return _Values[channel];
+		return _Value[channel];
 	}
 	//==============================================================================================
 	void Pixel::SetChannel(int channel, Magick::Quantum value)
 	{
-		if (channel < 0 || channel >= _Values->Length)
+		if (channel < 0 || channel >= _Value->Length)
 			return;
 
-		_Values[channel] = value;
+		_Value[channel] = value;
 	}
 	//==============================================================================================
 }
