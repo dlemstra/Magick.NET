@@ -24,6 +24,7 @@
 #include "Enums\DistortMethod.h"
 #include "Enums\Endian.h"
 #include "Enums\FillRule.h"
+#include "Enums\GifDisposeMethod.h"
 #include "Enums\Gravity.h"
 #include "Enums\ImageType.h"
 #include "Enums\NoiseType.h"
@@ -328,22 +329,6 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Image depth (bits allocated to red/green/blue components).
-		///</summary>
-		//===========================================================================================
-		property int Depth
-		{
-			int get()
-			{
-				return Value->depth();
-			}
-			void set(int value)
-			{
-				Value->depth(value);
-			}
-		}
-		///==========================================================================================
-		///<summary>
 		/// Endianness (little like Intel or big like SPARC) for image formats which support
 		/// endian-specific options.
 		///</summary>
@@ -476,6 +461,21 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Gif disposal method.
+		///</summary>
+		property GifDisposeMethod GifDisposeMethod
+		{
+			ImageMagick::GifDisposeMethod get()
+			{
+				return (ImageMagick::GifDisposeMethod)Value->gifDisposeMethod();
+			}
+			void set(ImageMagick::GifDisposeMethod value)
+			{
+				Value->gifDisposeMethod((int)value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Height of the image.
 		///</summary>
 		property int Height
@@ -509,6 +509,65 @@ namespace ImageMagick
 
 				Marshaller::Marshal(Enum::GetName(value.GetType(), value), name);
 				Value->magick(name);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// The label of the image.
+		///</summary>
+		property String^ Label
+		{
+			String^ get()
+			{
+				std::string label = Value->label();
+				if (label.length() == 0)
+					return nullptr;
+
+				return Marshaller::Marshal(label);
+			}
+			void set(String^ value)
+			{
+				if (value == nullptr)
+					value = "";
+
+				std::string label;
+				Marshaller::Marshal(value, label);
+				Value->label(label);
+			}
+		} 
+		///==========================================================================================
+		///<summary>
+		/// Image supports transparency (matte channel).
+		///</summary>
+		property bool Matte
+		{
+			bool get()
+			{
+				return Value->matte();
+			}
+			void set(bool value)
+			{
+				Value->matte(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Transparent color.
+		///</summary>
+		property MagickColor^ MatteColor
+		{
+			MagickColor^ get()
+			{
+				return gcnew MagickColor(Value->matteColor());
+			}
+			void set(MagickColor^ value)
+			{
+				if (value == nullptr)
+					return;
+
+				Magick::Color* color = value->CreateColor();
+				Value->matteColor(*color);
+				delete color;
 			}
 		}
 		///==========================================================================================
@@ -645,9 +704,9 @@ namespace ImageMagick
 		/// Add noise to the specified channel of the image with the specified noise type.
 		///</summary>
 		///<param name="noiseType">The type of noise that should be added to the image.</param>
-		///<param name="channel">The channel where the noise should be added.</param>
+		///<param name="channels">The channel(s) where the noise should be added.</param>
 		///<exception cref="MagickException"/>
-		void AddNoise(NoiseType noiseType, Channels channel);
+		void AddNoise(NoiseType noiseType, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Affine Transform image.
@@ -713,14 +772,15 @@ namespace ImageMagick
 		///<summary>
 		/// Blur image the specified channel of the image with the default blur factor (0x1).
 		///</summary>
+		///<param name="channels">The channel(s) that should be blurred.</param>
 		///<exception cref="MagickException"/>
-		void Blur(Channels channel);
+		void Blur(Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Blur image with specified blur factor.
 		///</summary>
 		///<param name="radius">The radius of the Gaussian in pixels, not counting the center pixel.</param>
-		///<param name="sigma">Tthe standard deviation of the Laplacian, in pixels.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
 		///<exception cref="MagickException"/>
 		void Blur(double radius, double sigma);
 		///==========================================================================================
@@ -728,10 +788,10 @@ namespace ImageMagick
 		/// Blur image with specified blur factor and channel.
 		///</summary>
 		///<param name="radius">The radius of the Gaussian in pixels, not counting the center pixel.</param>
-		///<param name="sigma">Tthe standard deviation of the Laplacian, in pixels.</param>
-		///<param name="channel">The channel that should be blurred.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		///<param name="channels">The channel(s) that should be blurred.</param>
 		///<exception cref="MagickException"/>
-		void Blur(double radius, double sigma, Channels channel);
+		void Blur(double radius, double sigma, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Border image (add border to image).
@@ -747,21 +807,6 @@ namespace ImageMagick
 		///<param name="fileName">The file to read the ASC CDL information from.</param>
 		///<exception cref="MagickException"/>
 		void CDL(String^ fileName);
-		///==========================================================================================
-		///<summary>
-		/// Returns the depth of the specified channel.
-		///</summary>
-		///<param name="channel">The channel to get the depth for.</param>
-		///<exception cref="MagickException"/>
-		int ChannelDepth(Channels channel);
-		///==========================================================================================
-		///<summary>
-		/// Set the depth of the specified channel.
-		///</summary>
-		///<param name="channel">The channel to set the depth for.</param>
-		///<param name="depth">The depth.</param>
-		///<exception cref="MagickException"/>
-		void ChannelDepth(Channels channel, int depth);
 		///==========================================================================================
 		///<summary>
 		/// Charcoal effect image (looks like charcoal sketch).
@@ -1001,6 +1046,34 @@ namespace ImageMagick
 		///<param name="amount">Displace the colormap this amount.</param>
 		///<exception cref="MagickException"/>
 		void CycleColormap(int amount);
+		///==========================================================================================
+		///<summary>
+		/// Returns the depth (bits allocated to red/green/blue components).
+		///</summary>
+		///<exception cref="MagickException"/>
+		int Depth();
+		///==========================================================================================
+		///<summary>
+		/// Returns the depth (bits allocated to red/green/blue components) of the specified channel.
+		///</summary>
+		///<param name="channels">The channel to get the depth for.</param>
+		///<exception cref="MagickException"/>
+		int Depth(Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Returns the depth (bits allocated to red/green/blue components).
+		///</summary>
+		///<param name="value">The depth.</param>
+		///<exception cref="MagickException"/>
+		void Depth(int value);
+		///==========================================================================================
+		///<summary>
+		/// Set the depth (bits allocated to red/green/blue components) of the specified channel.
+		///</summary>
+		///<param name="channels">The channel to set the depth for.</param>
+		///<param name="value">The depth.</param>
+		///<exception cref="MagickException"/>
+		void Depth(Channels channels, int value);
 		///==========================================================================================
 		///<summary>
 		/// Despeckle image (reduce speckle noise).
@@ -1303,9 +1376,14 @@ namespace ImageMagick
 		///</summary>
 		///<param name="width">The number of neighbor pixels to be included in the convolution.</param>
 		///<param name="sigma">The standard deviation of the gaussian bell curve.</param>
-		///<param name="channel">The channel(s) to blur.</param>
+		///<param name="channels">The channel(s) to blur.</param>
 		///<exception cref="MagickException"/>
-		void GaussianBlur(double width, double sigma, Channels channel);
+		void GaussianBlur(double width, double sigma, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Servers as a hash of this type.
+		///</summary>
+		virtual int GetHashCode() override;
 		///==========================================================================================
 		///<summary>
 		/// Preferred size of the image when encoding.
@@ -1316,6 +1394,7 @@ namespace ImageMagick
 		///<summary>
 		/// Returns an read-only pixel collection that can be used to access the pixels of this image.
 		///</summary>
+		///<exception cref="MagickException"/>
 		PixelCollection^ GetReadOnlyPixels();
 		///==========================================================================================
 		///<summary>
@@ -1325,11 +1404,13 @@ namespace ImageMagick
 		///<param name="y">The Y coordinate.</param>
 		///<param name="width">The width of the pixel area.</param>
 		///<param name="height">The height of the pixel area.</param>
+		///<exception cref="MagickException"/>
 		PixelCollection^ GetReadOnlyPixels(int x, int y, int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Returns an writable pixel collection that can be used to access the pixels of this image.
 		///</summary>
+		///<exception cref="MagickException"/>
 		WritablePixelCollection^ GetWritablePixels();
 		///==========================================================================================
 		///<summary>
@@ -1339,12 +1420,97 @@ namespace ImageMagick
 		///<param name="y">The Y coordinate.</param>
 		///<param name="width">The width of the pixel area.</param>
 		///<param name="height">The height of the pixel area.</param>
+		///<exception cref="MagickException"/>
 		WritablePixelCollection^ GetWritablePixels(int x, int y, int width, int height);
 		///==========================================================================================
 		///<summary>
-		/// Servers as a hash of this type.
+		/// Apply a color lookup table (Hald CLUT) to the image.
 		///</summary>
-		virtual int GetHashCode() override;
+		///<param name="image">The image to use.</param>
+		///<exception cref="MagickException"/>
+		void HaldClut(MagickImage^ image);
+		///==========================================================================================
+		///<summary>
+		/// Implode image (special effect).
+		///</summary>
+		///<param name="factor">The extent of the implosion.</param>
+		///<exception cref="MagickException"/>
+		void Implode(double factor);
+		///==========================================================================================
+		///<summary>
+		/// Implements the inverse discrete Fourier transform (DFT) of the image as a magnitude phase.
+		///</summary>
+		///<param name="image">The image to use.</param>
+		///<exception cref="MagickException"/>
+		void InverseFourierTransform(MagickImage^ image);
+		///==========================================================================================
+		///<summary>
+		/// Implements the inverse discrete Fourier transform (DFT) of the image either as a magnitude
+		/// phase or real / imaginary image pair.
+		///</summary>
+		///<param name="image">The image to use.</param>
+		///<param name="magnitude">Magnitude phase or real / imaginary image pair.</param>
+		///<exception cref="MagickException"/>
+		void InverseFourierTransform(MagickImage^ image, bool magnitude);
+		///==========================================================================================
+		///<summary>
+		/// Adjust the levels of the image by scaling the colors falling between specified white and
+		/// black points to the full available quantum range. Uses a midpoint of 1.0.
+		///</summary>
+		///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
+		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
+		///<exception cref="MagickException"/>
+		void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint);
+		///==========================================================================================
+		///<summary>
+		/// Adjust the levels of the image by scaling the colors falling between specified white and
+		/// black points to the full available quantum range. Uses a midpoint of 1.0.
+		///</summary>
+		///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
+		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
+		///<param name="channels">The channel(s) to level.</param>
+		///<exception cref="MagickException"/>
+		void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Adjust the levels of the image by scaling the colors falling between specified white and
+		/// black points to the full available quantum range.
+		///</summary>
+		///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
+		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
+		///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+		///<exception cref="MagickException"/>
+		void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint);
+		///==========================================================================================
+		///<summary>
+		/// Adjust the levels of the image by scaling the colors falling between specified white and
+		/// black points to the full available quantum range.
+		///</summary>
+		///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
+		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
+		///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+		///<param name="channels">The channel(s) to level.</param>
+		///<exception cref="MagickException"/>
+		void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Magnify image by integral size.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Magnify();
+		///==========================================================================================
+		///<summary>
+		/// Remap image colors with closest color from reference image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Map(MagickImage^ image);
+		///==========================================================================================
+		///<summary>
+		/// Remap image colors with closest color from reference image.
+		///</summary>
+		///<param name="dither">Dither the image.</param>
+		///<exception cref="MagickException"/>
+		void Map(MagickImage^ image, bool dither);
 		///==========================================================================================
 		///<summary>
 		/// Retrieve a named profile from the image.
@@ -1452,8 +1618,9 @@ namespace ImageMagick
 		///<summary>
 		/// Separates a channel from the image and makes it a grayscale image.
 		///</summary>
-		///<param name="channel">The channel to separates.</param>
-		void Separate(Channels channel);
+		///<param name="channels">The channel9s) to separates.</param>
+		///<exception cref="MagickException"/>
+		void Separate(Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Converts this instance to a MagickBlob.

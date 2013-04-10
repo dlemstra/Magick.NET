@@ -92,4 +92,5 @@ namespace ImageMagick
 		DarkenIntensity = MagickCore::DarkenIntensityCompositeOp,
 		LightenIntensity = MagickCore::LightenIntensityCompositeOp
 	};
+	//==============================================================================================
 }

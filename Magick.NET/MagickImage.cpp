@@ -120,11 +120,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::AddNoise(NoiseType noiseType, Channels channel)
+	void MagickImage::AddNoise(NoiseType noiseType, Channels channels)
 	{
 		try
 		{
-			Value->addNoiseChannel((Magick::ChannelType)channel, (Magick::NoiseType)noiseType);
+			Value->addNoiseChannel((Magick::ChannelType)channels, (Magick::NoiseType)noiseType);
 		}
 		catch(Magick::Exception exception)
 		{
@@ -256,9 +256,9 @@ namespace ImageMagick
 		Blur(0.0, 1.0);
 	}
 	//==============================================================================================
-	void MagickImage::Blur(Channels channel)
+	void MagickImage::Blur(Channels channels)
 	{
-		Blur(0.0, 1.0, channel);
+		Blur(0.0, 1.0, channels);
 	}
 	//==============================================================================================
 	void MagickImage::Blur(double radius, double sigma)
@@ -273,11 +273,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Blur(double radius, double sigma, Channels channel)
+	void MagickImage::Blur(double radius, double sigma, Channels channels)
 	{
 		try
 		{
-			Value->blurChannel((Magick::ChannelType)channel, radius, sigma);
+			Value->blurChannel((Magick::ChannelType)channels, radius, sigma);
 		}
 		catch(Magick::Exception exception)
 		{
@@ -322,30 +322,6 @@ namespace ImageMagick
 			Value->cdl(cdl);
 		}
 		catch (Magick::Exception exception)
-		{
-			throw gcnew MagickException(exception);
-		}
-	}
-	//==============================================================================================
-	int MagickImage::ChannelDepth(Channels channel)
-	{
-		try
-		{
-			return Value->channelDepth((MagickCore::ChannelType)channel);
-		}
-		catch(Magick::Exception exception)
-		{
-			throw gcnew MagickException(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::ChannelDepth(Channels channel, int depth)
-	{
-		try
-		{
-			Value->channelDepth((MagickCore::ChannelType)channel, depth);
-		}
-		catch(Magick::Exception exception)
 		{
 			throw gcnew MagickException(exception);
 		}
@@ -766,6 +742,54 @@ namespace ImageMagick
 		try
 		{
 			Value->cycleColormap(amount);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	int MagickImage::Depth()
+	{
+		try
+		{
+			return Value->depth();
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	int MagickImage::Depth(Channels channels)
+	{
+		try
+		{
+			return Value->channelDepth((MagickCore::ChannelType)channels);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Depth(Channels channels, int value)
+	{
+		try
+		{
+			Value->channelDepth((MagickCore::ChannelType)channels, value);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Depth(int value)
+	{
+		try
+		{
+			Value->depth(value);
 		}
 		catch(Magick::Exception exception)
 		{
@@ -1236,7 +1260,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Fx(String^ expression, Channels channel)
+	void MagickImage::Fx(String^ expression, Channels channels)
 	{
 		Throw::IfNullOrEmpty("expression", expression);
 
@@ -1244,7 +1268,7 @@ namespace ImageMagick
 		{
 			std::string fxExpression;
 			Marshaller::Marshal(expression, fxExpression);
-			Value->fx(fxExpression, (MagickCore::ChannelType)channel);
+			Value->fx(fxExpression, (MagickCore::ChannelType)channels);
 		}
 		catch(Magick::Exception exception)
 		{
@@ -1293,11 +1317,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::GaussianBlur(double width, double sigma, Channels channel)
+	void MagickImage::GaussianBlur(double width, double sigma, Channels channels)
 	{
 		try
 		{
-			Value->gaussianBlurChannel((MagickCore::ChannelType)channel, width, sigma);
+			Value->gaussianBlurChannel((MagickCore::ChannelType)channels, width, sigma);
 		}
 		catch(Magick::Exception exception)
 		{
@@ -1340,6 +1364,116 @@ namespace ImageMagick
 	WritablePixelCollection^ MagickImage::GetWritablePixels(int x, int y, int width, int height)
 	{
 		return gcnew WritablePixelCollection(Value, x, y, width, height);
+	}
+	//==============================================================================================
+	void MagickImage::HaldClut(MagickImage^ image)
+	{
+		Throw::IfNull("image", image);
+
+		try
+		{
+			Value->haldClut(*image->Value);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Implode(double factor)
+	{
+		try
+		{
+			Value->implode(factor);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::InverseFourierTransform(MagickImage^ image)
+	{
+		InverseFourierTransform(image, true);
+	}
+	//==============================================================================================
+	void MagickImage::InverseFourierTransform(MagickImage^ image, bool magnitude)
+	{
+		Throw::IfNull("image", image);
+
+		try
+		{
+			Value->inverseFourierTransform(*image->Value, magnitude);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint)
+	{
+		Level(blackPoint, whitePoint, 1.0);
+	}
+	//==============================================================================================
+	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, Channels channels)
+	{
+		Level(blackPoint, whitePoint, 1.0, channels);
+	}
+	//==============================================================================================
+	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint)
+	{
+		try
+		{
+			Value->level(blackPoint, whitePoint, midpoint);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, Channels channels)
+	{
+		try
+		{
+			Value->levelChannel((MagickCore::ChannelType)channels, blackPoint, whitePoint, midpoint);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Magnify()
+	{
+		try
+		{
+			Value->magnify();
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Map(MagickImage^ image)
+	{
+		Map(image, false);
+	}
+	//==============================================================================================
+	void MagickImage::Map(MagickImage^ image, bool dither)
+	{
+		Throw::IfNull("image", image);
+
+		try
+		{
+			Value->map(*image->Value, dither);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
 	}
 	//==============================================================================================
 	MagickBlob^ MagickImage::Profile(String^ name)
@@ -1478,11 +1612,11 @@ namespace ImageMagick
 		return image;
 	}
 	//==============================================================================================
-	void MagickImage::Separate(Channels channel)
+	void MagickImage::Separate(Channels channels)
 	{
 		try
 		{
-			Value->channel((MagickCore::ChannelType)channel);
+			Value->channel((MagickCore::ChannelType)channels);
 		}
 		catch(Magick::Exception exception)
 		{
@@ -1500,7 +1634,7 @@ namespace ImageMagick
 	String^ MagickImage::ToString()
 	{
 		return String::Format(CultureInfo::InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}",
-			ImageType, Width, Height, Depth, ColorSpace, FormatedFileSize());
+			ImageType, Width, Height, Depth(), ColorSpace, FormatedFileSize());
 	}
 	//==============================================================================================
 	void MagickImage::Write(String^ fileName)

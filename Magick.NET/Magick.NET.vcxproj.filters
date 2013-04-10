@@ -102,9 +102,6 @@
     <ClInclude Include="Enums\ColorType.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\Channels.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\DistortMethod.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
@@ -368,6 +365,12 @@
     </ClInclude>
     <ClInclude Include="Helpers\TypeMetric.h">
       <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GifDisposeMethod.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\Channels.h">
+      <Filter>Header Files\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
