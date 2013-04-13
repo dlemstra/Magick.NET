@@ -49,6 +49,12 @@ namespace ImageMagick
 			throw gcnew ArgumentException(paramName, value);
 	}
 	//==============================================================================================
+	void Throw::IfOutOfRange(String^ paramName, int index, int length)
+	{
+		if (index < 0 || index >= length)
+			throw gcnew ArgumentOutOfRangeException(paramName);
+	}
+	//==============================================================================================
 	void Throw::IfTrue(String^ paramName, bool condition, String^ message)
 	{
 		if (condition)

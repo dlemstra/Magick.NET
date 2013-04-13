@@ -33,6 +33,8 @@ namespace ImageMagick
 		//===========================================================================================
 		static void IfNullOrEmpty(String^ paramName, String^ value);
 		//===========================================================================================
+		static void IfOutOfRange(String^ paramName, int index, int length);
+		//===========================================================================================
 		static void IfTrue(String^ paramName, bool condition, String^ message);
 		//===========================================================================================
 	};

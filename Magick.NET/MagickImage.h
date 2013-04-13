@@ -65,7 +65,11 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickImage(Magick::Image* image);
+		MagickImage(const Magick::Image& image);
+		//===========================================================================================
+		Magick::Image* ReuseImage();
+		//===========================================================================================
+		bool Equals(const Magick::Image& image);
 		//===========================================================================================
 	public:
 		///==========================================================================================
@@ -216,8 +220,7 @@ namespace ImageMagick
 		{
 			MagickImage^ get()
 			{
-				Magick::Image* image = new Magick::Image(Value->clipMask());
-				return gcnew MagickImage(image);
+				return gcnew MagickImage(Magick::Image(Value->clipMask()));
 			}
 			void set(MagickImage^ value)
 			{
@@ -396,8 +399,7 @@ namespace ImageMagick
 		{
 			MagickImage^ get()
 			{
-				Magick::Image* image = new Magick::Image(Value->fillPattern());
-				return gcnew MagickImage(image);
+				return gcnew MagickImage(Magick::Image(Value->fillPattern()));
 			}
 			void set(MagickImage^ value)
 			{
@@ -562,10 +564,7 @@ namespace ImageMagick
 			}
 			void set(MagickColor^ value)
 			{
-				if (value == nullptr)
-					return;
-
-				Magick::Color* color = value->CreateColor();
+				Magick::Color* color = value != nullptr ? value->CreateColor() : new Magick::Color();
 				Value->matteColor(*color);
 				delete color;
 			}
@@ -1238,6 +1237,16 @@ namespace ImageMagick
 		void FloodFillOpacity(int x, int y, int opacity, PaintMethod paintMethod);
 		///==========================================================================================
 		///<summary>
+		/// Floodfill designated area with replacement opacity value.
+		///</summary>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<param name="color">The color to use.</param>
+		///<param name="paintMethod">The paint method to use.</param>
+		///<exception cref="MagickException"/>
+		void FloodFillMatte(int x, int y, MagickColor^ color, PaintMethod paintMethod);
+		///==========================================================================================
+		///<summary>
 		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
 		/// of the target pixel. Uses current fuzz setting when determining color match.
 		///</summary>
@@ -1502,15 +1511,30 @@ namespace ImageMagick
 		///<summary>
 		/// Remap image colors with closest color from reference image.
 		///</summary>
+		///<param name="image">The image to use.</param>
 		///<exception cref="MagickException"/>
 		void Map(MagickImage^ image);
 		///==========================================================================================
 		///<summary>
 		/// Remap image colors with closest color from reference image.
 		///</summary>
+		///<param name="image">The image to use.</param>
 		///<param name="dither">Dither the image.</param>
 		///<exception cref="MagickException"/>
 		void Map(MagickImage^ image, bool dither);
+		///==========================================================================================
+		///<summary>
+		/// Filter image by replacing each pixel component with the median color in a circular neighborhood.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void MedianFilter();
+		///==========================================================================================
+		///<summary>
+		/// Filter image by replacing each pixel component with the median color in a circular neighborhood.
+		///</summary>
+		///<param name="radius">The radius of the pixel neighborhood.</param>
+		///<exception cref="MagickException"/>
+		void MedianFilter(double radius);
 		///==========================================================================================
 		///<summary>
 		/// Retrieve a named profile from the image.
@@ -1618,7 +1642,7 @@ namespace ImageMagick
 		///<summary>
 		/// Separates a channel from the image and makes it a grayscale image.
 		///</summary>
-		///<param name="channels">The channel9s) to separates.</param>
+		///<param name="channels">The channel(s) to separates.</param>
 		///<exception cref="MagickException"/>
 		void Separate(Channels channels);
 		///==========================================================================================

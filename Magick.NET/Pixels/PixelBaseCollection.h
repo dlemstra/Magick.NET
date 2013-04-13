@@ -173,18 +173,12 @@ namespace ImageMagick
 		///<summary>
 		/// Returns an enumerator that can iterate through the collection.
 		///</summary>
-		virtual IEnumerator<Pixel^>^ GetEnumerator()
-		{
-			return gcnew PixelBaseCollectionEnumerator(this);
-		}
+		virtual IEnumerator<Pixel^>^ GetEnumerator();
 		///==========================================================================================
 		///<summary>
 		/// Returns an enumerator that can iterate through the collection.
 		///</summary>
-		virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator
-		{
-			return gcnew PixelBaseCollectionEnumerator(this);
-		}
+		virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
 		///==========================================================================================
 		///<summary>
 		/// Returns the pixel at the specified coordinate.

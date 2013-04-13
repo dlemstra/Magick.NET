@@ -96,6 +96,16 @@ namespace ImageMagick
 		_Channels = _Indexes == NULL ? 4 : 5;
 	}
 	//==============================================================================================
+	IEnumerator<Pixel^>^ PixelBaseCollection::GetEnumerator()
+	{
+		return gcnew PixelBaseCollectionEnumerator(this);
+	}
+	//==============================================================================================
+	System::Collections::IEnumerator^ PixelBaseCollection::GetEnumerator2()
+	{
+		return gcnew PixelBaseCollectionEnumerator(this);
+	}
+	//==============================================================================================
 	Pixel^ PixelBaseCollection::GetPixel(int x, int y)
 	{
 		CheckIndex(x, y);

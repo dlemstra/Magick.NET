@@ -50,17 +50,25 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::ReplaceImage(Magick::Image* image)
 	{
-		if (!_IsValueOwner)
-			throw gcnew NotSupportedException("This method can only be used after you make a Copy of this image.");
-
 		delete Value;
 		Value = image;
 	}
 	//==============================================================================================
-	MagickImage::MagickImage(Magick::Image* image)
+	MagickImage::MagickImage(const Magick::Image& image)
 	{
-		_IsValueOwner = false;
-		Value = image;
+		Value = new Magick::Image(image);
+	}
+	//==============================================================================================
+	Magick::Image* MagickImage::ReuseImage()
+	{
+		return new Magick::Image(*Value);
+	}
+	//==============================================================================================
+	bool MagickImage::Equals(const Magick::Image& image)
+	{
+		return Value->rows() == image.rows() && 
+			Value->columns() == image.columns() &&
+			Value->signature() == image.signature();
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(int width, int height, MagickColor^ color)
@@ -663,9 +671,11 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImage::Copy()
 	{
-		MagickImage^ copy = gcnew MagickImage();
-		copy->Value = new Magick::Image(*Value);
-		return copy;
+		MagickBlob^ blob = this->ToBlob();
+		MagickImage^ image = Read(blob);
+		delete blob;
+
+		return image;
 	}
 	//==============================================================================================
 	void MagickImage::Crop(MagickGeometry^ geometry)
@@ -908,10 +918,7 @@ namespace ImageMagick
 		if (image == nullptr)
 			return false;
 
-		return 
-			Value->rows() == image->Value->rows() && 
-			Value->columns() == image->Value->columns() &&
-			Value->signature() == image->Value->signature();
+		return Equals(*image->Value);
 	}
 	//==============================================================================================
 	void MagickImage::Extent(MagickGeometry^ geometry)
@@ -1093,6 +1100,25 @@ namespace ImageMagick
 		catch(Magick::Exception exception)
 		{
 			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFillMatte(int x, int y, MagickColor^ color, PaintMethod paintMethod)
+	{
+		Throw::IfNull("color", color);
+
+		Magick::Color* target = color->CreateColor();
+		try
+		{
+			Value->matteFloodfill(*target, color->A, x, y, (MagickCore::PaintMethod)paintMethod);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete target;
 		}
 	}
 	//==============================================================================================
@@ -1469,6 +1495,23 @@ namespace ImageMagick
 		try
 		{
 			Value->map(*image->Value, dither);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::MedianFilter()
+	{
+		MedianFilter(0.0);
+	}
+	//==============================================================================================
+	void MagickImage::MedianFilter(double radius)
+	{
+		try
+		{
+			Value->medianFilter(radius);
 		}
 		catch(Magick::Exception exception)
 		{
