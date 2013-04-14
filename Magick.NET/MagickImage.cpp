@@ -48,10 +48,82 @@ namespace ImageMagick
 		return String::Format(CultureInfo::InvariantCulture, "{0:N2}{1}", fileSize, suffix);
 	}
 	//==============================================================================================
+	void MagickImage::RaiseOrLower(int size, bool raiseFlag)
+	{
+		Magick::Geometry* geometry = new Magick::Geometry(size, size);
+
+		try
+		{
+			Value->raise(*geometry, raiseFlag);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete geometry;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::RandomThreshold(Magick::Quantum low, Magick::Quantum high, bool isPercentage)
+	{
+		Magick::Geometry* geometry = new Magick::Geometry(low, high);
+		geometry->percent(isPercentage);
+
+		try
+		{
+			Value->randomThreshold(*geometry);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete geometry;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::RandomThreshold(Channels channels, Magick::Quantum low, Magick::Quantum high, bool isPercentage)
+	{
+		Magick::Geometry* geometry = new Magick::Geometry(low, high);
+		geometry->percent(isPercentage);
+
+		try
+		{
+			Value->randomThresholdChannel(*geometry, (MagickCore::ChannelType)channels);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete geometry;
+		}
+	}
+
+	//==============================================================================================
 	void MagickImage::ReplaceImage(Magick::Image* image)
 	{
 		delete Value;
 		Value = image;
+	}
+	//==============================================================================================
+	void MagickImage::Resize(int width, int height, bool isPercentage)
+	{
+		Magick::Geometry* geometry = new Magick::Geometry(width, height);
+		geometry->percent(isPercentage);
+
+		try
+		{
+			Value->resize(*geometry);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(const Magick::Image& image)
@@ -293,17 +365,18 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Border(MagickColor^ color, int width)
+	void MagickImage::Border(int size)
 	{
-		Throw::IfNull("color", color);
-
-		Magick::Color* magickColor = color->CreateColor();
-		MagickGeometry^ geometry = gcnew MagickGeometry(width, width);
+		Border(size, size);
+	}
+	//==============================================================================================
+	void MagickImage::Border(int width, int height)
+	{
+		Magick::Geometry* geometry = new Magick::Geometry(width, height);
 
 		try
 		{
-			Value->borderColor(*magickColor);
-			Value->border(geometry);
+			Value->border(*geometry);
 		}
 		catch(Magick::Exception exception)
 		{
@@ -311,7 +384,6 @@ namespace ImageMagick
 		}
 		finally
 		{
-			delete magickColor;
 			delete geometry;
 		}
 	}
@@ -493,40 +565,21 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Colorize(int opacityRedPercentage, int opacityGreenPercentage,
-		int opacityBluePercentage, MagickColor^ color)
+	void MagickImage::Colorize(MagickColor^ color, Percentage opacity)
 	{
-		Throw::IfNotIsPercentage("opacityRedPercentage", opacityRedPercentage);
-		Throw::IfNotIsPercentage("opacityGreenPercentage", opacityGreenPercentage);
-		Throw::IfNotIsPercentage("opacityBluePercentage", opacityBluePercentage);
-		Throw::IfNull("color", color);
-
-		Magick::Color* magickColor = color->CreateColor();
-
-		try
-		{
-			Value->colorize(opacityRedPercentage, opacityGreenPercentage, opacityBluePercentage, *magickColor);
-		}
-		catch(Magick::Exception exception)
-		{
-			throw gcnew MagickException(exception);
-		}
-		finally
-		{
-			delete magickColor;
-		}
+		Colorize(color, opacity, opacity, opacity);
 	}
 	//==============================================================================================
-	void MagickImage::Colorize(int opacityPercentage, MagickColor^ color)
+	void MagickImage::Colorize(MagickColor^ color, Percentage opacityRed, Percentage opacityGreen,
+		Percentage opacityBlue)
 	{
-		Throw::IfNotIsPercentage("opacityPercentage", opacityPercentage);
 		Throw::IfNull("color", color);
 
 		Magick::Color* magickColor = color->CreateColor();
 
 		try
 		{
-			Value->colorize(opacityPercentage, *magickColor);
+			Value->colorize((int)opacityRed, (int)opacityGreen, (int)opacityBlue, *magickColor);
 		}
 		catch(Magick::Exception exception)
 		{
@@ -558,7 +611,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	CompareResult^ MagickImage::Compare(MagickImage^ image)
+	MagickErrorInfo^ MagickImage::Compare(MagickImage^ image)
 	{
 		Throw::IfNull("image", image);
 
@@ -572,7 +625,7 @@ namespace ImageMagick
 			throw gcnew MagickException(exception);
 		}
 
-		return gcnew CompareResult(Value->meanErrorPerPixel(), Value->normalizedMaxError(), Value->normalizedMeanError());
+		return gcnew MagickErrorInfo(Value);
 	}
 	//==============================================================================================
 	void MagickImage::Composite(MagickImage^ image, int x, int y)
@@ -1243,7 +1296,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Frame()
 	{
-		Frame(gcnew MagickGeometry(25, 25, 6, 6));
+		Frame(_DefaultFrameGeometry);
 	}
 	//==============================================================================================
 	void MagickImage::Frame(MagickGeometry^ geometry)
@@ -1471,6 +1524,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Lower(int size)
+	{
+		RaiseOrLower(size, false);
+	}
+	//==============================================================================================
 	void MagickImage::Magnify()
 	{
 		try
@@ -1512,6 +1570,88 @@ namespace ImageMagick
 		try
 		{
 			Value->medianFilter(radius);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Minify()
+	{
+		try
+		{
+			Value->minify();
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Modulate(Percentage brightness, Percentage saturation, Percentage hue)
+	{
+		try
+		{
+			Value->modulate((double)brightness, (double)saturation, (double)hue);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::MotionBlur(double radius, double sigma, double angle)
+	{
+		try
+		{
+			Value->motionBlur(radius, sigma, angle);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Negate()
+	{
+		Negate(false);
+	}
+	//==============================================================================================
+	void MagickImage::Negate(bool onlyGrayscale)
+	{
+		try
+		{
+			Value->negate(onlyGrayscale);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Normalize()
+	{
+		try
+		{
+			Value->normalize();
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::OilPaint()
+	{
+		OilPaint(3.0);
+	}
+	//==============================================================================================
+	void MagickImage::OilPaint(double radius)
+	{
+		try
+		{
+			Value->oilPaint(radius);
 		}
 		catch(Magick::Exception exception)
 		{
@@ -1592,6 +1732,81 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Quantize()
+	{
+		Quantize(false);
+	}
+	//==============================================================================================
+	MagickErrorInfo^ MagickImage::Quantize(bool measureError)
+	{
+		try
+		{
+			Value->quantize(measureError);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+
+		return measureError ? gcnew MagickErrorInfo(Value) : nullptr;
+	}
+	//==============================================================================================
+	void MagickImage::QuantumOperator(Channels channels, EvaluateOperator evaluateOperator, double value)
+	{
+		try
+		{
+			Value->quantumOperator((MagickCore::ChannelType)channels,
+				(MagickCore::MagickEvaluateOperator)evaluateOperator, value);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::QuantumOperator(MagickGeometry^ geometry, Channels channels, 
+		EvaluateOperator evaluateOperator, double value)
+	{
+		Throw::IfNull("geometry", geometry);
+		Throw::IfTrue("geometry", geometry->IsPercentage, "Percentage is not supported.");
+
+		try
+		{
+			Value->quantumOperator(geometry->X, geometry->Y, geometry->Width, geometry->Height,
+				(MagickCore::ChannelType)channels, (MagickCore::MagickEvaluateOperator)evaluateOperator,
+				value);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Raise(int size)
+	{
+		RaiseOrLower(size, true);
+	}
+	//==============================================================================================
+	void MagickImage::RandomThreshold(Magick::Quantum low, Magick::Quantum high)
+	{
+		RandomThreshold(low, high, false);
+	}
+	//==============================================================================================
+	void MagickImage::RandomThreshold(Percentage low, Percentage high)
+	{
+		RandomThreshold((Magick::Quantum)low, (Magick::Quantum)high, true);
+	}
+	//==============================================================================================
+	void MagickImage::RandomThreshold(Channels channels, Magick::Quantum low, Magick::Quantum high)
+	{
+		RandomThreshold(channels, low, high, false);
+	}
+	//==============================================================================================
+	void MagickImage::RandomThreshold(Channels channels, Percentage low, Percentage high)
+	{
+		RandomThreshold(channels, (Magick::Quantum)low, (Magick::Quantum)high, true);
+	}
+	//==============================================================================================
 	MagickImage^ MagickImage::Read(MagickBlob^ blob)
 	{
 		MagickImage^ image = gcnew MagickImage();
@@ -1653,6 +1868,45 @@ namespace ImageMagick
 		MagickImage^ image = gcnew MagickImage();
 		image->_ReadWarning = MagickReader::Read(image->Value, stream, width, height);
 		return image;
+	}
+	//==============================================================================================
+	void MagickImage::ReduceNoise()
+	{
+		try
+		{
+			Value->reduceNoise();
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::ReduceNoise(int order)
+	{
+		try
+		{
+			Value->reduceNoise(order);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Resize(int width, int height)
+	{
+		Resize(width, height, false);
+	}
+	//==============================================================================================
+	void MagickImage::Resize(Percentage percentage)
+	{
+		Resize((int)percentage, (int)percentage, true);
+	}
+	//==============================================================================================
+	void MagickImage::Resize(Percentage percentageWidth, Percentage percentageHeight)
+	{
+		Resize((int)percentageWidth, (int)percentageHeight, true);
 	}
 	//==============================================================================================
 	void MagickImage::Separate(Channels channels)

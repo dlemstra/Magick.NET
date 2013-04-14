@@ -96,7 +96,7 @@
       <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <EmbedManagedResourceFile>sRGB.icm</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -149,6 +149,7 @@
     <ClInclude Include="Enums\ClassType.h" />
     <ClInclude Include="Enums\Endian.h" />
     <ClInclude Include="Enums\FillRule.h" />
+    <ClInclude Include="Enums\FilterType.h" />
     <ClInclude Include="Enums\FontStretch.h" />
     <ClInclude Include="Enums\FontStyleType.h" />
     <ClInclude Include="Enums\FontWeight.h" />
@@ -156,8 +157,11 @@
     <ClInclude Include="Enums\LayerMethod.h" />
     <ClInclude Include="Enums\LineCap.h" />
     <ClInclude Include="Enums\LineJoin.h" />
+    <ClInclude Include="Enums\EvaluateOperator.h" />
+    <ClInclude Include="Enums\OrientationType.h" />
+    <ClInclude Include="Enums\RenderingIntent.h" />
     <ClInclude Include="Enums\TextDecoration.h" />
-    <ClInclude Include="Helpers\CompareResult.h" />
+    <ClInclude Include="Helpers\MagickErrorInfo.h" />
     <ClInclude Include="Drawables\Coordinate.h" />
     <ClInclude Include="Drawables\CoordinateCollection.h" />
     <ClInclude Include="Enums\DistortMethod.h" />
@@ -183,6 +187,7 @@
     <ClInclude Include="Enums\Gravity.h" />
     <ClInclude Include="Colors\MagickColor.h" />
     <ClInclude Include="Colors\ColorBase.h" />
+    <ClInclude Include="Helpers\Percentage.h" />
     <ClInclude Include="Helpers\TypeMetric.h" />
     <ClInclude Include="Matrices\MatrixColor.h" />
     <ClInclude Include="Matrices\MatrixConvolve.h" />
@@ -206,7 +211,7 @@
     <ClInclude Include="Pixels\PixelCollection.h" />
     <ClInclude Include="Pixels\PixelBaseCollection.h" />
     <ClInclude Include="Pixels\WritablePixelCollection.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="Resources\resource.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Helpers\Marshaller.h" />
     <ClInclude Include="Helpers\Throw.h" />
@@ -258,7 +263,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Helpers\CompareResult.cpp" />
+    <ClCompile Include="Helpers\MagickErrorInfo.cpp" />
     <ClCompile Include="Drawables\Coordinate.cpp" />
     <ClCompile Include="Drawables\DrawableArc.cpp" />
     <ClCompile Include="Drawables\DrawableBezier.cpp" />
@@ -277,6 +282,7 @@
     <ClCompile Include="Colors\ColorYUV.cpp" />
     <ClCompile Include="Colors\MagickColor.cpp" />
     <ClCompile Include="Colors\ColorBase.cpp" />
+    <ClCompile Include="Helpers\Percentage.cpp" />
     <ClCompile Include="Helpers\TypeMetric.cpp" />
     <ClCompile Include="Matrices\MatrixColor.cpp" />
     <ClCompile Include="Matrices\MatrixConvolve.cpp" />
@@ -303,10 +309,10 @@
     <ClCompile Include="Helpers\Throw.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="sRGB.icm" />
+    <None Include="Resources\sRGB.icm" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Magick.NET.rc" />
+    <ResourceCompile Include="Resources\Magick.NET.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

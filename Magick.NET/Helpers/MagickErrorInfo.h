@@ -17,9 +17,9 @@ namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Encapsulates the information from an image comparison.
+	/// Encapsulates the error information.
 	///</summary>
-	public ref class CompareResult sealed
+	public ref class MagickErrorInfo sealed
 	{
 		//===========================================================================================
 	private:
@@ -30,7 +30,7 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		CompareResult(double meanErrorPerPixel, double normalizedMaximumError, double normalizedMeanError);
+		MagickErrorInfo(Magick::Image* image);
 		//===========================================================================================
 	public:
 		///==========================================================================================

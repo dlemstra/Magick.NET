@@ -66,9 +66,6 @@
     <ClInclude Include="MagickBlob.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MagickImageInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -113,9 +110,6 @@
     </ClInclude>
     <ClInclude Include="Enums\ImageType.h">
       <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\CompareResult.h">
-      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Helpers\MagickReader.h">
       <Filter>Header Files\Helpers</Filter>
@@ -375,6 +369,27 @@
     <ClInclude Include="Enums\LayerMethod.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
+    <ClInclude Include="Helpers\MagickErrorInfo.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\EvaluateOperator.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\FilterType.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\OrientationType.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\RenderingIntent.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\Percentage.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -418,9 +433,6 @@
     </ClCompile>
     <ClCompile Include="Colors\MagickColor.cpp">
       <Filter>Source Files\Colors</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers\CompareResult.cpp">
-      <Filter>Source Files\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Helpers\MagickReader.cpp">
       <Filter>Source Files\Helpers</Filter>
@@ -620,14 +632,20 @@
     <ClCompile Include="Helpers\TypeMetric.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="Helpers\MagickErrorInfo.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\Percentage.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="sRGB.icm">
+    <None Include="Resources\sRGB.icm">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Magick.NET.rc">
+    <ResourceCompile Include="Resources\Magick.NET.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

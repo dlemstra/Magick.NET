@@ -11,17 +11,23 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
-#include "CompareResult.h"
+#pragma once
+
+#include "Stdafx.h"
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	CompareResult::CompareResult(double meanErrorPerPixel, double normalizedMaximumError, double normalizedMeanError)
+	///=============================================================================================
+	///<summary>
+	/// Specifies the type of rendering intent.
+	///</summary>
+	public enum class RenderingIntent
 	{
-		_MeanErrorPerPixel = meanErrorPerPixel;
-		_NormalizedMaximumError = normalizedMaximumError;
-		_NormalizedMeanError = normalizedMeanError;
-	}
+		Undefined = MagickCore::UndefinedIntent,
+		Saturation = MagickCore::SaturationIntent,
+		Perceptual = MagickCore::PerceptualIntent,
+		Absolute = MagickCore::AbsoluteIntent,
+		Relative = MagickCore::RelativeIntent,
+	};
 	//==============================================================================================
 }

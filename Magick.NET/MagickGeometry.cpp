@@ -19,9 +19,6 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickGeometry::Initialize(int x, int y, int width, int height, bool isPercentage)
 	{
-		Throw::IfTrue("width", isPercentage && width <= 0, "Invalid percentage specified.");
-		Throw::IfTrue("height", isPercentage && height <= 0, "Invalid percentage specified.");
-
 		Value = new Magick::Geometry(width, height, x, y, x < 0, y < 0);
 		Value->percent(isPercentage);
 	}
@@ -36,9 +33,9 @@ namespace ImageMagick
 		Initialize(0, 0, width, height, false);
 	}
 	//==============================================================================================
-	MagickGeometry::MagickGeometry(int width, int height, bool isPercentage)
+	MagickGeometry::MagickGeometry(Percentage percentageWidth, Percentage percentageHeight)
 	{
-		Initialize(0, 0, width, height, isPercentage);
+		Initialize(0, 0, (int)percentageWidth, (int)percentageHeight, true);
 	}
 	//==============================================================================================
 	MagickGeometry::MagickGeometry(int x, int y, int width, int height)
@@ -46,9 +43,9 @@ namespace ImageMagick
 		Initialize(x, y, width, height, false);
 	}
 	//==============================================================================================
-	MagickGeometry::MagickGeometry(int x, int y, int width, int height, bool isPercentage)
+	MagickGeometry::MagickGeometry(int x, int y, Percentage percentageWidth, Percentage percentageHeight)
 	{
-		Initialize(x, y, width, height, isPercentage);
+		Initialize(x, y, (int)percentageWidth, (int)percentageHeight, true);
 	}
 	//==============================================================================================
 	MagickGeometry::MagickGeometry(Rectangle^ rectangle)

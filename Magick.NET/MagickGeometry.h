@@ -13,6 +13,7 @@
 //=================================================================================================
 #pragma once
 #include "Helpers\MagickWrapper.h"
+#include "Helpers\Percentage.h"
 
 using namespace System::Drawing;
 
@@ -52,10 +53,9 @@ namespace ImageMagick
 		/// Initializes a new instance of the MagickGeometry class using the specified width and
 		/// height.
 		///</summary>
-		///<param name="width">The width.</param>
-		///<param name="height">The height.</param>
-		///<param name="isPercentage">True if the width and height are percentages.</param>
-		MagickGeometry(int width, int height, bool isPercentage);
+		///<param name="percentageWidth">The percentage of the width.</param>
+		///<param name="percentageHeight">The percentage of the  height.</param>
+		MagickGeometry(Percentage percentageWidth, Percentage percentageHeight);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickGeometry class using the specified offsets, width
@@ -74,11 +74,10 @@ namespace ImageMagick
 		///</summary>
 		///<param name="x">The X offset from origin.</param>
 		///<param name="y">The Y offset from origin.</param>
-		///<param name="width">The width.</param>
-		///<param name="height">The height.</param>
-		///<param name="isPercentage">True if the width and height are percentages.</param>
+		///<param name="percentageWidth">The percentage of the width.</param>
+		///<param name="percentageHeight">The percentage of the  height.</param>
 		//===========================================================================================
-		MagickGeometry(int x, int y, int width, int height, bool isPercentage);
+		MagickGeometry(int x, int y, Percentage percentageWidth, Percentage percentageHeight);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickGeometry class using the specified rectangle.

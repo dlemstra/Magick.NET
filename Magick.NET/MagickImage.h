@@ -23,17 +23,22 @@
 #include "Enums\CompositeOperator.h"
 #include "Enums\DistortMethod.h"
 #include "Enums\Endian.h"
+#include "Enums\EvaluateOperator.h"
 #include "Enums\FillRule.h"
+#include "Enums\FilterType.h"
 #include "Enums\GifDisposeMethod.h"
 #include "Enums\Gravity.h"
 #include "Enums\ImageType.h"
 #include "Enums\NoiseType.h"
+#include "Enums\OrientationType.h"
 #include "Enums\PaintMethod.h"
-#include "Helpers\CompareResult.h"
+#include "Enums\\RenderingIntent.h"
+#include "Helpers\MagickErrorInfo.h"
 #include "Helpers\MagickException.h"
 #include "Helpers\MagickReader.h"
 #include "Helpers\MagickWrapper.h"
 #include "Helpers\MagickWriter.h"
+#include "Helpers\Percentage.h"
 #include "Helpers\TypeMetric.h"
 #include "MagickBlob.h"
 #include "MagickGeometry.h"
@@ -55,13 +60,23 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
+		static initonly MagickGeometry^ _DefaultFrameGeometry = gcnew MagickGeometry(25, 25, 6, 6);
+		//===========================================================================================
 		String^ _ReadWarning;
 		//===========================================================================================
 		MagickImage();
 		//===========================================================================================
 		String^ FormatedFileSize();
 		//===========================================================================================
+		void RaiseOrLower(int size, bool raiseFlag);
+		//===========================================================================================
+		void RandomThreshold(Magick::Quantum low, Magick::Quantum high, bool isPercentage);
+		//===========================================================================================
+		void RandomThreshold(Channels channels, Magick::Quantum low, Magick::Quantum high, bool isPercentage);
+		//===========================================================================================
 		void ReplaceImage(Magick::Image* image);
+		//===========================================================================================
+		void Resize(int width, int height, bool isPercentage);
 		//===========================================================================================
 	internal:
 		//===========================================================================================
@@ -146,7 +161,7 @@ namespace ImageMagick
 		///<summary>
 		/// Background color of the image.
 		///</summary>
-		property MagickColor^ Background
+		property MagickColor^ BackgroundColor
 		{
 			MagickColor^ get()
 			{
@@ -191,6 +206,23 @@ namespace ImageMagick
 			MagickGeometry^ get()
 			{
 				return gcnew MagickGeometry(Value->boundingBox());
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Border color of the image.
+		///</summary>
+		property MagickColor^ BorderColor
+		{
+			MagickColor^ get()
+			{
+				return gcnew MagickColor(Value->borderColor());
+			}
+			void set(MagickColor^ value)
+			{
+				Magick::Color* color = value != nullptr ? value->CreateColor() : new Magick::Color();
+				Value->borderColor(*color);
+				delete color;
 			}
 		}
 		///==========================================================================================
@@ -432,6 +464,21 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Filter to use when resizing image.
+		///</summary>
+		property FilterType FilterType
+		{
+			ImageMagick::FilterType get()
+			{
+				return (ImageMagick::FilterType)Value->filterType();
+			}
+			void set(ImageMagick::FilterType value)
+			{
+				Value->filterType((Magick::FilterTypes)value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Text rendering font.
 		///</summary>
 		property String^ Font
@@ -478,6 +525,21 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Image supports transparency (matte channel).
+		///</summary>
+		property bool HasMatte
+		{
+			bool get()
+			{
+				return Value->matte();
+			}
+			void set(bool value)
+			{
+				Value->matte(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Height of the image.
 		///</summary>
 		property int Height
@@ -515,6 +577,21 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Transform image to black and white.
+		///</summary>
+		property bool IsMonochrome
+		{
+			bool get()
+			{
+				return Value->monochrome();
+			}
+			void set(bool value)
+			{
+				return Value->monochrome(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// The label of the image.
 		///</summary>
 		property String^ Label
@@ -536,21 +613,6 @@ namespace ImageMagick
 				Marshaller::Marshal(value, label);
 				Value->label(label);
 			}
-		} 
-		///==========================================================================================
-		///<summary>
-		/// Image supports transparency (matte channel).
-		///</summary>
-		property bool Matte
-		{
-			bool get()
-			{
-				return Value->matte();
-			}
-			void set(bool value)
-			{
-				Value->matte(value);
-			}
 		}
 		///==========================================================================================
 		///<summary>
@@ -571,6 +633,130 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Image modulus depth (minimum number of bits required to support red/green/blue components
+		/// without loss of accuracy).
+		///</summary>
+		property int ModulusDepth
+		{
+			int get()
+			{
+				return Value->modulusDepth();
+			}
+			void set(int value)
+			{
+				Value->modulusDepth(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Photo orientation of the image.
+		///</summary>
+		property OrientationType Orientation
+		{
+			OrientationType get()
+			{
+				return (OrientationType)Value->orientation();
+			}
+			void set(OrientationType value)
+			{
+				Value->orientation((Magick::OrientationType)value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Preferred size and location of an image canvas.
+		///</summary>
+		property MagickGeometry^ Page
+		{
+			MagickGeometry^ get()
+			{
+				return gcnew MagickGeometry(Value->page());
+			}
+			void set(MagickGeometry^ value)
+			{
+				Value->page(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// JPEG/MIFF/PNG compression level (default 75).
+		///</summary>
+		property int Quality
+		{
+			int get()
+			{
+				return Value->quality();
+			}
+			void set(int value)
+			{
+				int quality = value < 1 ? 1 : value;
+				quality = quality > 100 ? 100 : quality;
+
+				Value->quality(quality);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Maximum number of colors to quantize to.
+		///</summary>
+		property int QuantizeColors
+		{
+			int get()
+			{
+				return Value->quantizeColors();
+			}
+			void set(int value)
+			{
+				Value->quantizeColors(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Colorspace to quantize in.
+		///</summary>
+		property ImageMagick::ColorSpace QuantizeColorSpace
+		{
+			ImageMagick::ColorSpace get()
+			{
+				return (ImageMagick::ColorSpace)Value->quantizeColorSpace();
+			}
+			void set(ImageMagick::ColorSpace value)
+			{
+				return Value->quantizeColorSpace((MagickCore::ColorspaceType)value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Dither image during quantization (default true).
+		///</summary>
+		property bool QuantizeDither
+		{
+			bool get()
+			{
+				return Value->quantizeDither();
+			}
+			void set(bool value)
+			{
+				Value->quantizeDither(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Quantization tree-depth.
+		///</summary>
+		property int QuantizeTreeDepth
+		{
+			int get()
+			{
+				return Value->quantizeTreeDepth();
+			}
+			void set(int value)
+			{
+				Value->quantizeTreeDepth(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Returns the warning that occurred during the read operation.
 		///</summary>
 		property String^ ReadWarning
@@ -578,6 +764,21 @@ namespace ImageMagick
 			String^ get()
 			{
 				return _ReadWarning;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// The type of rendering intent.
+		///</summary>
+		property RenderingIntent RenderingIntent
+		{
+			ImageMagick::RenderingIntent get()
+			{
+				return (ImageMagick::RenderingIntent)Value->renderingIntent();
+			}
+			void set(ImageMagick::RenderingIntent value)
+			{
+				return Value->renderingIntent((MagickCore::RenderingIntent)value);
 			}
 		}
 		///==========================================================================================
@@ -795,10 +996,17 @@ namespace ImageMagick
 		///<summary>
 		/// Border image (add border to image).
 		///</summary>
-		///<param name="color">The color of the border.</param>
-		///<param name="width">The width of the border.</param>
+		///<param name="size">The size of the border.</param>
 		///<exception cref="MagickException"/>
-		void Border(MagickColor^ color, int width);
+		void Border(int size);
+		///==========================================================================================
+		///<summary>
+		/// Border image (add border to image).
+		///</summary>
+		///<param name="width">The width of the border.</param>
+		///<param name="height">The height of the border.</param>
+		///<exception cref="MagickException"/>
+		void Border(int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Applies the color decision list from the specified ASC CDL file.
@@ -883,24 +1091,24 @@ namespace ImageMagick
 		void ChromaWhitePoint(double x, double y);
 		///==========================================================================================
 		///<summary>
+		/// Colorize image with the specified color, using specified percent opacity.
+		///</summary>
+		///<param name="color">The color to use.</param>
+		///<param name="opacity">The opacity percentage.</param>
+		///<exception cref="MagickException"/>
+		void Colorize(MagickColor^ color, Percentage opacity);
+		///==========================================================================================
+		///<summary>
 		/// Colorize image with the specified color, using specified percent opacity for red, green,
 		/// and blue quantums
 		///</summary>
-		///<param name="opacityRedPercentage">The opacity percentage for red.</param>
-		///<param name="opacityGreenPercentage">The opacity percentage for green.</param>
-		///<param name="opacityBluePercentage">The opacity percentage for blue.</param>
 		///<param name="color">The color to use.</param>
+		///<param name="opacityRed">The opacity percentage for red.</param>
+		///<param name="opacityGreen">The opacity percentage for green.</param>
+		///<param name="opacityBlue">The opacity percentage for blue.</param>
 		///<exception cref="MagickException"/>
-		void Colorize(int opacityRedPercentage, int opacityGreenPercentage, int opacityBluePercentage,
-			MagickColor^ color);
-		///==========================================================================================
-		///<summary>
-		/// Colorize image with the specified color, using specified percent opacity.
-		///</summary>
-		///<param name="opacityPercentage">The opacity percentage.</param>
-		///<param name="color">The color to use.</param>
-		///<exception cref="MagickException"/>
-		void Colorize(int opacityPercentage, MagickColor^ color);
+		void Colorize(MagickColor^ color, Percentage opacityRed, Percentage opacityGreen,
+			Percentage opacityBlue);
 		///==========================================================================================
 		///<summary>
 		/// Sets the alpha channel to the specified color.
@@ -936,7 +1144,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="image">The other image to compare with this image.</param>
 		///<exception cref="MagickException"/>
-		CompareResult^ Compare(MagickImage^ image);
+		MagickErrorInfo^ Compare(MagickImage^ image);
 		//==========================================================================================
 		///<summary>
 		/// Compose an image onto another at specified offset using the 'In' operator.
@@ -1503,6 +1711,13 @@ namespace ImageMagick
 		void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, Channels channels);
 		///==========================================================================================
 		///<summary>
+		/// Lower image (lighten or darken the edges of an image to give a 3-D lowered effect).
+		///</summary>
+		///<param name="size">The size of the edges.</param>
+		///<exception cref="MagickException"/>
+		void Lower(int size);
+		///==========================================================================================
+		///<summary>
 		/// Magnify image by integral size.
 		///</summary>
 		///<exception cref="MagickException"/>
@@ -1537,6 +1752,62 @@ namespace ImageMagick
 		void MedianFilter(double radius);
 		///==========================================================================================
 		///<summary>
+		/// Reduce image by integral size.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Minify();
+		///==========================================================================================
+		///<summary>
+		/// Modulate percent hue, saturation, and brightness of an image.
+		///</summary>
+		///<param name="brightness">The brightness percentage.</param>
+		///<param name="saturation">The saturation percentage.</param>
+		///<param name="hue">The hue percentage.</param>
+		///<exception cref="MagickException"/>
+		void Modulate(Percentage brightness, Percentage saturation, Percentage hue);
+		///==========================================================================================
+		///<summary>
+		/// Motion blur image with specified blur factor.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		///<param name="angle">The angle the object appears to be comming from (zero degrees is from the right).</param>
+		///<exception cref="MagickException"/>
+		void MotionBlur(double radius, double sigma, double angle);
+		///==========================================================================================
+		///<summary>
+		/// Negate colors in image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Negate();
+		///==========================================================================================
+		///<summary>
+		/// Negate colors in image.
+		///</summary>
+		///<param name="onlyGrayscale">Use true to negate only the grayscale colors.</param>
+		///<exception cref="MagickException"/>
+		void Negate(bool onlyGrayscale);
+		///==========================================================================================
+		///<summary>
+		/// Normalize image (increase contrast by normalizing the pixel values to span the full range
+		/// of color values)
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Normalize();
+		///==========================================================================================
+		///<summary>
+		/// Oilpaint image (image looks like oil painting)
+		///</summary>
+		void OilPaint();
+		///==========================================================================================
+		///<summary>
+		/// Oilpaint image (image looks like oil painting)
+		///</summary>
+		///<param name="radius">The radius of the circular neighborhood.</param>
+		///<exception cref="MagickException"/>
+		void OilPaint(double radius);
+		///==========================================================================================
+		///<summary>
 		/// Retrieve a named profile from the image.
 		///</summary>
 		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
@@ -1566,6 +1837,83 @@ namespace ImageMagick
 		///<param name="fileName">The file to read the profile from.</param>
 		///<exception cref="MagickException"/>
 		void Profile(String^ name, String^ fileName);
+		///==========================================================================================
+		///<summary>
+		/// Quantize image (reduce number of colors).
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Quantize();
+		///==========================================================================================
+		///<summary>
+		/// Quantize image (reduce number of colors).
+		///</summary>
+		///<param name="measureError">When false is specified this method will return null.</param>
+		///<exception cref="MagickException"/>
+		MagickErrorInfo^ Quantize(bool measureError);
+		///==========================================================================================
+		///<summary>
+		/// Apply an arithmetic or bitwise operator to the image pixel quantums.
+		///</summary>
+		///<param name="channels">The channel(s) to apply the operator on.</param>
+		///<param name="evaluateOperator">The operator.</param>
+		///<param name="value">The value.</param>
+		///<exception cref="MagickException"/>
+		void QuantumOperator(Channels channels, EvaluateOperator evaluateOperator, double value);
+		///==========================================================================================
+		///<summary>
+		/// Apply an arithmetic or bitwise operator to the image pixel quantums.
+		///</summary>
+		///<param name="geometry">The geometry to use.</param>
+		///<param name="channels">The channel(s) to apply the operator on.</param>
+		///<param name="evaluateOperator">The operator.</param>
+		///<param name="value">The value.</param>
+		///<exception cref="MagickException"/>
+		void QuantumOperator(MagickGeometry^ geometry, Channels channels, EvaluateOperator evaluateOperator, double value);
+		///==========================================================================================
+		///<summary>
+		/// Raise image (lighten or darken the edges of an image to give a 3-D raised effect).
+		///</summary>
+		///<param name="size">The size of the edges.</param>
+		///<exception cref="MagickException"/>
+		void Raise(int size);
+		///==========================================================================================
+		///<summary>
+		/// Changes the value of individual pixels based on the intensity of each pixel compared to a
+		/// random threshold. The result is a low-contrast, two color image.
+		///</summary>
+		///<param name="low">The low threshold.</param>
+		///<param name="high">The low threshold.</param>
+		///<exception cref="MagickException"/>
+		void RandomThreshold(Magick::Quantum low, Magick::Quantum high);
+		///==========================================================================================
+		///<summary>
+		/// Changes the value of individual pixels based on the intensity of each pixel compared to a
+		/// random threshold. The result is a low-contrast, two color image.
+		///</summary>
+		///<param name="low">The low threshold.</param>
+		///<param name="high">The low threshold.</param>
+		///<exception cref="MagickException"/>
+		void RandomThreshold(Percentage low, Percentage high);
+		///==========================================================================================
+		///<summary>
+		/// Changes the value of individual pixels based on the intensity of each pixel compared to a
+		/// random threshold. The result is a low-contrast, two color image.
+		///</summary>
+		///<param name="channels">The channel(s) to use.</param>
+		///<param name="low">The low threshold.</param>
+		///<param name="high">The low threshold.</param>
+		///<exception cref="MagickException"/>
+		void RandomThreshold(Channels channels, Magick::Quantum low, Magick::Quantum high);
+		///==========================================================================================
+		///<summary>
+		/// Changes the value of individual pixels based on the intensity of each pixel compared to a
+		/// random threshold. The result is a low-contrast, two color image.
+		///</summary>
+		///<param name="channels">The channel(s) to use.</param>
+		///<param name="low">The low threshold.</param>
+		///<param name="high">The low threshold.</param>
+		///<exception cref="MagickException"/>
+		void RandomThreshold(Channels channels, Percentage low, Percentage high);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.
@@ -1638,6 +1986,42 @@ namespace ImageMagick
 		///<param name="height">The height of the image.</param>
 		///<exception cref="MagickException"/>
 		static MagickImage^ Read(Stream^ stream, int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Reduce noise in image using a noise peak elimination filter.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void ReduceNoise();
+		///==========================================================================================
+		///<summary>
+		/// Reduce noise in image using a noise peak elimination filter.
+		///</summary>
+		///<param name="order">The order to use.</param>
+		///<exception cref="MagickException"/>
+		void ReduceNoise(int order);
+		///==========================================================================================
+		///<summary>
+		/// Resize image to specified size.
+		///</summary>
+		///<param name="width">The new width.</param>
+		///<param name="height">The new height.</param>
+		///<exception cref="MagickException"/>
+		void Resize(int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Resize image to specified percentage.
+		///</summary>
+		///<param name="percentage">The percentage.</param>
+		///<exception cref="MagickException"/>
+		void Resize(Percentage percentage);
+		///==========================================================================================
+		///<summary>
+		/// Resize image to specified percentage.
+		///</summary>
+		///<param name="percentageWidth">The percentage of the width.</param>
+		///<param name="percentageHeight">The percentage of the height.</param>
+		///<exception cref="MagickException"/>
+		void Resize(Percentage percentageWidth, Percentage percentageHeight);
 		///==========================================================================================
 		///<summary>
 		/// Separates a channel from the image and makes it a grayscale image.

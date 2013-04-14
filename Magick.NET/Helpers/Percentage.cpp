@@ -12,48 +12,67 @@
 // limitations under the License.
 //=================================================================================================
 #include "stdafx.h"
+#include "Percentage.h"
 
-using namespace System::IO;
+using namespace System::Globalization;
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	void Throw::IfFalse(String^ paramName, bool condition, String^ message)
+	Percentage::Percentage(double value)
 	{
-		if (!condition)
-			throw gcnew ArgumentException(message, paramName);
-	}
-	//==============================================================================================
-	void Throw::IfInvalidFileName(String^ fileName)
-	{
-		Throw::IfNullOrEmpty("fileName", fileName);
-		Throw::IfFalse("fileName", File::Exists(fileName), "Unable to find file: " + fileName);
-	}
-	//==============================================================================================
-	void Throw::IfNull(String^ paramName, Object^ value)
-	{
-		if (value == nullptr)
-			throw gcnew ArgumentNullException(paramName);
-	}
-	//==============================================================================================
-	void Throw::IfNullOrEmpty(String^ paramName, String^ value)
-	{
-		Throw::IfNull(paramName, value);
+		Throw::IfFalse("value", value > 0.0, "Value should be greater then zero.");
 
-		if (String::IsNullOrEmpty(value))
-			throw gcnew ArgumentException(paramName, value);
+		_Value = value;
 	}
 	//==============================================================================================
-	void Throw::IfOutOfRange(String^ paramName, int index, int length)
+	Percentage::Percentage(int value)
 	{
-		if (index < 0 || index >= length)
-			throw gcnew ArgumentOutOfRangeException(paramName);
+		Throw::IfFalse("value", value > 0, "Value should be greater then zero.");
+		
+		_Value = (double)value / 100;
 	}
 	//==============================================================================================
-	void Throw::IfTrue(String^ paramName, bool condition, String^ message)
+	bool Percentage::Equals(Object^ obj)
 	{
-		if (condition)
-			throw gcnew ArgumentException(message, paramName);
+		if (obj == nullptr)
+			return false;
+
+		if (obj->GetType() == Percentage::typeid)
+			return Equals((Percentage)obj);
+
+		if (obj->GetType() == double::typeid)
+			return _Value.Equals(obj);
+
+		if (obj->GetType() == int::typeid)
+			return this->ToInt32().Equals((int)obj);
+
+		return false;
+	}
+	//==============================================================================================
+	bool Percentage::Equals(Percentage percentage)
+	{
+		return _Value.Equals(percentage._Value);
+	}
+	//==============================================================================================
+	int Percentage::GetHashCode()
+	{
+		return _Value.GetHashCode();
+	}
+	//==============================================================================================
+	double Percentage::ToDouble()
+	{
+		return _Value;
+	}
+	//==============================================================================================
+	int Percentage::ToInt32()
+	{
+		return Convert::ToInt32(_Value * 100);
+	}
+	//==============================================================================================
+	String^ Percentage::ToString()
+	{
+		return String::Format(CultureInfo::InvariantCulture, "{0}%", ToInt32());
 	}
 	//==============================================================================================
 }
