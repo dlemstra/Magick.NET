@@ -126,6 +126,24 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::SetProfile(String^ name, MagickBlob^ blob)
+	{
+		Throw::IfNullOrEmpty("name", name);
+
+		try
+		{
+			Magick::Blob profileBlob = blob != nullptr ? (Magick::Blob&)blob : Magick::Blob();
+
+			std::string profileName;
+			Marshaller::Marshal(name, profileName);
+			Value->profile(profileName, profileBlob);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
 	MagickImage::MagickImage(const Magick::Image& image)
 	{
 		Value = new Magick::Image(image);
@@ -209,6 +227,60 @@ namespace ImageMagick
 		catch(Magick::Exception exception)
 		{
 			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::AddProfile(MagickBlob^ blob)
+	{
+		AddProfile("ICM", blob);
+	}
+	///=============================================================================================
+	void MagickImage::AddProfile(Stream^ stream)
+	{
+		AddProfile("ICM", stream);
+	}
+	///=============================================================================================
+	void MagickImage::AddProfile(String^ fileName)
+	{
+		AddProfile("ICM", fileName);
+	}
+	//==============================================================================================
+	void MagickImage::AddProfile(String^ name, MagickBlob^ blob)
+	{
+		Throw::IfNull("blob", blob);
+
+		SetProfile(name, blob);
+	}
+	///=============================================================================================
+	void MagickImage::AddProfile(String^ name, Stream^ stream)
+	{
+		Throw::IfNull("stream", stream);
+
+		MagickBlob^ blob = MagickBlob::Read(stream);
+
+		try
+		{
+			SetProfile(name, blob);
+		}
+		finally
+		{
+			delete blob;
+		}
+	}
+	///=============================================================================================
+	void MagickImage::AddProfile(String^ name, String^ fileName)
+	{
+		Throw::IfNullOrEmpty("fileName", fileName);
+
+		MagickBlob^ blob = MagickBlob::Read(fileName);
+
+		try
+		{
+			SetProfile(name, blob);
+		}
+		finally
+		{
+			delete blob;
 		}
 	}
 	//==============================================================================================
@@ -695,7 +767,8 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->contrast(enhance ? 0 : 1);}
+			Value->contrast(enhance ? 0 : 1);
+		}
 		catch(Magick::Exception exception)
 		{
 			throw gcnew MagickException(exception);
@@ -1425,6 +1498,28 @@ namespace ImageMagick
 		return Object::GetHashCode();
 	}
 	//==============================================================================================
+	MagickBlob^ MagickImage::GetProfile()
+	{
+		return GetProfile("ICM");
+	}
+	//==============================================================================================
+	MagickBlob^ MagickImage::GetProfile(String^ name)
+	{
+		Throw::IfNullOrEmpty("name", name);
+
+		try
+		{
+			std::string profileName;
+			Marshaller::Marshal(name, profileName);
+			Magick::Blob blob = Value->profile(profileName);
+			return gcnew MagickBlob(blob);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+	}
+	//==============================================================================================
 	PixelCollection^ MagickImage::GetReadOnlyPixels()
 	{
 		return gcnew PixelCollection(Value, 0, 0, Width, Height);
@@ -1659,79 +1754,6 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickBlob^ MagickImage::Profile(String^ name)
-	{
-		Throw::IfNullOrEmpty("name", name);
-
-		try
-		{
-			std::string profileName;
-			Marshaller::Marshal(name, profileName);
-			Magick::Blob blob = Value->profile(profileName);
-			return gcnew MagickBlob(blob);
-		}
-		catch(Magick::Exception exception)
-		{
-			throw gcnew MagickException(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::Profile(String^ name, MagickBlob^ blob)
-	{
-		Throw::IfNullOrEmpty("name", name);
-
-		try
-		{
-			Magick::Blob profileBlob = blob != nullptr ? (Magick::Blob&)blob : Magick::Blob();
-
-			std::string profileName;
-			Marshaller::Marshal(name, profileName);
-			Value->profile(profileName, profileBlob);
-		}
-		catch(Magick::Exception exception)
-		{
-			throw gcnew MagickException(exception);
-		}
-	}
-	///=============================================================================================
-	void MagickImage::Profile(String^ name, Stream^ stream)
-	{
-		if (stream == nullptr)
-		{
-			Profile(name, (MagickBlob^)nullptr);
-			return;
-		}
-
-		MagickBlob^ blob = MagickBlob::Read(stream);
-		try
-		{
-			Profile(name, blob);
-		}
-		finally
-		{
-			delete blob;
-		}
-	}
-	///=============================================================================================
-	void MagickImage::Profile(String^ name, String^ fileName)
-	{
-		if (String::IsNullOrEmpty(fileName))
-		{
-			Profile(name, (MagickBlob^)nullptr);
-			return;
-		}
-
-		MagickBlob^ blob = MagickBlob::Read(fileName);
-		try
-		{
-			Profile(name, blob);
-		}
-		finally
-		{
-			delete blob;
-		}
-	}
-	//==============================================================================================
 	void MagickImage::Quantize()
 	{
 		Quantize(false);
@@ -1894,6 +1916,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::RemoveProfile(String^ name)
+	{
+		SetProfile(name, nullptr);
+	}
+	//==============================================================================================
 	void MagickImage::Resize(int width, int height)
 	{
 		Resize(width, height, false);
@@ -1907,6 +1934,18 @@ namespace ImageMagick
 	void MagickImage::Resize(Percentage percentageWidth, Percentage percentageHeight)
 	{
 		Resize((int)percentageWidth, (int)percentageHeight, true);
+	}
+	//==============================================================================================
+	void MagickImage::Roll(int xOffset, int yOffset)
+	{
+		try
+		{
+			Value->roll(xOffset, yOffset);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::Separate(Channels channels)
@@ -1932,6 +1971,26 @@ namespace ImageMagick
 	{
 		return String::Format(CultureInfo::InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}",
 			ImageType, Width, Height, Depth(), ColorSpace, FormatedFileSize());
+	}
+	//==============================================================================================
+	void MagickImage::Transparent(MagickColor^ color)
+	{
+		Throw::IfNull("color", color);
+
+		Magick::Color* transparentColor = color->CreateColor();
+
+		try
+		{
+			Value->transparent(*transparentColor);
+		}
+		catch(Magick::Exception exception)
+		{
+			throw gcnew MagickException(exception);
+		}
+		finally
+		{
+			delete transparentColor;
+		}
 	}
 	//==============================================================================================
 	void MagickImage::Write(String^ fileName)

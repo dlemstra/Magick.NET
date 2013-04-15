@@ -188,6 +188,7 @@
     <ClInclude Include="Colors\MagickColor.h" />
     <ClInclude Include="Colors\ColorBase.h" />
     <ClInclude Include="Helpers\Percentage.h" />
+    <ClInclude Include="Enums\Resolution.h" />
     <ClInclude Include="Helpers\TypeMetric.h" />
     <ClInclude Include="Matrices\MatrixColor.h" />
     <ClInclude Include="Matrices\MatrixConvolve.h" />
@@ -206,7 +207,7 @@
     <ClInclude Include="Matrices\MatrixDouble.h" />
     <ClInclude Include="Enums\NoiseType.h" />
     <ClInclude Include="Enums\PaintMethod.h" />
-    <ClInclude Include="Helpers\Profile.h" />
+    <ClInclude Include="Colors\ColorProfile.h" />
     <ClInclude Include="Pixels\Pixel.h" />
     <ClInclude Include="Pixels\PixelCollection.h" />
     <ClInclude Include="Pixels\PixelBaseCollection.h" />
@@ -296,7 +297,7 @@
     <ClCompile Include="Helpers\MagickReader.cpp" />
     <ClCompile Include="Helpers\MagickWriter.cpp" />
     <ClCompile Include="Matrices\MatrixDouble.cpp" />
-    <ClCompile Include="Helpers\Profile.cpp" />
+    <ClCompile Include="Colors\ColorProfile.cpp" />
     <ClCompile Include="Pixels\Pixel.cpp" />
     <ClCompile Include="Pixels\PixelCollection.cpp" />
     <ClCompile Include="Pixels\PixelBaseCollection.cpp" />

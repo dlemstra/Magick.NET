@@ -119,7 +119,7 @@ namespace ImageMagick
 		if (image->colorSpace() == MagickCore::ColorspaceType::CMYKColorspace &&
 			(colorSpace == ColorSpace::RGB || colorSpace == ColorSpace::sRGB))
 		{
-			image->profile("ICM", Profile::LoadSRGbicm());
+			image->profile("ICM", ColorProfile::SRGB);
 		}
 
 		image->colorSpace((MagickCore::ColorspaceType)colorSpace);

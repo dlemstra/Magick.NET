@@ -32,7 +32,8 @@
 #include "Enums\NoiseType.h"
 #include "Enums\OrientationType.h"
 #include "Enums\PaintMethod.h"
-#include "Enums\\RenderingIntent.h"
+#include "Enums\Resolution.h"
+#include "Enums\RenderingIntent.h"
 #include "Helpers\MagickErrorInfo.h"
 #include "Helpers\MagickException.h"
 #include "Helpers\MagickReader.h"
@@ -77,6 +78,8 @@ namespace ImageMagick
 		void ReplaceImage(Magick::Image* image);
 		//===========================================================================================
 		void Resize(int width, int height, bool isPercentage);
+		//==========================================================================================
+		void SetProfile(String^ name, MagickBlob^ blob);
 		//===========================================================================================
 	internal:
 		//===========================================================================================
@@ -780,6 +783,21 @@ namespace ImageMagick
 			{
 				return Value->renderingIntent((MagickCore::RenderingIntent)value);
 			}
+		} 
+		///==========================================================================================
+		///<summary>
+		/// Units of image resolution.
+		///</summary>
+		property Resolution ResolutionUnits
+		{
+			Resolution get()
+			{
+				return (Resolution)Value->resolutionUnits();
+			}
+			void set(Resolution value)
+			{
+				return Value->resolutionUnits((MagickCore::ResolutionType)value);
+			}
 		}
 		///==========================================================================================
 		///<summary>
@@ -907,6 +925,51 @@ namespace ImageMagick
 		///<param name="channels">The channel(s) where the noise should be added.</param>
 		///<exception cref="MagickException"/>
 		void AddNoise(NoiseType noiseType, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Add an ICC iCM profile to an image.
+		///</summary>
+		///<param name="blob">A blob containing the profile.</param>
+		///<exception cref="MagickException"/>
+		void AddProfile(MagickBlob^ blob);
+		///==========================================================================================
+		///<summary>
+		/// Add an ICC iCM profile to an image.
+		///</summary>
+		///<param name="stream">A stream containing the profile.</param>
+		///<exception cref="MagickException"/>
+		void AddProfile(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Add an ICC iCM profile to an image.
+		///</summary>
+		///<param name="fileName">The file to read the profile from.</param>
+		///<exception cref="MagickException"/>
+		void AddProfile(String^ fileName);
+		///==========================================================================================
+		///<summary>
+		/// Add a named profile to an image.
+		///</summary>
+		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
+		///<param name="blob">A blob containing the profile.</param>
+		///<exception cref="MagickException"/>
+		void AddProfile(String^ name, MagickBlob^ blob);
+		///==========================================================================================
+		///<summary>
+		/// Add a named profile to an image.
+		///</summary>
+		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
+		///<param name="stream">A stream containing the profile.</param>
+		///<exception cref="MagickException"/>
+		void AddProfile(String^ name, Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Add a named profile to an image.
+		///</summary>
+		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
+		///<param name="fileName">The file to read the profile from.</param>
+		///<exception cref="MagickException"/>
+		void AddProfile(String^ name, String^ fileName);
 		///==========================================================================================
 		///<summary>
 		/// Affine Transform image.
@@ -1609,6 +1672,19 @@ namespace ImageMagick
 		MagickGeometry^ Geometry();
 		///==========================================================================================
 		///<summary>
+		/// Retrieve the ICC ICM profile from the image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		MagickBlob^ GetProfile();
+		///==========================================================================================
+		///<summary>
+		/// Retrieve a named profile from the image.
+		///</summary>
+		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
+		///<exception cref="MagickException"/>
+		MagickBlob^ GetProfile(String^ name);
+		///==========================================================================================
+		///<summary>
 		/// Returns an read-only pixel collection that can be used to access the pixels of this image.
 		///</summary>
 		///<exception cref="MagickException"/>
@@ -1808,37 +1884,6 @@ namespace ImageMagick
 		void OilPaint(double radius);
 		///==========================================================================================
 		///<summary>
-		/// Retrieve a named profile from the image.
-		///</summary>
-		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
-		///<exception cref="MagickException"/>
-		MagickBlob^ Profile(String^ name);
-		///==========================================================================================
-		///<summary>
-		/// Add a named profile to an image or remove a named profile by passing null.
-		///</summary>
-		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
-		///<param name="blob">A blob containing the profile.</param>
-		///<exception cref="MagickException"/>
-		void Profile(String^ name, MagickBlob^ blob);
-		///==========================================================================================
-		///<summary>
-		/// Add a named profile to an image or remove a named profile by passing null.
-		///</summary>
-		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
-		///<param name="stream">A stream containing the profile.</param>
-		///<exception cref="MagickException"/>
-		void Profile(String^ name, Stream^ stream);
-		///==========================================================================================
-		///<summary>
-		/// Add a named profile to an image or remove a named profile by passing null.
-		///</summary>
-		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
-		///<param name="fileName">The file to read the profile from.</param>
-		///<exception cref="MagickException"/>
-		void Profile(String^ name, String^ fileName);
-		///==========================================================================================
-		///<summary>
 		/// Quantize image (reduce number of colors).
 		///</summary>
 		///<exception cref="MagickException"/>
@@ -2001,6 +2046,13 @@ namespace ImageMagick
 		void ReduceNoise(int order);
 		///==========================================================================================
 		///<summary>
+		/// Remove a named profile from the image.
+		///</summary>
+		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
+		///<exception cref="MagickException"/>
+		void RemoveProfile(String^ name);
+		///==========================================================================================
+		///<summary>
 		/// Resize image to specified size.
 		///</summary>
 		///<param name="width">The new width.</param>
@@ -2024,6 +2076,14 @@ namespace ImageMagick
 		void Resize(Percentage percentageWidth, Percentage percentageHeight);
 		///==========================================================================================
 		///<summary>
+		/// Roll image (rolls image vertically and horizontally).
+		///</summary>
+		///<param name="xOffset">The X offset from origin.</param>
+		///<param name="yOffset">The Y offset from origin.</param>
+		///<exception cref="MagickException"/>
+		void Roll(int xOffset, int yOffset);
+		///==========================================================================================
+		///<summary>
 		/// Separates a channel from the image and makes it a grayscale image.
 		///</summary>
 		///<param name="channels">The channel(s) to separates.</param>
@@ -2039,6 +2099,12 @@ namespace ImageMagick
 		/// Returns a string that represents the current image.
 		///</summary>
 		virtual String^ ToString() override;
+		///==========================================================================================
+		///<summary>
+		/// Add matte channel to image, setting pixels matching color to transparent.
+		///</summary>
+		///<param name="color">The color to make transparent.</param>
+		void Transparent(MagickColor^ color);
 		///==========================================================================================
 		///<summary>
 		/// Writes the image to the specified file name.

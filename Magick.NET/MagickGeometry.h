@@ -82,7 +82,7 @@ namespace ImageMagick
 		///<summary>
 		/// Initializes a new instance of the MagickGeometry class using the specified rectangle.
 		///</summary>
-		MagickGeometry(Rectangle^ rectangle);
+		MagickGeometry(Rectangle rectangle);
 		///==========================================================================================
 		///<summary>
 		/// The height of the geometry.
@@ -162,7 +162,7 @@ namespace ImageMagick
 			}
 		}
 		//===========================================================================================
-		static explicit operator MagickGeometry^(Rectangle^ rectangle)
+		static explicit operator MagickGeometry^(Rectangle rectangle)
 		{
 			return FromRectangle(rectangle);
 		}
@@ -170,7 +170,7 @@ namespace ImageMagick
 		///<summary>
 		/// Converts the specified Rectangle to an instane of this type.
 		///</summary>
-		static MagickGeometry^ FromRectangle(Rectangle^ rectangle);
+		static MagickGeometry^ FromRectangle(Rectangle rectangle);
 	};
 	//==============================================================================================
 }

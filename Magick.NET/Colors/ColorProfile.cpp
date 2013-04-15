@@ -12,7 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 #include "stdafx.h"
-#include "Profile.h"
+#include "ColorProfile.h"
 
 using namespace System::IO;
 using namespace System::Reflection;
@@ -21,13 +21,13 @@ using namespace System::Threading;
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickBlob^ Profile::LoadSRGbicm()
+	MagickBlob^ ColorProfile::LoadSRGbicm()
 	{
 		Monitor::Enter(_SyncRoot);
 
 		if (_SRGBicm == nullptr)
 		{
-			Stream^ srgbIcm = Assembly::GetAssembly(Profile::typeid)->GetManifestResourceStream("sRGB.icm");
+			Stream^ srgbIcm = Assembly::GetAssembly(ColorProfile::typeid)->GetManifestResourceStream("sRGB.icm");
 			_SRGBicm = MagickBlob::Read(srgbIcm);
 			delete srgbIcm;
 		}

@@ -48,16 +48,13 @@ namespace ImageMagick
 		Initialize(x, y, (int)percentageWidth, (int)percentageHeight, true);
 	}
 	//==============================================================================================
-	MagickGeometry::MagickGeometry(Rectangle^ rectangle)
+	MagickGeometry::MagickGeometry(Rectangle rectangle)
 	{
-		Initialize(rectangle->X, rectangle->Y, rectangle->Width, rectangle->Height, false);
+		Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, false);
 	}
 	//==============================================================================================
-	MagickGeometry^ MagickGeometry::FromRectangle(Rectangle^ rectangle)
+	MagickGeometry^ MagickGeometry::FromRectangle(Rectangle rectangle)
 	{
-		if (rectangle == nullptr)
-			return nullptr;
-
 		return gcnew MagickGeometry(rectangle);
 	}
 	//==============================================================================================

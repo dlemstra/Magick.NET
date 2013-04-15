@@ -135,9 +135,6 @@
     <ClInclude Include="Enums\PaintMethod.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers\Profile.h">
-      <Filter>Header Files\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="Helpers\Marshaller.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
@@ -390,6 +387,12 @@
     <ClInclude Include="Resources\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\Resolution.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\ColorProfile.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -450,9 +453,6 @@
       <Filter>Source Files\Matrices</Filter>
     </ClCompile>
     <ClCompile Include="Helpers\Marshaller.cpp">
-      <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers\Profile.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Helpers\Throw.cpp">
@@ -636,6 +636,9 @@
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Helpers\Percentage.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\ColorProfile.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>

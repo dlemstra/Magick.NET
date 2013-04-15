@@ -14,9 +14,9 @@
 #pragma once
 
 #include "..\Enums\ColorSpace.h"
+#include "..\Colors\ColorProfile.h"
 #include "..\MagickImage.h"
 #include "MagickException.h"
-#include "Profile.h"
 
 namespace ImageMagick
 {
