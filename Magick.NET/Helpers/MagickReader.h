@@ -13,10 +13,10 @@
 //=================================================================================================
 #pragma once
 
-#include "..\Enums\ColorSpace.h"
 #include "..\Colors\ColorProfile.h"
+#include "..\Enums\ColorSpace.h"
+#include "..\Exceptions\MagickException.h"
 #include "..\MagickImage.h"
-#include "MagickException.h"
 
 namespace ImageMagick
 {

@@ -28,9 +28,9 @@ namespace ImageMagick
 			_Pixels = View->getConst(x, y, width, height);
 			LoadIndexes();
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================

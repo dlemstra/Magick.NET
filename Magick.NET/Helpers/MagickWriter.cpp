@@ -48,12 +48,9 @@ namespace ImageMagick
 		{
 			image->write(blob);
 		}
-		catch (Magick::Warning)
+		catch (Magick::Exception& exception)
 		{
-		}
-		catch (Magick::Exception exception)
-		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -68,12 +65,9 @@ namespace ImageMagick
 		{
 			image->write(imageSpec);
 		}
-		catch (Magick::Warning)
+		catch (Magick::Exception& exception)
 		{
-		}
-		catch (Magick::Exception exception)
-		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================

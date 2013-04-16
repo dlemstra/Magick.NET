@@ -57,9 +57,9 @@ namespace ImageMagick
 		{
 			readWarning = GetReadWarning(exception);
 		}
-		catch (Magick::Exception exception)
+		catch (Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 
 		return readWarning;
@@ -94,9 +94,9 @@ namespace ImageMagick
 		{
 			readWarning = GetReadWarning(exception);
 		}
-		catch (Magick::Exception exception)
+		catch (Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 
 		return readWarning;
@@ -146,9 +146,9 @@ namespace ImageMagick
 		{
 			readWarning = GetReadWarning(exception);
 		}
-		catch (Magick::Exception exception)
+		catch (Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 
 		return readWarning;

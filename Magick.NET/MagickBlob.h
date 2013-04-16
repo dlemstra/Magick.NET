@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "Helpers\MagickException.h"
+#include "Exceptions\MagickException.h"
 #include "Helpers\MagickWrapper.h"
 #include "Helpers\MagickWriter.h"
 

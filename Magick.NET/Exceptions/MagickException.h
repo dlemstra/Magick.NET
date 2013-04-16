@@ -20,12 +20,22 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickException sealed : Exception
+	public ref class MagickException : Exception
 	{
+		//===========================================================================================
+	private:
+		//===========================================================================================
+		static MagickException^ CreateError(const Magick::Exception& exception, String^ message);
+		//===========================================================================================
+		static MagickException^ CreateWarning(const Magick::Exception& exception,String^ message);
+		//===========================================================================================
+	protected private:
+		//===========================================================================================
+		MagickException(String^ message);
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickException(Magick::Exception internalException);
+		static MagickException^ Create(const Magick::Exception& exception);
 		//===========================================================================================
 	};
 	//==============================================================================================

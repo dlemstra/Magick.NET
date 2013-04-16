@@ -161,6 +161,9 @@
     <ClInclude Include="Enums\OrientationType.h" />
     <ClInclude Include="Enums\RenderingIntent.h" />
     <ClInclude Include="Enums\TextDecoration.h" />
+    <ClInclude Include="Exceptions\MagickErrorExceptions.h" />
+    <ClInclude Include="Exceptions\MagickException.h" />
+    <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
     <ClInclude Include="Helpers\MagickErrorInfo.h" />
     <ClInclude Include="Drawables\Coordinate.h" />
     <ClInclude Include="Drawables\CoordinateCollection.h" />
@@ -197,7 +200,6 @@
     <ClInclude Include="MagickNET.h" />
     <ClInclude Include="MagickBlob.h" />
     <ClInclude Include="Enums\ColorSpace.h" />
-    <ClInclude Include="Helpers\MagickException.h" />
     <ClInclude Include="Enums\ImageType.h" />
     <ClInclude Include="MagickGeometry.h" />
     <ClInclude Include="MagickImage.h" />
@@ -258,6 +260,7 @@
     <ClCompile Include="Drawables\DrawableTranslation.cpp" />
     <ClCompile Include="Drawables\DrawableViewbox.cpp" />
     <ClCompile Include="Drawables\Paths\PathArcAbs.cpp" />
+    <ClCompile Include="Exceptions\MagickException.cpp" />
     <ClCompile Include="GlobalSuppressions.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
       </PrecompiledHeader>
@@ -291,7 +294,6 @@
     <ClCompile Include="MagickImageInfo.cpp" />
     <ClCompile Include="MagickNET.cpp" />
     <ClCompile Include="MagickBlob.cpp" />
-    <ClCompile Include="Helpers\MagickException.cpp" />
     <ClCompile Include="MagickGeometry.cpp" />
     <ClCompile Include="MagickImage.cpp" />
     <ClCompile Include="Helpers\MagickReader.cpp" />

@@ -56,9 +56,9 @@ namespace ImageMagick
 		{
 			Value->raise(*geometry, raiseFlag);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -75,9 +75,9 @@ namespace ImageMagick
 		{
 			Value->randomThreshold(*geometry);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -94,9 +94,9 @@ namespace ImageMagick
 		{
 			Value->randomThresholdChannel(*geometry, (MagickCore::ChannelType)channels);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -120,9 +120,9 @@ namespace ImageMagick
 		{
 			Value->resize(*geometry);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -138,9 +138,9 @@ namespace ImageMagick
 			Marshaller::Marshal(name, profileName);
 			Value->profile(profileName, profileBlob);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -183,9 +183,9 @@ namespace ImageMagick
 		{
 			Value->adaptiveBlur(radius, sigma);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -200,9 +200,9 @@ namespace ImageMagick
 		{
 			Value->adaptiveThreshold(width, height, offset);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -212,9 +212,9 @@ namespace ImageMagick
 		{
 			Value->addNoise((Magick::NoiseType)noiseType);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -224,9 +224,9 @@ namespace ImageMagick
 		{
 			Value->addNoiseChannel((Magick::ChannelType)channels, (Magick::NoiseType)noiseType);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -292,9 +292,9 @@ namespace ImageMagick
 		{
 			Value->affineTransform(*((Magick::DrawableAffine*)drawableAffine->InternalValue));
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -309,9 +309,9 @@ namespace ImageMagick
 		{
 			Value->annotate(annotateText, location);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -326,9 +326,9 @@ namespace ImageMagick
 		{
 			Value->annotate(annotateText, boundingArea, (Magick::GravityType)gravity);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -343,9 +343,9 @@ namespace ImageMagick
 		{
 			Value->annotate(annotateText, boundingArea, (Magick::GravityType)gravity, degrees);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -360,9 +360,9 @@ namespace ImageMagick
 		{
 			Value->annotate(annotateText, (Magick::GravityType)gravity);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -377,9 +377,9 @@ namespace ImageMagick
 		{
 			return Marshaller::Marshal(Value->attribute(attributeName));
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -397,9 +397,9 @@ namespace ImageMagick
 		{
 			return Value->attribute(attributeName, attributeValue);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -419,9 +419,9 @@ namespace ImageMagick
 		{
 			Value->blur(radius, sigma);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -431,9 +431,9 @@ namespace ImageMagick
 		{
 			Value->blurChannel((Magick::ChannelType)channels, radius, sigma);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -450,9 +450,9 @@ namespace ImageMagick
 		{
 			Value->border(*geometry);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -473,9 +473,9 @@ namespace ImageMagick
 		{
 			Value->cdl(cdl);
 		}
-		catch (Magick::Exception exception)
+		catch (Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -490,9 +490,9 @@ namespace ImageMagick
 		{
 			Value->charcoal(radius, sigma);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -504,9 +504,9 @@ namespace ImageMagick
 		{
 			Value->chop(geometry);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -522,9 +522,9 @@ namespace ImageMagick
 		{
 			Value->chop(geometry);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -548,9 +548,9 @@ namespace ImageMagick
 		{
 			Value->chromaBluePrimary(x, y);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -560,9 +560,9 @@ namespace ImageMagick
 		{
 			Value->chromaGreenPrimary(x, y);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -572,9 +572,9 @@ namespace ImageMagick
 		{
 			Value->chromaRedPrimary(x, y);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -584,9 +584,9 @@ namespace ImageMagick
 		{
 			Value->chromaWhitePoint(x, y);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -600,9 +600,9 @@ namespace ImageMagick
 		{
 			image->Composite(this, Gravity::Northwest, CompositeOperator::Atop);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 
 		ReplaceImage(image->Value);
@@ -615,9 +615,9 @@ namespace ImageMagick
 		{
 			return gcnew MagickColor(Value->colorMap(index));
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -631,9 +631,9 @@ namespace ImageMagick
 			Value->colorMap(index, *colorMap);
 			delete colorMap;
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -653,9 +653,9 @@ namespace ImageMagick
 		{
 			Value->colorize((int)opacityRed, (int)opacityGreen, (int)opacityBlue, *magickColor);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -673,9 +673,9 @@ namespace ImageMagick
 		{
 			Value->colorMatrix(matrixColor->Order, matrix);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -692,9 +692,9 @@ namespace ImageMagick
 			if (Value->compare(*(image->Value)))
 				return nullptr;
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 
 		return gcnew MagickErrorInfo(Value);
@@ -713,9 +713,9 @@ namespace ImageMagick
 		{
 			Value->composite(*(image->Value), x, y, (MagickCore::CompositeOperator)compose);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -733,9 +733,9 @@ namespace ImageMagick
 		{
 			Value->composite(*(image->Value), geometry, (MagickCore::CompositeOperator)compose);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -752,9 +752,9 @@ namespace ImageMagick
 		{
 			Value->composite(*(image->Value), (MagickCore::GravityType)gravity, (MagickCore::CompositeOperator)compose);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -769,9 +769,9 @@ namespace ImageMagick
 		{
 			Value->contrast(enhance ? 0 : 1);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -785,9 +785,9 @@ namespace ImageMagick
 		{
 			Value->convolve(convolveMatrix->Order, kernel);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -812,9 +812,9 @@ namespace ImageMagick
 		{
 			Value->crop(geometry);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -879,9 +879,9 @@ namespace ImageMagick
 		{
 			Value->cycleColormap(amount);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -891,9 +891,9 @@ namespace ImageMagick
 		{
 			return Value->depth();
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -903,9 +903,9 @@ namespace ImageMagick
 		{
 			return Value->channelDepth((MagickCore::ChannelType)channels);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -915,9 +915,9 @@ namespace ImageMagick
 		{
 			Value->channelDepth((MagickCore::ChannelType)channels, value);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -927,9 +927,9 @@ namespace ImageMagick
 		{
 			Value->depth(value);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -939,9 +939,9 @@ namespace ImageMagick
 		{
 			Value->despeckle();
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -960,9 +960,9 @@ namespace ImageMagick
 		{
 			Value->distort((MagickCore::DistortImageMethod)method, arguments->Length, distortArguments, bestfit);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -978,9 +978,9 @@ namespace ImageMagick
 		{
 			Value->draw(*(drawable->InternalValue));
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -999,9 +999,9 @@ namespace ImageMagick
 
 			Value->draw(drawList);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1011,9 +1011,9 @@ namespace ImageMagick
 		{
 			Value->edge(radius);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1028,9 +1028,9 @@ namespace ImageMagick
 		{
 			Value->emboss(radius, sigma);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1055,9 +1055,9 @@ namespace ImageMagick
 		{
 			Value->extent(geometry);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1072,9 +1072,9 @@ namespace ImageMagick
 		{
 			Value->extent(geometry, *color);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -1090,9 +1090,9 @@ namespace ImageMagick
 		{
 			Value->extent(geometry, (MagickCore::GravityType)gravity);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1107,9 +1107,9 @@ namespace ImageMagick
 		{
 			Value->extent(geometry, *color, (MagickCore::GravityType)gravity);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -1123,9 +1123,9 @@ namespace ImageMagick
 		{
 			Value->flip();
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1139,9 +1139,9 @@ namespace ImageMagick
 		{
 			Value->floodFillColor(x, y, *fillColor);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -1160,9 +1160,9 @@ namespace ImageMagick
 		{
 			Value->floodFillColor(geometry, *fillColor);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -1182,9 +1182,9 @@ namespace ImageMagick
 		{
 			Value->floodFillColor(x, y, *fillColor, *fillBorderColor);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -1206,9 +1206,9 @@ namespace ImageMagick
 		{
 			Value->floodFillColor(geometry, *fillColor, *fillBorderColor);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -1223,9 +1223,9 @@ namespace ImageMagick
 		{
 			Value->floodFillOpacity(x, y, opacity, (MagickCore::PaintMethod)paintMethod);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1238,9 +1238,9 @@ namespace ImageMagick
 		{
 			Value->matteFloodfill(*target, color->A, x, y, (MagickCore::PaintMethod)paintMethod);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -1256,9 +1256,9 @@ namespace ImageMagick
 		{
 			Value->floodFillTexture(x, y, *image->Value);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1271,9 +1271,9 @@ namespace ImageMagick
 		{
 			Value->floodFillTexture(geometry, *image->Value);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1288,9 +1288,9 @@ namespace ImageMagick
 		{
 			Value->floodFillTexture(x, y, *image->Value, *fillBorderColor);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -1310,9 +1310,9 @@ namespace ImageMagick
 		{
 			Value->floodFillTexture(geometry, *image->Value, *fillBorderColor);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -1326,9 +1326,9 @@ namespace ImageMagick
 		{
 			Value->flop();
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1345,9 +1345,9 @@ namespace ImageMagick
 			Value->fontTypeMetrics(fontText, metric);
 			return gcnew TypeMetric(metric);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{
@@ -1361,9 +1361,9 @@ namespace ImageMagick
 		{
 			return Marshaller::Marshal(Value->format());
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1380,9 +1380,9 @@ namespace ImageMagick
 		{
 			Value->frame(geometry);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1406,9 +1406,9 @@ namespace ImageMagick
 			Marshaller::Marshal(expression, fxExpression);
 			Value->fx(fxExpression);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1422,9 +1422,9 @@ namespace ImageMagick
 			Marshaller::Marshal(expression, fxExpression);
 			Value->fx(fxExpression, (MagickCore::ChannelType)channels);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1434,9 +1434,9 @@ namespace ImageMagick
 		{
 			return Value->gamma();
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1451,9 +1451,9 @@ namespace ImageMagick
 		{
 			Value->gamma(gammaRed, gammaGreen, gammaBlue);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1463,9 +1463,9 @@ namespace ImageMagick
 		{
 			Value->gaussianBlur(width, sigma);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1475,9 +1475,9 @@ namespace ImageMagick
 		{
 			Value->gaussianBlurChannel((MagickCore::ChannelType)channels, width, sigma);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1487,9 +1487,9 @@ namespace ImageMagick
 		{
 			return gcnew MagickGeometry(Value->geometry());
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1514,9 +1514,13 @@ namespace ImageMagick
 			Magick::Blob blob = Value->profile(profileName);
 			return gcnew MagickBlob(blob);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::ErrorCoder)
 		{
-			throw gcnew MagickException(exception);
+			return nullptr;
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1548,9 +1552,9 @@ namespace ImageMagick
 		{
 			Value->haldClut(*image->Value);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1560,9 +1564,9 @@ namespace ImageMagick
 		{
 			Value->implode(factor);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1579,9 +1583,9 @@ namespace ImageMagick
 		{
 			Value->inverseFourierTransform(*image->Value, magnitude);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1601,9 +1605,9 @@ namespace ImageMagick
 		{
 			Value->level(blackPoint, whitePoint, midpoint);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1613,9 +1617,9 @@ namespace ImageMagick
 		{
 			Value->levelChannel((MagickCore::ChannelType)channels, blackPoint, whitePoint, midpoint);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1630,9 +1634,9 @@ namespace ImageMagick
 		{
 			Value->magnify();
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1649,9 +1653,9 @@ namespace ImageMagick
 		{
 			Value->map(*image->Value, dither);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1666,9 +1670,9 @@ namespace ImageMagick
 		{
 			Value->medianFilter(radius);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1678,9 +1682,9 @@ namespace ImageMagick
 		{
 			Value->minify();
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1690,9 +1694,9 @@ namespace ImageMagick
 		{
 			Value->modulate((double)brightness, (double)saturation, (double)hue);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1702,9 +1706,9 @@ namespace ImageMagick
 		{
 			Value->motionBlur(radius, sigma, angle);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1719,9 +1723,9 @@ namespace ImageMagick
 		{
 			Value->negate(onlyGrayscale);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1731,9 +1735,9 @@ namespace ImageMagick
 		{
 			Value->normalize();
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1748,9 +1752,9 @@ namespace ImageMagick
 		{
 			Value->oilPaint(radius);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1765,9 +1769,9 @@ namespace ImageMagick
 		{
 			Value->quantize(measureError);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 
 		return measureError ? gcnew MagickErrorInfo(Value) : nullptr;
@@ -1780,9 +1784,9 @@ namespace ImageMagick
 			Value->quantumOperator((MagickCore::ChannelType)channels,
 				(MagickCore::MagickEvaluateOperator)evaluateOperator, value);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1798,9 +1802,9 @@ namespace ImageMagick
 				(MagickCore::ChannelType)channels, (MagickCore::MagickEvaluateOperator)evaluateOperator,
 				value);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1898,9 +1902,9 @@ namespace ImageMagick
 		{
 			Value->reduceNoise();
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1910,9 +1914,9 @@ namespace ImageMagick
 		{
 			Value->reduceNoise(order);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1942,9 +1946,9 @@ namespace ImageMagick
 		{
 			Value->roll(xOffset, yOffset);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1954,9 +1958,9 @@ namespace ImageMagick
 		{
 			Value->channel((MagickCore::ChannelType)channels);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1983,9 +1987,9 @@ namespace ImageMagick
 		{
 			Value->transparent(*transparentColor);
 		}
-		catch(Magick::Exception exception)
+		catch(Magick::Exception& exception)
 		{
-			throw gcnew MagickException(exception);
+			throw MagickException::Create(exception);
 		}
 		finally
 		{

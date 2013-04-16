@@ -52,6 +52,12 @@
     <Filter Include="Header Files\Pixels">
       <UniqueIdentifier>{76d21b26-d0ca-4ab3-bdb9-7e8aad917317}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Exceptions">
+      <UniqueIdentifier>{500c90db-88df-4b46-b2fb-aca6000069bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Exceptions">
+      <UniqueIdentifier>{48ae8406-88ef-4470-ad6f-665b9d12dfda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
@@ -140,9 +146,6 @@
     </ClInclude>
     <ClInclude Include="Helpers\Throw.h">
       <Filter>Header Files\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\MagickException.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enums\FillRule.h">
       <Filter>Header Files\Enums</Filter>
@@ -393,6 +396,15 @@
     <ClInclude Include="Colors\ColorProfile.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Exceptions\MagickErrorExceptions.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\MagickException.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\MagickWarningExceptions.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -457,9 +469,6 @@
     </ClCompile>
     <ClCompile Include="Helpers\Throw.cpp">
       <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers\MagickException.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Drawables\Paths\PathArcAbs.cpp">
       <Filter>Source Files\Drawables\Paths</Filter>
@@ -640,6 +649,9 @@
     </ClCompile>
     <ClCompile Include="Colors\ColorProfile.cpp">
       <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Exceptions\MagickException.cpp">
+      <Filter>Source Files\Exceptions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
