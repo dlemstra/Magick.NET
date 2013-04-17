@@ -21,12 +21,14 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick Error exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickErrorException : public MagickException
+	public ref class MagickErrorException : MagickException
 	{
 		//===========================================================================================
 	internal:
 		//===========================================================================================
 		MagickErrorException(String^ message) : MagickException(message) {};
+		//===========================================================================================
+		static MagickErrorException^ Create(const Magick::Exception& exception, String^ message);
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -34,7 +36,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorBlob exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickBlobErrorException sealed : public MagickErrorException
+	public ref class MagickBlobErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -47,7 +49,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorCache exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickCacheErrorException sealed : public MagickErrorException
+	public ref class MagickCacheErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -60,7 +62,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorCoder exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickCoderErrorException sealed : public MagickErrorException
+	public ref class MagickCoderErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -73,7 +75,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorConfigure exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickConfigureErrorException sealed : public MagickErrorException
+	public ref class MagickConfigureErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -86,7 +88,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorUndefined exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickUndefinedErrorException sealed : public MagickErrorException
+	public ref class MagickUndefinedErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -99,7 +101,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorCorruptImage exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickCorruptImageErrorException sealed : public MagickErrorException
+	public ref class MagickCorruptImageErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -112,7 +114,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorDelegate exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickDelegateErrorException sealed : public MagickErrorException
+	public ref class MagickDelegateErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -125,7 +127,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorDraw exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickDrawErrorException sealed : public MagickErrorException
+	public ref class MagickDrawErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -138,7 +140,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorFileOpen exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickFileOpenErrorException sealed : public MagickErrorException
+	public ref class MagickFileOpenErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -151,7 +153,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorImage exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickImageErrorException sealed : public MagickErrorException
+	public ref class MagickImageErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -164,7 +166,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorMissingDelegate exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickMissingDelegateErrorException sealed : public MagickErrorException
+	public ref class MagickMissingDelegateErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -177,7 +179,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorModule exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickModuleErrorException sealed : public MagickErrorException
+	public ref class MagickModuleErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -190,7 +192,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorOption exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickOptionErrorException sealed : public MagickErrorException
+	public ref class MagickOptionErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -203,7 +205,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorRegistry exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickRegistryErrorException sealed : public MagickErrorException
+	public ref class MagickRegistryErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -216,7 +218,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorResourceLimit exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickResourceLimitErrorException sealed : public MagickErrorException
+	public ref class MagickResourceLimitErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -229,7 +231,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorStream exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickStreamErrorException sealed : public MagickErrorException
+	public ref class MagickStreamErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:
@@ -242,7 +244,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick ErrorType exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickTypeErrorException sealed : public MagickErrorException
+	public ref class MagickTypeErrorException sealed : MagickErrorException
 	{
 		//===========================================================================================
 	internal:

@@ -23,12 +23,6 @@ namespace ImageMagick
 	public ref class MagickException : Exception
 	{
 		//===========================================================================================
-	private:
-		//===========================================================================================
-		static MagickException^ CreateError(const Magick::Exception& exception, String^ message);
-		//===========================================================================================
-		static MagickException^ CreateWarning(const Magick::Exception& exception,String^ message);
-		//===========================================================================================
 	protected private:
 		//===========================================================================================
 		MagickException(String^ message);

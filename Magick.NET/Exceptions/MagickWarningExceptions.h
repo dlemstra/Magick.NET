@@ -21,12 +21,14 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick Warning exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickWarningException : public MagickException
+	public ref class MagickWarningException : MagickException
 	{
 		//===========================================================================================
 	internal:
 		//===========================================================================================
 		MagickWarningException(String^ message) : MagickException(message) {};
+		//===========================================================================================
+		static MagickWarningException^ Create(const Magick::Exception& exception, String^ message);
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -34,7 +36,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningBlob exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickBlobWarningException sealed : public MagickWarningException
+	public ref class MagickBlobWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -47,7 +49,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningCache exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickCacheWarningException sealed : public MagickWarningException
+	public ref class MagickCacheWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -60,7 +62,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningCoder exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickCoderWarningException sealed : public MagickWarningException
+	public ref class MagickCoderWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -73,7 +75,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningConfigure exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickConfigureWarningException sealed : public MagickWarningException
+	public ref class MagickConfigureWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -86,7 +88,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningUndefined exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickUndefinedWarningException sealed : public MagickWarningException
+	public ref class MagickUndefinedWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -99,7 +101,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningCorruptImage exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickCorruptImageWarningException sealed : public MagickWarningException
+	public ref class MagickCorruptImageWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -112,7 +114,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningDelegate exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickDelegateWarningException sealed : public MagickWarningException
+	public ref class MagickDelegateWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -125,7 +127,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningDraw exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickDrawWarningException sealed : public MagickWarningException
+	public ref class MagickDrawWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -138,7 +140,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningFileOpen exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickFileOpenWarningException sealed : public MagickWarningException
+	public ref class MagickFileOpenWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -151,7 +153,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningImage exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickImageWarningException sealed : public MagickWarningException
+	public ref class MagickImageWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -164,7 +166,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningMissingDelegate exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickMissingDelegateWarningException sealed : public MagickWarningException
+	public ref class MagickMissingDelegateWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -177,7 +179,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningModule exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickModuleWarningException sealed : public MagickWarningException
+	public ref class MagickModuleWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -190,7 +192,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningOption exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickOptionWarningException sealed : public MagickWarningException
+	public ref class MagickOptionWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -203,7 +205,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningRegistry exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickRegistryWarningException sealed : public MagickWarningException
+	public ref class MagickRegistryWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -216,7 +218,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningResourceLimit exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickResourceLimitWarningException sealed : public MagickWarningException
+	public ref class MagickResourceLimitWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -229,7 +231,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningStream exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickStreamWarningException sealed : public MagickWarningException
+	public ref class MagickStreamWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:
@@ -242,7 +244,7 @@ namespace ImageMagick
 	/// Encapsulation of the ImageMagick WarningType exception object.
 	///</summary>
 	[Serializable]
-	public ref class MagickTypeWarningException sealed : public MagickWarningException
+	public ref class MagickTypeWarningException sealed : MagickWarningException
 	{
 		//===========================================================================================
 	internal:

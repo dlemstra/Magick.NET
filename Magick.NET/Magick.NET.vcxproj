@@ -288,6 +288,8 @@
     <ClCompile Include="Colors\ColorBase.cpp" />
     <ClCompile Include="Helpers\Percentage.cpp" />
     <ClCompile Include="Helpers\TypeMetric.cpp" />
+    <ClCompile Include="Exceptions\MagickErrorExceptions.cpp" />
+    <ClCompile Include="Exceptions\MagickWarningExceptions.cpp" />
     <ClCompile Include="Matrices\MatrixColor.cpp" />
     <ClCompile Include="Matrices\MatrixConvolve.cpp" />
     <ClCompile Include="MagickImageCollection.cpp" />

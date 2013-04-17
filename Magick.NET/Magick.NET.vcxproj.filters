@@ -653,6 +653,12 @@
     <ClCompile Include="Exceptions\MagickException.cpp">
       <Filter>Source Files\Exceptions</Filter>
     </ClCompile>
+    <ClCompile Include="Exceptions\MagickErrorExceptions.cpp">
+      <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="Exceptions\MagickWarningExceptions.cpp">
+      <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\sRGB.icm">
