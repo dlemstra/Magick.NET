@@ -164,6 +164,25 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Zoom(int width, int height, bool isPercentage)
+	{
+		Magick::Geometry* geometry = new Magick::Geometry(width, height);
+		geometry->percent(isPercentage);
+
+		try
+		{
+			Value->zoom(*geometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete geometry;
+		}
+	}
+	//==============================================================================================
 	void MagickImage::SetProfile(String^ name, MagickBlob^ blob)
 	{
 		Throw::IfNullOrEmpty("name", name);
@@ -735,13 +754,13 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Colorize(MagickColor^ color, Percentage opacity)
+	void MagickImage::Colorize(MagickColor^ color, Percentage alpha)
 	{
-		Colorize(color, opacity, opacity, opacity);
+		Colorize(color, alpha, alpha, alpha);
 	}
 	//==============================================================================================
-	void MagickImage::Colorize(MagickColor^ color, Percentage opacityRed, Percentage opacityGreen,
-		Percentage opacityBlue)
+	void MagickImage::Colorize(MagickColor^ color, Percentage alphaRed, Percentage alphaGreen,
+		Percentage alphaBlue)
 	{
 		Throw::IfNull("color", color);
 
@@ -749,7 +768,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->colorize((int)opacityRed, (int)opacityGreen, (int)opacityBlue, *magickColor);
+			Value->colorize((int)alphaRed, (int)alphaGreen, (int)alphaBlue, *magickColor);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1227,6 +1246,18 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::FloodFillAlpha(int x, int y, int alpha, PaintMethod paintMethod)
+	{
+		try
+		{
+			Value->floodFillOpacity(x, y, alpha, (MagickCore::PaintMethod)paintMethod);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::FloodFillColor(int x, int y, MagickColor^ color)
 	{
 		Throw::IfNull("color", color);
@@ -1312,37 +1343,6 @@ namespace ImageMagick
 		{
 			delete fillColor;
 			delete fillBorderColor;
-		}
-	}
-	//==============================================================================================
-	void MagickImage::FloodFillOpacity(int x, int y, int opacity, PaintMethod paintMethod)
-	{
-		try
-		{
-			Value->floodFillOpacity(x, y, opacity, (MagickCore::PaintMethod)paintMethod);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::FloodFillMatte(int x, int y, MagickColor^ color, PaintMethod paintMethod)
-	{
-		Throw::IfNull("color", color);
-
-		Magick::Color* target = color->CreateColor();
-		try
-		{
-			Value->matteFloodfill(*target, color->A, x, y, (MagickCore::PaintMethod)paintMethod);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-		finally
-		{
-			delete target;
 		}
 	}
 	//==============================================================================================
@@ -2139,11 +2139,11 @@ namespace ImageMagick
 		return Shadow(5, 5, 0.5, color, 0.8);
 	}
 	///=============================================================================================
-	void MagickImage::Shadow(int x, int y, double sigma, Percentage opacity)
+	void MagickImage::Shadow(int x, int y, double sigma, Percentage alpha)
 	{
 		try
 		{
-			Value->shadow((double)opacity * 100, sigma, x, y);
+			Value->shadow((double)alpha * 100, sigma, x, y);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2151,7 +2151,7 @@ namespace ImageMagick
 		}
 	}
 	///=============================================================================================
-	void MagickImage::Shadow(int x, int y, double sigma, MagickColor^ color, Percentage opacity)
+	void MagickImage::Shadow(int x, int y, double sigma, MagickColor^ color, Percentage alpha)
 	{
 		Throw::IfNull("color", color);
 
@@ -2162,7 +2162,7 @@ namespace ImageMagick
 		try
 		{
 			copy->Value->backgroundColor(*backgroundColor);
-			copy->Value->shadow((double)opacity * 100, sigma, x, y);
+			copy->Value->shadow((double)alpha * 100, sigma, x, y);
 			copy->Value->backgroundColor(Magick::Color());
 
 			images->Add(copy);
@@ -2301,6 +2301,22 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	MagickImageStatistics MagickImage::Statistics()
+	{
+		Magick::Image::ImageStatistics statistics;
+
+		try
+		{
+			Value->statistics(&statistics);
+
+			return MagickImageStatistics(statistics);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Stegano(MagickImage^ watermark)
 	{
 		Throw::IfNull("watermark", watermark);
@@ -2353,6 +2369,32 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Texture(MagickImage^ image)
+	{
+		Throw::IfNull("image", image);
+
+		try
+		{
+			Value->texture(*image->Value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Threshold(double value)
+	{
+		try
+		{
+			Value->threshold(value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	MagickBlob^ MagickImage::ToBlob()
 	{
 		MagickBlob^ blob = MagickBlob::Create();
@@ -2364,6 +2406,65 @@ namespace ImageMagick
 	{
 		return String::Format(CultureInfo::InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}",
 			ImageType, Width, Height, Depth(), ColorSpace, FormatedFileSize());
+	}
+	//==============================================================================================
+	void MagickImage::Transform(MagickGeometry^ imageGeometry)
+	{
+		Throw::IfNull("imageGeometry", imageGeometry);
+
+		try
+		{
+			Value->transform(imageGeometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Transform(MagickGeometry^ imageGeometry, MagickGeometry^ cropGeometry)
+	{
+		Throw::IfNull("imageGeometry", imageGeometry);
+		Throw::IfNull("cropGeometry", cropGeometry);
+
+		try
+		{
+			Value->transform(imageGeometry, cropGeometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::TransformOrigin(double x, double y)
+	{
+		Value->transformOrigin(x, y);
+	}
+	//==============================================================================================
+	void MagickImage::TransformRotation(double angle)
+	{
+		Value->transformRotation(angle);
+	}
+	//==============================================================================================
+	void MagickImage::TransformReset()
+	{
+		Value->transformReset();
+	}
+	//==============================================================================================
+	void MagickImage::TransformScale(double scaleX, double scaleY)
+	{
+		Value->transformScale(scaleX, scaleY);
+	}
+	//==============================================================================================
+	void MagickImage::TransformSkewX(double skewX)
+	{
+		Value->transformSkewX(skewX);
+	}
+	//==============================================================================================
+	void MagickImage::TransformSkewY(double skewY)
+	{
+		Value->transformSkewY(skewY);
 	}
 	//==============================================================================================
 	void MagickImage::Transparent(MagickColor^ color)
@@ -2386,6 +2487,82 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::TransparentChroma(MagickColor^ colorLow, MagickColor^ colorHigh)
+	{
+		Throw::IfNull("colorLow", colorLow);
+		Throw::IfNull("colorHigh", colorHigh);
+
+		Magick::Color* transparentColorLow = colorLow->CreateColor();
+		Magick::Color* transparentColorHigh = colorHigh->CreateColor();
+
+		try
+		{
+			Value->transparentChroma(*transparentColorLow, *transparentColorHigh);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete transparentColorLow;
+			delete transparentColorHigh;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Trim()
+	{
+		try
+		{
+			Value->trim();
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Unsharpmask(double radius, double sigma, double amount, double threshold)
+	{
+		try
+		{
+			Value->unsharpmask(radius, sigma, amount, threshold);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Unsharpmask(Channels channels, double radius, double sigma, double amount, double threshold)
+	{
+		try
+		{
+			Value->unsharpmaskChannel((Magick::ChannelType)channels, radius, sigma, amount, threshold);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Wave()
+	{
+		Wave(25.0, 150.0);
+	}
+	//==============================================================================================
+	void MagickImage::Wave(double amplitude, double length)
+	{
+		try
+		{
+			Value->wave(amplitude, length);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Write(String^ fileName)
 	{
 		MagickWriter::Write(Value, fileName);
@@ -2397,6 +2574,21 @@ namespace ImageMagick
 		MagickWriter::Write(Value, (Magick::Blob*)blob);
 		blob->Write(stream);
 		delete blob;
+	}
+	//==============================================================================================
+	void MagickImage::Zoom(int width, int height)
+	{
+		Zoom(width, height, false);
+	}
+	//==============================================================================================
+	void MagickImage::Zoom(Percentage percentage)
+	{
+		Zoom((int)percentage, (int)percentage, true);
+	}
+	//==============================================================================================
+	void MagickImage::Zoom(Percentage percentageWidth, Percentage percentageHeight)
+	{
+		Zoom((int)percentageWidth, (int)percentageHeight, true);
 	}
 	//==============================================================================================
 }

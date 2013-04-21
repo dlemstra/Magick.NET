@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableDashArray::DrawableDashArray(array<double>^ dash)
 	{
-		double* dashArray = Marshaller::Marshal(dash);
+		double* dashArray = Marshaller::MarshalAndTerminate(dash);
 		BaseValue = new Magick::DrawableDashArray(dashArray);
 		delete dashArray;
 	}

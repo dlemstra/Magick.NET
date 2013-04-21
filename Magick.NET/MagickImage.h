@@ -35,6 +35,7 @@
 #include "Enums\Resolution.h"
 #include "Enums\RenderingIntent.h"
 #include "Enums\SparseColorMethod.h"
+#include "Enums\VirtualPixelMethod.h"
 #include "Exceptions\MagickException.h"
 #include "Helpers\MagickErrorInfo.h"
 #include "Helpers\MagickReader.h"
@@ -44,12 +45,14 @@
 #include "Helpers\TypeMetric.h"
 #include "MagickBlob.h"
 #include "MagickGeometry.h"
+#include "MagickImageStatistics.h"
 #include "Matrices\MatrixColor.h"
 #include "Matrices\MatrixConvolve.h"
 #include "Pixels\PixelCollection.h"
 #include "Pixels\WritablePixelCollection.h"
 
 using namespace System::Collections::Generic;
+using namespace System::Text;
 
 namespace ImageMagick
 {
@@ -82,6 +85,8 @@ namespace ImageMagick
 		void Scale(int width, int height, bool isPercentage);
 		//===========================================================================================
 		void SetProfile(String^ name, MagickBlob^ blob);
+		//===========================================================================================
+		void Zoom(int width, int height, bool isPercentage);
 		//===========================================================================================
 	internal:
 		//===========================================================================================
@@ -592,6 +597,22 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// FlashPix viewing parameters.
+		///</summary>
+		property String^ FlashPixView
+		{
+			String^ get()
+			{
+				return Marshaller::Marshal(Value->view());
+			}
+			void set(String^ value)
+			{
+				std::string view;
+				Value->view(Marshaller::Marshal(value, view));
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Gif disposal method.
 		///</summary>
 		property GifDisposeMethod GifDisposeMethod
@@ -880,6 +901,43 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// The X resolution of the image.
+		///</summary>
+		property double ResolutionX
+		{
+			double get()
+			{
+				return Value->xResolution();
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// The Y resolution of the image.
+		///</summary>
+		property double ResolutionY
+		{
+			double get()
+			{
+				return Value->yResolution();
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Enabled/disable stroke anti-aliasing.
+		///</summary>
+		property bool StrokeAntiAlias
+		{
+			bool get()
+			{
+				return Value->strokeAntiAlias();
+			}
+			void set(bool value)
+			{
+				Value->strokeAntiAlias(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Color to use when drawing object outlines.
 		///</summary>
 		property MagickColor^ StrokeColor
@@ -897,6 +955,117 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Specify the pattern of dashes and gaps used to stroke paths. This represents a
+		/// zero-terminated array of numbers that specify the lengths of alternating dashes and gaps
+		/// in pixels. If a zero value is not found it will be added. If an odd number of values is
+		/// provided, then the list of values is repeated to yield an even number of values.
+		///</summary>
+		property array<double>^ StrokeDashArray
+		{
+			array<double>^ get()
+			{
+				const double* strokeDashArray = Value->strokeDashArray();
+				if (strokeDashArray == NULL)
+					return nullptr;
+
+				return Marshaller::Marshal(strokeDashArray);
+			}
+			void set(array<double>^ value)
+			{
+				double* strokeDashArray = Marshaller::MarshalAndTerminate(value);
+				Value->strokeDashArray(strokeDashArray);
+				delete strokeDashArray;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// While drawing using a dash pattern, specify distance into the dash pattern to start the
+		/// dash (default 0).
+		///</summary>
+		property double StrokeDashOffset
+		{
+			double get()
+			{
+				return Value->strokeDashOffset();
+			}
+			void set(double value)
+			{
+				Value->strokeDashOffset(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Specify the shape to be used at the end of open subpaths when they are stroked.
+		///</summary>
+		property LineCap StrokeLineCap
+		{
+			LineCap get()
+			{
+				return (LineCap)Value->strokeLineCap();
+			}
+			void set(LineCap value)
+			{
+				Value->strokeLineCap((MagickCore::LineCap)value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Specify the shape to be used at the corners of paths (or other vector shapes) when they
+		/// are stroked.
+		///</summary>
+		property LineJoin StrokeLineJoin
+		{
+			LineJoin get()
+			{
+				return (LineJoin)Value->strokeLineJoin();
+			}
+			void set(LineJoin value)
+			{
+				Value->strokeLineJoin((MagickCore::LineJoin)value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Specify miter limit. When two line segments meet at a sharp angle and miter joins have
+		/// been specified for 'lineJoin', it is possible for the miter to extend far beyond the thickness
+		/// of the line stroking the path. The miterLimit' imposes a limit on the ratio of the miter
+		/// length to the 'lineWidth'. The default value is 4.
+		///</summary>
+		property int StrokeMiterLimit
+		{
+			int get()
+			{
+				return Value->strokeMiterLimit();
+			}
+			void set(int value)
+			{
+				Value->strokeMiterLimit(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Pattern image to use while stroking object outlines.
+		///</summary>
+		property MagickImage^ StrokePattern
+		{
+			MagickImage^ get()
+			{
+				Magick::Image value = Value->strokePattern();
+				if (value == NULL)
+					return nullptr;
+
+				return gcnew MagickImage(value);
+			}
+			void set(MagickImage^ value)
+			{
+				if (value == nullptr)
+					Value->strokePattern(Magick::Image());
+				else
+					Value->strokePattern(*value->Value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Stroke width for drawing lines, circles, ellipses, etc.
 		///</summary>
 		property double StrokeWidth
@@ -908,6 +1077,78 @@ namespace ImageMagick
 			void set(double value)
 			{
 				Value->strokeWidth(value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Annotation text encoding (e.g. "UTF-16")
+		///</summary>
+		property Encoding^ TextEncoding
+		{
+			Encoding^ get()
+			{
+				String^ encoding = Marshaller::Marshal(Value->textEncoding());
+
+				if (String::IsNullOrEmpty(encoding))
+					return nullptr;
+
+				try
+				{
+					return Encoding::GetEncoding(encoding);
+				}
+				catch (ArgumentException^)
+				{
+					return nullptr;
+				}
+			}
+			void set(Encoding^ value)
+			{
+				String^ name = value != nullptr ? value->WebName : nullptr;
+
+				std::string encoding;
+				Value->textEncoding(Marshaller::Marshal(name, encoding));
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Tile name.
+		///</summary>
+		property String^ TileName
+		{
+			String^ get()
+			{
+				return Marshaller::Marshal(Value->tileName());
+			}
+			void set(String^ value)
+			{
+				std::string tileName;
+				Value->tileName(Marshaller::Marshal(value, tileName));
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Number of colors in the image.
+		///</summary>
+		property int TotalColors
+		{
+			int get()
+			{
+				return Value->totalColors();
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Virtual pixel method.
+		///</summary>
+		property VirtualPixelMethod VirtualPixelMethod
+		{
+			ImageMagick::VirtualPixelMethod get()
+			{
+				return (ImageMagick::VirtualPixelMethod)Value->virtualPixelMethod();
+			}
+			void set(ImageMagick::VirtualPixelMethod value)
+			{
+				Value->virtualPixelMethod((MagickCore::VirtualPixelMethod)value);
 			}
 		}
 		///==========================================================================================
@@ -1233,24 +1474,24 @@ namespace ImageMagick
 		void ChromaWhitePoint(double x, double y);
 		///==========================================================================================
 		///<summary>
-		/// Colorize image with the specified color, using specified percent opacity.
+		/// Colorize image with the specified color, using specified percent alpha.
 		///</summary>
 		///<param name="color">The color to use.</param>
-		///<param name="opacity">The opacity percentage.</param>
+		///<param name="alpha">The alpha percentage.</param>
 		///<exception cref="MagickException"/>
-		void Colorize(MagickColor^ color, Percentage opacity);
+		void Colorize(MagickColor^ color, Percentage alpha);
 		///==========================================================================================
 		///<summary>
-		/// Colorize image with the specified color, using specified percent opacity for red, green,
+		/// Colorize image with the specified color, using specified percent alpha for red, green,
 		/// and blue quantums
 		///</summary>
 		///<param name="color">The color to use.</param>
-		///<param name="opacityRed">The opacity percentage for red.</param>
-		///<param name="opacityGreen">The opacity percentage for green.</param>
-		///<param name="opacityBlue">The opacity percentage for blue.</param>
+		///<param name="alphaRed">The alpha percentage for red.</param>
+		///<param name="alphaGreen">The alpha percentage for green.</param>
+		///<param name="alphaBlue">The alpha percentage for blue.</param>
 		///<exception cref="MagickException"/>
-		void Colorize(MagickColor^ color, Percentage opacityRed, Percentage opacityGreen,
-			Percentage opacityBlue);
+		void Colorize(MagickColor^ color, Percentage alphaRed, Percentage alphaGreen,
+			Percentage alphaBlue);
 		///==========================================================================================
 		///<summary>
 		/// Sets the alpha channel to the specified color.
@@ -1536,6 +1777,17 @@ namespace ImageMagick
 		void Flip();
 		///==========================================================================================
 		///<summary>
+		/// Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
+		/// alpha value using method.
+		///</summary>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<param name="alpha">The alpha to use.</param>
+		///<param name="paintMethod">The paint method to use.</param>
+		///<exception cref="MagickException"/>
+		void FloodFillAlpha(int x, int y, int alpha, PaintMethod paintMethod);
+		///==========================================================================================
+		///<summary>
 		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
 		/// of the target pixel. Uses current fuzz setting when determining color match.
 		///</summary>
@@ -1574,27 +1826,6 @@ namespace ImageMagick
 		///<param name="borderColor">The color of the border.</param>
 		///<exception cref="MagickException"/>
 		void FloodFillColor(MagickGeometry^ geometry, MagickColor^ color, MagickColor^ borderColor);
-		///==========================================================================================
-		///<summary>
-		/// Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
-		/// opacity value using method.
-		///</summary>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
-		///<param name="opacity">The opacity to use.</param>
-		///<param name="paintMethod">The paint method to use.</param>
-		///<exception cref="MagickException"/>
-		void FloodFillOpacity(int x, int y, int opacity, PaintMethod paintMethod);
-		///==========================================================================================
-		///<summary>
-		/// Floodfill designated area with replacement opacity value.
-		///</summary>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
-		///<param name="color">The color to use.</param>
-		///<param name="paintMethod">The paint method to use.</param>
-		///<exception cref="MagickException"/>
-		void FloodFillMatte(int x, int y, MagickColor^ color, PaintMethod paintMethod);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -2282,8 +2513,8 @@ namespace ImageMagick
 		///<param name="x">the shadow x-offset.</param>
 		///<param name="y">the shadow y-offset.</param>
 		///<param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
-		///<param name="opacity">Transparency percentage.</param>
-		void Shadow(int x, int y, double sigma, Percentage opacity);
+		///<param name="alpha">Transparency percentage.</param>
+		void Shadow(int x, int y, double sigma, Percentage alpha);
 		///==========================================================================================
 		///<summary>
 		/// Simulate an image shadow.
@@ -2292,8 +2523,8 @@ namespace ImageMagick
 		///<param name="y">the shadow y-offset.</param>
 		///<param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
 		///<param name="color">The color of the shadow.</param>
-		///<param name="opacity">Transparency percentage.</param>
-		void Shadow(int x, int y, double sigma, MagickColor^ color, Percentage opacity);
+		///<param name="alpha">Transparency percentage.</param>
+		void Shadow(int x, int y, double sigma, MagickColor^ color, Percentage alpha);
 		///==========================================================================================
 		///<summary>
 		/// Sharpen pixels in image.
@@ -2373,6 +2604,11 @@ namespace ImageMagick
 		void SparseColor(Channels channels, SparseColorMethod method, array<double>^ coordinates);
 		///==========================================================================================
 		///<summary>
+		/// Returns image statistics.
+		///</summary>
+		MagickImageStatistics Statistics();
+		///==========================================================================================
+		///<summary>
 		/// Add a digital watermark to the image (based on second image)
 		///</summary>
 		///<param name="watermark">The image to use as a watermark.</param>
@@ -2397,6 +2633,18 @@ namespace ImageMagick
 		void Swirl(double degrees);
 		///==========================================================================================
 		///<summary>
+		/// Channel a texture on image background.
+		///</summary>
+		///<param name="image">The image to use as a texture on image background.</param>
+		void Texture(MagickImage^ image);
+		///==========================================================================================
+		///<summary>
+		/// Threshold image.
+		///</summary>
+		///<param name="value">The threshold value.</param>
+		void Threshold(double value);
+		///==========================================================================================
+		///<summary>
 		/// Converts this instance to a MagickBlob.
 		///</summary>
 		MagickBlob^ ToBlob();
@@ -2407,10 +2655,103 @@ namespace ImageMagick
 		virtual String^ ToString() override;
 		///==========================================================================================
 		///<summary>
+		/// Transform image based on image geometry.
+		///</summary>
+		///<param name="imageGeometry">The image geometry.</param>
+		void Transform(MagickGeometry^ imageGeometry);
+		///==========================================================================================
+		///<summary>
+		/// Transform image based on image geometry.
+		///</summary>
+		///<param name="imageGeometry">The image geometry.</param>
+		///<param name="cropGeometry">The crop geometry.</param>
+		void Transform(MagickGeometry^ imageGeometry, MagickGeometry^ cropGeometry);
+		///==========================================================================================
+		///<summary>
+		/// Origin of coordinate system to use when annotating with text or drawing.
+		///</summary>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		void TransformOrigin(double x, double y);
+		///==========================================================================================
+		///<summary>
+		/// Rotation to use when annotating with text or drawing.
+		///</summary>
+		///<param name="angle">The angle.</param>
+		void TransformRotation(double angle);
+		///==========================================================================================
+		///<summary>
+		/// Reset transformation parameters to default.
+		///</summary>
+		void TransformReset();
+		///==========================================================================================
+		///<summary>
+		/// Scale to use when annotating with text or drawing.
+		///</summary>
+		///<param name="scaleX">The X coordinate scaling element.</param>
+		///<param name="scaleY">The Y coordinate scaling element.</param>
+		void TransformScale(double scaleX, double scaleY);
+		///==========================================================================================
+		///<summary>
+		/// Skew to use in X axis when annotating with text or drawing.
+		///</summary>
+		///<param name="skewX">The X skew.</param>
+		void TransformSkewX(double skewX);
+		///==========================================================================================
+		///<summary>
+		/// Skew to use in Y axis when annotating with text or drawing.
+		///</summary>
+		///<param name="skewY">The Y skew.</param>
+		void TransformSkewY(double skewY);
+		///==========================================================================================
+		///<summary>
 		/// Add matte channel to image, setting pixels matching color to transparent.
 		///</summary>
 		///<param name="color">The color to make transparent.</param>
 		void Transparent(MagickColor^ color);
+		///==========================================================================================
+		///<summary>
+		/// Add matte image to image, for all the pixels that lies in between the given two colors.
+		///</summary>
+		void TransparentChroma(MagickColor^ colorLow, MagickColor^ colorHigh);
+		///==========================================================================================
+		///<summary>
+		/// Trim edges that are the background color from the image.
+		///</summary>
+		void Trim();
+		///==========================================================================================
+		///<summary>
+		/// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		///<param name="amount">The percentage of the difference between the original and the blur image
+		/// that is added back into the original.</param>
+		///<param name="threshold">The threshold in pixels needed to apply the diffence amount.</param>
+		void Unsharpmask(double radius, double sigma, double amount, double threshold);
+		///==========================================================================================
+		///<summary>
+		/// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
+		///</summary>
+		///<param name="channels">The channel(s) that should be sharpened.</param>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		///<param name="amount">The percentage of the difference between the original and the blur image
+		/// that is added back into the original.</param>
+		///<param name="threshold">The threshold in pixels needed to apply the diffence amount.</param>
+		void Unsharpmask(Channels channels, double radius, double sigma, double amount, double threshold);
+		///==========================================================================================
+		///<summary>
+		/// Map image pixels to a sine wave.
+		///</summary>
+		void Wave();
+		///==========================================================================================
+		///<summary>
+		/// Map image pixels to a sine wave.
+		///</summary>
+		///<param name="amplitude">The amplitude.</param>
+		///<param name="length">The length of the wave.</param>
+		void Wave(double amplitude, double length);
 		///==========================================================================================
 		///<summary>
 		/// Writes the image to the specified file name.
@@ -2425,6 +2766,29 @@ namespace ImageMagick
 		///<param name="stream">The stream to write the image data to.</param>
 		///<exception cref="MagickException"/>
 		void Write(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		// Zoom image to specified size.
+		///</summary>
+		///<param name="width">The new width.</param>
+		///<param name="height">The new height.</param>
+		///<exception cref="MagickException"/>
+		void Zoom(int width, int height);
+		///==========================================================================================
+		///<summary>
+		// Zoom image to specified size.
+		///</summary>
+		///<param name="percentage">The percentage.</param>
+		///<exception cref="MagickException"/>
+		void Zoom(Percentage percentage);
+		///==========================================================================================
+		///<summary>
+		/// Zoom image to specified size.
+		///</summary>
+		///<param name="percentageWidth">The percentage of the width.</param>
+		///<param name="percentageHeight">The percentage of the height.</param>
+		///<exception cref="MagickException"/>
+		void Zoom(Percentage percentageWidth, Percentage percentageHeight);
 		//===========================================================================================
 	};
 	//==============================================================================================

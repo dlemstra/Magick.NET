@@ -162,9 +162,12 @@
     <ClInclude Include="Enums\RenderingIntent.h" />
     <ClInclude Include="Enums\SparseColorMethod.h" />
     <ClInclude Include="Enums\TextDecoration.h" />
+    <ClInclude Include="Enums\VirtualPixelMethod.h" />
     <ClInclude Include="Exceptions\MagickErrorExceptions.h" />
     <ClInclude Include="Exceptions\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
+    <ClInclude Include="Helpers\ChannelStatistics.h" />
+    <ClInclude Include="MagickImageStatistics.h" />
     <ClInclude Include="Helpers\MagickErrorInfo.h" />
     <ClInclude Include="Drawables\Coordinate.h" />
     <ClInclude Include="Drawables\CoordinateCollection.h" />
@@ -268,6 +271,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Helpers\ChannelStatistics.cpp" />
+    <ClCompile Include="MagickImageStatistics.cpp" />
     <ClCompile Include="Helpers\MagickErrorInfo.cpp" />
     <ClCompile Include="Drawables\Coordinate.cpp" />
     <ClCompile Include="Drawables\DrawableArc.cpp" />

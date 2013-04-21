@@ -31,31 +31,77 @@ namespace ImageMagick
 	//==============================================================================================
 	String^ Marshaller::Marshal(const std::string& value)
 	{
-		return gcnew String(value.c_str());
+		if (value.empty())
+			return nullptr;
+		else
+			return gcnew String(value.c_str());
 	}
 	//==============================================================================================
-	Magick::Blob* Marshaller::Marshal(array<Byte>^ bytes)
+	Magick::Blob* Marshaller::Marshal(array<Byte>^ values)
 	{
-		if (bytes == nullptr || bytes->Length == 0)
+		if (values == nullptr || values->Length == 0)
 			return new Magick::Blob();
 
-		char* unmanagedValue = new char[bytes->Length];
-		Marshal::Copy(bytes, 0, IntPtr(unmanagedValue), bytes->Length);
-		return new Magick::Blob(unmanagedValue, bytes->Length);
+		char* unmanagedValue = new char[values->Length];
+		Marshal::Copy(values, 0, IntPtr(unmanagedValue), values->Length);
+		return new Magick::Blob(unmanagedValue, values->Length);
 	}
 	//==============================================================================================
-	double* Marshaller::Marshal(array<double>^ doubles)
+	double* Marshaller::Marshal(array<double>^ values)
 	{
-		if (doubles == nullptr || doubles->Length == 0)
+		if (values == nullptr || values->Length == 0)
 			return NULL;
 
-		double* unmanagedValue = new double[doubles->Length];
-		for (int i = 0; i < doubles->Length; i++)
+		double* unmanagedValue = new double[values->Length];
+		for(int i = 0; i < values->Length; i++)
 		{
-			unmanagedValue[i] = doubles[i];
+			unmanagedValue[i] = values[i];
 		}
 
 		return unmanagedValue;
+	}	
+	//==============================================================================================
+	double* Marshaller::MarshalAndTerminate(array<double>^ values)
+	{
+		if (values == nullptr || values->Length == 0)
+			return NULL;
+
+		int zeroIndex = Array::IndexOf(values, 0.0);
+		int length = zeroIndex == -1 ? values->Length + 1 : zeroIndex + 1;
+
+		double* unmanagedValue = new double[length];
+		for(int i = 0; i < length - 1; i++)
+		{
+			unmanagedValue[i] = values[i];
+		}
+		unmanagedValue[length - 1] = 0.0;
+
+		return unmanagedValue;
+	}
+	//==============================================================================================
+	array<double>^ Marshaller::Marshal(const double* values)
+	{
+		if (values == NULL)
+			return nullptr;
+
+		int length = 0;
+		const double* v = values;
+		while(*v != 0.0)
+		{
+			length++;
+			v++;
+		}
+
+		array<double>^ managedValue = gcnew array<double>(length);
+
+		int index = 0;
+		v = values;
+		while(*v != 0.0)
+		{
+			managedValue[index++] = *v++;
+		}
+
+		return managedValue;
 	}
 	//==============================================================================================
 }

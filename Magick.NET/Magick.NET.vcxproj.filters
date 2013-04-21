@@ -408,6 +408,15 @@
     <ClInclude Include="Enums\SparseColorMethod.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
+    <ClInclude Include="MagickImageStatistics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\ChannelStatistics.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\VirtualPixelMethod.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -661,6 +670,12 @@
     </ClCompile>
     <ClCompile Include="Exceptions\MagickWarningExceptions.cpp">
       <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="MagickImageStatistics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\ChannelStatistics.cpp">
+      <Filter>Source Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
