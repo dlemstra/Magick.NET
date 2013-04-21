@@ -36,11 +36,35 @@ namespace ImageMagick
 		ImageType _ImageType;
 		int _Width;
 		//===========================================================================================
-		MagickImageInfo();
-		//===========================================================================================
 		void Initialize(Magick::Image* image);
 		//===========================================================================================
 	public:
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImageInfo class.
+		///</summary>
+		MagickImageInfo() {};
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImageInfo class using the specified blob.
+		///</summary>
+		///<param name="blob">The blob to read the information from.</param>
+		///<exception cref="MagickException"/>
+		MagickImageInfo(MagickBlob^ blob);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImageInfo class using the specified filename.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<exception cref="MagickException"/>
+		MagickImageInfo(String^ fileName);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImageInfo class using the specified stream.
+		///</summary>
+		///<param name="stream">The stream to read the image data from.</param>
+		///<exception cref="MagickException"/>
+		MagickImageInfo(Stream^ stream);
 		///==========================================================================================
 		///<summary>
 		/// Color space of the image.
@@ -87,25 +111,25 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Returns basic information about an image.
+		/// Read basic information about an image.
 		///</summary>
 		///<param name="blob">The blob to read the information from.</param>
 		///<exception cref="MagickException"/>
-		static MagickImageInfo^ Read(MagickBlob^ blob);
+		void Read(MagickBlob^ blob);
 		///==========================================================================================
 		///<summary>
-		/// Returns basic information about an image.
+		/// Read basic information about an image.
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
 		///<exception cref="MagickException"/>
-		static MagickImageInfo^ Read(String^ fileName);
+		void Read(String^ fileName);
 		///==========================================================================================
 		///<summary>
-		/// Returns basic information about an image.
+		/// Read basic information about an image.
 		///</summary>
 		///<param name="stream">The stream to read the image data from.</param>
 		///<exception cref="MagickException"/>
-		static MagickImageInfo^ Read(Stream^ stream);
+		void Read(Stream^ stream);
 		//===========================================================================================
 	};
 	//==============================================================================================

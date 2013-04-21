@@ -17,10 +17,6 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickImageInfo::MagickImageInfo()
-	{
-	}
-	//==============================================================================================
 	void MagickImageInfo::Initialize(Magick::Image* image)
 	{
 		_ColorSpace = (ImageMagick::ColorSpace)image->colorSpace();
@@ -33,37 +29,43 @@ namespace ImageMagick
 			_ImageType = ImageMagick::ImageType::Unknown;
 	}
 	//==============================================================================================
-	MagickImageInfo^ MagickImageInfo::Read(MagickBlob^ blob)
+	MagickImageInfo::MagickImageInfo(MagickBlob^ blob)
 	{
-		MagickImageInfo^ info = gcnew MagickImageInfo();
+		Read(blob);
+	}
+	//==============================================================================================
+	MagickImageInfo::MagickImageInfo(String^ fileName)
+	{
+		Read(fileName);
+	}
+	//==============================================================================================
+	MagickImageInfo::MagickImageInfo(Stream^ stream)
+	{
+		Read(stream);
+	}
+	//==============================================================================================
+	void MagickImageInfo::Read(MagickBlob^ blob)
+	{
 		Magick::Image* image = new Magick::Image();
 		MagickReader::Read(image, blob, true);
-		info->Initialize(image);
+		Initialize(image);
 		delete image;
-
-		return info;
 	}
 	//==============================================================================================
-	MagickImageInfo^ MagickImageInfo::Read(String^ fileName)
+	void MagickImageInfo::Read(String^ fileName)
 	{
-		MagickImageInfo^ info = gcnew MagickImageInfo();
 		Magick::Image* image = new Magick::Image();
 		MagickReader::Read(image, fileName, true);
-		info->Initialize(image);
+		Initialize(image);
 		delete image;
-
-		return info;
 	}
 	//==============================================================================================
-	MagickImageInfo^ MagickImageInfo::Read(Stream^ stream)
+	void MagickImageInfo::Read(Stream^ stream)
 	{
-		MagickImageInfo^ info = gcnew MagickImageInfo();
 		Magick::Image* image = new Magick::Image();
 		MagickReader::Read(image, stream, true);
-		info->Initialize(image);
+		Initialize(image);
 		delete image;
-
-		return info;
 	}
 	//==============================================================================================
 }
