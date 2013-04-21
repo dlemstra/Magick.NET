@@ -13,8 +13,8 @@
 //=================================================================================================
 #pragma once
 
-#include "Exceptions\MagickException.h"
-#include "Helpers\MagickWrapper.h"
+#include "Base\MagickWrapper.h"
+#include "Exceptions\Base\MagickException.h"
 #include "Helpers\MagickWriter.h"
 
 using namespace System::IO;

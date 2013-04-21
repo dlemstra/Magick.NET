@@ -13,57 +13,75 @@
 //=================================================================================================
 #pragma once
 
-#include "Stdafx.h"
-
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Base class for Path objects.
+	/// Encapsulates a matrix of doubles.
 	///</summary>
-	public ref class PathBase abstract
+	public ref class MatrixDouble abstract
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		Magick::VPathBase* _Value;
-		//===========================================================================================
-		!PathBase()
-		{
-			if (_Value == NULL)
-				return;
-
-			delete _Value;
-			_Value = NULL;
-		}
+		int _Order;
+		array<double, 2>^ _Values;
 		//===========================================================================================
 	protected private:
 		//===========================================================================================
-		PathBase(){};
+		MatrixDouble();
 		//===========================================================================================
-		property Magick::VPathBase* BaseValue
-		{
-			void set(Magick::VPathBase* value)
-			{
-				_Value = value;
-			}
-		}
+		void Initialize(int order);
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		property Magick::VPathBase* InternalValue
+		static explicit operator double* (MatrixDouble^ matrix)
 		{
-			Magick::VPathBase* get()
+			double* matrixData = new double[matrix->_Order * matrix->_Order];
+
+			for(int x = 0; x < matrix->_Order; x++)
 			{
-				return _Value;
+				for(int y = 0; y < matrix->_Order; y++)
+				{
+					matrixData[(y * matrix->_Order) + x] = matrix->_Values[x, y];
+				}
 			}
+
+			return matrixData;
 		}
 		//===========================================================================================
 	public:
-		//===========================================================================================
-		~PathBase()
+		///==========================================================================================
+		///<summary>
+		/// Get or set the value at the specified x/y position.
+		///</summary>
+		property double default[int, int]
 		{
-			this->!PathBase();
+			double get(int x, int y)
+			{
+				if (x < 0 || x >= _Order || y < 0 || y >= _Order)
+					return 0.0;
+
+				return _Values[x, y];
+			}
+			void set(int x, int y, double value)
+			{
+				if (x < 0 || x >= _Order || y < 0 || y >= _Order)
+					return;
+
+				_Values[x, y] = value;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Returns the order of the matrix.
+		///</summary>
+		property int Order
+		{
+			int get()
+			{
+				return _Order;
+			}
 		}
 		//===========================================================================================
 	};

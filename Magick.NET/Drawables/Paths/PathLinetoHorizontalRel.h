@@ -13,26 +13,24 @@
 //=================================================================================================
 #pragma once
 
-#include "PathBase.h"
+#include "Base\PathWrapper.h"
 
 namespace ImageMagick
-{	
-	//==============================================================================================
-	template<typename TMagickObject>
-	public ref class PathWrapper abstract : PathBase
+{
+	///=============================================================================================
+	///<summary>
+	/// Encapsulation of the PathLinetoHorizontalRel object.
+	///</summary>
+	public ref class PathLinetoHorizontalRel sealed : PathWrapper<Magick::PathLinetoHorizontalRel>
 	{
 		//===========================================================================================
-	protected private:
-		//===========================================================================================
-		PathWrapper(){};
-		//===========================================================================================
-		property TMagickObject* Value
-		{
-			TMagickObject* get()
-			{
-				return (TMagickObject*)InternalValue;
-			}
-		}
+	public:
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the PathLinetoHorizontalRel class.
+		///</summary>
+		///<param name="x">The X coordinate.</param>
+		PathLinetoHorizontalRel(double x);
 		//===========================================================================================
 	};
 	//==============================================================================================

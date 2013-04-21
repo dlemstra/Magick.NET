@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "DrawableWrapper.h"
+#include "Base\DrawableWrapper.h"
 #include "..\Enums\FillRule.h"
 
 namespace ImageMagick

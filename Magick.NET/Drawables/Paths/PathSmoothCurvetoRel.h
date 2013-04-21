@@ -13,26 +13,30 @@
 //=================================================================================================
 #pragma once
 
-#include "DrawableBase.h"
+#include "Base\PathWrapper.h"
 
 namespace ImageMagick
-{	
-	//==============================================================================================
-	template<typename TMagickObject>
-	public ref class DrawableWrapper abstract : DrawableBase
+{
+	///=============================================================================================
+	///<summary>
+	/// Encapsulation of the PathSmoothCurvetoRel object.
+	///</summary>
+	public ref class PathSmoothCurvetoRel sealed : PathWrapper<Magick::PathSmoothCurvetoRel>
 	{
 		//===========================================================================================
-	protected private:
-		//===========================================================================================
-		DrawableWrapper(){};
-		//===========================================================================================
-		property TMagickObject* Value
-		{
-			TMagickObject* get()
-			{
-				return (TMagickObject*)InternalValue;
-			}
-		}
+	public:
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the PathSmoothCurvetoRel class.
+		///</summary>
+		///<param name="coordinate">The coordinate to use.</param>
+		PathSmoothCurvetoRel(Coordinate^ coordinate);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the PathSmoothCurvetoRel class.
+		///</summary>
+		///<param name="coordinates">The coordinates to use.</param>
+		PathSmoothCurvetoRel(IEnumerable<Coordinate^>^ coordinates);
 		//===========================================================================================
 	};
 	//==============================================================================================

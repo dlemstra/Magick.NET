@@ -13,18 +13,32 @@
 //=================================================================================================
 #pragma once
 
-#include "Coordinate.h"
-
-using namespace System::Collections::ObjectModel;
+#include "Args\PathCurvetoArgs.h"
+#include "Base\PathWrapper.h"
 
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Encapsulation of the CoordinateCollection object.
+	/// Encapsulation of the PathCurvetoAbs object.
 	///</summary>
-	public ref class CoordinateCollection sealed : Collection<Coordinate^>
+	public ref class PathCurvetoAbs sealed : PathWrapper<Magick::PathCurvetoAbs>
 	{
+		//===========================================================================================
+	public:
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the PathCurvetoAbs class.
+		///</summary>
+		///<param name="coordinate">The coordinate to use.</param>
+		PathCurvetoAbs(PathCurvetoArgs^ coordinate);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the PathCurvetoAbs class.
+		///</summary>
+		///<param name="coordinates">The coordinates to use.</param>
+		PathCurvetoAbs(IEnumerable<PathCurvetoArgs^>^ coordinates);
+		//===========================================================================================
 	};
 	//==============================================================================================
 }

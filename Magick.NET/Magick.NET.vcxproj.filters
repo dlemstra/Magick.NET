@@ -58,6 +58,45 @@
     <Filter Include="Source Files\Exceptions">
       <UniqueIdentifier>{48ae8406-88ef-4470-ad6f-665b9d12dfda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Base">
+      <UniqueIdentifier>{6bdbfb06-4722-4524-a73c-f002ccd7812e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Colors\Base">
+      <UniqueIdentifier>{fdab79b1-3c5e-4d1c-9cf2-6262b3954bb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Drawables\Base">
+      <UniqueIdentifier>{a10eeda1-313e-4e66-ae93-a689cc75ae15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Drawables\Paths\Base">
+      <UniqueIdentifier>{67350219-4274-4813-aa99-fb9a5ca404e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Exceptions\Base">
+      <UniqueIdentifier>{6d1ea093-263f-473a-929e-60f456215fe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Matrices\Base">
+      <UniqueIdentifier>{052e22fb-3141-430f-b5f2-b0fc6814e241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Pixels\Base">
+      <UniqueIdentifier>{a4710343-5b97-46db-8ce3-cf8bbce7914b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Colors\Base">
+      <UniqueIdentifier>{55e2d74b-cb41-43c8-8021-4a86ba96de06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Exceptions\Base">
+      <UniqueIdentifier>{bc6ec9cc-a345-44d2-904b-1dd1ec9f9940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Matrices\Base">
+      <UniqueIdentifier>{09505a19-a423-426f-894d-0aa48a703b69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Drawables\Paths\Args">
+      <UniqueIdentifier>{dc081b12-adf0-47d8-ba39-2048c9ead0f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Drawables\Paths\Args\Base">
+      <UniqueIdentifier>{35bd9d53-8d95-47ed-8c1a-368f8bbc5bbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drawables\Paths\Args">
+      <UniqueIdentifier>{a3c2eb86-d271-49cc-aaee-68cd3400ba08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
@@ -74,9 +113,6 @@
     </ClInclude>
     <ClInclude Include="MagickImageInfo.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Colors\ColorBase.h">
-      <Filter>Header Files\Colors</Filter>
     </ClInclude>
     <ClInclude Include="Colors\ColorCMYK.h">
       <Filter>Header Files\Colors</Filter>
@@ -120,9 +156,6 @@
     <ClInclude Include="Helpers\MagickReader.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers\MagickWrapper.h">
-      <Filter>Header Files\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="Helpers\MagickWriter.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
@@ -130,9 +163,6 @@
       <Filter>Header Files\Matrices</Filter>
     </ClInclude>
     <ClInclude Include="Matrices\MatrixConvolve.h">
-      <Filter>Header Files\Matrices</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrices\MatrixDouble.h">
       <Filter>Header Files\Matrices</Filter>
     </ClInclude>
     <ClInclude Include="Enums\NoiseType.h">
@@ -162,22 +192,10 @@
     <ClInclude Include="Drawables\Paths\PathArcAbs.h">
       <Filter>Header Files\Drawables\Paths</Filter>
     </ClInclude>
-    <ClInclude Include="Drawables\Paths\PathBase.h">
-      <Filter>Header Files\Drawables\Paths</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawables\Paths\PathWrapper.h">
-      <Filter>Header Files\Drawables\Paths</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawables\Coordinate.h">
-      <Filter>Header Files\Drawables</Filter>
-    </ClInclude>
     <ClInclude Include="Drawables\DrawableAffine.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
     <ClInclude Include="Drawables\DrawableArc.h">
-      <Filter>Header Files\Drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawables\DrawableBase.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
     <ClInclude Include="Drawables\DrawableBezier.h">
@@ -243,9 +261,6 @@
     <ClInclude Include="Drawables\DrawableTextAntialias.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
-    <ClInclude Include="Drawables\DrawableWrapper.h">
-      <Filter>Header Files\Drawables</Filter>
-    </ClInclude>
     <ClInclude Include="Drawables\DrawablePoint.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
@@ -268,9 +283,6 @@
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
     <ClInclude Include="Drawables\DrawablePushGraphicContext.h">
-      <Filter>Header Files\Drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawables\CoordinateCollection.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
     <ClInclude Include="MagickImageCollection.h">
@@ -333,9 +345,6 @@
     <ClInclude Include="Enums\TextDecoration.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Drawables\Paths\Stdafx.h">
-      <Filter>Header Files\Drawables\Paths</Filter>
-    </ClInclude>
     <ClInclude Include="MagickNET.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -346,9 +355,6 @@
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Pixels\Pixel.h">
-      <Filter>Header Files\Pixels</Filter>
-    </ClInclude>
-    <ClInclude Include="Pixels\PixelBaseCollection.h">
       <Filter>Header Files\Pixels</Filter>
     </ClInclude>
     <ClInclude Include="Pixels\PixelCollection.h">
@@ -396,9 +402,6 @@
     <ClInclude Include="Exceptions\MagickErrorExceptions.h">
       <Filter>Header Files\Exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="Exceptions\MagickException.h">
-      <Filter>Header Files\Exceptions</Filter>
-    </ClInclude>
     <ClInclude Include="Exceptions\MagickWarningExceptions.h">
       <Filter>Header Files\Exceptions</Filter>
     </ClInclude>
@@ -416,6 +419,102 @@
     </ClInclude>
     <ClInclude Include="Enums\VirtualPixelMethod.h">
       <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Helpers\Coordinate.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\MagickWrapper.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\Base\ColorBase.h">
+      <Filter>Header Files\Colors\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Base\DrawableWrapper.h">
+      <Filter>Header Files\Drawables\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Base\DrawableBase.h">
+      <Filter>Header Files\Drawables\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\Base\PathWrapper.h">
+      <Filter>Header Files\Drawables\Paths\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\Base\PathBase.h">
+      <Filter>Header Files\Drawables\Paths\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\Base\MagickException.h">
+      <Filter>Header Files\Exceptions\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrices\Base\MatrixDouble.h">
+      <Filter>Header Files\Matrices\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixels\Base\PixelBaseCollection.h">
+      <Filter>Header Files\Pixels\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathArcRel.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathClosePath.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathCurvetoAbs.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathCurvetoRel.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\Args\Base\PathArgsWrapper.h">
+      <Filter>Header Files\Drawables\Paths\Args\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\Args\PathArcArgs.h">
+      <Filter>Header Files\Drawables\Paths\Args</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\Args\PathCurvetoArgs.h">
+      <Filter>Header Files\Drawables\Paths\Args</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathLinetoAbs.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathLinetoHorizontalAbs.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathLinetoHorizontalRel.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathLinetoRel.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathLinetoVerticalAbs.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathLinetoVerticalRel.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathMovetoAbs.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathMovetoRel.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathQuadraticCurvetoAbs.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathQuadraticCurvetoRel.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathSmoothCurvetoAbs.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathSmoothCurvetoRel.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.h">
+      <Filter>Header Files\Drawables\Paths</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\Args\PathQuadraticCurvetoArgs.h">
+      <Filter>Header Files\Drawables\Paths\Args</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -436,9 +535,6 @@
     </ClCompile>
     <ClCompile Include="MagickImageInfo.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Colors\ColorBase.cpp">
-      <Filter>Source Files\Colors</Filter>
     </ClCompile>
     <ClCompile Include="Colors\ColorCMYK.cpp">
       <Filter>Source Files\Colors</Filter>
@@ -473,20 +569,11 @@
     <ClCompile Include="Matrices\MatrixConvolve.cpp">
       <Filter>Source Files\Matrices</Filter>
     </ClCompile>
-    <ClCompile Include="Matrices\MatrixDouble.cpp">
-      <Filter>Source Files\Matrices</Filter>
-    </ClCompile>
     <ClCompile Include="Helpers\Marshaller.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Helpers\Throw.cpp">
       <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawables\Paths\PathArcAbs.cpp">
-      <Filter>Source Files\Drawables\Paths</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawables\Coordinate.cpp">
-      <Filter>Source Files\Drawables</Filter>
     </ClCompile>
     <ClCompile Include="Drawables\DrawableAffine.cpp">
       <Filter>Source Files\Drawables</Filter>
@@ -641,9 +728,6 @@
     <ClCompile Include="Pixels\Pixel.cpp">
       <Filter>Source Files\Pixels</Filter>
     </ClCompile>
-    <ClCompile Include="Pixels\PixelBaseCollection.cpp">
-      <Filter>Source Files\Pixels</Filter>
-    </ClCompile>
     <ClCompile Include="Pixels\PixelCollection.cpp">
       <Filter>Source Files\Pixels</Filter>
     </ClCompile>
@@ -662,9 +746,6 @@
     <ClCompile Include="Colors\ColorProfile.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="Exceptions\MagickException.cpp">
-      <Filter>Source Files\Exceptions</Filter>
-    </ClCompile>
     <ClCompile Include="Exceptions\MagickErrorExceptions.cpp">
       <Filter>Source Files\Exceptions</Filter>
     </ClCompile>
@@ -676,6 +757,87 @@
     </ClCompile>
     <ClCompile Include="Helpers\ChannelStatistics.cpp">
       <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Helpers\Coordinate.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Pixels\Base\PixelBaseCollection.cpp">
+      <Filter>Source Files\Pixels</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\Base\ColorBase.cpp">
+      <Filter>Source Files\Colors\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Exceptions\Base\MagickException.cpp">
+      <Filter>Source Files\Exceptions\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrices\Base\MatrixDouble.cpp">
+      <Filter>Source Files\Matrices\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathArcAbs.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathArcRel.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathCurvetoAbs.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathCurvetoRel.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathClosePath.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathLinetoAbs.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathLinetoHorizontalAbs.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathLinetoHorizontalRel.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathLinetoRel.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathLinetoVerticalAbs.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathLinetoVerticalRel.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathMovetoAbs.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathMovetoRel.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathQuadraticCurvetoAbs.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathQuadraticCurvetoRel.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathSmoothCurvetoAbs.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathSmoothCurvetoRel.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.cpp">
+      <Filter>Source Files\Drawables\Paths</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\Args\PathCurvetoArgs.cpp">
+      <Filter>Source Files\Drawables\Paths\Args</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\Args\PathQuadraticCurvetoArgs.cpp">
+      <Filter>Source Files\Drawables\Paths\Args</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\Args\PathArcArgs.cpp">
+      <Filter>Source Files\Drawables\Paths\Args</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

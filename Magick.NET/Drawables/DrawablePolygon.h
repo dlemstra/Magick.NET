@@ -13,8 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "CoordinateCollection.h"
-#include "DrawableWrapper.h"
+#include "Base\DrawableWrapper.h"
 
 namespace ImageMagick
 {
@@ -31,7 +30,7 @@ namespace ImageMagick
 		/// Creates a new DrawablePolygon instance.
 		///</summary>
 		///<param name="coordinates">The coordinates.</param>
-		DrawablePolygon(CoordinateCollection^ coordinates);
+		DrawablePolygon(IEnumerable<Coordinate^>^ coordinates);
 		//===========================================================================================
 	};
 	//==============================================================================================

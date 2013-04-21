@@ -12,7 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 #pragma once
-#include "Pixel.h"
+#include "..\Pixel.h"
 
 using namespace System::Collections::Generic;
 

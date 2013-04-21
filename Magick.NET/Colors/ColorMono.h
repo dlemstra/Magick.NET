@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "ColorBase.h"
+#include "Base\ColorBase.h"
 
 namespace ImageMagick
 {

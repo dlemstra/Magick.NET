@@ -12,9 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 #pragma once
-#include "PixelBaseCollection.h"
 
-using namespace System::Collections::Generic;
+#include "Base\PixelBaseCollection.h"
 
 namespace ImageMagick
 {

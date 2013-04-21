@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "MatrixDouble.h"
+#include "Base\MatrixDouble.h"
 
 namespace ImageMagick
 {

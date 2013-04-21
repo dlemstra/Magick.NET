@@ -13,8 +13,8 @@
 //=================================================================================================
 #pragma once
 
-#include "DrawableWrapper.h"
-#include "Paths\PathBase.h"
+#include "Base\DrawableWrapper.h"
+#include "Paths\Base\PathBase.h"
 
 using namespace System::Collections::Generic;
 

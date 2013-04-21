@@ -12,7 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 #pragma once
-#include "Helpers\MagickWrapper.h"
+
+#include "Base\MagickWrapper.h"
 #include "Helpers\Percentage.h"
 
 using namespace System::Drawing;

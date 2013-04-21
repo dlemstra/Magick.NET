@@ -17,18 +17,9 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	DrawableBezier::DrawableBezier(CoordinateCollection^ coordinates)
+	DrawableBezier::DrawableBezier(IEnumerable<Coordinate^>^ coordinates)
 	{
-		Throw::IfNull("coordinates", coordinates);
-		Throw::IfFalse("coordinates", coordinates->Count >= 3, "Coordinates must contain at least 3 coordinates.");
-
-		Magick::CoordinateList magickCoordinates;
-		for(int i = 0; i < coordinates->Count; i++)
-		{
-			magickCoordinates.push_back(Magick::Coordinate(coordinates[i]->X, coordinates[i]->Y));
-		}
-
-		BaseValue = new Magick::DrawableBezier(magickCoordinates);
+		CreateBaseValue(coordinates);
 	}
 	//==============================================================================================
 }

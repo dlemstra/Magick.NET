@@ -12,8 +12,9 @@
 // limitations under the License.
 //=================================================================================================
 #pragma once
-#include "..\Exceptions\MagickException.h"
-#include "PixelBaseCollection.h"
+
+#include "..\Exceptions\Base\MagickException.h"
+#include "Base\PixelBaseCollection.h"
 
 using namespace System::Collections::Generic;
 

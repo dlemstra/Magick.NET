@@ -14,7 +14,7 @@
 #pragma once
 
 #include "..\MagickBlob.h"
-#include "..\Exceptions\MagickException.h"
+#include "..\Exceptions\Base\MagickException.h"
 
 using namespace System::IO;
 

@@ -12,7 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 #pragma once
-#include "MagickException.h"
+
+#include "Base\MagickException.h"
 
 namespace ImageMagick
 {

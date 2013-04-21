@@ -13,76 +13,52 @@
 //=================================================================================================
 #pragma once
 
+#include "..\MagickColor.h"
+
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Encapsulates a matrix of doubles.
+	/// Base class for colors
 	///</summary>
-	public ref class MatrixDouble abstract
+	public ref class ColorBase abstract
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		int _Order;
-		array<double, 2>^ _Values;
-		//===========================================================================================
-	internal:
-		//===========================================================================================
-		static explicit operator double* (MatrixDouble^ matrix)
-		{
-			double* matrixData = new double[matrix->_Order * matrix->_Order];
-
-			for(int x = 0; x < matrix->_Order; x++)
-			{
-				for(int y = 0; y < matrix->_Order; y++)
-				{
-					matrixData[(y * matrix->_Order) + x] = matrix->_Values[x, y];
-				}
-			}
-
-			return matrixData;
-		}
+		bool _HasAlpha;
+		MagickColor^ _Value;
 		//===========================================================================================
 	protected:
 		//===========================================================================================
-		MatrixDouble();
+		ColorBase(bool hasAlpha);
 		//===========================================================================================
-		void Initialize(int order);
+		ColorBase(bool hasAlpha, MagickColor^ color);
+		//===========================================================================================
+		property MagickColor^ Value
+		{
+			MagickColor^ get()
+			{
+				return _Value;
+			}
+		}
+		//===========================================================================================
+		virtual void UpdateValue();
 		//===========================================================================================
 	public:
-		///==========================================================================================
-		///<summary>
-		/// Get or set the value at the specified x/y position.
-		///</summary>
-		property double default[int, int]
+		//===========================================================================================
+		static operator MagickColor^ (ColorBase^ color)
 		{
-			double get(int x, int y)
-			{
-				if (x < 0 || x >= _Order || y < 0 || y >= _Order)
-					return 0.0;
+			if (color == nullptr)
+				return nullptr;
 
-				return _Values[x, y];
-			}
-			void set(int x, int y, double value)
-			{
-				if (x < 0 || x >= _Order || y < 0 || y >= _Order)
-					return;
-
-				_Values[x, y] = value;
-			}
+			return color->ToMagickColor();
 		}
 		///==========================================================================================
 		///<summary>
-		/// Returns the order of the matrix.
+		/// Converts the value of this instance to an equivalent MagickColor.
 		///</summary>
-		property int Order
-		{
-			int get()
-			{
-				return _Order;
-			}
-		}
+		MagickColor^ ToMagickColor();
 		//===========================================================================================
 	};
 	//==============================================================================================

@@ -13,52 +13,31 @@
 //=================================================================================================
 #pragma once
 
-#include "MagickColor.h"
+#include "Args\PathArcArgs.h"
+#include "Base\PathWrapper.h"
 
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Base class for colors
+	/// Encapsulation of the PathArcRel object.
 	///</summary>
-	public ref class ColorBase abstract
+	public ref class PathArcRel sealed : PathWrapper<Magick::PathArcRel>
 	{
 		//===========================================================================================
-	private:
-		//===========================================================================================
-		bool _HasAlpha;
-		MagickColor^ _Value;
-		//===========================================================================================
-	protected:
-		//===========================================================================================
-		ColorBase(bool hasAlpha);
-		//===========================================================================================
-		ColorBase(bool hasAlpha, MagickColor^ color);
-		//===========================================================================================
-		property MagickColor^ Value
-		{
-			MagickColor^ get()
-			{
-				return _Value;
-			}
-		}
-		//===========================================================================================
-		virtual void UpdateValue();
-		//===========================================================================================
 	public:
-		//===========================================================================================
-		static operator MagickColor^ (ColorBase^ color)
-		{
-			if (color == nullptr)
-				return nullptr;
-
-			return color->ToMagickColor();
-		}
 		///==========================================================================================
 		///<summary>
-		/// Converts the value of this instance to an equivalent MagickColor.
+		/// Initializes a new instance of the PathArcRel class.
 		///</summary>
-		MagickColor^ ToMagickColor();
+		///<param name="coordinate">The coordinate to use.</param>
+		PathArcRel(PathArcArgs^ coordinate);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the PathArcRel class.
+		///</summary>
+		///<param name="coordinates">The coordinates to use.</param>
+		PathArcRel(IEnumerable<PathArcArgs^>^ coordinates);
 		//===========================================================================================
 	};
 	//==============================================================================================

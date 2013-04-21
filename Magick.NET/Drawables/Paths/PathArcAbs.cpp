@@ -17,10 +17,14 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	PathArcAbs::PathArcAbs()
+	PathArcAbs::PathArcAbs(PathArcArgs^ coordinate)
 	{
-		BaseValue = NULL;
-		throw gcnew NotImplementedException();
+		CreateBaseValue(coordinate);
+	}
+	//==============================================================================================
+	PathArcAbs::PathArcAbs(IEnumerable<PathArcArgs^>^ coordinates)
+	{
+		CreateBaseValue<Magick::PathArcArgs, PathArcArgs>(coordinates);
 	}
 	//==============================================================================================
 }

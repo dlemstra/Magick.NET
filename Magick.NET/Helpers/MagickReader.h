@@ -15,7 +15,7 @@
 
 #include "..\Colors\ColorProfile.h"
 #include "..\Enums\ColorSpace.h"
-#include "..\Exceptions\MagickException.h"
+#include "..\Exceptions\Base\MagickException.h"
 #include "..\Exceptions\MagickWarningExceptions.h"
 #include "..\MagickImage.h"
 

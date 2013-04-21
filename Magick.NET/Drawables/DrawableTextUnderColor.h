@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "DrawableWrapper.h"
+#include "Base\DrawableWrapper.h"
 #include "..\Colors\MagickColor.h"
 
 using namespace System::Drawing;

@@ -13,9 +13,10 @@
 //=================================================================================================
 #pragma once
 
+#include "Base\MagickWrapper.h"
 #include "Colors\MagickColor.h"
 #include "Drawables\DrawableAffine.h"
-#include "Drawables\DrawableBase.h"
+#include "Drawables\Base\DrawableBase.h"
 #include "Enums\Channels.h"
 #include "Enums\ClassType.h"
 #include "Enums\ColorSpace.h"
@@ -36,10 +37,9 @@
 #include "Enums\RenderingIntent.h"
 #include "Enums\SparseColorMethod.h"
 #include "Enums\VirtualPixelMethod.h"
-#include "Exceptions\MagickException.h"
+#include "Exceptions\Base\MagickException.h"
 #include "Helpers\MagickErrorInfo.h"
 #include "Helpers\MagickReader.h"
-#include "Helpers\MagickWrapper.h"
 #include "Helpers\MagickWriter.h"
 #include "Helpers\Percentage.h"
 #include "Helpers\TypeMetric.h"
