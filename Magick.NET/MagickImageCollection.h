@@ -14,6 +14,7 @@
 #pragma once
 
 #include "MagickImage.h"
+#include "Enums\LayerMethod.h"
 #include "Helpers\MagickReader.h"
 
 using namespace System::Collections::Generic;
@@ -30,9 +31,7 @@ namespace ImageMagick
 	private:
 		//===========================================================================================
 		std::list<Magick::Image>* _Images;
-		String^ _ReadWarning;
-		//===========================================================================================
-		MagickImageCollection();
+		MagickWarningException^ _ReadWarning;
 		//===========================================================================================
 		!MagickImageCollection() 
 		{ 
@@ -88,8 +87,61 @@ namespace ImageMagick
 			virtual void Reset();
 			//========================================================================================
 		};
+	internal:
+		//===========================================================================================
+		void Merge(Magick::Image* mergedImage, LayerMethod layerMethod);
 		//===========================================================================================
 	public:
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class.
+		///</summary>
+		MagickImageCollection();
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImageCollection class using the specified blob.
+		///</summary>
+		///<param name="blob">The blob to read the image data from.</param>
+		///<exception cref="MagickException"/>
+		MagickImageCollection(MagickBlob^ blob);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImageCollection class using the specified blob.
+		///</summary>
+		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<exception cref="MagickException"/>
+		MagickImageCollection(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImageCollection class using the specified filename.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<exception cref="MagickException"/>
+		MagickImageCollection(String^ fileName);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImageCollection class using the specified filename
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<exception cref="MagickException"/>
+		MagickImageCollection(String^ fileName, ImageMagick::ColorSpace colorSpace);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImageCollection class using the specified stream.
+		///</summary>
+		///<param name="stream">The stream to read the image data from.</param>
+		///<exception cref="MagickException"/>
+		MagickImageCollection(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImageCollection class using the specified stream.
+		///</summary>
+		///<param name="stream">The stream to read the image data from.</param>
+		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<exception cref="MagickException"/>
+		MagickImageCollection(Stream^ stream, ImageMagick::ColorSpace colorSpace);
 		//===========================================================================================
 		~MagickImageCollection()
 		{
@@ -148,11 +200,11 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Returns the warning that occurred during the read operation.
+		/// Returns the warning that was raised during the read operation.
 		///</summary>
-		property String^ ReadWarning
+		property MagickWarningException^ ReadWarning
 		{
-			String^ get()
+			MagickWarningException^ get()
 			{
 				return _ReadWarning;
 			}
@@ -183,6 +235,14 @@ namespace ImageMagick
 		virtual void CopyTo(array<MagickImage^>^ destination, int arrayIndex);
 		///==========================================================================================
 		///<summary>
+		/// Merge this collection into a single image.
+		/// This is useful for combining Photoshop layers into a single image.
+		///</summary>
+		///<param name="layerMethod">The layer method to use.</param>
+		///<exception cref="MagickException"/>
+		MagickImage^ Merge(LayerMethod layerMethod);
+		///==========================================================================================
+		///<summary>
 		/// Returns an enumerator that can iterate through the collection.
 		///</summary>
 		virtual IEnumerator<MagickImage^>^ GetEnumerator();
@@ -208,17 +268,53 @@ namespace ImageMagick
 		///<summary>
 		/// Read all image frames.
 		///</summary>
-		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<param name="blob">The blob to read the image data from.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		static MagickImageCollection^ Read(String^ fileName);
+		MagickWarningException^ Read(MagickBlob^ blob);
+		///==========================================================================================
+		///<summary>
+		/// Read all image frames.
+		///</summary>
+		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ Read(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace);
+		///==========================================================================================
+		///<summary>
+		/// Read all image frames.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ Read(String^ fileName);
 		///==========================================================================================
 		///<summary>
 		/// Read all image frames.
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
 		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		static MagickImageCollection^ Read(String^ fileName, ColorSpace colorSpace);
+		MagickWarningException^ Read(String^ fileName, ImageMagick::ColorSpace colorSpace);
+		///==========================================================================================
+		///<summary>
+		/// Read all image frames.
+		///</summary>
+		///<param name="stream">The stream to read the image data from.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ Read(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Read all image frames.
+		///</summary>
+		///<param name="stream">The stream to read the image data from.</param>
+		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ Read(Stream^ stream, ImageMagick::ColorSpace colorSpace);
 		///==========================================================================================
 		///<summary>
 		/// Removes the first occurrence of the specified image from the collection.
@@ -231,6 +327,11 @@ namespace ImageMagick
 		///</summary>
 		///<param name="index">The index of the image to remove.</param>
 		virtual void RemoveAt(int index);
+		///==========================================================================================
+		///<summary>
+		/// Resets the page property of every image in the collection.
+		///</summary>
+		void RePage();
 		//===========================================================================================
 	};
 	//==============================================================================================

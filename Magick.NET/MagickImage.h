@@ -34,6 +34,7 @@
 #include "Enums\PaintMethod.h"
 #include "Enums\Resolution.h"
 #include "Enums\RenderingIntent.h"
+#include "Enums\SparseColorMethod.h"
 #include "Exceptions\MagickException.h"
 #include "Helpers\MagickErrorInfo.h"
 #include "Helpers\MagickReader.h"
@@ -62,10 +63,7 @@ namespace ImageMagick
 	private:
 		//===========================================================================================
 		static initonly MagickGeometry^ _DefaultFrameGeometry = gcnew MagickGeometry(25, 25, 6, 6);
-		//===========================================================================================
-		String^ _ReadWarning;
-		//===========================================================================================
-		MagickImage();
+		MagickWarningException^ _ReadWarning;
 		//===========================================================================================
 		String^ FormatedFileSize();
 		//===========================================================================================
@@ -78,7 +76,11 @@ namespace ImageMagick
 		void ReplaceImage(Magick::Image* image);
 		//===========================================================================================
 		void Resize(int width, int height, bool isPercentage);
-		//==========================================================================================
+		//===========================================================================================
+		void Sample(int width, int height, bool isPercentage);
+		//===========================================================================================
+		void Scale(int width, int height, bool isPercentage);
+		//===========================================================================================
 		void SetProfile(String^ name, MagickBlob^ blob);
 		//===========================================================================================
 	internal:
@@ -92,6 +94,11 @@ namespace ImageMagick
 	public:
 		///==========================================================================================
 		///<summary>
+		/// Initializes a new instance of the MagickImage class.
+		///</summary>
+		MagickImage();
+		///==========================================================================================
+		///<summary>
 		/// Initializes a new instance of the MagickImage class using the specified width, height
 		/// and color.
 		///</summary>
@@ -99,6 +106,78 @@ namespace ImageMagick
 		///<param name="height">The height.</param>
 		///<param name="color">The color to fill the image with.</param>
 		MagickImage(int width, int height, MagickColor^ color);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified blob.
+		///</summary>
+		///<param name="blob">The blob to read the image data from.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(MagickBlob^ blob);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified blob.
+		///</summary>
+		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified blob.
+		///</summary>
+		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="width">The width of the image.</param>
+		///<param name="height">The height of the image.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(MagickBlob^ blob, int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified filename.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(String^ fileName);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified filename
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(String^ fileName, ImageMagick::ColorSpace colorSpace);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified filename.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<param name="width">The width of the image.</param>
+		///<param name="height">The height of the image.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(String^ fileName, int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified stream.
+		///</summary>
+		///<param name="stream">The stream to read the image data from.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified stream.
+		///</summary>
+		///<param name="stream">The stream to read the image data from.</param>
+		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(Stream^ stream, ImageMagick::ColorSpace colorSpace);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified stream.
+		///</summary>
+		///<param name="stream">The stream to read the image data from.</param>
+		///<param name="width">The width of the image.</param>
+		///<param name="height">The height of the image.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(Stream^ stream, int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Join images into a single multi-image file.
@@ -760,11 +839,11 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Returns the warning that occurred during the read operation.
+		/// Returns the warning that was raised during the read operation.
 		///</summary>
-		property String^ ReadWarning
+		property MagickWarningException^ ReadWarning
 		{
-			String^ get()
+			MagickWarningException^ get()
 			{
 				return _ReadWarning;
 			}
@@ -921,10 +1000,10 @@ namespace ImageMagick
 		///<summary>
 		/// Add noise to the specified channel of the image with the specified noise type.
 		///</summary>
-		///<param name="noiseType">The type of noise that should be added to the image.</param>
 		///<param name="channels">The channel(s) where the noise should be added.</param>
+		///<param name="noiseType">The type of noise that should be added to the image.</param>
 		///<exception cref="MagickException"/>
-		void AddNoise(NoiseType noiseType, Channels channels);
+		void AddNoise(Channels channels, NoiseType noiseType);
 		///==========================================================================================
 		///<summary>
 		/// Add an ICC iCM profile to an image.
@@ -1050,11 +1129,11 @@ namespace ImageMagick
 		///<summary>
 		/// Blur image with specified blur factor and channel.
 		///</summary>
+		///<param name="channels">The channel(s) that should be blurred.</param>
 		///<param name="radius">The radius of the Gaussian in pixels, not counting the center pixel.</param>
 		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
-		///<param name="channels">The channel(s) that should be blurred.</param>
 		///<exception cref="MagickException"/>
-		void Blur(double radius, double sigma, Channels channels);
+		void Blur(Channels channels, double radius, double sigma);
 		///==========================================================================================
 		///<summary>
 		/// Border image (add border to image).
@@ -1616,10 +1695,10 @@ namespace ImageMagick
 		///<summary>
 		/// Applies a mathematical expression to the image.
 		///</summary>
+		///<param name="channels">The channel(s) to apply the expression to.</param>
 		///<param name="expression">The expression to apply.</param>
-		///<param name="channel">The channel(s) to apply the expression to.</param>
 		///<exception cref="MagickException"/>
-		void Fx(String^ expression, Channels channel);
+		void Fx(Channels channels, String^ expression);
 		///==========================================================================================
 		///<summary>
 		/// Gamma level of the image.
@@ -1654,11 +1733,11 @@ namespace ImageMagick
 		///<summary>
 		/// Gaussian blur image.
 		///</summary>
+		///<param name="channels">The channel(s) to blur.</param>
 		///<param name="width">The number of neighbor pixels to be included in the convolution.</param>
 		///<param name="sigma">The standard deviation of the gaussian bell curve.</param>
-		///<param name="channels">The channel(s) to blur.</param>
 		///<exception cref="MagickException"/>
-		void GaussianBlur(double width, double sigma, Channels channels);
+		void GaussianBlur(Channels channels, double width, double sigma);
 		///==========================================================================================
 		///<summary>
 		/// Servers as a hash of this type.
@@ -1759,11 +1838,11 @@ namespace ImageMagick
 		/// Adjust the levels of the image by scaling the colors falling between specified white and
 		/// black points to the full available quantum range. Uses a midpoint of 1.0.
 		///</summary>
+		///<param name="channels">The channel(s) to level.</param>
 		///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
 		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-		///<param name="channels">The channel(s) to level.</param>
 		///<exception cref="MagickException"/>
-		void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, Channels channels);
+		void Level(Channels channels, Magick::Quantum blackPoint, Magick::Quantum whitePoint);
 		///==========================================================================================
 		///<summary>
 		/// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -1779,12 +1858,12 @@ namespace ImageMagick
 		/// Adjust the levels of the image by scaling the colors falling between specified white and
 		/// black points to the full available quantum range.
 		///</summary>
+		///<param name="channels">The channel(s) to level.</param>
 		///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
 		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
 		///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
-		///<param name="channels">The channel(s) to level.</param>
 		///<exception cref="MagickException"/>
-		void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, Channels channels);
+		void Level(Channels channels, Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint);
 		///==========================================================================================
 		///<summary>
 		/// Lower image (lighten or darken the edges of an image to give a 3-D lowered effect).
@@ -1908,12 +1987,12 @@ namespace ImageMagick
 		///<summary>
 		/// Apply an arithmetic or bitwise operator to the image pixel quantums.
 		///</summary>
-		///<param name="geometry">The geometry to use.</param>
 		///<param name="channels">The channel(s) to apply the operator on.</param>
+		///<param name="geometry">The geometry to use.</param>
 		///<param name="evaluateOperator">The operator.</param>
 		///<param name="value">The value.</param>
 		///<exception cref="MagickException"/>
-		void QuantumOperator(MagickGeometry^ geometry, Channels channels, EvaluateOperator evaluateOperator, double value);
+		void QuantumOperator(Channels channels, MagickGeometry^ geometry, EvaluateOperator evaluateOperator, double value);
 		///==========================================================================================
 		///<summary>
 		/// Raise image (lighten or darken the edges of an image to give a 3-D raised effect).
@@ -1964,16 +2043,18 @@ namespace ImageMagick
 		/// Read single image frame.
 		///</summary>
 		///<param name="blob">The blob to read the image data from.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		static MagickImage^ Read(MagickBlob^ blob);
+		MagickWarningException^ Read(MagickBlob^ blob);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.
 		///</summary>
 		///<param name="blob">The blob to read the image data from.</param>
 		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		static MagickImage^ Read(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace);
+		MagickWarningException^ Read(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace);
 		///==========================================================================================
 		///<summary>
 		/// Read single vector image frame.
@@ -1981,23 +2062,26 @@ namespace ImageMagick
 		///<param name="blob">The blob to read the image data from.</param>
 		///<param name="width">The width of the image.</param>
 		///<param name="height">The height of the image.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		static MagickImage^ Read(MagickBlob^ blob, int width, int height);
+		MagickWarningException^ Read(MagickBlob^ blob, int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		static MagickImage^ Read(String^ fileName);
+		MagickWarningException^ Read(String^ fileName);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
 		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		static MagickImage^ Read(String^ fileName, ImageMagick::ColorSpace colorSpace);
+		MagickWarningException^ Read(String^ fileName, ImageMagick::ColorSpace colorSpace);
 		///==========================================================================================
 		///<summary>
 		/// Read single vector image frame.
@@ -2005,23 +2089,26 @@ namespace ImageMagick
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
 		///<param name="width">The width of the image.</param>
 		///<param name="height">The height of the image.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		static MagickImage^ Read(String^ fileName, int width, int height);
+		MagickWarningException^ Read(String^ fileName, int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.
 		///</summary>
 		///<param name="stream">The stream to read the image data from.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		static MagickImage^ Read(Stream^ stream);
+		MagickWarningException^ Read(Stream^ stream);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.
 		///</summary>
 		///<param name="stream">The stream to read the image data from.</param>
 		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		static MagickImage^ Read(Stream^ stream, ImageMagick::ColorSpace colorSpace);
+		MagickWarningException^ Read(Stream^ stream, ImageMagick::ColorSpace colorSpace);
 		///==========================================================================================
 		///<summary>
 		/// Read single vector image frame.
@@ -2029,8 +2116,9 @@ namespace ImageMagick
 		///<param name="stream">The stream to read the image data from.</param>
 		///<param name="width">The width of the image.</param>
 		///<param name="height">The height of the image.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		static MagickImage^ Read(Stream^ stream, int width, int height);
+		MagickWarningException^ Read(Stream^ stream, int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Reduce noise in image using a noise peak elimination filter.
@@ -2084,11 +2172,229 @@ namespace ImageMagick
 		void Roll(int xOffset, int yOffset);
 		///==========================================================================================
 		///<summary>
+		/// Rotate image counter-clockwise by specified number of degrees.
+		///</summary>
+		///<param name="degrees">The number of degrees to rotate.</param>
+		///<exception cref="MagickException"/>
+		void Rotate(double degrees);
+		///==========================================================================================
+		///<summary>
+		/// Resize image by using pixel sampling algorithm.
+		///</summary>
+		///<param name="width">The new width.</param>
+		///<param name="height">The new height.</param>
+		void Sample(int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Resize image by using pixel sampling algorithm to the specified percentage.
+		///</summary>
+		///<param name="percentage">The percentage.</param>
+		///<exception cref="MagickException"/>
+		void Sample(Percentage percentage);
+		///==========================================================================================
+		///<summary>
+		/// Resize image by using pixel sampling algorithm to the specified percentage.
+		///</summary>
+		///<param name="percentageWidth">The percentage of the width.</param>
+		///<param name="percentageHeight">The percentage of the height.</param>
+		///<exception cref="MagickException"/>
+		void Sample(Percentage percentageWidth, Percentage percentageHeight);
+		///==========================================================================================
+		///<summary>
+		/// Resize image by using simple ratio algorithm.
+		///</summary>
+		///<param name="width">The new width.</param>
+		///<param name="height">The new height.</param>
+		void Scale(int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Resize image by using simple ratio algorithm to the specified percentage.
+		///</summary>
+		///<param name="percentage">The percentage.</param>
+		///<exception cref="MagickException"/>
+		void Scale(Percentage percentage);
+		///==========================================================================================
+		///<summary>
+		/// Resize image by using simple ratio algorithm to the specified percentage.
+		///</summary>
+		///<param name="percentageWidth">The percentage of the width.</param>
+		///<param name="percentageHeight">The percentage of the height.</param>
+		///<exception cref="MagickException"/>
+		void Scale(Percentage percentageWidth, Percentage percentageHeight);
+		///==========================================================================================
+		///<summary>
+		/// Segment (coalesce similar image components) by analyzing the histograms of the color
+		/// components and identifying units that are homogeneous with the fuzzy c-means technique.
+		/// Also uses QuantizeColorSpace and Verbose image attributes.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Segment();
+		///==========================================================================================
+		///<summary>
+		/// Segment (coalesce similar image components) by analyzing the histograms of the color
+		/// components and identifying units that are homogeneous with the fuzzy c-means technique.
+		/// Also uses QuantizeColorSpace and Verbose image attributes.
+		///</summary>
+		///<param name="clusterThreshold">This represents the minimum number of pixels contained in
+		/// a hexahedra before it can be considered valid (expressed as a percentage).</param>
+		///<param name="smoothingThreshold">The smoothing threshold eliminates noise in the second
+		/// derivative of the histogram. As the value is increased, you can expect a smoother second
+		/// derivative</param>
+		///<exception cref="MagickException"/>
+		void Segment(double clusterThreshold, double smoothingThreshold);
+		///==========================================================================================
+		///<summary>
 		/// Separates a channel from the image and makes it a grayscale image.
 		///</summary>
 		///<param name="channels">The channel(s) to separates.</param>
 		///<exception cref="MagickException"/>
 		void Separate(Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Shade image using distant light source.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Shade();
+		///==========================================================================================
+		///<summary>
+		/// Shade image using distant light source.
+		///</summary>
+		///<param name="azimuth">The light source direction.</param>
+		///<param name="elevation">The light source direction.</param>
+		///<param name="colorShading">Specify true to shade the intensity of each pixel.</param>
+		///<exception cref="MagickException"/>
+		void Shade(double azimuth, double elevation, bool colorShading);
+		///==========================================================================================
+		///<summary>
+		/// Simulate an image shadow.
+		///</summary>
+		void Shadow();
+		///==========================================================================================
+		///<summary>
+		/// Simulate an image shadow.
+		///</summary>
+		///<param name="color">The color of the shadow.</param>
+		void Shadow(MagickColor^ color);
+		///==========================================================================================
+		///<summary>
+		/// Simulate an image shadow.
+		///</summary>
+		///<param name="x">the shadow x-offset.</param>
+		///<param name="y">the shadow y-offset.</param>
+		///<param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
+		///<param name="opacity">Transparency percentage.</param>
+		void Shadow(int x, int y, double sigma, Percentage opacity);
+		///==========================================================================================
+		///<summary>
+		/// Simulate an image shadow.
+		///</summary>
+		///<param name="x">the shadow x-offset.</param>
+		///<param name="y">the shadow y-offset.</param>
+		///<param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
+		///<param name="color">The color of the shadow.</param>
+		///<param name="opacity">Transparency percentage.</param>
+		void Shadow(int x, int y, double sigma, MagickColor^ color, Percentage opacity);
+		///==========================================================================================
+		///<summary>
+		/// Sharpen pixels in image.
+		///</summary>
+		void Sharpen();
+		///==========================================================================================
+		///<summary>
+		/// Sharpen pixels in image.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		void Sharpen(double radius, double sigma);
+		///==========================================================================================
+		///<summary>
+		/// Sharpen pixels in image.
+		///</summary>
+		///<param name="channels">The channel(s) that should be sharpened.</param>
+		void Sharpen(Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Sharpen pixels in image.
+		///</summary>
+		///<param name="channels">The channel(s) that should be sharpened.</param>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		void Sharpen(Channels channels, double radius, double sigma);
+		///==========================================================================================
+		///<summary>
+		/// Shave pixels from image edges.
+		///</summary>
+		///<param name="leftRight">The number of pixels to shave left and right.</param>
+		///<param name="topBottom">The number of pixels to shave top and bottom.</param>
+		void Shave(int leftRight, int topBottom);
+		///==========================================================================================
+		///<summary>
+		/// Shear image (create parallelogram by sliding image by X or Y axis).
+		///</summary>
+		///<param name="xAngle">Specifies the number of degrees to shear the image.</param>
+		///<param name="yAngle">Specifies the number of degrees to shear the image.</param>
+		void Shear(double xAngle, double yAngle);
+		///==========================================================================================
+		///<summary>
+		/// adjust the image contrast with a non-linear sigmoidal contrast algorithm
+		///</summary>
+		///<param name="sharpen">Specifies if sharpening should be used.</param>
+		///<param name="contrast">The contrast</param>
+		void SigmoidalContrast(bool sharpen, double contrast);
+		///==========================================================================================
+		///<summary>
+		/// adjust the image contrast with a non-linear sigmoidal contrast algorithm
+		///</summary>
+		///<param name="sharpen">Specifies if sharpening should be used.</param>
+		///<param name="contrast">The contrast to use.</param>
+		///<param name="midpoint">The midpoint to use.</param>
+		void SigmoidalContrast(bool sharpen, double contrast, double midpoint);
+		///==========================================================================================
+		///<summary>
+		/// Solarize image (similar to effect seen when exposing a photographic film to light during
+		/// the development process)
+		///</summary>
+		void Solarize();
+		///==========================================================================================
+		///<summary>
+		/// Solarize image (similar to effect seen when exposing a photographic film to light during
+		/// the development process)
+		///</summary>
+		///<param name="factor">The factor to use.</param>
+		void Solarize(double factor);
+		///==========================================================================================
+		///<summary>
+		/// Sparse color image, given a set of coordinates, interpolates the colors found at those
+		/// coordinates, across the whole image, using various methods.
+		///</summary>
+		///<param name="channels">The channel(s) to use.</param>
+		///<param name="method">The spare color method to use.</param>
+		///<param name="coordinates">The coordinates to use.</param>
+		void SparseColor(Channels channels, SparseColorMethod method, array<double>^ coordinates);
+		///==========================================================================================
+		///<summary>
+		/// Add a digital watermark to the image (based on second image)
+		///</summary>
+		///<param name="watermark">The image to use as a watermark.</param>
+		void Stegano(MagickImage^ watermark);
+		///==========================================================================================
+		///<summary>
+		/// Create an image which appears in stereo when viewed with red-blue glasses (Red image on
+		/// left, blue on right)
+		///</summary>
+		///<param name="rightImage">The image to use as the right part of the resulting image.</param>
+		void Stereo(MagickImage^ rightImage);
+		///==========================================================================================
+		///<summary>
+		/// Strips an image of all profiles and comments.
+		///</summary>
+		void Strip();
+		///==========================================================================================
+		///<summary>
+		/// Swirl image (image pixels are rotated by degrees).
+		///</summary>
+		///<param name="degrees">The number of degrees.</param>
+		void Swirl(double degrees);
 		///==========================================================================================
 		///<summary>
 		/// Converts this instance to a MagickBlob.

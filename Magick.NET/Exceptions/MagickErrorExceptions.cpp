@@ -17,8 +17,10 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickErrorException^ MagickErrorException::Create(const Magick::Exception& exception, String^ message)
+	MagickErrorException^ MagickErrorException::Create(const Magick::Error& exception)
 	{
+		String^ message = Marshaller::Marshal(exception.what());
+
 		if (typeid(exception) == typeid(Magick::ErrorBlob))
 			return gcnew MagickBlobErrorException(message);
 

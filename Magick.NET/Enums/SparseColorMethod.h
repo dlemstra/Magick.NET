@@ -11,33 +11,25 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
-#include "MagickException.h"
-#include "MagickErrorExceptions.h"
-#include "MagickWarningExceptions.h"
+#pragma once
+
+#include "Stdafx.h"
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	MagickException::MagickException(String^ message)
-		: Exception(message)
+	///=============================================================================================
+	///<summary>
+	/// The sparse color methods.
+	///</summary>
+	public enum class SparseColorMethod
 	{
-	}
-	//==============================================================================================
-	MagickException^ MagickException::Create(const Magick::Exception& exception)
-	{
-		const Magick::Error* error = dynamic_cast<const Magick::Error*>(&exception);
-
-		if (error != NULL)
-			return MagickErrorException::Create(*error);
-
-		const Magick::Warning* warning = dynamic_cast<const Magick::Warning*>(&exception);
-
-		if (warning != NULL)
-			return MagickWarningException::Create(*warning);
-
-		String^ message = Marshaller::Marshal(exception.what());
-		return gcnew MagickException(message);
-	}
+		Undefined = MagickCore::UndefinedColorInterpolate,
+		Barycentric = MagickCore::BarycentricColorInterpolate,
+		Bilinear = MagickCore::BilinearColorInterpolate,
+		Polynomial = MagickCore::PolynomialColorInterpolate,
+		Shepards = MagickCore::ShepardsColorInterpolate,
+		Voronoi = MagickCore::VoronoiColorInterpolate,
+		Inverse = MagickCore::InverseColorInterpolate
+	};
 	//==============================================================================================
 }

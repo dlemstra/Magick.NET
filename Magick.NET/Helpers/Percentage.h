@@ -31,7 +31,7 @@ namespace ImageMagick
 		static explicit operator Magick::Quantum(Percentage percentage)
 		{
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
-			return Convert::ToByte(percentage._Value);
+			return Convert::ToByte(percentage._Value * 100);
 #else if (MAGICKCORE_QUANTUM_DEPTH == 16)
 			return Convert::ToUInt16(percentage._Value * 100);
 #endif
@@ -63,7 +63,7 @@ namespace ImageMagick
 			return percentage.ToInt32();
 		}
 		//===========================================================================================
-		static explicit operator Percentage(double value)
+		static operator Percentage(double value)
 		{
 			return Percentage(value);
 		}

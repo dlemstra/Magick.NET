@@ -17,11 +17,6 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickImageCollection::MagickImageCollection()
-	{
-		_Images = new std::list<Magick::Image>();
-	}
-	//==============================================================================================
 	bool MagickImageCollection::MagickImageCollectionEnumerator::MoveNext()
 	{
 		if (_Index + 1 == (int)_Collection->_Images->size())
@@ -34,6 +29,59 @@ namespace ImageMagick
 	void MagickImageCollection::MagickImageCollectionEnumerator::Reset()
 	{
 		_Index = -1;
+	}
+	//==============================================================================================
+	void MagickImageCollection::Merge(Magick::Image* mergedImage, LayerMethod layerMethod)
+	{
+		try
+		{
+			Magick::mergeImages(mergedImage, (MagickCore::ImageLayerMethod)layerMethod, _Images->begin(), _Images->end());
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	MagickImageCollection::MagickImageCollection()
+	{
+		_Images = new std::list<Magick::Image>();
+	}
+	//==============================================================================================
+	MagickImageCollection::MagickImageCollection(MagickBlob^ blob)
+	{
+		_Images = new std::list<Magick::Image>();
+		this->Read(blob);
+	}
+	//==============================================================================================
+	MagickImageCollection::MagickImageCollection(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace)
+	{
+		_Images = new std::list<Magick::Image>();
+		this->Read(blob, colorSpace);
+	}
+	//==============================================================================================
+	MagickImageCollection::MagickImageCollection(String^ fileName)
+	{
+		_Images = new std::list<Magick::Image>();
+		this->Read(fileName);
+	}
+	//==============================================================================================
+	MagickImageCollection::MagickImageCollection(String^ fileName, ImageMagick::ColorSpace colorSpace)
+	{
+		_Images = new std::list<Magick::Image>();
+		this->Read(fileName, colorSpace);
+	}
+	//==============================================================================================
+	MagickImageCollection::MagickImageCollection(Stream^ stream)
+	{
+		_Images = new std::list<Magick::Image>();
+		this->Read(stream);
+	}
+	//==============================================================================================
+	MagickImageCollection::MagickImageCollection(Stream^ stream, ImageMagick::ColorSpace colorSpace)
+	{
+		_Images = new std::list<Magick::Image>();
+		this->Read(stream, colorSpace);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Add(MagickImage^ item)
@@ -102,18 +150,48 @@ namespace ImageMagick
 		_Images->insert(iter, *image->ReuseImage());
 	}
 	//==============================================================================================
-	MagickImageCollection^ MagickImageCollection::Read(String^ fileName)
+	MagickImage^ MagickImageCollection::Merge(LayerMethod layerMethod)
 	{
-		MagickImageCollection^ imageList = gcnew MagickImageCollection();
-		imageList->_ReadWarning = MagickReader::Read(imageList->_Images, fileName);
-		return imageList;
+		Magick::Image* mergedImage = new Magick::Image();
+		Merge(mergedImage, layerMethod);
+		return gcnew MagickImage(*mergedImage);
+	}
+	
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::Read(MagickBlob^ blob)
+	{
+		_ReadWarning = MagickReader::Read(_Images, blob);
+		return _ReadWarning;
 	}
 	//==============================================================================================
-	MagickImageCollection^ MagickImageCollection::Read(String^ fileName, ColorSpace colorSpace)
+	MagickWarningException^ MagickImageCollection::Read(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace)
 	{
-		MagickImageCollection^ imageList = gcnew MagickImageCollection();
-		imageList->_ReadWarning = MagickReader::Read(imageList->_Images, fileName, colorSpace);
-		return imageList;
+		_ReadWarning = MagickReader::Read(_Images, blob, colorSpace);
+		return _ReadWarning;
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::Read(String^ fileName)
+	{
+		_ReadWarning = MagickReader::Read(_Images, fileName);
+		return _ReadWarning;
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::Read(String^ fileName, ImageMagick::ColorSpace colorSpace)
+	{
+		_ReadWarning = MagickReader::Read(_Images, fileName, colorSpace);
+		return _ReadWarning;
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::Read(Stream^ stream)
+	{
+		_ReadWarning = MagickReader::Read(_Images, stream);
+		return _ReadWarning;
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::Read(Stream^ stream, ImageMagick::ColorSpace colorSpace)
+	{
+		_ReadWarning = MagickReader::Read(_Images, stream, colorSpace);
+		return _ReadWarning;
 	}
 	//==============================================================================================
 	bool MagickImageCollection::Remove(MagickImage^ item)
@@ -137,6 +215,14 @@ namespace ImageMagick
 		std::list<Magick::Image>::iterator iter = _Images->begin();
 		std::advance(iter, index);
 		_Images->erase(iter);
+	}
+	//==============================================================================================
+	void MagickImageCollection::RePage()
+	{
+		for (std::list<Magick::Image>::iterator iter = _Images->begin(), end = _Images->end(); iter != end; ++iter)
+		{
+			iter->page(Magick::Geometry(0,0));
+		}
 	}
 	//==============================================================================================
 }

@@ -390,9 +390,6 @@
     <ClInclude Include="Resources\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\Resolution.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Colors\ColorProfile.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
@@ -404,6 +401,12 @@
     </ClInclude>
     <ClInclude Include="Exceptions\MagickWarningExceptions.h">
       <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\Resolution.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\SparseColorMethod.h">
+      <Filter>Header Files\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

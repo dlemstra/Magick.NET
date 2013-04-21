@@ -160,6 +160,7 @@
     <ClInclude Include="Enums\EvaluateOperator.h" />
     <ClInclude Include="Enums\OrientationType.h" />
     <ClInclude Include="Enums\RenderingIntent.h" />
+    <ClInclude Include="Enums\SparseColorMethod.h" />
     <ClInclude Include="Enums\TextDecoration.h" />
     <ClInclude Include="Exceptions\MagickErrorExceptions.h" />
     <ClInclude Include="Exceptions\MagickException.h" />

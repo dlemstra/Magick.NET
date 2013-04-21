@@ -37,7 +37,7 @@ namespace ImageMagick
 	{
 		MagickImageInfo^ info = gcnew MagickImageInfo();
 		Magick::Image* image = new Magick::Image();
-		MagickReader::Read(image, true, blob);
+		MagickReader::Read(image, blob, true);
 		info->Initialize(image);
 		delete image;
 
@@ -48,7 +48,7 @@ namespace ImageMagick
 	{
 		MagickImageInfo^ info = gcnew MagickImageInfo();
 		Magick::Image* image = new Magick::Image();
-		MagickReader::Read(image, true, fileName);
+		MagickReader::Read(image, fileName, true);
 		info->Initialize(image);
 		delete image;
 
@@ -59,7 +59,7 @@ namespace ImageMagick
 	{
 		MagickImageInfo^ info = gcnew MagickImageInfo();
 		Magick::Image* image = new Magick::Image();
-		MagickReader::Read(image, true, stream);
+		MagickReader::Read(image, stream, true);
 		info->Initialize(image);
 		delete image;
 

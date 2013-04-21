@@ -17,11 +17,6 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	String^ MagickReader::GetReadWarning(Magick::Warning warning)
-	{
-		return Marshaller::Marshal(warning.what());
-	}
-	//==============================================================================================
 	void MagickReader::SetSize(Magick::Image* image, Nullable<int> width, Nullable<int> height)
 	{
 		if (!width.HasValue || !height.HasValue)
@@ -31,12 +26,10 @@ namespace ImageMagick
 		image->size(geometry);
 	}
 	//==============================================================================================
-	String^ MagickReader::Read(Magick::Image* image, bool ping, MagickBlob^ blob, Nullable<int> width,
-		Nullable<int> height, Nullable<ColorSpace> colorSpace)
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, bool ping, MagickBlob^ blob,
+		Nullable<int> width, Nullable<int> height, Nullable<ColorSpace> colorSpace)
 	{
 		Throw::IfNull("blob", blob);
-
-		String^ readWarning = nullptr;
 
 		try
 		{
@@ -53,24 +46,22 @@ namespace ImageMagick
 			if (colorSpace.HasValue)
 				SetColorSpace(image, colorSpace.Value);
 		}
-		catch (Magick::Warning exception)
+		catch (Magick::Warning& exception)
 		{
-			readWarning = GetReadWarning(exception);
+			return MagickWarningException::Create(exception);
 		}
 		catch (Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
 		}
 
-		return readWarning;
+		return nullptr;
 	}
 	//==============================================================================================
-	String^ MagickReader::Read(Magick::Image* image, bool ping, String^ fileName, Nullable<int> width,
-		Nullable<int> height, Nullable<ColorSpace> colorSpace)
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, bool ping, String^ fileName,
+		Nullable<int> width, Nullable<int> height, Nullable<ColorSpace> colorSpace)
 	{
 		Throw::IfInvalidFileName(fileName);
-
-		String^ readWarning = nullptr;
 
 		try
 		{
@@ -90,23 +81,81 @@ namespace ImageMagick
 			if (colorSpace.HasValue)
 				SetColorSpace(image, colorSpace.Value);
 		}
-		catch (Magick::Warning exception)
+		catch (Magick::Warning& exception)
 		{
-			readWarning = GetReadWarning(exception);
+			return MagickWarningException::Create(exception);
 		}
 		catch (Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
 		}
 
-		return readWarning;
+		return nullptr;
 	}
 	//==============================================================================================
-	String^ MagickReader::Read(Magick::Image* image, bool ping, Stream^ stream, Nullable<int> width,
-		Nullable<int> height, Nullable<ColorSpace> colorSpace)
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, bool ping, Stream^ stream,
+		Nullable<int> width, Nullable<int> height, Nullable<ColorSpace> colorSpace)
 	{
 		MagickBlob^ blob = MagickBlob::Read(stream);
 		return Read(image, ping, blob, width, height, colorSpace);
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, MagickBlob^ blob,
+		Nullable<ColorSpace> colorSpace)
+	{
+		Throw::IfNull("blob", blob);
+
+		try
+		{
+			Magick::readImages(imageList, blob);
+
+			if (colorSpace.HasValue)
+				SetColorSpace(imageList, colorSpace.Value);
+		}
+		catch (Magick::Warning& exception)
+		{
+			return MagickWarningException::Create(exception);
+		}
+		catch (Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+
+		return nullptr;
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, String^ fileName,
+		Nullable<ColorSpace> colorSpace)
+	{
+		Throw::IfInvalidFileName(fileName);
+
+		try
+		{
+			std::string imageSpec;
+			Marshaller::Marshal(fileName, imageSpec);
+
+			Magick::readImages(imageList, (std::string)imageSpec);
+
+			if (colorSpace.HasValue)
+				SetColorSpace(imageList, colorSpace.Value);
+		}
+		catch (Magick::Warning& exception)
+		{
+			return MagickWarningException::Create(exception);
+		}
+		catch (Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+
+		return nullptr;
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, Stream^ stream,
+		Nullable<ColorSpace> colorSpace)
+	{
+		MagickBlob^ blob = MagickBlob::Read(stream);
+		return Read(imageList, blob, colorSpace);
 	}
 	//==============================================================================================
 	void MagickReader::SetColorSpace(Magick::Image* image, ColorSpace colorSpace)
@@ -125,35 +174,6 @@ namespace ImageMagick
 		image->colorSpace((MagickCore::ColorspaceType)colorSpace);
 	}
 	//==============================================================================================
-	String^ MagickReader::Read(std::list<Magick::Image>* imageList, String^ fileName,
-		Nullable<ColorSpace> colorSpace)
-	{
-		Throw::IfInvalidFileName(fileName);
-
-		String^ readWarning = nullptr;
-
-		try
-		{
-			std::string imageSpec;
-			Marshaller::Marshal(fileName, imageSpec);
-
-			Magick::readImages(imageList, (std::string)imageSpec);
-
-			if (colorSpace.HasValue)
-				SetColorSpace(imageList, colorSpace.Value);
-		}
-		catch (Magick::Warning exception)
-		{
-			readWarning = GetReadWarning(exception);
-		}
-		catch (Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-
-		return readWarning;
-	}
-	//==============================================================================================
 	void MagickReader::SetColorSpace(std::list<Magick::Image>* imageList, ColorSpace colorSpace)
 	{
 		std::list<Magick::Image>::iterator iter;
@@ -164,59 +184,88 @@ namespace ImageMagick
 		}
 	}
 	//===========================================================================================
-	String^ MagickReader::Read(Magick::Image* image, bool ping, MagickBlob^ blob)
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, MagickBlob^ blob, bool ping)
 	{
 		return Read(image, ping, blob, Nullable<int>(), Nullable<int>(), Nullable<ColorSpace>());
 	}
 	//===========================================================================================
-	String^ MagickReader::Read(Magick::Image* image, bool ping, MagickBlob^ blob, ColorSpace colorSpace)
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, MagickBlob^ blob,
+		ColorSpace colorSpace, bool ping)
 	{
 		return Read(image, ping, blob, Nullable<int>(), Nullable<int>(), Nullable<ColorSpace>(colorSpace));
 	}
 	//===========================================================================================
-	String^ MagickReader::Read(Magick::Image* image, bool ping, String^ fileName)
-	{
-		return Read(image, ping, fileName, Nullable<int>(), Nullable<int>(), Nullable<ColorSpace>());
-	}
-	//===========================================================================================
-	String^ MagickReader::Read(Magick::Image* image, bool ping, String^ fileName, ColorSpace colorSpace)
-	{
-		return Read(image, ping, fileName, Nullable<int>(), Nullable<int>(), Nullable<ColorSpace>(colorSpace));
-	}
-	//===========================================================================================
-	String^ MagickReader::Read(Magick::Image* image, bool ping, Stream^ stream)
-	{
-		return Read(image, ping, stream, Nullable<int>(), Nullable<int>(), Nullable<ColorSpace>());
-	}
-	//===========================================================================================
-	String^ MagickReader::Read(Magick::Image* image, bool ping, Stream^ stream, ColorSpace colorSpace)
-	{
-		return Read(image, ping, stream, Nullable<int>(), Nullable<int>(), Nullable<ColorSpace>(colorSpace));
-	}
-	//===========================================================================================
-	String^ MagickReader::Read(Magick::Image* image, MagickBlob^ blob, int width, int height)
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, MagickBlob^ blob,
+		int width, int height)
 	{
 		return Read(image, false, blob, width, height, Nullable<ColorSpace>());
 	}
 	//===========================================================================================
-	String^ MagickReader::Read(Magick::Image* image, String^ fileName, int width, int height)
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, String^ fileName, bool ping)
+	{
+		return Read(image, ping, fileName, Nullable<int>(), Nullable<int>(), Nullable<ColorSpace>());
+	}
+	//===========================================================================================
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, String^ fileName,
+		ColorSpace colorSpace, bool ping)
+	{
+		return Read(image, ping, fileName, Nullable<int>(), Nullable<int>(), Nullable<ColorSpace>(colorSpace));
+	}
+	//===========================================================================================
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, String^ fileName,
+		int width, int height)
 	{
 		return Read(image, false, fileName, width, height, Nullable<ColorSpace>());
 	}
 	//===========================================================================================
-	String^ MagickReader::Read(Magick::Image* image, Stream^ stream, int width, int height)
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, Stream^ stream, bool ping)
+	{
+		return Read(image, ping, stream, Nullable<int>(), Nullable<int>(), Nullable<ColorSpace>());
+	}
+	//===========================================================================================
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, Stream^ stream,
+		ColorSpace colorSpace, bool ping)
+	{
+		return Read(image, ping, stream, Nullable<int>(), Nullable<int>(), Nullable<ColorSpace>(colorSpace));
+	}
+	//===========================================================================================
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, Stream^ stream,
+		int width, int height)
 	{
 		return Read(image, false, stream, width, height, Nullable<ColorSpace>());
 	}
+	//==============================================================================================
+	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, MagickBlob^ blob)
+	{
+		return Read(imageList, blob, Nullable<ColorSpace>());
+	}
 	//===========================================================================================
-	String^ MagickReader::Read(std::list<Magick::Image>* imageList, String^ fileName)
+	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, MagickBlob^ blob,
+		ColorSpace colorSpace)
+	{
+		return Read(imageList, blob,  Nullable<ColorSpace>(colorSpace));
+	}
+	//===========================================================================================
+	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, String^ fileName)
 	{
 		return Read(imageList, fileName, Nullable<ColorSpace>());
 	}
 	//===========================================================================================
-	String^ MagickReader::Read(std::list<Magick::Image>* imageList, String^ fileName, ColorSpace colorSpace)
+	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, String^ fileName,
+		ColorSpace colorSpace)
 	{
 		return Read(imageList, fileName, Nullable<ColorSpace>(colorSpace));
+	}
+	//===========================================================================================
+	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, Stream^ stream)
+	{
+		return Read(imageList, stream, Nullable<ColorSpace>());
+	}
+	//===========================================================================================
+	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, Stream^ stream,
+		ColorSpace colorSpace)
+	{
+		return Read(imageList, stream, Nullable<ColorSpace>(colorSpace));
 	}
 	//==============================================================================================
 }

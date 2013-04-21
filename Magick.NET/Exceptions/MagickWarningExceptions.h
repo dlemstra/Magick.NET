@@ -28,7 +28,7 @@ namespace ImageMagick
 		//===========================================================================================
 		MagickWarningException(String^ message) : MagickException(message) {};
 		//===========================================================================================
-		static MagickWarningException^ Create(const Magick::Exception& exception, String^ message);
+		static MagickWarningException^ Create(const Magick::Warning& exception);
 		//===========================================================================================
 	};
 	///=============================================================================================

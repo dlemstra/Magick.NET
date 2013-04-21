@@ -13,16 +13,12 @@
 //=================================================================================================
 #include "stdafx.h"
 #include "MagickImage.h"
+#include "MagickImageCollection.h"
 
 using namespace System::Globalization;
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	MagickImage::MagickImage()
-	{
-		Value = new Magick::Image();
-	}
 	//==============================================================================================
 	String^ MagickImage::FormatedFileSize()
 	{
@@ -124,6 +120,48 @@ namespace ImageMagick
 		{
 			throw MagickException::Create(exception);
 		}
+		finally
+		{
+			delete geometry;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Sample(int width, int height, bool isPercentage)
+	{
+		Magick::Geometry* geometry = new Magick::Geometry(width, height);
+		geometry->percent(isPercentage);
+
+		try
+		{
+			Value->sample(*geometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete geometry;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Scale(int width, int height, bool isPercentage)
+	{
+		Magick::Geometry* geometry = new Magick::Geometry(width, height);
+		geometry->percent(isPercentage);
+
+		try
+		{
+			Value->scale(*geometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete geometry;
+		}
 	}
 	//==============================================================================================
 	void MagickImage::SetProfile(String^ name, MagickBlob^ blob)
@@ -161,6 +199,11 @@ namespace ImageMagick
 			Value->signature() == image.signature();
 	}
 	//==============================================================================================
+	MagickImage::MagickImage()
+	{
+		Value = new Magick::Image();
+	}
+	//==============================================================================================
 	MagickImage::MagickImage(int width, int height, MagickColor^ color)
 	{
 		Throw::IfNull("color", color);
@@ -168,8 +211,63 @@ namespace ImageMagick
 		MagickGeometry^ geometry = gcnew	MagickGeometry(width, height);
 		Magick::Color* background = color->CreateColor();
 		Value = new Magick::Image(geometry, *background);
+		Value->backgroundColor(*background);
 		delete geometry;
 		delete background;
+	}
+	//==============================================================================================
+	MagickImage::MagickImage(MagickBlob^ blob)
+	{
+		Value = new Magick::Image();
+		this->Read(blob);
+	}
+	//==============================================================================================
+	MagickImage::MagickImage(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace)
+	{
+		Value = new Magick::Image();
+		this->Read(blob, colorSpace);
+	}
+	//==============================================================================================
+	MagickImage::MagickImage(MagickBlob^ blob, int width, int height)
+	{
+		Value = new Magick::Image();
+		this->Read(blob, width, height);
+	}
+	//==============================================================================================
+	MagickImage::MagickImage(String^ fileName)
+	{
+		Value = new Magick::Image();
+		this->Read(fileName);
+	}
+	//==============================================================================================
+	MagickImage::MagickImage(String^ fileName, ImageMagick::ColorSpace colorSpace)
+	{
+		Value = new Magick::Image();
+		this->Read(fileName, colorSpace);
+	}
+	//==============================================================================================
+	MagickImage::MagickImage(String^ fileName, int width, int height)
+	{
+		Value = new Magick::Image();
+		this->Read(fileName, width, height);
+	}
+	//==============================================================================================
+	MagickImage::MagickImage(Stream^ stream)
+	{
+		Value = new Magick::Image();
+		this->Read(stream);
+	}
+	//==============================================================================================
+	MagickImage::MagickImage(Stream^ stream, ImageMagick::ColorSpace colorSpace)
+	{
+		Value = new Magick::Image();
+		this->Read(stream, colorSpace);
+	}
+	//==============================================================================================
+	MagickImage::MagickImage(Stream^ stream, int width, int height)
+	{
+		Value = new Magick::Image();
+		this->Read(stream, width, height);
 	}
 	//==============================================================================================
 	void MagickImage::AdaptiveBlur()
@@ -218,7 +316,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::AddNoise(NoiseType noiseType, Channels channels)
+	void MagickImage::AddNoise(Channels channels, NoiseType noiseType)
 	{
 		try
 		{
@@ -410,7 +508,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Blur(Channels channels)
 	{
-		Blur(0.0, 1.0, channels);
+		Blur(channels, 0.0, 1.0);
 	}
 	//==============================================================================================
 	void MagickImage::Blur(double radius, double sigma)
@@ -425,7 +523,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Blur(double radius, double sigma, Channels channels)
+	void MagickImage::Blur(Channels channels, double radius, double sigma)
 	{
 		try
 		{
@@ -798,7 +896,7 @@ namespace ImageMagick
 	MagickImage^ MagickImage::Copy()
 	{
 		MagickBlob^ blob = this->ToBlob();
-		MagickImage^ image = Read(blob);
+		MagickImage^ image = gcnew MagickImage(blob);
 		delete blob;
 
 		return image;
@@ -1412,7 +1510,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Fx(String^ expression, Channels channels)
+	void MagickImage::Fx(Channels channels, String^ expression)
 	{
 		Throw::IfNullOrEmpty("expression", expression);
 
@@ -1469,7 +1567,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::GaussianBlur(double width, double sigma, Channels channels)
+	void MagickImage::GaussianBlur(Channels channels, double width, double sigma)
 	{
 		try
 		{
@@ -1594,9 +1692,9 @@ namespace ImageMagick
 		Level(blackPoint, whitePoint, 1.0);
 	}
 	//==============================================================================================
-	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, Channels channels)
+	void MagickImage::Level(Channels channels, Magick::Quantum blackPoint, Magick::Quantum whitePoint)
 	{
-		Level(blackPoint, whitePoint, 1.0, channels);
+		Level(channels, blackPoint, whitePoint, 1.0);
 	}
 	//==============================================================================================
 	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint)
@@ -1611,7 +1709,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, Channels channels)
+	void MagickImage::Level(Channels channels, Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint)
 	{
 		try
 		{
@@ -1790,7 +1888,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::QuantumOperator(MagickGeometry^ geometry, Channels channels, 
+	void MagickImage::QuantumOperator(Channels channels, MagickGeometry^ geometry,  
 		EvaluateOperator evaluateOperator, double value)
 	{
 		Throw::IfNull("geometry", geometry);
@@ -1833,67 +1931,58 @@ namespace ImageMagick
 		RandomThreshold(channels, (Magick::Quantum)low, (Magick::Quantum)high, true);
 	}
 	//==============================================================================================
-	MagickImage^ MagickImage::Read(MagickBlob^ blob)
+	MagickWarningException^ MagickImage::Read(MagickBlob^ blob)
 	{
-		MagickImage^ image = gcnew MagickImage();
-		image->_ReadWarning = MagickReader::Read(image->Value, false, blob);
-		return image;
+		_ReadWarning = MagickReader::Read(Value, blob, false);
+		return _ReadWarning;
 	}
 	//==============================================================================================
-	MagickImage^ MagickImage::Read(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace)
+	MagickWarningException^ MagickImage::Read(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace)
 	{
-		MagickImage^ image = gcnew MagickImage();
-		image->_ReadWarning = MagickReader::Read(image->Value, false, blob, colorSpace);
-		return image;
+		_ReadWarning = MagickReader::Read(Value, blob, colorSpace, false);
+		return _ReadWarning;
 	}
 	//==============================================================================================
-	MagickImage^ MagickImage::Read(MagickBlob^ blob, int width, int height)
+	MagickWarningException^ MagickImage::Read(MagickBlob^ blob, int width, int height)
 	{
-		MagickImage^ image = gcnew MagickImage();
-		image->_ReadWarning = MagickReader::Read(image->Value, blob, width, height);
-		return image;
+		_ReadWarning = MagickReader::Read(Value, blob, width, height);
+		return _ReadWarning;
 	}
 	//==============================================================================================
-	MagickImage^ MagickImage::Read(String^ fileName)
+	MagickWarningException^ MagickImage::Read(String^ fileName)
 	{
-		MagickImage^ image = gcnew MagickImage();
-		image->_ReadWarning = MagickReader::Read(image->Value, false, fileName);
-		return image;
+		_ReadWarning = MagickReader::Read(Value, fileName, false);
+		return _ReadWarning;
 	}
 	//==============================================================================================
-	MagickImage^ MagickImage::Read(String^ fileName, ImageMagick::ColorSpace colorSpace)
+	MagickWarningException^ MagickImage::Read(String^ fileName, ImageMagick::ColorSpace colorSpace)
 	{
-		MagickImage^ image = gcnew MagickImage();
-		image->_ReadWarning = MagickReader::Read(image->Value, false, fileName, colorSpace);
-		return image;
+		_ReadWarning = MagickReader::Read(Value, fileName, colorSpace, false);
+		return _ReadWarning;
 	}
 	//==============================================================================================
-	MagickImage^ MagickImage::Read(String^ fileName, int width, int height)
+	MagickWarningException^ MagickImage::Read(String^ fileName, int width, int height)
 	{
-		MagickImage^ image = gcnew MagickImage();
-		image->_ReadWarning = MagickReader::Read(image->Value, fileName, width, height);
-		return image;
+		_ReadWarning = MagickReader::Read(Value, fileName, width, height);
+		return _ReadWarning;
 	}
 	//==============================================================================================
-	MagickImage^ MagickImage::Read(Stream^ stream)
+	MagickWarningException^ MagickImage::Read(Stream^ stream)
 	{
-		MagickImage^ image = gcnew MagickImage();
-		image->_ReadWarning = MagickReader::Read(image->Value, false, stream);
-		return image;
+		_ReadWarning = MagickReader::Read(Value, stream, false);
+		return _ReadWarning;
 	}
 	//==============================================================================================
-	MagickImage^ MagickImage::Read(Stream^ stream, ImageMagick::ColorSpace colorSpace)
+	MagickWarningException^ MagickImage::Read(Stream^ stream, ImageMagick::ColorSpace colorSpace)
 	{
-		MagickImage^ image = gcnew MagickImage();
-		image->_ReadWarning = MagickReader::Read(image->Value, false, stream, colorSpace);
-		return image;;
+		_ReadWarning = MagickReader::Read(Value, stream, colorSpace, false);
+		return _ReadWarning;
 	}
 	//==============================================================================================
-	MagickImage^ MagickImage::Read(Stream^ stream, int width, int height)
+	MagickWarningException^ MagickImage::Read(Stream^ stream, int width, int height)
 	{
-		MagickImage^ image = gcnew MagickImage();
-		image->_ReadWarning = MagickReader::Read(image->Value, stream, width, height);
-		return image;
+		_ReadWarning = MagickReader::Read(Value, stream, width, height);
+		return _ReadWarning;
 	}
 	//==============================================================================================
 	void MagickImage::ReduceNoise()
@@ -1952,11 +2041,311 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Rotate(double degrees)
+	{
+		try
+		{
+			Value->rotate(degrees);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Sample(int width, int height)
+	{
+		Sample(width, height, false);
+	}
+	//==============================================================================================
+	void MagickImage::Sample(Percentage percentage)
+	{
+		Sample((int)percentage, (int)percentage, true);
+	}
+	//==============================================================================================
+	void MagickImage::Sample(Percentage percentageWidth, Percentage percentageHeight)
+	{
+		Sample((int)percentageWidth, (int)percentageHeight, true);
+	}
+	//==============================================================================================
+	void MagickImage::Scale(int width, int height)
+	{
+		Scale(width, height, false);
+	}
+	//==============================================================================================
+	void MagickImage::Scale(Percentage percentage)
+	{
+		Scale((int)percentage, (int)percentage, true);
+	}
+	//==============================================================================================
+	void MagickImage::Scale(Percentage percentageWidth, Percentage percentageHeight)
+	{
+		Scale((int)percentageWidth, (int)percentageHeight, true);
+	}
+	//==============================================================================================
+	void MagickImage::Segment()
+	{
+		Segment(1.0, 1.5);
+	}
+	//==============================================================================================
+	void MagickImage::Segment(double clusterThreshold, double smoothingThreshold)
+	{
+		try
+		{
+			Value->segment(clusterThreshold, smoothingThreshold);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Separate(Channels channels)
 	{
 		try
 		{
 			Value->channel((MagickCore::ChannelType)channels);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Shade()
+	{
+		Shade(30, 30, false);
+	}
+	//==============================================================================================
+	void MagickImage::Shade(double azimuth, double elevation, bool colorShading)
+	{
+		try
+		{
+			Value->shade(azimuth, elevation, colorShading);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Shadow()
+	{
+		return Shadow(5, 5, 0.5, 0.8);
+	}
+	//==============================================================================================
+	void MagickImage::Shadow(MagickColor^ color)
+	{
+		return Shadow(5, 5, 0.5, color, 0.8);
+	}
+	///=============================================================================================
+	void MagickImage::Shadow(int x, int y, double sigma, Percentage opacity)
+	{
+		try
+		{
+			Value->shadow((double)opacity * 100, sigma, x, y);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	///=============================================================================================
+	void MagickImage::Shadow(int x, int y, double sigma, MagickColor^ color, Percentage opacity)
+	{
+		Throw::IfNull("color", color);
+
+		MagickImage^ copy = Copy();
+		MagickImageCollection^ images = gcnew MagickImageCollection();
+		Magick::Color* backgroundColor = color->CreateColor();
+
+		try
+		{
+			copy->Value->backgroundColor(*backgroundColor);
+			copy->Value->shadow((double)opacity * 100, sigma, x, y);
+			copy->Value->backgroundColor(Magick::Color());
+
+			images->Add(copy);
+			images->Add(this);
+			images->Merge(Value, LayerMethod::Merge);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete copy;
+			delete images;
+			delete backgroundColor;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Sharpen()
+	{
+		Sharpen(0.0, 1.0);
+	}
+	//==============================================================================================
+	void MagickImage::Sharpen(double radius, double sigma)
+	{
+		try
+		{
+			Value->sharpen(radius, sigma);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Sharpen(Channels channels)
+	{
+		Sharpen(channels, 0.0, 1.0);
+	}
+	//==============================================================================================
+	void MagickImage::Sharpen(Channels channels, double radius, double sigma)
+	{
+		try
+		{
+			Value->sharpenChannel((MagickCore::ChannelType)channels, radius, sigma);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Shave(int leftRight, int topBottom)
+	{
+		Magick::Geometry* geometry = new Magick::Geometry(leftRight, topBottom);
+
+		try
+		{
+			Value->shave(*geometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete geometry;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Shear(double xAngle, double yAngle)
+	{
+		try
+		{
+			Value->shear(xAngle, yAngle);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::SigmoidalContrast(bool sharpen, double contrast)
+	{
+		SigmoidalContrast(sharpen, contrast, MaxMap / 2.0);
+	}
+	//==============================================================================================
+	void MagickImage::SigmoidalContrast(bool sharpen, double contrast, double midpoint)
+	{
+		try
+		{
+			Value->sigmoidalContrast(sharpen ? 1 : 0, contrast, midpoint);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Solarize()
+	{
+		Solarize(50.0);
+	}
+	//==============================================================================================
+	void MagickImage::Solarize(double factor)
+	{
+		try
+		{
+			Value->solarize(factor);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::SparseColor(Channels channels, SparseColorMethod method, array<double>^ coordinates)
+	{
+		Throw::IfNull("coordinates", coordinates);
+
+		double* arguments = Marshaller::Marshal(coordinates);
+
+		try
+		{
+
+			Value->sparseColor((MagickCore::ChannelType)channels, (MagickCore::SparseColorMethod)method,
+				coordinates->Length, arguments);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete arguments;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Stegano(MagickImage^ watermark)
+	{
+		Throw::IfNull("watermark", watermark);
+
+		try
+		{
+			Value->stegano(*watermark->Value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Stereo(MagickImage^ rightImage)
+	{
+		Throw::IfNull("rightImage", rightImage);
+
+		try
+		{
+			Value->stereo(*rightImage->Value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Strip()
+	{
+		try
+		{
+			Value->strip();
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Swirl(double degrees)
+	{
+		try
+		{
+			Value->swirl(degrees);
 		}
 		catch(Magick::Exception& exception)
 		{
