@@ -22,7 +22,11 @@ using namespace System::Security::Permissions;
 //=================================================================================================
 [assembly:AssemblyTitle("Magick.NET")];
 [assembly:AssemblyProduct("ImageMagick")];
-[assembly:AssemblyDescription(".NET wrapper for ImageMagick")];
+#if (MAGICKCORE_QUANTUM_DEPTH == 8)
+[assembly:AssemblyDescription(".NET wrapper for ImageMagick-Q8")];
+#else if (MAGICKCORE_QUANTUM_DEPTH == 16)
+[assembly:AssemblyDescription(".NET wrapper for ImageMagick-Q16")];
+#endif
 [assembly:AssemblyCompany("")];
 [assembly:AssemblyCopyright("Copyright © Dirk Lemstra 2013")];
 [assembly:AssemblyTrademark("")];

@@ -44,5 +44,6 @@
 \Magick.NET\ReleaseQ8
 \Magick.NET\Output\ReleaseQ16
 \Magick.NET\Output\ReleaseQ8
-\Magick.NET\Resources\Magick.NET.aps
+\Magick.NET\Resources\ReleaseQ8\Magick.NET.aps
+\Magick.NET\Resources\ReleaseQ16\Magick.NET.aps
 \ImageMagick\Source

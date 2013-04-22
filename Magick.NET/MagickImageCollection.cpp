@@ -35,7 +35,18 @@ namespace ImageMagick
 	{
 		try
 		{
-			Magick::mergeImages(mergedImage, (MagickCore::ImageLayerMethod)layerMethod, _Images->begin(), _Images->end());
+			std::list<Magick::Image>::iterator first = _Images->begin();
+			std::list<Magick::Image>::iterator last = _Images->end();
+
+			MagickCore::ExceptionInfo exceptionInfo;
+			MagickCore::GetExceptionInfo(&exceptionInfo);
+			Magick::linkImages(first, last);
+			MagickCore::Image* image = MagickCore::MergeImageLayers(first->image(),
+				(MagickCore::ImageLayerMethod)layerMethod, &exceptionInfo);
+			Magick::unlinkImages(first, last);
+			mergedImage->replaceImage( image );
+			Magick::throwException(exceptionInfo);
+			(void)MagickCore::DestroyExceptionInfo(&exceptionInfo);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -156,7 +167,7 @@ namespace ImageMagick
 		Merge(mergedImage, layerMethod);
 		return gcnew MagickImage(*mergedImage);
 	}
-	
+
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(MagickBlob^ blob)
 	{

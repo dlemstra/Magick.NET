@@ -2340,24 +2340,6 @@ namespace Magick
     (void) MagickCore::DestroyExceptionInfo( &exceptionInfo );
   }
 
-  // Merge a sequence of image frames which represent image layers.
-  // This is useful for combining Photoshop layers into a single image.
-  template <class InputIterator>
-  void mergeImages( Image *mergedImage_,
-          ImageLayerMethod layerMethod_,
-          InputIterator first_,
-          InputIterator last_ ) {
-    MagickCore::ExceptionInfo exceptionInfo;
-    MagickCore::GetExceptionInfo( &exceptionInfo );
-    linkImages( first_, last_ );
-    MagickCore::Image* image = MagickCore::MergeImageLayers( first_->image(),
-      layerMethod_ ,&exceptionInfo );
-    unlinkImages( first_, last_ );
-    mergedImage_->replaceImage( image );
-    throwException( exceptionInfo );
-    (void) MagickCore::DestroyExceptionInfo( &exceptionInfo );
-  }
-
   // Create a composite image by combining several separate images.
   template <class Container, class InputIterator>
   void montageImages( Container *montageImages_,
