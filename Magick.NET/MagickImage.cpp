@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "stdafx.h"
 #include "MagickImage.h"
+#include "Helpers\FileHelper.h"
 #include "MagickImageCollection.h"
 
 using namespace System::Globalization;
@@ -579,9 +580,10 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::CDL(String^ fileName)
 	{
-		Throw::IfInvalidFileName(fileName);
+		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
+		Throw::IfInvalidFileName(filePath);
 
-		String^ cdlData = File::ReadAllText(fileName);
+		String^ cdlData = File::ReadAllText(filePath);
 
 		std::string cdl;
 		Marshaller::Marshal(cdlData, cdl);

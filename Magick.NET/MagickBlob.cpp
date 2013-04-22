@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "stdafx.h"
 #include "MagickBlob.h"
+#include "Helpers\FileHelper.h"
 
 using namespace System::IO;
 
@@ -49,9 +50,10 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickBlob^ MagickBlob::Read(String^ fileName)
 	{
-		Throw::IfInvalidFileName(fileName);
+		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
+		Throw::IfInvalidFileName(filePath);
 
-		FileStream^ stream = File::OpenRead(fileName);
+		FileStream^ stream = File::OpenRead(filePath);
 		MagickBlob^ blob = gcnew MagickBlob();
 		blob->Initialize(stream);
 		delete stream;
@@ -69,8 +71,9 @@ namespace ImageMagick
 	void MagickBlob::Write(String^ fileName)
 	{
 		Throw::IfNullOrEmpty("fileName", fileName);
+		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
 
-		FileStream^ stream = File::OpenWrite(fileName);
+		FileStream^ stream = File::OpenWrite(filePath);
 		Write(stream);
 		stream->Close();
 	}

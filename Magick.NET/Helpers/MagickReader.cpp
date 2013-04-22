@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "stdafx.h"
 #include "MagickReader.h"
+#include "FileHelper.h"
 
 namespace ImageMagick
 {
@@ -61,12 +62,13 @@ namespace ImageMagick
 	MagickWarningException^ MagickReader::Read(Magick::Image* image, bool ping, String^ fileName,
 		Nullable<int> width, Nullable<int> height, Nullable<ColorSpace> colorSpace)
 	{
-		Throw::IfInvalidFileName(fileName);
+		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
+		Throw::IfInvalidFileName(filePath);
 
 		try
 		{
 			std::string imageSpec;
-			Marshaller::Marshal(fileName, imageSpec);
+			Marshaller::Marshal(filePath, imageSpec);
 
 			if (ping)
 			{
@@ -127,12 +129,13 @@ namespace ImageMagick
 	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, String^ fileName,
 		Nullable<ColorSpace> colorSpace)
 	{
-		Throw::IfInvalidFileName(fileName);
+		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
+		Throw::IfInvalidFileName(filePath);
 
 		try
 		{
 			std::string imageSpec;
-			Marshaller::Marshal(fileName, imageSpec);
+			Marshaller::Marshal(filePath, imageSpec);
 
 			Magick::readImages(imageList, (std::string)imageSpec);
 

@@ -396,9 +396,6 @@
     <ClInclude Include="Resources\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Colors\ColorProfile.h">
-      <Filter>Header Files\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="Exceptions\MagickErrorExceptions.h">
       <Filter>Header Files\Exceptions</Filter>
     </ClInclude>
@@ -515,6 +512,12 @@
     </ClInclude>
     <ClInclude Include="Drawables\Paths\Args\PathQuadraticCurvetoArgs.h">
       <Filter>Header Files\Drawables\Paths\Args</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\ColorProfile.h">
+      <Filter>Header Files\Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\FileHelper.h">
+      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -743,9 +746,6 @@
     <ClCompile Include="Helpers\Percentage.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="Colors\ColorProfile.cpp">
-      <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
     <ClCompile Include="Exceptions\MagickErrorExceptions.cpp">
       <Filter>Source Files\Exceptions</Filter>
     </ClCompile>
@@ -838,6 +838,12 @@
     </ClCompile>
     <ClCompile Include="Drawables\Paths\Args\PathArcArgs.cpp">
       <Filter>Source Files\Drawables\Paths\Args</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\ColorProfile.cpp">
+      <Filter>Source Files\Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\FileHelper.cpp">
+      <Filter>Source Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

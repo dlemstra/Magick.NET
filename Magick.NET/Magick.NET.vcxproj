@@ -188,6 +188,7 @@
     <ClInclude Include="Exceptions\MagickErrorExceptions.h" />
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
+    <ClInclude Include="Helpers\FileHelper.h" />
     <ClInclude Include="Helpers\ChannelStatistics.h" />
     <ClInclude Include="MagickImageStatistics.h" />
     <ClInclude Include="Helpers\MagickErrorInfo.h" />
@@ -307,6 +308,7 @@
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.cpp" />
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.cpp" />
     <ClCompile Include="Exceptions\Base\MagickException.cpp" />
+    <ClCompile Include="Helpers\FileHelper.cpp" />
     <ClCompile Include="GlobalSuppressions.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
       </PrecompiledHeader>

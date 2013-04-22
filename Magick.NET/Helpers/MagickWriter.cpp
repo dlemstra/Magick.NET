@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "stdafx.h"
 #include "MagickWriter.h"
+#include "FileHelper.h"
 
 using namespace System::Runtime::InteropServices;
 
@@ -57,9 +58,10 @@ namespace ImageMagick
 	void MagickWriter::Write(Magick::Image* image, String^ fileName)
 	{
 		Throw::IfNullOrEmpty("fileName", fileName);
+		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
 
 		std::string imageSpec;
-		Marshaller::Marshal(fileName, imageSpec);
+		Marshaller::Marshal(filePath, imageSpec);
 
 		try
 		{
