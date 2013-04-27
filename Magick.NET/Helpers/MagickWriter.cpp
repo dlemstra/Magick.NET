@@ -20,10 +20,8 @@ using namespace System::Runtime::InteropServices;
 namespace ImageMagick
 {
 	//==============================================================================================
-	void MagickWriter::Write(Magick::Blob* blob, Stream^ stream)
+	void MagickWriter::WriteUnchecked(Magick::Blob* blob, Stream^ stream)
 	{
-		Throw::IfNull("stream", stream);
-
 		int length = (int)blob->length();
 		int bufferSize = Math::Min(length, 8192);
 		array<Byte>^ buffer = gcnew array<Byte>(bufferSize);
@@ -41,6 +39,31 @@ namespace ImageMagick
 			offset += bufferSize;
 			ptr += count;
 		}
+	}
+	//==============================================================================================
+	void MagickWriter::Write(Magick::Blob* blob, Stream^ stream)
+	{
+		Throw::IfNull("stream", stream);
+		WriteUnchecked(blob, stream);
+	}
+	//==============================================================================================
+	void MagickWriter::Write(Magick::Blob* blob, array<Byte>^ data)
+	{
+		Throw::IfNull("data", data);
+
+		int length = Math::Min((int)blob->length(), data->Length);
+		IntPtr ptr = IntPtr((void*)blob->data());
+		Marshal::Copy(ptr, data, 0, length);
+	}
+	//==============================================================================================
+	void MagickWriter::Write(Magick::Blob* blob, String^ fileName) 
+	{
+		Throw::IfNullOrEmpty("fileName", fileName);
+		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
+
+		FileStream^ stream = File::OpenWrite(filePath);
+		WriteUnchecked(blob, stream);
+		stream->Close();
 	}
 	//==============================================================================================
 	void MagickWriter::Write(Magick::Image* image, Magick::Blob* blob)
@@ -71,6 +94,54 @@ namespace ImageMagick
 		{
 			throw MagickException::Create(exception);
 		}
+	}
+	//==============================================================================================
+	void MagickWriter::Write(Magick::Image* image, Stream^ stream)
+	{
+		Throw::IfNull("stream", stream);
+
+		Magick::Blob blob;
+		Write(image, &blob);
+		WriteUnchecked(&blob, stream);
+	}
+	//==============================================================================================
+	void MagickWriter::Write(std::list<Magick::Image>* imageList, Magick::Blob* blob)
+	{
+		try
+		{
+			Magick::writeImages(imageList->begin(), imageList->end(), blob, true);
+		}
+		catch (Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickWriter::Write(std::list<Magick::Image>* imageList, String^ fileName)
+	{
+		Throw::IfNullOrEmpty("fileName", fileName);
+		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
+
+		std::string imageSpec;
+		Marshaller::Marshal(filePath, imageSpec);
+
+		try
+		{
+			Magick::writeImages(imageList->begin(), imageList->end(), imageSpec, true);
+		}
+		catch (Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickWriter::Write(std::list<Magick::Image>* imageList, Stream^ stream)
+	{
+		Throw::IfNull("stream", stream);
+
+		Magick::Blob blob;
+		Write(imageList, &blob);
+		WriteUnchecked(&blob, stream);
 	}
 	//==============================================================================================
 }

@@ -35,20 +35,7 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		static explicit operator double* (MatrixDouble^ matrix)
-		{
-			double* matrixData = new double[matrix->_Order * matrix->_Order];
-
-			for(int x = 0; x < matrix->_Order; x++)
-			{
-				for(int y = 0; y < matrix->_Order; y++)
-				{
-					matrixData[(y * matrix->_Order) + x] = matrix->_Values[x, y];
-				}
-			}
-
-			return matrixData;
-		}
+		double* CreateArray();
 		//===========================================================================================
 	public:
 		///==========================================================================================

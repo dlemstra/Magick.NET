@@ -99,6 +99,11 @@ namespace ImageMagick
 		MagickImageCollection();
 		///==========================================================================================
 		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified images.
+		///</summary>
+		MagickImageCollection(IEnumerable<MagickImage^>^ images);
+		///==========================================================================================
+		///<summary>
 		/// Initializes a new instance of the MagickImageCollection class using the specified blob.
 		///</summary>
 		///<param name="blob">The blob to read the image data from.</param>
@@ -208,6 +213,13 @@ namespace ImageMagick
 			{
 				return _ReadWarning;
 			}
+		}
+		//===========================================================================================
+		static explicit operator MagickBlob^ (MagickImageCollection^ collection)
+		{
+			Throw::IfNull("collection", collection);
+
+			return collection->ToBlob();
 		}
 		///==========================================================================================
 		///<summary>
@@ -332,6 +344,25 @@ namespace ImageMagick
 		/// Resets the page property of every image in the collection.
 		///</summary>
 		void RePage();
+		///==========================================================================================
+		///<summary>
+		/// Converts this instance to a MagickBlob.
+		///</summary>
+		MagickBlob^ ToBlob();
+		///==========================================================================================
+		///<summary>
+		/// Writes the imagse to the specified stream. If the output image's file format does not
+		/// allow multi-image files multiple files will be written.
+		///</summary>
+		///<param name="stream">The stream to write the images to.</param>
+		void Write(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Writes the images to the specified file name. If the output image's file format does not
+		/// allow multi-image files multiple files will be written.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		void Write(String^ fileName);
 		//===========================================================================================
 	};
 	//==============================================================================================

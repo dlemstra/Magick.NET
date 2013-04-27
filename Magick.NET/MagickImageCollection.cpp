@@ -59,6 +59,19 @@ namespace ImageMagick
 		_Images = new std::list<Magick::Image>();
 	}
 	//==============================================================================================
+	MagickImageCollection::MagickImageCollection(IEnumerable<MagickImage^>^ images)
+	{
+		Throw::IfNull("images", images);
+
+		IEnumerator<MagickImage^>^ enumerator = images->GetEnumerator();
+
+		_Images = new std::list<Magick::Image>();
+		while(enumerator->MoveNext())
+		{
+			_Images->push_back(*enumerator->Current->ReuseImage());
+		}
+	}
+	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(MagickBlob^ blob)
 	{
 		_Images = new std::list<Magick::Image>();
@@ -234,6 +247,23 @@ namespace ImageMagick
 		{
 			iter->page(Magick::Geometry(0,0));
 		}
+	}
+	//==============================================================================================
+	MagickBlob^ MagickImageCollection::ToBlob()
+	{
+		MagickBlob^ blob = MagickBlob::Create();
+		MagickWriter::Write(_Images, (Magick::Blob*)blob);
+		return blob;
+	}
+	//==============================================================================================
+	void MagickImageCollection::Write(Stream^ stream)
+	{
+		MagickWriter::Write(_Images, stream);
+	}
+	//==============================================================================================
+	void MagickImageCollection::Write(String^ fileName)
+	{
+		MagickWriter::Write(_Images, fileName);
 	}
 	//==============================================================================================
 }

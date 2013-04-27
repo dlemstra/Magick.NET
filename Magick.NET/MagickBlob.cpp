@@ -13,21 +13,12 @@
 //=================================================================================================
 #include "stdafx.h"
 #include "MagickBlob.h"
-#include "Helpers\FileHelper.h"
+#include "Helpers\MagickReader.h"
 
 using namespace System::IO;
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	void MagickBlob::Initialize(Stream^ stream)
-	{
-		Throw::IfNull("stream", stream);
-
-		array<Byte>^ data = gcnew array<Byte>((int)stream->Length);
-		stream->Read(data, 0, (int)stream->Length);
-		Value = Marshaller::Marshal(data);
-	}
 	//==============================================================================================
 	MagickBlob^ MagickBlob::Create()
 	{
@@ -43,39 +34,34 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickBlob::MagickBlob(array<Byte>^ data)
 	{
-		Throw::IfNull("data", data);
-
-		Value = Marshaller::Marshal(data);
+		Value = new Magick::Blob();
+		MagickReader::Read(Value, data);
 	}
 	//==============================================================================================
 	MagickBlob^ MagickBlob::Read(String^ fileName)
 	{
-		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
-		Throw::IfInvalidFileName(filePath);
-
-		FileStream^ stream = File::OpenRead(filePath);
 		MagickBlob^ blob = gcnew MagickBlob();
-		blob->Initialize(stream);
-		delete stream;
-
+		MagickReader::Read(blob->Value, fileName);
 		return blob;
 	}
 	//==============================================================================================
 	MagickBlob^ MagickBlob::Read(Stream^ stream)
 	{
 		MagickBlob^ blob = gcnew MagickBlob();
-		blob->Initialize(stream);
+		MagickReader::Read(blob->Value, stream);
 		return blob;
-	}	
+	}
+	//==============================================================================================
+	array<Byte>^ MagickBlob::ToByteArray()
+	{
+		array<Byte>^ data = gcnew array<Byte>(Value->length());
+		MagickWriter::Write(Value, data);
+		return data;
+	}
 	//==============================================================================================
 	void MagickBlob::Write(String^ fileName)
 	{
-		Throw::IfNullOrEmpty("fileName", fileName);
-		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
-
-		FileStream^ stream = File::OpenWrite(filePath);
-		Write(stream);
-		stream->Close();
+		MagickWriter::Write(Value, fileName);
 	}
 	//==============================================================================================
 	void MagickBlob::Write(Stream^ stream)

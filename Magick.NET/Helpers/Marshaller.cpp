@@ -18,35 +18,6 @@ using namespace System::Runtime::InteropServices;
 namespace ImageMagick
 {
 	//==============================================================================================
-	std::string& Marshaller::Marshal(String^ value, std::string &unmanagedValue)
-	{
-		if (value == nullptr)
-			return unmanagedValue;
-
-		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(value)).ToPointer();
-		unmanagedValue = chars;
-		Marshal::FreeHGlobal(IntPtr((void*)chars));
-		return unmanagedValue;
-	}
-	//==============================================================================================
-	String^ Marshaller::Marshal(const std::string& value)
-	{
-		if (value.empty())
-			return nullptr;
-		else
-			return gcnew String(value.c_str());
-	}
-	//==============================================================================================
-	Magick::Blob* Marshaller::Marshal(array<Byte>^ values)
-	{
-		if (values == nullptr || values->Length == 0)
-			return new Magick::Blob();
-
-		char* unmanagedValue = new char[values->Length];
-		Marshal::Copy(values, 0, IntPtr(unmanagedValue), values->Length);
-		return new Magick::Blob(unmanagedValue, values->Length);
-	}
-	//==============================================================================================
 	double* Marshaller::Marshal(array<double>^ values)
 	{
 		if (values == nullptr || values->Length == 0)
@@ -57,24 +28,6 @@ namespace ImageMagick
 		{
 			unmanagedValue[i] = values[i];
 		}
-
-		return unmanagedValue;
-	}	
-	//==============================================================================================
-	double* Marshaller::MarshalAndTerminate(array<double>^ values)
-	{
-		if (values == nullptr || values->Length == 0)
-			return NULL;
-
-		int zeroIndex = Array::IndexOf(values, 0.0);
-		int length = zeroIndex == -1 ? values->Length + 1 : zeroIndex + 1;
-
-		double* unmanagedValue = new double[length];
-		for(int i = 0; i < length - 1; i++)
-		{
-			unmanagedValue[i] = values[i];
-		}
-		unmanagedValue[length - 1] = 0.0;
 
 		return unmanagedValue;
 	}
@@ -102,6 +55,43 @@ namespace ImageMagick
 		}
 
 		return managedValue;
+	}
+	//==============================================================================================
+	double* Marshaller::MarshalAndTerminate(array<double>^ values)
+	{
+		if (values == nullptr || values->Length == 0)
+			return NULL;
+
+		int zeroIndex = Array::IndexOf(values, 0.0);
+		int length = zeroIndex == -1 ? values->Length + 1 : zeroIndex + 1;
+
+		double* unmanagedValue = new double[length];
+		for(int i = 0; i < length - 1; i++)
+		{
+			unmanagedValue[i] = values[i];
+		}
+		unmanagedValue[length - 1] = 0.0;
+
+		return unmanagedValue;
+	}
+	//==============================================================================================
+	std::string& Marshaller::Marshal(String^ value, std::string &unmanagedValue)
+	{
+		if (value == nullptr)
+			return unmanagedValue;
+
+		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(value)).ToPointer();
+		unmanagedValue = chars;
+		Marshal::FreeHGlobal(IntPtr((void*)chars));
+		return unmanagedValue;
+	}
+	//==============================================================================================
+	String^ Marshaller::Marshal(const std::string& value)
+	{
+		if (value.empty())
+			return nullptr;
+		else
+			return gcnew String(value.c_str());
 	}
 	//==============================================================================================
 }

@@ -30,15 +30,13 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		void Initialize(Stream^ stream);
-		//===========================================================================================
 		MagickBlob() {}
 		//===========================================================================================
 	internal:
 		//===========================================================================================
 		MagickBlob(Magick::Blob& blob);
 		//===========================================================================================
-		static operator Magick::Blob& (MagickBlob^ blob)
+		static explicit operator Magick::Blob& (MagickBlob^ blob)
 		{
 			Throw::IfNull("blob", blob);
 
@@ -47,8 +45,7 @@ namespace ImageMagick
 		//===========================================================================================
 		static explicit operator Magick::Blob* (MagickBlob^ blob)
 		{
-			if (blob == nullptr)
-				return NULL;
+			Throw::IfNull("blob", blob);
 
 			return blob->Value;
 		}
@@ -73,6 +70,13 @@ namespace ImageMagick
 				return Value->length();
 			}
 		}
+		//===========================================================================================
+		static explicit operator array<Byte>^ (MagickBlob^ blob)
+		{
+			Throw::IfNull("blob", blob);
+
+			return blob->ToByteArray();
+		}
 		///==========================================================================================
 		///<summary>
 		/// Reads a blob from the specified fileName.
@@ -85,6 +89,11 @@ namespace ImageMagick
 		///</summary>
 		///<param name="stream">The stream to read the image data from.</param>
 		static MagickBlob^ Read(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Returns a byte array that contains the value of this instance.
+		///</summary>
+		array<Byte>^ ToByteArray();
 		///==========================================================================================
 		///<summary>
 		/// Writes the blob to the specified file name.

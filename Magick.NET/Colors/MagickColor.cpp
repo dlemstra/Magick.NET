@@ -40,11 +40,13 @@ namespace ImageMagick
 		_Green = color.G;
 		_Blue = color.B;
 		_Alpha = MaxMap - color.A;
-#else if (MAGICKCORE_QUANTUM_DEPTH == 16)
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
 		_Red = (color.R << 8 | color.R);
 		_Green = (color.G << 8 | color.G);
 		_Blue = (color.B << 8 | color.B);
 		_Alpha = MaxMap - (color.A << 8 | color.A);
+#else
+		Not implemented!
 #endif
 	}
 	//==============================================================================================

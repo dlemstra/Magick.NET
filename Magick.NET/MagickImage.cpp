@@ -786,7 +786,7 @@ namespace ImageMagick
 	{
 		Throw::IfNull("matrixColor", matrixColor);
 
-		double* matrix = (double*)matrixColor;
+		double* matrix = matrixColor->CreateArray();
 
 		try
 		{
@@ -798,7 +798,7 @@ namespace ImageMagick
 		}
 		finally
 		{
-			delete matrix;
+			delete[] matrix;
 		}
 	}
 	//==============================================================================================
@@ -898,7 +898,7 @@ namespace ImageMagick
 	{
 		Throw::IfNull("convolveMatrix", convolveMatrix);
 
-		double* kernel = (double*)convolveMatrix;
+		double* kernel = convolveMatrix->CreateArray();
 
 		try
 		{
@@ -910,7 +910,7 @@ namespace ImageMagick
 		}
 		finally
 		{
-			delete kernel;
+			delete[] kernel;
 		}
 	}
 	//==============================================================================================
@@ -1085,7 +1085,7 @@ namespace ImageMagick
 		}
 		finally
 		{
-			delete distortArguments;
+			delete[] distortArguments;
 		}
 	}
 	//==============================================================================================
@@ -2299,7 +2299,7 @@ namespace ImageMagick
 		}
 		finally
 		{
-			delete arguments;
+			delete[] arguments;
 		}
 	}
 	//==============================================================================================
@@ -2572,10 +2572,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Write(Stream^ stream)
 	{
-		MagickBlob^ blob = ToBlob();
-		MagickWriter::Write(Value, (Magick::Blob*)blob);
-		blob->Write(stream);
-		delete blob;
+		MagickWriter::Write(Value, stream);
 	}
 	//==============================================================================================
 	void MagickImage::Zoom(int width, int height)

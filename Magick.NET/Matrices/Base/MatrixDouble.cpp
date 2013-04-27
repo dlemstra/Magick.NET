@@ -27,4 +27,19 @@ namespace ImageMagick
 		_Order = order;
 	}
 	//==============================================================================================
+	double* MatrixDouble::CreateArray()
+	{
+		double* matrixData = new double[_Order * _Order];
+
+		for(int x = 0; x < _Order; x++)
+		{
+			for(int y = 0; y < _Order; y++)
+			{
+				matrixData[(y * _Order) + x] = _Values[x, y];
+			}
+		}
+
+		return matrixData;
+	}
+	//==============================================================================================
 }

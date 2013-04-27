@@ -19,8 +19,8 @@ using System.Web;
 
 //=================================================================================================
 [assembly: AssemblyTitle("Magick.NET.Web")]
-[assembly: AssemblyProduct("ImageMagick")]
-[assembly: AssemblyDescription("Web helper for Magick.NET.")]
+[assembly: AssemblyProduct("Magick.NET")]
+[assembly: AssemblyDescription("Magick.NET.Web")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyCopyright("Copyright © Dirk Lemstra 2013")]
 [assembly: AssemblyTrademark("")]

@@ -21,7 +21,7 @@ namespace ImageMagick
 	{
 		double* dashArray = Marshaller::MarshalAndTerminate(dash);
 		BaseValue = new Magick::DrawableDashArray(dashArray);
-		delete dashArray;
+		delete[] dashArray;
 	}
 	//==============================================================================================
 }

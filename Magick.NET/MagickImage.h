@@ -479,7 +479,7 @@ namespace ImageMagick
 			}
 			void set(MagickBlob^ value)
 			{
-				Value->exifProfile(value);
+				Value->exifProfile((Magick::Blob&)value);
 			}
 		}
 		///==========================================================================================
@@ -974,7 +974,7 @@ namespace ImageMagick
 			{
 				double* strokeDashArray = Marshaller::MarshalAndTerminate(value);
 				Value->strokeDashArray(strokeDashArray);
-				delete strokeDashArray;
+				delete[] strokeDashArray;
 			}
 		}
 		///==========================================================================================
@@ -1196,6 +1196,13 @@ namespace ImageMagick
 		static bool operator <= (MagickImage^ left, MagickImage^ right)
 		{
 			return (left < right) || (left == right);
+		}
+		//===========================================================================================
+		static explicit operator MagickBlob^ (MagickImage^ image)
+		{
+			Throw::IfNull("image", image);
+
+			return image->ToBlob();
 		}
 		///==========================================================================================
 		///<summary>
@@ -2754,18 +2761,18 @@ namespace ImageMagick
 		void Wave(double amplitude, double length);
 		///==========================================================================================
 		///<summary>
-		/// Writes the image to the specified file name.
-		///</summary>
-		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		///<exception cref="MagickException"/>
-		void Write(String^ fileName);
-		///==========================================================================================
-		///<summary>
 		/// Writes the image to the specified stream.
 		///</summary>
 		///<param name="stream">The stream to write the image data to.</param>
 		///<exception cref="MagickException"/>
 		void Write(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Writes the image to the specified file name.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<exception cref="MagickException"/>
+		void Write(String^ fileName);
 		///==========================================================================================
 		///<summary>
 		// Zoom image to specified size.
