@@ -16,7 +16,6 @@
 #include "Enums\ColorSpace.h"
 #include "Enums\ImageType.h"
 #include "Helpers\MagickReader.h"
-#include "MagickBlob.h"
 
 using namespace System::IO;
 
@@ -48,9 +47,9 @@ namespace ImageMagick
 		///<summary>
 		/// Initializes a new instance of the MagickImageInfo class using the specified blob.
 		///</summary>
-		///<param name="blob">The blob to read the information from.</param>
+		///<param name="data">The byte array to read the information from.</param>
 		///<exception cref="MagickException"/>
-		MagickImageInfo(MagickBlob^ blob);
+		MagickImageInfo(array<Byte>^ data);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickImageInfo class using the specified filename.
@@ -113,9 +112,9 @@ namespace ImageMagick
 		///<summary>
 		/// Read basic information about an image.
 		///</summary>
-		///<param name="blob">The blob to read the information from.</param>
+		///<param name="data">The blob to read the information from.</param>
 		///<exception cref="MagickException"/>
-		void Read(MagickBlob^ blob);
+		void Read(array<Byte>^ data);
 		///==========================================================================================
 		///<summary>
 		/// Read basic information about an image.

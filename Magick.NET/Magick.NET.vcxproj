@@ -224,7 +224,6 @@
     <ClInclude Include="MagickImageCollection.h" />
     <ClInclude Include="MagickImageInfo.h" />
     <ClInclude Include="MagickNET.h" />
-    <ClInclude Include="MagickBlob.h" />
     <ClInclude Include="Enums\ColorSpace.h" />
     <ClInclude Include="Enums\ImageType.h" />
     <ClInclude Include="MagickGeometry.h" />
@@ -345,7 +344,6 @@
     <ClCompile Include="MagickImageCollection.cpp" />
     <ClCompile Include="MagickImageInfo.cpp" />
     <ClCompile Include="MagickNET.cpp" />
-    <ClCompile Include="MagickBlob.cpp" />
     <ClCompile Include="MagickGeometry.cpp" />
     <ClCompile Include="MagickImage.cpp" />
     <ClCompile Include="Helpers\MagickReader.cpp" />

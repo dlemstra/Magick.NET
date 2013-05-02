@@ -106,17 +106,17 @@ namespace ImageMagick
 		///<summary>
 		/// Initializes a new instance of the MagickImageCollection class using the specified blob.
 		///</summary>
-		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="data">The byte array to read the image data from.</param>
 		///<exception cref="MagickException"/>
-		MagickImageCollection(MagickBlob^ blob);
+		MagickImageCollection(array<Byte>^ data);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickImageCollection class using the specified blob.
 		///</summary>
-		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="data">The byte array to read the image data from.</param>
 		///<param name="colorSpace">The colorspace to convert the image to.</param>
 		///<exception cref="MagickException"/>
-		MagickImageCollection(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace);
+		MagickImageCollection(array<Byte>^ data, ImageMagick::ColorSpace colorSpace);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickImageCollection class using the specified filename.
@@ -215,11 +215,11 @@ namespace ImageMagick
 			}
 		}
 		//===========================================================================================
-		static explicit operator MagickBlob^ (MagickImageCollection^ collection)
+		static explicit operator array<Byte>^ (MagickImageCollection^ collection)
 		{
 			Throw::IfNull("collection", collection);
 
-			return collection->ToBlob();
+			return collection->ToByteArray();
 		}
 		///==========================================================================================
 		///<summary>
@@ -280,19 +280,19 @@ namespace ImageMagick
 		///<summary>
 		/// Read all image frames.
 		///</summary>
-		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="data">The byte array to read the image data from.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(MagickBlob^ blob);
+		MagickWarningException^ Read(array<Byte>^ data);
 		///==========================================================================================
 		///<summary>
 		/// Read all image frames.
 		///</summary>
-		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="data">The byte array to read the image data from.</param>
 		///<param name="colorSpace">The colorspace to convert the image to.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace);
+		MagickWarningException^ Read(array<Byte>^ data, ImageMagick::ColorSpace colorSpace);
 		///==========================================================================================
 		///<summary>
 		/// Read all image frames.
@@ -346,9 +346,9 @@ namespace ImageMagick
 		void RePage();
 		///==========================================================================================
 		///<summary>
-		/// Converts this instance to a MagickBlob.
+		/// Converts this instance to a byte array.
 		///</summary>
-		MagickBlob^ ToBlob();
+		array<Byte>^ ToByteArray();
 		///==========================================================================================
 		///<summary>
 		/// Writes the imagse to the specified stream. If the output image's file format does not

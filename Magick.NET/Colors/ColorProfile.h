@@ -13,31 +13,26 @@
 //=================================================================================================
 #pragma once
 
-#include "..\MagickBlob.h"
-
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class that contains color profiles.
-	///</summary>
-	public ref class ColorProfile abstract sealed
+	//==============================================================================================
+	private ref class ColorProfile abstract sealed
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
 		static initonly Object^ _SyncRoot = gcnew Object();
-		static MagickBlob^ _SRGBicm;
-		static MagickBlob^ LoadSRGbicm();
+		static array<Byte>^ _SRGBicm;
+		static array<Byte>^ LoadSRGbicm();
 		//===========================================================================================
 	public:
-		///=============================================================================================
+		///==========================================================================================
 		///<summary>
 		/// The sRGB icm profile.
 		///</summary>
-		static property MagickBlob^ SRGB
+		static property array<Byte>^ SRGB
 		{
-			MagickBlob^ get()
+			array<Byte>^ get()
 			{
 				return LoadSRGbicm();
 			}

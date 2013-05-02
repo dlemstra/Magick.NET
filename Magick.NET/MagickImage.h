@@ -43,7 +43,6 @@
 #include "Helpers\MagickWriter.h"
 #include "Helpers\Percentage.h"
 #include "Helpers\TypeMetric.h"
-#include "MagickBlob.h"
 #include "MagickGeometry.h"
 #include "MagickImageStatistics.h"
 #include "Matrices\MatrixColor.h"
@@ -84,7 +83,7 @@ namespace ImageMagick
 		//===========================================================================================
 		void Scale(int width, int height, bool isPercentage);
 		//===========================================================================================
-		void SetProfile(String^ name, MagickBlob^ blob);
+		void SetProfile(String^ name, Magick::Blob &blob);
 		//===========================================================================================
 		void Zoom(int width, int height, bool isPercentage);
 		//===========================================================================================
@@ -113,28 +112,28 @@ namespace ImageMagick
 		MagickImage(int width, int height, MagickColor^ color);
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the MagickImage class using the specified blob.
+		/// Initializes a new instance of the MagickImage class using the specified byte array.
 		///</summary>
-		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="data">The byte array to read the image data from.</param>
 		///<exception cref="MagickException"/>
-		MagickImage(MagickBlob^ blob);
+		MagickImage(array<Byte>^ data);
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the MagickImage class using the specified blob.
+		/// Initializes a new instance of the MagickImage class using the specified byte array.
 		///</summary>
-		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="data">The byte array to read the image data from.</param>
 		///<param name="colorSpace">The colorspace to convert the image to.</param>
 		///<exception cref="MagickException"/>
-		MagickImage(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace);
+		MagickImage(array<Byte>^ data, ImageMagick::ColorSpace colorSpace);
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the MagickImage class using the specified blob.
+		/// Initializes a new instance of the MagickImage class using the specified byte array.
 		///</summary>
-		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="data">The byte array to read the image data from.</param>
 		///<param name="width">The width of the image.</param>
 		///<param name="height">The height of the image.</param>
 		///<exception cref="MagickException"/>
-		MagickImage(MagickBlob^ blob, int width, int height);
+		MagickImage(array<Byte>^ data, int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickImage class using the specified filename.
@@ -470,16 +469,18 @@ namespace ImageMagick
 		///<summary>
 		/// Exif profile (BLOB).
 		///</summary>
-		property MagickBlob^ ExifProfile
+		property array<Byte>^ ExifProfile
 		{
-			MagickBlob^ get()
+			array<Byte>^ get()
 			{
 				Magick::Blob blob = Value->exifProfile();
-				return gcnew MagickBlob(blob);
+				return Marshaller::Marshal(&blob);
 			}
-			void set(MagickBlob^ value)
+			void set(array<Byte>^ value)
 			{
-				Value->exifProfile((Magick::Blob&)value);
+				Magick::Blob blob;
+				Marshaller::Marshal(value, &blob);
+				Value->exifProfile(blob);
 			}
 		}
 		///==========================================================================================
@@ -1198,11 +1199,11 @@ namespace ImageMagick
 			return (left < right) || (left == right);
 		}
 		//===========================================================================================
-		static explicit operator MagickBlob^ (MagickImage^ image)
+		static explicit operator array<Byte>^ (MagickImage^ image)
 		{
 			Throw::IfNull("image", image);
 
-			return image->ToBlob();
+			return image->ToByteArray();
 		}
 		///==========================================================================================
 		///<summary>
@@ -1256,9 +1257,9 @@ namespace ImageMagick
 		///<summary>
 		/// Add an ICC iCM profile to an image.
 		///</summary>
-		///<param name="blob">A blob containing the profile.</param>
+		///<param name="data">A byte array containing the profile.</param>
 		///<exception cref="MagickException"/>
-		void AddProfile(MagickBlob^ blob);
+		void AddProfile(array<Byte>^ data);
 		///==========================================================================================
 		///<summary>
 		/// Add an ICC iCM profile to an image.
@@ -1278,9 +1279,9 @@ namespace ImageMagick
 		/// Add a named profile to an image.
 		///</summary>
 		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
-		///<param name="blob">A blob containing the profile.</param>
+		///<param name="data">A byte array containing the profile.</param>
 		///<exception cref="MagickException"/>
-		void AddProfile(String^ name, MagickBlob^ blob);
+		void AddProfile(String^ name, array<Byte>^ data);
 		///==========================================================================================
 		///<summary>
 		/// Add a named profile to an image.
@@ -1992,14 +1993,14 @@ namespace ImageMagick
 		/// Retrieve the ICC ICM profile from the image.
 		///</summary>
 		///<exception cref="MagickException"/>
-		MagickBlob^ GetProfile();
+		array<Byte>^ GetProfile();
 		///==========================================================================================
 		///<summary>
 		/// Retrieve a named profile from the image.
 		///</summary>
 		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
 		///<exception cref="MagickException"/>
-		MagickBlob^ GetProfile(String^ name);
+		array<Byte>^ GetProfile(String^ name);
 		///==========================================================================================
 		///<summary>
 		/// Returns an read-only pixel collection that can be used to access the pixels of this image.
@@ -2252,10 +2253,10 @@ namespace ImageMagick
 		/// Changes the value of individual pixels based on the intensity of each pixel compared to a
 		/// random threshold. The result is a low-contrast, two color image.
 		///</summary>
-		///<param name="low">The low threshold.</param>
-		///<param name="high">The low threshold.</param>
+		///<param name="percentageLow">The low threshold.</param>
+		///<param name="percentageHigh">The low threshold.</param>
 		///<exception cref="MagickException"/>
-		void RandomThreshold(Percentage low, Percentage high);
+		void RandomThreshold(Percentage percentageLow, Percentage percentageHigh);
 		///==========================================================================================
 		///<summary>
 		/// Changes the value of individual pixels based on the intensity of each pixel compared to a
@@ -2272,37 +2273,37 @@ namespace ImageMagick
 		/// random threshold. The result is a low-contrast, two color image.
 		///</summary>
 		///<param name="channels">The channel(s) to use.</param>
-		///<param name="low">The low threshold.</param>
-		///<param name="high">The low threshold.</param>
+		///<param name="percentageLow">The low threshold.</param>
+		///<param name="percentageHigh">The low threshold.</param>
 		///<exception cref="MagickException"/>
-		void RandomThreshold(Channels channels, Percentage low, Percentage high);
+		void RandomThreshold(Channels channels, Percentage percentageLow, Percentage percentageHigh);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.
 		///</summary>
-		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="data">The  byte array to read the image data from.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(MagickBlob^ blob);
+		MagickWarningException^ Read(array<Byte>^ data);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.
 		///</summary>
-		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="data">The  byte array to read the image data from.</param>
 		///<param name="colorSpace">The colorspace to convert the image to.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace);
+		MagickWarningException^ Read(array<Byte>^ data, ImageMagick::ColorSpace colorSpace);
 		///==========================================================================================
 		///<summary>
 		/// Read single vector image frame.
 		///</summary>
-		///<param name="blob">The blob to read the image data from.</param>
+		///<param name="data">The byte array to read the image data from.</param>
 		///<param name="width">The width of the image.</param>
 		///<param name="height">The height of the image.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(MagickBlob^ blob, int width, int height);
+		MagickWarningException^ Read(array<Byte>^ data, int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.
@@ -2652,9 +2653,9 @@ namespace ImageMagick
 		void Threshold(double value);
 		///==========================================================================================
 		///<summary>
-		/// Converts this instance to a MagickBlob.
+		/// Converts this instance to a byte array.
 		///</summary>
-		MagickBlob^ ToBlob();
+		array<Byte>^ ToByteArray();
 		///==========================================================================================
 		///<summary>
 		/// Returns a string that represents the current image.

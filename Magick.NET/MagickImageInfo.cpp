@@ -29,9 +29,9 @@ namespace ImageMagick
 			_ImageType = ImageMagick::ImageType::Unknown;
 	}
 	//==============================================================================================
-	MagickImageInfo::MagickImageInfo(MagickBlob^ blob)
+	MagickImageInfo::MagickImageInfo(array<Byte>^ data)
 	{
-		Read(blob);
+		Read(data);
 	}
 	//==============================================================================================
 	MagickImageInfo::MagickImageInfo(String^ fileName)
@@ -44,10 +44,10 @@ namespace ImageMagick
 		Read(stream);
 	}
 	//==============================================================================================
-	void MagickImageInfo::Read(MagickBlob^ blob)
+	void MagickImageInfo::Read(array<Byte>^ data)
 	{
 		Magick::Image* image = new Magick::Image();
-		MagickReader::Read(image, blob, true);
+		MagickReader::Read(image, data, true);
 		Initialize(image);
 		delete image;
 	}

@@ -41,31 +41,6 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickWriter::Write(Magick::Blob* blob, Stream^ stream)
-	{
-		Throw::IfNull("stream", stream);
-		WriteUnchecked(blob, stream);
-	}
-	//==============================================================================================
-	void MagickWriter::Write(Magick::Blob* blob, array<Byte>^ data)
-	{
-		Throw::IfNull("data", data);
-
-		int length = Math::Min((int)blob->length(), data->Length);
-		IntPtr ptr = IntPtr((void*)blob->data());
-		Marshal::Copy(ptr, data, 0, length);
-	}
-	//==============================================================================================
-	void MagickWriter::Write(Magick::Blob* blob, String^ fileName) 
-	{
-		Throw::IfNullOrEmpty("fileName", fileName);
-		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
-
-		FileStream^ stream = File::OpenWrite(filePath);
-		WriteUnchecked(blob, stream);
-		stream->Close();
-	}
-	//==============================================================================================
 	void MagickWriter::Write(Magick::Image* image, Magick::Blob* blob)
 	{
 		try

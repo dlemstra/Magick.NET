@@ -13,7 +13,6 @@
 //=================================================================================================
 #pragma once
 
-#include "..\MagickBlob.h"
 #include "..\Exceptions\Base\MagickException.h"
 
 using namespace System::IO;
@@ -29,12 +28,6 @@ namespace ImageMagick
 		static void MagickWriter::WriteUnchecked(Magick::Blob* blob, Stream^ stream);
 		//===========================================================================================
 	public:
-		//===========================================================================================
-		static void Write(Magick::Blob* blob, array<Byte>^ data);
-		//===========================================================================================
-		static void Write(Magick::Blob* blob, Stream^ stream);
-		//===========================================================================================
-		static void Write(Magick::Blob* blob, String^ fileName);
 		//===========================================================================================
 		static void Write(Magick::Image* image, Magick::Blob* blob);
 		//===========================================================================================

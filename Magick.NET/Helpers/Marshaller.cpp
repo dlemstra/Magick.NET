@@ -18,6 +18,33 @@ using namespace System::Runtime::InteropServices;
 namespace ImageMagick
 {
 	//==============================================================================================
+	void Marshaller::Marshal(array<Byte>^ data, Magick::Blob* value)
+	{
+		Marshal(data, data->Length, value);
+	}
+	//==============================================================================================
+	void Marshaller::Marshal(array<Byte>^ data, int length, Magick::Blob* value)
+	{
+		if (data == nullptr || data->Length == 0)
+			return;
+
+		char* unmanagedValue = new char[length];
+		Marshal::Copy(data, 0, IntPtr(unmanagedValue), length);
+		value->update(unmanagedValue, length);
+		delete[] unmanagedValue;
+	}
+	//==============================================================================================
+	array<Byte>^ Marshaller::Marshal(Magick::Blob* value)
+	{
+		if (value == NULL || value->length() == 0)
+			return nullptr;
+
+		array<Byte>^ data = gcnew array<Byte>(value->length());
+		IntPtr ptr = IntPtr((void*)value->data());
+		Marshal::Copy(ptr, data, 0, value->length());
+		return data;
+	}
+	//==============================================================================================
 	double* Marshaller::Marshal(array<double>^ values)
 	{
 		if (values == nullptr || values->Length == 0)

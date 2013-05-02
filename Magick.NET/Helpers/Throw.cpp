@@ -40,8 +40,8 @@ namespace ImageMagick
 	{
 		Throw::IfNull(paramName, value);
 
-		if (String::IsNullOrEmpty(value))
-			throw gcnew ArgumentException(paramName, value);
+		if (value->Length == 0)
+			throw gcnew ArgumentException("Value cannot be empty", paramName);
 	}
 	//==============================================================================================
 	void Throw::IfOutOfRange(String^ paramName, int index, int length)

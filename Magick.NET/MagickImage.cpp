@@ -165,6 +165,23 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::SetProfile(String^ name, Magick::Blob& blob)
+	{
+		Throw::IfNullOrEmpty("name", name);
+
+		try
+		{
+			std::string profileName;
+			Marshaller::Marshal(name, profileName);
+
+			Value->profile(profileName, blob);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Zoom(int width, int height, bool isPercentage)
 	{
 		Magick::Geometry* geometry = new Magick::Geometry(width, height);
@@ -181,24 +198,6 @@ namespace ImageMagick
 		finally
 		{
 			delete geometry;
-		}
-	}
-	//==============================================================================================
-	void MagickImage::SetProfile(String^ name, MagickBlob^ blob)
-	{
-		Throw::IfNullOrEmpty("name", name);
-
-		try
-		{
-			Magick::Blob profileBlob = blob != nullptr ? (Magick::Blob&)blob : Magick::Blob();
-
-			std::string profileName;
-			Marshaller::Marshal(name, profileName);
-			Value->profile(profileName, profileBlob);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -236,22 +235,22 @@ namespace ImageMagick
 		delete background;
 	}
 	//==============================================================================================
-	MagickImage::MagickImage(MagickBlob^ blob)
+	MagickImage::MagickImage(array<Byte>^ data)
 	{
 		Value = new Magick::Image();
-		this->Read(blob);
+		this->Read(data);
 	}
 	//==============================================================================================
-	MagickImage::MagickImage(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace)
+	MagickImage::MagickImage(array<Byte>^ data, ImageMagick::ColorSpace colorSpace)
 	{
 		Value = new Magick::Image();
-		this->Read(blob, colorSpace);
+		this->Read(data, colorSpace);
 	}
 	//==============================================================================================
-	MagickImage::MagickImage(MagickBlob^ blob, int width, int height)
+	MagickImage::MagickImage(array<Byte>^ data, int width, int height)
 	{
 		Value = new Magick::Image();
-		this->Read(blob, width, height);
+		this->Read(data, width, height);
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(String^ fileName)
@@ -348,9 +347,9 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::AddProfile(MagickBlob^ blob)
+	void MagickImage::AddProfile(array<Byte>^ data)
 	{
-		AddProfile("ICM", blob);
+		AddProfile("ICM", data);
 	}
 	///=============================================================================================
 	void MagickImage::AddProfile(Stream^ stream)
@@ -363,10 +362,12 @@ namespace ImageMagick
 		AddProfile("ICM", fileName);
 	}
 	//==============================================================================================
-	void MagickImage::AddProfile(String^ name, MagickBlob^ blob)
+	void MagickImage::AddProfile(String^ name, array<Byte>^ data)
 	{
-		Throw::IfNull("blob", blob);
+		Throw::IfNull("data", data);
 
+		Magick::Blob blob;
+		Marshaller::Marshal(data, &blob);
 		SetProfile(name, blob);
 	}
 	///=============================================================================================
@@ -374,32 +375,18 @@ namespace ImageMagick
 	{
 		Throw::IfNull("stream", stream);
 
-		MagickBlob^ blob = MagickBlob::Read(stream);
-
-		try
-		{
-			SetProfile(name, blob);
-		}
-		finally
-		{
-			delete blob;
-		}
+		Magick::Blob blob;
+		MagickReader::Read(&blob, stream);
+		SetProfile(name, blob);
 	}
 	///=============================================================================================
 	void MagickImage::AddProfile(String^ name, String^ fileName)
 	{
 		Throw::IfNullOrEmpty("fileName", fileName);
 
-		MagickBlob^ blob = MagickBlob::Read(fileName);
-
-		try
-		{
-			SetProfile(name, blob);
-		}
-		finally
-		{
-			delete blob;
-		}
+		Magick::Blob blob;
+		MagickReader::Read(&blob, fileName);
+		SetProfile(name, blob);
 	}
 	//==============================================================================================
 	void MagickImage::AffineTransform(DrawableAffine^ drawableAffine)
@@ -916,9 +903,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImage::Copy()
 	{
-		MagickBlob^ blob = this->ToBlob();
-		MagickImage^ image = gcnew MagickImage(blob);
-		delete blob;
+		array<Byte>^ data = this->ToByteArray();
+		MagickImage^ image = gcnew MagickImage(data);
+		delete data;
 
 		return image;
 	}
@@ -1598,12 +1585,12 @@ namespace ImageMagick
 		return Object::GetHashCode();
 	}
 	//==============================================================================================
-	MagickBlob^ MagickImage::GetProfile()
+	array<Byte>^ MagickImage::GetProfile()
 	{
 		return GetProfile("ICM");
 	}
 	//==============================================================================================
-	MagickBlob^ MagickImage::GetProfile(String^ name)
+	array<Byte>^ MagickImage::GetProfile(String^ name)
 	{
 		Throw::IfNullOrEmpty("name", name);
 
@@ -1612,7 +1599,7 @@ namespace ImageMagick
 			std::string profileName;
 			Marshaller::Marshal(name, profileName);
 			Magick::Blob blob = Value->profile(profileName);
-			return gcnew MagickBlob(blob);
+			return Marshaller::Marshal(&blob);
 		}
 		catch(Magick::ErrorCoder)
 		{
@@ -1918,9 +1905,9 @@ namespace ImageMagick
 		RandomThreshold(low, high, false);
 	}
 	//==============================================================================================
-	void MagickImage::RandomThreshold(Percentage low, Percentage high)
+	void MagickImage::RandomThreshold(Percentage percentageLow, Percentage percentageHigh)
 	{
-		RandomThreshold((Magick::Quantum)low, (Magick::Quantum)high, true);
+		RandomThreshold((Magick::Quantum)percentageLow, (Magick::Quantum)percentageHigh, true);
 	}
 	//==============================================================================================
 	void MagickImage::RandomThreshold(Channels channels, Magick::Quantum low, Magick::Quantum high)
@@ -1928,26 +1915,26 @@ namespace ImageMagick
 		RandomThreshold(channels, low, high, false);
 	}
 	//==============================================================================================
-	void MagickImage::RandomThreshold(Channels channels, Percentage low, Percentage high)
+	void MagickImage::RandomThreshold(Channels channels, Percentage percentageLow, Percentage percentageHigh)
 	{
-		RandomThreshold(channels, (Magick::Quantum)low, (Magick::Quantum)high, true);
+		RandomThreshold(channels, (Magick::Quantum)percentageLow, (Magick::Quantum)percentageHigh, true);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(MagickBlob^ blob)
+	MagickWarningException^ MagickImage::Read(array<Byte>^ data)
 	{
-		_ReadWarning = MagickReader::Read(Value, blob, false);
+		_ReadWarning = MagickReader::Read(Value, data, false);
 		return _ReadWarning;
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace)
+	MagickWarningException^ MagickImage::Read(array<Byte>^ data, ImageMagick::ColorSpace colorSpace)
 	{
-		_ReadWarning = MagickReader::Read(Value, blob, colorSpace, false);
+		_ReadWarning = MagickReader::Read(Value, data, colorSpace, false);
 		return _ReadWarning;
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(MagickBlob^ blob, int width, int height)
+	MagickWarningException^ MagickImage::Read(array<Byte>^ data, int width, int height)
 	{
-		_ReadWarning = MagickReader::Read(Value, blob, width, height);
+		_ReadWarning = MagickReader::Read(Value, data, width, height);
 		return _ReadWarning;
 	}
 	//==============================================================================================
@@ -2013,7 +2000,8 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::RemoveProfile(String^ name)
 	{
-		SetProfile(name, nullptr);
+		Magick::Blob blob;
+		SetProfile(name, blob);
 	}
 	//==============================================================================================
 	void MagickImage::Resize(int width, int height)
@@ -2397,11 +2385,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickBlob^ MagickImage::ToBlob()
+	array<Byte>^ MagickImage::ToByteArray()
 	{
-		MagickBlob^ blob = MagickBlob::Create();
-		MagickWriter::Write(this->Value, (Magick::Blob*)blob);
-		return blob;
+		Magick::Blob blob;
+		MagickWriter::Write(this->Value, &blob);
+		return Marshaller::Marshal(&blob);
 	}
 	//==============================================================================================
 	String^ MagickImage::ToString()

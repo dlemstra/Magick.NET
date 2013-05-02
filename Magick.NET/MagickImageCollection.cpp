@@ -72,16 +72,16 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickImageCollection::MagickImageCollection(MagickBlob^ blob)
+	MagickImageCollection::MagickImageCollection(array<Byte>^ data)
 	{
 		_Images = new std::list<Magick::Image>();
-		this->Read(blob);
+		this->Read(data);
 	}
 	//==============================================================================================
-	MagickImageCollection::MagickImageCollection(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace)
+	MagickImageCollection::MagickImageCollection(array<Byte>^ data, ImageMagick::ColorSpace colorSpace)
 	{
 		_Images = new std::list<Magick::Image>();
-		this->Read(blob, colorSpace);
+		this->Read(data, colorSpace);
 	}
 	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(String^ fileName)
@@ -180,17 +180,16 @@ namespace ImageMagick
 		Merge(mergedImage, layerMethod);
 		return gcnew MagickImage(*mergedImage);
 	}
-
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(MagickBlob^ blob)
+	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data)
 	{
-		_ReadWarning = MagickReader::Read(_Images, blob);
+		_ReadWarning = MagickReader::Read(_Images, data);
 		return _ReadWarning;
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(MagickBlob^ blob, ImageMagick::ColorSpace colorSpace)
+	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data, ImageMagick::ColorSpace colorSpace)
 	{
-		_ReadWarning = MagickReader::Read(_Images, blob, colorSpace);
+		_ReadWarning = MagickReader::Read(_Images, data, colorSpace);
 		return _ReadWarning;
 	}
 	//==============================================================================================
@@ -249,11 +248,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickBlob^ MagickImageCollection::ToBlob()
+	array<Byte>^ MagickImageCollection::ToByteArray()
 	{
-		MagickBlob^ blob = MagickBlob::Create();
-		MagickWriter::Write(_Images, (Magick::Blob*)blob);
-		return blob;
+		Magick::Blob blob;
+		MagickWriter::Write(_Images, &blob);
+		return Marshaller::Marshal(&blob);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Write(Stream^ stream)

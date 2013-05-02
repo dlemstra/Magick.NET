@@ -21,14 +21,15 @@ using namespace System::Threading;
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickBlob^ ColorProfile::LoadSRGbicm()
+	array<Byte>^ ColorProfile::LoadSRGbicm()
 	{
 		Monitor::Enter(_SyncRoot);
 
 		if (_SRGBicm == nullptr)
 		{
 			Stream^ srgbIcm = Assembly::GetAssembly(ColorProfile::typeid)->GetManifestResourceStream("sRGB.icm");
-			_SRGBicm = MagickBlob::Read(srgbIcm);
+			_SRGBicm = gcnew array<Byte>((int)srgbIcm->Length);
+			srgbIcm->Read(_SRGBicm, 0, _SRGBicm->Length);
 			delete srgbIcm;
 		}
 
