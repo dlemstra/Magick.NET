@@ -1153,6 +1153,61 @@ namespace ImageMagick
 		return Equals(*image->Value);
 	}
 	//==============================================================================================
+	array<Byte>^ MagickImage::ExifProfile()
+	{
+		try
+		{
+			Magick::Blob blob = Value->exifProfile();
+			return Marshaller::Marshal(&blob);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::ExifProfile(array<Byte>^ data)
+	{
+		try
+		{
+			Magick::Blob blob;
+			Marshaller::Marshal(data, &blob);
+			Value->exifProfile(blob);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::ExifProfile(Stream^ stream)
+	{
+		try
+		{
+			Magick::Blob blob;
+			MagickReader::Read(&blob, stream);
+			Value->exifProfile(blob);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::ExifProfile(String^ fileName)
+	{
+		try
+		{
+			Magick::Blob blob;
+			MagickReader::Read(&blob, fileName);
+			Value->exifProfile(blob);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Extent(MagickGeometry^ geometry)
 	{
 		Throw::IfNull("geometry", geometry);
@@ -1235,7 +1290,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFillAlpha(int x, int y, int alpha, PaintMethod paintMethod)
+	void MagickImage::FloodFill(int alpha, int x, int y, PaintMethod paintMethod)
 	{
 		try
 		{
@@ -1247,7 +1302,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFillColor(int x, int y, MagickColor^ color)
+	void MagickImage::FloodFill(MagickColor^ color, int x, int y)
 	{
 		Throw::IfNull("color", color);
 
@@ -1267,28 +1322,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFillColor(MagickGeometry^ geometry, MagickColor^ color)
-	{
-		Throw::IfNull("geometry", geometry);
-		Throw::IfNull("color", color);
-
-		Magick::Color* fillColor = color->CreateColor();
-
-		try
-		{
-			Value->floodFillColor(geometry, *fillColor);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-		finally
-		{
-			delete fillColor;
-		}
-	}
-	//==============================================================================================
-	void MagickImage::FloodFillColor(int x, int y, MagickColor^ color, MagickColor^ borderColor)
+	void MagickImage::FloodFill(MagickColor^ color, int x, int y, MagickColor^ borderColor)
 	{
 		Throw::IfNull("color", color);
 		Throw::IfNull("borderColor", borderColor);
@@ -1311,10 +1345,31 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFillColor(MagickGeometry^ geometry, MagickColor^ color, MagickColor^ borderColor)
+	void MagickImage::FloodFill(MagickColor^ color, MagickGeometry^ geometry)
 	{
-		Throw::IfNull("geometry", geometry);
 		Throw::IfNull("color", color);
+		Throw::IfNull("geometry", geometry);
+
+		Magick::Color* fillColor = color->CreateColor();
+
+		try
+		{
+			Value->floodFillColor(geometry, *fillColor);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete fillColor;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFill(MagickColor^ color, MagickGeometry^ geometry, MagickColor^ borderColor)
+	{
+		Throw::IfNull("color", color);
+		Throw::IfNull("geometry", geometry);
 		Throw::IfNull("borderColor", borderColor);
 
 		Magick::Color* fillColor = color->CreateColor();
@@ -1335,7 +1390,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFillTexture(int x, int y, MagickImage^ image)
+	void MagickImage::FloodFill(MagickImage^ image, int x, int y)
 	{
 		Throw::IfNull("image", image);
 
@@ -1349,22 +1404,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFillTexture(MagickGeometry^ geometry, MagickImage^ image)
-	{
-		Throw::IfNull("geometry", geometry);
-		Throw::IfNull("image", image);
-
-		try
-		{
-			Value->floodFillTexture(geometry, *image->Value);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::FloodFillTexture(int x, int y, MagickImage^ image, MagickColor^ borderColor)
+	void MagickImage::FloodFill(MagickImage^ image, int x, int y, MagickColor^ borderColor)
 	{
 		Throw::IfNull("image", image);
 		Throw::IfNull("borderColor", borderColor);
@@ -1385,10 +1425,25 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFillTexture(MagickGeometry^ geometry, MagickImage^ image, MagickColor^ borderColor)
+	void MagickImage::FloodFill(MagickImage^ image, MagickGeometry^ geometry)
 	{
-		Throw::IfNull("geometry", geometry);
 		Throw::IfNull("image", image);
+		Throw::IfNull("geometry", geometry);
+
+		try
+		{
+			Value->floodFillTexture(geometry, *image->Value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor)
+	{
+		Throw::IfNull("image", image);
+		Throw::IfNull("geometry", geometry);
 		Throw::IfNull("borderColor", borderColor);
 
 		Magick::Color* fillBorderColor = borderColor->CreateColor();

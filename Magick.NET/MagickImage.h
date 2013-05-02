@@ -467,24 +467,6 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Exif profile (BLOB).
-		///</summary>
-		property array<Byte>^ ExifProfile
-		{
-			array<Byte>^ get()
-			{
-				Magick::Blob blob = Value->exifProfile();
-				return Marshaller::Marshal(&blob);
-			}
-			void set(array<Byte>^ value)
-			{
-				Magick::Blob blob;
-				Marshaller::Marshal(value, &blob);
-				Value->exifProfile(blob);
-			}
-		}
-		///==========================================================================================
-		///<summary>
 		/// Image file size.
 		///</summary>
 		property int FileSize
@@ -1747,6 +1729,34 @@ namespace ImageMagick
 		void Emboss(double radius, double sigma);
 		///==========================================================================================
 		///<summary>
+		/// Returns the ExifProfile as a byte array,
+		///</summary>
+		///<exception cref="MagickException"/>
+		array<Byte>^ ExifProfile();
+		///==========================================================================================
+		///<summary>
+		/// Loads the ExifProfile from the specified filename.
+		///</summary>
+		///<param name="data">The byte array to read the exif profile from.</param>
+		///<exception cref="MagickException"/>
+		void ExifProfile(array<Byte>^ data);
+		///==========================================================================================
+		///<summary>
+		/// Loads the ExifProfile from the specified stream.
+		///</summary>
+		///<param name="stream">The stream to read the exif profile from.</param>
+		///<exception cref="MagickException"/>
+		void ExifProfile(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Loads the ExifProfile from the specified filename.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the exif profile file, or the relative exif
+		/// profile file name.</param>
+		///<exception cref="MagickException"/>
+		void ExifProfile(String^ fileName);
+		///==========================================================================================
+		///<summary>
 		/// Extend the image as defined by the geometry.
 		///</summary>
 		///<param name="geometry">The geometry to extend the image to.</param>
@@ -1788,92 +1798,92 @@ namespace ImageMagick
 		/// Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
 		/// alpha value using method.
 		///</summary>
+		///<param name="alpha">The alpha to use.</param>
 		///<param name="x">The X coordinate.</param>
 		///<param name="y">The Y coordinate.</param>
-		///<param name="alpha">The alpha to use.</param>
 		///<param name="paintMethod">The paint method to use.</param>
 		///<exception cref="MagickException"/>
-		void FloodFillAlpha(int x, int y, int alpha, PaintMethod paintMethod);
+		void FloodFill(int alpha, int x, int y, PaintMethod paintMethod);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
 		/// of the target pixel. Uses current fuzz setting when determining color match.
 		///</summary>
+		///<param name="color">The color to use.</param>
 		///<param name="x">The X coordinate.</param>
 		///<param name="y">The Y coordinate.</param>
-		///<param name="color">The color to use.</param>
 		///<exception cref="MagickException"/>
-		void FloodFillColor(int x, int y, MagickColor^ color);
+		void FloodFill(MagickColor^ color, int x, int y);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
 		/// of the target pixel. Uses current fuzz setting when determining color match.
 		///</summary>
-		///<param name="geometry">The position of the pixel.</param>
 		///<param name="color">The color to use.</param>
-		///<exception cref="MagickException"/>
-		void FloodFillColor(MagickGeometry^ geometry, MagickColor^ color);
-		///==========================================================================================
-		///<summary>
-		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
-		/// of the target pixel. Uses current fuzz setting when determining color match.
-		///</summary>
 		///<param name="x">The X coordinate.</param>
 		///<param name="y">The Y coordinate.</param>
-		///<param name="color">The color to use.</param>
 		///<param name="borderColor">The color of the border.</param>
 		///<exception cref="MagickException"/>
-		void FloodFillColor(int x, int y, MagickColor^ color, MagickColor^ borderColor);
+		void FloodFill(MagickColor^ color, int x, int y, MagickColor^ borderColor);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
+		/// of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="color">The color to use.</param>
+		///<param name="geometry">The position of the pixel.</param>
+		///<exception cref="MagickException"/>
+		void FloodFill(MagickColor^ color, MagickGeometry^ geometry);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill color across pixels that match the color of the target pixel and are neighbors
 		/// of the target pixel. Uses current fuzz setting when determining color match.
 		///</summary>
-		///<param name="geometry">The position of the pixel.</param>
 		///<param name="color">The color to use.</param>
+		///<param name="geometry">The position of the pixel.</param>
 		///<param name="borderColor">The color of the border.</param>
 		///<exception cref="MagickException"/>
-		void FloodFillColor(MagickGeometry^ geometry, MagickColor^ color, MagickColor^ borderColor);
+		void FloodFill(MagickColor^ color, MagickGeometry^ geometry, MagickColor^ borderColor);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
 		/// of the target pixel. Uses current fuzz setting when determining color match.
 		///</summary>
+		///<param name="image">The image to use.</param>
 		///<param name="x">The X coordinate.</param>
 		///<param name="y">The Y coordinate.</param>
-		///<param name="image">The image to use.</param>
 		///<exception cref="MagickException"/>
-		void FloodFillTexture(int x, int y, MagickImage^ image);
+		void FloodFill(MagickImage^ image, int x, int y);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
 		/// of the target pixel. Uses current fuzz setting when determining color match.
 		///</summary>
-		///<param name="geometry">The position of the pixel.</param>
 		///<param name="image">The image to use.</param>
-		///<exception cref="MagickException"/>
-		void FloodFillTexture(MagickGeometry^ geometry, MagickImage^ image);
-		///==========================================================================================
-		///<summary>
-		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
-		/// of the target pixel. Uses current fuzz setting when determining color match.
-		///</summary>
 		///<param name="x">The X coordinate.</param>
 		///<param name="y">The Y coordinate.</param>
-		///<param name="image">The image to use.</param>
 		///<param name="borderColor">The color of the border.</param>
 		///<exception cref="MagickException"/>
-		void FloodFillTexture(int x, int y, MagickImage^ image, MagickColor^ borderColor);
+		void FloodFill(MagickImage^ image, int x, int y, MagickColor^ borderColor);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
 		/// of the target pixel. Uses current fuzz setting when determining color match.
 		///</summary>
-		///<param name="geometry">The position of the pixel.</param>
 		///<param name="image">The image to use.</param>
+		///<param name="geometry">The position of the pixel.</param>
+		///<exception cref="MagickException"/>
+		void FloodFill(MagickImage^ image, MagickGeometry^ geometry);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
+		/// of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="image">The image to use.</param>
+		///<param name="geometry">The position of the pixel.</param>
 		///<param name="borderColor">The color of the border.</param>
 		///<exception cref="MagickException"/>
-		void FloodFillTexture(MagickGeometry^ geometry, MagickImage^ image, MagickColor^ borderColor);
+		void FloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor);
 		///==========================================================================================
 		///<summary>
 		/// Flop image (reflect each scanline in the horizontal direction).
@@ -2281,7 +2291,7 @@ namespace ImageMagick
 		///<summary>
 		/// Read single image frame.
 		///</summary>
-		///<param name="data">The  byte array to read the image data from.</param>
+		///<param name="data">The byte array to read the image data from.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
 		MagickWarningException^ Read(array<Byte>^ data);
@@ -2289,7 +2299,7 @@ namespace ImageMagick
 		///<summary>
 		/// Read single image frame.
 		///</summary>
-		///<param name="data">The  byte array to read the image data from.</param>
+		///<param name="data">The byte array to read the image data from.</param>
 		///<param name="colorSpace">The colorspace to convert the image to.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
