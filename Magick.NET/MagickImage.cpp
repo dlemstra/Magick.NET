@@ -82,7 +82,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::RandomThreshold(Channels channels, Magick::Quantum low, Magick::Quantum high, bool isPercentage)
+	void MagickImage::RandomThreshold(Magick::Quantum low, Magick::Quantum high, Channels channels, bool isPercentage)
 	{
 		Magick::Geometry* geometry = new Magick::Geometry(low, high);
 		geometry->percent(isPercentage);
@@ -335,7 +335,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::AddNoise(Channels channels, NoiseType noiseType)
+	void MagickImage::AddNoise(NoiseType noiseType, Channels channels)
 	{
 		try
 		{
@@ -515,7 +515,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Blur(Channels channels)
 	{
-		Blur(channels, 0.0, 1.0);
+		Blur(0.0, 1.0, channels);
 	}
 	//==============================================================================================
 	void MagickImage::Blur(double radius, double sigma)
@@ -530,7 +530,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Blur(Channels channels, double radius, double sigma)
+	void MagickImage::Blur(double radius, double sigma, Channels channels)
 	{
 		try
 		{
@@ -1015,11 +1015,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Depth(Channels channels, int value)
+	void MagickImage::Depth(int value)
 	{
 		try
 		{
-			Value->channelDepth((MagickCore::ChannelType)channels, value);
+			Value->depth(value);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1027,11 +1027,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Depth(int value)
+	void MagickImage::Depth(int value, Channels channels)
 	{
 		try
 		{
-			Value->depth(value);
+			Value->channelDepth((MagickCore::ChannelType)channels, value);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1554,7 +1554,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Fx(Channels channels, String^ expression)
+	void MagickImage::Fx(String^ expression, Channels channels)
 	{
 		Throw::IfNullOrEmpty("expression", expression);
 
@@ -1611,7 +1611,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::GaussianBlur(Channels channels, double width, double sigma)
+	void MagickImage::GaussianBlur(double width, double sigma, Channels channels)
 	{
 		try
 		{
@@ -1736,9 +1736,9 @@ namespace ImageMagick
 		Level(blackPoint, whitePoint, 1.0);
 	}
 	//==============================================================================================
-	void MagickImage::Level(Channels channels, Magick::Quantum blackPoint, Magick::Quantum whitePoint)
+	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, Channels channels)
 	{
-		Level(channels, blackPoint, whitePoint, 1.0);
+		Level(blackPoint, whitePoint, 1.0, channels);
 	}
 	//==============================================================================================
 	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint)
@@ -1753,7 +1753,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Level(Channels channels, Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint)
+	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, Channels channels)
 	{
 		try
 		{
@@ -1960,19 +1960,19 @@ namespace ImageMagick
 		RandomThreshold(low, high, false);
 	}
 	//==============================================================================================
+	void MagickImage::RandomThreshold(Magick::Quantum low, Magick::Quantum high, Channels channels)
+	{
+		RandomThreshold(low, high, channels, false);
+	}
+	//==============================================================================================
 	void MagickImage::RandomThreshold(Percentage percentageLow, Percentage percentageHigh)
 	{
 		RandomThreshold((Magick::Quantum)percentageLow, (Magick::Quantum)percentageHigh, true);
 	}
 	//==============================================================================================
-	void MagickImage::RandomThreshold(Channels channels, Magick::Quantum low, Magick::Quantum high)
+	void MagickImage::RandomThreshold(Percentage percentageLow, Percentage percentageHigh, Channels channels)
 	{
-		RandomThreshold(channels, low, high, false);
-	}
-	//==============================================================================================
-	void MagickImage::RandomThreshold(Channels channels, Percentage percentageLow, Percentage percentageHigh)
-	{
-		RandomThreshold(channels, (Magick::Quantum)percentageLow, (Magick::Quantum)percentageHigh, true);
+		RandomThreshold((Magick::Quantum)percentageLow, (Magick::Quantum)percentageHigh, channels, true);
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImage::Read(array<Byte>^ data)
@@ -2181,7 +2181,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Shadow(MagickColor^ color)
 	{
-		return Shadow(5, 5, 0.5, color, 0.8);
+		return Shadow(5, 5, 0.5, 0.8, color);
 	}
 	///=============================================================================================
 	void MagickImage::Shadow(int x, int y, double sigma, Percentage alpha)
@@ -2196,7 +2196,7 @@ namespace ImageMagick
 		}
 	}
 	///=============================================================================================
-	void MagickImage::Shadow(int x, int y, double sigma, MagickColor^ color, Percentage alpha)
+	void MagickImage::Shadow(int x, int y, double sigma, Percentage alpha, MagickColor^ color)
 	{
 		Throw::IfNull("color", color);
 
@@ -2231,6 +2231,11 @@ namespace ImageMagick
 		Sharpen(0.0, 1.0);
 	}
 	//==============================================================================================
+	void MagickImage::Sharpen(Channels channels)
+	{
+		Sharpen(0.0, 1.0, channels);
+	}
+	//==============================================================================================
 	void MagickImage::Sharpen(double radius, double sigma)
 	{
 		try
@@ -2243,12 +2248,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Sharpen(Channels channels)
-	{
-		Sharpen(channels, 0.0, 1.0);
-	}
-	//==============================================================================================
-	void MagickImage::Sharpen(Channels channels, double radius, double sigma)
+	void MagickImage::Sharpen(double radius, double sigma, Channels channels)
 	{
 		try
 		{
@@ -2579,7 +2579,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Unsharpmask(Channels channels, double radius, double sigma, double amount, double threshold)
+	void MagickImage::Unsharpmask(double radius, double sigma, double amount, double threshold, Channels channels)
 	{
 		try
 		{
