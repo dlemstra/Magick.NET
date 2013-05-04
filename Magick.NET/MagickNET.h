@@ -13,6 +13,8 @@
 //=================================================================================================
 #pragma once
 
+using namespace System::Reflection;
+
 namespace ImageMagick
 {
 	///=============================================================================================
@@ -41,6 +43,18 @@ namespace ImageMagick
 		/// pixels cache operations are to/from disk. This setting is shared by all Image objects.
 		///</summary>
 		static void SetCacheThreshold(int threshold);
+		///==========================================================================================
+		///<summary>
+		/// Returns the version of Magick.NET.
+		///</summary>
+		static property String^ Version
+		{
+			String^ get()
+			{
+				Object^ title = (MagickNET::typeid)->Assembly->GetCustomAttributes(AssemblyTitleAttribute::typeid, false)[0];
+				return ((AssemblyTitleAttribute^)title)->Title;
+			}
+		}
 		//===========================================================================================
 	};
 	//==============================================================================================

@@ -25,6 +25,9 @@ extern "C" {
 #include "magick/colorspace.h"
 #include "magick/constitute.h"
 
+/*
+  Pixel enum declarations.
+*/
 typedef enum
 {
   UndefinedInterpolatePixel,
@@ -71,9 +74,13 @@ typedef enum
   Rec601LuminancePixelIntensityMethod,
   Rec709LumaPixelIntensityMethod,
   Rec709LuminancePixelIntensityMethod,
-  RMSPixelIntensityMethod
+  RMSPixelIntensityMethod,
+  MSPixelIntensityMethod
 } PixelIntensityMethod;
 
+/*
+  Pixel typedef declarations.
+*/
 typedef struct _DoublePixelPacket
 {
   double
@@ -153,6 +160,9 @@ typedef struct _QuantumPixelPacket
 typedef struct _CacheView
   CacheView_;
 
+/*
+  Pixel method declarations.
+*/
 extern MagickExport MagickBooleanType
   ExportImagePixels(const Image *,const ssize_t,const ssize_t,const size_t,
     const size_t,const char *,const StorageType,void *,ExceptionInfo *),

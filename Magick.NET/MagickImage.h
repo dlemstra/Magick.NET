@@ -206,7 +206,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->animationDelay();
+				return Convert::ToInt32(Value->animationDelay());
 			}
 			void set(int value)
 			{
@@ -221,7 +221,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->animationIterations();
+				return Convert::ToInt32(Value->animationIterations());
 			}
 			void set(int value)
 			{
@@ -268,7 +268,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->baseRows();
+				return Convert::ToInt32(Value->baseRows());
 			}
 		}
 		///==========================================================================================
@@ -279,7 +279,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->baseColumns();
+				return Convert::ToInt32(Value->baseColumns());
 			}
 		}
 		///==========================================================================================
@@ -377,7 +377,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->colorMapSize();
+				return Convert::ToInt32(Value->colorMapSize());
 			}
 			void set(int value)
 			{
@@ -632,7 +632,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->size().height();
+				return Convert::ToInt32(Value->size().height());
 			}
 		}
 		///==========================================================================================
@@ -726,7 +726,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->modulusDepth();
+				return Convert::ToInt32(Value->modulusDepth());
 			}
 			void set(int value)
 			{
@@ -771,7 +771,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->quality();
+				return Convert::ToInt32(Value->quality());
 			}
 			void set(int value)
 			{
@@ -789,7 +789,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->quantizeColors();
+				return Convert::ToInt32(Value->quantizeColors());
 			}
 			void set(int value)
 			{
@@ -834,7 +834,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->quantizeTreeDepth();
+				return Convert::ToInt32(Value->quantizeTreeDepth());
 			}
 			void set(int value)
 			{
@@ -1018,7 +1018,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->strokeMiterLimit();
+				return Convert::ToInt32(Value->strokeMiterLimit());
 			}
 			void set(int value)
 			{
@@ -1116,7 +1116,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->totalColors();
+				return Convert::ToInt32(Value->totalColors());
 			}
 		}
 		///==========================================================================================
@@ -1142,7 +1142,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->size().width();
+				return Convert::ToInt32(Value->size().width());
 			}
 		}
 		//===========================================================================================

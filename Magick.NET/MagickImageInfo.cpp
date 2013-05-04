@@ -20,8 +20,8 @@ namespace ImageMagick
 	void MagickImageInfo::Initialize(Magick::Image* image)
 	{
 		_ColorSpace = (ImageMagick::ColorSpace)image->colorSpace();
-		_Height = image->size().height();
-		_Width = image->size().width();
+		_Height = Convert::ToInt32(image->size().height());
+		_Width = Convert::ToInt32(image->size().width());
 
 		String^ magick = Marshaller::Marshal(image->magick());
 

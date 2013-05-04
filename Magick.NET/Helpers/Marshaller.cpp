@@ -39,9 +39,10 @@ namespace ImageMagick
 		if (value == NULL || value->length() == 0)
 			return nullptr;
 
-		array<Byte>^ data = gcnew array<Byte>(value->length());
+		int length = Convert::ToInt32(value->length());
+		array<Byte>^ data = gcnew array<Byte>(length);
 		IntPtr ptr = IntPtr((void*)value->data());
-		Marshal::Copy(ptr, data, 0, value->length());
+		Marshal::Copy(ptr, data, 0, length);
 		return data;
 	}
 	//==============================================================================================

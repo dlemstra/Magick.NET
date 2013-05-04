@@ -54,7 +54,7 @@ namespace ImageMagick
 		{
 			double get()
 			{
-				return Value->x1();
+				return Convert::ToDouble(Value->x1());
 			}
 			void set(double value)
 			{
@@ -69,7 +69,7 @@ namespace ImageMagick
 		{
 			double get()
 			{
-				return Value->y1();
+				return Convert::ToDouble(Value->y1());
 			}
 			void set(double value)
 			{
@@ -84,7 +84,7 @@ namespace ImageMagick
 		{
 			double get()
 			{
-				return Value->x2();
+				return Convert::ToDouble(Value->x2());
 			}
 			void set(double value)
 			{
@@ -99,7 +99,7 @@ namespace ImageMagick
 		{
 			double get()
 			{
-				return Value->y2();
+				return Convert::ToDouble(Value->y2());
 			}
 			void set(double value)
 			{

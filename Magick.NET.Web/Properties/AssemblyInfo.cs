@@ -18,7 +18,11 @@ using System.Runtime.InteropServices;
 using System.Web;
 
 //=================================================================================================
-[assembly: AssemblyTitle("Magick.NET.Web")]
+#if _M_X64
+[assembly: AssemblyTitle("Magick.NET.Web x64")]
+#else
+[assembly:AssemblyTitle("Magick.NET.Web x86")]
+#endif
 [assembly: AssemblyProduct("Magick.NET")]
 [assembly: AssemblyDescription("Magick.NET.Web")]
 [assembly: AssemblyCompany("")]
@@ -28,7 +32,7 @@ using System.Web;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("6.0.0.0")]
-[assembly: AssemblyFileVersion("6.8.3.10")]
+[assembly: AssemblyFileVersion("6.8.5.4")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 [assembly: PreApplicationStartMethod(typeof(ImageMagick.MagickWeb), "Initialize")]

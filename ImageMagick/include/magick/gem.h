@@ -15,8 +15,8 @@
 
   MagickCore private graphic gems methods.
 */
-#ifndef _MAGICKCORE_GEM_PRIVATE_H
-#define _MAGICKCORE_GEM_PRIVATE_H
+#ifndef _MAGICKCORE_GEM_H
+#define _MAGICKCORE_GEM_H
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
@@ -44,6 +44,10 @@ extern MagickExport void
     Quantum *),
   ConvertHWBToRGB(const double,const double,const double,Quantum *,Quantum *,
     Quantum *),
+  ConvertLCHabToRGB(const double,const double,const double,Quantum *,Quantum *,
+    Quantum *),
+  ConvertLCHuvToRGB(const double,const double,const double,Quantum *,Quantum *,
+    Quantum *),
   ConvertRGBToHCL(const Quantum,const Quantum,const Quantum,double *,double *,
     double *),
   ConvertRGBToHSB(const Quantum,const Quantum,const Quantum,double *,double *,
@@ -51,6 +55,10 @@ extern MagickExport void
   ConvertRGBToHSL(const Quantum,const Quantum,const Quantum,double *,double *,
     double *),
   ConvertRGBToHWB(const Quantum,const Quantum,const Quantum,double *,double *,
+    double *),
+  ConvertRGBToLCHab(const Quantum,const Quantum,const Quantum,double *,double *,
+    double *),
+  ConvertRGBToLCHuv(const Quantum,const Quantum,const Quantum,double *,double *,
     double *);
 
 #if defined(__cplusplus) || defined(c_plusplus)

@@ -56,7 +56,7 @@
 // To achieve a slimmer ImageMagick, undefine MAGICKCORE_X11_DELEGATE and
 // remove the 'xlib' project from the ImageMagick workspace.
 //
-#define MAGICKCORE_X11_DELEGATE
+#undef MAGICKCORE_X11_DELEGATE
 
 // Define to enable high dynamic range imagery (HDRI)
 //
@@ -64,7 +64,7 @@
 
 // Exclude deprecated methods in MagickCore API 
 //
-//#undef MAGICKCORE_EXCLUDE_DEPRECATED
+#define MAGICKCORE_EXCLUDE_DEPRECATED
 
 // Permit enciphering and deciphering image pixels.
 //

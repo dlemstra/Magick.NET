@@ -20,15 +20,23 @@ using namespace System::Runtime::InteropServices;
 using namespace System::Security::Permissions;
 
 //=================================================================================================
-[assembly:AssemblyTitle("Magick.NET")];
-[assembly:AssemblyProduct("Magick.NET")];
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
-[assembly:AssemblyDescription("Magick.NET Q8")];
+#if _M_X64
+[assembly:AssemblyTitle("Magick.NET Q8 x64")];
+#else
+[assembly:AssemblyTitle("Magick.NET Q8 x86")];
+#endif
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-[assembly:AssemblyDescription("Magick.NET Q16")];
+#if _M_X64
+[assembly:AssemblyTitle("Magick.NET Q16 x64")];
+#else
+[assembly:AssemblyTitle("Magick.NET Q16 x86")];
+#endif
 #else
 Not implemented!
 #endif
+[assembly:AssemblyProduct("Magick.NET")];
+[assembly:AssemblyDescription("Magick.NET")];
 [assembly:AssemblyCompany("")];
 [assembly:AssemblyCopyright("Copyright © Dirk Lemstra 2013")];
 [assembly:AssemblyTrademark("")];
@@ -36,7 +44,7 @@ Not implemented!
 [assembly:AssemblyConfiguration("Release")];
 [assembly:AssemblyCulture("")];
 [assembly:AssemblyVersion("6.0.0.0")];
-[assembly:AssemblyFileVersion("6.8.3.10")]
+[assembly:AssemblyFileVersion("6.8.5.4")]
 [assembly:ComVisible(false)];
 [assembly:CLSCompliant(true)];
 [assembly:SecurityPermission(SecurityAction::RequestMinimum, UnmanagedCode = true)];

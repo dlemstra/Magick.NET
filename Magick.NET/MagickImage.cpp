@@ -995,7 +995,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			return Value->depth();
+			return Convert::ToInt32(Value->depth());
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1007,7 +1007,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			return Value->channelDepth((MagickCore::ChannelType)channels);
+			return Convert::ToInt32(Value->channelDepth((MagickCore::ChannelType)channels));
 		}
 		catch(Magick::Exception& exception)
 		{

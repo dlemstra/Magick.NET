@@ -93,7 +93,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->height();
+				return Convert::ToInt32(Value->height());
 			}
 			void set(int value)
 			{
@@ -123,7 +123,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->width();
+				return Convert::ToInt32(Value->width());
 			}
 			void set(int value)
 			{
@@ -138,7 +138,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->xNegative() ? -1 * Value->xOff() : Value->xOff();
+				return Convert::ToInt32(Value->xNegative() ? -1 * Value->xOff() : Value->xOff());
 			}
 			void set(int value)
 			{
@@ -154,7 +154,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->yNegative() ? -1 * Value->yOff() : Value->yOff();
+				return Convert::ToInt32(Value->yNegative() ? -1 * Value->yOff() : Value->yOff());
 			}
 			void set(int value)
 			{

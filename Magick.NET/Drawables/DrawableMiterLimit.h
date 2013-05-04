@@ -39,7 +39,7 @@ namespace ImageMagick
 		{
 			int get()
 			{
-				return Value->miterlimit();
+				return Convert::ToInt32(Value->miterlimit());
 			}
 			void set(int value)
 			{
