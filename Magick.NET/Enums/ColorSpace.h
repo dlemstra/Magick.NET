@@ -49,7 +49,10 @@ namespace ImageMagick
 		Luv = MagickCore::LuvColorspace,
 		HCL = MagickCore::HCLColorspace,
 		LCH = MagickCore::LCHColorspace,
-		LMS = MagickCore::LMSColorspace
+		LMS = MagickCore::LMSColorspace,
+		LCHab = MagickCore::LCHabColorspace,
+		LCHuv = MagickCore::LCHuvColorspace,
+		scRGB = MagickCore::scRGBColorspace
 	};
 	//==============================================================================================
 }
