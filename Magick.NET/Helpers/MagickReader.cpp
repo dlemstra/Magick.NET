@@ -21,6 +21,8 @@ namespace ImageMagick
 	MagickWarningException^ MagickReader::Read(Magick::Image* image, bool ping, array<Byte>^ data,
 		Nullable<int> width, Nullable<int> height, Nullable<ColorSpace> colorSpace)
 	{
+		Throw::IfNull("data", data);
+
 		Magick::Blob blob;
 		Marshaller::Marshal(data, &blob);
 		return Read(image, ping, &blob, width, height, colorSpace);
@@ -103,6 +105,8 @@ namespace ImageMagick
 	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, array<Byte>^ data,
 		Nullable<ColorSpace> colorSpace)
 	{
+		Throw::IfNull("data", data);
+
 		Magick::Blob blob;
 		Marshaller::Marshal(data, &blob);
 		return Read(imageList, &blob, colorSpace);
