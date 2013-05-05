@@ -30,13 +30,13 @@ namespace ImageMagick
 		/// Adds the sub directory ImageMagick of the current execution path to the environment path.
 		/// You should place the supplied ImageMagick dlls in that directory.
 		///</summary>
-		static bool Initialize();
+		static void Initialize();
 		///==========================================================================================
 		///<summary>
-		/// Adds the specified path to the environment path. You should place the ImageMagick dlls
-		/// in that directory.
+		/// Adds the specified path to the environment path. You should place the supplied ImageMagick
+		/// dlls in that directory.
 		///</summary>
-		static bool Initialize(String^ path);
+		static void Initialize(String^ path);
 		///==========================================================================================
 		///<summary>
 		/// Pixel cache threshold in megabytes. Once this memory threshold is exceeded, all subsequent

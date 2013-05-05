@@ -20,39 +20,33 @@ using namespace System::Security;
 namespace ImageMagick
 {
 	//==============================================================================================
-	bool MagickNET::Initialize()
+	void MagickNET::Initialize()
 	{
 		String^ path = Path::GetDirectoryName(MagickNET::typeid->Assembly->Location) + "\\ImageMagick";
 
-		return Initialize(path);
+		Initialize(path);
 	}
 	//==============================================================================================
-	bool MagickNET::Initialize(String^ path)
+	void MagickNET::Initialize(String^ path)
 	{
 		Throw::IfNullOrEmpty("path", path);
 
 		path = Path::GetFullPath(path);
-
 		Throw::IfFalse("path", Directory::Exists(path), "Unable to find path: " + path);
 
-		try
-		{
-			String^ envPath = Environment::GetEnvironmentVariable("PATH");
-			if (envPath->IndexOf(path, StringComparison::Ordinal) != -1)
-				return true;
+		String^ fileName = path + "\\CORE_RL_Magick++_.dll";
+		Throw::IfFalse("path", File::Exists(fileName), "Unable to find file: " + fileName);
 
-			if (!envPath->StartsWith(";", StringComparison::OrdinalIgnoreCase))
-				envPath = ";" + envPath;
+		String^ envPath = Environment::GetEnvironmentVariable("PATH");
+		if (envPath->IndexOf(path + ";", StringComparison::Ordinal) != -1)
+			return;
 
-			envPath = path + envPath;
+		if (!envPath->StartsWith(";", StringComparison::OrdinalIgnoreCase))
+			envPath = ";" + envPath;
 
-			Environment::SetEnvironmentVariable("PATH", envPath);
-			return true;
-		}
-		catch(SecurityException^)
-		{
-			return false;
-		}
+		envPath = path + envPath;
+
+		Environment::SetEnvironmentVariable("PATH", envPath);
 	}
 	//==============================================================================================
 	void MagickNET::SetCacheThreshold(int threshold)
