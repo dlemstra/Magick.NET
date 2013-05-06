@@ -516,6 +516,9 @@
     <ClInclude Include="Helpers\FileHelper.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Helpers\EnumHelper.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -839,6 +842,9 @@
     <ClCompile Include="Helpers\FileHelper.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="Helpers\EnumHelper.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\sRGB.icm">
@@ -846,7 +852,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resources\$(Configuration)\$(Platform)\Magick.NET.rc">
+    <ResourceCompile Include="Resources\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\Magick.NET.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

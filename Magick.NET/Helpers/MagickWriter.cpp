@@ -37,7 +37,7 @@ namespace ImageMagick
 			stream->Write(buffer, 0, count);
 
 			offset += bufferSize;
-			ptr += count;
+			ptr = IntPtr(ptr.ToInt64() + count);
 		}
 	}
 	//==============================================================================================

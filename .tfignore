@@ -42,8 +42,12 @@
 
 \Magick.NET\lib
 \Magick.NET\bin
-\Magick.NET\Resources\ReleaseQ8\x64\Magick.NET.aps
-\Magick.NET\Resources\ReleaseQ8\Win32\Magick.NET.aps
-\Magick.NET\Resources\ReleaseQ16\x64\Magick.NET.aps
-\Magick.NET\Resources\ReleaseQ16\Win32\Magick.NET.aps
+\Magick.NET\Resources\ReleaseQ8\v2.0\x64\Magick.NET.aps
+\Magick.NET\Resources\ReleaseQ8\v2.0\Win32\Magick.NET.aps
+\Magick.NET\Resources\ReleaseQ16\v2.0\x64\Magick.NET.aps
+\Magick.NET\Resources\ReleaseQ16\v2.0\Win32\Magick.NET.aps
+\Magick.NET\Resources\ReleaseQ8\v4.0\x64\Magick.NET.aps
+\Magick.NET\Resources\ReleaseQ8\v4.0\Win32\Magick.NET.aps
+\Magick.NET\Resources\ReleaseQ16\v4.0\x64\Magick.NET.aps
+\Magick.NET\Resources\ReleaseQ16\v4.0\Win32\Magick.NET.aps
 \ImageMagick\Source

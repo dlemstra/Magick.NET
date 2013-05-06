@@ -72,35 +72,35 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
     <ClCompile>
@@ -118,7 +118,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>CORE_RL_magick_.lib;CORE_RL_Magick++_.lib;CORE_RL_wand_.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
@@ -140,7 +140,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>CORE_RL_magick_.lib;CORE_RL_Magick++_.lib;CORE_RL_wand_.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
@@ -162,7 +162,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>CORE_RL_magick_.lib;CORE_RL_Magick++_.lib;CORE_RL_wand_.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
@@ -184,7 +184,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>CORE_RL_magick_.lib;CORE_RL_Magick++_.lib;CORE_RL_wand_.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
@@ -278,6 +278,7 @@
     <ClInclude Include="Exceptions\MagickErrorExceptions.h" />
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
+    <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="Helpers\FileHelper.h" />
     <ClInclude Include="Helpers\ChannelStatistics.h" />
     <ClInclude Include="MagickImageStatistics.h" />
@@ -397,6 +398,7 @@
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.cpp" />
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.cpp" />
     <ClCompile Include="Exceptions\Base\MagickException.cpp" />
+    <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\FileHelper.cpp" />
     <ClCompile Include="GlobalSuppressions.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
@@ -461,7 +463,7 @@
     <None Include="Resources\sRGB.icm" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resources\$(Configuration)\$(Platform)\Magick.NET.rc" />
+    <ResourceCompile Include="Resources\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\Magick.NET.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

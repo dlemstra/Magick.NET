@@ -38,6 +38,7 @@
 #include "Enums\SparseColorMethod.h"
 #include "Enums\VirtualPixelMethod.h"
 #include "Exceptions\Base\MagickException.h"
+#include "Helpers\EnumHelper.h"
 #include "Helpers\MagickErrorInfo.h"
 #include "Helpers\MagickReader.h"
 #include "Helpers\MagickWriter.h"
@@ -645,7 +646,7 @@ namespace ImageMagick
 			{
 				ImageMagick::ImageType result;
 
-				if (!Enum::TryParse<ImageMagick::ImageType>(Marshaller::Marshal(Value->magick()), true, result))
+				if (!EnumHelper::TryParse<ImageMagick::ImageType>(Marshaller::Marshal(Value->magick()), result))
 					return ImageMagick::ImageType::Unknown;
 
 				return result;

@@ -25,7 +25,7 @@ namespace ImageMagick
 
 		String^ magick = Marshaller::Marshal(image->magick());
 
-		if (!Enum::TryParse<ImageMagick::ImageType>(magick, true, _ImageType))
+		if (!EnumHelper::TryParse<ImageMagick::ImageType>(magick, _ImageType))
 			_ImageType = ImageMagick::ImageType::Unknown;
 	}
 	//==============================================================================================

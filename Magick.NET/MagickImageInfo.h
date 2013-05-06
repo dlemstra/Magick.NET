@@ -15,6 +15,7 @@
 
 #include "Enums\ColorSpace.h"
 #include "Enums\ImageType.h"
+#include "Helpers\EnumHelper.h"
 #include "Helpers\MagickReader.h"
 
 using namespace System::IO;
