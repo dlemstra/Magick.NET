@@ -1936,6 +1936,12 @@ namespace ImageMagick
 		void Frame(int width, int height, int innerBevel, int outerBevel);
 		///==========================================================================================
 		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified base64 string.
+		///</summary>
+		///<param name="value">The base64 string to load the image from.</param>
+		static MagickImage^ FromBase64(String^ value);
+		///==========================================================================================
+		///<summary>
 		/// Applies a mathematical expression to the image.
 		///</summary>
 		///<param name="expression">The expression to apply.</param>
@@ -2683,6 +2689,11 @@ namespace ImageMagick
 		///<param name="value">The threshold value.</param>
 		///<exception cref="MagickException"/>
 		void Threshold(double value);
+		///==========================================================================================
+		///<summary>
+		/// Converts this instance to a base64 string.
+		///</summary>
+		String^ ToBase64();
 		///==========================================================================================
 		///<summary>
 		/// Converts this instance to a byte array.

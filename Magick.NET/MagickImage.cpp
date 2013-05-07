@@ -1538,6 +1538,12 @@ namespace ImageMagick
 		Frame(gcnew MagickGeometry(width, height, innerBevel, outerBevel));
 	}
 	//==============================================================================================
+	MagickImage^ MagickImage::FromBase64(String^ value)
+	{
+		array<Byte>^ data = Convert::FromBase64String(value);
+		return gcnew MagickImage(data);
+	}
+	//==============================================================================================
 	void MagickImage::Fx(String^ expression)
 	{
 		Throw::IfNullOrEmpty("expression", expression);
@@ -2438,6 +2444,11 @@ namespace ImageMagick
 		{
 			throw MagickException::Create(exception);
 		}
+	}
+	//==============================================================================================
+	String^ MagickImage::ToBase64()
+	{
+		return Convert::ToBase64String(ToByteArray());
 	}
 	//==============================================================================================
 	array<Byte>^ MagickImage::ToByteArray()
