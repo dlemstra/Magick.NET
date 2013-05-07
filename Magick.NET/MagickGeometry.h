@@ -83,7 +83,15 @@ namespace ImageMagick
 		///<summary>
 		/// Initializes a new instance of the MagickGeometry class using the specified rectangle.
 		///</summary>
+		///<param name="rectangle">The rectangle to use.</param>
 		MagickGeometry(Rectangle rectangle);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickGeometry class using the specified geometry.
+		///</summary>
+		///<param name="geometry">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
+		///{+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
+		MagickGeometry(String^ geometry);
 		///==========================================================================================
 		///<summary>
 		/// The height of the geometry.
@@ -171,7 +179,20 @@ namespace ImageMagick
 		///<summary>
 		/// Converts the specified Rectangle to an instane of this type.
 		///</summary>
+		///<param name="rectangle">The rectangle to use.</param>
 		static MagickGeometry^ FromRectangle(Rectangle rectangle);
+		//===========================================================================================
+		static explicit operator MagickGeometry^(String^ geometry)
+		{
+			return FromString(geometry);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Converts the specified geometry to an instane of this type.
+		///</summary>
+		///<param name="geometry">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
+		///{+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
+		static MagickGeometry^ FromString(String^ geometry);
 	};
 	//==============================================================================================
 }
