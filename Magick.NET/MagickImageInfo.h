@@ -32,6 +32,7 @@ namespace ImageMagick
 	private:
 		//===========================================================================================
 		ColorSpace _ColorSpace;
+		String^ _FileName;
 		int _Height;
 		ImageType _ImageType;
 		int _Width;
@@ -74,6 +75,17 @@ namespace ImageMagick
 			ImageMagick::ColorSpace get()
 			{
 				return _ColorSpace;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Original file name of the image (only available if read from disk).
+		///</summary>
+		property String^ FileName
+		{
+			String^ get()
+			{
+				return _FileName;
 			}
 		}
 		///==========================================================================================

@@ -19,6 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageInfo::Initialize(Magick::Image* image)
 	{
+		_FileName = Marshaller::Marshal(image->baseFilename());
 		_ColorSpace = (ImageMagick::ColorSpace)image->colorSpace();
 		_Height = Convert::ToInt32(image->size().height());
 		_Width = Convert::ToInt32(image->size().width());

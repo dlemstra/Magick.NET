@@ -479,6 +479,17 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Original file name of the image (only available if read from disk).
+		///</summary>
+		property String^ FileName
+		{
+			String^ get()
+			{
+				return Marshaller::Marshal(Value->baseFilename());
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Color to use when drawing inside an object.
 		///</summary>
 		property MagickColor^ FillColor
@@ -1118,6 +1129,22 @@ namespace ImageMagick
 			int get()
 			{
 				return Convert::ToInt32(Value->totalColors());
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Turn verbose output on/off.
+		///</summary>
+		///==========================================================================================
+		property bool Verbose 
+		{
+			bool get() 
+			{
+				return Value->verbose();
+			}
+			void set(bool verbose) 
+			{
+				return Value->verbose(verbose);
 			}
 		}
 		///==========================================================================================
