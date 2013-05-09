@@ -115,6 +115,11 @@ namespace ImageMagick
 		_Images->push_back(*item->ReuseImage());
 	}
 	//==============================================================================================
+	void MagickImageCollection::Add(String^ fileName)
+	{
+		Add(gcnew MagickImage(fileName));
+	}
+	//==============================================================================================
 	void MagickImageCollection::Clear()
 	{
 		_Images->clear();
@@ -172,6 +177,11 @@ namespace ImageMagick
 		std::advance(iter, index);
 
 		_Images->insert(iter, *image->ReuseImage());
+	}
+	//==============================================================================================
+	void MagickImageCollection::Insert(int index, String^ fileName)
+	{
+		Insert(index, gcnew MagickImage(fileName));
 	}
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::Merge(LayerMethod layerMethod)

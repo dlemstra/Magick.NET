@@ -229,6 +229,13 @@ namespace ImageMagick
 		virtual void Add(MagickImage^ item);
 		///==========================================================================================
 		///<summary>
+		/// Adds an image with the specified file name to the collection.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<exception cref="MagickException"/>
+		void Add(String^ fileName);
+		///==========================================================================================
+		///<summary>
 		/// Removes all images from the collection.
 		///</summary>
 		virtual void Clear();
@@ -273,9 +280,16 @@ namespace ImageMagick
 		///<summary>
 		/// Inserts an image into the collection.
 		///</summary>
-		///<param name="index">The index to add insert the image.</param>
+		///<param name="index">The index to insert the image.</param>
 		///<param name="item">The image to insert.</param>
 		virtual void Insert(int index, MagickImage^ item);
+		///==========================================================================================
+		///<summary>
+		/// Inserts an image with the specified file name into the collection.
+		///</summary>
+		///<param name="index">The index to insert the image.</param>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		virtual void Insert(int index, String^ fileName);
 		///==========================================================================================
 		///<summary>
 		/// Read all image frames.
