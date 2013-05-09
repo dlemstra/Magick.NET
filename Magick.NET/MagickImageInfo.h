@@ -14,7 +14,7 @@
 #pragma once
 
 #include "Enums\ColorSpace.h"
-#include "Enums\ImageType.h"
+#include "Enums\MagickFormat.h"
 #include "Helpers\EnumHelper.h"
 #include "Helpers\MagickReader.h"
 
@@ -34,7 +34,7 @@ namespace ImageMagick
 		ColorSpace _ColorSpace;
 		String^ _FileName;
 		int _Height;
-		ImageType _ImageType;
+		MagickFormat _Format;
 		int _Width;
 		//===========================================================================================
 		void Initialize(Magick::Image* image);
@@ -90,6 +90,17 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// The format of the image.
+		///</summary>
+		property MagickFormat Format
+		{
+			MagickFormat get()
+			{
+				return _Format;
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Height of the image.
 		///</summary>
 		property int Height
@@ -97,17 +108,6 @@ namespace ImageMagick
 			int get()
 			{
 				return _Height;
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// The type of the image.
-		///</summary>
-		property ImageType ImageType
-		{
-			ImageMagick::ImageType get()
-			{
-				return _ImageType;
 			}
 		}
 		///==========================================================================================

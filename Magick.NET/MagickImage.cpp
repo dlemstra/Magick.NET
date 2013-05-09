@@ -1497,18 +1497,6 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	String^ MagickImage::Format()
-	{
-		try
-		{
-			return Marshaller::Marshal(Value->format());
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
 	void MagickImage::Frame()
 	{
 		Frame(_DefaultFrameGeometry);
@@ -2461,7 +2449,7 @@ namespace ImageMagick
 	String^ MagickImage::ToString()
 	{
 		return String::Format(CultureInfo::InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}",
-			ImageType, Width, Height, Depth(), ColorSpace, FormatedFileSize());
+			Format, Width, Height, Depth(), ColorSpace, FormatedFileSize());
 	}
 	//==============================================================================================
 	void MagickImage::Transform(MagickGeometry^ imageGeometry)

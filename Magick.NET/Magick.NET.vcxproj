@@ -285,6 +285,7 @@
     <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="Helpers\FileHelper.h" />
     <ClInclude Include="Helpers\ChannelStatistics.h" />
+    <ClInclude Include="MagickFormatInfo.h" />
     <ClInclude Include="MagickImageStatistics.h" />
     <ClInclude Include="Helpers\MagickErrorInfo.h" />
     <ClInclude Include="Drawables\Helpers\Coordinate.h" />
@@ -320,7 +321,7 @@
     <ClInclude Include="MagickImageInfo.h" />
     <ClInclude Include="MagickNET.h" />
     <ClInclude Include="Enums\ColorSpace.h" />
-    <ClInclude Include="Enums\ImageType.h" />
+    <ClInclude Include="Enums\MagickFormat.h" />
     <ClInclude Include="MagickGeometry.h" />
     <ClInclude Include="MagickImage.h" />
     <ClInclude Include="Helpers\MagickReader.h" />
@@ -415,6 +416,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Helpers\ChannelStatistics.cpp" />
+    <ClCompile Include="MagickFormatInfo.cpp" />
     <ClCompile Include="MagickImageStatistics.cpp" />
     <ClCompile Include="Helpers\MagickErrorInfo.cpp" />
     <ClCompile Include="Drawables\Helpers\Coordinate.cpp" />

@@ -29,7 +29,7 @@
 #include "Enums\FilterType.h"
 #include "Enums\GifDisposeMethod.h"
 #include "Enums\Gravity.h"
-#include "Enums\ImageType.h"
+#include "Enums\MagickFormat.h"
 #include "Enums\NoiseType.h"
 #include "Enums\OrientationType.h"
 #include "Enums\PaintMethod.h"
@@ -561,6 +561,22 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// FlashPix viewing parameters.
+		///</summary>
+		property String^ FlashPixView
+		{
+			String^ get()
+			{
+				return Marshaller::Marshal(Value->view());
+			}
+			void set(String^ value)
+			{
+				std::string view;
+				Value->view(Marshaller::Marshal(value, view));
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Text rendering font.
 		///</summary>
 		property String^ Font
@@ -592,18 +608,23 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// FlashPix viewing parameters.
+		/// The format of the image.
 		///</summary>
-		property String^ FlashPixView
+		property MagickFormat Format
 		{
-			String^ get()
+			MagickFormat get()
 			{
-				return Marshaller::Marshal(Value->view());
+				return EnumHelper::Parse<MagickFormat>(Marshaller::Marshal(Value->magick()), MagickFormat::Unknown);
 			}
-			void set(String^ value)
+			void set(MagickFormat value)
 			{
-				std::string view;
-				Value->view(Marshaller::Marshal(value, view));
+				if (value == MagickFormat::Unknown)
+					return;
+
+				std::string name;
+
+				Marshaller::Marshal(Enum::GetName(value.GetType(), value), name);
+				Value->magick(name);
 			}
 		}
 		///==========================================================================================
@@ -645,32 +666,6 @@ namespace ImageMagick
 			int get()
 			{
 				return Convert::ToInt32(Value->size().height());
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// The type of the image.
-		///</summary>
-		property ImageType ImageType
-		{
-			ImageMagick::ImageType get()
-			{
-				ImageMagick::ImageType result;
-
-				if (!EnumHelper::TryParse<ImageMagick::ImageType>(Marshaller::Marshal(Value->magick()), result))
-					return ImageMagick::ImageType::Unknown;
-
-				return result;
-			}
-			void set(ImageMagick::ImageType value)
-			{
-				if (value == ImageMagick::ImageType::Unknown)
-					return;
-
-				std::string name;
-
-				Marshaller::Marshal(Enum::GetName(value.GetType(), value), name);
-				Value->magick(name);
 			}
 		}
 		///==========================================================================================
@@ -1924,12 +1919,6 @@ namespace ImageMagick
 		///</summary>
 		///<exception cref="MagickException"/>
 		TypeMetric^ FontTypeMetrics(String^ text);
-		///==========================================================================================
-		///<summary>
-		/// Long image format description
-		///</summary>
-		///<exception cref="MagickException"/>
-		String^ Format();
 		///==========================================================================================
 		///<summary>
 		/// Frame image with the default geometry (25x25+6+6).

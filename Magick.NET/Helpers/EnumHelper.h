@@ -13,8 +13,6 @@
 //=================================================================================================
 #pragma once
 
-using namespace System::Runtime::InteropServices;
-
 namespace ImageMagick
 {
 	//==============================================================================================
@@ -25,7 +23,7 @@ namespace ImageMagick
 		//===========================================================================================
 		generic<typename TEnum>
 		where TEnum : value class, ValueType
-			static bool TryParse(String^ value, [OutAttribute] TEnum% result);
+			static TEnum Parse(String^ value, TEnum defaultValue);
 		//===========================================================================================
 	};
 	//==============================================================================================

@@ -19,19 +19,23 @@ namespace ImageMagick
 	//==============================================================================================
 	generic<typename TEnum>
 	where TEnum : value class, ValueType
-	bool EnumHelper::TryParse(String^ value, [OutAttribute] TEnum% result)
+	TEnum EnumHelper::Parse(String^ value, TEnum defaultValue)
 	{
+		TEnum result;
+
 #if (_MSC_VER == 1700)
-		return Enum::TryParse<TEnum>(value, true, result);
+		if (!Enum::TryParse<TEnum>(value, true, result))
+			return defaultValue;
 #elif (_MSC_VER == 1500)
 		if (!Enum::IsDefined(TEnum::typeid, value))
-			return false;
+			return defaultValue;
 
 		result = (TEnum)Enum::Parse(TEnum::typeid, value);
-		return true;
 #else
 		Not implemented!
 #endif
+
+		return result;
 	}
 	//==============================================================================================
 }

@@ -23,11 +23,7 @@ namespace ImageMagick
 		_ColorSpace = (ImageMagick::ColorSpace)image->colorSpace();
 		_Height = Convert::ToInt32(image->size().height());
 		_Width = Convert::ToInt32(image->size().width());
-
-		String^ magick = Marshaller::Marshal(image->magick());
-
-		if (!EnumHelper::TryParse<ImageMagick::ImageType>(magick, _ImageType))
-			_ImageType = ImageMagick::ImageType::Unknown;
+		_Format = EnumHelper::Parse<MagickFormat>(Marshaller::Marshal(image->magick()), MagickFormat::Unknown);
 	}
 	//==============================================================================================
 	MagickImageInfo::MagickImageInfo(array<Byte>^ data)

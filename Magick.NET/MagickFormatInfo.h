@@ -13,62 +13,96 @@
 //=================================================================================================
 #pragma once
 
-#include "MagickFormatInfo.h"
+#include "Enums\MagickFormat.h"
 
-using namespace System::Reflection;
-using namespace System::Collections::Generic;
+using namespace System::Collections::ObjectModel;
 
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Class that can be used to initialize Magick.NET.
+	/// Class that contains information about an image format.
 	///</summary>
-	public ref class MagickNET abstract sealed
+	public ref class MagickFormatInfo sealed
 	{
+		//===========================================================================================
+	private:
+		//===========================================================================================
+		String^ _Description;
+		MagickFormat _Format;
+		bool _IsMultiFrame;
+		bool _IsReadable;
+		bool _IsWritable;
+		//===========================================================================================
+		MagickFormatInfo() {};
+		//===========================================================================================
+		static Collection<MagickFormatInfo^>^ LoadFormats();
+		//===========================================================================================
+	internal:
+		//===========================================================================================
+		static initonly Collection<MagickFormatInfo^>^ All = LoadFormats();
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Adds the sub directory ImageMagick of the current execution path to the environment path.
-		/// You should place the supplied ImageMagick dlls in that directory.
+		/// The format.
 		///</summary>
-		static void Initialize();
-		///==========================================================================================
-		///<summary>
-		/// Adds the specified path to the environment path. You should place the supplied ImageMagick
-		/// dlls in that directory.
-		///</summary>
-		static void Initialize(String^ path);
-		///==========================================================================================
-		///<summary>
-		/// Pixel cache threshold in megabytes. Once this memory threshold is exceeded, all subsequent
-		/// pixels cache operations are to/from disk. This setting is shared by all Image objects.
-		///</summary>
-		static void SetCacheThreshold(int threshold);
-		///==========================================================================================
-		///<summary>
-		/// Returns information about the supported formats.
-		///</summary>
-		static property IEnumerable<MagickFormatInfo^>^ SupportedFormats
+		property MagickFormat Format
 		{
-			IEnumerable<MagickFormatInfo^>^ get()
+			MagickFormat get()
 			{
-				return MagickFormatInfo::All;
+				return _Format;
 			}
 		}
 		///==========================================================================================
 		///<summary>
-		/// Returns the version of Magick.NET.
+		/// The description of the format.
 		///</summary>
-		static property String^ Version
+		property String^ Description
 		{
 			String^ get()
 			{
-				Object^ title = (MagickNET::typeid)->Assembly->GetCustomAttributes(AssemblyTitleAttribute::typeid, false)[0];
-				return ((AssemblyTitleAttribute^)title)->Title;
+				return _Description;
 			}
 		}
+		///==========================================================================================
+		///<summary>
+		/// Format supports multiple frames.
+		///</summary>
+		property bool IsMultiFrame
+		{
+			bool get()
+			{
+				return _IsMultiFrame;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Format is readable.
+		///</summary>
+		property bool IsReadable
+		{
+			bool get()
+			{
+				return _IsReadable;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Format is writable.
+		///</summary>
+		property bool IsWritable
+		{
+			bool get()
+			{
+				return _IsWritable;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Returns the format info of the specified format.
+		///</summary>
+		static MagickFormatInfo^ Get(MagickFormat format);
 		//===========================================================================================
 	};
 	//==============================================================================================

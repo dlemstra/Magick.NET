@@ -147,9 +147,6 @@
     <ClInclude Include="Enums\Gravity.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\ImageType.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="Helpers\MagickReader.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
@@ -519,6 +516,12 @@
     <ClInclude Include="Helpers\EnumHelper.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="MagickFormatInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\MagickFormat.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -844,6 +847,9 @@
     </ClCompile>
     <ClCompile Include="Helpers\EnumHelper.cpp">
       <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="MagickFormatInfo.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
