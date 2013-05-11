@@ -60,7 +60,8 @@ namespace ImageMagick
 	///<summary>
 	/// Encapsulation of the ImageMagick image object.
 	///</summary>
-	public ref class MagickImage sealed : MagickWrapper<Magick::Image>
+	public ref class MagickImage sealed : MagickWrapper<Magick::Image>,
+		IEquatable<MagickImage^>, IComparable<MagickImage^>
 	{
 		//===========================================================================================
 	private:
@@ -104,15 +105,6 @@ namespace ImageMagick
 		MagickImage();
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the MagickImage class using the specified width, height
-		/// and color.
-		///</summary>
-		///<param name="width">The width.</param>
-		///<param name="height">The height.</param>
-		///<param name="color">The color to fill the image with.</param>
-		MagickImage(int width, int height, MagickColor^ color);
-		///==========================================================================================
-		///<summary>
 		/// Initializes a new instance of the MagickImage class using the specified byte array.
 		///</summary>
 		///<param name="data">The byte array to read the image data from.</param>
@@ -135,6 +127,15 @@ namespace ImageMagick
 		///<param name="height">The height of the image.</param>
 		///<exception cref="MagickException"/>
 		MagickImage(array<Byte>^ data, int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified width, height
+		/// and color.
+		///</summary>
+		///<param name="color">The color to fill the image with.</param>
+		///<param name="width">The width.</param>
+		///<param name="height">The height.</param>
+		MagickImage(MagickColor^ color, int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickImage class using the specified filename.
@@ -256,7 +257,7 @@ namespace ImageMagick
 			}
 			void set(MagickColor^ value)
 			{
-				Magick::Color* color = value != nullptr ? value->CreateColor() : new Magick::Color();
+				Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 				Value->backgroundColor(*color);
 				delete color;
 			}
@@ -307,7 +308,7 @@ namespace ImageMagick
 			}
 			void set(MagickColor^ value)
 			{
-				Magick::Color* color = value != nullptr ? value->CreateColor() : new Magick::Color();
+				Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 				Value->borderColor(*color);
 				delete color;
 			}
@@ -500,7 +501,7 @@ namespace ImageMagick
 			}
 			void set(MagickColor^ value)
 			{
-				Magick::Color* color = value != nullptr ? value->CreateColor() : new Magick::Color();
+				Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 				Value->fillColor(*color);
 				delete color;
 			}
@@ -719,7 +720,7 @@ namespace ImageMagick
 			}
 			void set(MagickColor^ value)
 			{
-				Magick::Color* color = value != nullptr ? value->CreateColor() : new Magick::Color();
+				Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 				Value->matteColor(*color);
 				delete color;
 			}
@@ -938,7 +939,7 @@ namespace ImageMagick
 			}
 			void set(MagickColor^ value)
 			{
-				Magick::Color* color = value != nullptr ? value->CreateColor() : new Magick::Color();
+				Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 				Value->strokeColor(*color);
 				delete color;
 			}
@@ -1181,27 +1182,34 @@ namespace ImageMagick
 		//===========================================================================================
 		static bool operator > (MagickImage^ left, MagickImage^ right)
 		{
-			return !(left < right) && (left != right);
+			if (ReferenceEquals(left, nullptr))
+				return ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) == 1;
 		}
 		//===========================================================================================
 		static bool operator < (MagickImage^ left, MagickImage^ right)
 		{
-			Throw::IfNull("left", left);
-			Throw::IfNull("right", right);
+			if (ReferenceEquals(left, nullptr))
+				return !ReferenceEquals(right, nullptr);
 
-			return 
-				(left->Value->rows() * left->Value->columns()) < 
-				(right->Value->rows() * right->Value->columns());
+			return left->CompareTo(right) == -1;
 		}
 		//===========================================================================================
 		static bool operator >= (MagickImage^ left, MagickImage^ right)
 		{
-			return (left > right) || (left == right);
+			if (ReferenceEquals(left, nullptr))
+				return ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) >= 0;
 		}
 		//===========================================================================================
 		static bool operator <= (MagickImage^ left, MagickImage^ right)
 		{
-			return (left < right) || (left == right);
+			if (ReferenceEquals(left, nullptr))
+				return !ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) <= 0;
 		}
 		//===========================================================================================
 		static explicit operator array<Byte>^ (MagickImage^ image)
@@ -1541,6 +1549,12 @@ namespace ImageMagick
 		///<param name="image">The other image to compare with this image.</param>
 		///<exception cref="MagickException"/>
 		MagickErrorInfo^ Compare(MagickImage^ image);
+		///==========================================================================================
+		///<summary>
+		/// Compares the current instance with another object of the same type.
+		///</summary>
+		///<param name="other">The object to compare this image with.</param>
+		virtual int CompareTo(MagickImage^ other);
 		//==========================================================================================
 		///<summary>
 		/// Compose an image onto another at specified offset using the 'In' operator.
@@ -1727,8 +1741,8 @@ namespace ImageMagick
 		///<summary>
 		/// Determines whether the specified image is equal to the current image.
 		///</summary>
-		///<param name="image">The image to compare this image with.</param>
-		bool Equals(MagickImage^ image);
+		///<param name="other">The image to compare this image with.</param>
+		virtual bool Equals(MagickImage^ other);
 		///==========================================================================================
 		///<summary>
 		/// Edge image (hilight edges in image).

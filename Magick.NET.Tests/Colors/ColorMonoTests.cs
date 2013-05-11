@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,19 +20,41 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public class InitializeTests
+	public class ColorMonoTests : ColorBaseTests<ColorMono>
 	{
 		//===========================================================================================
-		[AssemblyInitialize]
-		public static void Initialize(TestContext context)
+		private const string _Category = "ColorMono";
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_IComparable()
 		{
-#if Q8
-			MagickNET.Initialize(@"..\..\..\ImageMagick\Q8\bin\v4.0\x86");
-#elif Q16
-			MagickNET.Initialize(@"..\..\..\ImageMagick\Q16\bin\v4.0\x86");
-#else
-			Not implemented!
-#endif
+			ColorMono first = new ColorMono(true);
+
+			Test_IComparable(first);
+
+			ColorMono second = new ColorMono(false);
+
+			Test_IComparable_FirstLower(first, second);
+
+			second = new ColorMono(true);
+
+			Test_IComparable_Equal(first, second);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_IEquatable()
+		{
+			ColorMono first = new ColorMono(true);
+
+			Test_IEquatable_NullAndSelf(first);
+
+			ColorMono second = new ColorMono(true);
+
+			Test_IEquatable_Equal(first, second);
+
+			second = new ColorMono(false);
+
+			Test_IEquatable_NotEqual(first, second);
 		}
 		//===========================================================================================
 	}

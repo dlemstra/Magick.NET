@@ -56,7 +56,7 @@ namespace ImageMagick
 			}
 			void set(MagickColor^ value)
 			{
-				Magick::Color* color = value != nullptr ? value->CreateColor() : new Magick::Color();
+				Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 				Value->color(*color);
 				delete color;
 			}

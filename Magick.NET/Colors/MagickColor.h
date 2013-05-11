@@ -21,7 +21,7 @@ namespace ImageMagick
 	///<summary>
 	/// Class that represents a color.
 	///</summary>
-	public ref class MagickColor sealed
+	public ref class MagickColor sealed : IEquatable<MagickColor^>, IComparable<MagickColor^>
 	{
 		//===========================================================================================
 	private:
@@ -132,9 +132,51 @@ namespace ImageMagick
 			}
 		}
 		//===========================================================================================
+		static bool operator == (MagickColor^ left, MagickColor^ right)
+		{
+			return Object::Equals(left, right);
+		}
+		//===========================================================================================
+		static bool operator != (MagickColor^ left, MagickColor^ right)
+		{
+			return !Object::Equals(left, right);
+		}
+		//===========================================================================================
+		static bool operator > (MagickColor^ left, MagickColor^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) == 1;
+		}
+		//===========================================================================================
+		static bool operator < (MagickColor^ left, MagickColor^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return !ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) == -1;
+		}
+		//===========================================================================================
+		static bool operator >= (MagickColor^ left, MagickColor^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) >= 0;
+		}
+		//===========================================================================================
+		static bool operator <= (MagickColor^ left, MagickColor^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return !ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) <= 0;
+		}
+		//===========================================================================================
 		static operator Color (MagickColor^ color)
 		{
-			if (color == nullptr)
+			if (ReferenceEquals(color, nullptr))
 				return Color::Empty;
 
 			return color->ToColor();
@@ -142,8 +184,37 @@ namespace ImageMagick
 		//===========================================================================================
 		static operator MagickColor^ (Color color)
 		{
-			return gcnew MagickColor(color);
+			return FromColor(color);
 		}
+		///==========================================================================================
+		///<summary>
+		/// Compares the current instance with another object of the same type.
+		///</summary>
+		///<param name="other">The color to compare this color with.</param>
+		virtual int CompareTo(MagickColor^ other);
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified object is equal to the current color.
+		///</summary>
+		///<param name="obj">The object to compare this color with.</param>
+		virtual bool Equals(Object^ obj) override;
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified geometry is equal to the current color.
+		///</summary>
+		///<param name="other">The color to compare this color with.</param>
+		virtual bool Equals(MagickColor^ other);
+		///==========================================================================================
+		///<summary>
+		/// Converts the specified geometry to an instance of this type.
+		///</summary>
+		///<param name="color">The color to use.</param>
+		static MagickColor^ FromColor(Color color);
+		///==========================================================================================
+		///<summary>
+		/// Servers as a hash of this type.
+		///</summary>
+		virtual int GetHashCode() override;
 		///==========================================================================================
 		///<summary>
 		/// Converts the value of this instance to an equivalent Color.

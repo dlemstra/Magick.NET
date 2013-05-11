@@ -62,14 +62,68 @@ namespace ImageMagick
 		Throw::IfFalse("geometry", Value->isValid(), "Invalid geometry specified.");
 	}
 	//==============================================================================================
+	int MagickGeometry::CompareTo(MagickGeometry^ other)
+	{
+		if (ReferenceEquals(other, nullptr))
+			return 1;
+
+		int left = (this->Width * this->Height);
+		int right = (other->Width * other->Height);
+
+		if (left == right)
+			return 0;
+
+		return left < right ? -1 : 1;
+	}
+	//==============================================================================================
+	bool MagickGeometry::Equals(Object^ obj)
+	{
+		if (ReferenceEquals(this, obj))
+			return true;
+
+		return Equals(dynamic_cast<MagickGeometry^>(obj));
+	}
+	//==============================================================================================
+	bool MagickGeometry::Equals(MagickGeometry^ other)
+	{
+		if (ReferenceEquals(other, nullptr))
+			return false;
+
+		if (ReferenceEquals(this, other))
+			return true;
+
+		return (Magick::operator == (*Value, *other->Value)) ? true : false;
+	}
+	//==============================================================================================
 	MagickGeometry^ MagickGeometry::FromRectangle(Rectangle rectangle)
 	{
+		if (rectangle.IsEmpty)
+			return nullptr;
+
 		return gcnew MagickGeometry(rectangle);
 	}
 	//==============================================================================================
 	MagickGeometry^ MagickGeometry::FromString(String^ geometry)
 	{
+		if (String::IsNullOrEmpty(geometry))
+			return nullptr;
+
 		return gcnew MagickGeometry(geometry);
+	}
+	//==============================================================================================
+	int MagickGeometry::GetHashCode()
+	{
+		return
+			Value->width().GetHashCode() ^
+			Value->height().GetHashCode() ^
+			Value->xOff().GetHashCode() ^
+			Value->yOff().GetHashCode() ^
+			Value->xNegative().GetHashCode() ^
+			Value->yNegative().GetHashCode() ^
+			Value->percent().GetHashCode() ^
+			Value->aspect().GetHashCode() ^
+			Value->greater().GetHashCode() ^
+			Value->less().GetHashCode();
 	}
 	//==============================================================================================
 }

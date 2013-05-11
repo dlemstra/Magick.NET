@@ -12,68 +12,69 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
+using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
 	//==============================================================================================
-	[TestClass]
-	public class MagickNETTests : InitializeTests
+	public abstract class ColorBaseTests<T>
+		where T : ColorBase
 	{
 		//===========================================================================================
-		private const string _Category = "MagickNET";
+		private const string _Category = "ColorMono";
 		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_GetFormatInfo()
+		protected static void Test_IComparable(T first)
 		{
-			foreach (MagickFormat format in Enum.GetValues(typeof(MagickFormat)))
-			{
-				if (format == MagickFormat.Unknown)
-					continue;
-
-				MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
-				Assert.IsNotNull(formatInfo, "Cannot find MagickFormatInfo for: " + format);
-			}
+			Assert.AreEqual(0, first.CompareTo(first));
+			Assert.AreEqual(1, first.CompareTo(null));
+			Assert.IsFalse(first < null);
+			Assert.IsFalse(first <= null);
+			Assert.IsTrue(first > null);
+			Assert.IsTrue(first >= null);
+			Assert.IsTrue(null < first);
+			Assert.IsTrue(null <= first);
+			Assert.IsFalse(null > first);
+			Assert.IsFalse(null >= first);
 		}
 		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		[ExpectedException(typeof(ArgumentNullException))]
-		public void Test_InitializeNull()
+		protected static void Test_IComparable_Equal(T first, T second)
 		{
-			MagickNET.Initialize(null);
+			Assert.AreEqual(0, first.CompareTo(second));
+			Assert.IsFalse(first < second);
+			Assert.IsTrue(first <= second);
+			Assert.IsFalse(first > second);
+			Assert.IsTrue(first >= second);
 		}
 		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		[ExpectedException(typeof(ArgumentException))]
-		public void Test_InitializeInvalidFolder()
+		protected static void Test_IComparable_FirstLower(T first, T second)
 		{
-			MagickNET.Initialize("Invalid");
+			Assert.AreEqual(-1, first.CompareTo(second));
+			Assert.IsTrue(first < second);
+			Assert.IsTrue(first <= second);
+			Assert.IsFalse(first > second);
+			Assert.IsFalse(first >= second);
 		}
 		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_SupportedFormats()
+		protected static void Test_IEquatable_NotEqual(T first, T second)
 		{
-			foreach (MagickFormatInfo formatInfo in MagickNET.SupportedFormats)
-			{
-				Assert.AreNotEqual(MagickFormat.Unknown, formatInfo.Format, "Unknown format: " + formatInfo.Description);
-			}
+			Assert.IsTrue(first != second);
+			Assert.IsFalse(first.Equals(second));
 		}
 		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Version()
+		protected static void Test_IEquatable_Equal(T first, T second)
 		{
-			Assert.IsTrue(!string.IsNullOrEmpty(MagickNET.Version));
-			Assert.IsTrue(MagickNET.Version.Contains("v4.0"));
-			Assert.IsTrue(MagickNET.Version.Contains("x86"));
-#if Q8
-			Assert.IsTrue(MagickNET.Version.Contains("Q8"));
-#elif Q16
-			Assert.IsTrue(MagickNET.Version.Contains("Q16"));
-#else
-			Not implemented!
-#endif
+			Assert.IsTrue(first == second);
+			Assert.IsTrue(first.Equals(second));
+		}
+		//===========================================================================================
+		protected static void Test_IEquatable_NullAndSelf(T first)
+		{
+			Assert.IsFalse(first == null);
+			Assert.IsFalse(first.Equals(null));
+			Assert.IsTrue(first.Equals(first));
+			Assert.IsTrue(first.Equals((object)first));
 		}
 		//===========================================================================================
 	}

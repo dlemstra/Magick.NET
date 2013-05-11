@@ -12,26 +12,31 @@
 // limitations under the License.
 //=================================================================================================
 
-using ImageMagick;
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
 	//==============================================================================================
-	[TestClass]
-	public class InitializeTests
+	public static class ExceptionAssert
 	{
 		//===========================================================================================
-		[AssemblyInitialize]
-		public static void Initialize(TestContext context)
+		public static void Throws<TException>(Action action)
+			 where TException : Exception
 		{
-#if Q8
-			MagickNET.Initialize(@"..\..\..\ImageMagick\Q8\bin\v4.0\x86");
-#elif Q16
-			MagickNET.Initialize(@"..\..\..\ImageMagick\Q16\bin\v4.0\x86");
-#else
-			Not implemented!
-#endif
+			try
+			{
+				action();
+
+				Assert.Fail("Exception of type {0} was not thrown.", typeof(TException).Name);
+			}
+			catch (TException)
+			{
+			}
+			catch (Exception)
+			{
+				throw;
+			}
 		}
 		//===========================================================================================
 	}

@@ -24,7 +24,8 @@ namespace ImageMagick
 	///<summary>
 	/// Encapsulation of the ImageMagick geometry object.
 	///</summary>
-	public ref class MagickGeometry sealed : MagickWrapper<Magick::Geometry>
+	public ref class MagickGeometry sealed : MagickWrapper<Magick::Geometry>,
+		IEquatable<MagickGeometry^>, IComparable<MagickGeometry^>
 	{
 		//===========================================================================================
 	private:
@@ -171,16 +172,52 @@ namespace ImageMagick
 			}
 		}
 		//===========================================================================================
+		static bool operator == (MagickGeometry^ left, MagickGeometry^ right)
+		{
+			return Object::Equals(left, right);
+		}
+		//===========================================================================================
+		static bool operator != (MagickGeometry^ left, MagickGeometry^ right)
+		{
+			return !Object::Equals(left, right);
+		}
+		//===========================================================================================
+		static bool operator > (MagickGeometry^ left, MagickGeometry^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) == 1;
+		}
+		//===========================================================================================
+		static bool operator < (MagickGeometry^ left, MagickGeometry^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return !ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) == -1;
+		}
+		//===========================================================================================
+		static bool operator >= (MagickGeometry^ left, MagickGeometry^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) >= 0;
+		}
+		//===========================================================================================
+		static bool operator <= (MagickGeometry^ left, MagickGeometry^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return !ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) <= 0;
+		}
+		//===========================================================================================
 		static explicit operator MagickGeometry^(Rectangle rectangle)
 		{
 			return FromRectangle(rectangle);
 		}
-		///==========================================================================================
-		///<summary>
-		/// Converts the specified Rectangle to an instane of this type.
-		///</summary>
-		///<param name="rectangle">The rectangle to use.</param>
-		static MagickGeometry^ FromRectangle(Rectangle rectangle);
 		//===========================================================================================
 		static explicit operator MagickGeometry^(String^ geometry)
 		{
@@ -188,11 +225,41 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Converts the specified geometry to an instane of this type.
+		/// Compares the current instance with another object of the same type.
+		///</summary>
+		///<param name="other">The object to compare this geometry with.</param>
+		virtual int CompareTo(MagickGeometry^ other);
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified object is equal to the current geometry.
+		///</summary>
+		///<param name="obj">The object to compare this geometry with.</param>
+		virtual bool Equals(Object^ obj) override;
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified geometry is equal to the current geometry.
+		///</summary>
+		///<param name="other">The image to compare this geometry with.</param>
+		virtual bool Equals(MagickGeometry^ other);
+		///==========================================================================================
+		///<summary>
+		/// Converts the specified Rectangle to an instance of this type.
+		///</summary>
+		///<param name="rectangle">The rectangle to use.</param>
+		static MagickGeometry^ FromRectangle(Rectangle rectangle);
+		///==========================================================================================
+		///<summary>
+		/// Converts the specified geometry to an instance of this type.
 		///</summary>
 		///<param name="geometry">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
 		///{+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
 		static MagickGeometry^ FromString(String^ geometry);
+		///==========================================================================================
+		///<summary>
+		/// Servers as a hash of this type.
+		///</summary>
+		virtual int GetHashCode() override;
+		//===========================================================================================
 	};
 	//==============================================================================================
 }

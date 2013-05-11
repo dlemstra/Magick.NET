@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,19 +20,55 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public class InitializeTests
+	public class ColorRGBTests : ColorBaseTests<ColorRGB>
 	{
 		//===========================================================================================
-		[AssemblyInitialize]
-		public static void Initialize(TestContext context)
+		private const string _Category = "ColorRGB";
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_IComparable()
 		{
+			ColorRGB first = new ColorRGB(Color.Red);
+
+			Test_IComparable(first);
+
+			ColorRGB second = new ColorRGB(Color.White);
+
+			Test_IComparable_FirstLower(first, second);
+
+			second = new ColorRGB(Color.Green);
+
+			Test_IComparable_FirstLower(second, first);
+
+			second = new ColorRGB(Color.Blue);
+
+			Test_IComparable_FirstLower(second, first);
+
+			second = new ColorRGB(Color.Red);
+
+			Test_IComparable_Equal(first, second);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_IEquatable()
+		{
+			ColorRGB first = new ColorRGB(Color.Red);
+
+			Test_IEquatable_NullAndSelf(first);
+
 #if Q8
-			MagickNET.Initialize(@"..\..\..\ImageMagick\Q8\bin\v4.0\x86");
+			ColorRGB second = new ColorRGB(byte.MaxValue, 0, 0);
 #elif Q16
-			MagickNET.Initialize(@"..\..\..\ImageMagick\Q16\bin\v4.0\x86");
+			ColorRGB second = new ColorRGB(ushort.MaxValue, 0, 0);
 #else
 			Not implemented!
 #endif
+
+			Test_IEquatable_Equal(first, second);
+
+			second = new ColorRGB(Color.Green);
+
+			Test_IEquatable_NotEqual(first, second);
 		}
 		//===========================================================================================
 	}

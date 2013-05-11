@@ -17,10 +17,19 @@
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseQ16|x86' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>bin\x86\ReleaseQ16\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;Q16</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\ReleaseQ8\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;Q8</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -31,6 +40,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -45,7 +55,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Colors\Base\ColorBaseTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Colors\ColorMonoTests.cs" />
+    <Compile Include="Colors\ColorRGBTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ExceptionAssert.cs" />
     <Compile Include="InitializeTests.cs" />
+    <Compile Include="Colors\MagickColorTests.cs" />
+    <Compile Include="MagickGeometryTests.cs" />
+    <Compile Include="MagickImageInfoTests.cs" />
+    <Compile Include="MagickImageTest.cs" />
     <Compile Include="MagickNETTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,6 +75,7 @@
     <ProjectReference Include="..\Magick.NET\Magick.NET.vcxproj">
       <Project>{13c84dce-50bc-42a3-bcec-d3bffe3bc49e}</Project>
       <Name>Magick.NET</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -26,15 +26,15 @@ namespace ImageMagick
 	///<summary>
 	/// Class that contains basic information about an image.
 	///</summary>
-	public ref class MagickImageInfo sealed
+	public ref class MagickImageInfo sealed : IEquatable<MagickImageInfo^>, IComparable<MagickImageInfo^>
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
 		ColorSpace _ColorSpace;
 		String^ _FileName;
-		int _Height;
 		MagickFormat _Format;
+		int _Height;
 		int _Width;
 		//===========================================================================================
 		void Initialize(Magick::Image* image);
@@ -121,6 +121,71 @@ namespace ImageMagick
 				return _Width;
 			}
 		}
+		//===========================================================================================
+		static bool operator == (MagickImageInfo^ left, MagickImageInfo^ right)
+		{
+			return Object::Equals(left, right);
+		}
+		//===========================================================================================
+		static bool operator != (MagickImageInfo^ left, MagickImageInfo^ right)
+		{
+			return !Object::Equals(left, right);
+		}
+		//===========================================================================================
+		static bool operator > (MagickImageInfo^ left, MagickImageInfo^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) == 1;
+		}
+		//===========================================================================================
+		static bool operator < (MagickImageInfo^ left, MagickImageInfo^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return !ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) == -1;
+		}
+		//===========================================================================================
+		static bool operator >= (MagickImageInfo^ left, MagickImageInfo^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) >= 0;
+		}
+		//===========================================================================================
+		static bool operator <= (MagickImageInfo^ left, MagickImageInfo^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return !ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) <= 0;
+		}
+		///==========================================================================================
+		///<summary>
+		/// Compares the current instance with another object of the same type.
+		///</summary>
+		///<param name="other">The object to compare this image information with.</param>
+		virtual int CompareTo(MagickImageInfo^ other);
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified object is equal to the current image information.
+		///</summary>
+		///<param name="obj">The object to compare this image information with.</param>
+		virtual bool Equals(Object^ obj) override;
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified geometry is equal to the current image information.
+		///</summary>
+		///<param name="other">The image to compare this image information with.</param>
+		virtual bool Equals(MagickImageInfo^ other);
+		///==========================================================================================
+		///<summary>
+		/// Servers as a hash of this type.
+		///</summary>
+		virtual int GetHashCode() override;
 		///==========================================================================================
 		///<summary>
 		/// Read basic information about an image.

@@ -112,7 +112,7 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Converts the specified MagickColor to an instane of this type.
+		/// Converts the specified MagickColor to an instance of this type.
 		///</summary>
 		static ColorCMYK^ FromMagickColor(MagickColor^ color);
 		//===========================================================================================

@@ -21,7 +21,7 @@ namespace ImageMagick
 	///<summary>
 	/// Base class for colors
 	///</summary>
-	public ref class ColorBase abstract
+	public ref class ColorBase abstract : IEquatable<ColorBase^>, IComparable<ColorBase^>
 	{
 		//===========================================================================================
 	private:
@@ -29,7 +29,7 @@ namespace ImageMagick
 		bool _HasAlpha;
 		MagickColor^ _Value;
 		//===========================================================================================
-	protected:
+	protected private:
 		//===========================================================================================
 		ColorBase(bool hasAlpha);
 		//===========================================================================================
@@ -47,6 +47,48 @@ namespace ImageMagick
 		//===========================================================================================
 	public:
 		//===========================================================================================
+		static bool operator == (ColorBase^ left, ColorBase^ right)
+		{
+			return Object::Equals(left, right);
+		}
+		//===========================================================================================
+		static bool operator != (ColorBase^ left, ColorBase^ right)
+		{
+			return !Object::Equals(left, right);
+		}
+		//===========================================================================================
+		static bool operator > (ColorBase^ left, ColorBase^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) == 1;
+		}
+		//===========================================================================================
+		static bool operator < (ColorBase^ left, ColorBase^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return !ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) == -1;
+		}
+		//===========================================================================================
+		static bool operator >= (ColorBase^ left, ColorBase^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) >= 0;
+		}
+		//===========================================================================================
+		static bool operator <= (ColorBase^ left, ColorBase^ right)
+		{
+			if (ReferenceEquals(left, nullptr))
+				return !ReferenceEquals(right, nullptr);
+
+			return left->CompareTo(right) <= 0;
+		}
+		//===========================================================================================
 		static operator MagickColor^ (ColorBase^ color)
 		{
 			if (color == nullptr)
@@ -54,6 +96,29 @@ namespace ImageMagick
 
 			return color->ToMagickColor();
 		}
+		///==========================================================================================
+		///<summary>
+		/// Compares the current instance with another object of the same type.
+		///</summary>
+		///<param name="other">The object to compare this color with.</param>
+		virtual int CompareTo(ColorBase^ other);
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified object is equal to the current color.
+		///</summary>
+		///<param name="obj">The object to compare this color with.</param>
+		virtual bool Equals(Object^ obj) override;
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified geometry is equal to the current color.
+		///</summary>
+		///<param name="other">The image to compare this color with.</param>
+		virtual bool Equals(ColorBase^ other);
+		///==========================================================================================
+		///<summary>
+		/// Servers as a hash of this type.
+		///</summary>
+		virtual int GetHashCode() override;
 		///==========================================================================================
 		///<summary>
 		/// Converts the value of this instance to an equivalent MagickColor.

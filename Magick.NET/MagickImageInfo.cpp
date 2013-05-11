@@ -41,6 +41,52 @@ namespace ImageMagick
 		Read(stream);
 	}
 	//==============================================================================================
+	int MagickImageInfo::CompareTo(MagickImageInfo^ other)
+	{
+		if (ReferenceEquals(other, nullptr))
+			return 1;
+
+		int left = (this->Width * this->Height);
+		int right = (other->Width * other->Height);
+
+		if (left == right)
+			return 0;
+
+		return left < right ? -1 : 1;
+	}
+	//==============================================================================================
+	bool MagickImageInfo::Equals(Object^ obj)
+	{
+		if (ReferenceEquals(this, obj))
+			return true;
+
+		return Equals(dynamic_cast<MagickImageInfo^>(obj));
+	}
+	//==============================================================================================
+	bool MagickImageInfo::Equals(MagickImageInfo^ other)
+	{
+		if (ReferenceEquals(other, nullptr))
+			return false;
+
+		if (ReferenceEquals(this, other))
+			return true;
+
+		return
+			this->Width == other->Width &&
+			this->Height == other->Height &&
+			this->ColorSpace == other->ColorSpace &&
+			this->Format == other->Format;
+	}
+	//==============================================================================================
+	int MagickImageInfo::GetHashCode()
+	{
+		return
+			this->Width.GetHashCode() ^
+			this->Height.GetHashCode() ^
+			this->ColorSpace.GetHashCode() ^
+			this->Format.GetHashCode();
+	}
+	//==============================================================================================
 	void MagickImageInfo::Read(array<Byte>^ data)
 	{
 		Magick::Image* image = new Magick::Image();

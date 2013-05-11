@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestSettings name="Local" id="e5651800-d2d5-435d-b1c7-c6d0d2a81d04" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Deployment enabled="false" />
+  <Execution>
+    <Timeouts runTimeout="1800000" testTimeout="20000" />
+    <TestTypeSpecific>
+      <UnitTestRunConfig testTypeId="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b">
+        <AssemblyResolution>
+          <TestDirectory useLoadContext="true" />
+        </AssemblyResolution>
+      </UnitTestRunConfig>
+    </TestTypeSpecific>
+    <AgentRule name="LocalMachineDefaultRole">
+    </AgentRule>
+  </Execution>
+</TestSettings>

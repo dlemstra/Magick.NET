@@ -41,6 +41,41 @@ namespace ImageMagick
 	{
 	}
 	//==============================================================================================
+	int ColorBase::CompareTo(ColorBase^ other)
+	{
+		if (ReferenceEquals(other, nullptr))
+			return 1;
+
+		UpdateValue();
+		other->UpdateValue();
+
+		return Value->CompareTo(other->Value);
+	}
+	//==============================================================================================
+	bool ColorBase::Equals(Object^ obj)
+	{
+		return Equals(dynamic_cast<ColorBase^>(obj));
+	}
+	//==============================================================================================
+	bool ColorBase::Equals(ColorBase^ other)
+	{
+		if (ReferenceEquals(other, nullptr))
+			return false;
+
+		if (ReferenceEquals(this, other))
+			return true;
+
+		UpdateValue();
+		other->UpdateValue();
+
+		return Value->Equals(other->Value);
+	}
+	//==============================================================================================
+	int ColorBase::GetHashCode()
+	{
+		return Value->GetHashCode();
+	}
+	//==============================================================================================
 	MagickColor^ ColorBase::ToMagickColor()
 	{	
 		UpdateValue();

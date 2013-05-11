@@ -213,26 +213,12 @@ namespace ImageMagick
 	//==============================================================================================
 	bool MagickImage::Equals(const Magick::Image& image)
 	{
-		return Value->rows() == image.rows() && 
-			Value->columns() == image.columns() &&
-			Value->signature() == image.signature();
+		return (Magick::operator == (*Value, image)) ? true : false;
 	}
 	//==============================================================================================
 	MagickImage::MagickImage()
 	{
 		Value = new Magick::Image();
-	}
-	//==============================================================================================
-	MagickImage::MagickImage(int width, int height, MagickColor^ color)
-	{
-		Throw::IfNull("color", color);
-
-		MagickGeometry^ geometry = gcnew	MagickGeometry(width, height);
-		Magick::Color* background = color->CreateColor();
-		Value = new Magick::Image(geometry, *background);
-		Value->backgroundColor(*background);
-		delete geometry;
-		delete background;
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(array<Byte>^ data)
@@ -251,6 +237,18 @@ namespace ImageMagick
 	{
 		Value = new Magick::Image();
 		this->Read(data, width, height);
+	}
+	//==============================================================================================
+	MagickImage::MagickImage(MagickColor^ color, int width, int height)
+	{
+		Throw::IfNull("color", color);
+
+		MagickGeometry^ geometry = gcnew	MagickGeometry(width, height);
+		Magick::Color* background = color->CreateColor();
+		Value = new Magick::Image(geometry, *background);
+		Value->backgroundColor(*background);
+		delete geometry;
+		delete background;
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(String^ fileName)
@@ -700,7 +698,7 @@ namespace ImageMagick
 	{
 		Throw::IfNull("color", color);
 
-		MagickImage^ image = gcnew MagickImage(Width, Height, color);
+		MagickImage^ image = gcnew MagickImage(color, Width, Height);
 
 		try
 		{
@@ -804,6 +802,20 @@ namespace ImageMagick
 		}
 
 		return gcnew MagickErrorInfo(Value);
+	}
+	//==============================================================================================
+	int MagickImage::CompareTo(MagickImage^ other)
+	{
+		if (ReferenceEquals(other, nullptr))
+			return 1;
+
+		int left = (this->Width * this->Height);
+		int right = (other->Width * other->Height);
+
+		if (left == right)
+			return 0;
+
+		return left < right ? -1 : 1;
 	}
 	//==============================================================================================
 	void MagickImage::Composite(MagickImage^ image, int x, int y)
@@ -1142,15 +1154,21 @@ namespace ImageMagick
 	//==============================================================================================
 	bool MagickImage::Equals(Object^ obj)
 	{
+		if (ReferenceEquals(this, obj))
+			return true;
+
 		return Equals(dynamic_cast<MagickImage^>(obj));
 	}
 	//==============================================================================================
-	bool MagickImage::Equals(MagickImage^ image)
+	bool MagickImage::Equals(MagickImage^ other)
 	{
-		if (image == nullptr)
+		if (ReferenceEquals(other, nullptr))
 			return false;
 
-		return Equals(*image->Value);
+		if (ReferenceEquals(this, other))
+			return true;
+
+		return Equals(*other->Value);
 	}
 	//==============================================================================================
 	array<Byte>^ MagickImage::ExifProfile()
@@ -1631,7 +1649,12 @@ namespace ImageMagick
 	//==============================================================================================
 	int MagickImage::GetHashCode()
 	{
-		return Object::GetHashCode();
+		String^ signature = Marshaller::Marshal(Value->signature());
+
+		return
+			Value->rows().GetHashCode() ^
+			Value->columns().GetHashCode() ^
+			signature->GetHashCode();
 	}
 	//==============================================================================================
 	array<Byte>^ MagickImage::GetProfile()
