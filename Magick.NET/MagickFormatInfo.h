@@ -15,6 +15,7 @@
 
 #include "Enums\MagickFormat.h"
 
+using namespace System::Collections::Generic;
 using namespace System::Collections::ObjectModel;
 
 namespace ImageMagick
@@ -100,9 +101,9 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Returns the format info of the specified format.
+		/// Returns a string that represents the current format.
 		///</summary>
-		static MagickFormatInfo^ Get(MagickFormat format);
+		virtual String^ ToString() override;
 		//===========================================================================================
 	};
 	//==============================================================================================

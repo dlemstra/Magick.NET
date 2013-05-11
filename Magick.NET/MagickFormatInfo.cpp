@@ -16,6 +16,8 @@
 #include "Exceptions\Base\MagickException.h"
 #include "Helpers\EnumHelper.h"
 
+using namespace System::Globalization;
+
 namespace ImageMagick
 {
 	//==============================================================================================
@@ -43,7 +45,7 @@ namespace ImageMagick
 			MagickFormatInfo^ formatInfo = gcnew MagickFormatInfo();
 
 			String^ name = Marshaller::Marshal(coder->name());
-			
+
 			name = name->Replace("-", "");
 			if (name == "3FR")
 				name = "ThreeFR";
@@ -62,15 +64,10 @@ namespace ImageMagick
 		return result;
 	}
 	//==============================================================================================
-	MagickFormatInfo^ MagickFormatInfo::Get(MagickFormat format)
+	String^ MagickFormatInfo::ToString()
 	{
-		for each (MagickFormatInfo^ formatInfo in All)
-		{
-			if (formatInfo->Format == format)
-				return formatInfo;
-		}
-
-		return nullptr;
+		return String::Format(CultureInfo::InvariantCulture, "{0}: {1} ({2}R{3}W{4}M)", Format, Description, 
+			_IsReadable ? "+" : "-", _IsWritable ? "+" : "-", _IsMultiFrame ? "+" : "-");
 	}
 	//==============================================================================================
 }

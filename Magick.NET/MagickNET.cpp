@@ -20,6 +20,17 @@ using namespace System::Security;
 namespace ImageMagick
 {
 	//==============================================================================================
+	MagickFormatInfo^ MagickNET::GetFormatInformation(MagickFormat format)
+	{
+		for each (MagickFormatInfo^ formatInfo in SupportedFormats)
+		{
+			if (formatInfo->Format == format)
+				return formatInfo;
+		}
+
+		return nullptr;
+	}
+	//==============================================================================================
 	void MagickNET::Initialize()
 	{
 		String^ path = Path::GetDirectoryName(MagickNET::typeid->Assembly->Location) + "\\ImageMagick";

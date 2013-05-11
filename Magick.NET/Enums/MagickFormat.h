@@ -23,7 +23,7 @@ namespace ImageMagick
 	///</summary>
 	public enum class MagickFormat
 	{
-		Threefr,
+		ThreeFr,
 		A,
 		Aai,
 		Ai,
@@ -123,6 +123,7 @@ namespace ImageMagick
 		M4v,
 		Mac,
 		Map,
+		Mask,
 		Mat,
 		Matte,
 		Mef,

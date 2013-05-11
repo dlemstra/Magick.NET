@@ -30,6 +30,11 @@ namespace ImageMagick
 	public:
 		///==========================================================================================
 		///<summary>
+		/// Returns the format information of the specified format.
+		///</summary>
+		static MagickFormatInfo^ GetFormatInformation(MagickFormat format);
+		///==========================================================================================
+		///<summary>
 		/// Adds the sub directory ImageMagick of the current execution path to the environment path.
 		/// You should place the supplied ImageMagick dlls in that directory.
 		///</summary>
@@ -43,7 +48,7 @@ namespace ImageMagick
 		///==========================================================================================
 		///<summary>
 		/// Pixel cache threshold in megabytes. Once this memory threshold is exceeded, all subsequent
-		/// pixels cache operations are to/from disk. This setting is shared by all Image objects.
+		/// pixels cache operations are to/from disk. This setting is shared by all MagickImage objects.
 		///</summary>
 		static void SetCacheThreshold(int threshold);
 		///==========================================================================================
