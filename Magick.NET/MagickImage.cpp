@@ -165,6 +165,24 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::SetFormat(ImageFormat^ format)
+	{
+		if (format == ImageFormat::Bmp)
+			Format = MagickFormat::Bmp;
+		else if (format == ImageFormat::Gif)
+			Format = MagickFormat::Gif;
+		else if (format == ImageFormat::Icon)
+			Format = MagickFormat::Icon;
+		else if (format == ImageFormat::Jpeg)
+			Format = MagickFormat::Jpeg;
+		else if (format == ImageFormat::Png)
+			Format = MagickFormat::Png;
+		else if (format == ImageFormat::Tiff)
+			Format = MagickFormat::Tiff;
+		else
+			throw gcnew NotSupportedException("Unsupported image format: " + format->ToString());
+	}
+	//==============================================================================================
 	void MagickImage::SetProfile(String^ name, Magick::Blob& blob)
 	{
 		Throw::IfNullOrEmpty("name", name);
@@ -2460,6 +2478,28 @@ namespace ImageMagick
 	String^ MagickImage::ToBase64()
 	{
 		return Convert::ToBase64String(ToByteArray());
+	}
+	//==============================================================================================
+	Bitmap^ MagickImage::ToBitmap()
+	{
+		return ToBitmap(ImageFormat::Bmp);
+	}
+	//==============================================================================================
+	Bitmap^ MagickImage::ToBitmap(ImageFormat^ format)
+	{
+		SetFormat(format);
+
+		MemoryStream^ memStream = gcnew MemoryStream();
+		try
+		{
+			Write(memStream);
+			memStream->Position = 0;
+			return (Bitmap^)Bitmap::FromStream(memStream);
+		}
+		finally
+		{
+			delete memStream;
+		}
 	}
 	//==============================================================================================
 	array<Byte>^ MagickImage::ToByteArray()

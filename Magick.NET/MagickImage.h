@@ -52,6 +52,7 @@
 #include "Pixels\WritablePixelCollection.h"
 
 using namespace System::Collections::Generic;
+using namespace System::Drawing::Imaging;
 using namespace System::Text;
 
 namespace ImageMagick
@@ -84,6 +85,8 @@ namespace ImageMagick
 		void Sample(int width, int height, bool isPercentage);
 		//===========================================================================================
 		void Scale(int width, int height, bool isPercentage);
+		//===========================================================================================
+		void SetFormat(ImageFormat^ format);
 		//===========================================================================================
 		void SetProfile(String^ name, Magick::Blob &blob);
 		//===========================================================================================
@@ -2724,6 +2727,17 @@ namespace ImageMagick
 		/// Converts this instance to a base64 string.
 		///</summary>
 		String^ ToBase64();
+		///==========================================================================================
+		///<summary>
+		/// Converts this instance to a bitmap using ImageFormat.Bitmap.
+		///</summary>
+		Bitmap^ ToBitmap();
+		///==========================================================================================
+		///<summary>
+		/// Converts this instance to a bitmap using the specified ImageFormat. Supported formats are:
+		/// Bmp, Gif, Icon, Jpeg, Png, Tiff.
+		///</summary>
+		Bitmap^ ToBitmap(ImageFormat^ imageFormat);
 		///==========================================================================================
 		///<summary>
 		/// Converts this instance to a byte array.

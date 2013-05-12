@@ -14,6 +14,7 @@
 
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,6 +27,13 @@ namespace Magick.NET.Tests
 	{
 		//===========================================================================================
 		private const string _Category = "MagickImage";
+		//===========================================================================================
+		private static void Test_ToBitmap(MagickImage image, ImageFormat format)
+		{
+			Bitmap bmp = image.ToBitmap(format);
+			Assert.AreEqual(format, bmp.RawFormat);
+			bmp.Dispose();
+		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		[ExpectedException(typeof(ObjectDisposedException))]
@@ -122,6 +130,29 @@ namespace Magick.NET.Tests
 			{
 				image.Read((string)null);
 			});
+
+			image.Dispose();
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_ToBitmap()
+		{
+			MagickImage image = new MagickImage(Color.Red, 10, 10);
+
+			ExceptionAssert.Throws<NotSupportedException>(delegate()
+			{
+				image.ToBitmap(ImageFormat.Exif);
+			});
+
+			Bitmap bmp = image.ToBitmap();
+			bmp.Dispose();
+
+			Test_ToBitmap(image, ImageFormat.Bmp);
+			Test_ToBitmap(image, ImageFormat.Gif);
+			Test_ToBitmap(image, ImageFormat.Icon);
+			Test_ToBitmap(image, ImageFormat.Jpeg);
+			Test_ToBitmap(image, ImageFormat.Png);
+			Test_ToBitmap(image, ImageFormat.Tiff);
 
 			image.Dispose();
 		}
