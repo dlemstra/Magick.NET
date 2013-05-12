@@ -71,7 +71,8 @@ namespace ImageMagick
 			String^ get()
 			{
 				Object^ title = (MagickNET::typeid)->Assembly->GetCustomAttributes(AssemblyTitleAttribute::typeid, false)[0];
-				return ((AssemblyTitleAttribute^)title)->Title;
+				Object^ version = (MagickNET::typeid)->Assembly->GetCustomAttributes(AssemblyFileVersionAttribute::typeid, false)[0];
+				return ((AssemblyTitleAttribute^)title)->Title + " " + ((AssemblyFileVersionAttribute^)version)->Version;
 			}
 		}
 		//===========================================================================================
