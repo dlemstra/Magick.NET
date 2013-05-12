@@ -95,22 +95,6 @@ namespace ImageMagick
 		return (Magick::operator == (*Value, *other->Value)) ? true : false;
 	}
 	//==============================================================================================
-	MagickGeometry^ MagickGeometry::FromRectangle(Rectangle rectangle)
-	{
-		if (rectangle.IsEmpty)
-			return nullptr;
-
-		return gcnew MagickGeometry(rectangle);
-	}
-	//==============================================================================================
-	MagickGeometry^ MagickGeometry::FromString(String^ geometry)
-	{
-		if (String::IsNullOrEmpty(geometry))
-			return nullptr;
-
-		return gcnew MagickGeometry(geometry);
-	}
-	//==============================================================================================
 	int MagickGeometry::GetHashCode()
 	{
 		return

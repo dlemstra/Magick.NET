@@ -216,12 +216,12 @@ namespace ImageMagick
 		//===========================================================================================
 		static explicit operator MagickGeometry^(Rectangle rectangle)
 		{
-			return FromRectangle(rectangle);
+			return gcnew MagickGeometry(rectangle);
 		}
 		//===========================================================================================
 		static explicit operator MagickGeometry^(String^ geometry)
 		{
-			return FromString(geometry);
+			return gcnew MagickGeometry(geometry);
 		}
 		///==========================================================================================
 		///<summary>
@@ -241,19 +241,6 @@ namespace ImageMagick
 		///</summary>
 		///<param name="other">The image to compare this geometry with.</param>
 		virtual bool Equals(MagickGeometry^ other);
-		///==========================================================================================
-		///<summary>
-		/// Converts the specified Rectangle to an instance of this type.
-		///</summary>
-		///<param name="rectangle">The rectangle to use.</param>
-		static MagickGeometry^ FromRectangle(Rectangle rectangle);
-		///==========================================================================================
-		///<summary>
-		/// Converts the specified geometry to an instance of this type.
-		///</summary>
-		///<param name="geometry">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
-		///{+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
-		static MagickGeometry^ FromString(String^ geometry);
 		///==========================================================================================
 		///<summary>
 		/// Servers as a hash of this type.

@@ -49,6 +49,12 @@ namespace ImageMagick
 		MagickColor();
 		///==========================================================================================
 		///<summary>
+		/// Initializes a new instance of the MagickColor class using the specified color.
+		///</summary>
+		///<param name="color">The color to use.</param>
+		MagickColor(Color color);
+		///==========================================================================================
+		///<summary>
 		/// Initializes a new instance of the MagickColor class.
 		///</summary>
 		///<param name="red">Red component value of this color.</param>
@@ -65,12 +71,6 @@ namespace ImageMagick
 		///<param name="alpha">Alpha component value of this color.</param>
 		MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue,
 			Magick::Quantum alpha);
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the MagickColor class using the specified color.
-		///</summary>
-		///<param name="color">The color to use.</param>
-		MagickColor(Color color);
 		///==========================================================================================
 		///<summary>
 		/// Alpha component value of this color.
@@ -184,7 +184,7 @@ namespace ImageMagick
 		//===========================================================================================
 		static operator MagickColor^ (Color color)
 		{
-			return FromColor(color);
+			return gcnew MagickColor(color);
 		}
 		///==========================================================================================
 		///<summary>
@@ -204,12 +204,6 @@ namespace ImageMagick
 		///</summary>
 		///<param name="other">The color to compare this color with.</param>
 		virtual bool Equals(MagickColor^ other);
-		///==========================================================================================
-		///<summary>
-		/// Converts the specified geometry to an instance of this type.
-		///</summary>
-		///<param name="color">The color to use.</param>
-		static MagickColor^ FromColor(Color color);
 		///==========================================================================================
 		///<summary>
 		/// Servers as a hash of this type.

@@ -137,14 +137,6 @@ namespace ImageMagick
 			_Red == other->_Red;
 	}
 	//==============================================================================================
-	MagickColor^ MagickColor::FromColor(Color color)
-	{
-		if (ReferenceEquals(color, nullptr))
-			return nullptr;
-
-		return gcnew MagickColor(color);
-	}
-	//==============================================================================================
 	int MagickColor::GetHashCode()
 	{
 		return
