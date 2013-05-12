@@ -132,6 +132,13 @@ namespace ImageMagick
 		MagickImage(array<Byte>^ data, int width, int height);
 		///==========================================================================================
 		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified bitmap.
+		///</summary>
+		///<param name="bitmap">The bitmap to use.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(Bitmap^ bitmap);
+		///==========================================================================================
+		///<summary>
 		/// Initializes a new instance of the MagickImage class using the specified width, height
 		/// and color.
 		///</summary>
@@ -2335,6 +2342,14 @@ namespace ImageMagick
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
 		MagickWarningException^ Read(array<Byte>^ data);
+		///==========================================================================================
+		///<summary>
+		/// Read single image frame.
+		///</summary>
+		///<param name="bitmap">The bitmap to read the image from.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ Read(Bitmap^ bitmap);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.

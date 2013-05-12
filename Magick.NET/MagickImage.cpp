@@ -257,6 +257,12 @@ namespace ImageMagick
 		this->Read(data, width, height);
 	}
 	//==============================================================================================
+	MagickImage::MagickImage(Bitmap^ bitmap)
+	{
+		Value = new Magick::Image();
+		this->Read(bitmap);
+	}
+	//==============================================================================================
 	MagickImage::MagickImage(MagickColor^ color, int width, int height)
 	{
 		Throw::IfNull("color", color);
@@ -2026,6 +2032,23 @@ namespace ImageMagick
 	{
 		_ReadWarning = MagickReader::Read(Value, data, width, height);
 		return _ReadWarning;
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImage::Read(Bitmap^ bitmap)
+	{
+		Throw::IfNull("bitmap", bitmap);
+
+		MemoryStream^ memStream = gcnew MemoryStream();
+		try
+		{
+			bitmap->Save(memStream, bitmap->RawFormat);
+			memStream->Position = 0;
+			return Read(memStream);
+		}
+		finally
+		{
+			delete memStream;
+		}
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImage::Read(String^ fileName)

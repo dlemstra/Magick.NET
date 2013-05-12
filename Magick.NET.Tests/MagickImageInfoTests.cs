@@ -43,6 +43,30 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Constructor()
+		{
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				MagickImageInfo imageInfo = new MagickImageInfo(new byte[0]);
+			});
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				MagickImageInfo imageInfo = new MagickImageInfo((byte[])null);
+			});
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				MagickImageInfo imageInfo = new MagickImageInfo((Stream)null);
+			});
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				MagickImageInfo imageInfo = new MagickImageInfo((string)null);
+			});
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_IComparable()
 		{
 			MagickImageInfo first = CreateMagickImageInfo(Color.Red, 10, 5);
@@ -105,7 +129,7 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				image.Read(new byte[] { });
+				image.Read(new byte[0]);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()

@@ -27,12 +27,50 @@ namespace Magick.NET.Tests
 	{
 		//===========================================================================================
 		private const string _Category = "MagickImage";
+		private const string _ImageDir = @"..\..\..\Magick.NET.Tests\Images\";
 		//===========================================================================================
 		private static void Test_ToBitmap(MagickImage image, ImageFormat format)
 		{
 			Bitmap bmp = image.ToBitmap(format);
 			Assert.AreEqual(format, bmp.RawFormat);
 			bmp.Dispose();
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Constructor()
+		{
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				MagickImage image = new MagickImage(new byte[0]);
+			});
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				MagickImage image = new MagickImage((byte[])null);
+			});
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				MagickImage image = new MagickImage((Bitmap)null);
+			});
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				MagickImage image = new MagickImage((Stream)null);
+			});
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				MagickImage image = new MagickImage((string)null);
+			});
+
+			using (Bitmap bitmap = new Bitmap(_ImageDir + @"Snakeware.png"))
+			{
+				using (MagickImage bitmapImage = new MagickImage(bitmap))
+				{
+					Assert.IsTrue(bitmapImage.Format == MagickFormat.Png);
+				}
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -113,12 +151,17 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				image.Read(new byte[] { });
+				image.Read(new byte[0]);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
 				image.Read((byte[])null);
+			});
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				image.Read((Bitmap)null);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
@@ -130,6 +173,12 @@ namespace Magick.NET.Tests
 			{
 				image.Read((string)null);
 			});
+
+			using (Bitmap bitmap = new Bitmap(_ImageDir + @"Snakeware.png"))
+			{
+				image.Read(bitmap);
+				Assert.IsTrue(image.Format == MagickFormat.Png);
+			}
 
 			image.Dispose();
 		}
