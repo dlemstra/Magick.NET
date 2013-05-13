@@ -21,15 +21,12 @@ using namespace System::Globalization;
 namespace ImageMagick
 {
 	//==============================================================================================
-	Collection<MagickFormatInfo^>^ MagickFormatInfo::LoadFormats()
+	void MagickFormatInfo::AddStealthCoder(std::list<Magick::CoderInfo>* coderList, std::string name)
 	{
-		Collection<MagickFormatInfo^>^ result = gcnew Collection<MagickFormatInfo^>();
-
-		std::list<Magick::CoderInfo> coderList; 
-
 		try
 		{
-			coderInfoList(&coderList, Magick::CoderInfo::AnyMatch, Magick::CoderInfo::AnyMatch, Magick::CoderInfo::AnyMatch);
+			Magick::CoderInfo coderInfo(name);
+			coderList->push_back(coderInfo);
 		}
 		catch(Magick::ErrorModule)
 		{
@@ -38,6 +35,27 @@ namespace ImageMagick
 		{
 			throw MagickException::Create(exception);
 		}
+	}
+	//==============================================================================================
+	Collection<MagickFormatInfo^>^ MagickFormatInfo::LoadFormats()
+	{
+		Collection<MagickFormatInfo^>^ result = gcnew Collection<MagickFormatInfo^>();
+
+		std::list<Magick::CoderInfo> coderList; 
+
+		try
+		{
+			coderInfoList(&coderList);
+		}
+		catch(Magick::ErrorModule)
+		{
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+
+		AddStealthCoder(&coderList, "DIB");
 
 		std::list<Magick::CoderInfo>::const_iterator coder = coderList.begin(); 
 		while(coder != coderList.end())

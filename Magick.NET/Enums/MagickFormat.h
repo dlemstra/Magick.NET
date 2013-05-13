@@ -59,6 +59,7 @@ namespace ImageMagick
 		Dcx,
 		Dds,
 		Dfont,
+		Dib,
 		Djvu,
 		Dng,
 		Dot,
