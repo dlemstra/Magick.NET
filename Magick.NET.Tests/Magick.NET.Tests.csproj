@@ -66,10 +66,12 @@
     <Compile Include="InitializeTests.cs" />
     <Compile Include="Colors\MagickColorTests.cs" />
     <Compile Include="MagickGeometryTests.cs" />
+    <Compile Include="MagickImageCollectionTests.cs" />
     <Compile Include="MagickImageInfoTests.cs" />
-    <Compile Include="MagickImageTest.cs" />
+    <Compile Include="MagickImageTests.cs" />
     <Compile Include="MagickNETTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Magick.NET\Magick.NET.vcxproj">

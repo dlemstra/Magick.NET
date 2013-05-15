@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	bool MagickImageCollection::MagickImageCollectionEnumerator::MoveNext()
 	{
-		if (_Index + 1 == (int)_Collection->_Images->size())
+		if (_Index + 1 == (int)_Collection->Images->size())
 			return false;
 
 		_Index++;
@@ -35,8 +35,8 @@ namespace ImageMagick
 	{
 		try
 		{
-			std::list<Magick::Image>::iterator first = _Images->begin();
-			std::list<Magick::Image>::iterator last = _Images->end();
+			std::list<Magick::Image>::iterator first = Images->begin();
+			std::list<Magick::Image>::iterator last = Images->end();
 
 			MagickCore::ExceptionInfo exceptionInfo;
 			MagickCore::GetExceptionInfo(&exceptionInfo);
@@ -68,7 +68,7 @@ namespace ImageMagick
 		_Images = new std::list<Magick::Image>();
 		while(enumerator->MoveNext())
 		{
-			_Images->push_back(*enumerator->Current->ReuseImage());
+			Images->push_back(*enumerator->Current->ReuseImage());
 		}
 	}
 	//==============================================================================================
@@ -112,7 +112,7 @@ namespace ImageMagick
 	{
 		Throw::IfNull("image", item);
 
-		_Images->push_back(*item->ReuseImage());
+		Images->push_back(*item->ReuseImage());
 	}
 	//==============================================================================================
 	void MagickImageCollection::Add(String^ fileName)
@@ -122,7 +122,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageCollection::Clear()
 	{
-		_Images->clear();
+		Images->clear();
 	}
 	//==============================================================================================
 	bool MagickImageCollection::Contains(MagickImage^ item)
@@ -135,7 +135,7 @@ namespace ImageMagick
 		Throw::IfNull("destination", destination);
 		Throw::IfOutOfRange("arrayIndex", arrayIndex, destination->Length);
 
-		for (std::list<Magick::Image>::const_iterator iter = _Images->begin(), end = _Images->end(); iter != end; ++iter)
+		for (std::list<Magick::Image>::const_iterator iter = Images->begin(), end = Images->end(); iter != end; ++iter)
 		{
 			destination[arrayIndex++] = gcnew MagickImage(*iter);
 		}
@@ -157,7 +157,7 @@ namespace ImageMagick
 
 		int index = 0;
 
-		for (std::list<Magick::Image>::const_iterator iter = _Images->begin(), end = _Images->end(); iter != end; ++iter)
+		for (std::list<Magick::Image>::const_iterator iter = Images->begin(), end = Images->end(); iter != end; ++iter)
 		{
 			if (item->Equals(*iter))
 				return index;
@@ -171,12 +171,12 @@ namespace ImageMagick
 	void MagickImageCollection::Insert(int index, MagickImage^ image)
 	{
 		Throw::IfNull("image", image);
-		Throw::IfOutOfRange("arrayIndex", index, (int)_Images->size());
+		Throw::IfOutOfRange("arrayIndex", index, (int)Images->size());
 
-		std::list<Magick::Image>::iterator iter = _Images->begin();
+		std::list<Magick::Image>::iterator iter = Images->begin();
 		std::advance(iter, index);
 
-		_Images->insert(iter, *image->ReuseImage());
+		Images->insert(iter, *image->ReuseImage());
 	}
 	//==============================================================================================
 	void MagickImageCollection::Insert(int index, String^ fileName)
@@ -193,37 +193,43 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data)
 	{
-		_ReadWarning = MagickReader::Read(_Images, data);
+		Clear();
+		_ReadWarning = MagickReader::Read(Images, data);
 		return _ReadWarning;
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data, ImageMagick::ColorSpace colorSpace)
 	{
-		_ReadWarning = MagickReader::Read(_Images, data, colorSpace);
+		Clear();
+		_ReadWarning = MagickReader::Read(Images, data, colorSpace);
 		return _ReadWarning;
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(String^ fileName)
 	{
-		_ReadWarning = MagickReader::Read(_Images, fileName);
+		Clear();
+		_ReadWarning = MagickReader::Read(Images, fileName);
 		return _ReadWarning;
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(String^ fileName, ImageMagick::ColorSpace colorSpace)
 	{
-		_ReadWarning = MagickReader::Read(_Images, fileName, colorSpace);
+		Clear();
+		_ReadWarning = MagickReader::Read(Images, fileName, colorSpace);
 		return _ReadWarning;
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(Stream^ stream)
 	{
-		_ReadWarning = MagickReader::Read(_Images, stream);
+		Clear();
+		_ReadWarning = MagickReader::Read(Images, stream);
 		return _ReadWarning;
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(Stream^ stream, ImageMagick::ColorSpace colorSpace)
 	{
-		_ReadWarning = MagickReader::Read(_Images, stream, colorSpace);
+		Clear();
+		_ReadWarning = MagickReader::Read(Images, stream, colorSpace);
 		return _ReadWarning;
 	}
 	//==============================================================================================
@@ -243,16 +249,16 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageCollection::RemoveAt(int index)
 	{
-		Throw::IfOutOfRange("arrayIndex", index, (int)_Images->size());
+		Throw::IfOutOfRange("arrayIndex", index, (int)Images->size());
 
-		std::list<Magick::Image>::iterator iter = _Images->begin();
+		std::list<Magick::Image>::iterator iter = Images->begin();
 		std::advance(iter, index);
-		_Images->erase(iter);
+		Images->erase(iter);
 	}
 	//==============================================================================================
 	void MagickImageCollection::RePage()
 	{
-		for (std::list<Magick::Image>::iterator iter = _Images->begin(), end = _Images->end(); iter != end; ++iter)
+		for (std::list<Magick::Image>::iterator iter = Images->begin(), end = Images->end(); iter != end; ++iter)
 		{
 			iter->page(Magick::Geometry(0,0));
 		}
@@ -261,18 +267,18 @@ namespace ImageMagick
 	array<Byte>^ MagickImageCollection::ToByteArray()
 	{
 		Magick::Blob blob;
-		MagickWriter::Write(_Images, &blob);
+		MagickWriter::Write(Images, &blob);
 		return Marshaller::Marshal(&blob);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Write(Stream^ stream)
 	{
-		MagickWriter::Write(_Images, stream);
+		MagickWriter::Write(Images, stream);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Write(String^ fileName)
 	{
-		MagickWriter::Write(_Images, fileName);
+		MagickWriter::Write(Images, fileName);
 	}
 	//==============================================================================================
 }

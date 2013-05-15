@@ -107,6 +107,7 @@ namespace ImageMagick
 		Nullable<ColorSpace> colorSpace)
 	{
 		Throw::IfNull("data", data);
+		Throw::IfTrue("data", data->Length == 0, "Empty byte array is not permitted.");
 
 		Magick::Blob blob;
 		Marshaller::Marshal(data, &blob);

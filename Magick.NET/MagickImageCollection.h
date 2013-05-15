@@ -42,6 +42,17 @@ namespace ImageMagick
 			_Images = NULL;
 		}
 		//===========================================================================================
+		property std::list<Magick::Image>* Images
+		{
+			std::list<Magick::Image>* get()
+			{
+				if (_Images == NULL)
+					throw gcnew ObjectDisposedException(GetType()->ToString());
+
+				return _Images;
+			}
+		}
+		//===========================================================================================
 		ref class MagickImageCollectionEnumerator sealed : IEnumerator<MagickImage^>
 		{
 			//========================================================================================
@@ -67,7 +78,7 @@ namespace ImageMagick
 					if (_Index == -1)
 						return nullptr;
 
-					std::list<Magick::Image>::iterator iter = _Collection->_Images->begin();
+					std::list<Magick::Image>::iterator iter = _Collection->Images->begin();
 					std::advance(iter, _Index);
 
 					return gcnew MagickImage(*iter);
@@ -160,23 +171,23 @@ namespace ImageMagick
 		{
 			virtual MagickImage^ get(int index) sealed
 			{
-				if (index < 0 || index > (int)_Images->size() - 1)
+				if (index < 0 || index > (int)Images->size() - 1)
 					return nullptr;
 
-				std::list<Magick::Image>::const_iterator iter = _Images->begin();
+				std::list<Magick::Image>::const_iterator iter = Images->begin();
 				std::advance(iter, index);
 
 				return gcnew MagickImage(*iter);
 			}
 			virtual void set(int index, MagickImage^ value) sealed
 			{
-				if (index < 0 || index >= (int)_Images->size() || value == nullptr)
+				if (index < 0 || index >= (int)Images->size() || value == nullptr)
 					return;
 
-				std::list<Magick::Image>::iterator iter = _Images->begin();
+				std::list<Magick::Image>::iterator iter = Images->begin();
 				std::advance(iter, index);
 
-				_Images->erase(iter);
+				Images->erase(iter);
 
 				Insert(index, value);
 			}
@@ -189,7 +200,7 @@ namespace ImageMagick
 		{
 			virtual int get() sealed
 			{
-				return (int)_Images->size();
+				return (int)Images->size();
 			}
 		}
 		///==========================================================================================

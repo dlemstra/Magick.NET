@@ -64,6 +64,11 @@ namespace Magick.NET.Tests
 			{
 				MagickImageInfo imageInfo = new MagickImageInfo((string)null);
 			});
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				MagickImageInfo imageInfo = new MagickImageInfo(Settings.ImageDir);
+			});
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -125,29 +130,37 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Read()
 		{
-			MagickImage image = new MagickImage();
+			MagickImageInfo imageInfo = new MagickImageInfo();
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				image.Read(new byte[0]);
+				imageInfo.Read(new byte[0]);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				image.Read((byte[])null);
+				imageInfo.Read((byte[])null);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				image.Read((Stream)null);
+				imageInfo.Read((Stream)null);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				image.Read((string)null);
+				imageInfo.Read((string)null);
 			});
 
-			image.Dispose();
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				imageInfo.Read(Settings.ImageDir);
+			});
+
+			imageInfo.Read(Settings.ImageDir + "Snakeware.png");
+
+			Assert.AreEqual(546, imageInfo.Width);
+			Assert.AreEqual(316, imageInfo.Height);
 		}
 		//===========================================================================================
 	}

@@ -27,7 +27,6 @@ namespace Magick.NET.Tests
 	{
 		//===========================================================================================
 		private const string _Category = "MagickImage";
-		private const string _ImageDir = @"..\..\..\Magick.NET.Tests\Images\";
 		//===========================================================================================
 		private static void Test_ToBitmap(MagickImage image, ImageFormat format)
 		{
@@ -64,7 +63,12 @@ namespace Magick.NET.Tests
 				MagickImage image = new MagickImage((string)null);
 			});
 
-			using (Bitmap bitmap = new Bitmap(_ImageDir + @"Snakeware.png"))
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				MagickImage image = new MagickImage(Settings.ImageDir);
+			});
+
+			using (Bitmap bitmap = new Bitmap(Settings.ImageDir + @"Snakeware.png"))
 			{
 				using (MagickImage bitmapImage = new MagickImage(bitmap))
 				{
@@ -174,7 +178,12 @@ namespace Magick.NET.Tests
 				image.Read((string)null);
 			});
 
-			using (Bitmap bitmap = new Bitmap(_ImageDir + @"Snakeware.png"))
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				image.Read(Settings.ImageDir);
+			});
+
+			using (Bitmap bitmap = new Bitmap(Settings.ImageDir + @"Snakeware.png"))
 			{
 				image.Read(bitmap);
 				Assert.IsTrue(image.Format == MagickFormat.Png);
