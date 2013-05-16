@@ -183,13 +183,38 @@ namespace Magick.NET.Tests
 				image.Read(Settings.ImageDir);
 			});
 
+			image.Read(File.ReadAllBytes(Settings.ImageDir + @"Snakeware.png"));
+
 			using (Bitmap bitmap = new Bitmap(Settings.ImageDir + @"Snakeware.png"))
 			{
 				image.Read(bitmap);
 				Assert.IsTrue(image.Format == MagickFormat.Png);
 			}
 
+			using (FileStream fs = File.OpenRead(Settings.ImageDir + @"Snakeware.png"))
+			{
+				image.Read(fs);
+			}
+
+			image.Read(Settings.ImageDir + @"Snakeware.png");
+
 			image.Dispose();
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_ReadSettings()
+		{
+			using (MagickImage image = new MagickImage())
+			{
+				MagickReadSettings settings = new MagickReadSettings();
+				settings.ColorSpace = ColorSpace.RGB;
+				settings.Density = new MagickGeometry(150, 150);
+
+				image.Read(Settings.ImageDir + @"Snakeware.png", settings);
+
+				Assert.AreEqual(ColorSpace.RGB, settings.ColorSpace);
+				Assert.AreEqual(150, settings.Density.Width);
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

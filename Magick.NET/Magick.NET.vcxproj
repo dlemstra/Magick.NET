@@ -315,6 +315,7 @@
     <ClInclude Include="Helpers\Percentage.h" />
     <ClInclude Include="Enums\Resolution.h" />
     <ClInclude Include="Helpers\TypeMetric.h" />
+    <ClInclude Include="Helpers\MagickReadSettings.h" />
     <ClInclude Include="Matrices\MatrixColor.h" />
     <ClInclude Include="Matrices\MatrixConvolve.h" />
     <ClInclude Include="MagickImageCollection.h" />

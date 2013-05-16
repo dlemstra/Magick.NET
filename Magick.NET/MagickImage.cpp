@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "MagickImage.h"
 #include "Helpers\FileHelper.h"
 #include "MagickImageCollection.h"
@@ -245,16 +245,10 @@ namespace ImageMagick
 		this->Read(data);
 	}
 	//==============================================================================================
-	MagickImage::MagickImage(array<Byte>^ data, ImageMagick::ColorSpace colorSpace)
+	MagickImage::MagickImage(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
 		Value = new Magick::Image();
-		this->Read(data, colorSpace);
-	}
-	//==============================================================================================
-	MagickImage::MagickImage(array<Byte>^ data, int width, int height)
-	{
-		Value = new Magick::Image();
-		this->Read(data, width, height);
+		this->Read(data, readSettings);
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(Bitmap^ bitmap)
@@ -281,16 +275,10 @@ namespace ImageMagick
 		this->Read(fileName);
 	}
 	//==============================================================================================
-	MagickImage::MagickImage(String^ fileName, ImageMagick::ColorSpace colorSpace)
+	MagickImage::MagickImage(String^ fileName, MagickReadSettings^ readSettings)
 	{
 		Value = new Magick::Image();
-		this->Read(fileName, colorSpace);
-	}
-	//==============================================================================================
-	MagickImage::MagickImage(String^ fileName, int width, int height)
-	{
-		Value = new Magick::Image();
-		this->Read(fileName, width, height);
+		this->Read(fileName, readSettings);
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(Stream^ stream)
@@ -299,16 +287,10 @@ namespace ImageMagick
 		this->Read(stream);
 	}
 	//==============================================================================================
-	MagickImage::MagickImage(Stream^ stream, ImageMagick::ColorSpace colorSpace)
+	MagickImage::MagickImage(Stream^ stream, MagickReadSettings^ readSettings)
 	{
 		Value = new Magick::Image();
-		this->Read(stream, colorSpace);
-	}
-	//==============================================================================================
-	MagickImage::MagickImage(Stream^ stream, int width, int height)
-	{
-		Value = new Magick::Image();
-		this->Read(stream, width, height);
+		this->Read(stream, readSettings);
 	}
 	//==============================================================================================
 	void MagickImage::AdaptiveBlur()
@@ -2018,19 +2000,12 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImage::Read(array<Byte>^ data)
 	{
-		_ReadWarning = MagickReader::Read(Value, data, false);
-		return _ReadWarning;
+		return Read(data, nullptr);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(array<Byte>^ data, ImageMagick::ColorSpace colorSpace)
+	MagickWarningException^ MagickImage::Read(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
-		_ReadWarning = MagickReader::Read(Value, data, colorSpace, false);
-		return _ReadWarning;
-	}
-	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(array<Byte>^ data, int width, int height)
-	{
-		_ReadWarning = MagickReader::Read(Value, data, width, height);
+		_ReadWarning = MagickReader::Read(Value, data, readSettings);
 		return _ReadWarning;
 	}
 	//==============================================================================================
@@ -2053,37 +2028,23 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImage::Read(String^ fileName)
 	{
-		_ReadWarning = MagickReader::Read(Value, fileName, false);
-		return _ReadWarning;
+		return Read(fileName, nullptr);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(String^ fileName, ImageMagick::ColorSpace colorSpace)
+	MagickWarningException^ MagickImage::Read(String^ fileName, MagickReadSettings^ readSettings)
 	{
-		_ReadWarning = MagickReader::Read(Value, fileName, colorSpace, false);
-		return _ReadWarning;
-	}
-	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(String^ fileName, int width, int height)
-	{
-		_ReadWarning = MagickReader::Read(Value, fileName, width, height);
+		_ReadWarning = MagickReader::Read(Value, fileName, readSettings);
 		return _ReadWarning;
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImage::Read(Stream^ stream)
 	{
-		_ReadWarning = MagickReader::Read(Value, stream, false);
-		return _ReadWarning;
+		return Read(stream, nullptr);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(Stream^ stream, ImageMagick::ColorSpace colorSpace)
+	MagickWarningException^ MagickImage::Read(Stream^ stream, MagickReadSettings^ readSettings)
 	{
-		_ReadWarning = MagickReader::Read(Value, stream, colorSpace, false);
-		return _ReadWarning;
-	}
-	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(Stream^ stream, int width, int height)
-	{
-		_ReadWarning = MagickReader::Read(Value, stream, width, height);
+		_ReadWarning = MagickReader::Read(Value, stream, readSettings);
 		return _ReadWarning;
 	}
 	//==============================================================================================

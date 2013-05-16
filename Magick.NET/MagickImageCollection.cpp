@@ -11,11 +11,19 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "MagickImageCollection.h"
 
 namespace ImageMagick
 {
+	//==============================================================================================
+	void MagickImageCollection::InsertUnchecked(int index, MagickImage^ image)
+	{
+		std::list<Magick::Image>::iterator iter = Images->begin();
+		std::advance(iter, index);
+
+		Images->insert(iter, *image->ReuseImage());
+	}
 	//==============================================================================================
 	bool MagickImageCollection::MagickImageCollectionEnumerator::MoveNext()
 	{
@@ -78,10 +86,10 @@ namespace ImageMagick
 		this->Read(data);
 	}
 	//==============================================================================================
-	MagickImageCollection::MagickImageCollection(array<Byte>^ data, ImageMagick::ColorSpace colorSpace)
+	MagickImageCollection::MagickImageCollection(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
 		_Images = new std::list<Magick::Image>();
-		this->Read(data, colorSpace);
+		this->Read(data, readSettings);
 	}
 	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(String^ fileName)
@@ -90,10 +98,10 @@ namespace ImageMagick
 		this->Read(fileName);
 	}
 	//==============================================================================================
-	MagickImageCollection::MagickImageCollection(String^ fileName, ImageMagick::ColorSpace colorSpace)
+	MagickImageCollection::MagickImageCollection(String^ fileName, MagickReadSettings^ readSettings)
 	{
 		_Images = new std::list<Magick::Image>();
-		this->Read(fileName, colorSpace);
+		this->Read(fileName, readSettings);
 	}
 	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(Stream^ stream)
@@ -102,10 +110,10 @@ namespace ImageMagick
 		this->Read(stream);
 	}
 	//==============================================================================================
-	MagickImageCollection::MagickImageCollection(Stream^ stream, ImageMagick::ColorSpace colorSpace)
+	MagickImageCollection::MagickImageCollection(Stream^ stream, MagickReadSettings^ readSettings)
 	{
 		_Images = new std::list<Magick::Image>();
-		this->Read(stream, colorSpace);
+		this->Read(stream, readSettings);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Add(MagickImage^ item)
@@ -173,10 +181,7 @@ namespace ImageMagick
 		Throw::IfNull("image", image);
 		Throw::IfOutOfRange("arrayIndex", index, (int)Images->size());
 
-		std::list<Magick::Image>::iterator iter = Images->begin();
-		std::advance(iter, index);
-
-		Images->insert(iter, *image->ReuseImage());
+		InsertUnchecked(index, image);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Insert(int index, String^ fileName)
@@ -193,43 +198,37 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data)
 	{
-		Clear();
-		_ReadWarning = MagickReader::Read(Images, data);
-		return _ReadWarning;
+		return Read(data, nullptr);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data, ImageMagick::ColorSpace colorSpace)
+	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
 		Clear();
-		_ReadWarning = MagickReader::Read(Images, data, colorSpace);
+		_ReadWarning = MagickReader::Read(Images, data, readSettings);
 		return _ReadWarning;
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(String^ fileName)
 	{
-		Clear();
-		_ReadWarning = MagickReader::Read(Images, fileName);
-		return _ReadWarning;
+		return Read(fileName, nullptr);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(String^ fileName, ImageMagick::ColorSpace colorSpace)
+	MagickWarningException^ MagickImageCollection::Read(String^ fileName, MagickReadSettings^ readSettings)
 	{
 		Clear();
-		_ReadWarning = MagickReader::Read(Images, fileName, colorSpace);
+		_ReadWarning = MagickReader::Read(Images, fileName, readSettings);
 		return _ReadWarning;
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(Stream^ stream)
 	{
-		Clear();
-		_ReadWarning = MagickReader::Read(Images, stream);
-		return _ReadWarning;
+		return Read(stream, nullptr);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(Stream^ stream, ImageMagick::ColorSpace colorSpace)
+	MagickWarningException^ MagickImageCollection::Read(Stream^ stream, MagickReadSettings^ readSettings)
 	{
 		Clear();
-		_ReadWarning = MagickReader::Read(Images, stream, colorSpace);
+		_ReadWarning = MagickReader::Read(Images, stream, readSettings);
 		return _ReadWarning;
 	}
 	//==============================================================================================
@@ -253,6 +252,7 @@ namespace ImageMagick
 
 		std::list<Magick::Image>::iterator iter = Images->begin();
 		std::advance(iter, index);
+
 		Images->erase(iter);
 	}
 	//==============================================================================================

@@ -41,6 +41,7 @@
 #include "Helpers\EnumHelper.h"
 #include "Helpers\MagickErrorInfo.h"
 #include "Helpers\MagickReader.h"
+#include "Helpers\MagickReadSettings.h"
 #include "Helpers\MagickWriter.h"
 #include "Helpers\Percentage.h"
 #include "Helpers\TypeMetric.h"
@@ -118,18 +119,9 @@ namespace ImageMagick
 		/// Initializes a new instance of the MagickImage class using the specified byte array.
 		///</summary>
 		///<param name="data">The byte array to read the image data from.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<exception cref="MagickException"/>
-		MagickImage(array<Byte>^ data, ImageMagick::ColorSpace colorSpace);
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the MagickImage class using the specified byte array.
-		///</summary>
-		///<param name="data">The byte array to read the image data from.</param>
-		///<param name="width">The width of the image.</param>
-		///<param name="height">The height of the image.</param>
-		///<exception cref="MagickException"/>
-		MagickImage(array<Byte>^ data, int width, int height);
+		MagickImage(array<Byte>^ data, MagickReadSettings^ readSettings);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickImage class using the specified bitmap.
@@ -158,18 +150,9 @@ namespace ImageMagick
 		/// Initializes a new instance of the MagickImage class using the specified filename
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<exception cref="MagickException"/>
-		MagickImage(String^ fileName, ImageMagick::ColorSpace colorSpace);
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the MagickImage class using the specified filename.
-		///</summary>
-		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		///<param name="width">The width of the image.</param>
-		///<param name="height">The height of the image.</param>
-		///<exception cref="MagickException"/>
-		MagickImage(String^ fileName, int width, int height);
+		MagickImage(String^ fileName, MagickReadSettings^ readSettings);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickImage class using the specified stream.
@@ -182,18 +165,9 @@ namespace ImageMagick
 		/// Initializes a new instance of the MagickImage class using the specified stream.
 		///</summary>
 		///<param name="stream">The stream to read the image data from.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<exception cref="MagickException"/>
-		MagickImage(Stream^ stream, ImageMagick::ColorSpace colorSpace);
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the MagickImage class using the specified stream.
-		///</summary>
-		///<param name="stream">The stream to read the image data from.</param>
-		///<param name="width">The width of the image.</param>
-		///<param name="height">The height of the image.</param>
-		///<exception cref="MagickException"/>
-		MagickImage(Stream^ stream, int width, int height);
+		MagickImage(Stream^ stream, MagickReadSettings^ readSettings);
 		///==========================================================================================
 		///<summary>
 		/// Join images into a single multi-image file.
@@ -2344,6 +2318,15 @@ namespace ImageMagick
 		MagickWarningException^ Read(array<Byte>^ data);
 		///==========================================================================================
 		///<summary>
+		/// Read single vector image frame.
+		///</summary>
+		///<param name="data">The byte array to read the image data from.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ Read(array<Byte>^ data, MagickReadSettings^ readSettings);
+		///==========================================================================================
+		///<summary>
 		/// Read single image frame.
 		///</summary>
 		///<param name="bitmap">The bitmap to read the image from.</param>
@@ -2354,48 +2337,19 @@ namespace ImageMagick
 		///<summary>
 		/// Read single image frame.
 		///</summary>
-		///<param name="data">The byte array to read the image data from.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
-		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
-		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(array<Byte>^ data, ImageMagick::ColorSpace colorSpace);
-		///==========================================================================================
-		///<summary>
-		/// Read single vector image frame.
-		///</summary>
-		///<param name="data">The byte array to read the image data from.</param>
-		///<param name="width">The width of the image.</param>
-		///<param name="height">The height of the image.</param>
-		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
-		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(array<Byte>^ data, int width, int height);
-		///==========================================================================================
-		///<summary>
-		/// Read single image frame.
-		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
 		MagickWarningException^ Read(String^ fileName);
 		///==========================================================================================
 		///<summary>
-		/// Read single image frame.
-		///</summary>
-		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
-		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
-		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(String^ fileName, ImageMagick::ColorSpace colorSpace);
-		///==========================================================================================
-		///<summary>
 		/// Read single vector image frame.
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		///<param name="width">The width of the image.</param>
-		///<param name="height">The height of the image.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(String^ fileName, int width, int height);
+		MagickWarningException^ Read(String^ fileName, MagickReadSettings^ readSettings);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.
@@ -2409,20 +2363,10 @@ namespace ImageMagick
 		/// Read single image frame.
 		///</summary>
 		///<param name="stream">The stream to read the image data from.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(Stream^ stream, ImageMagick::ColorSpace colorSpace);
-		///==========================================================================================
-		///<summary>
-		/// Read single vector image frame.
-		///</summary>
-		///<param name="stream">The stream to read the image data from.</param>
-		///<param name="width">The width of the image.</param>
-		///<param name="height">The height of the image.</param>
-		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
-		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(Stream^ stream, int width, int height);
+		MagickWarningException^ Read(Stream^ stream, MagickReadSettings^ readSettings);
 		///==========================================================================================
 		///<summary>
 		/// Reduce noise in image using a noise peak elimination filter.

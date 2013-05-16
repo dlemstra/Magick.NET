@@ -11,11 +11,18 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "MagickImageInfo.h"
 
 namespace ImageMagick
 {
+	//==============================================================================================
+	MagickReadSettings^ MagickImageInfo::CreateReadSettings()
+	{
+		MagickReadSettings^ settings = gcnew MagickReadSettings();
+		settings->Ping = true;
+		return settings;
+	}
 	//==============================================================================================
 	void MagickImageInfo::Initialize(Magick::Image* image)
 	{
@@ -90,7 +97,7 @@ namespace ImageMagick
 	void MagickImageInfo::Read(array<Byte>^ data)
 	{
 		Magick::Image* image = new Magick::Image();
-		MagickReader::Read(image, data, true);
+		MagickReader::Read(image, data, CreateReadSettings());
 		Initialize(image);
 		delete image;
 	}
@@ -98,7 +105,7 @@ namespace ImageMagick
 	void MagickImageInfo::Read(String^ fileName)
 	{
 		Magick::Image* image = new Magick::Image();
-		MagickReader::Read(image, fileName, true);
+		MagickReader::Read(image, fileName, CreateReadSettings());
 		Initialize(image);
 		delete image;
 	}
@@ -106,7 +113,7 @@ namespace ImageMagick
 	void MagickImageInfo::Read(Stream^ stream)
 	{
 		Magick::Image* image = new Magick::Image();
-		MagickReader::Read(image, stream, true);
+		MagickReader::Read(image, stream, CreateReadSettings());
 		Initialize(image);
 		delete image;
 	}

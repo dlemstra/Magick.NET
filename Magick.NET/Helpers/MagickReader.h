@@ -14,10 +14,10 @@
 #pragma once
 
 #include "..\Colors\ColorProfile.h"
-#include "..\Enums\ColorSpace.h"
 #include "..\Exceptions\Base\MagickException.h"
 #include "..\Exceptions\MagickWarningExceptions.h"
 #include "..\MagickImage.h"
+#include "MagickReadSettings.h"
 
 using namespace System::IO;
 using namespace System::Runtime::InteropServices;
@@ -33,77 +33,43 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, bool ping, array<Byte>^ data,
-			Nullable<int> width,	Nullable<int> height, Nullable<ColorSpace> colorSpace);
+		static void MagickReader::ApplySettingsAfter(Magick::Image* image,
+			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, bool ping, Magick::Blob* blob,
-			Nullable<int> width,	Nullable<int> height, Nullable<ColorSpace> colorSpace);
+		static void MagickReader::ApplySettingsBefore(Magick::Image* image,
+			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, bool ping, Stream^ stream,
-			Nullable<int> width, Nullable<int> height, Nullable<ColorSpace> colorSpace);
+		static void MagickReader::ApplySettingsBefore(MagickCore::ImageInfo *imageInfo,
+			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, bool ping, String^ fileName,
-			Nullable<int> width, Nullable<int> height, Nullable<ColorSpace> colorSpace);
-		//===========================================================================================
-		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, array<Byte>^ data,
-			Nullable<ColorSpace> colorSpace);
+		static MagickWarningException^ Read(Magick::Image* image, Magick::Blob* blob,
+			MagickReadSettings^ readSettings);
 		//===========================================================================================
 		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, Magick::Blob* blob,
-			Nullable<ColorSpace> colorSpace);
-		//===========================================================================================
-		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, Stream^ stream,
-			Nullable<ColorSpace> colorSpace);
-		//===========================================================================================
-		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, String^ fileName,
-			Nullable<ColorSpace> colorSpace);
-		//===========================================================================================
-		static void SetColorSpace(Magick::Image* image, ColorSpace colorSpace);
-		//===========================================================================================
-		static void SetColorSpace(std::list<Magick::Image>* image, ColorSpace colorSpace);
-		//===========================================================================================
-		static void SetSize(Magick::Image* image, Nullable<int> width, Nullable<int> height);
-		//===========================================================================================
+			MagickReadSettings^ readSettings);
 	internal:
 		//===========================================================================================
 		static void Read(Magick::Blob* blob, Stream^ stream);
 		//===========================================================================================
 		static void Read(Magick::Blob* blob, String^ fileName);
 		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, array<Byte>^ data, bool ping);
+		static MagickWarningException^ Read(Magick::Image* image, array<Byte>^ data,
+			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, array<Byte>^ data, ColorSpace colorSpace,
-			bool ping);
+		static MagickWarningException^ Read(Magick::Image* image, Stream^ stream,
+			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, array<Byte>^ data, int width, int height);
-		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, Stream^ stream, bool ping);
-		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, Stream^ stream, ColorSpace colorSpace,
-			bool ping);
-		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, Stream^ stream, int width, int height);
-		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, String^ fileName, bool ping);
-		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, String^ fileName, ColorSpace colorSpace,
-			bool ping);
-		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, String^ fileName, int width, int height);
-		//===========================================================================================
-		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, array<Byte>^ data);
+		static MagickWarningException^ Read(Magick::Image* image, String^ fileName,
+			MagickReadSettings^ readSettings);
 		//===========================================================================================
 		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, array<Byte>^ data,
-			ColorSpace colorSpace);
-		//===========================================================================================
-		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, Stream^ stream);
+			MagickReadSettings^ readSettings);
 		//===========================================================================================
 		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, Stream^ stream,
-			ColorSpace colorSpace);
-		//===========================================================================================
-		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, String^ fileName);
+			MagickReadSettings^ readSettings);
 		//===========================================================================================
 		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, String^ fileName,
-			ColorSpace colorSpace);
+			MagickReadSettings^ readSettings);
 		//===========================================================================================
 	};
 }

@@ -16,6 +16,7 @@
 #include "MagickImage.h"
 #include "Enums\LayerMethod.h"
 #include "Helpers\MagickReader.h"
+#include "Helpers\MagickReadSettings.h"
 
 using namespace System::Collections::Generic;
 
@@ -52,6 +53,8 @@ namespace ImageMagick
 				return _Images;
 			}
 		}
+		//===========================================================================================
+		void InsertUnchecked(int index, MagickImage^ image);
 		//===========================================================================================
 		ref class MagickImageCollectionEnumerator sealed : IEnumerator<MagickImage^>
 		{
@@ -125,9 +128,9 @@ namespace ImageMagick
 		/// Initializes a new instance of the MagickImageCollection class using the specified blob.
 		///</summary>
 		///<param name="data">The byte array to read the image data from.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<exception cref="MagickException"/>
-		MagickImageCollection(array<Byte>^ data, ImageMagick::ColorSpace colorSpace);
+		MagickImageCollection(array<Byte>^ data, MagickReadSettings^ readSettings);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickImageCollection class using the specified filename.
@@ -140,9 +143,9 @@ namespace ImageMagick
 		/// Initializes a new instance of the MagickImageCollection class using the specified filename
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<exception cref="MagickException"/>
-		MagickImageCollection(String^ fileName, ImageMagick::ColorSpace colorSpace);
+		MagickImageCollection(String^ fileName, MagickReadSettings^ readSettings);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickImageCollection class using the specified stream.
@@ -155,9 +158,9 @@ namespace ImageMagick
 		/// Initializes a new instance of the MagickImageCollection class using the specified stream.
 		///</summary>
 		///<param name="stream">The stream to read the image data from.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<exception cref="MagickException"/>
-		MagickImageCollection(Stream^ stream, ImageMagick::ColorSpace colorSpace);
+		MagickImageCollection(Stream^ stream, MagickReadSettings^ readSettings);
 		//===========================================================================================
 		~MagickImageCollection()
 		{
@@ -189,7 +192,7 @@ namespace ImageMagick
 
 				Images->erase(iter);
 
-				Insert(index, value);
+				InsertUnchecked(index, value);
 			}
 		}
 		///==========================================================================================
@@ -314,10 +317,10 @@ namespace ImageMagick
 		/// Read all image frames.
 		///</summary>
 		///<param name="data">The byte array to read the image data from.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(array<Byte>^ data, ImageMagick::ColorSpace colorSpace);
+		MagickWarningException^ Read(array<Byte>^ data, MagickReadSettings^ readSettings);
 		///==========================================================================================
 		///<summary>
 		/// Read all image frames.
@@ -331,10 +334,10 @@ namespace ImageMagick
 		/// Read all image frames.
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(String^ fileName, ImageMagick::ColorSpace colorSpace);
+		MagickWarningException^ Read(String^ fileName, MagickReadSettings^ readSettings);
 		///==========================================================================================
 		///<summary>
 		/// Read all image frames.
@@ -348,10 +351,10 @@ namespace ImageMagick
 		/// Read all image frames.
 		///</summary>
 		///<param name="stream">The stream to read the image data from.</param>
-		///<param name="colorSpace">The colorspace to convert the image to.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
-		MagickWarningException^ Read(Stream^ stream, ImageMagick::ColorSpace colorSpace);
+		MagickWarningException^ Read(Stream^ stream, MagickReadSettings^ readSettings);
 		///==========================================================================================
 		///<summary>
 		/// Removes the first occurrence of the specified image from the collection.
