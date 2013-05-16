@@ -229,11 +229,6 @@ namespace ImageMagick
 		return new Magick::Image(*Value);
 	}
 	//==============================================================================================
-	bool MagickImage::Equals(const Magick::Image& image)
-	{
-		return (Magick::operator == (*Value, image)) ? true : false;
-	}
-	//==============================================================================================
 	MagickImage::MagickImage()
 	{
 		Value = new Magick::Image();
@@ -1174,7 +1169,7 @@ namespace ImageMagick
 		if (ReferenceEquals(this, other))
 			return true;
 
-		return Equals(*other->Value);
+		return (Magick::operator == (*Value, *other->Value)) ? true : false;
 	}
 	//==============================================================================================
 	array<Byte>^ MagickImage::ExifProfile()

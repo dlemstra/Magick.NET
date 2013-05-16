@@ -17,34 +17,30 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	void MagickImageCollection::InsertUnchecked(int index, MagickImage^ image)
+	void MagickImageCollection::CopyFrom(std::list<Magick::Image>* images)
 	{
-		std::list<Magick::Image>::iterator iter = Images->begin();
-		std::advance(iter, index);
-
-		Images->insert(iter, *image->ReuseImage());
-	}
-	//==============================================================================================
-	bool MagickImageCollection::MagickImageCollectionEnumerator::MoveNext()
+		for (std::list<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
+		{
+			Add(gcnew MagickImage(*iter));
+		}
+	}//==============================================================================================
+	void MagickImageCollection::CopyTo(std::list<Magick::Image>* images)
 	{
-		if (_Index + 1 == (int)_Collection->Images->size())
-			return false;
-
-		_Index++;
-		return true;
-	}
-	//==============================================================================================
-	void MagickImageCollection::MagickImageCollectionEnumerator::Reset()
-	{
-		_Index = -1;
+		for each(MagickImage^ image in _Images)
+		{
+			images->push_back(*image->ReuseImage());
+		}
 	}
 	//==============================================================================================
 	void MagickImageCollection::Merge(Magick::Image* mergedImage, LayerMethod layerMethod)
 	{
 		try
 		{
-			std::list<Magick::Image>::iterator first = Images->begin();
-			std::list<Magick::Image>::iterator last = Images->end();
+			std::list<Magick::Image>* images = new std::list<Magick::Image>();
+			CopyTo(images);
+
+			std::list<Magick::Image>::iterator first = images->begin();
+			std::list<Magick::Image>::iterator last = images->end();
 
 			MagickCore::ExceptionInfo exceptionInfo;
 			MagickCore::GetExceptionInfo(&exceptionInfo);
@@ -55,6 +51,8 @@ namespace ImageMagick
 			mergedImage->replaceImage( image );
 			Magick::throwException(exceptionInfo);
 			(void)MagickCore::DestroyExceptionInfo(&exceptionInfo);
+
+			delete images;
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -64,63 +62,59 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImageCollection::MagickImageCollection()
 	{
-		_Images = new std::list<Magick::Image>();
+		_Images = gcnew List<MagickImage^>();
 	}
 	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(IEnumerable<MagickImage^>^ images)
 	{
 		Throw::IfNull("images", images);
 
-		IEnumerator<MagickImage^>^ enumerator = images->GetEnumerator();
-
-		_Images = new std::list<Magick::Image>();
-		while(enumerator->MoveNext())
+		_Images = gcnew List<MagickImage^>();
+		for each(MagickImage^ image in images)
 		{
-			Images->push_back(*enumerator->Current->ReuseImage());
+			_Images->Add(image);
 		}
 	}
 	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(array<Byte>^ data)
 	{
-		_Images = new std::list<Magick::Image>();
+		_Images = gcnew List<MagickImage^>();
 		this->Read(data);
 	}
 	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
-		_Images = new std::list<Magick::Image>();
+		_Images = gcnew List<MagickImage^>();
 		this->Read(data, readSettings);
 	}
 	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(String^ fileName)
 	{
-		_Images = new std::list<Magick::Image>();
+		_Images = gcnew List<MagickImage^>();
 		this->Read(fileName);
 	}
 	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(String^ fileName, MagickReadSettings^ readSettings)
 	{
-		_Images = new std::list<Magick::Image>();
+		_Images = gcnew List<MagickImage^>();
 		this->Read(fileName, readSettings);
 	}
 	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(Stream^ stream)
 	{
-		_Images = new std::list<Magick::Image>();
+		_Images = gcnew List<MagickImage^>();
 		this->Read(stream);
 	}
 	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(Stream^ stream, MagickReadSettings^ readSettings)
 	{
-		_Images = new std::list<Magick::Image>();
+		_Images = gcnew List<MagickImage^>();
 		this->Read(stream, readSettings);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Add(MagickImage^ item)
 	{
-		Throw::IfNull("image", item);
-
-		Images->push_back(*item->ReuseImage());
+		_Images->Add(item);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Add(String^ fileName)
@@ -130,58 +124,46 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageCollection::Clear()
 	{
-		Images->clear();
+		_Images->Clear();
 	}
 	//==============================================================================================
 	bool MagickImageCollection::Contains(MagickImage^ item)
 	{
-		return IndexOf(item) != -1;
+		return _Images->Contains(item);
 	}
 	//==============================================================================================
 	void MagickImageCollection::CopyTo(array<MagickImage^>^ destination, int arrayIndex)
 	{
 		Throw::IfNull("destination", destination);
+		Throw::IfOutOfRange("arrayIndex", arrayIndex, _Images->Count);
 		Throw::IfOutOfRange("arrayIndex", arrayIndex, destination->Length);
 
-		for (std::list<Magick::Image>::const_iterator iter = Images->begin(), end = Images->end(); iter != end; ++iter)
+		int indexI = 0;
+		int length = Math::Min(destination->Length, _Images->Count);
+		for (int indexA = arrayIndex; indexA < length; indexA++)
 		{
-			destination[arrayIndex++] = gcnew MagickImage(*iter);
+			destination[indexA] = _Images[indexI++]->Copy();
 		}
 	}
 	//==============================================================================================
 	IEnumerator<MagickImage^>^ MagickImageCollection::GetEnumerator()
 	{
-		return gcnew MagickImageCollectionEnumerator(this);
+		return _Images->GetEnumerator();
 	}
 	//==============================================================================================
 	System::Collections::IEnumerator^ MagickImageCollection::GetEnumerator2()
 	{
-		return gcnew MagickImageCollectionEnumerator(this);
+		return _Images->GetEnumerator();
 	}
 	//==============================================================================================
 	int MagickImageCollection::IndexOf(MagickImage^ item)
 	{
-		Throw::IfNull("image", item);
-
-		int index = 0;
-
-		for (std::list<Magick::Image>::const_iterator iter = Images->begin(), end = Images->end(); iter != end; ++iter)
-		{
-			if (item->Equals(*iter))
-				return index;
-
-			index++;
-		}
-
-		return -1;
+		return _Images->IndexOf(item);
 	}
 	//==============================================================================================
-	void MagickImageCollection::Insert(int index, MagickImage^ image)
+	void MagickImageCollection::Insert(int index, MagickImage^ item)
 	{
-		Throw::IfNull("image", image);
-		Throw::IfOutOfRange("arrayIndex", index, (int)Images->size());
-
-		InsertUnchecked(index, image);
+		_Images->Insert(index, item);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Insert(int index, String^ fileName)
@@ -193,6 +175,7 @@ namespace ImageMagick
 	{
 		Magick::Image* mergedImage = new Magick::Image();
 		Merge(mergedImage, layerMethod);
+
 		return gcnew MagickImage(*mergedImage);
 	}
 	//==============================================================================================
@@ -204,7 +187,12 @@ namespace ImageMagick
 	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
 		Clear();
-		_ReadWarning = MagickReader::Read(Images, data, readSettings);
+
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		_ReadWarning = MagickReader::Read(images, data, readSettings);
+		CopyFrom(images);
+
+		delete images;
 		return _ReadWarning;
 	}
 	//==============================================================================================
@@ -216,7 +204,12 @@ namespace ImageMagick
 	MagickWarningException^ MagickImageCollection::Read(String^ fileName, MagickReadSettings^ readSettings)
 	{
 		Clear();
-		_ReadWarning = MagickReader::Read(Images, fileName, readSettings);
+
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		_ReadWarning = MagickReader::Read(images, fileName, readSettings);
+		CopyFrom(images);
+
+		delete images;
 		return _ReadWarning;
 	}
 	//==============================================================================================
@@ -228,57 +221,63 @@ namespace ImageMagick
 	MagickWarningException^ MagickImageCollection::Read(Stream^ stream, MagickReadSettings^ readSettings)
 	{
 		Clear();
-		_ReadWarning = MagickReader::Read(Images, stream, readSettings);
+
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		_ReadWarning = MagickReader::Read(images, stream, readSettings);
+		CopyFrom(images);
+
+		delete images;
 		return _ReadWarning;
 	}
 	//==============================================================================================
 	bool MagickImageCollection::Remove(MagickImage^ item)
 	{
-		Throw::IfNull("image", item);
-
-		int index = IndexOf(item);
-
-		if (index == -1)
-			return false;
-
-		RemoveAt(index);
-
-		return true;
+		return _Images->Remove(item);
 	}
 	//==============================================================================================
 	void MagickImageCollection::RemoveAt(int index)
 	{
-		Throw::IfOutOfRange("arrayIndex", index, (int)Images->size());
-
-		std::list<Magick::Image>::iterator iter = Images->begin();
-		std::advance(iter, index);
-
-		Images->erase(iter);
+		return _Images->RemoveAt(index);
 	}
 	//==============================================================================================
 	void MagickImageCollection::RePage()
 	{
-		for (std::list<Magick::Image>::iterator iter = Images->begin(), end = Images->end(); iter != end; ++iter)
+		for each(MagickImage^ image in _Images)
 		{
-			iter->page(Magick::Geometry(0,0));
+			image->Page = gcnew MagickGeometry(0, 0);
 		}
 	}
 	//==============================================================================================
 	array<Byte>^ MagickImageCollection::ToByteArray()
 	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		CopyTo(images);
+
 		Magick::Blob blob;
-		MagickWriter::Write(Images, &blob);
+		MagickWriter::Write(images, &blob);
+
+		delete images;
 		return Marshaller::Marshal(&blob);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Write(Stream^ stream)
 	{
-		MagickWriter::Write(Images, stream);
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		CopyTo(images);
+
+		MagickWriter::Write(images, stream);
+
+		delete images;
 	}
 	//==============================================================================================
 	void MagickImageCollection::Write(String^ fileName)
 	{
-		MagickWriter::Write(Images, fileName);
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		CopyTo(images);
+
+		MagickWriter::Write(images, fileName);
+
+		delete images;
 	}
 	//==============================================================================================
 }

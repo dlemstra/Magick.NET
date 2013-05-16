@@ -33,13 +33,14 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		static void MagickReader::ApplySettingsAfter(Magick::Image* image,
+		static void ApplySettingsAfter(Magick::Image* image, MagickReadSettings^ readSettings);
+		//===========================================================================================
+		static void ApplySettingsAfter(std::list<Magick::Image>* imageList, 
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static void MagickReader::ApplySettingsBefore(Magick::Image* image,
-			MagickReadSettings^ readSettings);
+		static void ApplySettingsBefore(Magick::Image* image, MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static void MagickReader::ApplySettingsBefore(MagickCore::ImageInfo *imageInfo,
+		static void ApplySettingsBefore(MagickCore::ImageInfo *imageInfo,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
 		static MagickWarningException^ Read(Magick::Image* image, Magick::Blob* blob,

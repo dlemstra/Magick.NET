@@ -31,76 +31,23 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		std::list<Magick::Image>* _Images;
+		List<MagickImage^>^ _Images; 
 		MagickWarningException^ _ReadWarning;
 		//===========================================================================================
 		!MagickImageCollection() 
 		{ 
-			if (_Images == NULL)
-				return;
+			for each(MagickImage^ image in _Images)
+			{
+				delete image;
+			}
 
-			delete _Images;
-			_Images = NULL;
+			Clear();
 		}
 		//===========================================================================================
-		property std::list<Magick::Image>* Images
-		{
-			std::list<Magick::Image>* get()
-			{
-				if (_Images == NULL)
-					throw gcnew ObjectDisposedException(GetType()->ToString());
-
-				return _Images;
-			}
-		}
+		void CopyFrom(std::list<Magick::Image>* images);
 		//===========================================================================================
-		void InsertUnchecked(int index, MagickImage^ image);
+		void CopyTo(std::list<Magick::Image>* images);
 		//===========================================================================================
-		ref class MagickImageCollectionEnumerator sealed : IEnumerator<MagickImage^>
-		{
-			//========================================================================================
-		private:
-			MagickImageCollection^ _Collection;
-			int _Index;
-			//========================================================================================
-		public:
-			MagickImageCollectionEnumerator(MagickImageCollection^ collection)
-			{
-				_Collection = collection;
-				_Index = -1;
-			}
-			//========================================================================================
-			~MagickImageCollectionEnumerator()
-			{
-			}
-			//========================================================================================
-			property MagickImage^ Current
-			{
-				virtual MagickImage^ get() = IEnumerator<MagickImage^>::Current::get
-				{
-					if (_Index == -1)
-						return nullptr;
-
-					std::list<Magick::Image>::iterator iter = _Collection->Images->begin();
-					std::advance(iter, _Index);
-
-					return gcnew MagickImage(*iter);
-				}
-			}
-			//========================================================================================
-			property Object^ Current2
-			{
-				virtual Object^ get() = System::Collections::IEnumerator::Current::get
-				{
-					return Current;
-				}
-			}
-			//========================================================================================
-			virtual bool MoveNext();
-			//========================================================================================
-			virtual void Reset();
-			//========================================================================================
-		};
 	internal:
 		//===========================================================================================
 		void Merge(Magick::Image* mergedImage, LayerMethod layerMethod);
@@ -174,25 +121,11 @@ namespace ImageMagick
 		{
 			virtual MagickImage^ get(int index) sealed
 			{
-				if (index < 0 || index > (int)Images->size() - 1)
-					return nullptr;
-
-				std::list<Magick::Image>::const_iterator iter = Images->begin();
-				std::advance(iter, index);
-
-				return gcnew MagickImage(*iter);
+				return _Images[index];
 			}
 			virtual void set(int index, MagickImage^ value) sealed
 			{
-				if (index < 0 || index >= (int)Images->size() || value == nullptr)
-					return;
-
-				std::list<Magick::Image>::iterator iter = Images->begin();
-				std::advance(iter, index);
-
-				Images->erase(iter);
-
-				InsertUnchecked(index, value);
+				_Images[index] = value;
 			}
 		}
 		///==========================================================================================
@@ -203,7 +136,7 @@ namespace ImageMagick
 		{
 			virtual int get() sealed
 			{
-				return (int)Images->size();
+				return _Images->Count;
 			}
 		}
 		///==========================================================================================

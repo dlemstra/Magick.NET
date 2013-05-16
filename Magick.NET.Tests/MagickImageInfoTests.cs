@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				MagickImageInfo imageInfo = new MagickImageInfo(Settings.ImageDir);
+				MagickImageInfo imageInfo = new MagickImageInfo(Images.Missing);
 			});
 		}
 		//===========================================================================================
@@ -154,11 +154,20 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				imageInfo.Read(Settings.ImageDir);
+				imageInfo.Read(Images.Missing);
 			});
 
-			imageInfo.Read(Settings.ImageDir + "Snakeware.png");
+			imageInfo.Read(File.ReadAllBytes(Images.SnakewarePNG));
 
+			using (FileStream fs = File.OpenRead(Images.SnakewarePNG))
+			{
+				imageInfo.Read(fs);
+			}
+
+			imageInfo.Read(Images.SnakewarePNG);
+
+			Assert.AreEqual(ColorSpace.sRGB, imageInfo.ColorSpace);
+			Assert.AreEqual(MagickFormat.Png, imageInfo.Format);
 			Assert.AreEqual(546, imageInfo.Width);
 			Assert.AreEqual(316, imageInfo.Height);
 		}

@@ -20,6 +20,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickReader::ApplySettingsAfter(Magick::Image* image, MagickReadSettings^ readSettings)
 	{
+		if (readSettings == nullptr)
+			return;
+
 		if (readSettings->ColorSpace.HasValue)
 		{
 			MagickCore::ColorspaceType colorSpaceType = (MagickCore::ColorspaceType)readSettings->ColorSpace.Value;
@@ -39,8 +42,23 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickReader::ApplySettingsAfter(std::list<Magick::Image>* imageList,
+		MagickReadSettings^ readSettings)
+	{
+		if (readSettings == nullptr)
+			return;
+
+		for(std::list<Magick::Image>::iterator iter = imageList->begin(); iter != imageList->end(); iter++)
+		{
+			ApplySettingsAfter(&*(iter), readSettings);
+		}
+	}
+	//==============================================================================================
 	void MagickReader::ApplySettingsBefore(Magick::Image* image, MagickReadSettings^ readSettings)
 	{
+		if (readSettings == nullptr)
+			return;
+
 		if (readSettings->Density != nullptr)
 			image->density(readSettings->Density);
 
@@ -53,6 +71,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickReader::ApplySettingsBefore(MagickCore::ImageInfo *imageInfo, MagickReadSettings^ readSettings)
 	{
+		if (readSettings == nullptr)
+			return;
+
 		if (readSettings->Density != nullptr)
 		{
 			std::string geometry = (Magick::Geometry)readSettings->Density;
@@ -65,8 +86,7 @@ namespace ImageMagick
 	{
 		MagickWarningException^ result = nullptr;
 
-		if (readSettings != nullptr)
-			ApplySettingsBefore(image, readSettings);
+		ApplySettingsBefore(image, readSettings);
 
 		try
 		{
@@ -84,8 +104,7 @@ namespace ImageMagick
 			throw MagickException::Create(exception);
 		}
 
-		if (readSettings != nullptr)
-			ApplySettingsAfter(image, readSettings);
+		ApplySettingsAfter(image, readSettings);
 
 		return result;
 	}
@@ -98,8 +117,7 @@ namespace ImageMagick
 		try
 		{
 			MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(0);
-			if (readSettings != nullptr)
-				ApplySettingsBefore(imageInfo, readSettings);
+			ApplySettingsBefore(imageInfo, readSettings);
 
 			MagickCore::ExceptionInfo exceptionInfo;
 			MagickCore::GetExceptionInfo(&exceptionInfo);
@@ -118,13 +136,7 @@ namespace ImageMagick
 			throw MagickException::Create(exception);
 		}
 
-		if (readSettings != nullptr)
-		{
-			for(std::list<Magick::Image>::iterator iter = imageList->begin(); iter != imageList->end(); iter++)
-			{
-				ApplySettingsAfter(&*(iter), readSettings);
-			}
-		}
+		ApplySettingsAfter(imageList, readSettings);
 
 		return result;
 	}
@@ -156,8 +168,7 @@ namespace ImageMagick
 
 		MagickWarningException^ result = nullptr;
 
-		if (readSettings != nullptr)
-			ApplySettingsBefore(image, readSettings);
+		ApplySettingsBefore(image, readSettings);
 
 		try
 		{
@@ -178,8 +189,7 @@ namespace ImageMagick
 			throw MagickException::Create(exception);
 		}
 
-		if (readSettings != nullptr)
-			ApplySettingsAfter(image, readSettings);
+		ApplySettingsAfter(image, readSettings);
 
 		return result;
 	}
@@ -215,8 +225,7 @@ namespace ImageMagick
 			Marshaller::Marshal(filePath, imageSpec);
 
 			MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(0);
-			if (readSettings != nullptr)
-				ApplySettingsBefore(imageInfo, readSettings);
+			ApplySettingsBefore(imageInfo, readSettings);
 
 			imageSpec.copy(imageInfo->filename, MaxTextExtent-1);
 			imageInfo->filename[imageSpec.length()] = 0;
@@ -238,13 +247,8 @@ namespace ImageMagick
 			throw MagickException::Create(exception);
 		}
 
-		if (readSettings != nullptr)
-		{
-			for(std::list<Magick::Image>::iterator iter = imageList->begin(); iter != imageList->end(); iter++)
-			{
-				ApplySettingsAfter(&*(iter), readSettings);
-			}
-		}
+
+		ApplySettingsAfter(imageList, readSettings);
 
 		return nullptr;
 	}

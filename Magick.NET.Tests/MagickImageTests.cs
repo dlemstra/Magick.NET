@@ -65,16 +65,24 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				MagickImage image = new MagickImage(Settings.ImageDir);
+				MagickImage image = new MagickImage(Images.Missing);
 			});
 
-			using (Bitmap bitmap = new Bitmap(Settings.ImageDir + @"Snakeware.png"))
+			using (Bitmap bitmap = new Bitmap(Images.SnakewarePNG))
 			{
 				using (MagickImage bitmapImage = new MagickImage(bitmap))
 				{
 					Assert.IsTrue(bitmapImage.Format == MagickFormat.Png);
 				}
 			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Copy()
+		{
+			MagickImage first = new MagickImage(Images.SnakewarePNG);
+			MagickImage second = first.Copy();
+			Assert.AreEqual(first, second);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -180,23 +188,23 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				image.Read(Settings.ImageDir);
+				image.Read(Images.Missing);
 			});
 
-			image.Read(File.ReadAllBytes(Settings.ImageDir + @"Snakeware.png"));
+			image.Read(File.ReadAllBytes(Images.SnakewarePNG));
 
-			using (Bitmap bitmap = new Bitmap(Settings.ImageDir + @"Snakeware.png"))
+			using (Bitmap bitmap = new Bitmap(Images.SnakewarePNG))
 			{
 				image.Read(bitmap);
 				Assert.IsTrue(image.Format == MagickFormat.Png);
 			}
 
-			using (FileStream fs = File.OpenRead(Settings.ImageDir + @"Snakeware.png"))
+			using (FileStream fs = File.OpenRead(Images.SnakewarePNG))
 			{
 				image.Read(fs);
 			}
 
-			image.Read(Settings.ImageDir + @"Snakeware.png");
+			image.Read(Images.SnakewarePNG);
 
 			image.Dispose();
 		}
@@ -210,10 +218,10 @@ namespace Magick.NET.Tests
 				settings.ColorSpace = ColorSpace.RGB;
 				settings.Density = new MagickGeometry(150, 150);
 
-				image.Read(Settings.ImageDir + @"Snakeware.png", settings);
+				image.Read(Images.SnakewarePNG, settings);
 
-				Assert.AreEqual(ColorSpace.RGB, settings.ColorSpace);
-				Assert.AreEqual(150, settings.Density.Width);
+				Assert.AreEqual(ColorSpace.RGB, image.ColorSpace);
+				Assert.AreEqual(150, image.Density.Width);
 			}
 		}
 		//===========================================================================================
@@ -238,6 +246,20 @@ namespace Magick.NET.Tests
 			Test_ToBitmap(image, ImageFormat.Tiff);
 
 			image.Dispose();
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Write()
+		{
+			using (MagickImage image = new MagickImage(Images.SnakewarePNG))
+			{
+				using (MemoryStream memStream = new MemoryStream())
+				{
+					image.Write(memStream);
+
+					Assert.AreEqual(image.FileSize, memStream.Length);
+				}
+			}
 		}
 		//===========================================================================================
 	}
