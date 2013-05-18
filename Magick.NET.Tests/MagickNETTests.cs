@@ -65,8 +65,14 @@ namespace Magick.NET.Tests
 		public void Test_Version()
 		{
 			Assert.IsTrue(!string.IsNullOrEmpty(MagickNET.Version));
-			Assert.IsTrue(MagickNET.Version.Contains("v4.0"));
 			Assert.IsTrue(MagickNET.Version.Contains("x86"));
+
+#if NET20
+			Assert.IsTrue(MagickNET.Version.Contains("v2.0"));
+#else
+			Assert.IsTrue(MagickNET.Version.Contains("v4.0"));
+#endif
+
 #if Q8
 			Assert.IsTrue(MagickNET.Version.Contains("Q8"));
 #elif Q16

@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "EnumHelper.h"
 
 namespace ImageMagick
@@ -21,21 +21,21 @@ namespace ImageMagick
 	where TEnum : value class, ValueType
 	TEnum EnumHelper::Parse(String^ value, TEnum defaultValue)
 	{
-		TEnum result;
+#if (NET20)
+		for each (String^ name in Enum::GetNames(TEnum::typeid))
+		{
+			if (name->Equals(value, StringComparison::OrdinalIgnoreCase))
+				return (TEnum)Enum::Parse(TEnum::typeid, name);
+		}
 
-#if (_MSC_VER == 1700)
+		return defaultValue;
+#else
+		TEnum result;
 		if (!Enum::TryParse<TEnum>(value, true, result))
 			return defaultValue;
-#elif (_MSC_VER == 1500)
-		if (!Enum::IsDefined(TEnum::typeid, value))
-			return defaultValue;
-
-		result = (TEnum)Enum::Parse(TEnum::typeid, value);
-#else
-		Not implemented!
-#endif
 
 		return result;
+#endif
 	}
 	//==============================================================================================
 }
