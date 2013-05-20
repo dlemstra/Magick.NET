@@ -253,7 +253,7 @@ $location = $(get-location)
 set-location "$location\.."
 
 $imVersion = "6.8.5.4"
-$version = "6.8.5.4"
+$version = "6.8.5.401"
 
 UpdateAssemblyInfo "..\Magick.NET\AssemblyInfo.cpp" $version
 UpdateAssemblyInfo "..\Magick.NET.Web\Properties\AssemblyInfo.cs" $version

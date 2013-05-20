@@ -52,7 +52,7 @@ Not implemented!
 [assembly:AssemblyConfiguration("Release")];
 [assembly:AssemblyCulture("")];
 [assembly:AssemblyVersion("6.0.0.0")];
-[assembly:AssemblyFileVersion("6.8.5.4")]
+[assembly:AssemblyFileVersion("6.8.5.401")]
 [assembly:ComVisible(false)];
 [assembly:CLSCompliant(true)];
 [assembly:SecurityPermission(SecurityAction::RequestMinimum, UnmanagedCode = true)];
