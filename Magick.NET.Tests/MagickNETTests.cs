@@ -64,19 +64,19 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Version()
 		{
-			Assert.IsTrue(!string.IsNullOrEmpty(MagickNET.Version));
-			Assert.IsTrue(MagickNET.Version.Contains("x86"));
+			StringAssert.Contains(MagickNET.Version, "x86");
 
 #if NET20
-			Assert.IsTrue(MagickNET.Version.Contains("v2.0"));
+			StringAssert.Contains(MagickNET.Version, "net20");
 #else
-			Assert.IsTrue(MagickNET.Version.Contains("v4.0"));
+
+			StringAssert.Contains(MagickNET.Version, "net40-client");
 #endif
 
 #if Q8
-			Assert.IsTrue(MagickNET.Version.Contains("Q8"));
+			StringAssert.Contains(MagickNET.Version, "Q8");
 #elif Q16
-			Assert.IsTrue(MagickNET.Version.Contains("Q16"));
+			StringAssert.Contains(MagickNET.Version, "Q16");
 #else
 			Not implemented!
 #endif

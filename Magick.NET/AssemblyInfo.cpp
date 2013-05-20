@@ -22,23 +22,23 @@ using namespace System::Security::Permissions;
 //=================================================================================================
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
 #if (_M_X64 && NET20)
-[assembly:AssemblyTitle("Magick.NET Q8 v2.0 x64")];
+[assembly:AssemblyTitle("Magick.NET Q8 x64 net20")];
 #elif (NET20)
-[assembly:AssemblyTitle("Magick.NET Q8 v2.0 x86")];
+[assembly:AssemblyTitle("Magick.NET Q8 x86 net20")];
 #elif (_M_X64)
-[assembly:AssemblyTitle("Magick.NET Q8 v4.0 x64")];
+[assembly:AssemblyTitle("Magick.NET Q8 x64 net40-client")];
 #else
-[assembly:AssemblyTitle("Magick.NET Q8 v4.0 x86")];
+[assembly:AssemblyTitle("Magick.NET Q8 x86 net40-client")];
 #endif
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
 #if (_M_X64 && NET20)
-[assembly:AssemblyTitle("Magick.NET Q16 v2.0 x64")];
+[assembly:AssemblyTitle("Magick.NET Q16 x64 net20")];
 #elif (NET20)
-[assembly:AssemblyTitle("Magick.NET Q16 v2.0 x86")];
+[assembly:AssemblyTitle("Magick.NET Q16 x86 net20")];
 #elif (_M_X64)
-[assembly:AssemblyTitle("Magick.NET Q16 v4.0 x64")];
+[assembly:AssemblyTitle("Magick.NET Q16 x64 net40-client")];
 #else
-[assembly:AssemblyTitle("Magick.NET Q16 v4.0 x86")];
+[assembly:AssemblyTitle("Magick.NET Q16 x86 net40-client")];
 #endif
 #else
 Not implemented!

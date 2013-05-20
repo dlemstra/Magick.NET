@@ -1,4 +1,4 @@
-﻿//=================================================================================================
+//=================================================================================================
 // Copyright 2013 Dirk Lemstra
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -19,14 +19,14 @@ using System.Web;
 
 //=================================================================================================
 #if _M_X64
-[assembly: AssemblyTitle("Magick.NET.Web x64")]
+[assembly: AssemblyTitle("Magick.NET.Web x64 net40-client")]
 #else
-[assembly:AssemblyTitle("Magick.NET.Web x86")]
+[assembly: AssemblyTitle("Magick.NET.Web x86 net40-client")]
 #endif
 [assembly: AssemblyProduct("Magick.NET")]
 [assembly: AssemblyDescription("Magick.NET.Web")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright © Dirk Lemstra 2013")]
+[assembly: AssemblyCopyright("Copyright � Dirk Lemstra 2013")]
 [assembly: AssemblyTrademark("")]
 //=================================================================================================
 [assembly: AssemblyConfiguration("Release")]
