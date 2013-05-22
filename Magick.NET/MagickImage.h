@@ -73,6 +73,8 @@ namespace ImageMagick
 		//===========================================================================================
 		String^ FormatedFileSize();
 		//===========================================================================================
+		static bool IsSupportedImageFormat(ImageFormat^ format);
+		//===========================================================================================
 		void RaiseOrLower(int size, bool raiseFlag);
 		//===========================================================================================
 		void RandomThreshold(Magick::Quantum low, Magick::Quantum high, bool isPercentage);

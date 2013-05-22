@@ -70,9 +70,17 @@ namespace Magick.NET.Tests
 
 			using (Bitmap bitmap = new Bitmap(Images.SnakewarePNG))
 			{
-				using (MagickImage bitmapImage = new MagickImage(bitmap))
+				using (MagickImage image = new MagickImage(bitmap))
 				{
-					Assert.AreEqual(MagickFormat.Png, bitmapImage.Format);
+					Assert.AreEqual(MagickFormat.Png, image.Format);
+				}
+			}
+
+			using (Bitmap bitmap = new Bitmap(100, 100, PixelFormat.Format24bppRgb))
+			{
+				using (MagickImage image = new MagickImage(bitmap))
+				{
+					Assert.AreEqual(MagickFormat.Bmp, image.Format);
 				}
 			}
 		}
@@ -197,6 +205,12 @@ namespace Magick.NET.Tests
 			{
 				image.Read(bitmap);
 				Assert.AreEqual(MagickFormat.Png, image.Format);
+			}
+
+			using (Bitmap bitmap = new Bitmap(100, 100, PixelFormat.Format24bppRgb))
+			{
+				image.Read(bitmap);
+				Assert.AreEqual(MagickFormat.Bmp, image.Format);
 			}
 
 			using (FileStream fs = File.OpenRead(Images.SnakewarePNG))

@@ -45,6 +45,17 @@ namespace ImageMagick
 		return String::Format(CultureInfo::InvariantCulture, "{0:N2}{1}", fileSize, suffix);
 	}
 	//==============================================================================================
+	bool MagickImage::IsSupportedImageFormat(ImageFormat^ format)
+	{
+		return
+			format->Guid.Equals(ImageFormat::Bmp->Guid) ||
+			format->Guid.Equals(ImageFormat::Gif->Guid) ||
+			format->Guid.Equals(ImageFormat::Icon->Guid) ||
+			format->Guid.Equals(ImageFormat::Jpeg->Guid) ||
+			format->Guid.Equals(ImageFormat::Png->Guid) ||
+			format->Guid.Equals(ImageFormat::Tiff->Guid);
+	}
+	//==============================================================================================
 	void MagickImage::RaiseOrLower(int size, bool raiseFlag)
 	{
 		Magick::Geometry* geometry = new Magick::Geometry(size, size);
@@ -2011,7 +2022,11 @@ namespace ImageMagick
 		MemoryStream^ memStream = gcnew MemoryStream();
 		try
 		{
-			bitmap->Save(memStream, bitmap->RawFormat);
+			if (IsSupportedImageFormat(bitmap->RawFormat))
+				bitmap->Save(memStream, bitmap->RawFormat);
+			else
+				bitmap->Save(memStream, ImageFormat::Bmp);
+
 			memStream->Position = 0;
 			return Read(memStream);
 		}
