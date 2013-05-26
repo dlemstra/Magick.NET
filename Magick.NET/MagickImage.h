@@ -81,8 +81,6 @@ namespace ImageMagick
 		//===========================================================================================
 		void RandomThreshold(Magick::Quantum low, Magick::Quantum high, Channels channels, bool isPercentage);
 		//===========================================================================================
-		void ReplaceImage(Magick::Image* image);
-		//===========================================================================================
 		void Resize(int width, int height, bool isPercentage);
 		//===========================================================================================
 		void Sample(int width, int height, bool isPercentage);

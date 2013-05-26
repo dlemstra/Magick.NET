@@ -32,11 +32,12 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImageCollection::Merge(Magick::Image* mergedImage, LayerMethod layerMethod)
+	void MagickImageCollection::Merge(LayerMethod layerMethod, Magick::Image* mergedImage)
 	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+
 		try
 		{
-			std::list<Magick::Image>* images = new std::list<Magick::Image>();
 			CopyTo(images);
 
 			std::list<Magick::Image>::iterator first = images->begin();
@@ -51,12 +52,14 @@ namespace ImageMagick
 			mergedImage->replaceImage( image );
 			Magick::throwException(exceptionInfo);
 			(void)MagickCore::DestroyExceptionInfo(&exceptionInfo);
-
-			delete images;
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete images;
 		}
 	}
 	//==============================================================================================
@@ -174,7 +177,7 @@ namespace ImageMagick
 	MagickImage^ MagickImageCollection::Merge(LayerMethod layerMethod)
 	{
 		Magick::Image* mergedImage = new Magick::Image();
-		Merge(mergedImage, layerMethod);
+		Merge(layerMethod, mergedImage);
 
 		return gcnew MagickImage(*mergedImage);
 	}

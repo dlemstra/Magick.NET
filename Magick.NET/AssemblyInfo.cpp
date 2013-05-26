@@ -41,7 +41,7 @@ using namespace System::Security::Permissions;
 [assembly:AssemblyTitle("Magick.NET Q16 x86 net40-client")];
 #endif
 #else
-Not implemented!
+#error Not implemented!
 #endif
 [assembly:AssemblyProduct("Magick.NET")];
 [assembly:AssemblyDescription("Magick.NET")];

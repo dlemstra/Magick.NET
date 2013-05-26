@@ -31,15 +31,27 @@ namespace ImageMagick
 		Magick::Quantum _Blue;
 		Magick::Quantum _Alpha;
 		//===========================================================================================
+		void Initialize(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
+		//===========================================================================================
+		static char MagickColor::ParseHexChar(wchar_t c);
+		//===========================================================================================
+		void ParseQ8HexColor(String^ color);
+		//===========================================================================================
+#if (MAGICKCORE_QUANTUM_DEPTH > 8)
+		//===========================================================================================
+		void ParseQ16HexColor(String^ color);
+		//===========================================================================================
+#endif
+		//===========================================================================================
 	internal:
 		//===========================================================================================
 		MagickColor(MagickColor^ color);
 		//===========================================================================================
 		MagickColor(Magick::Color color);
 		//===========================================================================================
-		void Initialize(Color color);
-		//===========================================================================================
 		Magick::Color* CreateColor();
+		//===========================================================================================
+		void Initialize(Color color);
 		//===========================================================================================
 	public:
 		///==========================================================================================
@@ -71,6 +83,19 @@ namespace ImageMagick
 		///<param name="alpha">Alpha component value of this color.</param>
 		MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue,
 			Magick::Quantum alpha);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickColor class using the specified RGBA hex string.
+#if (MAGICKCORE_QUANTUM_DEPTH == 8)
+		/// For example: #F00, #F00C, #FF0000, #FF0000CC
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+		/// For example: #F00, #F00C, #FF0000, #FF0000CC, #FFFF00000000, #FFFF00000000CCCC
+#else
+#error Not implemented!
+#endif
+		///</summary>
+		///<param name="hexValue">The RGBA hex string.</param>
+		MagickColor(String^ hexValue);
 		///==========================================================================================
 		///<summary>
 		/// Alpha component value of this color.

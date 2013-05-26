@@ -32,27 +32,27 @@ namespace Magick.NET.Tests
 		{
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				MagickImageCollection collection = new MagickImageCollection(new byte[0]);
+				new MagickImageCollection(new byte[0]);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				MagickImageCollection collection = new MagickImageCollection((byte[])null);
+				new MagickImageCollection((byte[])null);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				MagickImageCollection collection = new MagickImageCollection((Stream)null);
+				new MagickImageCollection((Stream)null);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				MagickImageCollection collection = new MagickImageCollection((string)null);
+				new MagickImageCollection((string)null);
 			});
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				MagickImageCollection collection = new MagickImageCollection(Images.Missing);
+				new MagickImageCollection(Images.Missing);
 			});
 		}
 		//===========================================================================================

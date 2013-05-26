@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,6 +25,67 @@ namespace Magick.NET.Tests
 	{
 		//===========================================================================================
 		private const string _Category = "MagickColor";
+#if Q8
+		//===========================================================================================
+		private const byte _Max = byte.MaxValue;
+		//===========================================================================================
+		private void TestHexColor(string hexValue, byte red, byte green, byte blue, byte alpha)
+#elif Q16
+		private const ushort _Max = ushort.MaxValue;
+		//===========================================================================================
+		private void TestHexColor(string hexValue, ushort red, ushort green, ushort blue, ushort alpha)
+#else
+#error Not implemented!
+#endif
+		{
+			MagickColor color = new MagickColor(hexValue);
+
+			Assert.AreEqual(red, color.R);
+			Assert.AreEqual(green, color.G);
+			Assert.AreEqual(blue, color.B);
+			Assert.AreEqual(alpha, color.A);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Constructor()
+		{
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				new MagickColor(null);
+			});
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				new MagickColor("FFFFFF");
+			});
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				new MagickColor("#FFFFF");
+			});
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				new MagickColor("#GGFFF");
+			});
+
+			TestHexColor("#F00", _Max, 0, 0, 0);
+			TestHexColor("#0F0F", 0, _Max, 0, _Max);
+			TestHexColor("#0000FF", 0, 0, _Max, 0);
+			TestHexColor("#FF00FFFF", _Max, 0, _Max, _Max);
+
+#if Q8
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				new MagickColor("#FFFF0000FFFF");
+			});
+#elif Q16
+			TestHexColor("#0000FFFF0000", 0, _Max, 0, 0);
+			TestHexColor("#FFFF00000000FFFF", _Max, 0, 0, _Max);
+#else
+#error Not implemented!
+#endif
+		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_IComparable()
@@ -68,13 +130,7 @@ namespace Magick.NET.Tests
 			Assert.IsTrue(first.Equals(first));
 			Assert.IsTrue(first.Equals((object)first));
 
-#if Q8
-			MagickColor second = new MagickColor(byte.MaxValue, 0, 0);
-#elif Q16
-			MagickColor second = new MagickColor(ushort.MaxValue, 0, 0);
-#else
-			Not implemented!
-#endif
+			MagickColor second = new MagickColor(_Max, 0, 0);
 
 			Assert.IsTrue(first == second);
 			Assert.IsTrue(first.Equals(second));
@@ -89,16 +145,16 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_ToColor()
 		{
-			MagickColor first = new MagickColor(Color.Red);
-			Color magickRed = first.ToColor();
+			MagickColor color = new MagickColor(Color.Red);
+			Assert.AreEqual(0, color.A);
+
+			Color magickRed = color.ToColor();
 			Color red = Color.Red;
 
-			Assert.IsTrue(
-				magickRed.A == red.A &&
-				magickRed.R == red.R &&
-				magickRed.G == red.G &&
-				magickRed.B == red.B
-				);
+			Assert.AreEqual(magickRed.R, red.R);
+			Assert.AreEqual(magickRed.G, red.G);
+			Assert.AreEqual(magickRed.B, red.B);
+			Assert.AreEqual(magickRed.A, red.A);
 		}
 		//===========================================================================================
 	}

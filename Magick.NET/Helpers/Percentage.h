@@ -32,8 +32,10 @@ namespace ImageMagick
 		{
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
 			return Convert::ToByte(percentage._Value * 100);
-#else if (MAGICKCORE_QUANTUM_DEPTH == 16)
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
 			return Convert::ToUInt16(percentage._Value * 100);
+#else
+#error Not implemented!
 #endif
 		}
 		//===========================================================================================

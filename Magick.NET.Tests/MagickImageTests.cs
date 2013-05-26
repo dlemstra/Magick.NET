@@ -40,32 +40,32 @@ namespace Magick.NET.Tests
 		{
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				MagickImage image = new MagickImage(new byte[0]);
+				new MagickImage(new byte[0]);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				MagickImage image = new MagickImage((byte[])null);
+				new MagickImage((byte[])null);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				MagickImage image = new MagickImage((Bitmap)null);
+				new MagickImage((Bitmap)null);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				MagickImage image = new MagickImage((Stream)null);
+				new MagickImage((Stream)null);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				MagickImage image = new MagickImage((string)null);
+				new MagickImage((string)null);
 			});
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				MagickImage image = new MagickImage(Images.Missing);
+				new MagickImage(Images.Missing);
 			});
 
 			using (Bitmap bitmap = new Bitmap(Images.SnakewarePNG))
@@ -91,6 +91,11 @@ namespace Magick.NET.Tests
 			MagickImage first = new MagickImage(Images.SnakewarePNG);
 			MagickImage second = first.Copy();
 			Assert.AreEqual(first, second);
+			second.Format = MagickFormat.Jp2;
+			Assert.AreEqual(first.Format, MagickFormat.Png);
+			Assert.AreEqual(second.Format, MagickFormat.Jp2);
+			second.Dispose();
+			Assert.AreEqual(first.Format, MagickFormat.Png);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

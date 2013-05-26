@@ -111,13 +111,6 @@ namespace ImageMagick
 			delete geometry;
 		}
 	}
-
-	//==============================================================================================
-	void MagickImage::ReplaceImage(Magick::Image* image)
-	{
-		delete Value;
-		Value = image;
-	}
 	//==============================================================================================
 	void MagickImage::Resize(int width, int height, bool isPercentage)
 	{
@@ -710,19 +703,11 @@ namespace ImageMagick
 	{
 		Throw::IfNull("color", color);
 
-		MagickImage^ image = gcnew MagickImage(color, Width, Height);
-
-		try
-		{
-			image->Composite(this, Gravity::Northwest, CompositeOperator::Atop);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-
-		ReplaceImage(image->Value);
-		image->Value = NULL;
+		MagickImageCollection^ images = gcnew MagickImageCollection();
+		images->Add(gcnew MagickImage(color, Width, Height));
+		images->Add(Copy());
+		images->Merge(LayerMethod::Merge, Value);
+		delete images;
 	}
 	//==============================================================================================
 	MagickColor^ MagickImage::ColorMap(int index)
@@ -927,11 +912,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImage::Copy()
 	{
-		array<Byte>^ data = this->ToByteArray();
-		MagickImage^ image = gcnew MagickImage(data);
-		delete data;
-
-		return image;
+		return gcnew MagickImage(*Value);
 	}
 	//==============================================================================================
 	void MagickImage::Crop(MagickGeometry^ geometry)
@@ -2229,19 +2210,19 @@ namespace ImageMagick
 	{
 		Throw::IfNull("color", color);
 
-		MagickImage^ copy = Copy();
 		MagickImageCollection^ images = gcnew MagickImageCollection();
 		Magick::Color* backgroundColor = color->CreateColor();
 
 		try
 		{
+			MagickImage^ copy = Copy();
 			copy->Value->backgroundColor(*backgroundColor);
 			copy->Value->shadow((double)alpha * 100, sigma, x, y);
 			copy->Value->backgroundColor(Magick::Color());
 
 			images->Add(copy);
-			images->Add(this);
-			images->Merge(Value, LayerMethod::Merge);
+			images->Add(Copy());
+			images->Merge(LayerMethod::Mosaic, Value);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2249,7 +2230,6 @@ namespace ImageMagick
 		}
 		finally
 		{
-			delete copy;
 			delete images;
 			delete backgroundColor;
 		}

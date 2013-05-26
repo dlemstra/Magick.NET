@@ -69,7 +69,6 @@ namespace Magick.NET.Tests
 #if NET20
 			StringAssert.Contains(MagickNET.Version, "net20");
 #else
-
 			StringAssert.Contains(MagickNET.Version, "net40-client");
 #endif
 
@@ -78,7 +77,7 @@ namespace Magick.NET.Tests
 #elif Q16
 			StringAssert.Contains(MagickNET.Version, "Q16");
 #else
-			Not implemented!
+#error Not implemented!
 #endif
 		}
 		//===========================================================================================

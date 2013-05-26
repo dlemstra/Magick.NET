@@ -247,7 +247,6 @@ namespace ImageMagick
 			throw MagickException::Create(exception);
 		}
 
-
 		ApplySettingsAfter(imageList, readSettings);
 
 		return nullptr;

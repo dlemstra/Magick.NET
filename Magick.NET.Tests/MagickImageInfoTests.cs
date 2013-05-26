@@ -47,27 +47,27 @@ namespace Magick.NET.Tests
 		{
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				MagickImageInfo imageInfo = new MagickImageInfo(new byte[0]);
+				new MagickImageInfo(new byte[0]);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				MagickImageInfo imageInfo = new MagickImageInfo((byte[])null);
+				new MagickImageInfo((byte[])null);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				MagickImageInfo imageInfo = new MagickImageInfo((Stream)null);
+				new MagickImageInfo((Stream)null);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				MagickImageInfo imageInfo = new MagickImageInfo((string)null);
+				new MagickImageInfo((string)null);
 			});
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				MagickImageInfo imageInfo = new MagickImageInfo(Images.Missing);
+				new MagickImageInfo(Images.Missing);
 			});
 		}
 		//===========================================================================================

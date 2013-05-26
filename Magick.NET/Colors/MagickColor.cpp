@@ -16,6 +16,99 @@
 
 namespace ImageMagick
 {
+	//===========================================================================================
+	void MagickColor::Initialize(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
+	{
+#if (MAGICKCORE_QUANTUM_DEPTH == 8)
+		_Red = red;
+		_Green = green;
+		_Blue = blue;
+		_Alpha = alpha;
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+		_Red = (red << 8 | red);
+		_Green = (green << 8 | green);
+		_Blue = (blue << 8 | blue);
+		_Alpha = (alpha << 8 | alpha);
+#else
+#error Not implemented!
+#endif
+	}
+	//==============================================================================================
+	char MagickColor::ParseHexChar(wchar_t c)
+	{
+		if (c >= '0' && c <= '9')
+			return ((char)c - '0');
+		if (c >= 'a' && c <= 'f')
+			return ((char)c - 'a' + '\n');
+		if (c >= 'A' && c <= 'F')
+			return ((char)c - 'A' + '\n');
+
+		throw gcnew ArgumentException("Invalid character: " + c + ".");
+	}
+	//==============================================================================================
+	void MagickColor::ParseQ8HexColor(String^ color)
+	{
+		unsigned char red;
+		unsigned char green;
+		unsigned char blue;
+		unsigned char alpha = 0;
+
+		if (color->Length == 4 || color->Length == 5)
+		{
+			red = ParseHexChar(color[1]);
+			red += red * 16;
+			green = ParseHexChar(color[2]);
+			green += green * 16;
+			blue = ParseHexChar(color[3]);
+			blue += blue * 16;
+
+			if (color->Length == 5)
+			{
+				alpha = ParseHexChar(color[4]);
+				alpha += alpha * 16;
+			}
+		}
+		else if (color->Length == 7 || color->Length == 9)
+		{
+			red = (ParseHexChar(color[1]) * 16) + ParseHexChar(color[2]);
+			green = (ParseHexChar(color[3]) * 16) + ParseHexChar(color[4]);
+			blue = (ParseHexChar(color[5]) * 16) + ParseHexChar(color[6]);
+
+			if (color->Length == 9)
+				alpha = (ParseHexChar(color[7]) * 16) + ParseHexChar(color[8]);
+		}
+		else
+		{
+			throw gcnew ArgumentException("Invalid hex value.");
+		}
+
+		Initialize(red, green, blue, alpha);
+	}
+	//==============================================================================================
+#if (MAGICKCORE_QUANTUM_DEPTH > 8)
+	//==============================================================================================
+	void MagickColor::ParseQ16HexColor(String^ color)
+	{
+		if (color->Length < 13)
+		{
+			ParseQ8HexColor(color);
+		}
+		else if (color->Length == 13 || color->Length == 17)
+		{
+			_Red = (ParseHexChar(color[1]) * 4096) + (ParseHexChar(color[2]) * 256) + (ParseHexChar(color[3]) * 16) + ParseHexChar(color[4]);
+			_Green = (ParseHexChar(color[5]) * 4096) + (ParseHexChar(color[6]) * 256) + (ParseHexChar(color[7]) * 16) + ParseHexChar(color[8]);
+			_Blue = (ParseHexChar(color[9]) * 4096) + (ParseHexChar(color[10]) * 256) + (ParseHexChar(color[11]) * 16) + ParseHexChar(color[12]);
+
+			if (color->Length == 17)
+				_Alpha = (ParseHexChar(color[13]) * 4096) + (ParseHexChar(color[14]) * 256) + (ParseHexChar(color[15]) * 16) + ParseHexChar(color[16]);
+		}
+		else
+		{
+			throw gcnew ArgumentException("Invalid hex value.");
+		}
+	}
+	//==============================================================================================
+#endif
 	//==============================================================================================
 	MagickColor::MagickColor(MagickColor^ color)
 	{
@@ -35,19 +128,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickColor::Initialize(Color color)
 	{
-#if (MAGICKCORE_QUANTUM_DEPTH == 8)
-		_Red = color.R;
-		_Green = color.G;
-		_Blue = color.B;
-		_Alpha = MaxMap - color.A;
-#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		_Red = (color.R << 8 | color.R);
-		_Green = (color.G << 8 | color.G);
-		_Blue = (color.B << 8 | color.B);
-		_Alpha = MaxMap - (color.A << 8 | color.A);
-#else
-		Not implemented!
-#endif
+		Initialize(color.R, color.G, color.B, 255 - color.A);
 	}
 	//==============================================================================================
 	Magick::Color* MagickColor::CreateColor()
@@ -58,6 +139,11 @@ namespace ImageMagick
 	MagickColor::MagickColor()
 	{
 		_Alpha = 0;
+	}
+	//==============================================================================================
+	MagickColor::MagickColor(Color color)
+	{
+		Initialize(color);
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue)
@@ -77,9 +163,18 @@ namespace ImageMagick
 		_Alpha = alpha;
 	}
 	//==============================================================================================
-	MagickColor::MagickColor(Color color)
+	MagickColor::MagickColor(String^ hexValue)
 	{
-		Initialize(color);
+		Throw::IfNullOrEmpty("hexValue", hexValue);
+		Throw::IfFalse("hexValue", hexValue[0] == '#', "Value should start with '#'.");
+
+#if (MAGICKCORE_QUANTUM_DEPTH == 8)
+		ParseQ8HexColor(hexValue);
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+		ParseQ16HexColor(hexValue);
+#else
+#error Not implemented!
+#endif
 	}
 	//==============================================================================================
 	int MagickColor::CompareTo(MagickColor^ other)
@@ -159,10 +254,10 @@ namespace ImageMagick
 		int green = _Green >> 8;
 		int blue = _Blue >> 8;
 #else
-		Not implemented!
+#error Not implemented!
 #endif
 
-			return Color::FromArgb(alpha, red, green, blue);
+		return Color::FromArgb(alpha, red, green, blue);
 	}
 	//==============================================================================================
 }

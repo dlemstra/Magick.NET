@@ -25,17 +25,7 @@ namespace Magick.NET.Tests
 		[AssemblyInitialize]
 		public static void Initialize(TestContext context)
 		{
-#if (Q8 && NET20)
-			MagickNET.Initialize(@"..\..\..\ImageMagick\Q8\bin\v2.0\x86");
-#elif (Q16 && NET20)
-			MagickNET.Initialize(@"..\..\..\ImageMagick\Q16\bin\v2.0\x86");
-#elif Q8
-			MagickNET.Initialize(@"..\..\..\ImageMagick\Q8\bin\v4.0\x86");
-#elif Q16
-			MagickNET.Initialize(@"..\..\..\ImageMagick\Q16\bin\v4.0\x86");
-#else
-			Not implemented!
-#endif
+			MagickNET.Initialize();
 		}
 		//===========================================================================================
 	}

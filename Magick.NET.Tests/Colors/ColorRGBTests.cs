@@ -61,7 +61,7 @@ namespace Magick.NET.Tests
 #elif Q16
 			ColorRGB second = new ColorRGB(ushort.MaxValue, 0, 0);
 #else
-			Not implemented!
+#error Not implemented!
 #endif
 
 			Test_IEquatable_Equal(first, second);
