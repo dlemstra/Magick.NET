@@ -20,6 +20,15 @@ using namespace System::Security;
 namespace ImageMagick
 {
 	//==============================================================================================
+	void MagickNET::CheckImageMagickFiles(String^ path)
+	{
+		for each (String^ imageMagickFile in _ImageMagickFiles)
+		{
+			String^ fileName = path + "\\" + imageMagickFile;
+			Throw::IfFalse("path", File::Exists(fileName), "Unable to find file: " + fileName);
+		}
+	}
+	//==============================================================================================
 	MagickFormatInfo^ MagickNET::GetFormatInformation(MagickFormat format)
 	{
 		for each (MagickFormatInfo^ formatInfo in SupportedFormats)
@@ -45,8 +54,7 @@ namespace ImageMagick
 		path = Path::GetFullPath(path);
 		Throw::IfFalse("path", Directory::Exists(path), "Unable to find path: " + path);
 
-		String^ fileName = path + "\\CORE_RL_Magick++_.dll";
-		Throw::IfFalse("path", File::Exists(fileName), "Unable to find file: " + fileName);
+		CheckImageMagickFiles(path);
 
 		String^ envPath = Environment::GetEnvironmentVariable("PATH");
 		if (envPath->IndexOf(path + ";", StringComparison::Ordinal) != -1)

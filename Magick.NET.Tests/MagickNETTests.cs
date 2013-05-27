@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -39,17 +40,30 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		[ExpectedException(typeof(ArgumentNullException))]
-		public void Test_InitializeNull()
+		public void Test_Initialize()
 		{
-			MagickNET.Initialize(null);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		[ExpectedException(typeof(ArgumentException))]
-		public void Test_InitializeInvalidFolder()
-		{
-			MagickNET.Initialize("Invalid");
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				MagickNET.Initialize(null);
+			});
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				MagickNET.Initialize("Invalid");
+			});
+
+			string path = Path.GetDirectoryName(GetType().Assembly.Location) + "\\ImageMagick";
+			foreach (string fileName in Directory.GetFiles(path))
+			{
+				File.Move(fileName, fileName + ".tmp");
+
+				ExceptionAssert.Throws<ArgumentException>(delegate()
+				{
+					MagickNET.Initialize(path);
+				}, "MagickNET._ImageMagickFiles does not contain: " + Path.GetFileName(fileName));
+
+				File.Move(fileName + ".tmp", fileName);
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

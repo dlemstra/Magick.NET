@@ -24,11 +24,17 @@ namespace Magick.NET.Tests
 		public static void Throws<TException>(Action action)
 			 where TException : Exception
 		{
+			Throws<TException>(action, "Exception of type " + typeof(TException).Name + " was not thrown.");
+		}
+		//===========================================================================================
+		public static void Throws<TException>(Action action, string message)
+			 where TException : Exception
+		{
 			try
 			{
 				action();
 
-				Assert.Fail("Exception of type {0} was not thrown.", typeof(TException).Name);
+				Assert.Fail(message);
 			}
 			catch (TException)
 			{
