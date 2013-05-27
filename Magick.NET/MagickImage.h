@@ -416,6 +416,21 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Composition operator to be used when composition is implicitly used (such as for image flattening).
+		///</summary>
+		property CompositeOperator Compose
+		{
+			CompositeOperator get()
+			{
+				return (CompositeOperator)Value->compose();
+			}
+			void set(CompositeOperator value)
+			{
+				Value->compose((Magick::CompositeOperator)value);
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Vertical and horizontal resolution in pixels of the image.
 		///</summary>
 		property MagickGeometry^ Density
@@ -2856,7 +2871,6 @@ namespace ImageMagick
 		///<param name="percentageHeight">The percentage of the height.</param>
 		///<exception cref="MagickException"/>
 		void Zoom(Percentage percentageWidth, Percentage percentageHeight);
-		//===========================================================================================
-	};
-	//==============================================================================================
-}
+		};
+		//==============================================================================================
+	}

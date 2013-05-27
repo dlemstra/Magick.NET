@@ -27,6 +27,10 @@ namespace ImageMagick
 	void Throw::IfInvalidFileName(String^ fileName)
 	{
 		Throw::IfNullOrEmpty("fileName", fileName);
+
+		if (!fileName->Contains("\\") && fileName->Contains(":"))
+			return;
+
 		Throw::IfFalse("fileName", File::Exists(fileName), "Unable to find file: " + fileName);
 	}
 	//==============================================================================================

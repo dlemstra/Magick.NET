@@ -225,6 +225,8 @@ namespace Magick.NET.Tests
 
 			image.Read(Images.SnakewarePNG);
 
+			image.Read("rose:");
+
 			image.Dispose();
 		}
 		//===========================================================================================
