@@ -354,6 +354,13 @@ namespace ImageMagick
 	{
 		AddProfile("ICM", data);
 	}
+	//==============================================================================================
+	void MagickImage::AddProfile(ColorProfile^ profile)
+	{
+		Throw::IfNull("profile", profile);
+
+		AddProfile(profile->Name, profile->Data);
+	}
 	///=============================================================================================
 	void MagickImage::AddProfile(Stream^ stream)
 	{

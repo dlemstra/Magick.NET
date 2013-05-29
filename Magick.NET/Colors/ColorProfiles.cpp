@@ -11,35 +11,30 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "Stdafx.h"
-#include "ColorProfile.h"
-#include "..\Helpers\FileHelper.h"
-#include "..\Helpers\MagickReader.h"
+#include "stdafx.h"
+#include "ColorProfiles.h"
+
+using namespace System::IO;
+using namespace System::Reflection;
+using namespace System::Threading;
 
 namespace ImageMagick
-{
+{	
 	//==============================================================================================
-	void ColorProfile::Initialize(String^ name, Stream^ stream)
+	ColorProfile^ ColorProfiles::Load(String^ name, String^ resourceName)
 	{
-		Throw::IfNullOrEmpty("name", name);
+		Monitor::Enter(_SyncRoot);
 
-		_Name = name;
-		_Data = MagickReader::Read(stream);
-	}
-	//==============================================================================================
-	ColorProfile::ColorProfile(String^ name, Stream^ stream)
-	{
-		Initialize(name, stream);
-	}
-	//==============================================================================================
-	ColorProfile::ColorProfile(String^ name, String^ fileName)
-	{
-		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
-		Throw::IfInvalidFileName(filePath);
+		if (!_Profiles->ContainsKey(resourceName))
+		{
+			Stream^ stream = Assembly::GetAssembly(ColorProfile::typeid)->GetManifestResourceStream(resourceName);
+			_Profiles[resourceName] = gcnew ColorProfile(name, stream);
+			delete stream;
+		}
 
-		FileStream^ stream = File::OpenRead(filePath);
-		Initialize(name, stream);
-		delete stream;
+		Monitor::Exit(_SyncRoot);
+
+		return _Profiles[resourceName];
 	}
 	//==============================================================================================
 }

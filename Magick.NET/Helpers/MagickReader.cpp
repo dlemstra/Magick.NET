@@ -12,52 +12,29 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
+#include "..\Colors\ColorProfiles.h"
 #include "MagickReader.h"
 #include "FileHelper.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	void MagickReader::ApplySettingsAfter(Magick::Image* image, MagickReadSettings^ readSettings)
+	void MagickReader::ApplySettings(Magick::Image* image, MagickReadSettings^ readSettings)
 	{
 		if (readSettings == nullptr)
 			return;
 
 		if (readSettings->ColorSpace.HasValue)
 		{
-			MagickCore::ColorspaceType colorSpaceType = (MagickCore::ColorspaceType)readSettings->ColorSpace.Value;
+			// For some reason I cannot access the methods of image->options(). This trick makes sure
+			// that calling image->colorspaceType() will not raise an exception.
+			Magick::Geometry size = image->size();
+			image->size(Magick::Geometry(1, 1));
+			image->read("xc:white");
 
-			if (image->colorSpace() == colorSpaceType)
-				return;
-
-			if (image->colorSpace() == MagickCore::ColorspaceType::CMYKColorspace &&
-				(readSettings->ColorSpace.Value == ColorSpace::RGB || readSettings->ColorSpace.Value == ColorSpace::sRGB))
-			{
-				Magick::Blob blob;
-				Marshaller::Marshal(ColorProfile::SRGB, &blob);
-				image->profile("ICM", blob);
-			}
-
-			image->colorSpace(colorSpaceType);
+			image->colorspaceType((MagickCore::ColorspaceType)readSettings->ColorSpace.Value);
+			image->size(size);
 		}
-	}
-	//==============================================================================================
-	void MagickReader::ApplySettingsAfter(std::list<Magick::Image>* imageList,
-		MagickReadSettings^ readSettings)
-	{
-		if (readSettings == nullptr)
-			return;
-
-		for(std::list<Magick::Image>::iterator iter = imageList->begin(); iter != imageList->end(); iter++)
-		{
-			ApplySettingsAfter(&*(iter), readSettings);
-		}
-	}
-	//==============================================================================================
-	void MagickReader::ApplySettingsBefore(Magick::Image* image, MagickReadSettings^ readSettings)
-	{
-		if (readSettings == nullptr)
-			return;
 
 		if (readSettings->Density != nullptr)
 			image->density(readSettings->Density);
@@ -69,7 +46,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickReader::ApplySettingsBefore(MagickCore::ImageInfo *imageInfo, MagickReadSettings^ readSettings)
+	void MagickReader::ApplySettings(MagickCore::ImageInfo *imageInfo, MagickReadSettings^ readSettings)
 	{
 		if (readSettings == nullptr)
 			return;
@@ -79,6 +56,9 @@ namespace ImageMagick
 			std::string geometry = (Magick::Geometry)readSettings->Density;
 			MagickCore::CloneString(&imageInfo->density, geometry.c_str());
 		}
+
+		if (readSettings->ColorSpace.HasValue)
+			imageInfo->colorspace = (MagickCore::ColorspaceType)readSettings->ColorSpace.Value;
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickReader::Read(Magick::Image* image, Magick::Blob* blob,
@@ -86,7 +66,7 @@ namespace ImageMagick
 	{
 		MagickWarningException^ result = nullptr;
 
-		ApplySettingsBefore(image, readSettings);
+		ApplySettings(image, readSettings);
 
 		try
 		{
@@ -104,8 +84,6 @@ namespace ImageMagick
 			throw MagickException::Create(exception);
 		}
 
-		ApplySettingsAfter(image, readSettings);
-
 		return result;
 	}
 	//==============================================================================================
@@ -117,7 +95,7 @@ namespace ImageMagick
 		try
 		{
 			MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(0);
-			ApplySettingsBefore(imageInfo, readSettings);
+			ApplySettings(imageInfo, readSettings);
 
 			MagickCore::ExceptionInfo exceptionInfo;
 			MagickCore::GetExceptionInfo(&exceptionInfo);
@@ -135,8 +113,6 @@ namespace ImageMagick
 		{
 			throw MagickException::Create(exception);
 		}
-
-		ApplySettingsAfter(imageList, readSettings);
 
 		return result;
 	}
@@ -168,7 +144,7 @@ namespace ImageMagick
 
 		MagickWarningException^ result = nullptr;
 
-		ApplySettingsBefore(image, readSettings);
+		ApplySettings(image, readSettings);
 
 		try
 		{
@@ -188,8 +164,6 @@ namespace ImageMagick
 		{
 			throw MagickException::Create(exception);
 		}
-
-		ApplySettingsAfter(image, readSettings);
 
 		return result;
 	}
@@ -225,7 +199,7 @@ namespace ImageMagick
 			Marshaller::Marshal(filePath, imageSpec);
 
 			MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(0);
-			ApplySettingsBefore(imageInfo, readSettings);
+			ApplySettings(imageInfo, readSettings);
 
 			imageSpec.copy(imageInfo->filename, MaxTextExtent-1);
 			imageInfo->filename[imageSpec.length()] = 0;
@@ -247,39 +221,42 @@ namespace ImageMagick
 			throw MagickException::Create(exception);
 		}
 
-		ApplySettingsAfter(imageList, readSettings);
-
 		return nullptr;
+	}
+	//==============================================================================================
+	array<Byte>^ MagickReader::Read(Stream^ stream)
+	{
+		Throw::IfNull("stream", stream);
+
+		if (stream->CanSeek)
+		{
+			int length = (int)stream->Length;
+			array<Byte>^ result = gcnew array<Byte>(length);
+			stream->Read(result, 0, length);
+			return result;
+		}
+		else
+		{
+			const int bufferSize = 8192;
+			MemoryStream^ memStream = gcnew MemoryStream();
+
+			array<Byte>^ buffer =  gcnew array<Byte>(bufferSize);
+			int length;
+			while ((length = stream->Read(buffer, 0, bufferSize)) != 0)
+			{
+				memStream->Write(buffer, 0, length);
+			}
+
+			array<Byte>^ result = memStream->ToArray();
+			delete memStream;
+
+			return result;
+		}
 	}
 	//===========================================================================================
 	void MagickReader::Read(Magick::Blob* blob, Stream^ stream)
 	{
-		Throw::IfNull("stream", stream);
-
-		array<Byte>^ data = nullptr;
-
-		int length = 0;
-
-		if (stream->CanSeek)
-		{
-			length = (int)stream->Length;
-			data = gcnew array<Byte>(length);
-			stream->Read(data, 0, length);
-		}
-		else
-		{
-			int bufferSize = 8192;
-			data = gcnew array<Byte>(bufferSize);
-
-			int readLength;
-			while ((readLength = stream->Read(data, length, bufferSize)) > 0)
-			{
-				Array::Resize(data, data->Length + bufferSize);
-				length += readLength;
-			}
-		}
-
-		Marshaller::Marshal(data, length, blob);
+		Marshaller::Marshal(Read(stream), blob);
 	}
 	//===========================================================================================
 	void MagickReader::Read(Magick::Blob* blob, String^ fileName)

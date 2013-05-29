@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public class MagickNETTests : InitializeTests
+	public class MagickNETTests
 	{
 		//===========================================================================================
 		private const string _Category = "MagickNET";

@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

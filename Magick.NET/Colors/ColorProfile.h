@@ -13,28 +13,53 @@
 //=================================================================================================
 #pragma once
 
+using namespace System::IO;
+
 namespace ImageMagick
 {
-	//==============================================================================================
-	private ref class ColorProfile abstract sealed
+	///=============================================================================================
+	///<summary>
+	/// Class that contains a color profile.
+	///</summary>
+	public ref class ColorProfile sealed 
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		static initonly Object^ _SyncRoot = gcnew Object();
-		static array<Byte>^ _SRGBicm;
-		static array<Byte>^ LoadSRGbicm();
+		array<Byte>^ _Data;
+		String^ _Name;
+		//===========================================================================================
+		void Initialize(String^ name, Stream^ stream);
+		//===========================================================================================
+	internal:
+		//===========================================================================================
+		ColorProfile(String^ name, Stream^ stream);
+		//===========================================================================================
+		property array<Byte>^ Data
+		{
+			array<Byte>^ get()
+			{
+				return _Data;
+			}
+		}
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// The sRGB icm profile.
+		/// Initializes a new instance of the ColorProfile class.
 		///</summary>
-		static property array<Byte>^ SRGB
+		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
+		///<param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
+		ColorProfile(String^ name, String^ fileName);
+		///==========================================================================================
+		///<summary>
+		/// The name of the profile.
+		///</summary>
+		property String^ Name
 		{
-			array<Byte>^ get()
+			String^ get()
 			{
-				return LoadSRGbicm();
+				return _Name;
 			}
 		}
 		//===========================================================================================

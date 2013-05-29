@@ -525,6 +525,9 @@
     <ClInclude Include="Helpers\MagickReadSettings.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Colors\ColorProfiles.h">
+      <Filter>Header Files\Colors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -853,6 +856,9 @@
     </ClCompile>
     <ClCompile Include="MagickFormatInfo.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\ColorProfiles.cpp">
+      <Filter>Source Files\Colors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -236,12 +236,10 @@ namespace Magick.NET.Tests
 			using (MagickImage image = new MagickImage())
 			{
 				MagickReadSettings settings = new MagickReadSettings();
-				settings.ColorSpace = ColorSpace.RGB;
 				settings.Density = new MagickGeometry(150, 150);
 
 				image.Read(Images.SnakewarePNG, settings);
 
-				Assert.AreEqual(ColorSpace.RGB, image.ColorSpace);
 				Assert.AreEqual(150, image.Density.Width);
 			}
 		}

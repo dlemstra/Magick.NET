@@ -13,7 +13,6 @@
 //=================================================================================================
 #pragma once
 
-#include "..\Colors\ColorProfile.h"
 #include "..\Exceptions\Base\MagickException.h"
 #include "..\Exceptions\MagickWarningExceptions.h"
 #include "..\MagickImage.h"
@@ -33,15 +32,9 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		static void ApplySettingsAfter(Magick::Image* image, MagickReadSettings^ readSettings);
+		static void ApplySettings(Magick::Image* image, MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static void ApplySettingsAfter(std::list<Magick::Image>* imageList, 
-			MagickReadSettings^ readSettings);
-		//===========================================================================================
-		static void ApplySettingsBefore(Magick::Image* image, MagickReadSettings^ readSettings);
-		//===========================================================================================
-		static void ApplySettingsBefore(MagickCore::ImageInfo *imageInfo,
-			MagickReadSettings^ readSettings);
+		static void ApplySettings(MagickCore::ImageInfo *imageInfo, MagickReadSettings^ readSettings);
 		//===========================================================================================
 		static MagickWarningException^ Read(Magick::Image* image, Magick::Blob* blob,
 			MagickReadSettings^ readSettings);
@@ -49,6 +42,8 @@ namespace ImageMagick
 		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, Magick::Blob* blob,
 			MagickReadSettings^ readSettings);
 	internal:
+		//===========================================================================================
+		static array<Byte>^ Read(Stream^ stream);
 		//===========================================================================================
 		static void Read(Magick::Blob* blob, Stream^ stream);
 		//===========================================================================================

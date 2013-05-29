@@ -20,17 +20,12 @@ namespace ImageMagick
 	//==============================================================================================
 	void Marshaller::Marshal(array<Byte>^ data, Magick::Blob* value)
 	{
-		Marshal(data, data->Length, value);
-	}
-	//==============================================================================================
-	void Marshaller::Marshal(array<Byte>^ data, int length, Magick::Blob* value)
-	{
 		if (data == nullptr || data->Length == 0)
 			return;
 
-		char* unmanagedValue = new char[length];
-		Marshal::Copy(data, 0, IntPtr(unmanagedValue), length);
-		value->update(unmanagedValue, length);
+		char* unmanagedValue = new char[data->Length];
+		Marshal::Copy(data, 0, IntPtr(unmanagedValue), data->Length);
+		value->update(unmanagedValue, data->Length);
 		delete[] unmanagedValue;
 	}
 	//==============================================================================================

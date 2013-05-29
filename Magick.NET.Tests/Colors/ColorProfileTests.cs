@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
+using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,41 +21,29 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public class ColorMonoTests : ColorBaseTests<ColorMono>
+	public sealed class ColorProfileTests
 	{
 		//===========================================================================================
-		private const string _Category = "ColorMono";
+		private const string _Category = "ColorProfileTests";
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_IComparable()
+		public void Test_Constructor()
 		{
-			ColorMono first = new ColorMono(true);
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				new ColorProfile(null, Images.SnakewarePNG);
+			});
 
-			Test_IComparable(first);
-
-			ColorMono second = new ColorMono(false);
-
-			Test_IComparable_FirstLower(first, second);
-
-			second = new ColorMono(true);
-
-			Test_IComparable_Equal(first, second);
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				new ColorProfile("name", null);
+			});
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
+		public void Test_Load()
 		{
-			ColorMono first = new ColorMono(true);
-
-			Test_IEquatable_NullAndSelf(first);
-
-			ColorMono second = new ColorMono(true);
-
-			Test_IEquatable_Equal(first, second);
-
-			second = new ColorMono(false);
-
-			Test_IEquatable_NotEqual(first, second);
+			ColorProfile sRGB = ColorProfiles.SRGB;
 		}
 		//===========================================================================================
 	}

@@ -23,8 +23,6 @@ namespace ImageMagick
 		//===========================================================================================
 		static void Marshal(array<Byte>^ data, Magick::Blob* value);
 		//===========================================================================================
-		static void Marshal(array<Byte>^ data, int length, Magick::Blob* value);
-		//===========================================================================================
 		static array<Byte>^ Marshal(Magick::Blob* value);
 		//===========================================================================================
 		static double* Marshaller::Marshal(array<double>^ values);

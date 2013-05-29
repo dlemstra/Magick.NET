@@ -1272,6 +1272,13 @@ namespace ImageMagick
 		void AddProfile(array<Byte>^ data);
 		///==========================================================================================
 		///<summary>
+		/// Add a profile to an image.
+		///</summary>
+		///<param name="profile">The profile.</param>
+		///<exception cref="MagickException"/>
+		void AddProfile(ColorProfile^ profile);
+		///==========================================================================================
+		///<summary>
 		/// Add an ICC iCM profile to an image.
 		///</summary>
 		///<param name="stream">A stream containing the profile.</param>

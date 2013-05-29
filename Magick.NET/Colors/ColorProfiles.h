@@ -1,4 +1,4 @@
-﻿//=================================================================================================
+//=================================================================================================
 // Copyright 2013 Dirk Lemstra <http://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -11,51 +11,41 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+#pragma once
 
-using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+#include "ColorProfile.h"
 
-namespace Magick.NET.Tests
+using namespace System::Collections::Generic;
+
+namespace ImageMagick
 {
-	//==============================================================================================
-	[TestClass]
-	public class ColorMonoTests : ColorBaseTests<ColorMono>
+	///=============================================================================================
+	///<summary>
+	/// Class that contains different color profiles.
+	///</summary>
+	public ref class ColorProfiles abstract sealed
 	{
 		//===========================================================================================
-		private const string _Category = "ColorMono";
+	private:
 		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IComparable()
+		static initonly Object^ _SyncRoot = gcnew Object();
+		static Dictionary<String^, ColorProfile^>^ _Profiles = gcnew Dictionary<String^, ColorProfile^>();
+		//===========================================================================================
+		static ColorProfile^ Load(String^ name, String^ resourceName);
+		//===========================================================================================
+	public:
+		///==========================================================================================
+		///<summary>
+		/// The sRGB icm profile.
+		///</summary>
+		static property ColorProfile^ SRGB
 		{
-			ColorMono first = new ColorMono(true);
-
-			Test_IComparable(first);
-
-			ColorMono second = new ColorMono(false);
-
-			Test_IComparable_FirstLower(first, second);
-
-			second = new ColorMono(true);
-
-			Test_IComparable_Equal(first, second);
+			ColorProfile^ get()
+			{
+				return Load("ICM", "sRGB.icm");
+			}
 		}
 		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
-		{
-			ColorMono first = new ColorMono(true);
-
-			Test_IEquatable_NullAndSelf(first);
-
-			ColorMono second = new ColorMono(true);
-
-			Test_IEquatable_Equal(first, second);
-
-			second = new ColorMono(false);
-
-			Test_IEquatable_NotEqual(first, second);
-		}
-		//===========================================================================================
-	}
+	};
 	//==============================================================================================
 }

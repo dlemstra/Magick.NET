@@ -14,6 +14,7 @@
 #pragma once
 
 #include "Stdafx.h"
+#include "..\Colors\ColorProfile.h"
 #include "..\Enums\ColorSpace.h"
 #include "..\MagickGeometry.h"
 
@@ -29,7 +30,7 @@ namespace ImageMagick
 	private:
 		//===========================================================================================
 		Nullable<ColorSpace> _ColorSpace;
-		MagickGeometry^ _Density; 
+		MagickGeometry^ _Density;
 		Nullable<int> _Height;
 		Nullable<int> _Width;
 		//===========================================================================================

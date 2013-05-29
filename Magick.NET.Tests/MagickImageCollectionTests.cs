@@ -186,12 +186,10 @@ namespace Magick.NET.Tests
 			using (MagickImageCollection collection = new MagickImageCollection())
 			{
 				MagickReadSettings settings = new MagickReadSettings();
-				settings.ColorSpace = ColorSpace.RGB;
 				settings.Density = new MagickGeometry(150, 150);
 
 				collection.Read(Images.RoseSparkleGIF, settings);
 
-				Assert.AreEqual(ColorSpace.RGB, collection[0].ColorSpace);
 				Assert.AreEqual(150, collection[0].Density.Width);
 			}
 		}
