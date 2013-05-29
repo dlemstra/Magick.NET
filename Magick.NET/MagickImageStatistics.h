@@ -23,6 +23,7 @@ namespace ImageMagick
 	///</summary>
 	public value struct MagickImageStatistics sealed
 	{
+		//===========================================================================================
 	private:
 		//===========================================================================================
 		ChannelStatistics _Alpha;
@@ -41,10 +42,7 @@ namespace ImageMagick
 		///</summary>
 		property ChannelStatistics Alpha
 		{
-			ChannelStatistics get()
-			{
-				return _Alpha;
-			}
+			ChannelStatistics get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -52,10 +50,7 @@ namespace ImageMagick
 		///</summary>
 		property ChannelStatistics Blue
 		{
-			ChannelStatistics get()
-			{
-				return _Blue;
-			}
+			ChannelStatistics get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -63,10 +58,7 @@ namespace ImageMagick
 		///</summary>
 		property ChannelStatistics Green
 		{
-			ChannelStatistics get()
-			{
-				return _Green;
-			}
+			ChannelStatistics get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -74,10 +66,7 @@ namespace ImageMagick
 		///</summary>
 		property ChannelStatistics Red
 		{
-			ChannelStatistics get()
-			{
-				return _Red;
-			}
+			ChannelStatistics get();
 		}
 		//===========================================================================================
 		static bool operator == (MagickImageStatistics left, MagickImageStatistics right)

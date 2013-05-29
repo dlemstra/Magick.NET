@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "ColorHSL.h"
 
 namespace ImageMagick
@@ -23,15 +23,15 @@ namespace ImageMagick
 		double hue, luminosity, saturation;
 		MagickCore::ConvertRGBToHSL(color->R, color->G, color->B, &hue, &luminosity, &saturation);
 
-		_Hue = hue;
-		_Luminosity = luminosity;
-		_Saturation = saturation;
+		Hue = hue;
+		Luminosity = luminosity;
+		Saturation = saturation;
 	}
 	//==============================================================================================
 	void ColorHSL::UpdateValue()
 	{
 		Magick::Quantum red, green, blue;
-		MagickCore::ConvertHSLToRGB(_Hue, _Saturation, _Luminosity, &red, &green, &blue);
+		MagickCore::ConvertHSLToRGB(Hue, Saturation, Luminosity, &red, &green, &blue);
 
 		Value->R = red;
 		Value->G = green;
@@ -41,9 +41,9 @@ namespace ImageMagick
 	ColorHSL::ColorHSL(double hue, double saturation, double luminosity)
 		: ColorBase(false)
 	{
-		_Hue = hue;
-		_Saturation = saturation;
-		_Luminosity = luminosity;
+		Hue = hue;
+		Saturation = saturation;
+		Luminosity = luminosity;
 	}
 	//==============================================================================================
 	ColorHSL^ ColorHSL::FromMagickColor(MagickColor^ color)

@@ -37,10 +37,7 @@ namespace ImageMagick
 		//===========================================================================================
 		property MagickColor^ Value
 		{
-			MagickColor^ get()
-			{
-				return _Value;
-			}
+			MagickColor^ get();
 		}
 		//===========================================================================================
 		virtual void UpdateValue();

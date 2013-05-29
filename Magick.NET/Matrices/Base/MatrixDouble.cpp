@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "MatrixDouble.h"
 
 namespace ImageMagick
@@ -40,6 +40,27 @@ namespace ImageMagick
 		}
 
 		return matrixData;
+	}
+	//==============================================================================================
+	double MatrixDouble::default::get(int x, int y)
+	{
+		if (x < 0 || x >= _Order || y < 0 || y >= _Order)
+			return 0.0;
+
+		return _Values[x, y];
+	}
+	//==============================================================================================
+	void MatrixDouble::default::set(int x, int y, double value)
+	{
+		if (x < 0 || x >= _Order || y < 0 || y >= _Order)
+			return;
+
+		_Values[x, y] = value;
+	}
+	//==============================================================================================
+	int MatrixDouble::Order::get()
+	{
+		return _Order;
 	}
 	//==============================================================================================
 }

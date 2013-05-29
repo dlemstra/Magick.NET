@@ -44,20 +44,8 @@ namespace ImageMagick
 		///</summary>
 		property double default[int, int]
 		{
-			double get(int x, int y)
-			{
-				if (x < 0 || x >= _Order || y < 0 || y >= _Order)
-					return 0.0;
-
-				return _Values[x, y];
-			}
-			void set(int x, int y, double value)
-			{
-				if (x < 0 || x >= _Order || y < 0 || y >= _Order)
-					return;
-
-				_Values[x, y] = value;
-			}
+			double get(int x, int y);
+			void set(int x, int y, double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -65,10 +53,7 @@ namespace ImageMagick
 		///</summary>
 		property int Order
 		{
-			int get()
-			{
-				return _Order;
-			}
+			int get();
 		}
 		//===========================================================================================
 	};

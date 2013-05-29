@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "MagickFormatInfo.h"
 #include "Exceptions\Base\MagickException.h"
 #include "Helpers\EnumHelper.h"
@@ -80,6 +80,31 @@ namespace ImageMagick
 		} 
 
 		return result;
+	}
+	//==============================================================================================
+	String^ MagickFormatInfo::Description::get()
+	{
+		return _Description;
+	}
+	//==============================================================================================
+	MagickFormat MagickFormatInfo::Format::get()
+	{
+		return _Format;
+	}
+	//==============================================================================================
+	bool MagickFormatInfo::IsMultiFrame::get()
+	{
+		return _IsMultiFrame;
+	}
+	//==============================================================================================
+	bool MagickFormatInfo::IsReadable::get()
+	{
+		return _IsReadable;
+	}
+	//==============================================================================================
+	bool MagickFormatInfo::IsWritable::get()
+	{
+		return _IsWritable;
 	}
 	//==============================================================================================
 	String^ MagickFormatInfo::ToString()

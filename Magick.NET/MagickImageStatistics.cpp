@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "MagickImageStatistics.h"
 
 namespace ImageMagick
@@ -23,6 +23,26 @@ namespace ImageMagick
 		_Blue = ChannelStatistics(statistics.blue);
 		_Green = ChannelStatistics(statistics.green);
 		_Red = ChannelStatistics(statistics.red);
+	}
+	//==============================================================================================
+	ChannelStatistics MagickImageStatistics::Alpha::get()
+	{
+		return _Alpha;
+	}
+	//==============================================================================================
+	ChannelStatistics MagickImageStatistics::Blue::get()
+	{
+		return _Blue;
+	}
+	//==============================================================================================
+	ChannelStatistics MagickImageStatistics::Green::get()
+	{
+		return _Green;
+	}
+	//==============================================================================================
+	ChannelStatistics MagickImageStatistics::Red::get()
+	{
+		return _Red;
 	}
 	//==============================================================================================
 	bool MagickImageStatistics::Equals(Object^ obj)

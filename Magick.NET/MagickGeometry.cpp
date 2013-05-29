@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "MagickGeometry.h"
 
 namespace ImageMagick
@@ -60,6 +60,58 @@ namespace ImageMagick
 		Value = new Magick::Geometry(geometrySpec);
 
 		Throw::IfFalse("geometry", Value->isValid(), "Invalid geometry specified.");
+	}
+	//==============================================================================================
+	int MagickGeometry::Height::get()
+	{
+		return Convert::ToInt32(Value->height());
+	}
+	//==============================================================================================
+	void  MagickGeometry::Height::set(int value)
+	{
+		Value->height(value);
+	}
+	//==============================================================================================
+	bool MagickGeometry::IsPercentage::get()
+	{
+		return Value->percent();
+	}
+	//==============================================================================================
+	void MagickGeometry::IsPercentage::set(bool value)
+	{
+		Value->percent(value);
+	}
+	//==============================================================================================
+	int MagickGeometry::Width::get()
+	{
+		return Convert::ToInt32(Value->width());
+	}
+	//==============================================================================================
+	void MagickGeometry::Width::set(int value)
+	{
+		Value->width(value);
+	}
+	//==============================================================================================
+	int MagickGeometry::X::get()
+	{
+		return Convert::ToInt32(Value->xNegative() ? -1 * Value->xOff() : Value->xOff());
+	}
+	//==============================================================================================
+	void MagickGeometry::X::set(int value)
+	{
+		Value->xOff(value);
+		Value->xNegative(value < 0);
+	}
+	//==============================================================================================
+	int MagickGeometry::Y::get()
+	{
+		return Convert::ToInt32(Value->yNegative() ? -1 * Value->yOff() : Value->yOff());
+	}
+	//==============================================================================================
+	void MagickGeometry::Y::set(int value)
+	{
+		Value->yOff(value);
+		Value->yNegative(value < 0);
 	}
 	//==============================================================================================
 	int MagickGeometry::CompareTo(MagickGeometry^ other)

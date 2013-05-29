@@ -48,25 +48,19 @@ namespace ImageMagick
 	public:
 		///==========================================================================================
 		///<summary>
-		/// The format.
-		///</summary>
-		property MagickFormat Format
-		{
-			MagickFormat get()
-			{
-				return _Format;
-			}
-		}
-		///==========================================================================================
-		///<summary>
 		/// The description of the format.
 		///</summary>
 		property String^ Description
 		{
-			String^ get()
-			{
-				return _Description;
-			}
+			String^ get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// The format.
+		///</summary>
+		property MagickFormat Format
+		{
+			MagickFormat get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -74,10 +68,7 @@ namespace ImageMagick
 		///</summary>
 		property bool IsMultiFrame
 		{
-			bool get()
-			{
-				return _IsMultiFrame;
-			}
+			bool get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -85,10 +76,7 @@ namespace ImageMagick
 		///</summary>
 		property bool IsReadable
 		{
-			bool get()
-			{
-				return _IsReadable;
-			}
+			bool get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -96,10 +84,7 @@ namespace ImageMagick
 		///</summary>
 		property bool IsWritable
 		{
-			bool get()
-			{
-				return _IsWritable;
-			}
+			bool get();
 		}
 		///==========================================================================================
 		///<summary>

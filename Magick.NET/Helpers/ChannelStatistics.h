@@ -43,10 +43,7 @@ namespace ImageMagick
 		///</summary>
 		property double Maximum
 		{
-			double get()
-			{
-				return _Maximum;
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -54,10 +51,7 @@ namespace ImageMagick
 		///</summary>
 		property double Minimum
 		{
-			double get()
-			{
-				return _Minimum;
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -65,10 +59,7 @@ namespace ImageMagick
 		///</summary>
 		property double Mean
 		{
-			double get()
-			{
-				return _Mean;
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -76,10 +67,7 @@ namespace ImageMagick
 		///</summary>
 		property double Kurtosis
 		{
-			double get()
-			{
-				return _Kurtosis;
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -87,10 +75,7 @@ namespace ImageMagick
 		///</summary>
 		property double Skewness
 		{
-			double get()
-			{
-				return _Skewness;
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -98,10 +83,7 @@ namespace ImageMagick
 		///</summary>
 		property double StandardDeviation
 		{
-			double get()
-			{
-				return _StandardDeviation;
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -109,10 +91,7 @@ namespace ImageMagick
 		///</summary>
 		property double Variance
 		{
-			double get()
-			{
-				return _Variance;
-			}
+			double get();
 		}
 		//===========================================================================================
 		static bool operator == (ChannelStatistics left, ChannelStatistics right)

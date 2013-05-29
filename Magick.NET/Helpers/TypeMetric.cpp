@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "TypeMetric.h"
 
 namespace ImageMagick
@@ -24,6 +24,31 @@ namespace ImageMagick
 		_TextWidth = metrics->textWidth();
 		_TextHeight = metrics->textHeight();
 		_MaxHorizontalAdvance = metrics->maxHorizontalAdvance();
+	}
+	//==============================================================================================
+	double TypeMetric::Ascent::get()
+	{
+		return _Ascent;
+	}
+	//==============================================================================================
+	double TypeMetric::Descent::get()
+	{
+		return _Descent;
+	}
+	//==============================================================================================
+	double TypeMetric::MaxHorizontalAdvance::get()
+	{
+		return _MaxHorizontalAdvance;
+	}
+	//==============================================================================================
+	double TypeMetric::TextHeight::get()
+	{
+		return _TextHeight;
+	}
+	//==============================================================================================
+	double TypeMetric::TextWidth::get()
+	{
+		return _TextWidth;
 	}
 	//==============================================================================================
 }

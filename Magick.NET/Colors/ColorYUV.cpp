@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "ColorYUV.h"
 
 namespace ImageMagick
@@ -38,6 +38,45 @@ namespace ImageMagick
 		_Y = y;
 		_U = u;
 		_V = v;
+	}
+	//==============================================================================================
+	double ColorYUV::U::get()
+	{
+		return _U;
+	}
+	//==============================================================================================
+	void ColorYUV::U::set(double value)
+	{
+		if (value < -0.5 || value > 0.5)
+			return;
+
+		_U = value;
+	}
+	//==============================================================================================
+	double ColorYUV::V::get()
+	{
+		return _V;
+	}
+	//==============================================================================================
+	void ColorYUV::V::set(double value)
+	{
+		if (value < -0.5 || value > 0.5)
+			return;
+
+		_V = value;
+	}
+	//==============================================================================================
+	double ColorYUV::Y::get()
+	{
+		return _Y;
+	}
+	//==============================================================================================
+	void ColorYUV::Y::set(double value)
+	{
+		if (value < 0.0 || value > 1.0)
+			return;
+
+		_Y = value;
 	}
 	//==============================================================================================
 	ColorYUV^ ColorYUV::FromMagickColor(MagickColor^ color)

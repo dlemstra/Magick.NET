@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "ChannelStatistics.h"
 
 namespace ImageMagick
@@ -26,6 +26,41 @@ namespace ImageMagick
 		_Skewness = channelStatistics.skewness;
 		_StandardDeviation = channelStatistics.standard_deviation;
 		_Variance = channelStatistics.variance;
+	}
+	//==============================================================================================
+	double ChannelStatistics::Maximum::get()
+	{
+		return _Maximum;
+	}
+	//==============================================================================================
+	double ChannelStatistics::Minimum::get()
+	{
+		return _Minimum;
+	}
+	//==============================================================================================
+	double ChannelStatistics::Mean::get()
+	{
+		return _Mean;
+	}
+	//==============================================================================================
+	double ChannelStatistics::Kurtosis::get()
+	{
+		return _Kurtosis;
+	}
+	//==============================================================================================
+	double ChannelStatistics::Skewness::get()
+	{
+		return _Skewness;
+	}
+	//==============================================================================================
+	double ChannelStatistics::StandardDeviation::get()
+	{
+		return _StandardDeviation;
+	}
+	//==============================================================================================
+	double ChannelStatistics::Variance::get()
+	{
+		return _Variance;
 	}
 	//==============================================================================================
 	bool ChannelStatistics::Equals(Object^ obj)

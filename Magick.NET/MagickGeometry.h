@@ -100,14 +100,8 @@ namespace ImageMagick
 		///==========================================================================================
 		property int Height
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->height());
-			}
-			void set(int value)
-			{
-				Value->height(value);
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -115,14 +109,8 @@ namespace ImageMagick
 		///</summary>
 		property bool IsPercentage
 		{
-			bool get()
-			{
-				return Value->percent();
-			}
-			void set(bool value)
-			{
-				Value->percent(value);
-			}
+			bool get();
+			void set(bool value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -130,14 +118,8 @@ namespace ImageMagick
 		///</summary>
 		property int Width
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->width());
-			}
-			void set(int value)
-			{
-				Value->width(value);
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -145,15 +127,8 @@ namespace ImageMagick
 		///</summary>
 		property int X
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->xNegative() ? -1 * Value->xOff() : Value->xOff());
-			}
-			void set(int value)
-			{
-				Value->xOff(value);
-				Value->xNegative(value < 0);
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -161,15 +136,8 @@ namespace ImageMagick
 		///</summary>
 		property int Y
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->yNegative() ? -1 * Value->yOff() : Value->yOff());
-			}
-			void set(int value)
-			{
-				Value->yOff(value);
-				Value->yNegative(value < 0);
-			}
+			int get();
+			void set(int value);
 		}
 		//===========================================================================================
 		static bool operator == (MagickGeometry^ left, MagickGeometry^ right)

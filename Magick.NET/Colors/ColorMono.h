@@ -26,8 +26,6 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		bool _IsBlack;
-		//===========================================================================================
 		ColorMono(MagickColor^ color);
 		//===========================================================================================
 	protected:
@@ -45,17 +43,7 @@ namespace ImageMagick
 		///<summary>
 		/// Specifies if the color is black or white.
 		///</summary>
-		property bool IsBlack
-		{
-			bool get()
-			{
-				return _IsBlack;
-			}
-			void set(bool value)
-			{
-				_IsBlack = value;
-			}
-		}
+		property bool IsBlack;
 		//===========================================================================================
 		static operator ColorMono^ (MagickColor^ color)
 		{

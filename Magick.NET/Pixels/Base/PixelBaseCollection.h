@@ -61,21 +61,12 @@ namespace ImageMagick
 			//========================================================================================
 			property Pixel^ Current
 			{
-				virtual Pixel^ get() = IEnumerator<Pixel^>::Current::get
-				{
-					if (_X == -1)
-						return nullptr;
-
-					return _Collection->CreatePixel(_X, _Y);
-				}
+				virtual Pixel^ get() = IEnumerator<Pixel^>::Current::get;
 			}
 			//========================================================================================
 			property Object^ Current2
 			{
-				virtual Object^ get() = System::Collections::IEnumerator::Current::get
-				{
-					return Current;
-				}
+				virtual Object^ get() = System::Collections::IEnumerator::Current::get;
 			}
 			//========================================================================================
 			virtual bool MoveNext();
@@ -99,18 +90,12 @@ namespace ImageMagick
 		//===========================================================================================
 		property Magick::IndexPacket* Indexes
 		{
-			Magick::IndexPacket* get()
-			{
-				return _Indexes;
-			}
+			Magick::IndexPacket* get();
 		}
 		//===========================================================================================
 		property Magick::Pixels* View
 		{
-			Magick::Pixels* get()
-			{
-				return _View;
-			}
+			Magick::Pixels* get();
 		}
 		//===========================================================================================
 		void CheckIndex(int x, int y);
@@ -131,10 +116,7 @@ namespace ImageMagick
 		///</summary>
 		property Pixel^ default[int, int]
 		{
-			Pixel^ get(int x, int y)
-			{
-				return GetPixel(x, y);
-			}
+			Pixel^ get(int x, int y);
 		}
 		///==========================================================================================
 		///<summary>
@@ -142,10 +124,7 @@ namespace ImageMagick
 		///</summary>
 		property int Channels
 		{
-			int get()
-			{
-				return _Channels;
-			}
+			int get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -153,10 +132,7 @@ namespace ImageMagick
 		///</summary>
 		property int Height
 		{
-			int get()
-			{
-				return _Height;
-			}
+			int get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -164,10 +140,7 @@ namespace ImageMagick
 		///</summary>
 		property int Width
 		{
-			int get()
-			{
-				return _Width;
-			}
+			int get();
 		}
 		///==========================================================================================
 		///<summary>

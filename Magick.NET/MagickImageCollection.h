@@ -119,14 +119,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickImage^ default[int]
 		{
-			virtual MagickImage^ get(int index) sealed
-			{
-				return _Images[index];
-			}
-			virtual void set(int index, MagickImage^ value) sealed
-			{
-				_Images[index] = value;
-			}
+			virtual MagickImage^ get(int index) sealed;
+			virtual void set(int index, MagickImage^ value) sealed;
 		}
 		///==========================================================================================
 		///<summary>
@@ -134,10 +128,7 @@ namespace ImageMagick
 		///</summary>
 		property int Count 
 		{
-			virtual int get() sealed
-			{
-				return _Images->Count;
-			}
+			virtual int get() sealed;
 		}
 		///==========================================================================================
 		///<summary>
@@ -145,10 +136,7 @@ namespace ImageMagick
 		///</summary>
 		property bool IsReadOnly
 		{
-			virtual bool get() sealed
-			{
-				return false;
-			}
+			virtual bool get() sealed;
 		}
 		///==========================================================================================
 		///<summary>
@@ -156,10 +144,7 @@ namespace ImageMagick
 		///</summary>
 		property MagickWarningException^ ReadWarning
 		{
-			MagickWarningException^ get()
-			{
-				return _ReadWarning;
-			}
+			MagickWarningException^ get();
 		}
 		//===========================================================================================
 		static explicit operator array<Byte>^ (MagickImageCollection^ collection)

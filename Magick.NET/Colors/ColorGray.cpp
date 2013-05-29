@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "ColorGray.h"
 
 namespace ImageMagick
@@ -35,6 +35,19 @@ namespace ImageMagick
 		: ColorBase(false)
 	{
 		Shade = shade;
+	}
+	//==============================================================================================
+	double ColorGray::Shade::get()
+	{
+		return _Shade;
+	}
+	//==============================================================================================
+	void ColorGray::Shade::set(double value)
+	{
+		if (value < 0.0 || value > 1.0)
+			return;
+
+		_Shade = value;
 	}
 	//==============================================================================================
 	ColorGray^ ColorGray::FromMagickColor(MagickColor^ color)

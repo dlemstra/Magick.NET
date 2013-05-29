@@ -75,6 +75,22 @@ namespace ImageMagick
 	public:
 		///==========================================================================================
 		///<summary>
+		/// Returns information about the supported formats.
+		///</summary>
+		static property IEnumerable<MagickFormatInfo^>^ SupportedFormats
+		{
+			IEnumerable<MagickFormatInfo^>^ get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// Returns the version of Magick.NET.
+		///</summary>
+		static property String^ Version
+		{
+			String^ get();
+		}
+		///==========================================================================================
+		///<summary>
 		/// Returns the format information of the specified format.
 		///</summary>
 		static MagickFormatInfo^ GetFormatInformation(MagickFormat format);
@@ -96,30 +112,6 @@ namespace ImageMagick
 		/// pixels cache operations are to/from disk. This setting is shared by all MagickImage objects.
 		///</summary>
 		static void SetCacheThreshold(int threshold);
-		///==========================================================================================
-		///<summary>
-		/// Returns information about the supported formats.
-		///</summary>
-		static property IEnumerable<MagickFormatInfo^>^ SupportedFormats
-		{
-			IEnumerable<MagickFormatInfo^>^ get()
-			{
-				return MagickFormatInfo::All;
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Returns the version of Magick.NET.
-		///</summary>
-		static property String^ Version
-		{
-			String^ get()
-			{
-				Object^ title = (MagickNET::typeid)->Assembly->GetCustomAttributes(AssemblyTitleAttribute::typeid, false)[0];
-				Object^ version = (MagickNET::typeid)->Assembly->GetCustomAttributes(AssemblyFileVersionAttribute::typeid, false)[0];
-				return ((AssemblyTitleAttribute^)title)->Title + " " + ((AssemblyFileVersionAttribute^)version)->Version;
-			}
-		}
 		//===========================================================================================
 	};
 	//==============================================================================================

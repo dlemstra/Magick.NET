@@ -200,6 +200,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Colors\ColorProfiles.h" />

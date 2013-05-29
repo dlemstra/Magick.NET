@@ -47,17 +47,8 @@ namespace ImageMagick
 		///</summary>
 		property double Shade
 		{
-			double get()
-			{
-				return _Shade;
-			}
-			void set(double value)
-			{
-				if (value < 0.0 || value > 1.0)
-					return;
-
-				_Shade = value;
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 		static operator ColorGray^ (MagickColor^ color)

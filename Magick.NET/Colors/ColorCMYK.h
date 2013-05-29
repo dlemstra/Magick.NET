@@ -51,14 +51,8 @@ namespace ImageMagick
 		///</summary>
 		property Magick::Quantum C
 		{
-			Magick::Quantum get()
-			{
-				return Value->R;
-			}
-			void set(Magick::Quantum value)
-			{
-				Value->R = value;
-			}
+			Magick::Quantum get();
+			void set(Magick::Quantum value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -66,14 +60,8 @@ namespace ImageMagick
 		///</summary>
 		property Magick::Quantum K
 		{
-			Magick::Quantum get()
-			{
-				return Value->A;
-			}
-			void set(Magick::Quantum value)
-			{
-				Value->A = value;
-			}
+			Magick::Quantum get();
+			void set(Magick::Quantum value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -81,14 +69,8 @@ namespace ImageMagick
 		///</summary>
 		property Magick::Quantum M
 		{
-			Magick::Quantum get()
-			{
-				return Value->G;
-			}
-			void set(Magick::Quantum value)
-			{
-				Value->G = value;
-			}
+			Magick::Quantum get();
+			void set(Magick::Quantum value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -96,14 +78,8 @@ namespace ImageMagick
 		///</summary>
 		property Magick::Quantum Y
 		{
-			Magick::Quantum get()
-			{
-				return Value->B;
-			}
-			void set(Magick::Quantum value)
-			{
-				Value->B = value;
-			}
+			Magick::Quantum get();
+			void set(Magick::Quantum value);
 		}
 		//===========================================================================================
 		static operator ColorCMYK^ (MagickColor^ color)

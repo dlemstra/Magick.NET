@@ -42,10 +42,7 @@ namespace ImageMagick
 		///</summary>
 		property double Ascent
 		{
-			double get()
-			{
-				return _Ascent;
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -54,10 +51,7 @@ namespace ImageMagick
 		///</summary>
 		property double Descent
 		{
-			double get()
-			{
-				return _Descent;
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -65,10 +59,7 @@ namespace ImageMagick
 		///</summary>
 		property double MaxHorizontalAdvance
 		{
-			double get()
-			{
-				return _MaxHorizontalAdvance;
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -76,10 +67,7 @@ namespace ImageMagick
 		///</summary>
 		property double TextHeight
 		{
-			double get()
-			{
-				return _TextHeight;
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -87,10 +75,7 @@ namespace ImageMagick
 		///</summary>
 		property double TextWidth
 		{
-			double get()
-			{
-				return _TextWidth;
-			}
+			double get();
 		}
 		//===========================================================================================
 	};

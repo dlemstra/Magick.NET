@@ -49,14 +49,8 @@ namespace ImageMagick
 		///</summary>
 		property Magick::Quantum B
 		{
-			Magick::Quantum get()
-			{
-				return Value->B;
-			}
-			void set(Magick::Quantum value)
-			{
-				Value->B = value;
-			}
+			Magick::Quantum get();
+			void set(Magick::Quantum value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -64,14 +58,8 @@ namespace ImageMagick
 		///</summary>
 		property Magick::Quantum G
 		{
-			Magick::Quantum get()
-			{
-				return Value->G;
-			}
-			void set(Magick::Quantum value)
-			{
-				Value->G = value;
-			}
+			Magick::Quantum get();
+			void set(Magick::Quantum value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -79,14 +67,8 @@ namespace ImageMagick
 		///</summary>
 		property Magick::Quantum R
 		{
-			Magick::Quantum get()
-			{
-				return Value->R;
-			}
-			void set(Magick::Quantum value)
-			{
-				Value->R = value;
-			}
+			Magick::Quantum get();
+			void set(Magick::Quantum value);
 		}
 		//===========================================================================================
 		static operator ColorRGB^ (MagickColor^ color)

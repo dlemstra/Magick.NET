@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "ColorRGB.h"
 
 namespace ImageMagick
@@ -34,6 +34,36 @@ namespace ImageMagick
 		: ColorBase(false)
 	{
 		Value->Initialize(color);
+	}
+	//==============================================================================================
+	Magick::Quantum ColorRGB::B::get()
+	{
+		return Value->B;
+	}
+	//==============================================================================================
+	void ColorRGB::B::set(Magick::Quantum value)
+	{
+		Value->B = value;
+	}
+	//==============================================================================================
+	Magick::Quantum ColorRGB::G::get()
+	{
+		return Value->G;
+	}
+	//==============================================================================================
+	void ColorRGB::G::set(Magick::Quantum value)
+	{
+		Value->G = value;
+	}
+	//==============================================================================================
+	Magick::Quantum ColorRGB::R::get()
+	{
+		return Value->R;
+	}
+	//==============================================================================================
+	void ColorRGB::R::set(Magick::Quantum value)
+	{
+		Value->R = value;
 	}
 	//==============================================================================================
 	ColorRGB^ ColorRGB::FromMagickColor(MagickColor^ color)

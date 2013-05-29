@@ -26,10 +26,6 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		double _Hue;
-		double _Luminosity;
-		double _Saturation;
-		//===========================================================================================
 		ColorHSL(MagickColor^ color);
 		//===========================================================================================
 	protected:
@@ -49,47 +45,17 @@ namespace ImageMagick
 		///<summary>
 		/// Hue component value of this color.
 		///</summary>
-		property double Hue
-		{
-			double get()
-			{
-				return _Hue;
-			}
-			void set(double value)
-			{
-				_Hue = value;
-			}
-		}
+		property double Hue;
 		///==========================================================================================
 		///<summary>
 		/// Luminosity component value of this color.
 		///</summary>
-		property double Luminosity
-		{
-			double get()
-			{
-				return _Luminosity;
-			}
-			void set(double value)
-			{
-				_Luminosity = value;
-			}
-		}
+		property double Luminosity;
 		///==========================================================================================
 		///<summary>
 		/// Saturation component value of this color.
 		///</summary>
-		property double Saturation
-		{
-			double get()
-			{
-				return _Saturation;
-			}
-			void set(double value)
-			{
-				_Saturation = value;
-			}
-		}
+		property double Saturation;
 		//===========================================================================================
 		static operator ColorHSL^ (MagickColor^ color)
 		{

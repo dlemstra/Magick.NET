@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "MagickNET.h"
 
 using namespace System::IO;
@@ -27,6 +27,18 @@ namespace ImageMagick
 			String^ fileName = path + "\\" + imageMagickFile;
 			Throw::IfFalse("path", File::Exists(fileName), "Unable to find file: " + fileName);
 		}
+	}
+	//==============================================================================================
+	IEnumerable<MagickFormatInfo^>^ MagickNET::SupportedFormats::get()
+	{
+		return MagickFormatInfo::All;
+	}
+	//==============================================================================================
+	String^ MagickNET::Version::get()
+	{
+		Object^ title = (MagickNET::typeid)->Assembly->GetCustomAttributes(AssemblyTitleAttribute::typeid, false)[0];
+		Object^ version = (MagickNET::typeid)->Assembly->GetCustomAttributes(AssemblyFileVersionAttribute::typeid, false)[0];
+		return ((AssemblyTitleAttribute^)title)->Title + " " + ((AssemblyFileVersionAttribute^)version)->Version;
 	}
 	//==============================================================================================
 	MagickFormatInfo^ MagickNET::GetFormatInformation(MagickFormat format)

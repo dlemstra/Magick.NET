@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "MagickColor.h"
 
 namespace ImageMagick
@@ -20,15 +20,15 @@ namespace ImageMagick
 	void MagickColor::Initialize(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
 	{
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
-		_Red = red;
-		_Green = green;
-		_Blue = blue;
-		_Alpha = alpha;
+		R = red;
+		G = green;
+		B = blue;
+		A = alpha;
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		_Red = (red << 8 | red);
-		_Green = (green << 8 | green);
-		_Blue = (blue << 8 | blue);
-		_Alpha = (alpha << 8 | alpha);
+		R = (red << 8 | red);
+		G = (green << 8 | green);
+		B = (blue << 8 | blue);
+		A = (alpha << 8 | alpha);
 #else
 #error Not implemented!
 #endif
@@ -95,12 +95,12 @@ namespace ImageMagick
 		}
 		else if (color->Length == 13 || color->Length == 17)
 		{
-			_Red = (ParseHexChar(color[1]) * 4096) + (ParseHexChar(color[2]) * 256) + (ParseHexChar(color[3]) * 16) + ParseHexChar(color[4]);
-			_Green = (ParseHexChar(color[5]) * 4096) + (ParseHexChar(color[6]) * 256) + (ParseHexChar(color[7]) * 16) + ParseHexChar(color[8]);
-			_Blue = (ParseHexChar(color[9]) * 4096) + (ParseHexChar(color[10]) * 256) + (ParseHexChar(color[11]) * 16) + ParseHexChar(color[12]);
+			R = (ParseHexChar(color[1]) * 4096) + (ParseHexChar(color[2]) * 256) + (ParseHexChar(color[3]) * 16) + ParseHexChar(color[4]);
+			G = (ParseHexChar(color[5]) * 4096) + (ParseHexChar(color[6]) * 256) + (ParseHexChar(color[7]) * 16) + ParseHexChar(color[8]);
+			B = (ParseHexChar(color[9]) * 4096) + (ParseHexChar(color[10]) * 256) + (ParseHexChar(color[11]) * 16) + ParseHexChar(color[12]);
 
 			if (color->Length == 17)
-				_Alpha = (ParseHexChar(color[13]) * 4096) + (ParseHexChar(color[14]) * 256) + (ParseHexChar(color[15]) * 16) + ParseHexChar(color[16]);
+				A = (ParseHexChar(color[13]) * 4096) + (ParseHexChar(color[14]) * 256) + (ParseHexChar(color[15]) * 16) + ParseHexChar(color[16]);
 		}
 		else
 		{
@@ -112,18 +112,18 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickColor::MagickColor(MagickColor^ color)
 	{
-		_Red = color->_Red;
-		_Green = color->_Green;
-		_Blue = color->_Blue;
-		_Alpha = color->_Alpha;
+		R = color->R;
+		G = color->G;
+		B = color->B;
+		A = color->A;
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(Magick::Color color)
 	{
-		_Red = color.redQuantum();
-		_Green = color.greenQuantum();
-		_Blue = color.blueQuantum();
-		_Alpha = color.alphaQuantum();
+		R = color.redQuantum();
+		G = color.greenQuantum();
+		B = color.blueQuantum();
+		A = color.alphaQuantum();
 	}
 	//==============================================================================================
 	void MagickColor::Initialize(Color color)
@@ -133,12 +133,12 @@ namespace ImageMagick
 	//==============================================================================================
 	Magick::Color* MagickColor::CreateColor()
 	{
-		return new Magick::Color(_Red, _Green, _Blue, _Alpha);
+		return new Magick::Color(R, G, B, A);
 	}
 	//==============================================================================================
 	MagickColor::MagickColor()
 	{
-		_Alpha = 0;
+		A = 0;
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(Color color)
@@ -148,19 +148,19 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickColor::MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue)
 	{
-		_Red = red;
-		_Green = green;
-		_Blue = blue;
-		_Alpha = 0;
+		R = red;
+		G = green;
+		B = blue;
+		A = 0;
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue, 
 		Magick::Quantum alpha)
 	{
-		_Red = red;
-		_Green = green;
-		_Blue = blue;
-		_Alpha = alpha;
+		R = red;
+		G = green;
+		B = blue;
+		A = alpha;
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(String^ hexValue)
@@ -182,28 +182,28 @@ namespace ImageMagick
 		if (ReferenceEquals(other, nullptr))
 			return 1;
 
-		if(this->_Red < other->_Red)
+		if(this->R < other->R)
 			return -1;
 
-		if (this->_Red > other->_Red)
+		if (this->R > other->R)
 			return 1;
 
-		if (this->_Green < other->_Green)
+		if (this->G < other->G)
 			return -1;
 
-		if (this->_Green > other->_Green)
+		if (this->G > other->G)
 			return 1;
 
-		if (this->_Blue < other->_Blue)
+		if (this->B < other->B)
 			return -1;
 
-		if (this->_Blue > other->_Blue)
+		if (this->B > other->B)
 			return 1;
 
-		if(this->_Alpha < other->_Alpha)
+		if(this->A < other->A)
 			return -1;
 
-		if(this->_Alpha > other->_Alpha)
+		if(this->A > other->A)
 			return 1;
 
 		return 0;
@@ -226,33 +226,33 @@ namespace ImageMagick
 			return true;
 
 		return
-			_Alpha == other->_Alpha &&
-			_Green == other->_Green &&
-			_Blue == other->_Blue &&
-			_Red == other->_Red;
+			A == other->A &&
+			G == other->G &&
+			B == other->B &&
+			R == other->R;
 	}
 	//==============================================================================================
 	int MagickColor::GetHashCode()
 	{
 		return
-			_Alpha.GetHashCode() ^
-			_Green.GetHashCode() ^
-			_Blue.GetHashCode() ^
-			_Red.GetHashCode();
+			A.GetHashCode() ^
+			G.GetHashCode() ^
+			B.GetHashCode() ^
+			R.GetHashCode();
 	}
 	//==============================================================================================
 	Color MagickColor::ToColor()
 	{
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
-		int alpha = MaxMap - _Alpha;
-		int red = _Red;
-		int green = _Green;
-		int blue = _Blue;
+		int alpha = MaxMap - A;
+		int red = R;
+		int green = G;
+		int blue = B;
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		int alpha = (MaxMap - _Alpha) >> 8;
-		int red = _Red >> 8;
-		int green = _Green >> 8;
-		int blue = _Blue >> 8;
+		int alpha = (MaxMap - A) >> 8;
+		int red = R >> 8;
+		int green = G>> 8;
+		int blue = B >> 8;
 #else
 #error Not implemented!
 #endif

@@ -74,10 +74,7 @@ namespace ImageMagick
 		///</summary>
 		property ColorSpace ColorSpace
 		{
-			ImageMagick::ColorSpace get()
-			{
-				return _ColorSpace;
-			}
+			ImageMagick::ColorSpace get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -85,10 +82,7 @@ namespace ImageMagick
 		///</summary>
 		property String^ FileName
 		{
-			String^ get()
-			{
-				return _FileName;
-			}
+			String^ get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -96,10 +90,7 @@ namespace ImageMagick
 		///</summary>
 		property MagickFormat Format
 		{
-			MagickFormat get()
-			{
-				return _Format;
-			}
+			MagickFormat get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -107,10 +98,7 @@ namespace ImageMagick
 		///</summary>
 		property int Height
 		{
-			int get()
-			{
-				return _Height;
-			}
+			int get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -118,10 +106,7 @@ namespace ImageMagick
 		///</summary>
 		property int Width
 		{
-			int get()
-			{
-				return _Width;
-			}
+			int get();
 		}
 		//===========================================================================================
 		static bool operator == (MagickImageInfo^ left, MagickImageInfo^ right)

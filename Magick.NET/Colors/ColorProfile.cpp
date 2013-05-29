@@ -32,6 +32,11 @@ namespace ImageMagick
 		Initialize(name, stream);
 	}
 	//==============================================================================================
+	array<Byte>^ ColorProfile::Data::get()
+	{
+		return _Data;
+	}
+	//==============================================================================================
 	ColorProfile::ColorProfile(String^ name, String^ fileName)
 	{
 		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
@@ -40,6 +45,11 @@ namespace ImageMagick
 		FileStream^ stream = File::OpenRead(filePath);
 		Initialize(name, stream);
 		delete stream;
+	}
+	//==============================================================================================
+	String^ ColorProfile::Name::get()
+	{
+		return _Name;
 	}
 	//==============================================================================================
 }

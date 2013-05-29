@@ -172,14 +172,8 @@ namespace ImageMagick
 		///</summary>
 		property bool Adjoin
 		{
-			bool get()
-			{
-				return Value->adjoin();
-			}
-			void set(bool value)
-			{
-				Value->adjoin(value);
-			}
+			bool get();
+			void set(bool value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -188,14 +182,8 @@ namespace ImageMagick
 		///</summary>
 		property int AnimationDelay
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->animationDelay());
-			}
-			void set(int value)
-			{
-				Value->animationDelay(value);
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -203,14 +191,8 @@ namespace ImageMagick
 		///</summary>
 		property int AnimationIterations
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->animationIterations());
-			}
-			void set(int value)
-			{
-				Value->animationIterations(value);
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -218,14 +200,8 @@ namespace ImageMagick
 		///</summary>
 		property bool AntiAlias
 		{
-			bool get()
-			{
-				return Value->antiAlias();
-			}
-			void set(bool value)
-			{
-				Value->antiAlias(value);
-			}
+			bool get();
+			void set(bool value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -233,16 +209,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickColor^ BackgroundColor
 		{
-			MagickColor^ get()
-			{
-				return gcnew MagickColor(Value->backgroundColor());
-			}
-			void set(MagickColor^ value)
-			{
-				Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
-				Value->backgroundColor(*color);
-				delete color;
-			}
+			MagickColor^ get();
+			void set(MagickColor^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -250,10 +218,7 @@ namespace ImageMagick
 		///</summary>
 		property int BaseHeight
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->baseRows());
-			}
+			int get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -261,10 +226,7 @@ namespace ImageMagick
 		///</summary>
 		property int BaseWidth
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->baseColumns());
-			}
+			int get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -273,10 +235,7 @@ namespace ImageMagick
 		///</summary>
 		property MagickGeometry^ BoundingBox
 		{
-			MagickGeometry^ get()
-			{
-				return gcnew MagickGeometry(Value->boundingBox());
-			}
+			MagickGeometry^ get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -284,16 +243,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickColor^ BorderColor
 		{
-			MagickColor^ get()
-			{
-				return gcnew MagickColor(Value->borderColor());
-			}
-			void set(MagickColor^ value)
-			{
-				Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
-				Value->borderColor(*color);
-				delete color;
-			}
+			MagickColor^ get();
+			void set(MagickColor^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -304,14 +255,8 @@ namespace ImageMagick
 		///</summary>
 		property ClassType ClassType
 		{
-			ImageMagick::ClassType get()
-			{
-				return (ImageMagick::ClassType)Value->classType();
-			}
-			void set(ImageMagick::ClassType value)
-			{
-				return Value->classType((MagickCore::ClassType)value);
-			}
+			ImageMagick::ClassType get();
+			void set(ImageMagick::ClassType value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -320,23 +265,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickImage^ ClipMask
 		{
-			MagickImage^ get()
-			{
-				return gcnew MagickImage(Magick::Image(Value->clipMask()));
-			}
-			void set(MagickImage^ value)
-			{
-				if (value == nullptr)
-				{
-					Magick::Image* image = new Magick::Image();
-					Value->clipMask(*image);
-					delete image;
-				}
-				else
-				{
-					Value->clipMask(*value->Value);
-				}
-			}
+			MagickImage^ get();
+			void set(MagickImage^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -344,14 +274,8 @@ namespace ImageMagick
 		///</summary>
 		property double ColorFuzz
 		{
-			double get()
-			{
-				return Value->colorFuzz();
-			}
-			Void set(double value)
-			{
-				Value->colorFuzz(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -359,14 +283,8 @@ namespace ImageMagick
 		///</summary>
 		property int ColorMapSize
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->colorMapSize());
-			}
-			void set(int value)
-			{
-				Value->colorMapSize(value);
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -374,14 +292,8 @@ namespace ImageMagick
 		///</summary>
 		property ColorSpace ColorSpace
 		{
-			ImageMagick::ColorSpace get()
-			{
-				return (ImageMagick::ColorSpace)Value->colorSpace();
-			}
-			void set(ImageMagick::ColorSpace value)
-			{
-				return Value->colorSpace((MagickCore::ColorspaceType)value);
-			}
+			ImageMagick::ColorSpace get();
+			void set(ImageMagick::ColorSpace value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -389,14 +301,8 @@ namespace ImageMagick
 		///</summary>
 		property ColorType ColorType
 		{
-			ImageMagick::ColorType get()
-			{
-				return (ImageMagick::ColorType)Value->type();
-			}
-			void set(ImageMagick::ColorType value)
-			{
-				return Value->type((MagickCore::ImageType)value);
-			}
+			ImageMagick::ColorType get();
+			void set(ImageMagick::ColorType value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -404,15 +310,8 @@ namespace ImageMagick
 		///</summary>
 		property String^ Comment
 		{
-			String^ get()
-			{
-				return Marshaller::Marshal(Value->comment());
-			}
-			void set(String^ value)
-			{
-				std::string comment; 
-				Value->comment(Marshaller::Marshal(value, comment));
-			}
+			String^ get();
+			void set(String^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -420,14 +319,8 @@ namespace ImageMagick
 		///</summary>
 		property CompositeOperator Compose
 		{
-			CompositeOperator get()
-			{
-				return (CompositeOperator)Value->compose();
-			}
-			void set(CompositeOperator value)
-			{
-				Value->compose((Magick::CompositeOperator)value);
-			}
+			CompositeOperator get();
+			void set(CompositeOperator value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -435,17 +328,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickGeometry^ Density
 		{
-			MagickGeometry^ get()
-			{
-				return gcnew MagickGeometry(Value->density());
-			}
-			void set(MagickGeometry^ value)
-			{
-				if (value == nullptr)
-					return;
-
-				Value->density(value);
-			}
+			MagickGeometry^ get();
+			void set(MagickGeometry^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -455,14 +339,8 @@ namespace ImageMagick
 		//===========================================================================================
 		property Endian Endian
 		{
-			ImageMagick::Endian get()
-			{
-				return (ImageMagick::Endian)Value->endian();
-			}
-			void set(ImageMagick::Endian value)
-			{
-				Value->endian((MagickCore::EndianType)value);
-			}
+			ImageMagick::Endian get();
+			void set(ImageMagick::Endian value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -470,10 +348,7 @@ namespace ImageMagick
 		///</summary>
 		property int FileSize
 		{
-			int get()
-			{
-				return Value->fileSize();
-			}
+			int get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -481,10 +356,7 @@ namespace ImageMagick
 		///</summary>
 		property String^ FileName
 		{
-			String^ get()
-			{
-				return Marshaller::Marshal(Value->baseFilename());
-			}
+			String^ get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -492,16 +364,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickColor^ FillColor
 		{
-			MagickColor^ get()
-			{
-				return gcnew MagickColor(Value->fillColor());
-			}
-			void set(MagickColor^ value)
-			{
-				Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
-				Value->fillColor(*color);
-				delete color;
-			}
+			MagickColor^ get();
+			void set(MagickColor^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -509,23 +373,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickImage^ FillPattern
 		{
-			MagickImage^ get()
-			{
-				return gcnew MagickImage(Magick::Image(Value->fillPattern()));
-			}
-			void set(MagickImage^ value)
-			{
-				if (value == nullptr)
-				{
-					Magick::Image* image = new Magick::Image();
-					Value->fillPattern(*image);
-					delete image;
-				}
-				else
-				{
-					Value->fillPattern(*value->Value);
-				}
-			}
+			MagickImage^ get();
+			void set(MagickImage^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -533,14 +382,8 @@ namespace ImageMagick
 		///</summary>
 		property FillRule FillRule
 		{
-			ImageMagick::FillRule get()
-			{
-				return (ImageMagick::FillRule)Value->fillRule();
-			}
-			void set(ImageMagick::FillRule value)
-			{
-				Value->fillRule((Magick::FillRule)value);
-			}
+			ImageMagick::FillRule get();
+			void set(ImageMagick::FillRule value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -548,14 +391,8 @@ namespace ImageMagick
 		///</summary>
 		property FilterType FilterType
 		{
-			ImageMagick::FilterType get()
-			{
-				return (ImageMagick::FilterType)Value->filterType();
-			}
-			void set(ImageMagick::FilterType value)
-			{
-				Value->filterType((Magick::FilterTypes)value);
-			}
+			ImageMagick::FilterType get();
+			void set(ImageMagick::FilterType value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -563,15 +400,8 @@ namespace ImageMagick
 		///</summary>
 		property String^ FlashPixView
 		{
-			String^ get()
-			{
-				return Marshaller::Marshal(Value->view());
-			}
-			void set(String^ value)
-			{
-				std::string view;
-				Value->view(Marshaller::Marshal(value, view));
-			}
+			String^ get();
+			void set(String^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -579,15 +409,8 @@ namespace ImageMagick
 		///</summary>
 		property String^ Font
 		{
-			String^ get()
-			{
-				return Marshaller::Marshal(Value->font());
-			}
-			void set(String^ value)
-			{
-				std::string font;
-				Value->font(Marshaller::Marshal(value, font));
-			}
+			String^ get();
+			void set(String^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -595,14 +418,8 @@ namespace ImageMagick
 		///</summary>
 		property double FontPointsize
 		{
-			double get()
-			{
-				return Value->fontPointsize();
-			}
-			void set(double value)
-			{
-				Value->fontPointsize(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -610,20 +427,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickFormat Format
 		{
-			MagickFormat get()
-			{
-				return EnumHelper::Parse<MagickFormat>(Marshaller::Marshal(Value->magick()), MagickFormat::Unknown);
-			}
-			void set(MagickFormat value)
-			{
-				if (value == MagickFormat::Unknown)
-					return;
-
-				std::string name;
-
-				Marshaller::Marshal(Enum::GetName(value.GetType(), value), name);
-				Value->magick(name);
-			}
+			MagickFormat get();
+			void set(MagickFormat value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -631,14 +436,8 @@ namespace ImageMagick
 		///</summary>
 		property GifDisposeMethod GifDisposeMethod
 		{
-			ImageMagick::GifDisposeMethod get()
-			{
-				return (ImageMagick::GifDisposeMethod)Value->gifDisposeMethod();
-			}
-			void set(ImageMagick::GifDisposeMethod value)
-			{
-				Value->gifDisposeMethod((int)value);
-			}
+			ImageMagick::GifDisposeMethod get();
+			void set(ImageMagick::GifDisposeMethod value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -646,14 +445,8 @@ namespace ImageMagick
 		///</summary>
 		property bool HasMatte
 		{
-			bool get()
-			{
-				return Value->matte();
-			}
-			void set(bool value)
-			{
-				Value->matte(value);
-			}
+			bool get();
+			void set(bool value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -661,10 +454,7 @@ namespace ImageMagick
 		///</summary>
 		property int Height
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->size().height());
-			}
+			int get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -672,14 +462,8 @@ namespace ImageMagick
 		///</summary>
 		property bool IsMonochrome
 		{
-			bool get()
-			{
-				return Value->monochrome();
-			}
-			void set(bool value)
-			{
-				return Value->monochrome(value);
-			}
+			bool get();
+			void set(bool value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -687,23 +471,8 @@ namespace ImageMagick
 		///</summary>
 		property String^ Label
 		{
-			String^ get()
-			{
-				std::string label = Value->label();
-				if (label.length() == 0)
-					return nullptr;
-
-				return Marshaller::Marshal(label);
-			}
-			void set(String^ value)
-			{
-				if (value == nullptr)
-					value = "";
-
-				std::string label;
-				Marshaller::Marshal(value, label);
-				Value->label(label);
-			}
+			String^ get();
+			void set(String^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -711,16 +480,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickColor^ MatteColor
 		{
-			MagickColor^ get()
-			{
-				return gcnew MagickColor(Value->matteColor());
-			}
-			void set(MagickColor^ value)
-			{
-				Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
-				Value->matteColor(*color);
-				delete color;
-			}
+			MagickColor^ get();
+			void set(MagickColor^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -729,14 +490,8 @@ namespace ImageMagick
 		///</summary>
 		property int ModulusDepth
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->modulusDepth());
-			}
-			void set(int value)
-			{
-				Value->modulusDepth(value);
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -744,14 +499,8 @@ namespace ImageMagick
 		///</summary>
 		property OrientationType Orientation
 		{
-			OrientationType get()
-			{
-				return (OrientationType)Value->orientation();
-			}
-			void set(OrientationType value)
-			{
-				Value->orientation((Magick::OrientationType)value);
-			}
+			OrientationType get();
+			void set(OrientationType value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -759,14 +508,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickGeometry^ Page
 		{
-			MagickGeometry^ get()
-			{
-				return gcnew MagickGeometry(Value->page());
-			}
-			void set(MagickGeometry^ value)
-			{
-				Value->page(value);
-			}
+			MagickGeometry^ get();
+			void set(MagickGeometry^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -774,17 +517,8 @@ namespace ImageMagick
 		///</summary>
 		property int Quality
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->quality());
-			}
-			void set(int value)
-			{
-				int quality = value < 1 ? 1 : value;
-				quality = quality > 100 ? 100 : quality;
-
-				Value->quality(quality);
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -792,14 +526,8 @@ namespace ImageMagick
 		///</summary>
 		property int QuantizeColors
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->quantizeColors());
-			}
-			void set(int value)
-			{
-				Value->quantizeColors(value);
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -807,14 +535,8 @@ namespace ImageMagick
 		///</summary>
 		property ImageMagick::ColorSpace QuantizeColorSpace
 		{
-			ImageMagick::ColorSpace get()
-			{
-				return (ImageMagick::ColorSpace)Value->quantizeColorSpace();
-			}
-			void set(ImageMagick::ColorSpace value)
-			{
-				return Value->quantizeColorSpace((MagickCore::ColorspaceType)value);
-			}
+			ImageMagick::ColorSpace get();
+			void set(ImageMagick::ColorSpace value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -822,14 +544,8 @@ namespace ImageMagick
 		///</summary>
 		property bool QuantizeDither
 		{
-			bool get()
-			{
-				return Value->quantizeDither();
-			}
-			void set(bool value)
-			{
-				Value->quantizeDither(value);
-			}
+			bool get();
+			void set(bool value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -837,14 +553,8 @@ namespace ImageMagick
 		///</summary>
 		property int QuantizeTreeDepth
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->quantizeTreeDepth());
-			}
-			void set(int value)
-			{
-				Value->quantizeTreeDepth(value);
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -852,10 +562,7 @@ namespace ImageMagick
 		///</summary>
 		property MagickWarningException^ ReadWarning
 		{
-			MagickWarningException^ get()
-			{
-				return _ReadWarning;
-			}
+			MagickWarningException^ get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -863,14 +570,8 @@ namespace ImageMagick
 		///</summary>
 		property RenderingIntent RenderingIntent
 		{
-			ImageMagick::RenderingIntent get()
-			{
-				return (ImageMagick::RenderingIntent)Value->renderingIntent();
-			}
-			void set(ImageMagick::RenderingIntent value)
-			{
-				return Value->renderingIntent((MagickCore::RenderingIntent)value);
-			}
+			ImageMagick::RenderingIntent get();
+			void set(ImageMagick::RenderingIntent value);
 		} 
 		///==========================================================================================
 		///<summary>
@@ -878,14 +579,8 @@ namespace ImageMagick
 		///</summary>
 		property Resolution ResolutionUnits
 		{
-			Resolution get()
-			{
-				return (Resolution)Value->resolutionUnits();
-			}
-			void set(Resolution value)
-			{
-				return Value->resolutionUnits((MagickCore::ResolutionType)value);
-			}
+			Resolution get();
+			void set(Resolution value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -893,10 +588,7 @@ namespace ImageMagick
 		///</summary>
 		property double ResolutionX
 		{
-			double get()
-			{
-				return Value->xResolution();
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -904,10 +596,7 @@ namespace ImageMagick
 		///</summary>
 		property double ResolutionY
 		{
-			double get()
-			{
-				return Value->yResolution();
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -915,14 +604,8 @@ namespace ImageMagick
 		///</summary>
 		property bool StrokeAntiAlias
 		{
-			bool get()
-			{
-				return Value->strokeAntiAlias();
-			}
-			void set(bool value)
-			{
-				Value->strokeAntiAlias(value);
-			}
+			bool get();
+			void set(bool value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -930,16 +613,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickColor^ StrokeColor
 		{
-			MagickColor^ get()
-			{
-				return gcnew MagickColor(Value->strokeColor());
-			}
-			void set(MagickColor^ value)
-			{
-				Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
-				Value->strokeColor(*color);
-				delete color;
-			}
+			MagickColor^ get();
+			void set(MagickColor^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -950,20 +625,8 @@ namespace ImageMagick
 		///</summary>
 		property array<double>^ StrokeDashArray
 		{
-			array<double>^ get()
-			{
-				const double* strokeDashArray = Value->strokeDashArray();
-				if (strokeDashArray == NULL)
-					return nullptr;
-
-				return Marshaller::Marshal(strokeDashArray);
-			}
-			void set(array<double>^ value)
-			{
-				double* strokeDashArray = Marshaller::MarshalAndTerminate(value);
-				Value->strokeDashArray(strokeDashArray);
-				delete[] strokeDashArray;
-			}
+			array<double>^ get();
+			void set(array<double>^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -972,14 +635,8 @@ namespace ImageMagick
 		///</summary>
 		property double StrokeDashOffset
 		{
-			double get()
-			{
-				return Value->strokeDashOffset();
-			}
-			void set(double value)
-			{
-				Value->strokeDashOffset(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -987,14 +644,8 @@ namespace ImageMagick
 		///</summary>
 		property LineCap StrokeLineCap
 		{
-			LineCap get()
-			{
-				return (LineCap)Value->strokeLineCap();
-			}
-			void set(LineCap value)
-			{
-				Value->strokeLineCap((MagickCore::LineCap)value);
-			}
+			LineCap get();
+			void set(LineCap value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -1003,14 +654,8 @@ namespace ImageMagick
 		///</summary>
 		property LineJoin StrokeLineJoin
 		{
-			LineJoin get()
-			{
-				return (LineJoin)Value->strokeLineJoin();
-			}
-			void set(LineJoin value)
-			{
-				Value->strokeLineJoin((MagickCore::LineJoin)value);
-			}
+			LineJoin get();
+			void set(LineJoin value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -1021,14 +666,8 @@ namespace ImageMagick
 		///</summary>
 		property int StrokeMiterLimit
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->strokeMiterLimit());
-			}
-			void set(int value)
-			{
-				Value->strokeMiterLimit(value);
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -1036,21 +675,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickImage^ StrokePattern
 		{
-			MagickImage^ get()
-			{
-				Magick::Image value = Value->strokePattern();
-				if (value == NULL)
-					return nullptr;
-
-				return gcnew MagickImage(value);
-			}
-			void set(MagickImage^ value)
-			{
-				if (value == nullptr)
-					Value->strokePattern(Magick::Image());
-				else
-					Value->strokePattern(*value->Value);
-			}
+			MagickImage^ get();
+			void set(MagickImage^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -1058,14 +684,8 @@ namespace ImageMagick
 		///</summary>
 		property double StrokeWidth
 		{
-			double get()
-			{
-				return Value->strokeWidth();
-			}
-			void set(double value)
-			{
-				Value->strokeWidth(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -1073,29 +693,8 @@ namespace ImageMagick
 		///</summary>
 		property Encoding^ TextEncoding
 		{
-			Encoding^ get()
-			{
-				String^ encoding = Marshaller::Marshal(Value->textEncoding());
-
-				if (String::IsNullOrEmpty(encoding))
-					return nullptr;
-
-				try
-				{
-					return Encoding::GetEncoding(encoding);
-				}
-				catch (ArgumentException^)
-				{
-					return nullptr;
-				}
-			}
-			void set(Encoding^ value)
-			{
-				String^ name = value != nullptr ? value->WebName : nullptr;
-
-				std::string encoding;
-				Value->textEncoding(Marshaller::Marshal(name, encoding));
-			}
+			Encoding^ get();
+			void set(Encoding^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -1103,15 +702,8 @@ namespace ImageMagick
 		///</summary>
 		property String^ TileName
 		{
-			String^ get()
-			{
-				return Marshaller::Marshal(Value->tileName());
-			}
-			void set(String^ value)
-			{
-				std::string tileName;
-				Value->tileName(Marshaller::Marshal(value, tileName));
-			}
+			String^ get();
+			void set(String^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -1119,10 +711,7 @@ namespace ImageMagick
 		///</summary>
 		property int TotalColors
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->totalColors());
-			}
+			int get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -1131,14 +720,8 @@ namespace ImageMagick
 		///==========================================================================================
 		property bool Verbose 
 		{
-			bool get() 
-			{
-				return Value->verbose();
-			}
-			void set(bool verbose) 
-			{
-				return Value->verbose(verbose);
-			}
+			bool get();
+			void set(bool verbose);
 		}
 		///==========================================================================================
 		///<summary>
@@ -1146,14 +729,8 @@ namespace ImageMagick
 		///</summary>
 		property VirtualPixelMethod VirtualPixelMethod
 		{
-			ImageMagick::VirtualPixelMethod get()
-			{
-				return (ImageMagick::VirtualPixelMethod)Value->virtualPixelMethod();
-			}
-			void set(ImageMagick::VirtualPixelMethod value)
-			{
-				Value->virtualPixelMethod((MagickCore::VirtualPixelMethod)value);
-			}
+			ImageMagick::VirtualPixelMethod get();
+			void set(ImageMagick::VirtualPixelMethod value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -1161,10 +738,7 @@ namespace ImageMagick
 		///</summary>
 		property int Width
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->size().width());
-			}
+			int get();
 		}
 		//===========================================================================================
 		static bool operator == (MagickImage^ left, MagickImage^ right)

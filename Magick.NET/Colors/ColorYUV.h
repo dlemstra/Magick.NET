@@ -51,17 +51,8 @@ namespace ImageMagick
 		///</summary>
 		property double U
 		{
-			double get()
-			{
-				return _U;
-			}
-			void set(double value)
-			{
-				if (value < -0.5 || value > 0.5)
-					return;
-
-				_U = value;
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -69,17 +60,8 @@ namespace ImageMagick
 		///</summary>
 		property double V
 		{
-			double get()
-			{
-				return _V;
-			}
-			void set(double value)
-			{
-				if (value < -0.5 || value > 0.5)
-					return;
-
-				_V = value;
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -87,17 +69,8 @@ namespace ImageMagick
 		///</summary>
 		property double Y
 		{
-			double get()
-			{
-				return _Y;
-			}
-			void set(double value)
-			{
-				if (value < 0.0 || value > 1.0)
-					return;
-
-				_Y = value;
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 		static operator ColorYUV^ (MagickColor^ color)

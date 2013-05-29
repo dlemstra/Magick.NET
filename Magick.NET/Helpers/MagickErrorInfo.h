@@ -39,10 +39,7 @@ namespace ImageMagick
 		///</summary>
 		property double MeanErrorPerPixel
 		{
-			double get()
-			{
-				return _MeanErrorPerPixel;
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -50,10 +47,7 @@ namespace ImageMagick
 		///</summary>
 		property double NormalizedMaximumError
 		{
-			double get()
-			{
-				return _NormalizedMaximumError;
-			}
+			double get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -61,10 +55,7 @@ namespace ImageMagick
 		///</summary>
 		property double NormalizedMeanError
 		{
-			double get()
-			{
-				return _NormalizedMeanError;
-			}
+			double get();
 		}
 		//===========================================================================================
 	};

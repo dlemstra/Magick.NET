@@ -40,10 +40,7 @@ namespace ImageMagick
 		///</summary>
 		static property ColorProfile^ SRGB
 		{
-			ColorProfile^ get()
-			{
-				return Load("ICM", "sRGB.icm");
-			}
+			ColorProfile^ get();
 		}
 		//===========================================================================================
 	};

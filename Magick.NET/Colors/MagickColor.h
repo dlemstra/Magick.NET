@@ -26,11 +26,6 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		Magick::Quantum _Red;
-		Magick::Quantum _Green;
-		Magick::Quantum _Blue;
-		Magick::Quantum _Alpha;
-		//===========================================================================================
 		void Initialize(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
 		//===========================================================================================
 		static char MagickColor::ParseHexChar(wchar_t c);
@@ -100,62 +95,22 @@ namespace ImageMagick
 		///<summary>
 		/// Alpha component value of this color.
 		///</summary>
-		property Magick::Quantum A
-		{
-			Magick::Quantum get()
-			{
-				return _Alpha;
-			}
-			void set(Magick::Quantum value)
-			{
-				_Alpha = value;
-			}
-		}
+		property Magick::Quantum A;
 		///==========================================================================================
 		///<summary>
 		/// Blue component value of this color.
 		///</summary>
-		property Magick::Quantum B
-		{
-			Magick::Quantum get()
-			{
-				return _Blue;
-			}
-			void set(Magick::Quantum value)
-			{
-				_Blue = value;
-			}
-		}
+		property Magick::Quantum B;
 		///==========================================================================================
 		///<summary>
 		/// Green component value of this color.
 		///</summary>
-		property Magick::Quantum G
-		{
-			Magick::Quantum get()
-			{
-				return _Green;
-			}
-			void set(Magick::Quantum value)
-			{
-				_Green = value;
-			}
-		}
+		property Magick::Quantum G;
 		///==========================================================================================
 		///<summary>
 		/// Red component value of this color.
 		///</summary>
-		property Magick::Quantum R
-		{
-			Magick::Quantum get()
-			{
-				return _Red;
-			}
-			void set(Magick::Quantum value)
-			{
-				_Red = value;
-			}
-		}
+		property Magick::Quantum R;
 		//===========================================================================================
 		static bool operator == (MagickColor^ left, MagickColor^ right)
 		{

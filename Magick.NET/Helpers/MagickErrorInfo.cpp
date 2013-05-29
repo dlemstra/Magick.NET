@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "MagickErrorInfo.h"
 
 namespace ImageMagick
@@ -22,6 +22,20 @@ namespace ImageMagick
 		_MeanErrorPerPixel = image->meanErrorPerPixel();
 		_NormalizedMaximumError = image->normalizedMaxError();
 		_NormalizedMeanError = image->normalizedMeanError();
+	}
+	double MagickErrorInfo::MeanErrorPerPixel::get()
+	{
+		return _MeanErrorPerPixel;
+	}
+	//==============================================================================================
+	double MagickErrorInfo::NormalizedMaximumError::get()
+	{
+		return _NormalizedMaximumError;
+	}
+	//==============================================================================================
+	double MagickErrorInfo::NormalizedMeanError::get()
+	{
+		return _NormalizedMeanError;
 	}
 	//==============================================================================================
 }

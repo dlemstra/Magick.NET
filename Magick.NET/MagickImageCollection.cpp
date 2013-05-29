@@ -115,6 +115,31 @@ namespace ImageMagick
 		this->Read(stream, readSettings);
 	}
 	//==============================================================================================
+	MagickImage^ MagickImageCollection::default::get(int index)
+	{
+		return _Images[index];
+	}
+	//==============================================================================================
+	void MagickImageCollection::default::set(int index, MagickImage^ value)
+	{
+		_Images[index] = value;
+	}
+	//==============================================================================================
+	int MagickImageCollection::Count::get()
+	{
+		return _Images->Count;
+	}
+	//==============================================================================================
+	bool MagickImageCollection::IsReadOnly::get()
+	{
+		return false;
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::ReadWarning::get()
+	{
+		return _ReadWarning;
+	}
+	//==============================================================================================
 	void MagickImageCollection::Add(MagickImage^ item)
 	{
 		_Images->Add(item);

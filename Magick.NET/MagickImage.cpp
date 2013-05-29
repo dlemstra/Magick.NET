@@ -292,6 +292,662 @@ namespace ImageMagick
 		this->Read(stream, readSettings);
 	}
 	//==============================================================================================
+	bool MagickImage::Adjoin::get()
+	{
+		return Value->adjoin();
+	}
+	//==============================================================================================
+	void MagickImage::Adjoin::set(bool value)
+	{
+		Value->adjoin(value);
+	}
+	//==============================================================================================
+	int MagickImage::AnimationDelay::get()
+	{
+		return Convert::ToInt32(Value->animationDelay());
+	}
+	//==============================================================================================
+	void MagickImage::AnimationDelay::set(int value)
+	{
+		Value->animationDelay(value);
+	}
+	//==============================================================================================
+	int MagickImage::AnimationIterations::get()
+	{
+		return Convert::ToInt32(Value->animationIterations());
+	}
+	//==============================================================================================
+	void MagickImage::AnimationIterations::set(int value)
+	{
+		Value->animationIterations(value);
+	}
+	//==============================================================================================
+	bool MagickImage::AntiAlias::get()
+	{
+		return Value->antiAlias();
+	}
+	//==============================================================================================
+	void MagickImage::AntiAlias::set(bool value)
+	{
+		Value->antiAlias(value);
+	}
+	//==============================================================================================
+	MagickColor^ MagickImage::BackgroundColor::get()
+	{
+		return gcnew MagickColor(Value->backgroundColor());
+	}
+	//==============================================================================================
+	void MagickImage::BackgroundColor::set(MagickColor^ value)
+	{
+		Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		Value->backgroundColor(*color);
+		delete color;
+	}
+	//==============================================================================================
+	int MagickImage::BaseHeight::get()
+	{
+		return Convert::ToInt32(Value->baseRows());
+	}
+	//==============================================================================================
+	int MagickImage::BaseWidth::get()
+	{
+		return Convert::ToInt32(Value->baseColumns());
+	}
+	//==============================================================================================
+	MagickGeometry^ MagickImage::BoundingBox::get()
+	{
+		return gcnew MagickGeometry(Value->boundingBox());
+	}
+	//==============================================================================================
+	MagickColor^ MagickImage::BorderColor::get()
+	{
+		return gcnew MagickColor(Value->borderColor());
+	}
+	//==============================================================================================
+	void MagickImage::BorderColor::set(MagickColor^ value)
+	{
+		Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		Value->borderColor(*color);
+		delete color;
+	}
+	//==============================================================================================
+	ClassType MagickImage::ClassType::get()
+	{
+		return (ImageMagick::ClassType)Value->classType();
+	}
+	//==============================================================================================
+	void MagickImage::ClassType::set(ImageMagick::ClassType value)
+	{
+		return Value->classType((MagickCore::ClassType)value);
+	}
+	//==============================================================================================
+	MagickImage^ MagickImage::ClipMask::get()
+	{
+		return gcnew MagickImage(Magick::Image(Value->clipMask()));
+	}
+	//==============================================================================================
+	void MagickImage::ClipMask::set(MagickImage^ value)
+	{
+		if (value == nullptr)
+		{
+			Magick::Image* image = new Magick::Image();
+			Value->clipMask(*image);
+			delete image;
+		}
+		else
+		{
+			Value->clipMask(*value->Value);
+		}
+	}
+	//==============================================================================================
+	double MagickImage::ColorFuzz::get()
+	{
+		return Value->colorFuzz();
+	}
+	//==============================================================================================
+	void MagickImage::ColorFuzz::set(double value)
+	{
+		Value->colorFuzz(value);
+	}
+	//==============================================================================================
+	int MagickImage::ColorMapSize::get()
+	{
+		return Convert::ToInt32(Value->colorMapSize());
+	}
+	//==============================================================================================
+	void MagickImage::ColorMapSize::set(int value)
+	{
+		Value->colorMapSize(value);
+	}
+	//==============================================================================================
+	ColorSpace MagickImage::ColorSpace::get()
+	{
+		return (ImageMagick::ColorSpace)Value->colorSpace();
+	}
+	//==============================================================================================
+	void MagickImage::ColorSpace::set(ImageMagick::ColorSpace value)
+	{
+		return Value->colorSpace((MagickCore::ColorspaceType)value);
+	}
+	//==============================================================================================
+	ColorType MagickImage::ColorType::get()
+	{
+		return (ImageMagick::ColorType)Value->type();
+	}
+	//==============================================================================================
+	void MagickImage::ColorType::set(ImageMagick::ColorType value)
+	{
+		return Value->type((MagickCore::ImageType)value);
+	}
+	//==============================================================================================
+	String^ MagickImage::Comment::get()
+	{
+		return Marshaller::Marshal(Value->comment());
+	}
+	//==============================================================================================
+	void MagickImage::Comment::set(String^ value)
+	{
+		std::string comment; 
+		Value->comment(Marshaller::Marshal(value, comment));
+	}
+	//==============================================================================================
+	CompositeOperator MagickImage::Compose::get()
+	{
+		return (CompositeOperator)Value->compose();
+	}
+	//==============================================================================================
+	void MagickImage::Compose::set(CompositeOperator value)
+	{
+		Value->compose((Magick::CompositeOperator)value);
+	}
+	//==============================================================================================
+	MagickGeometry^ MagickImage::Density::get()
+	{
+		return gcnew MagickGeometry(Value->density());
+	}
+	//==============================================================================================
+	void MagickImage::Density::set(MagickGeometry^ value)
+	{
+		if (value == nullptr)
+			return;
+
+		Value->density(value);
+	}
+	//==============================================================================================
+	Endian MagickImage::Endian::get()
+	{
+		return (ImageMagick::Endian)Value->endian();
+	}
+	//==============================================================================================
+	void MagickImage::Endian::set(ImageMagick::Endian value)
+	{
+		Value->endian((MagickCore::EndianType)value);
+	}
+	//==============================================================================================
+	int MagickImage::FileSize::get()
+	{
+		return Value->fileSize();
+	}
+	//==============================================================================================
+	String^ MagickImage::FileName::get()
+	{
+		return Marshaller::Marshal(Value->baseFilename());
+	}
+	//==============================================================================================
+	MagickColor^ MagickImage::FillColor::get()
+	{
+		return gcnew MagickColor(Value->fillColor());
+	}
+	//==============================================================================================
+	void MagickImage::FillColor::set(MagickColor^ value)
+	{
+		Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		Value->fillColor(*color);
+		delete color;
+	}
+	//==============================================================================================
+	MagickImage^ MagickImage::FillPattern::get()
+	{
+		return gcnew MagickImage(Magick::Image(Value->fillPattern()));
+	}
+	//==============================================================================================
+	void MagickImage::FillPattern::set(MagickImage^ value)
+	{
+		if (value == nullptr)
+		{
+			Magick::Image* image = new Magick::Image();
+			Value->fillPattern(*image);
+			delete image;
+		}
+		else
+		{
+			Value->fillPattern(*value->Value);
+		}
+	}
+	//==============================================================================================
+	FillRule MagickImage::FillRule::get()
+	{
+		return (ImageMagick::FillRule)Value->fillRule();
+	}
+	//==============================================================================================
+	void MagickImage::FillRule::set(ImageMagick::FillRule value)
+	{
+		Value->fillRule((Magick::FillRule)value);
+	}
+	//==============================================================================================
+	FilterType MagickImage::FilterType::get()
+	{
+		return (ImageMagick::FilterType)Value->filterType();
+	}
+	//==============================================================================================
+	void MagickImage::FilterType::set(ImageMagick::FilterType value)
+	{
+		Value->filterType((Magick::FilterTypes)value);
+	}
+	//==============================================================================================
+	String^ MagickImage::FlashPixView::get()
+	{
+		return Marshaller::Marshal(Value->view());
+	}
+	//==============================================================================================
+	void MagickImage::FlashPixView::set(String^ value)
+	{
+		std::string view;
+		Value->view(Marshaller::Marshal(value, view));
+	}
+	//==============================================================================================
+	String^ MagickImage::Font::get()
+	{
+		return Marshaller::Marshal(Value->font());
+	}
+	//==============================================================================================
+	void MagickImage::Font::set(String^ value)
+	{
+		std::string font;
+		Value->font(Marshaller::Marshal(value, font));
+	}
+	//==============================================================================================
+	double MagickImage::FontPointsize::get()
+	{
+		return Value->fontPointsize();
+	}
+	//==============================================================================================
+	void MagickImage::FontPointsize::set(double value)
+	{
+		Value->fontPointsize(value);
+	}
+	//==============================================================================================
+	MagickFormat MagickImage::Format::get()
+	{
+		return EnumHelper::Parse<MagickFormat>(Marshaller::Marshal(Value->magick()), MagickFormat::Unknown);
+	}
+	//==============================================================================================
+	void MagickImage::Format::set(MagickFormat value)
+	{
+		if (value == MagickFormat::Unknown)
+			return;
+
+		std::string name;
+
+		Marshaller::Marshal(Enum::GetName(value.GetType(), value), name);
+		Value->magick(name);
+	}
+	//==============================================================================================
+	GifDisposeMethod MagickImage::GifDisposeMethod::get()
+	{
+		return (ImageMagick::GifDisposeMethod)Value->gifDisposeMethod();
+	}
+	//==============================================================================================
+	void MagickImage::GifDisposeMethod::set(ImageMagick::GifDisposeMethod value)
+	{
+		Value->gifDisposeMethod((int)value);
+	}
+	//==============================================================================================
+	bool MagickImage::HasMatte::get()
+	{
+		return Value->matte();
+	}
+	//==============================================================================================
+	void MagickImage::HasMatte::set(bool value)
+	{
+		Value->matte(value);
+	}
+	//==============================================================================================
+	int MagickImage::Height::get()
+	{
+		return Convert::ToInt32(Value->size().height());
+	}
+	//==============================================================================================
+	bool MagickImage::IsMonochrome::get()
+	{
+		return Value->monochrome();
+	}
+	//==============================================================================================
+	void MagickImage::IsMonochrome::set(bool value)
+	{
+		return Value->monochrome(value);
+	}
+	//==============================================================================================
+	String^ MagickImage::Label::get()
+	{
+		std::string label = Value->label();
+		if (label.length() == 0)
+			return nullptr;
+
+		return Marshaller::Marshal(label);
+	}
+	//==============================================================================================
+	void MagickImage::Label::set(String^ value)
+	{
+		if (value == nullptr)
+			value = "";
+
+		std::string label;
+		Marshaller::Marshal(value, label);
+		Value->label(label);
+	}
+	//==============================================================================================
+	MagickColor^ MagickImage::MatteColor::get()
+	{
+		return gcnew MagickColor(Value->matteColor());
+	}
+	//==============================================================================================
+	void MagickImage::MatteColor::set(MagickColor^ value)
+	{
+		Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		Value->matteColor(*color);
+		delete color;
+	}
+	//==============================================================================================
+	int MagickImage::ModulusDepth::get()
+	{
+		return Convert::ToInt32(Value->modulusDepth());
+	}
+	//==============================================================================================
+	void MagickImage::ModulusDepth::set(int value)
+	{
+		Value->modulusDepth(value);
+	}
+	//==============================================================================================
+	OrientationType MagickImage::Orientation::get()
+	{
+		return (OrientationType)Value->orientation();
+	}
+	//==============================================================================================
+	void MagickImage::Orientation::set(OrientationType value)
+	{
+		Value->orientation((Magick::OrientationType)value);
+	}
+	//==============================================================================================
+	MagickGeometry^ MagickImage::Page::get()
+	{
+		return gcnew MagickGeometry(Value->page());
+	}
+	//==============================================================================================
+	void MagickImage::Page::set(MagickGeometry^ value)
+	{
+		Value->page(value);
+	}
+	//==============================================================================================
+	int MagickImage::Quality::get()
+	{
+		return Convert::ToInt32(Value->quality());
+	}
+	//==============================================================================================
+	void MagickImage::Quality::set(int value)
+	{
+		int quality = value < 1 ? 1 : value;
+		quality = quality > 100 ? 100 : quality;
+
+		Value->quality(quality);
+	}
+	//==============================================================================================
+	int MagickImage::QuantizeColors::get()
+	{
+		return Convert::ToInt32(Value->quantizeColors());
+	}
+	//==============================================================================================
+	void MagickImage::QuantizeColors::set(int value)
+	{
+		Value->quantizeColors(value);
+	}
+	//==============================================================================================
+	ImageMagick::ColorSpace MagickImage::QuantizeColorSpace::get()
+	{
+		return (ImageMagick::ColorSpace)Value->quantizeColorSpace();
+	}
+	//==============================================================================================
+	void MagickImage::QuantizeColorSpace::set(ImageMagick::ColorSpace value)
+	{
+		return Value->quantizeColorSpace((MagickCore::ColorspaceType)value);
+	}
+	//==============================================================================================
+	bool MagickImage::QuantizeDither::get()
+	{
+		return Value->quantizeDither();
+	}
+	//==============================================================================================
+	void MagickImage::QuantizeDither::set(bool value)
+	{
+		Value->quantizeDither(value);
+	}
+	//==============================================================================================
+	int MagickImage::QuantizeTreeDepth::get()
+	{
+		return Convert::ToInt32(Value->quantizeTreeDepth());
+	}
+	//==============================================================================================
+	void MagickImage::QuantizeTreeDepth::set(int value)
+	{
+		Value->quantizeTreeDepth(value);
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImage::ReadWarning::get()
+	{
+		return _ReadWarning;
+	}
+	//==============================================================================================
+	RenderingIntent MagickImage::RenderingIntent::get()
+	{
+		return (ImageMagick::RenderingIntent)Value->renderingIntent();
+	}
+	//==============================================================================================
+	void MagickImage::RenderingIntent::set(ImageMagick::RenderingIntent value)
+	{
+		return Value->renderingIntent((MagickCore::RenderingIntent)value);
+	}
+	//==============================================================================================
+	Resolution MagickImage::ResolutionUnits::get()
+	{
+		return (Resolution)Value->resolutionUnits();
+	}
+	//==============================================================================================
+	void MagickImage::ResolutionUnits::set(Resolution value)
+	{
+		return Value->resolutionUnits((MagickCore::ResolutionType)value);
+	}
+	//==============================================================================================
+	double MagickImage::ResolutionX::get()
+	{
+		return Value->xResolution();
+	}
+	//==============================================================================================
+	double MagickImage::ResolutionY::get()
+	{
+		return Value->yResolution();
+	}
+	//==============================================================================================
+	bool MagickImage::StrokeAntiAlias::get()
+	{
+		return Value->strokeAntiAlias();
+	}
+	//==============================================================================================
+	void MagickImage::StrokeAntiAlias::set(bool value)
+	{
+		Value->strokeAntiAlias(value);
+	}
+	//==============================================================================================
+	MagickColor^ MagickImage::StrokeColor::get()
+	{
+		return gcnew MagickColor(Value->strokeColor());
+	}
+	//==============================================================================================
+	void MagickImage::StrokeColor::set(MagickColor^ value)
+	{
+		Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		Value->strokeColor(*color);
+		delete color;
+	}
+	//==============================================================================================
+	array<double>^ MagickImage::StrokeDashArray::get()
+	{
+		const double* strokeDashArray = Value->strokeDashArray();
+		if (strokeDashArray == NULL)
+			return nullptr;
+
+		return Marshaller::Marshal(strokeDashArray);
+	}
+	//==============================================================================================
+	void MagickImage::StrokeDashArray::set(array<double>^ value)
+	{
+		double* strokeDashArray = Marshaller::MarshalAndTerminate(value);
+		Value->strokeDashArray(strokeDashArray);
+		delete[] strokeDashArray;
+	}
+	//==============================================================================================
+	double MagickImage::StrokeDashOffset::get()
+	{
+		return Value->strokeDashOffset();
+	}
+	//==============================================================================================
+	void MagickImage::StrokeDashOffset::set(double value)
+	{
+		Value->strokeDashOffset(value);
+	}
+	//==============================================================================================
+	LineCap MagickImage::StrokeLineCap::get()
+	{
+		return (LineCap)Value->strokeLineCap();
+	}
+	//==============================================================================================
+	void MagickImage::StrokeLineCap::set(LineCap value)
+	{
+		Value->strokeLineCap((MagickCore::LineCap)value);
+	}
+	//==============================================================================================
+	LineJoin MagickImage::StrokeLineJoin::get()
+	{
+		return (LineJoin)Value->strokeLineJoin();
+	}
+	//==============================================================================================
+	void MagickImage::StrokeLineJoin::set(LineJoin value)
+	{
+		Value->strokeLineJoin((MagickCore::LineJoin)value);
+	}
+	//==============================================================================================
+	int MagickImage::StrokeMiterLimit::get()
+	{
+		return Convert::ToInt32(Value->strokeMiterLimit());
+	}
+	//==============================================================================================
+	void MagickImage::StrokeMiterLimit::set(int value)
+	{
+		Value->strokeMiterLimit(value);
+	}
+	//==============================================================================================
+	MagickImage^ MagickImage::StrokePattern::get()
+	{
+		Magick::Image value = Value->strokePattern();
+		if (value == NULL)
+			return nullptr;
+
+		return gcnew MagickImage(value);
+	}
+	//==============================================================================================
+	void MagickImage::StrokePattern::set(MagickImage^ value)
+	{
+		if (value == nullptr)
+			Value->strokePattern(Magick::Image());
+		else
+			Value->strokePattern(*value->Value);
+	}
+	//==============================================================================================
+	double MagickImage::StrokeWidth::get()
+	{
+		return Value->strokeWidth();
+	}
+	//==============================================================================================
+	void MagickImage::StrokeWidth::set(double value)
+	{
+		Value->strokeWidth(value);
+	}
+	//==============================================================================================
+	Encoding^ MagickImage::TextEncoding::get()
+	{
+		String^ encoding = Marshaller::Marshal(Value->textEncoding());
+
+		if (String::IsNullOrEmpty(encoding))
+			return nullptr;
+
+		try
+		{
+			return Encoding::GetEncoding(encoding);
+		}
+		catch (ArgumentException^)
+		{
+			return nullptr;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::TextEncoding::set(Encoding^ value)
+	{
+		String^ name = value != nullptr ? value->WebName : nullptr;
+
+		std::string encoding;
+		Value->textEncoding(Marshaller::Marshal(name, encoding));
+	}
+	//==============================================================================================
+	String^ MagickImage::TileName::get()
+	{
+		return Marshaller::Marshal(Value->tileName());
+	}
+	//==============================================================================================
+	void MagickImage::TileName::set(String^ value)
+	{
+		std::string tileName;
+		Value->tileName(Marshaller::Marshal(value, tileName));
+	}
+	//==============================================================================================
+	int MagickImage::TotalColors::get()
+	{
+		return Convert::ToInt32(Value->totalColors());
+	}
+	//==============================================================================================
+	bool MagickImage::Verbose::get() 
+	{
+		return Value->verbose();
+	}
+	//==============================================================================================
+	void MagickImage::Verbose::set(bool verbose) 
+	{
+		return Value->verbose(verbose);
+	}
+	//==============================================================================================
+	VirtualPixelMethod MagickImage::VirtualPixelMethod::get()
+	{
+		return (ImageMagick::VirtualPixelMethod)Value->virtualPixelMethod();
+	}
+	//==============================================================================================
+	void MagickImage::VirtualPixelMethod::set(ImageMagick::VirtualPixelMethod value)
+	{
+		Value->virtualPixelMethod((MagickCore::VirtualPixelMethod)value);
+	}
+	//==============================================================================================
+	int MagickImage::Width::get()
+	{
+		return Convert::ToInt32(Value->size().width());
+	}
+	//==============================================================================================
 	void MagickImage::AdaptiveBlur()
 	{
 		AdaptiveBlur(0.0, 1.0);

@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "ColorCMYK.h"
 
 namespace ImageMagick
@@ -36,6 +36,46 @@ namespace ImageMagick
 		: ColorBase(true)
 	{
 		Value->Initialize(color);
+	}
+	//==============================================================================================
+	Magick::Quantum ColorCMYK::C::get()
+	{
+		return Value->R;
+	}
+	//==============================================================================================
+	void ColorCMYK::C::set(Magick::Quantum value)
+	{
+		Value->R = value;
+	}
+	//==============================================================================================
+	Magick::Quantum ColorCMYK::K::get()
+	{
+		return Value->A;
+	}
+	//==============================================================================================
+	void ColorCMYK::K::set(Magick::Quantum value)
+	{
+		Value->A = value;
+	}
+	//==============================================================================================
+	Magick::Quantum ColorCMYK::M::get()
+	{
+		return Value->G;
+	}
+	//==============================================================================================
+	void ColorCMYK::M::set(Magick::Quantum value)
+	{
+		Value->G = value;
+	}
+	//==============================================================================================
+	Magick::Quantum ColorCMYK::Y::get()
+	{
+		return Value->B;
+	}
+	//==============================================================================================
+	void ColorCMYK::Y::set(Magick::Quantum value)
+	{
+		Value->B = value;
 	}
 	//==============================================================================================
 	ColorCMYK^ ColorCMYK::FromMagickColor(MagickColor^ color)

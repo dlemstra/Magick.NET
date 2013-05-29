@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "ColorMono.h"
 
 namespace ImageMagick
@@ -20,12 +20,12 @@ namespace ImageMagick
 	ColorMono::ColorMono(MagickColor^ color)
 		: ColorBase(false, color)
 	{
-		_IsBlack = color->R == 0;
+		IsBlack = color->R == 0;
 	}
 	//==============================================================================================
 	void ColorMono::UpdateValue()
 	{
-		Magick::Quantum color =  _IsBlack ? 0 : MaxMap;
+		Magick::Quantum color =  IsBlack ? 0 : MaxMap;
 		Value->R = color;
 		Value->G = color;
 		Value->B = color;
@@ -34,7 +34,7 @@ namespace ImageMagick
 	ColorMono::ColorMono(bool isBlack)
 		: ColorBase(false)
 	{
-		_IsBlack = isBlack;
+		IsBlack = isBlack;
 	}
 	//==============================================================================================
 	ColorMono^ ColorMono::FromMagickColor(MagickColor^ color)

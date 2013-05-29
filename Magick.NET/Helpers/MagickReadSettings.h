@@ -27,13 +27,6 @@ namespace ImageMagick
 	public ref class MagickReadSettings sealed
 	{
 		//===========================================================================================
-	private:
-		//===========================================================================================
-		Nullable<ColorSpace> _ColorSpace;
-		MagickGeometry^ _Density;
-		Nullable<int> _Height;
-		Nullable<int> _Width;
-		//===========================================================================================
 	internal:
 		//===========================================================================================
 		bool Ping;
@@ -43,62 +36,22 @@ namespace ImageMagick
 		///<summary>
 		/// Color space.
 		///</summary>
-		property Nullable<ColorSpace> ColorSpace
-		{
-			Nullable<ImageMagick::ColorSpace> get()
-			{
-				return _ColorSpace;
-			}
-			void set(Nullable<ImageMagick::ColorSpace> value)
-			{
-				_ColorSpace = value;
-			}
-		}
+		property Nullable<ColorSpace> ColorSpace;
 		///==========================================================================================
 		///<summary>
 		/// Vertical and horizontal resolution in pixels.
 		///</summary>
-		property MagickGeometry^ Density
-		{
-			MagickGeometry^ get()
-			{
-				return _Density;
-			}
-			void set(MagickGeometry^ value)
-			{
-				_Density = value;
-			}
-		}
+		property MagickGeometry^ Density;
 		///==========================================================================================
 		///<summary>
 		/// The height.
 		///</summary>
-		property Nullable<int> Height
-		{
-			Nullable<int> get()
-			{
-				return _Height;
-			}
-			void set(Nullable<int> value)
-			{
-				_Height = value;
-			}
-		}
+		property Nullable<int> Height;
 		///==========================================================================================
 		///<summary>
 		/// The width.
 		///</summary>
-		property Nullable<int> Width
-		{
-			Nullable<int> get()
-			{
-				return _Width;
-			}
-			void set(Nullable<int> value)
-			{
-				_Width = value;
-			}
-		}
+		property Nullable<int> Width;
 		//===========================================================================================
 	};
 	//==============================================================================================

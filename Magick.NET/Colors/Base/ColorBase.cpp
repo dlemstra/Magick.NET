@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "ColorBase.h"
 
 namespace ImageMagick
@@ -35,6 +35,11 @@ namespace ImageMagick
 			_Value->A = 0;
 
 		_HasAlpha = hasAlpha;
+	}
+	//==============================================================================================
+	MagickColor^ColorBase::Value::get()
+	{
+		return _Value;
 	}
 	//==============================================================================================
 	void ColorBase::UpdateValue()

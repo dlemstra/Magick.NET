@@ -39,10 +39,7 @@ namespace ImageMagick
 		//===========================================================================================
 		property array<Magick::Quantum>^ Value
 		{
-			array<Magick::Quantum>^ get()
-			{
-				return _Value;
-			}
+			array<Magick::Quantum>^ get();
 		}
 		//===========================================================================================
 		static Pixel^ Create(int x, int y, array<Magick::Quantum>^ value);
@@ -70,14 +67,8 @@ namespace ImageMagick
 		///</summary>
 		property Magick::Quantum default[int]
 		{
-			Magick::Quantum get(int channel)
-			{
-				return GetChannel(channel);
-			}
-			void set(int channel, Magick::Quantum value)
-			{
-				SetChannel(channel, value);
-			}
+			Magick::Quantum get(int channel);
+			void set(int channel, Magick::Quantum value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -85,10 +76,7 @@ namespace ImageMagick
 		///</summary>
 		property int Channels
 		{
-			int get()
-			{
-				return _Value->Length;
-			}
+			int get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -96,17 +84,8 @@ namespace ImageMagick
 		///</summary>
 		property int X
 		{
-			int get()
-			{
-				return _X;
-			}
-			void set(int value)
-			{
-				if (value < 0)
-					return;
-
-				_X = value;
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -114,17 +93,8 @@ namespace ImageMagick
 		///</summary>
 		property int Y
 		{
-			int get()
-			{
-				return _Y;
-			}
-			void set(int value)
-			{
-				if (value < 0)
-					return;
-
-				_Y = value;
-			}
+			int get();
+			void set(int value);
 		}
 		///==========================================================================================
 		///<summary>

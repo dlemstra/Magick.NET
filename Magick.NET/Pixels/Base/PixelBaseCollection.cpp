@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "PixelBaseCollection.h"
 
 namespace ImageMagick
@@ -22,6 +22,19 @@ namespace ImageMagick
 		_Collection = collection;
 
 		Reset();
+	}
+	//==============================================================================================
+	Pixel^ PixelBaseCollection::PixelBaseCollectionEnumerator::Current::get()
+	{
+		if (_X == -1)
+			return nullptr;
+
+		return _Collection->CreatePixel(_X, _Y);
+	}
+	//==============================================================================================
+	Object^ PixelBaseCollection::PixelBaseCollectionEnumerator::Current2::get()
+	{
+		return Current;
 	}
 	//==============================================================================================
 	bool PixelBaseCollection::PixelBaseCollectionEnumerator::MoveNext()
@@ -79,6 +92,16 @@ namespace ImageMagick
 		_Height = height;
 	}
 	//==============================================================================================
+	Magick::IndexPacket* PixelBaseCollection::Indexes::get()
+	{
+		return _Indexes;
+	}
+	//===========================================================================================
+	Magick::Pixels* PixelBaseCollection::View::get()
+	{
+		return _View;
+	}
+	//==============================================================================================
 	void PixelBaseCollection::CheckIndex(int x, int y)
 	{
 		Throw::IfFalse("x", x >= 0 && x < _Width, "Invalid X coordinate.");
@@ -94,6 +117,26 @@ namespace ImageMagick
 	{
 		_Indexes = _View->indexes();
 		_Channels = _Indexes == NULL ? 4 : 5;
+	}
+	//==============================================================================================
+	Pixel^ PixelBaseCollection::default::get(int x, int y)
+	{
+		return GetPixel(x, y);
+	}
+	//==============================================================================================
+	int PixelBaseCollection::Channels::get()
+	{
+		return _Channels;
+	}
+	//==============================================================================================
+	int PixelBaseCollection::Height::get()
+	{
+		return _Height;
+	}
+	//==============================================================================================
+	int PixelBaseCollection::Width::get()
+	{
+		return _Width;
 	}
 	//==============================================================================================
 	IEnumerator<Pixel^>^ PixelBaseCollection::GetEnumerator()

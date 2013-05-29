@@ -35,6 +35,11 @@ namespace ImageMagick
 			Indexes[index] = value[4];
 	}
 	//==============================================================================================
+	const Magick::PixelPacket* WritablePixelCollection::Pixels::get()
+	{
+		return _Pixels;
+	}
+	//==============================================================================================
 	WritablePixelCollection::WritablePixelCollection(Magick::Image* image, int x, int y, int width, int height)
 		: PixelBaseCollection(image, width, height)
 	{

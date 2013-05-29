@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "Pixel.h"
 
 namespace ImageMagick
@@ -31,6 +31,11 @@ namespace ImageMagick
 		_X = x;
 		_Y = y;
 		_Value = value;
+	}
+	//==============================================================================================
+	array<Magick::Quantum>^ Pixel::Value::get()
+	{
+		return _Value;
 	}
 	//==============================================================================================
 	Pixel^ Pixel::Create(int x, int y, array<Magick::Quantum>^ value)
@@ -53,6 +58,47 @@ namespace ImageMagick
 		CheckChannels(value->Length);
 
 		Initialize(x, y, value);
+	}
+	//==============================================================================================
+	Magick::Quantum Pixel::default::get(int channel)
+	{
+		return GetChannel(channel);
+	}
+	//==============================================================================================
+	void Pixel::default::set(int channel, Magick::Quantum value)
+	{
+		SetChannel(channel, value);
+	}
+	//==============================================================================================
+	int Pixel::Channels::get()
+	{
+		return _Value->Length;
+	}
+	//==============================================================================================
+	int Pixel::X::get()
+	{
+		return _X;
+	}
+	//==============================================================================================
+	void Pixel::X::set(int value)
+	{
+		if (value < 0)
+			return;
+
+		_X = value;
+	}
+	//==============================================================================================
+	int Pixel::Y::get()
+	{
+		return _Y;
+	}
+	//==============================================================================================
+	void Pixel::Y::set(int value)
+	{
+		if (value < 0)
+			return;
+
+		_Y = value;
 	}
 	//==============================================================================================
 	Magick::Quantum Pixel::GetChannel(int channel)

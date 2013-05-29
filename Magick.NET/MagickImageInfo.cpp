@@ -48,6 +48,31 @@ namespace ImageMagick
 		Read(stream);
 	}
 	//==============================================================================================
+	ColorSpace MagickImageInfo::ColorSpace::get()
+	{
+		return _ColorSpace;
+	}
+	//==============================================================================================
+	String^ MagickImageInfo::FileName::get()
+	{
+		return _FileName;
+	}
+	//==============================================================================================
+	MagickFormat MagickImageInfo::Format::get()
+	{
+		return _Format;
+	}
+	//==============================================================================================
+	int MagickImageInfo::Height::get()
+	{
+		return _Height;
+	}
+	//==============================================================================================
+	int MagickImageInfo::Width::get()
+	{
+		return _Width;
+	}
+	//==============================================================================================
 	int MagickImageInfo::CompareTo(MagickImageInfo^ other)
 	{
 		if (ReferenceEquals(other, nullptr))

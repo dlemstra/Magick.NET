@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "ColorProfiles.h"
 
 using namespace System::IO;
@@ -35,6 +35,11 @@ namespace ImageMagick
 		Monitor::Exit(_SyncRoot);
 
 		return _Profiles[resourceName];
+	}
+	//==============================================================================================
+	ColorProfile^ ColorProfiles::SRGB::get()
+	{
+		return Load("ICM", "sRGB.icm");
 	}
 	//==============================================================================================
 }

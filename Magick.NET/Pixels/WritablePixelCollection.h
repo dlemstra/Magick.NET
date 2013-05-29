@@ -38,10 +38,7 @@ namespace ImageMagick
 		//===========================================================================================
 		property const Magick::PixelPacket* Pixels
 		{
-			virtual const Magick::PixelPacket* get() override sealed
-			{
-				return _Pixels;
-			}
+			virtual const Magick::PixelPacket* get() override sealed;
 		}
 		//===========================================================================================
 	internal:
