@@ -45,14 +45,8 @@ namespace ImageMagick
 		///</summary>
 		property double CenterX
 		{
-			double get()
-			{
-				return Value->centerX();
-			}
-			void set(double value)
-			{
-				Value->centerX(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -60,14 +54,8 @@ namespace ImageMagick
 		///</summary>
 		property double CenterY
 		{
-			double get()
-			{
-				return Value->centerY();
-			}
-			void set(double value)
-			{
-				Value->centerY(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -75,14 +63,8 @@ namespace ImageMagick
 		///</summary>
 		property double CornerHeight
 		{
-			double get()
-			{
-				return Value->cornerHeight();
-			}
-			void set(double value)
-			{
-				Value->cornerHeight(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -90,14 +72,8 @@ namespace ImageMagick
 		///</summary>
 		property double CornerWidth
 		{
-			double get()
-			{
-				return Value->cornerWidth();
-			}
-			void set(double value)
-			{
-				Value->cornerWidth(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -105,14 +81,8 @@ namespace ImageMagick
 		///</summary>
 		property double Height
 		{
-			double get()
-			{
-				return Value->hight();
-			}
-			void set(double value)
-			{
-				Value->hight(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -120,14 +90,8 @@ namespace ImageMagick
 		///</summary>
 		property double Width
 		{
-			double get()
-			{
-				return Value->width();
-			}
-			void set(double value)
-			{
-				Value->width(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

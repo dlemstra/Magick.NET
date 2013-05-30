@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableStrokeColor.h"
 
 namespace ImageMagick
@@ -32,6 +32,18 @@ namespace ImageMagick
 	DrawableStrokeColor::DrawableStrokeColor(MagickColor^ color)
 	{
 		Initialize(color);
+	}
+	//==============================================================================================
+	MagickColor^ DrawableStrokeColor::Color::get()
+	{
+		return gcnew MagickColor(Value->color());
+	}
+	//==============================================================================================
+	void DrawableStrokeColor::Color::set(MagickColor^ value)
+	{
+		Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		Value->color(*color);
+		delete color;
 	}
 	//==============================================================================================
 }

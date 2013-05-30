@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableGravity.h"
 
 namespace ImageMagick
@@ -20,6 +20,16 @@ namespace ImageMagick
 	DrawableGravity::DrawableGravity(ImageMagick::Gravity gravity)
 	{
 		BaseValue = new Magick::DrawableGravity((MagickCore::GravityType)gravity);
+	}
+	//==============================================================================================
+	ImageMagick::Gravity DrawableGravity::Gravity::get()
+	{
+		return (ImageMagick::Gravity)Value->gravity();
+	}
+	//==============================================================================================
+	void DrawableGravity::Gravity::set(ImageMagick::Gravity value)
+	{
+		Value->gravity((MagickCore::GravityType)value);
 	}
 	//==============================================================================================
 }

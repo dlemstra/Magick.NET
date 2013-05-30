@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableDashOffset.h"
 
 namespace ImageMagick
@@ -20,6 +20,16 @@ namespace ImageMagick
 	DrawableDashOffset::DrawableDashOffset(double offset)
 	{
 		BaseValue = new Magick::DrawableDashOffset(offset);
+	}
+	//==============================================================================================
+	double DrawableDashOffset::Offset::get()
+	{
+		return Value->offset();
+	}
+	//==============================================================================================
+	void DrawableDashOffset::Offset::set(double value)
+	{
+		Value->offset(value);
 	}
 	//==============================================================================================
 }

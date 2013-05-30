@@ -43,14 +43,8 @@ namespace ImageMagick
 		///</summary>
 		property double EndDegrees
 		{
-			double get()
-			{
-				return Value->endDegrees();
-			}
-			void set(double value)
-			{
-				Value->endDegrees(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -58,14 +52,8 @@ namespace ImageMagick
 		///</summary>
 		property double EndX
 		{
-			double get()
-			{
-				return Value->endX();
-			}
-			void set(double value)
-			{
-				Value->endX(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -73,14 +61,8 @@ namespace ImageMagick
 		///</summary>
 		property double EndY
 		{
-			double get()
-			{
-				return Value->endY();
-			}
-			void set(double value)
-			{
-				Value->endY(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -88,14 +70,8 @@ namespace ImageMagick
 		///</summary>
 		property double StartDegrees
 		{
-			double get()
-			{
-				return Value->startDegrees();
-			}
-			void set(double value)
-			{
-				Value->startDegrees(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -103,14 +79,8 @@ namespace ImageMagick
 		///</summary>
 		property double StartX
 		{
-			double get()
-			{
-				return Value->startX();
-			}
-			void set(double value)
-			{
-				Value->startX(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -118,14 +88,8 @@ namespace ImageMagick
 		///</summary>
 		property double StartY
 		{
-			double get()
-			{
-				return Value->startY();
-			}
-			void set(double value)
-			{
-				Value->startY(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

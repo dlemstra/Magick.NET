@@ -37,14 +37,8 @@ namespace ImageMagick
 		///</summary>
 		property double Offset
 		{
-			double get()
-			{
-				return Value->offset();
-			}
-			void set(double value)
-			{
-				Value->offset(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

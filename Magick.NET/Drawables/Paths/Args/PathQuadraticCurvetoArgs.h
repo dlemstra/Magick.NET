@@ -38,50 +38,26 @@ namespace ImageMagick
 		///==========================================================================================
 		property double X
 		{
-			double get()
-			{
-				return InternalValue->x();
-			}
-			void set(double value)
-			{
-				InternalValue->x(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		property double Y
 		{
-			double get()
-			{
-				return InternalValue->y();
-			}
-			void set(double value)
-			{
-				InternalValue->y(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		property double X1
 		{
-			double get()
-			{
-				return InternalValue->x1();
-			}
-			void set(double value)
-			{
-				InternalValue->x1(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		property double Y1
 		{
-			double get()
-			{
-				return InternalValue->y1();
-			}
-			void set(double value)
-			{
-				InternalValue->y1(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

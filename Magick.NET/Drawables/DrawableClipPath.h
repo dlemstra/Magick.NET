@@ -37,15 +37,8 @@ namespace ImageMagick
 		///</summary>
 		property String^ ClipPath
 		{
-			String^ get()
-			{
-				return Marshaller::Marshal(Value->clip_path());
-			}
-			void set(String^ value)
-			{
-				std::string id;
-				Value->clip_path(Marshaller::Marshal(value, id));
-			}
+			String^ get();
+			void set(String^ value);
 		}
 		//===========================================================================================
 	};

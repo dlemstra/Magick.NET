@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableFont.h"
 
 namespace ImageMagick
@@ -32,6 +32,17 @@ namespace ImageMagick
 		std::string font;
 		BaseValue = new Magick::DrawableFont(Marshaller::Marshal(family, font), (MagickCore::StyleType)style,
 			(int)weight, (MagickCore::StretchType)stretch);
+	}
+	//==============================================================================================
+	String^ DrawableFont::Family::get()
+	{
+		return Marshaller::Marshal(Value->font());
+	}
+	//==============================================================================================
+	void DrawableFont::Family::set(String^ value)
+	{
+		std::string font;
+		Value->font(Marshaller::Marshal(value, font));
 	}
 	//==============================================================================================
 }

@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableEllipse.h"
 
 namespace ImageMagick
@@ -21,6 +21,65 @@ namespace ImageMagick
 		double startDegrees, double endDegrees)
 	{
 		BaseValue = new Magick::DrawableEllipse(originX, originY, radiusX, radiusY, startDegrees, endDegrees);
+	}
+	//==============================================================================================
+	double DrawableEllipse::EndDegrees::get()
+	{
+		return Value->arcEnd();
+	}
+	void DrawableEllipse::EndDegrees::set(double value)
+	{
+		Value->arcEnd(value);
+	}
+	//==============================================================================================
+	double DrawableEllipse::OriginX::get()
+	{
+		return Value->originX();
+	}
+	//==============================================================================================
+	void DrawableEllipse::OriginX::set(double value)
+	{
+		Value->originX(value);
+	}
+	//==============================================================================================
+	double DrawableEllipse::OriginY::get()
+	{
+		return Value->originY();
+	}
+	//==============================================================================================
+	void DrawableEllipse::OriginY::set(double value)
+	{
+		Value->originY(value);
+	}
+	//==============================================================================================
+	double DrawableEllipse::RadiusX::get()
+	{
+		return Value->radiusX();
+	}
+	//==============================================================================================
+	void DrawableEllipse::RadiusX::set(double value)
+	{
+		Value->radiusX(value);
+	}
+	//==============================================================================================
+	double DrawableEllipse::RadiusY::get()
+	{
+		return Value->radiusY();
+	}
+	//==============================================================================================
+	void DrawableEllipse::RadiusY::set(double value)
+	{
+		Value->radiusY(value);
+	}
+	//==============================================================================================
+	double DrawableEllipse::StartDegrees::get()
+	{
+		return Value->arcStart();
+	}
+	//==============================================================================================
+	void DrawableEllipse::StartDegrees::set(double value)
+	{
+		Value->arcStart(value);
 	}
 	//==============================================================================================
 }

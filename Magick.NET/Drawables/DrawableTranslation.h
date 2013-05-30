@@ -38,14 +38,8 @@ namespace ImageMagick
 		///</summary>
 		property double X
 		{
-			double get()
-			{
-				return Value->x();
-			}
-			void set(double value)
-			{
-				Value->x(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -53,14 +47,8 @@ namespace ImageMagick
 		///</summary>
 		property double Y
 		{
-			double get()
-			{
-				return Value->y();
-			}
-			void set(double value)
-			{
-				Value->y(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

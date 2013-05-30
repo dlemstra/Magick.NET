@@ -40,14 +40,8 @@ namespace ImageMagick
 		///</summary>
 		property double OriginX
 		{
-			double get()
-			{
-				return Value->originX();
-			}
-			void set(double value)
-			{
-				Value->originX(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -55,14 +49,8 @@ namespace ImageMagick
 		///</summary>
 		property double OriginY
 		{
-			double get()
-			{
-				return Value->originY();
-			}
-			void set(double value)
-			{
-				Value->originY(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -70,14 +58,8 @@ namespace ImageMagick
 		///</summary>
 		property double PerimeterX
 		{
-			double get()
-			{
-				return Value->perimX();
-			}
-			void set(double value)
-			{
-				Value->perimX(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -85,14 +67,8 @@ namespace ImageMagick
 		///</summary>
 		property double PerimeterY
 		{
-			double get()
-			{
-				return Value->perimY();
-			}
-			void set(double value)
-			{
-				Value->perimY(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

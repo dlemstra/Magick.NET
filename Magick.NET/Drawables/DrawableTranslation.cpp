@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableTranslation.h"
 
 namespace ImageMagick
@@ -20,6 +20,26 @@ namespace ImageMagick
 	DrawableTranslation::DrawableTranslation(double x, double y)
 	{
 		BaseValue = new Magick::DrawableTranslation(x, y);
+	}
+	//==============================================================================================
+	double DrawableTranslation::X::get()
+	{
+		return Value->x();
+	}
+	//==============================================================================================
+	void DrawableTranslation::X::set(double value)
+	{
+		Value->x(value);
+	}
+	//==============================================================================================
+	double DrawableTranslation::Y::get()
+	{
+		return Value->y();
+	}
+	//==============================================================================================
+	void DrawableTranslation::Y::set(double value)
+	{
+		Value->y(value);
 	}
 	//==============================================================================================
 }

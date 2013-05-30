@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableFillRule.h"
 
 namespace ImageMagick
@@ -20,6 +20,16 @@ namespace ImageMagick
 	DrawableFillRule::DrawableFillRule(ImageMagick::FillRule fillRule)
 	{
 		BaseValue = new Magick::DrawableFillRule((MagickCore::FillRule)fillRule);
+	}
+	//==============================================================================================
+	ImageMagick::FillRule DrawableFillRule::FillRule::get()
+	{
+		return (ImageMagick::FillRule)Value->fillRule();
+	}
+	//==============================================================================================
+	void DrawableFillRule::FillRule::set(ImageMagick::FillRule value)
+	{
+		Value->fillRule((MagickCore::FillRule)value);
 	}
 	//==============================================================================================
 }

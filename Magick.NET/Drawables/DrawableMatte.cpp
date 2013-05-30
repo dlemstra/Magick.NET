@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableMatte.h"
 
 namespace ImageMagick
@@ -20,6 +20,35 @@ namespace ImageMagick
 	DrawableMatte::DrawableMatte(double x, double y, ImageMagick::PaintMethod paintMethod)
 	{
 		BaseValue = new Magick::DrawableMatte(x, y, (Magick::PaintMethod)paintMethod);
+	}
+	PaintMethod DrawableMatte::PaintMethod::get()
+	{
+		return (ImageMagick::PaintMethod)Value->paintMethod();
+	}
+	//==============================================================================================
+	void DrawableMatte::PaintMethod::set(ImageMagick::PaintMethod value)
+	{
+		Value->paintMethod((Magick::PaintMethod)value);
+	}
+	//==============================================================================================
+	double DrawableMatte::X::get()
+	{
+		return Value->x();
+	}
+	//==============================================================================================
+	void DrawableMatte::X::set(double value)
+	{
+		Value->x(value);
+	}
+	//==============================================================================================
+	double DrawableMatte::Y::get()
+	{
+		return Value->y();
+	}
+	//==============================================================================================
+	void DrawableMatte::Y::set(double value)
+	{
+		Value->y(value);
 	}
 	//==============================================================================================
 }

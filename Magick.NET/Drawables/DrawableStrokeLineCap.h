@@ -38,14 +38,8 @@ namespace ImageMagick
 		///</summary>
 		property LineCap LineCap
 		{
-			ImageMagick::LineCap get()
-			{
-				return (ImageMagick::LineCap)Value->linecap();
-			}
-			void set(ImageMagick::LineCap value)
-			{
-				Value->linecap((MagickCore::LineCap)value);
-			}
+			ImageMagick::LineCap get();
+			void set(ImageMagick::LineCap value);
 		}
 		//===========================================================================================
 	};

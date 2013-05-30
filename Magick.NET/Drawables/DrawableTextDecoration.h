@@ -38,14 +38,8 @@ namespace ImageMagick
 		///</summary>
 		property TextDecoration Decoration
 		{
-			TextDecoration get()
-			{
-				return (ImageMagick::TextDecoration)Value->decoration();
-			}
-			void set(TextDecoration value)
-			{
-				Value->decoration((MagickCore::DecorationType)value);
-			}
+			TextDecoration get();
+			void set(TextDecoration value);
 		}
 		//===========================================================================================
 	};

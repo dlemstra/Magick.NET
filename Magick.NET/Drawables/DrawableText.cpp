@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableText.h"
 
 namespace ImageMagick
@@ -46,6 +46,43 @@ namespace ImageMagick
 		Throw::IfFalse("encoding", encoding == System::Text::Encoding::UTF8, "Only UTF-8 seems to be supported for now");
 
 		Initialize(x, y, text, "UTF-8");
+	}
+	//==============================================================================================
+	void DrawableText::Encoding::set(String^ value)
+	{
+		std::string encoding;
+		Value->encoding(Marshaller::Marshal(value, encoding));
+	}
+	//==============================================================================================
+	String^ DrawableText::Text::get()
+	{
+		return Marshaller::Marshal(Value->text());
+	}
+	//==============================================================================================
+	void DrawableText::Text::set(String^ value)
+	{
+		std::string text;
+		Value->text(Marshaller::Marshal(value, text));
+	}
+	//==============================================================================================
+	double DrawableText::X::get()
+	{
+		return Value->x();
+	}
+	//==============================================================================================
+	void DrawableText::X::set(double value)
+	{
+		Value->x(value);
+	}
+	//==============================================================================================
+	double DrawableText::Y::get()
+	{
+		return Value->y();
+	}
+	//==============================================================================================
+	void DrawableText::Y::set(double value)
+	{
+		Value->y(value);
 	}
 	//==============================================================================================
 }

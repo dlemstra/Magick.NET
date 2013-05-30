@@ -38,14 +38,8 @@ namespace ImageMagick
 		///</summary>
 		property ImageMagick::Gravity Gravity
 		{
-			ImageMagick::Gravity get()
-			{
-				return (ImageMagick::Gravity)Value->gravity();
-			}
-			void set(ImageMagick::Gravity value)
-			{
-				Value->gravity((MagickCore::GravityType)value);
-			}
+			ImageMagick::Gravity get();
+			void set(ImageMagick::Gravity value);
 		}
 		//===========================================================================================
 	};

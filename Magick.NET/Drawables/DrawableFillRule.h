@@ -38,14 +38,8 @@ namespace ImageMagick
 		///</summary>
 		property ImageMagick::FillRule FillRule
 		{
-			ImageMagick::FillRule get()
-			{
-				return (ImageMagick::FillRule)Value->fillRule();
-			}
-			void set(ImageMagick::FillRule value)
-			{
-				Value->fillRule((MagickCore::FillRule)value);
-			}
+			ImageMagick::FillRule get();
+			void set(ImageMagick::FillRule value);
 		}
 		//===========================================================================================
 	};

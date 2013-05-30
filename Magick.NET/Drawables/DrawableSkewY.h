@@ -37,14 +37,8 @@ namespace ImageMagick
 		///</summary>
 		property double Angle
 		{
-			double get()
-			{
-				return Value->angle();
-			}
-			void set(double value)
-			{
-				Value->angle(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

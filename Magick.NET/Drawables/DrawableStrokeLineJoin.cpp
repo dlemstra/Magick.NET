@@ -11,14 +11,25 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableStrokeLineJoin.h"
 
 namespace ImageMagick
 {
+	//==============================================================================================
 	DrawableStrokeLineJoin::DrawableStrokeLineJoin(ImageMagick::LineJoin lineJoin)
 	{
 		BaseValue = new Magick::DrawableStrokeLineJoin((MagickCore::LineJoin)lineJoin);
+	}
+	//==============================================================================================
+	LineJoin DrawableStrokeLineJoin::LineCap::get()
+	{
+		return (ImageMagick::LineJoin)Value->linejoin();
+	}
+	//==============================================================================================
+	void DrawableStrokeLineJoin::LineCap::set(ImageMagick::LineJoin value)
+	{
+		Value->linejoin((MagickCore::LineJoin)value);
 	}
 	//==============================================================================================
 }

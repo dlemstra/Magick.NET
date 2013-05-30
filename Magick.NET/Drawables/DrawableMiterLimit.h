@@ -37,14 +37,8 @@ namespace ImageMagick
 		///</summary>
 		property int Miterlimit
 		{
-			int get()
-			{
-				return Convert::ToInt32(Value->miterlimit());
-			}
-			void set(int value)
-			{
-				Value->miterlimit(value);
-			}
+			int get();
+			void set(int value);
 		}
 		//===========================================================================================
 	};

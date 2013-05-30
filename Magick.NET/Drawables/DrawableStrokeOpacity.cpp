@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableStrokeOpacity.h"
 
 namespace ImageMagick
@@ -20,6 +20,16 @@ namespace ImageMagick
 	DrawableStrokeOpacity::DrawableStrokeOpacity(double opacity)
 	{
 		BaseValue = new Magick::DrawableStrokeOpacity(opacity);
+	}
+	//==============================================================================================
+	double DrawableStrokeOpacity::Opacity::get()
+	{
+		return Value->opacity();
+	}
+	//==============================================================================================
+	void DrawableStrokeOpacity::Opacity::set(double value)
+	{
+		Value->opacity(value);
 	}
 	//==============================================================================================
 }

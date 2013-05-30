@@ -11,14 +11,25 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableTextDecoration.h"
 
 namespace ImageMagick
 {
+	//==============================================================================================
 	DrawableTextDecoration::DrawableTextDecoration(TextDecoration decoration)
 	{
 		BaseValue = new Magick::DrawableTextDecoration((MagickCore::DecorationType)decoration);
+	}
+	//==============================================================================================
+	TextDecoration DrawableTextDecoration::Decoration::get()
+	{
+		return (ImageMagick::TextDecoration)Value->decoration();
+	}
+	//==============================================================================================
+	void DrawableTextDecoration::Decoration::set(TextDecoration value)
+	{
+		Value->decoration((MagickCore::DecorationType)value);
 	}
 	//==============================================================================================
 }

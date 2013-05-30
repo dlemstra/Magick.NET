@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableStrokeAntialias.h"
 
 namespace ImageMagick
@@ -20,6 +20,16 @@ namespace ImageMagick
 	DrawableStrokeAntialias::DrawableStrokeAntialias(bool isEnabled)
 	{
 		BaseValue = new Magick::DrawableStrokeAntialias(isEnabled);
+	}
+	//==============================================================================================
+	bool DrawableStrokeAntialias::IsEnabled::get()
+	{
+		return Value->flag();
+	}
+	//==============================================================================================
+	void DrawableStrokeAntialias::IsEnabled::set(bool value)
+	{
+		Value->flag(value);
 	}
 	//==============================================================================================
 }

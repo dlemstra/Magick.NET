@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableClipPath.h"
 
 namespace ImageMagick
@@ -23,6 +23,17 @@ namespace ImageMagick
 
 		std::string id;
 		BaseValue = new Magick::DrawableClipPath(Marshaller::Marshal(clipPath, id));
+	}
+	//==============================================================================================
+	String^ DrawableClipPath::ClipPath::get()
+	{
+		return Marshaller::Marshal(Value->clip_path());
+	}
+	//==============================================================================================
+	void DrawableClipPath::ClipPath::set(String^ value)
+	{
+		std::string id;
+		Value->clip_path(Marshaller::Marshal(value, id));
 	}
 	//==============================================================================================
 }

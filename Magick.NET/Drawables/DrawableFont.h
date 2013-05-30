@@ -49,15 +49,8 @@ namespace ImageMagick
 		///</summary>
 		property String^ Family
 		{
-			String^ get()
-			{
-				return Marshaller::Marshal(Value->font());
-			}
-			void set(String^ value)
-			{
-				std::string font;
-				Value->font(Marshaller::Marshal(value, font));
-			}
+			String^ get();
+			void set(String^ value);
 		}
 		//===========================================================================================
 	};

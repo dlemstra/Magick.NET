@@ -54,11 +54,7 @@ namespace ImageMagick
 		///</summary>
 		property String^ Encoding
 		{
-			void set(String^ value)
-			{
-				std::string encoding;
-				Value->encoding(Marshaller::Marshal(value, encoding));
-			}
+			void set(String^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -66,15 +62,8 @@ namespace ImageMagick
 		///</summary>
 		property String^ Text
 		{
-			String^ get()
-			{
-				return Marshaller::Marshal(Value->text());
-			}
-			void set(String^ value)
-			{
-				std::string text;
-				Value->text(Marshaller::Marshal(value, text));
-			}
+			String^ get();
+			void set(String^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -82,14 +71,8 @@ namespace ImageMagick
 		///</summary>
 		property double X
 		{
-			double get()
-			{
-				return Value->x();
-			}
-			void set(double value)
-			{
-				Value->x(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -97,15 +80,10 @@ namespace ImageMagick
 		///</summary>
 		property double Y
 		{
-			double get()
-			{
-				return Value->y();
-			}
-			void set(double value)
-			{
-				Value->y(value);
-			}
+			double get();
+			void set(double value);
 		}
+		//===========================================================================================
 	};
 	//==============================================================================================
 }

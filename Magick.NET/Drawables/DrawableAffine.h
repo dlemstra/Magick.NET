@@ -51,14 +51,8 @@ namespace ImageMagick
 		///</summary>
 		property double ScaleX
 		{
-			double get()
-			{
-				return Value->sx();
-			}
-			void set(double value)
-			{
-				Value->sx(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -66,14 +60,8 @@ namespace ImageMagick
 		///</summary>
 		property double ScaleY
 		{
-			double get()
-			{
-				return Value->sy();
-			}
-			void set(double value)
-			{
-				Value->sy(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -81,14 +69,8 @@ namespace ImageMagick
 		///</summary>
 		property double ShearX
 		{
-			double get()
-			{
-				return Value->rx();
-			}
-			void set(double value)
-			{
-				Value->rx(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -96,14 +78,8 @@ namespace ImageMagick
 		///</summary>
 		property double ShearY
 		{
-			double get()
-			{
-				return Value->ry();
-			}
-			void set(double value)
-			{
-				Value->ry(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -111,14 +87,8 @@ namespace ImageMagick
 		///</summary>
 		property double TranslateX
 		{
-			double get()
-			{
-				return Value->tx();
-			}
-			void set(double value)
-			{
-				Value->tx(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -126,14 +96,8 @@ namespace ImageMagick
 		///</summary>
 		property double TranslateY
 		{
-			double get()
-			{
-				return Value->ty();
-			}
-			void set(double value)
-			{
-				Value->ty(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

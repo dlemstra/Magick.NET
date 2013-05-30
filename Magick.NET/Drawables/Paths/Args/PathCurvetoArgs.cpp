@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "PathCurvetoArgs.h"
 
 namespace ImageMagick
@@ -25,6 +25,66 @@ namespace ImageMagick
 	PathCurvetoArgs::PathCurvetoArgs(double x, double y, double x1, double y1, double x2, double y2)
 	{
 		BaseValue = new Magick::PathCurvetoArgs(x, y, x1, y1, x2, y2);
+	}
+	//==============================================================================================
+	double PathCurvetoArgs::X::get()
+	{
+		return InternalValue->x();
+	}
+	//==============================================================================================
+	void PathCurvetoArgs::X::set(double value)
+	{
+		InternalValue->x(value);
+	}
+	//==============================================================================================
+	double PathCurvetoArgs::Y::get()
+	{
+		return InternalValue->y();
+	}
+	//==============================================================================================
+	void PathCurvetoArgs::Y::set(double value)
+	{
+		InternalValue->y(value);
+	}
+	//==============================================================================================
+	double PathCurvetoArgs::X1::get()
+	{
+		return InternalValue->x1();
+	}
+	//==============================================================================================
+	void PathCurvetoArgs::X1::set(double value)
+	{
+		InternalValue->x1(value);
+	}
+	//==============================================================================================
+	double PathCurvetoArgs::Y1::get()
+	{
+		return InternalValue->y1();
+	}
+	//==============================================================================================
+	void PathCurvetoArgs::Y1::set(double value)
+	{
+		InternalValue->y1(value);
+	}
+	//==============================================================================================
+	double PathCurvetoArgs::X2::get()
+	{
+		return InternalValue->x2();
+	}
+	//==============================================================================================
+	void PathCurvetoArgs::X2::set(double value)
+	{
+		InternalValue->x2(value);
+	}
+	//==============================================================================================
+	double PathCurvetoArgs::Y2::get()
+	{
+		return InternalValue->y2();
+	}
+	//==============================================================================================
+	void PathCurvetoArgs::Y2::set(double value)
+	{
+		InternalValue->y2(value);
 	}
 	//==============================================================================================
 }

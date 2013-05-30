@@ -39,18 +39,21 @@ namespace ImageMagick
 			double startDegrees, double endDegrees);
 		///==========================================================================================
 		///<summary>
+		/// The ending degrees of rotation.
+		///</summary>
+		property double EndDegrees
+		{
+			double get();
+			void set(double value);
+		}
+		///==========================================================================================
+		///<summary>
 		/// The origin X coordinate.
 		///</summary>
 		property double OriginX
 		{
-			double get()
-			{
-				return Value->originX();
-			}
-			void set(double value)
-			{
-				Value->originX(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -58,14 +61,8 @@ namespace ImageMagick
 		///</summary>
 		property double OriginY
 		{
-			double get()
-			{
-				return Value->originY();
-			}
-			void set(double value)
-			{
-				Value->originY(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -73,14 +70,8 @@ namespace ImageMagick
 		///</summary>
 		property double RadiusX
 		{
-			double get()
-			{
-				return Value->radiusX();
-			}
-			void set(double value)
-			{
-				Value->radiusX(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -88,14 +79,8 @@ namespace ImageMagick
 		///</summary>
 		property double RadiusY
 		{
-			double get()
-			{
-				return Value->radiusY();
-			}
-			void set(double value)
-			{
-				Value->radiusY(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -103,29 +88,8 @@ namespace ImageMagick
 		///</summary>
 		property double StartDegrees
 		{
-			double get()
-			{
-				return Value->arcStart();
-			}
-			void set(double value)
-			{
-				Value->arcStart(value);
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// The ending degrees of rotation.
-		///</summary>
-		property double EndDegrees
-		{
-			double get()
-			{
-				return Value->arcEnd();
-			}
-			void set(double value)
-			{
-				Value->arcEnd(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

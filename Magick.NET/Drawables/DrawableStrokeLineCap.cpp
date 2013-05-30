@@ -11,14 +11,25 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableStrokeLineCap.h"
 
 namespace ImageMagick
 {
+	//==============================================================================================
 	DrawableStrokeLineCap::DrawableStrokeLineCap(ImageMagick::LineCap lineCap)
 	{
 		BaseValue = new Magick::DrawableStrokeLineCap((MagickCore::LineCap)lineCap);
+	}
+	//==============================================================================================
+	LineCap DrawableStrokeLineCap::LineCap::get()
+	{
+		return (ImageMagick::LineCap)Value->linecap();
+	}
+	//==============================================================================================
+	void DrawableStrokeLineCap::LineCap::set(ImageMagick::LineCap value)
+	{
+		Value->linecap((MagickCore::LineCap)value);
 	}
 	//==============================================================================================
 }

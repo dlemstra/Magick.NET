@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableRectangle.h"
 
 namespace ImageMagick
@@ -33,6 +33,46 @@ namespace ImageMagick
 	{
 		Initialize(rectangle->X, rectangle->Y, rectangle->X + rectangle->Width,
 			rectangle->Y + rectangle->Height);
+	}
+	//==============================================================================================
+	double DrawableRectangle::LowerRightX::get()
+	{
+		return Value->lowerRightX();
+	}
+	//==============================================================================================
+	void DrawableRectangle::LowerRightX::set(double value)
+	{
+		Value->lowerRightX(value);
+	}
+	//==============================================================================================
+	double DrawableRectangle::LowerRightY::get()
+	{
+		return Value->lowerRightY();
+	}
+	//==============================================================================================
+	void DrawableRectangle::LowerRightY::set(double value)
+	{
+		Value->lowerRightY(value);
+	}
+	//==============================================================================================
+	double DrawableRectangle::UpperLeftX::get()
+	{
+		return Value->upperLeftX();
+	}
+	//==============================================================================================
+	void DrawableRectangle::UpperLeftX::set(double value)
+	{
+		Value->upperLeftX(value);
+	}
+	//==============================================================================================
+	double DrawableRectangle::UpperLeftY::get()
+	{
+		return Value->upperLeftY();
+	}
+	//==============================================================================================
+	void DrawableRectangle::UpperLeftY::set(double value)
+	{
+		Value->upperLeftY(value);
 	}
 	//==============================================================================================
 }

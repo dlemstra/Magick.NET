@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableRotation.h"
 
 namespace ImageMagick
@@ -20,6 +20,16 @@ namespace ImageMagick
 	DrawableRotation::DrawableRotation(double angle)
 	{
 		BaseValue = new Magick::DrawableRotation(angle);
+	}
+	//==============================================================================================
+	double DrawableRotation::Angle::get()
+	{
+		return Value->angle();
+	}
+	//==============================================================================================
+	void DrawableRotation::Angle::set(double value)
+	{
+		Value->angle(value);
 	}
 	//==============================================================================================
 }

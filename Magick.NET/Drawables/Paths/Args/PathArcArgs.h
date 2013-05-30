@@ -50,14 +50,8 @@ namespace ImageMagick
 		///</summary>
 		property double RadiusX
 		{
-			double get()
-			{
-				return InternalValue->radiusX();
-			}
-			void set(double value)
-			{
-				InternalValue->radiusX(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -65,14 +59,8 @@ namespace ImageMagick
 		///</summary>
 		property double RadiusY
 		{
-			double get()
-			{
-				return InternalValue->radiusY();
-			}
-			void set(double value)
-			{
-				InternalValue->radiusY(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -80,14 +68,8 @@ namespace ImageMagick
 		///</summary>
 		property double RotationX
 		{
-			double get()
-			{
-				return InternalValue->xAxisRotation();
-			}
-			void set(double value)
-			{
-				InternalValue->xAxisRotation(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -95,14 +77,8 @@ namespace ImageMagick
 		///</summary>
 		property bool UseLargeArc
 		{
-			bool get()
-			{
-				return InternalValue->largeArcFlag();
-			}
-			void set(bool value)
-			{
-				InternalValue->largeArcFlag(value);
-			}
+			bool get();
+			void set(bool value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -110,14 +86,8 @@ namespace ImageMagick
 		///</summary>
 		property bool UseSweep
 		{
-			bool get()
-			{
-				return InternalValue->sweepFlag();
-			}
-			void set(bool value)
-			{
-				InternalValue->sweepFlag(value);
-			}
+			bool get();
+			void set(bool value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -125,14 +95,8 @@ namespace ImageMagick
 		///</summary>
 		property double X
 		{
-			double get()
-			{
-				return InternalValue->x();
-			}
-			void set(double value)
-			{
-				InternalValue->y(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -140,14 +104,8 @@ namespace ImageMagick
 		///</summary>
 		property double Y
 		{
-			double get()
-			{
-				return InternalValue->y();
-			}
-			void set(double value)
-			{
-				InternalValue->y(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

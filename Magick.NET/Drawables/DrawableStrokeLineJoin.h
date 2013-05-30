@@ -38,14 +38,8 @@ namespace ImageMagick
 		///</summary>
 		property LineJoin LineCap
 		{
-			ImageMagick::LineJoin get()
-			{
-				return (ImageMagick::LineJoin)Value->linejoin();
-			}
-			void set(ImageMagick::LineJoin value)
-			{
-				Value->linejoin((MagickCore::LineJoin)value);
-			}
+			ImageMagick::LineJoin get();
+			void set(ImageMagick::LineJoin value);
 		}
 		//===========================================================================================
 	};

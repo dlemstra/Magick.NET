@@ -37,14 +37,8 @@ namespace ImageMagick
 		///</summary>
 		property double PointSize
 		{
-			double get()
-			{
-				return Value->pointSize();
-			}
-			void set(double value)
-			{
-				Value->pointSize(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

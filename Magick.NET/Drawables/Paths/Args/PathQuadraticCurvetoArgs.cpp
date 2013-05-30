@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "PathQuadraticCurvetoArgs.h"
 
 namespace ImageMagick
@@ -25,6 +25,46 @@ namespace ImageMagick
 	PathQuadraticCurvetoArgs::PathQuadraticCurvetoArgs(double x, double y, double x1, double y1)
 	{
 		BaseValue = new Magick::PathQuadraticCurvetoArgs(x, y, x1, y1);
+	}
+	//==============================================================================================
+	double PathQuadraticCurvetoArgs::X::get()
+	{
+		return InternalValue->x();
+	}
+	//==============================================================================================
+	void PathQuadraticCurvetoArgs::X::set(double value)
+	{
+		InternalValue->x(value);
+	}
+	//==============================================================================================
+	double PathQuadraticCurvetoArgs::Y::get()
+	{
+		return InternalValue->y();
+	}
+	//==============================================================================================
+	void PathQuadraticCurvetoArgs::Y::set(double value)
+	{
+		InternalValue->y(value);
+	}
+	//==============================================================================================
+	double PathQuadraticCurvetoArgs::X1::get()
+	{
+		return InternalValue->x1();
+	}
+	//==============================================================================================
+	void PathQuadraticCurvetoArgs::X1::set(double value)
+	{
+		InternalValue->x1(value);
+	}
+	//==============================================================================================
+	double PathQuadraticCurvetoArgs::Y1::get()
+	{
+		return InternalValue->y1();
+	}
+	//==============================================================================================
+	void PathQuadraticCurvetoArgs::Y1::set(double value)
+	{
+		InternalValue->y1(value);
 	}
 	//==============================================================================================
 }

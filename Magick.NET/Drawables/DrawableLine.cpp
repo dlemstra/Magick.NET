@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableLine.h"
 
 namespace ImageMagick
@@ -20,6 +20,46 @@ namespace ImageMagick
 	DrawableLine::DrawableLine(double startX, double startY, double endX, double endY)
 	{
 		BaseValue = new Magick::DrawableLine(startX, startY, endX, endY);
+	}
+	//==============================================================================================
+	double DrawableLine::EndX::get()
+	{
+		return Value->endX();
+	}
+	//==============================================================================================
+	void DrawableLine::EndX::set(double value)
+	{
+		Value->endX(value);
+	}
+	//==============================================================================================
+	double DrawableLine::EndY::get()
+	{
+		return Value->endY();
+	}
+	//==============================================================================================
+	void DrawableLine::EndY::set(double value)
+	{
+		Value->endY(value);
+	}
+	//==============================================================================================
+	double DrawableLine::StartX::get()
+	{
+		return Value->startX();
+	}
+	//==============================================================================================
+	void DrawableLine::StartX::set(double value)
+	{
+		Value->startX(value);
+	}
+	//==============================================================================================
+	double DrawableLine::StartY::get()
+	{
+		return Value->startY();
+	}
+	//==============================================================================================
+	void DrawableLine::StartY::set(double value)
+	{
+		Value->startY(value);
 	}
 	//==============================================================================================
 }

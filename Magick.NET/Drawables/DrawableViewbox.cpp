@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableViewbox.h"
 
 namespace ImageMagick
@@ -34,6 +34,46 @@ namespace ImageMagick
 	{
 		Initialize(rectangle->X, rectangle->Y, rectangle->X + rectangle->Width,
 			rectangle->Y + rectangle->Height);
+	}
+	//==============================================================================================
+	double DrawableViewbox::LowerRightX::get()
+	{
+		return Convert::ToDouble(Value->x1());
+	}
+	//==============================================================================================
+	void DrawableViewbox::LowerRightX::set(double value)
+	{
+		Value->x1((::size_t)value);
+	}
+	//==============================================================================================
+	double DrawableViewbox::LowerRightY::get()
+	{
+		return Convert::ToDouble(Value->y1());
+	}
+	//==============================================================================================
+	void DrawableViewbox::LowerRightY::set(double value)
+	{
+		Value->y1((::size_t)value);
+	}
+	//==============================================================================================
+	double DrawableViewbox::UpperLeftX::get()
+	{
+		return Convert::ToDouble(Value->x2());
+	}
+	//==============================================================================================
+	void DrawableViewbox::UpperLeftX::set(double value)
+	{
+		Value->x2((::size_t)value);
+	}
+	//==============================================================================================
+	double DrawableViewbox::UpperLeftY::get()
+	{
+		return Convert::ToDouble(Value->y2());
+	}
+	//==============================================================================================
+	void DrawableViewbox::UpperLeftY::set(double value)
+	{
+		Value->y2((::size_t)value);
 	}
 	//==============================================================================================
 }

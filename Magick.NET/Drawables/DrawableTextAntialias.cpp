@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableTextAntialias.h"
 
 namespace ImageMagick
@@ -20,6 +20,16 @@ namespace ImageMagick
 	DrawableTextAntialias::DrawableTextAntialias(bool isEnabled)
 	{
 		BaseValue = new Magick::DrawableTextAntialias(isEnabled);
+	}
+	//==============================================================================================
+	bool DrawableTextAntialias::IsEnabled::get()
+	{
+		return Value->flag();
+	}
+	//==============================================================================================
+	void DrawableTextAntialias::IsEnabled::set(bool value)
+	{
+		Value->flag(value);
 	}
 	//==============================================================================================
 }

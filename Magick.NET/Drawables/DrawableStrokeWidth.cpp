@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableStrokeWidth.h"
 
 namespace ImageMagick
@@ -20,6 +20,16 @@ namespace ImageMagick
 	DrawableStrokeWidth::DrawableStrokeWidth(double width)
 	{
 		BaseValue = new Magick::DrawableStrokeWidth(width);
+	}
+	//==============================================================================================
+	double DrawableStrokeWidth::Width::get()
+	{
+		return Value->width();
+	}
+	//==============================================================================================
+	void DrawableStrokeWidth::Width::set(double value)
+	{
+		Value->width(value);
 	}
 	//==============================================================================================
 }

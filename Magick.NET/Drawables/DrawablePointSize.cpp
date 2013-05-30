@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawablePointSize.h"
 
 namespace ImageMagick
@@ -20,6 +20,16 @@ namespace ImageMagick
 	DrawablePointSize::DrawablePointSize(double pointSize)
 	{
 		BaseValue = new Magick::DrawablePointSize(pointSize);
+	}
+	//==============================================================================================
+	double DrawablePointSize::PointSize::get()
+	{
+		return Value->pointSize();
+	}
+	//==============================================================================================
+	void DrawablePointSize::PointSize::set(double value)
+	{
+		Value->pointSize(value);
 	}
 	//==============================================================================================
 }

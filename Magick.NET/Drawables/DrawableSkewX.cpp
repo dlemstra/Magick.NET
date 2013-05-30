@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableSkewX.h"
 
 namespace ImageMagick
@@ -20,6 +20,16 @@ namespace ImageMagick
 	DrawableSkewX::DrawableSkewX(double angle)
 	{
 		BaseValue = new Magick::DrawableSkewX(angle);
+	}
+	//==============================================================================================
+	double DrawableSkewX::Angle::get()
+	{
+		return Value->angle();
+	}
+	//==============================================================================================
+	void DrawableSkewX::Angle::set(double value)
+	{
+		Value->angle(value);
 	}
 	//==============================================================================================
 }

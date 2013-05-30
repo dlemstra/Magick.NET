@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableScaling.h"
 
 namespace ImageMagick
@@ -20,6 +20,26 @@ namespace ImageMagick
 	DrawableScaling::DrawableScaling(double x, double y)
 	{
 		BaseValue = new Magick::DrawableScaling(x, y);
+	}
+	//==============================================================================================
+	double DrawableScaling::X::get()
+	{
+		return Value->x();
+	}
+	//==============================================================================================
+	void DrawableScaling::X::set(double value)
+	{
+		Value->x(value);
+	}
+	//==============================================================================================
+	double DrawableScaling::Y::get()
+	{
+		return Value->y();
+	}
+	//==============================================================================================
+	void DrawableScaling::Y::set(double value)
+	{
+		Value->y(value);
 	}
 	//==============================================================================================
 }

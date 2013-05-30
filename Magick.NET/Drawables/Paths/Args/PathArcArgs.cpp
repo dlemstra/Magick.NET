@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "PathArcArgs.h"
 
 namespace ImageMagick
@@ -26,6 +26,76 @@ namespace ImageMagick
 		bool useLargeArc, bool useSweep)
 	{
 		BaseValue = new Magick::PathArcArgs(radiusX, radiusY, rotationX, useLargeArc, useSweep, x, y);
+	}
+	//==============================================================================================
+	double PathArcArgs::RadiusX::get()
+	{
+		return InternalValue->radiusX();
+	}
+	//==============================================================================================
+	void PathArcArgs::RadiusX::set(double value)
+	{
+		InternalValue->radiusX(value);
+	}
+	//==============================================================================================
+	double PathArcArgs::RadiusY::get()
+	{
+		return InternalValue->radiusY();
+	}
+	//==============================================================================================
+	void PathArcArgs::RadiusY::set(double value)
+	{
+		InternalValue->radiusY(value);
+	}
+	//==============================================================================================
+	double PathArcArgs::RotationX::get()
+	{
+		return InternalValue->xAxisRotation();
+	}
+	//==============================================================================================
+	void PathArcArgs::RotationX::set(double value)
+	{
+		InternalValue->xAxisRotation(value);
+	}
+	//==============================================================================================
+	bool PathArcArgs::UseLargeArc::get()
+	{
+		return InternalValue->largeArcFlag();
+	}
+	//==============================================================================================
+	void PathArcArgs::UseLargeArc::set(bool value)
+	{
+		InternalValue->largeArcFlag(value);
+	}
+	//==============================================================================================
+	bool PathArcArgs::UseSweep::get()
+	{
+		return InternalValue->sweepFlag();
+	}
+	//==============================================================================================
+	void PathArcArgs::UseSweep::set(bool value)
+	{
+		InternalValue->sweepFlag(value);
+	}
+	//==============================================================================================
+	double PathArcArgs::X::get()
+	{
+		return InternalValue->x();
+	}
+	//==============================================================================================
+	void PathArcArgs::X::set(double value)
+	{
+		InternalValue->y(value);
+	}
+	//==============================================================================================
+	double PathArcArgs::Y::get()
+	{
+		return InternalValue->y();
+	}
+	//==============================================================================================
+	void PathArcArgs::Y::set(double value)
+	{
+		InternalValue->y(value);
 	}
 	//==============================================================================================
 }

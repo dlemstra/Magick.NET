@@ -50,16 +50,8 @@ namespace ImageMagick
 		///</summary>
 		property MagickColor^ Color
 		{
-			MagickColor^ get()
-			{
-				return gcnew MagickColor(Value->color());
-			}
-			void set(MagickColor^ value)
-			{
-				Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
-				Value->color(*color);
-				delete color;
-			}
+			MagickColor^ get();
+			void set(MagickColor^ value);
 		}
 		//===========================================================================================
 	};

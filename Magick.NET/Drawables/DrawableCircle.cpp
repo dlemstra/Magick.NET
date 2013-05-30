@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableCircle.h"
 
 namespace ImageMagick
@@ -20,6 +20,46 @@ namespace ImageMagick
 	DrawableCircle::DrawableCircle(double originX, double originY, double perimeterX, double perimeterY)
 	{
 		BaseValue = new Magick::DrawableCircle(originX, originY, perimeterX, perimeterY);
+	}
+	//==============================================================================================
+	double DrawableCircle::OriginX::get()
+	{
+		return Value->originX();
+	}
+	//==============================================================================================
+	void DrawableCircle::OriginX::set(double value)
+	{
+		Value->originX(value);
+	}
+	//==============================================================================================
+	double DrawableCircle::OriginY::get()
+	{
+		return Value->originY();
+	}
+	//==============================================================================================
+	void DrawableCircle::OriginY::set(double value)
+	{
+		Value->originY(value);
+	}
+	//==============================================================================================
+	double DrawableCircle::PerimeterX::get()
+	{
+		return Value->perimX();
+	}
+	//==============================================================================================
+	void DrawableCircle::PerimeterX::set(double value)
+	{
+		Value->perimX(value);
+	}
+	//==============================================================================================
+	double DrawableCircle::PerimeterY::get()
+	{
+		return Value->perimY();
+	}
+	//==============================================================================================
+	void DrawableCircle::PerimeterY::set(double value)
+	{
+		Value->perimY(value);
 	}
 	//==============================================================================================
 }

@@ -37,14 +37,8 @@ namespace ImageMagick
 		///</summary>
 		property double Opacity
 		{
-			double get()
-			{
-				return Value->opacity();
-			}
-			void set(double value)
-			{
-				Value->opacity(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

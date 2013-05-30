@@ -40,14 +40,8 @@ namespace ImageMagick
 		///</summary>
 		property double EndX
 		{
-			double get()
-			{
-				return Value->endX();
-			}
-			void set(double value)
-			{
-				Value->endX(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -55,14 +49,8 @@ namespace ImageMagick
 		///</summary>
 		property double EndY
 		{
-			double get()
-			{
-				return Value->endY();
-			}
-			void set(double value)
-			{
-				Value->endY(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -70,14 +58,8 @@ namespace ImageMagick
 		///</summary>
 		property double StartX
 		{
-			double get()
-			{
-				return Value->startX();
-			}
-			void set(double value)
-			{
-				Value->startX(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -85,14 +67,8 @@ namespace ImageMagick
 		///</summary>
 		property double StartY
 		{
-			double get()
-			{
-				return Value->startY();
-			}
-			void set(double value)
-			{
-				Value->startY(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

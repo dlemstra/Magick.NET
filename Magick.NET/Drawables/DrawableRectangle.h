@@ -52,14 +52,8 @@ namespace ImageMagick
 		///</summary>
 		property double LowerRightX
 		{
-			double get()
-			{
-				return Value->lowerRightX();
-			}
-			void set(double value)
-			{
-				Value->lowerRightX(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -67,14 +61,8 @@ namespace ImageMagick
 		///</summary>
 		property double LowerRightY
 		{
-			double get()
-			{
-				return Value->lowerRightY();
-			}
-			void set(double value)
-			{
-				Value->lowerRightY(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -82,14 +70,8 @@ namespace ImageMagick
 		///</summary>
 		property double UpperLeftX
 		{
-			double get()
-			{
-				return Value->upperLeftX();
-			}
-			void set(double value)
-			{
-				Value->upperLeftX(value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -97,14 +79,8 @@ namespace ImageMagick
 		///</summary>
 		property double UpperLeftY
 		{
-			double get()
-			{
-				return Value->upperLeftY();
-			}
-			void set(double value)
-			{
-				Value->upperLeftY(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

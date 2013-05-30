@@ -37,14 +37,8 @@ namespace ImageMagick
 		///</summary>
 		property bool IsEnabled
 		{
-			bool get()
-			{
-				return Value->flag();
-			}
-			void set(bool value)
-			{
-				Value->flag(value);
-			}
+			bool get();
+			void set(bool value);
 		}
 		//===========================================================================================
 	};

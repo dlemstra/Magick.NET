@@ -11,7 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "DrawableCompositeImage.h"
 
 namespace ImageMagick
@@ -50,6 +50,46 @@ namespace ImageMagick
 
 		BaseValue = new Magick::DrawableCompositeImage(offset->X, offset->Y, offset->Width,
 			offset->Height, (Magick::Image&)image, (Magick::CompositeOperator)compose);
+	}
+	//==============================================================================================
+	double DrawableCompositeImage::Height::get()
+	{
+		return Value->height();
+	}
+	//==============================================================================================
+	void DrawableCompositeImage::Height::set(double value)
+	{
+		Value->height(value);
+	}
+	//==============================================================================================
+	double DrawableCompositeImage::Width::get()
+	{
+		return Value->width();
+	}
+	//==============================================================================================
+	void DrawableCompositeImage::Width::set(double value)
+	{
+		Value->width(value);
+	}
+	//==============================================================================================
+	double DrawableCompositeImage::X::get()
+	{
+		return Value->x();
+	}
+	//==============================================================================================
+	void DrawableCompositeImage::X::set(double value)
+	{
+		Value->x(value);
+	}
+	//==============================================================================================
+	double DrawableCompositeImage::Y::get()
+	{
+		return Value->y();
+	}
+	//==============================================================================================
+	void DrawableCompositeImage::Y::set(double value)
+	{
+		Value->y(value);
 	}
 	//==============================================================================================
 }

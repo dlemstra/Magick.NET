@@ -2452,6 +2452,6 @@ namespace ImageMagick
 		///<param name="percentageHeight">The percentage of the height.</param>
 		///<exception cref="MagickException"/>
 		void Zoom(Percentage percentageWidth, Percentage percentageHeight);
-		};
-		//==============================================================================================
-	}
+	};
+	//==============================================================================================
+}

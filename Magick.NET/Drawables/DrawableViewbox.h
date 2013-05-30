@@ -52,14 +52,8 @@ namespace ImageMagick
 		///</summary>
 		property double LowerRightX
 		{
-			double get()
-			{
-				return Convert::ToDouble(Value->x1());
-			}
-			void set(double value)
-			{
-				Value->x1((::size_t)value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -67,14 +61,8 @@ namespace ImageMagick
 		///</summary>
 		property double LowerRightY
 		{
-			double get()
-			{
-				return Convert::ToDouble(Value->y1());
-			}
-			void set(double value)
-			{
-				Value->y1((::size_t)value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -82,14 +70,8 @@ namespace ImageMagick
 		///</summary>
 		property double UpperLeftX
 		{
-			double get()
-			{
-				return Convert::ToDouble(Value->x2());
-			}
-			void set(double value)
-			{
-				Value->x2((::size_t)value);
-			}
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -97,14 +79,8 @@ namespace ImageMagick
 		///</summary>
 		property double UpperLeftY
 		{
-			double get()
-			{
-				return Convert::ToDouble(Value->y2());
-			}
-			void set(double value)
-			{
-				Value->y2((::size_t)value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};

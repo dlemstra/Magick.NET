@@ -37,14 +37,8 @@ namespace ImageMagick
 		///</summary>
 		property double Width
 		{
-			double get()
-			{
-				return Value->width();
-			}
-			void set(double value)
-			{
-				Value->width(value);
-			}
+			double get();
+			void set(double value);
 		}
 		//===========================================================================================
 	};
