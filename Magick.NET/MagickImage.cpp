@@ -268,6 +268,13 @@ namespace ImageMagick
 		delete background;
 	}
 	//==============================================================================================
+	MagickImage::MagickImage(MagickImage^ image)
+	{
+		Throw::IfNull("image", image);
+
+		Value = new Magick::Image(*image->Value);
+	}
+	//==============================================================================================
 	MagickImage::MagickImage(String^ fileName)
 	{
 		Value = new Magick::Image();

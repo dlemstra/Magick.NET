@@ -138,6 +138,13 @@ namespace ImageMagick
 		MagickImage(MagickColor^ color, int width, int height);
 		///==========================================================================================
 		///<summary>
+		/// Initializes a new instance of the MagickImage class by creating a copy of the specified
+		/// image.
+		///</summary>
+		///<param name="image">The image to create a copy of.</param>
+		MagickImage(MagickImage^ image);
+		///==========================================================================================
+		///<summary>
 		/// Initializes a new instance of the MagickImage class using the specified filename.
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
