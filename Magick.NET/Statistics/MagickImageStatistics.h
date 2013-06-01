@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "Helpers\ChannelStatistics.h"
+#include "ChannelStatistics.h"
 
 namespace ImageMagick
 {

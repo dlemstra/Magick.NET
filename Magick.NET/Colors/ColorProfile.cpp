@@ -14,7 +14,7 @@
 #include "Stdafx.h"
 #include "ColorProfile.h"
 #include "..\Helpers\FileHelper.h"
-#include "..\Helpers\MagickReader.h"
+#include "..\IO\MagickReader.h"
 
 namespace ImageMagick
 {

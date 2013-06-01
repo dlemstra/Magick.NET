@@ -100,6 +100,18 @@
     <Filter Include="Header Files\Settings">
       <UniqueIdentifier>{b364b98f-cabc-4ba1-b0fb-d088b38ae0a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\IO">
+      <UniqueIdentifier>{b0fab967-bfc1-46e8-bd68-72a819036f88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO">
+      <UniqueIdentifier>{7681ffc8-c5ae-40e9-8f62-63c4d8bcac77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Statistics">
+      <UniqueIdentifier>{c6b68adc-81f7-421e-bfae-4cd661800487}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Statistics">
+      <UniqueIdentifier>{d4997d82-508b-4a1d-a4f3-763d2721acc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
@@ -149,12 +161,6 @@
     </ClInclude>
     <ClInclude Include="Enums\Gravity.h">
       <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\MagickReader.h">
-      <Filter>Header Files\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\MagickWriter.h">
-      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Matrices\MatrixColor.h">
       <Filter>Header Files\Matrices</Filter>
@@ -360,9 +366,6 @@
     <ClInclude Include="Pixels\WritablePixelCollection.h">
       <Filter>Header Files\Pixels</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers\TypeMetric.h">
-      <Filter>Header Files\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\GifDisposeMethod.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
@@ -371,9 +374,6 @@
     </ClInclude>
     <ClInclude Include="Enums\LayerMethod.h">
       <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\MagickErrorInfo.h">
-      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Enums\EvaluateOperator.h">
       <Filter>Header Files\Enums</Filter>
@@ -386,9 +386,6 @@
     </ClInclude>
     <ClInclude Include="Enums\RenderingIntent.h">
       <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\Percentage.h">
-      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Resources\resource.h">
       <Filter>Header Files</Filter>
@@ -404,12 +401,6 @@
     </ClInclude>
     <ClInclude Include="Enums\SparseColorMethod.h">
       <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="MagickImageStatistics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\ChannelStatistics.h">
-      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Enums\VirtualPixelMethod.h">
       <Filter>Header Files\Enums</Filter>
@@ -519,9 +510,6 @@
     <ClInclude Include="Helpers\EnumHelper.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="MagickFormatInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\MagickFormat.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
@@ -530,6 +518,30 @@
     </ClInclude>
     <ClInclude Include="Settings\MagickReadSettings.h">
       <Filter>Header Files\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\MagickReader.h">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\MagickWriter.h">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\MagickImageStatistics.h">
+      <Filter>Header Files\Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\ChannelStatistics.h">
+      <Filter>Header Files\Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="MagickErrorInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MagickFormatInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Percentage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeMetric.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -543,9 +555,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MagickGeometry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MagickImageInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Colors\ColorCMYK.cpp">
@@ -568,12 +577,6 @@
     </ClCompile>
     <ClCompile Include="Colors\MagickColor.cpp">
       <Filter>Source Files\Colors</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers\MagickReader.cpp">
-      <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers\MagickWriter.cpp">
-      <Filter>Source Files\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Matrices\MatrixColor.cpp">
       <Filter>Source Files\Matrices</Filter>
@@ -746,26 +749,11 @@
     <ClCompile Include="Pixels\WritablePixelCollection.cpp">
       <Filter>Source Files\Pixels</Filter>
     </ClCompile>
-    <ClCompile Include="Helpers\TypeMetric.cpp">
-      <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers\MagickErrorInfo.cpp">
-      <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers\Percentage.cpp">
-      <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
     <ClCompile Include="Exceptions\MagickErrorExceptions.cpp">
       <Filter>Source Files\Exceptions</Filter>
     </ClCompile>
     <ClCompile Include="Exceptions\MagickWarningExceptions.cpp">
       <Filter>Source Files\Exceptions</Filter>
-    </ClCompile>
-    <ClCompile Include="MagickImageStatistics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers\ChannelStatistics.cpp">
-      <Filter>Source Files\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Drawables\Helpers\Coordinate.cpp">
       <Filter>Source Files\Drawables</Filter>
@@ -857,11 +845,35 @@
     <ClCompile Include="Helpers\EnumHelper.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="Colors\ColorProfiles.cpp">
+      <Filter>Source Files\Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\MagickReader.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\MagickWriter.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\MagickImageStatistics.cpp">
+      <Filter>Source Files\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="MagickImageInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\ChannelStatistics.cpp">
+      <Filter>Source Files\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="MagickErrorInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="MagickFormatInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Colors\ColorProfiles.cpp">
-      <Filter>Source Files\Colors</Filter>
+    <ClCompile Include="Percentage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TypeMetric.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

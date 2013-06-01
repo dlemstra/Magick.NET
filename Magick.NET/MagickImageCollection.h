@@ -15,7 +15,7 @@
 
 #include "MagickImage.h"
 #include "Enums\LayerMethod.h"
-#include "Helpers\MagickReader.h"
+#include "IO\MagickReader.h"
 #include "Settings\MagickReadSettings.h"
 
 using namespace System::Collections::Generic;

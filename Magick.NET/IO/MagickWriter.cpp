@@ -12,8 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
+#include "..\Helpers\FileHelper.h"
 #include "MagickWriter.h"
-#include "FileHelper.h"
 
 using namespace System::Runtime::InteropServices;
 

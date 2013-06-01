@@ -13,8 +13,8 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "..\Colors\ColorProfiles.h"
+#include "..\Helpers\FileHelper.h"
 #include "MagickReader.h"
-#include "FileHelper.h"
 
 namespace ImageMagick
 {
