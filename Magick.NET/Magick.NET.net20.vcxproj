@@ -186,8 +186,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Colors\ColorProfiles.h" />
     <ClInclude Include="Drawables\DrawableDashArray.h" />
     <ClInclude Include="Drawables\DrawableDashOffset.h" />
     <ClInclude Include="Drawables\DrawableEllipse.h" />
@@ -305,7 +307,7 @@
     <ClInclude Include="Helpers\Percentage.h" />
     <ClInclude Include="Enums\Resolution.h" />
     <ClInclude Include="Helpers\TypeMetric.h" />
-    <ClInclude Include="Helpers\MagickReadSettings.h" />
+    <ClInclude Include="Settings\MagickReadSettings.h" />
     <ClInclude Include="Matrices\MatrixColor.h" />
     <ClInclude Include="Matrices\MatrixConvolve.h" />
     <ClInclude Include="MagickImageCollection.h" />
@@ -332,6 +334,7 @@
     <ClInclude Include="Helpers\Throw.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Colors\ColorProfiles.cpp" />
     <ClCompile Include="Drawables\DrawableDashArray.cpp" />
     <ClCompile Include="Drawables\DrawableDashOffset.cpp" />
     <ClCompile Include="Drawables\DrawableEllipse.cpp" />

@@ -1,0 +1,1 @@
+Please visit https://magick.codeplex.com/documentation for information on how to use Magick.NET.

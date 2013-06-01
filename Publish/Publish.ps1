@@ -23,6 +23,9 @@ function AddFileElement($xml, $src, $target)
 
 function Build($builds)
 {
+	$location = $(get-location)
+	set-location "$location\.."
+
 	foreach ($build in $builds)
 	{
 		$config = "Release"
@@ -42,6 +45,8 @@ function Build($builds)
 			CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.PlatformName + " (" + $build.FrameworkName + ")")
 		}
 	}
+
+	set-location $location
 }
 
 function CheckDependancies()
@@ -62,26 +67,26 @@ function CheckExitCode($msg)
 	}
 }
 
-function CheckSignature($builds)
+function CheckStrongName($builds)
 {
 	foreach ($build in $builds)
 	{
-		sn -Tp ("Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET.dll")
+		sn -Tp ("..\Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET.dll")
 		CheckExitCode ("Magick.NET-" + $build.Quantum + "-" + $build.Platform + " (" + $build.FrameworkName + ") does not represent a strongly named assembly")
 
 		if ($build.Quantum -ne "Q16" -or $build.Framework -ne "v4.0")
 		{
-			continue;
+			continue
 		}
 
-		sn -Tp ("Magick.NET.Web\bin\Release" + $build.Quantum + "\" + $build.PlatformName + "\Magick.NET.Web.dll")
+		sn -Tp ("..\Magick.NET.Web\bin\Release" + $build.Quantum + "\" + $build.PlatformName + "\Magick.NET.Web.dll")
 		CheckExitCode ("Magick.NET.Web-" + $build.Quantum + "-" + $build.PlatformName + " does not represent a strongly named assembly")
 	}
 }
 
 function CreateNuGetPackages($builds, $imVersion, $version)
 {
-	$content = [IO.File]::ReadAllText("Magick.NET.targets", [System.Text.Encoding]::Default)
+	$content = [IO.File]::ReadAllText("NuGet\Magick.NET.targets", [System.Text.Encoding]::Default)
 	[IO.File]::WriteAllText("NuGet\Magick.NET.net20.targets", $content.Replace("NET_VERSION","net20"), [System.Text.Encoding]::Default)
 	[IO.File]::WriteAllText("NuGet\Magick.NET.net40-client.targets", $content.Replace("NET_VERSION","net40-client"), [System.Text.Encoding]::Default)
 
@@ -89,10 +94,10 @@ function CreateNuGetPackages($builds, $imVersion, $version)
 	{
 		if ($build.Framework -ne "v4.0")
 		{
-			continue;
+			continue
 		}
 
-		$xml = [xml](get-content "Publish\Magick.NET.nuspec")
+		$xml = [xml](get-content "NuGet\Magick.NET.nuspec")
 
 		$id = "Magick.NET-" + $build.Quantum + "-" + $build.PlatformName
 		$xml.package.metadata.id = $id
@@ -117,71 +122,68 @@ function CreateNuGetPackages($builds, $imVersion, $version)
 
 		AddFileElement $xml ("..\..\Publish\NuGet\Magick.NET.net20.targets") "build\net20\$id.targets"
 		AddFileElement $xml ("..\..\Publish\NuGet\Magick.NET.net40-client.targets") "build\net40-client\$id.targets"
+		AddFileElement $xml ("Readme.txt") "Readme.txt"
 
 		$xml.Save($nuspecFile)
 
-		Publish\NuGet.exe pack Publish\$nuspecFile -NoPackageAnalysis -OutputDirectory Publish\NuGet
+		.\NuGet.exe pack $nuspecFile -minClientVersion 2.5 -NoPackageAnalysis -OutputDirectory NuGet
 
-		Remove-Item Publish\$nuspecFile
+		Remove-Item $nuspecFile
 	}
 
-	Remove-Item Publish\NuGet\Magick.NET.net20.targets
-	Remove-Item Publish\NuGet\Magick.NET.net40-client.targets
+	Remove-Item NuGet\Magick.NET.net20.targets
+	Remove-Item NuGet\Magick.NET.net40-client.targets
 }
 
 function CreateZipFiles($builds, $version)
 {
-	$location = $(get-location)
-
 	[void][Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem")
 	$compressionLevel = [System.IO.Compression.CompressionLevel]::Optimal
 
 	foreach ($build in $builds)
 	{
-		$dir = "$location\Publish\Zip\" + $build.Quantum + "-" + $build.PlatformName + "-" + $build.FrameworkName
+		$dir = "Zip\" + $build.Quantum + "-" + $build.PlatformName + "-" + $build.FrameworkName
 		if (Test-Path $dir)
 		{
 			Remove-Item $dir -recurse
 		}
 
 		[void](New-Item $dir -type directory)
-		Copy-Item ("Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET.dll") $dir
-		Copy-Item ("Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET.xml") $dir
+		Copy-Item ("..\Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET.dll") $dir
+		Copy-Item ("..\Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET.xml") $dir
 		
 		[void](New-Item $dir\ImageMagick -type directory)
-		Copy-Item ("ImageMagick\" + $build.Quantum + "\bin\" + $build.Framework + "\" + $build.PlatformName + "\*.dll") $dir\ImageMagick
-		Copy-Item ImageMagick\xml\*xml $dir\ImageMagick
+		Copy-Item ("..\ImageMagick\" + $build.Quantum + "\bin\" + $build.Framework + "\" + $build.PlatformName + "\*.dll") $dir\ImageMagick
+		Copy-Item ("..\ImageMagick\xml\*xml") $dir\ImageMagick
 
-		$fileName = "Magick.NET-$version-" + $build.Quantum + "-" + $build.PlatformName + "-" + $build.FrameworkName + ".zip"
-		$zipFile = "$dir\..\$fileName"
+		$zipFile = "Zip\Magick.NET-$version-" + $build.Quantum + "-" + $build.PlatformName + "-" + $build.FrameworkName + ".zip"
 		if (Test-Path $zipFile)
 		{
 			Remove-Item $zipFile
 		}
 
-		Write-Host "Creating file: Zip\$fileName"
+		Write-Host "Creating file: $zipFile"
 
 		[System.IO.Compression.ZipFile]::CreateFromDirectory($dir, $zipFile, $compressionLevel, $false)
 		Remove-Item $dir -recurse
 
 		if ($build.Quantum -ne "Q16" -or $build.Framework -ne "v4.0")
 		{
-			continue;
+			continue
 		}
 
-		$dir = "$location\Publish\Zip\" + $build.PlatformName
+		$dir = "Zip\" + $build.PlatformName
 		if (Test-Path $dir)
 		{
 			Remove-Item $dir -recurse
 		}
 
 		[void](New-Item $dir -type directory)
-		Copy-Item ("Magick.NET.Web\bin\Release" + $build.Quantum + "\" + $build.PlatformName + "\Magick.NET.Web.dll") $dir
+		Copy-Item ("..\Magick.NET.Web\bin\Release" + $build.Quantum + "\" + $build.PlatformName + "\Magick.NET.Web.dll") $dir
 
-		$fileName = "Magick.NET.Web-$version-" + $build.PlatformName + "-net40.zip"
-		$zipFile = "$dir\..\$fileName"
+		$zipFile = "Zip\Magick.NET.Web-$version-" + $build.PlatformName + "-net40.zip"
 
-		Write-Host "Creating file: Zip\$fileName"
+		Write-Host "Creating file: $zipFile"
 
 		[System.IO.Compression.ZipFile]::CreateFromDirectory($dir, $zipFile, $compressionLevel, $false)
 		Remove-Item $dir -recurse
@@ -249,17 +251,14 @@ $builds = @(
 
 CheckDependancies
 
-$location = $(get-location)
-set-location "$location\.."
-
 $imVersion = "6.8.5.4"
-$version = "6.8.5.401"
+$version = "6.8.5.402"
 
 UpdateAssemblyInfo "..\Magick.NET\AssemblyInfo.cpp" $version
 UpdateAssemblyInfo "..\Magick.NET.Web\Properties\AssemblyInfo.cs" $version
 UpdateResourceFiles $builds $version
 
 Build $builds
-CheckSignature $builds
+CheckStrongName $builds
 CreateZipFiles $builds $version
 CreateNuGetPackages $builds $imVersion $version

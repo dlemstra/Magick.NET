@@ -8,9 +8,9 @@
 		<owners>Dirk Lemstra</owners>
 		<licenseUrl>https://magick.codeplex.com/license</licenseUrl>
 		<projectUrl>https://magick.codeplex.com</projectUrl>
-		<iconUrl>http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=26294&amp;itemId=581988</iconUrl>
+		<iconUrl>http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=26438&amp;itemId=581988</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. The .NET library comes together with all the dll's from ImageMagick you need.</description>
+		<description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. The .NET library comes with all the dll's from ImageMagick you need.</description>
 		<summary>A .NET API to the ImageMagick image-processing library for Desktop and Web.</summary>
 		<releaseNotes/>
 		<copyright>Copyright 2013</copyright>
