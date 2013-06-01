@@ -16,7 +16,7 @@
 #include "..\Exceptions\Base\MagickException.h"
 #include "..\Exceptions\MagickWarningExceptions.h"
 #include "..\MagickImage.h"
-#include "MagickReadSettings.h"
+#include "..\Settings\MagickReadSettings.h"
 
 using namespace System::IO;
 using namespace System::Runtime::InteropServices;

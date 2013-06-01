@@ -97,6 +97,9 @@
     <Filter Include="Source Files\Drawables\Paths\Args">
       <UniqueIdentifier>{a3c2eb86-d271-49cc-aaee-68cd3400ba08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Settings">
+      <UniqueIdentifier>{b364b98f-cabc-4ba1-b0fb-d088b38ae0a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
@@ -522,11 +525,11 @@
     <ClInclude Include="Enums\MagickFormat.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers\MagickReadSettings.h">
-      <Filter>Header Files\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="Colors\ColorProfiles.h">
       <Filter>Header Files\Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings\MagickReadSettings.h">
+      <Filter>Header Files\Settings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,7 @@
 #include "MagickImage.h"
 #include "Enums\LayerMethod.h"
 #include "Helpers\MagickReader.h"
-#include "Helpers\MagickReadSettings.h"
+#include "Settings\MagickReadSettings.h"
 
 using namespace System::Collections::Generic;
 
@@ -43,6 +43,8 @@ namespace ImageMagick
 
 			Clear();
 		}
+		//===========================================================================================
+		MagickImage^ Append(bool vertically);
 		//===========================================================================================
 		void CopyFrom(std::list<Magick::Image>* images);
 		//===========================================================================================
@@ -166,6 +168,16 @@ namespace ImageMagick
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
 		///<exception cref="MagickException"/>
 		void Add(String^ fileName);
+		///==========================================================================================
+		///<summary>
+		/// Creates a single image, by appending all the images in the collection horizontally.
+		///</summary>
+		MagickImage^ AppendHorizontally();
+		///==========================================================================================
+		///<summary>
+		/// Creates a single image, by appending all the images in the collection vertically.
+		///</summary>
+		MagickImage^ AppendVertically();
 		///==========================================================================================
 		///<summary>
 		/// Removes all images from the collection.

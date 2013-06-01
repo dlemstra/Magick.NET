@@ -41,7 +41,6 @@
 #include "Helpers\EnumHelper.h"
 #include "Helpers\MagickErrorInfo.h"
 #include "Helpers\MagickReader.h"
-#include "Helpers\MagickReadSettings.h"
 #include "Helpers\MagickWriter.h"
 #include "Helpers\Percentage.h"
 #include "Helpers\TypeMetric.h"
@@ -51,6 +50,7 @@
 #include "Matrices\MatrixConvolve.h"
 #include "Pixels\PixelCollection.h"
 #include "Pixels\WritablePixelCollection.h"
+#include "Settings\MagickReadSettings.h"
 
 using namespace System::Collections::Generic;
 using namespace System::Drawing::Imaging;

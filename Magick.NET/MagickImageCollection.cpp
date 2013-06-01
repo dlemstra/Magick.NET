@@ -17,6 +17,32 @@
 namespace ImageMagick
 {
 	//==============================================================================================
+	MagickImage^ MagickImageCollection::Append(bool vertically)
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+
+		try
+		{
+			CopyTo(images);
+
+			std::list<Magick::Image>::iterator first = images->begin();
+			std::list<Magick::Image>::iterator last = images->end();
+
+			Magick::Image appendedImage;
+			Magick::appendImages(&appendedImage, first, last, vertically);
+
+			return gcnew MagickImage(appendedImage);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete images;
+		}
+	}
+	//==============================================================================================
 	void MagickImageCollection::CopyFrom(std::list<Magick::Image>* images)
 	{
 		for (std::list<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
@@ -49,7 +75,7 @@ namespace ImageMagick
 			MagickCore::Image* image = MagickCore::MergeImageLayers(first->image(),
 				(MagickCore::ImageLayerMethod)layerMethod, &exceptionInfo);
 			Magick::unlinkImages(first, last);
-			mergedImage->replaceImage( image );
+			mergedImage->replaceImage(image);
 			Magick::throwException(exceptionInfo);
 			(void)MagickCore::DestroyExceptionInfo(&exceptionInfo);
 		}
@@ -150,6 +176,16 @@ namespace ImageMagick
 		Add(gcnew MagickImage(fileName));
 	}
 	//==============================================================================================
+	MagickImage^ MagickImageCollection::AppendHorizontally()
+	{
+		return Append(false);
+	}
+	//==============================================================================================
+	MagickImage^ MagickImageCollection::AppendVertically()
+	{
+		return Append(true);
+	}
+	//==============================================================================================
 	void MagickImageCollection::Clear()
 	{
 		_Images->Clear();
@@ -201,10 +237,10 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::Merge(LayerMethod layerMethod)
 	{
-		Magick::Image* mergedImage = new Magick::Image();
-		Merge(layerMethod, mergedImage);
+		Magick::Image mergedImage;
+		Merge(layerMethod, &mergedImage);
 
-		return gcnew MagickImage(*mergedImage);
+		return gcnew MagickImage(mergedImage);
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data)
