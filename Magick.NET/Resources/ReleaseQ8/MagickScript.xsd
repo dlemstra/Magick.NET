@@ -1,0 +1,1587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="quantum">
+		<xs:restriction base="xs:unsignedByte" />
+	</xs:simpleType>
+	<xs:simpleType name="color">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="#([0-9a-fA-F]{3,4})" />
+			<xs:pattern value="#([0-9a-fA-F]{2}){3,4}" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Channels">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Cyan" />
+			<xs:enumeration value="Gray" />
+			<xs:enumeration value="Red" />
+			<xs:enumeration value="Green" />
+			<xs:enumeration value="Magenta" />
+			<xs:enumeration value="Blue" />
+			<xs:enumeration value="Yellow" />
+			<xs:enumeration value="Opacity" />
+			<xs:enumeration value="Alpha" />
+			<xs:enumeration value="Black" />
+			<xs:enumeration value="Index" />
+			<xs:enumeration value="Composite" />
+			<xs:enumeration value="TrueAlpha" />
+			<xs:enumeration value="Grays" />
+			<xs:enumeration value="RGB" />
+			<xs:enumeration value="Sync" />
+			<xs:enumeration value="Default" />
+			<xs:enumeration value="All" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ClassType">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Direct" />
+			<xs:enumeration value="Pseudo" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ColorSpace">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="RGB" />
+			<xs:enumeration value="GRAY" />
+			<xs:enumeration value="Transparent" />
+			<xs:enumeration value="OHTA" />
+			<xs:enumeration value="Lab" />
+			<xs:enumeration value="XYZ" />
+			<xs:enumeration value="YCbCr" />
+			<xs:enumeration value="YCC" />
+			<xs:enumeration value="YIQ" />
+			<xs:enumeration value="YPbPr" />
+			<xs:enumeration value="YUV" />
+			<xs:enumeration value="CMYK" />
+			<xs:enumeration value="sRGB" />
+			<xs:enumeration value="HSB" />
+			<xs:enumeration value="HSL" />
+			<xs:enumeration value="HWB" />
+			<xs:enumeration value="Rec601Luma" />
+			<xs:enumeration value="Rec601YCbCr" />
+			<xs:enumeration value="Rec709Luma" />
+			<xs:enumeration value="Rec709YCbCr" />
+			<xs:enumeration value="Log" />
+			<xs:enumeration value="CMY" />
+			<xs:enumeration value="Luv" />
+			<xs:enumeration value="HCL" />
+			<xs:enumeration value="LCH" />
+			<xs:enumeration value="LMS" />
+			<xs:enumeration value="LCHab" />
+			<xs:enumeration value="LCHuv" />
+			<xs:enumeration value="scRGB" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ColorType">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Bilevel" />
+			<xs:enumeration value="Grayscale" />
+			<xs:enumeration value="GrayscaleMatte" />
+			<xs:enumeration value="Palette" />
+			<xs:enumeration value="PaletteMatte" />
+			<xs:enumeration value="TrueColor" />
+			<xs:enumeration value="TrueColorMatte" />
+			<xs:enumeration value="ColorSeparation" />
+			<xs:enumeration value="ColorSeparationMatte" />
+			<xs:enumeration value="Optimize" />
+			<xs:enumeration value="PaletteBilevelMatte" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CompositeOperator">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="NoComposite" />
+			<xs:enumeration value="ModulusAdd" />
+			<xs:enumeration value="Atop" />
+			<xs:enumeration value="Blend" />
+			<xs:enumeration value="Bumpmap" />
+			<xs:enumeration value="ChangeMask" />
+			<xs:enumeration value="Clear" />
+			<xs:enumeration value="ColorBurn" />
+			<xs:enumeration value="ColorDodge" />
+			<xs:enumeration value="Colorize" />
+			<xs:enumeration value="CopyBlack" />
+			<xs:enumeration value="CopyBlue" />
+			<xs:enumeration value="Copy" />
+			<xs:enumeration value="CopyCyan" />
+			<xs:enumeration value="CopyGreen" />
+			<xs:enumeration value="CopyMagenta" />
+			<xs:enumeration value="CopyOpacity" />
+			<xs:enumeration value="CopyRed" />
+			<xs:enumeration value="CopyYellow" />
+			<xs:enumeration value="Darken" />
+			<xs:enumeration value="DstAtop" />
+			<xs:enumeration value="Dst" />
+			<xs:enumeration value="DstIn" />
+			<xs:enumeration value="DstOut" />
+			<xs:enumeration value="DstOver" />
+			<xs:enumeration value="Difference" />
+			<xs:enumeration value="Displace" />
+			<xs:enumeration value="Dissolve" />
+			<xs:enumeration value="Exclusion" />
+			<xs:enumeration value="HardLight" />
+			<xs:enumeration value="Hue" />
+			<xs:enumeration value="In" />
+			<xs:enumeration value="Lighten" />
+			<xs:enumeration value="LinearLight" />
+			<xs:enumeration value="Luminize" />
+			<xs:enumeration value="MinusDst" />
+			<xs:enumeration value="Modulate" />
+			<xs:enumeration value="Multiply" />
+			<xs:enumeration value="Out" />
+			<xs:enumeration value="Over" />
+			<xs:enumeration value="Overlay" />
+			<xs:enumeration value="Plus" />
+			<xs:enumeration value="Replace" />
+			<xs:enumeration value="Saturate" />
+			<xs:enumeration value="Screen" />
+			<xs:enumeration value="SoftLight" />
+			<xs:enumeration value="SrcAtop" />
+			<xs:enumeration value="Src" />
+			<xs:enumeration value="SrcIn" />
+			<xs:enumeration value="SrcOut" />
+			<xs:enumeration value="SrcOver" />
+			<xs:enumeration value="Modulus" />
+			<xs:enumeration value="Threshold" />
+			<xs:enumeration value="Xor" />
+			<xs:enumeration value="Divide" />
+			<xs:enumeration value="Distort" />
+			<xs:enumeration value="Blur" />
+			<xs:enumeration value="PegtopLight" />
+			<xs:enumeration value="VividLight" />
+			<xs:enumeration value="PinLight" />
+			<xs:enumeration value="LinearDodge" />
+			<xs:enumeration value="LinearBurn" />
+			<xs:enumeration value="Mathematics" />
+			<xs:enumeration value="DivideSrc" />
+			<xs:enumeration value="MinusSrc" />
+			<xs:enumeration value="DarkenIntensity" />
+			<xs:enumeration value="LightenIntensity" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DistortMethod">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Affine" />
+			<xs:enumeration value="AffineProjection" />
+			<xs:enumeration value="ScaleRotateTranslate" />
+			<xs:enumeration value="Perspective" />
+			<xs:enumeration value="PerspectiveProjection" />
+			<xs:enumeration value="BilinearForward" />
+			<xs:enumeration value="Bilinear" />
+			<xs:enumeration value="BilinearReverse" />
+			<xs:enumeration value="Polynomial" />
+			<xs:enumeration value="Arc" />
+			<xs:enumeration value="Polar" />
+			<xs:enumeration value="DePolar" />
+			<xs:enumeration value="Cylinder2Plane" />
+			<xs:enumeration value="Plane2Cylinder" />
+			<xs:enumeration value="Barrel" />
+			<xs:enumeration value="BarrelInverse" />
+			<xs:enumeration value="Shepards" />
+			<xs:enumeration value="Resize" />
+			<xs:enumeration value="Sentinel" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Endian">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="LSB" />
+			<xs:enumeration value="MSB" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EvaluateOperator">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Add" />
+			<xs:enumeration value="And" />
+			<xs:enumeration value="Devide" />
+			<xs:enumeration value="LeftShift" />
+			<xs:enumeration value="Max" />
+			<xs:enumeration value="Min" />
+			<xs:enumeration value="Multiply" />
+			<xs:enumeration value="Or" />
+			<xs:enumeration value="Right" />
+			<xs:enumeration value="Set" />
+			<xs:enumeration value="Subtract" />
+			<xs:enumeration value="Xor" />
+			<xs:enumeration value="Pow" />
+			<xs:enumeration value="Log" />
+			<xs:enumeration value="Threshold" />
+			<xs:enumeration value="ThresholdBlack" />
+			<xs:enumeration value="ThresholdWhite" />
+			<xs:enumeration value="GaussianNoise" />
+			<xs:enumeration value="ImpulseNoise" />
+			<xs:enumeration value="LaplacianNoise" />
+			<xs:enumeration value="MultiplicativeNoise" />
+			<xs:enumeration value="PoissonNoise" />
+			<xs:enumeration value="UniformNoise" />
+			<xs:enumeration value="Cosine" />
+			<xs:enumeration value="Sine" />
+			<xs:enumeration value="AddModulus" />
+			<xs:enumeration value="Mean" />
+			<xs:enumeration value="Abs" />
+			<xs:enumeration value="Exponential" />
+			<xs:enumeration value="Median" />
+			<xs:enumeration value="Sum" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FillRule">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="EvenOdd" />
+			<xs:enumeration value="Nonzero" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FilterType">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Point" />
+			<xs:enumeration value="Box" />
+			<xs:enumeration value="Triangle" />
+			<xs:enumeration value="Hermite" />
+			<xs:enumeration value="Hanning" />
+			<xs:enumeration value="Hamming" />
+			<xs:enumeration value="Blackman" />
+			<xs:enumeration value="Gaussian" />
+			<xs:enumeration value="Quadratic" />
+			<xs:enumeration value="Cubic" />
+			<xs:enumeration value="Catrom" />
+			<xs:enumeration value="Mitchell" />
+			<xs:enumeration value="Jinc" />
+			<xs:enumeration value="Sinc" />
+			<xs:enumeration value="SincFast" />
+			<xs:enumeration value="Kaiser" />
+			<xs:enumeration value="Welsh" />
+			<xs:enumeration value="Parzen" />
+			<xs:enumeration value="Bohman" />
+			<xs:enumeration value="Bartlett" />
+			<xs:enumeration value="Lagrange" />
+			<xs:enumeration value="Lanczos" />
+			<xs:enumeration value="LanczosSharp" />
+			<xs:enumeration value="Lanczos2" />
+			<xs:enumeration value="Lanczos2Sharo" />
+			<xs:enumeration value="Robidoux" />
+			<xs:enumeration value="RobidouxSharp" />
+			<xs:enumeration value="Cosine" />
+			<xs:enumeration value="Spline" />
+			<xs:enumeration value="LanczosRadius" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FontStretch">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Normal" />
+			<xs:enumeration value="UltraCondensed" />
+			<xs:enumeration value="ExtraCondensed" />
+			<xs:enumeration value="Condensed" />
+			<xs:enumeration value="SemiCondensed" />
+			<xs:enumeration value="SemiExpanded" />
+			<xs:enumeration value="Expanded" />
+			<xs:enumeration value="ExtraExpanded" />
+			<xs:enumeration value="UltraExpanded" />
+			<xs:enumeration value="Any" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FontStyleType">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Normal" />
+			<xs:enumeration value="Italic" />
+			<xs:enumeration value="Oblique" />
+			<xs:enumeration value="Any" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FontWeight">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Weight100" />
+			<xs:enumeration value="Weight200" />
+			<xs:enumeration value="Weight300" />
+			<xs:enumeration value="Weight400" />
+			<xs:enumeration value="Weight500" />
+			<xs:enumeration value="Weight600" />
+			<xs:enumeration value="Weight700" />
+			<xs:enumeration value="Weight800" />
+			<xs:enumeration value="Weight900" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GifDisposeMethod">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="None" />
+			<xs:enumeration value="Background" />
+			<xs:enumeration value="Previous" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Gravity">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Forget" />
+			<xs:enumeration value="Northwest" />
+			<xs:enumeration value="North" />
+			<xs:enumeration value="Northeast" />
+			<xs:enumeration value="West" />
+			<xs:enumeration value="Center" />
+			<xs:enumeration value="East" />
+			<xs:enumeration value="Southwest" />
+			<xs:enumeration value="South" />
+			<xs:enumeration value="Southeast" />
+			<xs:enumeration value="Static" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LayerMethod">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Coalesce" />
+			<xs:enumeration value="CompareAny" />
+			<xs:enumeration value="CompareClear" />
+			<xs:enumeration value="CompareOverlay" />
+			<xs:enumeration value="Dispose" />
+			<xs:enumeration value="Optimize" />
+			<xs:enumeration value="OptimizeImage" />
+			<xs:enumeration value="OptimizePlus" />
+			<xs:enumeration value="OptimizeTrans" />
+			<xs:enumeration value="RemoveDups" />
+			<xs:enumeration value="RemoveZero" />
+			<xs:enumeration value="Composite" />
+			<xs:enumeration value="Merge" />
+			<xs:enumeration value="Flatten" />
+			<xs:enumeration value="Mosaic" />
+			<xs:enumeration value="Trimbounds" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LineCap">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Butt" />
+			<xs:enumeration value="Round" />
+			<xs:enumeration value="Square" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LineJoin">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Miter" />
+			<xs:enumeration value="Round" />
+			<xs:enumeration value="Bevel" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MagickFormat">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="ThreeFr" />
+			<xs:enumeration value="A" />
+			<xs:enumeration value="Aai" />
+			<xs:enumeration value="Ai" />
+			<xs:enumeration value="Art" />
+			<xs:enumeration value="Arw" />
+			<xs:enumeration value="Avi" />
+			<xs:enumeration value="Avs" />
+			<xs:enumeration value="B" />
+			<xs:enumeration value="Bgr" />
+			<xs:enumeration value="Bgra" />
+			<xs:enumeration value="Bie" />
+			<xs:enumeration value="Bmp" />
+			<xs:enumeration value="Bmp2" />
+			<xs:enumeration value="Bmp3" />
+			<xs:enumeration value="Brf" />
+			<xs:enumeration value="C" />
+			<xs:enumeration value="Cal" />
+			<xs:enumeration value="Cals" />
+			<xs:enumeration value="Canvas" />
+			<xs:enumeration value="Caption" />
+			<xs:enumeration value="Cin" />
+			<xs:enumeration value="Cip" />
+			<xs:enumeration value="Clip" />
+			<xs:enumeration value="Clipboard" />
+			<xs:enumeration value="Cmyk" />
+			<xs:enumeration value="Cmyka" />
+			<xs:enumeration value="Cr2" />
+			<xs:enumeration value="Crw" />
+			<xs:enumeration value="Cur" />
+			<xs:enumeration value="Cut" />
+			<xs:enumeration value="Dcm" />
+			<xs:enumeration value="Dcr" />
+			<xs:enumeration value="Dcx" />
+			<xs:enumeration value="Dds" />
+			<xs:enumeration value="Dfont" />
+			<xs:enumeration value="Dib" />
+			<xs:enumeration value="Djvu" />
+			<xs:enumeration value="Dng" />
+			<xs:enumeration value="Dot" />
+			<xs:enumeration value="Dps" />
+			<xs:enumeration value="Dpx" />
+			<xs:enumeration value="Emf" />
+			<xs:enumeration value="Epdf" />
+			<xs:enumeration value="Epi" />
+			<xs:enumeration value="Eps" />
+			<xs:enumeration value="Eps2" />
+			<xs:enumeration value="Eps3" />
+			<xs:enumeration value="Epsf" />
+			<xs:enumeration value="Epsi" />
+			<xs:enumeration value="Ept" />
+			<xs:enumeration value="Ept2" />
+			<xs:enumeration value="Ept3" />
+			<xs:enumeration value="Erf" />
+			<xs:enumeration value="Exr" />
+			<xs:enumeration value="Fax" />
+			<xs:enumeration value="Fits" />
+			<xs:enumeration value="Fpx" />
+			<xs:enumeration value="Fractal" />
+			<xs:enumeration value="Fts" />
+			<xs:enumeration value="G" />
+			<xs:enumeration value="G3" />
+			<xs:enumeration value="Gif" />
+			<xs:enumeration value="Gif87" />
+			<xs:enumeration value="Gradient" />
+			<xs:enumeration value="Gray" />
+			<xs:enumeration value="Group4" />
+			<xs:enumeration value="Gv" />
+			<xs:enumeration value="Hald" />
+			<xs:enumeration value="Hdr" />
+			<xs:enumeration value="Histogram" />
+			<xs:enumeration value="Hrz" />
+			<xs:enumeration value="Htm" />
+			<xs:enumeration value="Html" />
+			<xs:enumeration value="Icb" />
+			<xs:enumeration value="Ico" />
+			<xs:enumeration value="Icon" />
+			<xs:enumeration value="Info" />
+			<xs:enumeration value="Inline" />
+			<xs:enumeration value="Ipl" />
+			<xs:enumeration value="Isobrl" />
+			<xs:enumeration value="J2c" />
+			<xs:enumeration value="J2k" />
+			<xs:enumeration value="Jbg" />
+			<xs:enumeration value="Jbig" />
+			<xs:enumeration value="Jng" />
+			<xs:enumeration value="Jnx" />
+			<xs:enumeration value="Jp2" />
+			<xs:enumeration value="Jpc" />
+			<xs:enumeration value="Jpeg" />
+			<xs:enumeration value="Jpg" />
+			<xs:enumeration value="Jpx" />
+			<xs:enumeration value="K" />
+			<xs:enumeration value="K25" />
+			<xs:enumeration value="Kdc" />
+			<xs:enumeration value="Label" />
+			<xs:enumeration value="M" />
+			<xs:enumeration value="M2v" />
+			<xs:enumeration value="M4v" />
+			<xs:enumeration value="Mac" />
+			<xs:enumeration value="Map" />
+			<xs:enumeration value="Mask" />
+			<xs:enumeration value="Mat" />
+			<xs:enumeration value="Matte" />
+			<xs:enumeration value="Mef" />
+			<xs:enumeration value="Miff" />
+			<xs:enumeration value="Mng" />
+			<xs:enumeration value="Mono" />
+			<xs:enumeration value="Mov" />
+			<xs:enumeration value="Mp4" />
+			<xs:enumeration value="Mpc" />
+			<xs:enumeration value="Mpeg" />
+			<xs:enumeration value="Mpg" />
+			<xs:enumeration value="Mrw" />
+			<xs:enumeration value="Msl" />
+			<xs:enumeration value="Msvg" />
+			<xs:enumeration value="Mtv" />
+			<xs:enumeration value="Mvg" />
+			<xs:enumeration value="Nef" />
+			<xs:enumeration value="Nrw" />
+			<xs:enumeration value="Null" />
+			<xs:enumeration value="O" />
+			<xs:enumeration value="Orf" />
+			<xs:enumeration value="Otb" />
+			<xs:enumeration value="Otf" />
+			<xs:enumeration value="Pal" />
+			<xs:enumeration value="Palm" />
+			<xs:enumeration value="Pam" />
+			<xs:enumeration value="Pango" />
+			<xs:enumeration value="Pattern" />
+			<xs:enumeration value="Pbm" />
+			<xs:enumeration value="Pcd" />
+			<xs:enumeration value="Pcds" />
+			<xs:enumeration value="Pcl" />
+			<xs:enumeration value="Pct" />
+			<xs:enumeration value="Pcx" />
+			<xs:enumeration value="Pdb" />
+			<xs:enumeration value="Pdf" />
+			<xs:enumeration value="Pdfa" />
+			<xs:enumeration value="Pef" />
+			<xs:enumeration value="Pes" />
+			<xs:enumeration value="Pfa" />
+			<xs:enumeration value="Pfb" />
+			<xs:enumeration value="Pfm" />
+			<xs:enumeration value="Pgm" />
+			<xs:enumeration value="Pgx" />
+			<xs:enumeration value="Picon" />
+			<xs:enumeration value="Pict" />
+			<xs:enumeration value="Pix" />
+			<xs:enumeration value="Pjpeg" />
+			<xs:enumeration value="Plasma" />
+			<xs:enumeration value="Png" />
+			<xs:enumeration value="Png00" />
+			<xs:enumeration value="Png24" />
+			<xs:enumeration value="Png32" />
+			<xs:enumeration value="Png48" />
+			<xs:enumeration value="Png64" />
+			<xs:enumeration value="Png8" />
+			<xs:enumeration value="Pnm" />
+			<xs:enumeration value="Ppm" />
+			<xs:enumeration value="Preview" />
+			<xs:enumeration value="Ps" />
+			<xs:enumeration value="Ps2" />
+			<xs:enumeration value="Ps3" />
+			<xs:enumeration value="Psb" />
+			<xs:enumeration value="Psd" />
+			<xs:enumeration value="Ptif" />
+			<xs:enumeration value="Pwp" />
+			<xs:enumeration value="R" />
+			<xs:enumeration value="RadialGradient" />
+			<xs:enumeration value="Raf" />
+			<xs:enumeration value="Ras" />
+			<xs:enumeration value="Rgb" />
+			<xs:enumeration value="Rgba" />
+			<xs:enumeration value="Rgbo" />
+			<xs:enumeration value="Rla" />
+			<xs:enumeration value="Rle" />
+			<xs:enumeration value="Rw2" />
+			<xs:enumeration value="Scr" />
+			<xs:enumeration value="Sct" />
+			<xs:enumeration value="Sfw" />
+			<xs:enumeration value="Sgi" />
+			<xs:enumeration value="Shtml" />
+			<xs:enumeration value="SparseColor" />
+			<xs:enumeration value="Sr2" />
+			<xs:enumeration value="Srf" />
+			<xs:enumeration value="Stegano" />
+			<xs:enumeration value="Sun" />
+			<xs:enumeration value="Svg" />
+			<xs:enumeration value="Svgz" />
+			<xs:enumeration value="Text" />
+			<xs:enumeration value="Tga" />
+			<xs:enumeration value="Thumbnail" />
+			<xs:enumeration value="Tiff" />
+			<xs:enumeration value="Tiff64" />
+			<xs:enumeration value="Tile" />
+			<xs:enumeration value="Tim" />
+			<xs:enumeration value="Ttc" />
+			<xs:enumeration value="Ttf" />
+			<xs:enumeration value="Txt" />
+			<xs:enumeration value="Ubrl" />
+			<xs:enumeration value="Uil" />
+			<xs:enumeration value="Unknown" />
+			<xs:enumeration value="Uyvy" />
+			<xs:enumeration value="Vda" />
+			<xs:enumeration value="Vicar" />
+			<xs:enumeration value="Vid" />
+			<xs:enumeration value="Viff" />
+			<xs:enumeration value="Vst" />
+			<xs:enumeration value="Wbmp" />
+			<xs:enumeration value="Webp" />
+			<xs:enumeration value="Wmf" />
+			<xs:enumeration value="Wmfwin32" />
+			<xs:enumeration value="Wmv" />
+			<xs:enumeration value="Wmz" />
+			<xs:enumeration value="Wpg" />
+			<xs:enumeration value="X" />
+			<xs:enumeration value="X3f" />
+			<xs:enumeration value="Xbm" />
+			<xs:enumeration value="Xc" />
+			<xs:enumeration value="Xcf" />
+			<xs:enumeration value="Xpm" />
+			<xs:enumeration value="Xps" />
+			<xs:enumeration value="Xv" />
+			<xs:enumeration value="Xwd" />
+			<xs:enumeration value="Y" />
+			<xs:enumeration value="Ycbcr" />
+			<xs:enumeration value="Ycbcra" />
+			<xs:enumeration value="Yuv" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NoiseType">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Uniform" />
+			<xs:enumeration value="Gaussian" />
+			<xs:enumeration value="MultiplicativeGaussian" />
+			<xs:enumeration value="Impulse" />
+			<xs:enumeration value="Laplacian" />
+			<xs:enumeration value="Poisson" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OrientationType">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="TopLeft" />
+			<xs:enumeration value="TopRight" />
+			<xs:enumeration value="BottomRight" />
+			<xs:enumeration value="BottomLeft" />
+			<xs:enumeration value="LeftTop" />
+			<xs:enumeration value="RightTop" />
+			<xs:enumeration value="RightBottom" />
+			<xs:enumeration value="LeftBotom" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PaintMethod">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Point" />
+			<xs:enumeration value="Replace" />
+			<xs:enumeration value="Floodfill" />
+			<xs:enumeration value="FillToBorder" />
+			<xs:enumeration value="Reset" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RenderingIntent">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Saturation" />
+			<xs:enumeration value="Perceptual" />
+			<xs:enumeration value="Absolute" />
+			<xs:enumeration value="Relative" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Resolution">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="PixelsPerInch" />
+			<xs:enumeration value="PixelsPerCentimeter" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SparseColorMethod">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Barycentric" />
+			<xs:enumeration value="Bilinear" />
+			<xs:enumeration value="Polynomial" />
+			<xs:enumeration value="Shepards" />
+			<xs:enumeration value="Voronoi" />
+			<xs:enumeration value="Inverse" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TextDecoration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="NoDecoration" />
+			<xs:enumeration value="Underline" />
+			<xs:enumeration value="Overline" />
+			<xs:enumeration value="LineThrough" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VirtualPixelMethod">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Background" />
+			<xs:enumeration value="Dither" />
+			<xs:enumeration value="Edge" />
+			<xs:enumeration value="Mirror" />
+			<xs:enumeration value="Random" />
+			<xs:enumeration value="Tile" />
+			<xs:enumeration value="Transparent" />
+			<xs:enumeration value="Mask" />
+			<xs:enumeration value="Black" />
+			<xs:enumeration value="Gray" />
+			<xs:enumeration value="White" />
+			<xs:enumeration value="HorizontalTile" />
+			<xs:enumeration value="VerticalTile" />
+			<xs:enumeration value="HorizontalTileEdge" />
+			<xs:enumeration value="VerticalTileEdge" />
+			<xs:enumeration value="CheckerTileV" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="geometry">
+		<xs:attribute name="x" type="xs:int" />
+		<xs:attribute name="y" type="xs:int" />
+		<xs:attribute name="width" type="xs:int" />
+		<xs:attribute name="height" type="xs:int" />
+		<xs:attribute name="percentageWidth" type="xs:double" />
+		<xs:attribute name="percentageHeight" type="xs:double" />
+		<xs:attribute name="value" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="read">
+		<xs:sequence>
+			<xs:element name="settings" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="density" minOccurs="0" type="geometry" />
+					</xs:sequence>
+					<xs:attribute name="colorSpace" type="ColorSpace" />
+					<xs:attribute name="width" type="xs:int" />
+					<xs:attribute name="height" type="xs:int" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="fileName" type="xs:string" />
+		<xs:attribute name="id" type="xs:string" />
+	</xs:complexType>
+	<xs:group name="actions">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="adjoin">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="animationDelay">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="animationIterations">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="antiAlias">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="backgroundColor">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="borderColor">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="classType">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="ClassType" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="clipMask">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="read" type="read" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="colorFuzz">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="colorMapSize">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="colorSpace">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="ColorSpace" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="colorType">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="ColorType" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="comment">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="compose">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="CompositeOperator" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="density">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="geometry" type="geometry" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="endian">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="Endian" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="fillColor">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="fillPattern">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="read" type="read" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="fillRule">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="FillRule" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="filterType">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="FilterType" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="flashPixView">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="font">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="fontPointsize">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="format">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="MagickFormat" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="gifDisposeMethod">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="GifDisposeMethod" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="hasMatte">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="isMonochrome">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="label">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="matteColor">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="modulusDepth">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="orientation">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="OrientationType" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="page">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="geometry" type="geometry" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="quality">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="quantizeColors">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="quantizeColorSpace">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="ColorSpace" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="quantizeDither">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="quantizeTreeDepth">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="renderingIntent">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="RenderingIntent" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="resolutionUnits">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="Resolution" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeAntiAlias">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeColor">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeDashOffset">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeLineCap">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="LineCap" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeLineJoin">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="LineJoin" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeMiterLimit">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokePattern">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="read" type="read" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeWidth">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="textEncoding">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="tileName">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="verbose">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="virtualPixelMethod">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="VirtualPixelMethod" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="adaptiveBlur">
+					<xs:complexType>
+						<xs:attribute name="radius" type="xs:double" />
+						<xs:attribute name="sigma" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="adaptiveThreshold">
+					<xs:complexType>
+						<xs:attribute name="width" use="required" type="xs:int" />
+						<xs:attribute name="height" use="required" type="xs:int" />
+						<xs:attribute name="offset" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="addNoise">
+					<xs:complexType>
+						<xs:attribute name="noiseType" use="required" type="NoiseType" />
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="addProfile">
+					<xs:complexType>
+						<xs:attribute name="fileName" use="required" type="xs:string" />
+						<xs:attribute name="name" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="annotate">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="boundingArea" minOccurs="0" type="geometry" />
+						</xs:sequence>
+						<xs:attribute name="text" use="required" type="xs:string" />
+						<xs:attribute name="gravity" type="Gravity" />
+						<xs:attribute name="degrees" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="attribute">
+					<xs:complexType>
+						<xs:attribute name="name" use="required" type="xs:string" />
+						<xs:attribute name="value" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="blur">
+					<xs:complexType>
+						<xs:attribute name="radius" type="xs:double" />
+						<xs:attribute name="sigma" type="xs:double" />
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="border">
+					<xs:complexType>
+						<xs:attribute name="width" type="xs:int" />
+						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="size" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="cdl">
+					<xs:complexType>
+						<xs:attribute name="fileName" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="charcoal">
+					<xs:complexType>
+						<xs:attribute name="radius" type="xs:double" />
+						<xs:attribute name="sigma" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="chop">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="geometry" minOccurs="0" type="geometry" />
+						</xs:sequence>
+						<xs:attribute name="xOffset" type="xs:int" />
+						<xs:attribute name="width" type="xs:int" />
+						<xs:attribute name="yOffset" type="xs:int" />
+						<xs:attribute name="height" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="chopHorizontal">
+					<xs:complexType>
+						<xs:attribute name="offset" use="required" type="xs:int" />
+						<xs:attribute name="width" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="chopVertical">
+					<xs:complexType>
+						<xs:attribute name="offset" use="required" type="xs:int" />
+						<xs:attribute name="height" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="chromaBluePrimary">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+						<xs:attribute name="y" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="chromaGreenPrimary">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+						<xs:attribute name="y" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="chromaRedPrimary">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+						<xs:attribute name="y" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="chromaWhitePoint">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+						<xs:attribute name="y" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="colorAlpha">
+					<xs:complexType>
+						<xs:attribute name="color" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="colorize">
+					<xs:complexType>
+						<xs:attribute name="color" use="required" type="color" />
+						<xs:attribute name="alphaRed" type="xs:double" />
+						<xs:attribute name="alphaGreen" type="xs:double" />
+						<xs:attribute name="alphaBlue" type="xs:double" />
+						<xs:attribute name="alpha" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="colorMap">
+					<xs:complexType>
+						<xs:attribute name="index" use="required" type="xs:int" />
+						<xs:attribute name="color" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="composite">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="image" type="read" />
+							<xs:element name="offset" minOccurs="0" type="geometry" />
+						</xs:sequence>
+						<xs:attribute name="gravity" type="Gravity" />
+						<xs:attribute name="compose" type="CompositeOperator" />
+						<xs:attribute name="x" type="xs:int" />
+						<xs:attribute name="y" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="contrast">
+					<xs:complexType>
+						<xs:attribute name="enhance" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="crop">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="geometry" minOccurs="0" type="geometry" />
+						</xs:sequence>
+						<xs:attribute name="width" type="xs:int" />
+						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="gravity" type="Gravity" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="cycleColormap">
+					<xs:complexType>
+						<xs:attribute name="amount" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="depth">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:int" />
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="despeckle"></xs:element>
+				<xs:element name="edge">
+					<xs:complexType>
+						<xs:attribute name="radius" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="emboss">
+					<xs:complexType>
+						<xs:attribute name="radius" type="xs:double" />
+						<xs:attribute name="sigma" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="exifProfile">
+					<xs:complexType>
+						<xs:attribute name="fileName" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="extent">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="geometry" type="geometry" />
+						</xs:sequence>
+						<xs:attribute name="gravity" type="Gravity" />
+						<xs:attribute name="backgroundColor" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="flip"></xs:element>
+				<xs:element name="floodFill">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="image" minOccurs="0" type="read" />
+							<xs:element name="geometry" minOccurs="0" type="geometry" />
+						</xs:sequence>
+						<xs:attribute name="borderColor" type="color" />
+						<xs:attribute name="x" type="xs:int" />
+						<xs:attribute name="y" type="xs:int" />
+						<xs:attribute name="color" type="color" />
+						<xs:attribute name="alpha" type="xs:int" />
+						<xs:attribute name="paintMethod" type="PaintMethod" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="flop"></xs:element>
+				<xs:element name="frame">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="geometry" minOccurs="0" type="geometry" />
+						</xs:sequence>
+						<xs:attribute name="width" type="xs:int" />
+						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="innerBevel" type="xs:int" />
+						<xs:attribute name="outerBevel" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="fx">
+					<xs:complexType>
+						<xs:attribute name="expression" use="required" type="xs:string" />
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="gamma">
+					<xs:complexType>
+						<xs:attribute name="gammeRed" type="xs:double" />
+						<xs:attribute name="gammeGreen" type="xs:double" />
+						<xs:attribute name="gammeBlue" type="xs:double" />
+						<xs:attribute name="value" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="gaussianBlur">
+					<xs:complexType>
+						<xs:attribute name="width" use="required" type="xs:double" />
+						<xs:attribute name="sigma" use="required" type="xs:double" />
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="haldClut">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="image" type="read" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="implode">
+					<xs:complexType>
+						<xs:attribute name="factor" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="inverseFourierTransform">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="image" type="read" />
+						</xs:sequence>
+						<xs:attribute name="magnitude" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="level">
+					<xs:complexType>
+						<xs:attribute name="blackPoint" use="required" type="quantum" />
+						<xs:attribute name="whitePoint" use="required" type="quantum" />
+						<xs:attribute name="midpoint" type="xs:double" />
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="lower">
+					<xs:complexType>
+						<xs:attribute name="size" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="magnify"></xs:element>
+				<xs:element name="map">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="image" type="read" />
+						</xs:sequence>
+						<xs:attribute name="dither" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="medianFilter">
+					<xs:complexType>
+						<xs:attribute name="radius" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="minify"></xs:element>
+				<xs:element name="modulate">
+					<xs:complexType>
+						<xs:attribute name="brightness" use="required" type="xs:double" />
+						<xs:attribute name="saturation" use="required" type="xs:double" />
+						<xs:attribute name="hue" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="motionBlur">
+					<xs:complexType>
+						<xs:attribute name="radius" use="required" type="xs:double" />
+						<xs:attribute name="sigma" use="required" type="xs:double" />
+						<xs:attribute name="angle" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="negate">
+					<xs:complexType>
+						<xs:attribute name="onlyGrayscale" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="normalize"></xs:element>
+				<xs:element name="oilPaint">
+					<xs:complexType>
+						<xs:attribute name="radius" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="quantize"></xs:element>
+				<xs:element name="quantumOperator">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="geometry" minOccurs="0" type="geometry" />
+						</xs:sequence>
+						<xs:attribute name="channels" use="required" type="Channels" />
+						<xs:attribute name="evaluateOperator" use="required" type="EvaluateOperator" />
+						<xs:attribute name="value" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="raise">
+					<xs:complexType>
+						<xs:attribute name="size" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="randomThreshold">
+					<xs:complexType>
+						<xs:attribute name="low" type="quantum" />
+						<xs:attribute name="high" type="quantum" />
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="percentageLow" type="xs:double" />
+						<xs:attribute name="percentageHigh" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="reduceNoise">
+					<xs:complexType>
+						<xs:attribute name="order" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="removeProfile">
+					<xs:complexType>
+						<xs:attribute name="name" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="resize">
+					<xs:complexType>
+						<xs:attribute name="percentageWidth" type="xs:double" />
+						<xs:attribute name="percentageHeight" type="xs:double" />
+						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="width" type="xs:int" />
+						<xs:attribute name="height" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="roll">
+					<xs:complexType>
+						<xs:attribute name="xOffset" use="required" type="xs:int" />
+						<xs:attribute name="yOffset" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="rotate">
+					<xs:complexType>
+						<xs:attribute name="degrees" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sample">
+					<xs:complexType>
+						<xs:attribute name="percentageWidth" type="xs:double" />
+						<xs:attribute name="percentageHeight" type="xs:double" />
+						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="width" type="xs:int" />
+						<xs:attribute name="height" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="scale">
+					<xs:complexType>
+						<xs:attribute name="percentageWidth" type="xs:double" />
+						<xs:attribute name="percentageHeight" type="xs:double" />
+						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="width" type="xs:int" />
+						<xs:attribute name="height" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="segment">
+					<xs:complexType>
+						<xs:attribute name="clusterThreshold" type="xs:double" />
+						<xs:attribute name="smoothingThreshold" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="separate">
+					<xs:complexType>
+						<xs:attribute name="channels" use="required" type="Channels" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="shade">
+					<xs:complexType>
+						<xs:attribute name="azimuth" type="xs:double" />
+						<xs:attribute name="elevation" type="xs:double" />
+						<xs:attribute name="colorShading" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="shadow">
+					<xs:complexType>
+						<xs:attribute name="x" type="xs:int" />
+						<xs:attribute name="y" type="xs:int" />
+						<xs:attribute name="sigma" type="xs:double" />
+						<xs:attribute name="alpha" type="xs:double" />
+						<xs:attribute name="color" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sharpen">
+					<xs:complexType>
+						<xs:attribute name="radius" type="xs:double" />
+						<xs:attribute name="sigma" type="xs:double" />
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="shave">
+					<xs:complexType>
+						<xs:attribute name="leftRight" use="required" type="xs:int" />
+						<xs:attribute name="topBottom" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="shear">
+					<xs:complexType>
+						<xs:attribute name="xAngle" use="required" type="xs:double" />
+						<xs:attribute name="yAngle" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sigmoidalContrast">
+					<xs:complexType>
+						<xs:attribute name="sharpen" use="required" type="xs:boolean" />
+						<xs:attribute name="contrast" use="required" type="xs:double" />
+						<xs:attribute name="midpoint" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="solarize">
+					<xs:complexType>
+						<xs:attribute name="factor" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="stegano">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="watermark" type="read" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="stereo">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="rightImage" type="read" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strip"></xs:element>
+				<xs:element name="swirl">
+					<xs:complexType>
+						<xs:attribute name="degrees" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="texture">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="image" type="read" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="threshold">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="transform">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="imageGeometry" type="geometry" />
+							<xs:element name="cropGeometry" minOccurs="0" type="geometry" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="transformOrigin">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+						<xs:attribute name="y" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="transformReset"></xs:element>
+				<xs:element name="transformRotation">
+					<xs:complexType>
+						<xs:attribute name="angle" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="transformScale">
+					<xs:complexType>
+						<xs:attribute name="scaleX" use="required" type="xs:double" />
+						<xs:attribute name="scaleY" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="transformSkewX">
+					<xs:complexType>
+						<xs:attribute name="skewX" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="transformSkewY">
+					<xs:complexType>
+						<xs:attribute name="skewY" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="transparent">
+					<xs:complexType>
+						<xs:attribute name="color" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="transparentChroma">
+					<xs:complexType>
+						<xs:attribute name="colorLow" use="required" type="color" />
+						<xs:attribute name="colorHigh" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="trim"></xs:element>
+				<xs:element name="unsharpmask">
+					<xs:complexType>
+						<xs:attribute name="radius" use="required" type="xs:double" />
+						<xs:attribute name="sigma" use="required" type="xs:double" />
+						<xs:attribute name="amount" use="required" type="xs:double" />
+						<xs:attribute name="threshold" use="required" type="xs:double" />
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="wave">
+					<xs:complexType>
+						<xs:attribute name="amplitude" type="xs:double" />
+						<xs:attribute name="length" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="zoom">
+					<xs:complexType>
+						<xs:attribute name="percentageWidth" type="xs:double" />
+						<xs:attribute name="percentageHeight" type="xs:double" />
+						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="width" type="xs:int" />
+						<xs:attribute name="height" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:group ref="copy" />
+			</xs:choice>
+			<xs:choice>
+				<xs:group ref="copy" />
+				<xs:element name="write" minOccurs="0">
+					<xs:complexType>
+						<xs:attribute name="fileName" type="xs:string" />
+						<xs:attribute name="id" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="collection">
+		<xs:sequence>
+			<xs:element name="collection">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:group ref="read" minOccurs="2" maxOccurs="unbounded" />
+						<xs:element name="rePage" minOccurs="0" />
+						<xs:choice>
+							<xs:element name="appendHorizontally" />
+							<xs:element name="appendVertically" />
+							<xs:element name="merge">
+								<xs:complexType>
+									<xs:attribute name="layerMethod" use="required" type="LayerMethod" />
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="write">
+								<xs:complexType>
+									<xs:attribute name="fileName" use="required" type="xs:string" />
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="copy">
+		<xs:sequence>
+			<xs:element name="copy">
+				<xs:complexType>
+					<xs:group ref="actions" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="read">
+		<xs:sequence>
+			<xs:element name="read">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="read">
+							<xs:group ref="actions" />
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="msl">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:group ref="read" />
+					<xs:group ref="collection" />
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

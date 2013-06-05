@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				new MagickImageCollection(Images.Missing);
+				new MagickImageCollection(Files.Missing);
 			});
 		}
 		//===========================================================================================
@@ -61,8 +61,8 @@ namespace Magick.NET.Tests
 		{
 			using (MagickImageCollection collection = new MagickImageCollection())
 			{
-				collection.Add(new MagickImage(Images.SnakewarePNG));
-				collection.Add(new MagickImage(Images.RoseSparkleGIF));
+				collection.Add(new MagickImage(Files.SnakewarePNG));
+				collection.Add(new MagickImage(Files.RoseSparkleGIF));
 
 				MagickImage[] images = new MagickImage[collection.Count];
 				collection.CopyTo(images, 0);
@@ -110,7 +110,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Index()
 		{
-			using (MagickImageCollection collection = new MagickImageCollection(Images.RoseSparkleGIF))
+			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
 			{
 				for (int i = 0; i < collection.Count; i++)
 				{
@@ -126,7 +126,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Merge()
 		{
-			using (MagickImageCollection collection = new MagickImageCollection(Images.RoseSparkleGIF))
+			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
 			{
 				MagickImage first = collection.Merge(LayerMethod.Coalesce);
 
@@ -162,19 +162,19 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				collection.Read(Images.Missing);
+				collection.Read(Files.Missing);
 			});
 
-			collection.Read(File.ReadAllBytes(Images.RoseSparkleGIF));
+			collection.Read(File.ReadAllBytes(Files.RoseSparkleGIF));
 			Assert.AreEqual(3, collection.Count);
 
-			using (FileStream fs = File.OpenRead(Images.RoseSparkleGIF))
+			using (FileStream fs = File.OpenRead(Files.RoseSparkleGIF))
 			{
 				collection.Read(fs);
 				Assert.AreEqual(3, collection.Count);
 			}
 
-			collection.Read(Images.RoseSparkleGIF);
+			collection.Read(Files.RoseSparkleGIF);
 			Assert.AreEqual(3, collection.Count);
 
 			collection.Dispose();
@@ -188,7 +188,7 @@ namespace Magick.NET.Tests
 				MagickReadSettings settings = new MagickReadSettings();
 				settings.Density = new MagickGeometry(150, 150);
 
-				collection.Read(Images.RoseSparkleGIF, settings);
+				collection.Read(Files.RoseSparkleGIF, settings);
 
 				Assert.AreEqual(150, collection[0].Density.Width);
 			}
@@ -197,7 +197,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Remove()
 		{
-			using (MagickImageCollection collection = new MagickImageCollection(Images.RoseSparkleGIF))
+			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
 			{
 				MagickImage first = collection[0];
 				collection.Remove(first);
@@ -216,7 +216,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_RePage()
 		{
-			using (MagickImageCollection collection = new MagickImageCollection(Images.RoseSparkleGIF))
+			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
 			{
 				collection[0].Page = new MagickGeometry("0x0+10+10");
 
@@ -234,12 +234,12 @@ namespace Magick.NET.Tests
 		public void Test_Write()
 		{
 			long fileSize;
-			using (MagickImage image = new MagickImage(Images.RoseSparkleGIF))
+			using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
 			{
 				fileSize = image.FileSize;
 			}
 
-			using (MagickImageCollection collection = new MagickImageCollection(Images.RoseSparkleGIF))
+			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
 			{
 				using (MemoryStream memStream = new MemoryStream())
 				{

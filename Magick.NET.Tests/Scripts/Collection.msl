@@ -1,0 +1,13 @@
+<msl>
+	<collection>
+		<read id="snakeware">
+			<resize width="128" height="128"/>
+			<extent gravity="Center" backgroundColor="#000F">
+				<geometry width="128" height="128" />
+			</extent>
+		</read>
+		<read id="icon"/>
+		<rePage/>
+		<merge layerMethod="Flatten"/>
+	</collection>
+</msl>

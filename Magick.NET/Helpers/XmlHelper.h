@@ -1,4 +1,4 @@
-﻿//=================================================================================================
+//=================================================================================================
 // Copyright 2013 Dirk Lemstra <http://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -11,41 +11,29 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+#pragma once
 
-using System;
-using System.Drawing;
-using ImageMagick;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using namespace System::Xml;
 
-namespace Magick.NET.Tests
+namespace ImageMagick
 {
 	//==============================================================================================
-	[TestClass]
-	public sealed class ColorProfileTests
+	private ref class XmlHelper abstract sealed
 	{
 		//===========================================================================================
-		private const string _Category = "ColorProfileTests";
+	private:
 		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Constructor()
-		{
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				new ColorProfile(null, Files.SnakewarePNG);
-			});
-
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				new ColorProfile("name", null);
-			});
-		}
+		generic <class T>
+		static T GetValue(String^ value);
 		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Load()
-		{
-			ColorProfile sRGB = ColorProfiles.SRGB;
-		}
+	public:
 		//===========================================================================================
-	}
+		generic <class T>
+		static T GetAttribute(XmlElement^ element, String^ name);
+		//===========================================================================================
+		generic <class T>
+		static T GetValue(XmlAttribute^ attribute);
+		//===========================================================================================
+	};
 	//==============================================================================================
 }

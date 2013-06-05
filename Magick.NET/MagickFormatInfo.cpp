@@ -66,7 +66,7 @@ namespace ImageMagick
 
 			name = name->Replace("-", "");
 			if (name == "3FR")
-				name = "ThreeFR";
+				name = "ThreeFr";
 
 			formatInfo->_Format = EnumHelper::Parse<MagickFormat>(name, MagickFormat::Unknown);
 			formatInfo->_Description = Marshaller::Marshal(coder->description());

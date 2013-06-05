@@ -1,0 +1,8 @@
+<msl>
+	<read id="read.id">
+		<settings colorSpace="RGB">
+			<density value="100x100" />
+		</settings>
+		<write id="write.id"/>
+	</read>
+</msl>

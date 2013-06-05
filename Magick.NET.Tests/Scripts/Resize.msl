@@ -1,0 +1,7 @@
+<msl>
+	<read>
+		<resize percentage="0.5"/>
+		<strip/>
+		<comment value="Magick.NET.Resize"/>
+	</read>
+</msl>

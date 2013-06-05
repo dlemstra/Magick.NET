@@ -12,41 +12,25 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "EnumHelper.h"
+#include "ScriptReadEventArgs.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	generic<typename TEnum>
-	where TEnum : value class, ValueType
-	TEnum EnumHelper::Parse(String^ value, TEnum defaultValue)
+	ScriptReadEventArgs::ScriptReadEventArgs(String^ id, MagickReadSettings^ settings)
 	{
-#if (NET20)
-		Type^ type = TEnum::typeid;
-		Object^ enumValue = Parse(type, value);
-
-		if (enumValue == nullptr)
-			return defaultValue;
-		else
-			return (TEnum)enumValue;
-#else
-		TEnum result;
-		if (!Enum::TryParse<TEnum>(value, true, result))
-			return defaultValue;
-
-		return result;
-#endif
+		_Id = id;
+		_Settings = settings;
 	}
 	//==============================================================================================
-	Object^ EnumHelper::Parse(Type^ enumType, String^ value)
+	String^ ScriptReadEventArgs::Id::get()
 	{
-		for each (String^ name in Enum::GetNames(enumType))
-		{
-			if (name->Equals(value, StringComparison::OrdinalIgnoreCase))
-				return Enum::Parse(enumType, name);
-		}
-
-		return nullptr;
+		return _Id;
+	}
+	//==============================================================================================
+	MagickReadSettings^ ScriptReadEventArgs::Settings::get()
+	{
+		return _Settings;
 	}
 	//==============================================================================================
 }

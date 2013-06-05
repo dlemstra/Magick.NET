@@ -126,7 +126,7 @@
       <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
@@ -149,7 +149,7 @@
       <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
@@ -172,7 +172,7 @@
       <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
@@ -195,7 +195,7 @@
       <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -290,6 +290,10 @@
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
     <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="Helpers\FileHelper.h" />
+    <ClInclude Include="Helpers\XmlHelper.h" />
+    <ClInclude Include="Script\ScriptReadEventArgs.h" />
+    <ClInclude Include="Script\MagickScript.h" />
+    <ClInclude Include="Script\ScriptWriteEventArgs.h" />
     <ClInclude Include="Statistics\ChannelStatistics.h" />
     <ClInclude Include="MagickFormatInfo.h" />
     <ClInclude Include="Statistics\MagickImageStatistics.h" />
@@ -423,6 +427,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Helpers\XmlHelper.cpp" />
+    <ClCompile Include="Script\MagickScript.cpp" />
+    <ClCompile Include="Script\ScriptReadEventArgs.cpp" />
+    <ClCompile Include="Script\ScriptWriteEventArgs.cpp" />
     <ClCompile Include="Statistics\ChannelStatistics.cpp" />
     <ClCompile Include="MagickFormatInfo.cpp" />
     <ClCompile Include="Statistics\MagickImageStatistics.cpp" />
@@ -475,6 +483,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\sRGB.icm" />
+    <None Include="Resources\$(Configuration)\MagickScript.icm" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\Magick.NET.rc" />

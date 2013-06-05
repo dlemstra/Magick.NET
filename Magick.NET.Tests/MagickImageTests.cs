@@ -28,6 +28,16 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private const string _Category = "MagickImage";
 		//===========================================================================================
+		private static void Test_Copy(MagickImage first, MagickImage second)
+		{
+			Assert.AreEqual(first, second);
+			second.Format = MagickFormat.Jp2;
+			Assert.AreEqual(first.Format, MagickFormat.Png);
+			Assert.AreEqual(second.Format, MagickFormat.Jp2);
+			second.Dispose();
+			Assert.AreEqual(first.Format, MagickFormat.Png);
+		}
+		//===========================================================================================
 		private static void Test_ToBitmap(MagickImage image, ImageFormat format)
 		{
 			Bitmap bmp = image.ToBitmap(format);
@@ -65,10 +75,10 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				new MagickImage(Images.Missing);
+				new MagickImage(Files.Missing);
 			});
 
-			using (Bitmap bitmap = new Bitmap(Images.SnakewarePNG))
+			using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
 			{
 				using (MagickImage image = new MagickImage(bitmap))
 				{
@@ -88,14 +98,13 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Copy()
 		{
-			MagickImage first = new MagickImage(Images.SnakewarePNG);
+			MagickImage first = new MagickImage(Files.SnakewarePNG);
 			MagickImage second = first.Copy();
-			Assert.AreEqual(first, second);
-			second.Format = MagickFormat.Jp2;
-			Assert.AreEqual(first.Format, MagickFormat.Png);
-			Assert.AreEqual(second.Format, MagickFormat.Jp2);
-			second.Dispose();
-			Assert.AreEqual(first.Format, MagickFormat.Png);
+
+			Test_Copy(first, second);
+
+			second = new MagickImage(first);
+			Test_Copy(first, second);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -201,12 +210,12 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
-				image.Read(Images.Missing);
+				image.Read(Files.Missing);
 			});
 
-			image.Read(File.ReadAllBytes(Images.SnakewarePNG));
+			image.Read(File.ReadAllBytes(Files.SnakewarePNG));
 
-			using (Bitmap bitmap = new Bitmap(Images.SnakewarePNG))
+			using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
 			{
 				image.Read(bitmap);
 				Assert.AreEqual(MagickFormat.Png, image.Format);
@@ -218,12 +227,12 @@ namespace Magick.NET.Tests
 				Assert.AreEqual(MagickFormat.Bmp, image.Format);
 			}
 
-			using (FileStream fs = File.OpenRead(Images.SnakewarePNG))
+			using (FileStream fs = File.OpenRead(Files.SnakewarePNG))
 			{
 				image.Read(fs);
 			}
 
-			image.Read(Images.SnakewarePNG);
+			image.Read(Files.SnakewarePNG);
 
 			image.Read("rose:");
 
@@ -238,7 +247,7 @@ namespace Magick.NET.Tests
 				MagickReadSettings settings = new MagickReadSettings();
 				settings.Density = new MagickGeometry(150, 150);
 
-				image.Read(Images.SnakewarePNG, settings);
+				image.Read(Files.SnakewarePNG, settings);
 
 				Assert.AreEqual(150, image.Density.Width);
 			}
@@ -270,7 +279,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Write()
 		{
-			using (MagickImage image = new MagickImage(Images.SnakewarePNG))
+			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
 			{
 				using (MemoryStream memStream = new MemoryStream())
 				{

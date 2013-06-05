@@ -543,6 +543,18 @@
     <ClInclude Include="TypeMetric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Script\MagickScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\XmlHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\ScriptWriteEventArgs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\ScriptReadEventArgs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -875,11 +887,24 @@
     <ClCompile Include="TypeMetric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Script\MagickScript.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\XmlHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\ScriptWriteEventArgs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\ScriptReadEventArgs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\sRGB.icm">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Resources\$(Configuration)\MagickScript.icm" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\Magick.NET.rc">
