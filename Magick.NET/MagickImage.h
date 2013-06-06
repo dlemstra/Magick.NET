@@ -81,17 +81,9 @@ namespace ImageMagick
 		//===========================================================================================
 		void RandomThreshold(Magick::Quantum low, Magick::Quantum high, Channels channels, bool isPercentage);
 		//===========================================================================================
-		void Resize(int width, int height, bool isPercentage);
-		//===========================================================================================
-		void Sample(int width, int height, bool isPercentage);
-		//===========================================================================================
-		void Scale(int width, int height, bool isPercentage);
-		//===========================================================================================
 		void SetFormat(ImageFormat^ format);
 		//===========================================================================================
 		void SetProfile(String^ name, Magick::Blob &blob);
-		//===========================================================================================
-		void Zoom(int width, int height, bool isPercentage);
 		//===========================================================================================
 	internal:
 		//===========================================================================================
@@ -1998,6 +1990,13 @@ namespace ImageMagick
 		void Resize(int width, int height);
 		///==========================================================================================
 		///<summary>
+		/// Resize image to specified geometry.
+		///</summary>
+		///<param name="geometry">The geometry to use.</param>
+		///<exception cref="MagickException"/>
+		void Resize(MagickGeometry^ geometry);
+		///==========================================================================================
+		///<summary>
 		/// Resize image to specified percentage.
 		///</summary>
 		///<param name="percentage">The percentage.</param>
@@ -2032,7 +2031,15 @@ namespace ImageMagick
 		///</summary>
 		///<param name="width">The new width.</param>
 		///<param name="height">The new height.</param>
+		///<exception cref="MagickException"/>
 		void Sample(int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Resize image by using pixel sampling algorithm.
+		///</summary>
+		///<param name="geometry">The geometry to use.</param>
+		///<exception cref="MagickException"/>
+		void Sample(MagickGeometry^ geometry);
 		///==========================================================================================
 		///<summary>
 		/// Resize image by using pixel sampling algorithm to the specified percentage.
@@ -2054,7 +2061,15 @@ namespace ImageMagick
 		///</summary>
 		///<param name="width">The new width.</param>
 		///<param name="height">The new height.</param>
+		///<exception cref="MagickException"/>
 		void Scale(int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Resize image by using simple ratio algorithm.
+		///</summary>
+		///<param name="geometry">The geometry to use.</param>
+		///<exception cref="MagickException"/>
+		void Scale(MagickGeometry^ geometry);
 		///==========================================================================================
 		///<summary>
 		/// Resize image by using simple ratio algorithm to the specified percentage.
@@ -2448,6 +2463,13 @@ namespace ImageMagick
 		///<summary>
 		// Zoom image to specified size.
 		///</summary>
+		///<param name="geometry">The geometry to use.</param>
+		///<exception cref="MagickException"/>
+		void Zoom(MagickGeometry^ geometry);
+		///==========================================================================================
+		///<summary>
+		// Zoom image to specified size.
+		///</summary>
 		///<param name="percentage">The percentage.</param>
 		///<exception cref="MagickException"/>
 		void Zoom(Percentage percentage);
@@ -2459,6 +2481,7 @@ namespace ImageMagick
 		///<param name="percentageHeight">The percentage of the height.</param>
 		///<exception cref="MagickException"/>
 		void Zoom(Percentage percentageWidth, Percentage percentageHeight);
+		//===========================================================================================
 	};
 	//==============================================================================================
 }

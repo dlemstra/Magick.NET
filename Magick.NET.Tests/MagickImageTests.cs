@@ -254,6 +254,31 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Resize()
+		{
+			using (MagickImage image = new MagickImage())
+			{
+				image.Read(Files.MagickNETIconPng);
+
+				image.Resize(new MagickGeometry(64, 64));
+				Assert.AreEqual(64, image.Height);
+				Assert.AreEqual(64, image.Width);
+
+				image.Read(Files.MagickNETIconPng);
+
+				image.Resize(2.0);
+				Assert.AreEqual(256, image.Height);
+				Assert.AreEqual(256, image.Width);
+
+				image.Read(Files.MagickNETIconPng);
+
+				image.Resize(32, 32);
+				Assert.AreEqual(32, image.Height);
+				Assert.AreEqual(32, image.Width);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_ToBitmap()
 		{
 			MagickImage image = new MagickImage(Color.Red, 10, 10);

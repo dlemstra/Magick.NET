@@ -112,63 +112,6 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Resize(int width, int height, bool isPercentage)
-	{
-		Magick::Geometry* geometry = new Magick::Geometry(width, height);
-		geometry->percent(isPercentage);
-
-		try
-		{
-			Value->resize(*geometry);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-		finally
-		{
-			delete geometry;
-		}
-	}
-	//==============================================================================================
-	void MagickImage::Sample(int width, int height, bool isPercentage)
-	{
-		Magick::Geometry* geometry = new Magick::Geometry(width, height);
-		geometry->percent(isPercentage);
-
-		try
-		{
-			Value->sample(*geometry);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-		finally
-		{
-			delete geometry;
-		}
-	}
-	//==============================================================================================
-	void MagickImage::Scale(int width, int height, bool isPercentage)
-	{
-		Magick::Geometry* geometry = new Magick::Geometry(width, height);
-		geometry->percent(isPercentage);
-
-		try
-		{
-			Value->scale(*geometry);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-		finally
-		{
-			delete geometry;
-		}
-	}
-	//==============================================================================================
 	void MagickImage::SetFormat(ImageFormat^ format)
 	{
 		if (format == ImageFormat::Bmp)
@@ -201,25 +144,6 @@ namespace ImageMagick
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::Zoom(int width, int height, bool isPercentage)
-	{
-		Magick::Geometry* geometry = new Magick::Geometry(width, height);
-		geometry->percent(isPercentage);
-
-		try
-		{
-			Value->zoom(*geometry);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-		finally
-		{
-			delete geometry;
 		}
 	}
 	//==============================================================================================
@@ -2741,17 +2665,35 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Resize(int width, int height)
 	{
-		Resize(width, height, false);
+		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		Resize(geometry);
+		delete geometry;
+	}
+	//==============================================================================================
+	void MagickImage::Resize(MagickGeometry^ geometry)
+	{
+		Throw::IfNull("geometry", geometry);
+
+		try
+		{
+			Value->resize(geometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::Resize(Percentage percentage)
 	{
-		Resize((int)percentage, (int)percentage, true);
+		Resize(percentage, percentage);
 	}
 	//==============================================================================================
 	void MagickImage::Resize(Percentage percentageWidth, Percentage percentageHeight)
 	{
-		Resize((int)percentageWidth, (int)percentageHeight, true);
+		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
+		Resize(geometry);
+		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::Roll(int xOffset, int yOffset)
@@ -2780,32 +2722,68 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Sample(int width, int height)
 	{
-		Sample(width, height, false);
+		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		Sample(geometry);
+		delete geometry;
+	}
+	//==============================================================================================
+	void MagickImage::Sample(MagickGeometry^ geometry)
+	{
+		Throw::IfNull("geometry", geometry);
+
+		try
+		{
+			Value->sample(geometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::Sample(Percentage percentage)
 	{
-		Sample((int)percentage, (int)percentage, true);
+		Sample(percentage, percentage);
 	}
 	//==============================================================================================
 	void MagickImage::Sample(Percentage percentageWidth, Percentage percentageHeight)
 	{
-		Sample((int)percentageWidth, (int)percentageHeight, true);
+		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
+		Sample(geometry);
+		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::Scale(int width, int height)
 	{
-		Scale(width, height, false);
+		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		Scale(geometry);
+		delete geometry;
+	}
+	//==============================================================================================
+	void MagickImage::Scale(MagickGeometry^ geometry)
+	{
+		Throw::IfNull("geometry", geometry);
+
+		try
+		{
+			Value->scale(geometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::Scale(Percentage percentage)
 	{
-		Scale((int)percentage, (int)percentage, true);
+		Scale(percentage, percentage);
 	}
 	//==============================================================================================
 	void MagickImage::Scale(Percentage percentageWidth, Percentage percentageHeight)
 	{
-		Scale((int)percentageWidth, (int)percentageHeight, true);
+		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
+		Scale(geometry);
+		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::Segment()
@@ -3326,17 +3304,35 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Zoom(int width, int height)
 	{
-		Zoom(width, height, false);
+		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		Zoom(geometry);
+		delete geometry;
+	}
+	//==============================================================================================
+	void MagickImage::Zoom(MagickGeometry^ geometry)
+	{
+		Throw::IfNull("geometry", geometry);
+
+		try
+		{
+			Value->zoom(geometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::Zoom(Percentage percentage)
 	{
-		Zoom((int)percentage, (int)percentage, true);
+		Zoom(percentage, percentage);
 	}
 	//==============================================================================================
 	void MagickImage::Zoom(Percentage percentageWidth, Percentage percentageHeight)
 	{
-		Zoom((int)percentageWidth, (int)percentageHeight, true);
+		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
+		Zoom(geometry);
+		delete geometry;
 	}
 	//==============================================================================================
 }

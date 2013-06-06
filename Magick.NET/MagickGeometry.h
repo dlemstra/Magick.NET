@@ -36,7 +36,7 @@ namespace ImageMagick
 		//===========================================================================================
 		MagickGeometry(Magick::Geometry geometry);
 		//===========================================================================================
-		static operator Magick::Geometry& (MagickGeometry^ geometry)
+		static operator const Magick::Geometry& (MagickGeometry^ geometry)
 		{
 			return *(geometry->Value);
 		}
