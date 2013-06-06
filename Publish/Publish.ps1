@@ -84,6 +84,33 @@ function CheckStrongName($builds)
 	}
 }
 
+function CreateNet20ProjectFiles()
+{
+	$xml = [xml](get-content "..\Magick.NET\Magick.NET.vcxproj")
+	
+	SelectNodes $xml "//msb:TargetFrameworkVersion" | Foreach {$_.InnerText = "v2.0"}
+	SelectNodes $xml "//msb:TargetFrameworkProfile" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
+	SelectNodes $xml "//msb:PlatformToolset" | Foreach {$_.InnerText = "v90"}
+	SelectNodes $xml "//msb:ForcedIncludeFiles" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
+	SelectNodes $xml "//msb:RunCodeAnalysis" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
+	SelectNodes $xml "//msb:CodeAnalysisRuleSet" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
+	SelectNodes $xml "//msb:ClCompile[@Include='GlobalSuppressions.cpp']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
+	SelectNodes $xml "//msb:PreprocessorDefinitions" | Foreach {$_.InnerText = "NET20;" + $_.InnerText}
+
+	$net20vcxproj = "..\Magick.NET\Magick.NET.net20.vcxproj"
+	Write-Host "Creating file: $net20vcxproj"
+	$xml.Save($net20vcxproj)
+	
+	$xml = [xml](get-content "..\Magick.NET.Tests\Magick.NET.Tests.csproj")
+	SelectNodes $xml "//msb:ProjectReference[@Include = '..\Magick.NET\Magick.NET.vcxproj']" | Foreach {$_.SetAttribute("Include", "..\Magick.NET\Magick.NET.net20.vcxproj")}
+	SelectNodes $xml "//msb:OutputPath" | Foreach {$_.InnerText = $_.InnerText.Replace("v4.0", "v2.0")}
+	SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "NET20;" + $_.InnerText}
+	
+	$net20csproj = "..\Magick.NET.Tests\Magick.NET.Tests.net20.csproj"
+	Write-Host "Creating file: $net20csproj"
+	$xml.Save($net20csproj)
+}
+
 function CreateNuGetPackages($builds, $imVersion, $version)
 {
 	$content = [IO.File]::ReadAllText("NuGet\Magick.NET.targets", [System.Text.Encoding]::Default)
@@ -190,6 +217,14 @@ function CreateZipFiles($builds, $version)
 	}
 }
 
+function SelectNodes($xml, $xpath)
+{
+	[System.Xml.XmlNamespaceManager] $nsmgr = $xml.NameTable;
+	$nsmgr.AddNamespace("msb", "http://schemas.microsoft.com/developer/msbuild/2003");
+	
+	return $xml.SelectNodes($xpath, $nsmgr)
+}
+
 function SetVersion($content, $startMatch, $endMatch, $version)
 {
 	$start = $content.IndexOf($startMatch)
@@ -257,6 +292,8 @@ $version = "6.8.5.402"
 UpdateAssemblyInfo "..\Magick.NET\AssemblyInfo.cpp" $version
 UpdateAssemblyInfo "..\Magick.NET.Web\Properties\AssemblyInfo.cs" $version
 UpdateResourceFiles $builds $version
+
+CreateNet20ProjectFiles
 
 Build $builds
 CheckStrongName $builds

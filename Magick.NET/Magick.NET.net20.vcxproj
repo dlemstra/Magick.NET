@@ -54,7 +54,8 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings"></ImportGroup>
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -115,7 +116,7 @@
       <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
@@ -137,7 +138,7 @@
       <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
@@ -159,7 +160,7 @@
       <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
@@ -181,7 +182,7 @@
       <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <EmbedManagedResourceFile>Resources\sRGB.icm</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -276,10 +277,14 @@
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
     <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="Helpers\FileHelper.h" />
-    <ClInclude Include="Helpers\ChannelStatistics.h" />
+    <ClInclude Include="Helpers\XmlHelper.h" />
+    <ClInclude Include="Script\ScriptReadEventArgs.h" />
+    <ClInclude Include="Script\MagickScript.h" />
+    <ClInclude Include="Script\ScriptWriteEventArgs.h" />
+    <ClInclude Include="Statistics\ChannelStatistics.h" />
     <ClInclude Include="MagickFormatInfo.h" />
-    <ClInclude Include="MagickImageStatistics.h" />
-    <ClInclude Include="Helpers\MagickErrorInfo.h" />
+    <ClInclude Include="Statistics\MagickImageStatistics.h" />
+    <ClInclude Include="MagickErrorInfo.h" />
     <ClInclude Include="Drawables\Helpers\Coordinate.h" />
     <ClInclude Include="Enums\DistortMethod.h" />
     <ClInclude Include="Drawables\Base\DrawableBase.h" />
@@ -304,9 +309,9 @@
     <ClInclude Include="Enums\Gravity.h" />
     <ClInclude Include="Colors\MagickColor.h" />
     <ClInclude Include="Colors\Base\ColorBase.h" />
-    <ClInclude Include="Helpers\Percentage.h" />
+    <ClInclude Include="Percentage.h" />
     <ClInclude Include="Enums\Resolution.h" />
-    <ClInclude Include="Helpers\TypeMetric.h" />
+    <ClInclude Include="TypeMetric.h" />
     <ClInclude Include="Settings\MagickReadSettings.h" />
     <ClInclude Include="Matrices\MatrixColor.h" />
     <ClInclude Include="Matrices\MatrixConvolve.h" />
@@ -317,9 +322,9 @@
     <ClInclude Include="Enums\MagickFormat.h" />
     <ClInclude Include="MagickGeometry.h" />
     <ClInclude Include="MagickImage.h" />
-    <ClInclude Include="Helpers\MagickReader.h" />
+    <ClInclude Include="IO\MagickReader.h" />
     <ClInclude Include="Base\MagickWrapper.h" />
-    <ClInclude Include="Helpers\MagickWriter.h" />
+    <ClInclude Include="IO\MagickWriter.h" />
     <ClInclude Include="Matrices\Base\MatrixDouble.h" />
     <ClInclude Include="Enums\NoiseType.h" />
     <ClInclude Include="Enums\PaintMethod.h" />
@@ -399,10 +404,14 @@
     <ClCompile Include="Exceptions\Base\MagickException.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\FileHelper.cpp" />
-    <ClCompile Include="Helpers\ChannelStatistics.cpp" />
+    <ClCompile Include="Helpers\XmlHelper.cpp" />
+    <ClCompile Include="Script\MagickScript.cpp" />
+    <ClCompile Include="Script\ScriptReadEventArgs.cpp" />
+    <ClCompile Include="Script\ScriptWriteEventArgs.cpp" />
+    <ClCompile Include="Statistics\ChannelStatistics.cpp" />
     <ClCompile Include="MagickFormatInfo.cpp" />
-    <ClCompile Include="MagickImageStatistics.cpp" />
-    <ClCompile Include="Helpers\MagickErrorInfo.cpp" />
+    <ClCompile Include="Statistics\MagickImageStatistics.cpp" />
+    <ClCompile Include="MagickErrorInfo.cpp" />
     <ClCompile Include="Drawables\Helpers\Coordinate.cpp" />
     <ClCompile Include="Drawables\DrawableArc.cpp" />
     <ClCompile Include="Drawables\DrawableBezier.cpp" />
@@ -421,8 +430,8 @@
     <ClCompile Include="Colors\ColorYUV.cpp" />
     <ClCompile Include="Colors\MagickColor.cpp" />
     <ClCompile Include="Colors\Base\ColorBase.cpp" />
-    <ClCompile Include="Helpers\Percentage.cpp" />
-    <ClCompile Include="Helpers\TypeMetric.cpp" />
+    <ClCompile Include="Percentage.cpp" />
+    <ClCompile Include="TypeMetric.cpp" />
     <ClCompile Include="Exceptions\MagickErrorExceptions.cpp" />
     <ClCompile Include="Exceptions\MagickWarningExceptions.cpp" />
     <ClCompile Include="Matrices\MatrixColor.cpp" />
@@ -432,8 +441,8 @@
     <ClCompile Include="MagickNET.cpp" />
     <ClCompile Include="MagickGeometry.cpp" />
     <ClCompile Include="MagickImage.cpp" />
-    <ClCompile Include="Helpers\MagickReader.cpp" />
-    <ClCompile Include="Helpers\MagickWriter.cpp" />
+    <ClCompile Include="IO\MagickReader.cpp" />
+    <ClCompile Include="IO\MagickWriter.cpp" />
     <ClCompile Include="Matrices\Base\MatrixDouble.cpp" />
     <ClCompile Include="Colors\ColorProfile.cpp" />
     <ClCompile Include="Pixels\Pixel.cpp" />
@@ -451,10 +460,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\sRGB.icm" />
+    <None Include="Resources\$(Configuration)\MagickScript.icm" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\Magick.NET.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets"></ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>
