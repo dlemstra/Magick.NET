@@ -29,6 +29,8 @@
 #include "Enums\FilterType.h"
 #include "Enums\GifDisposeMethod.h"
 #include "Enums\Gravity.h"
+#include "Enums\LineCap.h"
+#include "Enums\LineJoin.h"
 #include "Enums\MagickFormat.h"
 #include "Enums\NoiseType.h"
 #include "Enums\OrientationType.h"
@@ -55,6 +57,7 @@
 using namespace System::Collections::Generic;
 using namespace System::Drawing::Imaging;
 using namespace System::Text;
+
 
 namespace ImageMagick
 {
@@ -241,6 +244,15 @@ namespace ImageMagick
 		/// Border color of the image.
 		///</summary>
 		property MagickColor^ BorderColor
+		{
+			MagickColor^ get();
+			void set(MagickColor^ value);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Text bounding-box base color.
+		///</summary>
+		property MagickColor^ BoxColor
 		{
 			MagickColor^ get();
 			void set(MagickColor^ value);
@@ -644,7 +656,7 @@ namespace ImageMagick
 		property LineCap StrokeLineCap
 		{
 			LineCap get();
-			void set(LineCap value);
+			void set(ImageMagick::LineCap value);
 		}
 		///==========================================================================================
 		///<summary>

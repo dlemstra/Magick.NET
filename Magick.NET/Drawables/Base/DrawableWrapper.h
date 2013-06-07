@@ -14,7 +14,7 @@
 #pragma once
 
 #include "DrawableBase.h"
-#include "..\Helpers\Coordinate.h"
+#include "..\Coordinate.h"
 
 using namespace System::Collections::Generic;
 

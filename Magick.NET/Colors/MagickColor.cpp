@@ -131,7 +131,7 @@ namespace ImageMagick
 		Initialize(color.R, color.G, color.B, 255 - color.A);
 	}
 	//==============================================================================================
-	Magick::Color* MagickColor::CreateColor()
+	const Magick::Color* MagickColor::CreateColor()
 	{
 		return new Magick::Color(R, G, B, A);
 	}

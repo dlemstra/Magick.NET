@@ -25,7 +25,7 @@ namespace ImageMagick
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Creates a new DrawableAffine instance.
+		/// Creates a new Coordinate instance.
 		///</summary>
 		///<param name="x">The X position of the coordinate.</param>
 		///<param name="y">The Y position of the coordinate.</param>

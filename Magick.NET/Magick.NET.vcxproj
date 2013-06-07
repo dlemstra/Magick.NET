@@ -298,7 +298,7 @@
     <ClInclude Include="MagickFormatInfo.h" />
     <ClInclude Include="Statistics\MagickImageStatistics.h" />
     <ClInclude Include="MagickErrorInfo.h" />
-    <ClInclude Include="Drawables\Helpers\Coordinate.h" />
+    <ClInclude Include="Drawables\Coordinate.h" />
     <ClInclude Include="Enums\DistortMethod.h" />
     <ClInclude Include="Drawables\Base\DrawableBase.h" />
     <ClInclude Include="Drawables\DrawableArc.h" />
@@ -435,7 +435,7 @@
     <ClCompile Include="MagickFormatInfo.cpp" />
     <ClCompile Include="Statistics\MagickImageStatistics.cpp" />
     <ClCompile Include="MagickErrorInfo.cpp" />
-    <ClCompile Include="Drawables\Helpers\Coordinate.cpp" />
+    <ClCompile Include="Drawables\Coordinate.cpp" />
     <ClCompile Include="Drawables\DrawableArc.cpp" />
     <ClCompile Include="Drawables\DrawableBezier.cpp" />
     <ClCompile Include="Drawables\DrawableCircle.cpp" />

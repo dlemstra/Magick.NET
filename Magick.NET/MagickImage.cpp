@@ -185,7 +185,7 @@ namespace ImageMagick
 		Throw::IfNull("color", color);
 
 		MagickGeometry^ geometry = gcnew	MagickGeometry(width, height);
-		Magick::Color* background = color->CreateColor();
+		const Magick::Color* background = color->CreateColor();
 		Value = new Magick::Image(geometry, *background);
 		Value->backgroundColor(*background);
 		delete geometry;
@@ -270,7 +270,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::BackgroundColor::set(MagickColor^ value)
 	{
-		Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		const Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 		Value->backgroundColor(*color);
 		delete color;
 	}
@@ -297,8 +297,20 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::BorderColor::set(MagickColor^ value)
 	{
-		Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		const Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 		Value->borderColor(*color);
+		delete color;
+	}
+	//==============================================================================================
+	MagickColor^ MagickImage::BoxColor::get()
+	{
+		return gcnew MagickColor(Value->boxColor());
+	}
+	//==============================================================================================
+	void MagickImage::BoxColor::set(MagickColor^ value)
+	{
+		const Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		Value->boxColor(*color);
 		delete color;
 	}
 	//==============================================================================================
@@ -432,7 +444,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::FillColor::set(MagickColor^ value)
 	{
-		Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		const Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 		Value->fillColor(*color);
 		delete color;
 	}
@@ -585,7 +597,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::MatteColor::set(MagickColor^ value)
 	{
-		Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		const Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 		Value->matteColor(*color);
 		delete color;
 	}
@@ -725,7 +737,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::StrokeColor::set(MagickColor^ value)
 	{
-		Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		const Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 		Value->strokeColor(*color);
 		delete color;
 	}
@@ -1322,7 +1334,7 @@ namespace ImageMagick
 
 		try
 		{
-			Magick::Color* colorMap = color->CreateColor();
+			const Magick::Color* colorMap = color->CreateColor();
 			Value->colorMap(index, *colorMap);
 			delete colorMap;
 		}
@@ -1342,7 +1354,7 @@ namespace ImageMagick
 	{
 		Throw::IfNull("color", color);
 
-		Magick::Color* magickColor = color->CreateColor();
+		const Magick::Color* magickColor = color->CreateColor();
 
 		try
 		{
@@ -1832,7 +1844,7 @@ namespace ImageMagick
 		Throw::IfNull("geometry", geometry);
 		Throw::IfNull("backgroundColor", backgroundColor);
 
-		Magick::Color* color = backgroundColor->CreateColor();
+		const Magick::Color* color = backgroundColor->CreateColor();
 
 		try
 		{
@@ -1867,7 +1879,7 @@ namespace ImageMagick
 		Throw::IfNull("geometry", geometry);
 		Throw::IfNull("backgroundColor", backgroundColor);
 
-		Magick::Color* color = backgroundColor->CreateColor();
+		const Magick::Color* color = backgroundColor->CreateColor();
 
 		try
 		{
@@ -1911,7 +1923,7 @@ namespace ImageMagick
 	{
 		Throw::IfNull("color", color);
 
-		Magick::Color* fillColor = color->CreateColor();
+		const Magick::Color* fillColor = color->CreateColor();
 
 		try
 		{
@@ -1932,8 +1944,8 @@ namespace ImageMagick
 		Throw::IfNull("color", color);
 		Throw::IfNull("borderColor", borderColor);
 
-		Magick::Color* fillColor = color->CreateColor();
-		Magick::Color* fillBorderColor = borderColor->CreateColor();
+		const Magick::Color* fillColor = color->CreateColor();
+		const Magick::Color* fillBorderColor = borderColor->CreateColor();
 
 		try
 		{
@@ -1955,7 +1967,7 @@ namespace ImageMagick
 		Throw::IfNull("color", color);
 		Throw::IfNull("geometry", geometry);
 
-		Magick::Color* fillColor = color->CreateColor();
+		const Magick::Color* fillColor = color->CreateColor();
 
 		try
 		{
@@ -1977,8 +1989,8 @@ namespace ImageMagick
 		Throw::IfNull("geometry", geometry);
 		Throw::IfNull("borderColor", borderColor);
 
-		Magick::Color* fillColor = color->CreateColor();
-		Magick::Color* fillBorderColor = borderColor->CreateColor();
+		const Magick::Color* fillColor = color->CreateColor();
+		const Magick::Color* fillBorderColor = borderColor->CreateColor();
 
 		try
 		{
@@ -2014,7 +2026,7 @@ namespace ImageMagick
 		Throw::IfNull("image", image);
 		Throw::IfNull("borderColor", borderColor);
 
-		Magick::Color* fillBorderColor = borderColor->CreateColor();
+		const Magick::Color* fillBorderColor = borderColor->CreateColor();
 
 		try
 		{
@@ -2051,7 +2063,7 @@ namespace ImageMagick
 		Throw::IfNull("geometry", geometry);
 		Throw::IfNull("borderColor", borderColor);
 
-		Magick::Color* fillBorderColor = borderColor->CreateColor();
+		const Magick::Color* fillBorderColor = borderColor->CreateColor();
 
 		try
 		{
@@ -2859,7 +2871,7 @@ namespace ImageMagick
 		Throw::IfNull("color", color);
 
 		MagickImageCollection^ images = gcnew MagickImageCollection();
-		Magick::Color* backgroundColor = color->CreateColor();
+		const Magick::Color* backgroundColor = color->CreateColor();
 
 		try
 		{
@@ -3200,7 +3212,7 @@ namespace ImageMagick
 	{
 		Throw::IfNull("color", color);
 
-		Magick::Color* transparentColor = color->CreateColor();
+		const Magick::Color* transparentColor = color->CreateColor();
 
 		try
 		{
@@ -3221,8 +3233,8 @@ namespace ImageMagick
 		Throw::IfNull("colorLow", colorLow);
 		Throw::IfNull("colorHigh", colorHigh);
 
-		Magick::Color* transparentColorLow = colorLow->CreateColor();
-		Magick::Color* transparentColorHigh = colorHigh->CreateColor();
+		const Magick::Color* transparentColorLow = colorLow->CreateColor();
+		const Magick::Color* transparentColorHigh = colorHigh->CreateColor();
 
 		try
 		{

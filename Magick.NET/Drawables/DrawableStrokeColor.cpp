@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void DrawableStrokeColor::Initialize(MagickColor^ color)
 	{
-		Magick::Color* magickColor = color->CreateColor();
+		const Magick::Color* magickColor = color->CreateColor();
 		BaseValue = new Magick::DrawableStrokeColor(*magickColor);
 		delete magickColor;
 	}
@@ -41,7 +41,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void DrawableStrokeColor::Color::set(MagickColor^ value)
 	{
-		Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		const Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 		Value->color(*color);
 		delete color;
 	}

@@ -14,7 +14,7 @@
 #pragma once
 
 #include "PathBase.h"
-#include "..\..\Helpers\Coordinate.h"
+#include "..\..\Coordinate.h"
 
 using namespace System::Collections::Generic;
 

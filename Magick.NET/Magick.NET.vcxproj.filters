@@ -112,6 +112,12 @@
     <Filter Include="Source Files\Statistics">
       <UniqueIdentifier>{d4997d82-508b-4a1d-a4f3-763d2721acc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Script">
+      <UniqueIdentifier>{9d08df0c-8d45-45ec-aa6d-becc57d94618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Script">
+      <UniqueIdentifier>{05ee0796-0a57-4cc1-bcc5-d11cc7d97920}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
@@ -405,9 +411,6 @@
     <ClInclude Include="Enums\VirtualPixelMethod.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Drawables\Helpers\Coordinate.h">
-      <Filter>Header Files\Drawables</Filter>
-    </ClInclude>
     <ClInclude Include="Base\MagickWrapper.h">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
@@ -543,17 +546,20 @@
     <ClInclude Include="TypeMetric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Script\MagickScript.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Helpers\XmlHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Drawables\Coordinate.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
     <ClInclude Include="Script\ScriptWriteEventArgs.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Script</Filter>
     </ClInclude>
     <ClInclude Include="Script\ScriptReadEventArgs.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\MagickScript.h">
+      <Filter>Header Files\Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -767,9 +773,6 @@
     <ClCompile Include="Exceptions\MagickWarningExceptions.cpp">
       <Filter>Source Files\Exceptions</Filter>
     </ClCompile>
-    <ClCompile Include="Drawables\Helpers\Coordinate.cpp">
-      <Filter>Source Files\Drawables</Filter>
-    </ClCompile>
     <ClCompile Include="Pixels\Base\PixelBaseCollection.cpp">
       <Filter>Source Files\Pixels</Filter>
     </ClCompile>
@@ -887,17 +890,20 @@
     <ClCompile Include="TypeMetric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Script\MagickScript.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Helpers\XmlHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Script\ScriptWriteEventArgs.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Drawables\Coordinate.cpp">
+      <Filter>Source Files\Drawables</Filter>
     </ClCompile>
     <ClCompile Include="Script\ScriptReadEventArgs.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\ScriptWriteEventArgs.cpp">
+      <Filter>Source Files\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\MagickScript.cpp">
+      <Filter>Source Files\Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
