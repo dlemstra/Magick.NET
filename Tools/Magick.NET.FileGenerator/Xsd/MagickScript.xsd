@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<!--=========================================================================================-->
+	<xs:annotation id="quantum"/>
+	<!--=========================================================================================-->
+	<xs:annotation id="color"/>
+	<!--=========================================================================================-->
+	<xs:annotation id="enums"/>
+	<!--=========================================================================================-->
+	<xs:complexType name="geometry">
+		<xs:attribute name="x" type="xs:int"/>
+		<xs:attribute name="y" type="xs:int"/>
+		<xs:attribute name="width" type="xs:int"/>
+		<xs:attribute name="height" type="xs:int"/>
+		<xs:attribute name="percentageWidth" type="xs:double"/>
+		<xs:attribute name="percentageHeight" type="xs:double"/>
+		<xs:attribute name="value" type="xs:string"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="read">
+		<xs:sequence>
+			<xs:element name="settings" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="density" minOccurs="0" type="geometry"/>
+					</xs:sequence>
+					<xs:attribute name="colorSpace" type="ColorSpace"/>
+					<xs:attribute name="width" type="xs:int"/>
+					<xs:attribute name="height" type="xs:int"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="fileName" type="xs:string"/>
+		<xs:attribute name="id" type="xs:string"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:group name="actions">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation id="actions"/>
+				<xs:group ref="copy"/>
+			</xs:choice>
+			<xs:choice>
+				<xs:group ref="copy"/>
+				<xs:element name="write" minOccurs="0">
+					<xs:complexType>
+						<xs:attribute name="fileName" type="xs:string"/>
+						<xs:attribute name="id" type="xs:string"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<!--=========================================================================================-->
+	<xs:group name="collection">
+		<xs:sequence>
+			<xs:element name="collection">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:group ref="read" minOccurs="2" maxOccurs="unbounded"/>
+						<xs:element name="rePage" minOccurs="0" />
+						<xs:choice>
+							<xs:element name="appendHorizontally" />
+							<xs:element name="appendVertically" />
+							<xs:element name="merge">
+								<xs:complexType>
+									<xs:attribute name="layerMethod" use="required" type="LayerMethod" />
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="write">
+								<xs:complexType>
+									<xs:attribute name="fileName" use="required" type="xs:string" />
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<!--=========================================================================================-->
+	<xs:group name="copy">
+		<xs:sequence>
+			<xs:element name="copy">
+				<xs:complexType>
+					<xs:group ref="actions"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<!--=========================================================================================-->
+	<xs:group name="read">
+		<xs:sequence>
+			<xs:element name="read">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="read">
+							<xs:group ref="actions" />
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<!--=========================================================================================-->
+	<xs:element name="msl">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:group ref="read"/>
+					<xs:group ref="collection"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!--=========================================================================================-->
+</xs:schema>

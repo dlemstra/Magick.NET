@@ -17,9 +17,9 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 //=================================================================================================
-[assembly: AssemblyTitle("Magick.NET.Tests")]
+[assembly: AssemblyTitle("Magick.NET.FileGenerator")]
 [assembly: AssemblyProduct("Magick.NET")]
-[assembly: AssemblyDescription("Magick.NET.Tests")]
+[assembly: AssemblyDescription("Magick.NET.FileGenerator")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyCopyright("Copyright © Dirk Lemstra 2013")]
 [assembly: AssemblyTrademark("")]

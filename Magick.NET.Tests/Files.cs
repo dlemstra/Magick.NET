@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
 		{
 			get
 			{
-				return _Root + @"Scripts\Collection.msl";
+				return _Root + @"Script\Collection.msl";
 			}
 		}
 		//===========================================================================================
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
 		{
 			get
 			{
-				return _Root + @"Scripts\Events.msl";
+				return _Root + @"Script\Events.msl";
 			}
 		}
 		//===========================================================================================
@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
 		{
 			get
 			{
-				return _Root + @"Scripts\Invalid.msl";
+				return _Root + @"Script\Invalid.msl";
 			}
 		}
 		//===========================================================================================
@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
 		{
 			get
 			{
-				return _Root + @"Scripts\Resize.msl";
+				return _Root + @"Script\Resize.msl";
 			}
 		}
 		//===========================================================================================

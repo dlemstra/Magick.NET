@@ -118,6 +118,12 @@
     <Filter Include="Header Files\Script">
       <UniqueIdentifier>{05ee0796-0a57-4cc1-bcc5-d11cc7d97920}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Script\Generated">
+      <UniqueIdentifier>{6b419c52-34df-4554-9136-8ecffa1c44b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Script\Generated">
+      <UniqueIdentifier>{7dc78eed-32bb-4642-bb04-835c08fa6613}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
@@ -561,6 +567,9 @@
     <ClInclude Include="Script\MagickScript.h">
       <Filter>Header Files\Script</Filter>
     </ClInclude>
+    <ClInclude Include="Script\Generated\Execute.h">
+      <Filter>Header Files\Script\Generated</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -904,6 +913,9 @@
     </ClCompile>
     <ClCompile Include="Script\MagickScript.cpp">
       <Filter>Source Files\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Generated\Execute.cpp">
+      <Filter>Source Files\Script\Generated</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
