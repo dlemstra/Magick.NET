@@ -30,13 +30,13 @@ namespace ImageMagick
 		/// Initializes a new instance of the PathSmoothQuadraticCurvetoAbs class.
 		///</summary>
 		///<param name="coordinate">The coordinate to use.</param>
-		PathSmoothQuadraticCurvetoAbs(Coordinate^ coordinate);
+		PathSmoothQuadraticCurvetoAbs(Coordinate coordinate);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the PathSmoothQuadraticCurvetoAbs class.
 		///</summary>
 		///<param name="coordinates">The coordinates to use.</param>
-		PathSmoothQuadraticCurvetoAbs(IEnumerable<Coordinate^>^ coordinates);
+		PathSmoothQuadraticCurvetoAbs(IEnumerable<Coordinate>^ coordinates);
 		//===========================================================================================
 	};
 	//==============================================================================================

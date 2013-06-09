@@ -30,13 +30,13 @@ namespace ImageMagick
 		/// Initializes a new instance of the PathLinetoRel class.
 		///</summary>
 		///<param name="coordinate">The coordinate to use.</param>
-		PathLinetoRel(Coordinate^ coordinate);
+		PathLinetoRel(Coordinate coordinate);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the PathLinetoRel class.
 		///</summary>
 		///<param name="coordinates">The coordinates to use.</param>
-		PathLinetoRel(IEnumerable<Coordinate^>^ coordinates);
+		PathLinetoRel(IEnumerable<Coordinate>^ coordinates);
 		//===========================================================================================
 	};
 	//==============================================================================================

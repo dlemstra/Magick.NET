@@ -17,12 +17,12 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	PathMovetoRel::PathMovetoRel(Coordinate^ coordinate)
+	PathMovetoRel::PathMovetoRel(Coordinate coordinate)
 	{
 		CreateBaseValue(coordinate);
 	}
 	//==============================================================================================
-	PathMovetoRel::PathMovetoRel(IEnumerable<Coordinate^>^ coordinates)
+	PathMovetoRel::PathMovetoRel(IEnumerable<Coordinate>^ coordinates)
 	{
 		CreateBaseValue(coordinates);
 	}

@@ -17,12 +17,12 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	PathSmoothQuadraticCurvetoAbs::PathSmoothQuadraticCurvetoAbs(Coordinate^ coordinate)
+	PathSmoothQuadraticCurvetoAbs::PathSmoothQuadraticCurvetoAbs(Coordinate coordinate)
 	{
 		CreateBaseValue(coordinate);
 	}
 	//==============================================================================================
-	PathSmoothQuadraticCurvetoAbs::PathSmoothQuadraticCurvetoAbs(IEnumerable<Coordinate^>^ coordinates)
+	PathSmoothQuadraticCurvetoAbs::PathSmoothQuadraticCurvetoAbs(IEnumerable<Coordinate>^ coordinates)
 	{
 		CreateBaseValue(coordinates);
 	}

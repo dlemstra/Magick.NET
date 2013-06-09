@@ -17,12 +17,12 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	PathLinetoAbs::PathLinetoAbs(Coordinate^ coordinate)
+	PathLinetoAbs::PathLinetoAbs(Coordinate coordinate)
 	{
 		CreateBaseValue(coordinate);
 	}
 	//==============================================================================================
-	PathLinetoAbs::PathLinetoAbs(IEnumerable<Coordinate^>^ coordinates)
+	PathLinetoAbs::PathLinetoAbs(IEnumerable<Coordinate>^ coordinates)
 	{
 		CreateBaseValue(coordinates);
 	}

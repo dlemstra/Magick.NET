@@ -17,12 +17,12 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	PathSmoothCurvetoRel::PathSmoothCurvetoRel(Coordinate^ coordinate)
+	PathSmoothCurvetoRel::PathSmoothCurvetoRel(Coordinate coordinate)
 	{
 		CreateBaseValue(coordinate);
 	}
 	//==============================================================================================
-	PathSmoothCurvetoRel::PathSmoothCurvetoRel(IEnumerable<Coordinate^>^ coordinates)
+	PathSmoothCurvetoRel::PathSmoothCurvetoRel(IEnumerable<Coordinate>^ coordinates)
 	{
 		CreateBaseValue(coordinates);
 	}

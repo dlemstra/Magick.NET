@@ -23,4 +23,27 @@ namespace ImageMagick
 		Y = y;
 	}
 	//==============================================================================================
+	bool Coordinate::Equals(Object^ obj)
+	{
+		if (obj == nullptr)
+			return false;
+
+		if (obj->GetType() == Coordinate::typeid)
+			return Equals((Coordinate)obj);
+
+		return false;
+	}
+	//==============================================================================================
+	bool Coordinate::Equals(Coordinate coordinate)
+	{
+		return
+			X.Equals(coordinate.X) &&
+			Y.Equals(coordinate.Y);
+	}
+	//==============================================================================================
+	int Coordinate::GetHashCode()
+	{
+		return X.GetHashCode() ^ Y.GetHashCode();
+	}
+	//==============================================================================================
 }

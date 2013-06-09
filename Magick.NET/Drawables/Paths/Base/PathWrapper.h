@@ -52,23 +52,23 @@ namespace ImageMagick
 			BaseValue = new TMagickObject(coordinateList);
 		}
 		//===========================================================================================
-		void CreateBaseValue(Coordinate^ coordinate)
+		void CreateBaseValue(Coordinate coordinate)
 		{
 			Throw::IfNull("coordinate", coordinate);
 
-			BaseValue = new TMagickObject(Magick::Coordinate(coordinate->X, coordinate->Y));
+			BaseValue = new TMagickObject(Magick::Coordinate(coordinate.X, coordinate.Y));
 		}
 		//===========================================================================================
-		void CreateBaseValue(IEnumerable<Coordinate^>^ coordinates)
+		void CreateBaseValue(IEnumerable<Coordinate>^ coordinates)
 		{
 			Throw::IfNull("coordinates", coordinates);
 
 			Magick::CoordinateList magickCoordinates;
 
-			IEnumerator<Coordinate^>^ enumerator = coordinates->GetEnumerator();
+			IEnumerator<Coordinate>^ enumerator = coordinates->GetEnumerator();
 			while(enumerator->MoveNext())
 			{
-				magickCoordinates.push_back(Magick::Coordinate(enumerator->Current->X, enumerator->Current->Y));
+				magickCoordinates.push_back(Magick::Coordinate(enumerator->Current.X, enumerator->Current.Y));
 			}
 
 			BaseValue = new TMagickObject(magickCoordinates);

@@ -19,7 +19,7 @@ namespace ImageMagick
 	///<summary>
 	/// Encapsulation of the Coordinate object.
 	///</summary>
-	public ref class Coordinate sealed
+	public value struct Coordinate sealed
 	{
 		//===========================================================================================
 	public:
@@ -40,6 +40,33 @@ namespace ImageMagick
 		/// The Y position of the coordinate.
 		///</summary>
 		property double Y;
+		//===========================================================================================
+		static bool operator == (Coordinate left, Coordinate right)
+		{
+			return Object::Equals(left, right);
+		}
+		//===========================================================================================
+		static bool operator != (Coordinate left, Coordinate right)
+		{
+			return !Object::Equals(left, right);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified object is equal to the current coordinate.
+		///</summary>
+		///<param name="obj">The object to compare this coordinate with.</param>
+		virtual bool Equals(Object^ obj) override;
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified channel statistics is equal to the current coordinate.
+		///</summary>
+		///<param name="coordinate">The coordinate to compare this coordinate with.</param>
+		bool Equals(Coordinate coordinate);
+		///==========================================================================================
+		///<summary>
+		/// Servers as a hash of this type.
+		///</summary>
+		virtual int GetHashCode() override;
 		//===========================================================================================
 	};
 	//==============================================================================================

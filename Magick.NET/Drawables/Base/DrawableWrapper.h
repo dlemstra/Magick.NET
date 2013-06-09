@@ -37,17 +37,17 @@ namespace ImageMagick
 			}
 		}
 		//===========================================================================================
-		void CreateBaseValue(IEnumerable<Coordinate^>^ coordinates)
+		void CreateBaseValue(IEnumerable<Coordinate>^ coordinates)
 		{
 			Throw::IfNull("coordinates", coordinates);
 
 			Magick::CoordinateList magickCoordinates;
-			IEnumerator<Coordinate^>^ enumerator = coordinates->GetEnumerator();
+			IEnumerator<Coordinate>^ enumerator = coordinates->GetEnumerator();
 
 			int count = 0;
 			while(enumerator->MoveNext())
 			{
-				magickCoordinates.push_back(Magick::Coordinate(enumerator->Current->X, enumerator->Current->Y));
+				magickCoordinates.push_back(Magick::Coordinate(enumerator->Current.X, enumerator->Current.Y));
 				count++;
 			}
 

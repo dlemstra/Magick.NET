@@ -17,7 +17,7 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	DrawablePolyline::DrawablePolyline(IEnumerable<Coordinate^>^ coordinates)
+	DrawablePolyline::DrawablePolyline(IEnumerable<Coordinate>^ coordinates)
 	{
 		CreateBaseValue(coordinates);
 	}

@@ -30,7 +30,7 @@ namespace ImageMagick
 		/// Creates a new DrawablePolyline instance.
 		///</summary>
 		///<param name="coordinates">The coordinates.</param>
-		DrawablePolyline(IEnumerable<Coordinate^>^ coordinates);
+		DrawablePolyline(IEnumerable<Coordinate>^ coordinates);
 		//===========================================================================================
 	};
 	//==============================================================================================

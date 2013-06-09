@@ -30,13 +30,13 @@ namespace ImageMagick
 		/// Initializes a new instance of the PathMovetoAbs class.
 		///</summary>
 		///<param name="coordinate">The coordinate to use.</param>
-		PathMovetoAbs(Coordinate^ coordinate);
+		PathMovetoAbs(Coordinate coordinate);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the PathMovetoAbs class.
 		///</summary>
 		///<param name="coordinates">The coordinates to use.</param>
-		PathMovetoAbs(IEnumerable<Coordinate^>^ coordinates);
+		PathMovetoAbs(IEnumerable<Coordinate>^ coordinates);
 		//===========================================================================================
 	};
 	//==============================================================================================

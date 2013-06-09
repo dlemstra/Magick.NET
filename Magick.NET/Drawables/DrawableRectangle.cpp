@@ -29,10 +29,10 @@ namespace ImageMagick
 		Initialize(upperLeftX, upperLeftY, lowerRightX, lowerRightY);
 	}
 	//==============================================================================================
-	DrawableRectangle::DrawableRectangle(Rectangle^ rectangle)
+	DrawableRectangle::DrawableRectangle(Rectangle rectangle)
 	{
-		Initialize(rectangle->X, rectangle->Y, rectangle->X + rectangle->Width,
-			rectangle->Y + rectangle->Height);
+		Initialize(rectangle.X, rectangle.Y, rectangle.X + rectangle.Width,
+			rectangle.Y + rectangle.Height);
 	}
 	//==============================================================================================
 	double DrawableRectangle::LowerRightX::get()

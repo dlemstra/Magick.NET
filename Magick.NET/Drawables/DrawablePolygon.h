@@ -30,7 +30,7 @@ namespace ImageMagick
 		/// Creates a new DrawablePolygon instance.
 		///</summary>
 		///<param name="coordinates">The coordinates.</param>
-		DrawablePolygon(IEnumerable<Coordinate^>^ coordinates);
+		DrawablePolygon(IEnumerable<Coordinate>^ coordinates);
 		//===========================================================================================
 	};
 	//==============================================================================================

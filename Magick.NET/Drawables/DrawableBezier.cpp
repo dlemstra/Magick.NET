@@ -17,7 +17,7 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	DrawableBezier::DrawableBezier(IEnumerable<Coordinate^>^ coordinates)
+	DrawableBezier::DrawableBezier(IEnumerable<Coordinate>^ coordinates)
 	{
 		CreateBaseValue(coordinates);
 	}

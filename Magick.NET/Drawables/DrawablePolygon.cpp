@@ -17,7 +17,7 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	DrawablePolygon::DrawablePolygon(IEnumerable<Coordinate^>^ coordinates)
+	DrawablePolygon::DrawablePolygon(IEnumerable<Coordinate>^ coordinates)
 	{
 		CreateBaseValue(coordinates);
 	}

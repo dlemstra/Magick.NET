@@ -30,7 +30,7 @@ namespace ImageMagick
 		/// Creates a new DrawableBezier instance.
 		///</summary>
 		///<param name="coordinates">The coordinates.</param>
-		DrawableBezier(IEnumerable<Coordinate^>^ coordinates);
+		DrawableBezier(IEnumerable<Coordinate>^ coordinates);
 		//===========================================================================================
 	};
 	//==============================================================================================

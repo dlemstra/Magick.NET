@@ -45,7 +45,7 @@ namespace ImageMagick
 		/// Creates a new DrawableViewbox instance.
 		///</summary>
 		///<param name="rectangle">The rectangle to use.</param>
-		DrawableViewbox(Rectangle^ rectangle);
+		DrawableViewbox(Rectangle rectangle);
 		///==========================================================================================
 		///<summary>
 		/// The upper left X coordinate.

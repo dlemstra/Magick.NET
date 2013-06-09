@@ -30,10 +30,10 @@ namespace ImageMagick
 		Initialize(upperLeftX, upperLeftY, lowerRightX, lowerRightY);
 	}
 	//==============================================================================================
-	DrawableViewbox::DrawableViewbox(Rectangle^ rectangle)
+	DrawableViewbox::DrawableViewbox(Rectangle rectangle)
 	{
-		Initialize(rectangle->X, rectangle->Y, rectangle->X + rectangle->Width,
-			rectangle->Y + rectangle->Height);
+		Initialize(rectangle.X, rectangle.Y, rectangle.X + rectangle.Width,
+			rectangle.Y + rectangle.Height);
 	}
 	//==============================================================================================
 	double DrawableViewbox::LowerRightX::get()
