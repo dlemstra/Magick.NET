@@ -456,12 +456,6 @@
     <ClInclude Include="Drawables\Paths\Args\Base\PathArgsWrapper.h">
       <Filter>Header Files\Drawables\Paths\Args\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Drawables\Paths\Args\PathArcArgs.h">
-      <Filter>Header Files\Drawables\Paths\Args</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawables\Paths\Args\PathCurvetoArgs.h">
-      <Filter>Header Files\Drawables\Paths\Args</Filter>
-    </ClInclude>
     <ClInclude Include="Drawables\Paths\PathLinetoAbs.h">
       <Filter>Header Files\Drawables\Paths</Filter>
     </ClInclude>
@@ -503,9 +497,6 @@
     </ClInclude>
     <ClInclude Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.h">
       <Filter>Header Files\Drawables\Paths</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawables\Paths\Args\PathQuadraticCurvetoArgs.h">
-      <Filter>Header Files\Drawables\Paths\Args</Filter>
     </ClInclude>
     <ClInclude Include="Colors\ColorProfile.h">
       <Filter>Header Files\Colors</Filter>
@@ -569,6 +560,15 @@
     </ClInclude>
     <ClInclude Include="Drawables\Base\Drawable.h">
       <Filter>Header Files\Drawables\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\Args\PathArc.h">
+      <Filter>Header Files\Drawables\Paths\Args</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\Args\PathCurveto.h">
+      <Filter>Header Files\Drawables\Paths\Args</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths\Args\PathQuadraticCurveto.h">
+      <Filter>Header Files\Drawables\Paths\Args</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -851,15 +851,6 @@
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.cpp">
       <Filter>Source Files\Drawables\Paths</Filter>
     </ClCompile>
-    <ClCompile Include="Drawables\Paths\Args\PathCurvetoArgs.cpp">
-      <Filter>Source Files\Drawables\Paths\Args</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawables\Paths\Args\PathQuadraticCurvetoArgs.cpp">
-      <Filter>Source Files\Drawables\Paths\Args</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawables\Paths\Args\PathArcArgs.cpp">
-      <Filter>Source Files\Drawables\Paths\Args</Filter>
-    </ClCompile>
     <ClCompile Include="Colors\ColorProfile.cpp">
       <Filter>Source Files\Colors</Filter>
     </ClCompile>
@@ -916,6 +907,15 @@
     </ClCompile>
     <ClCompile Include="Script\Generated\Execute.cpp">
       <Filter>Source Files\Script\Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\Args\PathArc.cpp">
+      <Filter>Source Files\Drawables\Paths\Args</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\Args\PathCurveto.cpp">
+      <Filter>Source Files\Drawables\Paths\Args</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths\Args\PathQuadraticCurveto.cpp">
+      <Filter>Source Files\Drawables\Paths\Args</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

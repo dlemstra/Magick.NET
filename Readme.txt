@@ -2,6 +2,7 @@ Breaking changes.
 
 Magick.NET 6.8.5.403:
   - Renamed DrawableBase to Drawable.
+  - Removed Args part of PathArc/PathCurvetoArgs/PathQuadraticCurvetoArgs classes.
 
 Magick.NET 6.8.5.401:
   - Renamed ImageType enum to MagickFormat.

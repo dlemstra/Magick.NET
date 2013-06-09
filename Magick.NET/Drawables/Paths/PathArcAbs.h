@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "Args\PathArcArgs.h"
+#include "Args\PathArc.h"
 #include "Base\PathWrapper.h"
 
 namespace ImageMagick
@@ -28,16 +28,16 @@ namespace ImageMagick
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the PathArcArgs class.
+		/// Initializes a new instance of the PathArcAbs class.
 		///</summary>
 		///<param name="coordinate">The coordinate to use.</param>
-		PathArcAbs(PathArcArgs^ coordinate);
+		PathArcAbs(PathArc^ coordinate);
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the PathArcArgs class.
+		/// Initializes a new instance of the PathArcAbs class.
 		///</summary>
 		///<param name="coordinates">The coordinates to use.</param>
-		PathArcAbs(IEnumerable<PathArcArgs^>^ coordinates);
+		PathArcAbs(IEnumerable<PathArc^>^ coordinates);
 		//===========================================================================================
 	};
 	//==============================================================================================

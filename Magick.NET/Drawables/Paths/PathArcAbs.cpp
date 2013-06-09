@@ -17,14 +17,14 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	PathArcAbs::PathArcAbs(PathArcArgs^ coordinate)
+	PathArcAbs::PathArcAbs(PathArc^ coordinate)
 	{
 		CreateBaseValue(coordinate);
 	}
 	//==============================================================================================
-	PathArcAbs::PathArcAbs(IEnumerable<PathArcArgs^>^ coordinates)
+	PathArcAbs::PathArcAbs(IEnumerable<PathArc^>^ coordinates)
 	{
-		CreateBaseValue<Magick::PathArcArgs, PathArcArgs>(coordinates);
+		CreateBaseValue<Magick::PathArcArgs, PathArc>(coordinates);
 	}
 	//==============================================================================================
 }

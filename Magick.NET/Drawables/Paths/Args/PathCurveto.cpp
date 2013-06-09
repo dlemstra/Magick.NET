@@ -12,59 +12,79 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "PathQuadraticCurvetoArgs.h"
+#include "PathCurveto.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	PathQuadraticCurvetoArgs::PathQuadraticCurvetoArgs()
+	PathCurveto::PathCurveto()
 	{
-		BaseValue = new Magick::PathQuadraticCurvetoArgs();
+		BaseValue = new Magick::PathCurvetoArgs();
 	}
 	//==============================================================================================
-	PathQuadraticCurvetoArgs::PathQuadraticCurvetoArgs(double x, double y, double x1, double y1)
+	PathCurveto::PathCurveto(double x, double y, double x1, double y1, double x2, double y2)
 	{
-		BaseValue = new Magick::PathQuadraticCurvetoArgs(x, y, x1, y1);
+		BaseValue = new Magick::PathCurvetoArgs(x, y, x1, y1, x2, y2);
 	}
 	//==============================================================================================
-	double PathQuadraticCurvetoArgs::X::get()
+	double PathCurveto::X::get()
 	{
 		return InternalValue->x();
 	}
 	//==============================================================================================
-	void PathQuadraticCurvetoArgs::X::set(double value)
+	void PathCurveto::X::set(double value)
 	{
 		InternalValue->x(value);
 	}
 	//==============================================================================================
-	double PathQuadraticCurvetoArgs::Y::get()
+	double PathCurveto::Y::get()
 	{
 		return InternalValue->y();
 	}
 	//==============================================================================================
-	void PathQuadraticCurvetoArgs::Y::set(double value)
+	void PathCurveto::Y::set(double value)
 	{
 		InternalValue->y(value);
 	}
 	//==============================================================================================
-	double PathQuadraticCurvetoArgs::X1::get()
+	double PathCurveto::X1::get()
 	{
 		return InternalValue->x1();
 	}
 	//==============================================================================================
-	void PathQuadraticCurvetoArgs::X1::set(double value)
+	void PathCurveto::X1::set(double value)
 	{
 		InternalValue->x1(value);
 	}
 	//==============================================================================================
-	double PathQuadraticCurvetoArgs::Y1::get()
+	double PathCurveto::Y1::get()
 	{
 		return InternalValue->y1();
 	}
 	//==============================================================================================
-	void PathQuadraticCurvetoArgs::Y1::set(double value)
+	void PathCurveto::Y1::set(double value)
 	{
 		InternalValue->y1(value);
+	}
+	//==============================================================================================
+	double PathCurveto::X2::get()
+	{
+		return InternalValue->x2();
+	}
+	//==============================================================================================
+	void PathCurveto::X2::set(double value)
+	{
+		InternalValue->x2(value);
+	}
+	//==============================================================================================
+	double PathCurveto::Y2::get()
+	{
+		return InternalValue->y2();
+	}
+	//==============================================================================================
+	void PathCurveto::Y2::set(double value)
+	{
+		InternalValue->y2(value);
 	}
 	//==============================================================================================
 }

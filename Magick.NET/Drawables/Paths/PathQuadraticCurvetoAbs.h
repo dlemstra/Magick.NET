@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "Args\PathQuadraticCurvetoArgs.h"
+#include "Args\PathQuadraticCurveto.h"
 #include "Base\PathWrapper.h"
 
 namespace ImageMagick
@@ -30,14 +30,14 @@ namespace ImageMagick
 		///<summary>
 		/// Initializes a new instance of the PathQuadraticCurvetoAbs class.
 		///</summary>
-		///<param name="args">The arguments.</param>
-		PathQuadraticCurvetoAbs(PathQuadraticCurvetoArgs^ args);
+		///<param name="arg">The arguments.</param>
+		PathQuadraticCurvetoAbs(PathQuadraticCurveto^ arg);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the PathQuadraticCurvetoAbs class.
 		///</summary>
 		///<param name="args">The arguments.</param>
-		PathQuadraticCurvetoAbs(IEnumerable<PathQuadraticCurvetoArgs^>^ args);
+		PathQuadraticCurvetoAbs(IEnumerable<PathQuadraticCurveto^>^ args);
 		//===========================================================================================
 	};
 	//==============================================================================================

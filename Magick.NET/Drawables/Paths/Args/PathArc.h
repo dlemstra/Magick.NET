@@ -19,20 +19,20 @@ namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Encapsulation of the PathArcArgs object.
+	/// Encapsulation of the PathArc object.
 	///</summary>
-	public ref class PathArcArgs sealed : PathArgsWrapper<Magick::PathArcArgs>
+	public ref class PathArc sealed : PathArgsWrapper<Magick::PathArcArgs>
 	{
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the PathArcArgs class.
+		/// Initializes a new instance of the PathArc class.
 		///</summary>
-		PathArcArgs();
+		PathArc();
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the PathArcArgs class.
+		/// Initializes a new instance of the PathArc class.
 		///</summary>
 		///<param name="x">The X offset from origin.</param>
 		///<param name="y">The Y offset from origin.</param>
@@ -42,7 +42,7 @@ namespace ImageMagick
 		/// current coordinate system.</param>
 		///<param name="useLargeArc">If true then draw the larger of the available arcs.</param>
 		///<param name="useSweep">If true then draw the arc matching a clock-wise rotation.</param>
-		PathArcArgs(double x, double y, double radiusX, double radiusY, double rotationX, bool useLargeArc,
+		PathArc(double x, double y, double radiusX, double radiusY, double rotationX, bool useLargeArc,
 			bool useSweep);
 		///==========================================================================================
 		///<summary>

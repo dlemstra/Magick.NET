@@ -19,22 +19,22 @@ namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Encapsulation of the PathCurvetoArgs object.
+	/// Encapsulation of the PathCurveto object.
 	///</summary>
-	public ref class PathCurvetoArgs sealed : PathArgsWrapper<Magick::PathCurvetoArgs>
+	public ref class PathCurveto sealed : PathArgsWrapper<Magick::PathCurvetoArgs>
 	{
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the PathCurvetoArgs class.
+		/// Initializes a new instance of the PathCurveto class.
 		///</summary>
-		PathCurvetoArgs();
+		PathCurveto();
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the PathCurvetoArgs class.
+		/// Initializes a new instance of the PathCurveto class.
 		///</summary>
-		PathCurvetoArgs(double x, double y, double x1, double y1, double x2, double y2);
+		PathCurveto(double x, double y, double x1, double y1, double x2, double y2);
 		///==========================================================================================
 		property double X
 		{

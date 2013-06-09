@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "Args\PathCurvetoArgs.h"
+#include "Args\PathCurveto.h"
 #include "Base\PathWrapper.h"
 
 namespace ImageMagick
@@ -31,13 +31,13 @@ namespace ImageMagick
 		/// Initializes a new instance of the PathCurvetoRel class.
 		///</summary>
 		///<param name="coordinate">The coordinate to use.</param>
-		PathCurvetoRel(PathCurvetoArgs^ coordinate);
+		PathCurvetoRel(PathCurveto^ coordinate);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the PathCurvetoRel class.
 		///</summary>
 		///<param name="coordinates">The coordinates to use.</param>
-		PathCurvetoRel(IEnumerable<PathCurvetoArgs^>^ coordinates);
+		PathCurvetoRel(IEnumerable<PathCurveto^>^ coordinates);
 		//===========================================================================================
 	};
 	//==============================================================================================

@@ -12,90 +12,59 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "PathArcArgs.h"
+#include "PathQuadraticCurveto.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	PathArcArgs::PathArcArgs()
+	PathQuadraticCurveto::PathQuadraticCurveto()
 	{
-		BaseValue = new Magick::PathArcArgs();
+		BaseValue = new Magick::PathQuadraticCurvetoArgs();
 	}
 	//==============================================================================================
-	PathArcArgs::PathArcArgs(double x, double y, double radiusX, double radiusY, double rotationX,
-		bool useLargeArc, bool useSweep)
+	PathQuadraticCurveto::PathQuadraticCurveto(double x, double y, double x1, double y1)
 	{
-		BaseValue = new Magick::PathArcArgs(radiusX, radiusY, rotationX, useLargeArc, useSweep, x, y);
+		BaseValue = new Magick::PathQuadraticCurvetoArgs(x, y, x1, y1);
 	}
 	//==============================================================================================
-	double PathArcArgs::RadiusX::get()
-	{
-		return InternalValue->radiusX();
-	}
-	//==============================================================================================
-	void PathArcArgs::RadiusX::set(double value)
-	{
-		InternalValue->radiusX(value);
-	}
-	//==============================================================================================
-	double PathArcArgs::RadiusY::get()
-	{
-		return InternalValue->radiusY();
-	}
-	//==============================================================================================
-	void PathArcArgs::RadiusY::set(double value)
-	{
-		InternalValue->radiusY(value);
-	}
-	//==============================================================================================
-	double PathArcArgs::RotationX::get()
-	{
-		return InternalValue->xAxisRotation();
-	}
-	//==============================================================================================
-	void PathArcArgs::RotationX::set(double value)
-	{
-		InternalValue->xAxisRotation(value);
-	}
-	//==============================================================================================
-	bool PathArcArgs::UseLargeArc::get()
-	{
-		return InternalValue->largeArcFlag();
-	}
-	//==============================================================================================
-	void PathArcArgs::UseLargeArc::set(bool value)
-	{
-		InternalValue->largeArcFlag(value);
-	}
-	//==============================================================================================
-	bool PathArcArgs::UseSweep::get()
-	{
-		return InternalValue->sweepFlag();
-	}
-	//==============================================================================================
-	void PathArcArgs::UseSweep::set(bool value)
-	{
-		InternalValue->sweepFlag(value);
-	}
-	//==============================================================================================
-	double PathArcArgs::X::get()
+	double PathQuadraticCurveto::X::get()
 	{
 		return InternalValue->x();
 	}
 	//==============================================================================================
-	void PathArcArgs::X::set(double value)
+	void PathQuadraticCurveto::X::set(double value)
 	{
-		InternalValue->y(value);
+		InternalValue->x(value);
 	}
 	//==============================================================================================
-	double PathArcArgs::Y::get()
+	double PathQuadraticCurveto::Y::get()
 	{
 		return InternalValue->y();
 	}
 	//==============================================================================================
-	void PathArcArgs::Y::set(double value)
+	void PathQuadraticCurveto::Y::set(double value)
 	{
 		InternalValue->y(value);
+	}
+	//==============================================================================================
+	double PathQuadraticCurveto::X1::get()
+	{
+		return InternalValue->x1();
+	}
+	//==============================================================================================
+	void PathQuadraticCurveto::X1::set(double value)
+	{
+		InternalValue->x1(value);
+	}
+	//==============================================================================================
+	double PathQuadraticCurveto::Y1::get()
+	{
+		return InternalValue->y1();
+	}
+	//==============================================================================================
+	void PathQuadraticCurveto::Y1::set(double value)
+	{
+		InternalValue->y1(value);
 	}
 	//==============================================================================================
 }

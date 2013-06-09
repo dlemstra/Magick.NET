@@ -12,79 +12,90 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "PathCurvetoArgs.h"
+#include "PathArc.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	PathCurvetoArgs::PathCurvetoArgs()
+	PathArc::PathArc()
 	{
-		BaseValue = new Magick::PathCurvetoArgs();
+		BaseValue = new Magick::PathArcArgs();
 	}
 	//==============================================================================================
-	PathCurvetoArgs::PathCurvetoArgs(double x, double y, double x1, double y1, double x2, double y2)
+	PathArc::PathArc(double x, double y, double radiusX, double radiusY, double rotationX,
+		bool useLargeArc, bool useSweep)
 	{
-		BaseValue = new Magick::PathCurvetoArgs(x, y, x1, y1, x2, y2);
+		BaseValue = new Magick::PathArcArgs(radiusX, radiusY, rotationX, useLargeArc, useSweep, x, y);
 	}
 	//==============================================================================================
-	double PathCurvetoArgs::X::get()
+	double PathArc::RadiusX::get()
+	{
+		return InternalValue->radiusX();
+	}
+	//==============================================================================================
+	void PathArc::RadiusX::set(double value)
+	{
+		InternalValue->radiusX(value);
+	}
+	//==============================================================================================
+	double PathArc::RadiusY::get()
+	{
+		return InternalValue->radiusY();
+	}
+	//==============================================================================================
+	void PathArc::RadiusY::set(double value)
+	{
+		InternalValue->radiusY(value);
+	}
+	//==============================================================================================
+	double PathArc::RotationX::get()
+	{
+		return InternalValue->xAxisRotation();
+	}
+	//==============================================================================================
+	void PathArc::RotationX::set(double value)
+	{
+		InternalValue->xAxisRotation(value);
+	}
+	//==============================================================================================
+	bool PathArc::UseLargeArc::get()
+	{
+		return InternalValue->largeArcFlag();
+	}
+	//==============================================================================================
+	void PathArc::UseLargeArc::set(bool value)
+	{
+		InternalValue->largeArcFlag(value);
+	}
+	//==============================================================================================
+	bool PathArc::UseSweep::get()
+	{
+		return InternalValue->sweepFlag();
+	}
+	//==============================================================================================
+	void PathArc::UseSweep::set(bool value)
+	{
+		InternalValue->sweepFlag(value);
+	}
+	//==============================================================================================
+	double PathArc::X::get()
 	{
 		return InternalValue->x();
 	}
 	//==============================================================================================
-	void PathCurvetoArgs::X::set(double value)
-	{
-		InternalValue->x(value);
-	}
-	//==============================================================================================
-	double PathCurvetoArgs::Y::get()
-	{
-		return InternalValue->y();
-	}
-	//==============================================================================================
-	void PathCurvetoArgs::Y::set(double value)
+	void PathArc::X::set(double value)
 	{
 		InternalValue->y(value);
 	}
 	//==============================================================================================
-	double PathCurvetoArgs::X1::get()
+	double PathArc::Y::get()
 	{
-		return InternalValue->x1();
+		return InternalValue->y();
 	}
 	//==============================================================================================
-	void PathCurvetoArgs::X1::set(double value)
+	void PathArc::Y::set(double value)
 	{
-		InternalValue->x1(value);
-	}
-	//==============================================================================================
-	double PathCurvetoArgs::Y1::get()
-	{
-		return InternalValue->y1();
-	}
-	//==============================================================================================
-	void PathCurvetoArgs::Y1::set(double value)
-	{
-		InternalValue->y1(value);
-	}
-	//==============================================================================================
-	double PathCurvetoArgs::X2::get()
-	{
-		return InternalValue->x2();
-	}
-	//==============================================================================================
-	void PathCurvetoArgs::X2::set(double value)
-	{
-		InternalValue->x2(value);
-	}
-	//==============================================================================================
-	double PathCurvetoArgs::Y2::get()
-	{
-		return InternalValue->y2();
-	}
-	//==============================================================================================
-	void PathCurvetoArgs::Y2::set(double value)
-	{
-		InternalValue->y2(value);
+		InternalValue->y(value);
 	}
 	//==============================================================================================
 }
