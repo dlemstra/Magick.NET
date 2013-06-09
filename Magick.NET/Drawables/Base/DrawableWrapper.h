@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "DrawableBase.h"
+#include "Drawable.h"
 #include "..\Coordinate.h"
 
 using namespace System::Collections::Generic;
@@ -22,7 +22,7 @@ namespace ImageMagick
 {	
 	//==============================================================================================
 	template<typename TMagickObject>
-	public ref class DrawableWrapper abstract : DrawableBase
+	public ref class DrawableWrapper abstract : Drawable
 	{
 		//===========================================================================================
 	protected private:

@@ -426,9 +426,6 @@
     <ClInclude Include="Drawables\Base\DrawableWrapper.h">
       <Filter>Header Files\Drawables\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Drawables\Base\DrawableBase.h">
-      <Filter>Header Files\Drawables\Base</Filter>
-    </ClInclude>
     <ClInclude Include="Drawables\Paths\Base\PathWrapper.h">
       <Filter>Header Files\Drawables\Paths\Base</Filter>
     </ClInclude>
@@ -569,6 +566,9 @@
     </ClInclude>
     <ClInclude Include="Script\Generated\Execute.h">
       <Filter>Header Files\Script\Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Base\Drawable.h">
+      <Filter>Header Files\Drawables\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

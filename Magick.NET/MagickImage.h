@@ -16,7 +16,7 @@
 #include "Base\MagickWrapper.h"
 #include "Colors\MagickColor.h"
 #include "Drawables\DrawableAffine.h"
-#include "Drawables\Base\DrawableBase.h"
+#include "Drawables\Base\Drawable.h"
 #include "Enums\Channels.h"
 #include "Enums\ClassType.h"
 #include "Enums\ColorSpace.h"
@@ -1312,14 +1312,14 @@ namespace ImageMagick
 		///</summary>
 		///<param name="drawable">The drawable to draw on the image.</param>
 		///<exception cref="MagickException"/>
-		void Draw(DrawableBase^ drawable);
+		void Draw(Drawable^ drawable);
 		///==========================================================================================
 		///<summary>
 		/// Draw on image using a collection of drawables.
 		///</summary>
 		///<param name="drawables">The drawables to draw on the image.</param>
 		///<exception cref="MagickException"/>
-		void Draw(IEnumerable<DrawableBase^>^ drawables);
+		void Draw(IEnumerable<Drawable^>^ drawables);
 		///==========================================================================================
 		///<summary>
 		/// Determines whether the specified object is equal to the current image.

@@ -1687,7 +1687,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Draw(DrawableBase^ drawable)
+	void MagickImage::Draw(Drawable^ drawable)
 	{
 		Throw::IfNull("drawable", drawable);
 
@@ -1701,14 +1701,14 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Draw(IEnumerable<DrawableBase^>^ drawables)
+	void MagickImage::Draw(IEnumerable<Drawable^>^ drawables)
 	{
 		Throw::IfNull("drawables", drawables);
 
 		try
 		{
 			std::list<Magick::Drawable> drawList;
-			IEnumerator<DrawableBase^>^ enumerator = drawables->GetEnumerator();
+			IEnumerator<Drawable^>^ enumerator = drawables->GetEnumerator();
 			while(enumerator->MoveNext())
 			{
 				drawList.push_back(*(enumerator->Current->InternalValue));

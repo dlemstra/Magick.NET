@@ -301,7 +301,7 @@
     <ClInclude Include="MagickErrorInfo.h" />
     <ClInclude Include="Drawables\Coordinate.h" />
     <ClInclude Include="Enums\DistortMethod.h" />
-    <ClInclude Include="Drawables\Base\DrawableBase.h" />
+    <ClInclude Include="Drawables\Base\Drawable.h" />
     <ClInclude Include="Drawables\DrawableArc.h" />
     <ClInclude Include="Drawables\Base\DrawableWrapper.h" />
     <ClInclude Include="Drawables\DrawableBezier.h" />
