@@ -36,6 +36,14 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		public static string ImageMagickJPG
+		{
+			get
+			{
+				return _Root + @"Images\ImageMagick.jpg";
+			}
+		}
+		//===========================================================================================
 		public static string InvalidScript
 		{
 			get

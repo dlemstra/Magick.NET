@@ -26,11 +26,20 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageInfo::Initialize(Magick::Image* image)
 	{
-		_FileName = Marshaller::Marshal(image->baseFilename());
-		_ColorSpace = (ImageMagick::ColorSpace)image->colorSpace();
-		_Height = Convert::ToInt32(image->size().height());
-		_Width = Convert::ToInt32(image->size().width());
-		_Format = EnumHelper::Parse<MagickFormat>(Marshaller::Marshal(image->magick()), MagickFormat::Unknown);
+		try
+		{
+			_ColorSpace = (ImageMagick::ColorSpace)image->colorSpace();
+			_Format = EnumHelper::Parse<MagickFormat>(Marshaller::Marshal(image->magick()), MagickFormat::Unknown);
+			_FileName = Marshaller::Marshal(image->baseFilename());
+			_Height = Convert::ToInt32(image->size().height());
+			_ResolutionX = image->xResolution();
+			_ResolutionY = image->yResolution();
+			_Width = Convert::ToInt32(image->size().width());
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
 	}
 	//==============================================================================================
 	MagickImageInfo::MagickImageInfo(array<Byte>^ data)
@@ -66,6 +75,16 @@ namespace ImageMagick
 	int MagickImageInfo::Height::get()
 	{
 		return _Height;
+	}
+	//==============================================================================================
+	double MagickImageInfo::ResolutionX::get()
+	{
+		return _ResolutionX;
+	}
+	//==============================================================================================
+	double MagickImageInfo::ResolutionY::get()
+	{
+		return _ResolutionY;
 	}
 	//==============================================================================================
 	int MagickImageInfo::Width::get()

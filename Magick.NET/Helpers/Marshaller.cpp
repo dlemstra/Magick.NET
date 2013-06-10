@@ -29,18 +29,6 @@ namespace ImageMagick
 		delete[] unmanagedValue;
 	}
 	//==============================================================================================
-	array<Byte>^ Marshaller::Marshal(Magick::Blob* value)
-	{
-		if (value == NULL || value->length() == 0)
-			return nullptr;
-
-		int length = Convert::ToInt32(value->length());
-		array<Byte>^ data = gcnew array<Byte>(length);
-		IntPtr ptr = IntPtr((void*)value->data());
-		Marshal::Copy(ptr, data, 0, length);
-		return data;
-	}
-	//==============================================================================================
 	double* Marshaller::Marshal(array<double>^ values)
 	{
 		if (values == nullptr || values->Length == 0)
@@ -53,6 +41,18 @@ namespace ImageMagick
 		}
 
 		return unmanagedValue;
+	}
+	//==============================================================================================
+	array<Byte>^ Marshaller::Marshal(Magick::Blob* value)
+	{
+		if (value == NULL || value->length() == 0)
+			return nullptr;
+
+		int length = Convert::ToInt32(value->length());
+		array<Byte>^ data = gcnew array<Byte>(length);
+		IntPtr ptr = IntPtr((void*)value->data());
+		Marshal::Copy(ptr, data, 0, length);
+		return data;
 	}
 	//==============================================================================================
 	array<double>^ Marshaller::Marshal(const double* values)
@@ -80,6 +80,25 @@ namespace ImageMagick
 		return managedValue;
 	}
 	//==============================================================================================
+	String^ Marshaller::Marshal(const std::string& value)
+	{
+		if (value.empty())
+			return nullptr;
+		else
+			return gcnew String(value.c_str());
+	}
+	//==============================================================================================
+	std::string& Marshaller::Marshal(String^ value, std::string &unmanagedValue)
+	{
+		if (value == nullptr)
+			return unmanagedValue;
+
+		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(value)).ToPointer();
+		unmanagedValue = chars;
+		Marshal::FreeHGlobal(IntPtr((void*)chars));
+		return unmanagedValue;
+	}
+	//==============================================================================================
 	double* Marshaller::MarshalAndTerminate(array<double>^ values)
 	{
 		if (values == nullptr || values->Length == 0)
@@ -96,25 +115,6 @@ namespace ImageMagick
 		unmanagedValue[length - 1] = 0.0;
 
 		return unmanagedValue;
-	}
-	//==============================================================================================
-	std::string& Marshaller::Marshal(String^ value, std::string &unmanagedValue)
-	{
-		if (value == nullptr)
-			return unmanagedValue;
-
-		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(value)).ToPointer();
-		unmanagedValue = chars;
-		Marshal::FreeHGlobal(IntPtr((void*)chars));
-		return unmanagedValue;
-	}
-	//==============================================================================================
-	String^ Marshaller::Marshal(const std::string& value)
-	{
-		if (value.empty())
-			return nullptr;
-		else
-			return gcnew String(value.c_str());
 	}
 	//==============================================================================================
 }

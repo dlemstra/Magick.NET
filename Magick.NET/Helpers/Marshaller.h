@@ -23,17 +23,17 @@ namespace ImageMagick
 		//===========================================================================================
 		static void Marshal(array<Byte>^ data, Magick::Blob* value);
 		//===========================================================================================
+		static double* Marshal(array<double>^ values);
+		//===========================================================================================
 		static array<Byte>^ Marshal(Magick::Blob* value);
 		//===========================================================================================
-		static double* Marshaller::Marshal(array<double>^ values);
+		static array<double>^ Marshal(const double* values);
 		//===========================================================================================
-		static array<double>^ Marshaller::Marshal(const double* values);
-		//===========================================================================================
-		static double* Marshaller::MarshalAndTerminate(array<double>^ values);
+		static String^ Marshal(const std::string& value);
 		//===========================================================================================
 		static std::string& Marshal(String^, std::string& value);
 		//===========================================================================================
-		static String^ Marshal(const std::string& value);
+		static double* MarshalAndTerminate(array<double>^ values);
 		//===========================================================================================
 	};
 	//==============================================================================================

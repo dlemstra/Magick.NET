@@ -35,6 +35,8 @@ namespace ImageMagick
 		String^ _FileName;
 		MagickFormat _Format;
 		int _Height;
+		double _ResolutionX;
+		double _ResolutionY;
 		int _Width;
 		//===========================================================================================
 		static MagickReadSettings^ CreateReadSettings();
@@ -99,6 +101,22 @@ namespace ImageMagick
 		property int Height
 		{
 			int get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// The X resolution of the image.
+		///</summary>
+		property double ResolutionX
+		{
+			double get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// The Y resolution of the image.
+		///</summary>
+		property double ResolutionY
+		{
+			double get();
 		}
 		///==========================================================================================
 		///<summary>

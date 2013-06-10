@@ -164,12 +164,14 @@ namespace Magick.NET.Tests
 				imageInfo.Read(fs);
 			}
 
-			imageInfo.Read(Files.SnakewarePNG);
+			imageInfo.Read(Files.ImageMagickJPG);
 
 			Assert.AreEqual(ColorSpace.sRGB, imageInfo.ColorSpace);
-			Assert.AreEqual(MagickFormat.Png, imageInfo.Format);
-			Assert.AreEqual(546, imageInfo.Width);
-			Assert.AreEqual(316, imageInfo.Height);
+			Assert.AreEqual(MagickFormat.Jpeg, imageInfo.Format);
+			Assert.AreEqual(123, imageInfo.Width);
+			Assert.AreEqual(118, imageInfo.Height);
+			Assert.AreEqual(72, imageInfo.ResolutionX);
+			Assert.AreEqual(72, imageInfo.ResolutionY);
 		}
 		//===========================================================================================
 	}
