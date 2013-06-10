@@ -71,15 +71,15 @@ function CheckStrongName($builds)
 {
 	foreach ($build in $builds)
 	{
-		sn -Tp ("..\Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET.dll")
-		CheckExitCode ("Magick.NET-" + $build.Quantum + "-" + $build.Platform + " (" + $build.FrameworkName + ") does not represent a strongly named assembly")
+		sn -Tp ("..\Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET-" + $build.PlatformName + ".dll")
+		CheckExitCode ("Magick.NET-" + $build.Quantum + "-" + $build.PlatformName + " (" + $build.FrameworkName + ") does not represent a strongly named assembly")
 
 		if ($build.Quantum -ne "Q16" -or $build.Framework -ne "v4.0")
 		{
 			continue
 		}
 
-		sn -Tp ("..\Magick.NET.Web\bin\Release" + $build.Quantum + "\" + $build.PlatformName + "\Magick.NET.Web.dll")
+		sn -Tp ("..\Magick.NET.Web\bin\Release" + $build.Quantum + "\" + $build.PlatformName + "\Magick.NET.Web-" + $build.PlatformName + ".dll")
 		CheckExitCode ("Magick.NET.Web-" + $build.Quantum + "-" + $build.PlatformName + " does not represent a strongly named assembly")
 	}
 }
@@ -114,8 +114,6 @@ function CreateNet20ProjectFiles()
 function CreateNuGetPackages($builds, $imVersion, $version)
 {
 	$content = [IO.File]::ReadAllText("NuGet\Magick.NET.targets", [System.Text.Encoding]::Default)
-	[IO.File]::WriteAllText("NuGet\Magick.NET.net20.targets", $content.Replace("NET_VERSION","net20"), [System.Text.Encoding]::Default)
-	[IO.File]::WriteAllText("NuGet\Magick.NET.net40-client.targets", $content.Replace("NET_VERSION","net40-client"), [System.Text.Encoding]::Default)
 
 	foreach ($build in $builds)
 	{
@@ -123,6 +121,10 @@ function CreateNuGetPackages($builds, $imVersion, $version)
 		{
 			continue
 		}
+
+		$newContent = $content.Replace("PLATFORM", $build.PlatformName)
+		[IO.File]::WriteAllText("NuGet\Magick.NET.net20.targets", $newContent.Replace("NET_VERSION","net20"), [System.Text.Encoding]::Default)
+		[IO.File]::WriteAllText("NuGet\Magick.NET.net40-client.targets", $newContent.Replace("NET_VERSION","net40-client"), [System.Text.Encoding]::Default)
 
 		$xml = [xml](get-content "NuGet\Magick.NET.nuspec")
 
@@ -138,13 +140,13 @@ function CreateNuGetPackages($builds, $imVersion, $version)
 			Remove-Item $nuspecFile
 		}
 
-		AddFileElement $xml ("..\..\Magick.NET\bin\Release" + $build.Quantum + "\v2.0\" + $build.Platform + "\Magick.NET.dll") "lib\net20"
-		AddFileElement $xml ("..\..\Magick.NET\bin\Release" + $build.Quantum + "\v2.0\" + $build.Platform + "\Magick.NET.xml") "lib\net20"
-		AddFileElement $xml ("..\..\Magick.NET\bin\Release" + $build.Quantum + "\v4.0\" + $build.Platform + "\Magick.NET.dll") "lib\net40-client"
-		AddFileElement $xml ("..\..\Magick.NET\bin\Release" + $build.Quantum + "\v4.0\" + $build.Platform + "\Magick.NET.xml") "lib\net40-client"
+		AddFileElement $xml ("..\..\Magick.NET\bin\Release" + $build.Quantum + "\v2.0\" + $build.Platform + "\Magick.NET-" + $build.PlatformName + ".dll") "lib\net20"
+		AddFileElement $xml ("..\..\Magick.NET\bin\Release" + $build.Quantum + "\v2.0\" + $build.Platform + "\Magick.NET-" + $build.PlatformName + ".xml") "lib\net20"
+		AddFileElement $xml ("..\..\Magick.NET\bin\Release" + $build.Quantum + "\v4.0\" + $build.Platform + "\Magick.NET-" + $build.PlatformName + ".dll") "lib\net40-client"
+		AddFileElement $xml ("..\..\Magick.NET\bin\Release" + $build.Quantum + "\v4.0\" + $build.Platform + "\Magick.NET-" + $build.PlatformName + ".xml") "lib\net40-client"
 
-		AddFileElement $xml ("..\..\ImageMagick\" + $build.Quantum + "\bin\v2.0\" + $build.PlatformName + "\*.dll") "ImageMagick\net20"
-		AddFileElement $xml ("..\..\ImageMagick\" + $build.Quantum + "\bin\v4.0\" + $build.PlatformName + "\*.dll") "ImageMagick\net40-client"
+		AddFileElement $xml ("..\..\ImageMagick\" + $build.Quantum + "\bin\v2.0\" + $build.PlatformName + "\*.dll") "ImageMagick-" + $build.PlatformName + "\net20"
+		AddFileElement $xml ("..\..\ImageMagick\" + $build.Quantum + "\bin\v4.0\" + $build.PlatformName + "\*.dll") "ImageMagick-" + $build.PlatformName + "\net40-client"
 		AddFileElement $xml ("..\..\ImageMagick\xml\*.xml") "ImageMagick\xml"
 
 		AddFileElement $xml ("..\..\Publish\NuGet\Magick.NET.net20.targets") "build\net20\$id.targets"
@@ -156,10 +158,9 @@ function CreateNuGetPackages($builds, $imVersion, $version)
 		.\NuGet.exe pack $nuspecFile -minClientVersion 2.5 -NoPackageAnalysis -OutputDirectory NuGet
 
 		Remove-Item $nuspecFile
+		Remove-Item NuGet\Magick.NET.net20.targets
+		Remove-Item NuGet\Magick.NET.net40-client.targets
 	}
-
-	Remove-Item NuGet\Magick.NET.net20.targets
-	Remove-Item NuGet\Magick.NET.net40-client.targets
 }
 
 function CreateZipFiles($builds, $version)
@@ -176,11 +177,11 @@ function CreateZipFiles($builds, $version)
 		}
 
 		[void](New-Item $dir -type directory)
-		Copy-Item ("..\Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET.dll") $dir
-		Copy-Item ("..\Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET.xml") $dir
+		Copy-Item ("..\Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET-" + $build.PlatformName + ".dll") $dir
+		Copy-Item ("..\Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET-" + $build.PlatformName + ".xml") $dir
 		
 		[void](New-Item $dir\ImageMagick -type directory)
-		Copy-Item ("..\ImageMagick\" + $build.Quantum + "\bin\" + $build.Framework + "\" + $build.PlatformName + "\*.dll") $dir\ImageMagick
+		Copy-Item ("..\ImageMagick\" + $build.Quantum + "\bin\" + $build.Framework + "\" + $build.PlatformName + "\*.dll") ($dir + "\ImageMagick-" + $build.PlatformName)
 		Copy-Item ("..\ImageMagick\xml\*xml") $dir\ImageMagick
 
 		$zipFile = "Zip\Magick.NET-$version-" + $build.Quantum + "-" + $build.PlatformName + "-" + $build.FrameworkName + ".zip"
@@ -206,7 +207,7 @@ function CreateZipFiles($builds, $version)
 		}
 
 		[void](New-Item $dir -type directory)
-		Copy-Item ("..\Magick.NET.Web\bin\Release" + $build.Quantum + "\" + $build.PlatformName + "\Magick.NET.Web.dll") $dir
+		Copy-Item ("..\Magick.NET.Web\bin\Release" + $build.Quantum + "\" + $build.PlatformName + "\Magick.NET.Web-" + $build.PlatformName + ".dll") $dir
 
 		$zipFile = "Zip\Magick.NET.Web-$version-" + $build.PlatformName + "-net40.zip"
 

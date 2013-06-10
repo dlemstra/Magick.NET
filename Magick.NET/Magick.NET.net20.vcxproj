@@ -74,28 +74,28 @@
     <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
-    <TargetName>Magick.NET</TargetName>
+    <TargetName>Magick.NET-x86</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
-    <TargetName>Magick.NET</TargetName>
+    <TargetName>Magick.NET-x86</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
-    <TargetName>Magick.NET</TargetName>
+    <TargetName>Magick.NET-x64</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
-    <TargetName>Magick.NET</TargetName>
+    <TargetName>Magick.NET-x64</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
     <ClCompile>
@@ -230,14 +230,14 @@
     <ClInclude Include="Drawables\DrawableTextUnderColor.h" />
     <ClInclude Include="Drawables\DrawableTranslation.h" />
     <ClInclude Include="Drawables\DrawableViewbox.h" />
-    <ClInclude Include="Drawables\Paths\Args\PathQuadraticCurvetoArgs.h" />
+    <ClInclude Include="Drawables\Paths\Args\PathQuadraticCurveto.h" />
     <ClInclude Include="Drawables\Paths\PathArcAbs.h" />
-    <ClInclude Include="Drawables\Paths\Args\PathArcArgs.h" />
+    <ClInclude Include="Drawables\Paths\Args\PathArc.h" />
     <ClInclude Include="Drawables\Paths\PathArcRel.h" />
     <ClInclude Include="Drawables\Paths\Args\Base\PathArgsWrapper.h" />
     <ClInclude Include="Drawables\Paths\PathClosePath.h" />
     <ClInclude Include="Drawables\Paths\PathCurvetoAbs.h" />
-    <ClInclude Include="Drawables\Paths\Args\PathCurvetoArgs.h" />
+    <ClInclude Include="Drawables\Paths\Args\PathCurveto.h" />
     <ClInclude Include="Drawables\Paths\PathCurvetoRel.h" />
     <ClInclude Include="Drawables\Paths\Base\PathWrapper.h" />
     <ClInclude Include="Drawables\Paths\Base\PathBase.h" />
@@ -278,6 +278,7 @@
     <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="Helpers\FileHelper.h" />
     <ClInclude Include="Helpers\XmlHelper.h" />
+    <ClInclude Include="Script\Generated\Execute.h" />
     <ClInclude Include="Script\ScriptReadEventArgs.h" />
     <ClInclude Include="Script\MagickScript.h" />
     <ClInclude Include="Script\ScriptWriteEventArgs.h" />
@@ -285,9 +286,9 @@
     <ClInclude Include="MagickFormatInfo.h" />
     <ClInclude Include="Statistics\MagickImageStatistics.h" />
     <ClInclude Include="MagickErrorInfo.h" />
-    <ClInclude Include="Drawables\Helpers\Coordinate.h" />
+    <ClInclude Include="Drawables\Coordinate.h" />
     <ClInclude Include="Enums\DistortMethod.h" />
-    <ClInclude Include="Drawables\Base\DrawableBase.h" />
+    <ClInclude Include="Drawables\Base\Drawable.h" />
     <ClInclude Include="Drawables\DrawableArc.h" />
     <ClInclude Include="Drawables\Base\DrawableWrapper.h" />
     <ClInclude Include="Drawables\DrawableBezier.h" />
@@ -379,13 +380,13 @@
     <ClCompile Include="Drawables\DrawableTextUnderColor.cpp" />
     <ClCompile Include="Drawables\DrawableTranslation.cpp" />
     <ClCompile Include="Drawables\DrawableViewbox.cpp" />
-    <ClCompile Include="Drawables\Paths\Args\PathQuadraticCurvetoArgs.cpp" />
+    <ClCompile Include="Drawables\Paths\Args\PathQuadraticCurveto.cpp" />
     <ClCompile Include="Drawables\Paths\PathArcAbs.cpp" />
-    <ClCompile Include="Drawables\Paths\Args\PathArcArgs.cpp" />
+    <ClCompile Include="Drawables\Paths\Args\PathArc.cpp" />
     <ClCompile Include="Drawables\Paths\PathArcRel.cpp" />
     <ClCompile Include="Drawables\Paths\PathClosePath.cpp" />
     <ClCompile Include="Drawables\Paths\PathCurvetoAbs.cpp" />
-    <ClCompile Include="Drawables\Paths\Args\PathCurvetoArgs.cpp" />
+    <ClCompile Include="Drawables\Paths\Args\PathCurveto.cpp" />
     <ClCompile Include="Drawables\Paths\PathCurvetoRel.cpp" />
     <ClCompile Include="Drawables\Paths\PathLinetoAbs.cpp" />
     <ClCompile Include="Drawables\Paths\PathLinetoHorizontalAbs.cpp" />
@@ -405,6 +406,7 @@
     <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\FileHelper.cpp" />
     <ClCompile Include="Helpers\XmlHelper.cpp" />
+    <ClCompile Include="Script\Generated\Execute.cpp" />
     <ClCompile Include="Script\MagickScript.cpp" />
     <ClCompile Include="Script\ScriptReadEventArgs.cpp" />
     <ClCompile Include="Script\ScriptWriteEventArgs.cpp" />
@@ -412,7 +414,7 @@
     <ClCompile Include="MagickFormatInfo.cpp" />
     <ClCompile Include="Statistics\MagickImageStatistics.cpp" />
     <ClCompile Include="MagickErrorInfo.cpp" />
-    <ClCompile Include="Drawables\Helpers\Coordinate.cpp" />
+    <ClCompile Include="Drawables\Coordinate.cpp" />
     <ClCompile Include="Drawables\DrawableArc.cpp" />
     <ClCompile Include="Drawables\DrawableBezier.cpp" />
     <ClCompile Include="Drawables\DrawableCircle.cpp" />

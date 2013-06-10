@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
 				MagickNET.Initialize("Invalid");
 			});
 
-			string path = Path.GetDirectoryName(GetType().Assembly.Location) + "\\ImageMagick";
+			string path = Path.GetDirectoryName(GetType().Assembly.Location) + "\\ImageMagick-x86";
 			foreach (string fileName in Directory.GetFiles(path))
 			{
 				File.Move(fileName, fileName + ".tmp");

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<ImageMagickOutputPath>$(OutputPath)\ImageMagick</ImageMagickOutputPath>
+		<ImageMagickOutputPath>$(OutputPath)\ImageMagick-PLATFORM</ImageMagickOutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ImageMagickFiles Include="$(MSBuildThisFileDirectory)\..\..\ImageMagick\NET_VERSION\*.dll" />
+		<ImageMagickFiles Include="$(MSBuildThisFileDirectory)\..\..\ImageMagick-PLATFORM\NET_VERSION\*.dll" />
 		<ImageMagickFiles Include="$(MSBuildThisFileDirectory)\..\..\ImageMagick\xml\*.xml" />
 	</ItemGroup>
 

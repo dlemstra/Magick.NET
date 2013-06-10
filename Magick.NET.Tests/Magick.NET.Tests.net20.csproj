@@ -74,7 +74,7 @@
     <Compile Include="MagickNETTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Files.cs" />
-    <Compile Include="Scripts\MagickScriptTests.cs" />
+    <Compile Include="Script\MagickScriptTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Magick.NET\Magick.NET.net20.vcxproj">

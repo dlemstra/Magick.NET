@@ -77,7 +77,7 @@
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
-    <TargetName>Magick.NET</TargetName>
+    <TargetName>Magick.NET-x86</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -86,7 +86,7 @@
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
-    <TargetName>Magick.NET</TargetName>
+    <TargetName>Magick.NET-x86</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -95,7 +95,7 @@
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
-    <TargetName>Magick.NET</TargetName>
+    <TargetName>Magick.NET-x64</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -104,7 +104,7 @@
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
-    <TargetName>Magick.NET</TargetName>
+    <TargetName>Magick.NET-x64</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
     <ClCompile>

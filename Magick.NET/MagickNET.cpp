@@ -54,7 +54,11 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickNET::Initialize()
 	{
-		String^ path = Path::GetDirectoryName(MagickNET::typeid->Assembly->Location) + "\\ImageMagick";
+#if (_M_X64)
+		String^ path = Path::GetDirectoryName(MagickNET::typeid->Assembly->Location) + "\\ImageMagick-x64";
+#else
+		String^ path = Path::GetDirectoryName(MagickNET::typeid->Assembly->Location) + "\\ImageMagick-x86";
+#endif
 
 		Initialize(path);
 	}

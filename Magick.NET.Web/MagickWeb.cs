@@ -24,7 +24,11 @@ namespace ImageMagick
 		//===========================================================================================
 		public static void Initialize()
 		{
-			string path = HostingEnvironment.MapPath(@"~\Bin\ImageMagick");
+#if _M_X64
+			string path = HostingEnvironment.MapPath(@"~\Bin\ImageMagick-x64");
+#else
+			string path = HostingEnvironment.MapPath(@"~\Bin\ImageMagick-x86");
+#endif
 			MagickNET.Initialize(path);
 		}
 		//===========================================================================================
