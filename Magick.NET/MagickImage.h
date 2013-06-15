@@ -22,6 +22,7 @@
 #include "Enums\ColorSpace.h"
 #include "Enums\ColorType.h"
 #include "Enums\CompositeOperator.h"
+#include "Enums\CompressionMethod.h"
 #include "Enums\DistortMethod.h"
 #include "Enums\Endian.h"
 #include "Enums\EvaluateOperator.h"
@@ -331,6 +332,15 @@ namespace ImageMagick
 		{
 			CompositeOperator get();
 			void set(CompositeOperator value);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Compression method to use.
+		///</summary>
+		property CompressionMethod CompressionMethod
+		{
+			ImageMagick::CompressionMethod get();
+			void set(ImageMagick::CompressionMethod value);
 		}
 		///==========================================================================================
 		///<summary>

@@ -214,6 +214,9 @@ namespace Magick.NET.FileGenerator
 		{
 			string typeName = MagickNET.GetTypeName(type);
 
+			if (type.IsEnum)
+				return typeName;
+
 			switch (typeName)
 			{
 				case "Encoding^":
@@ -244,33 +247,6 @@ namespace Magick.NET.FileGenerator
 				case "PathCurveto^":
 				case "PathQuadraticCurveto^":
 					return null;
-				case "Channels":
-				case "ClassType":
-				case "ColorSpace":
-				case "ColorType":
-				case "CompositeOperator":
-				case "DistortMethod":
-				case "Endian":
-				case "EvaluateOperator":
-				case "FillRule":
-				case "FilterType":
-				case "FontStretch":
-				case "FontStyleType":
-				case "FontWeight":
-				case "GifDisposeMethod":
-				case "Gravity":
-				case "LineCap":
-				case "LineJoin":
-				case "MagickFormat":
-				case "NoiseType":
-				case "OrientationType":
-				case "PaintMethod":
-				case "RenderingIntent":
-				case "Resolution":
-				case "SparseColorMethod":
-				case "TextDecoration":
-				case "VirtualPixelMethod":
-					return typeName;
 				default:
 					throw new NotImplementedException(typeName);
 			}

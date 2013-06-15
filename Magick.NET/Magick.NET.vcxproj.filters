@@ -570,6 +570,9 @@
     <ClInclude Include="Drawables\Paths\Args\PathQuadraticCurveto.h">
       <Filter>Header Files\Drawables\Paths\Args</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\CompressionMethod.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">

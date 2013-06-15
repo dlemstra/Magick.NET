@@ -404,6 +404,16 @@ namespace ImageMagick
 		Value->compose((Magick::CompositeOperator)value);
 	}
 	//==============================================================================================
+	CompressionMethod MagickImage::CompressionMethod::get()
+	{
+		return (ImageMagick::CompressionMethod)Value->compressType();
+	}
+	//==============================================================================================
+	void MagickImage::CompressionMethod::set(ImageMagick::CompressionMethod value)
+	{
+		return Value->compressType((MagickCore::CompressionType)value);
+	}
+	//==============================================================================================
 	MagickGeometry^ MagickImage::Density::get()
 	{
 		return gcnew MagickGeometry(Value->density());

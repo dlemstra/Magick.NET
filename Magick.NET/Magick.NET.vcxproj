@@ -269,6 +269,7 @@
     <ClInclude Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.h" />
     <ClInclude Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.h" />
     <ClInclude Include="Enums\ClassType.h" />
+    <ClInclude Include="Enums\CompressionMethod.h" />
     <ClInclude Include="Enums\Endian.h" />
     <ClInclude Include="Enums\FillRule.h" />
     <ClInclude Include="Enums\FilterType.h" />

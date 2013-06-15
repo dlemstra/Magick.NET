@@ -156,6 +156,31 @@
 			<xs:enumeration value="LightenIntensity" />
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="CompressionMethod">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="NoCompression" />
+			<xs:enumeration value="BZip" />
+			<xs:enumeration value="DXT1" />
+			<xs:enumeration value="DXT3" />
+			<xs:enumeration value="DXT5" />
+			<xs:enumeration value="Faxo" />
+			<xs:enumeration value="Group4" />
+			<xs:enumeration value="JPEG" />
+			<xs:enumeration value="JPEG2000" />
+			<xs:enumeration value="LosslessJPEG" />
+			<xs:enumeration value="LZW" />
+			<xs:enumeration value="RLE" />
+			<xs:enumeration value="Zip" />
+			<xs:enumeration value="ZipS" />
+			<xs:enumeration value="Piz" />
+			<xs:enumeration value="Pxr24" />
+			<xs:enumeration value="B44" />
+			<xs:enumeration value="B44A" />
+			<xs:enumeration value="LZMA" />
+			<xs:enumeration value="JBIG1" />
+			<xs:enumeration value="JBIG2" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="DistortMethod">
 		<xs:restriction base="xs:NMTOKEN">
 			<xs:enumeration value="Affine" />
@@ -833,6 +858,11 @@
 				<xs:element name="compose">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="CompositeOperator" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="compressionMethod">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="CompressionMethod" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="density">
@@ -1861,7 +1891,7 @@
 					<xs:complexType>
 						<xs:attribute name="x" use="required" type="xs:double" />
 						<xs:attribute name="y" use="required" type="xs:double" />
-						<xs:attribute name="text" use="required" type="xs:string" />
+						<xs:attribute name="value" use="required" type="xs:string" />
 						<xs:attribute name="encoding" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
@@ -1900,10 +1930,10 @@
 	<xs:group name="paths">
 		<xs:sequence>
 			<xs:choice>
-				<xs:element name="arcAbs" type="coordinates" />
-				<xs:element name="arcRel" type="coordinates" />
-				<xs:element name="curvetoAbs" type="coordinates" />
-				<xs:element name="curvetoRel" type="coordinates" />
+				<xs:element name="arcAbs" type="pathArcs" />
+				<xs:element name="arcRel" type="pathArcs" />
+				<xs:element name="curvetoAbs" type="pathCurvetos" />
+				<xs:element name="curvetoRel" type="pathCurvetos" />
 				<xs:element name="linetoAbs" type="coordinates" />
 				<xs:element name="linetoHorizontalAbs">
 					<xs:complexType>
@@ -1928,8 +1958,8 @@
 				</xs:element>
 				<xs:element name="movetoAbs" type="coordinates" />
 				<xs:element name="movetoRel" type="coordinates" />
-				<xs:element name="quadraticCurvetoAbs" type="args" />
-				<xs:element name="quadraticCurvetoRel" type="args" />
+				<xs:element name="quadraticCurvetoAbs" type="pathQuadraticCurvetos" />
+				<xs:element name="quadraticCurvetoRel" type="pathQuadraticCurvetos" />
 				<xs:element name="smoothCurvetoAbs" type="coordinates" />
 				<xs:element name="smoothCurvetoRel" type="coordinates" />
 				<xs:element name="smoothQuadraticCurvetoAbs" type="coordinates" />

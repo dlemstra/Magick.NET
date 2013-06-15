@@ -100,6 +100,7 @@ namespace ImageMagick
 		result["colorType"] = gcnew ExecuteElementImage(MagickScript::ExecuteColorType);
 		result["comment"] = gcnew ExecuteElementImage(MagickScript::ExecuteComment);
 		result["compose"] = gcnew ExecuteElementImage(MagickScript::ExecuteCompose);
+		result["compressionMethod"] = gcnew ExecuteElementImage(MagickScript::ExecuteCompressionMethod);
 		result["density"] = gcnew ExecuteElementImage(MagickScript::ExecuteDensity);
 		result["endian"] = gcnew ExecuteElementImage(MagickScript::ExecuteEndian);
 		result["fillColor"] = gcnew ExecuteElementImage(MagickScript::ExecuteFillColor);
@@ -379,6 +380,10 @@ namespace ImageMagick
 	void MagickScript::ExecuteCompose(XmlElement^ element, MagickImage^ image)
 	{
 		image->Compose = XmlHelper::GetAttribute<CompositeOperator>(element, "value");
+	}
+	void MagickScript::ExecuteCompressionMethod(XmlElement^ element, MagickImage^ image)
+	{
+		image->CompressionMethod = XmlHelper::GetAttribute<CompressionMethod>(element, "value");
 	}
 	void MagickScript::ExecuteDensity(XmlElement^ element, MagickImage^ image)
 	{

@@ -157,6 +157,31 @@
 			<xs:enumeration value="LightenIntensity" />
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="CompressionMethod">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="NoCompression" />
+			<xs:enumeration value="BZip" />
+			<xs:enumeration value="DXT1" />
+			<xs:enumeration value="DXT3" />
+			<xs:enumeration value="DXT5" />
+			<xs:enumeration value="Faxo" />
+			<xs:enumeration value="Group4" />
+			<xs:enumeration value="JPEG" />
+			<xs:enumeration value="JPEG2000" />
+			<xs:enumeration value="LosslessJPEG" />
+			<xs:enumeration value="LZW" />
+			<xs:enumeration value="RLE" />
+			<xs:enumeration value="Zip" />
+			<xs:enumeration value="ZipS" />
+			<xs:enumeration value="Piz" />
+			<xs:enumeration value="Pxr24" />
+			<xs:enumeration value="B44" />
+			<xs:enumeration value="B44A" />
+			<xs:enumeration value="LZMA" />
+			<xs:enumeration value="JBIG1" />
+			<xs:enumeration value="JBIG2" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="DistortMethod">
 		<xs:restriction base="xs:NMTOKEN">
 			<xs:enumeration value="Affine" />
@@ -834,6 +859,11 @@
 				<xs:element name="compose">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="CompositeOperator" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="compressionMethod">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="CompressionMethod" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="density">

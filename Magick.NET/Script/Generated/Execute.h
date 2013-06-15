@@ -33,6 +33,7 @@ static void ExecuteColorSpace(XmlElement^ element, MagickImage^ image);
 static void ExecuteColorType(XmlElement^ element, MagickImage^ image);
 static void ExecuteComment(XmlElement^ element, MagickImage^ image);
 static void ExecuteCompose(XmlElement^ element, MagickImage^ image);
+static void ExecuteCompressionMethod(XmlElement^ element, MagickImage^ image);
 static void ExecuteDensity(XmlElement^ element, MagickImage^ image);
 static void ExecuteEndian(XmlElement^ element, MagickImage^ image);
 static void ExecuteFillColor(XmlElement^ element, MagickImage^ image);
