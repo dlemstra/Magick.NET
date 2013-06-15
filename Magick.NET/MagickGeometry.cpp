@@ -53,10 +53,10 @@ namespace ImageMagick
 		Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, false);
 	}
 	//==============================================================================================
-	MagickGeometry::MagickGeometry(String^ geometry)
+	MagickGeometry::MagickGeometry(String^ value)
 	{
 		std::string geometrySpec;
-		Marshaller::Marshal(geometry, geometrySpec);
+		Marshaller::Marshal(value, geometrySpec);
 		Value = new Magick::Geometry(geometrySpec);
 
 		Throw::IfFalse("geometry", Value->isValid(), "Invalid geometry specified.");

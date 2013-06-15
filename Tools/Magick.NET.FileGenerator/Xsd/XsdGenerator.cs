@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -40,6 +41,22 @@ namespace Magick.NET.FileGenerator
 			_Namespaces.AddNamespace("xs", _Namespace.ToString());
 		}
 		//===========================================================================================
+		private void AddArguments(XElement element, IEnumerable<MethodBase> methods)
+		{
+			string[] requiredParameters = (from method in methods
+													 from parameter in method.GetParameters()
+													 group parameter by parameter.Name into g
+													 where g.Count() == methods.Count()
+													 select g.Key).ToArray();
+
+			ParameterInfo[] parameters = (from method in methods
+													from parameter in method.GetParameters()
+													select parameter).DistinctBy(p => p.Name).ToArray();
+
+			AddParameterElements(element, parameters, requiredParameters);
+			AddParameterAttributes(element, parameters, requiredParameters);
+		}
+		//===========================================================================================
 		private void AddEnumValues(Type enumType, XElement restriction)
 		{
 			foreach (string name in Enum.GetNames(enumType))
@@ -52,18 +69,26 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		private void AddMethods(XElement annotation)
+		private void AddMagickImageMethods(XElement annotation)
 		{
-			foreach (MethodInfo[] overloads in _MagickNET.GetGroupedMethods("MagickImage"))
+			foreach (MethodInfo[] overloads in _MagickNET.GetGroupedMagickImageMethods())
 			{
 				annotation.AddBeforeSelf(CreateElement(overloads));
+			}
+		}
+		//===========================================================================================
+		private void AddMagickImageProperties(XElement annotation)
+		{
+			foreach (PropertyInfo property in _MagickNET.GetMagickImageProperties())
+			{
+				annotation.AddBeforeSelf(CreateElement(property));
 			}
 		}
 		//===========================================================================================
 		private void AddParameterAttributes(XElement complexType, ParameterInfo[] parameters, string[] requiredParameters)
 		{
 			foreach (var paramElem in from parameter in parameters
-											  let typeName = GetXsdAttributeType(parameter)
+											  let typeName = GetAttributeType(parameter)
 											  where typeName != null
 											  select new
 											  {
@@ -89,7 +114,7 @@ namespace Magick.NET.FileGenerator
 			XElement sequence = new XElement(_Namespace + "sequence");
 
 			foreach (var paramElem in from parameter in parameters
-											  let typeName = GetXsdElementType(parameter)
+											  let typeName = GetElementType(parameter)
 											  where typeName != null
 											  select new
 											  {
@@ -113,41 +138,29 @@ namespace Magick.NET.FileGenerator
 				complexType.Add(sequence);
 		}
 		//===========================================================================================
-		private void AddProperties(XElement annotation)
-		{
-			foreach (PropertyInfo property in _MagickNET.GetProperties("MagickImage"))
-			{
-				annotation.AddBeforeSelf(CreateElement(property));
-			}
-		}
-		//===========================================================================================
-		private XElement CreateElement(MethodInfo[] overloads)
+		private object CreateElement(IEnumerable<MethodBase> methods)
 		{
 			XElement element = new XElement(_Namespace + "element",
-										new XAttribute("name", GetXsdName(overloads[0])));
+										new XAttribute("name", GetName(methods.First())));
 
-			int totalParameters = (from method in overloads
-										  from parameter in method.GetParameters()
-										  select parameter).Count();
-
-			if (totalParameters > 0)
+			ParameterInfo[] parameters = (from method in methods
+													from parameter in method.GetParameters()
+													select parameter).ToArray();
+			if (parameters.Length > 0)
 			{
-				XElement complexType = new XElement(_Namespace + "complexType");
+				if (methods.Count() == 1 && parameters.Length == 1 && parameters[0].ParameterType.IsGenericType &&
+					parameters[0].ParameterType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+				{
+					element.Add(new XAttribute("type", GetName(parameters[0])));
+				}
+				else
+				{
+					XElement complexType = new XElement(_Namespace + "complexType");
 
-				string[] requiredParameters = (from method in overloads
-														 from parameter in method.GetParameters()
-														 group parameter by parameter.Name into g
-														 where g.Count() == overloads.Length
-														 select g.Key).ToArray();
+					AddArguments(complexType, methods);
 
-				ParameterInfo[] parameters = (from method in overloads
-														from parameter in method.GetParameters()
-														select parameter).DistinctBy(p => p.Name).ToArray();
-
-				AddParameterElements(complexType, parameters, requiredParameters);
-				AddParameterAttributes(complexType, parameters, requiredParameters);
-
-				element.Add(complexType);
+					element.Add(complexType);
+				}
 			}
 
 			return element;
@@ -155,11 +168,11 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private XElement CreateElement(PropertyInfo property)
 		{
-			string name = GetXsdName(property);
+			string name = GetName(property);
 
 			XElement complexType = new XElement(_Namespace + "complexType");
 
-			string attributeTypeName = GetXsdAttributeType(property);
+			string attributeTypeName = GetAttributeType(property);
 
 			if (attributeTypeName != null)
 			{
@@ -170,7 +183,7 @@ namespace Magick.NET.FileGenerator
 			}
 			else
 			{
-				string elementTypeName = GetXsdElementType(property);
+				string elementTypeName = GetElementType(property);
 
 				complexType.Add(new XElement(_Namespace + "sequence",
 										new XElement(_Namespace + "element",
@@ -217,8 +230,19 @@ namespace Magick.NET.FileGenerator
 					return "quantum";
 				case "MagickColor^":
 					return "color";
+				case "Coordinate":
+				case "Drawable^":
+				case "IEnumerable<Coordinate>^":
+				case "IEnumerable<Drawable^>^":
+				case "IEnumerable<PathArc^>^":
+				case "IEnumerable<PathCurveto^>^":
+				case "IEnumerable<PathQuadraticCurveto^>^":
+				case "IEnumerable<PathBase^>^":
 				case "MagickGeometry^":
 				case "MagickImage^":
+				case "PathArc^":
+				case "PathCurveto^":
+				case "PathQuadraticCurveto^":
 					return null;
 				case "Channels":
 				case "ClassType":
@@ -230,6 +254,9 @@ namespace Magick.NET.FileGenerator
 				case "EvaluateOperator":
 				case "FillRule":
 				case "FilterType":
+				case "FontStretch":
+				case "FontStyleType":
+				case "FontWeight":
 				case "GifDisposeMethod":
 				case "Gravity":
 				case "LineCap":
@@ -241,6 +268,7 @@ namespace Magick.NET.FileGenerator
 				case "RenderingIntent":
 				case "Resolution":
 				case "SparseColorMethod":
+				case "TextDecoration":
 				case "VirtualPixelMethod":
 					return typeName;
 				default:
@@ -254,10 +282,32 @@ namespace Magick.NET.FileGenerator
 
 			switch (typeName)
 			{
+				case "Coordinate":
+					return "coordinate";
+				case "Drawable^":
+					return "drawable";
+				case "IEnumerable<Coordinate>^":
+					return "coordinates";
+				case "IEnumerable<Drawable^>^":
+					return "drawables";
+				case "IEnumerable<PathBase^>^":
+					return "paths";
+				case "IEnumerable<PathArc^>^":
+					return "pathArcs";
+				case "IEnumerable<PathCurveto^>^":
+					return "pathCurvetos";
+				case "IEnumerable<PathQuadraticCurveto^>^":
+					return "pathQuadraticCurvetos";
 				case "MagickGeometry^":
 					return "geometry";
 				case "MagickImage^":
 					return "read";
+				case "PathArc^":
+					return "pathArc";
+				case "PathCurveto^":
+					return "pathCurveto";
+				case "PathQuadraticCurveto^":
+					return "pathQuadraticCurveto";
 				default:
 					return null;
 			}
@@ -265,6 +315,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private static string GetXsdName(string name)
 		{
+			string newName = name;
 			if (name.ToUpperInvariant() == name)
 				return name.ToLowerInvariant();
 
@@ -273,8 +324,8 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void ReplaceActions(XElement annotation)
 		{
-			AddProperties(annotation);
-			AddMethods(annotation);
+			AddMagickImageProperties(annotation);
+			AddMagickImageMethods(annotation);
 
 			annotation.Remove();
 		}
@@ -286,7 +337,8 @@ namespace Magick.NET.FileGenerator
 
 			foreach (XElement annotation in annotations)
 			{
-				switch (annotation.Attribute("id").Value)
+				string annotationID = annotation.Attribute("id").Value;
+				switch (annotationID)
 				{
 					case "actions":
 						ReplaceActions(annotation);
@@ -294,14 +346,29 @@ namespace Magick.NET.FileGenerator
 					case "color":
 						ReplaceColor(annotation);
 						break;
+					case "coordinate":
+					case "pathArc":
+					case "pathCurveto":
+					case "pathQuadraticCurveto":
+						ReplaceWithType(annotation, annotationID);
+						break;
+					case "drawables":
+						ReplaceDrawables(annotation);
+						break;
 					case "enums":
 						ReplaceEnums(annotation);
+						break;
+					case "geometry":
+						ReplaceWithType(annotation, "MagickGeometry");
+						break;
+					case "paths":
+						ReplacePaths(annotation);
 						break;
 					case "quantum":
 						ReplaceQuantum(annotation);
 						break;
 					default:
-						throw new NotImplementedException();
+						throw new NotImplementedException(annotationID);
 				}
 			}
 		}
@@ -313,6 +380,15 @@ namespace Magick.NET.FileGenerator
 				annotation.AddBeforeSelf(CreateEnumElement(enumType));
 			}
 
+			annotation.Remove();
+		}
+		//===========================================================================================
+		private void ReplaceDrawables(XElement annotation)
+		{
+			foreach (ConstructorInfo[] constructors in _MagickNET.GetDrawables())
+			{
+				annotation.AddBeforeSelf(CreateElement(constructors));
+			}
 			annotation.Remove();
 		}
 		//===========================================================================================
@@ -339,6 +415,16 @@ namespace Magick.NET.FileGenerator
 											restriction));
 		}
 		//===========================================================================================
+		private void ReplacePaths(XElement annotation)
+		{
+			foreach (ConstructorInfo[] constructors in _MagickNET.GetPaths())
+			{
+				annotation.AddBeforeSelf(CreateElement(constructors));
+			}
+
+			annotation.Remove();
+		}
+		//===========================================================================================
 		private void ReplaceQuantum(XElement annotation)
 		{
 			string typeName;
@@ -358,6 +444,13 @@ namespace Magick.NET.FileGenerator
 			annotation.ReplaceWith(new XElement(_Namespace + "simpleType",
 											new XAttribute("name", "quantum"),
 											new XElement(_Namespace + "restriction", new XAttribute("base", typeName))));
+		}
+		//===========================================================================================
+		private void ReplaceWithType(XElement annotation, string typeName)
+		{
+			AddArguments(annotation.Parent, _MagickNET.GetConstructors(typeName));
+
+			annotation.Remove();
 		}
 		//===========================================================================================
 		private void Write()
@@ -391,32 +484,32 @@ namespace Magick.NET.FileGenerator
 			Generate(QuantumDepth.Q16);
 		}
 		//===========================================================================================
-		public static string GetXsdAttributeType(ParameterInfo parameter)
+		public static string GetAttributeType(ParameterInfo parameter)
 		{
 			return GetXsdAttributeType(parameter.ParameterType);
 		}
 		//===========================================================================================
-		public static string GetXsdAttributeType(PropertyInfo property)
+		public static string GetAttributeType(PropertyInfo property)
 		{
 			return GetXsdAttributeType(property.PropertyType);
 		}
 		//===========================================================================================
-		public static string GetXsdElementType(ParameterInfo parameter)
+		public static string GetElementType(ParameterInfo parameter)
 		{
 			return GetXsdElementType(parameter.ParameterType);
 		}
 		//===========================================================================================
-		public static string GetXsdElementType(PropertyInfo property)
+		public static string GetElementType(PropertyInfo property)
 		{
 			return GetXsdElementType(property.PropertyType);
 		}
 		//===========================================================================================
-		public static string GetXsdName(MemberInfo member)
+		public static string GetName(MemberInfo member)
 		{
-			return GetXsdName(member.Name);
+			return GetXsdName(MagickNET.GetName(member));
 		}
 		//===========================================================================================
-		public static string GetXsdName(ParameterInfo parameter)
+		public static string GetName(ParameterInfo parameter)
 		{
 			return GetXsdName(parameter.Name);
 		}

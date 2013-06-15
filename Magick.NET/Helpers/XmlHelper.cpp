@@ -26,7 +26,7 @@ namespace ImageMagick
 	T XmlHelper::GetValue(String^ value)
 	{
 		Type^ type = T::typeid;
-		
+
 		if (type == String::typeid)
 			return (T)value;
 
@@ -43,9 +43,10 @@ namespace ImageMagick
 			return (T)gcnew MagickColor(value);
 
 		if (type == Percentage::typeid)
-		{
 			return (T)gcnew Percentage((double)Convert::ChangeType(value, double::typeid, CultureInfo::InvariantCulture));
-		}
+
+		if (type == bool::typeid)
+			return (T)(value == "1" || value == "true");
 
 		return (T)Convert::ChangeType(value, type, CultureInfo::InvariantCulture);
 	}

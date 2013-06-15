@@ -90,9 +90,9 @@ namespace ImageMagick
 		///<summary>
 		/// Initializes a new instance of the MagickGeometry class using the specified geometry.
 		///</summary>
-		///<param name="geometry">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
+		///<param name="value">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
 		///{+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
-		MagickGeometry(String^ geometry);
+		MagickGeometry(String^ value);
 		///==========================================================================================
 		///<summary>
 		/// The height of the geometry.

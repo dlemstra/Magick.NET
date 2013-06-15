@@ -18,9 +18,15 @@
 #include "..\MagickImage.h"
 #include "..\MagickImageCollection.h"
 #include "..\Settings\MagickReadSettings.h"
+#include "..\Drawables\Coordinate.h"
+#include "..\Drawables\Base\Drawable.h"
+#include "..\Drawables\Paths\Args\PathArc.h"
+#include "..\Drawables\Paths\Args\PathCurveto.h"
+#include "..\Drawables\Paths\Args\PathQuadraticCurveto.h"
+#include "..\Drawables\Paths\Base\PathBase.h"
 
 using namespace System::Xml;
-using namespace System::Collections;
+using namespace System::Collections::ObjectModel;
 
 namespace ImageMagick
 {
@@ -33,46 +39,37 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		delegate void ExecuteElementImage(XmlElement^ element, MagickImage^ image);
-		delegate void ExecuteImage(MagickImage^ image);
-		//===========================================================================================
-		static initonly Hashtable^ _StaticExecuteMethods = InitializeStaticExecuteMethods();
 		static initonly XmlReaderSettings^ _ReaderSettings = CreateXmlReaderSettings();
 		//===========================================================================================
-		Hashtable^ _ExecuteMethods;
 		EventHandler<ScriptReadEventArgs^>^ _ReadHandler;
 		XmlDocument^ _Script;
 		EventHandler<ScriptWriteEventArgs^>^ _WriteHandler;
-		//===========================================================================================
-		static MagickGeometry^ CreateMagickGeometry(XmlElement^ element);
 		//===========================================================================================
 		MagickImage^ CreateMagickImage(XmlElement^ element);
 		//===========================================================================================
 		static MagickReadSettings^ CreateMagickReadSettings(XmlElement^ element);
 		//===========================================================================================
-		static XmlReaderSettings^ CreateXmlReaderSettings();
+		static Collection<PathBase^>^ CreatePaths(XmlElement^ element);
 		//===========================================================================================
-		void Execute(XmlElement^ element, MagickImage^ image);
+		static XmlReaderSettings^ CreateXmlReaderSettings();
 		//===========================================================================================
 		MagickImage^ Execute(XmlElement^ element, MagickImageCollection^ collection);
 		//===========================================================================================
-		MagickImage^ ExecuteCollection(XmlElement^ collectionElement);
+		MagickImage^ ExecuteCollection(XmlElement^ element);
 		//===========================================================================================
 		void ExecuteCopy(XmlElement^ element, MagickImage^ image);
 		//===========================================================================================
-		MagickImage^ ExecuteRead(XmlElement^ readElement);
+		void ExecuteDraw(XmlElement^ element, MagickImage^ image);
 		//===========================================================================================
-		void ExecuteRead(XmlElement^ readElement, MagickImage^ image);
+		MagickImage^ ExecuteRead(XmlElement^ element);
+		//===========================================================================================
+		void ExecuteRead(XmlElement^ element, MagickImage^ image);
 		//===========================================================================================
 		void ExecuteWrite(XmlElement^ element, MagickImage^ image);
 		//===========================================================================================
 		void Initialize(Stream^ stream);
 		//===========================================================================================
-		void InitializeExecuteMethods();
-		//===========================================================================================
-		static Hashtable^ InitializeStaticExecuteMethods();
-		//===========================================================================================
-		static bool OnlyContains(Hashtable^ arguments, ... array<Object^>^ keys);
+		static bool OnlyContains(System::Collections::Hashtable^ arguments, ... array<Object^>^ keys);
 		//===========================================================================================
 #include "Generated\Execute.h"
 		//===========================================================================================
@@ -96,8 +93,9 @@ namespace ImageMagick
 		event EventHandler<ScriptReadEventArgs^>^ Read
 		{
 			void add(EventHandler<ScriptReadEventArgs^>^ handler);
-			void raise(Object^ sender, ScriptReadEventArgs^ arguments);
 			void remove(EventHandler<ScriptReadEventArgs^>^ handler);
+		private:
+			void raise(Object^ sender, ScriptReadEventArgs^ arguments);
 		}
 		///==========================================================================================
 		///<summary>
@@ -106,8 +104,9 @@ namespace ImageMagick
 		event EventHandler<ScriptWriteEventArgs^>^ Write
 		{
 			void add(EventHandler<ScriptWriteEventArgs^>^ handler);
-			void raise(Object^ sender, ScriptWriteEventArgs^ arguments);
 			void remove(EventHandler<ScriptWriteEventArgs^>^ handler);
+		private:
+			void raise(Object^ sender, ScriptWriteEventArgs^ arguments);
 		}
 		///==========================================================================================
 		///<summary>

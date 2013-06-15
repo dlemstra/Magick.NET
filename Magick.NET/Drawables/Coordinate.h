@@ -19,7 +19,7 @@ namespace ImageMagick
 	///<summary>
 	/// Encapsulation of the Coordinate object.
 	///</summary>
-	public value struct Coordinate sealed
+	public value struct Coordinate
 	{
 		//===========================================================================================
 	public:
@@ -58,7 +58,7 @@ namespace ImageMagick
 		virtual bool Equals(Object^ obj) override;
 		///==========================================================================================
 		///<summary>
-		/// Determines whether the specified channel statistics is equal to the current coordinate.
+		/// Determines whether the specified coordinate is equal to the current coordinate.
 		///</summary>
 		///<param name="coordinate">The coordinate to compare this coordinate with.</param>
 		bool Equals(Coordinate coordinate);

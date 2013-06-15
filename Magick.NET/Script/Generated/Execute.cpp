@@ -14,28 +14,78 @@
 #include "Stdafx.h"
 #include "..\..\Helpers\XmlHelper.h"
 #include "..\MagickScript.h"
+#include "..\..\Drawables\DrawableAffine.h"
+#include "..\..\Drawables\DrawableArc.h"
+#include "..\..\Drawables\DrawableBezier.h"
+#include "..\..\Drawables\DrawableCircle.h"
+#include "..\..\Drawables\DrawableClipPath.h"
+#include "..\..\Drawables\DrawableColor.h"
+#include "..\..\Drawables\DrawableCompositeImage.h"
+#include "..\..\Drawables\DrawableDashOffset.h"
+#include "..\..\Drawables\DrawableEllipse.h"
+#include "..\..\Drawables\DrawableFillColor.h"
+#include "..\..\Drawables\DrawableFillOpacity.h"
+#include "..\..\Drawables\DrawableFillRule.h"
+#include "..\..\Drawables\DrawableFont.h"
+#include "..\..\Drawables\DrawableGravity.h"
+#include "..\..\Drawables\DrawableLine.h"
+#include "..\..\Drawables\DrawableMatte.h"
+#include "..\..\Drawables\DrawableMiterLimit.h"
+#include "..\..\Drawables\DrawablePath.h"
+#include "..\..\Drawables\DrawablePoint.h"
+#include "..\..\Drawables\DrawablePointSize.h"
+#include "..\..\Drawables\DrawablePolygon.h"
+#include "..\..\Drawables\DrawablePolyline.h"
+#include "..\..\Drawables\DrawablePushClipPath.h"
+#include "..\..\Drawables\DrawablePushPattern.h"
+#include "..\..\Drawables\DrawableRectangle.h"
+#include "..\..\Drawables\DrawableRotation.h"
+#include "..\..\Drawables\DrawableRoundRectangle.h"
+#include "..\..\Drawables\DrawableScaling.h"
+#include "..\..\Drawables\DrawableSkewX.h"
+#include "..\..\Drawables\DrawableSkewY.h"
+#include "..\..\Drawables\DrawableStrokeAntialias.h"
+#include "..\..\Drawables\DrawableStrokeColor.h"
+#include "..\..\Drawables\DrawableStrokeLineCap.h"
+#include "..\..\Drawables\DrawableStrokeLineJoin.h"
+#include "..\..\Drawables\DrawableStrokeOpacity.h"
+#include "..\..\Drawables\DrawableStrokeWidth.h"
+#include "..\..\Drawables\DrawableText.h"
+#include "..\..\Drawables\DrawableTextAntialias.h"
+#include "..\..\Drawables\DrawableTextDecoration.h"
+#include "..\..\Drawables\DrawableTextUnderColor.h"
+#include "..\..\Drawables\DrawableTranslation.h"
+#include "..\..\Drawables\DrawableViewbox.h"
+#include "..\..\Drawables\Paths\PathArcAbs.h"
+#include "..\..\Drawables\Paths\PathArcRel.h"
+#include "..\..\Drawables\Paths\PathCurvetoAbs.h"
+#include "..\..\Drawables\Paths\PathCurvetoRel.h"
+#include "..\..\Drawables\Paths\PathLinetoAbs.h"
+#include "..\..\Drawables\Paths\PathLinetoHorizontalAbs.h"
+#include "..\..\Drawables\Paths\PathLinetoHorizontalRel.h"
+#include "..\..\Drawables\Paths\PathLinetoRel.h"
+#include "..\..\Drawables\Paths\PathLinetoVerticalAbs.h"
+#include "..\..\Drawables\Paths\PathLinetoVerticalRel.h"
+#include "..\..\Drawables\Paths\PathMovetoAbs.h"
+#include "..\..\Drawables\Paths\PathMovetoRel.h"
+#include "..\..\Drawables\Paths\PathQuadraticCurvetoAbs.h"
+#include "..\..\Drawables\Paths\PathQuadraticCurvetoRel.h"
+#include "..\..\Drawables\Paths\PathSmoothCurvetoAbs.h"
+#include "..\..\Drawables\Paths\PathSmoothCurvetoRel.h"
+#include "..\..\Drawables\Paths\PathSmoothQuadraticCurvetoAbs.h"
+#include "..\..\Drawables\Paths\PathSmoothQuadraticCurvetoRel.h"
+#include "..\..\Drawables\Coordinate.h"
+#pragma warning (disable: 4100)
 namespace ImageMagick
 {
-	void MagickScript::InitializeExecuteMethods()
+	void MagickScript::InitializeExecute()
 	{
-		_ExecuteMethods = gcnew Hashtable();
-		_ExecuteMethods["clipMask"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteClipMask);
-		_ExecuteMethods["fillPattern"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteFillPattern);
-		_ExecuteMethods["strokePattern"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteStrokePattern);
-		_ExecuteMethods["composite"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteComposite);
-		_ExecuteMethods["floodFill"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteFloodFill);
-		_ExecuteMethods["haldClut"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteHaldClut);
-		_ExecuteMethods["inverseFourierTransform"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteInverseFourierTransform);
-		_ExecuteMethods["map"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteMap);
-		_ExecuteMethods["stegano"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteStegano);
-		_ExecuteMethods["stereo"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteStereo);
-		_ExecuteMethods["texture"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteTexture);
-		_ExecuteMethods["copy"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteCopy);
-		_ExecuteMethods["write"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteWrite);
+		InitializeExecuteImage();
+		InitializeExecuteDrawable();
 	}
-	Hashtable^ MagickScript::InitializeStaticExecuteMethods()
+	System::Collections::Hashtable^ MagickScript::InitializeStaticExecuteImage()
 	{
-		Hashtable^ result = gcnew Hashtable();
+		System::Collections::Hashtable^ result = gcnew System::Collections::Hashtable();
 		result["adjoin"] = gcnew ExecuteElementImage(MagickScript::ExecuteAdjoin);
 		result["animationDelay"] = gcnew ExecuteElementImage(MagickScript::ExecuteAnimationDelay);
 		result["animationIterations"] = gcnew ExecuteElementImage(MagickScript::ExecuteAnimationIterations);
@@ -109,13 +159,13 @@ namespace ImageMagick
 		result["crop"] = gcnew ExecuteElementImage(MagickScript::ExecuteCrop);
 		result["cycleColormap"] = gcnew ExecuteElementImage(MagickScript::ExecuteCycleColormap);
 		result["depth"] = gcnew ExecuteElementImage(MagickScript::ExecuteDepth);
-		result["despeckle"] = gcnew ExecuteImage(MagickScript::ExecuteDespeckle);
+		result["despeckle"] = gcnew ExecuteElementImage(MagickScript::ExecuteDespeckle);
 		result["edge"] = gcnew ExecuteElementImage(MagickScript::ExecuteEdge);
 		result["emboss"] = gcnew ExecuteElementImage(MagickScript::ExecuteEmboss);
 		result["exifProfile"] = gcnew ExecuteElementImage(MagickScript::ExecuteExifProfile);
 		result["extent"] = gcnew ExecuteElementImage(MagickScript::ExecuteExtent);
-		result["flip"] = gcnew ExecuteImage(MagickScript::ExecuteFlip);
-		result["flop"] = gcnew ExecuteImage(MagickScript::ExecuteFlop);
+		result["flip"] = gcnew ExecuteElementImage(MagickScript::ExecuteFlip);
+		result["flop"] = gcnew ExecuteElementImage(MagickScript::ExecuteFlop);
 		result["frame"] = gcnew ExecuteElementImage(MagickScript::ExecuteFrame);
 		result["fx"] = gcnew ExecuteElementImage(MagickScript::ExecuteFx);
 		result["gamma"] = gcnew ExecuteElementImage(MagickScript::ExecuteGamma);
@@ -123,15 +173,15 @@ namespace ImageMagick
 		result["implode"] = gcnew ExecuteElementImage(MagickScript::ExecuteImplode);
 		result["level"] = gcnew ExecuteElementImage(MagickScript::ExecuteLevel);
 		result["lower"] = gcnew ExecuteElementImage(MagickScript::ExecuteLower);
-		result["magnify"] = gcnew ExecuteImage(MagickScript::ExecuteMagnify);
+		result["magnify"] = gcnew ExecuteElementImage(MagickScript::ExecuteMagnify);
 		result["medianFilter"] = gcnew ExecuteElementImage(MagickScript::ExecuteMedianFilter);
-		result["minify"] = gcnew ExecuteImage(MagickScript::ExecuteMinify);
+		result["minify"] = gcnew ExecuteElementImage(MagickScript::ExecuteMinify);
 		result["modulate"] = gcnew ExecuteElementImage(MagickScript::ExecuteModulate);
 		result["motionBlur"] = gcnew ExecuteElementImage(MagickScript::ExecuteMotionBlur);
 		result["negate"] = gcnew ExecuteElementImage(MagickScript::ExecuteNegate);
-		result["normalize"] = gcnew ExecuteImage(MagickScript::ExecuteNormalize);
+		result["normalize"] = gcnew ExecuteElementImage(MagickScript::ExecuteNormalize);
 		result["oilPaint"] = gcnew ExecuteElementImage(MagickScript::ExecuteOilPaint);
-		result["quantize"] = gcnew ExecuteImage(MagickScript::ExecuteQuantize);
+		result["quantize"] = gcnew ExecuteElementImage(MagickScript::ExecuteQuantize);
 		result["quantumOperator"] = gcnew ExecuteElementImage(MagickScript::ExecuteQuantumOperator);
 		result["raise"] = gcnew ExecuteElementImage(MagickScript::ExecuteRaise);
 		result["randomThreshold"] = gcnew ExecuteElementImage(MagickScript::ExecuteRandomThreshold);
@@ -151,23 +201,124 @@ namespace ImageMagick
 		result["shear"] = gcnew ExecuteElementImage(MagickScript::ExecuteShear);
 		result["sigmoidalContrast"] = gcnew ExecuteElementImage(MagickScript::ExecuteSigmoidalContrast);
 		result["solarize"] = gcnew ExecuteElementImage(MagickScript::ExecuteSolarize);
-		result["strip"] = gcnew ExecuteImage(MagickScript::ExecuteStrip);
+		result["strip"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrip);
 		result["swirl"] = gcnew ExecuteElementImage(MagickScript::ExecuteSwirl);
 		result["threshold"] = gcnew ExecuteElementImage(MagickScript::ExecuteThreshold);
 		result["transform"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransform);
 		result["transformOrigin"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformOrigin);
-		result["transformReset"] = gcnew ExecuteImage(MagickScript::ExecuteTransformReset);
+		result["transformReset"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformReset);
 		result["transformRotation"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformRotation);
 		result["transformScale"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformScale);
 		result["transformSkewX"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformSkewX);
 		result["transformSkewY"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformSkewY);
 		result["transparent"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransparent);
 		result["transparentChroma"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransparentChroma);
-		result["trim"] = gcnew ExecuteImage(MagickScript::ExecuteTrim);
+		result["trim"] = gcnew ExecuteElementImage(MagickScript::ExecuteTrim);
 		result["unsharpmask"] = gcnew ExecuteElementImage(MagickScript::ExecuteUnsharpmask);
 		result["wave"] = gcnew ExecuteElementImage(MagickScript::ExecuteWave);
 		result["zoom"] = gcnew ExecuteElementImage(MagickScript::ExecuteZoom);
 		return result;
+	}
+	void MagickScript::InitializeExecuteImage()
+	{
+		_ExecuteImage = gcnew System::Collections::Hashtable();
+		_ExecuteImage["clipMask"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteClipMask);
+		_ExecuteImage["fillPattern"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteFillPattern);
+		_ExecuteImage["strokePattern"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteStrokePattern);
+		_ExecuteImage["composite"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteComposite);
+		_ExecuteImage["floodFill"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteFloodFill);
+		_ExecuteImage["haldClut"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteHaldClut);
+		_ExecuteImage["inverseFourierTransform"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteInverseFourierTransform);
+		_ExecuteImage["map"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteMap);
+		_ExecuteImage["stegano"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteStegano);
+		_ExecuteImage["stereo"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteStereo);
+		_ExecuteImage["texture"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteTexture);
+		_ExecuteImage["copy"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteCopy);
+		_ExecuteImage["draw"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteDraw);
+		_ExecuteImage["write"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteWrite);
+	}
+	System::Collections::Hashtable^ MagickScript::InitializeStaticExecuteDrawable()
+	{
+		System::Collections::Hashtable^ result = gcnew System::Collections::Hashtable();
+		result["affine"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteAffine);
+		result["arc"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteArc);
+		result["bezier"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteBezier);
+		result["circle"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteCircle);
+		result["clipPath"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteClipPath);
+		result["color"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteColor);
+		result["dashOffset"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteDashOffset);
+		result["ellipse"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteEllipse);
+		result["fillColor"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteFillColor);
+		result["fillOpacity"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteFillOpacity);
+		result["fillRule"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteFillRule);
+		result["font"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteFont);
+		result["gravity"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteGravity);
+		result["line"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteLine);
+		result["matte"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteMatte);
+		result["miterLimit"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteMiterLimit);
+		result["path"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePath);
+		result["point"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePoint);
+		result["pointSize"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePointSize);
+		result["polygon"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePolygon);
+		result["polyline"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePolyline);
+		result["pushClipPath"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePushClipPath);
+		result["pushPattern"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePushPattern);
+		result["rectangle"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteRectangle);
+		result["rotation"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteRotation);
+		result["roundRectangle"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteRoundRectangle);
+		result["scaling"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteScaling);
+		result["skewX"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteSkewX);
+		result["skewY"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteSkewY);
+		result["strokeAntialias"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteStrokeAntialias);
+		result["strokeColor"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteStrokeColor);
+		result["strokeLineCap"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteStrokeLineCap);
+		result["strokeLineJoin"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteStrokeLineJoin);
+		result["strokeOpacity"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteStrokeOpacity);
+		result["strokeWidth"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteStrokeWidth);
+		result["text"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteText);
+		result["textAntialias"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextAntialias);
+		result["textDecoration"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextDecoration);
+		result["textUnderColor"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextUnderColor);
+		result["translation"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTranslation);
+		result["viewbox"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteViewbox);
+		return result;
+	}
+	void MagickScript::InitializeExecuteDrawable()
+	{
+		_ExecuteDrawable = gcnew System::Collections::Hashtable();
+		_ExecuteDrawable["compositeImage"] = gcnew ExecuteElementDrawable(this, &MagickScript::ExecuteCompositeImage);
+	}
+	System::Collections::Hashtable^ MagickScript::InitializeStaticExecutePath()
+	{
+		System::Collections::Hashtable^ result = gcnew System::Collections::Hashtable();
+		result["arcAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteArcAbs);
+		result["arcRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteArcRel);
+		result["curvetoAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteCurvetoAbs);
+		result["curvetoRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteCurvetoRel);
+		result["linetoAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteLinetoAbs);
+		result["linetoHorizontalAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteLinetoHorizontalAbs);
+		result["linetoHorizontalRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteLinetoHorizontalRel);
+		result["linetoRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteLinetoRel);
+		result["linetoVerticalAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteLinetoVerticalAbs);
+		result["linetoVerticalRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteLinetoVerticalRel);
+		result["movetoAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteMovetoAbs);
+		result["movetoRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteMovetoRel);
+		result["quadraticCurvetoAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteQuadraticCurvetoAbs);
+		result["quadraticCurvetoRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteQuadraticCurvetoRel);
+		result["smoothCurvetoAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteSmoothCurvetoAbs);
+		result["smoothCurvetoRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteSmoothCurvetoRel);
+		result["smoothQuadraticCurvetoAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteSmoothQuadraticCurvetoAbs);
+		result["smoothQuadraticCurvetoRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteSmoothQuadraticCurvetoRel);
+		return result;
+	}
+	void MagickScript::ExecuteImage(XmlElement^ element, MagickImage^ image)
+	{
+		ExecuteElementImage^ method = dynamic_cast<ExecuteElementImage^>(_StaticExecuteImage[element->Name]);
+		if (method == nullptr)
+			method = dynamic_cast<ExecuteElementImage^>(_ExecuteImage[element->Name]);
+		if (method == nullptr)
+			throw gcnew NotImplementedException(element->Name);
+		method(element,image);
 	}
 	void MagickScript::ExecuteAdjoin(XmlElement^ element, MagickImage^ image)
 	{
@@ -379,7 +530,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteAdaptiveBlur(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
@@ -389,11 +540,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "radius", "sigma"))
 			image->AdaptiveBlur((double)arguments["radius"], (double)arguments["sigma"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'AdaptiveBlur', allowed combinations are: [] [radius, sigma]");
+			throw gcnew ArgumentException("Invalid argument combination for 'adaptiveBlur', allowed combinations are: [] [radius, sigma]");
 	}
 	void MagickScript::ExecuteAdaptiveThreshold(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<int>(attribute);
@@ -403,11 +554,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "width", "height", "offset"))
 			image->AdaptiveThreshold((int)arguments["width"], (int)arguments["height"], (int)arguments["offset"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'AdaptiveThreshold', allowed combinations are: [width, height] [width, height, offset]");
+			throw gcnew ArgumentException("Invalid argument combination for 'adaptiveThreshold', allowed combinations are: [width, height] [width, height, offset]");
 	}
 	void MagickScript::ExecuteAddNoise(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "noiseType")
@@ -420,11 +571,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "noiseType", "channels"))
 			image->AddNoise((NoiseType)arguments["noiseType"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'AddNoise', allowed combinations are: [noiseType] [noiseType, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'addNoise', allowed combinations are: [noiseType] [noiseType, channels]");
 	}
 	void MagickScript::ExecuteAddProfile(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<String^>(attribute);
@@ -434,11 +585,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "name", "fileName"))
 			image->AddProfile((String^)arguments["name"], (String^)arguments["fileName"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'AddProfile', allowed combinations are: [fileName] [name, fileName]");
+			throw gcnew ArgumentException("Invalid argument combination for 'addProfile', allowed combinations are: [fileName] [name, fileName]");
 	}
 	void MagickScript::ExecuteAnnotate(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "text")
@@ -461,7 +612,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "text", "boundingArea", "gravity", "degrees"))
 			image->Annotate((String^)arguments["text"], (MagickGeometry^)arguments["boundingArea"], (Gravity)arguments["gravity"], (double)arguments["degrees"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Annotate', allowed combinations are: [text, gravity] [text, boundingArea] [text, boundingArea, gravity] [text, boundingArea, gravity, degrees]");
+			throw gcnew ArgumentException("Invalid argument combination for 'annotate', allowed combinations are: [text, gravity] [text, boundingArea] [text, boundingArea, gravity] [text, boundingArea, gravity, degrees]");
 	}
 	void MagickScript::ExecuteAttribute(XmlElement^ element, MagickImage^ image)
 	{
@@ -471,7 +622,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteBlur(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
@@ -490,11 +641,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "radius", "sigma", "channels"))
 			image->Blur((double)arguments["radius"], (double)arguments["sigma"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Blur', allowed combinations are: [] [channels] [radius, sigma] [radius, sigma, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'blur', allowed combinations are: [] [channels] [radius, sigma] [radius, sigma, channels]");
 	}
 	void MagickScript::ExecuteBorder(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<int>(attribute);
@@ -504,7 +655,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "width", "height"))
 			image->Border((int)arguments["width"], (int)arguments["height"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Border', allowed combinations are: [size] [width, height]");
+			throw gcnew ArgumentException("Invalid argument combination for 'border', allowed combinations are: [size] [width, height]");
 	}
 	void MagickScript::ExecuteCDL(XmlElement^ element, MagickImage^ image)
 	{
@@ -513,7 +664,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteCharcoal(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
@@ -523,11 +674,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "radius", "sigma"))
 			image->Charcoal((double)arguments["radius"], (double)arguments["sigma"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Charcoal', allowed combinations are: [] [radius, sigma]");
+			throw gcnew ArgumentException("Invalid argument combination for 'charcoal', allowed combinations are: [] [radius, sigma]");
 	}
 	void MagickScript::ExecuteChop(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<int>(attribute);
@@ -541,7 +692,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "xOffset", "width", "yOffset", "height"))
 			image->Chop((int)arguments["xOffset"], (int)arguments["width"], (int)arguments["yOffset"], (int)arguments["height"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Chop', allowed combinations are: [geometry] [xOffset, width, yOffset, height]");
+			throw gcnew ArgumentException("Invalid argument combination for 'chop', allowed combinations are: [geometry] [xOffset, width, yOffset, height]");
 	}
 	void MagickScript::ExecuteChopHorizontal(XmlElement^ element, MagickImage^ image)
 	{
@@ -586,7 +737,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteColorize(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "color")
@@ -605,7 +756,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "color", "alphaRed", "alphaGreen", "alphaBlue"))
 			image->Colorize((MagickColor^)arguments["color"], (Percentage)arguments["alphaRed"], (Percentage)arguments["alphaGreen"], (Percentage)arguments["alphaBlue"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Colorize', allowed combinations are: [color, alpha] [color, alphaRed, alphaGreen, alphaBlue]");
+			throw gcnew ArgumentException("Invalid argument combination for 'colorize', allowed combinations are: [color, alpha] [color, alphaRed, alphaGreen, alphaBlue]");
 	}
 	void MagickScript::ExecuteColorMap(XmlElement^ element, MagickImage^ image)
 	{
@@ -615,7 +766,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteComposite(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "gravity")
@@ -647,11 +798,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "image", "x", "y", "compose"))
 			image->Composite((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (CompositeOperator)arguments["compose"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Composite', allowed combinations are: [image, gravity] [image, offset] [image, gravity, compose] [image, offset, compose] [image, x, y] [image, x, y, compose]");
+			throw gcnew ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [image, gravity] [image, offset] [image, gravity, compose] [image, offset, compose] [image, x, y] [image, x, y, compose]");
 	}
 	void MagickScript::ExecuteContrast(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<bool>(attribute);
@@ -661,11 +812,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "enhance"))
 			image->Contrast((bool)arguments["enhance"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Contrast', allowed combinations are: [] [enhance]");
+			throw gcnew ArgumentException("Invalid argument combination for 'contrast', allowed combinations are: [] [enhance]");
 	}
 	void MagickScript::ExecuteCrop(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "width")
@@ -686,7 +837,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "width", "height", "gravity"))
 			image->Crop((int)arguments["width"], (int)arguments["height"], (Gravity)arguments["gravity"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Crop', allowed combinations are: [geometry] [width, height] [width, height, gravity]");
+			throw gcnew ArgumentException("Invalid argument combination for 'crop', allowed combinations are: [geometry] [width, height] [width, height, gravity]");
 	}
 	void MagickScript::ExecuteCycleColormap(XmlElement^ element, MagickImage^ image)
 	{
@@ -695,7 +846,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteDepth(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "value")
@@ -708,9 +859,9 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "value", "channels"))
 			image->Depth((int)arguments["value"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Depth', allowed combinations are: [value] [value, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'depth', allowed combinations are: [value] [value, channels]");
 	}
-	void MagickScript::ExecuteDespeckle(MagickImage^ image)
+	void MagickScript::ExecuteDespeckle(XmlElement^ element, MagickImage^ image)
 	{
 		image->Despeckle();
 	}
@@ -721,7 +872,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteEmboss(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
@@ -731,7 +882,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "radius", "sigma"))
 			image->Emboss((double)arguments["radius"], (double)arguments["sigma"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Emboss', allowed combinations are: [] [radius, sigma]");
+			throw gcnew ArgumentException("Invalid argument combination for 'emboss', allowed combinations are: [] [radius, sigma]");
 	}
 	void MagickScript::ExecuteExifProfile(XmlElement^ element, MagickImage^ image)
 	{
@@ -740,7 +891,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteExtent(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "gravity")
@@ -761,15 +912,15 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "geometry", "gravity", "backgroundColor"))
 			image->Extent((MagickGeometry^)arguments["geometry"], (Gravity)arguments["gravity"], (MagickColor^)arguments["backgroundColor"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Extent', allowed combinations are: [geometry] [geometry, gravity] [geometry, backgroundColor] [geometry, gravity, backgroundColor]");
+			throw gcnew ArgumentException("Invalid argument combination for 'extent', allowed combinations are: [geometry] [geometry, gravity] [geometry, backgroundColor] [geometry, gravity, backgroundColor]");
 	}
-	void MagickScript::ExecuteFlip(MagickImage^ image)
+	void MagickScript::ExecuteFlip(XmlElement^ element, MagickImage^ image)
 	{
 		image->Flip();
 	}
 	void MagickScript::ExecuteFloodFill(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "color")
@@ -811,15 +962,15 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "alpha", "x", "y", "paintMethod"))
 			image->FloodFill((int)arguments["alpha"], (int)arguments["x"], (int)arguments["y"], (PaintMethod)arguments["paintMethod"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'FloodFill', allowed combinations are: [image, geometry] [color, geometry] [image, geometry, borderColor] [image, x, y] [color, geometry, borderColor] [color, x, y] [image, x, y, borderColor] [color, x, y, borderColor] [alpha, x, y, paintMethod]");
+			throw gcnew ArgumentException("Invalid argument combination for 'floodFill', allowed combinations are: [image, geometry] [color, geometry] [image, geometry, borderColor] [image, x, y] [color, geometry, borderColor] [color, x, y] [image, x, y, borderColor] [color, x, y, borderColor] [alpha, x, y, paintMethod]");
 	}
-	void MagickScript::ExecuteFlop(MagickImage^ image)
+	void MagickScript::ExecuteFlop(XmlElement^ element, MagickImage^ image)
 	{
 		image->Flop();
 	}
 	void MagickScript::ExecuteFrame(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<int>(attribute);
@@ -837,11 +988,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "width", "height", "innerBevel", "outerBevel"))
 			image->Frame((int)arguments["width"], (int)arguments["height"], (int)arguments["innerBevel"], (int)arguments["outerBevel"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Frame', allowed combinations are: [] [geometry] [width, height] [width, height, innerBevel, outerBevel]");
+			throw gcnew ArgumentException("Invalid argument combination for 'frame', allowed combinations are: [] [geometry] [width, height] [width, height, innerBevel, outerBevel]");
 	}
 	void MagickScript::ExecuteFx(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "expression")
@@ -854,11 +1005,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "expression", "channels"))
 			image->Fx((String^)arguments["expression"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Fx', allowed combinations are: [expression] [expression, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'fx', allowed combinations are: [expression] [expression, channels]");
 	}
 	void MagickScript::ExecuteGamma(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
@@ -868,11 +1019,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "gammeRed", "gammeGreen", "gammeBlue"))
 			image->Gamma((double)arguments["gammeRed"], (double)arguments["gammeGreen"], (double)arguments["gammeBlue"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Gamma', allowed combinations are: [value] [gammeRed, gammeGreen, gammeBlue]");
+			throw gcnew ArgumentException("Invalid argument combination for 'gamma', allowed combinations are: [value] [gammeRed, gammeGreen, gammeBlue]");
 	}
 	void MagickScript::ExecuteGaussianBlur(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "width")
@@ -887,11 +1038,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "width", "sigma", "channels"))
 			image->GaussianBlur((double)arguments["width"], (double)arguments["sigma"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'GaussianBlur', allowed combinations are: [width, sigma] [width, sigma, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'gaussianBlur', allowed combinations are: [width, sigma] [width, sigma, channels]");
 	}
 	void MagickScript::ExecuteHaldClut(XmlElement^ element, MagickImage^ image)
 	{
-		MagickImage^ image_ = XmlHelper::GetAttribute<MagickImage^>(element, "image");
+		MagickImage^ image_ = CreateMagickImage((XmlElement^)element->SelectSingleNode("image"));
 		image->HaldClut(image_);
 	}
 	void MagickScript::ExecuteImplode(XmlElement^ element, MagickImage^ image)
@@ -901,7 +1052,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteInverseFourierTransform(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<bool>(attribute);
@@ -915,11 +1066,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "image", "magnitude"))
 			image->InverseFourierTransform((MagickImage^)arguments["image"], (bool)arguments["magnitude"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'InverseFourierTransform', allowed combinations are: [image] [image, magnitude]");
+			throw gcnew ArgumentException("Invalid argument combination for 'inverseFourierTransform', allowed combinations are: [image] [image, magnitude]");
 	}
 	void MagickScript::ExecuteLevel(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "blackPoint")
@@ -940,20 +1091,20 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "blackPoint", "whitePoint", "midpoint", "channels"))
 			image->Level((Magick::Quantum)arguments["blackPoint"], (Magick::Quantum)arguments["whitePoint"], (double)arguments["midpoint"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Level', allowed combinations are: [blackPoint, whitePoint] [blackPoint, whitePoint, midpoint] [blackPoint, whitePoint, channels] [blackPoint, whitePoint, midpoint, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'level', allowed combinations are: [blackPoint, whitePoint] [blackPoint, whitePoint, midpoint] [blackPoint, whitePoint, channels] [blackPoint, whitePoint, midpoint, channels]");
 	}
 	void MagickScript::ExecuteLower(XmlElement^ element, MagickImage^ image)
 	{
 		int size_ = XmlHelper::GetAttribute<int>(element, "size");
 		image->Lower(size_);
 	}
-	void MagickScript::ExecuteMagnify(MagickImage^ image)
+	void MagickScript::ExecuteMagnify(XmlElement^ element, MagickImage^ image)
 	{
 		image->Magnify();
 	}
 	void MagickScript::ExecuteMap(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<bool>(attribute);
@@ -967,11 +1118,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "image", "dither"))
 			image->Map((MagickImage^)arguments["image"], (bool)arguments["dither"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Map', allowed combinations are: [image] [image, dither]");
+			throw gcnew ArgumentException("Invalid argument combination for 'map', allowed combinations are: [image] [image, dither]");
 	}
 	void MagickScript::ExecuteMedianFilter(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
@@ -981,9 +1132,9 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "radius"))
 			image->MedianFilter((double)arguments["radius"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'MedianFilter', allowed combinations are: [] [radius]");
+			throw gcnew ArgumentException("Invalid argument combination for 'medianFilter', allowed combinations are: [] [radius]");
 	}
-	void MagickScript::ExecuteMinify(MagickImage^ image)
+	void MagickScript::ExecuteMinify(XmlElement^ element, MagickImage^ image)
 	{
 		image->Minify();
 	}
@@ -1003,7 +1154,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteNegate(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<bool>(attribute);
@@ -1013,15 +1164,15 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "onlyGrayscale"))
 			image->Negate((bool)arguments["onlyGrayscale"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Negate', allowed combinations are: [] [onlyGrayscale]");
+			throw gcnew ArgumentException("Invalid argument combination for 'negate', allowed combinations are: [] [onlyGrayscale]");
 	}
-	void MagickScript::ExecuteNormalize(MagickImage^ image)
+	void MagickScript::ExecuteNormalize(XmlElement^ element, MagickImage^ image)
 	{
 		image->Normalize();
 	}
 	void MagickScript::ExecuteOilPaint(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
@@ -1031,15 +1182,15 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "radius"))
 			image->OilPaint((double)arguments["radius"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'OilPaint', allowed combinations are: [] [radius]");
+			throw gcnew ArgumentException("Invalid argument combination for 'oilPaint', allowed combinations are: [] [radius]");
 	}
-	void MagickScript::ExecuteQuantize(MagickImage^ image)
+	void MagickScript::ExecuteQuantize(XmlElement^ element, MagickImage^ image)
 	{
 		image->Quantize();
 	}
 	void MagickScript::ExecuteQuantumOperator(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
@@ -1058,7 +1209,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "channels", "geometry", "evaluateOperator", "value"))
 			image->QuantumOperator((Channels)arguments["channels"], (MagickGeometry^)arguments["geometry"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'QuantumOperator', allowed combinations are: [channels, evaluateOperator, value] [channels, geometry, evaluateOperator, value]");
+			throw gcnew ArgumentException("Invalid argument combination for 'quantumOperator', allowed combinations are: [channels, evaluateOperator, value] [channels, geometry, evaluateOperator, value]");
 	}
 	void MagickScript::ExecuteRaise(XmlElement^ element, MagickImage^ image)
 	{
@@ -1067,7 +1218,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteRandomThreshold(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "low")
@@ -1090,11 +1241,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "percentageLow", "percentageHigh", "channels"))
 			image->RandomThreshold((Percentage)arguments["percentageLow"], (Percentage)arguments["percentageHigh"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'RandomThreshold', allowed combinations are: [low, high] [percentageLow, percentageHigh] [low, high, channels] [percentageLow, percentageHigh, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'randomThreshold', allowed combinations are: [low, high] [percentageLow, percentageHigh] [low, high, channels] [percentageLow, percentageHigh, channels]");
 	}
 	void MagickScript::ExecuteReduceNoise(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<int>(attribute);
@@ -1104,7 +1255,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "order"))
 			image->ReduceNoise((int)arguments["order"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'ReduceNoise', allowed combinations are: [] [order]");
+			throw gcnew ArgumentException("Invalid argument combination for 'reduceNoise', allowed combinations are: [] [order]");
 	}
 	void MagickScript::ExecuteRemoveProfile(XmlElement^ element, MagickImage^ image)
 	{
@@ -1113,7 +1264,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteResize(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "percentage")
@@ -1140,7 +1291,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "width", "height"))
 			image->Resize((int)arguments["width"], (int)arguments["height"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Resize', allowed combinations are: [percentage] [geometry] [percentageWidth, percentageHeight] [width, height]");
+			throw gcnew ArgumentException("Invalid argument combination for 'resize', allowed combinations are: [percentage] [geometry] [percentageWidth, percentageHeight] [width, height]");
 	}
 	void MagickScript::ExecuteRoll(XmlElement^ element, MagickImage^ image)
 	{
@@ -1155,7 +1306,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteSample(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "percentage")
@@ -1182,11 +1333,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "width", "height"))
 			image->Sample((int)arguments["width"], (int)arguments["height"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Sample', allowed combinations are: [percentage] [geometry] [percentageWidth, percentageHeight] [width, height]");
+			throw gcnew ArgumentException("Invalid argument combination for 'sample', allowed combinations are: [percentage] [geometry] [percentageWidth, percentageHeight] [width, height]");
 	}
 	void MagickScript::ExecuteScale(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "percentage")
@@ -1213,11 +1364,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "width", "height"))
 			image->Scale((int)arguments["width"], (int)arguments["height"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Scale', allowed combinations are: [percentage] [geometry] [percentageWidth, percentageHeight] [width, height]");
+			throw gcnew ArgumentException("Invalid argument combination for 'scale', allowed combinations are: [percentage] [geometry] [percentageWidth, percentageHeight] [width, height]");
 	}
 	void MagickScript::ExecuteSegment(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
@@ -1227,7 +1378,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "clusterThreshold", "smoothingThreshold"))
 			image->Segment((double)arguments["clusterThreshold"], (double)arguments["smoothingThreshold"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Segment', allowed combinations are: [] [clusterThreshold, smoothingThreshold]");
+			throw gcnew ArgumentException("Invalid argument combination for 'segment', allowed combinations are: [] [clusterThreshold, smoothingThreshold]");
 	}
 	void MagickScript::ExecuteSeparate(XmlElement^ element, MagickImage^ image)
 	{
@@ -1236,7 +1387,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteShade(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "azimuth")
@@ -1251,11 +1402,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "azimuth", "elevation", "colorShading"))
 			image->Shade((double)arguments["azimuth"], (double)arguments["elevation"], (bool)arguments["colorShading"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Shade', allowed combinations are: [] [azimuth, elevation, colorShading]");
+			throw gcnew ArgumentException("Invalid argument combination for 'shade', allowed combinations are: [] [azimuth, elevation, colorShading]");
 	}
 	void MagickScript::ExecuteShadow(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "color")
@@ -1278,11 +1429,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "x", "y", "sigma", "alpha", "color"))
 			image->Shadow((int)arguments["x"], (int)arguments["y"], (double)arguments["sigma"], (Percentage)arguments["alpha"], (MagickColor^)arguments["color"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Shadow', allowed combinations are: [] [color] [x, y, sigma, alpha] [x, y, sigma, alpha, color]");
+			throw gcnew ArgumentException("Invalid argument combination for 'shadow', allowed combinations are: [] [color] [x, y, sigma, alpha] [x, y, sigma, alpha, color]");
 	}
 	void MagickScript::ExecuteSharpen(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
@@ -1301,7 +1452,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "radius", "sigma", "channels"))
 			image->Sharpen((double)arguments["radius"], (double)arguments["sigma"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Sharpen', allowed combinations are: [] [channels] [radius, sigma] [radius, sigma, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'sharpen', allowed combinations are: [] [channels] [radius, sigma] [radius, sigma, channels]");
 	}
 	void MagickScript::ExecuteShave(XmlElement^ element, MagickImage^ image)
 	{
@@ -1317,7 +1468,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteSigmoidalContrast(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "sharpen")
@@ -1332,11 +1483,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "sharpen", "contrast", "midpoint"))
 			image->SigmoidalContrast((bool)arguments["sharpen"], (double)arguments["contrast"], (double)arguments["midpoint"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'SigmoidalContrast', allowed combinations are: [sharpen, contrast] [sharpen, contrast, midpoint]");
+			throw gcnew ArgumentException("Invalid argument combination for 'sigmoidalContrast', allowed combinations are: [sharpen, contrast] [sharpen, contrast, midpoint]");
 	}
 	void MagickScript::ExecuteSolarize(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
@@ -1346,19 +1497,19 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "factor"))
 			image->Solarize((double)arguments["factor"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Solarize', allowed combinations are: [] [factor]");
+			throw gcnew ArgumentException("Invalid argument combination for 'solarize', allowed combinations are: [] [factor]");
 	}
 	void MagickScript::ExecuteStegano(XmlElement^ element, MagickImage^ image)
 	{
-		MagickImage^ watermark_ = XmlHelper::GetAttribute<MagickImage^>(element, "watermark");
+		MagickImage^ watermark_ = CreateMagickImage((XmlElement^)element->SelectSingleNode("watermark"));
 		image->Stegano(watermark_);
 	}
 	void MagickScript::ExecuteStereo(XmlElement^ element, MagickImage^ image)
 	{
-		MagickImage^ rightImage_ = XmlHelper::GetAttribute<MagickImage^>(element, "rightImage");
+		MagickImage^ rightImage_ = CreateMagickImage((XmlElement^)element->SelectSingleNode("rightImage"));
 		image->Stereo(rightImage_);
 	}
-	void MagickScript::ExecuteStrip(MagickImage^ image)
+	void MagickScript::ExecuteStrip(XmlElement^ element, MagickImage^ image)
 	{
 		image->Strip();
 	}
@@ -1369,7 +1520,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteTexture(XmlElement^ element, MagickImage^ image)
 	{
-		MagickImage^ image_ = XmlHelper::GetAttribute<MagickImage^>(element, "image");
+		MagickImage^ image_ = CreateMagickImage((XmlElement^)element->SelectSingleNode("image"));
 		image->Texture(image_);
 	}
 	void MagickScript::ExecuteThreshold(XmlElement^ element, MagickImage^ image)
@@ -1379,7 +1530,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteTransform(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlElement^ elem in element->SelectNodes("*"))
 		{
 			arguments[elem->Name] = CreateMagickGeometry(elem);
@@ -1389,7 +1540,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "imageGeometry", "cropGeometry"))
 			image->Transform((MagickGeometry^)arguments["imageGeometry"], (MagickGeometry^)arguments["cropGeometry"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Transform', allowed combinations are: [imageGeometry] [imageGeometry, cropGeometry]");
+			throw gcnew ArgumentException("Invalid argument combination for 'transform', allowed combinations are: [imageGeometry] [imageGeometry, cropGeometry]");
 	}
 	void MagickScript::ExecuteTransformOrigin(XmlElement^ element, MagickImage^ image)
 	{
@@ -1397,7 +1548,7 @@ namespace ImageMagick
 		double y_ = XmlHelper::GetAttribute<double>(element, "y");
 		image->TransformOrigin(x_, y_);
 	}
-	void MagickScript::ExecuteTransformReset(MagickImage^ image)
+	void MagickScript::ExecuteTransformReset(XmlElement^ element, MagickImage^ image)
 	{
 		image->TransformReset();
 	}
@@ -1433,13 +1584,13 @@ namespace ImageMagick
 		MagickColor^ colorHigh_ = XmlHelper::GetAttribute<MagickColor^>(element, "colorHigh");
 		image->TransparentChroma(colorLow_, colorHigh_);
 	}
-	void MagickScript::ExecuteTrim(MagickImage^ image)
+	void MagickScript::ExecuteTrim(XmlElement^ element, MagickImage^ image)
 	{
 		image->Trim();
 	}
 	void MagickScript::ExecuteUnsharpmask(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "radius")
@@ -1458,11 +1609,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "radius", "sigma", "amount", "threshold", "channels"))
 			image->Unsharpmask((double)arguments["radius"], (double)arguments["sigma"], (double)arguments["amount"], (double)arguments["threshold"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Unsharpmask', allowed combinations are: [radius, sigma, amount, threshold] [radius, sigma, amount, threshold, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'unsharpmask', allowed combinations are: [radius, sigma, amount, threshold] [radius, sigma, amount, threshold, channels]");
 	}
 	void MagickScript::ExecuteWave(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
@@ -1472,11 +1623,11 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "amplitude", "length"))
 			image->Wave((double)arguments["amplitude"], (double)arguments["length"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Wave', allowed combinations are: [] [amplitude, length]");
+			throw gcnew ArgumentException("Invalid argument combination for 'wave', allowed combinations are: [] [amplitude, length]");
 	}
 	void MagickScript::ExecuteZoom(XmlElement^ element, MagickImage^ image)
 	{
-		Hashtable^ arguments = gcnew Hashtable();
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "percentage")
@@ -1503,6 +1654,527 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "width", "height"))
 			image->Zoom((int)arguments["width"], (int)arguments["height"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'Zoom', allowed combinations are: [percentage] [geometry] [percentageWidth, percentageHeight] [width, height]");
+			throw gcnew ArgumentException("Invalid argument combination for 'zoom', allowed combinations are: [percentage] [geometry] [percentageWidth, percentageHeight] [width, height]");
+	}
+	void MagickScript::ExecuteDrawable(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		ExecuteElementDrawable^ method = dynamic_cast<ExecuteElementDrawable^>(_StaticExecuteDrawable[element->Name]);
+		if (method == nullptr)
+			method = dynamic_cast<ExecuteElementDrawable^>(_ExecuteDrawable[element->Name]);
+		if (method == nullptr)
+			throw gcnew NotImplementedException(element->Name);
+		method(element,drawables);
+	}
+	void MagickScript::ExecuteAffine(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double scaleX_ = XmlHelper::GetAttribute<double>(element, "scaleX");
+		double scaleY_ = XmlHelper::GetAttribute<double>(element, "scaleY");
+		double shearX_ = XmlHelper::GetAttribute<double>(element, "shearX");
+		double shearY_ = XmlHelper::GetAttribute<double>(element, "shearY");
+		double translateX_ = XmlHelper::GetAttribute<double>(element, "translateX");
+		double translateY_ = XmlHelper::GetAttribute<double>(element, "translateY");
+		drawables->Add(gcnew DrawableAffine(scaleX_, scaleY_, shearX_, shearY_, translateX_, translateY_));
+	}
+	void MagickScript::ExecuteArc(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double startX_ = XmlHelper::GetAttribute<double>(element, "startX");
+		double startY_ = XmlHelper::GetAttribute<double>(element, "startY");
+		double endX_ = XmlHelper::GetAttribute<double>(element, "endX");
+		double endY_ = XmlHelper::GetAttribute<double>(element, "endY");
+		double startDegrees_ = XmlHelper::GetAttribute<double>(element, "startDegrees");
+		double endDegrees_ = XmlHelper::GetAttribute<double>(element, "endDegrees");
+		drawables->Add(gcnew DrawableArc(startX_, startY_, endX_, endY_, startDegrees_, endDegrees_));
+	}
+	void MagickScript::ExecuteBezier(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		IEnumerable<Coordinate>^ coordinates_ = CreateCoordinates(element);
+		drawables->Add(gcnew DrawableBezier(coordinates_));
+	}
+	void MagickScript::ExecuteCircle(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double originX_ = XmlHelper::GetAttribute<double>(element, "originX");
+		double originY_ = XmlHelper::GetAttribute<double>(element, "originY");
+		double perimeterX_ = XmlHelper::GetAttribute<double>(element, "perimeterX");
+		double perimeterY_ = XmlHelper::GetAttribute<double>(element, "perimeterY");
+		drawables->Add(gcnew DrawableCircle(originX_, originY_, perimeterX_, perimeterY_));
+	}
+	void MagickScript::ExecuteClipPath(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		String^ clipPath_ = XmlHelper::GetAttribute<String^>(element, "clipPath");
+		drawables->Add(gcnew DrawableClipPath(clipPath_));
+	}
+	void MagickScript::ExecuteColor(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		PaintMethod paintMethod_ = XmlHelper::GetAttribute<PaintMethod>(element, "paintMethod");
+		drawables->Add(gcnew DrawableColor(x_, y_, paintMethod_));
+	}
+	void MagickScript::ExecuteCompositeImage(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "compose")
+				arguments["compose"] = XmlHelper::GetAttribute<CompositeOperator>(element, "compose");
+			else if (attribute->Name == "x")
+				arguments["x"] = XmlHelper::GetAttribute<double>(element, "x");
+			else if (attribute->Name == "y")
+				arguments["y"] = XmlHelper::GetAttribute<double>(element, "y");
+		}
+		for each(XmlElement^ elem in element->SelectNodes("*"))
+		{
+			if (elem->Name == "offset")
+				arguments["offset"] = CreateMagickGeometry(elem);
+			else if (elem->Name == "image")
+				arguments["image"] = CreateMagickImage(elem);
+		}
+		if (OnlyContains(arguments, "offset", "image"))
+			drawables->Add(gcnew DrawableCompositeImage((MagickGeometry^)arguments["offset"], (MagickImage^)arguments["image"]));
+		else if (OnlyContains(arguments, "offset", "compose", "image"))
+			drawables->Add(gcnew DrawableCompositeImage((MagickGeometry^)arguments["offset"], (CompositeOperator)arguments["compose"], (MagickImage^)arguments["image"]));
+		else if (OnlyContains(arguments, "x", "y", "image"))
+			drawables->Add(gcnew DrawableCompositeImage((double)arguments["x"], (double)arguments["y"], (MagickImage^)arguments["image"]));
+		else if (OnlyContains(arguments, "x", "y", "compose", "image"))
+			drawables->Add(gcnew DrawableCompositeImage((double)arguments["x"], (double)arguments["y"], (CompositeOperator)arguments["compose"], (MagickImage^)arguments["image"]));
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'compositeImage', allowed combinations are: [offset, image] [offset, compose, image] [x, y, image] [x, y, compose, image]");
+	}
+	void MagickScript::ExecuteDashOffset(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double offset_ = XmlHelper::GetAttribute<double>(element, "offset");
+		drawables->Add(gcnew DrawableDashOffset(offset_));
+	}
+	void MagickScript::ExecuteEllipse(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double originX_ = XmlHelper::GetAttribute<double>(element, "originX");
+		double originY_ = XmlHelper::GetAttribute<double>(element, "originY");
+		double radiusX_ = XmlHelper::GetAttribute<double>(element, "radiusX");
+		double radiusY_ = XmlHelper::GetAttribute<double>(element, "radiusY");
+		double startDegrees_ = XmlHelper::GetAttribute<double>(element, "startDegrees");
+		double endDegrees_ = XmlHelper::GetAttribute<double>(element, "endDegrees");
+		drawables->Add(gcnew DrawableEllipse(originX_, originY_, radiusX_, radiusY_, startDegrees_, endDegrees_));
+	}
+	void MagickScript::ExecuteFillColor(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		MagickColor^ color_ = XmlHelper::GetAttribute<MagickColor^>(element, "color");
+		drawables->Add(gcnew DrawableFillColor(color_));
+	}
+	void MagickScript::ExecuteFillOpacity(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double opacity_ = XmlHelper::GetAttribute<double>(element, "opacity");
+		drawables->Add(gcnew DrawableFillOpacity(opacity_));
+	}
+	void MagickScript::ExecuteFillRule(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		FillRule fillRule_ = XmlHelper::GetAttribute<FillRule>(element, "fillRule");
+		drawables->Add(gcnew DrawableFillRule(fillRule_));
+	}
+	void MagickScript::ExecuteFont(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "family")
+				arguments["family"] = XmlHelper::GetAttribute<String^>(element, "family");
+			else if (attribute->Name == "style")
+				arguments["style"] = XmlHelper::GetAttribute<FontStyleType>(element, "style");
+			else if (attribute->Name == "weight")
+				arguments["weight"] = XmlHelper::GetAttribute<FontWeight>(element, "weight");
+			else if (attribute->Name == "stretch")
+				arguments["stretch"] = XmlHelper::GetAttribute<FontStretch>(element, "stretch");
+		}
+		if (OnlyContains(arguments, "family"))
+			drawables->Add(gcnew DrawableFont((String^)arguments["family"]));
+		else if (OnlyContains(arguments, "family", "style", "weight", "stretch"))
+			drawables->Add(gcnew DrawableFont((String^)arguments["family"], (FontStyleType)arguments["style"], (FontWeight)arguments["weight"], (FontStretch)arguments["stretch"]));
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'font', allowed combinations are: [family] [family, style, weight, stretch]");
+	}
+	void MagickScript::ExecuteGravity(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		Gravity gravity_ = XmlHelper::GetAttribute<Gravity>(element, "gravity");
+		drawables->Add(gcnew DrawableGravity(gravity_));
+	}
+	void MagickScript::ExecuteLine(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double startX_ = XmlHelper::GetAttribute<double>(element, "startX");
+		double startY_ = XmlHelper::GetAttribute<double>(element, "startY");
+		double endX_ = XmlHelper::GetAttribute<double>(element, "endX");
+		double endY_ = XmlHelper::GetAttribute<double>(element, "endY");
+		drawables->Add(gcnew DrawableLine(startX_, startY_, endX_, endY_));
+	}
+	void MagickScript::ExecuteMatte(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		PaintMethod paintMethod_ = XmlHelper::GetAttribute<PaintMethod>(element, "paintMethod");
+		drawables->Add(gcnew DrawableMatte(x_, y_, paintMethod_));
+	}
+	void MagickScript::ExecuteMiterLimit(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		int miterlimit_ = XmlHelper::GetAttribute<int>(element, "miterlimit");
+		drawables->Add(gcnew DrawableMiterLimit(miterlimit_));
+	}
+	void MagickScript::ExecutePath(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		IEnumerable<PathBase^>^ paths_ = CreatePaths(element);
+		drawables->Add(gcnew DrawablePath(paths_));
+	}
+	void MagickScript::ExecutePoint(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		drawables->Add(gcnew DrawablePoint(x_, y_));
+	}
+	void MagickScript::ExecutePointSize(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double pointSize_ = XmlHelper::GetAttribute<double>(element, "pointSize");
+		drawables->Add(gcnew DrawablePointSize(pointSize_));
+	}
+	void MagickScript::ExecutePolygon(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		IEnumerable<Coordinate>^ coordinates_ = CreateCoordinates(element);
+		drawables->Add(gcnew DrawablePolygon(coordinates_));
+	}
+	void MagickScript::ExecutePolyline(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		IEnumerable<Coordinate>^ coordinates_ = CreateCoordinates(element);
+		drawables->Add(gcnew DrawablePolyline(coordinates_));
+	}
+	void MagickScript::ExecutePushClipPath(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		String^ clipPath_ = XmlHelper::GetAttribute<String^>(element, "clipPath");
+		drawables->Add(gcnew DrawablePushClipPath(clipPath_));
+	}
+	void MagickScript::ExecutePushPattern(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		String^ id_ = XmlHelper::GetAttribute<String^>(element, "id");
+		int x_ = XmlHelper::GetAttribute<int>(element, "x");
+		int y_ = XmlHelper::GetAttribute<int>(element, "y");
+		int width_ = XmlHelper::GetAttribute<int>(element, "width");
+		int height_ = XmlHelper::GetAttribute<int>(element, "height");
+		drawables->Add(gcnew DrawablePushPattern(id_, x_, y_, width_, height_));
+	}
+	void MagickScript::ExecuteRectangle(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double upperLeftX_ = XmlHelper::GetAttribute<double>(element, "upperLeftX");
+		double upperLeftY_ = XmlHelper::GetAttribute<double>(element, "upperLeftY");
+		double lowerRightX_ = XmlHelper::GetAttribute<double>(element, "lowerRightX");
+		double lowerRightY_ = XmlHelper::GetAttribute<double>(element, "lowerRightY");
+		drawables->Add(gcnew DrawableRectangle(upperLeftX_, upperLeftY_, lowerRightX_, lowerRightY_));
+	}
+	void MagickScript::ExecuteRotation(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double angle_ = XmlHelper::GetAttribute<double>(element, "angle");
+		drawables->Add(gcnew DrawableRotation(angle_));
+	}
+	void MagickScript::ExecuteRoundRectangle(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double centerX_ = XmlHelper::GetAttribute<double>(element, "centerX");
+		double centerY_ = XmlHelper::GetAttribute<double>(element, "centerY");
+		double width_ = XmlHelper::GetAttribute<double>(element, "width");
+		double height_ = XmlHelper::GetAttribute<double>(element, "height");
+		double cornerWidth_ = XmlHelper::GetAttribute<double>(element, "cornerWidth");
+		double cornerHeight_ = XmlHelper::GetAttribute<double>(element, "cornerHeight");
+		drawables->Add(gcnew DrawableRoundRectangle(centerX_, centerY_, width_, height_, cornerWidth_, cornerHeight_));
+	}
+	void MagickScript::ExecuteScaling(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		drawables->Add(gcnew DrawableScaling(x_, y_));
+	}
+	void MagickScript::ExecuteSkewX(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double angle_ = XmlHelper::GetAttribute<double>(element, "angle");
+		drawables->Add(gcnew DrawableSkewX(angle_));
+	}
+	void MagickScript::ExecuteSkewY(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double angle_ = XmlHelper::GetAttribute<double>(element, "angle");
+		drawables->Add(gcnew DrawableSkewY(angle_));
+	}
+	void MagickScript::ExecuteStrokeAntialias(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		bool isEnabled_ = XmlHelper::GetAttribute<bool>(element, "isEnabled");
+		drawables->Add(gcnew DrawableStrokeAntialias(isEnabled_));
+	}
+	void MagickScript::ExecuteStrokeColor(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		MagickColor^ color_ = XmlHelper::GetAttribute<MagickColor^>(element, "color");
+		drawables->Add(gcnew DrawableStrokeColor(color_));
+	}
+	void MagickScript::ExecuteStrokeLineCap(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		LineCap lineCap_ = XmlHelper::GetAttribute<LineCap>(element, "lineCap");
+		drawables->Add(gcnew DrawableStrokeLineCap(lineCap_));
+	}
+	void MagickScript::ExecuteStrokeLineJoin(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		LineJoin lineJoin_ = XmlHelper::GetAttribute<LineJoin>(element, "lineJoin");
+		drawables->Add(gcnew DrawableStrokeLineJoin(lineJoin_));
+	}
+	void MagickScript::ExecuteStrokeOpacity(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double opacity_ = XmlHelper::GetAttribute<double>(element, "opacity");
+		drawables->Add(gcnew DrawableStrokeOpacity(opacity_));
+	}
+	void MagickScript::ExecuteStrokeWidth(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double width_ = XmlHelper::GetAttribute<double>(element, "width");
+		drawables->Add(gcnew DrawableStrokeWidth(width_));
+	}
+	void MagickScript::ExecuteText(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "x")
+				arguments["x"] = XmlHelper::GetAttribute<double>(element, "x");
+			else if (attribute->Name == "y")
+				arguments["y"] = XmlHelper::GetAttribute<double>(element, "y");
+			else if (attribute->Name == "value")
+				arguments["value"] = XmlHelper::GetAttribute<String^>(element, "value");
+			else if (attribute->Name == "encoding")
+				arguments["encoding"] = XmlHelper::GetAttribute<Encoding^>(element, "encoding");
+		}
+		if (OnlyContains(arguments, "x", "y", "value"))
+			drawables->Add(gcnew DrawableText((double)arguments["x"], (double)arguments["y"], (String^)arguments["value"]));
+		else if (OnlyContains(arguments, "x", "y", "value", "encoding"))
+			drawables->Add(gcnew DrawableText((double)arguments["x"], (double)arguments["y"], (String^)arguments["value"], (Encoding^)arguments["encoding"]));
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'text', allowed combinations are: [x, y, value] [x, y, value, encoding]");
+	}
+	void MagickScript::ExecuteTextAntialias(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		bool isEnabled_ = XmlHelper::GetAttribute<bool>(element, "isEnabled");
+		drawables->Add(gcnew DrawableTextAntialias(isEnabled_));
+	}
+	void MagickScript::ExecuteTextDecoration(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		TextDecoration decoration_ = XmlHelper::GetAttribute<TextDecoration>(element, "decoration");
+		drawables->Add(gcnew DrawableTextDecoration(decoration_));
+	}
+	void MagickScript::ExecuteTextUnderColor(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		MagickColor^ color_ = XmlHelper::GetAttribute<MagickColor^>(element, "color");
+		drawables->Add(gcnew DrawableTextUnderColor(color_));
+	}
+	void MagickScript::ExecuteTranslation(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		drawables->Add(gcnew DrawableTranslation(x_, y_));
+	}
+	void MagickScript::ExecuteViewbox(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		int upperLeftX_ = XmlHelper::GetAttribute<int>(element, "upperLeftX");
+		int upperLeftY_ = XmlHelper::GetAttribute<int>(element, "upperLeftY");
+		int lowerRightX_ = XmlHelper::GetAttribute<int>(element, "lowerRightX");
+		int lowerRightY_ = XmlHelper::GetAttribute<int>(element, "lowerRightY");
+		drawables->Add(gcnew DrawableViewbox(upperLeftX_, upperLeftY_, lowerRightX_, lowerRightY_));
+	}
+	void MagickScript::ExecutePath(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		ExecuteElementPath^ method = dynamic_cast<ExecuteElementPath^>(_StaticExecutePath[element->Name]);
+		if (method == nullptr)
+			throw gcnew NotImplementedException(element->Name);
+		method(element,paths);
+	}
+	void MagickScript::ExecuteArcAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<PathArc^>^ pathArcs_ = CreatePathArcs(element);
+		paths->Add(gcnew PathArcAbs(pathArcs_));
+	}
+	void MagickScript::ExecuteArcRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<PathArc^>^ pathArcs_ = CreatePathArcs(element);
+		paths->Add(gcnew PathArcRel(pathArcs_));
+	}
+	void MagickScript::ExecuteCurvetoAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<PathCurveto^>^ pathCurvetos_ = CreatePathCurvetos(element);
+		paths->Add(gcnew PathCurvetoAbs(pathCurvetos_));
+	}
+	void MagickScript::ExecuteCurvetoRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<PathCurveto^>^ pathCurvetos_ = CreatePathCurvetos(element);
+		paths->Add(gcnew PathCurvetoRel(pathCurvetos_));
+	}
+	void MagickScript::ExecuteLinetoAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<Coordinate>^ coordinates_ = CreateCoordinates(element);
+		paths->Add(gcnew PathLinetoAbs(coordinates_));
+	}
+	void MagickScript::ExecuteLinetoHorizontalAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		paths->Add(gcnew PathLinetoHorizontalAbs(x_));
+	}
+	void MagickScript::ExecuteLinetoHorizontalRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		paths->Add(gcnew PathLinetoHorizontalRel(x_));
+	}
+	void MagickScript::ExecuteLinetoRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<Coordinate>^ coordinates_ = CreateCoordinates(element);
+		paths->Add(gcnew PathLinetoRel(coordinates_));
+	}
+	void MagickScript::ExecuteLinetoVerticalAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		paths->Add(gcnew PathLinetoVerticalAbs(x_));
+	}
+	void MagickScript::ExecuteLinetoVerticalRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		paths->Add(gcnew PathLinetoVerticalRel(x_));
+	}
+	void MagickScript::ExecuteMovetoAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<Coordinate>^ coordinates_ = CreateCoordinates(element);
+		paths->Add(gcnew PathMovetoAbs(coordinates_));
+	}
+	void MagickScript::ExecuteMovetoRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<Coordinate>^ coordinates_ = CreateCoordinates(element);
+		paths->Add(gcnew PathMovetoRel(coordinates_));
+	}
+	void MagickScript::ExecuteQuadraticCurvetoAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<PathQuadraticCurveto^>^ pathQuadraticCurvetos_ = CreatePathQuadraticCurvetos(element);
+		paths->Add(gcnew PathQuadraticCurvetoAbs(pathQuadraticCurvetos_));
+	}
+	void MagickScript::ExecuteQuadraticCurvetoRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<PathQuadraticCurveto^>^ pathQuadraticCurvetos_ = CreatePathQuadraticCurvetos(element);
+		paths->Add(gcnew PathQuadraticCurvetoRel(pathQuadraticCurvetos_));
+	}
+	void MagickScript::ExecuteSmoothCurvetoAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<Coordinate>^ coordinates_ = CreateCoordinates(element);
+		paths->Add(gcnew PathSmoothCurvetoAbs(coordinates_));
+	}
+	void MagickScript::ExecuteSmoothCurvetoRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<Coordinate>^ coordinates_ = CreateCoordinates(element);
+		paths->Add(gcnew PathSmoothCurvetoRel(coordinates_));
+	}
+	void MagickScript::ExecuteSmoothQuadraticCurvetoAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<Coordinate>^ coordinates_ = CreateCoordinates(element);
+		paths->Add(gcnew PathSmoothQuadraticCurvetoAbs(coordinates_));
+	}
+	void MagickScript::ExecuteSmoothQuadraticCurvetoRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
+	{
+		IEnumerable<Coordinate>^ coordinates_ = CreateCoordinates(element);
+		paths->Add(gcnew PathSmoothQuadraticCurvetoRel(coordinates_));
+	}
+	MagickGeometry^ MagickScript::CreateMagickGeometry(XmlElement^ element)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "value")
+				arguments["value"] = XmlHelper::GetAttribute<String^>(element, "value");
+			else if (attribute->Name == "percentageWidth")
+				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
+			else if (attribute->Name == "percentageHeight")
+				arguments["percentageHeight"] = XmlHelper::GetAttribute<Percentage>(element, "percentageHeight");
+			else if (attribute->Name == "width")
+				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+			else if (attribute->Name == "height")
+				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+			else if (attribute->Name == "x")
+				arguments["x"] = XmlHelper::GetAttribute<int>(element, "x");
+			else if (attribute->Name == "y")
+				arguments["y"] = XmlHelper::GetAttribute<int>(element, "y");
+		}
+		if (OnlyContains(arguments, "value"))
+			return gcnew MagickGeometry((String^)arguments["value"]);
+		else if (OnlyContains(arguments, "percentageWidth", "percentageHeight"))
+			return gcnew MagickGeometry((Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
+		else if (OnlyContains(arguments, "width", "height"))
+			return gcnew MagickGeometry((int)arguments["width"], (int)arguments["height"]);
+		else if (OnlyContains(arguments, "x", "y", "percentageWidth", "percentageHeight"))
+			return gcnew MagickGeometry((int)arguments["x"], (int)arguments["y"], (Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
+		else if (OnlyContains(arguments, "x", "y", "width", "height"))
+			return gcnew MagickGeometry((int)arguments["x"], (int)arguments["y"], (int)arguments["width"], (int)arguments["height"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'magickGeometry', allowed combinations are: [value] [percentageWidth, percentageHeight] [width, height] [x, y, percentageWidth, percentageHeight] [x, y, width, height]");
+	}
+	Coordinate MagickScript::CreateCoordinate(XmlElement^ element)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		return Coordinate(x_, y_);
+	}
+	Collection<Coordinate>^  MagickScript::CreateCoordinates(XmlElement^ element)
+	{
+		Collection<Coordinate>^ collection = gcnew Collection<Coordinate>();
+		for each (XmlElement^ elem in element->SelectNodes("*"))
+		{
+			collection->Add(CreateCoordinate(elem));
+		}
+		return collection;
+	}
+	PathArc^ MagickScript::CreatePathArc(XmlElement^ element)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		double radiusX_ = XmlHelper::GetAttribute<double>(element, "radiusX");
+		double radiusY_ = XmlHelper::GetAttribute<double>(element, "radiusY");
+		double rotationX_ = XmlHelper::GetAttribute<double>(element, "rotationX");
+		bool useLargeArc_ = XmlHelper::GetAttribute<bool>(element, "useLargeArc");
+		bool useSweep_ = XmlHelper::GetAttribute<bool>(element, "useSweep");
+		return gcnew PathArc(x_, y_, radiusX_, radiusY_, rotationX_, useLargeArc_, useSweep_);
+	}
+	Collection<PathArc^>^  MagickScript::CreatePathArcs(XmlElement^ element)
+	{
+		Collection<PathArc^>^ collection = gcnew Collection<PathArc^>();
+		for each (XmlElement^ elem in element->SelectNodes("*"))
+		{
+			collection->Add(CreatePathArc(elem));
+		}
+		return collection;
+	}
+	PathCurveto^ MagickScript::CreatePathCurveto(XmlElement^ element)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		double x1_ = XmlHelper::GetAttribute<double>(element, "x1");
+		double y1_ = XmlHelper::GetAttribute<double>(element, "y1");
+		double x2_ = XmlHelper::GetAttribute<double>(element, "x2");
+		double y2_ = XmlHelper::GetAttribute<double>(element, "y2");
+		return gcnew PathCurveto(x_, y_, x1_, y1_, x2_, y2_);
+	}
+	Collection<PathCurveto^>^  MagickScript::CreatePathCurvetos(XmlElement^ element)
+	{
+		Collection<PathCurveto^>^ collection = gcnew Collection<PathCurveto^>();
+		for each (XmlElement^ elem in element->SelectNodes("*"))
+		{
+			collection->Add(CreatePathCurveto(elem));
+		}
+		return collection;
+	}
+	PathQuadraticCurveto^ MagickScript::CreatePathQuadraticCurveto(XmlElement^ element)
+	{
+		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		double x1_ = XmlHelper::GetAttribute<double>(element, "x1");
+		double y1_ = XmlHelper::GetAttribute<double>(element, "y1");
+		return gcnew PathQuadraticCurveto(x_, y_, x1_, y1_);
+	}
+	Collection<PathQuadraticCurveto^>^  MagickScript::CreatePathQuadraticCurvetos(XmlElement^ element)
+	{
+		Collection<PathQuadraticCurveto^>^ collection = gcnew Collection<PathQuadraticCurveto^>();
+		for each (XmlElement^ elem in element->SelectNodes("*"))
+		{
+			collection->Add(CreatePathQuadraticCurveto(elem));
+		}
+		return collection;
 	}
 }
+#pragma warning (default: 4100)

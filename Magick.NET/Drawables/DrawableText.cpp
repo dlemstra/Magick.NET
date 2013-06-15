@@ -17,12 +17,12 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	void DrawableText::Initialize(double x, double y, String^ text, String^ encoding)
+	void DrawableText::Initialize(double x, double y, String^ value, String^ encoding)
 	{
-		Throw::IfNullOrEmpty("text", text);
+		Throw::IfNullOrEmpty("value", value);
 
 		std::string drawText;
-		Marshaller::Marshal(text, drawText);
+		Marshaller::Marshal(value, drawText);
 
 		if (encoding == nullptr)
 		{
@@ -36,16 +36,16 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	DrawableText::DrawableText(double x, double y, String^ text)
+	DrawableText::DrawableText(double x, double y, String^ value)
 	{
-		Initialize(x, y, text, nullptr);
+		Initialize(x, y, value, nullptr);
 	}
 	//==============================================================================================
-	DrawableText::DrawableText(double x, double y, String^ text, System::Text::Encoding^ encoding)
+	DrawableText::DrawableText(double x, double y, String^ value, System::Text::Encoding^ encoding)
 	{
 		Throw::IfFalse("encoding", encoding == System::Text::Encoding::UTF8, "Only UTF-8 seems to be supported for now");
 
-		Initialize(x, y, text, "UTF-8");
+		Initialize(x, y, value, "UTF-8");
 	}
 	//==============================================================================================
 	void DrawableText::Encoding::set(String^ value)

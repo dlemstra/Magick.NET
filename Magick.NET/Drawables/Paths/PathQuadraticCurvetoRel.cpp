@@ -17,14 +17,14 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	PathQuadraticCurvetoRel::PathQuadraticCurvetoRel(PathQuadraticCurveto^ arg)
+	PathQuadraticCurvetoRel::PathQuadraticCurvetoRel(PathQuadraticCurveto^ pathQuadraticCurveto)
 	{
-		CreateBaseValue(arg);
+		CreateBaseValue(pathQuadraticCurveto);
 	}
 	//==============================================================================================
-	PathQuadraticCurvetoRel::PathQuadraticCurvetoRel(IEnumerable<PathQuadraticCurveto^>^ args)
+	PathQuadraticCurvetoRel::PathQuadraticCurvetoRel(IEnumerable<PathQuadraticCurveto^>^ pathQuadraticCurveto)
 	{
-		CreateBaseValue<Magick::PathQuadraticCurvetoArgs, PathQuadraticCurveto>(args);
+		CreateBaseValue<Magick::PathQuadraticCurvetoArgs, PathQuadraticCurveto>(pathQuadraticCurveto);
 	}
 	//==============================================================================================
 }

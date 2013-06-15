@@ -26,6 +26,45 @@ namespace Magick.NET.FileGenerator
 		private Assembly _MagickNET;
 		private static readonly string[] _UnsupportedMethods = new string[] { "Dispose", "Draw", "Write" };
 		//===========================================================================================
+		private IEnumerable<ConstructorInfo[]> GetSubclassConstructors(string baseClass)
+		{
+			return from type in _MagickNET.GetTypes()
+					 where type.IsSubclassOf(baseClass)
+					 let constructors = GetConstructors(type.Name).ToArray()
+					 where constructors.Length > 0
+					 orderby type.Name
+					 select constructors;
+		}
+		//===========================================================================================
+		private bool IsSupported(ConstructorInfo constructor, ConstructorInfo[] constructors)
+		{
+			if (!constructor.IsPublic)
+				return false;
+
+			ParameterInfo[] parameters = constructor.GetParameters();
+			if (parameters.Length == 0)
+				return false;
+
+			if (parameters.Any(parameter => GetTypeName(parameter) == "Unsupported"))
+				return false;
+
+			if (parameters.Length == 1)
+			{
+				ParameterInfo parameter = parameters[0];
+				if (!parameter.ParameterType.IsGenericType)
+				{
+					if ((from c in constructors
+						  where c != constructor
+						  from p in c.GetParameters()
+						  where (p.ParameterType.IsGenericType && p.ParameterType.GenericTypeArguments[0] == parameter.ParameterType)
+						  select c).Any())
+						return false;
+				}
+			}
+
+			return true;
+		}
+		//===========================================================================================
 		private bool IsSupported(MethodInfo method)
 		{
 			if (method.IsSpecialName)
@@ -72,10 +111,26 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		public IEnumerable<MethodInfo[]> GetGroupedMethods(string typeName)
+		public IEnumerable<ConstructorInfo> GetConstructors(string typeName)
 		{
 			return from type in _MagickNET.GetTypes()
 					 where type.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase)
+					 let constructors = type.GetConstructors()
+					 from constructor in constructors
+					 where IsSupported(constructor, constructors)
+					 orderby constructor.GetParameters().Count()
+					 select constructor;
+		}
+		//===========================================================================================
+		public IEnumerable<ConstructorInfo[]> GetDrawables()
+		{
+			return GetSubclassConstructors("Drawable");
+		}
+		//===========================================================================================
+		public IEnumerable<MethodInfo[]> GetGroupedMagickImageMethods()
+		{
+			return from type in _MagickNET.GetTypes()
+					 where type.Name == "MagickImage"
 					 from method in type.GetMethods()
 					 where IsSupported(method)
 					 group method by method.Name into g
@@ -83,14 +138,41 @@ namespace Magick.NET.FileGenerator
 					 select g.OrderBy(m => m.GetParameters().Count()).ToArray();
 		}
 		//===========================================================================================
-		public IEnumerable<PropertyInfo> GetProperties(string typeName)
+		public IEnumerable<PropertyInfo> GetMagickImageProperties()
 		{
 			return from type in _MagickNET.GetTypes()
-					 where type.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase)
+					 where type.Name == "MagickImage"
 					 from property in type.GetProperties()
 					 where IsSupported(property)
 					 orderby property.Name
 					 select property;
+		}
+		//===========================================================================================
+		public static string GetName(MemberInfo member)
+		{
+			ConstructorInfo constructor = member as ConstructorInfo;
+			if (constructor != null)
+			{
+				string name = constructor.DeclaringType.Name;
+				if (name.StartsWith("Drawable", StringComparison.OrdinalIgnoreCase))
+					name = name.Substring(8);
+				else if (name.StartsWith("Path", StringComparison.OrdinalIgnoreCase))
+					name = name.Substring(4);
+
+				return name;
+			}
+
+			return member.Name;
+		}
+		//===========================================================================================
+		public IEnumerable<ConstructorInfo[]> GetPaths()
+		{
+			return GetSubclassConstructors("PathBase");
+		}
+		//===========================================================================================
+		public static string GetTypeName(ConstructorInfo constructor)
+		{
+			return GetTypeName(constructor.DeclaringType);
 		}
 		//===========================================================================================
 		public static string GetTypeName(ParameterInfo parameter)
@@ -110,14 +192,32 @@ namespace Magick.NET.FileGenerator
 			if (type.IsGenericType)
 				name = name.Replace("`1", "") + "<" + type.GetGenericArguments()[0].Name + ">";
 
+			if (type.IsEnum)
+				return name;
+
 			switch (name)
 			{
 				case "Encoding":
 				case "MagickColor":
 				case "MagickGeometry":
 				case "MagickImage":
+				case "PathArc":
+				case "PathCurveto":
+				case "PathQuadraticCurveto":
 				case "String":
 					return name + "^";
+				case "IEnumerable<Coordinate>":
+					return "IEnumerable<Coordinate>^";
+				case "IEnumerable<Drawable>":
+					return "IEnumerable<Drawable^>^";
+				case "IEnumerable<PathArc>":
+					return "IEnumerable<PathArc^>^";
+				case "IEnumerable<PathCurveto>":
+					return "IEnumerable<PathCurveto^>^";
+				case "IEnumerable<PathQuadraticCurveto>":
+					return "IEnumerable<PathQuadraticCurveto^>^";
+				case "IEnumerable<PathBase>":
+					return "IEnumerable<PathBase^>^";
 				case "Int32":
 					return "int";
 				case "Byte":
@@ -127,16 +227,23 @@ namespace Magick.NET.FileGenerator
 					return "bool";
 				case "Double":
 					return "double";
+				case "Coordinate":
+				case "Percentage":
+					return name;
 				case "Byte[]":
+				case "Color":
 				case "ColorProfile":
 				case "Double[]":
+				case "Drawable":
 				case "DrawableAffine":
+				case "Matrix":
 				case "MatrixColor":
 				case "MatrixConvolve":
+				case "Rectangle":
 				case "Stream":
 					return "Unsupported";
 				default:
-					return name;
+					throw new NotImplementedException(name);
 			}
 		}
 		//===========================================================================================

@@ -17,55 +17,16 @@
 #include "..\MagickImageCollection.h"
 #include "MagickScript.h"
 
-using namespace System::Collections;
 using namespace System::Xml::Schema;
 using namespace System::Reflection;
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickGeometry^ MagickScript::CreateMagickGeometry(XmlElement^ element)
-	{
-		if (element == nullptr || !element->HasAttributes)
-			return nullptr;
-
-		Hashtable^ arguments = gcnew Hashtable();
-		for each(XmlAttribute^ attribute in element->Attributes)
-		{
-			if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetValue<int>(attribute);
-			else if (attribute->Name == "percentageWidth")
-				arguments["percentageWidth"] = XmlHelper::GetValue<Percentage>(attribute);
-			else if (attribute->Name == "percentageHeight")
-				arguments["percentageHeight"] = XmlHelper::GetValue<Percentage>(attribute);
-			else if (attribute->Name == "value")
-				arguments["value"] = attribute->Value;
-			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetValue<int>(attribute);
-			else if (attribute->Name == "x")
-				arguments["x"] = XmlHelper::GetValue<int>(attribute);
-			else if (attribute->Name == "y")
-				arguments["y"] = XmlHelper::GetValue<int>(attribute);
-			else
-				throw gcnew NotImplementedException(attribute->Name);
-		}
-
-		if (OnlyContains(arguments, "value"))
-			return gcnew MagickGeometry((String^)arguments["value"]);
-		if (OnlyContains(arguments, "width", "height"))
-			return gcnew MagickGeometry((int)arguments["width"], (int)arguments["height"]);
-		if (OnlyContains(arguments, "percentageWidth", "percentageHeight"))
-			return gcnew MagickGeometry((Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
-		if (OnlyContains(arguments, "x", "y", "width", "height"))
-			return gcnew MagickGeometry((int)arguments["x"], (int)arguments["y"], (int)arguments["width"], (int)arguments["height"]);
-		if (OnlyContains(arguments, "x", "y", "percentageWidth", "percentageHeight"))
-			return gcnew MagickGeometry((int)arguments["x"], (int)arguments["y"], (Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
-
-		throw gcnew ArgumentException("Invalid argument combination for '" + element->Name + "', allowed combinations are: [value] [width, height] [percentageWidth, percentageHeight] [x, y, width, height] [x, y, percentageWidth, percentageHeight].");
-	}
-	//==============================================================================================
 	MagickImage^ MagickScript::CreateMagickImage(XmlElement^ element)
 	{
+		Throw::IfNull("element", element);
+
 		MagickImage^ image = nullptr;
 		MagickReadSettings^ settings = CreateMagickReadSettings((XmlElement^)element->SelectSingleNode("settings"));
 
@@ -118,6 +79,18 @@ namespace ImageMagick
 		return settings;
 	}
 	//==============================================================================================
+	Collection<PathBase^>^ MagickScript::CreatePaths(XmlElement^ element)
+	{
+		Collection<PathBase^>^ paths = gcnew Collection<PathBase^>();
+
+		for each (XmlElement^ elem in element->SelectNodes("*"))
+		{
+			ExecutePath(elem, paths);
+		}
+
+		return paths;
+	}
+	//==============================================================================================
 	XmlReaderSettings^ MagickScript::CreateXmlReaderSettings()
 	{
 		XmlReaderSettings^ settings = gcnew XmlReaderSettings();
@@ -139,36 +112,6 @@ namespace ImageMagick
 		}
 
 		return settings;
-	}
-	//==============================================================================================
-	void MagickScript::Execute(XmlElement^ element, MagickImage^ image)
-	{
-		ExecuteElementImage^ executeElementImage = dynamic_cast<ExecuteElementImage^>(_ExecuteMethods[element->Name]);
-		if (executeElementImage != nullptr)
-		{
-			executeElementImage(element, image);
-			return;
-		}
-
-		Object^ method = _StaticExecuteMethods[element->Name];
-		if (method != nullptr)
-		{
-			executeElementImage = dynamic_cast<ExecuteElementImage^>(method);
-			if (executeElementImage != nullptr)
-			{
-				executeElementImage(element, image);
-				return;
-			}
-
-			ExecuteImage^ executeImage = dynamic_cast<ExecuteImage^>(method);
-			if (executeImage != nullptr)
-			{
-				executeImage(image);
-				return;
-			}
-		}
-
-		throw gcnew NotImplementedException(element->Name);
 	}
 	//==============================================================================================
 	MagickImage^ MagickScript::Execute(XmlElement^ element, MagickImageCollection^ collection)
@@ -206,14 +149,14 @@ namespace ImageMagick
 		throw gcnew NotImplementedException(element->Name);
 	}
 	//==============================================================================================
-	MagickImage^ MagickScript::ExecuteCollection(XmlElement^ collectionElement)
+	MagickImage^ MagickScript::ExecuteCollection(XmlElement^ element)
 	{
 		MagickImageCollection^ collection = gcnew MagickImageCollection();
 
 		MagickImage^ result;
-		for each (XmlElement^ element_ in collectionElement->SelectNodes("*"))
+		for each (XmlElement^ elem in element->SelectNodes("*"))
 		{
-			result = Execute(element_, collection);
+			result = Execute(elem, collection);
 			if (result != nullptr)
 				break;
 		}
@@ -228,18 +171,30 @@ namespace ImageMagick
 		ExecuteRead(element, image->Copy());
 	}
 	//==============================================================================================
-	MagickImage^ MagickScript::ExecuteRead(XmlElement^ readElement)
+	void MagickScript::ExecuteDraw(XmlElement^ element, MagickImage^ image)
 	{
-		MagickImage^ image = CreateMagickImage(readElement);
-		ExecuteRead(readElement, image);
+		Collection<Drawable^>^ drawables = gcnew Collection<Drawable^>();
+
+		for each (XmlElement^ elem in element->SelectNodes("*"))
+		{
+			ExecuteDrawable(elem, drawables);
+		}
+
+		image->Draw(drawables);
+	}
+	//==============================================================================================
+	MagickImage^ MagickScript::ExecuteRead(XmlElement^ element)
+	{
+		MagickImage^ image = CreateMagickImage(element);
+		ExecuteRead(element, image);
 		return image;
 	}
 	//==============================================================================================
-	void MagickScript::ExecuteRead(XmlElement^ readElement, MagickImage^ image)
+	void MagickScript::ExecuteRead(XmlElement^ element, MagickImage^ image)
 	{
-		for each (XmlElement^ element in readElement->SelectNodes("*[name() != 'settings']"))
+		for each (XmlElement^ elem in element->SelectNodes("*[name() != 'settings']"))
 		{
-			Execute(element, image);
+			ExecuteImage(elem, image);
 		}
 	}
 	//==============================================================================================
@@ -271,10 +226,10 @@ namespace ImageMagick
 		_Script->Load(xmlReader);
 		delete xmlReader;
 
-		InitializeExecuteMethods();
+		InitializeExecute();
 	}
 	//==============================================================================================
-	bool MagickScript::OnlyContains(Hashtable^ arguments, ... array<Object^>^ keys)
+	bool MagickScript::OnlyContains(System::Collections::Hashtable^ arguments, ... array<Object^>^ keys)
 	{
 		if (arguments->Count != keys->Length)
 			return false;

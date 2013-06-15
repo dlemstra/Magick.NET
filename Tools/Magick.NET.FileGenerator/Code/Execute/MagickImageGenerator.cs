@@ -11,93 +11,84 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Reflection;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	public static class Files
+	internal sealed class MagickImageGenerator : ExecuteCodeGenerator
 	{
 		//===========================================================================================
-		private static string _Root = @"..\..\..\Magick.NET.Tests\";
-		//===========================================================================================
-		public static string CollectionScript
+		protected override string ExecuteArgument
 		{
 			get
 			{
-				return _Root + @"Script\Collection.msl";
+				return "MagickImage^ image";
 			}
 		}
 		//===========================================================================================
-		public static string DrawScript
+		protected override string ExecuteName
 		{
 			get
 			{
-				return _Root + @"Script\Draw.msl";
+				return "Image";
 			}
 		}
 		//===========================================================================================
-		public static string EventsScript
+		protected override IEnumerable<PropertyInfo> Properties
 		{
 			get
 			{
-				return _Root + @"Script\Events.msl";
+				return MagickNET.GetMagickImageProperties();
 			}
 		}
 		//===========================================================================================
-		public static string ImageMagickJPG
+		protected override IEnumerable<MethodBase[]> Methods
 		{
 			get
 			{
-				return _Root + @"Images\ImageMagick.jpg";
+				return MagickNET.GetGroupedMagickImageMethods();
 			}
 		}
 		//===========================================================================================
-		public static string InvalidScript
+		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			get
+			writer.Write("image->");
+			writer.Write(method.Name);
+			writer.Write("(");
+			WriteParameters(writer, parameters);
+			writer.WriteLine(");");
+		}
+		//===========================================================================================
+		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+		{
+			writer.Write("image->");
+			writer.Write(method.Name);
+			writer.Write("(");
+			WriteHashtableParameters(writer, parameters);
+			writer.WriteLine(");");
+		}
+		//===========================================================================================
+		protected override void WriteInitializeExecute(IndentedTextWriter writer, bool isStatic)
+		{
+			base.WriteInitializeExecute(writer, isStatic);
+
+			if (!isStatic)
 			{
-				return _Root + @"Script\Invalid.msl";
+				WriteInitializeExecute(writer, "copy", "Copy", isStatic);
+				WriteInitializeExecute(writer, "draw", "Draw", isStatic);
+				WriteInitializeExecute(writer, "write", "Write", isStatic);
 			}
 		}
 		//===========================================================================================
-		public static string MagickNETIconPng
+		protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)
 		{
-			get
-			{
-				return _Root + @"Images\Magick.NET.icon.png";
-			}
-		}
-		//===========================================================================================
-		public static string Missing
-		{
-			get
-			{
-				return @"C:\Foo\Bar.png";
-			}
-		}
-		//===========================================================================================
-		public static string ResizeScript
-		{
-			get
-			{
-				return _Root + @"Script\Resize.msl";
-			}
-		}
-		//===========================================================================================
-		public static string RoseSparkleGIF
-		{
-			get
-			{
-				return _Root + @"Images\RoseSparkle.gif";
-			}
-		}
-		//===========================================================================================
-		public static string SnakewarePNG
-		{
-			get
-			{
-				return _Root + @"Images\Snakeware.png";
-			}
+			writer.Write("image->");
+			writer.Write(property.Name);
+			writer.Write(" = ");
+			WriteGetValue(writer, property);
 		}
 		//===========================================================================================
 	}

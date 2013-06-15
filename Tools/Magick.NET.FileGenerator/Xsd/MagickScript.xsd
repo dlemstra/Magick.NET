@@ -7,14 +7,68 @@
 	<!--=========================================================================================-->
 	<xs:annotation id="enums"/>
 	<!--=========================================================================================-->
+	<xs:complexType name="coordinate">
+		<xs:annotation id="coordinate"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="coordinates">
+		<xs:sequence>
+			<xs:element name="coordinate" minOccurs="3" maxOccurs="unbounded" type="coordinate"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="drawable">
+		<xs:group ref="drawables" />
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="drawables">
+		<xs:sequence>
+			<xs:group ref="drawables" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--=========================================================================================-->
 	<xs:complexType name="geometry">
-		<xs:attribute name="x" type="xs:int"/>
-		<xs:attribute name="y" type="xs:int"/>
-		<xs:attribute name="width" type="xs:int"/>
-		<xs:attribute name="height" type="xs:int"/>
-		<xs:attribute name="percentageWidth" type="xs:double"/>
-		<xs:attribute name="percentageHeight" type="xs:double"/>
-		<xs:attribute name="value" type="xs:string"/>
+		<xs:annotation id="geometry"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="path">
+		<xs:group ref="paths" />
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="paths">
+		<xs:sequence>
+			<xs:group ref="paths" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="pathArc">
+		<xs:annotation id="pathArc"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="pathArcs">
+		<xs:sequence>
+			<xs:element name="coordinate" maxOccurs="unbounded" type="pathArc"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="pathCurveto">
+		<xs:annotation id="pathCurveto"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="pathCurvetos">
+		<xs:sequence>
+			<xs:element name="coordinate" maxOccurs="unbounded" type="pathCurveto"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="pathQuadraticCurveto">
+		<xs:annotation id="pathQuadraticCurveto"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="pathQuadraticCurvetos">
+		<xs:sequence>
+			<xs:element name="coordinate" maxOccurs="unbounded" type="pathCurveto"/>
+		</xs:sequence>
 	</xs:complexType>
 	<!--=========================================================================================-->
 	<xs:complexType name="read">
@@ -38,6 +92,7 @@
 		<xs:sequence>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation id="actions"/>
+				<xs:element name="draw" type="drawables"/>
 				<xs:group ref="copy"/>
 			</xs:choice>
 			<xs:choice>
@@ -86,6 +141,22 @@
 					<xs:group ref="actions"/>
 				</xs:complexType>
 			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<!--=========================================================================================-->
+	<xs:group name="drawables">
+		<xs:sequence>
+			<xs:choice>
+				<xs:annotation id="drawables"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<!--=========================================================================================-->
+	<xs:group name="paths">
+		<xs:sequence>
+			<xs:choice>
+				<xs:annotation id="paths"/>
+			</xs:choice>
 		</xs:sequence>
 	</xs:group>
 	<!--=========================================================================================-->

@@ -11,93 +11,77 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	public static class Files
+	internal sealed class PathsGenerator : ExecuteCodeGenerator
 	{
 		//===========================================================================================
-		private static string _Root = @"..\..\..\Magick.NET.Tests\";
-		//===========================================================================================
-		public static string CollectionScript
+		protected override string ExecuteArgument
 		{
 			get
 			{
-				return _Root + @"Script\Collection.msl";
+				return "System::Collections::ObjectModel::Collection<PathBase^>^ paths";
 			}
 		}
 		//===========================================================================================
-		public static string DrawScript
+		protected override string ExecuteName
 		{
 			get
 			{
-				return _Root + @"Script\Draw.msl";
+				return "Path";
 			}
 		}
 		//===========================================================================================
-		public static string EventsScript
+		protected override IEnumerable<MethodBase[]> Methods
 		{
 			get
 			{
-				return _Root + @"Script\Events.msl";
+				return MagickNET.GetPaths();
 			}
 		}
 		//===========================================================================================
-		public static string ImageMagickJPG
+		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			get
+			writer.Write("paths->Add(gcnew ");
+			writer.Write(method.DeclaringType.Name);
+			writer.Write("(");
+			WriteParameters(writer, parameters);
+
+			writer.WriteLine("));");
+		}
+		//===========================================================================================
+		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+		{
+			writer.Write("paths->Add(gcnew ");
+			writer.Write(method.DeclaringType.Name);
+			writer.Write("(");
+			WriteHashtableParameters(writer, parameters);
+			writer.WriteLine("));");
+		}
+		//===========================================================================================
+		public override void WriteIncludes(IndentedTextWriter writer)
+		{
+			base.WriteIncludes(writer);
+
+			foreach (string pathBase in from constructor in Methods
+												 select constructor.First().DeclaringType.Name)
 			{
-				return _Root + @"Images\ImageMagick.jpg";
+				writer.Write(@"#include ""..\..\Drawables\Paths\");
+				writer.Write(pathBase);
+				writer.WriteLine(@".h""");
 			}
 		}
 		//===========================================================================================
-		public static string InvalidScript
+		protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)
 		{
-			get
-			{
-				return _Root + @"Script\Invalid.msl";
-			}
-		}
-		//===========================================================================================
-		public static string MagickNETIconPng
-		{
-			get
-			{
-				return _Root + @"Images\Magick.NET.icon.png";
-			}
-		}
-		//===========================================================================================
-		public static string Missing
-		{
-			get
-			{
-				return @"C:\Foo\Bar.png";
-			}
-		}
-		//===========================================================================================
-		public static string ResizeScript
-		{
-			get
-			{
-				return _Root + @"Script\Resize.msl";
-			}
-		}
-		//===========================================================================================
-		public static string RoseSparkleGIF
-		{
-			get
-			{
-				return _Root + @"Images\RoseSparkle.gif";
-			}
-		}
-		//===========================================================================================
-		public static string SnakewarePNG
-		{
-			get
-			{
-				return _Root + @"Images\Snakeware.png";
-			}
+			throw new NotImplementedException();
 		}
 		//===========================================================================================
 	}

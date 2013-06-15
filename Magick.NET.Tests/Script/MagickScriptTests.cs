@@ -108,6 +108,17 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Execute_Draw()
+		{
+			MagickScript script = new MagickScript(Files.DrawScript);
+
+			using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+			{
+				script.Execute(image);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Execute_Events()
 		{
 			MagickScript script = new MagickScript(Files.EventsScript);

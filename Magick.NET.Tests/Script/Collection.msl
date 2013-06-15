@@ -1,4 +1,4 @@
-<msl>
+<msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
 	<collection>
 		<read id="snakeware">
 			<resize width="128" height="128"/>

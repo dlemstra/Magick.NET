@@ -28,7 +28,7 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		void Initialize(double x, double y, String^ text, String^ encoding);
+		void Initialize(double x, double y, String^ value, String^ encoding);
 		//===========================================================================================
 	public:
 		///==========================================================================================
@@ -37,17 +37,17 @@ namespace ImageMagick
 		///</summary>
 		///<param name="x">The X coordinate.</param>
 		///<param name="y">The Y coordinate.</param>
-		///<param name="text">The text to draw.</param>
-		DrawableText(double x, double y, String^ text);
+		///<param name="value">The text to draw.</param>
+		DrawableText(double x, double y, String^ value);
 		///==========================================================================================
 		///<summary>
 		/// Creates a new DrawableText instance.
 		///</summary>
 		///<param name="x">The X coordinate.</param>
 		///<param name="y">The Y coordinate.</param>
-		///<param name="text">The text to draw.</param>
+		///<param name="value">The text to draw.</param>
 		///<param name="encoding">The encoding of the text.</param>
-		DrawableText(double x, double y, String^ text, Encoding^ encoding);
+		DrawableText(double x, double y, String^ value, Encoding^ encoding);
 		///==========================================================================================
 		///<summary>
 		/// The encoding of the text.

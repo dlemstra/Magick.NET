@@ -30,14 +30,14 @@ namespace ImageMagick
 		///<summary>
 		/// Initializes a new instance of the PathCurvetoAbs class.
 		///</summary>
-		///<param name="coordinate">The coordinate to use.</param>
-		PathCurvetoAbs(PathCurveto^ coordinate);
+		///<param name="pathCurveto">The coordinate to use.</param>
+		PathCurvetoAbs(PathCurveto^ pathCurveto);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the PathCurvetoAbs class.
 		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		PathCurvetoAbs(IEnumerable<PathCurveto^>^ coordinates);
+		///<param name="pathCurvetos">The coordinates to use.</param>
+		PathCurvetoAbs(IEnumerable<PathCurveto^>^ pathCurvetos);
 		//===========================================================================================
 	};
 	//==============================================================================================

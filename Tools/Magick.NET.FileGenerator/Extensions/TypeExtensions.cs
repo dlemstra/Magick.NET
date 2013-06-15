@@ -1,4 +1,4 @@
-//=================================================================================================
+﻿//=================================================================================================
 // Copyright 2013 Dirk Lemstra <http://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -11,20 +11,24 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "Stdafx.h"
-#include "PathArcAbs.h"
+using System;
+using System.Collections.Generic;
 
-namespace ImageMagick
+namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	PathArcAbs::PathArcAbs(PathArc^ pathArc)
+	internal static class TypeExtensions
 	{
-		CreateBaseValue(pathArc);
-	}
-	//==============================================================================================
-	PathArcAbs::PathArcAbs(IEnumerable<PathArc^>^ pathArcs)
-	{
-		CreateBaseValue<Magick::PathArcArgs, PathArc>(pathArcs);
+		//===========================================================================================
+		public static bool IsSubclassOf(this Type type, string baseClass)
+		{
+			Type baseType = type.Assembly.GetType("ImageMagick." + baseClass);
+			if (baseType == null)
+				throw new ArgumentException(baseClass);
+
+			return type.IsSubclassOf(baseType);
+		}
+		//===========================================================================================
 	}
 	//==============================================================================================
 }

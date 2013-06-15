@@ -80,10 +80,8 @@
     <ProjectReference Include="..\Magick.NET\Magick.NET.vcxproj">
       <Project>{13c84dce-50bc-42a3-bcec-d3bffe3bc49e}</Project>
       <Name>Magick.NET</Name>
-      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

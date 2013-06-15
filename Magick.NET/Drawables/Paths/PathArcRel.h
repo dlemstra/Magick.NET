@@ -30,14 +30,14 @@ namespace ImageMagick
 		///<summary>
 		/// Initializes a new instance of the PathArcRel class.
 		///</summary>
-		///<param name="coordinate">The coordinate to use.</param>
-		PathArcRel(PathArc^ coordinate);
+		///<param name="pathArc">The coordinate to use.</param>
+		PathArcRel(PathArc^ pathArc);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the PathArcRel class.
 		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		PathArcRel(IEnumerable<PathArc^>^ coordinates);
+		///<param name="pathArcs">The coordinates to use.</param>
+		PathArcRel(IEnumerable<PathArc^>^ pathArcs);
 		//===========================================================================================
 	};
 	//==============================================================================================

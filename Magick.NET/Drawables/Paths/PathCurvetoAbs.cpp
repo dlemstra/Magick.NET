@@ -17,14 +17,14 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	PathCurvetoAbs::PathCurvetoAbs(PathCurveto^ coordinate)
+	PathCurvetoAbs::PathCurvetoAbs(PathCurveto^ pathCurveto)
 	{
-		CreateBaseValue(coordinate);
+		CreateBaseValue(pathCurveto);
 	}
 	//==============================================================================================
-	PathCurvetoAbs::PathCurvetoAbs(IEnumerable<PathCurveto^>^ coordinates)
+	PathCurvetoAbs::PathCurvetoAbs(IEnumerable<PathCurveto^>^ pathCurvetos)
 	{
-		CreateBaseValue<Magick::PathCurvetoArgs, PathCurveto>(coordinates);
+		CreateBaseValue<Magick::PathCurvetoArgs, PathCurveto>(pathCurvetos);
 	}
 	//==============================================================================================
 }

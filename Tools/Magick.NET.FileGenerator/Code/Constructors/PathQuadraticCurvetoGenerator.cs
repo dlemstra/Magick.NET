@@ -11,19 +11,41 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-using System;
+using System.CodeDom.Compiler;
+using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal class Program
+	internal sealed class PathQuadraticCurvetoGenerator : ConstructorCodeGenerator
 	{
 		//===========================================================================================
-		internal static void Main(string[] args)
+		protected override string ClassName
 		{
-			XsdGenerator.Generate();
-			CodeFileGenerator.Generate();
+			get
+			{
+				return "PathQuadraticCurveto";
+			}
 		}
+		//===========================================================================================
+		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+		{
+			writer.Write("return gcnew ");
+			writer.Write(method.DeclaringType.Name);
+			writer.Write("(");
+			WriteParameters(writer, parameters);
+			writer.WriteLine(");");
+		}
+		//===========================================================================================
+		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+		{
+			writer.Write("return gcnew ");
+			writer.Write(method.DeclaringType.Name);
+			writer.Write("(");
+			WriteHashtableParameters(writer, parameters);
+			writer.WriteLine(");");
+		}
+		//===========================================================================================
 	}
 	//==============================================================================================
 }

@@ -667,14 +667,77 @@
 			<xs:enumeration value="CheckerTileV" />
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:complexType name="coordinate">
+		<xs:attribute name="x" use="required" type="xs:double" />
+		<xs:attribute name="y" use="required" type="xs:double" />
+	</xs:complexType>
+	<xs:complexType name="coordinates">
+		<xs:sequence>
+			<xs:element name="coordinate" minOccurs="3" maxOccurs="unbounded" type="coordinate" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="drawable">
+		<xs:group ref="drawables" />
+	</xs:complexType>
+	<xs:complexType name="drawables">
+		<xs:sequence>
+			<xs:group ref="drawables" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="geometry">
-		<xs:attribute name="x" type="xs:int" />
-		<xs:attribute name="y" type="xs:int" />
-		<xs:attribute name="width" type="xs:int" />
-		<xs:attribute name="height" type="xs:int" />
+		<xs:attribute name="value" type="xs:string" />
 		<xs:attribute name="percentageWidth" type="xs:double" />
 		<xs:attribute name="percentageHeight" type="xs:double" />
-		<xs:attribute name="value" type="xs:string" />
+		<xs:attribute name="width" type="xs:int" />
+		<xs:attribute name="height" type="xs:int" />
+		<xs:attribute name="x" type="xs:int" />
+		<xs:attribute name="y" type="xs:int" />
+	</xs:complexType>
+	<xs:complexType name="path">
+		<xs:group ref="paths" />
+	</xs:complexType>
+	<xs:complexType name="paths">
+		<xs:sequence>
+			<xs:group ref="paths" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pathArc">
+		<xs:attribute name="x" use="required" type="xs:double" />
+		<xs:attribute name="y" use="required" type="xs:double" />
+		<xs:attribute name="radiusX" use="required" type="xs:double" />
+		<xs:attribute name="radiusY" use="required" type="xs:double" />
+		<xs:attribute name="rotationX" use="required" type="xs:double" />
+		<xs:attribute name="useLargeArc" use="required" type="xs:boolean" />
+		<xs:attribute name="useSweep" use="required" type="xs:boolean" />
+	</xs:complexType>
+	<xs:complexType name="pathArcs">
+		<xs:sequence>
+			<xs:element name="coordinate" maxOccurs="unbounded" type="pathArc" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pathCurveto">
+		<xs:attribute name="x" use="required" type="xs:double" />
+		<xs:attribute name="y" use="required" type="xs:double" />
+		<xs:attribute name="x1" use="required" type="xs:double" />
+		<xs:attribute name="y1" use="required" type="xs:double" />
+		<xs:attribute name="x2" use="required" type="xs:double" />
+		<xs:attribute name="y2" use="required" type="xs:double" />
+	</xs:complexType>
+	<xs:complexType name="pathCurvetos">
+		<xs:sequence>
+			<xs:element name="coordinate" maxOccurs="unbounded" type="pathCurveto" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pathQuadraticCurveto">
+		<xs:attribute name="x" use="required" type="xs:double" />
+		<xs:attribute name="y" use="required" type="xs:double" />
+		<xs:attribute name="x1" use="required" type="xs:double" />
+		<xs:attribute name="y1" use="required" type="xs:double" />
+	</xs:complexType>
+	<xs:complexType name="pathQuadraticCurvetos">
+		<xs:sequence>
+			<xs:element name="coordinate" maxOccurs="unbounded" type="pathCurveto" />
+		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="read">
 		<xs:sequence>
@@ -1530,6 +1593,7 @@
 						<xs:attribute name="height" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="draw" type="drawables" />
 				<xs:group ref="copy" />
 			</xs:choice>
 			<xs:choice>
@@ -1576,6 +1640,301 @@
 					<xs:group ref="actions" />
 				</xs:complexType>
 			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="drawables">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="affine">
+					<xs:complexType>
+						<xs:attribute name="scaleX" use="required" type="xs:double" />
+						<xs:attribute name="scaleY" use="required" type="xs:double" />
+						<xs:attribute name="shearX" use="required" type="xs:double" />
+						<xs:attribute name="shearY" use="required" type="xs:double" />
+						<xs:attribute name="translateX" use="required" type="xs:double" />
+						<xs:attribute name="translateY" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="arc">
+					<xs:complexType>
+						<xs:attribute name="startX" use="required" type="xs:double" />
+						<xs:attribute name="startY" use="required" type="xs:double" />
+						<xs:attribute name="endX" use="required" type="xs:double" />
+						<xs:attribute name="endY" use="required" type="xs:double" />
+						<xs:attribute name="startDegrees" use="required" type="xs:double" />
+						<xs:attribute name="endDegrees" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="bezier" type="coordinates" />
+				<xs:element name="circle">
+					<xs:complexType>
+						<xs:attribute name="originX" use="required" type="xs:double" />
+						<xs:attribute name="originY" use="required" type="xs:double" />
+						<xs:attribute name="perimeterX" use="required" type="xs:double" />
+						<xs:attribute name="perimeterY" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="clipPath">
+					<xs:complexType>
+						<xs:attribute name="clipPath" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="color">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+						<xs:attribute name="y" use="required" type="xs:double" />
+						<xs:attribute name="paintMethod" use="required" type="PaintMethod" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="compositeImage">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="offset" minOccurs="0" type="geometry" />
+							<xs:element name="image" type="read" />
+						</xs:sequence>
+						<xs:attribute name="compose" type="CompositeOperator" />
+						<xs:attribute name="x" type="xs:double" />
+						<xs:attribute name="y" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="dashOffset">
+					<xs:complexType>
+						<xs:attribute name="offset" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ellipse">
+					<xs:complexType>
+						<xs:attribute name="originX" use="required" type="xs:double" />
+						<xs:attribute name="originY" use="required" type="xs:double" />
+						<xs:attribute name="radiusX" use="required" type="xs:double" />
+						<xs:attribute name="radiusY" use="required" type="xs:double" />
+						<xs:attribute name="startDegrees" use="required" type="xs:double" />
+						<xs:attribute name="endDegrees" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="fillColor">
+					<xs:complexType>
+						<xs:attribute name="color" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="fillOpacity">
+					<xs:complexType>
+						<xs:attribute name="opacity" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="fillRule">
+					<xs:complexType>
+						<xs:attribute name="fillRule" use="required" type="FillRule" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="font">
+					<xs:complexType>
+						<xs:attribute name="family" use="required" type="xs:string" />
+						<xs:attribute name="style" type="FontStyleType" />
+						<xs:attribute name="weight" type="FontWeight" />
+						<xs:attribute name="stretch" type="FontStretch" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="gravity">
+					<xs:complexType>
+						<xs:attribute name="gravity" use="required" type="Gravity" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="line">
+					<xs:complexType>
+						<xs:attribute name="startX" use="required" type="xs:double" />
+						<xs:attribute name="startY" use="required" type="xs:double" />
+						<xs:attribute name="endX" use="required" type="xs:double" />
+						<xs:attribute name="endY" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="matte">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+						<xs:attribute name="y" use="required" type="xs:double" />
+						<xs:attribute name="paintMethod" use="required" type="PaintMethod" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="miterLimit">
+					<xs:complexType>
+						<xs:attribute name="miterlimit" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="path" type="paths" />
+				<xs:element name="point">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+						<xs:attribute name="y" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="pointSize">
+					<xs:complexType>
+						<xs:attribute name="pointSize" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="polygon" type="coordinates" />
+				<xs:element name="polyline" type="coordinates" />
+				<xs:element name="pushClipPath">
+					<xs:complexType>
+						<xs:attribute name="clipPath" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="pushPattern">
+					<xs:complexType>
+						<xs:attribute name="id" use="required" type="xs:string" />
+						<xs:attribute name="x" use="required" type="xs:int" />
+						<xs:attribute name="y" use="required" type="xs:int" />
+						<xs:attribute name="width" use="required" type="xs:int" />
+						<xs:attribute name="height" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="rectangle">
+					<xs:complexType>
+						<xs:attribute name="upperLeftX" use="required" type="xs:double" />
+						<xs:attribute name="upperLeftY" use="required" type="xs:double" />
+						<xs:attribute name="lowerRightX" use="required" type="xs:double" />
+						<xs:attribute name="lowerRightY" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="rotation">
+					<xs:complexType>
+						<xs:attribute name="angle" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="roundRectangle">
+					<xs:complexType>
+						<xs:attribute name="centerX" use="required" type="xs:double" />
+						<xs:attribute name="centerY" use="required" type="xs:double" />
+						<xs:attribute name="width" use="required" type="xs:double" />
+						<xs:attribute name="height" use="required" type="xs:double" />
+						<xs:attribute name="cornerWidth" use="required" type="xs:double" />
+						<xs:attribute name="cornerHeight" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="scaling">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+						<xs:attribute name="y" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="skewX">
+					<xs:complexType>
+						<xs:attribute name="angle" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="skewY">
+					<xs:complexType>
+						<xs:attribute name="angle" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeAntialias">
+					<xs:complexType>
+						<xs:attribute name="isEnabled" use="required" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeColor">
+					<xs:complexType>
+						<xs:attribute name="color" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeLineCap">
+					<xs:complexType>
+						<xs:attribute name="lineCap" use="required" type="LineCap" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeLineJoin">
+					<xs:complexType>
+						<xs:attribute name="lineJoin" use="required" type="LineJoin" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeOpacity">
+					<xs:complexType>
+						<xs:attribute name="opacity" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeWidth">
+					<xs:complexType>
+						<xs:attribute name="width" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="text">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+						<xs:attribute name="y" use="required" type="xs:double" />
+						<xs:attribute name="text" use="required" type="xs:string" />
+						<xs:attribute name="encoding" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="textAntialias">
+					<xs:complexType>
+						<xs:attribute name="isEnabled" use="required" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="textDecoration">
+					<xs:complexType>
+						<xs:attribute name="decoration" use="required" type="TextDecoration" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="textUnderColor">
+					<xs:complexType>
+						<xs:attribute name="color" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="translation">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+						<xs:attribute name="y" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="viewbox">
+					<xs:complexType>
+						<xs:attribute name="upperLeftX" use="required" type="xs:int" />
+						<xs:attribute name="upperLeftY" use="required" type="xs:int" />
+						<xs:attribute name="lowerRightX" use="required" type="xs:int" />
+						<xs:attribute name="lowerRightY" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="paths">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="arcAbs" type="coordinates" />
+				<xs:element name="arcRel" type="coordinates" />
+				<xs:element name="curvetoAbs" type="coordinates" />
+				<xs:element name="curvetoRel" type="coordinates" />
+				<xs:element name="linetoAbs" type="coordinates" />
+				<xs:element name="linetoHorizontalAbs">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="linetoHorizontalRel">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="linetoRel" type="coordinates" />
+				<xs:element name="linetoVerticalAbs">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="linetoVerticalRel">
+					<xs:complexType>
+						<xs:attribute name="x" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="movetoAbs" type="coordinates" />
+				<xs:element name="movetoRel" type="coordinates" />
+				<xs:element name="quadraticCurvetoAbs" type="args" />
+				<xs:element name="quadraticCurvetoRel" type="args" />
+				<xs:element name="smoothCurvetoAbs" type="coordinates" />
+				<xs:element name="smoothCurvetoRel" type="coordinates" />
+				<xs:element name="smoothQuadraticCurvetoAbs" type="coordinates" />
+				<xs:element name="smoothQuadraticCurvetoRel" type="coordinates" />
+			</xs:choice>
 		</xs:sequence>
 	</xs:group>
 	<xs:group name="read">

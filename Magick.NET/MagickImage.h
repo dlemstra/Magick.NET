@@ -58,7 +58,6 @@ using namespace System::Collections::Generic;
 using namespace System::Drawing::Imaging;
 using namespace System::Text;
 
-
 namespace ImageMagick
 {
 	///=============================================================================================
