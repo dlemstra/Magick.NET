@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -29,14 +30,20 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_GetFormatInfo()
 		{
+			List<string> missingFormats = new List<string>();
+
 			foreach (MagickFormat format in Enum.GetValues(typeof(MagickFormat)))
 			{
 				if (format == MagickFormat.Unknown)
 					continue;
 
 				MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
-				Assert.IsNotNull(formatInfo, "Cannot find MagickFormatInfo for: " + format);
+				if (formatInfo == null)
+					missingFormats.Add(format.ToString());
 			}
+
+			if (missingFormats.Count > 0)
+				Assert.Fail("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats));
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

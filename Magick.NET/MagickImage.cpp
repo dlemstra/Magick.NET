@@ -439,7 +439,17 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::CompressionMethod::set(ImageMagick::CompressionMethod value)
 	{
-		return Value->compressType((MagickCore::CompressionType)value);
+		Value->compressType((MagickCore::CompressionType)value);
+	}
+	//==============================================================================================
+	bool MagickImage::Debug::get()
+	{
+		return Value->debug();
+	}
+	//==============================================================================================
+	void MagickImage::Debug::set(bool value)
+	{
+		Value->debug(value);
 	}
 	//==============================================================================================
 	MagickGeometry^ MagickImage::Density::get()
