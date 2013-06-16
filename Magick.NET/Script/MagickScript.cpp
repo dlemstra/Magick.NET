@@ -91,6 +91,23 @@ namespace ImageMagick
 		return paths;
 	}
 	//==============================================================================================
+	ImageProfile^ MagickScript::CreateProfile(XmlElement^ element)
+	{
+		XmlElement^ elem = (XmlElement^)element->SelectSingleNode("*");
+		
+		if (elem->Name == "imageProfile")
+		{
+			return CreateImageProfile(element);
+		}
+		else if (elem->Name == "colorProfile")
+		{
+			if (elem->GetAttribute("name") == "SRGB")
+				return ColorProfile::SRGB;
+		}
+
+		throw gcnew NotImplementedException(elem->Name);
+	}
+	//==============================================================================================
 	XmlReaderSettings^ MagickScript::CreateXmlReaderSettings()
 	{
 		XmlReaderSettings^ settings = gcnew XmlReaderSettings();

@@ -279,6 +279,9 @@ namespace Magick.NET.FileGenerator
 				case "IEnumerable<PathQuadraticCurveto^>^":
 					writer.Write("CreatePathQuadraticCurvetos");
 					break;
+				case "ImageProfile^":
+					writer.Write("CreateProfile");
+					break;
 				case "MagickImage^":
 					writer.Write("CreateMagickImage");
 					break;
@@ -321,6 +324,7 @@ namespace Magick.NET.FileGenerator
 				case "IEnumerable<PathArc^>^":
 				case "IEnumerable<PathCurveto^>^":
 				case "IEnumerable<PathQuadraticCurveto^>^":
+				case "ImageProfile^":
 					writer.Write("element");
 					break;
 				case "MagickImage^":

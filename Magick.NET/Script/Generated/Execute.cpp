@@ -163,7 +163,6 @@ namespace ImageMagick
 		result["despeckle"] = gcnew ExecuteElementImage(MagickScript::ExecuteDespeckle);
 		result["edge"] = gcnew ExecuteElementImage(MagickScript::ExecuteEdge);
 		result["emboss"] = gcnew ExecuteElementImage(MagickScript::ExecuteEmboss);
-		result["exifProfile"] = gcnew ExecuteElementImage(MagickScript::ExecuteExifProfile);
 		result["extent"] = gcnew ExecuteElementImage(MagickScript::ExecuteExtent);
 		result["flip"] = gcnew ExecuteElementImage(MagickScript::ExecuteFlip);
 		result["flop"] = gcnew ExecuteElementImage(MagickScript::ExecuteFlop);
@@ -580,17 +579,8 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteAddProfile(XmlElement^ element, MagickImage^ image)
 	{
-		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
-		for each(XmlAttribute^ attribute in element->Attributes)
-		{
-			arguments[attribute->Name] = XmlHelper::GetValue<String^>(attribute);
-		}
-		if (OnlyContains(arguments, "fileName"))
-			image->AddProfile((String^)arguments["fileName"]);
-		else if (OnlyContains(arguments, "name", "fileName"))
-			image->AddProfile((String^)arguments["name"], (String^)arguments["fileName"]);
-		else
-			throw gcnew ArgumentException("Invalid argument combination for 'addProfile', allowed combinations are: [fileName] [name, fileName]");
+		ImageProfile^ profile_ = CreateProfile(element);
+		image->AddProfile(profile_);
 	}
 	void MagickScript::ExecuteAnnotate(XmlElement^ element, MagickImage^ image)
 	{
@@ -888,11 +878,6 @@ namespace ImageMagick
 			image->Emboss((double)arguments["radius"], (double)arguments["sigma"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'emboss', allowed combinations are: [] [radius, sigma]");
-	}
-	void MagickScript::ExecuteExifProfile(XmlElement^ element, MagickImage^ image)
-	{
-		String^ fileName_ = XmlHelper::GetAttribute<String^>(element, "fileName");
-		image->ExifProfile(fileName_);
 	}
 	void MagickScript::ExecuteExtent(XmlElement^ element, MagickImage^ image)
 	{
@@ -2124,6 +2109,12 @@ namespace ImageMagick
 			collection->Add(CreateCoordinate(elem));
 		}
 		return collection;
+	}
+	ImageProfile^ MagickScript::CreateImageProfile(XmlElement^ element)
+	{
+		String^ name_ = XmlHelper::GetAttribute<String^>(element, "name");
+		String^ fileName_ = XmlHelper::GetAttribute<String^>(element, "fileName");
+		return gcnew ImageProfile(name_, fileName_);
 	}
 	PathArc^ MagickScript::CreatePathArc(XmlElement^ element)
 	{

@@ -7,6 +7,12 @@
 	<!--=========================================================================================-->
 	<xs:annotation id="enums"/>
 	<!--=========================================================================================-->
+	<xs:simpleType name="ColorProfile">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="SRGB" />
+		</xs:restriction>
+	</xs:simpleType>
+	<!--=========================================================================================-->
 	<xs:complexType name="coordinate">
 		<xs:annotation id="coordinate"/>
 	</xs:complexType>
@@ -31,8 +37,8 @@
 		<xs:annotation id="geometry"/>
 	</xs:complexType>
 	<!--=========================================================================================-->
-	<xs:complexType name="path">
-		<xs:group ref="paths" />
+	<xs:complexType name="imageProfile">
+		<xs:annotation id="imageProfile"/>
 	</xs:complexType>
 	<!--=========================================================================================-->
 	<xs:complexType name="paths">
@@ -68,6 +74,19 @@
 	<xs:complexType name="pathQuadraticCurvetos">
 		<xs:sequence>
 			<xs:element name="coordinate" maxOccurs="unbounded" type="pathCurveto"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="profile">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="imageProfile" type="imageProfile"/>
+				<xs:element name="colorProfile">
+					<xs:complexType>
+						<xs:attribute name="name" type="ColorProfile"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
 		</xs:sequence>
 	</xs:complexType>
 	<!--=========================================================================================-->

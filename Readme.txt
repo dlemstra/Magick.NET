@@ -2,6 +2,7 @@ Breaking changes.
 
 Magick.NET 6.8.5.403:
   - Renamed dll's so they include the platform name.
+  - Image profiles can now only be accessed and modified with ImageProfile classes.
   - Renamed DrawableBase to Drawable.
   - Removed Args part of PathArc/PathCurvetoArgs/PathQuadraticCurvetoArgs classes.
 

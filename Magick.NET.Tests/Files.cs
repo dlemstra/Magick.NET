@@ -28,6 +28,14 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		public static string ImageProfileScript
+		{
+			get
+			{
+				return _Root + @"Script\ImageProfile.msl";
+			}
+		}
+		//===========================================================================================
 		public static string DrawScript
 		{
 			get
@@ -41,6 +49,14 @@ namespace Magick.NET.Tests
 			get
 			{
 				return _Root + @"Script\Events.msl";
+			}
+		}
+		//===========================================================================================
+		public static string FujiFilmFinePixS1ProJPG
+		{
+			get
+			{
+				return _Root + @"Images\FujiFilmFinePixS1Pro.jpg";
 			}
 		}
 		//===========================================================================================

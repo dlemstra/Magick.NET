@@ -43,6 +43,7 @@ namespace Magick.NET.FileGenerator
 			_ConstructorCodeGenerators = new List<ConstructorCodeGenerator>();
 			_ConstructorCodeGenerators.Add(new GeometryGenerator());
 			_ConstructorCodeGenerators.Add(new CoordinateGenerator());
+			_ConstructorCodeGenerators.Add(new ImageProfileGenerator());
 			_ConstructorCodeGenerators.Add(new PathArcGenerator());
 			_ConstructorCodeGenerators.Add(new PathCurvetoGenerator());
 			_ConstructorCodeGenerators.Add(new PathQuadraticCurvetoGenerator());

@@ -13,44 +13,67 @@
 //=================================================================================================
 #pragma once
 
-#include "Stdafx.h"
-#include "..\Enums\ColorSpace.h"
-#include "..\MagickGeometry.h"
+#include "..\ImageProfile.h"
+#include "ExifValue.h"
+
+using namespace System::Collections::Generic;
+using namespace System::IO;
 
 namespace ImageMagick
 {
+	//==============================================================================================
+	ref class MagickImage;
 	///=============================================================================================
-	///<summary>
-	/// Class that contains setting for when an image is being read.
-	///</summary>
-	public ref class MagickReadSettings sealed
+	/// <summary>
+	/// Class that can be used to access an Exif profile.
+	/// </summary>
+	public ref class ExifProfile sealed : ImageProfile
 	{
+		//===========================================================================================
+	private:
+		//===========================================================================================
+		List<ExifValue^>^ _Values;
+		unsigned int _ThumbnailOffset;
+		unsigned int _ThumbnailLength;
+		//===========================================================================================
+		void Initialize();
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		bool Ping;
+		ExifProfile() {};
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Color space.
+		/// Initializes a new instance of the ExifProfile class.
 		///</summary>
-		property Nullable<ColorSpace> ColorSpace;
+		///<param name="data">The byte array to read the exif profile from.</param>
+		ExifProfile(array<Byte>^ data) : ImageProfile("exif", data) {};
 		///==========================================================================================
 		///<summary>
-		/// Vertical and horizontal resolution in pixels.
+		/// Initializes a new instance of the ExifProfile class.
 		///</summary>
-		property MagickGeometry^ Density;
+		///<param name="fileName">The fully qualified name of the exif profile file, or the relative exif profile file name.</param>
+		ExifProfile(String^ fileName) : ImageProfile("exif", fileName) {};
 		///==========================================================================================
 		///<summary>
-		/// The height.
+		/// Initializes a new instance of the ExifProfile class.
 		///</summary>
-		property Nullable<int> Height;
+		///<param name="stream">The stream to read the exif profile from.</param>
+		ExifProfile(Stream^ stream) : ImageProfile("exif", stream) {};
 		///==========================================================================================
 		///<summary>
-		/// The width.
+		/// Returns the values of this exif profile.
 		///</summary>
-		property Nullable<int> Width;
+		property IEnumerable<ExifValue^>^ Values
+		{
+			IEnumerable<ExifValue^>^ get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// Returns the thumbnail in the exif profile when available.
+		///</summary>
+		MagickImage^ CreateThumbnail();
 		//===========================================================================================
 	};
 	//==============================================================================================

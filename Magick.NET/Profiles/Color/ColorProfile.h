@@ -13,17 +13,18 @@
 //=================================================================================================
 #pragma once
 
-#include "ColorProfile.h"
+#include "..\ImageProfile.h"
 
+using namespace System::IO;
 using namespace System::Collections::Generic;
 
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Class that contains different color profiles.
+	/// Class that contains an ICM/ICC color profile.
 	///</summary>
-	public ref class ColorProfiles abstract sealed
+	public ref class ColorProfile sealed : ImageProfile 
 	{
 		//===========================================================================================
 	private:
@@ -31,9 +32,31 @@ namespace ImageMagick
 		static initonly Object^ _SyncRoot = gcnew Object();
 		static Dictionary<String^, ColorProfile^>^ _Profiles = gcnew Dictionary<String^, ColorProfile^>();
 		//===========================================================================================
-		static ColorProfile^ Load(String^ name, String^ resourceName);
+		static ColorProfile^ Load(String^ resourceName);
+		//===========================================================================================
+	internal:
+		//===========================================================================================
+		ColorProfile() {};
 		//===========================================================================================
 	public:
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the ColorProfile class.
+		///</summary>
+		///<param name="data">A byte array containing the profile.</param>
+		ColorProfile(array<Byte>^ data) : ImageProfile("icm", data) {};
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the ColorProfile class.
+		///</summary>
+		///<param name="stream">A stream containing the profile.</param>
+		ColorProfile(Stream^ stream) : ImageProfile("icm", stream) {};
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the ColorProfile class.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
+		ColorProfile(String^ fileName) : ImageProfile("icm", fileName) {};
 		///==========================================================================================
 		///<summary>
 		/// The sRGB icm profile.

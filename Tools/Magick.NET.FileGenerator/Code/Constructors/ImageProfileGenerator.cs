@@ -1,4 +1,4 @@
-//=================================================================================================
+﻿//=================================================================================================
 // Copyright 2013 Dirk Lemstra <http://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -11,28 +11,49 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#pragma once
+using System.CodeDom.Compiler;
+using System.Reflection;
 
-using namespace System::Collections::Generic;
-
-namespace ImageMagick
+namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	private ref class EnumHelper abstract sealed
+	internal sealed class ImageProfileGenerator : ConstructorCodeGenerator
 	{
 		//===========================================================================================
-	public:
+		protected override string ClassName
+		{
+			get
+			{
+				return "ImageProfile";
+			}
+		}
 		//===========================================================================================
-		generic<typename TEnum>
-		where TEnum : value class, ValueType
-		static TEnum Parse(int value, TEnum defaultValue);
+		protected override bool WriteEnumerable
+		{
+			get
+			{
+				return false;
+			}
+		}
 		//===========================================================================================
-		generic<typename TEnum>
-		where TEnum : value class, ValueType
-		static TEnum Parse(String^ value, TEnum defaultValue);
+		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+		{
+			writer.Write("return gcnew ");
+			writer.Write(method.DeclaringType.Name);
+			writer.Write("(");
+			WriteParameters(writer, parameters);
+			writer.WriteLine(");");
+		}
 		//===========================================================================================
-		static Object^ Parse(Type^ enumType, String^ value);
+		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+		{
+			writer.Write("return gcnew ");
+			writer.Write(method.DeclaringType.Name);
+			writer.Write("(");
+			WriteHashtableParameters(writer, parameters);
+			writer.WriteLine(");");
+		}
 		//===========================================================================================
-	};
+	}
 	//==============================================================================================
 }

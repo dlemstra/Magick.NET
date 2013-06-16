@@ -12,60 +12,60 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-
-using namespace System::IO;
+#include "ImageProfile.h"
+#include "..\IO\MagickReader.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	void Throw::IfFalse(String^ paramName, bool condition, String^ message)
+	array<Byte>^ ImageProfile::Copy(array<Byte>^ data)
 	{
-		if (!condition)
-			throw gcnew ArgumentException(message, paramName);
-	}
-	//==============================================================================================
-	void Throw::IfInvalidFileName(String^ fileName)
-	{
-		Throw::IfNullOrEmpty("fileName", fileName);
+		Throw::IfNullOrEmpty("data", data);
 
-		if (!fileName->Contains("\\") && fileName->Contains(":"))
-			return;
+		array<Byte>^ result = gcnew array<Byte>(data->Length);
+		data->CopyTo(result, 0);
+		return result;
+	}
+	//==============================================================================================
+	void ImageProfile::Initialize(String^ name, array<Byte>^ data)
+	{
+		Throw::IfNullOrEmpty("name", name);
+		Throw::IfNullOrEmpty("data", data);
 
-		Throw::IfFalse("fileName", File::Exists(fileName), "Unable to find file: " + fileName);
+		_Name = name;
+		_Data = data;
 	}
 	//==============================================================================================
-	void Throw::IfNull(String^ paramName, Object^ value)
+	array<Byte>^ ImageProfile::Data::get()
 	{
-		if (value == nullptr)
-			throw gcnew ArgumentNullException(paramName);
+		return _Data;
 	}
 	//==============================================================================================
-	void Throw::IfNullOrEmpty(String^ paramName, Array^ value)
+	ImageProfile::ImageProfile(String^ name, array<Byte>^ data)
 	{
-		Throw::IfNull(paramName, value);
-
-		if (value->Length == 0)
-			throw gcnew ArgumentException("Value cannot be empty", paramName);
+		Initialize(name, Copy(data));
 	}
 	//==============================================================================================
-	void Throw::IfNullOrEmpty(String^ paramName, String^ value)
+	ImageProfile::ImageProfile(String^ name, Stream^ stream)
 	{
-		Throw::IfNull(paramName, value);
-
-		if (value->Length == 0)
-			throw gcnew ArgumentException("Value cannot be empty", paramName);
+		Initialize(name, MagickReader::Read(stream));
 	}
 	//==============================================================================================
-	void Throw::IfOutOfRange(String^ paramName, int index, int length)
+	ImageProfile::ImageProfile(String^ name, String^ fileName)
 	{
-		if (index < 0 || index >= length)
-			throw gcnew ArgumentOutOfRangeException(paramName);
+		Initialize(name, MagickReader::Read(fileName));
 	}
 	//==============================================================================================
-	void Throw::IfTrue(String^ paramName, bool condition, String^ message)
+	String^ ImageProfile::Name::get()
 	{
-		if (condition)
-			throw gcnew ArgumentException(message, paramName);
+		return _Name;
+	}
+	//==============================================================================================
+	array<Byte>^ ImageProfile::ToByteArray()
+	{
+		array<Byte>^ result = gcnew array<Byte>(_Data->Length);
+		_Data->CopyTo(result, 0);
+		return result;
 	}
 	//==============================================================================================
 }

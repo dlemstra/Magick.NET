@@ -11,28 +11,34 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#pragma once
+#include "Stdafx.h"
+#include "ColorProfile.h"
 
-using namespace System::Collections::Generic;
+using namespace System::Reflection;
+using namespace System::Threading;
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	private ref class EnumHelper abstract sealed
+	ColorProfile^ ColorProfile::Load(String^ resourceName)
 	{
-		//===========================================================================================
-	public:
-		//===========================================================================================
-		generic<typename TEnum>
-		where TEnum : value class, ValueType
-		static TEnum Parse(int value, TEnum defaultValue);
-		//===========================================================================================
-		generic<typename TEnum>
-		where TEnum : value class, ValueType
-		static TEnum Parse(String^ value, TEnum defaultValue);
-		//===========================================================================================
-		static Object^ Parse(Type^ enumType, String^ value);
-		//===========================================================================================
-	};
+		Monitor::Enter(_SyncRoot);
+
+		if (!_Profiles->ContainsKey(resourceName))
+		{
+			Stream^ stream = Assembly::GetAssembly(ColorProfile::typeid)->GetManifestResourceStream(resourceName);
+			_Profiles[resourceName] = gcnew ColorProfile(stream);
+			delete stream;
+		}
+
+		Monitor::Exit(_SyncRoot);
+
+		return _Profiles[resourceName];
+	}
+	//==============================================================================================
+	ColorProfile^ ColorProfile::SRGB::get()
+	{
+		return Load("sRGB.icm");
+	}
 	//==============================================================================================
 }

@@ -148,8 +148,7 @@ namespace Magick.NET.FileGenerator
 													select parameter).ToArray();
 			if (parameters.Length > 0)
 			{
-				if (methods.Count() == 1 && parameters.Length == 1 && parameters[0].ParameterType.IsGenericType &&
-					parameters[0].ParameterType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+				if (methods.Count() == 1 && IsTypedElement(parameters))
 				{
 					element.Add(new XAttribute("type", GetName(parameters[0])));
 				}
@@ -241,6 +240,7 @@ namespace Magick.NET.FileGenerator
 				case "IEnumerable<PathCurveto^>^":
 				case "IEnumerable<PathQuadraticCurveto^>^":
 				case "IEnumerable<PathBase^>^":
+				case "ImageProfile^":
 				case "MagickGeometry^":
 				case "MagickImage^":
 				case "PathArc^":
@@ -274,6 +274,8 @@ namespace Magick.NET.FileGenerator
 					return "pathCurvetos";
 				case "IEnumerable<PathQuadraticCurveto^>^":
 					return "pathQuadraticCurvetos";
+				case "ImageProfile^":
+					return "profile";
 				case "MagickGeometry^":
 					return "geometry";
 				case "MagickImage^":
@@ -298,6 +300,42 @@ namespace Magick.NET.FileGenerator
 			return char.ToLowerInvariant(name[0]) + name.Substring(1);
 		}
 		//===========================================================================================
+		private bool IsTypedElement(ParameterInfo[] parameters)
+		{
+			if (parameters.Length > 1)
+				return false;
+
+			ParameterInfo parameter = parameters[0];
+
+			if (parameter.ParameterType.IsGenericType && parameter.ParameterType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+				return true;
+
+			if (parameter.Name == "profile")
+				return true;
+
+			return false;
+		}
+		//===========================================================================================
+		private void RemoveComments()
+		{
+			_Document = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"\..\..\..\Xsd\MagickScript.xsd");
+			_Document.DescendantNodes().OfType<XComment>().Remove();
+		}
+		//===========================================================================================
+		private void RemoveUnusedSimpleTypes()
+		{
+			XElement[] simpleTypes = (from element in _Document.XPathSelectElements("//xs:simpleType", _Namespaces)
+											  select element).ToArray();
+
+			foreach (XElement simpleType in simpleTypes)
+			{
+				string name = (string)simpleType.Attribute("name");
+
+				if (!_Document.XPathSelectElements("//xs:attribute[@type='" + name + "']", _Namespaces).Any())
+					simpleType.Remove();
+			}
+		}
+		//===========================================================================================
 		private void ReplaceActions(XElement annotation)
 		{
 			AddMagickImageProperties(annotation);
@@ -308,8 +346,8 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void ReplaceAnnotations()
 		{
-			XElement[] annotations = (from a in _Document.XPathSelectElements("//xs:annotation", _Namespaces)
-											  select a).ToArray();
+			XElement[] annotations = (from element in _Document.XPathSelectElements("//xs:annotation", _Namespaces)
+											  select element).ToArray();
 
 			foreach (XElement annotation in annotations)
 			{
@@ -323,6 +361,7 @@ namespace Magick.NET.FileGenerator
 						ReplaceColor(annotation);
 						break;
 					case "coordinate":
+					case "imageProfile":
 					case "pathArc":
 					case "pathCurveto":
 					case "pathQuadraticCurveto":
@@ -446,10 +485,9 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteDocument()
 		{
-			_Document = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"\..\..\..\Xsd\MagickScript.xsd");
-			_Document.DescendantNodes().OfType<XComment>().Remove();
-
+			RemoveComments();
 			ReplaceAnnotations();
+			RemoveUnusedSimpleTypes();
 
 			Write();
 		}

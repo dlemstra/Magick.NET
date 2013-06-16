@@ -13,44 +13,70 @@
 //=================================================================================================
 #pragma once
 
-#include "Stdafx.h"
-#include "..\Enums\ColorSpace.h"
-#include "..\MagickGeometry.h"
+using namespace System::IO;
 
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Class that contains setting for when an image is being read.
+	/// Class that contains an image profile.
 	///</summary>
-	public ref class MagickReadSettings sealed
+	public ref class ImageProfile
 	{
+		//===========================================================================================
+	private:
+		//===========================================================================================
+		array<Byte>^ _Data;
+		String^ _Name;
+		//===========================================================================================
+		static array<Byte>^ Copy(array<Byte>^ data);
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		bool Ping;
+		ImageProfile() {};
+		//===========================================================================================
+		property array<Byte>^ Data
+		{
+			array<Byte>^ get();
+		}
+		//===========================================================================================
+		void Initialize(String^ name, array<Byte>^ data);
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Color space.
+		/// Initializes a new instance of the ImageProfile class.
 		///</summary>
-		property Nullable<ColorSpace> ColorSpace;
+		///<param name="name">The name of the profile.</param>
+		///<param name="data">A byte array containing the profile.</param>
+		ImageProfile(String^ name, array<Byte>^ data);
 		///==========================================================================================
 		///<summary>
-		/// Vertical and horizontal resolution in pixels.
+		/// Initializes a new instance of the ImageProfile class.
 		///</summary>
-		property MagickGeometry^ Density;
+		///<param name="name">The name of the profile.</param>
+		///<param name="stream">A stream containing the profile.</param>
+		ImageProfile(String^ name, Stream^ stream);
 		///==========================================================================================
 		///<summary>
-		/// The height.
+		/// Initializes a new instance of the ImageProfile class.
 		///</summary>
-		property Nullable<int> Height;
+		///<param name="name">The name of the profile.</param>
+		///<param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
+		ImageProfile(String^ name, String^ fileName);
 		///==========================================================================================
 		///<summary>
-		/// The width.
+		/// The name of the profile.
 		///</summary>
-		property Nullable<int> Width;
+		property String^ Name
+		{
+			String^ get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// Converts this instance to a byte array.
+		///</summary>
+		array<Byte>^ ToByteArray();
 		//===========================================================================================
 	};
 	//==============================================================================================

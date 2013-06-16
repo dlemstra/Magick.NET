@@ -161,6 +161,25 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Execute_ImageProfile()
+		{
+			MagickScript script = new MagickScript(Files.ImageProfileScript);
+
+			using (MagickImage image = new MagickImage(Files.MagickNETIconPng))
+			{
+				ColorProfile colorProfile = image.GetColorProfile();
+				Assert.IsNull(colorProfile);
+
+				script.Execute(image);
+
+				colorProfile = image.GetColorProfile();
+
+				Assert.IsNotNull(colorProfile);
+				Assert.AreEqual(colorProfile.ToByteArray().Length, ColorProfile.SRGB.ToByteArray().Length);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Execute_Resize()
 		{
 			MagickScript script = new MagickScript(Files.ResizeScript);

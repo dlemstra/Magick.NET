@@ -13,7 +13,7 @@
 //=================================================================================================
 
 using System;
-using System.Drawing;
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,29 +21,38 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public sealed class ColorProfileTests
+	public sealed class ImageProfileTests
 	{
 		//===========================================================================================
-		private const string _Category = "ColorProfileTests";
+		private const string _Category = "ImageProfileTests";
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Constructor()
 		{
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				new ColorProfile(null, Files.SnakewarePNG);
+				new ImageProfile(null, Files.SnakewarePNG);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
-				new ColorProfile("name", null);
+				new ImageProfile("name", (byte[])null);
 			});
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Load()
-		{
-			ColorProfile sRGB = ColorProfiles.SRGB;
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				new ImageProfile("name", (Stream)null);
+			});
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				new ImageProfile("name", (string)null);
+			});
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				new ImageProfile("name", new byte[] { });
+			});
 		}
 		//===========================================================================================
 	}

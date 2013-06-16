@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "..\Colors\ColorProfiles.h"
 #include "..\Helpers\FileHelper.h"
 #include "MagickReader.h"
 
@@ -116,12 +115,26 @@ namespace ImageMagick
 
 		return result;
 	}
+	//===========================================================================================
+	void MagickReader::Read(Magick::Blob* blob, Stream^ stream)
+	{
+		Marshaller::Marshal(Read(stream), blob);
+	}
+	//===========================================================================================
+	void MagickReader::Read(Magick::Blob* blob, String^ fileName)
+	{
+		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
+		Throw::IfInvalidFileName(filePath);
+
+		FileStream^ stream = File::OpenRead(filePath);
+		Read(blob, stream);
+		delete stream;
+	}
 	//==============================================================================================
 	MagickWarningException^ MagickReader::Read(Magick::Image* image, array<Byte>^ data,
 		MagickReadSettings^ readSettings)
 	{
-		Throw::IfNull("data", data);
-		Throw::IfTrue("data", data->Length == 0, "Empty byte array is not permitted.");
+		Throw::IfNullOrEmpty("data", data);
 
 		Magick::Blob blob;
 		Marshaller::Marshal(data, &blob);
@@ -231,6 +244,9 @@ namespace ImageMagick
 		if (stream->CanSeek)
 		{
 			int length = (int)stream->Length;
+			if (length == 0)
+				return gcnew array<Byte>(0);
+
 			array<Byte>^ result = gcnew array<Byte>(length);
 			stream->Read(result, 0, length);
 			return result;
@@ -253,20 +269,17 @@ namespace ImageMagick
 			return result;
 		}
 	}
-	//===========================================================================================
-	void MagickReader::Read(Magick::Blob* blob, Stream^ stream)
-	{
-		Marshaller::Marshal(Read(stream), blob);
-	}
-	//===========================================================================================
-	void MagickReader::Read(Magick::Blob* blob, String^ fileName)
+	//==============================================================================================
+	array<Byte>^ MagickReader::Read(String^ fileName)
 	{
 		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
 		Throw::IfInvalidFileName(filePath);
 
 		FileStream^ stream = File::OpenRead(filePath);
-		Read(blob, stream);
+		array<Byte>^ result = Read(stream);
 		delete stream;
+
+		return result;
 	}
 	//==============================================================================================
 }

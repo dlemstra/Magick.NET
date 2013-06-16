@@ -45,6 +45,34 @@ namespace ImageMagick
 		return String::Format(CultureInfo::InvariantCulture, "{0:N2}{1}", fileSize, suffix);
 	}
 	//==============================================================================================
+	template<class TImageProfile>
+	TImageProfile^ MagickImage::CreateProfile(String^ name)
+	{
+		Throw::IfNullOrEmpty("name", name);
+
+		try
+		{
+			std::string profileName;
+			Marshaller::Marshal(name, profileName);
+			Magick::Blob blob = Value->profile(profileName);
+			array<Byte>^ data = Marshaller::Marshal(&blob);
+			if (data == nullptr)
+				return nullptr;
+
+			TImageProfile^ result = gcnew TImageProfile();
+			result->Initialize(name, data);
+			return result;
+		}
+		catch(Magick::ErrorCoder)
+		{
+			return nullptr;
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	bool MagickImage::IsSupportedImageFormat(ImageFormat^ format)
 	{
 		return
@@ -959,53 +987,24 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::AddProfile(array<Byte>^ data)
-	{
-		AddProfile("ICM", data);
-	}
-	//==============================================================================================
-	void MagickImage::AddProfile(ColorProfile^ profile)
+	void MagickImage::AddProfile(ImageProfile^ profile)
 	{
 		Throw::IfNull("profile", profile);
 
-		AddProfile(profile->Name, profile->Data);
-	}
-	///=============================================================================================
-	void MagickImage::AddProfile(Stream^ stream)
-	{
-		AddProfile("ICM", stream);
-	}
-	///=============================================================================================
-	void MagickImage::AddProfile(String^ fileName)
-	{
-		AddProfile("ICM", fileName);
-	}
-	//==============================================================================================
-	void MagickImage::AddProfile(String^ name, array<Byte>^ data)
-	{
-		Throw::IfNull("data", data);
+		try
+		{
+			Magick::Blob blob;
+			Marshaller::Marshal(profile->Data, &blob);
 
-		Magick::Blob blob;
-		Marshaller::Marshal(data, &blob);
-		SetProfile(name, blob);
-	}
-	///=============================================================================================
-	void MagickImage::AddProfile(String^ name, Stream^ stream)
-	{
-		Throw::IfNull("stream", stream);
+			std::string profileName;
+			Marshaller::Marshal(profile->Name, profileName);
 
-		Magick::Blob blob;
-		MagickReader::Read(&blob, stream);
-		SetProfile(name, blob);
-	}
-	///=============================================================================================
-	void MagickImage::AddProfile(String^ name, String^ fileName)
-	{
-		Throw::IfNullOrEmpty("fileName", fileName);
-
-		Magick::Blob blob;
-		MagickReader::Read(&blob, fileName);
-		SetProfile(name, blob);
+			Value->profile(profileName, blob);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::AffineTransform(DrawableAffine^ drawableAffine)
@@ -1780,61 +1779,6 @@ namespace ImageMagick
 		return (Magick::operator == (*Value, *other->Value)) ? true : false;
 	}
 	//==============================================================================================
-	array<Byte>^ MagickImage::ExifProfile()
-	{
-		try
-		{
-			Magick::Blob blob = Value->exifProfile();
-			return Marshaller::Marshal(&blob);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::ExifProfile(array<Byte>^ data)
-	{
-		try
-		{
-			Magick::Blob blob;
-			Marshaller::Marshal(data, &blob);
-			Value->exifProfile(blob);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::ExifProfile(Stream^ stream)
-	{
-		try
-		{
-			Magick::Blob blob;
-			MagickReader::Read(&blob, stream);
-			Value->exifProfile(blob);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::ExifProfile(String^ fileName)
-	{
-		try
-		{
-			Magick::Blob blob;
-			MagickReader::Read(&blob, fileName);
-			Value->exifProfile(blob);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
 	void MagickImage::Extent(MagickGeometry^ geometry)
 	{
 		Throw::IfNull("geometry", geometry);
@@ -2266,30 +2210,24 @@ namespace ImageMagick
 			signature->GetHashCode();
 	}
 	//==============================================================================================
-	array<Byte>^ MagickImage::GetProfile()
+	ColorProfile^ MagickImage::GetColorProfile()
 	{
-		return GetProfile("ICM");
+		ColorProfile^ result = CreateProfile<ColorProfile>("icm");
+
+		if (result == nullptr)
+			result = CreateProfile<ColorProfile>("icc");
+
+		return result;
 	}
 	//==============================================================================================
-	array<Byte>^ MagickImage::GetProfile(String^ name)
+	ExifProfile^ MagickImage::GetExifProfile()
 	{
-		Throw::IfNullOrEmpty("name", name);
-
-		try
-		{
-			std::string profileName;
-			Marshaller::Marshal(name, profileName);
-			Magick::Blob blob = Value->profile(profileName);
-			return Marshaller::Marshal(&blob);
-		}
-		catch(Magick::ErrorCoder)
-		{
-			return nullptr;
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
+		return CreateProfile<ExifProfile>("exif");
+	}
+	//==============================================================================================
+	ImageProfile^ MagickImage::GetProfile(String^ name)
+	{
+		return CreateProfile<ImageProfile>(name);
 	}
 	//==============================================================================================
 	PixelCollection^ MagickImage::GetReadOnlyPixels()

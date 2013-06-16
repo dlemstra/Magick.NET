@@ -99,7 +99,6 @@ static void ExecuteDepth(XmlElement^ element, MagickImage^ image);
 static void ExecuteDespeckle(XmlElement^ element, MagickImage^ image);
 static void ExecuteEdge(XmlElement^ element, MagickImage^ image);
 static void ExecuteEmboss(XmlElement^ element, MagickImage^ image);
-static void ExecuteExifProfile(XmlElement^ element, MagickImage^ image);
 static void ExecuteExtent(XmlElement^ element, MagickImage^ image);
 static void ExecuteFlip(XmlElement^ element, MagickImage^ image);
 void ExecuteFloodFill(XmlElement^ element, MagickImage^ image);
@@ -234,6 +233,7 @@ static void ExecuteSmoothQuadraticCurvetoRel(XmlElement^ element, System::Collec
 static MagickGeometry^ CreateMagickGeometry(XmlElement^ element);
 static Coordinate CreateCoordinate(XmlElement^ element);
 static Collection<Coordinate>^ CreateCoordinates(XmlElement^ element);
+static ImageProfile^ CreateImageProfile(XmlElement^ element);
 static PathArc^ CreatePathArc(XmlElement^ element);
 static Collection<PathArc^>^ CreatePathArcs(XmlElement^ element);
 static PathCurveto^ CreatePathCurveto(XmlElement^ element);

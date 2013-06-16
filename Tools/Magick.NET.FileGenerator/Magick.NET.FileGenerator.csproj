@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Constructors\ImageProfileGenerator.cs" />
     <Compile Include="Code\Constructors\GeometryGenerator.cs" />
     <Compile Include="Code\Constructors\PathQuadraticCurvetoGenerator.cs" />
     <Compile Include="Code\Constructors\PathCurvetoGeneraror.cs" />

@@ -51,6 +51,8 @@ namespace ImageMagick
 		//===========================================================================================
 		static Collection<PathBase^>^ CreatePaths(XmlElement^ element);
 		//===========================================================================================
+		static ImageProfile^ CreateProfile(XmlElement^ element);
+		//===========================================================================================
 		static XmlReaderSettings^ CreateXmlReaderSettings();
 		//===========================================================================================
 		MagickImage^ Execute(XmlElement^ element, MagickImageCollection^ collection);

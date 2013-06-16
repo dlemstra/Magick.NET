@@ -182,29 +182,6 @@
 			<xs:enumeration value="JBIG2" />
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="DistortMethod">
-		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Affine" />
-			<xs:enumeration value="AffineProjection" />
-			<xs:enumeration value="ScaleRotateTranslate" />
-			<xs:enumeration value="Perspective" />
-			<xs:enumeration value="PerspectiveProjection" />
-			<xs:enumeration value="BilinearForward" />
-			<xs:enumeration value="Bilinear" />
-			<xs:enumeration value="BilinearReverse" />
-			<xs:enumeration value="Polynomial" />
-			<xs:enumeration value="Arc" />
-			<xs:enumeration value="Polar" />
-			<xs:enumeration value="DePolar" />
-			<xs:enumeration value="Cylinder2Plane" />
-			<xs:enumeration value="Plane2Cylinder" />
-			<xs:enumeration value="Barrel" />
-			<xs:enumeration value="BarrelInverse" />
-			<xs:enumeration value="Shepards" />
-			<xs:enumeration value="Resize" />
-			<xs:enumeration value="Sentinel" />
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:simpleType name="Endian">
 		<xs:restriction base="xs:NMTOKEN">
 			<xs:enumeration value="LSB" />
@@ -655,16 +632,6 @@
 			<xs:enumeration value="PixelsPerCentimeter" />
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="SparseColorMethod">
-		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Barycentric" />
-			<xs:enumeration value="Bilinear" />
-			<xs:enumeration value="Polynomial" />
-			<xs:enumeration value="Shepards" />
-			<xs:enumeration value="Voronoi" />
-			<xs:enumeration value="Inverse" />
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:simpleType name="TextDecoration">
 		<xs:restriction base="xs:NMTOKEN">
 			<xs:enumeration value="NoDecoration" />
@@ -693,6 +660,11 @@
 			<xs:enumeration value="CheckerTileV" />
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="ColorProfile">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="SRGB" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="coordinate">
 		<xs:attribute name="x" use="required" type="xs:double" />
 		<xs:attribute name="y" use="required" type="xs:double" />
@@ -719,8 +691,9 @@
 		<xs:attribute name="x" type="xs:int" />
 		<xs:attribute name="y" type="xs:int" />
 	</xs:complexType>
-	<xs:complexType name="path">
-		<xs:group ref="paths" />
+	<xs:complexType name="imageProfile">
+		<xs:attribute name="name" use="required" type="xs:string" />
+		<xs:attribute name="fileName" use="required" type="xs:string" />
 	</xs:complexType>
 	<xs:complexType name="paths">
 		<xs:sequence>
@@ -763,6 +736,18 @@
 	<xs:complexType name="pathQuadraticCurvetos">
 		<xs:sequence>
 			<xs:element name="coordinate" maxOccurs="unbounded" type="pathCurveto" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="profile">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="imageProfile" type="imageProfile" />
+				<xs:element name="colorProfile">
+					<xs:complexType>
+						<xs:attribute name="name" type="ColorProfile" />
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="read">
@@ -1078,12 +1063,7 @@
 						<xs:attribute name="channels" type="Channels" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="addProfile">
-					<xs:complexType>
-						<xs:attribute name="fileName" use="required" type="xs:string" />
-						<xs:attribute name="name" type="xs:string" />
-					</xs:complexType>
-				</xs:element>
+				<xs:element name="addProfile" type="profile" />
 				<xs:element name="annotate">
 					<xs:complexType>
 						<xs:sequence>
@@ -1240,11 +1220,6 @@
 					<xs:complexType>
 						<xs:attribute name="radius" type="xs:double" />
 						<xs:attribute name="sigma" type="xs:double" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="exifProfile">
-					<xs:complexType>
-						<xs:attribute name="fileName" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="extent">

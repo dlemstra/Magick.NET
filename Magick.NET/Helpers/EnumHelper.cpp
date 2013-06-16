@@ -19,6 +19,19 @@ namespace ImageMagick
 	//==============================================================================================
 	generic<typename TEnum>
 	where TEnum : value class, ValueType
+	TEnum EnumHelper::Parse(int value, TEnum defaultValue)
+	{
+		for each (TEnum enumValue in Enum::GetValues(TEnum::typeid))
+		{
+			if (value == (int)enumValue)
+				return enumValue;
+		}
+
+		return defaultValue;
+	}
+	//==============================================================================================
+	generic<typename TEnum>
+	where TEnum : value class, ValueType
 	TEnum EnumHelper::Parse(String^ value, TEnum defaultValue)
 	{
 #if (NET20)

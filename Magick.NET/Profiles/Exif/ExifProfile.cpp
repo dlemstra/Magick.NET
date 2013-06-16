@@ -12,34 +12,41 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "ColorProfiles.h"
-
-using namespace System::IO;
-using namespace System::Reflection;
-using namespace System::Threading;
+#include "ExifProfile.h"
+#include "ExifReader.h"
+#include "..\..\IO\MagickReader.h"
+#include "..\..\Helpers\FileHelper.h"
 
 namespace ImageMagick
-{	
+{
 	//==============================================================================================
-	ColorProfile^ ColorProfiles::Load(String^ name, String^ resourceName)
+	void ExifProfile::Initialize()
 	{
-		Monitor::Enter(_SyncRoot);
+		if (_Values != nullptr)
+			return;
 
-		if (!_Profiles->ContainsKey(resourceName))
-		{
-			Stream^ stream = Assembly::GetAssembly(ColorProfile::typeid)->GetManifestResourceStream(resourceName);
-			_Profiles[resourceName] = gcnew ColorProfile(name, stream);
-			delete stream;
-		}
-
-		Monitor::Exit(_SyncRoot);
-
-		return _Profiles[resourceName];
+		ExifReader^ reader = gcnew ExifReader();
+		_Values = reader->Read(Data);
+		_ThumbnailOffset = reader->ThumbnailOffset;
+		_ThumbnailLength = reader->ThumbnailLength;
 	}
 	//==============================================================================================
-	ColorProfile^ ColorProfiles::SRGB::get()
+	IEnumerable<ExifValue^>^ ExifProfile::Values::get()
 	{
-		return Load("ICM", "sRGB.icm");
+		Initialize();
+		return _Values;
+	}
+	//==============================================================================================
+	MagickImage^ ExifProfile::CreateThumbnail()
+	{
+		Initialize();
+
+		if (_ThumbnailOffset == 0 || _ThumbnailLength == 0)
+			return nullptr;
+
+		array<Byte>^ data = gcnew array<Byte>(_ThumbnailLength);
+		Array::Copy(Data, _ThumbnailOffset, data, 0, _ThumbnailLength);
+		return gcnew MagickImage(data);
 	}
 	//==============================================================================================
 }

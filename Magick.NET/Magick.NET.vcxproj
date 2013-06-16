@@ -203,7 +203,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Colors\ColorProfiles.h" />
     <ClInclude Include="Drawables\DrawableDashArray.h" />
     <ClInclude Include="Drawables\DrawableDashOffset.h" />
     <ClInclude Include="Drawables\DrawableEllipse.h" />
@@ -289,9 +288,15 @@
     <ClInclude Include="Exceptions\MagickErrorExceptions.h" />
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
+    <ClInclude Include="Profiles\Exif\ExifDataType.h" />
+    <ClInclude Include="Profiles\Exif\ExifProfile.h" />
+    <ClInclude Include="Profiles\Exif\ExifReader.h" />
+    <ClInclude Include="Profiles\Exif\ExifTag.h" />
+    <ClInclude Include="Profiles\Exif\ExifValue.h" />
     <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="Helpers\FileHelper.h" />
     <ClInclude Include="Helpers\XmlHelper.h" />
+    <ClInclude Include="Profiles\ImageProfile.h" />
     <ClInclude Include="Script\Generated\Execute.h" />
     <ClInclude Include="Script\ScriptReadEventArgs.h" />
     <ClInclude Include="Script\MagickScript.h" />
@@ -343,7 +348,7 @@
     <ClInclude Include="Matrices\Base\MatrixDouble.h" />
     <ClInclude Include="Enums\NoiseType.h" />
     <ClInclude Include="Enums\PaintMethod.h" />
-    <ClInclude Include="Colors\ColorProfile.h" />
+    <ClInclude Include="Profiles\Color\ColorProfile.h" />
     <ClInclude Include="Pixels\Pixel.h" />
     <ClInclude Include="Pixels\PixelCollection.h" />
     <ClInclude Include="Pixels\Base\PixelBaseCollection.h" />
@@ -354,7 +359,6 @@
     <ClInclude Include="Helpers\Throw.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Colors\ColorProfiles.cpp" />
     <ClCompile Include="Drawables\DrawableDashArray.cpp" />
     <ClCompile Include="Drawables\DrawableDashOffset.cpp" />
     <ClCompile Include="Drawables\DrawableEllipse.cpp" />
@@ -417,6 +421,9 @@
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.cpp" />
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.cpp" />
     <ClCompile Include="Exceptions\Base\MagickException.cpp" />
+    <ClCompile Include="Profiles\Exif\ExifProfile.cpp" />
+    <ClCompile Include="Profiles\Exif\ExifReader.cpp" />
+    <ClCompile Include="Profiles\Exif\ExifValue.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\FileHelper.cpp" />
     <ClCompile Include="GlobalSuppressions.cpp">
@@ -430,6 +437,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Helpers\XmlHelper.cpp" />
+    <ClCompile Include="Profiles\ImageProfile.cpp" />
     <ClCompile Include="Script\Generated\Execute.cpp" />
     <ClCompile Include="Script\MagickScript.cpp" />
     <ClCompile Include="Script\ScriptReadEventArgs.cpp" />
@@ -470,7 +478,7 @@
     <ClCompile Include="IO\MagickReader.cpp" />
     <ClCompile Include="IO\MagickWriter.cpp" />
     <ClCompile Include="Matrices\Base\MatrixDouble.cpp" />
-    <ClCompile Include="Colors\ColorProfile.cpp" />
+    <ClCompile Include="Profiles\Color\ColorProfile.cpp" />
     <ClCompile Include="Pixels\Pixel.cpp" />
     <ClCompile Include="Pixels\PixelCollection.cpp" />
     <ClCompile Include="Pixels\Base\PixelBaseCollection.cpp" />

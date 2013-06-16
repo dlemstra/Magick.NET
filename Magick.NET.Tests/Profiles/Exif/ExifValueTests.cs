@@ -12,36 +12,52 @@
 // limitations under the License.
 //=================================================================================================
 
+using System.Linq;
+using ImageMagick;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace Magick.NET.Tests
 {
 	//==============================================================================================
-	public static class Images
+	[TestClass]
+	public class ExifValueTests
 	{
 		//===========================================================================================
-		private static string _ImageDir = @"..\..\..\Magick.NET.Tests\Images\";
+		private const string _Category = "ExifValue";
 		//===========================================================================================
-		public static string Missing
+		private static ExifValue GetExifValue()
 		{
-			get
+			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
 			{
-				return @"C:\Foo\Bar.png";
+				ExifProfile profile = image.GetExifProfile();
+				Assert.IsNotNull(profile);
+
+				return profile.Values.First();
 			}
 		}
 		//===========================================================================================
-		public static string RoseSparkleGIF
+		[TestMethod, TestCategory(_Category)]
+		public void Test_IEquatable()
 		{
-			get
-			{
-				return _ImageDir + "RoseSparkle.gif";
-			}
+			ExifValue first = GetExifValue();
+			ExifValue second = GetExifValue();
+
+			Assert.IsTrue(first == second);
+			Assert.IsTrue(first.Equals(second));
+			Assert.IsTrue(first.Equals((object)second));
 		}
 		//===========================================================================================
-		public static string SnakewarePNG
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Properties()
 		{
-			get
-			{
-				return _ImageDir + "Snakeware.png";
-			}
+			ExifValue value = GetExifValue();
+
+			Assert.AreEqual(ExifDataType.Ascii, value.DataType);
+			Assert.AreEqual(ExifTag.ImageDescription, value.Tag);
+			Assert.AreEqual(false, value.IsArray);
+			Assert.AreEqual("Communications", value.ToString());
+			Assert.AreEqual("Communications", value.Value);
+			Assert.AreEqual(value.Value, value.ToString());
 		}
 		//===========================================================================================
 	}

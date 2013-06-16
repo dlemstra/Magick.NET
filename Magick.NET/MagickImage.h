@@ -51,6 +51,9 @@
 #include "Percentage.h"
 #include "Pixels\PixelCollection.h"
 #include "Pixels\WritablePixelCollection.h"
+#include "Profiles\ImageProfile.h"
+#include "Profiles\Exif\ExifProfile.h"
+#include "Profiles\Color\ColorProfile.h"
 #include "Settings\MagickReadSettings.h"
 #include "Statistics\MagickImageStatistics.h"
 #include "TypeMetric.h"
@@ -75,6 +78,9 @@ namespace ImageMagick
 		MagickWarningException^ _ReadWarning;
 		//===========================================================================================
 		String^ FormatedFileSize();
+		//===========================================================================================
+		template<class TImageProfile>
+		TImageProfile^ CreateProfile(String^ name);
 		//===========================================================================================
 		static bool IsSupportedImageFormat(ImageFormat^ format);
 		//===========================================================================================
@@ -859,56 +865,11 @@ namespace ImageMagick
 		void AddNoise(NoiseType noiseType, Channels channels);
 		///==========================================================================================
 		///<summary>
-		/// Add an ICC iCM profile to an image.
+		/// Adds the specified profile to the image or overwrites it.
 		///</summary>
-		///<param name="data">A byte array containing the profile.</param>
+		///<param name="profile">The profile to add or overwrite.</param>
 		///<exception cref="MagickException"/>
-		void AddProfile(array<Byte>^ data);
-		///==========================================================================================
-		///<summary>
-		/// Add a profile to an image.
-		///</summary>
-		///<param name="profile">The profile.</param>
-		///<exception cref="MagickException"/>
-		void AddProfile(ColorProfile^ profile);
-		///==========================================================================================
-		///<summary>
-		/// Add an ICC iCM profile to an image.
-		///</summary>
-		///<param name="stream">A stream containing the profile.</param>
-		///<exception cref="MagickException"/>
-		void AddProfile(Stream^ stream);
-		///==========================================================================================
-		///<summary>
-		/// Add an ICC iCM profile to an image.
-		///</summary>
-		///<param name="fileName">The file to read the profile from.</param>
-		///<exception cref="MagickException"/>
-		void AddProfile(String^ fileName);
-		///==========================================================================================
-		///<summary>
-		/// Add a named profile to an image.
-		///</summary>
-		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
-		///<param name="data">A byte array containing the profile.</param>
-		///<exception cref="MagickException"/>
-		void AddProfile(String^ name, array<Byte>^ data);
-		///==========================================================================================
-		///<summary>
-		/// Add a named profile to an image.
-		///</summary>
-		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
-		///<param name="stream">A stream containing the profile.</param>
-		///<exception cref="MagickException"/>
-		void AddProfile(String^ name, Stream^ stream);
-		///==========================================================================================
-		///<summary>
-		/// Add a named profile to an image.
-		///</summary>
-		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
-		///<param name="fileName">The file to read the profile from.</param>
-		///<exception cref="MagickException"/>
-		void AddProfile(String^ name, String^ fileName);
+		void AddProfile(ImageProfile^ profile);
 		///==========================================================================================
 		///<summary>
 		/// Affine Transform image.
@@ -1364,34 +1325,6 @@ namespace ImageMagick
 		void Emboss(double radius, double sigma);
 		///==========================================================================================
 		///<summary>
-		/// Returns the ExifProfile as a byte array,
-		///</summary>
-		///<exception cref="MagickException"/>
-		array<Byte>^ ExifProfile();
-		///==========================================================================================
-		///<summary>
-		/// Loads the ExifProfile from the specified filename.
-		///</summary>
-		///<param name="data">The byte array to read the exif profile from.</param>
-		///<exception cref="MagickException"/>
-		void ExifProfile(array<Byte>^ data);
-		///==========================================================================================
-		///<summary>
-		/// Loads the ExifProfile from the specified stream.
-		///</summary>
-		///<param name="stream">The stream to read the exif profile from.</param>
-		///<exception cref="MagickException"/>
-		void ExifProfile(Stream^ stream);
-		///==========================================================================================
-		///<summary>
-		/// Loads the ExifProfile from the specified filename.
-		///</summary>
-		///<param name="fileName">The fully qualified name of the exif profile file, or the relative exif
-		/// profile file name.</param>
-		///<exception cref="MagickException"/>
-		void ExifProfile(String^ fileName);
-		///==========================================================================================
-		///<summary>
 		/// Extend the image as defined by the geometry.
 		///</summary>
 		///<param name="geometry">The geometry to extend the image to.</param>
@@ -1635,17 +1568,23 @@ namespace ImageMagick
 		MagickGeometry^ Geometry();
 		///==========================================================================================
 		///<summary>
-		/// Retrieve the ICC ICM profile from the image.
+		/// Retrieve the color profile from the image.
 		///</summary>
 		///<exception cref="MagickException"/>
-		array<Byte>^ GetProfile();
+		ColorProfile^ GetColorProfile();
+		///==========================================================================================
+		///<summary>
+		/// Retrieve the exif profile from the image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		ExifProfile^ GetExifProfile();
 		///==========================================================================================
 		///<summary>
 		/// Retrieve a named profile from the image.
 		///</summary>
 		///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
 		///<exception cref="MagickException"/>
-		array<Byte>^ GetProfile(String^ name);
+		ImageProfile^ GetProfile(String^ name);
 		///==========================================================================================
 		///<summary>
 		/// Returns an read-only pixel collection that can be used to access the pixels of this image.

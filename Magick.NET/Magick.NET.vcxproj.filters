@@ -124,6 +124,24 @@
     <Filter Include="Source Files\Script\Generated">
       <UniqueIdentifier>{7dc78eed-32bb-4642-bb04-835c08fa6613}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Profiles">
+      <UniqueIdentifier>{7cbe75d1-9896-4d23-91a3-6669ee4714b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Profiles\Exif">
+      <UniqueIdentifier>{ce341e84-3629-4ec9-981b-f1fc1e652ab3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Profiles\Color">
+      <UniqueIdentifier>{618471d4-e4b1-459f-9a56-9275811ad491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Profiles">
+      <UniqueIdentifier>{3947fe56-b317-4f4b-b313-70a5663f5d30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Profiles\Exif">
+      <UniqueIdentifier>{5c848016-d796-4fe4-b037-5533aa15a9a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Profiles\Color">
+      <UniqueIdentifier>{532c493b-0cfb-46af-8843-7a37a8ea12f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
@@ -498,9 +516,6 @@
     <ClInclude Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.h">
       <Filter>Header Files\Drawables\Paths</Filter>
     </ClInclude>
-    <ClInclude Include="Colors\ColorProfile.h">
-      <Filter>Header Files\Colors</Filter>
-    </ClInclude>
     <ClInclude Include="Helpers\FileHelper.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
@@ -509,9 +524,6 @@
     </ClInclude>
     <ClInclude Include="Enums\MagickFormat.h">
       <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Colors\ColorProfiles.h">
-      <Filter>Header Files\Colors</Filter>
     </ClInclude>
     <ClInclude Include="Settings\MagickReadSettings.h">
       <Filter>Header Files\Settings</Filter>
@@ -572,6 +584,27 @@
     </ClInclude>
     <ClInclude Include="Enums\CompressionMethod.h">
       <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiles\Exif\ExifDataType.h">
+      <Filter>Header Files\Profiles\Exif</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiles\Exif\ExifProfile.h">
+      <Filter>Header Files\Profiles\Exif</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiles\Color\ColorProfile.h">
+      <Filter>Header Files\Profiles\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiles\Exif\ExifReader.h">
+      <Filter>Header Files\Profiles\Exif</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiles\Exif\ExifTag.h">
+      <Filter>Header Files\Profiles\Exif</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiles\Exif\ExifValue.h">
+      <Filter>Header Files\Profiles\Exif</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiles\ImageProfile.h">
+      <Filter>Header Files\Profiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -854,17 +887,11 @@
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.cpp">
       <Filter>Source Files\Drawables\Paths</Filter>
     </ClCompile>
-    <ClCompile Include="Colors\ColorProfile.cpp">
-      <Filter>Source Files\Colors</Filter>
-    </ClCompile>
     <ClCompile Include="Helpers\FileHelper.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Helpers\EnumHelper.cpp">
       <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Colors\ColorProfiles.cpp">
-      <Filter>Source Files\Colors</Filter>
     </ClCompile>
     <ClCompile Include="IO\MagickReader.cpp">
       <Filter>Source Files\IO</Filter>
@@ -919,6 +946,21 @@
     </ClCompile>
     <ClCompile Include="Drawables\Paths\Args\PathQuadraticCurveto.cpp">
       <Filter>Source Files\Drawables\Paths\Args</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiles\Exif\ExifProfile.cpp">
+      <Filter>Source Files\Profiles\Exif</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiles\Exif\ExifReader.cpp">
+      <Filter>Source Files\Profiles\Exif</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiles\Color\ColorProfile.cpp">
+      <Filter>Source Files\Profiles\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiles\Exif\ExifValue.cpp">
+      <Filter>Source Files\Profiles\Exif</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiles\ImageProfile.cpp">
+      <Filter>Source Files\Profiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

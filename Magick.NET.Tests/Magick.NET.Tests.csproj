@@ -60,11 +60,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Colors\ColorMonoTests.cs" />
-    <Compile Include="Colors\ColorProfileTests.cs" />
+    <Compile Include="Profiles\Color\ColorProfileTests.cs" />
     <Compile Include="Colors\ColorRGBTests.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ExceptionAssert.cs" />
+    <Compile Include="Profiles\Exif\ExifProfileTests.cs" />
+    <Compile Include="Profiles\Exif\ExifValueTests.cs" />
     <Compile Include="InitializeTests.cs" />
     <Compile Include="Colors\MagickColorTests.cs" />
     <Compile Include="MagickGeometryTests.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="MagickImageInfoTests.cs" />
     <Compile Include="MagickImageTests.cs" />
     <Compile Include="MagickNETTests.cs" />
+    <Compile Include="Profiles\ImageProfileTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Files.cs" />
     <Compile Include="Script\MagickScriptTests.cs" />
@@ -82,6 +85,7 @@
       <Name>Magick.NET</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

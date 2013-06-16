@@ -41,9 +41,8 @@ namespace ImageMagick
 		//===========================================================================================
 		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, Magick::Blob* blob,
 			MagickReadSettings^ readSettings);
-	internal:
 		//===========================================================================================
-		static array<Byte>^ Read(Stream^ stream);
+	internal:
 		//===========================================================================================
 		static void Read(Magick::Blob* blob, Stream^ stream);
 		//===========================================================================================
@@ -67,5 +66,10 @@ namespace ImageMagick
 		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, String^ fileName,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
+		static array<Byte>^ Read(Stream^ stream);
+		//===========================================================================================
+		static array<Byte>^ Read(String^ fileName);
+		//===========================================================================================
 	};
+	//==============================================================================================
 }

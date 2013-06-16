@@ -198,6 +198,7 @@ namespace Magick.NET.FileGenerator
 			switch (name)
 			{
 				case "Encoding":
+				case "ImageProfile":
 				case "MagickColor":
 				case "MagickGeometry":
 				case "MagickImage":
