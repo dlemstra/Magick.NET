@@ -2,6 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
 		<ImageMagickOutputPath>$(OutputPath)\ImageMagick-PLATFORM</ImageMagickOutputPath>
+		<ImageMagickWebOutputPath>bin\ImageMagick-PLATFORM</ImageMagickWebOutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -12,6 +13,12 @@
 	<ItemGroup>
 		<ImageMagickFiles Include="$(MSBuildThisFileDirectory)\..\..\ImageMagick-PLATFORM\NET_VERSION\*.dll" />
 		<ImageMagickFiles Include="$(MSBuildThisFileDirectory)\..\..\ImageMagick\xml\*.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<FilesForPackagingFromProject Include="@(ImageMagickFiles)">
+			<DestinationRelativePath>$(ImageMagickWebOutputPath)\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+		</FilesForPackagingFromProject>
 	</ItemGroup>
 
 	<Target Name="CopyMagickNET">
