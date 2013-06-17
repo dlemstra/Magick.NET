@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -23,6 +24,59 @@ namespace Magick.NET.Tests
 	{
 		//===========================================================================================
 		private const string _Category = "MagickGeometry";
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Constructor()
+		{
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				new MagickGeometry((string)null);
+			});
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				new MagickGeometry("");
+			});
+
+			MagickGeometry geometry = new MagickGeometry("5x10!");
+			Assert.AreEqual(5, geometry.Width);
+			Assert.AreEqual(10, geometry.Height);
+			Assert.AreEqual(true, geometry.Aspect);
+			Assert.AreEqual(false, geometry.Less);
+			Assert.AreEqual(false, geometry.Greater);
+
+			geometry = new MagickGeometry("5x10<");
+			Assert.AreEqual(false, geometry.Aspect);
+			Assert.AreEqual(true, geometry.Less);
+			Assert.AreEqual(false, geometry.Greater);
+
+			geometry = new MagickGeometry("5x10>");
+			Assert.AreEqual(false, geometry.Aspect);
+			Assert.AreEqual(false, geometry.Less);
+			Assert.AreEqual(true, geometry.Greater);
+
+			geometry = new MagickGeometry(5, 10);
+			Assert.AreEqual(5, geometry.Width);
+			Assert.AreEqual(10, geometry.Height);
+
+			geometry = new MagickGeometry(5, 10, 15, 20);
+			Assert.AreEqual(5, geometry.X);
+			Assert.AreEqual(10, geometry.Y);
+			Assert.AreEqual(15, geometry.Width);
+			Assert.AreEqual(20, geometry.Height);
+
+			geometry = new MagickGeometry(0.5, 0.1);
+			Assert.AreEqual(50, geometry.Width);
+			Assert.AreEqual(10, geometry.Height);
+			Assert.AreEqual(true, geometry.IsPercentage);
+
+			geometry = new MagickGeometry(5, 10, 0.15, 0.2);
+			Assert.AreEqual(5, geometry.X);
+			Assert.AreEqual(10, geometry.Y);
+			Assert.AreEqual(15, geometry.Width);
+			Assert.AreEqual(20, geometry.Height);
+			Assert.AreEqual(true, geometry.IsPercentage);
+		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_IComparable()

@@ -17,15 +17,41 @@
 namespace ImageMagick
 {
 	//==============================================================================================
+	void MagickGeometry::Initialize(Magick::Geometry geometry)
+	{
+		X =  geometry.xNegative() ? -geometry.xOff() : geometry.xOff();
+		Y =  geometry.yNegative() ? -geometry.yOff() : geometry.yOff();
+		Width = geometry.width();
+		Height = geometry.height();
+		IsPercentage = geometry.percent();
+		Aspect = geometry.aspect();
+		Less = geometry.less();
+		Greater = geometry.greater();
+	}
+	//==============================================================================================
 	void MagickGeometry::Initialize(int x, int y, int width, int height, bool isPercentage)
 	{
-		Value = new Magick::Geometry(width, height, x, y, x < 0, y < 0);
-		Value->percent(isPercentage);
+		X = x;
+		Y = y;
+		Width = width;
+		Height = height;
+		IsPercentage = isPercentage;
 	}
 	//==============================================================================================
 	MagickGeometry::MagickGeometry(Magick::Geometry geometry)
 	{
-		Value = new Magick::Geometry(geometry);
+		Initialize(geometry);
+	}
+	//==============================================================================================
+	const Magick::Geometry* MagickGeometry::CreateGeometry()
+	{
+		Magick::Geometry* result = new Magick::Geometry(Width, Height, Math::Abs(X), Math::Abs(Y), X < 0, Y < 0);
+		result->percent(IsPercentage);
+		result->aspect(Aspect);
+		result->less(Less);
+		result->greater(Greater);
+
+		return result;
 	}
 	//==============================================================================================
 	MagickGeometry::MagickGeometry(int width, int height)
@@ -55,63 +81,15 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickGeometry::MagickGeometry(String^ value)
 	{
+		Throw::IfNullOrEmpty("value", value);
+
 		std::string geometrySpec;
 		Marshaller::Marshal(value, geometrySpec);
-		Value = new Magick::Geometry(geometrySpec);
 
-		Throw::IfFalse("geometry", Value->isValid(), "Invalid geometry specified.");
-	}
-	//==============================================================================================
-	int MagickGeometry::Height::get()
-	{
-		return Convert::ToInt32(Value->height());
-	}
-	//==============================================================================================
-	void  MagickGeometry::Height::set(int value)
-	{
-		Value->height(value);
-	}
-	//==============================================================================================
-	bool MagickGeometry::IsPercentage::get()
-	{
-		return Value->percent();
-	}
-	//==============================================================================================
-	void MagickGeometry::IsPercentage::set(bool value)
-	{
-		Value->percent(value);
-	}
-	//==============================================================================================
-	int MagickGeometry::Width::get()
-	{
-		return Convert::ToInt32(Value->width());
-	}
-	//==============================================================================================
-	void MagickGeometry::Width::set(int value)
-	{
-		Value->width(value);
-	}
-	//==============================================================================================
-	int MagickGeometry::X::get()
-	{
-		return Convert::ToInt32(Value->xNegative() ? -1 * Value->xOff() : Value->xOff());
-	}
-	//==============================================================================================
-	void MagickGeometry::X::set(int value)
-	{
-		Value->xOff(value);
-		Value->xNegative(value < 0);
-	}
-	//==============================================================================================
-	int MagickGeometry::Y::get()
-	{
-		return Convert::ToInt32(Value->yNegative() ? -1 * Value->yOff() : Value->yOff());
-	}
-	//==============================================================================================
-	void MagickGeometry::Y::set(int value)
-	{
-		Value->yOff(value);
-		Value->yNegative(value < 0);
+		Magick::Geometry geometry = Magick::Geometry(geometrySpec);
+		Throw::IfFalse("geometry", geometry.isValid(), "Invalid geometry specified.");
+
+		Initialize(geometry);
 	}
 	//==============================================================================================
 	int MagickGeometry::CompareTo(MagickGeometry^ other)
@@ -144,22 +122,28 @@ namespace ImageMagick
 		if (ReferenceEquals(this, other))
 			return true;
 
-		return (Magick::operator == (*Value, *other->Value)) ? true : false;
+		return
+			Width == other->Width &&
+			Height == other->Height && 
+			X == other->X &&
+			Y == other->Y &&
+			IsPercentage == other->IsPercentage &&
+			Aspect == other->Aspect &&
+			Less == other->Less &&
+			Greater == other->Greater;
 	}
 	//==============================================================================================
 	int MagickGeometry::GetHashCode()
 	{
 		return
-			Value->width().GetHashCode() ^
-			Value->height().GetHashCode() ^
-			Value->xOff().GetHashCode() ^
-			Value->yOff().GetHashCode() ^
-			Value->xNegative().GetHashCode() ^
-			Value->yNegative().GetHashCode() ^
-			Value->percent().GetHashCode() ^
-			Value->aspect().GetHashCode() ^
-			Value->greater().GetHashCode() ^
-			Value->less().GetHashCode();
+			Width.GetHashCode() ^
+			Height.GetHashCode() ^
+			X.GetHashCode() ^
+			Y.GetHashCode() ^
+			IsPercentage.GetHashCode() ^
+			Aspect.GetHashCode() ^
+			Less.GetHashCode() ^
+			Greater.GetHashCode();
 	}
 	//==============================================================================================
 }

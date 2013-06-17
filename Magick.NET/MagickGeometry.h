@@ -24,11 +24,12 @@ namespace ImageMagick
 	///<summary>
 	/// Encapsulation of the ImageMagick geometry object.
 	///</summary>
-	public ref class MagickGeometry sealed : MagickWrapper<Magick::Geometry>,
-		IEquatable<MagickGeometry^>, IComparable<MagickGeometry^>
+	public ref class MagickGeometry sealed : IEquatable<MagickGeometry^>, IComparable<MagickGeometry^>
 	{
 		//===========================================================================================
 	private:
+		//===========================================================================================
+		void Initialize(Magick::Geometry geometry);
 		//===========================================================================================
 		void Initialize(int x, int y, int width, int height, bool isPercentage);
 		//===========================================================================================
@@ -36,10 +37,7 @@ namespace ImageMagick
 		//===========================================================================================
 		MagickGeometry(Magick::Geometry geometry);
 		//===========================================================================================
-		static operator const Magick::Geometry& (MagickGeometry^ geometry)
-		{
-			return *(geometry->Value);
-		}
+		const Magick::Geometry* CreateGeometry();
 		//===========================================================================================
 	public:
 		///==========================================================================================
@@ -95,50 +93,45 @@ namespace ImageMagick
 		MagickGeometry(String^ value);
 		///==========================================================================================
 		///<summary>
+		/// Resize without preserving aspect ratio (!)
+		///</summary>
+		property bool Aspect;
+		///==========================================================================================
+		///<summary>
+		/// Resize if image is greater than size (&gt;)
+		///</summary>
+		property bool Greater;
+		///==========================================================================================
+		///<summary>
 		/// The height of the geometry.
 		///</summary>
 		///==========================================================================================
-		property int Height
-		{
-			int get();
-			void set(int value);
-		}
+		property int Height;
 		///==========================================================================================
 		///<summary>
 		/// True if width and height are expressed as percentages.
 		///</summary>
-		property bool IsPercentage
-		{
-			bool get();
-			void set(bool value);
-		}
+		property bool IsPercentage;
+		///==========================================================================================
+		///<summary>
+		/// Resize if image is less than size (&lt;)
+		///</summary>
+		property bool Less;
 		///==========================================================================================
 		///<summary>
 		/// The width of the geometry.
 		///</summary>
-		property int Width
-		{
-			int get();
-			void set(int value);
-		}
+		property int Width;
 		///==========================================================================================
 		///<summary>
 		/// X offset from origin
 		///</summary>
-		property int X
-		{
-			int get();
-			void set(int value);
-		}
+		property int X;
 		///==========================================================================================
 		///<summary>
 		/// Y offset from origin
 		///</summary>
-		property int Y
-		{
-			int get();
-			void set(int value);
-		}
+		property int Y;
 		//===========================================================================================
 		static bool operator == (MagickGeometry^ left, MagickGeometry^ right)
 		{

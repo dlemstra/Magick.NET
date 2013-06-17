@@ -36,7 +36,11 @@ namespace ImageMagick
 		}
 
 		if (readSettings->Density != nullptr)
-			image->density(readSettings->Density);
+		{
+			const Magick::Geometry* geometry = readSettings->Density->CreateGeometry();
+			image->density(*geometry);
+			delete geometry;
+		}
 
 		if (readSettings->Width.HasValue && readSettings->Height.HasValue)
 		{
@@ -52,8 +56,10 @@ namespace ImageMagick
 
 		if (readSettings->Density != nullptr)
 		{
-			std::string geometry = (Magick::Geometry)readSettings->Density;
-			MagickCore::CloneString(&imageInfo->density, geometry.c_str());
+			const Magick::Geometry* geometry = readSettings->Density->CreateGeometry();
+			std::string geometryStr = *geometry;
+			MagickCore::CloneString(&imageInfo->density, geometryStr.c_str());
+			delete geometry;
 		}
 
 		if (readSettings->ColorSpace.HasValue)

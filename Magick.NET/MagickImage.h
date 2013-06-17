@@ -1334,6 +1334,12 @@ namespace ImageMagick
 		void Emboss(double radius, double sigma);
 		///==========================================================================================
 		///<summary>
+		/// Preferred size of the image when encoding.
+		///</summary>
+		///<exception cref="MagickException"/>
+		MagickGeometry^ EncodingGeometry();
+		///==========================================================================================
+		///<summary>
 		/// Extend the image as defined by the geometry.
 		///</summary>
 		///<param name="geometry">The geometry to extend the image to.</param>
@@ -1569,12 +1575,6 @@ namespace ImageMagick
 		/// Servers as a hash of this type.
 		///</summary>
 		virtual int GetHashCode() override;
-		///==========================================================================================
-		///<summary>
-		/// Preferred size of the image when encoding.
-		///</summary>
-		///<exception cref="MagickException"/>
-		MagickGeometry^ Geometry();
 		///==========================================================================================
 		///<summary>
 		/// Retrieve the color profile from the image.

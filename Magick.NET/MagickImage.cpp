@@ -212,9 +212,9 @@ namespace ImageMagick
 	{
 		Throw::IfNull("color", color);
 
-		MagickGeometry^ geometry = gcnew	MagickGeometry(width, height);
+		Magick::Geometry* geometry = new Magick::Geometry(width, height);
 		const Magick::Color* background = color->CreateColor();
-		Value = new Magick::Image(geometry, *background);
+		Value = new Magick::Image(*geometry, *background);
 		Value->backgroundColor(*background);
 		delete geometry;
 		delete background;
@@ -462,7 +462,9 @@ namespace ImageMagick
 		if (value == nullptr)
 			return;
 
-		Value->density(value);
+		const Magick::Geometry* geometry = value->CreateGeometry();
+		Value->density(*geometry);
+		delete geometry;
 	}
 	//==============================================================================================
 	Endian MagickImage::Endian::get()
@@ -677,7 +679,11 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Page::set(MagickGeometry^ value)
 	{
-		Value->page(value);
+		Throw::IfNull("value", value);
+
+		const Magick::Geometry* geometry = value->CreateGeometry();
+		Value->page(*geometry);
+		delete geometry;
 	}
 	//==============================================================================================
 	int MagickImage::Quality::get()
@@ -1034,51 +1040,69 @@ namespace ImageMagick
 	void MagickImage::Annotate(String^ text, MagickGeometry^ location)
 	{
 		Throw::IfNullOrEmpty("text", text);
+		Throw::IfNull("location", location);
 
 		std::string annotateText;
 		Marshaller::Marshal(text, annotateText);
+		const Magick::Geometry* geometry = location->CreateGeometry();
 
 		try
 		{
-			Value->annotate(annotateText, location);
+			Value->annotate(annotateText, *geometry);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete geometry;
 		}
 	}
 	//==============================================================================================
 	void MagickImage::Annotate(String^ text, MagickGeometry^ boundingArea, Gravity gravity)
 	{
 		Throw::IfNullOrEmpty("text", text);
+		Throw::IfNull("boundingArea", boundingArea);
 
 		std::string annotateText;
 		Marshaller::Marshal(text, annotateText);
+		const Magick::Geometry* geometry = boundingArea->CreateGeometry();
 
 		try
 		{
-			Value->annotate(annotateText, boundingArea, (Magick::GravityType)gravity);
+			Value->annotate(annotateText, *geometry, (Magick::GravityType)gravity);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete geometry;
 		}
 	}
 	//==============================================================================================
 	void MagickImage::Annotate(String^ text, MagickGeometry^ boundingArea, Gravity gravity, double degrees)
 	{
 		Throw::IfNullOrEmpty("text", text);
+		Throw::IfNull("boundingArea", boundingArea);
 
 		std::string annotateText;
 		Marshaller::Marshal(text, annotateText);
+		const Magick::Geometry* geometry = boundingArea->CreateGeometry();
 
 		try
 		{
-			Value->annotate(annotateText, boundingArea, (Magick::GravityType)gravity, degrees);
+			Value->annotate(annotateText, *geometry, (Magick::GravityType)gravity, degrees);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete geometry;
 		}
 	}
 	//==============================================================================================
@@ -1232,19 +1256,14 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Chop(int xOffset, int width, int yOffset, int height)
 	{
-		MagickGeometry^ geometry = gcnew MagickGeometry(xOffset, yOffset, width, height);
-
 		try
 		{
+			Magick::Geometry geometry = Magick::Geometry(xOffset, yOffset, width, height);
 			Value->chop(geometry);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
-		}
-		finally
-		{
-			delete geometry;
 		}
 	}
 	//==============================================================================================
@@ -1252,13 +1271,19 @@ namespace ImageMagick
 	{
 		Throw::IfNull("geometry", geometry);
 
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
 		try
 		{
-			Value->chop(geometry);
+			Value->chop(*magickGeometry);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -1469,13 +1494,19 @@ namespace ImageMagick
 		Throw::IfNull("image", image);
 		Throw::IfNull("geometry", geometry);
 
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
 		try
 		{
-			Value->composite(*(image->Value), geometry, (MagickCore::CompositeOperator)compose);
+			Value->composite(*(image->Value), *magickGeometry, (MagickCore::CompositeOperator)compose);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -1544,13 +1575,19 @@ namespace ImageMagick
 	{
 		Throw::IfNull("geometry", geometry);
 
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
 		try
 		{
-			Value->crop(geometry);
+			Value->crop(*magickGeometry);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -1770,6 +1807,18 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	MagickGeometry^ MagickImage::EncodingGeometry()
+	{
+		try
+		{
+			return gcnew MagickGeometry(Value->geometry());
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	bool MagickImage::Equals(Object^ obj)
 	{
 		if (ReferenceEquals(this, obj))
@@ -1793,13 +1842,19 @@ namespace ImageMagick
 	{
 		Throw::IfNull("geometry", geometry);
 
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
 		try
 		{
-			Value->extent(geometry);
+			Value->extent(*magickGeometry);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -1809,10 +1864,11 @@ namespace ImageMagick
 		Throw::IfNull("backgroundColor", backgroundColor);
 
 		const Magick::Color* color = backgroundColor->CreateColor();
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
 
 		try
 		{
-			Value->extent(geometry, *color);
+			Value->extent(*magickGeometry, *color);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1821,6 +1877,7 @@ namespace ImageMagick
 		finally
 		{
 			delete color;
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -1828,13 +1885,19 @@ namespace ImageMagick
 	{
 		Throw::IfNull("geometry", geometry);
 
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
 		try
 		{
-			Value->extent(geometry, (MagickCore::GravityType)gravity);
+			Value->extent(*magickGeometry, (MagickCore::GravityType)gravity);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -1844,10 +1907,11 @@ namespace ImageMagick
 		Throw::IfNull("backgroundColor", backgroundColor);
 
 		const Magick::Color* color = backgroundColor->CreateColor();
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
 
 		try
 		{
-			Value->extent(geometry, *color, (MagickCore::GravityType)gravity);
+			Value->extent(*magickGeometry, *color, (MagickCore::GravityType)gravity);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1856,6 +1920,7 @@ namespace ImageMagick
 		finally
 		{
 			delete color;
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -1932,10 +1997,11 @@ namespace ImageMagick
 		Throw::IfNull("geometry", geometry);
 
 		const Magick::Color* fillColor = color->CreateColor();
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
 
 		try
 		{
-			Value->floodFillColor(geometry, *fillColor);
+			Value->floodFillColor(*magickGeometry, *fillColor);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1944,6 +2010,7 @@ namespace ImageMagick
 		finally
 		{
 			delete fillColor;
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -1955,10 +2022,11 @@ namespace ImageMagick
 
 		const Magick::Color* fillColor = color->CreateColor();
 		const Magick::Color* fillBorderColor = borderColor->CreateColor();
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
 
 		try
 		{
-			Value->floodFillColor(geometry, *fillColor, *fillBorderColor);
+			Value->floodFillColor(*magickGeometry, *fillColor, *fillBorderColor);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1968,6 +2036,7 @@ namespace ImageMagick
 		{
 			delete fillColor;
 			delete fillBorderColor;
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -2011,13 +2080,19 @@ namespace ImageMagick
 		Throw::IfNull("image", image);
 		Throw::IfNull("geometry", geometry);
 
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
 		try
 		{
-			Value->floodFillTexture(geometry, *image->Value);
+			Value->floodFillTexture(*magickGeometry, *image->Value);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -2028,10 +2103,11 @@ namespace ImageMagick
 		Throw::IfNull("borderColor", borderColor);
 
 		const Magick::Color* fillBorderColor = borderColor->CreateColor();
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
 
 		try
 		{
-			Value->floodFillTexture(geometry, *image->Value, *fillBorderColor);
+			Value->floodFillTexture(*magickGeometry, *image->Value, *fillBorderColor);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2040,6 +2116,7 @@ namespace ImageMagick
 		finally
 		{
 			delete fillBorderColor;
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -2087,13 +2164,19 @@ namespace ImageMagick
 	{
 		Throw::IfNull("geometry", geometry);
 
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
 		try
 		{
-			Value->frame(geometry);
+			Value->frame(*magickGeometry);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -2191,18 +2274,6 @@ namespace ImageMagick
 		try
 		{
 			Value->gaussianBlurChannel((MagickCore::ChannelType)channels, width, sigma);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	MagickGeometry^ MagickImage::Geometry()
-	{
-		try
-		{
-			return gcnew MagickGeometry(Value->geometry());
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2644,13 +2715,19 @@ namespace ImageMagick
 	{
 		Throw::IfNull("geometry", geometry);
 
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
 		try
 		{
-			Value->resize(geometry);
+			Value->resize(*magickGeometry);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -2701,13 +2778,19 @@ namespace ImageMagick
 	{
 		Throw::IfNull("geometry", geometry);
 
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
 		try
 		{
-			Value->sample(geometry);
+			Value->sample(*magickGeometry);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -2734,13 +2817,19 @@ namespace ImageMagick
 	{
 		Throw::IfNull("geometry", geometry);
 
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
 		try
 		{
-			Value->scale(geometry);
+			Value->scale(*magickGeometry);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
@@ -3111,13 +3200,19 @@ namespace ImageMagick
 	{
 		Throw::IfNull("imageGeometry", imageGeometry);
 
+		const Magick::Geometry* geometry = imageGeometry->CreateGeometry();
+
 		try
 		{
-			Value->transform(imageGeometry);
+			Value->transform(*geometry);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete geometry;
 		}
 	}
 	//==============================================================================================
@@ -3126,13 +3221,21 @@ namespace ImageMagick
 		Throw::IfNull("imageGeometry", imageGeometry);
 		Throw::IfNull("cropGeometry", cropGeometry);
 
+		const Magick::Geometry* geometryImage = imageGeometry->CreateGeometry();
+		const Magick::Geometry* geometryCrop = cropGeometry->CreateGeometry();
+
 		try
-		{
-			Value->transform(imageGeometry, cropGeometry);
+		{ 
+			Value->transform(*geometryImage, *geometryCrop);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete geometryImage;
+			delete geometryCrop;
 		}
 	}
 	//==============================================================================================
@@ -3283,13 +3386,19 @@ namespace ImageMagick
 	{
 		Throw::IfNull("geometry", geometry);
 
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
 		try
 		{
-			Value->zoom(geometry);
+			Value->zoom(*magickGeometry);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
 		}
 	}
 	//==============================================================================================
