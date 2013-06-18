@@ -14,6 +14,7 @@
 
 using System;
 using System.IO;
+using System.Xml;
 using System.Xml.Schema;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -110,7 +111,10 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Execute_Draw()
 		{
-			MagickScript script = new MagickScript(Files.DrawScript);
+			XmlDocument doc = new XmlDocument();
+			doc.Load(Files.DrawScript);
+
+			MagickScript script = new MagickScript(doc);
 
 			using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
 			{

@@ -250,6 +250,9 @@ namespace Magick.NET.Tests
 				image.Read(Files.SnakewarePNG, settings);
 
 				Assert.AreEqual(150, image.Density.Width);
+
+				settings = null;
+				image.Read(Files.ImageMagickJPG, settings);
 			}
 		}
 		//===========================================================================================

@@ -26,6 +26,7 @@
 #include "..\Drawables\Paths\Base\PathBase.h"
 
 using namespace System::Xml;
+using namespace System::Xml::XPath;
 using namespace System::Collections::ObjectModel;
 
 namespace ImageMagick
@@ -76,6 +77,12 @@ namespace ImageMagick
 #include "Generated\Execute.h"
 		//===========================================================================================
 	public:
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickScript class using the specified IXPathNavigable.
+		///</summary>
+		///<param name="xml">The IXPathNavigable that contains the script.</param>
+		MagickScript(IXPathNavigable^ xml);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickScript class using the specified filename.

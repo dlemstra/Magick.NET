@@ -94,7 +94,7 @@ namespace ImageMagick
 	ImageProfile^ MagickScript::CreateProfile(XmlElement^ element)
 	{
 		XmlElement^ elem = (XmlElement^)element->SelectSingleNode("*");
-		
+
 		if (elem->Name == "imageProfile")
 		{
 			return CreateImageProfile(element);
@@ -238,8 +238,8 @@ namespace ImageMagick
 	{
 		Throw::IfNull("stream", stream);
 
-		_Script = gcnew XmlDocument();
 		XmlReader^ xmlReader = XmlReader::Create(stream, _ReaderSettings);
+		_Script = gcnew XmlDocument();
 		_Script->Load(xmlReader);
 		delete xmlReader;
 
@@ -258,6 +258,26 @@ namespace ImageMagick
 		}
 
 		return true;
+	}
+	//==============================================================================================
+	MagickScript::MagickScript(IXPathNavigable^ xml)
+	{
+		Throw::IfNull("xml", xml);
+
+		MemoryStream^ memStream = gcnew MemoryStream();
+		XmlWriter^ writer = XmlWriter::Create(memStream);
+		try
+		{
+			xml->CreateNavigator()->WriteSubtree(writer);
+			writer->Flush();
+			memStream->Position = 0;
+			Initialize(memStream);
+		}
+		finally
+		{
+			delete writer;
+			delete memStream;
+		}
 	}
 	//==============================================================================================
 	MagickScript::MagickScript(String^ fileName)
