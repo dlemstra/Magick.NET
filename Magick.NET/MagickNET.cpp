@@ -52,17 +52,6 @@ namespace ImageMagick
 		return nullptr;
 	}
 	//==============================================================================================
-	void MagickNET::Initialize()
-	{
-#if (_M_X64)
-		String^ path = Path::GetDirectoryName(MagickNET::typeid->Assembly->Location) + "\\ImageMagick-x64";
-#else
-		String^ path = Path::GetDirectoryName(MagickNET::typeid->Assembly->Location) + "\\ImageMagick-x86";
-#endif
-
-		Initialize(path);
-	}
-	//==============================================================================================
 	void MagickNET::Initialize(String^ path)
 	{
 		Throw::IfNullOrEmpty("path", path);
@@ -72,16 +61,8 @@ namespace ImageMagick
 
 		CheckImageMagickFiles(path);
 
-		String^ envPath = Environment::GetEnvironmentVariable("PATH");
-		if (envPath->IndexOf(path + ";", StringComparison::Ordinal) != -1)
-			return;
-
-		if (!envPath->StartsWith(";", StringComparison::OrdinalIgnoreCase))
-			envPath = ";" + envPath;
-
-		envPath = path + envPath;
-
-		Environment::SetEnvironmentVariable("PATH", envPath);
+		std::string configurePath;
+		_putenv_s("MAGICK_CONFIGURE_PATH", Marshaller::Marshal(path, configurePath).c_str());
 	}
 	//==============================================================================================
 	void MagickNET::SetCacheThreshold(int threshold)

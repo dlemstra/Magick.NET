@@ -967,7 +967,9 @@
     <None Include="Resources\sRGB.icm">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\$(Configuration)\MagickScript.icm" />
+    <None Include="Resources\$(Configuration)\MagickScript.xsd">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\Magick.NET.rc">

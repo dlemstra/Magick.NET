@@ -41,9 +41,9 @@ static inline void ConvertLabToXYZ(const double L,const double a,const double b,
   assert(X != (double *) NULL);
   assert(Y != (double *) NULL);
   assert(Z != (double *) NULL);
-  y=(100.0*L+16.0)/116.0;
-  x=y+255.0*(a-0.5)/500.0;
-  z=y-255.0*(b-0.5)/200.0;
+  y=(L+16.0)/116.0;
+  x=y+a/500.0;
+  z=y-b/200.0;
   if ((x*x*x) > CIEEpsilon)
     x=(x*x*x);
   else
@@ -51,7 +51,7 @@ static inline void ConvertLabToXYZ(const double L,const double a,const double b,
   if ((y*y*y) > CIEEpsilon)
     y=(y*y*y);
   else
-    y=(100.0*L)/CIEK;
+    y=L/CIEK;
   if ((z*z*z) > CIEEpsilon)
     z=(z*z*z);
   else
@@ -93,9 +93,9 @@ static inline void ConvertRGBToXYZ(const Quantum red,const Quantum green,
   assert(X != (double *) NULL);
   assert(Y != (double *) NULL);
   assert(Z != (double *) NULL);
-  r=QuantumScale*red;
-  g=QuantumScale*green;
-  b=QuantumScale*blue;
+  r=QuantumScale*DecodePixelGamma((MagickRealType) red);
+  g=QuantumScale*DecodePixelGamma((MagickRealType) green);
+  b=QuantumScale*DecodePixelGamma((MagickRealType) blue);
   *X=0.41239558896741421610*r+0.35758343076371481710*g+0.18049264738170157350*b;
   *Y=0.21258623078559555160*r+0.71517030370341084990*g+0.07220049864333622685*b;
   *Z=0.01929721549174694484*r+0.11918386458084853180*g+0.95049712513157976600*b;
@@ -135,19 +135,18 @@ static inline void ConvertLuvToXYZ(const double L,const double u,const double v,
   assert(X != (double *) NULL);
   assert(Y != (double *) NULL);
   assert(Z != (double *) NULL);
-  if ((100.0*L) > (CIEK*CIEEpsilon))
-    *Y=(double) pow(((100.0*L)+16.0)/116.0,3.0);
+  if (L > (CIEK*CIEEpsilon))
+    *Y=(double) pow((L+16.0)/116.0,3.0);
   else
-    *Y=(100.0*L)/CIEK;
-  *X=((*Y*((39.0*(100.0*L)/((262.0*v-140.0)+13.0*(100.0*L)*(9.0*D65Y/
-    (D65X+15.0*D65Y+3.0*D65Z))))-5.0))+5.0*(*Y))/((((52.0f*(100.0*L)/
-    ((354.0*u-134.0)+13.0*(100.0*L)*(4.0*D65X/(D65X+15.0*D65Y+3.0*
-    D65Z))))-1.0f)/3.0)-(-1.0f/3.0));
-  *Z=(*X*(((52.0f*(100.0*L)/((354.0*u-134.0)+13.0*(100.0*L)*(4.0*D65X/
-    (D65X+15.0*D65Y+3.0*D65Z))))-1.0f)/3.0))-5.0*(*Y);
+    *Y=L/CIEK;
+  *X=((*Y*((39.0*L/(v+13.0*L*(9.0*D65Y/(D65X+15.0*D65Y+3.0*D65Z))))-5.0))+
+    5.0*(*Y))/((((52.0f*L/(u+13.0*L*(4.0*D65X/(D65X+15.0*D65Y+3.0*D65Z))))-1.0)/
+    3.0)-(-1.0/3.0));
+  *Z=(*X*(((52.0f*L/(u+13.0*L*(4.0*D65X/(D65X+15.0*D65Y+3.0*D65Z))))-1.0)/3.0))-
+    5.0*(*Y);
 }
 
-static inline void ConvertXYZToRGB(const double x,const double y,const double z,
+static inline void ConvertXYZToRGB(const double X,const double Y,const double Z,
   Quantum *red,Quantum *green,Quantum *blue)
 {
   double
@@ -155,18 +154,15 @@ static inline void ConvertXYZToRGB(const double x,const double y,const double z,
     g,
     r;
 
-  /*
-    Convert XYZ to RGB colorspace.
-  */
   assert(red != (Quantum *) NULL);
   assert(green != (Quantum *) NULL);
   assert(blue != (Quantum *) NULL);
-  r=3.2406*x-1.5372*y-0.4986*z;
-  g=(-0.9689*x+1.8758*y+0.0415*z);
-  b=0.0557*x-0.2040*y+1.0570*z;
-  *red=ClampToQuantum((MagickRealType) QuantumRange*r);
-  *green=ClampToQuantum((MagickRealType) QuantumRange*g);
-  *blue=ClampToQuantum((MagickRealType) QuantumRange*b);
+  r=3.2406*X-1.5372*Y-0.4986*Z;
+  g=(-0.9689)*X+1.8758*Y+0.0415*Z;
+  b=0.0557*X-0.2040*Y+1.0570*Z;
+  *red=ClampToQuantum((MagickRealType) EncodePixelGamma(QuantumRange*r));
+  *green=ClampToQuantum((MagickRealType) EncodePixelGamma(QuantumRange*g));
+  *blue=ClampToQuantum((MagickRealType) EncodePixelGamma(QuantumRange*b));
 }
 
 

@@ -1,6 +1,7 @@
 Breaking changes.
 
 Magick.NET 6.8.5.1001:
+  - MagickNET.Initialize has been made obsolete because the ImageMagick files in the  directory are no longer necessary.
   - MagickGeometry is no longer IDisposable.
   - Renamed dll's so they include the platform name.
   - Image profiles can now only be accessed and modified with ImageProfile classes.

@@ -73,9 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
     <TargetName>Magick.NET-x86</TargetName>
   </PropertyGroup>
@@ -91,18 +89,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
     <TargetName>Magick.NET-x64</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
     <TargetName>Magick.NET-x64</TargetName>
   </PropertyGroup>
@@ -122,10 +116,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>CORE_RL_magick_.lib;CORE_RL_Magick++_.lib;CORE_RL_wand_.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
@@ -145,10 +137,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>CORE_RL_magick_.lib;CORE_RL_Magick++_.lib;CORE_RL_wand_.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
@@ -168,10 +158,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>CORE_RL_magick_.lib;CORE_RL_Magick++_.lib;CORE_RL_wand_.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
@@ -191,10 +179,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>CORE_RL_magick_.lib;CORE_RL_Magick++_.lib;CORE_RL_wand_.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
@@ -494,7 +480,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\sRGB.icm" />
-    <None Include="Resources\$(Configuration)\MagickScript.icm" />
+    <None Include="Resources\$(Configuration)\MagickScript.xsd" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\Magick.NET.rc" />

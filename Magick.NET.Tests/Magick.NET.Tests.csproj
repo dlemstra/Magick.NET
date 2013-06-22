@@ -67,7 +67,6 @@
     <Compile Include="ExceptionAssert.cs" />
     <Compile Include="Profiles\Exif\ExifProfileTests.cs" />
     <Compile Include="Profiles\Exif\ExifValueTests.cs" />
-    <Compile Include="InitializeTests.cs" />
     <Compile Include="Colors\MagickColorTests.cs" />
     <Compile Include="MagickGeometryTests.cs" />
     <Compile Include="MagickImageCollectionTests.cs" />
@@ -106,5 +105,4 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="Magick.NET.Tests.targets" />
 </Project>

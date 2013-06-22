@@ -35,5 +35,4 @@ using System.Web;
 [assembly: AssemblyFileVersion("6.8.5.402")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
-[assembly: PreApplicationStartMethod(typeof(ImageMagick.MagickWeb), "Initialize")]
 //=================================================================================================

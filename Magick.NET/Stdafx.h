@@ -13,13 +13,30 @@
 //=================================================================================================
 #pragma once
 
-#pragma warning(disable: 4251)
-#pragma warning(disable: 4996)
+#pragma comment(lib, "CORE_RL_bzlib_.lib")
+#pragma comment(lib, "CORE_RL_coders_.lib")
+#pragma comment(lib, "CORE_RL_filters_.lib")
+#pragma comment(lib, "CORE_RL_jbig_.lib")
+#pragma comment(lib, "CORE_RL_jp2_.lib")
+#pragma comment(lib, "CORE_RL_jpeg_.lib")
+#pragma comment(lib, "CORE_RL_lcms_.lib")
+#pragma comment(lib, "CORE_RL_libxml_.lib")
+#pragma comment(lib, "CORE_RL_magick_.lib")
+#pragma comment(lib, "CORE_RL_Magick++_.lib")
+#pragma comment(lib, "CORE_RL_png_.lib")
+#pragma comment(lib, "CORE_RL_tiff_.lib")
+#pragma comment(lib, "CORE_RL_ttf_.lib")
+#pragma comment(lib, "CORE_RL_wand_.lib")
+#pragma comment(lib, "CORE_RL_wmf_.lib")
+#pragma comment(lib, "CORE_RL_zlib_.lib")
+#pragma comment(lib, "wsock32.lib")
 
+#pragma warning(disable: 4244)
+
+#define STATIC_MAGICK
 #include "Magick++.h"
 
-#pragma warning(default: 4251)
-#pragma warning(default: 4996)
+#pragma warning(default: 4244)
 
 using namespace System;
 

@@ -59,8 +59,8 @@ namespace Magick.NET.Tests
 				MagickNET.Initialize("Invalid");
 			});
 
-			string path = Path.GetDirectoryName(GetType().Assembly.Location) + "\\ImageMagick-x86";
-			foreach (string fileName in Directory.GetFiles(path))
+			string path = Path.GetDirectoryName(GetType().Assembly.Location) + @"..\..\..\..\..\..\Magick.NET\Resources\xml";
+			foreach (string fileName in Directory.GetFiles(path, "*.xml"))
 			{
 				File.Move(fileName, fileName + ".tmp");
 

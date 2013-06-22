@@ -52,7 +52,11 @@ namespace ImageMagick
 		LMS = MagickCore::LMSColorspace,
 		LCHab = MagickCore::LCHabColorspace,
 		LCHuv = MagickCore::LCHuvColorspace,
-		scRGB = MagickCore::scRGBColorspace
+		scRGB = MagickCore::scRGBColorspace,
+		HSI = MagickCore::HSIColorspace,
+		HSV = MagickCore::HSVColorspace,
+		HCLp = MagickCore::HCLpColorspace,
+		YDbDr = MagickCore::YDbDrColorspace
 	};
 	//==============================================================================================
 }

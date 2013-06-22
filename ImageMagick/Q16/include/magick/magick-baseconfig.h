@@ -48,7 +48,7 @@
 // MagickCoreTerminus() so that the user doesn't need to. This is enabled
 // by default.
 //
-#define ProvideDllMain
+#undef ProvideDllMain
 
 // Define if MIT X11 is available (or stubbed).  It is not actually
 // necessary to use X11 or the X11 stubs library. The VisualMagick configure
