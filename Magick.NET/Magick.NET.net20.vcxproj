@@ -112,10 +112,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>CORE_RL_magick_.lib;CORE_RL_Magick++_.lib;CORE_RL_wand_.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
@@ -134,10 +132,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>CORE_RL_magick_.lib;CORE_RL_Magick++_.lib;CORE_RL_wand_.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
@@ -156,10 +152,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>CORE_RL_magick_.lib;CORE_RL_Magick++_.lib;CORE_RL_wand_.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
@@ -178,10 +172,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>CORE_RL_magick_.lib;CORE_RL_Magick++_.lib;CORE_RL_wand_.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <DelayLoadDLLs>CORE_RL_magick_.dll;CORE_RL_Magick++_.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
@@ -190,7 +182,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Colors\ColorProfiles.h" />
     <ClInclude Include="Drawables\DrawableDashArray.h" />
     <ClInclude Include="Drawables\DrawableDashOffset.h" />
     <ClInclude Include="Drawables\DrawableEllipse.h" />
@@ -256,6 +247,7 @@
     <ClInclude Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.h" />
     <ClInclude Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.h" />
     <ClInclude Include="Enums\ClassType.h" />
+    <ClInclude Include="Enums\CompressionMethod.h" />
     <ClInclude Include="Enums\Endian.h" />
     <ClInclude Include="Enums\FillRule.h" />
     <ClInclude Include="Enums\FilterType.h" />
@@ -275,9 +267,15 @@
     <ClInclude Include="Exceptions\MagickErrorExceptions.h" />
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
+    <ClInclude Include="Profiles\Exif\ExifDataType.h" />
+    <ClInclude Include="Profiles\Exif\ExifProfile.h" />
+    <ClInclude Include="Profiles\Exif\ExifReader.h" />
+    <ClInclude Include="Profiles\Exif\ExifTag.h" />
+    <ClInclude Include="Profiles\Exif\ExifValue.h" />
     <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="Helpers\FileHelper.h" />
     <ClInclude Include="Helpers\XmlHelper.h" />
+    <ClInclude Include="Profiles\ImageProfile.h" />
     <ClInclude Include="Script\Generated\Execute.h" />
     <ClInclude Include="Script\ScriptReadEventArgs.h" />
     <ClInclude Include="Script\MagickScript.h" />
@@ -329,7 +327,7 @@
     <ClInclude Include="Matrices\Base\MatrixDouble.h" />
     <ClInclude Include="Enums\NoiseType.h" />
     <ClInclude Include="Enums\PaintMethod.h" />
-    <ClInclude Include="Colors\ColorProfile.h" />
+    <ClInclude Include="Profiles\Color\ColorProfile.h" />
     <ClInclude Include="Pixels\Pixel.h" />
     <ClInclude Include="Pixels\PixelCollection.h" />
     <ClInclude Include="Pixels\Base\PixelBaseCollection.h" />
@@ -340,7 +338,6 @@
     <ClInclude Include="Helpers\Throw.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Colors\ColorProfiles.cpp" />
     <ClCompile Include="Drawables\DrawableDashArray.cpp" />
     <ClCompile Include="Drawables\DrawableDashOffset.cpp" />
     <ClCompile Include="Drawables\DrawableEllipse.cpp" />
@@ -403,9 +400,13 @@
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.cpp" />
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.cpp" />
     <ClCompile Include="Exceptions\Base\MagickException.cpp" />
+    <ClCompile Include="Profiles\Exif\ExifProfile.cpp" />
+    <ClCompile Include="Profiles\Exif\ExifReader.cpp" />
+    <ClCompile Include="Profiles\Exif\ExifValue.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\FileHelper.cpp" />
     <ClCompile Include="Helpers\XmlHelper.cpp" />
+    <ClCompile Include="Profiles\ImageProfile.cpp" />
     <ClCompile Include="Script\Generated\Execute.cpp" />
     <ClCompile Include="Script\MagickScript.cpp" />
     <ClCompile Include="Script\ScriptReadEventArgs.cpp" />
@@ -446,7 +447,7 @@
     <ClCompile Include="IO\MagickReader.cpp" />
     <ClCompile Include="IO\MagickWriter.cpp" />
     <ClCompile Include="Matrices\Base\MatrixDouble.cpp" />
-    <ClCompile Include="Colors\ColorProfile.cpp" />
+    <ClCompile Include="Profiles\Color\ColorProfile.cpp" />
     <ClCompile Include="Pixels\Pixel.cpp" />
     <ClCompile Include="Pixels\PixelCollection.cpp" />
     <ClCompile Include="Pixels\Base\PixelBaseCollection.cpp" />
@@ -462,7 +463,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\sRGB.icm" />
-    <None Include="Resources\$(Configuration)\MagickScript.icm" />
+    <None Include="Resources\$(Configuration)\MagickScript.xsd" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\Magick.NET.rc" />

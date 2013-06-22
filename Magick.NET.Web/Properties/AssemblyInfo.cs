@@ -32,7 +32,7 @@ using System.Web;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("6.0.0.0")]
-[assembly: AssemblyFileVersion("6.8.5.402")]
+[assembly: AssemblyFileVersion("6.8.5.1001")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 //=================================================================================================

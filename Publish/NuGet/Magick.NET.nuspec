@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-	<metadata>
+	<metadata minClientVersion="2.5">
 		<id/>
 		<version/>
 		<title/>
@@ -10,7 +10,7 @@
 		<projectUrl>https://magick.codeplex.com</projectUrl>
 		<iconUrl>http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=26438&amp;itemId=581988</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. The .NET library comes with all the dll's from ImageMagick you need.</description>
+		<description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop.</description>
 		<summary>A .NET API to the ImageMagick image-processing library for Desktop and Web.</summary>
 		<releaseNotes/>
 		<copyright>Copyright 2013</copyright>
