@@ -149,6 +149,54 @@ function CreateNuGetPackages($builds, $imVersion, $version)
 	}
 }
 
+function CreateScriptZipFile($build, $version)
+{
+	if ($build.PlatformName -ne "x86" -or $build.Framework -ne "v4.0")
+	{
+		return
+	}
+
+	$dir = "Zip\" + $build.Quantum
+	if (Test-Path $dir)
+	{
+		Remove-Item $dir -recurse
+	}
+
+	[void](New-Item $dir -type directory)
+	Copy-Item ("..\Magick.NET\Resources\Release" + $build.Quantum + "\MagickScript.xsd") $dir
+
+	$zipFile = "Zip\MagickScript-$version-" + $build.Quantum + ".zip"
+
+	Write-Host "Creating file: $zipFile"
+
+	[System.IO.Compression.ZipFile]::CreateFromDirectory($dir, $zipFile, $compressionLevel, $false)
+	Remove-Item $dir -recurse
+}
+
+function CreateWebZipFile($build, $version)
+{
+	if ($build.Quantum -ne "Q16" -or $build.Framework -ne "v4.0")
+	{
+		return
+	}
+
+	$dir = "Zip\" + $build.PlatformName
+	if (Test-Path $dir)
+	{
+		Remove-Item $dir -recurse
+	}
+
+	[void](New-Item $dir -type directory)
+	Copy-Item ("..\Magick.NET.Web\bin\Release" + $build.Quantum + "\" + $build.PlatformName + "\Magick.NET.Web-" + $build.PlatformName + ".dll") $dir
+
+	$zipFile = "Zip\Magick.NET.Web-$version-" + $build.PlatformName + "-net40.zip"
+
+	Write-Host "Creating file: $zipFile"
+
+	[System.IO.Compression.ZipFile]::CreateFromDirectory($dir, $zipFile, $compressionLevel, $false)
+	Remove-Item $dir -recurse
+}
+
 function CreateZipFiles($builds, $version)
 {
 	[void][Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem")
@@ -177,26 +225,8 @@ function CreateZipFiles($builds, $version)
 		[System.IO.Compression.ZipFile]::CreateFromDirectory($dir, $zipFile, $compressionLevel, $false)
 		Remove-Item $dir -recurse
 
-		if ($build.Quantum -ne "Q16" -or $build.Framework -ne "v4.0")
-		{
-			continue
-		}
-
-		$dir = "Zip\" + $build.PlatformName
-		if (Test-Path $dir)
-		{
-			Remove-Item $dir -recurse
-		}
-
-		[void](New-Item $dir -type directory)
-		Copy-Item ("..\Magick.NET.Web\bin\Release" + $build.Quantum + "\" + $build.PlatformName + "\Magick.NET.Web-" + $build.PlatformName + ".dll") $dir
-
-		$zipFile = "Zip\Magick.NET.Web-$version-" + $build.PlatformName + "-net40.zip"
-
-		Write-Host "Creating file: $zipFile"
-
-		[System.IO.Compression.ZipFile]::CreateFromDirectory($dir, $zipFile, $compressionLevel, $false)
-		Remove-Item $dir -recurse
+		CreateWebZipFile($build)
+		CreateScriptZipFile($build)
 	}
 }
 

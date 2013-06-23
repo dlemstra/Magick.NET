@@ -283,7 +283,6 @@
     <ClInclude Include="Helpers\FileHelper.h" />
     <ClInclude Include="Helpers\XmlHelper.h" />
     <ClInclude Include="Profiles\ImageProfile.h" />
-    <ClInclude Include="Script\Generated\Execute.h" />
     <ClInclude Include="Script\ScriptReadEventArgs.h" />
     <ClInclude Include="Script\MagickScript.h" />
     <ClInclude Include="Script\ScriptWriteEventArgs.h" />
