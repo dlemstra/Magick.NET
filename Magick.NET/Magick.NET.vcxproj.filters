@@ -142,6 +142,9 @@
     <Filter Include="Header Files\Profiles\Color">
       <UniqueIdentifier>{532c493b-0cfb-46af-8843-7a37a8ea12f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Settings">
+      <UniqueIdentifier>{29a6b828-4e5c-4d31-9449-b8aaf35e6a36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
@@ -958,6 +961,9 @@
     </ClCompile>
     <ClCompile Include="Profiles\ImageProfile.cpp">
       <Filter>Source Files\Profiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings\MagickReadSettings.cpp">
+      <Filter>Source Files\Settings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -427,6 +427,7 @@
     <ClCompile Include="Script\MagickScript.cpp" />
     <ClCompile Include="Script\ScriptReadEventArgs.cpp" />
     <ClCompile Include="Script\ScriptWriteEventArgs.cpp" />
+    <ClCompile Include="Settings\MagickReadSettings.cpp" />
     <ClCompile Include="Statistics\ChannelStatistics.cpp" />
     <ClCompile Include="MagickFormatInfo.cpp" />
     <ClCompile Include="Statistics\MagickImageStatistics.cpp" />

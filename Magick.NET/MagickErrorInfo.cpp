@@ -23,6 +23,7 @@ namespace ImageMagick
 		_NormalizedMaximumError = image->normalizedMaxError();
 		_NormalizedMeanError = image->normalizedMeanError();
 	}
+	//==============================================================================================
 	double MagickErrorInfo::MeanErrorPerPixel::get()
 	{
 		return _MeanErrorPerPixel;

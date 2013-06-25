@@ -15,6 +15,7 @@
 
 #include "Stdafx.h"
 #include "..\Enums\ColorSpace.h"
+#include "..\Enums\MagickFormat.h"
 #include "..\MagickGeometry.h"
 
 namespace ImageMagick
@@ -30,6 +31,10 @@ namespace ImageMagick
 		//===========================================================================================
 		bool Ping;
 		//===========================================================================================
+		void Apply(Magick::Image* image);
+		//===========================================================================================
+		void Apply(MagickCore::ImageInfo *imageInfo);
+		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
@@ -41,6 +46,11 @@ namespace ImageMagick
 		/// Vertical and horizontal resolution in pixels.
 		///</summary>
 		property MagickGeometry^ Density;
+		///==========================================================================================
+		///<summary>
+		/// The format of the image.
+		///</summary>
+		property Nullable<MagickFormat> Format;
 		///==========================================================================================
 		///<summary>
 		/// The height.

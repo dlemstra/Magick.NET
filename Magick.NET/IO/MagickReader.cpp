@@ -18,60 +18,13 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	void MagickReader::ApplySettings(Magick::Image* image, MagickReadSettings^ readSettings)
-	{
-		if (readSettings == nullptr)
-			return;
-
-		if (readSettings->ColorSpace.HasValue)
-		{
-			// For some reason I cannot access the methods of image->options(). This trick makes sure
-			// that calling image->colorspaceType() will not raise an exception.
-			Magick::Geometry size = image->size();
-			image->size(Magick::Geometry(1, 1));
-			image->read("xc:white");
-
-			image->colorspaceType((MagickCore::ColorspaceType)readSettings->ColorSpace.Value);
-			image->size(size);
-		}
-
-		if (readSettings->Density != nullptr)
-		{
-			const Magick::Geometry* geometry = readSettings->Density->CreateGeometry();
-			image->density(*geometry);
-			delete geometry;
-		}
-
-		if (readSettings->Width.HasValue && readSettings->Height.HasValue)
-		{
-			Magick::Geometry geometry = Magick::Geometry(readSettings->Width.Value, readSettings->Height.Value);
-			image->size(geometry);
-		}
-	}
-	//==============================================================================================
-	void MagickReader::ApplySettings(MagickCore::ImageInfo *imageInfo, MagickReadSettings^ readSettings)
-	{
-		if (readSettings == nullptr)
-			return;
-
-		if (readSettings->Density != nullptr)
-		{
-			const Magick::Geometry* geometry = readSettings->Density->CreateGeometry();
-			std::string geometryStr = *geometry;
-			MagickCore::CloneString(&imageInfo->density, geometryStr.c_str());
-			delete geometry;
-		}
-
-		if (readSettings->ColorSpace.HasValue)
-			imageInfo->colorspace = (MagickCore::ColorspaceType)readSettings->ColorSpace.Value;
-	}
-	//==============================================================================================
 	MagickWarningException^ MagickReader::Read(Magick::Image* image, Magick::Blob* blob,
 		MagickReadSettings^ readSettings)
 	{
 		MagickWarningException^ result = nullptr;
 
-		ApplySettings(image, readSettings);
+		if (readSettings != nullptr)
+			readSettings->Apply(image);
 
 		try
 		{
@@ -100,7 +53,9 @@ namespace ImageMagick
 		try
 		{
 			MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(0);
-			ApplySettings(imageInfo, readSettings);
+
+			if (readSettings != nullptr)
+				readSettings->Apply(imageInfo);
 
 			MagickCore::ExceptionInfo exceptionInfo;
 			MagickCore::GetExceptionInfo(&exceptionInfo);
@@ -163,7 +118,8 @@ namespace ImageMagick
 
 		MagickWarningException^ result = nullptr;
 
-		ApplySettings(image, readSettings);
+		if (readSettings != nullptr)
+			readSettings->Apply(image);
 
 		try
 		{
@@ -218,7 +174,9 @@ namespace ImageMagick
 			Marshaller::Marshal(filePath, imageSpec);
 
 			MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(0);
-			ApplySettings(imageInfo, readSettings);
+
+			if (readSettings != nullptr)
+				readSettings->Apply(imageInfo);
 
 			imageSpec.copy(imageInfo->filename, MaxTextExtent-1);
 			imageInfo->filename[imageSpec.length()] = 0;

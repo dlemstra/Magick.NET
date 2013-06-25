@@ -32,10 +32,6 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		static void ApplySettings(Magick::Image* image, MagickReadSettings^ readSettings);
-		//===========================================================================================
-		static void ApplySettings(MagickCore::ImageInfo *imageInfo, MagickReadSettings^ readSettings);
-		//===========================================================================================
 		static MagickWarningException^ Read(Magick::Image* image, Magick::Blob* blob,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
