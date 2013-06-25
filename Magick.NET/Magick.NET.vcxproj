@@ -114,6 +114,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <ForcedIncludeFiles>CodeAnalysis\SourceAnnotations.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -135,6 +136,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <ForcedIncludeFiles>CodeAnalysis\SourceAnnotations.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -156,6 +158,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <ForcedIncludeFiles>CodeAnalysis\SourceAnnotations.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -177,6 +180,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <ForcedIncludeFiles>CodeAnalysis\SourceAnnotations.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

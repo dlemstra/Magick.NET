@@ -7,6 +7,8 @@ function Build($folder, $platform, $builds)
 	$config = $config.Replace("//#undef MAGICKCORE_EXCLUDE_DEPRECATED", "#define MAGICKCORE_EXCLUDE_DEPRECATED")
 	$config = $config.Replace("// #undef MAGICKCORE_EMBEDDABLE_SUPPORT", "#define MAGICK_NET `"Magick.NET-" + $platform + ".dll`"")
 
+	ModifyDebugInformationFormat($folder)
+
 	foreach ($build in $builds)
 	{
 		$newConfig = $config.Replace("#define MAGICKCORE_QUANTUM_DEPTH 16", "#define MAGICKCORE_QUANTUM_DEPTH " + $build.QuantumDepth)
@@ -96,6 +98,16 @@ function FixX64($folder)
 		SelectNodes $xml "//msb:ProjectConfiguration/msb:Platform" | Foreach {$_.InnerText = "x64"}
 		SelectNodes $xml "//msb:PropertyGroup[msb:ProjectName]/msb:Keyword" | Foreach {$_.InnerText = "x64Proj"}
 		SelectNodes $xml "//msb:*[@Condition]" | Foreach {$_.SetAttribute("Condition", $_.GetAttribute("Condition").Replace("|Win32", "|x64"))}
+		$xml.Save($projectFile)
+	}
+}
+
+function ModifyDebugInformationFormat($folder)
+{
+	foreach ($projectFile in [IO.Directory]::GetFiles($folder, "CORE_*.vcxproj", [IO.SearchOption]::AllDirectories))
+	{
+		$xml = [xml](get-content $projectFile)
+		SelectNodes $xml "//msb:DebugInformationFormat" | Foreach {$_.InnerText = "None"}
 		$xml.Save($projectFile)
 	}
 }
