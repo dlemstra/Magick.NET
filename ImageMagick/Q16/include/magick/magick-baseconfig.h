@@ -119,6 +119,7 @@
 
 // Define to enable self-contained, embeddable, zero-configuration ImageMagick (experimental)
 //
+#define MAGICKCORE_WEBP_DELEGATE
 // #undef MAGICKCORE_EMBEDDABLE_SUPPORT
 /////////////
 

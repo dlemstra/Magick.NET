@@ -117,7 +117,7 @@
       <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x86;..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
@@ -139,7 +139,7 @@
       <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x86;..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
@@ -161,7 +161,7 @@
       <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
@@ -183,7 +183,7 @@
       <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>

@@ -29,6 +29,7 @@
 #pragma comment(lib, "CORE_RL_wand_.lib")
 #pragma comment(lib, "CORE_RL_wmf_.lib")
 #pragma comment(lib, "CORE_RL_zlib_.lib")
+#pragma comment(lib, "libwebp.lib")
 #pragma comment(lib, "wsock32.lib")
 
 #pragma warning(disable: 4244)

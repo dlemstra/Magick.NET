@@ -1,3 +1,11 @@
+function AddCoders($folder)
+{
+	$projectFile = "$folder\VisualMagick\coders\CORE_coders_mtdll_lib.vcxproj"
+	$xml = [xml](get-content $projectFile)
+	SelectNodes $xml "//msb:AdditionalIncludeDirectories" | Foreach {$_.InnerText = "..\libwebp\src;" + $_.InnerText}
+	$xml.Save($projectFile)
+}
+
 function Build($folder, $platform, $builds)
 {
 	$configFile = "$folder\magick\magick-baseconfig.h"
@@ -5,9 +13,11 @@ function Build($folder, $platform, $builds)
 	$config = $config.Replace("#define ProvideDllMain", "#undef ProvideDllMain")
 	$config = $config.Replace("#define MAGICKCORE_X11_DELEGATE", "#undef MAGICKCORE_X11_DELEGATE")
 	$config = $config.Replace("//#undef MAGICKCORE_EXCLUDE_DEPRECATED", "#define MAGICKCORE_EXCLUDE_DEPRECATED")
-	$config = $config.Replace("// #undef MAGICKCORE_EMBEDDABLE_SUPPORT", "#define MAGICK_NET `"Magick.NET-" + $platform + ".dll`"")
+	$config = $config.Replace("// #undef MAGICKCORE_EMBEDDABLE_SUPPORT", "#define MAGICKCORE_WEBP_DELEGATE
+#define MAGICK_NET `"Magick.NET-" + $platform + ".dll`"")
 
-	ModifyDebugInformationFormat($folder)
+	ModifyDebugInformationFormat $folder
+	AddCoders $folder
 
 	foreach ($build in $builds)
 	{
@@ -28,7 +38,12 @@ function Build($folder, $platform, $builds)
 		[IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
 
 		Copy-Item $configFile ("..\Q" + $build.QuantumDepth + "\include\magick")
-		Copy-Item $folder\VisualMagick\lib\CORE_RL_*.lib ("..\Q" + $build.QuantumDepth + "\lib\" + $build.Framework + "\$platform")
+		Copy-Item $folder\VisualMagick\lib\CORE_RL_*.lib ("..\lib\" + $build.Framework + "\$platform")
+
+		Move-Item ("..\lib\" + $build.Framework + "\$platform\CORE_RL_coders_.lib") ("..\Q" + $build.QuantumDepth + "\lib\" + $build.Framework + "\$platform") -force
+		Move-Item ("..\lib\" + $build.Framework + "\$platform\CORE_RL_magick_.lib") ("..\Q" + $build.QuantumDepth + "\lib\" + $build.Framework + "\$platform") -force
+		Move-Item ("..\lib\" + $build.Framework + "\$platform\CORE_RL_Magick++_.lib") ("..\Q" + $build.QuantumDepth + "\lib\" + $build.Framework + "\$platform") -force
+		Move-Item ("..\lib\" + $build.Framework + "\$platform\CORE_RL_wand_.lib") ("..\Q" + $build.QuantumDepth + "\lib\" + $build.Framework + "\$platform") -force
 	}
 }
 
@@ -37,7 +52,7 @@ function CheckExitCode($msg)
 	if ($LastExitCode -ne 0)
 	{
 		Write-Error $msg
-		Exit
+		Exit 1
 	}
 }
 
@@ -49,7 +64,7 @@ function CheckFolder($folder)
 	}
 
 	Write-Error ("Unable to find folder: " + $folder + ".")
-	Exit
+	Exit 1
 }
 
 function CopyFiles($folder)
@@ -59,7 +74,16 @@ function CopyFiles($folder)
 	Copy-Item $folder\Magick++\lib\Magick++.h ..\include
 	Copy-Item $folder\Magick++\lib\Magick++\*.h ..\include\Magick++
 	Copy-Item $folder\wand\*.h ..\include\wand
-	Copy-Item $folder\VisualMagick\bin\*.xml ..\..\Magick.NET\Resources\xml
+
+	foreach ($xmlFile in [IO.Directory]::GetFiles("$folder\VisualMagick\bin", "*.xml"))
+	{
+		if ([IO.Path]::GetFileName($xmlFile) -eq "log.xml")
+		{
+			continue
+		}
+
+		Copy-Item $xmlFile ..\..\Magick.NET\Resources\xml
+	}
 }
 
 function CreateSolution($folder, $platform)
@@ -107,7 +131,7 @@ function ModifyDebugInformationFormat($folder)
 	foreach ($projectFile in [IO.Directory]::GetFiles($folder, "CORE_*.vcxproj", [IO.SearchOption]::AllDirectories))
 	{
 		$xml = [xml](get-content $projectFile)
-		SelectNodes $xml "//msb:DebugInformationFormat" | Foreach {$_.InnerText = "None"}
+		SelectNodes $xml "//msb:DebugInformationFormat" | Foreach {$_.InnerText = ""}
 		$xml.Save($projectFile)
 	}
 }
@@ -127,6 +151,7 @@ function PatchFiles($folder)
 	# Hack so we can include the xml files as resources files.
 	$ntBaseFile = "$folder\magick\nt-base.c"
 	$ntBase = [IO.File]::ReadAllText($ntBaseFile, [System.Text.Encoding]::Default)
+	$ntBase = [regex]::Replace($ntBase, "([^`r])`n", '$1' + "`r`n")
 	$ntBase = $ntBase.Replace("if (IsPathAccessible(path) != MagickFalse)
     handle=GetModuleHandle(path);
   else
@@ -136,6 +161,7 @@ function PatchFiles($folder)
 	# 'Fix' code analysis false positive.
 	$stlHeaderFile = "$folder\Magick++\lib\Magick++\stl.h"
 	$stlHeader = [IO.File]::ReadAllText($stlHeaderFile, [System.Text.Encoding]::Default)
+	$stlHeader = [regex]::Replace($stlHeader, "([^`r])`n", '$1' + "`r`n")
 	$stlHeader = $stlHeader.Replace("current->next     = 0;
 
   if ( previous != 0)
@@ -152,6 +178,7 @@ function PatchFiles($folder)
 	# Fix static linking of libxml
 	$xmlversionFile = "$folder\libxml\include\libxml\xmlversion.h"
 	$xmlversion = [IO.File]::ReadAllText($xmlversionFile, [System.Text.Encoding]::Default)
+	$xmlversion = [regex]::Replace($xmlversion, "([^`r])`n", '$1' + "`r`n")
 	$xmlversion = $xmlversion.Replace("#if !defined(_DLL)
 #  if !defined(LIBXML_STATIC)
 #    define LIBXML_STATIC 1
@@ -208,12 +235,12 @@ $builds = @(
 		@{QuantumDepth = "16"; Framework = "v4.0"; PlatformToolset="v110"}
 	)
 
-$version = "6.8.5"
+$version = $args[0]
 $folder = "ImageMagick-$version"
 
 CheckFolder $folder
-CopyFiles $folder
 PatchFiles $folder
+CopyFiles $folder
 
 $platform = "x86"
 CreateSolution $folder $platform

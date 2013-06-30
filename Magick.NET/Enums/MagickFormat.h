@@ -226,6 +226,7 @@ namespace ImageMagick
 		Vid,
 		Viff,
 		Vst,
+		WebP,
 		Wbmp,
 		Wmfwin32,
 		Wmv,

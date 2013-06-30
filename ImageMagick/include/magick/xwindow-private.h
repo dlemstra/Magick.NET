@@ -595,7 +595,7 @@ static inline MagickRealType XPixelIntensity(const XColor *pixel)
 
   if ((pixel->red  == pixel->green) && (pixel->green == pixel->blue))
     return((MagickRealType) pixel->red);
-  intensity=0.298839*pixel->red+0.586811*pixel->green+0.114350*pixel->blue;
+  intensity=0.21265*pixel->red+0.715158*pixel->green+0.072186*pixel->blue;
   return(intensity);
 }
 #endif
