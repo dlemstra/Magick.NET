@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
 			switch (arguments.Id)
 			{
 				case "icon":
-					arguments.Image = new MagickImage(Files.MagickNETIconPng, arguments.Settings);
+					arguments.Image = new MagickImage(Files.MagickNETIconPNG, arguments.Settings);
 					break;
 				case "snakeware":
 					arguments.Image = new MagickImage(Files.SnakewarePNG, arguments.Settings);
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private void ResizeScriptRead(object sender, ScriptReadEventArgs arguments)
 		{
-			arguments.Image = new MagickImage(Files.MagickNETIconPng);
+			arguments.Image = new MagickImage(Files.MagickNETIconPNG);
 		}
 		//===========================================================================================
 		private void Script_ReadNothing(object sender, ScriptReadEventArgs arguments)
@@ -169,7 +169,7 @@ namespace Magick.NET.Tests
 		{
 			MagickScript script = new MagickScript(Files.ImageProfileScript);
 
-			using (MagickImage image = new MagickImage(Files.MagickNETIconPng))
+			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
 			{
 				ColorProfile colorProfile = image.GetColorProfile();
 				Assert.IsNull(colorProfile);
@@ -188,7 +188,7 @@ namespace Magick.NET.Tests
 		{
 			MagickScript script = new MagickScript(Files.ResizeScript);
 
-			using (MagickImage image = new MagickImage(Files.MagickNETIconPng))
+			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
 			{
 				script.Execute(image);
 				TestScriptResizeResult(image);

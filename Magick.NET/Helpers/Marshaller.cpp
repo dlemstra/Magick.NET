@@ -93,9 +93,9 @@ namespace ImageMagick
 		if (value == nullptr)
 			return unmanagedValue;
 
-		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(value)).ToPointer();
-		unmanagedValue = chars;
-		Marshal::FreeHGlobal(IntPtr((void*)chars));
+		array<Byte>^ bytes = System::Text::Encoding::UTF8->GetBytes(value);
+		pin_ptr<unsigned char> bytesPtr = &bytes[0];
+		unmanagedValue = std::string(reinterpret_cast<char *>(bytesPtr), bytes->Length);
 		return unmanagedValue;
 	}
 	//==============================================================================================
@@ -112,6 +112,7 @@ namespace ImageMagick
 		{
 			unmanagedValue[i] = values[i];
 		}
+
 		unmanagedValue[length - 1] = 0.0;
 
 		return unmanagedValue;

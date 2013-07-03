@@ -28,14 +28,6 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
-		public static string ImageProfileScript
-		{
-			get
-			{
-				return _Root + @"Script\ImageProfile.msl";
-			}
-		}
-		//===========================================================================================
 		public static string DrawScript
 		{
 			get
@@ -68,6 +60,14 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		public static string ImageProfileScript
+		{
+			get
+			{
+				return _Root + @"Script\ImageProfile.msl";
+			}
+		}
+		//===========================================================================================
 		public static string InvalidScript
 		{
 			get
@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
-		public static string MagickNETIconPng
+		public static string MagickNETIconPNG
 		{
 			get
 			{
@@ -104,7 +104,7 @@ namespace Magick.NET.Tests
 		{
 			get
 			{
-				return _Root + @"Images\RoseSparkle.gif";
+				return _Root + @"Images\RöseSparkle.gif";
 			}
 		}
 		//===========================================================================================
