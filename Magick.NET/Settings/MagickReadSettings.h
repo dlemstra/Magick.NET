@@ -31,6 +31,11 @@ namespace ImageMagick
 		//===========================================================================================
 		bool Ping;
 		//===========================================================================================
+		property String^ Scenes
+		{
+			String^ get();
+		}
+		//===========================================================================================
 		void Apply(Magick::Image* image);
 		//===========================================================================================
 		void Apply(MagickCore::ImageInfo *imageInfo);
@@ -51,6 +56,16 @@ namespace ImageMagick
 		/// The format of the image.
 		///</summary>
 		property Nullable<MagickFormat> Format;
+		///==========================================================================================
+		///<summary>
+		/// The index of the image to read from a multi layer/frame image.
+		///</summary>
+		property Nullable<int> FrameIndex;
+		///==========================================================================================
+		///<summary>
+		/// The number of images to read from a multi layer/frame image.
+		///</summary>
+		property Nullable<int> FrameCount;
 		///==========================================================================================
 		///<summary>
 		/// The height.

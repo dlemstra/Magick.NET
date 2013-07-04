@@ -178,8 +178,7 @@ namespace ImageMagick
 			if (readSettings != nullptr)
 				readSettings->Apply(imageInfo);
 
-			imageSpec.copy(imageInfo->filename, MaxTextExtent-1);
-			imageInfo->filename[imageSpec.length()] = 0;
+			MagickCore::CopyMagickString(imageInfo->filename, imageSpec.c_str(), MaxTextExtent - 1);
 
 			MagickCore::ExceptionInfo exceptionInfo;
 			MagickCore::GetExceptionInfo(&exceptionInfo);

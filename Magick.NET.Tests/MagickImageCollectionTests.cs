@@ -191,6 +191,24 @@ namespace Magick.NET.Tests
 				collection.Read(Files.RoseSparkleGIF, settings);
 
 				Assert.AreEqual(150, collection[0].Density.Width);
+
+				settings = new MagickReadSettings();
+				settings.FrameIndex = 1;
+
+				collection.Read(Files.RoseSparkleGIF, settings);
+
+				Assert.AreEqual(1, collection.Count);
+
+				settings = new MagickReadSettings();
+				settings.FrameIndex = 1;
+				settings.FrameCount = 2;
+
+				collection.Read(Files.RoseSparkleGIF, settings);
+
+				Assert.AreEqual(2, collection.Count);
+
+				settings = null;
+				collection.Read(Files.RoseSparkleGIF, settings);
 			}
 		}
 		//===========================================================================================

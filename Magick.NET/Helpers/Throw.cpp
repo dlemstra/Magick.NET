@@ -31,7 +31,15 @@ namespace ImageMagick
 		if (!fileName->Contains("\\") && fileName->Contains(":"))
 			return;
 
-		Throw::IfFalse("fileName", File::Exists(fileName), "Unable to find file: " + fileName);
+		String^ path = Path::GetFullPath(fileName);
+		if (path->EndsWith("]", StringComparison::OrdinalIgnoreCase))
+		{
+			int endIndex = path->IndexOf("[", StringComparison::OrdinalIgnoreCase);
+			if (endIndex != -1)
+				path = path->Substring(0, endIndex);
+		}
+
+		Throw::IfFalse("fileName", File::Exists(path), "Unable to find file: " + path);
 	}
 	//==============================================================================================
 	void Throw::IfNull(String^ paramName, Object^ value)

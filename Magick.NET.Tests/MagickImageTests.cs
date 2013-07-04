@@ -236,6 +236,9 @@ namespace Magick.NET.Tests
 
 			image.Read("rose:");
 
+			image.Read(Files.RoseSparkleGIF);
+			Assert.AreEqual("RöseSparkle.gif", Path.GetFileName(image.FileName));
+
 			image.Dispose();
 		}
 		//===========================================================================================
@@ -253,6 +256,51 @@ namespace Magick.NET.Tests
 
 				settings = null;
 				image.Read(Files.ImageMagickJPG, settings);
+			}
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				MagickReadSettings settings = new MagickReadSettings();
+				settings.FrameCount = 2;
+				new MagickImage(Files.RoseSparkleGIF, settings);
+			});
+
+			using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
+			{
+				MagickImage imageA = new MagickImage();
+				MagickImage imageB = new MagickImage();
+
+				MagickReadSettings settings = new MagickReadSettings();
+
+				imageA.Read(Files.RoseSparkleGIF, settings);
+				Assert.AreEqual(image, imageA);
+
+				settings = new MagickReadSettings();
+				settings.FrameIndex = 1;
+
+				imageA.Read(Files.RoseSparkleGIF, settings);
+				Assert.AreNotEqual(image, imageA);
+
+				imageB.Read(Files.RoseSparkleGIF + "[1]");
+				Assert.AreEqual(imageA, imageB);
+
+				settings = new MagickReadSettings();
+				settings.FrameIndex = 2;
+
+				imageA.Read(Files.RoseSparkleGIF, settings);
+				Assert.AreNotEqual(image, imageA);
+
+				imageB.Read(Files.RoseSparkleGIF + "[2]");
+				Assert.AreEqual(imageA, imageB);
+
+				settings = new MagickReadSettings();
+				settings.FrameIndex = 3;
+
+				imageA.Read(Files.RoseSparkleGIF, settings);
+				Assert.AreEqual(image, imageA);
+
+				imageA.Dispose();
+				imageB.Dispose();
 			}
 		}
 		//===========================================================================================
