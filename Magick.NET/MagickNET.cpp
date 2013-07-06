@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "MagickNET.h"
+#include "Helpers\EnumHelper.h"
 
 using namespace System::IO;
 using namespace System::Security;
@@ -68,6 +69,41 @@ namespace ImageMagick
 	void MagickNET::SetCacheThreshold(int threshold)
 	{
 		Magick::Image::cacheThreshold(threshold);
+	}
+	//==============================================================================================
+	void MagickNET::SetLogEvents(LogEvents events)
+	{
+		String^ eventFlags = nullptr;
+
+		if (events == LogEvents::All)
+		{
+			eventFlags = "All";
+		}
+		else
+		{
+			Collection<String^>^ flags = gcnew Collection<String^>();
+			for each(LogEvents flag in EnumHelper::GetFlags(events))
+			{
+				if (flag != LogEvents::All)
+					flags->Add(Enum::GetName(LogEvents::typeid, flag));
+			}
+
+			eventFlags = String::Join(",", flags);
+		}
+
+		std::string logEvents;
+		Marshaller::Marshal(eventFlags, logEvents);
+		MagickCore::SetLogEventMask(logEvents.c_str());
+	}
+	//==============================================================================================
+	void MagickNET::SetTempDirectory(String^ path)
+	{
+		Throw::IfNullOrEmpty("path", path);
+		Throw::IfFalse("directory", Directory::Exists(path), "Unable to find directory: " + path);
+
+		std::string tempDirectory;
+		Marshaller::Marshal(path, tempDirectory);
+		_putenv_s("MAGICK_TEMPORARY_PATH", tempDirectory.c_str());
 	}
 	//==============================================================================================
 }

@@ -93,6 +93,12 @@ namespace ImageMagick
 		if (value == nullptr)
 			return unmanagedValue;
 
+		if (value->Length == 0)
+		{
+			unmanagedValue = "";
+			return unmanagedValue;
+		}
+
 		array<Byte>^ bytes = System::Text::Encoding::UTF8->GetBytes(value);
 		pin_ptr<unsigned char> bytesPtr = &bytes[0];
 		unmanagedValue = std::string(reinterpret_cast<char *>(bytesPtr), bytes->Length);

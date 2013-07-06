@@ -13,6 +13,7 @@
 //=================================================================================================
 #pragma once
 
+#include "Enums\LogEvents.h"
 #include "MagickFormatInfo.h"
 
 using namespace System::Reflection;
@@ -59,6 +60,7 @@ namespace ImageMagick
 		///<summary>
 		/// Returns the format information of the specified format.
 		///</summary>
+		///<param name="format">The image format.</param>
 		static MagickFormatInfo^ GetFormatInformation(MagickFormat format);
 		///==========================================================================================
 		///<summary>
@@ -72,13 +74,30 @@ namespace ImageMagick
 		/// Adds the specified path to the environment path. You should place the ImageMagick
 		/// xml files in that directory.
 		///</summary>
+		///<param name="path">The path that contains the ImageMagick xml files.</param>
 		static void Initialize(String^ path);
 		///==========================================================================================
 		///<summary>
 		/// Pixel cache threshold in megabytes. Once this memory threshold is exceeded, all subsequent
 		/// pixels cache operations are to/from disk. This setting is shared by all MagickImage objects.
 		///</summary>
+		///<param name="threshold">The threshold in megabytes.</param>
 		static void SetCacheThreshold(int threshold);
+		///==========================================================================================
+		///<summary>
+		/// Set the events that will be written to the log. The log will be written to the console and
+		/// the debug window in VisualStudio. To change the log settings you must use a custom log.xml
+		/// file.
+		///</summary>
+		///<param name="events">The events that will be logged.</param>
+		static void SetLogEvents(LogEvents events);
+		///==========================================================================================
+		///<summary>
+		/// Sets the directory that will be used when ImageMagick does not have enough memory for the
+		/// pixel cache.
+		///</summary>
+		///<param name="path">The path where temp files will be written.</param>
+		static void SetTempDirectory(String^ path);
 		//===========================================================================================
 	};
 	//==============================================================================================

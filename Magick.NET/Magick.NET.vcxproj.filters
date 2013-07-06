@@ -606,6 +606,9 @@
     <ClInclude Include="Profiles\ImageProfile.h">
       <Filter>Header Files\Profiles</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\LogEvents.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">

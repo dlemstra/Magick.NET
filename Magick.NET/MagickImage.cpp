@@ -442,16 +442,6 @@ namespace ImageMagick
 		Value->compressType((MagickCore::CompressionType)value);
 	}
 	//==============================================================================================
-	bool MagickImage::Debug::get()
-	{
-		return Value->debug();
-	}
-	//==============================================================================================
-	void MagickImage::Debug::set(bool value)
-	{
-		Value->debug(value);
-	}
-	//==============================================================================================
 	MagickGeometry^ MagickImage::Density::get()
 	{
 		return gcnew MagickGeometry(Value->density());

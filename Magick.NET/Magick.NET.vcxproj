@@ -270,6 +270,7 @@
     <ClInclude Include="Enums\LineCap.h" />
     <ClInclude Include="Enums\LineJoin.h" />
     <ClInclude Include="Enums\EvaluateOperator.h" />
+    <ClInclude Include="Enums\LogEvents.h" />
     <ClInclude Include="Enums\OrientationType.h" />
     <ClInclude Include="Enums\RenderingIntent.h" />
     <ClInclude Include="Enums\SparseColorMethod.h" />

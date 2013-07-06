@@ -24,6 +24,10 @@ namespace ImageMagick
 	public:
 		//===========================================================================================
 		generic<typename TEnum>
+		where TEnum: value class, ValueType
+		static IEnumerable<TEnum>^ GetFlags(TEnum value);
+		//===========================================================================================
+		generic<typename TEnum>
 		where TEnum : value class, ValueType
 		static TEnum Parse(int value, TEnum defaultValue);
 		//===========================================================================================

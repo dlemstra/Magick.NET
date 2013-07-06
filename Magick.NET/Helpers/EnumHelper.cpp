@@ -14,8 +14,25 @@
 #include "Stdafx.h"
 #include "EnumHelper.h"
 
+using namespace System::Collections::ObjectModel;
+
 namespace ImageMagick
 {
+	//==============================================================================================
+	generic<typename TEnum>
+	where TEnum: value class, ValueType
+	IEnumerable<TEnum>^ EnumHelper::GetFlags(TEnum value)
+	{
+		Collection<TEnum>^ flags = gcnew Collection<TEnum>();
+
+		for each (TEnum enumValue in Enum::GetValues(TEnum::typeid))
+		{
+			if (((int)value & (int)enumValue) != 0)
+				flags->Add(enumValue);
+		}
+
+		return flags;
+	}
 	//==============================================================================================
 	generic<typename TEnum>
 	where TEnum : value class, ValueType

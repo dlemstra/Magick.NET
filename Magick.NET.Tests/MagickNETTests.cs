@@ -102,6 +102,22 @@ namespace Magick.NET.Tests
 #endif
 		}
 		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_SetTempDirectory()
+		{
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				MagickNET.SetTempDirectory(null);
+			});
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				MagickNET.SetTempDirectory("Invalid");
+			});
+
+			MagickNET.SetTempDirectory(Path.GetTempPath());
+		}
+		//===========================================================================================
 	}
 	//==============================================================================================
 }
