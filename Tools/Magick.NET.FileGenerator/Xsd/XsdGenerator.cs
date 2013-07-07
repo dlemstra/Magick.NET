@@ -59,7 +59,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void AddEnumValues(Type enumType, XElement restriction)
 		{
-			foreach (string name in Enum.GetNames(enumType))
+			foreach (string name in Enum.GetNames(enumType).OrderBy(n => n))
 			{
 				if (name == "Undefined")
 					continue;
@@ -72,6 +72,22 @@ namespace Magick.NET.FileGenerator
 		private void AddMagickImageMethods(XElement annotation)
 		{
 			foreach (MethodInfo[] overloads in _MagickNET.GetGroupedMagickImageMethods())
+			{
+				annotation.AddBeforeSelf(CreateElement(overloads));
+			}
+		}
+		//===========================================================================================
+		private void AddMagickImageCollectionMethods(XElement annotation)
+		{
+			foreach (MethodInfo[] overloads in _MagickNET.GetGroupedMagickImageCollectionMethods())
+			{
+				annotation.AddBeforeSelf(CreateElement(overloads));
+			}
+		}
+		//===========================================================================================
+		private void AddMagickImageCollectionResultMethods(XElement annotation)
+		{
+			foreach (MethodInfo[] overloads in _MagickNET.GetGroupedMagickImageCollectionResultMethods())
 			{
 				annotation.AddBeforeSelf(CreateElement(overloads));
 			}
@@ -336,14 +352,6 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		private void ReplaceActions(XElement annotation)
-		{
-			AddMagickImageProperties(annotation);
-			AddMagickImageMethods(annotation);
-
-			annotation.Remove();
-		}
-		//===========================================================================================
 		private void ReplaceAnnotations()
 		{
 			XElement[] annotations = (from element in _Document.XPathSelectElements("//xs:annotation", _Namespaces)
@@ -354,11 +362,14 @@ namespace Magick.NET.FileGenerator
 				string annotationID = annotation.Attribute("id").Value;
 				switch (annotationID)
 				{
-					case "actions":
-						ReplaceActions(annotation);
-						break;
 					case "color":
 						ReplaceColor(annotation);
+						break;
+					case "collection-actions":
+						ReplaceCollectionActions(annotation);
+						break;
+					case "collection-results":
+						ReplaceCollectionResults(annotation);
 						break;
 					case "coordinate":
 					case "imageProfile":
@@ -373,6 +384,9 @@ namespace Magick.NET.FileGenerator
 					case "enums":
 						ReplaceEnums(annotation);
 						break;
+					case "image-actions":
+						ReplaceImageActions(annotation);
+						break;
 					case "geometry":
 						ReplaceWithType(annotation, "MagickGeometry");
 						break;
@@ -386,6 +400,20 @@ namespace Magick.NET.FileGenerator
 						throw new NotImplementedException(annotationID);
 				}
 			}
+		}
+		//===========================================================================================
+		private void ReplaceCollectionActions(XElement annotation)
+		{
+			AddMagickImageCollectionMethods(annotation);
+
+			annotation.Remove();
+		}
+		//===========================================================================================
+		private void ReplaceCollectionResults(XElement annotation)
+		{
+			AddMagickImageCollectionResultMethods(annotation);
+
+			annotation.Remove();
 		}
 		//===========================================================================================
 		private void ReplaceEnums(XElement annotation)
@@ -404,6 +432,7 @@ namespace Magick.NET.FileGenerator
 			{
 				annotation.AddBeforeSelf(CreateElement(constructors));
 			}
+
 			annotation.Remove();
 		}
 		//===========================================================================================
@@ -428,6 +457,14 @@ namespace Magick.NET.FileGenerator
 			annotation.ReplaceWith(new XElement(_Namespace + "simpleType",
 											new XAttribute("name", "color"),
 											restriction));
+		}
+		//===========================================================================================
+		private void ReplaceImageActions(XElement annotation)
+		{
+			AddMagickImageProperties(annotation);
+			AddMagickImageMethods(annotation);
+
+			annotation.Remove();
 		}
 		//===========================================================================================
 		private void ReplacePaths(XElement annotation)

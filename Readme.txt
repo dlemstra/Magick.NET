@@ -1,5 +1,11 @@
 Breaking changes.
 
+Magick.NET 6.8.6.301:
+  - Removed Debug property of MagickImage (use MagickNET.SetLogEvents).
+  - MagickImage.Separate no longer modifies the image, it returns an IEnumerable<MagickImage>.
+  - LayerMethod enum is no longer public.
+  - Removed LayerMethod argument from MagickImageCollection.Merge.
+
 Magick.NET 6.8.5.1001:
   - MagickNET.Initialize has been made obsolete because the ImageMagick files in the  directory are no longer necessary.
   - MagickGeometry is no longer IDisposable.

@@ -37,6 +37,7 @@ namespace Magick.NET.FileGenerator
 			_ExecuteCodeGenerators = new List<ExecuteCodeGenerator>();
 
 			_ExecuteCodeGenerators.Add(new MagickImageGenerator());
+			_ExecuteCodeGenerators.Add(new MagickImageCollectionGenerator());
 			_ExecuteCodeGenerators.Add(new DrawableGenerator());
 			_ExecuteCodeGenerators.Add(new PathsGenerator());
 

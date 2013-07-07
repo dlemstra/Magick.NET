@@ -11,24 +11,24 @@
 	</xs:simpleType>
 	<xs:simpleType name="Channels">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Cyan" />
-			<xs:enumeration value="Gray" />
-			<xs:enumeration value="Red" />
-			<xs:enumeration value="Green" />
-			<xs:enumeration value="Magenta" />
-			<xs:enumeration value="Blue" />
-			<xs:enumeration value="Yellow" />
-			<xs:enumeration value="Opacity" />
+			<xs:enumeration value="All" />
 			<xs:enumeration value="Alpha" />
 			<xs:enumeration value="Black" />
-			<xs:enumeration value="Index" />
+			<xs:enumeration value="Blue" />
 			<xs:enumeration value="Composite" />
-			<xs:enumeration value="TrueAlpha" />
+			<xs:enumeration value="Cyan" />
+			<xs:enumeration value="Default" />
+			<xs:enumeration value="Gray" />
 			<xs:enumeration value="Grays" />
+			<xs:enumeration value="Green" />
+			<xs:enumeration value="Index" />
+			<xs:enumeration value="Magenta" />
+			<xs:enumeration value="Opacity" />
+			<xs:enumeration value="Red" />
 			<xs:enumeration value="RGB" />
 			<xs:enumeration value="Sync" />
-			<xs:enumeration value="Default" />
-			<xs:enumeration value="All" />
+			<xs:enumeration value="TrueAlpha" />
+			<xs:enumeration value="Yellow" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ClassType">
@@ -39,67 +39,70 @@
 	</xs:simpleType>
 	<xs:simpleType name="ColorSpace">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="RGB" />
-			<xs:enumeration value="GRAY" />
-			<xs:enumeration value="Transparent" />
-			<xs:enumeration value="OHTA" />
-			<xs:enumeration value="Lab" />
-			<xs:enumeration value="XYZ" />
-			<xs:enumeration value="YCbCr" />
-			<xs:enumeration value="YCC" />
-			<xs:enumeration value="YIQ" />
-			<xs:enumeration value="YPbPr" />
-			<xs:enumeration value="YUV" />
+			<xs:enumeration value="CMY" />
 			<xs:enumeration value="CMYK" />
-			<xs:enumeration value="sRGB" />
+			<xs:enumeration value="GRAY" />
+			<xs:enumeration value="HCL" />
+			<xs:enumeration value="HCLp" />
 			<xs:enumeration value="HSB" />
+			<xs:enumeration value="HSI" />
 			<xs:enumeration value="HSL" />
+			<xs:enumeration value="HSV" />
 			<xs:enumeration value="HWB" />
+			<xs:enumeration value="Lab" />
+			<xs:enumeration value="LCH" />
+			<xs:enumeration value="LCHab" />
+			<xs:enumeration value="LCHuv" />
+			<xs:enumeration value="LMS" />
+			<xs:enumeration value="Log" />
+			<xs:enumeration value="Luv" />
+			<xs:enumeration value="OHTA" />
 			<xs:enumeration value="Rec601Luma" />
 			<xs:enumeration value="Rec601YCbCr" />
 			<xs:enumeration value="Rec709Luma" />
 			<xs:enumeration value="Rec709YCbCr" />
-			<xs:enumeration value="Log" />
-			<xs:enumeration value="CMY" />
-			<xs:enumeration value="Luv" />
-			<xs:enumeration value="HCL" />
-			<xs:enumeration value="LCH" />
-			<xs:enumeration value="LMS" />
-			<xs:enumeration value="LCHab" />
-			<xs:enumeration value="LCHuv" />
+			<xs:enumeration value="RGB" />
 			<xs:enumeration value="scRGB" />
+			<xs:enumeration value="sRGB" />
+			<xs:enumeration value="Transparent" />
+			<xs:enumeration value="XYZ" />
+			<xs:enumeration value="YCbCr" />
+			<xs:enumeration value="YCC" />
+			<xs:enumeration value="YDbDr" />
+			<xs:enumeration value="YIQ" />
+			<xs:enumeration value="YPbPr" />
+			<xs:enumeration value="YUV" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ColorType">
 		<xs:restriction base="xs:NMTOKEN">
 			<xs:enumeration value="Bilevel" />
+			<xs:enumeration value="ColorSeparation" />
+			<xs:enumeration value="ColorSeparationMatte" />
 			<xs:enumeration value="Grayscale" />
 			<xs:enumeration value="GrayscaleMatte" />
+			<xs:enumeration value="Optimize" />
 			<xs:enumeration value="Palette" />
+			<xs:enumeration value="PaletteBilevelMatte" />
 			<xs:enumeration value="PaletteMatte" />
 			<xs:enumeration value="TrueColor" />
 			<xs:enumeration value="TrueColorMatte" />
-			<xs:enumeration value="ColorSeparation" />
-			<xs:enumeration value="ColorSeparationMatte" />
-			<xs:enumeration value="Optimize" />
-			<xs:enumeration value="PaletteBilevelMatte" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="CompositeOperator">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="NoComposite" />
-			<xs:enumeration value="ModulusAdd" />
 			<xs:enumeration value="Atop" />
 			<xs:enumeration value="Blend" />
+			<xs:enumeration value="Blur" />
 			<xs:enumeration value="Bumpmap" />
 			<xs:enumeration value="ChangeMask" />
 			<xs:enumeration value="Clear" />
 			<xs:enumeration value="ColorBurn" />
 			<xs:enumeration value="ColorDodge" />
 			<xs:enumeration value="Colorize" />
+			<xs:enumeration value="Copy" />
 			<xs:enumeration value="CopyBlack" />
 			<xs:enumeration value="CopyBlue" />
-			<xs:enumeration value="Copy" />
 			<xs:enumeration value="CopyCyan" />
 			<xs:enumeration value="CopyGreen" />
 			<xs:enumeration value="CopyMagenta" />
@@ -107,78 +110,79 @@
 			<xs:enumeration value="CopyRed" />
 			<xs:enumeration value="CopyYellow" />
 			<xs:enumeration value="Darken" />
-			<xs:enumeration value="DstAtop" />
-			<xs:enumeration value="Dst" />
-			<xs:enumeration value="DstIn" />
-			<xs:enumeration value="DstOut" />
-			<xs:enumeration value="DstOver" />
+			<xs:enumeration value="DarkenIntensity" />
 			<xs:enumeration value="Difference" />
 			<xs:enumeration value="Displace" />
 			<xs:enumeration value="Dissolve" />
+			<xs:enumeration value="Distort" />
+			<xs:enumeration value="Divide" />
+			<xs:enumeration value="DivideSrc" />
+			<xs:enumeration value="Dst" />
+			<xs:enumeration value="DstAtop" />
+			<xs:enumeration value="DstIn" />
+			<xs:enumeration value="DstOut" />
+			<xs:enumeration value="DstOver" />
 			<xs:enumeration value="Exclusion" />
 			<xs:enumeration value="HardLight" />
 			<xs:enumeration value="Hue" />
 			<xs:enumeration value="In" />
 			<xs:enumeration value="Lighten" />
+			<xs:enumeration value="LightenIntensity" />
+			<xs:enumeration value="LinearBurn" />
+			<xs:enumeration value="LinearDodge" />
 			<xs:enumeration value="LinearLight" />
 			<xs:enumeration value="Luminize" />
+			<xs:enumeration value="Mathematics" />
 			<xs:enumeration value="MinusDst" />
+			<xs:enumeration value="MinusSrc" />
 			<xs:enumeration value="Modulate" />
+			<xs:enumeration value="Modulus" />
+			<xs:enumeration value="ModulusAdd" />
 			<xs:enumeration value="Multiply" />
+			<xs:enumeration value="NoComposite" />
 			<xs:enumeration value="Out" />
 			<xs:enumeration value="Over" />
 			<xs:enumeration value="Overlay" />
+			<xs:enumeration value="PegtopLight" />
+			<xs:enumeration value="PinLight" />
 			<xs:enumeration value="Plus" />
 			<xs:enumeration value="Replace" />
 			<xs:enumeration value="Saturate" />
 			<xs:enumeration value="Screen" />
 			<xs:enumeration value="SoftLight" />
-			<xs:enumeration value="SrcAtop" />
 			<xs:enumeration value="Src" />
+			<xs:enumeration value="SrcAtop" />
 			<xs:enumeration value="SrcIn" />
 			<xs:enumeration value="SrcOut" />
 			<xs:enumeration value="SrcOver" />
-			<xs:enumeration value="Modulus" />
 			<xs:enumeration value="Threshold" />
-			<xs:enumeration value="Xor" />
-			<xs:enumeration value="Divide" />
-			<xs:enumeration value="Distort" />
-			<xs:enumeration value="Blur" />
-			<xs:enumeration value="PegtopLight" />
 			<xs:enumeration value="VividLight" />
-			<xs:enumeration value="PinLight" />
-			<xs:enumeration value="LinearDodge" />
-			<xs:enumeration value="LinearBurn" />
-			<xs:enumeration value="Mathematics" />
-			<xs:enumeration value="DivideSrc" />
-			<xs:enumeration value="MinusSrc" />
-			<xs:enumeration value="DarkenIntensity" />
-			<xs:enumeration value="LightenIntensity" />
+			<xs:enumeration value="Xor" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="CompressionMethod">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="NoCompression" />
+			<xs:enumeration value="B44" />
+			<xs:enumeration value="B44A" />
 			<xs:enumeration value="BZip" />
 			<xs:enumeration value="DXT1" />
 			<xs:enumeration value="DXT3" />
 			<xs:enumeration value="DXT5" />
 			<xs:enumeration value="Faxo" />
 			<xs:enumeration value="Group4" />
+			<xs:enumeration value="JBIG1" />
+			<xs:enumeration value="JBIG2" />
 			<xs:enumeration value="JPEG" />
 			<xs:enumeration value="JPEG2000" />
 			<xs:enumeration value="LosslessJPEG" />
+			<xs:enumeration value="LZMA" />
 			<xs:enumeration value="LZW" />
+			<xs:enumeration value="NoCompression" />
+			<xs:enumeration value="Piz" />
+			<xs:enumeration value="Pxr24" />
 			<xs:enumeration value="RLE" />
 			<xs:enumeration value="Zip" />
 			<xs:enumeration value="ZipS" />
-			<xs:enumeration value="Piz" />
-			<xs:enumeration value="Pxr24" />
-			<xs:enumeration value="B44" />
-			<xs:enumeration value="B44A" />
-			<xs:enumeration value="LZMA" />
-			<xs:enumeration value="JBIG1" />
-			<xs:enumeration value="JBIG2" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="Endian">
@@ -189,37 +193,37 @@
 	</xs:simpleType>
 	<xs:simpleType name="EvaluateOperator">
 		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Abs" />
 			<xs:enumeration value="Add" />
+			<xs:enumeration value="AddModulus" />
 			<xs:enumeration value="And" />
+			<xs:enumeration value="Cosine" />
 			<xs:enumeration value="Devide" />
-			<xs:enumeration value="LeftShift" />
-			<xs:enumeration value="Max" />
-			<xs:enumeration value="Min" />
-			<xs:enumeration value="Multiply" />
-			<xs:enumeration value="Or" />
-			<xs:enumeration value="Right" />
-			<xs:enumeration value="Set" />
-			<xs:enumeration value="Subtract" />
-			<xs:enumeration value="Xor" />
-			<xs:enumeration value="Pow" />
-			<xs:enumeration value="Log" />
-			<xs:enumeration value="Threshold" />
-			<xs:enumeration value="ThresholdBlack" />
-			<xs:enumeration value="ThresholdWhite" />
+			<xs:enumeration value="Exponential" />
 			<xs:enumeration value="GaussianNoise" />
 			<xs:enumeration value="ImpulseNoise" />
 			<xs:enumeration value="LaplacianNoise" />
-			<xs:enumeration value="MultiplicativeNoise" />
-			<xs:enumeration value="PoissonNoise" />
-			<xs:enumeration value="UniformNoise" />
-			<xs:enumeration value="Cosine" />
-			<xs:enumeration value="Sine" />
-			<xs:enumeration value="AddModulus" />
+			<xs:enumeration value="LeftShift" />
+			<xs:enumeration value="Log" />
+			<xs:enumeration value="Max" />
 			<xs:enumeration value="Mean" />
-			<xs:enumeration value="Abs" />
-			<xs:enumeration value="Exponential" />
 			<xs:enumeration value="Median" />
+			<xs:enumeration value="Min" />
+			<xs:enumeration value="MultiplicativeNoise" />
+			<xs:enumeration value="Multiply" />
+			<xs:enumeration value="Or" />
+			<xs:enumeration value="PoissonNoise" />
+			<xs:enumeration value="Pow" />
+			<xs:enumeration value="Right" />
+			<xs:enumeration value="Set" />
+			<xs:enumeration value="Sine" />
+			<xs:enumeration value="Subtract" />
 			<xs:enumeration value="Sum" />
+			<xs:enumeration value="Threshold" />
+			<xs:enumeration value="ThresholdBlack" />
+			<xs:enumeration value="ThresholdWhite" />
+			<xs:enumeration value="UniformNoise" />
+			<xs:enumeration value="Xor" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="FillRule">
@@ -230,58 +234,58 @@
 	</xs:simpleType>
 	<xs:simpleType name="FilterType">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Point" />
-			<xs:enumeration value="Box" />
-			<xs:enumeration value="Triangle" />
-			<xs:enumeration value="Hermite" />
-			<xs:enumeration value="Hanning" />
-			<xs:enumeration value="Hamming" />
-			<xs:enumeration value="Blackman" />
-			<xs:enumeration value="Gaussian" />
-			<xs:enumeration value="Quadratic" />
-			<xs:enumeration value="Cubic" />
-			<xs:enumeration value="Catrom" />
-			<xs:enumeration value="Mitchell" />
-			<xs:enumeration value="Jinc" />
-			<xs:enumeration value="Sinc" />
-			<xs:enumeration value="SincFast" />
-			<xs:enumeration value="Kaiser" />
-			<xs:enumeration value="Welsh" />
-			<xs:enumeration value="Parzen" />
-			<xs:enumeration value="Bohman" />
 			<xs:enumeration value="Bartlett" />
+			<xs:enumeration value="Blackman" />
+			<xs:enumeration value="Bohman" />
+			<xs:enumeration value="Box" />
+			<xs:enumeration value="Catrom" />
+			<xs:enumeration value="Cosine" />
+			<xs:enumeration value="Cubic" />
+			<xs:enumeration value="Gaussian" />
+			<xs:enumeration value="Hamming" />
+			<xs:enumeration value="Hanning" />
+			<xs:enumeration value="Hermite" />
+			<xs:enumeration value="Jinc" />
+			<xs:enumeration value="Kaiser" />
 			<xs:enumeration value="Lagrange" />
 			<xs:enumeration value="Lanczos" />
-			<xs:enumeration value="LanczosSharp" />
 			<xs:enumeration value="Lanczos2" />
 			<xs:enumeration value="Lanczos2Sharo" />
+			<xs:enumeration value="LanczosRadius" />
+			<xs:enumeration value="LanczosSharp" />
+			<xs:enumeration value="Mitchell" />
+			<xs:enumeration value="Parzen" />
+			<xs:enumeration value="Point" />
+			<xs:enumeration value="Quadratic" />
 			<xs:enumeration value="Robidoux" />
 			<xs:enumeration value="RobidouxSharp" />
-			<xs:enumeration value="Cosine" />
+			<xs:enumeration value="Sinc" />
+			<xs:enumeration value="SincFast" />
 			<xs:enumeration value="Spline" />
-			<xs:enumeration value="LanczosRadius" />
+			<xs:enumeration value="Triangle" />
+			<xs:enumeration value="Welsh" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="FontStretch">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Normal" />
-			<xs:enumeration value="UltraCondensed" />
-			<xs:enumeration value="ExtraCondensed" />
+			<xs:enumeration value="Any" />
 			<xs:enumeration value="Condensed" />
+			<xs:enumeration value="Expanded" />
+			<xs:enumeration value="ExtraCondensed" />
+			<xs:enumeration value="ExtraExpanded" />
+			<xs:enumeration value="Normal" />
 			<xs:enumeration value="SemiCondensed" />
 			<xs:enumeration value="SemiExpanded" />
-			<xs:enumeration value="Expanded" />
-			<xs:enumeration value="ExtraExpanded" />
+			<xs:enumeration value="UltraCondensed" />
 			<xs:enumeration value="UltraExpanded" />
-			<xs:enumeration value="Any" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="FontStyleType">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Normal" />
-			<xs:enumeration value="Italic" />
-			<xs:enumeration value="Oblique" />
 			<xs:enumeration value="Any" />
+			<xs:enumeration value="Italic" />
+			<xs:enumeration value="Normal" />
+			<xs:enumeration value="Oblique" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="FontWeight">
@@ -299,44 +303,24 @@
 	</xs:simpleType>
 	<xs:simpleType name="GifDisposeMethod">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="None" />
 			<xs:enumeration value="Background" />
+			<xs:enumeration value="None" />
 			<xs:enumeration value="Previous" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="Gravity">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Forget" />
-			<xs:enumeration value="Northwest" />
-			<xs:enumeration value="North" />
-			<xs:enumeration value="Northeast" />
-			<xs:enumeration value="West" />
 			<xs:enumeration value="Center" />
 			<xs:enumeration value="East" />
-			<xs:enumeration value="Southwest" />
+			<xs:enumeration value="Forget" />
+			<xs:enumeration value="North" />
+			<xs:enumeration value="Northeast" />
+			<xs:enumeration value="Northwest" />
 			<xs:enumeration value="South" />
 			<xs:enumeration value="Southeast" />
+			<xs:enumeration value="Southwest" />
 			<xs:enumeration value="Static" />
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="LayerMethod">
-		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Coalesce" />
-			<xs:enumeration value="CompareAny" />
-			<xs:enumeration value="CompareClear" />
-			<xs:enumeration value="CompareOverlay" />
-			<xs:enumeration value="Dispose" />
-			<xs:enumeration value="Optimize" />
-			<xs:enumeration value="OptimizeImage" />
-			<xs:enumeration value="OptimizePlus" />
-			<xs:enumeration value="OptimizeTrans" />
-			<xs:enumeration value="RemoveDups" />
-			<xs:enumeration value="RemoveZero" />
-			<xs:enumeration value="Composite" />
-			<xs:enumeration value="Merge" />
-			<xs:enumeration value="Flatten" />
-			<xs:enumeration value="Mosaic" />
-			<xs:enumeration value="Trimbounds" />
+			<xs:enumeration value="West" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="LineCap">
@@ -348,14 +332,13 @@
 	</xs:simpleType>
 	<xs:simpleType name="LineJoin">
 		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Bevel" />
 			<xs:enumeration value="Miter" />
 			<xs:enumeration value="Round" />
-			<xs:enumeration value="Bevel" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="MagickFormat">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="ThreeFr" />
 			<xs:enumeration value="A" />
 			<xs:enumeration value="Aai" />
 			<xs:enumeration value="Ai" />
@@ -392,10 +375,7 @@
 			<xs:enumeration value="Dds" />
 			<xs:enumeration value="Dfont" />
 			<xs:enumeration value="Dib" />
-			<xs:enumeration value="Djvu" />
 			<xs:enumeration value="Dng" />
-			<xs:enumeration value="Dot" />
-			<xs:enumeration value="Dps" />
 			<xs:enumeration value="Dpx" />
 			<xs:enumeration value="Emf" />
 			<xs:enumeration value="Epdf" />
@@ -409,10 +389,8 @@
 			<xs:enumeration value="Ept2" />
 			<xs:enumeration value="Ept3" />
 			<xs:enumeration value="Erf" />
-			<xs:enumeration value="Exr" />
 			<xs:enumeration value="Fax" />
 			<xs:enumeration value="Fits" />
-			<xs:enumeration value="Fpx" />
 			<xs:enumeration value="Fractal" />
 			<xs:enumeration value="Fts" />
 			<xs:enumeration value="G" />
@@ -422,7 +400,6 @@
 			<xs:enumeration value="Gradient" />
 			<xs:enumeration value="Gray" />
 			<xs:enumeration value="Group4" />
-			<xs:enumeration value="Gv" />
 			<xs:enumeration value="Hald" />
 			<xs:enumeration value="Hdr" />
 			<xs:enumeration value="Histogram" />
@@ -547,6 +524,7 @@
 			<xs:enumeration value="Svgz" />
 			<xs:enumeration value="Text" />
 			<xs:enumeration value="Tga" />
+			<xs:enumeration value="ThreeFr" />
 			<xs:enumeration value="Thumbnail" />
 			<xs:enumeration value="Tiff" />
 			<xs:enumeration value="Tiff64" />
@@ -565,13 +543,10 @@
 			<xs:enumeration value="Viff" />
 			<xs:enumeration value="Vst" />
 			<xs:enumeration value="Wbmp" />
-			<xs:enumeration value="Webp" />
-			<xs:enumeration value="Wmf" />
+			<xs:enumeration value="WebP" />
 			<xs:enumeration value="Wmfwin32" />
 			<xs:enumeration value="Wmv" />
-			<xs:enumeration value="Wmz" />
 			<xs:enumeration value="Wpg" />
-			<xs:enumeration value="X" />
 			<xs:enumeration value="X3f" />
 			<xs:enumeration value="Xbm" />
 			<xs:enumeration value="Xc" />
@@ -579,7 +554,6 @@
 			<xs:enumeration value="Xpm" />
 			<xs:enumeration value="Xps" />
 			<xs:enumeration value="Xv" />
-			<xs:enumeration value="Xwd" />
 			<xs:enumeration value="Y" />
 			<xs:enumeration value="Ycbcr" />
 			<xs:enumeration value="Ycbcra" />
@@ -588,75 +562,75 @@
 	</xs:simpleType>
 	<xs:simpleType name="NoiseType">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Uniform" />
 			<xs:enumeration value="Gaussian" />
-			<xs:enumeration value="MultiplicativeGaussian" />
 			<xs:enumeration value="Impulse" />
 			<xs:enumeration value="Laplacian" />
+			<xs:enumeration value="MultiplicativeGaussian" />
 			<xs:enumeration value="Poisson" />
+			<xs:enumeration value="Uniform" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="OrientationType">
 		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="BottomLeft" />
+			<xs:enumeration value="BottomRight" />
+			<xs:enumeration value="LeftBotom" />
+			<xs:enumeration value="LeftTop" />
+			<xs:enumeration value="RightBottom" />
+			<xs:enumeration value="RightTop" />
 			<xs:enumeration value="TopLeft" />
 			<xs:enumeration value="TopRight" />
-			<xs:enumeration value="BottomRight" />
-			<xs:enumeration value="BottomLeft" />
-			<xs:enumeration value="LeftTop" />
-			<xs:enumeration value="RightTop" />
-			<xs:enumeration value="RightBottom" />
-			<xs:enumeration value="LeftBotom" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="PaintMethod">
 		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="FillToBorder" />
+			<xs:enumeration value="Floodfill" />
 			<xs:enumeration value="Point" />
 			<xs:enumeration value="Replace" />
-			<xs:enumeration value="Floodfill" />
-			<xs:enumeration value="FillToBorder" />
 			<xs:enumeration value="Reset" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="RenderingIntent">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Saturation" />
-			<xs:enumeration value="Perceptual" />
 			<xs:enumeration value="Absolute" />
+			<xs:enumeration value="Perceptual" />
 			<xs:enumeration value="Relative" />
+			<xs:enumeration value="Saturation" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="Resolution">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="PixelsPerInch" />
 			<xs:enumeration value="PixelsPerCentimeter" />
+			<xs:enumeration value="PixelsPerInch" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TextDecoration">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="NoDecoration" />
-			<xs:enumeration value="Underline" />
-			<xs:enumeration value="Overline" />
 			<xs:enumeration value="LineThrough" />
+			<xs:enumeration value="NoDecoration" />
+			<xs:enumeration value="Overline" />
+			<xs:enumeration value="Underline" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="VirtualPixelMethod">
 		<xs:restriction base="xs:NMTOKEN">
 			<xs:enumeration value="Background" />
+			<xs:enumeration value="Black" />
+			<xs:enumeration value="CheckerTileV" />
 			<xs:enumeration value="Dither" />
 			<xs:enumeration value="Edge" />
+			<xs:enumeration value="Gray" />
+			<xs:enumeration value="HorizontalTile" />
+			<xs:enumeration value="HorizontalTileEdge" />
+			<xs:enumeration value="Mask" />
 			<xs:enumeration value="Mirror" />
 			<xs:enumeration value="Random" />
 			<xs:enumeration value="Tile" />
 			<xs:enumeration value="Transparent" />
-			<xs:enumeration value="Mask" />
-			<xs:enumeration value="Black" />
-			<xs:enumeration value="Gray" />
-			<xs:enumeration value="White" />
-			<xs:enumeration value="HorizontalTile" />
 			<xs:enumeration value="VerticalTile" />
-			<xs:enumeration value="HorizontalTileEdge" />
 			<xs:enumeration value="VerticalTileEdge" />
-			<xs:enumeration value="CheckerTileV" />
+			<xs:enumeration value="White" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ColorProfile">
@@ -1439,11 +1413,6 @@
 						<xs:attribute name="smoothingThreshold" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="separate">
-					<xs:complexType>
-						<xs:attribute name="channels" use="required" type="Channels" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="shade">
 					<xs:complexType>
 						<xs:attribute name="azimuth" type="xs:double" />
@@ -1618,20 +1587,35 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:group ref="read" minOccurs="2" maxOccurs="unbounded" />
-						<xs:element name="rePage" minOccurs="0" />
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="coalesce" />
+							<xs:element name="deconstruct" />
+							<xs:element name="optimize" />
+							<xs:element name="optimizePlus" />
+							<xs:element name="rePage" />
+						</xs:choice>
+						<xs:element name="write" minOccurs="0">
+							<xs:complexType>
+								<xs:attribute name="fileName" use="required" type="xs:string" />
+							</xs:complexType>
+						</xs:element>
 						<xs:choice>
 							<xs:element name="appendHorizontally" />
 							<xs:element name="appendVertically" />
-							<xs:element name="merge">
+							<xs:element name="combine">
 								<xs:complexType>
-									<xs:attribute name="layerMethod" use="required" type="LayerMethod" />
+									<xs:attribute name="channels" type="Channels" />
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="write">
+							<xs:element name="evaluate">
 								<xs:complexType>
-									<xs:attribute name="fileName" use="required" type="xs:string" />
+									<xs:attribute name="evaluateOperator" use="required" type="EvaluateOperator" />
 								</xs:complexType>
 							</xs:element>
+							<xs:element name="flatten" />
+							<xs:element name="merge" />
+							<xs:element name="mosaic" />
+							<xs:element name="trimBounds" />
 						</xs:choice>
 					</xs:sequence>
 				</xs:complexType>

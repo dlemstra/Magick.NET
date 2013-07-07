@@ -39,10 +39,10 @@ namespace ImageMagick
 		Composite = MagickCore::CompositeChannels,
 		All = MagickCore::AllChannels,
 		TrueAlpha= MagickCore::TrueAlphaChannel,
-		RGB = MagickCore::RGBChannels,
+		RGB = Red | Green | Blue,
 		Grays = MagickCore::GrayChannels,
 		Sync = MagickCore::SyncChannels,
-		Default = ((All | Sync) &~ Opacity)
+		Default = MagickCore::DefaultChannels
 	};
 	//==============================================================================================
 }

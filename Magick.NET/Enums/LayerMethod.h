@@ -19,7 +19,7 @@ namespace ImageMagick
 	///<summary>
 	/// The method of selecting the size of the initial canvas.
 	///</summary>
-	public enum class LayerMethod
+	private enum class LayerMethod
 	{
 		Undefined = MagickCore::UndefinedLayer,
 		Coalesce = MagickCore::CoalesceLayer,

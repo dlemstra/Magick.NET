@@ -193,7 +193,6 @@ namespace ImageMagick
 		result["sample"] = gcnew ExecuteElementImage(MagickScript::ExecuteSample);
 		result["scale"] = gcnew ExecuteElementImage(MagickScript::ExecuteScale);
 		result["segment"] = gcnew ExecuteElementImage(MagickScript::ExecuteSegment);
-		result["separate"] = gcnew ExecuteElementImage(MagickScript::ExecuteSeparate);
 		result["shade"] = gcnew ExecuteElementImage(MagickScript::ExecuteShade);
 		result["shadow"] = gcnew ExecuteElementImage(MagickScript::ExecuteShadow);
 		result["sharpen"] = gcnew ExecuteElementImage(MagickScript::ExecuteSharpen);
@@ -236,6 +235,24 @@ namespace ImageMagick
 		_ExecuteImage["copy"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteCopy);
 		_ExecuteImage["draw"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteDraw);
 		_ExecuteImage["write"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteWrite);
+	}
+	System::Collections::Hashtable^ MagickScript::InitializeStaticExecuteCollection()
+	{
+		System::Collections::Hashtable^ result = gcnew System::Collections::Hashtable();
+		result["coalesce"] = gcnew ExecuteElementCollection(MagickScript::ExecuteCoalesce);
+		result["deconstruct"] = gcnew ExecuteElementCollection(MagickScript::ExecuteDeconstruct);
+		result["optimize"] = gcnew ExecuteElementCollection(MagickScript::ExecuteOptimize);
+		result["optimizePlus"] = gcnew ExecuteElementCollection(MagickScript::ExecuteOptimizePlus);
+		result["rePage"] = gcnew ExecuteElementCollection(MagickScript::ExecuteRePage);
+		result["appendHorizontally"] = gcnew ExecuteElementCollection(MagickScript::ExecuteAppendHorizontally);
+		result["appendVertically"] = gcnew ExecuteElementCollection(MagickScript::ExecuteAppendVertically);
+		result["combine"] = gcnew ExecuteElementCollection(MagickScript::ExecuteCombine);
+		result["evaluate"] = gcnew ExecuteElementCollection(MagickScript::ExecuteEvaluate);
+		result["flatten"] = gcnew ExecuteElementCollection(MagickScript::ExecuteFlatten);
+		result["merge"] = gcnew ExecuteElementCollection(MagickScript::ExecuteMerge);
+		result["mosaic"] = gcnew ExecuteElementCollection(MagickScript::ExecuteMosaic);
+		result["trimBounds"] = gcnew ExecuteElementCollection(MagickScript::ExecuteTrimBounds);
+		return result;
 	}
 	System::Collections::Hashtable^ MagickScript::InitializeStaticExecuteDrawable()
 	{
@@ -1370,11 +1387,6 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'segment', allowed combinations are: [] [clusterThreshold, smoothingThreshold]");
 	}
-	void MagickScript::ExecuteSeparate(XmlElement^ element, MagickImage^ image)
-	{
-		Channels channels_ = XmlHelper::GetAttribute<Channels>(element, "channels");
-		image->Separate(channels_);
-	}
 	void MagickScript::ExecuteShade(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -1645,6 +1657,81 @@ namespace ImageMagick
 			image->Zoom((int)arguments["width"], (int)arguments["height"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'zoom', allowed combinations are: [percentage] [geometry] [percentageWidth, percentageHeight] [width, height]");
+	}
+	MagickImage^ MagickScript::ExecuteCollection(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		ExecuteElementCollection^ method = dynamic_cast<ExecuteElementCollection^>(_StaticExecuteCollection[element->Name]);
+		if (method == nullptr)
+			throw gcnew NotImplementedException(element->Name);
+		return method(element,collection);
+	}
+	MagickImage^ MagickScript::ExecuteCoalesce(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		collection->Coalesce();
+		return nullptr;
+	}
+	MagickImage^ MagickScript::ExecuteDeconstruct(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		collection->Deconstruct();
+		return nullptr;
+	}
+	MagickImage^ MagickScript::ExecuteOptimize(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		collection->Optimize();
+		return nullptr;
+	}
+	MagickImage^ MagickScript::ExecuteOptimizePlus(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		collection->OptimizePlus();
+		return nullptr;
+	}
+	MagickImage^ MagickScript::ExecuteRePage(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		collection->RePage();
+		return nullptr;
+	}
+	MagickImage^ MagickScript::ExecuteAppendHorizontally(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		return collection->AppendHorizontally();
+	}
+	MagickImage^ MagickScript::ExecuteAppendVertically(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		return collection->AppendVertically();
+	}
+	MagickImage^ MagickScript::ExecuteCombine(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			arguments[attribute->Name] = XmlHelper::GetValue<Channels>(attribute);
+		}
+		if (arguments->Count == 0)
+			return collection->Combine();
+		else if (OnlyContains(arguments, "channels"))
+			return collection->Combine((Channels)arguments["channels"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'combine', allowed combinations are: [] [channels]");
+	}
+	MagickImage^ MagickScript::ExecuteEvaluate(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		EvaluateOperator evaluateOperator_ = XmlHelper::GetAttribute<EvaluateOperator>(element, "evaluateOperator");
+		return collection->Evaluate(evaluateOperator_);
+	}
+	MagickImage^ MagickScript::ExecuteFlatten(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		return collection->Flatten();
+	}
+	MagickImage^ MagickScript::ExecuteMerge(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		return collection->Merge();
+	}
+	MagickImage^ MagickScript::ExecuteMosaic(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		return collection->Mosaic();
+	}
+	MagickImage^ MagickScript::ExecuteTrimBounds(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		return collection->TrimBounds();
 	}
 	void MagickScript::ExecuteDrawable(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{

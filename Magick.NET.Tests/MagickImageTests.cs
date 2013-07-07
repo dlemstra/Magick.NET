@@ -330,6 +330,31 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Separate()
+		{
+			using (MagickImage rose = new MagickImage("rose:"))
+			{
+				int i = 0;
+				foreach (MagickImage image in rose.Separate())
+				{
+					i++;
+					image.Dispose();
+				}
+
+				Assert.AreEqual(4, i);
+
+				i = 0;
+				foreach (MagickImage image in rose.Separate(Channels.RGB))
+				{
+					i++;
+					image.Dispose();
+				}
+
+				Assert.AreEqual(3, i);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_ToBitmap()
 		{
 			MagickImage image = new MagickImage(Color.Red, 10, 10);

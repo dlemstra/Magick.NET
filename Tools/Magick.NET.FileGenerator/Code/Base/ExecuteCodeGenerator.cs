@@ -59,7 +59,8 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteExecute(IndentedTextWriter writer)
 		{
-			writer.Write("void MagickScript::Execute");
+			writer.Write(ReturnType);
+			writer.Write(" MagickScript::Execute");
 			writer.Write(ExecuteName);
 			writer.Write("(XmlElement^ element, ");
 			writer.Write(ExecuteArgument);
@@ -91,6 +92,8 @@ namespace Magick.NET.FileGenerator
 			writer.WriteLine("throw gcnew NotImplementedException(element->Name);");
 			writer.Indent--;
 
+			if (ReturnType != "void")
+				writer.Write("return ");
 			writer.Write("method(element,");
 			writer.Write(ExecuteArgument.Split(' ').Last());
 			writer.WriteLine(");");
@@ -101,7 +104,8 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteExecute(IndentedTextWriter writer, MethodBase[] methods)
 		{
-			writer.Write("void MagickScript::Execute");
+			writer.Write(ReturnType);
+			writer.Write(" MagickScript::Execute");
 			writer.Write(MagickNET.GetName(methods[0]));
 			writer.Write("(XmlElement^ element, ");
 			writer.Write(ExecuteArgument);
@@ -136,7 +140,8 @@ namespace Magick.NET.FileGenerator
 			if (HasOnlyStatic)
 				writer.Write("static ");
 
-			writer.Write("void Execute");
+			writer.Write(ReturnType);
+			writer.Write(" Execute");
 			writer.Write(ExecuteName);
 			writer.Write("(XmlElement^ element, ");
 			writer.Write(ExecuteArgument);
@@ -145,7 +150,9 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteHashtableHeader(IndentedTextWriter writer)
 		{
-			writer.Write("delegate void ExecuteElement");
+			writer.Write("delegate ");
+			writer.Write(ReturnType);
+			writer.Write(" ExecuteElement");
 			writer.Write(ExecuteName);
 			writer.Write("(XmlElement^ element, ");
 			writer.Write(ExecuteArgument);
@@ -175,7 +182,8 @@ namespace Magick.NET.FileGenerator
 			if (IsStatic(methods))
 				writer.Write("static ");
 
-			writer.Write("void Execute");
+			writer.Write(ReturnType);
+			writer.Write(" Execute");
 			writer.Write(MagickNET.GetName(methods[0]));
 			writer.Write("(XmlElement^ element, ");
 			writer.Write(ExecuteArgument);
@@ -215,6 +223,14 @@ namespace Magick.NET.FileGenerator
 			get
 			{
 				return Enumerable.Empty<PropertyInfo>();
+			}
+		}
+		//===========================================================================================
+		protected virtual string ReturnType
+		{
+			get
+			{
+				return "void";
 			}
 		}
 		//===========================================================================================

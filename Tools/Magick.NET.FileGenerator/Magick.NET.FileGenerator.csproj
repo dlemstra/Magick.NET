@@ -51,6 +51,7 @@
     <Compile Include="Code\Constructors\CoordinateGenerator.cs" />
     <Compile Include="Code\Constructors\PathArcGenerator.cs" />
     <Compile Include="Code\Execute\DrawableGenerator.cs" />
+    <Compile Include="Code\Execute\MagickImageCollectionGenerator.cs" />
     <Compile Include="Code\Execute\MagickImageGenerator.cs" />
     <Compile Include="Code\Base\ExecuteCodeGenerator.cs" />
     <Compile Include="Code\Execute\PathsGenerator.cs" />

@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
+#include "Helpers\STL.h"
 #include "MagickImageCollection.h"
 
 namespace ImageMagick
@@ -25,11 +26,8 @@ namespace ImageMagick
 		{
 			CopyTo(images);
 
-			std::list<Magick::Image>::iterator first = images->begin();
-			std::list<Magick::Image>::iterator last = images->end();
-
 			Magick::Image appendedImage;
-			Magick::appendImages(&appendedImage, first, last, vertically);
+			Magick::appendImages(&appendedImage, images->begin(), images->end(), vertically);
 
 			return gcnew MagickImage(appendedImage);
 		}
@@ -45,11 +43,14 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageCollection::CopyFrom(std::list<Magick::Image>* images)
 	{
+		Clear();
+
 		for (std::list<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
 		{
 			Add(gcnew MagickImage(*iter));
 		}
-	}//==============================================================================================
+	}
+	//==============================================================================================
 	void MagickImageCollection::CopyTo(std::list<Magick::Image>* images)
 	{
 		for each(MagickImage^ image in _Images)
@@ -58,7 +59,46 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImageCollection::Merge(LayerMethod layerMethod, Magick::Image* mergedImage)
+	void MagickImageCollection::Optimize(LayerMethod optizeMethod)
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::list<Magick::Image>* optimizedImages = new std::list<Magick::Image>();
+
+		try
+		{
+			CopyTo(images);
+
+			if (optizeMethod == LayerMethod::OptimizeImage)
+				Magick::optimizeImageLayers(optimizedImages, images->begin(), images->end());
+			else
+				Magick::optimizePlusImageLayers(optimizedImages, images->begin(), images->end());
+
+			CopyFrom(optimizedImages);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete images;
+			delete optimizedImages;
+		}
+	}
+	//==============================================================================================
+	List<MagickImage^>^ MagickImageCollection::CreateList(std::list<Magick::Image>* images)
+	{
+		List<MagickImage^>^ list = gcnew List<MagickImage^>();
+
+		for (std::list<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
+		{
+			list->Add(gcnew MagickImage(*iter));
+		}
+
+		return list;
+	}
+	//==============================================================================================
+	void MagickImageCollection::Merge(Magick::Image* image, LayerMethod method)
 	{
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 
@@ -66,18 +106,7 @@ namespace ImageMagick
 		{
 			CopyTo(images);
 
-			std::list<Magick::Image>::iterator first = images->begin();
-			std::list<Magick::Image>::iterator last = images->end();
-
-			MagickCore::ExceptionInfo exceptionInfo;
-			MagickCore::GetExceptionInfo(&exceptionInfo);
-			Magick::linkImages(first, last);
-			MagickCore::Image* image = MagickCore::MergeImageLayers(first->image(),
-				(MagickCore::ImageLayerMethod)layerMethod, &exceptionInfo);
-			Magick::unlinkImages(first, last);
-			mergedImage->replaceImage(image);
-			Magick::throwException(exceptionInfo);
-			(void)MagickCore::DestroyExceptionInfo(&exceptionInfo);
+			Magick::mergeImages(image, images->begin(), images->end(), (Magick::ImageLayerMethod)method);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -196,6 +225,59 @@ namespace ImageMagick
 		return _Images->Contains(item);
 	}
 	//==============================================================================================
+	MagickImage^ MagickImageCollection::Combine()
+	{
+		return Combine(Channels::All);
+	}
+	//==============================================================================================
+	MagickImage^ MagickImageCollection::Combine(Channels channels)
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+
+		try
+		{
+			CopyTo(images);
+
+			Magick::Image combinedImage;
+			Magick::combineImages(&combinedImage, images->begin(), images->end(),
+				(MagickCore::ChannelType)channels);
+
+			return gcnew MagickImage(combinedImage);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete images;
+		}
+	}
+	//==============================================================================================
+	void MagickImageCollection::Coalesce()
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::list<Magick::Image>* coalescedImages = new std::list<Magick::Image>();
+
+		try
+		{
+			CopyTo(images);
+
+			Magick::coalesceImages(coalescedImages, images->begin(), images->end());
+
+			CopyFrom(coalescedImages);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete images;
+			delete coalescedImages;
+		}
+	}
+	//==============================================================================================
 	void MagickImageCollection::CopyTo(array<MagickImage^>^ destination, int arrayIndex)
 	{
 		Throw::IfNull("destination", destination);
@@ -207,6 +289,77 @@ namespace ImageMagick
 		for (int indexA = arrayIndex; indexA < length; indexA++)
 		{
 			destination[indexA] = _Images[indexI++]->Copy();
+		}
+	}
+	//==============================================================================================
+	void MagickImageCollection::Deconstruct()
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::list<Magick::Image>* deconstructedImages = new std::list<Magick::Image>();
+
+		try
+		{
+			CopyTo(images);
+
+			Magick::deconstructImages(deconstructedImages, images->begin(), images->end());
+
+			CopyFrom(deconstructedImages);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete images;
+			delete deconstructedImages;
+		}
+	}
+	//==============================================================================================
+	MagickImage^ MagickImageCollection::Evaluate(EvaluateOperator evaluateOperator)
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+
+		try
+		{
+			CopyTo(images);
+
+			Magick::Image evaluatedImage;
+			Magick::evaluateImages(&evaluatedImage, images->begin(), images->end(),
+				(MagickCore::MagickEvaluateOperator)evaluateOperator);
+
+			return gcnew MagickImage(evaluatedImage);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete images;
+		}
+	}
+	//==============================================================================================
+	MagickImage^ MagickImageCollection::Flatten()
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+
+		try
+		{
+			CopyTo(images);
+
+			Magick::Image flattendImage;
+			Magick::flattenImages(&flattendImage, images->begin(), images->end());
+
+			return gcnew MagickImage(flattendImage);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete images;
 		}
 	}
 	//==============================================================================================
@@ -235,12 +388,58 @@ namespace ImageMagick
 		Insert(index, gcnew MagickImage(fileName));
 	}
 	//==============================================================================================
-	MagickImage^ MagickImageCollection::Merge(LayerMethod layerMethod)
+	MagickImage^ MagickImageCollection::Merge()
 	{
 		Magick::Image mergedImage;
-		Merge(layerMethod, &mergedImage);
-
+		Merge(&mergedImage, LayerMethod::Merge);
 		return gcnew MagickImage(mergedImage);
+	}
+	//==============================================================================================
+	MagickImageCollection^ MagickImageCollection::Morph(int frames)
+	{
+		Throw::IfTrue("frames", frames < 1, "Frames must be at least 1.");
+
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::list<Magick::Image>* morphedImages = new std::list<Magick::Image>();
+
+		MagickImageCollection^ result = gcnew MagickImageCollection();
+
+		try
+		{
+			CopyTo(images);
+
+			Magick::morphImages(morphedImages, images->begin(), images->end(), frames);
+
+			result->CopyFrom(morphedImages);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete images;
+			delete morphedImages;
+		}
+
+		return result;
+	}
+	//==============================================================================================
+	MagickImage^ MagickImageCollection::Mosaic()
+	{
+		Magick::Image mosaicImage;
+		Merge(&mosaicImage, LayerMethod::Mosaic);
+		return gcnew MagickImage(mosaicImage);
+	}
+	//==============================================================================================
+	void MagickImageCollection::Optimize()
+	{
+		Optimize(LayerMethod::OptimizeImage);
+	}
+	//==============================================================================================
+	void MagickImageCollection::OptimizePlus()
+	{
+		Optimize(LayerMethod::OptimizePlus);
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data)
@@ -250,8 +449,6 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
-		Clear();
-
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		_ReadWarning = MagickReader::Read(images, data, readSettings);
 		CopyFrom(images);
@@ -267,8 +464,6 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(String^ fileName, MagickReadSettings^ readSettings)
 	{
-		Clear();
-
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		_ReadWarning = MagickReader::Read(images, fileName, readSettings);
 		CopyFrom(images);
@@ -284,8 +479,6 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(Stream^ stream, MagickReadSettings^ readSettings)
 	{
-		Clear();
-
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		_ReadWarning = MagickReader::Read(images, stream, readSettings);
 		CopyFrom(images);
@@ -322,6 +515,13 @@ namespace ImageMagick
 
 		delete images;
 		return Marshaller::Marshal(&blob);
+	}
+	//==============================================================================================
+	MagickImage^ MagickImageCollection::TrimBounds()
+	{
+		Magick::Image trimBoundsImage;
+		Merge(&trimBoundsImage, LayerMethod::Trimbounds);
+		return gcnew MagickImage(trimBoundsImage);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Write(Stream^ stream)

@@ -14,6 +14,7 @@
 #include "Stdafx.h"
 #include "MagickImage.h"
 #include "Helpers\FileHelper.h"
+#include "Helpers\STL.h"
 #include "MagickImageCollection.h"
 
 using namespace System::Globalization;
@@ -1346,7 +1347,7 @@ namespace ImageMagick
 		MagickImageCollection^ images = gcnew MagickImageCollection();
 		images->Add(gcnew MagickImage(color, Width, Height));
 		images->Add(Copy());
-		images->Merge(LayerMethod::Merge, Value);
+		images->Merge(Value, LayerMethod::Merge);
 		delete images;
 	}
 	//==============================================================================================
@@ -2852,15 +2853,28 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Separate(Channels channels)
+	IEnumerable<MagickImage^>^ MagickImage::Separate()
 	{
+		return Separate(Channels::All);
+	}
+	//==============================================================================================
+	IEnumerable<MagickImage^>^ MagickImage::Separate(Channels channels)
+	{
+		std::list<Magick::Image> *images = new std::list<Magick::Image>();
+
 		try
 		{
-			Value->channel((MagickCore::ChannelType)channels);
+			Magick::separateImages(images, *Value, (MagickCore::ChannelType)channels);
+
+			return MagickImageCollection::CreateList(images);
 		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete images;
 		}
 	}
 	//==============================================================================================
@@ -2919,7 +2933,7 @@ namespace ImageMagick
 
 			images->Add(copy);
 			images->Add(Copy());
-			images->Merge(LayerMethod::Mosaic, Value);
+			images->Merge(Value, LayerMethod::Mosaic);
 		}
 		catch(Magick::Exception& exception)
 		{

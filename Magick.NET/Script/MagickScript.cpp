@@ -133,37 +133,20 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickScript::Execute(XmlElement^ element, MagickImageCollection^ collection)
 	{
-		if (element->Name == "appendHorizontally")
-		{
-			return collection->AppendHorizontally();
-		}
-		if (element->Name == "appendVertically")
-		{
-			return collection->AppendVertically();
-		}
-		if (element->Name == "merge")
-		{
-			LayerMethod layerMethod_ = XmlHelper::GetAttribute<LayerMethod>(element, "layerMethod");
-			return collection->Merge(layerMethod_);
-		}
 		if (element->Name == "read")
 		{
 			collection->Add(ExecuteRead(element));
 			return nullptr;
 		}
-		if (element->Name == "rePage")
-		{
-			collection->RePage();
-			return nullptr;
-		}
+
 		if (element->Name == "write")
 		{
 			String^ fileName_ = XmlHelper::GetAttribute<String^>(element, "fileName");
 			collection->Write(fileName_);
 			return nullptr;
 		}
-
-		throw gcnew NotImplementedException(element->Name);
+		
+		return ExecuteCollection(element, collection);
 	}
 	//==============================================================================================
 	MagickImage^ MagickScript::ExecuteCollection(XmlElement^ element)

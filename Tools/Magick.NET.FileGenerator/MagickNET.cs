@@ -24,7 +24,10 @@ namespace Magick.NET.FileGenerator
 	{
 		//===========================================================================================
 		private Assembly _MagickNET;
-		private static readonly string[] _UnsupportedMethods = new string[] { "Dispose", "Draw", "Write" };
+		private static readonly string[] _UnsupportedMethods = new string[]
+		{
+			"Add", "Clear", "Dispose", "Draw", "Insert", "RemoveAt", "Write"
+		};
 		//===========================================================================================
 		private IEnumerable<ConstructorInfo[]> GetSubclassConstructors(string baseClass)
 		{
@@ -34,6 +37,14 @@ namespace Magick.NET.FileGenerator
 					 where constructors.Length > 0
 					 orderby type.Name
 					 select constructors;
+		}
+		//===========================================================================================
+		private bool HasSupportedResult(MethodInfo method)
+		{
+			if (method.ReturnType.Name != "MagickImage")
+				return false;
+
+			return IsSupportedMethod(method);
 		}
 		//===========================================================================================
 		private bool IsSupported(ConstructorInfo constructor, ConstructorInfo[] constructors)
@@ -67,19 +78,10 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private bool IsSupported(MethodInfo method)
 		{
-			if (method.IsSpecialName)
-				return false;
-
-			if (!method.IsPublic)
-				return false;
-
 			if (method.ReturnType != typeof(void))
 				return false;
 
-			if (_UnsupportedMethods.Contains(method.Name))
-				return false;
-
-			return !method.GetParameters().Any(parameter => GetTypeName(parameter) == "Unsupported");
+			return IsSupportedMethod(method);
 		}
 		//===========================================================================================
 		private bool IsSupported(PropertyInfo property)
@@ -88,6 +90,23 @@ namespace Magick.NET.FileGenerator
 				return false;
 
 			return GetTypeName(property) != "Unsupported";
+		}
+		//===========================================================================================
+		private bool IsSupportedMethod(MethodInfo method)
+		{
+			if (method.IsSpecialName)
+				return false;
+
+			if (!method.IsPublic)
+				return false;
+
+			if (_UnsupportedMethods.Contains(method.Name))
+				return false;
+
+			if (method.GetParameters().Any(parameter => GetTypeName(parameter) == "Unsupported"))
+				return false;
+
+			return true;
 		}
 		//===========================================================================================
 		public MagickNET(QuantumDepth depth)
@@ -133,6 +152,28 @@ namespace Magick.NET.FileGenerator
 					 where type.Name == "MagickImage"
 					 from method in type.GetMethods()
 					 where IsSupported(method)
+					 group method by method.Name into g
+					 orderby g.Key
+					 select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+		}
+		//===========================================================================================
+		public IEnumerable<MethodInfo[]> GetGroupedMagickImageCollectionMethods()
+		{
+			return from type in _MagickNET.GetTypes()
+					 where type.Name == "MagickImageCollection"
+					 from method in type.GetMethods()
+					 where IsSupported(method)
+					 group method by method.Name into g
+					 orderby g.Key
+					 select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+		}
+		//===========================================================================================
+		public IEnumerable<MethodInfo[]> GetGroupedMagickImageCollectionResultMethods()
+		{
+			return from type in _MagickNET.GetTypes()
+					 where type.Name == "MagickImageCollection"
+					 from method in type.GetMethods()
+					 where HasSupportedResult(method)
 					 group method by method.Name into g
 					 orderby g.Key
 					 select g.OrderBy(m => m.GetParameters().Count()).ToArray();
@@ -237,6 +278,7 @@ namespace Magick.NET.FileGenerator
 				case "Double[]":
 				case "Drawable":
 				case "DrawableAffine":
+				case "MagickImage[]":
 				case "Matrix":
 				case "MatrixColor":
 				case "MatrixConvolve":

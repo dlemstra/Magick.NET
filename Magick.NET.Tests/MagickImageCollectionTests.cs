@@ -57,6 +57,24 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Combine()
+		{
+			using (MagickImage rose = new MagickImage("rose:"))
+			{
+				using (MagickImageCollection collection = new MagickImageCollection(rose.Separate(Channels.RGB)))
+				{
+					Assert.AreEqual(3, collection.Count);
+
+					MagickImage image = collection.Merge();
+					Assert.AreNotEqual(rose.TotalColors, image.TotalColors);
+
+					image = collection.Combine();
+					Assert.AreEqual(rose.TotalColors, image.TotalColors);
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_CopyTo()
 		{
 			using (MagickImageCollection collection = new MagickImageCollection())
@@ -128,10 +146,25 @@ namespace Magick.NET.Tests
 		{
 			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
 			{
-				MagickImage first = collection.Merge(LayerMethod.Coalesce);
+				using (MagickImage first = collection.Merge())
+				{
+					Assert.AreEqual(collection[0].Width, first.Width);
+					Assert.AreEqual(collection[0].Height, first.Height);
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Morph()
+		{
+			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+			{
+				Assert.AreEqual(3, collection.Count);
 
-				Assert.AreEqual(collection[0].Width, first.Width);
-				Assert.AreEqual(collection[0].Height, first.Height);
+				using (MagickImageCollection morphed = collection.Morph(2))
+				{
+					Assert.AreEqual(7, morphed.Count);
+				}
 			}
 		}
 		//===========================================================================================

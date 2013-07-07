@@ -555,9 +555,6 @@
     <ClInclude Include="TypeMetric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers\XmlHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Drawables\Coordinate.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
@@ -608,6 +605,12 @@
     </ClInclude>
     <ClInclude Include="Enums\LogEvents.h">
       <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\STL.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\XmlHelper.h">
+      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -923,9 +926,6 @@
     <ClCompile Include="TypeMetric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Helpers\XmlHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Drawables\Coordinate.cpp">
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
@@ -967,6 +967,9 @@
     </ClCompile>
     <ClCompile Include="Settings\MagickReadSettings.cpp">
       <Filter>Source Files\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\XmlHelper.cpp">
+      <Filter>Source Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

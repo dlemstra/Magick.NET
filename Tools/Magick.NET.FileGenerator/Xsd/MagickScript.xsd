@@ -110,7 +110,7 @@
 	<xs:group name="actions">
 		<xs:sequence>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation id="actions"/>
+				<xs:annotation id="image-actions"/>
 				<xs:element name="draw" type="drawables"/>
 				<xs:group ref="copy"/>
 			</xs:choice>
@@ -132,20 +132,16 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:group ref="read" minOccurs="2" maxOccurs="unbounded"/>
-						<xs:element name="rePage" minOccurs="0" />
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation id="collection-actions"/>
+						</xs:choice>
+						<xs:element name="write" minOccurs="0">
+							<xs:complexType>
+								<xs:attribute name="fileName" use="required" type="xs:string" />
+							</xs:complexType>
+						</xs:element>
 						<xs:choice>
-							<xs:element name="appendHorizontally" />
-							<xs:element name="appendVertically" />
-							<xs:element name="merge">
-								<xs:complexType>
-									<xs:attribute name="layerMethod" use="required" type="LayerMethod" />
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="write">
-								<xs:complexType>
-									<xs:attribute name="fileName" use="required" type="xs:string" />
-								</xs:complexType>
-							</xs:element>
+							<xs:annotation id="collection-results"/>
 						</xs:choice>
 					</xs:sequence>
 				</xs:complexType>

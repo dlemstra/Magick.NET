@@ -2068,11 +2068,17 @@ namespace ImageMagick
 		void Segment(double clusterThreshold, double smoothingThreshold);
 		///==========================================================================================
 		///<summary>
-		/// Separates a channel from the image and makes it a grayscale image.
+		/// Separates the channels from the image and returns it as grayscale images.
+		///</summary>
+		///<exception cref="MagickException"/>
+		IEnumerable<MagickImage^>^ Separate();
+		///==========================================================================================
+		///<summary>
+		/// Separates the specified channels from the image and returns it as grayscale images.
 		///</summary>
 		///<param name="channels">The channel(s) to separates.</param>
 		///<exception cref="MagickException"/>
-		void Separate(Channels channels);
+		IEnumerable<MagickImage^>^ Separate(Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Shade image using distant light source.

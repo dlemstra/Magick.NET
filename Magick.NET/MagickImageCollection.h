@@ -14,6 +14,7 @@
 #pragma once
 
 #include "MagickImage.h"
+#include "Enums\EvaluateOperator.h"
 #include "Enums\LayerMethod.h"
 #include "IO\MagickReader.h"
 #include "Settings\MagickReadSettings.h"
@@ -31,7 +32,7 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		List<MagickImage^>^ _Images; 
+		List<MagickImage^>^ _Images;
 		MagickWarningException^ _ReadWarning;
 		//===========================================================================================
 		!MagickImageCollection() 
@@ -50,9 +51,13 @@ namespace ImageMagick
 		//===========================================================================================
 		void CopyTo(std::list<Magick::Image>* images);
 		//===========================================================================================
+		void Optimize(LayerMethod optizeMethod);
+		//===========================================================================================
 	internal:
 		//===========================================================================================
-		void Merge(LayerMethod layerMethod, Magick::Image* mergedImage);
+		static List<MagickImage^>^ CreateList(std::list<Magick::Image>* images);
+		//===========================================================================================
+		void Merge(Magick::Image* image, LayerMethod method);
 		//===========================================================================================
 	public:
 		///==========================================================================================
@@ -64,6 +69,8 @@ namespace ImageMagick
 		///<summary>
 		/// Initializes a new instance of the MagickImage class using the specified images.
 		///</summary>
+		///<param name="images">The images to add to the collection.</param>
+		///<exception cref="MagickException"/>
 		MagickImageCollection(IEnumerable<MagickImage^>^ images);
 		///==========================================================================================
 		///<summary>
@@ -185,10 +192,30 @@ namespace ImageMagick
 		virtual void Clear();
 		///==========================================================================================
 		///<summary>
+		/// Merge a sequence of images. This is useful for GIF animation sequences that have page
+		/// offsets and disposal methods
+		///</summary>
+		void Coalesce();
+		///==========================================================================================
+		///<summary>
 		/// Determines whether the collection contains the specified image.
 		///</summary>
 		///<param name="item">The image to check.</param>
 		virtual bool Contains(MagickImage^ item);
+		///==========================================================================================
+		///<summary>
+		/// Combines one or more images into a single image. The typical ordering would be
+		/// image 1 => Red, 2 => Green, 3 => Blue, etc.
+		///</summary>
+		MagickImage^ Combine();
+		///==========================================================================================
+		///<summary>
+		/// Combines one or more images into a single image. The grayscale value of the pixels of each
+		/// image in the sequence is assigned in order to the specified channels of the combined image.
+		/// The typical ordering would be image 1 => Red, 2 => Green, 3 => Blue, etc.
+		///</summary>
+		///<param name="channels">The channel(s) to combine.</param>
+		MagickImage^ Combine(Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Copies the images to an Array, starting at a particular Array index.
@@ -198,12 +225,25 @@ namespace ImageMagick
 		virtual void CopyTo(array<MagickImage^>^ destination, int arrayIndex);
 		///==========================================================================================
 		///<summary>
-		/// Merge this collection into a single image.
+		/// Break down an image sequence into constituent parts. This is useful for creating GIF or
+		/// MNG animation sequences.
+		///</summary>
+		void Deconstruct();
+		///==========================================================================================
+		///<summary>
+		/// Evaluate image pixels into a single image. All the images in the collection must be the
+		/// same size in pixels.
+		///</summary>
+		///<param name="evaluateOperator">The operator.</param>
+		///<exception cref="MagickException"/>
+		MagickImage^ Evaluate(EvaluateOperator evaluateOperator);
+		///==========================================================================================
+		///<summary>
+		/// Flatten this collection into a single image.
 		/// This is useful for combining Photoshop layers into a single image.
 		///</summary>
-		///<param name="layerMethod">The layer method to use.</param>
 		///<exception cref="MagickException"/>
-		MagickImage^ Merge(LayerMethod layerMethod);
+		MagickImage^ Flatten();
 		///==========================================================================================
 		///<summary>
 		/// Returns an enumerator that can iterate through the collection.
@@ -234,6 +274,42 @@ namespace ImageMagick
 		///<param name="index">The index to insert the image.</param>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
 		virtual void Insert(int index, String^ fileName);
+		///==========================================================================================
+		///<summary>
+		/// Merge this collection into a single image.
+		/// This is useful for combining Photoshop layers into a single image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		MagickImage^ Merge();
+		///==========================================================================================
+		///<summary>
+		/// The Morph method requires a minimum of two images. The first image is transformed into
+		/// the second by a number of intervening images as specified by frames.
+		///</summary>
+		///<param name="frames">The number of in-between images to generate.</param>
+		///<exception cref="MagickException"/>
+		MagickImageCollection^ Morph(int frames);
+		///==========================================================================================
+		///<summary>
+		/// Inlay the images to form a single coherent picture.
+		///</summary>
+		///<exception cref="MagickException"/>
+		MagickImage^ Mosaic();
+		///==========================================================================================
+		///<summary>
+		/// Compares each image the GIF disposed forms of the previous image in the sequence. From
+		/// this it attempts to select the smallest cropped image to replace each frame, while
+		/// preserving the results of the GIF animation.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Optimize();
+		///==========================================================================================
+		///<summary>
+		/// OptimizePlus is exactly as Optimize, but may also add or even remove extra frames in the
+		/// animation, if it improves the total number of pixels in the resulting GIF animation.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void OptimizePlus();
 		///==========================================================================================
 		///<summary>
 		/// Read all image frames.
@@ -307,6 +383,13 @@ namespace ImageMagick
 		/// Converts this instance to a byte array.
 		///</summary>
 		array<Byte>^ ToByteArray();
+		///==========================================================================================
+		///<summary>
+		/// Merge this collection into a single image.
+		/// This is useful for combining Photoshop layers into a single image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		MagickImage^ TrimBounds();
 		///==========================================================================================
 		///<summary>
 		/// Writes the imagse to the specified stream. If the output image's file format does not
