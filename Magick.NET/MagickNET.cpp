@@ -81,14 +81,14 @@ namespace ImageMagick
 		}
 		else
 		{
-			Collection<String^>^ flags = gcnew Collection<String^>();
+			List<String^>^ flags = gcnew List<String^>();
 			for each(LogEvents flag in EnumHelper::GetFlags(events))
 			{
 				if (flag != LogEvents::All)
 					flags->Add(Enum::GetName(LogEvents::typeid, flag));
 			}
 
-			eventFlags = String::Join(",", flags);
+			eventFlags = String::Join(",", flags->ToArray());
 		}
 
 		std::string logEvents;
