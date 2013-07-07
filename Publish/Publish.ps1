@@ -225,8 +225,8 @@ function CreateZipFiles($builds, $version)
 		[System.IO.Compression.ZipFile]::CreateFromDirectory($dir, $zipFile, $compressionLevel, $false)
 		Remove-Item $dir -recurse
 
-		CreateWebZipFile($build)
-		CreateScriptZipFile($build)
+		CreateWebZipFile $build $version
+		CreateScriptZipFile $build $version
 	}
 }
 
@@ -299,8 +299,8 @@ $builds = @(
 
 CheckDependancies
 
-$imVersion = "6.8.5.10"
-$version = "6.8.5.1001"
+$imVersion = "6.8.6.3"
+$version = "6.8.6.301"
 
 UpdateAssemblyInfo "..\Magick.NET\AssemblyInfo.cpp" $version
 UpdateAssemblyInfo "..\Magick.NET.Web\Properties\AssemblyInfo.cs" $version

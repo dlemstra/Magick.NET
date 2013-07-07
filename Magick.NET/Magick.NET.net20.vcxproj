@@ -110,9 +110,10 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x86;..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
@@ -130,9 +131,10 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x86;..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
@@ -150,9 +152,10 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
@@ -170,9 +173,10 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
@@ -259,6 +263,7 @@
     <ClInclude Include="Enums\LineCap.h" />
     <ClInclude Include="Enums\LineJoin.h" />
     <ClInclude Include="Enums\EvaluateOperator.h" />
+    <ClInclude Include="Enums\LogEvents.h" />
     <ClInclude Include="Enums\OrientationType.h" />
     <ClInclude Include="Enums\RenderingIntent.h" />
     <ClInclude Include="Enums\SparseColorMethod.h" />
@@ -267,6 +272,7 @@
     <ClInclude Include="Exceptions\MagickErrorExceptions.h" />
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
+    <ClInclude Include="Helpers\STL.h" />
     <ClInclude Include="Profiles\Exif\ExifDataType.h" />
     <ClInclude Include="Profiles\Exif\ExifProfile.h" />
     <ClInclude Include="Profiles\Exif\ExifReader.h" />
@@ -276,7 +282,6 @@
     <ClInclude Include="Helpers\FileHelper.h" />
     <ClInclude Include="Helpers\XmlHelper.h" />
     <ClInclude Include="Profiles\ImageProfile.h" />
-    <ClInclude Include="Script\Generated\Execute.h" />
     <ClInclude Include="Script\ScriptReadEventArgs.h" />
     <ClInclude Include="Script\MagickScript.h" />
     <ClInclude Include="Script\ScriptWriteEventArgs.h" />
@@ -411,6 +416,7 @@
     <ClCompile Include="Script\MagickScript.cpp" />
     <ClCompile Include="Script\ScriptReadEventArgs.cpp" />
     <ClCompile Include="Script\ScriptWriteEventArgs.cpp" />
+    <ClCompile Include="Settings\MagickReadSettings.cpp" />
     <ClCompile Include="Statistics\ChannelStatistics.cpp" />
     <ClCompile Include="MagickFormatInfo.cpp" />
     <ClCompile Include="Statistics\MagickImageStatistics.cpp" />

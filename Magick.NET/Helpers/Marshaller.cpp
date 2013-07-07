@@ -85,7 +85,7 @@ namespace ImageMagick
 		if (value.empty())
 			return nullptr;
 		else
-			return gcnew String(value.c_str(), 0, value.length(), System::Text::Encoding::UTF8);
+			return gcnew String(value.c_str(), 0, (int)value.length(), System::Text::Encoding::UTF8);
 	}
 	//==============================================================================================
 	std::string& Marshaller::Marshal(String^ value, std::string &unmanagedValue)
