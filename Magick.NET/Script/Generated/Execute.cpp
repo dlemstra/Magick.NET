@@ -905,6 +905,10 @@ namespace ImageMagick
 				arguments["gravity"] = XmlHelper::GetAttribute<Gravity>(element, "gravity");
 			else if (attribute->Name == "backgroundColor")
 				arguments["backgroundColor"] = XmlHelper::GetAttribute<MagickColor^>(element, "backgroundColor");
+			else if (attribute->Name == "width")
+				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+			else if (attribute->Name == "height")
+				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
 		}
 		for each(XmlElement^ elem in element->SelectNodes("*"))
 		{
@@ -916,10 +920,18 @@ namespace ImageMagick
 			image->Extent((MagickGeometry^)arguments["geometry"], (Gravity)arguments["gravity"]);
 		else if (OnlyContains(arguments, "geometry", "backgroundColor"))
 			image->Extent((MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["backgroundColor"]);
+		else if (OnlyContains(arguments, "width", "height"))
+			image->Extent((int)arguments["width"], (int)arguments["height"]);
 		else if (OnlyContains(arguments, "geometry", "gravity", "backgroundColor"))
 			image->Extent((MagickGeometry^)arguments["geometry"], (Gravity)arguments["gravity"], (MagickColor^)arguments["backgroundColor"]);
+		else if (OnlyContains(arguments, "width", "height", "gravity"))
+			image->Extent((int)arguments["width"], (int)arguments["height"], (Gravity)arguments["gravity"]);
+		else if (OnlyContains(arguments, "width", "height", "backgroundColor"))
+			image->Extent((int)arguments["width"], (int)arguments["height"], (MagickColor^)arguments["backgroundColor"]);
+		else if (OnlyContains(arguments, "width", "height", "gravity", "backgroundColor"))
+			image->Extent((int)arguments["width"], (int)arguments["height"], (Gravity)arguments["gravity"], (MagickColor^)arguments["backgroundColor"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'extent', allowed combinations are: [geometry] [geometry, gravity] [geometry, backgroundColor] [geometry, gravity, backgroundColor]");
+			throw gcnew ArgumentException("Invalid argument combination for 'extent', allowed combinations are: [geometry] [geometry, gravity] [geometry, backgroundColor] [width, height] [geometry, gravity, backgroundColor] [width, height, gravity] [width, height, backgroundColor] [width, height, gravity, backgroundColor]");
 	}
 	void MagickScript::ExecuteFlip(XmlElement^ element, MagickImage^ image)
 	{

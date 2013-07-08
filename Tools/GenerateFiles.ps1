@@ -3,7 +3,12 @@ function GenerateFiles()
 	.\Magick.NET.FileGenerator\bin\Release\Magick.NET.FileGenerator.exe
 }
 
-function Build()
+function BuildFileGenerator()
+{
+	msbuild /m Magick.NET.FileGenerator.sln /t:Rebuild ("/p:Configuration=Release")
+}
+
+function BuildMagickNET()
 {
 	$location = $(get-location)
 	set-location "$location\.."
@@ -14,6 +19,7 @@ function Build()
 	set-location $location
 }
 
-Build
+BuildFileGenerator
+BuildMagickNET
 GenerateFiles
-Build
+BuildMagickNET

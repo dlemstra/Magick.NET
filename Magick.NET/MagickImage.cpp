@@ -1829,6 +1829,30 @@ namespace ImageMagick
 		return (Magick::operator == (*Value, *other->Value)) ? true : false;
 	}
 	//==============================================================================================
+	void MagickImage::Extent(int width, int height)
+	{
+		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		Resize(geometry);
+	}
+	//==============================================================================================
+	void MagickImage::Extent(int width, int height, MagickColor^ backgroundColor)
+	{
+		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		Extent(geometry, backgroundColor);
+	}
+	//==============================================================================================
+	void MagickImage::Extent(int width, int height, Gravity gravity)
+	{
+		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		Extent(geometry, gravity);
+	}
+	//==============================================================================================
+	void MagickImage::Extent(int width, int height, Gravity gravity, MagickColor^ backgroundColor)
+	{
+		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		Extent(geometry, gravity, backgroundColor);
+	}
+	//==============================================================================================
 	void MagickImage::Extent(MagickGeometry^ geometry)
 	{
 		Throw::IfNull("geometry", geometry);
@@ -2699,7 +2723,6 @@ namespace ImageMagick
 	{
 		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
 		Resize(geometry);
-		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::Resize(MagickGeometry^ geometry)

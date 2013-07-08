@@ -1198,10 +1198,12 @@
 				<xs:element name="extent">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="geometry" type="geometry" />
+							<xs:element name="geometry" minOccurs="0" type="geometry" />
 						</xs:sequence>
 						<xs:attribute name="gravity" type="Gravity" />
 						<xs:attribute name="backgroundColor" type="color" />
+						<xs:attribute name="width" type="xs:int" />
+						<xs:attribute name="height" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="flip" />

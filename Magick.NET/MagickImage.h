@@ -1331,6 +1331,42 @@ namespace ImageMagick
 		MagickGeometry^ EncodingGeometry();
 		///==========================================================================================
 		///<summary>
+		/// Extend the image as defined by the width and height.
+		///</summary>
+		///<param name="width">The width to extend the image to.</param>
+		///<param name="height">The height to extend the image to.</param>
+		///<exception cref="MagickException"/>
+		void Extent(int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Extend the image as defined by the width and height.
+		///</summary>
+		///<param name="width">The width to extend the image to.</param>
+		///<param name="height">The height to extend the image to.</param>
+		///<param name="backgroundColor">The background color to use.</param>
+		///<exception cref="MagickException"/>
+		void Extent(int width, int height, MagickColor^ backgroundColor);
+		///==========================================================================================
+		///<summary>
+		/// Extend the image as defined by the width and height.
+		///</summary>
+		///<param name="width">The width to extend the image to.</param>
+		///<param name="height">The height to extend the image to.</param>
+		///<param name="gravity">The placement gravity.</param>
+		///<exception cref="MagickException"/>
+		void Extent(int width, int height, Gravity gravity);
+		///==========================================================================================
+		///<summary>
+		/// Extend the image as defined by the width and height.
+		///</summary>
+		///<param name="width">The width to extend the image to.</param>
+		///<param name="height">The height to extend the image to.</param>
+		///<param name="gravity">The placement gravity.</param>
+		///<param name="backgroundColor">The background color to use.</param>
+		///<exception cref="MagickException"/>
+		void Extent(int width, int height, Gravity gravity, MagickColor^ backgroundColor);
+		///==========================================================================================
+		///<summary>
 		/// Extend the image as defined by the geometry.
 		///</summary>
 		///<param name="geometry">The geometry to extend the image to.</param>
