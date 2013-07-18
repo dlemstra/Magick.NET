@@ -14,7 +14,6 @@
 #include "Stdafx.h"
 #include "MagickImage.h"
 #include "Helpers\FileHelper.h"
-#include "Helpers\STL.h"
 #include "MagickImageCollection.h"
 
 using namespace System::Globalization;

@@ -39,7 +39,7 @@ namespace ImageMagick
 		VerticalTile = MagickCore::VerticalTileVirtualPixelMethod,
 		HorizontalTileEdge = MagickCore::HorizontalTileEdgeVirtualPixelMethod,
 		VerticalTileEdge = MagickCore::VerticalTileEdgeVirtualPixelMethod,
-		CheckerTileV = MagickCore::CheckerTileVirtualPixelMethod
+		CheckerTile = MagickCore::CheckerTileVirtualPixelMethod
 	};
 	//==============================================================================================
 }

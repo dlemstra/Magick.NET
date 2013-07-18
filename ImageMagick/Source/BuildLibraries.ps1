@@ -2,7 +2,7 @@ function AddCoders($folder)
 {
 	$projectFile = "$folder\VisualMagick\coders\CORE_coders_mtdll_lib.vcxproj"
 	$xml = [xml](get-content $projectFile)
-	SelectNodes $xml "//msb:AdditionalIncludeDirectories" | Foreach {$_.InnerText = "..\libwebp\src;" + $_.InnerText}
+	SelectNodes $xml "//msb:AdditionalIncludeDirectories" | Foreach {$_.InnerText = "..\webp\src;" + $_.InnerText}
 	$xml.Save($projectFile)
 }
 
@@ -13,8 +13,9 @@ function Build($folder, $platform, $builds)
 	$config = $config.Replace("#define ProvideDllMain", "#undef ProvideDllMain")
 	$config = $config.Replace("#define MAGICKCORE_X11_DELEGATE", "#undef MAGICKCORE_X11_DELEGATE")
 	$config = $config.Replace("//#undef MAGICKCORE_EXCLUDE_DEPRECATED", "#define MAGICKCORE_EXCLUDE_DEPRECATED")
-	$config = $config.Replace("// #undef MAGICKCORE_EMBEDDABLE_SUPPORT", "#define MAGICKCORE_WEBP_DELEGATE
-#define MAGICK_NET `"Magick.NET-" + $platform + ".dll`"")
+	$config = $config.Replace("// #undef MAGICKCORE_WEBP_DELEGATE", "#define MAGICKCORE_WEBP_DELEGATE")
+	$config = $config.Replace("// #undef MAGICKCORE_WMF_DELEGATE", "#define MAGICKCORE_WMF_DELEGATE")
+	$config = $config.Replace("// #define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"")
 
 	ModifyDebugInformationFormat $folder
 	AddCoders $folder
@@ -29,12 +30,20 @@ function Build($folder, $platform, $builds)
 		$location = $(get-location)
 		set-location "$location\$folder\VisualMagick"
 		
-		msbuild /m VisualStaticMTDLL.sln /t:Rebuild /p:Configuration=Release
+		if ($platform -eq "x64")
+		{
+			msbuild /m VisualStaticMTDLL.sln /t:Rebuild ("/p:Configuration=Release,Platform=x64")
+		}
+		else
+		{
+			msbuild /m VisualStaticMTDLL.sln /t:Rebuild ("/p:Configuration=Release,Platform=Win32")
+		}
+		
 		CheckExitCode "Build failed."
 		
 		set-location $location
 		
-		$newConfig = $newConfig.Replace("#define MAGICK_NET `"Magick.NET-" + $platform + ".dll`"", "// #undef MAGICKCORE_EMBEDDABLE_SUPPORT")
+		$newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"", "// #define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"")
 		[IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
 
 		Copy-Item $configFile ("..\Q" + $build.QuantumDepth + "\include\magick")
@@ -69,10 +78,14 @@ function CheckFolder($folder)
 
 function CopyFiles($folder)
 {
+	Remove-Item ..\include -recurse
+	[void](New-Item -ItemType directory -Path ..\include\magick)
 	Copy-Item $folder\magick\*.h ..\include\magick
 	Remove-Item ..\include\magick\magick-baseconfig.h
 	Copy-Item $folder\Magick++\lib\Magick++.h ..\include
+	[void](New-Item -ItemType directory -Path ..\include\Magick++)
 	Copy-Item $folder\Magick++\lib\Magick++\*.h ..\include\Magick++
+	[void](New-Item -ItemType directory -Path ..\include\wand)
 	Copy-Item $folder\wand\*.h ..\include\wand
 
 	foreach ($xmlFile in [IO.Directory]::GetFiles("$folder\VisualMagick\bin", "*.xml"))
@@ -108,24 +121,6 @@ function CreateSolution($folder, $platform)
 	UpgradeSolution $folder $solutionFile
 }
 
-function FixX64($folder)
-{
-	$solutionFile = "$folder\VisualMagick\VisualStaticMTDLL.sln"
-	$solution = [IO.File]::ReadAllText($solutionFile, [System.Text.Encoding]::Default)
-	$solution = $solution.Replace("|Win32", "|x64")
-	[IO.File]::WriteAllText($solutionFile, $solution, [System.Text.Encoding]::Default)
-
-	foreach ($projectFile in [IO.Directory]::GetFiles($folder, "CORE_*.vcxproj", [IO.SearchOption]::AllDirectories))
-	{
-		$xml = [xml](get-content $projectFile)
-		SelectNodes $xml "//msb:ProjectConfiguration" | Foreach {$_.SetAttribute("Include", $_.GetAttribute("Include").Replace("|Win32", "|x64"))}
-		SelectNodes $xml "//msb:ProjectConfiguration/msb:Platform" | Foreach {$_.InnerText = "x64"}
-		SelectNodes $xml "//msb:PropertyGroup[msb:ProjectName]/msb:Keyword" | Foreach {$_.InnerText = "x64Proj"}
-		SelectNodes $xml "//msb:*[@Condition]" | Foreach {$_.SetAttribute("Condition", $_.GetAttribute("Condition").Replace("|Win32", "|x64"))}
-		$xml.Save($projectFile)
-	}
-}
-
 function ModifyDebugInformationFormat($folder)
 {
 	foreach ($projectFile in [IO.Directory]::GetFiles($folder, "CORE_*.vcxproj", [IO.SearchOption]::AllDirectories))
@@ -148,33 +143,6 @@ function ModifyPlatformToolset($folder, $build)
 
 function PatchFiles($folder)
 {
-	# Hack so we can include the xml files as resources files.
-	$ntBaseFile = "$folder\magick\nt-base.c"
-	$ntBase = [IO.File]::ReadAllText($ntBaseFile, [System.Text.Encoding]::Default)
-	$ntBase = [regex]::Replace($ntBase, "([^`r])`n", '$1' + "`r`n")
-	$ntBase = $ntBase.Replace("if (IsPathAccessible(path) != MagickFalse)
-    handle=GetModuleHandle(path);
-  else
-    handle=GetModuleHandle(0);", "handle=GetModuleHandle(MAGICK_NET);");
-	[IO.File]::WriteAllText($ntBaseFile, $ntBase, [System.Text.Encoding]::Default)
-
-	# 'Fix' code analysis false positive.
-	$stlHeaderFile = "$folder\Magick++\lib\Magick++\stl.h"
-	$stlHeader = [IO.File]::ReadAllText($stlHeaderFile, [System.Text.Encoding]::Default)
-	$stlHeader = [regex]::Replace($stlHeader, "([^`r])`n", '$1' + "`r`n")
-	$stlHeader = $stlHeader.Replace("current->next     = 0;
-
-  if ( previous != 0)
-    previous->next = current;
-
-  current->scene=scene;
-  ++scene;", "current->next     = 0;
-  current->scene    = scene++;
-
-  if ( previous != 0)
-    previous->next = current;")
-	[IO.File]::WriteAllText($stlHeaderFile, $stlHeader, [System.Text.Encoding]::Default)
-
 	# Fix static linking of libxml
 	$xmlversionFile = "$folder\libxml\include\libxml\xmlversion.h"
 	$xmlversion = [IO.File]::ReadAllText($xmlversionFile, [System.Text.Encoding]::Default)
@@ -248,5 +216,4 @@ Build $folder $platform $builds
 
 $platform = "x64"
 CreateSolution $folder $platform
-FixX64 $folder
 Build $folder $platform $builds

@@ -104,8 +104,14 @@
 // Define to use the TIFF library
 #define MAGICKCORE_TIFF_DELEGATE
 
+// Define to use the WebP library (obtain sources separately)
+#define MAGICKCORE_WEBP_DELEGATE
+
 // Define to use the Windows GDI32 library (for clipboard and emf modules)
 #define MAGICKCORE_WINGDI32_DELEGATE
+
+// Define to use the WMF library
+#define MAGICKCORE_WMF_DELEGATE
 
 // Define to use the GNOME XML library
 #define MAGICKCORE_XML_DELEGATE
@@ -113,13 +119,12 @@
 // Define to use the zlib ZIP compression library
 #define MAGICKCORE_ZLIB_DELEGATE
 
-// Define to use the autotrace library (obtain sources seperately)
+// Define to use the autotrace library (obtain sources separately)
 //
 // #undef MAGICKCORE_AUTOTRACE_DELEGATE
 
 // Define to enable self-contained, embeddable, zero-configuration ImageMagick (experimental)
 //
-#define MAGICKCORE_WEBP_DELEGATE
 // #undef MAGICKCORE_EMBEDDABLE_SUPPORT
 /////////////
 
@@ -141,6 +146,9 @@
 
 // Optional: Specify where operating system specific files are installed
 // #define MAGICKCORE_LIBRARY_PATH  "c:\\ImageMagick\\"
+
+// Optional: Specify name of the library that contains the xml resource files
+// #define MAGICKCORE_LIBRARY_NAME "MyImageMagick.dll"
 
 // Optional: Specify where operating system independent files are installed
 // #define MAGICKCORE_SHARE_PATH  "c:\\ImageMagick\\"

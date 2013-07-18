@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "Helpers\STL.h"
 #include "MagickImageCollection.h"
 
 namespace ImageMagick
@@ -106,7 +105,7 @@ namespace ImageMagick
 		{
 			CopyTo(images);
 
-			Magick::mergeImages(image, images->begin(), images->end(), (Magick::ImageLayerMethod)method);
+			Magick::mergeImageLayers(image, images->begin(), images->end(), (Magick::ImageLayerMethod)method);
 		}
 		catch(Magick::Exception& exception)
 		{

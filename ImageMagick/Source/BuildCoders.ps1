@@ -5,7 +5,7 @@ function Build($folder, $framework, $platform)
 
 function BuildWebP($folder, $framework, $platform)
 {
-	$libwebp = "$folder\VisualMagick\libwebp"
+	$libwebp = "$folder\VisualMagick\webp"
 	CheckFolder($libwebp)
 
 	$location = $(get-location)
@@ -19,7 +19,7 @@ function BuildWebP($folder, $framework, $platform)
 	set-location $location
 
 	$output = $libwebp + "\output\release-static\" +  $platform + "\lib\libwebp.lib"
-	Copy-Item $output ("..\lib\" +  $framework + "\" + $platform)
+	Copy-Item $output ("..\lib\" +  $framework + "\" + $platform + "\CORE_RL_webp_.lib")
 }
 
 function CheckExitCode($msg)

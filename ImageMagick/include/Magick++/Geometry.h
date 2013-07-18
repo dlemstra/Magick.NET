@@ -82,6 +82,14 @@ namespace Magick
     void          less ( bool less_ );
     bool          less ( void ) const;
     
+    // Resize the image based on the smallest fitting dimension (^)
+    void          fillArea ( bool fillArea_ );
+    bool          fillArea ( void ) const;
+    
+    // Resize using a pixel area count limit (@)
+    void          limitPixels ( bool limitPixels_ );
+    bool          limitPixels ( void ) const;
+    
     // Does object contain valid geometry?
     void          isValid ( bool isValid_ );
     bool          isValid ( void ) const;
@@ -107,17 +115,19 @@ namespace Magick
     operator MagickCore::RectangleInfo() const;
     
   private:
-    size_t  _width;
-    size_t  _height;
-    ::ssize_t     _xOff;
-    ::ssize_t     _yOff;
-    bool          _xNegative;
-    bool          _yNegative;
-    bool          _isValid;
-    bool          _percent;        // Interpret width & height as percentages (%)
-    bool          _aspect;         // Force exact size (!)
-    bool          _greater;        // Re-size only if larger than geometry (>)
-    bool          _less;           // Re-size only if smaller than geometry (<)
+    size_t    _width;
+    size_t    _height;
+    ::ssize_t _xOff;
+    ::ssize_t _yOff;
+    bool      _xNegative;
+    bool      _yNegative;
+    bool      _isValid;
+    bool      _percent;     // Interpret width & height as percentages (%)
+    bool      _aspect;      // Force exact size (!)
+    bool      _greater;     // Resize only if larger than geometry (>)
+    bool      _less;        // Resize only if smaller than geometry (<)
+    bool      _fillArea;    // Resize the image based on the smallest fitting dimension (^)
+    bool      _limitPixels; // Resize using a pixel area count limit (@)
   };
 } // namespace Magick
 
@@ -237,5 +247,24 @@ inline bool Magick::Geometry::less ( void ) const
   return _less;
 }
 
+// Resize the image based on the smallest fitting dimension (^)
+inline void Magick::Geometry::fillArea ( bool fillArea_ )
+{
+  _fillArea = fillArea_;
+}
+inline bool Magick::Geometry::fillArea ( void ) const
+{
+  return _fillArea;
+}
+
+// Resize using a pixel area count limit (@)
+inline void Magick::Geometry::limitPixels ( bool limitPixels_ )
+{
+  _limitPixels = limitPixels_;
+}
+inline bool Magick::Geometry::limitPixels ( void ) const
+{
+  return _limitPixels;
+}
 
 #endif // Magick_Geometry_header

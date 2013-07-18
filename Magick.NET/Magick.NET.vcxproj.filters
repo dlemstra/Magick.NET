@@ -606,9 +606,6 @@
     <ClInclude Include="Enums\LogEvents.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers\STL.h">
-      <Filter>Header Files\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="Helpers\XmlHelper.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
