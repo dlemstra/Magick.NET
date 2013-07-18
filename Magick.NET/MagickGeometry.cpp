@@ -27,6 +27,8 @@ namespace ImageMagick
 		Aspect = geometry.aspect();
 		Less = geometry.less();
 		Greater = geometry.greater();
+		FillArea = geometry.fillArea();
+		LimitPixels = geometry.limitPixels();
 	}
 	//==============================================================================================
 	void MagickGeometry::Initialize(int x, int y, int width, int height, bool isPercentage)
@@ -50,6 +52,8 @@ namespace ImageMagick
 		result->aspect(Aspect);
 		result->less(Less);
 		result->greater(Greater);
+		result->fillArea(FillArea);
+		result->limitPixels(LimitPixels);
 
 		return result;
 	}
@@ -130,7 +134,9 @@ namespace ImageMagick
 			IsPercentage == other->IsPercentage &&
 			Aspect == other->Aspect &&
 			Less == other->Less &&
-			Greater == other->Greater;
+			Greater == other->Greater &&
+			FillArea == other->FillArea &&
+			LimitPixels == other->LimitPixels;
 	}
 	//==============================================================================================
 	int MagickGeometry::GetHashCode()
@@ -143,7 +149,9 @@ namespace ImageMagick
 			IsPercentage.GetHashCode() ^
 			Aspect.GetHashCode() ^
 			Less.GetHashCode() ^
-			Greater.GetHashCode();
+			Greater.GetHashCode() ^
+			FillArea.GetHashCode() ^
+			LimitPixels.GetHashCode();
 	}
 	//==============================================================================================
 }

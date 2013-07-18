@@ -310,22 +310,48 @@ namespace Magick.NET.Tests
 			using (MagickImage image = new MagickImage())
 			{
 				image.Read(Files.MagickNETIconPNG);
-
 				image.Resize(new MagickGeometry(64, 64));
-				Assert.AreEqual(64, image.Height);
 				Assert.AreEqual(64, image.Width);
+				Assert.AreEqual(64, image.Height);
 
 				image.Read(Files.MagickNETIconPNG);
-
 				image.Resize(2.0);
-				Assert.AreEqual(256, image.Height);
 				Assert.AreEqual(256, image.Width);
+				Assert.AreEqual(256, image.Height);
 
 				image.Read(Files.MagickNETIconPNG);
-
 				image.Resize(32, 32);
-				Assert.AreEqual(32, image.Height);
 				Assert.AreEqual(32, image.Width);
+				Assert.AreEqual(32, image.Height);
+
+				image.Read(Files.MagickNETIconPNG);
+				image.Resize(new MagickGeometry("5x10!"));
+				Assert.AreEqual(5, image.Width);
+				Assert.AreEqual(10, image.Height);
+
+				image.Read(Files.MagickNETIconPNG);
+				image.Resize(new MagickGeometry("32x32<"));
+				Assert.AreEqual(128, image.Width);
+				Assert.AreEqual(128, image.Height);
+
+				image.Read(Files.MagickNETIconPNG);
+				image.Resize(new MagickGeometry("256x256<"));
+				Assert.AreEqual(256, image.Width);
+				Assert.AreEqual(256, image.Height);
+
+				image.Read(Files.MagickNETIconPNG);
+				image.Resize(new MagickGeometry("32x32>"));
+				Assert.AreEqual(32, image.Width);
+				Assert.AreEqual(32, image.Height);
+
+				image.Read(Files.MagickNETIconPNG);
+				image.Resize(new MagickGeometry("256x256>"));
+				Assert.AreEqual(128, image.Width);
+				Assert.AreEqual(128, image.Height);
+
+				image.Read(Files.SnakewarePNG);
+				image.Resize(new MagickGeometry("4096@"));
+				Assert.IsTrue((image.Width * image.Height) < 4096);
 			}
 		}
 		//===========================================================================================

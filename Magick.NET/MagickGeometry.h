@@ -98,6 +98,11 @@ namespace ImageMagick
 		property bool Aspect;
 		///==========================================================================================
 		///<summary>
+		/// Resize the image based on the smallest fitting dimension (^).
+		///</summary>
+		property bool FillArea;
+		///==========================================================================================
+		///<summary>
 		/// Resize if image is greater than size (&gt;)
 		///</summary>
 		property bool Greater;
@@ -117,6 +122,11 @@ namespace ImageMagick
 		/// Resize if image is less than size (&lt;)
 		///</summary>
 		property bool Less;
+		///==========================================================================================
+		///<summary>
+		/// Resize using a pixel area count limit (@).
+		///</summary>
+		property bool LimitPixels;
 		///==========================================================================================
 		///<summary>
 		/// The width of the geometry.

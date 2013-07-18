@@ -42,18 +42,26 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(5, geometry.Width);
 			Assert.AreEqual(10, geometry.Height);
 			Assert.AreEqual(true, geometry.Aspect);
-			Assert.AreEqual(false, geometry.Less);
-			Assert.AreEqual(false, geometry.Greater);
 
-			geometry = new MagickGeometry("5x10<");
-			Assert.AreEqual(false, geometry.Aspect);
+			geometry = new MagickGeometry("10x5<");
+			Assert.AreEqual(10, geometry.Width);
+			Assert.AreEqual(5, geometry.Height);
 			Assert.AreEqual(true, geometry.Less);
-			Assert.AreEqual(false, geometry.Greater);
 
 			geometry = new MagickGeometry("5x10>");
-			Assert.AreEqual(false, geometry.Aspect);
-			Assert.AreEqual(false, geometry.Less);
+			Assert.AreEqual(5, geometry.Width);
+			Assert.AreEqual(10, geometry.Height);
 			Assert.AreEqual(true, geometry.Greater);
+
+			geometry = new MagickGeometry("10x10^");
+			Assert.AreEqual(10, geometry.Width);
+			Assert.AreEqual(10, geometry.Height);
+			Assert.AreEqual(true, geometry.FillArea);
+
+			geometry = new MagickGeometry("10@");
+			Assert.AreEqual(10, geometry.Width);
+			Assert.AreEqual(0, geometry.Height);
+			Assert.AreEqual(true, geometry.LimitPixels);
 
 			geometry = new MagickGeometry(5, 10);
 			Assert.AreEqual(5, geometry.Width);
