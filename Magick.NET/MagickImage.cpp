@@ -180,9 +180,9 @@ namespace ImageMagick
 		Value = new Magick::Image(image);
 	}
 	//==============================================================================================
-	Magick::Image* MagickImage::ReuseImage()
+	const Magick::Image& MagickImage::ReuseValue()
 	{
-		return new Magick::Image(*Value);
+		return *Value;
 	}
 	//==============================================================================================
 	MagickImage::MagickImage()
@@ -354,7 +354,11 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImage::ClipMask::get()
 	{
-		return gcnew MagickImage(Magick::Image(Value->clipMask()));
+		Magick::Image clipMask = Value->clipMask();
+		if (!clipMask.isValid())
+			return nullptr;
+
+		return gcnew MagickImage(clipMask);
 	}
 	//==============================================================================================
 	void MagickImage::ClipMask::set(MagickImage^ value)
@@ -383,7 +387,20 @@ namespace ImageMagick
 	//==============================================================================================
 	int MagickImage::ColorMapSize::get()
 	{
-		return Convert::ToInt32(Value->colorMapSize());
+		int colorMapSize = -1;
+		try
+		{
+			colorMapSize = Convert::ToInt32(Value->colorMapSize());
+		}
+		catch(Magick::ErrorOption)
+		{
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+
+		return colorMapSize;
 	}
 	//==============================================================================================
 	void MagickImage::ColorMapSize::set(int value)
@@ -491,7 +508,11 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImage::FillPattern::get()
 	{
-		return gcnew MagickImage(Magick::Image(Value->fillPattern()));
+		Magick::Image fillPattern = Value->fillPattern();
+		if (!fillPattern.isValid())
+			return nullptr;
+
+		return gcnew MagickImage(fillPattern);
 	}
 	//==============================================================================================
 	void MagickImage::FillPattern::set(MagickImage^ value)
@@ -844,11 +865,11 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImage::StrokePattern::get()
 	{
-		Magick::Image value = Value->strokePattern();
-		if (value == NULL)
+		Magick::Image strokePattern = Value->strokePattern();
+		if (!strokePattern.isValid())
 			return nullptr;
 
-		return gcnew MagickImage(value);
+		return gcnew MagickImage(strokePattern);
 	}
 	//==============================================================================================
 	void MagickImage::StrokePattern::set(MagickImage^ value)

@@ -54,7 +54,7 @@ namespace ImageMagick
 	{
 		for each(MagickImage^ image in _Images)
 		{
-			images->push_back(*image->ReuseImage());
+			images->push_back(image->ReuseValue());
 		}
 	}
 	//==============================================================================================
@@ -216,6 +216,11 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageCollection::Clear()
 	{
+		for each(MagickImage^ image in _Images)
+		{
+			delete image;
+		}
+
 		_Images->Clear();
 	}
 	//==============================================================================================

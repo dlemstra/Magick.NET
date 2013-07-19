@@ -47,9 +47,6 @@ namespace ImageMagick
 		{
 			coderInfoList(&coderList);
 		}
-		catch(Magick::ErrorModule)
-		{
-		}
 		catch(Magick::Exception& exception)
 		{
 			throw MagickException::Create(exception);
