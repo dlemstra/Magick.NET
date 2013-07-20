@@ -1278,11 +1278,11 @@ namespace ImageMagick
 		void Distort(DistortMethod method, array<double>^ arguments, bool bestfit);
 		///==========================================================================================
 		///<summary>
-		/// Draw on image using a single drawable.
+		/// Draw on image using one or more drawables.
 		///</summary>
-		///<param name="drawable">The drawable to draw on the image.</param>
+		///<param name="drawables">The drawable(s) to draw on the image.</param>
 		///<exception cref="MagickException"/>
-		void Draw(Drawable^ drawable);
+		void Draw(... array<Drawable^>^ drawables);
 		///==========================================================================================
 		///<summary>
 		/// Draw on image using a collection of drawables.

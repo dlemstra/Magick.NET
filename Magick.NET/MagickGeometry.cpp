@@ -96,6 +96,48 @@ namespace ImageMagick
 		Initialize(geometry);
 	}
 	//==============================================================================================
+	bool MagickGeometry::operator == (MagickGeometry^ left, MagickGeometry^ right)
+	{
+		return Object::Equals(left, right);
+	}
+	//===========================================================================================
+	bool MagickGeometry::operator != (MagickGeometry^ left, MagickGeometry^ right)
+	{
+		return !Object::Equals(left, right);
+	}
+	//===========================================================================================
+	bool MagickGeometry::operator > (MagickGeometry^ left, MagickGeometry^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) == 1;
+	}
+	//===========================================================================================
+	bool MagickGeometry::operator < (MagickGeometry^ left, MagickGeometry^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return !ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) == -1;
+	}
+	//===========================================================================================
+	bool MagickGeometry::operator >= (MagickGeometry^ left, MagickGeometry^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) >= 0;
+	}
+	//===========================================================================================
+	bool MagickGeometry::operator <= (MagickGeometry^ left, MagickGeometry^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return !ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) <= 0;
+	}
+	//==============================================================================================
 	int MagickGeometry::CompareTo(MagickGeometry^ other)
 	{
 		if (ReferenceEquals(other, nullptr))

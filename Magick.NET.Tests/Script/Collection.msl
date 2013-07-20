@@ -2,12 +2,10 @@
 	<collection>
 		<read id="snakeware">
 			<resize width="128" height="128"/>
-			<extent gravity="Center" backgroundColor="#000F">
-				<geometry width="128" height="128" />
-			</extent>
+			<extent gravity="Center" backgroundColor="#000F" geometry="128x128"/>
 		</read>
 		<read id="icon"/>
 		<rePage/>
-		<merge layerMethod="Flatten"/>
+		<flatten/>
 	</collection>
 </msl>

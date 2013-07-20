@@ -84,7 +84,14 @@
       <Name>Magick.NET</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Script\Collection.msl" />
+    <None Include="Script\Draw.msl" />
+    <None Include="Script\Events.msl" />
+    <None Include="Script\ImageProfile.msl" />
+    <None Include="Script\Invalid.msl" />
+    <None Include="Script\Resize.msl" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

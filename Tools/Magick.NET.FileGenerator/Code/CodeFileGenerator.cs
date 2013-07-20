@@ -26,6 +26,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private List<ExecuteCodeGenerator> _ExecuteCodeGenerators;
 		private List<ConstructorCodeGenerator> _ConstructorCodeGenerators;
+		private List<PropertyCodeGenerator> _PropertyCodeGenerators;
 		//===========================================================================================
 		private CodeFileGenerator()
 		{
@@ -42,12 +43,14 @@ namespace Magick.NET.FileGenerator
 			_ExecuteCodeGenerators.Add(new PathsGenerator());
 
 			_ConstructorCodeGenerators = new List<ConstructorCodeGenerator>();
-			_ConstructorCodeGenerators.Add(new GeometryGenerator());
 			_ConstructorCodeGenerators.Add(new CoordinateGenerator());
 			_ConstructorCodeGenerators.Add(new ImageProfileGenerator());
 			_ConstructorCodeGenerators.Add(new PathArcGenerator());
 			_ConstructorCodeGenerators.Add(new PathCurvetoGenerator());
 			_ConstructorCodeGenerators.Add(new PathQuadraticCurvetoGenerator());
+
+			_PropertyCodeGenerators = new List<PropertyCodeGenerator>();
+			_PropertyCodeGenerators.Add(new MagickReadSettingsGenerator());
 		}
 		//===========================================================================================
 		private void CreateCodeFile()
@@ -64,6 +67,7 @@ namespace Magick.NET.FileGenerator
 				WriteInitializeExecute(writer);
 				WriteExecuteMethods(writer);
 				WriteConstructors(writer);
+				WriteProperties(writer);
 				writer.Indent--;
 				writer.WriteLine("}");
 				writer.WriteLine("#pragma warning (default: 4100)");
@@ -89,6 +93,11 @@ namespace Magick.NET.FileGenerator
 					codeGenerator.WriteHeader(writer);
 				}
 
+				foreach (PropertyCodeGenerator codeGenerator in _PropertyCodeGenerators)
+				{
+					codeGenerator.WriteHeader(writer);
+				}
+
 				writer.InnerWriter.Dispose();
 			}
 		}
@@ -104,11 +113,34 @@ namespace Magick.NET.FileGenerator
 			return writer;
 		}
 		//===========================================================================================
+		private void WriteCallInitializeExecute(IndentedTextWriter writer)
+		{
+			writer.WriteLine("void MagickScript::InitializeExecute()");
+			writer.WriteLine("{");
+			writer.Indent++;
+
+			foreach (ExecuteCodeGenerator codeGenerator in _ExecuteCodeGenerators)
+			{
+				codeGenerator.WriteCallInitializeExecute(writer);
+			}
+
+			writer.Indent--;
+			writer.WriteLine("}");
+		}
+		//===========================================================================================
 		private void WriteConstructors(IndentedTextWriter writer)
 		{
 			foreach (ConstructorCodeGenerator codeGenerator in _ConstructorCodeGenerators)
 			{
 				codeGenerator.WriteCode(writer);
+			}
+		}
+		//===========================================================================================
+		private void WriteExecuteMethods(IndentedTextWriter writer)
+		{
+			foreach (ExecuteCodeGenerator codeGenerator in _ExecuteCodeGenerators)
+			{
+				codeGenerator.WriteExecuteMethods(writer);
 			}
 		}
 		//===========================================================================================
@@ -146,34 +178,19 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		private void WriteCallInitializeExecute(IndentedTextWriter writer)
-		{
-			writer.WriteLine("void MagickScript::InitializeExecute()");
-			writer.WriteLine("{");
-			writer.Indent++;
-
-			foreach (ExecuteCodeGenerator codeGenerator in _ExecuteCodeGenerators)
-			{
-				codeGenerator.WriteCallInitializeExecute(writer);
-			}
-
-			writer.Indent--;
-			writer.WriteLine("}");
-		}
-		//===========================================================================================
-		private void WriteExecuteMethods(IndentedTextWriter writer)
-		{
-			foreach (ExecuteCodeGenerator codeGenerator in _ExecuteCodeGenerators)
-			{
-				codeGenerator.WriteExecuteMethods(writer);
-			}
-		}
-		//===========================================================================================
 		private void WriteInitializeExecute(IndentedTextWriter writer)
 		{
 			foreach (ExecuteCodeGenerator codeGenerator in _ExecuteCodeGenerators)
 			{
 				codeGenerator.WriteInitializeExecute(writer);
+			}
+		}
+		//===========================================================================================
+		private void WriteProperties(IndentedTextWriter writer)
+		{
+			foreach (PropertyCodeGenerator codeGenerator in _PropertyCodeGenerators)
+			{
+				codeGenerator.WriteCode(writer);
 			}
 		}
 		//===========================================================================================

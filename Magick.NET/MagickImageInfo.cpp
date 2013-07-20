@@ -91,6 +91,48 @@ namespace ImageMagick
 	{
 		return _Width;
 	}
+	//===========================================================================================
+	bool MagickImageInfo::operator == (MagickImageInfo^ left, MagickImageInfo^ right)
+	{
+		return Object::Equals(left, right);
+	}
+	//===========================================================================================
+	bool MagickImageInfo::operator != (MagickImageInfo^ left, MagickImageInfo^ right)
+	{
+		return !Object::Equals(left, right);
+	}
+	//===========================================================================================
+	bool MagickImageInfo::operator > (MagickImageInfo^ left, MagickImageInfo^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) == 1;
+	}
+	//===========================================================================================
+	bool MagickImageInfo::operator < (MagickImageInfo^ left, MagickImageInfo^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return !ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) == -1;
+	}
+	//===========================================================================================
+	bool MagickImageInfo::operator >= (MagickImageInfo^ left, MagickImageInfo^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) >= 0;
+	}
+	//===========================================================================================
+	bool MagickImageInfo::operator <= (MagickImageInfo^ left, MagickImageInfo^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return !ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) <= 0;
+	}
 	//==============================================================================================
 	int MagickImageInfo::CompareTo(MagickImageInfo^ other)
 	{

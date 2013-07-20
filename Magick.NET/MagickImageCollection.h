@@ -62,13 +62,6 @@ namespace ImageMagick
 		MagickImageCollection();
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the MagickImage class using the specified images.
-		///</summary>
-		///<param name="images">The images to add to the collection.</param>
-		///<exception cref="MagickException"/>
-		MagickImageCollection(IEnumerable<MagickImage^>^ images);
-		///==========================================================================================
-		///<summary>
 		/// Initializes a new instance of the MagickImageCollection class using the specified byte array.
 		///</summary>
 		///<param name="data">The byte array to read the image data from.</param>
@@ -82,6 +75,13 @@ namespace ImageMagick
 		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<exception cref="MagickException"/>
 		MagickImageCollection(array<Byte>^ data, MagickReadSettings^ readSettings);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified images.
+		///</summary>
+		///<param name="images">The images to add to the collection.</param>
+		///<exception cref="MagickException"/>
+		MagickImageCollection(IEnumerable<MagickImage^>^ images);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickImageCollection class using the specified filename.

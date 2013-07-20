@@ -403,7 +403,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteDensity(XmlElement^ element, MagickImage^ image)
 	{
-		image->Density = CreateMagickGeometry((XmlElement^)element->SelectSingleNode("geometry"));
+		image->Density = XmlHelper::GetAttribute<MagickGeometry^>(element, "value");
 	}
 	void MagickScript::ExecuteEndian(XmlElement^ element, MagickImage^ image)
 	{
@@ -471,7 +471,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecutePage(XmlElement^ element, MagickImage^ image)
 	{
-		image->Page = CreateMagickGeometry((XmlElement^)element->SelectSingleNode("geometry"));
+		image->Page = XmlHelper::GetAttribute<MagickGeometry^>(element, "value");
 	}
 	void MagickScript::ExecuteQuality(XmlElement^ element, MagickImage^ image)
 	{
@@ -608,12 +608,10 @@ namespace ImageMagick
 				arguments["text"] = XmlHelper::GetAttribute<String^>(element, "text");
 			else if (attribute->Name == "gravity")
 				arguments["gravity"] = XmlHelper::GetAttribute<Gravity>(element, "gravity");
+			else if (attribute->Name == "boundingArea")
+				arguments["boundingArea"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "boundingArea");
 			else if (attribute->Name == "degrees")
 				arguments["degrees"] = XmlHelper::GetAttribute<double>(element, "degrees");
-		}
-		for each(XmlElement^ elem in element->SelectNodes("*"))
-		{
-			arguments[elem->Name] = CreateMagickGeometry(elem);
 		}
 		if (OnlyContains(arguments, "text", "gravity"))
 			image->Annotate((String^)arguments["text"], (Gravity)arguments["gravity"]);
@@ -693,11 +691,16 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<int>(attribute);
-		}
-		for each(XmlElement^ elem in element->SelectNodes("*"))
-		{
-			arguments[elem->Name] = CreateMagickGeometry(elem);
+			if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+			else if (attribute->Name == "xOffset")
+				arguments["xOffset"] = XmlHelper::GetAttribute<int>(element, "xOffset");
+			else if (attribute->Name == "width")
+				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+			else if (attribute->Name == "yOffset")
+				arguments["yOffset"] = XmlHelper::GetAttribute<int>(element, "yOffset");
+			else if (attribute->Name == "height")
+				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Chop((MagickGeometry^)arguments["geometry"]);
@@ -783,6 +786,8 @@ namespace ImageMagick
 		{
 			if (attribute->Name == "gravity")
 				arguments["gravity"] = XmlHelper::GetAttribute<Gravity>(element, "gravity");
+			else if (attribute->Name == "offset")
+				arguments["offset"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "offset");
 			else if (attribute->Name == "compose")
 				arguments["compose"] = XmlHelper::GetAttribute<CompositeOperator>(element, "compose");
 			else if (attribute->Name == "x")
@@ -792,10 +797,7 @@ namespace ImageMagick
 		}
 		for each(XmlElement^ elem in element->SelectNodes("*"))
 		{
-			if (elem->Name == "image")
-				arguments["image"] = CreateMagickImage(elem);
-			else if (elem->Name == "offset")
-				arguments["offset"] = CreateMagickGeometry(elem);
+			arguments[elem->Name] = CreateMagickImage(elem);
 		}
 		if (OnlyContains(arguments, "image", "gravity"))
 			image->Composite((MagickImage^)arguments["image"], (Gravity)arguments["gravity"]);
@@ -831,16 +833,14 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			if (attribute->Name == "width")
+			if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+			else if (attribute->Name == "width")
 				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
 			else if (attribute->Name == "height")
 				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
 			else if (attribute->Name == "gravity")
 				arguments["gravity"] = XmlHelper::GetAttribute<Gravity>(element, "gravity");
-		}
-		for each(XmlElement^ elem in element->SelectNodes("*"))
-		{
-			arguments[elem->Name] = CreateMagickGeometry(elem);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Crop((MagickGeometry^)arguments["geometry"]);
@@ -901,7 +901,9 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			if (attribute->Name == "gravity")
+			if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+			else if (attribute->Name == "gravity")
 				arguments["gravity"] = XmlHelper::GetAttribute<Gravity>(element, "gravity");
 			else if (attribute->Name == "backgroundColor")
 				arguments["backgroundColor"] = XmlHelper::GetAttribute<MagickColor^>(element, "backgroundColor");
@@ -909,10 +911,6 @@ namespace ImageMagick
 				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
 			else if (attribute->Name == "height")
 				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
-		}
-		for each(XmlElement^ elem in element->SelectNodes("*"))
-		{
-			arguments[elem->Name] = CreateMagickGeometry(elem);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Extent((MagickGeometry^)arguments["geometry"]);
@@ -942,7 +940,9 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			if (attribute->Name == "color")
+			if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+			else if (attribute->Name == "color")
 				arguments["color"] = XmlHelper::GetAttribute<MagickColor^>(element, "color");
 			else if (attribute->Name == "borderColor")
 				arguments["borderColor"] = XmlHelper::GetAttribute<MagickColor^>(element, "borderColor");
@@ -957,10 +957,7 @@ namespace ImageMagick
 		}
 		for each(XmlElement^ elem in element->SelectNodes("*"))
 		{
-			if (elem->Name == "image")
-				arguments["image"] = CreateMagickImage(elem);
-			else if (elem->Name == "geometry")
-				arguments["geometry"] = CreateMagickGeometry(elem);
+			arguments[elem->Name] = CreateMagickImage(elem);
 		}
 		if (OnlyContains(arguments, "image", "geometry"))
 			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"]);
@@ -992,11 +989,16 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<int>(attribute);
-		}
-		for each(XmlElement^ elem in element->SelectNodes("*"))
-		{
-			arguments[elem->Name] = CreateMagickGeometry(elem);
+			if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+			else if (attribute->Name == "width")
+				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+			else if (attribute->Name == "height")
+				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+			else if (attribute->Name == "innerBevel")
+				arguments["innerBevel"] = XmlHelper::GetAttribute<int>(element, "innerBevel");
+			else if (attribute->Name == "outerBevel")
+				arguments["outerBevel"] = XmlHelper::GetAttribute<int>(element, "outerBevel");
 		}
 		if (arguments->Count == 0)
 			image->Frame();
@@ -1218,10 +1220,8 @@ namespace ImageMagick
 				arguments["evaluateOperator"] = XmlHelper::GetAttribute<EvaluateOperator>(element, "evaluateOperator");
 			else if (attribute->Name == "value")
 				arguments["value"] = XmlHelper::GetAttribute<double>(element, "value");
-		}
-		for each(XmlElement^ elem in element->SelectNodes("*"))
-		{
-			arguments[elem->Name] = CreateMagickGeometry(elem);
+			else if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
 		}
 		if (OnlyContains(arguments, "channels", "evaluateOperator", "value"))
 			image->QuantumOperator((Channels)arguments["channels"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
@@ -1288,6 +1288,8 @@ namespace ImageMagick
 		{
 			if (attribute->Name == "percentage")
 				arguments["percentage"] = XmlHelper::GetAttribute<Percentage>(element, "percentage");
+			else if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
 			else if (attribute->Name == "percentageWidth")
 				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
 			else if (attribute->Name == "percentageHeight")
@@ -1296,10 +1298,6 @@ namespace ImageMagick
 				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
 			else if (attribute->Name == "height")
 				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
-		}
-		for each(XmlElement^ elem in element->SelectNodes("*"))
-		{
-			arguments[elem->Name] = CreateMagickGeometry(elem);
 		}
 		if (OnlyContains(arguments, "percentage"))
 			image->Resize((Percentage)arguments["percentage"]);
@@ -1330,6 +1328,8 @@ namespace ImageMagick
 		{
 			if (attribute->Name == "percentage")
 				arguments["percentage"] = XmlHelper::GetAttribute<Percentage>(element, "percentage");
+			else if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
 			else if (attribute->Name == "percentageWidth")
 				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
 			else if (attribute->Name == "percentageHeight")
@@ -1338,10 +1338,6 @@ namespace ImageMagick
 				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
 			else if (attribute->Name == "height")
 				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
-		}
-		for each(XmlElement^ elem in element->SelectNodes("*"))
-		{
-			arguments[elem->Name] = CreateMagickGeometry(elem);
 		}
 		if (OnlyContains(arguments, "percentage"))
 			image->Sample((Percentage)arguments["percentage"]);
@@ -1361,6 +1357,8 @@ namespace ImageMagick
 		{
 			if (attribute->Name == "percentage")
 				arguments["percentage"] = XmlHelper::GetAttribute<Percentage>(element, "percentage");
+			else if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
 			else if (attribute->Name == "percentageWidth")
 				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
 			else if (attribute->Name == "percentageHeight")
@@ -1369,10 +1367,6 @@ namespace ImageMagick
 				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
 			else if (attribute->Name == "height")
 				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
-		}
-		for each(XmlElement^ elem in element->SelectNodes("*"))
-		{
-			arguments[elem->Name] = CreateMagickGeometry(elem);
 		}
 		if (OnlyContains(arguments, "percentage"))
 			image->Scale((Percentage)arguments["percentage"]);
@@ -1545,9 +1539,9 @@ namespace ImageMagick
 	void MagickScript::ExecuteTransform(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
-		for each(XmlElement^ elem in element->SelectNodes("*"))
+		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[elem->Name] = CreateMagickGeometry(elem);
+			arguments[attribute->Name] = XmlHelper::GetValue<MagickGeometry^>(attribute);
 		}
 		if (OnlyContains(arguments, "imageGeometry"))
 			image->Transform((MagickGeometry^)arguments["imageGeometry"]);
@@ -1646,6 +1640,8 @@ namespace ImageMagick
 		{
 			if (attribute->Name == "percentage")
 				arguments["percentage"] = XmlHelper::GetAttribute<Percentage>(element, "percentage");
+			else if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
 			else if (attribute->Name == "percentageWidth")
 				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
 			else if (attribute->Name == "percentageHeight")
@@ -1654,10 +1650,6 @@ namespace ImageMagick
 				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
 			else if (attribute->Name == "height")
 				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
-		}
-		for each(XmlElement^ elem in element->SelectNodes("*"))
-		{
-			arguments[elem->Name] = CreateMagickGeometry(elem);
 		}
 		if (OnlyContains(arguments, "percentage"))
 			image->Zoom((Percentage)arguments["percentage"]);
@@ -1804,7 +1796,9 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			if (attribute->Name == "compose")
+			if (attribute->Name == "offset")
+				arguments["offset"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "offset");
+			else if (attribute->Name == "compose")
 				arguments["compose"] = XmlHelper::GetAttribute<CompositeOperator>(element, "compose");
 			else if (attribute->Name == "x")
 				arguments["x"] = XmlHelper::GetAttribute<double>(element, "x");
@@ -1813,10 +1807,7 @@ namespace ImageMagick
 		}
 		for each(XmlElement^ elem in element->SelectNodes("*"))
 		{
-			if (elem->Name == "offset")
-				arguments["offset"] = CreateMagickGeometry(elem);
-			else if (elem->Name == "image")
-				arguments["image"] = CreateMagickImage(elem);
+			arguments[elem->Name] = CreateMagickImage(elem);
 		}
 		if (OnlyContains(arguments, "offset", "image"))
 			drawables->Add(gcnew DrawableCompositeImage((MagickGeometry^)arguments["offset"], (MagickImage^)arguments["image"]));
@@ -2161,39 +2152,6 @@ namespace ImageMagick
 		IEnumerable<Coordinate>^ coordinates_ = CreateCoordinates(element);
 		paths->Add(gcnew PathSmoothQuadraticCurvetoRel(coordinates_));
 	}
-	MagickGeometry^ MagickScript::CreateMagickGeometry(XmlElement^ element)
-	{
-		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
-		for each(XmlAttribute^ attribute in element->Attributes)
-		{
-			if (attribute->Name == "value")
-				arguments["value"] = XmlHelper::GetAttribute<String^>(element, "value");
-			else if (attribute->Name == "percentageWidth")
-				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
-			else if (attribute->Name == "percentageHeight")
-				arguments["percentageHeight"] = XmlHelper::GetAttribute<Percentage>(element, "percentageHeight");
-			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
-			else if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
-			else if (attribute->Name == "x")
-				arguments["x"] = XmlHelper::GetAttribute<int>(element, "x");
-			else if (attribute->Name == "y")
-				arguments["y"] = XmlHelper::GetAttribute<int>(element, "y");
-		}
-		if (OnlyContains(arguments, "value"))
-			return gcnew MagickGeometry((String^)arguments["value"]);
-		else if (OnlyContains(arguments, "percentageWidth", "percentageHeight"))
-			return gcnew MagickGeometry((Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
-		else if (OnlyContains(arguments, "width", "height"))
-			return gcnew MagickGeometry((int)arguments["width"], (int)arguments["height"]);
-		else if (OnlyContains(arguments, "x", "y", "percentageWidth", "percentageHeight"))
-			return gcnew MagickGeometry((int)arguments["x"], (int)arguments["y"], (Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
-		else if (OnlyContains(arguments, "x", "y", "width", "height"))
-			return gcnew MagickGeometry((int)arguments["x"], (int)arguments["y"], (int)arguments["width"], (int)arguments["height"]);
-		else
-			throw gcnew ArgumentException("Invalid argument combination for 'magickGeometry', allowed combinations are: [value] [percentageWidth, percentageHeight] [width, height] [x, y, percentageWidth, percentageHeight] [x, y, width, height]");
-	}
 	Coordinate MagickScript::CreateCoordinate(XmlElement^ element)
 	{
 		double x_ = XmlHelper::GetAttribute<double>(element, "x");
@@ -2270,6 +2228,18 @@ namespace ImageMagick
 			collection->Add(CreatePathQuadraticCurveto(elem));
 		}
 		return collection;
+	}
+	MagickReadSettings^ MagickScript::CreateMagickReadSettings(XmlElement^ element)
+	{
+		MagickReadSettings^ result = gcnew MagickReadSettings();
+		result->ColorSpace = XmlHelper::GetAttribute<Nullable<ColorSpace>>(element, "colorSpace");
+		result->Density = XmlHelper::GetAttribute<MagickGeometry^>(element, "density");
+		result->Format = XmlHelper::GetAttribute<Nullable<MagickFormat>>(element, "format");
+		result->FrameCount = XmlHelper::GetAttribute<Nullable<Int32>>(element, "frameCount");
+		result->FrameIndex = XmlHelper::GetAttribute<Nullable<Int32>>(element, "frameIndex");
+		result->Height = XmlHelper::GetAttribute<Nullable<Int32>>(element, "height");
+		result->Width = XmlHelper::GetAttribute<Nullable<Int32>>(element, "width");
+		return result;
 	}
 }
 #pragma warning (default: 4100)

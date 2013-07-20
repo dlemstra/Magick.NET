@@ -127,47 +127,17 @@ namespace ImageMagick
 			int get();
 		}
 		//===========================================================================================
-		static bool operator == (MagickImageInfo^ left, MagickImageInfo^ right)
-		{
-			return Object::Equals(left, right);
-		}
+		static bool operator == (MagickImageInfo^ left, MagickImageInfo^ right);
 		//===========================================================================================
-		static bool operator != (MagickImageInfo^ left, MagickImageInfo^ right)
-		{
-			return !Object::Equals(left, right);
-		}
+		static bool operator != (MagickImageInfo^ left, MagickImageInfo^ right);
 		//===========================================================================================
-		static bool operator > (MagickImageInfo^ left, MagickImageInfo^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) == 1;
-		}
+		static bool operator > (MagickImageInfo^ left, MagickImageInfo^ right);
 		//===========================================================================================
-		static bool operator < (MagickImageInfo^ left, MagickImageInfo^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return !ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) == -1;
-		}
+		static bool operator < (MagickImageInfo^ left, MagickImageInfo^ right);
 		//===========================================================================================
-		static bool operator >= (MagickImageInfo^ left, MagickImageInfo^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) >= 0;
-		}
+		static bool operator >= (MagickImageInfo^ left, MagickImageInfo^ right);
 		//===========================================================================================
-		static bool operator <= (MagickImageInfo^ left, MagickImageInfo^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return !ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) <= 0;
-		}
+		static bool operator <= (MagickImageInfo^ left, MagickImageInfo^ right);
 		///==========================================================================================
 		///<summary>
 		/// Compares the current instance with another object of the same type.

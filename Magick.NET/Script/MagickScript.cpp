@@ -58,27 +58,6 @@ namespace ImageMagick
 		return image;
 	}
 	//==============================================================================================
-	MagickReadSettings^ MagickScript::CreateMagickReadSettings(XmlElement^ element)
-	{
-		if (element == nullptr || !element->HasAttributes)
-			return nullptr;
-
-		MagickReadSettings^ settings = gcnew MagickReadSettings();
-		for each(XmlAttribute^ attribute in element->Attributes)
-		{
-			if (attribute->Name == "colorSpace")
-				settings->ColorSpace = XmlHelper::GetValue<ColorSpace>(attribute);
-			else if (attribute->Name == "height")
-				settings->Height = XmlHelper::GetValue<Nullable<int>>(attribute);
-			else if (attribute->Name == "width")
-				settings->Width = XmlHelper::GetValue<Nullable<int>>(attribute);
-		}
-
-		settings->Density = CreateMagickGeometry((XmlElement^)element->SelectSingleNode("density"));
-
-		return settings;
-	}
-	//==============================================================================================
 	Collection<PathBase^>^ MagickScript::CreatePaths(XmlElement^ element)
 	{
 		Collection<PathBase^>^ paths = gcnew Collection<PathBase^>();

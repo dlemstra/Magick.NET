@@ -43,6 +43,11 @@ namespace ImageMagick
 	public:
 		///==========================================================================================
 		///<summary>
+		/// Initializes a new instance of the MagickReadSettings class.
+		///</summary>
+		MagickReadSettings();
+		///==========================================================================================
+		///<summary>
 		/// Color space.
 		///</summary>
 		property Nullable<ColorSpace> ColorSpace;

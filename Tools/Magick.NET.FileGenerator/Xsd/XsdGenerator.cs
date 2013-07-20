@@ -154,6 +154,23 @@ namespace Magick.NET.FileGenerator
 				complexType.Add(sequence);
 		}
 		//===========================================================================================
+		private void AddPropertyAttributes(XElement element, IEnumerable<PropertyInfo> properties)
+		{
+			foreach (var property in from property in properties
+												  let typeName = GetAttributeType(property)
+												  where typeName != null
+												  select new
+												  {
+													  Name = GetName(property),
+													  TypeName = typeName
+												  })
+			{
+				element.Add(new XElement(_Namespace + "attribute",
+									new XAttribute("name", property.Name),
+									new XAttribute("type", property.TypeName)));
+			}
+		}
+		//===========================================================================================
 		private object CreateElement(IEnumerable<MethodBase> methods)
 		{
 			XElement element = new XElement(_Namespace + "element",
@@ -227,9 +244,14 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private static string GetXsdAttributeType(Type type)
 		{
-			string typeName = MagickNET.GetTypeName(type);
+			Type newType = type;
 
-			if (type.IsEnum)
+			if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+				newType = type.GetGenericArguments().First();
+
+			string typeName = MagickNET.GetTypeName(newType);
+
+			if (newType.IsEnum)
 				return typeName;
 
 			switch (typeName)
@@ -248,6 +270,8 @@ namespace Magick.NET.FileGenerator
 					return "quantum";
 				case "MagickColor^":
 					return "color";
+				case "MagickGeometry^":
+					return "geometry";
 				case "Coordinate":
 				case "Drawable^":
 				case "IEnumerable<Coordinate>^":
@@ -257,7 +281,6 @@ namespace Magick.NET.FileGenerator
 				case "IEnumerable<PathQuadraticCurveto^>^":
 				case "IEnumerable<PathBase^>^":
 				case "ImageProfile^":
-				case "MagickGeometry^":
 				case "MagickImage^":
 				case "PathArc^":
 				case "PathCurveto^":
@@ -292,8 +315,6 @@ namespace Magick.NET.FileGenerator
 					return "pathQuadraticCurvetos";
 				case "ImageProfile^":
 					return "profile";
-				case "MagickGeometry^":
-					return "geometry";
 				case "MagickImage^":
 					return "read";
 				case "PathArc^":
@@ -387,8 +408,8 @@ namespace Magick.NET.FileGenerator
 					case "image-actions":
 						ReplaceImageActions(annotation);
 						break;
-					case "geometry":
-						ReplaceWithType(annotation, "MagickGeometry");
+					case "magickReadSettings":
+						ReplaceWithProperties(annotation, annotationID);
 						break;
 					case "paths":
 						ReplacePaths(annotation);
@@ -498,6 +519,13 @@ namespace Magick.NET.FileGenerator
 											new XElement(_Namespace + "restriction", new XAttribute("base", typeName))));
 		}
 		//===========================================================================================
+		private void ReplaceWithProperties(XElement annotation, string typeName)
+		{
+			AddPropertyAttributes(annotation.Parent, _MagickNET.GetProperties(typeName));
+
+			annotation.Remove();
+		}
+		//===========================================================================================
 		private void ReplaceWithType(XElement annotation, string typeName)
 		{
 			AddArguments(annotation.Parent, _MagickNET.GetConstructors(typeName));
@@ -563,6 +591,11 @@ namespace Magick.NET.FileGenerator
 		public static string GetName(ParameterInfo parameter)
 		{
 			return GetXsdName(parameter.Name);
+		}
+		//===========================================================================================
+		public static string GetName(PropertyInfo property)
+		{
+			return GetXsdName(property.Name);
 		}
 		//===========================================================================================
 	}

@@ -179,10 +179,15 @@ namespace Magick.NET.FileGenerator
 					 select g.OrderBy(m => m.GetParameters().Count()).ToArray();
 		}
 		//===========================================================================================
-		public IEnumerable<PropertyInfo> GetMagickImageProperties()
+		internal IEnumerable<PropertyInfo> GetMagickImageProperties()
+		{
+			return GetProperties("MagickImage");
+		}
+		//===========================================================================================
+		public IEnumerable<PropertyInfo> GetProperties(string typeName)
 		{
 			return from type in _MagickNET.GetTypes()
-					 where type.Name == "MagickImage"
+					 where type.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase)
 					 from property in type.GetProperties()
 					 where IsSupported(property)
 					 orderby property.Name
@@ -243,6 +248,7 @@ namespace Magick.NET.FileGenerator
 				case "MagickColor":
 				case "MagickGeometry":
 				case "MagickImage":
+				case "MagickReadSettings":
 				case "PathArc":
 				case "PathCurveto":
 				case "PathQuadraticCurveto":
@@ -250,8 +256,6 @@ namespace Magick.NET.FileGenerator
 					return name + "^";
 				case "IEnumerable<Coordinate>":
 					return "IEnumerable<Coordinate>^";
-				case "IEnumerable<Drawable>":
-					return "IEnumerable<Drawable^>^";
 				case "IEnumerable<PathArc>":
 					return "IEnumerable<PathArc^>^";
 				case "IEnumerable<PathCurveto>":
@@ -270,13 +274,15 @@ namespace Magick.NET.FileGenerator
 				case "Double":
 					return "double";
 				case "Coordinate":
+				case "Nullable<Int32>":
+				case "Nullable<ColorSpace>":
+				case "Nullable<MagickFormat>":
 				case "Percentage":
 					return name;
 				case "Byte[]":
 				case "Color":
 				case "ColorProfile":
 				case "Double[]":
-				case "Drawable":
 				case "DrawableAffine":
 				case "MagickImage[]":
 				case "Matrix":
@@ -289,7 +295,6 @@ namespace Magick.NET.FileGenerator
 					throw new NotImplementedException(name);
 			}
 		}
-		//===========================================================================================
 	}
 	//==============================================================================================
 }

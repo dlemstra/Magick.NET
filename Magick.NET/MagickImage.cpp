@@ -1754,18 +1754,9 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Draw(Drawable^ drawable)
+	void MagickImage::Draw(... array<Drawable^>^ drawables)
 	{
-		Throw::IfNull("drawable", drawable);
-
-		try
-		{
-			Value->draw(*(drawable->InternalValue));
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
+		Draw((IEnumerable<Drawable^>^)drawables);
 	}
 	//==============================================================================================
 	void MagickImage::Draw(IEnumerable<Drawable^>^ drawables)

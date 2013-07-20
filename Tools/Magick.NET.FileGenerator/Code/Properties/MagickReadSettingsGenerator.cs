@@ -11,47 +11,19 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-using System.CodeDom.Compiler;
-using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal sealed class GeometryGenerator : ConstructorCodeGenerator
+	internal sealed class MagickReadSettingsGenerator : PropertyCodeGenerator
 	{
 		//===========================================================================================
 		protected override string ClassName
 		{
 			get
 			{
-				return "MagickGeometry";
+				return "MagickReadSettings";
 			}
-		}
-		//===========================================================================================
-		protected override bool WriteEnumerable
-		{
-			get
-			{
-				return false;
-			}
-		}
-		//===========================================================================================
-		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			writer.Write("return gcnew ");
-			writer.Write(method.DeclaringType.Name);
-			writer.Write("(");
-			WriteParameters(writer, parameters);
-			writer.WriteLine(");");
-		}
-		//===========================================================================================
-		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			writer.Write("return gcnew ");
-			writer.Write(method.DeclaringType.Name);
-			writer.Write("(");
-			WriteHashtableParameters(writer, parameters);
-			writer.WriteLine(");");
 		}
 		//===========================================================================================
 	}

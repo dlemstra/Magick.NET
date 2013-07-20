@@ -33,9 +33,11 @@
 		</xs:sequence>
 	</xs:complexType>
 	<!--=========================================================================================-->
-	<xs:complexType name="geometry">
-		<xs:annotation id="geometry"/>
-	</xs:complexType>
+	<xs:simpleType name="geometry">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))([+-]\d+[+-]\d+)?([\>\&lt;\@\%^!])?"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<!--=========================================================================================-->
 	<xs:complexType name="imageProfile">
 		<xs:annotation id="imageProfile"/>
@@ -94,12 +96,7 @@
 		<xs:sequence>
 			<xs:element name="settings" minOccurs="0">
 				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="density" minOccurs="0" type="geometry"/>
-					</xs:sequence>
-					<xs:attribute name="colorSpace" type="ColorSpace"/>
-					<xs:attribute name="width" type="xs:int"/>
-					<xs:attribute name="height" type="xs:int"/>
+					<xs:annotation id="magickReadSettings"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>

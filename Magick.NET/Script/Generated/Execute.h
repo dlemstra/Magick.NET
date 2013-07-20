@@ -246,7 +246,6 @@ static void ExecuteSmoothCurvetoAbs(XmlElement^ element, System::Collections::Ob
 static void ExecuteSmoothCurvetoRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths);
 static void ExecuteSmoothQuadraticCurvetoAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths);
 static void ExecuteSmoothQuadraticCurvetoRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths);
-static MagickGeometry^ CreateMagickGeometry(XmlElement^ element);
 static Coordinate CreateCoordinate(XmlElement^ element);
 static Collection<Coordinate>^ CreateCoordinates(XmlElement^ element);
 static ImageProfile^ CreateImageProfile(XmlElement^ element);
@@ -256,3 +255,4 @@ static PathCurveto^ CreatePathCurveto(XmlElement^ element);
 static Collection<PathCurveto^>^ CreatePathCurvetos(XmlElement^ element);
 static PathQuadraticCurveto^ CreatePathQuadraticCurveto(XmlElement^ element);
 static Collection<PathQuadraticCurveto^>^ CreatePathQuadraticCurvetos(XmlElement^ element);
+static MagickReadSettings^ CreateMagickReadSettings(XmlElement^ element);

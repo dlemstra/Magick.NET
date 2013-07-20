@@ -234,6 +234,24 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
+		protected static void WriteGetValue(IndentedTextWriter writer, PropertyInfo property)
+		{
+			string typeName = MagickNET.GetTypeName(property);
+			string xsdTypeName = XsdGenerator.GetAttributeType(property);
+
+			if (xsdTypeName != null)
+			{
+				WriteGetAttributeValue(writer, typeName, "value");
+			}
+			else
+			{
+				WriteCreateMethod(writer, typeName);
+				writer.Write("(");
+				WriteSelectElement(writer, typeName, null);
+				writer.WriteLine(");");
+			}
+		}
+		//===========================================================================================
 		protected virtual void WriteInitializeExecute(IndentedTextWriter writer, bool isStatic)
 		{
 		}
@@ -254,24 +272,6 @@ namespace Magick.NET.FileGenerator
 		}
 		//===========================================================================================
 		protected abstract void WriteSet(IndentedTextWriter writer, PropertyInfo property);
-		//===========================================================================================
-		protected static void WriteGetValue(IndentedTextWriter writer, PropertyInfo property)
-		{
-			string typeName = MagickNET.GetTypeName(property);
-			string xsdTypeName = XsdGenerator.GetAttributeType(property);
-
-			if (xsdTypeName != null)
-			{
-				WriteGetAttributeValue(writer, typeName, "value");
-			}
-			else
-			{
-				WriteCreateMethod(writer, typeName);
-				writer.Write("(");
-				WriteSelectElement(writer, typeName, null);
-				writer.WriteLine(");");
-			}
-		}
 		//===========================================================================================
 		public void WriteCallInitializeExecute(IndentedTextWriter writer)
 		{

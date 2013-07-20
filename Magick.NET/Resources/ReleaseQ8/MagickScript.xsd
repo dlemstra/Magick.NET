@@ -544,8 +544,10 @@
 			<xs:enumeration value="Vst" />
 			<xs:enumeration value="Wbmp" />
 			<xs:enumeration value="WebP" />
+			<xs:enumeration value="Wmf" />
 			<xs:enumeration value="Wmfwin32" />
 			<xs:enumeration value="Wmv" />
+			<xs:enumeration value="Wmz" />
 			<xs:enumeration value="Wpg" />
 			<xs:enumeration value="X3f" />
 			<xs:enumeration value="Xbm" />
@@ -617,7 +619,7 @@
 		<xs:restriction base="xs:NMTOKEN">
 			<xs:enumeration value="Background" />
 			<xs:enumeration value="Black" />
-			<xs:enumeration value="CheckerTileV" />
+			<xs:enumeration value="CheckerTile" />
 			<xs:enumeration value="Dither" />
 			<xs:enumeration value="Edge" />
 			<xs:enumeration value="Gray" />
@@ -655,15 +657,11 @@
 			<xs:group ref="drawables" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="geometry">
-		<xs:attribute name="value" type="xs:string" />
-		<xs:attribute name="percentageWidth" type="xs:double" />
-		<xs:attribute name="percentageHeight" type="xs:double" />
-		<xs:attribute name="width" type="xs:int" />
-		<xs:attribute name="height" type="xs:int" />
-		<xs:attribute name="x" type="xs:int" />
-		<xs:attribute name="y" type="xs:int" />
-	</xs:complexType>
+	<xs:simpleType name="geometry">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))([+-]\d+[+-]\d+)?([\&gt;\&lt;\@\%^!])?" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="imageProfile">
 		<xs:attribute name="name" use="required" type="xs:string" />
 		<xs:attribute name="fileName" use="required" type="xs:string" />
@@ -727,12 +725,13 @@
 		<xs:sequence>
 			<xs:element name="settings" minOccurs="0">
 				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="density" minOccurs="0" type="geometry" />
-					</xs:sequence>
 					<xs:attribute name="colorSpace" type="ColorSpace" />
-					<xs:attribute name="width" type="xs:int" />
+					<xs:attribute name="density" type="geometry" />
+					<xs:attribute name="format" type="MagickFormat" />
+					<xs:attribute name="frameCount" type="xs:int" />
+					<xs:attribute name="frameIndex" type="xs:int" />
 					<xs:attribute name="height" type="xs:int" />
+					<xs:attribute name="width" type="xs:int" />
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -826,9 +825,7 @@
 				</xs:element>
 				<xs:element name="density">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="geometry" type="geometry" />
-						</xs:sequence>
+						<xs:attribute name="value" use="required" type="geometry" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="endian">
@@ -915,9 +912,7 @@
 				</xs:element>
 				<xs:element name="page">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="geometry" type="geometry" />
-						</xs:sequence>
+						<xs:attribute name="value" use="required" type="geometry" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="quality">
@@ -1039,11 +1034,9 @@
 				<xs:element name="addProfile" type="profile" />
 				<xs:element name="annotate">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="boundingArea" minOccurs="0" type="geometry" />
-						</xs:sequence>
 						<xs:attribute name="text" use="required" type="xs:string" />
 						<xs:attribute name="gravity" type="Gravity" />
+						<xs:attribute name="boundingArea" type="geometry" />
 						<xs:attribute name="degrees" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
@@ -1080,9 +1073,7 @@
 				</xs:element>
 				<xs:element name="chop">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="geometry" minOccurs="0" type="geometry" />
-						</xs:sequence>
+						<xs:attribute name="geometry" type="geometry" />
 						<xs:attribute name="xOffset" type="xs:int" />
 						<xs:attribute name="width" type="xs:int" />
 						<xs:attribute name="yOffset" type="xs:int" />
@@ -1149,9 +1140,9 @@
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="image" type="read" />
-							<xs:element name="offset" minOccurs="0" type="geometry" />
 						</xs:sequence>
 						<xs:attribute name="gravity" type="Gravity" />
+						<xs:attribute name="offset" type="geometry" />
 						<xs:attribute name="compose" type="CompositeOperator" />
 						<xs:attribute name="x" type="xs:int" />
 						<xs:attribute name="y" type="xs:int" />
@@ -1164,9 +1155,7 @@
 				</xs:element>
 				<xs:element name="crop">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="geometry" minOccurs="0" type="geometry" />
-						</xs:sequence>
+						<xs:attribute name="geometry" type="geometry" />
 						<xs:attribute name="width" type="xs:int" />
 						<xs:attribute name="height" type="xs:int" />
 						<xs:attribute name="gravity" type="Gravity" />
@@ -1197,9 +1186,7 @@
 				</xs:element>
 				<xs:element name="extent">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="geometry" minOccurs="0" type="geometry" />
-						</xs:sequence>
+						<xs:attribute name="geometry" type="geometry" />
 						<xs:attribute name="gravity" type="Gravity" />
 						<xs:attribute name="backgroundColor" type="color" />
 						<xs:attribute name="width" type="xs:int" />
@@ -1211,8 +1198,8 @@
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="image" minOccurs="0" type="read" />
-							<xs:element name="geometry" minOccurs="0" type="geometry" />
 						</xs:sequence>
+						<xs:attribute name="geometry" type="geometry" />
 						<xs:attribute name="color" type="color" />
 						<xs:attribute name="borderColor" type="color" />
 						<xs:attribute name="x" type="xs:int" />
@@ -1224,9 +1211,7 @@
 				<xs:element name="flop" />
 				<xs:element name="frame">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="geometry" minOccurs="0" type="geometry" />
-						</xs:sequence>
+						<xs:attribute name="geometry" type="geometry" />
 						<xs:attribute name="width" type="xs:int" />
 						<xs:attribute name="height" type="xs:int" />
 						<xs:attribute name="innerBevel" type="xs:int" />
@@ -1330,12 +1315,10 @@
 				<xs:element name="quantize" />
 				<xs:element name="quantumOperator">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="geometry" minOccurs="0" type="geometry" />
-						</xs:sequence>
 						<xs:attribute name="channels" use="required" type="Channels" />
 						<xs:attribute name="evaluateOperator" use="required" type="EvaluateOperator" />
 						<xs:attribute name="value" use="required" type="xs:double" />
+						<xs:attribute name="geometry" type="geometry" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="raise">
@@ -1364,10 +1347,8 @@
 				</xs:element>
 				<xs:element name="resize">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="geometry" minOccurs="0" type="geometry" />
-						</xs:sequence>
 						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="geometry" type="geometry" />
 						<xs:attribute name="percentageWidth" type="xs:double" />
 						<xs:attribute name="percentageHeight" type="xs:double" />
 						<xs:attribute name="width" type="xs:int" />
@@ -1387,10 +1368,8 @@
 				</xs:element>
 				<xs:element name="sample">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="geometry" minOccurs="0" type="geometry" />
-						</xs:sequence>
 						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="geometry" type="geometry" />
 						<xs:attribute name="percentageWidth" type="xs:double" />
 						<xs:attribute name="percentageHeight" type="xs:double" />
 						<xs:attribute name="width" type="xs:int" />
@@ -1399,10 +1378,8 @@
 				</xs:element>
 				<xs:element name="scale">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="geometry" minOccurs="0" type="geometry" />
-						</xs:sequence>
 						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="geometry" type="geometry" />
 						<xs:attribute name="percentageWidth" type="xs:double" />
 						<xs:attribute name="percentageHeight" type="xs:double" />
 						<xs:attribute name="width" type="xs:int" />
@@ -1496,10 +1473,8 @@
 				</xs:element>
 				<xs:element name="transform">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="imageGeometry" type="geometry" />
-							<xs:element name="cropGeometry" minOccurs="0" type="geometry" />
-						</xs:sequence>
+						<xs:attribute name="imageGeometry" use="required" type="geometry" />
+						<xs:attribute name="cropGeometry" type="geometry" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="transformOrigin">
@@ -1559,10 +1534,8 @@
 				</xs:element>
 				<xs:element name="zoom">
 					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="geometry" minOccurs="0" type="geometry" />
-						</xs:sequence>
 						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="geometry" type="geometry" />
 						<xs:attribute name="percentageWidth" type="xs:double" />
 						<xs:attribute name="percentageHeight" type="xs:double" />
 						<xs:attribute name="width" type="xs:int" />
@@ -1680,9 +1653,9 @@
 				<xs:element name="compositeImage">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="offset" minOccurs="0" type="geometry" />
 							<xs:element name="image" type="read" />
 						</xs:sequence>
+						<xs:attribute name="offset" type="geometry" />
 						<xs:attribute name="compose" type="CompositeOperator" />
 						<xs:attribute name="x" type="xs:double" />
 						<xs:attribute name="y" type="xs:double" />

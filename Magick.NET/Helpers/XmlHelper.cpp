@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "..\Colors\MagickColor.h"
+#include "..\MagickGeometry.h"
 #include "..\Percentage.h"
 #include "EnumHelper.h"
 #include "XmlHelper.h"
@@ -41,6 +42,9 @@ namespace ImageMagick
 
 		if (type == MagickColor::typeid)
 			return (T)gcnew MagickColor(value);
+
+		if (type == MagickGeometry::typeid)
+			return (T)gcnew MagickGeometry(value);
 
 		if (type == Percentage::typeid)
 			return (T)gcnew Percentage((double)Convert::ChangeType(value, double::typeid, CultureInfo::InvariantCulture));

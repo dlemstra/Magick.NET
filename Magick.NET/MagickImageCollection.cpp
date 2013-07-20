@@ -122,17 +122,6 @@ namespace ImageMagick
 		_Images = gcnew List<MagickImage^>();
 	}
 	//==============================================================================================
-	MagickImageCollection::MagickImageCollection(IEnumerable<MagickImage^>^ images)
-	{
-		Throw::IfNull("images", images);
-
-		_Images = gcnew List<MagickImage^>();
-		for each(MagickImage^ image in images)
-		{
-			_Images->Add(image);
-		}
-	}
-	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(array<Byte>^ data)
 	{
 		_Images = gcnew List<MagickImage^>();
@@ -143,6 +132,17 @@ namespace ImageMagick
 	{
 		_Images = gcnew List<MagickImage^>();
 		this->Read(data, readSettings);
+	}
+	//==============================================================================================
+	MagickImageCollection::MagickImageCollection(IEnumerable<MagickImage^>^ images)
+	{
+		Throw::IfNull("images", images);
+
+		_Images = gcnew List<MagickImage^>();
+		for each(MagickImage^ image in images)
+		{
+			_Images->Add(image);
+		}
 	}
 	//==============================================================================================
 	MagickImageCollection::MagickImageCollection(String^ fileName)

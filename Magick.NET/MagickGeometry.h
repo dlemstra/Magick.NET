@@ -143,47 +143,17 @@ namespace ImageMagick
 		///</summary>
 		property int Y;
 		//===========================================================================================
-		static bool operator == (MagickGeometry^ left, MagickGeometry^ right)
-		{
-			return Object::Equals(left, right);
-		}
+		static bool operator == (MagickGeometry^ left, MagickGeometry^ right);
 		//===========================================================================================
-		static bool operator != (MagickGeometry^ left, MagickGeometry^ right)
-		{
-			return !Object::Equals(left, right);
-		}
+		static bool operator != (MagickGeometry^ left, MagickGeometry^ right);
 		//===========================================================================================
-		static bool operator > (MagickGeometry^ left, MagickGeometry^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) == 1;
-		}
+		static bool operator > (MagickGeometry^ left, MagickGeometry^ right);
 		//===========================================================================================
-		static bool operator < (MagickGeometry^ left, MagickGeometry^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return !ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) == -1;
-		}
+		static bool operator < (MagickGeometry^ left, MagickGeometry^ right);
 		//===========================================================================================
-		static bool operator >= (MagickGeometry^ left, MagickGeometry^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) >= 0;
-		}
+		static bool operator >= (MagickGeometry^ left, MagickGeometry^ right);
 		//===========================================================================================
-		static bool operator <= (MagickGeometry^ left, MagickGeometry^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return !ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) <= 0;
-		}
+		static bool operator <= (MagickGeometry^ left, MagickGeometry^ right);
 		//===========================================================================================
 		static explicit operator MagickGeometry^(Rectangle rectangle)
 		{
