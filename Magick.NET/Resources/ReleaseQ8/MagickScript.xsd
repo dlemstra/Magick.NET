@@ -657,6 +657,11 @@
 			<xs:group ref="drawables" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="empty">
+		<xs:complexContent>
+			<xs:restriction base="xs:anyType" />
+		</xs:complexContent>
+	</xs:complexType>
 	<xs:simpleType name="geometry">
 		<xs:restriction base="xs:string">
 			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))([+-]\d+[+-]\d+)?([\&gt;\&lt;\@\%^!])?" />
@@ -1172,7 +1177,7 @@
 						<xs:attribute name="channels" type="Channels" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="despeckle" />
+				<xs:element name="despeckle" type="empty" />
 				<xs:element name="edge">
 					<xs:complexType>
 						<xs:attribute name="radius" use="required" type="xs:double" />
@@ -1193,7 +1198,7 @@
 						<xs:attribute name="height" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="flip" />
+				<xs:element name="flip" type="empty" />
 				<xs:element name="floodFill">
 					<xs:complexType>
 						<xs:sequence>
@@ -1208,7 +1213,7 @@
 						<xs:attribute name="paintMethod" type="PaintMethod" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="flop" />
+				<xs:element name="flop" type="empty" />
 				<xs:element name="frame">
 					<xs:complexType>
 						<xs:attribute name="geometry" type="geometry" />
@@ -1272,7 +1277,7 @@
 						<xs:attribute name="size" use="required" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="magnify" />
+				<xs:element name="magnify" type="empty" />
 				<xs:element name="map">
 					<xs:complexType>
 						<xs:sequence>
@@ -1286,7 +1291,7 @@
 						<xs:attribute name="radius" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="minify" />
+				<xs:element name="minify" type="empty" />
 				<xs:element name="modulate">
 					<xs:complexType>
 						<xs:attribute name="brightness" use="required" type="xs:double" />
@@ -1306,13 +1311,13 @@
 						<xs:attribute name="onlyGrayscale" type="xs:boolean" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="normalize" />
+				<xs:element name="normalize" type="empty" />
 				<xs:element name="oilPaint">
 					<xs:complexType>
 						<xs:attribute name="radius" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="quantize" />
+				<xs:element name="quantize" type="empty" />
 				<xs:element name="quantumOperator">
 					<xs:complexType>
 						<xs:attribute name="channels" use="required" type="Channels" />
@@ -1453,7 +1458,7 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="strip" />
+				<xs:element name="strip" type="empty" />
 				<xs:element name="swirl">
 					<xs:complexType>
 						<xs:attribute name="degrees" use="required" type="xs:double" />
@@ -1483,7 +1488,7 @@
 						<xs:attribute name="y" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="transformReset" />
+				<xs:element name="transformReset" type="empty" />
 				<xs:element name="transformRotation">
 					<xs:complexType>
 						<xs:attribute name="angle" use="required" type="xs:double" />
@@ -1516,7 +1521,7 @@
 						<xs:attribute name="colorHigh" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="trim" />
+				<xs:element name="trim" type="empty" />
 				<xs:element name="unsharpmask">
 					<xs:complexType>
 						<xs:attribute name="radius" use="required" type="xs:double" />
@@ -1563,11 +1568,11 @@
 					<xs:sequence>
 						<xs:group ref="read" minOccurs="2" maxOccurs="unbounded" />
 						<xs:choice minOccurs="0" maxOccurs="unbounded">
-							<xs:element name="coalesce" />
-							<xs:element name="deconstruct" />
-							<xs:element name="optimize" />
-							<xs:element name="optimizePlus" />
-							<xs:element name="rePage" />
+							<xs:element name="coalesce" type="empty" />
+							<xs:element name="deconstruct" type="empty" />
+							<xs:element name="optimize" type="empty" />
+							<xs:element name="optimizePlus" type="empty" />
+							<xs:element name="rePage" type="empty" />
 						</xs:choice>
 						<xs:element name="write" minOccurs="0">
 							<xs:complexType>
@@ -1575,8 +1580,8 @@
 							</xs:complexType>
 						</xs:element>
 						<xs:choice>
-							<xs:element name="appendHorizontally" />
-							<xs:element name="appendVertically" />
+							<xs:element name="appendHorizontally" type="empty" />
+							<xs:element name="appendVertically" type="empty" />
 							<xs:element name="combine">
 								<xs:complexType>
 									<xs:attribute name="channels" type="Channels" />
@@ -1587,10 +1592,10 @@
 									<xs:attribute name="evaluateOperator" use="required" type="EvaluateOperator" />
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="flatten" />
-							<xs:element name="merge" />
-							<xs:element name="mosaic" />
-							<xs:element name="trimBounds" />
+							<xs:element name="flatten" type="empty" />
+							<xs:element name="merge" type="empty" />
+							<xs:element name="mosaic" type="empty" />
+							<xs:element name="trimBounds" type="empty" />
 						</xs:choice>
 					</xs:sequence>
 				</xs:complexType>

@@ -33,6 +33,12 @@
 		</xs:sequence>
 	</xs:complexType>
 	<!--=========================================================================================-->
+	<xs:complexType name="empty">
+		<xs:complexContent>
+			<xs:restriction base="xs:anyType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--=========================================================================================-->
 	<xs:simpleType name="geometry">
 		<xs:restriction base="xs:string">
 			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))([+-]\d+[+-]\d+)?([\>\&lt;\@\%^!])?"/>

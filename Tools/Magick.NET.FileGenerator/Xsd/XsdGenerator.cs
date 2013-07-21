@@ -179,7 +179,11 @@ namespace Magick.NET.FileGenerator
 			ParameterInfo[] parameters = (from method in methods
 													from parameter in method.GetParameters()
 													select parameter).ToArray();
-			if (parameters.Length > 0)
+			if (parameters.Length == 0)
+			{
+				element.Add(new XAttribute("type", "empty"));
+			}
+			else
 			{
 				if (methods.Count() == 1 && IsTypedElement(parameters))
 				{
