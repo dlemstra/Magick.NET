@@ -272,7 +272,6 @@
     <ClInclude Include="Exceptions\MagickErrorExceptions.h" />
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
-    <ClInclude Include="Helpers\STL.h" />
     <ClInclude Include="Profiles\Exif\ExifDataType.h" />
     <ClInclude Include="Profiles\Exif\ExifProfile.h" />
     <ClInclude Include="Profiles\Exif\ExifReader.h" />

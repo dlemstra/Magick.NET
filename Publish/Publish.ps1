@@ -126,7 +126,7 @@ function CreateNuGetPackages($builds, $imVersion, $version)
 		$xml.package.metadata.id = $id
 		$xml.package.metadata.title = $id
 		$xml.package.metadata.version = $version
-		$xml.package.metadata.releaseNotes = "Magick.NET compiled against ImageMagick " + $imVersion
+		$xml.package.metadata.releaseNotes = "Magick.NET linked with ImageMagick " + $imVersion
 
 		$nuspecFile = "NuGet\$id.nuspec"
 		if (Test-Path $nuspecFile)
@@ -299,8 +299,8 @@ $builds = @(
 
 CheckDependancies
 
-$imVersion = "6.8.6.3"
-$version = "6.8.6.301"
+$imVersion = "6.8.6.6"
+$version = "6.8.6.601"
 
 UpdateAssemblyInfo "..\Magick.NET\AssemblyInfo.cpp" $version
 UpdateAssemblyInfo "..\Magick.NET.Web\Properties\AssemblyInfo.cs" $version
