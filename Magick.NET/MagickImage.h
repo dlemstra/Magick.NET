@@ -914,19 +914,6 @@ namespace ImageMagick
 		void Annotate(String^ text, Gravity gravity);
 		///==========================================================================================
 		///<summary>
-		/// Returns the value of a named image attribute.
-		///</summary>
-		///<param name="name">The name of the attribute.</param>
-		String^ Attribute(String^ name);
-		///==========================================================================================
-		///<summary>
-		/// Sets a named image attribute.
-		///</summary>
-		///<param name="name">The name of the attribute.</param>
-		///<param name="value">The value of the attribute.</param>
-		void Attribute(String^ name, String^ value);
-		///==========================================================================================
-		///<summary>
 		/// Blur image with the default blur factor (0x1).
 		///</summary>
 		///<exception cref="MagickException"/>
@@ -1599,9 +1586,10 @@ namespace ImageMagick
 		void GaussianBlur(double width, double sigma, Channels channels);
 		///==========================================================================================
 		///<summary>
-		/// Servers as a hash of this type.
+		/// Returns the value of a named image attribute.
 		///</summary>
-		virtual int GetHashCode() override;
+		///<param name="name">The name of the attribute.</param>
+		String^ GetAttribute(String^ name);
 		///==========================================================================================
 		///<summary>
 		/// Retrieve the color profile from the image.
@@ -1614,6 +1602,18 @@ namespace ImageMagick
 		///</summary>
 		///<exception cref="MagickException"/>
 		ExifProfile^ GetExifProfile();
+		///==========================================================================================
+		///<summary>
+		/// Servers as a hash of this type.
+		///</summary>
+		virtual int GetHashCode() override;
+		///==========================================================================================
+		///<summary>
+		/// Gets a format-specific option.
+		///</summary>
+		///<param name="format">The format to get the option for.</param>
+		///<param name="name">The name of the option.</param>
+		String^ GetOption(MagickFormat format, String^ name);
 		///==========================================================================================
 		///<summary>
 		/// Retrieve a named profile from the image.
@@ -2115,6 +2115,29 @@ namespace ImageMagick
 		///<param name="channels">The channel(s) to separates.</param>
 		///<exception cref="MagickException"/>
 		IEnumerable<MagickImage^>^ Separate(Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Sets a named image attribute.
+		///</summary>
+		///<param name="name">The name of the attribute.</param>
+		///<param name="value">The value of the attribute.</param>
+		void SetAttribute(String^ name, String^ value);
+		///==========================================================================================
+		///<summary>
+		/// Sets a format-specific option.
+		///</summary>
+		///<param name="format">The format to set the option for.</param>
+		///<param name="name">The name of the option.</param>
+		///<param name="flag">The value of the option.</param>
+		void SetOption(MagickFormat format, String^ name, bool flag);
+		///==========================================================================================
+		///<summary>
+		/// Sets a format-specific option.
+		///</summary>
+		///<param name="format">The format to set the option for.</param>
+		///<param name="name">The name of the option.</param>
+		///<param name="value">The value of the option.</param>
+		void SetOption(MagickFormat format, String^ name, String^ value);
 		///==========================================================================================
 		///<summary>
 		/// Shade image using distant light source.

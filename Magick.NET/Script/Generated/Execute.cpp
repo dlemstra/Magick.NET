@@ -141,7 +141,6 @@ namespace ImageMagick
 		result["addNoise"] = gcnew ExecuteElementImage(MagickScript::ExecuteAddNoise);
 		result["addProfile"] = gcnew ExecuteElementImage(MagickScript::ExecuteAddProfile);
 		result["annotate"] = gcnew ExecuteElementImage(MagickScript::ExecuteAnnotate);
-		result["attribute"] = gcnew ExecuteElementImage(MagickScript::ExecuteAttribute);
 		result["blur"] = gcnew ExecuteElementImage(MagickScript::ExecuteBlur);
 		result["border"] = gcnew ExecuteElementImage(MagickScript::ExecuteBorder);
 		result["cdl"] = gcnew ExecuteElementImage(MagickScript::ExecuteCDL);
@@ -193,6 +192,8 @@ namespace ImageMagick
 		result["sample"] = gcnew ExecuteElementImage(MagickScript::ExecuteSample);
 		result["scale"] = gcnew ExecuteElementImage(MagickScript::ExecuteScale);
 		result["segment"] = gcnew ExecuteElementImage(MagickScript::ExecuteSegment);
+		result["setAttribute"] = gcnew ExecuteElementImage(MagickScript::ExecuteSetAttribute);
+		result["setOption"] = gcnew ExecuteElementImage(MagickScript::ExecuteSetOption);
 		result["shade"] = gcnew ExecuteElementImage(MagickScript::ExecuteShade);
 		result["shadow"] = gcnew ExecuteElementImage(MagickScript::ExecuteShadow);
 		result["sharpen"] = gcnew ExecuteElementImage(MagickScript::ExecuteSharpen);
@@ -623,12 +624,6 @@ namespace ImageMagick
 			image->Annotate((String^)arguments["text"], (MagickGeometry^)arguments["boundingArea"], (Gravity)arguments["gravity"], (double)arguments["degrees"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'annotate', allowed combinations are: [text, gravity] [text, boundingArea] [text, boundingArea, gravity] [text, boundingArea, gravity, degrees]");
-	}
-	void MagickScript::ExecuteAttribute(XmlElement^ element, MagickImage^ image)
-	{
-		String^ name_ = XmlHelper::GetAttribute<String^>(element, "name");
-		String^ value_ = XmlHelper::GetAttribute<String^>(element, "value");
-		image->Attribute(name_, value_);
 	}
 	void MagickScript::ExecuteBlur(XmlElement^ element, MagickImage^ image)
 	{
@@ -1392,6 +1387,33 @@ namespace ImageMagick
 			image->Segment((double)arguments["clusterThreshold"], (double)arguments["smoothingThreshold"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'segment', allowed combinations are: [] [clusterThreshold, smoothingThreshold]");
+	}
+	void MagickScript::ExecuteSetAttribute(XmlElement^ element, MagickImage^ image)
+	{
+		String^ name_ = XmlHelper::GetAttribute<String^>(element, "name");
+		String^ value_ = XmlHelper::GetAttribute<String^>(element, "value");
+		image->SetAttribute(name_, value_);
+	}
+	void MagickScript::ExecuteSetOption(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "format")
+				arguments["format"] = XmlHelper::GetAttribute<MagickFormat>(element, "format");
+			else if (attribute->Name == "name")
+				arguments["name"] = XmlHelper::GetAttribute<String^>(element, "name");
+			else if (attribute->Name == "value")
+				arguments["value"] = XmlHelper::GetAttribute<String^>(element, "value");
+			else if (attribute->Name == "flag")
+				arguments["flag"] = XmlHelper::GetAttribute<bool>(element, "flag");
+		}
+		if (OnlyContains(arguments, "format", "name", "value"))
+			image->SetOption((MagickFormat)arguments["format"], (String^)arguments["name"], (String^)arguments["value"]);
+		else if (OnlyContains(arguments, "format", "name", "flag"))
+			image->SetOption((MagickFormat)arguments["format"], (String^)arguments["name"], (bool)arguments["flag"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'setOption', allowed combinations are: [format, name, value] [format, name, flag]");
 	}
 	void MagickScript::ExecuteShade(XmlElement^ element, MagickImage^ image)
 	{

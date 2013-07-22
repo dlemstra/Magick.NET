@@ -1045,12 +1045,6 @@
 						<xs:attribute name="degrees" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="attribute">
-					<xs:complexType>
-						<xs:attribute name="name" use="required" type="xs:string" />
-						<xs:attribute name="value" use="required" type="xs:string" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="blur">
 					<xs:complexType>
 						<xs:attribute name="channels" type="Channels" />
@@ -1395,6 +1389,20 @@
 					<xs:complexType>
 						<xs:attribute name="clusterThreshold" type="xs:double" />
 						<xs:attribute name="smoothingThreshold" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="setAttribute">
+					<xs:complexType>
+						<xs:attribute name="name" use="required" type="xs:string" />
+						<xs:attribute name="value" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="setOption">
+					<xs:complexType>
+						<xs:attribute name="format" use="required" type="MagickFormat" />
+						<xs:attribute name="name" use="required" type="xs:string" />
+						<xs:attribute name="value" type="xs:string" />
+						<xs:attribute name="flag" type="xs:boolean" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="shade">

@@ -592,8 +592,8 @@ namespace ImageMagick
 			return;
 
 		std::string name;
+		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, value), name);
 
-		Marshaller::Marshal(Enum::GetName(value.GetType(), value), name);
 		Value->magick(name);
 	}
 	//==============================================================================================
@@ -1127,43 +1127,6 @@ namespace ImageMagick
 		try
 		{
 			Value->annotate(annotateText, (Magick::GravityType)gravity);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	String^ MagickImage::Attribute(String^ name)
-	{
-		Throw::IfNull("name", name);
-
-		std::string attributeName;
-		Marshaller::Marshal(name, attributeName);
-
-		try
-		{
-			return Marshaller::Marshal(Value->attribute(attributeName));
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::Attribute(String^ name, String^ value)
-	{
-		Throw::IfNull("name", name);
-		Throw::IfNull("value", value);
-
-		std::string attributeName;
-		Marshaller::Marshal(name, attributeName);
-		std::string attributeValue;
-		Marshaller::Marshal(value, attributeValue);
-
-		try
-		{
-			return Value->attribute(attributeName, attributeValue);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2307,14 +2270,40 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	int MagickImage::GetHashCode()
+	String^ MagickImage::GetAttribute(String^ name)
 	{
-		String^ signature = Marshaller::Marshal(Value->signature());
+		Throw::IfNullOrEmpty("name", name);
 
-		return
-			Value->rows().GetHashCode() ^
-			Value->columns().GetHashCode() ^
-			signature->GetHashCode();
+		std::string attributeName;
+		Marshaller::Marshal(name, attributeName);
+
+		try
+		{
+			return Marshaller::Marshal(Value->attribute(attributeName));
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	String^ MagickImage::GetOption(MagickFormat format, String^ name)
+	{
+		Throw::IfNullOrEmpty("name", name);
+
+		std::string magick;
+		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, format), magick);
+		std::string optionName;
+		Marshaller::Marshal(name, optionName);
+
+		try
+		{
+			return Marshaller::Marshal(Value->defineValue(magick, optionName));
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
 	}
 	//==============================================================================================
 	ColorProfile^ MagickImage::GetColorProfile()
@@ -2330,6 +2319,16 @@ namespace ImageMagick
 	ExifProfile^ MagickImage::GetExifProfile()
 	{
 		return CreateProfile<ExifProfile>("exif");
+	}
+	//==============================================================================================
+	int MagickImage::GetHashCode()
+	{
+		String^ signature = Marshaller::Marshal(Value->signature());
+
+		return
+			Value->rows().GetHashCode() ^
+			Value->columns().GetHashCode() ^
+			signature->GetHashCode();
 	}
 	//==============================================================================================
 	ImageProfile^ MagickImage::GetProfile(String^ name)
@@ -2909,6 +2908,67 @@ namespace ImageMagick
 		finally
 		{
 			delete images;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::SetAttribute(String^ name, String^ value)
+	{
+		Throw::IfNull("name", name);
+		Throw::IfNull("value", value);
+
+		std::string attributeName;
+		Marshaller::Marshal(name, attributeName);
+		std::string attributeValue;
+		Marshaller::Marshal(value, attributeValue);
+
+		try
+		{
+			return Value->attribute(attributeName, attributeValue);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::SetOption(MagickFormat format, String^ name, bool flag)
+	{
+		Throw::IfNullOrEmpty("name", name);
+
+		std::string magick;
+		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, format), magick);
+		std::string optionName;
+		Marshaller::Marshal(name, optionName);
+
+		try
+		{
+			Value->defineSet(magick, optionName, flag);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::SetOption(MagickFormat format, String^ name, String^ value)
+	{
+		Throw::IfNullOrEmpty("name", name);
+		Throw::IfNull("value", value);
+
+		std::string magick;
+		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, format), magick);
+		std::string optionName;
+		Marshaller::Marshal(name, optionName);
+		std::string optionValue;
+		Marshaller::Marshal(value, optionValue);
+
+		try
+		{
+			Value->defineValue(magick, optionName, optionValue);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================

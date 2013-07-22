@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 6.8.6.701:
+  - Renamed Attribute method of MagickImage to GetAttribute and SetAttribute.
+
 Magick.NET 6.8.6.301:
   - Removed Debug property of MagickImage (use MagickNET.SetLogEvents).
   - MagickImage.Separate no longer modifies the image, it returns an IEnumerable<MagickImage>.
