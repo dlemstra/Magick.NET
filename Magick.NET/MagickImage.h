@@ -1049,6 +1049,11 @@ namespace ImageMagick
 		void ChromaWhitePoint(double x, double y);
 		///==========================================================================================
 		///<summary>
+		/// Creates a clone of the current image.
+		///</summary>
+		MagickImage^ Clone();
+		///==========================================================================================
+		///<summary>
 		/// Colorize image with the specified color, using specified percent alpha.
 		///</summary>
 		///<param name="color">The color to use.</param>
@@ -1181,11 +1186,6 @@ namespace ImageMagick
 		///</summary>
 		///<exception cref="MagickException"/>
 		void Convolve(MatrixConvolve^ convolveMatrix);
-		///==========================================================================================
-		///<summary>
-		/// Creates a copy of the current image.
-		///</summary>
-		MagickImage^ Copy();
 		///==========================================================================================
 		///<summary>
 		/// Crop image (subregion of original image).

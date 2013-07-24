@@ -233,7 +233,7 @@ namespace ImageMagick
 		_ExecuteImage["stegano"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteStegano);
 		_ExecuteImage["stereo"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteStereo);
 		_ExecuteImage["texture"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteTexture);
-		_ExecuteImage["copy"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteCopy);
+		_ExecuteImage["clone"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteClone);
 		_ExecuteImage["draw"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteDraw);
 		_ExecuteImage["write"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteWrite);
 	}

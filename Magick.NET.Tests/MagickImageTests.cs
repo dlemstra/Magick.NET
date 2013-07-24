@@ -96,10 +96,10 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_Copy()
+		public void Test_Clone()
 		{
 			MagickImage first = new MagickImage(Files.SnakewarePNG);
-			MagickImage second = first.Copy();
+			MagickImage second = first.Clone();
 
 			Test_Copy(first, second);
 

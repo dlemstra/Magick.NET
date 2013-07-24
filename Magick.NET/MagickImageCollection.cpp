@@ -292,7 +292,7 @@ namespace ImageMagick
 		int length = Math::Min(destination->Length, _Images->Count);
 		for (int indexA = arrayIndex; indexA < length; indexA++)
 		{
-			destination[indexA] = _Images[indexI++]->Copy();
+			destination[indexA] = _Images[indexI++]->Clone();
 		}
 	}
 	//==============================================================================================

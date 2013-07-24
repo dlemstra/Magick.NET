@@ -1557,10 +1557,10 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="draw" type="drawables" />
-				<xs:group ref="copy" />
+				<xs:group ref="clone" />
 			</xs:choice>
 			<xs:choice>
-				<xs:group ref="copy" />
+				<xs:group ref="clone" />
 				<xs:element name="write" minOccurs="0">
 					<xs:complexType>
 						<xs:attribute name="fileName" type="xs:string" />
@@ -1611,9 +1611,9 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:group>
-	<xs:group name="copy">
+	<xs:group name="clone">
 		<xs:sequence>
-			<xs:element name="copy">
+			<xs:element name="clone">
 				<xs:complexType>
 					<xs:group ref="actions" />
 				</xs:complexType>

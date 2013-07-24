@@ -128,6 +128,11 @@ namespace ImageMagick
 		return ExecuteCollection(element, collection);
 	}
 	//==============================================================================================
+	void MagickScript::ExecuteClone(XmlElement^ element, MagickImage^ image)
+	{
+		ExecuteRead(element, image->Clone());
+	}
+	//==============================================================================================
 	MagickImage^ MagickScript::ExecuteCollection(XmlElement^ element)
 	{
 		MagickImageCollection^ collection = gcnew MagickImageCollection();
@@ -143,11 +148,6 @@ namespace ImageMagick
 		delete collection;
 
 		return result;
-	}
-	//==============================================================================================
-	void MagickScript::ExecuteCopy(XmlElement^ element, MagickImage^ image)
-	{
-		ExecuteRead(element, image->Copy());
 	}
 	//==============================================================================================
 	void MagickScript::ExecuteDraw(XmlElement^ element, MagickImage^ image)

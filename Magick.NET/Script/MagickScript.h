@@ -56,9 +56,9 @@ namespace ImageMagick
 		//===========================================================================================
 		MagickImage^ Execute(XmlElement^ element, MagickImageCollection^ collection);
 		//===========================================================================================
-		MagickImage^ ExecuteCollection(XmlElement^ element);
+		void ExecuteClone(XmlElement^ element, MagickImage^ image);
 		//===========================================================================================
-		void ExecuteCopy(XmlElement^ element, MagickImage^ image);
+		MagickImage^ ExecuteCollection(XmlElement^ element);
 		//===========================================================================================
 		void ExecuteDraw(XmlElement^ element, MagickImage^ image);
 		//===========================================================================================

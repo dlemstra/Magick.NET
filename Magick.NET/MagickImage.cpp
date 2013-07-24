@@ -1344,13 +1344,18 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	MagickImage^ MagickImage::Clone()
+	{
+		return gcnew MagickImage(*Value);
+	}
+	//==============================================================================================
 	void MagickImage::ColorAlpha(MagickColor^ color)
 	{
 		Throw::IfNull("color", color);
 
 		MagickImageCollection^ images = gcnew MagickImageCollection();
 		images->Add(gcnew MagickImage(color, Width, Height));
-		images->Add(Copy());
+		images->Add(Clone());
 		images->Merge(Value, LayerMethod::Merge);
 		delete images;
 	}
@@ -1559,11 +1564,6 @@ namespace ImageMagick
 		{
 			delete[] kernel;
 		}
-	}
-	//==============================================================================================
-	MagickImage^ MagickImage::Copy()
-	{
-		return gcnew MagickImage(*Value);
 	}
 	//==============================================================================================
 	void MagickImage::Crop(MagickGeometry^ geometry)
@@ -3041,13 +3041,13 @@ namespace ImageMagick
 
 		try
 		{
-			MagickImage^ copy = Copy();
-			copy->Value->backgroundColor(*backgroundColor);
-			copy->Value->shadow((double)alpha * 100, sigma, x, y);
-			copy->Value->backgroundColor(Magick::Color());
+			MagickImage^ clone = Clone();
+			clone->Value->backgroundColor(*backgroundColor);
+			clone->Value->shadow((double)alpha * 100, sigma, x, y);
+			clone->Value->backgroundColor(Magick::Color());
 
-			images->Add(copy);
-			images->Add(Copy());
+			images->Add(clone);
+			images->Add(Clone());
 			images->Merge(Value, LayerMethod::Mosaic);
 		}
 		catch(Magick::Exception& exception)

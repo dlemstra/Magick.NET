@@ -77,7 +77,7 @@ namespace Magick.NET.FileGenerator
 
 			if (!isStatic)
 			{
-				WriteInitializeExecute(writer, "copy", "Copy", isStatic);
+				WriteInitializeExecute(writer, "clone", "Clone", isStatic);
 				WriteInitializeExecute(writer, "draw", "Draw", isStatic);
 				WriteInitializeExecute(writer, "write", "Write", isStatic);
 			}

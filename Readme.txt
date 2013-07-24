@@ -2,6 +2,7 @@ Breaking changes.
 
 Magick.NET 6.8.6.701:
   - Renamed Attribute method of MagickImage to GetAttribute and SetAttribute.
+  - Renamed Copy method of MagickImage to Clone.
 
 Magick.NET 6.8.6.301:
   - Removed Debug property of MagickImage (use MagickNET.SetLogEvents).
