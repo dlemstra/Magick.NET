@@ -348,6 +348,14 @@ namespace ImageMagick
 			ImageMagick::CompressionMethod get();
 			void set(ImageMagick::CompressionMethod value);
 		}
+		///<summary>
+		/// Enable printing of debug messages from ImageMagick when a debugger is attached.
+		///</summary>
+		property bool Debug
+		{
+			bool get();
+			void set(bool value);
+		} 
 		///==========================================================================================
 		///<summary>
 		/// Vertical and horizontal resolution in pixels of the image.

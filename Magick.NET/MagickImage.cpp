@@ -315,7 +315,18 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickGeometry^ MagickImage::BoundingBox::get()
 	{
-		return gcnew MagickGeometry(Value->boundingBox());
+		try
+		{
+			return gcnew MagickGeometry(Value->boundingBox());
+		}
+		catch(Magick::WarningOption)
+		{
+			return nullptr;
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
 	}
 	//==============================================================================================
 	MagickColor^ MagickImage::BorderColor::get()
@@ -458,6 +469,16 @@ namespace ImageMagick
 	{
 		Value->compressType((MagickCore::CompressionType)value);
 	}
+	//==============================================================================================
+	bool MagickImage::Debug::get()
+	{
+		return Value->debug();
+	}
+	//==============================================================================================
+	void MagickImage::Debug::set(bool value)
+	{
+		Value->debug(value);
+	} 
 	//==============================================================================================
 	MagickGeometry^ MagickImage::Density::get()
 	{
