@@ -69,6 +69,9 @@ namespace ImageMagick
 			std::string scenes;
 			Marshaller::Marshal(Scenes, scenes);
 			MagickCore::CloneString(&imageInfo->scenes, scenes.c_str());
+			
+			imageInfo->scene = FrameIndex.HasValue ? FrameIndex.Value : 0;
+			imageInfo->number_scenes = FrameCount.HasValue ? FrameCount.Value : 1;
 		}
 
 		if (Width.HasValue && Height.HasValue)
