@@ -1805,6 +1805,18 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Equalize()
+	{
+		try
+		{
+			Value->equalize();
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	bool MagickImage::Equals(Object^ obj)
 	{
 		if (ReferenceEquals(this, obj))

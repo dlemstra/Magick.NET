@@ -1287,18 +1287,6 @@ namespace ImageMagick
 		void Draw(IEnumerable<Drawable^>^ drawables);
 		///==========================================================================================
 		///<summary>
-		/// Determines whether the specified object is equal to the current image.
-		///</summary>
-		///<param name="obj">The object to compare this image with.</param>
-		virtual bool Equals(Object^ obj) override;
-		///==========================================================================================
-		///<summary>
-		/// Determines whether the specified image is equal to the current image.
-		///</summary>
-		///<param name="other">The image to compare this image with.</param>
-		virtual bool Equals(MagickImage^ other);
-		///==========================================================================================
-		///<summary>
 		/// Edge image (hilight edges in image).
 		///</summary>
 		///<param name="radius">The radius of the pixel neighborhood.</param>
@@ -1324,6 +1312,24 @@ namespace ImageMagick
 		///</summary>
 		///<exception cref="MagickException"/>
 		MagickGeometry^ EncodingGeometry();
+		///==========================================================================================
+		///<summary>
+		/// Applies a histogram equalization to the image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Equalize();
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified object is equal to the current image.
+		///</summary>
+		///<param name="obj">The object to compare this image with.</param>
+		virtual bool Equals(Object^ obj) override;
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified image is equal to the current image.
+		///</summary>
+		///<param name="other">The image to compare this image with.</param>
+		virtual bool Equals(MagickImage^ other);
 		///==========================================================================================
 		///<summary>
 		/// Extend the image as defined by the width and height.
