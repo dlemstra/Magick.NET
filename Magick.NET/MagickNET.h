@@ -64,13 +64,6 @@ namespace ImageMagick
 		static MagickFormatInfo^ GetFormatInformation(MagickFormat format);
 		///==========================================================================================
 		///<summary>
-		/// Adds the sub directory ImageMagick of the current execution path to the environment path.
-		/// You should place the supplied ImageMagick dlls in that directory.
-		///</summary>
-		[ObsoleteAttribute("This method is gone, everything is included within the dll. You can remove the ImageMagick directory from your bin folder if it still exists.", true)]
-		static void Initialize() {};
-		///==========================================================================================
-		///<summary>
 		/// Adds the specified path to the environment path. You should place the ImageMagick
 		/// xml files in that directory.
 		///</summary>

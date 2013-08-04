@@ -2603,6 +2603,29 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Opaque(MagickColor^ opaqueColor, MagickColor^ penColor)
+	{
+		Throw::IfNull("opaqueColor", opaqueColor);
+		Throw::IfNull("penColor", penColor);
+
+		const Magick::Color* opaque = opaqueColor->CreateColor();
+		const Magick::Color* pen = penColor->CreateColor();
+
+		try
+		{
+			Value->opaque(*opaque, *pen);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete opaque;
+			delete pen;
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Quantize()
 	{
 		Quantize(false);

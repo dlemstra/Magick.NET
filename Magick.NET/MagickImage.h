@@ -1836,6 +1836,14 @@ namespace ImageMagick
 		void OilPaint(double radius);
 		///==========================================================================================
 		///<summary>
+		/// Changes any pixel that matches opaqueColor with the color defined by penColor.
+		///</summary>
+		///<param name="opaqueColor">The color to replace.</param>
+		///<param name="penColor">The color to replace opaque color with.</param>
+		///<exception cref="MagickException"/>
+		void Opaque(MagickColor^ opaqueColor, MagickColor^ penColor);
+		///==========================================================================================
+		///<summary>
 		/// Quantize image (reduce number of colors).
 		///</summary>
 		///<exception cref="MagickException"/>

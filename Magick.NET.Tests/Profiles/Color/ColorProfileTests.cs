@@ -53,6 +53,26 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Remove()
+		{
+			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+			{
+				ColorProfile profile = image.GetColorProfile();
+				Assert.IsNull(profile);
+
+				image.AddProfile(ColorProfile.SRGB);
+
+				profile = image.GetColorProfile();
+				Assert.IsNotNull(profile);
+
+				image.RemoveProfile(profile.Name);
+
+				profile = image.GetColorProfile();
+				Assert.IsNull(profile);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_WithImage()
 		{
 			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
