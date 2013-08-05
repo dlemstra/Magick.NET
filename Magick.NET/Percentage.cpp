@@ -29,8 +29,18 @@ namespace ImageMagick
 	Percentage::Percentage(int value)
 	{
 		Throw::IfFalse("value", value > 0, "Value should be greater then zero.");
-		
+
 		_Value = (double)value / 100;
+	}
+	//==============================================================================================
+	bool Percentage::operator == (Percentage left, Percentage right)
+	{
+		return Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool Percentage::operator != (Percentage left, Percentage right)
+	{
+		return !Object::Equals(left, right);
 	}
 	//==============================================================================================
 	bool Percentage::Equals(Object^ obj)

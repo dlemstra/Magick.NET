@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
 	public sealed class ColorProfileTests
 	{
 		//===========================================================================================
-		private const string _Category = "ColorProfileTests";
+		private const string _Category = "ColorProfile";
 		//===========================================================================================
 		private static void TestProfile(ColorProfile profile)
 		{

@@ -112,47 +112,17 @@ namespace ImageMagick
 		///</summary>
 		property Magick::Quantum R;
 		//===========================================================================================
-		static bool operator == (MagickColor^ left, MagickColor^ right)
-		{
-			return Object::Equals(left, right);
-		}
+		static bool operator == (MagickColor^ left, MagickColor^ right);
 		//===========================================================================================
-		static bool operator != (MagickColor^ left, MagickColor^ right)
-		{
-			return !Object::Equals(left, right);
-		}
+		static bool operator != (MagickColor^ left, MagickColor^ right);
 		//===========================================================================================
-		static bool operator > (MagickColor^ left, MagickColor^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) == 1;
-		}
+		static bool operator > (MagickColor^ left, MagickColor^ right);
 		//===========================================================================================
-		static bool operator < (MagickColor^ left, MagickColor^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return !ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) == -1;
-		}
+		static bool operator < (MagickColor^ left, MagickColor^ right);
 		//===========================================================================================
-		static bool operator >= (MagickColor^ left, MagickColor^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) >= 0;
-		}
+		static bool operator >= (MagickColor^ left, MagickColor^ right);
 		//===========================================================================================
-		static bool operator <= (MagickColor^ left, MagickColor^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return !ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) <= 0;
-		}
+		static bool operator <= (MagickColor^ left, MagickColor^ right);
 		//===========================================================================================
 		static operator Color (MagickColor^ color)
 		{

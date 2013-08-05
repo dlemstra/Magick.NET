@@ -44,47 +44,17 @@ namespace ImageMagick
 		//===========================================================================================
 	public:
 		//===========================================================================================
-		static bool operator == (ColorBase^ left, ColorBase^ right)
-		{
-			return Object::Equals(left, right);
-		}
+		static bool operator == (ColorBase^ left, ColorBase^ right);
 		//===========================================================================================
-		static bool operator != (ColorBase^ left, ColorBase^ right)
-		{
-			return !Object::Equals(left, right);
-		}
+		static bool operator != (ColorBase^ left, ColorBase^ right);
 		//===========================================================================================
-		static bool operator > (ColorBase^ left, ColorBase^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) == 1;
-		}
+		static bool operator > (ColorBase^ left, ColorBase^ right);
 		//===========================================================================================
-		static bool operator < (ColorBase^ left, ColorBase^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return !ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) == -1;
-		}
+		static bool operator < (ColorBase^ left, ColorBase^ right);
 		//===========================================================================================
-		static bool operator >= (ColorBase^ left, ColorBase^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) >= 0;
-		}
+		static bool operator >= (ColorBase^ left, ColorBase^ right);
 		//===========================================================================================
-		static bool operator <= (ColorBase^ left, ColorBase^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return !ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) <= 0;
-		}
+		static bool operator <= (ColorBase^ left, ColorBase^ right);
 		//===========================================================================================
 		static operator MagickColor^ (ColorBase^ color)
 		{

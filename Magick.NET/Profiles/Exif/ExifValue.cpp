@@ -64,6 +64,16 @@ namespace ImageMagick
 			_IsArray = false;
 	}
 	//==============================================================================================
+	bool ExifValue::operator == (ExifValue^ left, ExifValue^ right)
+	{
+		return Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool ExifValue::operator != (ExifValue^ left, ExifValue^ right)
+	{
+		return !Object::Equals(left, right);
+	}
+	//==============================================================================================
 	bool ExifValue::Equals(Object^ obj)
 	{
 		if (ReferenceEquals(this, obj))

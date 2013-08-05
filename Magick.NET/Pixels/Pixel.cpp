@@ -101,12 +101,55 @@ namespace ImageMagick
 		_Y = value;
 	}
 	//==============================================================================================
+	bool Pixel::operator == (Pixel^ left, Pixel^ right)
+	{
+		return Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool Pixel::operator != (Pixel^ left, Pixel^ right)
+	{
+		return !Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool Pixel::Equals(Object^ obj)
+	{
+		if (ReferenceEquals(this, obj))
+			return true;
+
+		return Equals(dynamic_cast<Pixel^>(obj));
+	}
+	//==============================================================================================
+	bool Pixel::Equals(Pixel^ other)
+	{
+		if (ReferenceEquals(other, nullptr))
+			return false;
+
+		if (ReferenceEquals(this, other))
+			return true;
+
+		if (Channels != other->Channels)
+			return false;
+
+		for(int i=0; i < _Value->Length; i++)
+		{
+			if (_Value[i] != other->_Value[i])
+				return false;
+		}
+
+		return true;
+	}
+	//==============================================================================================
 	Magick::Quantum Pixel::GetChannel(int channel)
 	{
 		if (channel < 0 || channel >= _Value->Length)
 			return 0;
 
 		return _Value[channel];
+	}
+	//==============================================================================================
+	int Pixel::GetHashCode()
+	{
+		return Value->GetHashCode();
 	}
 	//==============================================================================================
 	void Pixel::SetChannel(int channel, Magick::Quantum value)

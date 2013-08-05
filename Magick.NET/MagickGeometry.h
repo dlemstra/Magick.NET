@@ -180,7 +180,7 @@ namespace ImageMagick
 		///<summary>
 		/// Determines whether the specified geometry is equal to the current geometry.
 		///</summary>
-		///<param name="other">The image to compare this geometry with.</param>
+		///<param name="other">The geometry to compare this geometry with.</param>
 		virtual bool Equals(MagickGeometry^ other);
 		///==========================================================================================
 		///<summary>

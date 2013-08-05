@@ -22,8 +22,6 @@ namespace Magick.NET.Tests
 		where T : ColorBase
 	{
 		//===========================================================================================
-		private const string _Category = "ColorMono";
-		//===========================================================================================
 		protected static void Test_IComparable(T first)
 		{
 			Assert.AreEqual(0, first.CompareTo(first));

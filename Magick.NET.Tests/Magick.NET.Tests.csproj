@@ -60,6 +60,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Colors\ColorMonoTests.cs" />
+    <Compile Include="Pixels\PixelTests.cs" />
     <Compile Include="Profiles\Color\ColorProfileTests.cs" />
     <Compile Include="Colors\ColorRGBTests.cs">
       <SubType>Code</SubType>

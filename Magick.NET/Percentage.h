@@ -75,15 +75,9 @@ namespace ImageMagick
 			return Percentage(value);
 		}
 		//===========================================================================================
-		static bool operator == (Percentage left, Percentage right)
-		{
-			return Object::Equals(left, right);
-		}
+		static bool operator == (Percentage left, Percentage right);
 		//===========================================================================================
-		static bool operator != (Percentage left, Percentage right)
-		{
-			return !Object::Equals(left, right);
-		}
+		static bool operator != (Percentage left, Percentage right);
 		///==========================================================================================
 		///<summary>
 		/// Determines whether the specified object is equal to the current percentage.

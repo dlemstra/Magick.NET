@@ -20,7 +20,7 @@ namespace ImageMagick
 	///<summary>
 	/// Class that can be used to access an individual pixel of an image.
 	///</summary>
-	public ref class Pixel sealed
+	public ref class Pixel sealed : IEquatable<Pixel^>
 	{
 		//===========================================================================================
 	private:
@@ -96,12 +96,33 @@ namespace ImageMagick
 			int get();
 			void set(int value);
 		}
+		//===========================================================================================
+		static bool operator == (Pixel^ left, Pixel^ right);
+		//===========================================================================================
+		static bool operator != (Pixel^ left, Pixel^ right);
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified object is equal to the current pixel.
+		///</summary>
+		///<param name="obj">The object to compare this color with.</param>
+		virtual bool Equals(Object^ obj) override;
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified pixel is equal to the current pixel.
+		///</summary>
+		///<param name="other">The pixel to compare this color with.</param>
+		virtual bool Equals(Pixel^ other);
 		///==========================================================================================
 		///<summary>
 		/// Returns the value of the specified channel.
 		///</summary>
 		///<param name="channel">The channel to get the value of.</param>
 		Magick::Quantum GetChannel(int channel);
+		///==========================================================================================
+		///<summary>
+		/// Servers as a hash of this type.
+		///</summary>
+		virtual int GetHashCode() override;
 		///==========================================================================================
 		///<summary>
 		/// Set the value of the specified channel.

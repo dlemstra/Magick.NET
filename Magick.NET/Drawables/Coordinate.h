@@ -41,15 +41,9 @@ namespace ImageMagick
 		///</summary>
 		property double Y;
 		//===========================================================================================
-		static bool operator == (Coordinate left, Coordinate right)
-		{
-			return Object::Equals(left, right);
-		}
+		static bool operator == (Coordinate left, Coordinate right);
 		//===========================================================================================
-		static bool operator != (Coordinate left, Coordinate right)
-		{
-			return !Object::Equals(left, right);
-		}
+		static bool operator != (Coordinate left, Coordinate right);
 		///==========================================================================================
 		///<summary>
 		/// Determines whether the specified object is equal to the current coordinate.

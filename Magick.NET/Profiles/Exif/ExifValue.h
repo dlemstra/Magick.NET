@@ -72,15 +72,9 @@ namespace ImageMagick
 			Object^ get();
 		}
 		//===========================================================================================
-		static bool operator == (ExifValue^ left, ExifValue^ right)
-		{
-			return Object::Equals(left, right);
-		}
+		static bool operator == (ExifValue^ left, ExifValue^ right);
 		//===========================================================================================
-		static bool operator != (ExifValue^ left, ExifValue^ right)
-		{
-			return !Object::Equals(left, right);
-		}
+		static bool operator != (ExifValue^ left, ExifValue^ right);
 		///==========================================================================================
 		///<summary>
 		/// Determines whether the specified object is equal to the current exif value.

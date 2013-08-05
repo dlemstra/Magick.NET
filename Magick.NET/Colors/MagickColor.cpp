@@ -177,6 +177,48 @@ namespace ImageMagick
 #endif
 	}
 	//==============================================================================================
+	bool MagickColor::operator == (MagickColor^ left, MagickColor^ right)
+	{
+		return Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool MagickColor::operator != (MagickColor^ left, MagickColor^ right)
+	{
+		return !Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool MagickColor::operator > (MagickColor^ left, MagickColor^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) == 1;
+	}
+	//==============================================================================================
+	bool MagickColor::operator < (MagickColor^ left, MagickColor^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return !ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) == -1;
+	}
+	//==============================================================================================
+	bool MagickColor::operator >= (MagickColor^ left, MagickColor^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) >= 0;
+	}
+	//==============================================================================================
+	bool MagickColor::operator <= (MagickColor^ left, MagickColor^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return !ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) <= 0;
+	}
+	//==============================================================================================
 	int MagickColor::CompareTo(MagickColor^ other)
 	{
 		if (ReferenceEquals(other, nullptr))

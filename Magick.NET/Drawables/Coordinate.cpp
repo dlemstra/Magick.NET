@@ -23,6 +23,16 @@ namespace ImageMagick
 		Y = y;
 	}
 	//==============================================================================================
+	bool Coordinate::operator == (Coordinate left, Coordinate right)
+	{
+		return Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool Coordinate::operator != (Coordinate left, Coordinate right)
+	{
+		return !Object::Equals(left, right);
+	}
+	//==============================================================================================
 	bool Coordinate::Equals(Object^ obj)
 	{
 		if (obj == nullptr)

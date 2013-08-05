@@ -12,8 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,38 +19,38 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public sealed class ImageProfileTests
+	public sealed class PixelTests
 	{
 		//===========================================================================================
-		private const string _Category = "ImageProfile";
+		private const string _Category = "Pixel";
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_Constructor()
+		public void Test_IEquatable()
 		{
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				new ImageProfile(null, Files.SnakewarePNG);
-			});
+			Pixel first = new Pixel(0, 0, 3);
+			first.SetChannel(0, 100);
+			first.SetChannel(1, 100);
+			first.SetChannel(2, 100);
 
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				new ImageProfile("name", (byte[])null);
-			});
+			Assert.IsFalse(first == null);
+			Assert.IsFalse(first.Equals(null));
+			Assert.IsTrue(first.Equals(first));
+			Assert.IsTrue(first.Equals((object)first));
 
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				new ImageProfile("name", (Stream)null);
-			});
+			Pixel second = new Pixel(10, 10, 3);
+			second.SetChannel(0, 100);
+			second.SetChannel(1, 0);
+			second.SetChannel(2, 100);
 
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				new ImageProfile("name", (string)null);
-			});
+			Assert.IsTrue(first != second);
+			Assert.IsTrue(!first.Equals(second));
+			Assert.IsTrue(!first.Equals((object)second));
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new ImageProfile("name", new byte[] { });
-			});
+			second.SetChannel(1, 100);
+
+			Assert.IsTrue(first == second);
+			Assert.IsTrue(first.Equals(second));
+			Assert.IsTrue(first.Equals((object)second));
 		}
 		//===========================================================================================
 	}

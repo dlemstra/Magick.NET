@@ -46,6 +46,48 @@ namespace ImageMagick
 	{
 	}
 	//==============================================================================================
+	bool ColorBase::operator == (ColorBase^ left, ColorBase^ right)
+	{
+		return Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool ColorBase::operator != (ColorBase^ left, ColorBase^ right)
+	{
+		return !Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool ColorBase::operator > (ColorBase^ left, ColorBase^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) == 1;
+	}
+	//==============================================================================================
+	bool ColorBase::operator < (ColorBase^ left, ColorBase^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return !ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) == -1;
+	}
+	//==============================================================================================
+	bool ColorBase::operator >= (ColorBase^ left, ColorBase^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) >= 0;
+	}
+	//==============================================================================================
+	bool ColorBase::operator <= (ColorBase^ left, ColorBase^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return !ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) <= 0;
+	}
+	//==============================================================================================
 	int ColorBase::CompareTo(ColorBase^ other)
 	{
 		if (ReferenceEquals(other, nullptr))
