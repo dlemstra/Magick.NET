@@ -104,7 +104,7 @@
 // Define to use the TIFF library
 #define MAGICKCORE_TIFF_DELEGATE
 
-// Define to use the WebP library (obtain sources separately)
+// Define to use the WebP library
 #define MAGICKCORE_WEBP_DELEGATE
 
 // Define to use the Windows GDI32 library (for clipboard and emf modules)

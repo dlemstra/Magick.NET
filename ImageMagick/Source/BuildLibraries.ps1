@@ -13,7 +13,6 @@ function Build($folder, $platform, $builds)
 	$config = $config.Replace("#define ProvideDllMain", "#undef ProvideDllMain")
 	$config = $config.Replace("#define MAGICKCORE_X11_DELEGATE", "#undef MAGICKCORE_X11_DELEGATE")
 	$config = $config.Replace("//#undef MAGICKCORE_EXCLUDE_DEPRECATED", "#define MAGICKCORE_EXCLUDE_DEPRECATED")
-	$config = $config.Replace("// #undef MAGICKCORE_WEBP_DELEGATE", "#define MAGICKCORE_WEBP_DELEGATE")
 	$config = $config.Replace("// #undef MAGICKCORE_WMF_DELEGATE", "#define MAGICKCORE_WMF_DELEGATE")
 	$config = $config.Replace("// #define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"")
 

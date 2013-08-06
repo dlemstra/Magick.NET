@@ -1,6 +1,6 @@
 Breaking changes.
 
-Magick.NET 6.8.6.701:
+Magick.NET 6.8.6.801:
   - Renamed Attribute method of MagickImage to GetAttribute and SetAttribute.
   - Renamed Copy method of MagickImage to Clone.
 
