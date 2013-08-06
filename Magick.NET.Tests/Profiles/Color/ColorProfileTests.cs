@@ -24,10 +24,10 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private const string _Category = "ColorProfile";
 		//===========================================================================================
-		private static void TestProfile(ColorProfile profile)
+		private static void TestProfile(ColorProfile profile, string name)
 		{
 			Assert.IsNotNull(profile);
-			Assert.AreEqual("icm", profile.Name);
+			Assert.AreEqual(name, profile.Name);
 			Assert.AreEqual(3144, profile.ToByteArray().Length);
 		}
 		//===========================================================================================
@@ -36,19 +36,19 @@ namespace Magick.NET.Tests
 		{
 			ColorProfile sRGB = ColorProfile.SRGB;
 			Assert.IsNotNull(sRGB);
-			Assert.AreEqual("icm", sRGB.Name);
+			Assert.AreEqual("icc", sRGB.Name);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_ICC()
+		public void Test_ICM()
 		{
 			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
 			{
 				ColorProfile profile = image.GetColorProfile();
 				Assert.IsNull(profile);
 
-				image.AddProfile(new ImageProfile("icc", ColorProfile.SRGB.ToByteArray()));
-				TestProfile(image.GetColorProfile());
+				image.AddProfile(new ImageProfile("icm", ColorProfile.SRGB.ToByteArray()));
+				TestProfile(image.GetColorProfile(), "icm");
 			}
 		}
 		//===========================================================================================
@@ -61,6 +61,8 @@ namespace Magick.NET.Tests
 				Assert.IsNull(profile);
 
 				image.AddProfile(ColorProfile.SRGB);
+
+				Assert.IsNull(image.GetProfile("icm"));
 
 				profile = image.GetColorProfile();
 				Assert.IsNotNull(profile);
@@ -81,7 +83,7 @@ namespace Magick.NET.Tests
 				Assert.IsNull(profile);
 
 				image.AddProfile(ColorProfile.SRGB);
-				TestProfile(image.GetColorProfile());
+				TestProfile(image.GetColorProfile(), "icc");
 			}
 		}
 		//===========================================================================================
