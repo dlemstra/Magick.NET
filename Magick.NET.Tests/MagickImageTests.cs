@@ -352,6 +352,12 @@ namespace Magick.NET.Tests
 				image.Read(Files.SnakewarePNG);
 				image.Resize(new MagickGeometry("4096@"));
 				Assert.IsTrue((image.Width * image.Height) < 4096);
+
+				Percentage percentage = new Percentage(-0.5);
+				ExceptionAssert.Throws<ArgumentException>(delegate()
+				{
+					image.Resize(percentage);
+				});
 			}
 		}
 		//===========================================================================================

@@ -65,6 +65,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickGeometry::MagickGeometry(Percentage percentageWidth, Percentage percentageHeight)
 	{
+		Throw::IfNegative("percentageWidth", percentageWidth);
+		Throw::IfNegative("percentageHeight", percentageHeight);
+
 		Initialize(0, 0, (int)percentageWidth, (int)percentageHeight, true);
 	}
 	//==============================================================================================
@@ -75,6 +78,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickGeometry::MagickGeometry(int x, int y, Percentage percentageWidth, Percentage percentageHeight)
 	{
+		Throw::IfNegative("percentageWidth", percentageWidth);
+		Throw::IfNegative("percentageHeight", percentageHeight);
+
 		Initialize(x, y, (int)percentageWidth, (int)percentageHeight, true);
 	}
 	//==============================================================================================

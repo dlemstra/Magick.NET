@@ -49,7 +49,6 @@
 #include "MagickGeometry.h"
 #include "Matrices\MatrixColor.h"
 #include "Matrices\MatrixConvolve.h"
-#include "Percentage.h"
 #include "Pixels\PixelCollection.h"
 #include "Pixels\WritablePixelCollection.h"
 #include "Profiles\ImageProfile.h"

@@ -1289,6 +1289,8 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::BlackThreshold(Percentage threshold)
 	{
+		Throw::IfNegative("threshold", threshold);
+
 		try
 		{
 			std::string threshold_;
@@ -1303,6 +1305,8 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::BlackThreshold(Percentage threshold, Channels channels)
 	{
+		Throw::IfNegative("threshold", threshold);
+
 		try
 		{
 			std::string threshold_;
@@ -1643,6 +1647,8 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Colorize(MagickColor^ color, Percentage alpha)
 	{
+		Throw::IfNegative("alpha", alpha);
+
 		Colorize(color, alpha, alpha, alpha);
 	}
 	//==============================================================================================
@@ -1650,6 +1656,9 @@ namespace ImageMagick
 		Percentage alphaBlue)
 	{
 		Throw::IfNull("color", color);
+		Throw::IfNegative("alphaRed", alphaRed);
+		Throw::IfNegative("alphaGreen", alphaGreen);
+		Throw::IfNegative("alphaBlue", alphaBlue);
 
 		const Magick::Color* magickColor = color->CreateColor();
 
@@ -1996,6 +2005,8 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Deskew(Percentage threshold)
 	{
+		Throw::IfNegative("threshold", threshold);
+
 		try
 		{
 			Value->deskew(threshold.ToQuantum());
@@ -2900,6 +2911,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::LinearStretch(Percentage blackPoint, Percentage whitePoint)
 	{
+		Throw::IfNegative("blackPoint", blackPoint);
+		Throw::IfNegative("whitePoint", whitePoint);
+
 		try
 		{
 			Value->linearStretch(blackPoint.ToQuantum(), whitePoint.ToQuantum());
@@ -2977,6 +2991,10 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Modulate(Percentage brightness, Percentage saturation, Percentage hue)
 	{
+		Throw::IfNegative("brightness", brightness);
+		Throw::IfNegative("saturation", saturation);
+		Throw::IfNegative("hue", hue);
+
 		try
 		{
 			Value->modulate((double)brightness, (double)saturation, (double)hue);
@@ -3210,11 +3228,17 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::RandomThreshold(Percentage percentageLow, Percentage percentageHigh)
 	{
+		Throw::IfNegative("percentageLow", percentageLow);
+		Throw::IfNegative("percentageHigh", percentageHigh);
+
 		RandomThreshold((Magick::Quantum)percentageLow, (Magick::Quantum)percentageHigh, true);
 	}
 	//==============================================================================================
 	void MagickImage::RandomThreshold(Percentage percentageLow, Percentage percentageHigh, Channels channels)
 	{
+		Throw::IfNegative("percentageLow", percentageLow);
+		Throw::IfNegative("percentageHigh", percentageHigh);
+
 		RandomThreshold((Magick::Quantum)percentageLow, (Magick::Quantum)percentageHigh, channels, true);
 	}
 	//==============================================================================================
@@ -3335,6 +3359,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Resize(Percentage percentageWidth, Percentage percentageHeight)
 	{
+		Throw::IfNegative("percentageWidth", percentageWidth);
+		Throw::IfNegative("percentageHeight", percentageHeight);
+
 		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
 		Resize(geometry);
 		delete geometry;
@@ -3398,6 +3425,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Sample(Percentage percentageWidth, Percentage percentageHeight)
 	{
+		Throw::IfNegative("percentageWidth", percentageWidth);
+		Throw::IfNegative("percentageHeight", percentageHeight);
+
 		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
 		Sample(geometry);
 		delete geometry;
@@ -3437,6 +3467,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Scale(Percentage percentageWidth, Percentage percentageHeight)
 	{
+		Throw::IfNegative("percentageWidth", percentageWidth);
+		Throw::IfNegative("percentageHeight", percentageHeight);
+
 		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
 		Scale(geometry);
 		delete geometry;
@@ -4058,6 +4091,8 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::WhiteThreshold(Percentage threshold)
 	{
+		Throw::IfNegative("threshold", threshold);
+
 		try
 		{
 			std::string threshold_;
@@ -4072,6 +4107,8 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::WhiteThreshold(Percentage threshold, Channels channels)
 	{
+		Throw::IfNegative("threshold", threshold);
+
 		try
 		{
 			std::string threshold_;
@@ -4128,6 +4165,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Zoom(Percentage percentageWidth, Percentage percentageHeight)
 	{
+		Throw::IfNegative("percentageWidth", percentageWidth);
+		Throw::IfNegative("percentageHeight", percentageHeight);
+
 		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
 		Zoom(geometry);
 		delete geometry;

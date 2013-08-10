@@ -14,7 +14,6 @@
 #include "Stdafx.h"
 #include "..\Colors\MagickColor.h"
 #include "..\MagickGeometry.h"
-#include "..\Percentage.h"
 #include "EnumHelper.h"
 #include "XmlHelper.h"
 

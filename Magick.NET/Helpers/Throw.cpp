@@ -42,6 +42,12 @@ namespace ImageMagick
 		Throw::IfFalse("fileName", File::Exists(path), "Unable to find file: " + path);
 	}
 	//==============================================================================================
+	void Throw::IfNegative(String^ paramName, Percentage value)
+	{
+		if (value.ToDouble() <= 0.0)
+			throw gcnew ArgumentException("Value should be greater then zero.", paramName);
+	}
+	//==============================================================================================
 	void Throw::IfNull(String^ paramName, Object^ value)
 	{
 		if (value == nullptr)

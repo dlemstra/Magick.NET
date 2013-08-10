@@ -14,7 +14,6 @@
 #pragma once
 
 #include "Base\MagickWrapper.h"
-#include "Percentage.h"
 
 using namespace System::Drawing;
 
