@@ -1314,6 +1314,17 @@ namespace ImageMagick
 		void Composite(MagickImage^ image, int x, int y, CompositeOperator compose);
 		//==========================================================================================
 		///<summary>
+		/// Compose an image onto another at specified offset using the specified algorithm.
+		///</summary>
+		///<param name="image">The image to composite with this image.</param>
+		///<param name="x">The X offset from origin.</param>
+		///<param name="y">The Y offset from origin.</param>
+		///<param name="compose">The algorithm to use.</param>
+		///<param name="args">The arguments for the algorithm (compose:args).</param>
+		///<exception cref="MagickException"/>
+		void Composite(MagickImage^ image, int x, int y, CompositeOperator compose, String^ args);
+		//==========================================================================================
+		///<summary>
 		/// Compose an image onto another at specified offset using the 'In' operator.
 		///</summary>
 		///<param name="image">The image to composite with this image.</param>
@@ -1331,6 +1342,16 @@ namespace ImageMagick
 		void Composite(MagickImage^ image, MagickGeometry^ offset, CompositeOperator compose);
 		//==========================================================================================
 		///<summary>
+		/// Compose an image onto another at specified offset using the specified algorithm.
+		///</summary>
+		///<param name="image">The image to composite with this image.</param>
+		///<param name="offset">The offset from origin.</param>
+		///<param name="compose">The algorithm to use.</param>
+		///<param name="args">The arguments for the algorithm (compose:args).</param>
+		///<exception cref="MagickException"/>
+		void Composite(MagickImage^ image, MagickGeometry^ offset, CompositeOperator compose, String^ args);
+		//==========================================================================================
+		///<summary>
 		/// Compose an image onto another at specified offset using the 'In' operator.
 		///</summary>
 		///<param name="image">The image to composite with this image.</param>
@@ -1346,6 +1367,16 @@ namespace ImageMagick
 		///<param name="compose">The algorithm to use.</param>
 		///<exception cref="MagickException"/>
 		void Composite(MagickImage^ image, Gravity gravity, CompositeOperator compose);
+		//==========================================================================================
+		///<summary>
+		/// Compose an image onto another at specified offset using the specified algorithm.
+		///</summary>
+		///<param name="image">The image to composite with this image.</param>
+		///<param name="gravity">The placement gravity.</param>
+		///<param name="compose">The algorithm to use.</param>
+		///<param name="args">The arguments for the algorithm (compose:args).</param>
+		///<exception cref="MagickException"/>
+		void Composite(MagickImage^ image, Gravity gravity, CompositeOperator compose, String^ args);
 		//==========================================================================================
 		///<summary>
 		/// Contrast image (enhance intensity differences in image)

@@ -1725,7 +1725,15 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Composite(MagickImage^ image, int x, int y, CompositeOperator compose)
 	{
+		Composite(image, x, y, compose, nullptr);
+	}
+	//==============================================================================================
+	void MagickImage::Composite(MagickImage^ image, int x, int y, CompositeOperator compose, String^ args)
+	{
 		Throw::IfNull("image", image);
+
+		if (!String::IsNullOrEmpty(args))
+			SetArtifact("compose:args", args);
 
 		try
 		{
@@ -1744,10 +1752,18 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Composite(MagickImage^ image, MagickGeometry^ geometry, CompositeOperator compose)
 	{
+		Composite(image, geometry, compose, nullptr);
+	}
+	//==============================================================================================
+	void MagickImage::Composite(MagickImage^ image, MagickGeometry^ geometry, CompositeOperator compose, String^ args)
+	{
 		Throw::IfNull("image", image);
 		Throw::IfNull("geometry", geometry);
 
 		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
+		if (!String::IsNullOrEmpty(args))
+			SetArtifact("compose:args", args);
 
 		try
 		{
@@ -1770,7 +1786,15 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Composite(MagickImage^ image, Gravity gravity, CompositeOperator compose)
 	{
+		Composite(image, gravity, compose, nullptr);
+	}
+	//==============================================================================================
+	void MagickImage::Composite(MagickImage^ image, Gravity gravity, CompositeOperator compose, String^ args)
+	{
 		Throw::IfNull("image", image);
+
+		if (!String::IsNullOrEmpty(args))
+			SetArtifact("compose:args", args);
 
 		try
 		{
