@@ -186,6 +186,12 @@ function SelectNodes($xml, $xpath)
 
 function UpgradeSolution($folder, $solutionFile)
 {
+	foreach ($projectFile in [IO.Directory]::GetFiles("$folder\VisualMagick", "CORE_*.vcxproj", [IO.SearchOption]::AllDirectories))
+	{
+		Remove-Item "$projectFile"
+		Remove-Item "$projectFile.filters"
+	}
+
 	Write-Host "Upgrading solution."
 	devenv /upgrade $solutionFile
 	CheckExitCode "Upgrade failed."
