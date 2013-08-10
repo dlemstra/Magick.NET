@@ -13,13 +13,15 @@
 //=================================================================================================
 #pragma once
 
+#include "Stdafx.h"
+
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
 	/// Represents a percentage value.
 	///</summary>
-	public value struct Percentage sealed
+	public value struct Percentage sealed : IEquatable<Percentage>
 	{
 		//===========================================================================================
 	private:
@@ -90,8 +92,8 @@ namespace ImageMagick
 		///<summary>
 		/// Determines whether the specified percentage is equal to the current percentage.
 		///</summary>
-		///<param name="percentage">The percentage to compare this percentage with.</param>
-		bool Equals(Percentage percentage);
+		///<param name="other">The percentage to compare this percentage with.</param>
+		virtual bool Equals(Percentage other);
 		///==========================================================================================
 		///<summary>
 		/// Servers as a hash of this type.

@@ -61,9 +61,9 @@ namespace ImageMagick
 		return false;
 	}
 	//==============================================================================================
-	bool Percentage::Equals(Percentage percentage)
+	bool Percentage::Equals(Percentage other)
 	{
-		return _Value.Equals(percentage._Value);
+		return _Value.Equals(other._Value);
 	}
 	//==============================================================================================
 	int Percentage::GetHashCode()
