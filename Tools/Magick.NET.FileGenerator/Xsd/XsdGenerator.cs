@@ -51,6 +51,7 @@ namespace Magick.NET.FileGenerator
 
 			ParameterInfo[] parameters = (from method in methods
 													from parameter in method.GetParameters()
+													orderby parameter.Name
 													select parameter).DistinctBy(p => p.Name).ToArray();
 
 			AddParameterElements(element, parameters, requiredParameters);

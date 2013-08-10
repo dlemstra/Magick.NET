@@ -10,6 +10,21 @@
 			<xs:pattern value="#([0-9a-fA-F]{4}){3,4}" />
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="AlphaOption">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Activate" />
+			<xs:enumeration value="Background" />
+			<xs:enumeration value="Copy" />
+			<xs:enumeration value="Deactivate" />
+			<xs:enumeration value="Extract" />
+			<xs:enumeration value="Flatten" />
+			<xs:enumeration value="Opaque" />
+			<xs:enumeration value="Remove" />
+			<xs:enumeration value="Set" />
+			<xs:enumeration value="Shape" />
+			<xs:enumeration value="Transparent" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="Channels">
 		<xs:restriction base="xs:NMTOKEN">
 			<xs:enumeration value="All" />
@@ -669,8 +684,8 @@
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="imageProfile">
-		<xs:attribute name="name" use="required" type="xs:string" />
 		<xs:attribute name="fileName" use="required" type="xs:string" />
+		<xs:attribute name="name" use="required" type="xs:string" />
 	</xs:complexType>
 	<xs:complexType name="paths">
 		<xs:sequence>
@@ -678,13 +693,13 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="pathArc">
-		<xs:attribute name="x" use="required" type="xs:double" />
-		<xs:attribute name="y" use="required" type="xs:double" />
 		<xs:attribute name="radiusX" use="required" type="xs:double" />
 		<xs:attribute name="radiusY" use="required" type="xs:double" />
 		<xs:attribute name="rotationX" use="required" type="xs:double" />
 		<xs:attribute name="useLargeArc" use="required" type="xs:boolean" />
 		<xs:attribute name="useSweep" use="required" type="xs:boolean" />
+		<xs:attribute name="x" use="required" type="xs:double" />
+		<xs:attribute name="y" use="required" type="xs:double" />
 	</xs:complexType>
 	<xs:complexType name="pathArcs">
 		<xs:sequence>
@@ -693,10 +708,10 @@
 	</xs:complexType>
 	<xs:complexType name="pathCurveto">
 		<xs:attribute name="x" use="required" type="xs:double" />
-		<xs:attribute name="y" use="required" type="xs:double" />
 		<xs:attribute name="x1" use="required" type="xs:double" />
-		<xs:attribute name="y1" use="required" type="xs:double" />
 		<xs:attribute name="x2" use="required" type="xs:double" />
+		<xs:attribute name="y" use="required" type="xs:double" />
+		<xs:attribute name="y1" use="required" type="xs:double" />
 		<xs:attribute name="y2" use="required" type="xs:double" />
 	</xs:complexType>
 	<xs:complexType name="pathCurvetos">
@@ -706,8 +721,8 @@
 	</xs:complexType>
 	<xs:complexType name="pathQuadraticCurveto">
 		<xs:attribute name="x" use="required" type="xs:double" />
-		<xs:attribute name="y" use="required" type="xs:double" />
 		<xs:attribute name="x1" use="required" type="xs:double" />
+		<xs:attribute name="y" use="required" type="xs:double" />
 		<xs:attribute name="y1" use="required" type="xs:double" />
 	</xs:complexType>
 	<xs:complexType name="pathQuadraticCurvetos">
@@ -829,6 +844,11 @@
 						<xs:attribute name="value" use="required" type="CompressionMethod" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="debug">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="density">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="geometry" />
@@ -886,7 +906,7 @@
 						<xs:attribute name="value" use="required" type="GifDisposeMethod" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="hasMatte">
+				<xs:element name="hasAlpha">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="xs:boolean" />
 					</xs:complexType>
@@ -1024,26 +1044,67 @@
 						<xs:attribute name="sigma" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="adaptiveResize">
+					<xs:complexType>
+						<xs:attribute name="geometry" type="geometry" />
+						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="width" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="adaptiveSharpen">
+					<xs:complexType>
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="radius" type="xs:double" />
+						<xs:attribute name="sigma" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="adaptiveThreshold">
 					<xs:complexType>
-						<xs:attribute name="width" use="required" type="xs:int" />
 						<xs:attribute name="height" use="required" type="xs:int" />
 						<xs:attribute name="offset" type="xs:int" />
+						<xs:attribute name="width" use="required" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="addNoise">
 					<xs:complexType>
-						<xs:attribute name="noiseType" use="required" type="NoiseType" />
 						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="noiseType" use="required" type="NoiseType" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="addProfile" type="profile" />
+				<xs:element name="alpha">
+					<xs:complexType>
+						<xs:attribute name="option" use="required" type="AlphaOption" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="annotate">
 					<xs:complexType>
-						<xs:attribute name="text" use="required" type="xs:string" />
-						<xs:attribute name="gravity" type="Gravity" />
 						<xs:attribute name="boundingArea" type="geometry" />
 						<xs:attribute name="degrees" type="xs:double" />
+						<xs:attribute name="gravity" type="Gravity" />
+						<xs:attribute name="text" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="autoGamma">
+					<xs:complexType>
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="autoLevel">
+					<xs:complexType>
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="autoOrient" type="empty" />
+				<xs:element name="blackThreshold">
+					<xs:complexType>
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="threshold" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="blueShift">
+					<xs:complexType>
+						<xs:attribute name="factor" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="blur">
@@ -1055,9 +1116,16 @@
 				</xs:element>
 				<xs:element name="border">
 					<xs:complexType>
+						<xs:attribute name="height" type="xs:int" />
 						<xs:attribute name="size" type="xs:int" />
 						<xs:attribute name="width" type="xs:int" />
-						<xs:attribute name="height" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="brightnessContrast">
+					<xs:complexType>
+						<xs:attribute name="brightness" use="required" type="xs:double" />
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="contrast" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="cdl">
@@ -1074,10 +1142,10 @@
 				<xs:element name="chop">
 					<xs:complexType>
 						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="xOffset" type="xs:int" />
-						<xs:attribute name="width" type="xs:int" />
-						<xs:attribute name="yOffset" type="xs:int" />
 						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="width" type="xs:int" />
+						<xs:attribute name="xOffset" type="xs:int" />
+						<xs:attribute name="yOffset" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="chopHorizontal">
@@ -1088,8 +1156,8 @@
 				</xs:element>
 				<xs:element name="chopVertical">
 					<xs:complexType>
-						<xs:attribute name="offset" use="required" type="xs:int" />
 						<xs:attribute name="height" use="required" type="xs:int" />
+						<xs:attribute name="offset" use="required" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="chromaBluePrimary">
@@ -1116,6 +1184,19 @@
 						<xs:attribute name="y" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="clamp">
+					<xs:complexType>
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="clut">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="image" type="read" />
+						</xs:sequence>
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="colorAlpha">
 					<xs:complexType>
 						<xs:attribute name="color" use="required" type="color" />
@@ -1123,17 +1204,17 @@
 				</xs:element>
 				<xs:element name="colorize">
 					<xs:complexType>
-						<xs:attribute name="color" use="required" type="color" />
 						<xs:attribute name="alpha" type="xs:double" />
-						<xs:attribute name="alphaRed" type="xs:double" />
-						<xs:attribute name="alphaGreen" type="xs:double" />
 						<xs:attribute name="alphaBlue" type="xs:double" />
+						<xs:attribute name="alphaGreen" type="xs:double" />
+						<xs:attribute name="alphaRed" type="xs:double" />
+						<xs:attribute name="color" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="colorMap">
 					<xs:complexType>
-						<xs:attribute name="index" use="required" type="xs:int" />
 						<xs:attribute name="color" use="required" type="color" />
+						<xs:attribute name="index" use="required" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="composite">
@@ -1141,9 +1222,10 @@
 						<xs:sequence>
 							<xs:element name="image" type="read" />
 						</xs:sequence>
+						<xs:attribute name="args" type="xs:string" />
+						<xs:attribute name="compose" type="CompositeOperator" />
 						<xs:attribute name="gravity" type="Gravity" />
 						<xs:attribute name="offset" type="geometry" />
-						<xs:attribute name="compose" type="CompositeOperator" />
 						<xs:attribute name="x" type="xs:int" />
 						<xs:attribute name="y" type="xs:int" />
 					</xs:complexType>
@@ -1156,9 +1238,9 @@
 				<xs:element name="crop">
 					<xs:complexType>
 						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="width" type="xs:int" />
-						<xs:attribute name="height" type="xs:int" />
 						<xs:attribute name="gravity" type="Gravity" />
+						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="width" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="cycleColormap">
@@ -1166,10 +1248,20 @@
 						<xs:attribute name="amount" use="required" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="decipher">
+					<xs:complexType>
+						<xs:attribute name="passphrase" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="depth">
 					<xs:complexType>
-						<xs:attribute name="value" use="required" type="xs:int" />
 						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="value" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="deskew">
+					<xs:complexType>
+						<xs:attribute name="threshold" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="despeckle" type="empty" />
@@ -1184,13 +1276,19 @@
 						<xs:attribute name="sigma" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="encipher">
+					<xs:complexType>
+						<xs:attribute name="passphrase" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="equalize" type="empty" />
 				<xs:element name="extent">
 					<xs:complexType>
+						<xs:attribute name="backgroundColor" type="color" />
 						<xs:attribute name="geometry" type="geometry" />
 						<xs:attribute name="gravity" type="Gravity" />
-						<xs:attribute name="backgroundColor" type="color" />
-						<xs:attribute name="width" type="xs:int" />
 						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="width" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="flip" type="empty" />
@@ -1199,44 +1297,44 @@
 						<xs:sequence>
 							<xs:element name="image" minOccurs="0" type="read" />
 						</xs:sequence>
-						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="color" type="color" />
+						<xs:attribute name="alpha" type="xs:int" />
 						<xs:attribute name="borderColor" type="color" />
+						<xs:attribute name="color" type="color" />
+						<xs:attribute name="geometry" type="geometry" />
+						<xs:attribute name="paintMethod" type="PaintMethod" />
 						<xs:attribute name="x" type="xs:int" />
 						<xs:attribute name="y" type="xs:int" />
-						<xs:attribute name="alpha" type="xs:int" />
-						<xs:attribute name="paintMethod" type="PaintMethod" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="flop" type="empty" />
 				<xs:element name="frame">
 					<xs:complexType>
 						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="width" type="xs:int" />
 						<xs:attribute name="height" type="xs:int" />
 						<xs:attribute name="innerBevel" type="xs:int" />
 						<xs:attribute name="outerBevel" type="xs:int" />
+						<xs:attribute name="width" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="fx">
 					<xs:complexType>
-						<xs:attribute name="expression" use="required" type="xs:string" />
 						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="expression" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="gamma">
 					<xs:complexType>
-						<xs:attribute name="value" type="xs:double" />
-						<xs:attribute name="gammeRed" type="xs:double" />
-						<xs:attribute name="gammeGreen" type="xs:double" />
 						<xs:attribute name="gammeBlue" type="xs:double" />
+						<xs:attribute name="gammeGreen" type="xs:double" />
+						<xs:attribute name="gammeRed" type="xs:double" />
+						<xs:attribute name="value" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="gaussianBlur">
 					<xs:complexType>
-						<xs:attribute name="width" use="required" type="xs:double" />
-						<xs:attribute name="sigma" use="required" type="xs:double" />
 						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="sigma" use="required" type="xs:double" />
+						<xs:attribute name="width" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="haldClut">
@@ -1262,9 +1360,23 @@
 				<xs:element name="level">
 					<xs:complexType>
 						<xs:attribute name="blackPoint" use="required" type="quantum" />
-						<xs:attribute name="whitePoint" use="required" type="quantum" />
-						<xs:attribute name="midpoint" type="xs:double" />
 						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="midpoint" type="xs:double" />
+						<xs:attribute name="whitePoint" use="required" type="quantum" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="levelColors">
+					<xs:complexType>
+						<xs:attribute name="blackColor" use="required" type="color" />
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="invert" type="xs:boolean" />
+						<xs:attribute name="whiteColor" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="linearStretch">
+					<xs:complexType>
+						<xs:attribute name="blackPoint" use="required" type="xs:double" />
+						<xs:attribute name="whitePoint" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="lower">
@@ -1290,15 +1402,15 @@
 				<xs:element name="modulate">
 					<xs:complexType>
 						<xs:attribute name="brightness" use="required" type="xs:double" />
-						<xs:attribute name="saturation" use="required" type="xs:double" />
 						<xs:attribute name="hue" use="required" type="xs:double" />
+						<xs:attribute name="saturation" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="motionBlur">
 					<xs:complexType>
+						<xs:attribute name="angle" use="required" type="xs:double" />
 						<xs:attribute name="radius" use="required" type="xs:double" />
 						<xs:attribute name="sigma" use="required" type="xs:double" />
-						<xs:attribute name="angle" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="negate">
@@ -1312,13 +1424,38 @@
 						<xs:attribute name="radius" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="opaque">
+					<xs:complexType>
+						<xs:attribute name="opaqueColor" use="required" type="color" />
+						<xs:attribute name="penColor" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="perceptible">
+					<xs:complexType>
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="epsilon" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="polaroid">
+					<xs:complexType>
+						<xs:attribute name="angle" use="required" type="xs:double" />
+						<xs:attribute name="caption" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="posterize">
+					<xs:complexType>
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="dither" type="xs:boolean" />
+						<xs:attribute name="levels" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="quantize" type="empty" />
 				<xs:element name="quantumOperator">
 					<xs:complexType>
 						<xs:attribute name="channels" use="required" type="Channels" />
 						<xs:attribute name="evaluateOperator" use="required" type="EvaluateOperator" />
-						<xs:attribute name="value" use="required" type="xs:double" />
 						<xs:attribute name="geometry" type="geometry" />
+						<xs:attribute name="value" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="raise">
@@ -1328,11 +1465,11 @@
 				</xs:element>
 				<xs:element name="randomThreshold">
 					<xs:complexType>
-						<xs:attribute name="low" type="quantum" />
-						<xs:attribute name="high" type="quantum" />
-						<xs:attribute name="percentageLow" type="xs:double" />
-						<xs:attribute name="percentageHigh" type="xs:double" />
 						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="high" type="quantum" />
+						<xs:attribute name="low" type="quantum" />
+						<xs:attribute name="percentageHigh" type="xs:double" />
+						<xs:attribute name="percentageLow" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="reduceNoise">
@@ -1347,12 +1484,12 @@
 				</xs:element>
 				<xs:element name="resize">
 					<xs:complexType>
-						<xs:attribute name="percentage" type="xs:double" />
 						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="percentageWidth" type="xs:double" />
-						<xs:attribute name="percentageHeight" type="xs:double" />
-						<xs:attribute name="width" type="xs:int" />
 						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="percentageHeight" type="xs:double" />
+						<xs:attribute name="percentageWidth" type="xs:double" />
+						<xs:attribute name="width" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="roll">
@@ -1368,28 +1505,34 @@
 				</xs:element>
 				<xs:element name="sample">
 					<xs:complexType>
-						<xs:attribute name="percentage" type="xs:double" />
 						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="percentageWidth" type="xs:double" />
-						<xs:attribute name="percentageHeight" type="xs:double" />
-						<xs:attribute name="width" type="xs:int" />
 						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="percentageHeight" type="xs:double" />
+						<xs:attribute name="percentageWidth" type="xs:double" />
+						<xs:attribute name="width" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="scale">
 					<xs:complexType>
-						<xs:attribute name="percentage" type="xs:double" />
 						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="percentageWidth" type="xs:double" />
-						<xs:attribute name="percentageHeight" type="xs:double" />
-						<xs:attribute name="width" type="xs:int" />
 						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="percentageHeight" type="xs:double" />
+						<xs:attribute name="percentageWidth" type="xs:double" />
+						<xs:attribute name="width" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="segment">
 					<xs:complexType>
 						<xs:attribute name="clusterThreshold" type="xs:double" />
 						<xs:attribute name="smoothingThreshold" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="setArtifact">
+					<xs:complexType>
+						<xs:attribute name="name" use="required" type="xs:string" />
+						<xs:attribute name="value" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="setAttribute">
@@ -1400,26 +1543,26 @@
 				</xs:element>
 				<xs:element name="setOption">
 					<xs:complexType>
+						<xs:attribute name="flag" type="xs:boolean" />
 						<xs:attribute name="format" use="required" type="MagickFormat" />
 						<xs:attribute name="name" use="required" type="xs:string" />
 						<xs:attribute name="value" type="xs:string" />
-						<xs:attribute name="flag" type="xs:boolean" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="shade">
 					<xs:complexType>
 						<xs:attribute name="azimuth" type="xs:double" />
-						<xs:attribute name="elevation" type="xs:double" />
 						<xs:attribute name="colorShading" type="xs:boolean" />
+						<xs:attribute name="elevation" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="shadow">
 					<xs:complexType>
+						<xs:attribute name="alpha" type="xs:double" />
 						<xs:attribute name="color" type="color" />
+						<xs:attribute name="sigma" type="xs:double" />
 						<xs:attribute name="x" type="xs:int" />
 						<xs:attribute name="y" type="xs:int" />
-						<xs:attribute name="sigma" type="xs:double" />
-						<xs:attribute name="alpha" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="sharpen">
@@ -1443,9 +1586,9 @@
 				</xs:element>
 				<xs:element name="sigmoidalContrast">
 					<xs:complexType>
-						<xs:attribute name="sharpen" use="required" type="xs:boolean" />
 						<xs:attribute name="contrast" use="required" type="xs:double" />
 						<xs:attribute name="midpoint" type="xs:double" />
+						<xs:attribute name="sharpen" use="required" type="xs:boolean" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="solarize">
@@ -1487,8 +1630,8 @@
 				</xs:element>
 				<xs:element name="transform">
 					<xs:complexType>
-						<xs:attribute name="imageGeometry" use="required" type="geometry" />
 						<xs:attribute name="cropGeometry" type="geometry" />
+						<xs:attribute name="imageGeometry" use="required" type="geometry" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="transformOrigin">
@@ -1526,18 +1669,18 @@
 				</xs:element>
 				<xs:element name="transparentChroma">
 					<xs:complexType>
-						<xs:attribute name="colorLow" use="required" type="color" />
 						<xs:attribute name="colorHigh" use="required" type="color" />
+						<xs:attribute name="colorLow" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="trim" type="empty" />
 				<xs:element name="unsharpmask">
 					<xs:complexType>
+						<xs:attribute name="amount" use="required" type="xs:double" />
+						<xs:attribute name="channels" type="Channels" />
 						<xs:attribute name="radius" use="required" type="xs:double" />
 						<xs:attribute name="sigma" use="required" type="xs:double" />
-						<xs:attribute name="amount" use="required" type="xs:double" />
 						<xs:attribute name="threshold" use="required" type="xs:double" />
-						<xs:attribute name="channels" type="Channels" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="wave">
@@ -1546,14 +1689,20 @@
 						<xs:attribute name="length" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="whiteThreshold">
+					<xs:complexType>
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="threshold" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="zoom">
 					<xs:complexType>
-						<xs:attribute name="percentage" type="xs:double" />
 						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="percentageWidth" type="xs:double" />
-						<xs:attribute name="percentageHeight" type="xs:double" />
-						<xs:attribute name="width" type="xs:int" />
 						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="percentageHeight" type="xs:double" />
+						<xs:attribute name="percentageWidth" type="xs:double" />
+						<xs:attribute name="width" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="draw" type="drawables" />
@@ -1635,12 +1784,12 @@
 				</xs:element>
 				<xs:element name="arc">
 					<xs:complexType>
-						<xs:attribute name="startX" use="required" type="xs:double" />
-						<xs:attribute name="startY" use="required" type="xs:double" />
+						<xs:attribute name="endDegrees" use="required" type="xs:double" />
 						<xs:attribute name="endX" use="required" type="xs:double" />
 						<xs:attribute name="endY" use="required" type="xs:double" />
 						<xs:attribute name="startDegrees" use="required" type="xs:double" />
-						<xs:attribute name="endDegrees" use="required" type="xs:double" />
+						<xs:attribute name="startX" use="required" type="xs:double" />
+						<xs:attribute name="startY" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="bezier" type="coordinates" />
@@ -1659,9 +1808,9 @@
 				</xs:element>
 				<xs:element name="color">
 					<xs:complexType>
+						<xs:attribute name="paintMethod" use="required" type="PaintMethod" />
 						<xs:attribute name="x" use="required" type="xs:double" />
 						<xs:attribute name="y" use="required" type="xs:double" />
-						<xs:attribute name="paintMethod" use="required" type="PaintMethod" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="compositeImage">
@@ -1669,8 +1818,8 @@
 						<xs:sequence>
 							<xs:element name="image" type="read" />
 						</xs:sequence>
-						<xs:attribute name="offset" type="geometry" />
 						<xs:attribute name="compose" type="CompositeOperator" />
+						<xs:attribute name="offset" type="geometry" />
 						<xs:attribute name="x" type="xs:double" />
 						<xs:attribute name="y" type="xs:double" />
 					</xs:complexType>
@@ -1682,12 +1831,12 @@
 				</xs:element>
 				<xs:element name="ellipse">
 					<xs:complexType>
+						<xs:attribute name="endDegrees" use="required" type="xs:double" />
 						<xs:attribute name="originX" use="required" type="xs:double" />
 						<xs:attribute name="originY" use="required" type="xs:double" />
 						<xs:attribute name="radiusX" use="required" type="xs:double" />
 						<xs:attribute name="radiusY" use="required" type="xs:double" />
 						<xs:attribute name="startDegrees" use="required" type="xs:double" />
-						<xs:attribute name="endDegrees" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="fillColor">
@@ -1708,9 +1857,9 @@
 				<xs:element name="font">
 					<xs:complexType>
 						<xs:attribute name="family" use="required" type="xs:string" />
+						<xs:attribute name="stretch" type="FontStretch" />
 						<xs:attribute name="style" type="FontStyleType" />
 						<xs:attribute name="weight" type="FontWeight" />
-						<xs:attribute name="stretch" type="FontStretch" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="gravity">
@@ -1720,17 +1869,17 @@
 				</xs:element>
 				<xs:element name="line">
 					<xs:complexType>
-						<xs:attribute name="startX" use="required" type="xs:double" />
-						<xs:attribute name="startY" use="required" type="xs:double" />
 						<xs:attribute name="endX" use="required" type="xs:double" />
 						<xs:attribute name="endY" use="required" type="xs:double" />
+						<xs:attribute name="startX" use="required" type="xs:double" />
+						<xs:attribute name="startY" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="matte">
 					<xs:complexType>
+						<xs:attribute name="paintMethod" use="required" type="PaintMethod" />
 						<xs:attribute name="x" use="required" type="xs:double" />
 						<xs:attribute name="y" use="required" type="xs:double" />
-						<xs:attribute name="paintMethod" use="required" type="PaintMethod" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="miterLimit">
@@ -1759,19 +1908,19 @@
 				</xs:element>
 				<xs:element name="pushPattern">
 					<xs:complexType>
+						<xs:attribute name="height" use="required" type="xs:int" />
 						<xs:attribute name="id" use="required" type="xs:string" />
+						<xs:attribute name="width" use="required" type="xs:int" />
 						<xs:attribute name="x" use="required" type="xs:int" />
 						<xs:attribute name="y" use="required" type="xs:int" />
-						<xs:attribute name="width" use="required" type="xs:int" />
-						<xs:attribute name="height" use="required" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="rectangle">
 					<xs:complexType>
-						<xs:attribute name="upperLeftX" use="required" type="xs:double" />
-						<xs:attribute name="upperLeftY" use="required" type="xs:double" />
 						<xs:attribute name="lowerRightX" use="required" type="xs:double" />
 						<xs:attribute name="lowerRightY" use="required" type="xs:double" />
+						<xs:attribute name="upperLeftX" use="required" type="xs:double" />
+						<xs:attribute name="upperLeftY" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="rotation">
@@ -1783,10 +1932,10 @@
 					<xs:complexType>
 						<xs:attribute name="centerX" use="required" type="xs:double" />
 						<xs:attribute name="centerY" use="required" type="xs:double" />
-						<xs:attribute name="width" use="required" type="xs:double" />
-						<xs:attribute name="height" use="required" type="xs:double" />
-						<xs:attribute name="cornerWidth" use="required" type="xs:double" />
 						<xs:attribute name="cornerHeight" use="required" type="xs:double" />
+						<xs:attribute name="cornerWidth" use="required" type="xs:double" />
+						<xs:attribute name="height" use="required" type="xs:double" />
+						<xs:attribute name="width" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="scaling">
@@ -1837,10 +1986,10 @@
 				</xs:element>
 				<xs:element name="text">
 					<xs:complexType>
+						<xs:attribute name="encoding" type="xs:string" />
+						<xs:attribute name="value" use="required" type="xs:string" />
 						<xs:attribute name="x" use="required" type="xs:double" />
 						<xs:attribute name="y" use="required" type="xs:double" />
-						<xs:attribute name="value" use="required" type="xs:string" />
-						<xs:attribute name="encoding" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="textAntialias">
@@ -1866,10 +2015,10 @@
 				</xs:element>
 				<xs:element name="viewbox">
 					<xs:complexType>
-						<xs:attribute name="upperLeftX" use="required" type="xs:int" />
-						<xs:attribute name="upperLeftY" use="required" type="xs:int" />
 						<xs:attribute name="lowerRightX" use="required" type="xs:int" />
 						<xs:attribute name="lowerRightY" use="required" type="xs:int" />
+						<xs:attribute name="upperLeftX" use="required" type="xs:int" />
+						<xs:attribute name="upperLeftY" use="required" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 			</xs:choice>
