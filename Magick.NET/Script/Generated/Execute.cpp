@@ -448,7 +448,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteHasMatte(XmlElement^ element, MagickImage^ image)
 	{
-		image->HasMatte = XmlHelper::GetAttribute<bool>(element, "value");
+		image->HasAlpha = XmlHelper::GetAttribute<bool>(element, "value");
 	}
 	void MagickScript::ExecuteIsMonochrome(XmlElement^ element, MagickImage^ image)
 	{

@@ -628,12 +628,12 @@ namespace ImageMagick
 		Value->gifDisposeMethod((int)value);
 	}
 	//==============================================================================================
-	bool MagickImage::HasMatte::get()
+	bool MagickImage::HasAlpha::get()
 	{
 		return Value->matte();
 	}
 	//==============================================================================================
-	void MagickImage::HasMatte::set(bool value)
+	void MagickImage::HasAlpha::set(bool value)
 	{
 		Value->matte(value);
 	}
@@ -994,6 +994,66 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::AdaptiveResize(int width, int height)
+	{
+		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		AdaptiveResize(geometry);
+	}
+	//==============================================================================================
+	void MagickImage::AdaptiveResize(MagickGeometry^ geometry)
+	{
+		Throw::IfNull("geometry", geometry);
+
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
+		try
+		{
+			Value->adaptiveResize(*magickGeometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::AdaptiveSharpen()
+	{
+		AdaptiveSharpen(0.0, 1.0);
+	}
+	//==============================================================================================
+	void MagickImage::AdaptiveSharpen(Channels channels)
+	{
+		AdaptiveSharpen(0.0, 1.0, channels);
+	}
+	//==============================================================================================
+	void MagickImage::AdaptiveSharpen(double radius, double sigma)
+	{
+		try
+		{
+			Value->adaptiveSharpen(radius, sigma);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::AdaptiveSharpen(double radius, double sigma, Channels channels)
+	{
+		try
+		{
+			Value->adaptiveSharpenChannel((MagickCore::ChannelType)channels, radius, sigma);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::AdaptiveThreshold(int width, int height)
 	{
 		AdaptiveThreshold(width, height, 0);
@@ -1062,6 +1122,18 @@ namespace ImageMagick
 		try
 		{
 			Value->affineTransform(*((Magick::DrawableAffine*)drawableAffine->InternalValue));
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Alpha(AlphaOption option)
+	{
+		try
+		{
+			Value->alphaChannel((MagickCore::AlphaChannelType)option);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1155,6 +1227,111 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::AutoGamma()
+	{
+		try
+		{
+			Value->autoGamma();
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::AutoGamma(Channels channels)
+	{
+		try
+		{
+			Value->autoGammaChannel((MagickCore::ChannelType)channels);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::AutoLevel()
+	{
+		try
+		{
+			Value->autoLevel();
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::AutoLevel(Channels channels)
+	{
+		try
+		{
+			Value->autoLevelChannel((MagickCore::ChannelType)channels);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::AutoOrient()
+	{
+		try
+		{
+			Value->autoOrient();
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::BlackThreshold(Percentage threshold)
+	{
+		try
+		{
+			std::string threshold_;
+			Marshaller::Marshal(threshold.ToString(), threshold_);
+			Value->blackThreshold(threshold_);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::BlackThreshold(Percentage threshold, Channels channels)
+	{
+		try
+		{
+			std::string threshold_;
+			Marshaller::Marshal(threshold.ToString(), threshold_);
+			Value->blackThresholdChannel((MagickCore::ChannelType)channels, threshold_);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::BlueShift()
+	{
+		BlueShift(1.5);
+	}
+	//==============================================================================================
+	void MagickImage::BlueShift(double factor)
+	{
+		try
+		{
+			Value->blueShift(factor);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Blur()
 	{
 		Blur(0.0, 1.0);
@@ -1209,6 +1386,30 @@ namespace ImageMagick
 		finally
 		{
 			delete geometry;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::BrightnessContrast(Percentage brightness, Percentage contrast)
+	{
+		try
+		{
+			Value->brightnessContrast(brightness.ToInt32(), contrast.ToInt32());
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::BrightnessContrast(Percentage brightness, Percentage contrast, Channels channels)
+	{
+		try
+		{
+			Value->brightnessContrastChannel((MagickCore::ChannelType)channels, brightness.ToInt32(), contrast.ToInt32());
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -1344,9 +1545,61 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Clamp()
+	{
+		try
+		{
+			Value->clamp();
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Clamp(Channels channels)
+	{
+		try
+		{
+			Value->clampChannel((MagickCore::ChannelType)channels);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	MagickImage^ MagickImage::Clone()
 	{
 		return gcnew MagickImage(*Value);
+	}
+	//==============================================================================================
+	void MagickImage::Clut(MagickImage^ image)
+	{
+		Throw::IfNull("image", image);
+
+		try
+		{
+			Value->clut(*image->Value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Clut(MagickImage^ image, Channels channels)
+	{
+		Throw::IfNull("image", image);
+
+		try
+		{
+			Value->clutChannel((MagickCore::ChannelType)channels, *image->Value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::ColorAlpha(MagickColor^ color)
@@ -1653,6 +1906,22 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Decipher(String^ passphrase)
+	{
+		Throw::IfNullOrEmpty("passphrase", passphrase);
+
+		try
+		{
+			std::string passphrase_;
+			Marshaller::Marshal(passphrase, passphrase_);
+			Value->decipher(passphrase_);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	int MagickImage::Depth()
 	{
 		try
@@ -1694,6 +1963,18 @@ namespace ImageMagick
 		try
 		{
 			Value->channelDepth((MagickCore::ChannelType)channels, value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Deskew(Percentage threshold)
+	{
+		try
+		{
+			Value->deskew(threshold.ToQuantum());
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1786,6 +2067,22 @@ namespace ImageMagick
 		try
 		{
 			Value->emboss(radius, sigma);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Encipher(String^ passphrase)
+	{
+		Throw::IfNullOrEmpty("passphrase", passphrase);
+
+		try
+		{
+			std::string passphrase_;
+			Marshaller::Marshal(passphrase, passphrase_);
+			Value->encipher(passphrase_);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2303,6 +2600,23 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	String^ MagickImage::GetArtifact(String^ name)
+	{
+		Throw::IfNullOrEmpty("name", name);
+
+		std::string artifactName;
+		Marshaller::Marshal(name, artifactName);
+
+		try
+		{
+			return Marshaller::Marshal(Value->attribute(artifactName));
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	String^ MagickImage::GetAttribute(String^ name)
 	{
 		Throw::IfNullOrEmpty("name", name);
@@ -2468,6 +2782,110 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor)
+	{
+		Throw::IfNull("blackColor", blackColor);
+		Throw::IfNull("whiteColor", whiteColor);
+
+		const Magick::Color* black = blackColor->CreateColor();
+		const Magick::Color* white = whiteColor->CreateColor();
+
+		try
+		{
+			Value->levelColors(*black, *white);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete black;
+			delete white;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, bool invert)
+	{
+		Throw::IfNull("blackColor", blackColor);
+		Throw::IfNull("whiteColor", whiteColor);
+
+		const Magick::Color* black = blackColor->CreateColor();
+		const Magick::Color* white = whiteColor->CreateColor();
+
+		try
+		{
+			Value->levelColors(*black, *white, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete black;
+			delete white;
+		}
+	}
+	///=============================================================================================
+	void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, bool invert, Channels channels)
+	{
+		Throw::IfNull("blackColor", blackColor);
+		Throw::IfNull("whiteColor", whiteColor);
+
+		const Magick::Color* black = blackColor->CreateColor();
+		const Magick::Color* white = whiteColor->CreateColor();
+
+		try
+		{
+			Value->levelColorsChannel((MagickCore::ChannelType)channels, *black, *white, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete black;
+			delete white;
+		}
+	}
+	///=============================================================================================
+	void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, Channels channels)
+	{
+		Throw::IfNull("blackColor", blackColor);
+		Throw::IfNull("whiteColor", whiteColor);
+
+		const Magick::Color* black = blackColor->CreateColor();
+		const Magick::Color* white = whiteColor->CreateColor();
+
+		try
+		{
+			Value->levelColorsChannel((MagickCore::ChannelType)channels, *black, *white);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete black;
+			delete white;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::LinearStretch(Percentage blackPoint, Percentage whitePoint)
+	{
+		try
+		{
+			Value->linearStretch(blackPoint.ToQuantum(), whitePoint.ToQuantum());
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Lower(int size)
 	{
 		RaiseOrLower(size, false);
@@ -2624,6 +3042,81 @@ namespace ImageMagick
 			delete opaque;
 			delete pen;
 		}
+	}
+	//==============================================================================================
+	void MagickImage::Perceptible(double epsilon)
+	{
+		try
+		{
+			Value->perceptible(epsilon);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	///=============================================================================================
+	void MagickImage::Perceptible(double epsilon, Channels channels)
+	{
+		try
+		{
+			Value->perceptibleChannel((MagickCore::ChannelType)channels, epsilon);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Polaroid(String^ caption, double angle)
+	{
+		Throw::IfNull("caption", caption);
+
+		try
+		{
+			std::string caption_;
+			Marshaller::Marshal(caption, caption_);
+
+			Value->polaroid(caption_, angle);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Posterize(int levels)
+	{
+		Posterize(levels, false);
+	}
+	//==============================================================================================
+	void MagickImage::Posterize(int levels, bool dither)
+	{
+		try
+		{
+			Value->posterize(levels, dither);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Posterize(int levels, bool dither, Channels channels)
+	{
+		try
+		{
+			Value->posterizeChannel((MagickCore::ChannelType)channels, levels, dither);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Posterize(int levels, Channels channels)
+	{
+		Posterize(levels, false, channels);
 	}
 	//==============================================================================================
 	void MagickImage::Quantize()
@@ -2967,9 +3460,29 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::SetArtifact(String^ name, String^ value)
+	{
+		Throw::IfNullOrEmpty("name", name);
+		Throw::IfNull("value", value);
+
+		std::string artifactName;
+		Marshaller::Marshal(name, artifactName);
+		std::string artifactValue;
+		Marshaller::Marshal(value, artifactValue);
+
+		try
+		{
+			return Value->artifact(artifactName, artifactValue);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::SetAttribute(String^ name, String^ value)
 	{
-		Throw::IfNull("name", name);
+		Throw::IfNullOrEmpty("name", name);
 		Throw::IfNull("value", value);
 
 		std::string attributeName;
@@ -3512,6 +4025,34 @@ namespace ImageMagick
 		try
 		{
 			Value->wave(amplitude, length);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::WhiteThreshold(Percentage threshold)
+	{
+		try
+		{
+			std::string threshold_;
+			Marshaller::Marshal(threshold.ToString(), threshold_);
+			Value->whiteThreshold(threshold_);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::WhiteThreshold(Percentage threshold, Channels channels)
+	{
+		try
+		{
+			std::string threshold_;
+			Marshaller::Marshal(threshold.ToString(), threshold_);
+			Value->whiteThresholdChannel((MagickCore::ChannelType)channels, threshold_);
 		}
 		catch(Magick::Exception& exception)
 		{

@@ -257,6 +257,7 @@
     <ClInclude Include="Drawables\Paths\PathSmoothCurvetoRel.h" />
     <ClInclude Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.h" />
     <ClInclude Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.h" />
+    <ClInclude Include="Enums\AlphaOption.h" />
     <ClInclude Include="Enums\ClassType.h" />
     <ClInclude Include="Enums\CompressionMethod.h" />
     <ClInclude Include="Enums\Endian.h" />

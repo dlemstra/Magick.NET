@@ -19,17 +19,18 @@ using namespace System::Globalization;
 namespace ImageMagick
 {
 	//==============================================================================================
+	Magick::Quantum Percentage::ToQuantum()
+	{
+		return (Magick::Quantum)(MaxMap * _Value);
+	}
+	//==============================================================================================
 	Percentage::Percentage(double value)
 	{
-		Throw::IfFalse("value", value > 0.0, "Value should be greater then zero.");
-
 		_Value = value;
 	}
 	//==============================================================================================
 	Percentage::Percentage(int value)
 	{
-		Throw::IfFalse("value", value > 0, "Value should be greater then zero.");
-
 		_Value = (double)value / 100;
 	}
 	//==============================================================================================

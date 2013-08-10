@@ -17,6 +17,7 @@
 #include "Colors\MagickColor.h"
 #include "Drawables\DrawableAffine.h"
 #include "Drawables\Base\Drawable.h"
+#include "Enums\AlphaOption.h"
 #include "Enums\Channels.h"
 #include "Enums\ClassType.h"
 #include "Enums\ColorSpace.h"
@@ -475,9 +476,9 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Image supports transparency (matte channel).
+		/// Image supports transparency (alpha channel).
 		///</summary>
-		property bool HasMatte
+		property bool HasAlpha
 		{
 			bool get();
 			void set(bool value);
@@ -839,6 +840,58 @@ namespace ImageMagick
 		void AdaptiveBlur(double radius, double sigma);
 		///==========================================================================================
 		///<summary>
+		/// Resize using mesh interpolation. It works well for small resizes of less than +/- 50%
+		/// of the original image size. For larger resizing on images a full filtered and slower resize
+		/// function should be used instead.
+		///</summary>
+		///<param name="width">The new width.</param>
+		///<param name="height">The new height.</param>
+		///<exception cref="MagickException"/>
+		void AdaptiveResize(int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Resize using mesh interpolation. It works well for small resizes of less than +/- 50%
+		/// of the original image size. For larger resizing on images a full filtered and slower resize
+		/// function should be used instead.
+		///</summary>
+		///<param name="geometry">The geometry to use.</param>
+		///<exception cref="MagickException"/>
+		void AdaptiveResize(MagickGeometry^ geometry);
+		///==========================================================================================
+		///<summary>
+		/// Adaptively sharpens the image by sharpening more intensely near image edges and less
+		/// intensely far from edges.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void AdaptiveSharpen();
+		///==========================================================================================
+		///<summary>
+		/// Adaptively sharpens the image by sharpening more intensely near image edges and less
+		/// intensely far from edges.
+		///</summary>
+		///<param name="channels">The channel(s) that should be sharpened.</param>
+		///<exception cref="MagickException"/>
+		void AdaptiveSharpen(Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Adaptively sharpens the image by sharpening more intensely near image edges and less
+		/// intensely far from edges.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		///<exception cref="MagickException"/>
+		void AdaptiveSharpen(double radius, double sigma);
+		///==========================================================================================
+		///<summary>
+		/// Adaptively sharpens the image by sharpening more intensely near image edges and less
+		/// intensely far from edges.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		///<param name="channels">The channel(s) that should be sharpened.</param>
+		void AdaptiveSharpen(double radius, double sigma, Channels channels);
+		///==========================================================================================
+		///<summary>
 		/// Local adaptive threshold image.
 		/// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm
 		///</summary>
@@ -887,6 +940,13 @@ namespace ImageMagick
 		void AffineTransform(DrawableAffine^ affineMatrix);
 		///==========================================================================================
 		///<summary>
+		/// Applies the specified alpha option.
+		///</summary>
+		///<param name="option">The option to use.</param>
+		///<exception cref="MagickException"/>
+		void Alpha(AlphaOption option);
+		///==========================================================================================
+		///<summary>
 		/// Annotate using specified text, and bounding area.
 		///</summary>
 		///<param name="text">The text to use.</param>
@@ -920,6 +980,72 @@ namespace ImageMagick
 		///<param name="gravity">The placement gravity.</param>
 		///<exception cref="MagickException"/>
 		void Annotate(String^ text, Gravity gravity);
+		///==========================================================================================
+		///<summary>
+		/// Extracts the 'mean' from the image and adjust the image to try make set its gamma 
+		/// appropriatally.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void AutoGamma();
+		///==========================================================================================
+		///<summary>
+		/// Extracts the 'mean' from the image and adjust the image to try make set its gamma 
+		/// appropriatally.
+		///</summary>
+		///<param name="channels">The channel(s) to set the gamma for.</param>
+		///<exception cref="MagickException"/>
+		void AutoGamma(Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Adjusts the levels of a particular image channel by scaling the minimum and maximum values
+		/// to the full quantum range.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void AutoLevel();
+		///==========================================================================================
+		///<summary>
+		/// Adjusts the levels of a particular image channel by scaling the minimum and maximum values
+		/// to the full quantum range.
+		///</summary>
+		///<param name="channels">The channel(s) to level.</param>
+		///<exception cref="MagickException"/>
+		void AutoLevel(Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Adjusts an image so that its orientation is suitable for viewing.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void AutoOrient();
+		///==========================================================================================
+		///<summary>
+		/// Forces all pixels below the threshold into black while leaving all pixels at or above
+		/// the threshold unchanged.
+		///</summary>
+		///<param name="threshold">The threshold to use.</param>
+		///<exception cref="MagickException"/>
+		void BlackThreshold(Percentage threshold);
+		///==========================================================================================
+		///<summary>
+		/// Forces all pixels below the threshold into black while leaving all pixels at or above
+		/// the threshold unchanged.
+		///</summary>
+		///<param name="threshold">The threshold to use.</param>
+		///<param name="channels">The channel(s) to make black.</param>
+		///<exception cref="MagickException"/>
+		void BlackThreshold(Percentage threshold, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Simulate a scene at nighttime in the moonlight.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void BlueShift();
+		///==========================================================================================
+		///<summary>
+		/// Simulate a scene at nighttime in the moonlight.
+		///</summary>
+		///<param name="factor">The factor to use.</param>
+		///<exception cref="MagickException"/>
+		void BlueShift(double factor);
 		///==========================================================================================
 		///<summary>
 		/// Blur image with the default blur factor (0x1).
@@ -965,6 +1091,27 @@ namespace ImageMagick
 		///<param name="height">The height of the border.</param>
 		///<exception cref="MagickException"/>
 		void Border(int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Changes the brightness and/or contrast of an image. It converts the brightness and
+		/// contrast parameters into slope and intercept and calls a polynomical function to apply
+		/// to the image.
+		///</summary>
+		///<param name="brightness">The brightness.</param>
+		///<param name="contrast">The contrast.</param>
+		///<exception cref="MagickException"/>
+		void BrightnessContrast(Percentage brightness, Percentage contrast);
+		///==========================================================================================
+		///<summary>
+		/// Changes the brightness and/or contrast of an image. It converts the brightness and
+		/// contrast parameters into slope and intercept and calls a polynomical function to apply
+		/// to the image.
+		///</summary>
+		///<param name="brightness">The brightness.</param>
+		///<param name="contrast">The contrast.</param>
+		///<param name="channels">The channel(s) that should be changed.</param>
+		///<exception cref="MagickException"/>
+		void BrightnessContrast(Percentage brightness, Percentage contrast, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Applies the color decision list from the specified ASC CDL file.
@@ -1049,9 +1196,41 @@ namespace ImageMagick
 		void ChromaWhitePoint(double x, double y);
 		///==========================================================================================
 		///<summary>
+		/// Set each pixel whose value is below zero to zero and any the pixel whose value is above
+		/// the quantum range to the quantum range (e.g. 65535) otherwise the pixel value
+		/// remains unchanged.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Clamp();
+		///==========================================================================================
+		///<summary>
+		/// Set each pixel whose value is below zero to zero and any the pixel whose value is above
+		/// the quantum range to the quantum range (e.g. 65535) otherwise the pixel value
+		/// remains unchanged.
+		///</summary>
+		///<param name="channels">The channel(s) to clamp.</param>
+		///<exception cref="MagickException"/>
+		void Clamp(Channels channels);
+		///==========================================================================================
+		///<summary>
 		/// Creates a clone of the current image.
 		///</summary>
 		MagickImage^ Clone();
+		///==========================================================================================
+		///<summary>
+		/// Apply a color lookup table (CLUT) to the image.
+		///</summary>
+		///<param name="image">The image to use.</param>
+		///<exception cref="MagickException"/>
+		void Clut(MagickImage^ image);
+		///==========================================================================================
+		///<summary>
+		/// Apply a color lookup table (CLUT) to the image.
+		///</summary>
+		///<param name="image">The image to use.</param>
+		///<param name="channels">The channel(s) to clut.</param>
+		///<exception cref="MagickException"/>
+		void Clut(MagickImage^ image, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Colorize image with the specified color, using specified percent alpha.
@@ -1219,6 +1398,13 @@ namespace ImageMagick
 		void CycleColormap(int amount);
 		///==========================================================================================
 		///<summary>
+		/// Converts cipher pixels to plain pixels.
+		///</summary>
+		///<param name="passphrase">The password that was used to encrypt the image.</param>
+		///<exception cref="MagickException"/>
+		void Decipher(String^ passphrase);
+		///==========================================================================================
+		///<summary>
 		/// Returns the depth (bits allocated to red/green/blue components).
 		///</summary>
 		///<exception cref="MagickException"/>
@@ -1245,6 +1431,16 @@ namespace ImageMagick
 		///<param name="channels">The channel to set the depth for.</param>
 		///<exception cref="MagickException"/>
 		void Depth(int value, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Removes skew from the image. Skew is an artifact that occurs in scanned images because of
+		/// the camera being misaligned, imperfections in the scanning or surface, or simply because
+		/// the paper was not placed completely flat when scanned. The value of threshold ranges
+		/// from 0 to QuantumRange.
+		///</summary>
+		///<param name="threshold">The threshold.</param>
+		///<exception cref="MagickException"/>
+		void Deskew(Percentage threshold);
 		///==========================================================================================
 		///<summary>
 		/// Despeckle image (reduce speckle noise).
@@ -1306,6 +1502,12 @@ namespace ImageMagick
 		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
 		///<exception cref="MagickException"/>
 		void Emboss(double radius, double sigma);
+		///==========================================================================================
+		///<summary>
+		/// Converts pixels to cipher-pixels.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Encipher(String^ passphrase);
 		///==========================================================================================
 		///<summary>
 		/// Preferred size of the image when encoding.
@@ -1600,6 +1802,12 @@ namespace ImageMagick
 		void GaussianBlur(double width, double sigma, Channels channels);
 		///==========================================================================================
 		///<summary>
+		/// Returns the value of the artifact with the specified name.
+		///</summary>
+		///<param name="name">The name of the artifact.</param>
+		String^ GetArtifact(String^ name);
+		///==========================================================================================
+		///<summary>
 		/// Returns the value of a named image attribute.
 		///</summary>
 		///<param name="name">The name of the attribute.</param>
@@ -1739,6 +1947,57 @@ namespace ImageMagick
 		void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, Channels channels);
 		///==========================================================================================
 		///<summary>
+		/// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
+		/// level values on a channel by channel bases, as per level(). The given colors allows you to
+		/// specify different level ranges for each of the color channels separately.
+		///</summary>
+		///<param name="blackColor">The color to map black to/from</param>
+		///<param name="whiteColor">The color to map white to/from</param>
+		///<exception cref="MagickException"/>
+		void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor);
+		///==========================================================================================
+		///<summary>
+		/// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
+		/// level values on a channel by channel bases, as per level(). The given colors allows you to
+		/// specify different level ranges for each of the color channels separately.
+		///</summary>
+		///<param name="blackColor">The color to map black to/from</param>
+		///<param name="whiteColor">The color to map white to/from</param>
+		///<param name="invert">If true map the colors (levelize), rather than from (level)</param>
+		///<exception cref="MagickException"/>
+		void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, bool invert);
+		///==========================================================================================
+		///<summary>
+		/// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
+		/// level values on a channel by channel bases, as per level(). The given colors allows you to
+		/// specify different level ranges for each of the color channels separately.
+		///</summary>
+		///<param name="blackColor">The color to map black to/from</param>
+		///<param name="whiteColor">The color to map white to/from</param>
+		///<param name="invert">If true map the colors (levelize), rather than from (level)</param>
+		///<param name="channels">The channel(s) to level.</param>
+		///<exception cref="MagickException"/>
+		void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, bool invert, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
+		/// level values on a channel by channel bases, as per level(). The given colors allows you to
+		/// specify different level ranges for each of the color channels separately.
+		///</summary>
+		///<param name="blackColor">The color to map black to/from</param>
+		///<param name="whiteColor">The color to map white to/from</param>
+		///<param name="channels">The channel(s) to level.</param>
+		///<exception cref="MagickException"/>
+		void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Discards any pixels below the black point and above the white point and levels the remaining pixels.
+		///</summary>
+		///<param name="blackPoint">The black point.</param>
+		///<param name="whitePoint">The white point.</param>
+		void LinearStretch(Percentage blackPoint, Percentage whitePoint); 
+		///==========================================================================================
+		///<summary>
 		/// Lower image (lighten or darken the edges of an image to give a 3-D lowered effect).
 		///</summary>
 		///<param name="size">The size of the edges.</param>
@@ -1842,6 +2101,59 @@ namespace ImageMagick
 		///<param name="penColor">The color to replace opaque color with.</param>
 		///<exception cref="MagickException"/>
 		void Opaque(MagickColor^ opaqueColor, MagickColor^ penColor);
+		///==========================================================================================
+		///<summary>
+		/// Set each pixel whose value is less than epsilon to epsilon or -epsilon (whichever is closer)
+		/// otherwise the pixel value remains unchanged.
+		///</summary>
+		///<param name="epsilon">The epsilon threshold.</param>
+		///<exception cref="MagickException"/>
+		void Perceptible(double epsilon);
+		///==========================================================================================
+		///<summary>
+		/// Set each pixel whose value is less than epsilon to epsilon or -epsilon (whichever is closer)
+		/// otherwise the pixel value remains unchanged.
+		///</summary>
+		///<param name="epsilon">The epsilon threshold.</param>
+		///<param name="channels">The channel(s) to perceptible.</param>
+		///<exception cref="MagickException"/>
+		void Perceptible(double epsilon, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Simulates a Polaroid picture.
+		///</summary>
+		///<param name="caption">The caption to put on the image.</param>
+		///<param name="angle">The angle of image.</param>
+		///<exception cref="MagickException"/>
+		void Polaroid(String^ caption, double angle);
+		///==========================================================================================
+		///<summary>
+		/// Reduces the image to a limited number of colors for a "poster" effect.
+		///</summary>
+		///<param name="levels">Number of color levels allowed in each channel.</param>
+		void Posterize(int levels);
+		///==========================================================================================
+		///<summary>
+		/// Reduces the image to a limited number of colors for a "poster" effect.
+		///</summary>
+		///<param name="levels">Number of color levels allowed in each channel.</param>
+		///<param name="dither">Dither the image.</param>
+		void Posterize(int levels, bool dither);
+		///==========================================================================================
+		///<summary>
+		/// Reduces the image to a limited number of colors for a "poster" effect.
+		///</summary>
+		///<param name="levels">Number of color levels allowed in each channel.</param>
+		///<param name="dither">Dither the image.</param>
+		///<param name="channels">The channel(s) to posterize.</param>
+		void Posterize(int levels, bool dither, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Reduces the image to a limited number of colors for a "poster" effect.
+		///</summary>
+		///<param name="levels">Number of color levels allowed in each channel.</param>
+		///<param name="channels">The channel(s) to posterize.</param>
+		void Posterize(int levels, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Quantize image (reduce number of colors).
@@ -2139,10 +2451,19 @@ namespace ImageMagick
 		IEnumerable<MagickImage^>^ Separate(Channels channels);
 		///==========================================================================================
 		///<summary>
+		/// Inserts the artifact with the specified name and value into the artifact tree of the image.
+		///</summary>
+		///<param name="name">The name of the artifact.</param>
+		///<param name="value">The value of the artifact.</param>
+		///<exception cref="MagickException"/>
+		void SetArtifact(String^ name, String^ value);
+		///==========================================================================================
+		///<summary>
 		/// Sets a named image attribute.
 		///</summary>
 		///<param name="name">The name of the attribute.</param>
 		///<param name="value">The value of the attribute.</param>
+		///<exception cref="MagickException"/>
 		void SetAttribute(String^ name, String^ value);
 		///==========================================================================================
 		///<summary>
@@ -2484,6 +2805,23 @@ namespace ImageMagick
 		///<param name="length">The length of the wave.</param>
 		///<exception cref="MagickException"/>
 		void Wave(double amplitude, double length);
+		///==========================================================================================
+		///<summary>
+		/// Forces all pixels above the threshold into white while leaving all pixels at or below
+		/// the threshold unchanged.
+		///</summary>
+		///<param name="threshold">The threshold to use.</param>
+		///<exception cref="MagickException"/>
+		void WhiteThreshold(Percentage threshold);
+		///==========================================================================================
+		///<summary>
+		/// Forces all pixels above the threshold into white while leaving all pixels at or below
+		/// the threshold unchanged.
+		///</summary>
+		///<param name="threshold">The threshold to use.</param>
+		///<param name="channels">The channel(s) to make black.</param>
+		///<exception cref="MagickException"/>
+		void WhiteThreshold(Percentage threshold, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Writes the image to the specified stream.
