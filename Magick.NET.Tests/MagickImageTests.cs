@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private const string _Category = "MagickImage";
 		//===========================================================================================
-		private static void Test_Copy(MagickImage first, MagickImage second)
+		private static void Test_Clone(MagickImage first, MagickImage second)
 		{
 			Assert.AreEqual(first, second);
 			second.Format = MagickFormat.Jp2;
@@ -43,6 +43,34 @@ namespace Magick.NET.Tests
 			Bitmap bmp = image.ToBitmap(format);
 			Assert.AreEqual(format, bmp.RawFormat);
 			bmp.Dispose();
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Artifact()
+		{
+			MagickImage image = new MagickImage(Files.SnakewarePNG);
+
+			Assert.IsNull(image.GetArtifact("test"));
+
+			image.SetArtifact("test", "");
+			Assert.AreEqual(null, image.GetArtifact("test"));
+
+			image.SetArtifact("test", "123");
+			Assert.AreEqual("123", image.GetArtifact("test"));
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Attribute()
+		{
+			MagickImage image = new MagickImage(Files.SnakewarePNG);
+
+			Assert.IsNull(image.GetAttribute("test"));
+
+			image.SetAttribute("test", "");
+			Assert.AreEqual(null, image.GetAttribute("test"));
+
+			image.SetAttribute("test", "123");
+			Assert.AreEqual("123", image.GetAttribute("test"));
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -101,10 +129,10 @@ namespace Magick.NET.Tests
 			MagickImage first = new MagickImage(Files.SnakewarePNG);
 			MagickImage second = first.Clone();
 
-			Test_Copy(first, second);
+			Test_Clone(first, second);
 
 			second = new MagickImage(first);
-			Test_Copy(first, second);
+			Test_Clone(first, second);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

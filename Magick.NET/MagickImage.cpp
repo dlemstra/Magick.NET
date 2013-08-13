@@ -2644,7 +2644,7 @@ namespace ImageMagick
 
 		try
 		{
-			return Marshaller::Marshal(Value->attribute(artifactName));
+			return Marshaller::Marshal(Value->artifact(artifactName));
 		}
 		catch(Magick::Exception& exception)
 		{
