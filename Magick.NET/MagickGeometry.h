@@ -154,15 +154,9 @@ namespace ImageMagick
 		//===========================================================================================
 		static bool operator <= (MagickGeometry^ left, MagickGeometry^ right);
 		//===========================================================================================
-		static explicit operator MagickGeometry^(Rectangle rectangle)
-		{
-			return gcnew MagickGeometry(rectangle);
-		}
+		static explicit operator MagickGeometry^(Rectangle rectangle);
 		//===========================================================================================
-		static explicit operator MagickGeometry^(String^ geometry)
-		{
-			return gcnew MagickGeometry(geometry);
-		}
+		static explicit operator MagickGeometry^(String^ geometry);
 		///==========================================================================================
 		///<summary>
 		/// Compares the current instance with another object of the same type.

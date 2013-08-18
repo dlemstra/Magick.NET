@@ -37,6 +37,11 @@ namespace ImageMagick
 		IsBlack = isBlack;
 	}
 	//==============================================================================================
+	ColorMono::operator ColorMono^ (MagickColor^ color)
+	{
+		return FromMagickColor(color);
+	}
+	//==============================================================================================
 	ColorMono^ ColorMono::FromMagickColor(MagickColor^ color)
 	{
 		if (color == nullptr)

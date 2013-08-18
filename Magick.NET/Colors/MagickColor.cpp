@@ -16,8 +16,9 @@
 
 namespace ImageMagick
 {
-	//===========================================================================================
-	void MagickColor::Initialize(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
+	//==============================================================================================
+	void MagickColor::Initialize(unsigned char red, unsigned char green, unsigned char blue,
+		unsigned char alpha)
 	{
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
 		R = red;
@@ -222,6 +223,19 @@ namespace ImageMagick
 			return !ReferenceEquals(right, nullptr);
 
 		return left->CompareTo(right) <= 0;
+	}
+	//==============================================================================================
+	MagickColor::operator Color (MagickColor^ color)
+	{
+		if (ReferenceEquals(color, nullptr))
+			return Color::Empty;
+
+		return color->ToColor();
+	}
+	//==============================================================================================
+	MagickColor::operator MagickColor^ (Color color)
+	{
+		return gcnew MagickColor(color);
 	}
 	//==============================================================================================
 	int MagickColor::CompareTo(MagickColor^ other)

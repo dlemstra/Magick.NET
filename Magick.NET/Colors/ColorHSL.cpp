@@ -46,6 +46,11 @@ namespace ImageMagick
 		Luminosity = luminosity;
 	}
 	//==============================================================================================
+	ColorHSL::operator ColorHSL^ (MagickColor^ color)
+	{
+		return FromMagickColor(color);
+	}
+	//==============================================================================================
 	ColorHSL^ ColorHSL::FromMagickColor(MagickColor^ color)
 	{
 		if (color == nullptr)

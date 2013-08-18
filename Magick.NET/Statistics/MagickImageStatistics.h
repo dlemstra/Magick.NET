@@ -69,15 +69,9 @@ namespace ImageMagick
 			ChannelStatistics get();
 		}
 		//===========================================================================================
-		static bool operator == (MagickImageStatistics left, MagickImageStatistics right)
-		{
-			return Object::Equals(left, right);
-		}
+		static bool operator == (MagickImageStatistics left, MagickImageStatistics right);
 		//===========================================================================================
-		static bool operator != (MagickImageStatistics left, MagickImageStatistics right)
-		{
-			return !Object::Equals(left, right);
-		}
+		static bool operator != (MagickImageStatistics left, MagickImageStatistics right);
 		///==========================================================================================
 		///<summary>
 		/// Determines whether the specified object is equal to the current image statistics.

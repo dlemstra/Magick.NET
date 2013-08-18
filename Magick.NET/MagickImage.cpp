@@ -977,6 +977,55 @@ namespace ImageMagick
 		return Convert::ToInt32(Value->size().width());
 	}
 	//==============================================================================================
+	bool MagickImage::operator == (MagickImage^ left, MagickImage^ right)
+	{
+		return Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool MagickImage::operator != (MagickImage^ left, MagickImage^ right)
+	{
+		return !Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool MagickImage::operator > (MagickImage^ left, MagickImage^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) == 1;
+	}
+	//==============================================================================================
+	bool MagickImage::operator < (MagickImage^ left, MagickImage^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return !ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) == -1;
+	}
+	//==============================================================================================
+	bool MagickImage::operator >= (MagickImage^ left, MagickImage^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) >= 0;
+	}
+	//==============================================================================================
+	bool MagickImage::operator <= (MagickImage^ left, MagickImage^ right)
+	{
+		if (ReferenceEquals(left, nullptr))
+			return !ReferenceEquals(right, nullptr);
+
+		return left->CompareTo(right) <= 0;
+	}
+	//==============================================================================================
+	MagickImage::operator array<Byte>^ (MagickImage^ image)
+	{
+		Throw::IfNull("image", image);
+
+		return image->ToByteArray();
+	}
+	//==============================================================================================
 	void MagickImage::AdaptiveBlur()
 	{
 		AdaptiveBlur(0.0, 1.0);

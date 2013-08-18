@@ -45,6 +45,16 @@ namespace ImageMagick
 		return _Red;
 	}
 	//==============================================================================================
+	bool MagickImageStatistics::operator == (MagickImageStatistics left, MagickImageStatistics right)
+	{
+		return Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool MagickImageStatistics::operator != (MagickImageStatistics left, MagickImageStatistics right)
+	{
+		return !Object::Equals(left, right);
+	}
+	//==============================================================================================
 	bool MagickImageStatistics::Equals(Object^ obj)
 	{
 		if (obj == nullptr)

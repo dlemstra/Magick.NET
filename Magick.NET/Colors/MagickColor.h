@@ -132,18 +132,9 @@ namespace ImageMagick
 		//===========================================================================================
 		static bool operator <= (MagickColor^ left, MagickColor^ right);
 		//===========================================================================================
-		static operator Color (MagickColor^ color)
-		{
-			if (ReferenceEquals(color, nullptr))
-				return Color::Empty;
-
-			return color->ToColor();
-		}
+		static operator Color (MagickColor^ color);
 		//===========================================================================================
-		static operator MagickColor^ (Color color)
-		{
-			return gcnew MagickColor(color);
-		}
+		static operator MagickColor^ (Color color);
 		///==========================================================================================
 		///<summary>
 		/// Compares the current instance with another object of the same type.

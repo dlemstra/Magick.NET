@@ -78,6 +78,11 @@ namespace ImageMagick
 		Value->B = value;
 	}
 	//==============================================================================================
+	ColorCMYK::operator ColorCMYK^ (MagickColor^ color)
+	{
+		return FromMagickColor(color);
+	}
+	//==============================================================================================
 	ColorCMYK^ ColorCMYK::FromMagickColor(MagickColor^ color)
 	{
 		if (color == nullptr)

@@ -56,13 +56,7 @@ namespace ImageMagick
 		//===========================================================================================
 		static bool operator <= (ColorBase^ left, ColorBase^ right);
 		//===========================================================================================
-		static operator MagickColor^ (ColorBase^ color)
-		{
-			if (color == nullptr)
-				return nullptr;
-
-			return color->ToMagickColor();
-		}
+		static operator MagickColor^ (ColorBase^ color);
 		///==========================================================================================
 		///<summary>
 		/// Compares the current instance with another object of the same type.

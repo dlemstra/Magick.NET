@@ -66,6 +66,11 @@ namespace ImageMagick
 		Value->R = value;
 	}
 	//==============================================================================================
+	ColorRGB::operator ColorRGB^ (MagickColor^ color)
+	{
+		return FromMagickColor(color);
+	}
+	//==============================================================================================
 	ColorRGB^ ColorRGB::FromMagickColor(MagickColor^ color)
 	{
 		if (color == nullptr)

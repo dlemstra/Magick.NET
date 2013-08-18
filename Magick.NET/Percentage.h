@@ -30,16 +30,7 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		static explicit operator Magick::Quantum(Percentage percentage)
-		{
-#if (MAGICKCORE_QUANTUM_DEPTH == 8)
-			return Convert::ToByte(percentage._Value * 100);
-#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-			return Convert::ToUInt16(percentage._Value * 100);
-#else
-#error Not implemented!
-#endif
-		}
+		static explicit operator Magick::Quantum(Percentage percentage);
 		//===========================================================================================
 		Magick::Quantum ToQuantum();
 		//===========================================================================================
@@ -59,29 +50,17 @@ namespace ImageMagick
 		///<param name="value">The value (0% = 0, 100% = 100)</param>
 		Percentage(int value);
 		//===========================================================================================
-		static explicit operator double(Percentage percentage)
-		{
-			return percentage.ToDouble();
-		}
-		//===========================================================================================
-		static explicit operator int(Percentage percentage)
-		{
-			return percentage.ToInt32();
-		}
-		//===========================================================================================
-		static operator Percentage(double value)
-		{
-			return Percentage(value);
-		}
-		//===========================================================================================
-		static explicit operator Percentage(int value)
-		{
-			return Percentage(value);
-		}
-		//===========================================================================================
 		static bool operator == (Percentage left, Percentage right);
 		//===========================================================================================
 		static bool operator != (Percentage left, Percentage right);
+		//===========================================================================================
+		static explicit operator double(Percentage percentage);
+		//===========================================================================================
+		static explicit operator int(Percentage percentage);
+		//===========================================================================================
+		static operator Percentage(double value);
+		//===========================================================================================
+		static explicit operator Percentage(int value);
 		///==========================================================================================
 		///<summary>
 		/// Determines whether the specified object is equal to the current percentage.

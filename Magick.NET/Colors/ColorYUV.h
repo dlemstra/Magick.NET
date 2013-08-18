@@ -73,10 +73,7 @@ namespace ImageMagick
 			void set(double value);
 		}
 		//===========================================================================================
-		static operator ColorYUV^ (MagickColor^ color)
-		{
-			return FromMagickColor(color);
-		}
+		static operator ColorYUV^ (MagickColor^ color);
 		///==========================================================================================
 		///<summary>
 		/// Converts the specified MagickColor to an instance of this type.

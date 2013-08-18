@@ -79,6 +79,11 @@ namespace ImageMagick
 		_Y = value;
 	}
 	//==============================================================================================
+	ColorYUV::operator ColorYUV^ (MagickColor^ color)
+	{
+		return FromMagickColor(color);
+	}
+	//==============================================================================================
 	ColorYUV^ ColorYUV::FromMagickColor(MagickColor^ color)
 	{
 		if (color == nullptr)

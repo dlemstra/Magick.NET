@@ -19,6 +19,17 @@ using namespace System::Globalization;
 namespace ImageMagick
 {
 	//==============================================================================================
+	Percentage::operator Magick::Quantum(Percentage percentage)
+	{
+#if (MAGICKCORE_QUANTUM_DEPTH == 8)
+		return Convert::ToByte(percentage._Value * 100);
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+		return Convert::ToUInt16(percentage._Value * 100);
+#else
+#error Not implemented!
+#endif
+	}
+	//==============================================================================================
 	Magick::Quantum Percentage::ToQuantum()
 	{
 		return (Magick::Quantum)(MaxMap * _Value);
@@ -42,6 +53,26 @@ namespace ImageMagick
 	bool Percentage::operator != (Percentage left, Percentage right)
 	{
 		return !Object::Equals(left, right);
+	}
+	//==============================================================================================
+	Percentage::operator double(Percentage percentage)
+	{
+		return percentage.ToDouble();
+	}
+	//==============================================================================================
+	Percentage::operator int(Percentage percentage)
+	{
+		return percentage.ToInt32();
+	}
+	//==============================================================================================
+	Percentage::operator Percentage(double value)
+	{
+		return Percentage(value);
+	}
+	//==============================================================================================
+	Percentage::operator Percentage(int value)
+	{
+		return Percentage(value);
 	}
 	//==============================================================================================
 	bool Percentage::Equals(Object^ obj)

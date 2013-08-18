@@ -106,12 +106,12 @@ namespace ImageMagick
 	{
 		return Object::Equals(left, right);
 	}
-	//===========================================================================================
+	//==============================================================================================
 	bool MagickGeometry::operator != (MagickGeometry^ left, MagickGeometry^ right)
 	{
 		return !Object::Equals(left, right);
 	}
-	//===========================================================================================
+	//==============================================================================================
 	bool MagickGeometry::operator > (MagickGeometry^ left, MagickGeometry^ right)
 	{
 		if (ReferenceEquals(left, nullptr))
@@ -119,7 +119,7 @@ namespace ImageMagick
 
 		return left->CompareTo(right) == 1;
 	}
-	//===========================================================================================
+	//==============================================================================================
 	bool MagickGeometry::operator < (MagickGeometry^ left, MagickGeometry^ right)
 	{
 		if (ReferenceEquals(left, nullptr))
@@ -127,7 +127,7 @@ namespace ImageMagick
 
 		return left->CompareTo(right) == -1;
 	}
-	//===========================================================================================
+	//==============================================================================================
 	bool MagickGeometry::operator >= (MagickGeometry^ left, MagickGeometry^ right)
 	{
 		if (ReferenceEquals(left, nullptr))
@@ -135,13 +135,23 @@ namespace ImageMagick
 
 		return left->CompareTo(right) >= 0;
 	}
-	//===========================================================================================
+	//==============================================================================================
 	bool MagickGeometry::operator <= (MagickGeometry^ left, MagickGeometry^ right)
 	{
 		if (ReferenceEquals(left, nullptr))
 			return !ReferenceEquals(right, nullptr);
 
 		return left->CompareTo(right) <= 0;
+	}
+	//==============================================================================================
+	MagickGeometry::operator MagickGeometry^(Rectangle rectangle)
+	{
+		return gcnew MagickGeometry(rectangle);
+	}
+	//==============================================================================================
+	MagickGeometry::operator MagickGeometry^(String^ geometry)
+	{
+		return gcnew MagickGeometry(geometry);
 	}
 	//==============================================================================================
 	int MagickGeometry::CompareTo(MagickGeometry^ other)

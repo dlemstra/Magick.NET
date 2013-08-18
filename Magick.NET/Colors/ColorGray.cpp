@@ -50,6 +50,11 @@ namespace ImageMagick
 		_Shade = value;
 	}
 	//==============================================================================================
+	ColorGray::operator ColorGray^ (MagickColor^ color)
+	{
+		return FromMagickColor(color);
+	}
+	//==============================================================================================
 	ColorGray^ ColorGray::FromMagickColor(MagickColor^ color)
 	{
 		if (color == nullptr)

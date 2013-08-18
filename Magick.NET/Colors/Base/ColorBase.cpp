@@ -88,6 +88,14 @@ namespace ImageMagick
 		return left->CompareTo(right) <= 0;
 	}
 	//==============================================================================================
+	ColorBase::operator MagickColor^ (ColorBase^ color)
+	{
+		if (color == nullptr)
+			return nullptr;
+
+		return color->ToMagickColor();
+	}
+	//==============================================================================================
 	int ColorBase::CompareTo(ColorBase^ other)
 	{
 		if (ReferenceEquals(other, nullptr))

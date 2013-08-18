@@ -57,10 +57,7 @@ namespace ImageMagick
 		///</summary>
 		property double Saturation;
 		//===========================================================================================
-		static operator ColorHSL^ (MagickColor^ color)
-		{
-			return FromMagickColor(color);
-		}
+		static operator ColorHSL^ (MagickColor^ color);
 		///==========================================================================================
 		///<summary>
 		/// Converts the specified MagickColor to an instance of this type.

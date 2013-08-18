@@ -775,54 +775,19 @@ namespace ImageMagick
 			int get();
 		}
 		//===========================================================================================
-		static bool operator == (MagickImage^ left, MagickImage^ right)
-		{
-			return Object::Equals(left, right);
-		}
+		static bool operator == (MagickImage^ left, MagickImage^ right);
 		//===========================================================================================
-		static bool operator != (MagickImage^ left, MagickImage^ right)
-		{
-			return !Object::Equals(left, right);
-		}
+		static bool operator != (MagickImage^ left, MagickImage^ right);
 		//===========================================================================================
-		static bool operator > (MagickImage^ left, MagickImage^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) == 1;
-		}
+		static bool operator > (MagickImage^ left, MagickImage^ right);
 		//===========================================================================================
-		static bool operator < (MagickImage^ left, MagickImage^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return !ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) == -1;
-		}
+		static bool operator < (MagickImage^ left, MagickImage^ right);
 		//===========================================================================================
-		static bool operator >= (MagickImage^ left, MagickImage^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) >= 0;
-		}
+		static bool operator >= (MagickImage^ left, MagickImage^ right);
 		//===========================================================================================
-		static bool operator <= (MagickImage^ left, MagickImage^ right)
-		{
-			if (ReferenceEquals(left, nullptr))
-				return !ReferenceEquals(right, nullptr);
-
-			return left->CompareTo(right) <= 0;
-		}
+		static bool operator <= (MagickImage^ left, MagickImage^ right);
 		//===========================================================================================
-		static explicit operator array<Byte>^ (MagickImage^ image)
-		{
-			Throw::IfNull("image", image);
-
-			return image->ToByteArray();
-		}
+		static explicit operator array<Byte>^ (MagickImage^ image);
 		///==========================================================================================
 		///<summary>
 		/// Adaptive-blur image with the default blur factor (0x1).

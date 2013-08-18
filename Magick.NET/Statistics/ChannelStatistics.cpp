@@ -63,6 +63,16 @@ namespace ImageMagick
 		return _Variance;
 	}
 	//==============================================================================================
+	bool ChannelStatistics::operator == (ChannelStatistics left, ChannelStatistics right)
+	{
+		return Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool ChannelStatistics::operator != (ChannelStatistics left, ChannelStatistics right)
+	{
+		return !Object::Equals(left, right);
+	}
+	//==============================================================================================
 	bool ChannelStatistics::Equals(Object^ obj)
 	{
 		if (obj == nullptr)

@@ -51,10 +51,7 @@ namespace ImageMagick
 			void set(double value);
 		}
 		//===========================================================================================
-		static operator ColorGray^ (MagickColor^ color)
-		{
-			return FromMagickColor(color);
-		}
+		static operator ColorGray^ (MagickColor^ color);
 		///==========================================================================================
 		///<summary>
 		/// Converts the specified MagickColor to an instance of this type.

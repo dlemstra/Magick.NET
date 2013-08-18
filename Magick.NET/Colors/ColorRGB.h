@@ -71,10 +71,7 @@ namespace ImageMagick
 			void set(Magick::Quantum value);
 		}
 		//===========================================================================================
-		static operator ColorRGB^ (MagickColor^ color)
-		{
-			return FromMagickColor(color);
-		}
+		static operator ColorRGB^ (MagickColor^ color);
 		///==========================================================================================
 		///<summary>
 		/// Converts the specified MagickColor to an instance of this type.

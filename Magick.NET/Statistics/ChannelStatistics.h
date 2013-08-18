@@ -94,15 +94,9 @@ namespace ImageMagick
 			double get();
 		}
 		//===========================================================================================
-		static bool operator == (ChannelStatistics left, ChannelStatistics right)
-		{
-			return Object::Equals(left, right);
-		}
+		static bool operator == (ChannelStatistics left, ChannelStatistics right);
 		//===========================================================================================
-		static bool operator != (ChannelStatistics left, ChannelStatistics right)
-		{
-			return !Object::Equals(left, right);
-		}
+		static bool operator != (ChannelStatistics left, ChannelStatistics right);
 		///==========================================================================================
 		///<summary>
 		/// Determines whether the specified object is equal to the current channel statistics.

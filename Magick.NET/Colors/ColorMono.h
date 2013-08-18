@@ -45,10 +45,7 @@ namespace ImageMagick
 		///</summary>
 		property bool IsBlack;
 		//===========================================================================================
-		static operator ColorMono^ (MagickColor^ color)
-		{
-			return FromMagickColor(color);
-		}
+		static operator ColorMono^ (MagickColor^ color);
 		///==========================================================================================
 		///<summary>
 		/// Converts the specified MagickColor to an instance of this type.
