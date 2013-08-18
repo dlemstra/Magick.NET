@@ -111,6 +111,14 @@ namespace ImageMagick
 		/// Red component value of this color.
 		///</summary>
 		property Magick::Quantum R;
+		///==========================================================================================
+		///<summary>
+		/// Returns a transparent color.
+		///</summary>
+		static property MagickColor^ Transparent
+		{
+			MagickColor^ get();
+		}
 		//===========================================================================================
 		static bool operator == (MagickColor^ left, MagickColor^ right);
 		//===========================================================================================

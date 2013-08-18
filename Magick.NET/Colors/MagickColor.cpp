@@ -154,7 +154,7 @@ namespace ImageMagick
 		A = 0;
 	}
 	//==============================================================================================
-	MagickColor::MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue, 
+	MagickColor::MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue,
 		Magick::Quantum alpha)
 	{
 		R = red;
@@ -175,6 +175,11 @@ namespace ImageMagick
 #else
 #error Not implemented!
 #endif
+	}
+	//==============================================================================================
+	MagickColor^ MagickColor::Transparent::get()
+	{
+		return gcnew MagickColor(MaxMap, MaxMap, MaxMap, MaxMap);
 	}
 	//==============================================================================================
 	bool MagickColor::operator == (MagickColor^ left, MagickColor^ right)

@@ -130,7 +130,7 @@ namespace ImageMagick
 		MagickColor^ magickColor = gcnew MagickColor(_Value);
 
 		if (!_HasAlpha)
-			magickColor->A = MaxMap;
+			magickColor->A = 0;
 
 		return magickColor;
 	}

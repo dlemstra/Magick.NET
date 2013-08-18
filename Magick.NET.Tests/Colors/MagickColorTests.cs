@@ -143,18 +143,21 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Transparent()
+		{
+			MagickColor transparent = MagickColor.Transparent;
+			
+			Assert.AreEqual(_Max, transparent.A);
+			ColorAssert.AreEqual(Color.Transparent, transparent);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_ToColor()
 		{
 			MagickColor color = new MagickColor(Color.Red);
 			Assert.AreEqual(0, color.A);
 
-			Color magickRed = color.ToColor();
-			Color red = Color.Red;
-
-			Assert.AreEqual(magickRed.R, red.R);
-			Assert.AreEqual(magickRed.G, red.G);
-			Assert.AreEqual(magickRed.B, red.B);
-			Assert.AreEqual(magickRed.A, red.A);
+			ColorAssert.AreEqual(Color.Red, color);
 		}
 		//===========================================================================================
 	}

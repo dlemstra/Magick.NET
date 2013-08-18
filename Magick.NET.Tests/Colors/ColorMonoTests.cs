@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -54,6 +55,22 @@ namespace Magick.NET.Tests
 			second = new ColorMono(false);
 
 			Test_IEquatable_NotEqual(first, second);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Color()
+		{
+			ColorMono mono = new ColorMono(false);
+
+			MagickColor white = new MagickColor("#fff");
+			Assert.AreEqual(white, mono.ToMagickColor());
+			ColorAssert.AreEqual(Color.White, mono.ToMagickColor().ToColor());
+
+			mono = new ColorMono(true);
+
+			MagickColor black = new MagickColor("#000");
+			Assert.AreEqual(black, mono.ToMagickColor());
+			ColorAssert.AreEqual(Color.Black, mono.ToMagickColor().ToColor());
 		}
 		//===========================================================================================
 	}
