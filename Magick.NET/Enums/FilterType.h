@@ -48,7 +48,7 @@ namespace ImageMagick
 		Lanczos = MagickCore::LanczosFilter,
 		LanczosSharp = MagickCore::LanczosSharpFilter,
 		Lanczos2 = MagickCore::Lanczos2Filter,
-		Lanczos2Sharo = MagickCore::Lanczos2SharpFilter,
+		Lanczos2Sharp = MagickCore::Lanczos2SharpFilter,
 		Robidoux = MagickCore::RobidouxFilter,
 		RobidouxSharp = MagickCore::RobidouxSharpFilter,
 		Cosine = MagickCore::CosineFilter,

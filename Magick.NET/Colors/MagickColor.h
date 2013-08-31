@@ -163,6 +163,11 @@ namespace ImageMagick
 		/// Converts the value of this instance to an equivalent Color.
 		///</summary>
 		Color ToColor();
+		///==========================================================================================
+		///<summary>
+		/// Converts the value of this instance to a hexadecimal string.
+		///</summary>
+		virtual String^ ToString() override;
 		//===========================================================================================
 	};
 	//==============================================================================================

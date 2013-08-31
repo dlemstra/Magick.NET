@@ -14,6 +14,8 @@
 #include "Stdafx.h"
 #include "MagickColor.h"
 
+using namespace System::Globalization;
+
 namespace ImageMagick
 {
 	//==============================================================================================
@@ -319,6 +321,17 @@ namespace ImageMagick
 #endif
 
 		return Color::FromArgb(alpha, red, green, blue);
+	}
+	//==============================================================================================
+	String^ MagickColor::ToString()
+	{
+#if (MAGICKCORE_QUANTUM_DEPTH == 8)
+		return String::Format(CultureInfo::InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", R, G, B, A);
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+		return String::Format(CultureInfo::InvariantCulture, "#{0:X4}{1:X4}{2:X4}{3:X4}", R, G, B, A);
+#else
+#error Not implemented!
+#endif
 	}
 	//==============================================================================================
 }
