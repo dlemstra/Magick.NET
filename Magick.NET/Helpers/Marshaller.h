@@ -13,15 +13,25 @@
 //=================================================================================================
 #pragma once
 
+#include "..\Enums\StorageType.h"
+
 namespace ImageMagick
 {
 	//==============================================================================================
 	private ref class Marshaller abstract sealed
 	{
+	private:
+		//===========================================================================================
+		template <typename TStorageType>
+		static TStorageType* MarshalStorageType(array<Byte>^ bytes);
 		//===========================================================================================
 	public:
 		//===========================================================================================
-		static void Marshal(array<Byte>^ data, Magick::Blob* value);
+		static unsigned char* Marshal(array<Byte>^ bytes);
+		//===========================================================================================
+		static void Marshal(array<Byte>^ bytes, Magick::Blob* value);
+		//===========================================================================================
+		static void* Marshal(array<Byte>^ bytes, StorageType storageType);
 		//===========================================================================================
 		static double* Marshal(array<double>^ values);
 		//===========================================================================================

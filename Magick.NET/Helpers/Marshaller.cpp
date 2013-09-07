@@ -18,15 +18,59 @@ using namespace System::Runtime::InteropServices;
 namespace ImageMagick
 {
 	//==============================================================================================
-	void Marshaller::Marshal(array<Byte>^ data, Magick::Blob* value)
+	template <typename TStorageType>
+	TStorageType* Marshaller::MarshalStorageType(array<Byte>^ bytes)
 	{
-		if (data == nullptr || data->Length == 0)
+		int length = bytes->Length / sizeof(TStorageType);
+		TStorageType* unmanagedValue = new TStorageType[length];
+		Marshal::Copy(bytes, 0, IntPtr(unmanagedValue), bytes->Length);
+		return unmanagedValue;
+	}
+	//==============================================================================================
+	unsigned char* Marshaller::Marshal(array<Byte>^ bytes)
+	{
+		if (bytes == nullptr || bytes->Length == 0)
+			return NULL;
+
+		unsigned char* unmanagedValue = new unsigned char[bytes->Length];
+		Marshal::Copy(bytes, 0, IntPtr(unmanagedValue), bytes->Length);
+		return unmanagedValue;
+	}
+	//==============================================================================================
+	void Marshaller::Marshal(array<Byte>^ bytes, Magick::Blob* value)
+	{
+		if (bytes == nullptr || bytes->Length == 0)
 			return;
 
-		char* unmanagedValue = new char[data->Length];
-		Marshal::Copy(data, 0, IntPtr(unmanagedValue), data->Length);
-		value->update(unmanagedValue, data->Length);
+		char* unmanagedValue = new char[bytes->Length];
+		Marshal::Copy(bytes, 0, IntPtr(unmanagedValue), bytes->Length);
+		value->update(unmanagedValue, bytes->Length);
 		delete[] unmanagedValue;
+	}
+	//==============================================================================================
+	void* Marshaller::Marshal(array<Byte>^ values, StorageType storageType)
+	{
+		Throw::IfNullOrEmpty("values", values);
+
+		switch(storageType)
+		{
+		case StorageType::Char:
+			return Marshal(values);
+		case StorageType::Double:
+			return MarshalStorageType<double>(values);
+		case StorageType::Float:
+			return MarshalStorageType<float>(values);
+		case StorageType::Integer:
+			return MarshalStorageType<int>(values);
+		case StorageType::Long:
+			return MarshalStorageType<long>(values);
+		case StorageType::Quantum:
+			return  MarshalStorageType<Magick::Quantum>(values);
+		case StorageType::Short:
+			return MarshalStorageType<short>(values);
+		default:
+			throw gcnew NotImplementedException();
+		}
 	}
 	//==============================================================================================
 	double* Marshaller::Marshal(array<double>^ values)
@@ -35,11 +79,7 @@ namespace ImageMagick
 			return NULL;
 
 		double* unmanagedValue = new double[values->Length];
-		for(int i = 0; i < values->Length; i++)
-		{
-			unmanagedValue[i] = values[i];
-		}
-
+		Marshal::Copy(values, 0, IntPtr(unmanagedValue), values->Length);
 		return unmanagedValue;
 	}
 	//==============================================================================================
@@ -114,11 +154,7 @@ namespace ImageMagick
 		int length = zeroIndex == -1 ? values->Length + 1 : zeroIndex + 1;
 
 		double* unmanagedValue = new double[length];
-		for(int i = 0; i < length - 1; i++)
-		{
-			unmanagedValue[i] = values[i];
-		}
-
+		Marshal::Copy(values, 0, IntPtr(unmanagedValue), length - 1);
 		unmanagedValue[length - 1] = 0.0;
 
 		return unmanagedValue;

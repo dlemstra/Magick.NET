@@ -13,10 +13,10 @@
 //=================================================================================================
 #pragma once
 
-#include "Stdafx.h"
 #include "..\Enums\ColorSpace.h"
 #include "..\Enums\MagickFormat.h"
 #include "..\MagickGeometry.h"
+#include "PixelStorageSettings.h"
 
 namespace ImageMagick
 {
@@ -71,6 +71,11 @@ namespace ImageMagick
 		/// The number of images to read from a multi layer/frame image.
 		///</summary>
 		property Nullable<int> FrameCount;
+		///==========================================================================================
+		///<summary>
+		/// The settings for pixel storage.
+		///</summary>
+		property PixelStorageSettings^ PixelStorage;
 		///==========================================================================================
 		///<summary>
 		/// The height.

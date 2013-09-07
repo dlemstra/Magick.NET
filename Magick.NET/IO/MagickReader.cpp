@@ -18,175 +18,96 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickWarningException^ MagickReader::Read(Magick::Image* image, Magick::Blob* blob,
-		MagickReadSettings^ readSettings)
+	int MagickReader::GetExpectedLength(MagickReadSettings^ readSettings)
 	{
-		MagickWarningException^ result = nullptr;
-
-		if (readSettings != nullptr)
-			readSettings->Apply(image);
-
-		try
+		int length = readSettings->Width.Value * readSettings->Width.Value * readSettings->PixelStorage->Mapping->Length;
+		switch (readSettings->PixelStorage->StorageType)
 		{
-			if (readSettings != nullptr && readSettings->Ping)
-				image->ping(*blob);
-			else
-				image->read(*blob);
+		case StorageType::Char:
+			return length;
+		case StorageType::Double:
+			return length * sizeof(double);
+		case  StorageType::Float:
+			return length * sizeof(float);
+		case StorageType::Integer:
+			return length * sizeof(int);
+		case StorageType::Long:
+			return length * sizeof(long);
+		case StorageType::Quantum:
+			return length * sizeof(Magick::Quantum);
+		case StorageType::Short:
+			return length * sizeof(short);
 		}
-		catch (Magick::Warning& exception)
-		{
-			result = MagickWarningException::Create(exception);
-		}
-		catch (Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-
-		return result;
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, Magick::Blob* blob,
-		MagickReadSettings^ readSettings)
+	void MagickReader::ReadPixels(Magick::Image* image, MagickReadSettings^ readSettings,
+		array<Byte>^ pixels)
 	{
-		MagickWarningException^ result = nullptr;
+		Throw::IfTrue("readSettings", readSettings->PixelStorage->StorageType == StorageType::Undefined, "Storage type should not be undefined.");
+		Throw::IfNull("readSettings", readSettings->Width, "Width should be defined when pixel storage is set.");
+		Throw::IfNull("readSettings", readSettings->Height, "Height should be defined when pixel storage is set.");
+		Throw::IfNullOrEmpty("readSettings", readSettings->PixelStorage->Mapping, "Pixel storage mapping should be defined.");
 
+		int length = GetExpectedLength(readSettings);
+		Throw::IfTrue("pixels", pixels->Length != length, "The array length is " + pixels->Length + " but should be " + length + ".");
+
+		void* convertedPixels = NULL;
 		try
 		{
-			MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(0);
+			convertedPixels = Marshaller::Marshal(pixels, readSettings->PixelStorage->StorageType);
 
-			if (readSettings != nullptr)
-				readSettings->Apply(imageInfo);
+			std::string map;
+			Marshaller::Marshal(readSettings->PixelStorage->Mapping, map);
 
-			MagickCore::ExceptionInfo exceptionInfo;
-			MagickCore::GetExceptionInfo(&exceptionInfo);
-			MagickCore::Image *images = MagickCore::BlobToImage(imageInfo, blob->data(), blob->length(), &exceptionInfo);
-			MagickCore::DestroyImageInfo(imageInfo);
-			Magick::insertImages(imageList, images);
-			Magick::throwException(exceptionInfo);
-			MagickCore::DestroyExceptionInfo(&exceptionInfo);
+			Magick::Geometry size = Magick::Geometry();
+			image->read(readSettings->Width.Value, readSettings->Height.Value, map,
+				(MagickCore::StorageType)readSettings->PixelStorage->StorageType, convertedPixels);
 		}
-		catch (Magick::Warning& exception)
+		finally
 		{
-			result = MagickWarningException::Create(exception);
+			delete[] convertedPixels;
 		}
-		catch (Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-
-		return result;
 	}
-	//===========================================================================================
-	void MagickReader::Read(Magick::Blob* blob, Stream^ stream)
+	//==============================================================================================
+	array<Byte>^ MagickReader::ReadUnChecked(String^ filePath)
 	{
-		Marshaller::Marshal(Read(stream), blob);
-	}
-	//===========================================================================================
-	void MagickReader::Read(Magick::Blob* blob, String^ fileName)
-	{
-		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
-		Throw::IfInvalidFileName(filePath);
-
 		FileStream^ stream = File::OpenRead(filePath);
-		Read(blob, stream);
+		array<Byte>^ result = Read(stream);
 		delete stream;
-	}
-	//==============================================================================================
-	MagickWarningException^ MagickReader::Read(Magick::Image* image, array<Byte>^ data,
-		MagickReadSettings^ readSettings)
-	{
-		Throw::IfNullOrEmpty("data", data);
-
-		Magick::Blob blob;
-		Marshaller::Marshal(data, &blob);
-		return Read(image, &blob, readSettings);
-	}
-	//==============================================================================================
-	MagickWarningException^ MagickReader::Read(Magick::Image* image, Stream^ stream,
-		MagickReadSettings^ readSettings)
-	{
-		Magick::Blob blob;
-		Read(&blob, stream);
-		return Read(image, &blob, readSettings);
-	}
-	//==============================================================================================
-	MagickWarningException^ MagickReader::Read(Magick::Image* image, String^ fileName,
-		MagickReadSettings^ readSettings)
-	{
-		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
-		Throw::IfInvalidFileName(filePath);
-
-		MagickWarningException^ result = nullptr;
-
-		if (readSettings != nullptr)
-			readSettings->Apply(image);
-
-		try
-		{
-			std::string imageSpec;
-			Marshaller::Marshal(filePath, imageSpec);
-
-			if (readSettings != nullptr && readSettings->Ping)
-				image->ping(imageSpec);
-			else
-				image->read(imageSpec);
-		}
-		catch (Magick::Warning& exception)
-		{
-			result = MagickWarningException::Create(exception);
-		}
-		catch (Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
 
 		return result;
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, array<Byte>^ data,
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, array<Byte>^ bytes,
 		MagickReadSettings^ readSettings)
 	{
-		Throw::IfNull("data", data);
-		Throw::IfTrue("data", data->Length == 0, "Empty byte array is not permitted.");
+		Throw::IfNullOrEmpty("bytes", bytes);
 
 		Magick::Blob blob;
-		Marshaller::Marshal(data, &blob);
-		return Read(imageList, &blob, readSettings);
-	}
-	//==============================================================================================
-	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, Stream^ stream,
-		MagickReadSettings^ readSettings)
-	{
-		Magick::Blob blob;
-		Read(&blob, stream);
-		return Read(imageList, &blob, readSettings);
-	}	
-	//==============================================================================================
-	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, String^ fileName,
-		MagickReadSettings^ readSettings)
-	{
-		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
-		Throw::IfInvalidFileName(filePath);
 
 		try
 		{
-			std::string imageSpec;
-			Marshaller::Marshal(filePath, imageSpec);
-
-			MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(0);
-
 			if (readSettings != nullptr)
-				readSettings->Apply(imageInfo);
+			{
+				if (readSettings->Ping)
+				{
+					Marshaller::Marshal(bytes, &blob);
+					image->ping(blob);
+					return nullptr;
+				}
+				else if (readSettings->PixelStorage != nullptr)
+				{
+					ReadPixels(image, readSettings, bytes);
+					return nullptr;
+				}
 
-			MagickCore::CopyMagickString(imageInfo->filename, imageSpec.c_str(), MaxTextExtent - 1);
+				readSettings->Apply(image);
+			}
 
-			MagickCore::ExceptionInfo exceptionInfo;
-			MagickCore::GetExceptionInfo(&exceptionInfo);
-			MagickCore::Image* images = MagickCore::ReadImage(imageInfo, &exceptionInfo);
-			MagickCore::DestroyImageInfo(imageInfo);
-			Magick::insertImages(imageList, images);
-			Magick::throwException(exceptionInfo);
-			MagickCore::DestroyExceptionInfo(&exceptionInfo);
+			Marshaller::Marshal(bytes, &blob);
+			image->read(blob);
+
+			return nullptr;
 		}
 		catch (Magick::Warning& exception)
 		{
@@ -196,8 +117,167 @@ namespace ImageMagick
 		{
 			throw MagickException::Create(exception);
 		}
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, Stream^ stream,
+		MagickReadSettings^ readSettings)
+	{
+		return Read(image, Read(stream), readSettings);
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickReader::Read(Magick::Image* image, String^ fileName,
+		MagickReadSettings^ readSettings)
+	{
+		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
+		Throw::IfInvalidFileName(filePath);
 
-		return nullptr;
+		unsigned char *pixels = NULL;
+
+		try
+		{
+			std::string imageSpec;
+			Marshaller::Marshal(filePath, imageSpec);
+
+			if (readSettings != nullptr)
+			{
+				if (readSettings->Ping)
+				{
+					image->ping(imageSpec);
+					return nullptr;
+				}
+				else if (readSettings->PixelStorage != nullptr)
+				{
+					array<Byte>^ bytes = ReadUnChecked(filePath);
+					ReadPixels(image, readSettings, bytes);
+					return nullptr;
+				}
+
+				readSettings->Apply(image);
+			}
+
+			image->read(imageSpec);
+
+			return nullptr;
+		}
+		catch (Magick::Warning& exception)
+		{
+			return MagickWarningException::Create(exception);
+		}
+		catch (Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			if (pixels != NULL)
+				delete[] pixels;
+		}
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, array<Byte>^ bytes,
+		MagickReadSettings^ readSettings)
+	{
+		Throw::IfNullOrEmpty("bytes", bytes);
+
+		MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(NULL);
+		unsigned char* data;
+
+		try
+		{
+			if (readSettings != nullptr)
+			{
+				Throw::IfFalse("readSettings", readSettings->PixelStorage == nullptr,
+					"PixelStorage is not supported for images with multiple frames/layers.");
+
+				if (!readSettings->Ping)
+					readSettings->Apply(imageInfo);
+			}
+
+			MagickCore::ExceptionInfo exceptionInfo;
+			MagickCore::GetExceptionInfo(&exceptionInfo);
+			data = Marshaller::Marshal(bytes);
+			MagickCore::Image *images;
+
+			if (readSettings != nullptr && readSettings->Ping)
+				images = MagickCore::PingBlob(imageInfo, data, bytes->Length, &exceptionInfo);
+			else
+				images = MagickCore::BlobToImage(imageInfo, data, bytes->Length, &exceptionInfo);
+
+			Magick::insertImages(imageList, images);
+			Magick::throwException(exceptionInfo);
+			MagickCore::DestroyExceptionInfo(&exceptionInfo);
+
+			return nullptr;
+		}
+		catch (Magick::Warning& exception)
+		{
+			return MagickWarningException::Create(exception);
+		}
+		catch (Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			MagickCore::DestroyImageInfo(imageInfo);
+		}
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, Stream^ stream,
+		MagickReadSettings^ readSettings)
+	{
+		return Read(imageList, Read(stream), readSettings);
+	}	
+	//==============================================================================================
+	MagickWarningException^ MagickReader::Read(std::list<Magick::Image>* imageList, String^ fileName,
+		MagickReadSettings^ readSettings)
+	{
+		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
+		Throw::IfInvalidFileName(filePath);
+
+		MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(NULL);
+
+		try
+		{
+			if (readSettings != nullptr)
+			{
+				Throw::IfFalse("readSettings", readSettings->PixelStorage == nullptr,
+					"PixelStorage is not supported for images with multiple frames/layers.");
+
+				if (!readSettings->Ping)
+					readSettings->Apply(imageInfo);
+			}
+
+			std::string imageSpec;
+			Marshaller::Marshal(filePath, imageSpec);
+
+			MagickCore::CopyMagickString(imageInfo->filename, imageSpec.c_str(), MaxTextExtent - 1);
+
+			MagickCore::ExceptionInfo exceptionInfo;
+			MagickCore::GetExceptionInfo(&exceptionInfo);
+			MagickCore::Image* images;
+			if (readSettings != nullptr && readSettings->Ping)
+				images = MagickCore::PingImage(imageInfo, &exceptionInfo);
+			else
+				images = MagickCore::ReadImage(imageInfo, &exceptionInfo);
+			Magick::insertImages(imageList, images);
+			Magick::throwException(exceptionInfo);
+			MagickCore::DestroyExceptionInfo(&exceptionInfo);
+
+			return nullptr;
+		}
+		catch (Magick::Warning& exception)
+		{
+			return MagickWarningException::Create(exception);
+		}
+		catch (Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			MagickCore::DestroyImageInfo(imageInfo);
+		}
 	}
 	//==============================================================================================
 	array<Byte>^ MagickReader::Read(Stream^ stream)
@@ -238,11 +318,7 @@ namespace ImageMagick
 		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
 		Throw::IfInvalidFileName(filePath);
 
-		FileStream^ stream = File::OpenRead(filePath);
-		array<Byte>^ result = Read(stream);
-		delete stream;
-
-		return result;
+		return ReadUnChecked(fileName);
 	}
 	//==============================================================================================
 }

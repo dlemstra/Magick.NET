@@ -33,7 +33,8 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickReadSettings::Apply(Magick::Image* image)
 	{
-		Throw::IfFalse("settings", (!FrameCount.HasValue || FrameCount.Value == 1) , "The FrameCount can only be set to 1 when a MagickImage is being read.");
+		Throw::IfFalse("settings", (!FrameCount.HasValue || FrameCount.Value == 1) ,
+			"The FrameCount can only be set to 1 when a MagickImage is being read.");
 
 		Apply(image->imageInfo());
 	}

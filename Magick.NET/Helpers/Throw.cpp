@@ -54,6 +54,12 @@ namespace ImageMagick
 			throw gcnew ArgumentNullException(paramName);
 	}
 	//==============================================================================================
+	void Throw::IfNull(String^ paramName, Object^ value, String^ message)
+	{
+		if (value == nullptr)
+			throw gcnew ArgumentNullException(paramName, message);
+	}
+	//==============================================================================================
 	void Throw::IfNullOrEmpty(String^ paramName, Array^ value)
 	{
 		Throw::IfNull(paramName, value);
@@ -68,6 +74,14 @@ namespace ImageMagick
 
 		if (value->Length == 0)
 			throw gcnew ArgumentException("Value cannot be empty", paramName);
+	}
+	//==============================================================================================
+	void Throw::IfNullOrEmpty(String^ paramName, String^ value, String^ message)
+	{
+		Throw::IfNull(paramName, value, message);
+
+		if (value->Length == 0)
+			throw gcnew ArgumentException(message, paramName);
 	}
 	//==============================================================================================
 	void Throw::IfOutOfRange(String^ paramName, int index, int length)

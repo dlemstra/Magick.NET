@@ -214,38 +214,6 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_ReadSettings()
-		{
-			using (MagickImageCollection collection = new MagickImageCollection())
-			{
-				MagickReadSettings settings = new MagickReadSettings();
-				settings.Density = new MagickGeometry(150, 150);
-
-				collection.Read(Files.RoseSparkleGIF, settings);
-
-				Assert.AreEqual(150, collection[0].Density.Width);
-
-				settings = new MagickReadSettings();
-				settings.FrameIndex = 1;
-
-				collection.Read(Files.RoseSparkleGIF, settings);
-
-				Assert.AreEqual(1, collection.Count);
-
-				settings = new MagickReadSettings();
-				settings.FrameIndex = 1;
-				settings.FrameCount = 2;
-
-				collection.Read(Files.RoseSparkleGIF, settings);
-
-				Assert.AreEqual(2, collection.Count);
-
-				settings = null;
-				collection.Read(Files.RoseSparkleGIF, settings);
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
 		public void Test_Remove()
 		{
 			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))

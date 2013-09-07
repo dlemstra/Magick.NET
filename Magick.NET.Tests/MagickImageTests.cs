@@ -271,68 +271,6 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_ReadSettings()
-		{
-			using (MagickImage image = new MagickImage())
-			{
-				MagickReadSettings settings = new MagickReadSettings();
-				settings.Density = new MagickGeometry(150, 150);
-
-				image.Read(Files.SnakewarePNG, settings);
-
-				Assert.AreEqual(150, image.Density.Width);
-
-				settings = null;
-				image.Read(Files.ImageMagickJPG, settings);
-			}
-
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				MagickReadSettings settings = new MagickReadSettings();
-				settings.FrameCount = 2;
-				new MagickImage(Files.RoseSparkleGIF, settings);
-			});
-
-			using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
-			{
-				MagickImage imageA = new MagickImage();
-				MagickImage imageB = new MagickImage();
-
-				MagickReadSettings settings = new MagickReadSettings();
-
-				imageA.Read(Files.RoseSparkleGIF, settings);
-				Assert.AreEqual(image, imageA);
-
-				settings = new MagickReadSettings();
-				settings.FrameIndex = 1;
-
-				imageA.Read(Files.RoseSparkleGIF, settings);
-				Assert.AreNotEqual(image, imageA);
-
-				imageB.Read(Files.RoseSparkleGIF + "[1]");
-				Assert.AreEqual(imageA, imageB);
-
-				settings = new MagickReadSettings();
-				settings.FrameIndex = 2;
-
-				imageA.Read(Files.RoseSparkleGIF, settings);
-				Assert.AreNotEqual(image, imageA);
-
-				imageB.Read(Files.RoseSparkleGIF + "[2]");
-				Assert.AreEqual(imageA, imageB);
-
-				settings = new MagickReadSettings();
-				settings.FrameIndex = 3;
-
-				imageA.Read(Files.RoseSparkleGIF, settings);
-				Assert.AreEqual(image, imageA);
-
-				imageA.Dispose();
-				imageB.Dispose();
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
 		public void Test_Resize()
 		{
 			using (MagickImage image = new MagickImage())

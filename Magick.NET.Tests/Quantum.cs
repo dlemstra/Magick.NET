@@ -12,46 +12,31 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.Drawing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Magick.NET.Tests
 {
 	//==============================================================================================
-	public static class ColorAssert
+	public static class Quantum
 	{
-		//===========================================================================================
-		public static void AreEqual(Color expected, Color actual)
-		{
-			Assert.AreEqual(expected.R, actual.R);
-			Assert.AreEqual(expected.G, actual.G);
-			Assert.AreEqual(expected.B, actual.B);
-			Assert.AreEqual(expected.A, actual.A);
-		}
+
 		//===========================================================================================
 #if Q8
 		//===========================================================================================
-		public static void IsTransparent(byte alpha)
+		public static byte Max
 		{
-			Assert.AreEqual(Quantum.Max, alpha);
-		}
-		//===========================================================================================
-		public static void IsNotTransparent(byte alpha)
-		{
-			Assert.AreEqual(0, alpha);
+			get
+			{
+				return byte.MaxValue;
+			}
 		}
 		//===========================================================================================
 #elif Q16
 		//===========================================================================================
-		public static void IsTransparent(ushort alpha)
+		public static ushort Max
 		{
-			Assert.AreEqual(Quantum.Max, alpha);
-		}
-		//===========================================================================================
-		public static void IsNotTransparent(ushort alpha)
-		{
-			Assert.AreEqual(0, alpha);
+			get
+			{
+				return ushort.MaxValue;
+			}
 		}
 		//===========================================================================================
 #else
