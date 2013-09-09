@@ -37,6 +37,8 @@ namespace ImageMagick
 			return length * sizeof(Magick::Quantum);
 		case StorageType::Short:
 			return length * sizeof(short);
+		default:
+			throw gcnew NotImplementedException();
 		}
 	}
 	//==============================================================================================

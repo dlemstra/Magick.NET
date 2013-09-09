@@ -14,6 +14,8 @@
 #include "Stdafx.h"
 #include "MagickImageInfo.h"
 
+using namespace System::Collections::ObjectModel;
+
 namespace ImageMagick
 {
 	//==============================================================================================
@@ -22,6 +24,20 @@ namespace ImageMagick
 		MagickReadSettings^ settings = gcnew MagickReadSettings();
 		settings->Ping = true;
 		return settings;
+	}
+	//==============================================================================================
+	IEnumerable<MagickImageInfo^>^ MagickImageInfo::Enumerate(std::list<Magick::Image>* images)
+	{
+		Collection<MagickImageInfo^>^ result = gcnew Collection<MagickImageInfo^>();
+
+		for (std::list<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
+		{
+			MagickImageInfo^ info = gcnew MagickImageInfo();
+			info->Initialize(&*iter);
+			result->Add(info);
+		}
+
+		return result;
 	}
 	//==============================================================================================
 	void MagickImageInfo::Initialize(Magick::Image* image)
@@ -165,19 +181,23 @@ namespace ImageMagick
 			return true;
 
 		return
-			this->Width == other->Width &&
-			this->Height == other->Height &&
-			this->ColorSpace == other->ColorSpace &&
-			this->Format == other->Format;
+			this->_ColorSpace == other->_ColorSpace &&
+			this->_Format == other->_Format &&
+			this->_Height  == other->_Height &&
+			this->_ResolutionX  == other->_ResolutionX &&
+			this->_ResolutionY  == other->_ResolutionY &&
+			this->_Width == other->_Width;
 	}
 	//==============================================================================================
 	int MagickImageInfo::GetHashCode()
 	{
 		return
-			this->Width.GetHashCode() ^
-			this->Height.GetHashCode() ^
-			this->ColorSpace.GetHashCode() ^
-			this->Format.GetHashCode();
+			this->_ColorSpace.GetHashCode() ^
+			this->_Format.GetHashCode() ^
+			this->_Height.GetHashCode() ^
+			this->_ResolutionX.GetHashCode() ^
+			this->_ResolutionY.GetHashCode() ^
+			this->_Width.GetHashCode();
 	}
 	//==============================================================================================
 	void MagickImageInfo::Read(array<Byte>^ data)
@@ -202,6 +222,48 @@ namespace ImageMagick
 		MagickReader::Read(image, stream, CreateReadSettings());
 		Initialize(image);
 		delete image;
+	}
+	//==============================================================================================
+	IEnumerable<MagickImageInfo^>^ MagickImageInfo::ReadCollection(array<Byte>^ data)
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		try
+		{
+			MagickReader::Read(images, data, CreateReadSettings());
+			return Enumerate(images);
+		}
+		finally
+		{
+			delete images;
+		}
+	}
+	//==============================================================================================
+	IEnumerable<MagickImageInfo^>^ MagickImageInfo::ReadCollection(String^ fileName)
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		try
+		{
+			MagickReader::Read(images, fileName, CreateReadSettings());
+			return Enumerate(images);
+		}
+		finally
+		{
+			delete images;
+		}
+	}
+	//==============================================================================================
+	IEnumerable<MagickImageInfo^>^ MagickImageInfo::ReadCollection(Stream^ stream)
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		try
+		{
+			MagickReader::Read(images, stream, CreateReadSettings());
+			return Enumerate(images);
+		}
+		finally
+		{
+			delete images;
+		}
 	}
 	//==============================================================================================
 }

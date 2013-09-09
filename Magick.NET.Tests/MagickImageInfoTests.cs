@@ -13,8 +13,10 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -69,6 +71,21 @@ namespace Magick.NET.Tests
 			{
 				new MagickImageInfo(Files.Missing);
 			});
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Count()
+		{
+			IEnumerable<MagickImageInfo> info = MagickImageInfo.ReadCollection(Files.RoseSparkleGIF);
+			Assert.AreEqual(3, info.Count());
+
+			MagickImageInfo first = info.First();
+			Assert.AreEqual(ColorSpace.sRGB, first.ColorSpace);
+			Assert.AreEqual(MagickFormat.Gif, first.Format);
+			Assert.AreEqual(70, first.Width);
+			Assert.AreEqual(46, first.Height);
+			Assert.AreEqual(0, first.ResolutionX);
+			Assert.AreEqual(0, first.ResolutionY);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

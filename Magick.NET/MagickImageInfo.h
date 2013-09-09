@@ -41,6 +41,8 @@ namespace ImageMagick
 		//===========================================================================================
 		static MagickReadSettings^ CreateReadSettings();
 		//===========================================================================================
+		static IEnumerable<MagickImageInfo^>^ Enumerate(std::list<Magick::Image>* images);
+		//===========================================================================================
 		void Initialize(Magick::Image* image);
 		//===========================================================================================
 	public:
@@ -165,7 +167,7 @@ namespace ImageMagick
 		///<summary>
 		/// Read basic information about an image.
 		///</summary>
-		///<param name="data">The blob to read the information from.</param>
+		///<param name="data">The byte array to read the information from.</param>
 		///<exception cref="MagickException"/>
 		void Read(array<Byte>^ data);
 		///==========================================================================================
@@ -182,6 +184,27 @@ namespace ImageMagick
 		///<param name="stream">The stream to read the image data from.</param>
 		///<exception cref="MagickException"/>
 		void Read(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Read basic information about an image with multiple frames/pages.
+		///</summary>
+		///<param name="data">The byte array to read the information from.</param>
+		///<exception cref="MagickException"/>
+		static IEnumerable<MagickImageInfo^>^ ReadCollection(array<Byte>^ data);
+		///==========================================================================================
+		///<summary>
+		/// Read basic information about an image with multiple frames/pages.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<exception cref="MagickException"/>
+		static IEnumerable<MagickImageInfo^>^ ReadCollection(String^ fileName);
+		///==========================================================================================
+		///<summary>
+		/// Read basic information about an image with multiple frames/pages.
+		///</summary>
+		///<param name="stream">The stream to read the image data from.</param>
+		///<exception cref="MagickException"/>
+		static IEnumerable<MagickImageInfo^>^ ReadCollection(Stream^ stream);
 		//===========================================================================================
 	};
 	//==============================================================================================
