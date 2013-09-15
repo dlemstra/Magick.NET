@@ -24,34 +24,39 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		public static void AreEqual(Color expected, Color actual)
 		{
-			Assert.AreEqual(expected.R, actual.R);
-			Assert.AreEqual(expected.G, actual.G);
-			Assert.AreEqual(expected.B, actual.B);
-			Assert.AreEqual(expected.A, actual.A);
+			Assert.AreEqual(expected.R, actual.R, "R is not equal");
+			Assert.AreEqual(expected.G, actual.G, "G is not equal");
+			Assert.AreEqual(expected.B, actual.B, "B is not equal");
+			Assert.AreEqual(expected.A, actual.A, "A is not equal");
+		}
+		//===========================================================================================
+		public static void IsNotTransparent(Color color)
+		{
+			Assert.AreEqual(255, color.A);
 		}
 		//===========================================================================================
 #if Q8
 		//===========================================================================================
 		public static void IsTransparent(byte alpha)
 		{
-			Assert.AreEqual(Quantum.Max, alpha);
+			Assert.AreEqual(0, alpha);
 		}
 		//===========================================================================================
 		public static void IsNotTransparent(byte alpha)
 		{
-			Assert.AreEqual(0, alpha);
+			Assert.AreEqual(Quantum.Max, alpha);
 		}
 		//===========================================================================================
 #elif Q16
 		//===========================================================================================
 		public static void IsTransparent(ushort alpha)
 		{
-			Assert.AreEqual(Quantum.Max, alpha);
+			Assert.AreEqual(0, alpha);
 		}
 		//===========================================================================================
 		public static void IsNotTransparent(ushort alpha)
 		{
-			Assert.AreEqual(0, alpha);
+			Assert.AreEqual(Quantum.Max, alpha);
 		}
 		//===========================================================================================
 #else

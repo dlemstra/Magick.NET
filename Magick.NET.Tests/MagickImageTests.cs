@@ -40,37 +40,40 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private static void Test_ToBitmap(MagickImage image, ImageFormat format)
 		{
-			Bitmap bmp = image.ToBitmap(format);
-			Assert.AreEqual(format, bmp.RawFormat);
-			bmp.Dispose();
+			using (Bitmap bmp = image.ToBitmap(format))
+			{
+				Assert.AreEqual(format, bmp.RawFormat);
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Artifact()
 		{
-			MagickImage image = new MagickImage(Files.SnakewarePNG);
+			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+			{
+				Assert.IsNull(image.GetArtifact("test"));
 
-			Assert.IsNull(image.GetArtifact("test"));
+				image.SetArtifact("test", "");
+				Assert.AreEqual(null, image.GetArtifact("test"));
 
-			image.SetArtifact("test", "");
-			Assert.AreEqual(null, image.GetArtifact("test"));
-
-			image.SetArtifact("test", "123");
-			Assert.AreEqual("123", image.GetArtifact("test"));
+				image.SetArtifact("test", "123");
+				Assert.AreEqual("123", image.GetArtifact("test"));
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Attribute()
 		{
-			MagickImage image = new MagickImage(Files.SnakewarePNG);
+			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+			{
+				Assert.IsNull(image.GetAttribute("test"));
 
-			Assert.IsNull(image.GetAttribute("test"));
+				image.SetAttribute("test", "");
+				Assert.AreEqual(null, image.GetAttribute("test"));
 
-			image.SetAttribute("test", "");
-			Assert.AreEqual(null, image.GetAttribute("test"));
-
-			image.SetAttribute("test", "123");
-			Assert.AreEqual("123", image.GetAttribute("test"));
+				image.SetAttribute("test", "123");
+				Assert.AreEqual("123", image.GetAttribute("test"));
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -355,24 +358,25 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_ToBitmap()
 		{
-			MagickImage image = new MagickImage(Color.Red, 10, 10);
-
-			ExceptionAssert.Throws<NotSupportedException>(delegate()
+			using (MagickImage image = new MagickImage(Color.Red, 10, 10))
 			{
-				image.ToBitmap(ImageFormat.Exif);
-			});
+				ExceptionAssert.Throws<NotSupportedException>(delegate()
+				{
+					image.ToBitmap(ImageFormat.Exif);
+				});
 
-			Bitmap bmp = image.ToBitmap();
-			bmp.Dispose();
+				Bitmap bmp = image.ToBitmap();
+				Assert.AreEqual(ImageFormat.Png, bmp.RawFormat);
+				ColorAssert.AreEqual(Color.Red, bmp.GetPixel(0, 0));
+				bmp.Dispose();
 
-			Test_ToBitmap(image, ImageFormat.Bmp);
-			Test_ToBitmap(image, ImageFormat.Gif);
-			Test_ToBitmap(image, ImageFormat.Icon);
-			Test_ToBitmap(image, ImageFormat.Jpeg);
-			Test_ToBitmap(image, ImageFormat.Png);
-			Test_ToBitmap(image, ImageFormat.Tiff);
-
-			image.Dispose();
+				Test_ToBitmap(image, ImageFormat.Bmp);
+				Test_ToBitmap(image, ImageFormat.Gif);
+				Test_ToBitmap(image, ImageFormat.Icon);
+				Test_ToBitmap(image, ImageFormat.Jpeg);
+				Test_ToBitmap(image, ImageFormat.Png);
+				Test_ToBitmap(image, ImageFormat.Tiff);
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

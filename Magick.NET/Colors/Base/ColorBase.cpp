@@ -20,7 +20,7 @@ namespace ImageMagick
 	ColorBase::ColorBase(bool hasAlpha)
 	{
 		_Value = gcnew MagickColor();
-		_Value->A = hasAlpha ? MaxMap : 0;
+		_Value->A = MaxMap;
 
 		_HasAlpha = hasAlpha;
 	}
@@ -32,7 +32,7 @@ namespace ImageMagick
 		_Value = gcnew MagickColor(color);
 
 		if (!hasAlpha)
-			_Value->A = 0;
+			_Value->A = MaxMap;
 
 		_HasAlpha = hasAlpha;
 	}
@@ -138,7 +138,7 @@ namespace ImageMagick
 		MagickColor^ magickColor = gcnew MagickColor(_Value);
 
 		if (!_HasAlpha)
-			magickColor->A = 0;
+			magickColor->A = MaxMap;
 
 		return magickColor;
 	}

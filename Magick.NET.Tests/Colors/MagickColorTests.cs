@@ -72,9 +72,9 @@ namespace Magick.NET.Tests
 			});
 
 			TestHexColor("#F00", Quantum.Max, 0, 0, false);
-			TestHexColor("#0F0F", 0, Quantum.Max, 0, true);
+			TestHexColor("#0F00", 0, Quantum.Max, 0, true);
 			TestHexColor("#0000FF", 0, 0, Quantum.Max, false);
-			TestHexColor("#FF00FFFF", Quantum.Max, 0, Quantum.Max, true);
+			TestHexColor("#FF00FF00", Quantum.Max, 0, Quantum.Max, true);
 
 #if Q8
 			ExceptionAssert.Throws<ArgumentException>(delegate()
@@ -83,7 +83,7 @@ namespace Magick.NET.Tests
 			});
 #elif Q16
 			TestHexColor("#0000FFFF0000", 0, Quantum.Max, 0, false);
-			TestHexColor("#FFFF00000000FFFF", Quantum.Max, 0, 0, true);
+			TestHexColor("#FFFF000000000000", Quantum.Max, 0, 0, true);
 #else
 #error Not implemented!
 #endif
@@ -145,21 +145,21 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_ToColor()
+		{
+			MagickColor color = new MagickColor(Color.Red);
+			Assert.AreEqual(Quantum.Max, color.A);
+
+			ColorAssert.AreEqual(Color.Red, color);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Transparent()
 		{
 			MagickColor transparent = MagickColor.Transparent;
 
 			ColorAssert.IsTransparent(transparent.A);
 			ColorAssert.AreEqual(Color.Transparent, transparent);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_ToColor()
-		{
-			MagickColor color = new MagickColor(Color.Red);
-			Assert.AreEqual(0, color.A);
-
-			ColorAssert.AreEqual(Color.Red, color);
 		}
 		//===========================================================================================
 	}

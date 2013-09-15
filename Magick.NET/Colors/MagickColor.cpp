@@ -54,7 +54,7 @@ namespace ImageMagick
 		unsigned char red;
 		unsigned char green;
 		unsigned char blue;
-		unsigned char alpha = 0;
+		unsigned char alpha = 255;
 
 		if (color->Length == 4 || color->Length == 5)
 		{
@@ -104,6 +104,8 @@ namespace ImageMagick
 
 			if (color->Length == 17)
 				A = (ParseHexChar(color[13]) * 4096) + (ParseHexChar(color[14]) * 256) + (ParseHexChar(color[15]) * 16) + ParseHexChar(color[16]);
+			else
+				A = MaxMap;
 		}
 		else
 		{
@@ -131,17 +133,17 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickColor::Initialize(Color color)
 	{
-		Initialize(color.R, color.G, color.B, 255 - color.A);
+		Initialize(color.R, color.G, color.B, color.A);
 	}
 	//==============================================================================================
 	const Magick::Color* MagickColor::CreateColor()
 	{
-		return new Magick::Color(R, G, B, A);
+		return new Magick::Color(R, G, B, MaxMap - A);
 	}
 	//==============================================================================================
 	MagickColor::MagickColor()
 	{
-		A = 0;
+		A = MaxMap;
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(Color color)
@@ -154,7 +156,7 @@ namespace ImageMagick
 		R = red;
 		G = green;
 		B = blue;
-		A = 0;
+		A = MaxMap;
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue,
@@ -182,7 +184,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickColor^ MagickColor::Transparent::get()
 	{
-		return gcnew MagickColor(MaxMap, MaxMap, MaxMap, MaxMap);
+		return gcnew MagickColor(MaxMap, MaxMap, MaxMap, 0);
 	}
 	//==============================================================================================
 	bool MagickColor::operator == (MagickColor^ left, MagickColor^ right)
@@ -307,14 +309,14 @@ namespace ImageMagick
 	Color MagickColor::ToColor()
 	{
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
-		int alpha = MaxMap - A;
+		int alpha = A;
 		int red = R;
 		int green = G;
 		int blue = B;
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		int alpha = (MaxMap - A) >> 8;
+		int alpha = A >> 8;
 		int red = R >> 8;
-		int green = G>> 8;
+		int green = G >> 8;
 		int blue = B >> 8;
 #else
 #error Not implemented!

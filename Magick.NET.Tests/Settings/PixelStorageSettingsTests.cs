@@ -122,7 +122,7 @@ namespace Magick.NET.Tests
 					Assert.AreEqual(0, pixel.GetChannel(0));
 					Assert.AreEqual(0, pixel.GetChannel(1));
 					Assert.AreEqual(0, pixel.GetChannel(2));
-					Assert.AreEqual(0, pixel.GetChannel(3));
+					Assert.AreEqual(Quantum.Max, pixel.GetChannel(3));
 				}
 			}
 		}

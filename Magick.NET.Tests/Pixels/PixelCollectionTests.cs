@@ -20,49 +20,36 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public class ColorRGBTests : ColorBaseTests<ColorRGB>
+	public sealed class PixelCollectionTests
 	{
 		//===========================================================================================
-		private const string _Category = "ColorRGB";
+		private const string _Category = "PixelCollection";
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_IComparable()
+		public void Test_Dimensions()
 		{
-			ColorRGB first = new ColorRGB(Color.Red);
-
-			Test_IComparable(first);
-
-			ColorRGB second = new ColorRGB(Color.White);
-
-			Test_IComparable_FirstLower(first, second);
-
-			second = new ColorRGB(Color.Green);
-
-			Test_IComparable_FirstLower(second, first);
-
-			second = new ColorRGB(Color.Blue);
-
-			Test_IComparable_FirstLower(second, first);
-
-			second = new ColorRGB(Color.Red);
-
-			Test_IComparable_Equal(first, second);
+			using (MagickImage image = new MagickImage(Color.Red, 5, 10))
+			{
+				PixelCollection pixels = image.GetReadOnlyPixels();
+				Assert.AreEqual(5, pixels.Width);
+				Assert.AreEqual(10, pixels.Height);
+				Assert.AreEqual(5 * 10 * 4, pixels.GetValues().Length);
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
+		public void Test_GetValue()
 		{
-			ColorRGB first = new ColorRGB(Color.Red);
+			using (MagickImage image = new MagickImage(Color.Red, 5, 10))
+			{
+				PixelCollection pixels = image.GetReadOnlyPixels();
 
-			Test_IEquatable_NullAndSelf(first);
+				var values = pixels.GetValue(0, 0);
+				Assert.AreEqual(4, values.Length);
 
-			ColorRGB second = new ColorRGB(Quantum.Max, 0, 0);
-
-			Test_IEquatable_Equal(first, second);
-
-			second = new ColorRGB(Color.Green);
-
-			Test_IEquatable_NotEqual(first, second);
+				MagickColor color = new MagickColor(values[0], values[1], values[2], values[3]);
+				ColorAssert.AreEqual(Color.Red, color);
+			}
 		}
 		//===========================================================================================
 	}

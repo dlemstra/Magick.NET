@@ -1,5 +1,9 @@
 Breaking changes.
 
+Magick.NET 6.8.6.1001:
+  - ToBitmap method of MagickImage returns a png instead of a bmp.
+  - Changed the value for full transparency from 255(Q8)/65535(Q16) to 0.
+
 Magick.NET 6.8.6.801:
   - Renamed Attribute method of MagickImage to GetAttribute and SetAttribute.
   - Renamed Copy method of MagickImage to Clone.
