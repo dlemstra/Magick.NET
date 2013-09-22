@@ -67,6 +67,7 @@ namespace Magick.NET.Tests
 
 					MagickImage image = collection.Merge();
 					Assert.AreNotEqual(rose.TotalColors, image.TotalColors);
+					image.Dispose();
 
 					image = collection.Combine();
 					Assert.AreEqual(rose.TotalColors, image.TotalColors);

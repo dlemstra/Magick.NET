@@ -20,12 +20,12 @@ namespace ImageMagick
 	ColorMono::ColorMono(MagickColor^ color)
 		: ColorBase(false, color)
 	{
-		IsBlack = color->R == 0;
+		IsBlack = color->R == 0.0;
 	}
 	//==============================================================================================
 	void ColorMono::UpdateValue()
 	{
-		Magick::Quantum color =  IsBlack ? 0 : MaxMap;
+		Magick::Quantum color =  (Magick::Quantum)(IsBlack ? 0.0 : QuantumRange);
 		Value->R = color;
 		Value->G = color;
 		Value->B = color;

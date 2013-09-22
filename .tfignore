@@ -50,7 +50,7 @@
 \Magick.NET\Resources\ReleaseQ16\v2.0\Win32\Magick.NET.aps
 \Magick.NET\Resources\ReleaseQ16\v4.0\x64\Magick.NET.aps
 \Magick.NET\Resources\ReleaseQ16\v4.0\Win32\Magick.NET.aps
-\ImageMagick\Source\ImageMagick-*
+\ImageMagick\Source\ImageMagick
 \Publish\Archive\*
 \Publish\NuGet\*.nupkg
 \Publish\Zip\*

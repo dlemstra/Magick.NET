@@ -11,6 +11,7 @@ function Build($folder, $platform, $builds)
 	$configFile = "$folder\magick\magick-baseconfig.h"
 	$config = [IO.File]::ReadAllText($configFile, [System.Text.Encoding]::Default)
 	$config = $config.Replace("#define ProvideDllMain", "#undef ProvideDllMain")
+	$config = $config.Replace("#define MAGICKCORE_HDRI_ENABLE 0", "#define MAGICKCORE_HDRI_ENABLE 1")
 	$config = $config.Replace("#define MAGICKCORE_X11_DELEGATE", "#undef MAGICKCORE_X11_DELEGATE")
 	$config = $config.Replace("//#undef MAGICKCORE_EXCLUDE_DEPRECATED", "#define MAGICKCORE_EXCLUDE_DEPRECATED")
 	$config = $config.Replace("// #undef MAGICKCORE_WMF_DELEGATE", "#define MAGICKCORE_WMF_DELEGATE")
@@ -112,7 +113,14 @@ function CreateSolution($folder, $platform)
 
 	Write-Host ""
 	Write-Host "Static Multi-Threaded DLL runtimes ($platform)."
-	Start-Process .\configure.exe -wait
+	if ($platform -eq "x64")
+	{
+		Start-Process .\configure.exe -ArgumentList "/x64 /mtsd /noWizard" -wait
+	}
+	else
+	{
+		Start-Process .\configure.exe -ArgumentList "/mtsd /noWizard" -wait
+	}
 
 	set-location $location
 
@@ -161,9 +169,7 @@ function RemoveProjects($solutionFile)
 	
 	for ($i=0; $i -le $lines.Length - 1; $i++)
 	{
-		if ($lines[$i].Contains("CORE_xlib") -eq $true -OR
-				$lines[$i].Contains("UTIL_") -eq $true -OR
-				$lines[$i].Contains("All") -eq $true)
+		if ($lines[$i].Contains("All") -eq $true)
 		{
 			$lines[$i] = ""
 			if ($lines[$i + 1].Contains("EndProject"))
@@ -208,8 +214,7 @@ $builds = @(
 		@{QuantumDepth = "16"; Framework = "v4.0"; PlatformToolset="v110"}
 	)
 
-$version = $args[0]
-$folder = "ImageMagick-$version"
+$folder = "ImageMagick"
 
 CheckFolder $folder
 PatchFiles $folder

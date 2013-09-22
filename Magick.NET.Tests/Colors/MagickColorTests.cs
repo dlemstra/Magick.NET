@@ -25,16 +25,8 @@ namespace Magick.NET.Tests
 	{
 		//===========================================================================================
 		private const string _Category = "MagickColor";
-#if Q8
 		//===========================================================================================
-		private void TestHexColor(string hexValue, byte red, byte green, byte blue, bool isTransparent)
-#elif Q16
-		private const ushort _Max = ushort.MaxValue;
-		//===========================================================================================
-		private void TestHexColor(string hexValue, ushort red, ushort green, ushort blue, bool isTransparent)
-#else
-#error Not implemented!
-#endif
+		private void TestHexColor(string hexValue, float red, float green, float blue, bool isTransparent)
 		{
 			MagickColor color = new MagickColor(hexValue);
 

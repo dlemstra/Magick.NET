@@ -23,15 +23,15 @@ namespace ImageMagick
 		unsigned char alpha)
 	{
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
-		R = red;
-		G = green;
-		B = blue;
-		A = alpha;
+		R = (Magick::Quantum)red;
+		G = (Magick::Quantum)green;
+		B = (Magick::Quantum)blue;
+		A = (Magick::Quantum)alpha;
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		R = (red << 8 | red);
-		G = (green << 8 | green);
-		B = (blue << 8 | blue);
-		A = (alpha << 8 | alpha);
+		R = (Magick::Quantum) (257.0*red);
+		G = (Magick::Quantum) (257.0*green);
+		B = (Magick::Quantum) (257.0*blue);
+		A = (Magick::Quantum) (257.0*alpha);
 #else
 #error Not implemented!
 #endif
@@ -98,12 +98,12 @@ namespace ImageMagick
 		}
 		else if (color->Length == 13 || color->Length == 17)
 		{
-			R = (ParseHexChar(color[1]) * 4096) + (ParseHexChar(color[2]) * 256) + (ParseHexChar(color[3]) * 16) + ParseHexChar(color[4]);
-			G = (ParseHexChar(color[5]) * 4096) + (ParseHexChar(color[6]) * 256) + (ParseHexChar(color[7]) * 16) + ParseHexChar(color[8]);
-			B = (ParseHexChar(color[9]) * 4096) + (ParseHexChar(color[10]) * 256) + (ParseHexChar(color[11]) * 16) + ParseHexChar(color[12]);
+			R = (Magick::Quantum)((ParseHexChar(color[1]) * 4096) + (ParseHexChar(color[2]) * 256) + (ParseHexChar(color[3]) * 16) + ParseHexChar(color[4]));
+			G = (Magick::Quantum)((ParseHexChar(color[5]) * 4096) + (ParseHexChar(color[6]) * 256) + (ParseHexChar(color[7]) * 16) + ParseHexChar(color[8]));
+			B = (Magick::Quantum)((ParseHexChar(color[9]) * 4096) + (ParseHexChar(color[10]) * 256) + (ParseHexChar(color[11]) * 16) + ParseHexChar(color[12]));
 
 			if (color->Length == 17)
-				A = (ParseHexChar(color[13]) * 4096) + (ParseHexChar(color[14]) * 256) + (ParseHexChar(color[15]) * 16) + ParseHexChar(color[16]);
+				A = (Magick::Quantum)((ParseHexChar(color[13]) * 4096) + (ParseHexChar(color[14]) * 256) + (ParseHexChar(color[15]) * 16) + ParseHexChar(color[16]));
 			else
 				A = MaxMap;
 		}
@@ -308,19 +308,10 @@ namespace ImageMagick
 	//==============================================================================================
 	Color MagickColor::ToColor()
 	{
-#if (MAGICKCORE_QUANTUM_DEPTH == 8)
-		int alpha = A;
-		int red = R;
-		int green = G;
-		int blue = B;
-#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		int alpha = A >> 8;
-		int red = R >> 8;
-		int green = G >> 8;
-		int blue = B >> 8;
-#else
-#error Not implemented!
-#endif
+		int alpha = MagickCore::ScaleQuantumToChar(A);
+		int red = MagickCore::ScaleQuantumToChar(R);
+		int green = MagickCore::ScaleQuantumToChar(G);
+		int blue = MagickCore::ScaleQuantumToChar(B);
 
 		return Color::FromArgb(alpha, red, green, blue);
 	}

@@ -104,7 +104,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::RandomThreshold(Magick::Quantum low, Magick::Quantum high, bool isPercentage)
 	{
-		Magick::Geometry* geometry = new Magick::Geometry(low, high);
+		Magick::Geometry* geometry = new Magick::Geometry((size_t)low, (size_t)high);
 		geometry->percent(isPercentage);
 
 		try
@@ -123,7 +123,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::RandomThreshold(Magick::Quantum low, Magick::Quantum high, Channels channels, bool isPercentage)
 	{
-		Magick::Geometry* geometry = new Magick::Geometry(low, high);
+		Magick::Geometry* geometry = new Magick::Geometry((size_t)low, (size_t)high);
 		geometry->percent(isPercentage);
 
 		try

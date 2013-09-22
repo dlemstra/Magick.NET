@@ -35,33 +35,15 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(255, color.A);
 		}
 		//===========================================================================================
-#if Q8
-		//===========================================================================================
-		public static void IsTransparent(byte alpha)
+		public static void IsTransparent(float alpha)
 		{
 			Assert.AreEqual(0, alpha);
 		}
 		//===========================================================================================
-		public static void IsNotTransparent(byte alpha)
+		public static void IsNotTransparent(float alpha)
 		{
 			Assert.AreEqual(Quantum.Max, alpha);
 		}
-		//===========================================================================================
-#elif Q16
-		//===========================================================================================
-		public static void IsTransparent(ushort alpha)
-		{
-			Assert.AreEqual(0, alpha);
-		}
-		//===========================================================================================
-		public static void IsNotTransparent(ushort alpha)
-		{
-			Assert.AreEqual(Quantum.Max, alpha);
-		}
-		//===========================================================================================
-#else
-#error Not implemented!
-#endif
 		//===========================================================================================
 	}
 	//==============================================================================================
