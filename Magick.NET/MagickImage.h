@@ -2078,6 +2078,21 @@ namespace ImageMagick
 		void Negate(bool onlyGrayscale);
 		///==========================================================================================
 		///<summary>
+		/// Negate colors in image for the specified channel.
+		///</summary>
+		///<param name="channels">The channel(s) that should be negated.</param>
+		///<exception cref="MagickException"/>
+		void Negate(Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Negate colors in image for the specified channel.
+		///</summary>
+		///<param name="channels">The channel(s) that should be negated.</param>
+		///<param name="onlyGrayscale">Use true to negate only the grayscale colors.</param>
+		///<exception cref="MagickException"/>
+		void Negate(Channels channels, bool onlyGrayscale);
+		///==========================================================================================
+		///<summary>
 		/// Normalize image (increase contrast by normalizing the pixel values to span the full range
 		/// of color values)
 		///</summary>

@@ -3088,6 +3088,23 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Negate(Channels channels)
+	{
+		Negate(channels, false);
+	}
+	//==============================================================================================
+	void MagickImage::Negate(Channels channels, bool onlyGrayscale)
+	{
+		try
+		{
+			Value->negateChannel((MagickCore::ChannelType)channels, onlyGrayscale);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Normalize()
 	{
 		try
