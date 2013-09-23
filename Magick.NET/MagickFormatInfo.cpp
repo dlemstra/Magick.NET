@@ -70,6 +70,7 @@ namespace ImageMagick
 			formatInfo->_IsMultiFrame = coder->isMultiFrame();
 			formatInfo->_IsReadable = coder->isReadable();
 			formatInfo->_IsWritable = coder->isWritable();
+			formatInfo->_MimeType = Marshaller::Marshal(coder->mimeType());
 
 			result->Add(formatInfo);
 
@@ -102,6 +103,11 @@ namespace ImageMagick
 	bool MagickFormatInfo::IsWritable::get()
 	{
 		return _IsWritable;
+	}
+	//==============================================================================================
+	String^ MagickFormatInfo::MimeType::get()
+	{
+		return _MimeType;
 	}
 	//==============================================================================================
 	String^ MagickFormatInfo::ToString()

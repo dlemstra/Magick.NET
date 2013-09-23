@@ -74,6 +74,16 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_MimeType()
+		{
+			MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jpg);
+			Assert.AreEqual("image/jpeg", formatInfo.MimeType);
+
+			formatInfo = MagickNET.GetFormatInformation(MagickFormat.Png);
+			Assert.AreEqual("image/png", formatInfo.MimeType);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_SupportedFormats()
 		{
 			foreach (MagickFormatInfo formatInfo in MagickNET.SupportedFormats)

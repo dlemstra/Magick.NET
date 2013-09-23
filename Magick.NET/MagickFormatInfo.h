@@ -34,6 +34,7 @@ namespace ImageMagick
 		bool _IsMultiFrame;
 		bool _IsReadable;
 		bool _IsWritable;
+		String^ _MimeType;
 		//===========================================================================================
 		MagickFormatInfo() {};
 		//===========================================================================================
@@ -85,6 +86,14 @@ namespace ImageMagick
 		property bool IsWritable
 		{
 			bool get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// The mime type.
+		///</summary>
+		property String^ MimeType
+		{
+			String^ get();
 		}
 		///==========================================================================================
 		///<summary>
