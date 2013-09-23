@@ -20,43 +20,40 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public class ExifValueTests
+	public class IptcProfileTests
 	{
 		//===========================================================================================
-		private const string _Category = "ExifValue";
+		private const string _Category = "IptcProfile";
 		//===========================================================================================
-		private static ExifValue GetExifValue()
+		private static void TestProfile(IptcProfile profile)
 		{
-			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-			{
-				ExifProfile profile = image.GetExifProfile();
-				Assert.IsNotNull(profile);
+			Assert.IsNotNull(profile);
 
-				return profile.Values.First();
+			Assert.AreEqual(18, profile.Values.Count());
+
+			foreach (IptcValue value in profile.Values)
+			{
+				Assert.IsNotNull(value.Value);
 			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
+		public void Test_Values()
 		{
-			ExifValue first = GetExifValue();
-			ExifValue second = GetExifValue();
+			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+			{
+				IptcProfile profile = image.GetIptcProfile();
+				TestProfile(profile);
 
-			Assert.IsTrue(first == second);
-			Assert.IsTrue(first.Equals(second));
-			Assert.IsTrue(first.Equals((object)second));
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Properties()
-		{
-			ExifValue value = GetExifValue();
+				using (MagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
+				{
+					Assert.IsNull(emptyImage.GetIptcProfile());
+					emptyImage.AddProfile(profile);
 
-			Assert.AreEqual(ExifDataType.Ascii, value.DataType);
-			Assert.AreEqual(ExifTag.ImageDescription, value.Tag);
-			Assert.AreEqual(false, value.IsArray);
-			Assert.AreEqual("Communications", value.ToString());
-			Assert.AreEqual("Communications", value.Value);
+					profile = emptyImage.GetIptcProfile();
+					TestProfile(profile);
+				}
+			}
 		}
 		//===========================================================================================
 	}

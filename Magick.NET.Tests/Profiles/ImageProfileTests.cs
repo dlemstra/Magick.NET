@@ -55,6 +55,18 @@ namespace Magick.NET.Tests
 			});
 		}
 		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_ToByteArray()
+		{
+			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+			{
+				ImageProfile profile = image.GetIptcProfile();
+				Assert.IsNotNull(profile);
+
+				Assert.AreEqual(273, profile.ToByteArray().Length);
+			}
+		}
+		//===========================================================================================
 	}
 	//==============================================================================================
 }

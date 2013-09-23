@@ -78,6 +78,8 @@
     <Compile Include="MagickImageTests.cs" />
     <Compile Include="MagickNETTests.cs" />
     <Compile Include="Profiles\ImageProfileTests.cs" />
+    <Compile Include="Profiles\Iptc\IptcProfileTests.cs" />
+    <Compile Include="Profiles\Iptc\IptcValueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Files.cs" />
     <Compile Include="Quantum.cs" />

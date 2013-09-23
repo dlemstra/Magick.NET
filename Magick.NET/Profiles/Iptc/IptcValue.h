@@ -13,68 +13,74 @@
 //=================================================================================================
 #pragma once
 
-#include "..\ImageProfile.h"
-#include "ExifValue.h"
-
-using namespace System::Collections::Generic;
-using namespace System::IO;
+#include "IptcTag.h"
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	ref class MagickImage;
 	///=============================================================================================
 	/// <summary>
-	/// Class that can be used to access an Exif profile.
+	/// A value of the iptc profile.
 	/// </summary>
-	public ref class ExifProfile sealed : ImageProfile
+	public ref class IptcValue sealed : IEquatable<IptcValue^>
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		List<ExifValue^>^ _Values;
-		unsigned int _ThumbnailOffset;
-		unsigned int _ThumbnailLength;
-		//===========================================================================================
-		void Initialize();
+		IptcTag _Tag;
+		array<Byte>^ _Data;
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		ExifProfile() {};
+		IptcValue(IptcTag tag, array<Byte>^ value);
 		//===========================================================================================
 	public:
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the ExifProfile class.
-		///</summary>
-		///<param name="data">The byte array to read the exif profile from.</param>
-		ExifProfile(array<Byte>^ data) : ImageProfile("exif", data) {};
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the ExifProfile class.
-		///</summary>
-		///<param name="fileName">The fully qualified name of the exif profile file, or the relative
-		/// exif profile file name.</param>
-		ExifProfile(String^ fileName) : ImageProfile("exif", fileName) {};
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the ExifProfile class.
-		///</summary>
-		///<param name="stream">The stream to read the exif profile from.</param>
-		ExifProfile(Stream^ stream) : ImageProfile("exif", stream) {};
-		///==========================================================================================
-		///<summary>
-		/// Returns the values of this exif profile.
-		///</summary>
-		property IEnumerable<ExifValue^>^ Values
+		//===========================================================================================
+		/// <summary>
+		/// The tag of the iptc value.
+		/// </summary>
+		property IptcTag Tag
 		{
-			IEnumerable<ExifValue^>^ get();
+			IptcTag get();
 		}
+		//===========================================================================================
+		/// <summary>
+		/// The value.
+		/// </summary>
+		property String^ Value
+		{
+			String^ get();
+		}
+		//===========================================================================================
+		static bool operator == (IptcValue^ left, IptcValue^ right);
+		//===========================================================================================
+		static bool operator != (IptcValue^ left, IptcValue^ right);
 		///==========================================================================================
 		///<summary>
-		/// Returns the thumbnail in the exif profile when available.
+		/// Determines whether the specified object is equal to the current iptc value.
 		///</summary>
-		MagickImage^ CreateThumbnail();
+		///<param name="obj">The object to compare this iptc value with.</param>
+		virtual bool Equals(Object^ obj) override;
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified iptc value is equal to the current iptc value.
+		///</summary>
+		///<param name="other">The iptc value to compare this iptc value with.</param>
+		virtual bool Equals(IptcValue^ other);
+		///==========================================================================================
+		///<summary>
+		/// Servers as a hash of this type.
+		///</summary>
+		virtual int GetHashCode() override;
+		///==========================================================================================
+		///<summary>
+		/// Converts this instance to a byte array.
+		///</summary>
+		array<Byte>^ ToByteArray();
+		///==========================================================================================
+		///<summary>
+		/// Returns a string that represents the current value.
+		///</summary>
+		virtual String^ ToString() override;
 		//===========================================================================================
 	};
 	//==============================================================================================

@@ -20,27 +20,27 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public class ExifValueTests
+	public class IptcValueTests
 	{
 		//===========================================================================================
-		private const string _Category = "ExifValue";
+		private const string _Category = "IptcValue";
 		//===========================================================================================
-		private static ExifValue GetExifValue()
+		private static IptcValue GetIptcValue()
 		{
 			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
 			{
-				ExifProfile profile = image.GetExifProfile();
+				IptcProfile profile = image.GetIptcProfile();
 				Assert.IsNotNull(profile);
 
-				return profile.Values.First();
+				return profile.Values.ElementAt(1);
 			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_IEquatable()
 		{
-			ExifValue first = GetExifValue();
-			ExifValue second = GetExifValue();
+			IptcValue first = GetIptcValue();
+			IptcValue second = GetIptcValue();
 
 			Assert.IsTrue(first == second);
 			Assert.IsTrue(first.Equals(second));
@@ -50,13 +50,12 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Properties()
 		{
-			ExifValue value = GetExifValue();
+			IptcValue value = GetIptcValue();
 
-			Assert.AreEqual(ExifDataType.Ascii, value.DataType);
-			Assert.AreEqual(ExifTag.ImageDescription, value.Tag);
-			Assert.AreEqual(false, value.IsArray);
+			Assert.AreEqual(IptcTag.Caption, value.Tag);
 			Assert.AreEqual("Communications", value.ToString());
 			Assert.AreEqual("Communications", value.Value);
+			Assert.AreEqual(14, value.ToByteArray().Length);
 		}
 		//===========================================================================================
 	}

@@ -12,61 +12,88 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "ImageProfile.h"
-#include "..\IO\MagickReader.h"
+#include "IptcValue.h"
+
+using namespace System::Text;
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	array<Byte>^ ImageProfile::Copy(array<Byte>^ data)
+	IptcValue::IptcValue(IptcTag tag, array<Byte>^ data)
 	{
-		Throw::IfNullOrEmpty("data", data);
+		Throw::IfNull("data", data);
 
-		array<Byte>^ result = gcnew array<Byte>(data->Length);
-		data->CopyTo(result, 0);
-		return result;
-	}
-	//==============================================================================================
-	void ImageProfile::Initialize(String^ name, array<Byte>^ data)
-	{
-		Throw::IfNullOrEmpty("name", name);
-		Throw::IfNullOrEmpty("data", data);
-
-		_Name = name;
+		_Tag = tag;
 		_Data = data;
 	}
 	//==============================================================================================
-	array<Byte>^ ImageProfile::Data::get()
+	bool IptcValue::operator == (IptcValue^ left, IptcValue^ right)
 	{
-		return _Data;
+		return Object::Equals(left, right);
 	}
 	//==============================================================================================
-	ImageProfile::ImageProfile(String^ name, array<Byte>^ data)
+	bool IptcValue::operator != (IptcValue^ left, IptcValue^ right)
 	{
-		Initialize(name, Copy(data));
+		return !Object::Equals(left, right);
 	}
 	//==============================================================================================
-	ImageProfile::ImageProfile(String^ name, Stream^ stream)
+	bool IptcValue::Equals(Object^ obj)
 	{
-		Initialize(name, MagickReader::Read(stream));
+		if (ReferenceEquals(this, obj))
+			return true;
+
+		return Equals(dynamic_cast<IptcValue^>(obj));
 	}
 	//==============================================================================================
-	ImageProfile::ImageProfile(String^ name, String^ fileName)
+	bool IptcValue::Equals(IptcValue^ other)
 	{
-		Initialize(name, MagickReader::Read(fileName));
+		if (ReferenceEquals(other, nullptr))
+			return false;
+
+		if (ReferenceEquals(this, other))
+			return true;
+
+		if (_Tag != other->_Tag)
+			return false;
+
+		if (_Data->Length != other->_Data->Length)
+			return false;
+
+		for (int i=0; i<_Data->Length; i++)
+		{
+			if (_Data[i] != other->_Data[i])
+				return false;
+		}
+
+		return true;
 	}
 	//==============================================================================================
-	String^ ImageProfile::Name::get()
+	IptcTag IptcValue::Tag::get()
 	{
-		return _Name;
+		return _Tag;
 	}
 	//==============================================================================================
-	array<Byte>^ ImageProfile::ToByteArray()
+	String^ IptcValue::Value::get()
+	{
+		return Encoding::Default->GetString(_Data);
+	}
+	//==============================================================================================
+	int IptcValue::GetHashCode()
+	{
+		return _Tag.GetHashCode() ^ _Data->GetHashCode();
+	}
+	//==============================================================================================
+	array<Byte>^ IptcValue::ToByteArray()
 	{
 		array<Byte>^ result = gcnew array<Byte>(_Data->Length);
 		if (_Data->Length > 0)
 			_Data->CopyTo(result, 0);
 		return result;
+	}
+	//==============================================================================================
+	String^ IptcValue::ToString()
+	{
+		return Value;
 	}
 	//==============================================================================================
 }

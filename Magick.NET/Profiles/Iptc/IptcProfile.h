@@ -13,8 +13,8 @@
 //=================================================================================================
 #pragma once
 
+#include "IptcValue.h"
 #include "..\ImageProfile.h"
-#include "ExifValue.h"
 
 using namespace System::Collections::Generic;
 using namespace System::IO;
@@ -25,56 +25,48 @@ namespace ImageMagick
 	ref class MagickImage;
 	///=============================================================================================
 	/// <summary>
-	/// Class that can be used to access an Exif profile.
+	/// Class that can be used to access an Iptc profile.
 	/// </summary>
-	public ref class ExifProfile sealed : ImageProfile
+	public ref class IptcProfile sealed : ImageProfile
 	{
 		//===========================================================================================
 	private:
-		//===========================================================================================
-		List<ExifValue^>^ _Values;
-		unsigned int _ThumbnailOffset;
-		unsigned int _ThumbnailLength;
+		List<IptcValue^>^ _Values;
 		//===========================================================================================
 		void Initialize();
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		ExifProfile() {};
+		IptcProfile() {};
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the ExifProfile class.
+		/// Initializes a new instance of the IptcProfile class.
 		///</summary>
-		///<param name="data">The byte array to read the exif profile from.</param>
-		ExifProfile(array<Byte>^ data) : ImageProfile("exif", data) {};
+		///<param name="data">The byte array to read the iptc profile from.</param>
+		IptcProfile(array<Byte>^ data) : ImageProfile("iptc", data) {};
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the ExifProfile class.
+		/// Initializes a new instance of the IptcProfile class.
 		///</summary>
-		///<param name="fileName">The fully qualified name of the exif profile file, or the relative
-		/// exif profile file name.</param>
-		ExifProfile(String^ fileName) : ImageProfile("exif", fileName) {};
+		///<param name="fileName">The fully qualified name of the iptc profile file, or the relative
+		/// iptc profile file name.</param>
+		IptcProfile(String^ fileName) : ImageProfile("iptc", fileName) {};
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the ExifProfile class.
+		/// Initializes a new instance of the IptcProfile class.
 		///</summary>
-		///<param name="stream">The stream to read the exif profile from.</param>
-		ExifProfile(Stream^ stream) : ImageProfile("exif", stream) {};
+		///<param name="stream">The stream to read the iptc profile from.</param>
+		IptcProfile(Stream^ stream) : ImageProfile("iptc", stream) {};
 		///==========================================================================================
 		///<summary>
-		/// Returns the values of this exif profile.
+		/// Returns the values of this iptc profile.
 		///</summary>
-		property IEnumerable<ExifValue^>^ Values
+		property IEnumerable<IptcValue^>^ Values
 		{
-			IEnumerable<ExifValue^>^ get();
+			IEnumerable<IptcValue^>^ get();
 		}
-		///==========================================================================================
-		///<summary>
-		/// Returns the thumbnail in the exif profile when available.
-		///</summary>
-		MagickImage^ CreateThumbnail();
 		//===========================================================================================
 	};
 	//==============================================================================================

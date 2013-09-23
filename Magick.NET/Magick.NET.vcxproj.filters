@@ -145,6 +145,12 @@
     <Filter Include="Source Files\Settings">
       <UniqueIdentifier>{29a6b828-4e5c-4d31-9449-b8aaf35e6a36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Profiles\Iptc">
+      <UniqueIdentifier>{a1d8fd90-a88b-432a-baf2-ac069003c3a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Profiles\Iptc">
+      <UniqueIdentifier>{bc554ed0-c2cd-414b-a63c-12cb325f51a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
@@ -618,6 +624,15 @@
     <ClInclude Include="Enums\StorageType.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
+    <ClInclude Include="Profiles\Iptc\IptcProfile.h">
+      <Filter>Header Files\Profiles\Iptc</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiles\Iptc\IptcTag.h">
+      <Filter>Header Files\Profiles\Iptc</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiles\Iptc\IptcValue.h">
+      <Filter>Header Files\Profiles\Iptc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -979,6 +994,12 @@
     </ClCompile>
     <ClCompile Include="Settings\PixelStorageSettings.cpp">
       <Filter>Source Files\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiles\Iptc\IptcProfile.cpp">
+      <Filter>Source Files\Profiles\Iptc</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiles\Iptc\IptcValue.cpp">
+      <Filter>Source Files\Profiles\Iptc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

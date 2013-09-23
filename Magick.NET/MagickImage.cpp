@@ -2762,6 +2762,11 @@ namespace ImageMagick
 			signature->GetHashCode();
 	}
 	//==============================================================================================
+	IptcProfile^ MagickImage::GetIptcProfile()
+	{
+		return CreateProfile<IptcProfile>("iptc");
+	}
+	//==============================================================================================
 	ImageProfile^ MagickImage::GetProfile(String^ name)
 	{
 		return CreateProfile<ImageProfile>(name);
