@@ -252,6 +252,7 @@ namespace Magick.NET.FileGenerator
 				case "PathArc":
 				case "PathCurveto":
 				case "PathQuadraticCurveto":
+				case "PixelStorageSettings":
 				case "String":
 					return name + "^";
 				case "IEnumerable<Coordinate>":
@@ -266,8 +267,7 @@ namespace Magick.NET.FileGenerator
 					return "IEnumerable<PathBase^>^";
 				case "Int32":
 					return "int";
-				case "Byte":
-				case "UInt16":
+				case "Single":
 					return "Magick::Quantum";
 				case "Boolean":
 					return "bool";

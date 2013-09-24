@@ -152,6 +152,11 @@ namespace Magick.NET.Tests
 
 			ColorAssert.IsTransparent(transparent.A);
 			ColorAssert.AreEqual(Color.Transparent, transparent);
+
+			transparent = new MagickColor("transparent");
+
+			ColorAssert.IsTransparent(transparent.A);
+			ColorAssert.AreEqual(Color.Transparent, transparent);
 		}
 		//===========================================================================================
 	}

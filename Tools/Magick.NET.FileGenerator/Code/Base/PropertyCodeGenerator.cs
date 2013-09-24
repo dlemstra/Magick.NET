@@ -87,6 +87,10 @@ namespace Magick.NET.FileGenerator
 			writer.WriteLine("(XmlElement^ element)");
 			writer.WriteLine("{");
 			writer.Indent++;
+			writer.WriteLine("if (element == nullptr)");
+			writer.Indent++;
+			writer.WriteLine("return nullptr;");
+			writer.Indent--;
 			writer.Write(ClassName);
 			writer.Write("^ result = gcnew ");
 			writer.Write(ClassName);

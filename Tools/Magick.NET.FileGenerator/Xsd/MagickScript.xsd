@@ -85,6 +85,10 @@
 		</xs:sequence>
 	</xs:complexType>
 	<!--=========================================================================================-->
+	<xs:complexType name="pixelStorageSettings">
+		<xs:annotation id="pixelStorageSettings"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
 	<xs:complexType name="profile">
 		<xs:sequence>
 			<xs:choice>

@@ -281,3 +281,4 @@ static Collection<PathCurveto^>^ CreatePathCurvetos(XmlElement^ element);
 static PathQuadraticCurveto^ CreatePathQuadraticCurveto(XmlElement^ element);
 static Collection<PathQuadraticCurveto^>^ CreatePathQuadraticCurvetos(XmlElement^ element);
 static MagickReadSettings^ CreateMagickReadSettings(XmlElement^ element);
+static PixelStorageSettings^ CreatePixelStorageSettings(XmlElement^ element);

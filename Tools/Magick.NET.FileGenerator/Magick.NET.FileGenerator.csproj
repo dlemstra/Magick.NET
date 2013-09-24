@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\Base\PropertyCodeGenerator.cs" />
+    <Compile Include="Code\Properties\PixelStorageSettingsGenerator.cs" />
     <Compile Include="Code\Constructors\ImageProfileGenerator.cs" />
     <Compile Include="Code\Constructors\PathQuadraticCurvetoGenerator.cs" />
     <Compile Include="Code\Constructors\PathCurvetoGeneraror.cs" />

@@ -51,6 +51,7 @@ namespace Magick.NET.FileGenerator
 
 			_PropertyCodeGenerators = new List<PropertyCodeGenerator>();
 			_PropertyCodeGenerators.Add(new MagickReadSettingsGenerator());
+			_PropertyCodeGenerators.Add(new PixelStorageSettingsGenerator());
 		}
 		//===========================================================================================
 		private void CreateCodeFile()

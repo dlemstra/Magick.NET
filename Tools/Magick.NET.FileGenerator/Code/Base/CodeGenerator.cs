@@ -30,6 +30,8 @@ namespace Magick.NET.FileGenerator
 			if (parameters.Length == 0)
 				return;
 
+			parameters = parameters.OrderBy(p => p.Name).ToArray();
+
 			writer.WriteLine("for each(XmlAttribute^ attribute in element->Attributes)");
 			writer.WriteLine("{");
 			writer.Indent++;
@@ -288,6 +290,9 @@ namespace Magick.NET.FileGenerator
 				case "MagickGeometry^":
 					writer.Write("CreateMagickGeometry");
 					break;
+				case "PixelStorageSettings^":
+					writer.Write("CreatePixelStorageSettings");
+					break;
 				default:
 					throw new NotImplementedException(typeName);
 			}
@@ -341,6 +346,11 @@ namespace Magick.NET.FileGenerator
 						writer.Write("geometry");
 					else
 						writer.Write(elementName);
+					writer.Write("\")");
+					break;
+				case "PixelStorageSettings^":
+					writer.Write("(XmlElement^)element->SelectSingleNode(\"");
+					writer.Write(elementName);
 					writer.Write("\")");
 					break;
 				default:

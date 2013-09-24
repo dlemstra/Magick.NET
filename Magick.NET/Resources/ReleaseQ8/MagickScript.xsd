@@ -1,12 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:simpleType name="quantum">
-		<xs:restriction base="xs:unsignedByte" />
+		<xs:restriction base="xs:float">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="255" />
+		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="color">
 		<xs:restriction base="xs:string">
 			<xs:pattern value="#([0-9a-fA-F]{3,4})" />
 			<xs:pattern value="#([0-9a-fA-F]{2}){3,4}" />
+			<xs:pattern value="Transparent" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="AlphaOption">
@@ -265,7 +269,7 @@
 			<xs:enumeration value="Lagrange" />
 			<xs:enumeration value="Lanczos" />
 			<xs:enumeration value="Lanczos2" />
-			<xs:enumeration value="Lanczos2Sharo" />
+			<xs:enumeration value="Lanczos2Sharp" />
 			<xs:enumeration value="LanczosRadius" />
 			<xs:enumeration value="LanczosSharp" />
 			<xs:enumeration value="Mitchell" />
@@ -392,6 +396,8 @@
 			<xs:enumeration value="Dib" />
 			<xs:enumeration value="Dng" />
 			<xs:enumeration value="Dpx" />
+			<xs:enumeration value="Dxt1" />
+			<xs:enumeration value="Dxt5" />
 			<xs:enumeration value="Emf" />
 			<xs:enumeration value="Epdf" />
 			<xs:enumeration value="Epi" />
@@ -522,6 +528,7 @@
 			<xs:enumeration value="Rgb" />
 			<xs:enumeration value="Rgba" />
 			<xs:enumeration value="Rgbo" />
+			<xs:enumeration value="Rgf" />
 			<xs:enumeration value="Rla" />
 			<xs:enumeration value="Rle" />
 			<xs:enumeration value="Rw2" />
@@ -620,6 +627,17 @@
 		<xs:restriction base="xs:NMTOKEN">
 			<xs:enumeration value="PixelsPerCentimeter" />
 			<xs:enumeration value="PixelsPerInch" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StorageType">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Char" />
+			<xs:enumeration value="Double" />
+			<xs:enumeration value="Float" />
+			<xs:enumeration value="Integer" />
+			<xs:enumeration value="Long" />
+			<xs:enumeration value="Quantum" />
+			<xs:enumeration value="Short" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TextDecoration">
@@ -729,6 +747,10 @@
 			<xs:element name="coordinate" maxOccurs="unbounded" type="pathCurveto" />
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="pixelStorageSettings">
+		<xs:attribute name="mapping" type="xs:string" />
+		<xs:attribute name="storageType" type="StorageType" />
+	</xs:complexType>
 	<xs:complexType name="profile">
 		<xs:sequence>
 			<xs:choice>
@@ -745,6 +767,9 @@
 		<xs:sequence>
 			<xs:element name="settings" minOccurs="0">
 				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="pixelStorage" minOccurs="0" type="pixelStorageSettings" />
+					</xs:sequence>
 					<xs:attribute name="colorSpace" type="ColorSpace" />
 					<xs:attribute name="density" type="geometry" />
 					<xs:attribute name="format" type="MagickFormat" />
@@ -1414,6 +1439,7 @@
 				</xs:element>
 				<xs:element name="negate">
 					<xs:complexType>
+						<xs:attribute name="channels" type="Channels" />
 						<xs:attribute name="onlyGrayscale" type="xs:boolean" />
 					</xs:complexType>
 				</xs:element>

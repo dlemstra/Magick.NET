@@ -104,9 +104,10 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void AddParameterAttributes(XElement complexType, ParameterInfo[] parameters, string[] requiredParameters)
 		{
-			foreach (var paramElem in from parameter in parameters
+			foreach (var parameter in from parameter in parameters
 											  let typeName = GetAttributeType(parameter)
 											  where typeName != null
+											  orderby parameter.Name
 											  select new
 											  {
 												  Name = parameter.Name,
@@ -115,12 +116,12 @@ namespace Magick.NET.FileGenerator
 											  })
 			{
 				XElement attribute = new XElement(_Namespace + "attribute",
-												new XAttribute("name", paramElem.Name));
+												new XAttribute("name", parameter.Name));
 
-				if (paramElem.IsRequired)
+				if (parameter.IsRequired)
 					attribute.Add(new XAttribute("use", "required"));
 
-				attribute.Add(new XAttribute("type", paramElem.TypeName));
+				attribute.Add(new XAttribute("type", parameter.TypeName));
 
 				complexType.Add(attribute);
 			}
@@ -130,9 +131,10 @@ namespace Magick.NET.FileGenerator
 		{
 			XElement sequence = new XElement(_Namespace + "sequence");
 
-			foreach (var paramElem in from parameter in parameters
+			foreach (var parameter in from parameter in parameters
 											  let typeName = GetElementType(parameter)
 											  where typeName != null
+											  orderby parameter.Name
 											  select new
 											  {
 												  Name = parameter.Name,
@@ -141,12 +143,12 @@ namespace Magick.NET.FileGenerator
 											  })
 			{
 				XElement element = new XElement(_Namespace + "element",
-											new XAttribute("name", paramElem.Name));
+											new XAttribute("name", parameter.Name));
 
-				if (!paramElem.IsRequired)
+				if (!parameter.IsRequired)
 					element.Add(new XAttribute("minOccurs", "0"));
 
-				element.Add(new XAttribute("type", paramElem.TypeName));
+				element.Add(new XAttribute("type", parameter.TypeName));
 
 				sequence.Add(element);
 			}
@@ -155,21 +157,51 @@ namespace Magick.NET.FileGenerator
 				complexType.Add(sequence);
 		}
 		//===========================================================================================
-		private void AddPropertyAttributes(XElement element, IEnumerable<PropertyInfo> properties)
+		private void AddPropertyAttributes(XElement complexType, IEnumerable<PropertyInfo> properties)
 		{
 			foreach (var property in from property in properties
-												  let typeName = GetAttributeType(property)
-												  where typeName != null
-												  select new
-												  {
-													  Name = GetName(property),
-													  TypeName = typeName
-												  })
+											 let typeName = GetAttributeType(property)
+											 where typeName != null
+											 let name = GetName(property)
+											 orderby name
+											 select new
+											 {
+												 Name = name,
+												 TypeName = typeName
+											 })
 			{
-				element.Add(new XElement(_Namespace + "attribute",
+				complexType.Add(new XElement(_Namespace + "attribute",
 									new XAttribute("name", property.Name),
 									new XAttribute("type", property.TypeName)));
 			}
+		}
+		//===========================================================================================
+		private void AddPropertyElements(XElement complexType, IEnumerable<PropertyInfo> properties)
+		{
+			XElement sequence = new XElement(_Namespace + "sequence");
+
+			foreach (var property in from property in properties
+											 let typeName = GetElementType(property)
+											 where typeName != null
+											 let name = GetName(property)
+											 orderby name
+											 select new
+											 {
+												 Name = name,
+												 TypeName = typeName
+											 })
+			{
+				XElement element = new XElement(_Namespace + "element",
+											new XAttribute("name", property.Name),
+											new XAttribute("minOccurs", "0"));
+
+				element.Add(new XAttribute("type", property.TypeName));
+
+				sequence.Add(element);
+			}
+
+			if (sequence.HasElements)
+				complexType.Add(sequence);
 		}
 		//===========================================================================================
 		private object CreateElement(IEnumerable<MethodBase> methods)
@@ -290,6 +322,7 @@ namespace Magick.NET.FileGenerator
 				case "PathArc^":
 				case "PathCurveto^":
 				case "PathQuadraticCurveto^":
+				case "PixelStorageSettings^":
 					return null;
 				default:
 					throw new NotImplementedException(typeName);
@@ -328,6 +361,8 @@ namespace Magick.NET.FileGenerator
 					return "pathCurveto";
 				case "PathQuadraticCurveto^":
 					return "pathQuadraticCurveto";
+				case "PixelStorageSettings^":
+					return "pixelStorageSettings";
 				default:
 					return null;
 			}
@@ -414,6 +449,7 @@ namespace Magick.NET.FileGenerator
 						ReplaceImageActions(annotation);
 						break;
 					case "magickReadSettings":
+					case "pixelStorageSettings":
 						ReplaceWithProperties(annotation, annotationID);
 						break;
 					case "paths":
@@ -480,6 +516,9 @@ namespace Magick.NET.FileGenerator
 				restriction.Add(new XElement(_Namespace + "pattern",
 										new XAttribute("value", "#([0-9a-fA-F]{4}){3,4}")));
 
+			restriction.Add(new XElement(_Namespace + "pattern",
+						new XAttribute("value", "Transparent")));
+
 			annotation.ReplaceWith(new XElement(_Namespace + "simpleType",
 											new XAttribute("name", "color"),
 											restriction));
@@ -505,27 +544,33 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void ReplaceQuantum(XElement annotation)
 		{
-			string typeName;
-
+			string max;
 			switch (_Depth)
 			{
-				case QuantumDepth.Q16:
-					typeName = "xs:unsignedShort";
-					break;
 				case QuantumDepth.Q8:
-					typeName = "xs:unsignedByte";
+					max = "255";
+					break;
+				case QuantumDepth.Q16:
+					max = "65535";
 					break;
 				default:
 					throw new NotImplementedException();
 			}
 
-			annotation.ReplaceWith(new XElement(_Namespace + "simpleType",
-											new XAttribute("name", "quantum"),
-											new XElement(_Namespace + "restriction", new XAttribute("base", typeName))));
+			annotation.ReplaceWith(
+				new XElement(_Namespace + "simpleType",
+					new XAttribute("name", "quantum"),
+					new XElement(_Namespace + "restriction",
+						new XAttribute("base", "xs:float"),
+						new XElement(_Namespace + "minInclusive",
+							new XAttribute("value", "0")),
+						new XElement(_Namespace + "maxInclusive",
+							new XAttribute("value", max)))));
 		}
 		//===========================================================================================
 		private void ReplaceWithProperties(XElement annotation, string typeName)
 		{
+			AddPropertyElements(annotation.Parent, _MagickNET.GetProperties(typeName));
 			AddPropertyAttributes(annotation.Parent, _MagickNET.GetProperties(typeName));
 
 			annotation.Remove();

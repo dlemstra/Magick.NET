@@ -171,6 +171,13 @@ namespace ImageMagick
 	MagickColor::MagickColor(String^ hexValue)
 	{
 		Throw::IfNullOrEmpty("hexValue", hexValue);
+
+		if (hexValue->Equals("transparent", StringComparison::OrdinalIgnoreCase))
+		{
+			Initialize(MaxMap, MaxMap, MaxMap, 0);
+			return;
+		}
+
 		Throw::IfFalse("hexValue", hexValue[0] == '#', "Value should start with '#'.");
 
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)

@@ -12,6 +12,7 @@
 					<coordinate x="0" y="0" x1="20" y1="90" x2="128" y2="123"/>
 				</curvetoAbs>
 			</path>
+			<fillColor color="Transparent"/>
 			<fillColor color="#00F"/>
 			<textAntialias isEnabled="1"/>
 			<textDecoration decoration="Underline"/>
