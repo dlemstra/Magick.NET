@@ -56,11 +56,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ColorAssert.cs" />
     <Compile Include="Colors\Base\ColorBaseTests.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Colors\ColorMonoTests.cs" />
     <Compile Include="PercentageTests.cs" />
+    <Compile Include="Pixels\PixelCollectionTests.cs" />
     <Compile Include="Pixels\PixelTests.cs" />
     <Compile Include="Profiles\Color\ColorProfileTests.cs" />
     <Compile Include="Colors\ColorRGBTests.cs">
@@ -76,9 +78,14 @@
     <Compile Include="MagickImageTests.cs" />
     <Compile Include="MagickNETTests.cs" />
     <Compile Include="Profiles\ImageProfileTests.cs" />
+    <Compile Include="Profiles\Iptc\IptcProfileTests.cs" />
+    <Compile Include="Profiles\Iptc\IptcValueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Files.cs" />
+    <Compile Include="Quantum.cs" />
     <Compile Include="Script\MagickScriptTests.cs" />
+    <Compile Include="Settings\MagickReadSettingsTests.cs" />
+    <Compile Include="Settings\PixelStorageSettingsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Magick.NET\Magick.NET.net20.vcxproj">

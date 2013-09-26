@@ -260,6 +260,7 @@
     <ClInclude Include="Enums\FontStyleType.h" />
     <ClInclude Include="Enums\FontWeight.h" />
     <ClInclude Include="Enums\GifDisposeMethod.h" />
+    <ClInclude Include="Enums\StorageType.h" />
     <ClInclude Include="Enums\LayerMethod.h" />
     <ClInclude Include="Enums\LineCap.h" />
     <ClInclude Include="Enums\LineJoin.h" />
@@ -282,9 +283,13 @@
     <ClInclude Include="Helpers\FileHelper.h" />
     <ClInclude Include="Helpers\XmlHelper.h" />
     <ClInclude Include="Profiles\ImageProfile.h" />
+    <ClInclude Include="Profiles\Iptc\IptcProfile.h" />
+    <ClInclude Include="Profiles\Iptc\IptcTag.h" />
+    <ClInclude Include="Profiles\Iptc\IptcValue.h" />
     <ClInclude Include="Script\ScriptReadEventArgs.h" />
     <ClInclude Include="Script\MagickScript.h" />
     <ClInclude Include="Script\ScriptWriteEventArgs.h" />
+    <ClInclude Include="Settings\PixelStorageSettings.h" />
     <ClInclude Include="Statistics\ChannelStatistics.h" />
     <ClInclude Include="MagickFormatInfo.h" />
     <ClInclude Include="Statistics\MagickImageStatistics.h" />
@@ -412,11 +417,14 @@
     <ClCompile Include="Helpers\FileHelper.cpp" />
     <ClCompile Include="Helpers\XmlHelper.cpp" />
     <ClCompile Include="Profiles\ImageProfile.cpp" />
+    <ClCompile Include="Profiles\Iptc\IptcProfile.cpp" />
+    <ClCompile Include="Profiles\Iptc\IptcValue.cpp" />
     <ClCompile Include="Script\Generated\Execute.cpp" />
     <ClCompile Include="Script\MagickScript.cpp" />
     <ClCompile Include="Script\ScriptReadEventArgs.cpp" />
     <ClCompile Include="Script\ScriptWriteEventArgs.cpp" />
     <ClCompile Include="Settings\MagickReadSettings.cpp" />
+    <ClCompile Include="Settings\PixelStorageSettings.cpp" />
     <ClCompile Include="Statistics\ChannelStatistics.cpp" />
     <ClCompile Include="MagickFormatInfo.cpp" />
     <ClCompile Include="Statistics\MagickImageStatistics.cpp" />
