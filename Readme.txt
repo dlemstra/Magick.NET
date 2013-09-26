@@ -1,6 +1,6 @@
 Breaking changes.
 
-Magick.NET 6.8.6.1001:
+Magick.NET 6.8.7.001:
   - ToBitmap method of MagickImage returns a png instead of a bmp.
   - Changed the value for full transparency from 255(Q8)/65535(Q16) to 0.
   - MagickColor now uses floats instead of Byte/UInt16.

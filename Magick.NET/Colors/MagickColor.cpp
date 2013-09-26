@@ -174,7 +174,10 @@ namespace ImageMagick
 
 		if (hexValue->Equals("transparent", StringComparison::OrdinalIgnoreCase))
 		{
-			Initialize(MaxMap, MaxMap, MaxMap, 0);
+			R = MaxMap;
+			G = MaxMap;
+			B = MaxMap;
+			A = 0;
 			return;
 		}
 

@@ -13,6 +13,9 @@
 //=================================================================================================
 #pragma once
 
+#pragma warning(disable: 4820)
+#pragma warning(disable: 4514)
+
 #pragma warning(disable: 4244)
 
 #define STATIC_MAGICK

@@ -68,6 +68,7 @@ namespace ImageMagick
 			return  MarshalStorageType<Magick::Quantum>(values);
 		case StorageType::Short:
 			return MarshalStorageType<short>(values);
+		case StorageType::Undefined:
 		default:
 			throw gcnew NotImplementedException();
 		}
