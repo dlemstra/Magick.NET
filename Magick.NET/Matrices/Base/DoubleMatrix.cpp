@@ -12,22 +12,22 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "MatrixDouble.h"
+#include "DoubleMatrix.h"
 
 namespace ImageMagick
 {	
 	//==============================================================================================
-	MatrixDouble::MatrixDouble()
+	DoubleMatrix::DoubleMatrix()
 	{
 	}
 	//==============================================================================================
-	void MatrixDouble::Initialize(int order)
+	void DoubleMatrix::Initialize(int order)
 	{
 		_Values = gcnew array<double, 2>(order, order);
 		_Order = order;
 	}
 	//==============================================================================================
-	double* MatrixDouble::CreateArray()
+	double* DoubleMatrix::CreateArray()
 	{
 		double* matrixData = new double[_Order * _Order];
 
@@ -42,7 +42,22 @@ namespace ImageMagick
 		return matrixData;
 	}
 	//==============================================================================================
-	double MatrixDouble::default::get(int x, int y)
+	double DoubleMatrix::default::get(int x, int y)
+	{
+		return GetValue(x, y);
+	}
+	//==============================================================================================
+	void DoubleMatrix::default::set(int x, int y, double value)
+	{
+		SetValue(x, y, value);
+	}
+	//==============================================================================================
+	int DoubleMatrix::Order::get()
+	{
+		return _Order;
+	}
+	//==============================================================================================
+	double DoubleMatrix::GetValue(int x, int y)
 	{
 		if (x < 0 || x >= _Order || y < 0 || y >= _Order)
 			return 0.0;
@@ -50,17 +65,12 @@ namespace ImageMagick
 		return _Values[x, y];
 	}
 	//==============================================================================================
-	void MatrixDouble::default::set(int x, int y, double value)
+	void DoubleMatrix::SetValue(int x, int y, double value)
 	{
 		if (x < 0 || x >= _Order || y < 0 || y >= _Order)
 			return;
 
 		_Values[x, y] = value;
-	}
-	//==============================================================================================
-	int MatrixDouble::Order::get()
-	{
-		return _Order;
 	}
 	//==============================================================================================
 }

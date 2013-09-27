@@ -1666,34 +1666,6 @@ namespace ImageMagick
 		delete images;
 	}
 	//==============================================================================================
-	MagickColor^ MagickImage::ColorMap(int index)
-	{
-		try
-		{
-			return gcnew MagickColor(Value->colorMap(index));
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::ColorMap(int index, MagickColor^ color)
-	{
-		Throw::IfNull("color", color);
-
-		try
-		{
-			const Magick::Color* colorMap = color->CreateColor();
-			Value->colorMap(index, *colorMap);
-			delete colorMap;
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
 	void MagickImage::Colorize(MagickColor^ color, Percentage alpha)
 	{
 		Throw::IfNegative("alpha", alpha);
@@ -1725,15 +1697,43 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::ColorMatrix(MatrixColor^ matrixColor)
+	MagickColor^ MagickImage::ColorMap(int index)
 	{
-		Throw::IfNull("matrixColor", matrixColor);
-
-		double* matrix = matrixColor->CreateArray();
+		try
+		{
+			return gcnew MagickColor(Value->colorMap(index));
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::ColorMap(int index, MagickColor^ color)
+	{
+		Throw::IfNull("color", color);
 
 		try
 		{
-			Value->colorMatrix(matrixColor->Order, matrix);
+			const Magick::Color* colorMap = color->CreateColor();
+			Value->colorMap(index, *colorMap);
+			delete colorMap;
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::ColorMatrix(ImageMagick::ColorMatrix^ matrix)
+	{
+		Throw::IfNull("matrix", matrix);
+
+		double* colorMatrix = matrix->CreateArray();
+
+		try
+		{
+			Value->colorMatrix(matrix->Order, colorMatrix);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1741,7 +1741,7 @@ namespace ImageMagick
 		}
 		finally
 		{
-			delete[] matrix;
+			delete[] colorMatrix;
 		}
 	}
 	//==============================================================================================
@@ -1881,7 +1881,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Convolve(MatrixConvolve^ convolveMatrix)
+	void MagickImage::Convolve(ConvolveMatrix^ convolveMatrix)
 	{
 		Throw::IfNull("convolveMatrix", convolveMatrix);
 

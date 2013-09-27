@@ -19,7 +19,7 @@ namespace ImageMagick
 	///<summary>
 	/// Encapsulates a matrix of doubles.
 	///</summary>
-	public ref class MatrixDouble abstract
+	public ref class DoubleMatrix abstract
 	{
 		//===========================================================================================
 	private:
@@ -29,7 +29,7 @@ namespace ImageMagick
 		//===========================================================================================
 	protected private:
 		//===========================================================================================
-		MatrixDouble();
+		DoubleMatrix();
 		//===========================================================================================
 		void Initialize(int order);
 		//===========================================================================================
@@ -55,6 +55,21 @@ namespace ImageMagick
 		{
 			int get();
 		}
+		///==========================================================================================
+		///<summary>
+		/// Returns the value at the specified x/y position.
+		///</summary>
+		///<param name="x">The x position</param>
+		///<param name="y">The y position</param>
+		double GetValue(int x, int y);
+		///==========================================================================================
+		///<summary>
+		/// Set the value at the specified x/y position.
+		///</summary>
+		///<param name="x">The x position</param>
+		///<param name="y">The y position</param>
+		///<param name="value">The value</param>
+		void SetValue(int x, int y, double value);
 		//===========================================================================================
 	};
 	//==============================================================================================

@@ -47,8 +47,8 @@
 #include "IO\MagickWriter.h"
 #include "MagickErrorInfo.h"
 #include "MagickGeometry.h"
-#include "Matrices\MatrixColor.h"
-#include "Matrices\MatrixConvolve.h"
+#include "Matrices\ColorMatrix.h"
+#include "Matrices\ConvolveMatrix.h"
 #include "Pixels\PixelCollection.h"
 #include "Pixels\WritablePixelCollection.h"
 #include "Profiles\ImageProfile.h"
@@ -1198,6 +1198,13 @@ namespace ImageMagick
 		void Clut(MagickImage^ image, Channels channels);
 		///==========================================================================================
 		///<summary>
+		/// Sets the alpha channel to the specified color.
+		///</summary>
+		///<param name="color">The color to use.</param>
+		///<exception cref="MagickException"/>
+		void ColorAlpha(MagickColor^ color);
+		///==========================================================================================
+		///<summary>
 		/// Colorize image with the specified color, using specified percent alpha.
 		///</summary>
 		///<param name="color">The color to use.</param>
@@ -1218,13 +1225,6 @@ namespace ImageMagick
 			Percentage alphaBlue);
 		///==========================================================================================
 		///<summary>
-		/// Sets the alpha channel to the specified color.
-		///</summary>
-		///<param name="color">The color to use.</param>
-		///<exception cref="MagickException"/>
-		void ColorAlpha(MagickColor^ color);
-		///==========================================================================================
-		///<summary>
 		// Get color at colormap position index.
 		///</summary>
 		///<param name="index">The position index.</param>
@@ -1241,9 +1241,9 @@ namespace ImageMagick
 		///<summary>
 		/// Apply a color matrix to the image channels.
 		///</summary>
-		///<param name="matrixColor">The color matrix to use.</param>
+		///<param name="matrix">The color matrix to use.</param>
 		///<exception cref="MagickException"/>
-		void ColorMatrix(MatrixColor^ matrixColor);
+		void ColorMatrix(ColorMatrix^ matrix);
 		///==========================================================================================
 		///<summary>
 		/// Compare current image with another image. Returns error information if the images are not
@@ -1360,7 +1360,7 @@ namespace ImageMagick
 		/// Convolve image. Applies a user-specified convolution to the image.
 		///</summary>
 		///<exception cref="MagickException"/>
-		void Convolve(MatrixConvolve^ convolveMatrix);
+		void Convolve(ConvolveMatrix^ convolveMatrix);
 		///==========================================================================================
 		///<summary>
 		/// Crop image (subregion of original image).

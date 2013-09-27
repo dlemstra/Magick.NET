@@ -13,25 +13,24 @@
 //=================================================================================================
 #pragma once
 
-#include "Base\MatrixDouble.h"
+#include "Base\DoubleMatrix.h"
 
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Encapsulates a color matrix in the order of 1 to 6 (1x1 through 6x6).
+	/// Encapsulates a convolution kernel.
 	///</summary>
-	public ref class MatrixColor sealed : MatrixDouble
+	public ref class ConvolveMatrix sealed : DoubleMatrix
 	{
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Creates a new MatrixColor instance with the specified order of 1 to 6.
+		/// Creates a new ConvolveMatrix instance with the specified order.
 		///</summary>
-		///<param name="order">The order (1 to 6).</param>
-		//===========================================================================================
-		MatrixColor(int order);
+		///<param name="order">The order.</param>
+		ConvolveMatrix(int order);
 		//===========================================================================================
 	};
 	//==============================================================================================

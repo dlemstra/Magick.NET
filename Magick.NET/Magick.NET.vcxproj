@@ -329,8 +329,8 @@
     <ClInclude Include="Enums\Resolution.h" />
     <ClInclude Include="TypeMetric.h" />
     <ClInclude Include="Settings\MagickReadSettings.h" />
-    <ClInclude Include="Matrices\MatrixColor.h" />
-    <ClInclude Include="Matrices\MatrixConvolve.h" />
+    <ClInclude Include="Matrices\ColorMatrix.h" />
+    <ClInclude Include="Matrices\ConvolveMatrix.h" />
     <ClInclude Include="MagickImageCollection.h" />
     <ClInclude Include="MagickImageInfo.h" />
     <ClInclude Include="MagickNET.h" />
@@ -341,7 +341,7 @@
     <ClInclude Include="IO\MagickReader.h" />
     <ClInclude Include="Base\MagickWrapper.h" />
     <ClInclude Include="IO\MagickWriter.h" />
-    <ClInclude Include="Matrices\Base\MatrixDouble.h" />
+    <ClInclude Include="Matrices\Base\DoubleMatrix.h" />
     <ClInclude Include="Enums\NoiseType.h" />
     <ClInclude Include="Enums\PaintMethod.h" />
     <ClInclude Include="Profiles\Color\ColorProfile.h" />
@@ -468,8 +468,8 @@
     <ClCompile Include="TypeMetric.cpp" />
     <ClCompile Include="Exceptions\MagickErrorExceptions.cpp" />
     <ClCompile Include="Exceptions\MagickWarningExceptions.cpp" />
-    <ClCompile Include="Matrices\MatrixColor.cpp" />
-    <ClCompile Include="Matrices\MatrixConvolve.cpp" />
+    <ClCompile Include="Matrices\ColorMatrix.cpp" />
+    <ClCompile Include="Matrices\ConvolveMatrix.cpp" />
     <ClCompile Include="MagickImageCollection.cpp" />
     <ClCompile Include="MagickImageInfo.cpp" />
     <ClCompile Include="MagickNET.cpp" />
@@ -477,7 +477,7 @@
     <ClCompile Include="MagickImage.cpp" />
     <ClCompile Include="IO\MagickReader.cpp" />
     <ClCompile Include="IO\MagickWriter.cpp" />
-    <ClCompile Include="Matrices\Base\MatrixDouble.cpp" />
+    <ClCompile Include="Matrices\Base\DoubleMatrix.cpp" />
     <ClCompile Include="Profiles\Color\ColorProfile.cpp" />
     <ClCompile Include="Pixels\Pixel.cpp" />
     <ClCompile Include="Pixels\PixelCollection.cpp" />

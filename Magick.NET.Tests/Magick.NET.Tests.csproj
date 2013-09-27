@@ -61,6 +61,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Colors\ColorMonoTests.cs" />
+    <Compile Include="Matrices\ConvolveMatrixTests.cs" />
+    <Compile Include="Matrices\ColorMatrixTests.cs" />
     <Compile Include="PercentageTests.cs" />
     <Compile Include="Pixels\PixelCollectionTests.cs" />
     <Compile Include="Pixels\PixelTests.cs" />

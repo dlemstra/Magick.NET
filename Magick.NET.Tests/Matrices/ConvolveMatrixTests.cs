@@ -1,4 +1,4 @@
-//=================================================================================================
+﻿//=================================================================================================
 // Copyright 2013 Dirk Lemstra <http://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -11,27 +11,36 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#pragma once
 
-#include "Base\MatrixDouble.h"
+using System;
+using ImageMagick;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ImageMagick
+namespace Magick.NET.Tests
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulates a convolution kernel.
-	///</summary>
-	public ref class MatrixConvolve sealed : MatrixDouble
+	//==============================================================================================
+	[TestClass]
+	public class ConvolveMatrixTests
 	{
 		//===========================================================================================
-	public:
-		///==========================================================================================
-		///<summary>
-		/// Creates a new MatrixConvolve instance with the specified order
-		///</summary>
-		///<param name="order">The order.</param>
-		MatrixConvolve(int order);
+		private const string _Category = "ConvolveMatrix";
 		//===========================================================================================
-	};
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Constructor()
+		{
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				new ConvolveMatrix(-1);
+			});
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				new ConvolveMatrix(6);
+			});
+
+			new ConvolveMatrix(1);
+		}
+		//===========================================================================================
+	}
 	//==============================================================================================
 }

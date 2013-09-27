@@ -11,18 +11,28 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-#include "Stdafx.h"
-#include "MatrixConvolve.h"
+#pragma once
+
+#include "Base\DoubleMatrix.h"
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	MatrixConvolve::MatrixConvolve(int order)
+	///=============================================================================================
+	///<summary>
+	/// Encapsulates a color matrix in the order of 1 to 6 (1x1 through 6x6).
+	///</summary>
+	public ref class ColorMatrix sealed : DoubleMatrix
 	{
-		Throw::IfTrue("order", order < 1, "Invalid order specified.");
-		Throw::IfTrue("order", order % 2 == 0, "Order must be an odd number.");
-
-		Initialize(order);
-	}
+		//===========================================================================================
+	public:
+		///==========================================================================================
+		///<summary>
+		/// Creates a new ColorMatrix instance with the specified order of 1 to 6.
+		///</summary>
+		///<param name="order">The order (1 to 6).</param>
+		//===========================================================================================
+		ColorMatrix(int order);
+		//===========================================================================================
+	};
 	//==============================================================================================
 }

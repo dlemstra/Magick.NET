@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 7.0.0.0001:
+  - Renamed Matrix classes: MatrixColor = ColorMatrix and MatrixConvolve = ConvolveMatrix.
+
 Magick.NET 6.8.7.001:
   - ToBitmap method of MagickImage returns a png instead of a bmp.
   - Changed the value for full transparency from 255(Q8)/65535(Q16) to 0.

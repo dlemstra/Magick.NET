@@ -12,14 +12,15 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "MatrixColor.h"
+#include "ConvolveMatrix.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	MatrixColor::MatrixColor(int order)
+	ConvolveMatrix::ConvolveMatrix(int order)
 	{
-		Throw::IfTrue("order", (order < 1) || (order > 6), "Invalid order specified.");
+		Throw::IfTrue("order", order < 1, "Invalid order specified.");
+		Throw::IfTrue("order", order % 2 == 0, "Order must be an odd number.");
 
 		Initialize(order);
 	}

@@ -201,12 +201,6 @@
     <ClInclude Include="Enums\Gravity.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Matrices\MatrixColor.h">
-      <Filter>Header Files\Matrices</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrices\MatrixConvolve.h">
-      <Filter>Header Files\Matrices</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\NoiseType.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
@@ -462,9 +456,6 @@
     <ClInclude Include="Exceptions\Base\MagickException.h">
       <Filter>Header Files\Exceptions\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Matrices\Base\MatrixDouble.h">
-      <Filter>Header Files\Matrices\Base</Filter>
-    </ClInclude>
     <ClInclude Include="Pixels\Base\PixelBaseCollection.h">
       <Filter>Header Files\Pixels\Base</Filter>
     </ClInclude>
@@ -633,6 +624,15 @@
     <ClInclude Include="Profiles\Iptc\IptcValue.h">
       <Filter>Header Files\Profiles\Iptc</Filter>
     </ClInclude>
+    <ClInclude Include="Matrices\Base\DoubleMatrix.h">
+      <Filter>Header Files\Matrices\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrices\ColorMatrix.h">
+      <Filter>Header Files\Matrices</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrices\ConvolveMatrix.h">
+      <Filter>Header Files\Matrices</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -667,12 +667,6 @@
     </ClCompile>
     <ClCompile Include="Colors\MagickColor.cpp">
       <Filter>Source Files\Colors</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrices\MatrixColor.cpp">
-      <Filter>Source Files\Matrices</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrices\MatrixConvolve.cpp">
-      <Filter>Source Files\Matrices</Filter>
     </ClCompile>
     <ClCompile Include="Helpers\Marshaller.cpp">
       <Filter>Source Files\Helpers</Filter>
@@ -854,9 +848,6 @@
     <ClCompile Include="Exceptions\Base\MagickException.cpp">
       <Filter>Source Files\Exceptions\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Matrices\Base\MatrixDouble.cpp">
-      <Filter>Source Files\Matrices\Base</Filter>
-    </ClCompile>
     <ClCompile Include="Drawables\Paths\PathArcAbs.cpp">
       <Filter>Source Files\Drawables\Paths</Filter>
     </ClCompile>
@@ -1000,6 +991,15 @@
     </ClCompile>
     <ClCompile Include="Profiles\Iptc\IptcValue.cpp">
       <Filter>Source Files\Profiles\Iptc</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrices\Base\DoubleMatrix.cpp">
+      <Filter>Source Files\Matrices\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrices\ColorMatrix.cpp">
+      <Filter>Source Files\Matrices</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrices\ConvolveMatrix.cpp">
+      <Filter>Source Files\Matrices</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
