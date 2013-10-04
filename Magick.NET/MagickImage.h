@@ -47,6 +47,7 @@
 #include "IO\MagickWriter.h"
 #include "MagickErrorInfo.h"
 #include "MagickGeometry.h"
+#include "MagickFormatInfo.h"
 #include "Matrices\ColorMatrix.h"
 #include "Matrices\ConvolveMatrix.h"
 #include "Pixels\PixelCollection.h"
@@ -464,6 +465,14 @@ namespace ImageMagick
 		{
 			MagickFormat get();
 			void set(MagickFormat value);
+		}
+		///==========================================================================================
+		///<summary>
+		/// The information about the format of the image.
+		///</summary>
+		property MagickFormatInfo^ FormatInfo
+		{
+			MagickFormatInfo^ get();
 		}
 		///==========================================================================================
 		///<summary>

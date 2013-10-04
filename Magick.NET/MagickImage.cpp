@@ -618,6 +618,20 @@ namespace ImageMagick
 		Value->magick(name);
 	}
 	//==============================================================================================
+	MagickFormatInfo^ MagickImage::FormatInfo::get()
+	{
+		if (Format == MagickFormat::Unknown)
+			return nullptr;
+
+		for each(MagickFormatInfo^ info in MagickFormatInfo::All)
+		{
+			if (info->Format == Format)
+				return info;
+		}
+
+		return nullptr;
+	}
+	//==============================================================================================
 	GifDisposeMethod MagickImage::GifDisposeMethod::get()
 	{
 		return (ImageMagick::GifDisposeMethod)Value->gifDisposeMethod();

@@ -148,6 +148,17 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_FormatInfo()
+		{
+			MagickImage image = new MagickImage(Files.SnakewarePNG);
+			MagickFormatInfo info = image.FormatInfo;
+
+			Assert.IsNotNull(info);
+			Assert.AreEqual(MagickFormat.Png, info.Format);
+			Assert.AreEqual("image/png", info.MimeType);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_IComparable()
 		{
 			MagickImage first = new MagickImage(Color.Red, 10, 5);
