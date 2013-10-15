@@ -3980,16 +3980,10 @@ namespace ImageMagick
 		SetFormat(format);
 
 		MemoryStream^ memStream = gcnew MemoryStream();
-		try
-		{
-			Write(memStream);
-			memStream->Position = 0;
-			return (Bitmap^)Bitmap::FromStream(memStream);
-		}
-		finally
-		{
-			delete memStream;
-		}
+		Write(memStream);
+		memStream->Position = 0;
+		// Do not dispose the memStream, the bitmap owns it.
+		return gcnew Bitmap(memStream);
 	}
 	//==============================================================================================
 	array<Byte>^ MagickImage::ToByteArray()
