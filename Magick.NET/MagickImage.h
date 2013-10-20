@@ -1856,13 +1856,13 @@ namespace ImageMagick
 		ImageProfile^ GetProfile(String^ name);
 		///==========================================================================================
 		///<summary>
-		/// Returns an read-only pixel collection that can be used to access the pixels of this image.
+		/// Returns a read-only pixel collection that can be used to access the pixels of this image.
 		///</summary>
 		///<exception cref="MagickException"/>
 		PixelCollection^ GetReadOnlyPixels();
 		///==========================================================================================
 		///<summary>
-		/// Returns an read-only pixel collection that can be used to access the pixels of this image.
+		/// Returns a read-only pixel collection that can be used to access the pixels of this image.
 		///</summary>
 		///<param name="x">The X coordinate.</param>
 		///<param name="y">The Y coordinate.</param>
@@ -1872,13 +1872,13 @@ namespace ImageMagick
 		PixelCollection^ GetReadOnlyPixels(int x, int y, int width, int height);
 		///==========================================================================================
 		///<summary>
-		/// Returns an writable pixel collection that can be used to access the pixels of this image.
+		/// Returns a writable pixel collection that can be used to access the pixels of this image.
 		///</summary>
 		///<exception cref="MagickException"/>
 		WritablePixelCollection^ GetWritablePixels();
 		///==========================================================================================
 		///<summary>
-		/// Returns an writable pixel collection that can be used to access the pixels of this image.
+		/// Returns a writable pixel collection that can be used to access the pixels of this image.
 		///</summary>
 		///<param name="x">The X coordinate.</param>
 		///<param name="y">The Y coordinate.</param>

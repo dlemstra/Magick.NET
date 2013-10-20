@@ -1766,7 +1766,7 @@ namespace ImageMagick
 		try
 		{
 			if (Value->compare(*(image->Value)))
-				return nullptr;
+				return gcnew MagickErrorInfo();
 		}
 		catch(Magick::Exception& exception)
 		{

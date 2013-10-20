@@ -17,6 +17,13 @@
 namespace ImageMagick
 {
 	//==============================================================================================
+	MagickErrorInfo::MagickErrorInfo()
+	{
+		_MeanErrorPerPixel = 0.0;
+		_NormalizedMaximumError = 0.0;
+		_NormalizedMeanError = 0.0;
+	}
+	//==============================================================================================
 	MagickErrorInfo::MagickErrorInfo(Magick::Image* image)
 	{
 		_MeanErrorPerPixel = image->meanErrorPerPixel();

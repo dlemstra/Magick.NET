@@ -140,6 +140,22 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Compare()
+		{
+			MagickImage first = new MagickImage(Files.SnakewarePNG);
+			MagickImage second = first.Clone();
+
+			MagickErrorInfo same = first.Compare(second);
+			Assert.IsNotNull(same);
+			Assert.AreEqual(0, same.MeanErrorPerPixel);
+
+			first.Threshold(0.5);
+			MagickErrorInfo different = first.Compare(second);
+			Assert.IsNotNull(different);
+			Assert.AreNotEqual(0, different.MeanErrorPerPixel);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		[ExpectedException(typeof(ObjectDisposedException))]
 		public void Test_Dispose()
 		{
