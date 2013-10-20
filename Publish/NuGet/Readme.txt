@@ -9,6 +9,7 @@ If you have an uncontrollable urge to give me something for the time and effort 
 project then please buy me something from my amazon wish list or send me an amazon gift card. You can
 find my wishlist here: https://www.amazon.co.uk/registry/wishlist/1C3TE3001VQZE.
 
-WARNING: The next version of Magick.NET will use ImageMagick v7. Be careful when upgrading to this
-         version, it includes a lot of changes to the internal workings of ImageMagick. I am able
-         to make changes to ImageMagick so a bug should be fixed quickly.
+WARNING: I am planning to use ImageMagick v7 instead of v6. You will be able to recognize this by the
+         version number of Magick.NET. Be careful when upgrading to this version, it includes a lot of
+         changes to the internal workings of ImageMagick. I am able to make changes to ImageMagick so a
+         bug should be fixed quickly.
