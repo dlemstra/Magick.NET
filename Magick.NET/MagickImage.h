@@ -1187,6 +1187,22 @@ namespace ImageMagick
 		void Clamp(Channels channels);
 		///==========================================================================================
 		///<summary>
+		/// Sets the image clip mask based on any clipping path information if it exists.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Clip();
+		///==========================================================================================
+		///<summary>
+		/// Sets the image clip mask based on any clipping path information if it exists.
+		///</summary>
+		///<param name="pathName">Name of clipping path resource. If name is preceded by #, use
+		/// clipping path numbered by name.</param>
+		///<param name="inside">Specifies if operations take effect inside or outside the clipping
+		/// path</param>
+		///<exception cref="MagickException"/>
+		void Clip(String^ pathName, bool inside);
+		///==========================================================================================
+		///<summary>
 		/// Creates a clone of the current image.
 		///</summary>
 		MagickImage^ Clone();
@@ -2012,12 +2028,14 @@ namespace ImageMagick
 		///</summary>
 		///<param name="blackPoint">The black point.</param>
 		///<param name="whitePoint">The white point.</param>
+		///<exception cref="MagickException"/>
 		void LinearStretch(Percentage blackPoint, Percentage whitePoint);
 		///==========================================================================================
 		///<summary>
 		/// Rescales image with seam carving.
 		///</summary>
-		///<param name="geometry">The geomerty to use.</param>
+		///<param name="geometry">The geometry to use.</param>
+		///<exception cref="MagickException"/>
 		void LiquidRescale(MagickGeometry^ geometry);
 		///==========================================================================================
 		///<summary>

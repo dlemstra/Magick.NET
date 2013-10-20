@@ -1636,6 +1636,34 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Clip()
+	{
+		try
+		{
+			Value->clip();
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Clip(String^ pathName, bool inside)
+	{
+		Throw::IfNullOrEmpty("pathName", pathName);
+
+		try
+		{
+			std::string name;
+			Marshaller::Marshal(pathName, name);
+			Value->clipPath(name, inside);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	MagickImage^ MagickImage::Clone()
 	{
 		return gcnew MagickImage(*Value);
