@@ -1,7 +1,7 @@
 @echo off
 
 set REPOS=https://subversion.imagemagick.org/subversion
-set REVISION=13503
+set REVISION=13505
 
 if not exist ImageMagick goto checkout
 rmdir /s /q ImageMagick
