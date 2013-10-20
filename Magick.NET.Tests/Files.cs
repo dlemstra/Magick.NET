@@ -92,6 +92,14 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		public static string RedPng
+		{
+			get
+			{
+				return _Root + @"Images\Red.png";
+			}
+		}
+		//===========================================================================================
 		public static string ResizeScript
 		{
 			get

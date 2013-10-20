@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -156,6 +157,32 @@ namespace Magick.NET.Tests
 			Assert.IsNotNull(info);
 			Assert.AreEqual(MagickFormat.Png, info.Format);
 			Assert.AreEqual("image/png", info.MimeType);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Histogram()
+		{
+			MagickImage image = new MagickImage(Files.RedPng);
+			Dictionary<MagickColor, int> histogram = image.Histogram();
+
+			Assert.IsNotNull(histogram);
+			Assert.AreEqual(3, histogram.Count);
+
+			MagickColor red = new MagickColor(Quantum.Max, 0, 0);
+			MagickColor alphaRed = new MagickColor(Quantum.Max, 0, 0, 0);
+			MagickColor halfAlphaRed = new MagickColor("#FF000080");
+
+			foreach (MagickColor color in histogram.Keys)
+			{
+				if (color == red)
+					Assert.AreEqual(50000, histogram[color]);
+				else if (color == alphaRed)
+					Assert.AreEqual(30000, histogram[color]);
+				else if (color == halfAlphaRed)
+					Assert.AreEqual(40000, histogram[color]);
+				else
+					Assert.Fail("Invalid color: " + color.ToString());
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

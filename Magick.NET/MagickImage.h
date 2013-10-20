@@ -1895,6 +1895,12 @@ namespace ImageMagick
 		void HaldClut(MagickImage^ image);
 		///==========================================================================================
 		///<summary>
+		/// Creates a color color histogram.
+		///</summary>
+		///<exception cref="MagickException"/>
+		Dictionary<MagickColor^, int>^ Histogram();
+		///==========================================================================================
+		///<summary>
 		/// Implode image (special effect).
 		///</summary>
 		///<param name="factor">The extent of the implosion.</param>

@@ -128,7 +128,7 @@ namespace ImageMagick
 		R = color.redQuantum();
 		G = color.greenQuantum();
 		B = color.blueQuantum();
-		A = color.alphaQuantum();
+		A = MaxMap - color.alphaQuantum();
 	}
 	//==============================================================================================
 	void MagickColor::Initialize(Color color)
@@ -329,9 +329,11 @@ namespace ImageMagick
 	String^ MagickColor::ToString()
 	{
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
-		return String::Format(CultureInfo::InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", R, G, B, A);
+		return String::Format(CultureInfo::InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}",
+			(char)R, (char)G, (char)B, (char)A);
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		return String::Format(CultureInfo::InvariantCulture, "#{0:X4}{1:X4}{2:X4}{3:X4}", R, G, B, A);
+		return String::Format(CultureInfo::InvariantCulture, "#{0:X4}{1:X4}{2:X4}{3:X4}",
+			(unsigned short)R, (unsigned short)G, (unsigned short)B, (unsigned short)A);
 #else
 #error Not implemented!
 #endif

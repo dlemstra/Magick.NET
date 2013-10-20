@@ -2820,6 +2820,32 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	Dictionary<MagickColor^, int>^ MagickImage::Histogram()
+	{
+		std::list<std::pair<const Magick::Color,size_t>> *colors = new std::list<std::pair<const Magick::Color,size_t>>();
+
+		try
+		{
+			colorHistogram(colors, *Value);
+
+			Dictionary<MagickColor^, int>^ result = gcnew Dictionary<MagickColor^, int>();
+			for (std::list<std::pair<const Magick::Color,size_t>>::iterator iter = colors->begin(), end = colors->end(); iter != end; ++iter)
+			{
+				result->Add(gcnew MagickColor(iter->first), iter->second);
+			}
+
+			return result;
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete[] colors;
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Implode(double factor)
 	{
 		try
@@ -3588,7 +3614,7 @@ namespace ImageMagick
 
 		try
 		{
-			Magick::separateImages(images, *Value, (MagickCore::ChannelType)channels);
+			separateImages(images, *Value, (MagickCore::ChannelType)channels);
 
 			return MagickImageCollection::CreateList(images);
 		}
