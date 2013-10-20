@@ -495,6 +495,16 @@ namespace ImageMagick
 		delete geometry;
 	}
 	//==============================================================================================
+	int MagickImage::Depth::get()
+	{
+		return Convert::ToInt32(Value->depth());
+	}
+	//==============================================================================================
+	void MagickImage::Depth::set(int value)
+	{
+		Value->depth(value);
+	}
+	//==============================================================================================
 	Endian MagickImage::Endian::get()
 	{
 		return (ImageMagick::Endian)Value->endian();
@@ -1350,6 +1360,35 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	int MagickImage::BitDepth()
+	{
+		return BitDepth(Channels::Composite);
+	}
+	//==============================================================================================
+	int MagickImage::BitDepth(Channels channels)
+	{
+		try
+		{
+			return Convert::ToInt32(Value->channelDepth((MagickCore::ChannelType)channels));
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::BitDepth(Channels channels, int value)
+	{
+		try
+		{
+			Value->channelDepth((MagickCore::ChannelType)channels, value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::BlackThreshold(Percentage threshold)
 	{
 		Throw::IfNegative("threshold", threshold);
@@ -2039,54 +2078,6 @@ namespace ImageMagick
 			std::string passphrase_;
 			Marshaller::Marshal(passphrase, passphrase_);
 			Value->decipher(passphrase_);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	int MagickImage::Depth()
-	{
-		try
-		{
-			return Convert::ToInt32(Value->depth());
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	int MagickImage::Depth(Channels channels)
-	{
-		try
-		{
-			return Convert::ToInt32(Value->channelDepth((MagickCore::ChannelType)channels));
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::Depth(int value)
-	{
-		try
-		{
-			Value->depth(value);
-		}
-		catch(Magick::Exception& exception)
-		{
-			throw MagickException::Create(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::Depth(int value, Channels channels)
-	{
-		try
-		{
-			Value->channelDepth((MagickCore::ChannelType)channels, value);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -4070,7 +4061,7 @@ namespace ImageMagick
 	String^ MagickImage::ToString()
 	{
 		return String::Format(CultureInfo::InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}",
-			Format, Width, Height, Depth(), ColorSpace, FormatedFileSize());
+			Format, Width, Height, Depth, ColorSpace, FormatedFileSize());
 	}
 	//==============================================================================================
 	void MagickImage::Transform(MagickGeometry^ imageGeometry)

@@ -698,7 +698,7 @@
 	</xs:complexType>
 	<xs:simpleType name="geometry">
 		<xs:restriction base="xs:string">
-			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))([+-]\d+[+-]\d+)?([\&gt;\&lt;\@\%^!])?" />
+			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))([+-]\d+[+-]\d+)?([\&gt;\&lt;\@\%^!]{1,2})?" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="imageProfile">
@@ -877,6 +877,11 @@
 				<xs:element name="density">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="geometry" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="depth">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="endian">
@@ -1121,6 +1126,12 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="autoOrient" type="empty" />
+				<xs:element name="bitDepth">
+					<xs:complexType>
+						<xs:attribute name="channels" use="required" type="Channels" />
+						<xs:attribute name="value" use="required" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="blackThreshold">
 					<xs:complexType>
 						<xs:attribute name="channels" type="Channels" />
@@ -1214,6 +1225,12 @@
 						<xs:attribute name="channels" type="Channels" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="clip">
+					<xs:complexType>
+						<xs:attribute name="inside" type="xs:boolean" />
+						<xs:attribute name="pathName" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="clut">
 					<xs:complexType>
 						<xs:sequence>
@@ -1276,12 +1293,6 @@
 				<xs:element name="decipher">
 					<xs:complexType>
 						<xs:attribute name="passphrase" use="required" type="xs:string" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="depth">
-					<xs:complexType>
-						<xs:attribute name="channels" type="Channels" />
-						<xs:attribute name="value" use="required" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="deskew">
@@ -1402,6 +1413,11 @@
 					<xs:complexType>
 						<xs:attribute name="blackPoint" use="required" type="xs:double" />
 						<xs:attribute name="whitePoint" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="liquidRescale">
+					<xs:complexType>
+						<xs:attribute name="geometry" use="required" type="geometry" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="lower">

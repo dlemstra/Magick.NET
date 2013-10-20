@@ -281,13 +281,13 @@ namespace Magick.NET.FileGenerator
 					return name;
 				case "Byte[]":
 				case "Color":
+				case "ColorMatrix":
 				case "ColorProfile":
+				case "ConvolveMatrix":
 				case "Double[]":
 				case "DrawableAffine":
 				case "MagickImage[]":
 				case "Matrix":
-				case "MatrixColor":
-				case "MatrixConvolve":
 				case "Rectangle":
 				case "Stream":
 					return "Unsupported";

@@ -78,6 +78,16 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_BitDepth()
+		{
+			MagickImage image = new MagickImage(Files.RoseSparkleGIF);
+			Assert.AreEqual(8, image.BitDepth());
+
+			image.Threshold(0.5);
+			Assert.AreEqual(1, image.BitDepth());
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Constructor()
 		{
 			ExceptionAssert.Throws<ArgumentException>(delegate()

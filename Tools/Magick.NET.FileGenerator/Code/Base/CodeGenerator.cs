@@ -69,9 +69,14 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteCallIfElse(IndentedTextWriter writer, MethodBase[] methods)
 		{
-			for (int i = 0; i < methods.Length; i++)
+			MethodBase[] sortedMethods = (from method in methods
+													orderby string.Join(" ", from parameter in method.GetParameters()
+																					 select parameter.Name)
+													select method).ToArray();
+
+			for (int i = 0; i < sortedMethods.Length; i++)
 			{
-				ParameterInfo[] parameters = methods[i].GetParameters();
+				ParameterInfo[] parameters = sortedMethods[i].GetParameters();
 
 				if (i > 0)
 					writer.Write("else ");
@@ -95,7 +100,7 @@ namespace Magick.NET.FileGenerator
 
 				writer.WriteLine(")");
 				writer.Indent++;
-				WriteHashtableCall(writer, methods[i], parameters);
+				WriteHashtableCall(writer, sortedMethods[i], parameters);
 				writer.Indent--;
 			}
 		}
@@ -212,14 +217,14 @@ namespace Magick.NET.FileGenerator
 			WriteCall(writer, method, parameters);
 		}
 		//===========================================================================================
-		private void WriteMethod(IndentedTextWriter writer, MethodBase[] method, ParameterInfo[] parameters)
+		private void WriteMethod(IndentedTextWriter writer, MethodBase[] methods, ParameterInfo[] parameters)
 		{
 			writer.WriteLine("System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();");
 
 			WriteAttributeForEach(writer, parameters);
 			WriteElementForEach(writer, parameters);
-			WriteCallIfElse(writer, method);
-			WriteInvalidCombinations(writer, method);
+			WriteCallIfElse(writer, methods);
+			WriteInvalidCombinations(writer, methods);
 		}
 		//===========================================================================================
 		protected static void WriteParameters(IndentedTextWriter writer, ParameterInfo[] parameters)

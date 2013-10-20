@@ -1,7 +1,8 @@
 Breaking changes.
 
-Magick.NET 7.0.0.0001:
+Magick.NET 6.8.7.101:
   - Renamed Matrix classes: MatrixColor = ColorMatrix and MatrixConvolve = ConvolveMatrix.
+  - Renamed Depth method with Channels parameter to BitDepth and changed the other method into a property.
 
 Magick.NET 6.8.7.001:
   - ToBitmap method of MagickImage returns a png instead of a bmp.

@@ -103,6 +103,7 @@ namespace ImageMagick
 		result["compressionMethod"] = gcnew ExecuteElementImage(MagickScript::ExecuteCompressionMethod);
 		result["debug"] = gcnew ExecuteElementImage(MagickScript::ExecuteDebug);
 		result["density"] = gcnew ExecuteElementImage(MagickScript::ExecuteDensity);
+		result["depth"] = gcnew ExecuteElementImage(MagickScript::ExecuteDepth);
 		result["endian"] = gcnew ExecuteElementImage(MagickScript::ExecuteEndian);
 		result["fillColor"] = gcnew ExecuteElementImage(MagickScript::ExecuteFillColor);
 		result["fillRule"] = gcnew ExecuteElementImage(MagickScript::ExecuteFillRule);
@@ -148,6 +149,7 @@ namespace ImageMagick
 		result["autoGamma"] = gcnew ExecuteElementImage(MagickScript::ExecuteAutoGamma);
 		result["autoLevel"] = gcnew ExecuteElementImage(MagickScript::ExecuteAutoLevel);
 		result["autoOrient"] = gcnew ExecuteElementImage(MagickScript::ExecuteAutoOrient);
+		result["bitDepth"] = gcnew ExecuteElementImage(MagickScript::ExecuteBitDepth);
 		result["blackThreshold"] = gcnew ExecuteElementImage(MagickScript::ExecuteBlackThreshold);
 		result["blueShift"] = gcnew ExecuteElementImage(MagickScript::ExecuteBlueShift);
 		result["blur"] = gcnew ExecuteElementImage(MagickScript::ExecuteBlur);
@@ -163,6 +165,7 @@ namespace ImageMagick
 		result["chromaRedPrimary"] = gcnew ExecuteElementImage(MagickScript::ExecuteChromaRedPrimary);
 		result["chromaWhitePoint"] = gcnew ExecuteElementImage(MagickScript::ExecuteChromaWhitePoint);
 		result["clamp"] = gcnew ExecuteElementImage(MagickScript::ExecuteClamp);
+		result["clip"] = gcnew ExecuteElementImage(MagickScript::ExecuteClip);
 		result["colorAlpha"] = gcnew ExecuteElementImage(MagickScript::ExecuteColorAlpha);
 		result["colorize"] = gcnew ExecuteElementImage(MagickScript::ExecuteColorize);
 		result["colorMap"] = gcnew ExecuteElementImage(MagickScript::ExecuteColorMap);
@@ -170,7 +173,6 @@ namespace ImageMagick
 		result["crop"] = gcnew ExecuteElementImage(MagickScript::ExecuteCrop);
 		result["cycleColormap"] = gcnew ExecuteElementImage(MagickScript::ExecuteCycleColormap);
 		result["decipher"] = gcnew ExecuteElementImage(MagickScript::ExecuteDecipher);
-		result["depth"] = gcnew ExecuteElementImage(MagickScript::ExecuteDepth);
 		result["deskew"] = gcnew ExecuteElementImage(MagickScript::ExecuteDeskew);
 		result["despeckle"] = gcnew ExecuteElementImage(MagickScript::ExecuteDespeckle);
 		result["edge"] = gcnew ExecuteElementImage(MagickScript::ExecuteEdge);
@@ -188,6 +190,7 @@ namespace ImageMagick
 		result["level"] = gcnew ExecuteElementImage(MagickScript::ExecuteLevel);
 		result["levelColors"] = gcnew ExecuteElementImage(MagickScript::ExecuteLevelColors);
 		result["linearStretch"] = gcnew ExecuteElementImage(MagickScript::ExecuteLinearStretch);
+		result["liquidRescale"] = gcnew ExecuteElementImage(MagickScript::ExecuteLiquidRescale);
 		result["lower"] = gcnew ExecuteElementImage(MagickScript::ExecuteLower);
 		result["magnify"] = gcnew ExecuteElementImage(MagickScript::ExecuteMagnify);
 		result["medianFilter"] = gcnew ExecuteElementImage(MagickScript::ExecuteMedianFilter);
@@ -433,6 +436,10 @@ namespace ImageMagick
 	void MagickScript::ExecuteDensity(XmlElement^ element, MagickImage^ image)
 	{
 		image->Density = XmlHelper::GetAttribute<MagickGeometry^>(element, "value");
+	}
+	void MagickScript::ExecuteDepth(XmlElement^ element, MagickImage^ image)
+	{
+		image->Depth = XmlHelper::GetAttribute<int>(element, "value");
 	}
 	void MagickScript::ExecuteEndian(XmlElement^ element, MagickImage^ image)
 	{
@@ -689,16 +696,16 @@ namespace ImageMagick
 			else if (attribute->Name == "text")
 				arguments["text"] = XmlHelper::GetAttribute<String^>(element, "text");
 		}
-		if (OnlyContains(arguments, "text", "gravity"))
-			image->Annotate((String^)arguments["text"], (Gravity)arguments["gravity"]);
-		else if (OnlyContains(arguments, "text", "boundingArea"))
+		if (OnlyContains(arguments, "text", "boundingArea"))
 			image->Annotate((String^)arguments["text"], (MagickGeometry^)arguments["boundingArea"]);
 		else if (OnlyContains(arguments, "text", "boundingArea", "gravity"))
 			image->Annotate((String^)arguments["text"], (MagickGeometry^)arguments["boundingArea"], (Gravity)arguments["gravity"]);
 		else if (OnlyContains(arguments, "text", "boundingArea", "gravity", "degrees"))
 			image->Annotate((String^)arguments["text"], (MagickGeometry^)arguments["boundingArea"], (Gravity)arguments["gravity"], (double)arguments["degrees"]);
+		else if (OnlyContains(arguments, "text", "gravity"))
+			image->Annotate((String^)arguments["text"], (Gravity)arguments["gravity"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'annotate', allowed combinations are: [text, gravity] [text, boundingArea] [text, boundingArea, gravity] [text, boundingArea, gravity, degrees]");
+			throw gcnew ArgumentException("Invalid argument combination for 'annotate', allowed combinations are: [text, boundingArea] [text, gravity] [text, boundingArea, gravity] [text, boundingArea, gravity, degrees]");
 	}
 	void MagickScript::ExecuteAutoGamma(XmlElement^ element, MagickImage^ image)
 	{
@@ -731,6 +738,12 @@ namespace ImageMagick
 	void MagickScript::ExecuteAutoOrient(XmlElement^ element, MagickImage^ image)
 	{
 		image->AutoOrient();
+	}
+	void MagickScript::ExecuteBitDepth(XmlElement^ element, MagickImage^ image)
+	{
+		Channels channels_ = XmlHelper::GetAttribute<Channels>(element, "channels");
+		int value_ = XmlHelper::GetAttribute<int>(element, "value");
+		image->BitDepth(channels_, value_);
 	}
 	void MagickScript::ExecuteBlackThreshold(XmlElement^ element, MagickImage^ image)
 	{
@@ -911,6 +924,23 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'clamp', allowed combinations are: [] [channels]");
 	}
+	void MagickScript::ExecuteClip(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "inside")
+				arguments["inside"] = XmlHelper::GetAttribute<bool>(element, "inside");
+			else if (attribute->Name == "pathName")
+				arguments["pathName"] = XmlHelper::GetAttribute<String^>(element, "pathName");
+		}
+		if (arguments->Count == 0)
+			image->Clip();
+		else if (OnlyContains(arguments, "pathName", "inside"))
+			image->Clip((String^)arguments["pathName"], (bool)arguments["inside"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'clip', allowed combinations are: [] [pathName, inside]");
+	}
 	void MagickScript::ExecuteClut(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -987,18 +1017,18 @@ namespace ImageMagick
 		}
 		if (OnlyContains(arguments, "image", "gravity"))
 			image->Composite((MagickImage^)arguments["image"], (Gravity)arguments["gravity"]);
-		else if (OnlyContains(arguments, "image", "offset"))
-			image->Composite((MagickImage^)arguments["image"], (MagickGeometry^)arguments["offset"]);
 		else if (OnlyContains(arguments, "image", "gravity", "compose"))
 			image->Composite((MagickImage^)arguments["image"], (Gravity)arguments["gravity"], (CompositeOperator)arguments["compose"]);
-		else if (OnlyContains(arguments, "image", "offset", "compose"))
-			image->Composite((MagickImage^)arguments["image"], (MagickGeometry^)arguments["offset"], (CompositeOperator)arguments["compose"]);
-		else if (OnlyContains(arguments, "image", "x", "y"))
-			image->Composite((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"]);
 		else if (OnlyContains(arguments, "image", "gravity", "compose", "args"))
 			image->Composite((MagickImage^)arguments["image"], (Gravity)arguments["gravity"], (CompositeOperator)arguments["compose"], (String^)arguments["args"]);
+		else if (OnlyContains(arguments, "image", "offset"))
+			image->Composite((MagickImage^)arguments["image"], (MagickGeometry^)arguments["offset"]);
+		else if (OnlyContains(arguments, "image", "offset", "compose"))
+			image->Composite((MagickImage^)arguments["image"], (MagickGeometry^)arguments["offset"], (CompositeOperator)arguments["compose"]);
 		else if (OnlyContains(arguments, "image", "offset", "compose", "args"))
 			image->Composite((MagickImage^)arguments["image"], (MagickGeometry^)arguments["offset"], (CompositeOperator)arguments["compose"], (String^)arguments["args"]);
+		else if (OnlyContains(arguments, "image", "x", "y"))
+			image->Composite((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"]);
 		else if (OnlyContains(arguments, "image", "x", "y", "compose"))
 			image->Composite((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (CompositeOperator)arguments["compose"]);
 		else if (OnlyContains(arguments, "image", "x", "y", "compose", "args"))
@@ -1052,23 +1082,6 @@ namespace ImageMagick
 	{
 		String^ passphrase_ = XmlHelper::GetAttribute<String^>(element, "passphrase");
 		image->Decipher(passphrase_);
-	}
-	void MagickScript::ExecuteDepth(XmlElement^ element, MagickImage^ image)
-	{
-		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
-		for each(XmlAttribute^ attribute in element->Attributes)
-		{
-			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
-			else if (attribute->Name == "value")
-				arguments["value"] = XmlHelper::GetAttribute<int>(element, "value");
-		}
-		if (OnlyContains(arguments, "value"))
-			image->Depth((int)arguments["value"]);
-		else if (OnlyContains(arguments, "value", "channels"))
-			image->Depth((int)arguments["value"], (Channels)arguments["channels"]);
-		else
-			throw gcnew ArgumentException("Invalid argument combination for 'depth', allowed combinations are: [value] [value, channels]");
 	}
 	void MagickScript::ExecuteDeskew(XmlElement^ element, MagickImage^ image)
 	{
@@ -1125,22 +1138,22 @@ namespace ImageMagick
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Extent((MagickGeometry^)arguments["geometry"]);
-		else if (OnlyContains(arguments, "geometry", "gravity"))
-			image->Extent((MagickGeometry^)arguments["geometry"], (Gravity)arguments["gravity"]);
 		else if (OnlyContains(arguments, "geometry", "backgroundColor"))
 			image->Extent((MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["backgroundColor"]);
-		else if (OnlyContains(arguments, "width", "height"))
-			image->Extent((int)arguments["width"], (int)arguments["height"]);
+		else if (OnlyContains(arguments, "geometry", "gravity"))
+			image->Extent((MagickGeometry^)arguments["geometry"], (Gravity)arguments["gravity"]);
 		else if (OnlyContains(arguments, "geometry", "gravity", "backgroundColor"))
 			image->Extent((MagickGeometry^)arguments["geometry"], (Gravity)arguments["gravity"], (MagickColor^)arguments["backgroundColor"]);
-		else if (OnlyContains(arguments, "width", "height", "gravity"))
-			image->Extent((int)arguments["width"], (int)arguments["height"], (Gravity)arguments["gravity"]);
+		else if (OnlyContains(arguments, "width", "height"))
+			image->Extent((int)arguments["width"], (int)arguments["height"]);
 		else if (OnlyContains(arguments, "width", "height", "backgroundColor"))
 			image->Extent((int)arguments["width"], (int)arguments["height"], (MagickColor^)arguments["backgroundColor"]);
+		else if (OnlyContains(arguments, "width", "height", "gravity"))
+			image->Extent((int)arguments["width"], (int)arguments["height"], (Gravity)arguments["gravity"]);
 		else if (OnlyContains(arguments, "width", "height", "gravity", "backgroundColor"))
 			image->Extent((int)arguments["width"], (int)arguments["height"], (Gravity)arguments["gravity"], (MagickColor^)arguments["backgroundColor"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'extent', allowed combinations are: [geometry] [geometry, gravity] [geometry, backgroundColor] [width, height] [geometry, gravity, backgroundColor] [width, height, gravity] [width, height, backgroundColor] [width, height, gravity, backgroundColor]");
+			throw gcnew ArgumentException("Invalid argument combination for 'extent', allowed combinations are: [geometry] [width, height] [geometry, gravity] [geometry, backgroundColor] [width, height, backgroundColor] [geometry, gravity, backgroundColor] [width, height, gravity] [width, height, gravity, backgroundColor]");
 	}
 	void MagickScript::ExecuteFlip(XmlElement^ element, MagickImage^ image)
 	{
@@ -1170,26 +1183,26 @@ namespace ImageMagick
 		{
 			arguments[elem->Name] = CreateMagickImage(elem);
 		}
-		if (OnlyContains(arguments, "image", "geometry"))
-			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"]);
+		if (OnlyContains(arguments, "alpha", "x", "y", "paintMethod"))
+			image->FloodFill((int)arguments["alpha"], (int)arguments["x"], (int)arguments["y"], (PaintMethod)arguments["paintMethod"]);
 		else if (OnlyContains(arguments, "color", "geometry"))
 			image->FloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"]);
-		else if (OnlyContains(arguments, "image", "x", "y"))
-			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"]);
 		else if (OnlyContains(arguments, "color", "geometry", "borderColor"))
 			image->FloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"]);
 		else if (OnlyContains(arguments, "color", "x", "y"))
 			image->FloodFill((MagickColor^)arguments["color"], (int)arguments["x"], (int)arguments["y"]);
-		else if (OnlyContains(arguments, "image", "geometry", "borderColor"))
-			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"]);
-		else if (OnlyContains(arguments, "image", "x", "y", "borderColor"))
-			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"]);
 		else if (OnlyContains(arguments, "color", "x", "y", "borderColor"))
 			image->FloodFill((MagickColor^)arguments["color"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"]);
-		else if (OnlyContains(arguments, "alpha", "x", "y", "paintMethod"))
-			image->FloodFill((int)arguments["alpha"], (int)arguments["x"], (int)arguments["y"], (PaintMethod)arguments["paintMethod"]);
+		else if (OnlyContains(arguments, "image", "geometry"))
+			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"]);
+		else if (OnlyContains(arguments, "image", "geometry", "borderColor"))
+			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"]);
+		else if (OnlyContains(arguments, "image", "x", "y"))
+			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"]);
+		else if (OnlyContains(arguments, "image", "x", "y", "borderColor"))
+			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'floodFill', allowed combinations are: [image, geometry] [color, geometry] [image, x, y] [color, geometry, borderColor] [color, x, y] [image, geometry, borderColor] [image, x, y, borderColor] [color, x, y, borderColor] [alpha, x, y, paintMethod]");
+			throw gcnew ArgumentException("Invalid argument combination for 'floodFill', allowed combinations are: [image, geometry] [color, geometry] [image, geometry, borderColor] [image, x, y] [color, geometry, borderColor] [color, x, y] [image, x, y, borderColor] [color, x, y, borderColor] [alpha, x, y, paintMethod]");
 	}
 	void MagickScript::ExecuteFlop(XmlElement^ element, MagickImage^ image)
 	{
@@ -1246,10 +1259,10 @@ namespace ImageMagick
 		{
 			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
 		}
-		if (OnlyContains(arguments, "value"))
-			image->Gamma((double)arguments["value"]);
-		else if (OnlyContains(arguments, "gammeRed", "gammeGreen", "gammeBlue"))
+		if (OnlyContains(arguments, "gammeRed", "gammeGreen", "gammeBlue"))
 			image->Gamma((double)arguments["gammeRed"], (double)arguments["gammeGreen"], (double)arguments["gammeBlue"]);
+		else if (OnlyContains(arguments, "value"))
+			image->Gamma((double)arguments["value"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'gamma', allowed combinations are: [value] [gammeRed, gammeGreen, gammeBlue]");
 	}
@@ -1316,10 +1329,10 @@ namespace ImageMagick
 		}
 		if (OnlyContains(arguments, "blackPoint", "whitePoint"))
 			image->Level((Magick::Quantum)arguments["blackPoint"], (Magick::Quantum)arguments["whitePoint"]);
-		else if (OnlyContains(arguments, "blackPoint", "whitePoint", "midpoint"))
-			image->Level((Magick::Quantum)arguments["blackPoint"], (Magick::Quantum)arguments["whitePoint"], (double)arguments["midpoint"]);
 		else if (OnlyContains(arguments, "blackPoint", "whitePoint", "channels"))
 			image->Level((Magick::Quantum)arguments["blackPoint"], (Magick::Quantum)arguments["whitePoint"], (Channels)arguments["channels"]);
+		else if (OnlyContains(arguments, "blackPoint", "whitePoint", "midpoint"))
+			image->Level((Magick::Quantum)arguments["blackPoint"], (Magick::Quantum)arguments["whitePoint"], (double)arguments["midpoint"]);
 		else if (OnlyContains(arguments, "blackPoint", "whitePoint", "midpoint", "channels"))
 			image->Level((Magick::Quantum)arguments["blackPoint"], (Magick::Quantum)arguments["whitePoint"], (double)arguments["midpoint"], (Channels)arguments["channels"]);
 		else
@@ -1355,6 +1368,11 @@ namespace ImageMagick
 		Percentage blackPoint_ = XmlHelper::GetAttribute<Percentage>(element, "blackPoint");
 		Percentage whitePoint_ = XmlHelper::GetAttribute<Percentage>(element, "whitePoint");
 		image->LinearStretch(blackPoint_, whitePoint_);
+	}
+	void MagickScript::ExecuteLiquidRescale(XmlElement^ element, MagickImage^ image)
+	{
+		MagickGeometry^ geometry_ = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+		image->LiquidRescale(geometry_);
 	}
 	void MagickScript::ExecuteLower(XmlElement^ element, MagickImage^ image)
 	{
@@ -1429,10 +1447,10 @@ namespace ImageMagick
 			image->Negate();
 		else if (OnlyContains(arguments, "channels"))
 			image->Negate((Channels)arguments["channels"]);
-		else if (OnlyContains(arguments, "onlyGrayscale"))
-			image->Negate((bool)arguments["onlyGrayscale"]);
 		else if (OnlyContains(arguments, "channels", "onlyGrayscale"))
 			image->Negate((Channels)arguments["channels"], (bool)arguments["onlyGrayscale"]);
+		else if (OnlyContains(arguments, "onlyGrayscale"))
+			image->Negate((bool)arguments["onlyGrayscale"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'negate', allowed combinations are: [] [channels] [onlyGrayscale] [channels, onlyGrayscale]");
 	}
@@ -1554,10 +1572,10 @@ namespace ImageMagick
 		}
 		if (OnlyContains(arguments, "low", "high"))
 			image->RandomThreshold((Magick::Quantum)arguments["low"], (Magick::Quantum)arguments["high"]);
-		else if (OnlyContains(arguments, "percentageLow", "percentageHigh"))
-			image->RandomThreshold((Percentage)arguments["percentageLow"], (Percentage)arguments["percentageHigh"]);
 		else if (OnlyContains(arguments, "low", "high", "channels"))
 			image->RandomThreshold((Magick::Quantum)arguments["low"], (Magick::Quantum)arguments["high"], (Channels)arguments["channels"]);
+		else if (OnlyContains(arguments, "percentageLow", "percentageHigh"))
+			image->RandomThreshold((Percentage)arguments["percentageLow"], (Percentage)arguments["percentageHigh"]);
 		else if (OnlyContains(arguments, "percentageLow", "percentageHigh", "channels"))
 			image->RandomThreshold((Percentage)arguments["percentageLow"], (Percentage)arguments["percentageHigh"], (Channels)arguments["channels"]);
 		else
@@ -1600,10 +1618,10 @@ namespace ImageMagick
 			else if (attribute->Name == "width")
 				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
 		}
-		if (OnlyContains(arguments, "percentage"))
-			image->Resize((Percentage)arguments["percentage"]);
-		else if (OnlyContains(arguments, "geometry"))
+		if (OnlyContains(arguments, "geometry"))
 			image->Resize((MagickGeometry^)arguments["geometry"]);
+		else if (OnlyContains(arguments, "percentage"))
+			image->Resize((Percentage)arguments["percentage"]);
 		else if (OnlyContains(arguments, "percentageWidth", "percentageHeight"))
 			image->Resize((Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
 		else if (OnlyContains(arguments, "width", "height"))
@@ -1640,10 +1658,10 @@ namespace ImageMagick
 			else if (attribute->Name == "width")
 				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
 		}
-		if (OnlyContains(arguments, "percentage"))
-			image->Sample((Percentage)arguments["percentage"]);
-		else if (OnlyContains(arguments, "geometry"))
+		if (OnlyContains(arguments, "geometry"))
 			image->Sample((MagickGeometry^)arguments["geometry"]);
+		else if (OnlyContains(arguments, "percentage"))
+			image->Sample((Percentage)arguments["percentage"]);
 		else if (OnlyContains(arguments, "percentageWidth", "percentageHeight"))
 			image->Sample((Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
 		else if (OnlyContains(arguments, "width", "height"))
@@ -1669,10 +1687,10 @@ namespace ImageMagick
 			else if (attribute->Name == "width")
 				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
 		}
-		if (OnlyContains(arguments, "percentage"))
-			image->Scale((Percentage)arguments["percentage"]);
-		else if (OnlyContains(arguments, "geometry"))
+		if (OnlyContains(arguments, "geometry"))
 			image->Scale((MagickGeometry^)arguments["geometry"]);
+		else if (OnlyContains(arguments, "percentage"))
+			image->Scale((Percentage)arguments["percentage"]);
 		else if (OnlyContains(arguments, "percentageWidth", "percentageHeight"))
 			image->Scale((Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
 		else if (OnlyContains(arguments, "width", "height"))
@@ -1720,10 +1738,10 @@ namespace ImageMagick
 			else if (attribute->Name == "value")
 				arguments["value"] = XmlHelper::GetAttribute<String^>(element, "value");
 		}
-		if (OnlyContains(arguments, "format", "name", "value"))
-			image->SetOption((MagickFormat)arguments["format"], (String^)arguments["name"], (String^)arguments["value"]);
-		else if (OnlyContains(arguments, "format", "name", "flag"))
+		if (OnlyContains(arguments, "format", "name", "flag"))
 			image->SetOption((MagickFormat)arguments["format"], (String^)arguments["name"], (bool)arguments["flag"]);
+		else if (OnlyContains(arguments, "format", "name", "value"))
+			image->SetOption((MagickFormat)arguments["format"], (String^)arguments["name"], (String^)arguments["value"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'setOption', allowed combinations are: [format, name, value] [format, name, flag]");
 	}
@@ -2002,10 +2020,10 @@ namespace ImageMagick
 			else if (attribute->Name == "width")
 				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
 		}
-		if (OnlyContains(arguments, "percentage"))
-			image->Zoom((Percentage)arguments["percentage"]);
-		else if (OnlyContains(arguments, "geometry"))
+		if (OnlyContains(arguments, "geometry"))
 			image->Zoom((MagickGeometry^)arguments["geometry"]);
+		else if (OnlyContains(arguments, "percentage"))
+			image->Zoom((Percentage)arguments["percentage"]);
 		else if (OnlyContains(arguments, "percentageWidth", "percentageHeight"))
 			image->Zoom((Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
 		else if (OnlyContains(arguments, "width", "height"))
@@ -2160,14 +2178,14 @@ namespace ImageMagick
 		{
 			arguments[elem->Name] = CreateMagickImage(elem);
 		}
-		if (OnlyContains(arguments, "offset", "image"))
-			drawables->Add(gcnew DrawableCompositeImage((MagickGeometry^)arguments["offset"], (MagickImage^)arguments["image"]));
-		else if (OnlyContains(arguments, "offset", "compose", "image"))
+		if (OnlyContains(arguments, "offset", "compose", "image"))
 			drawables->Add(gcnew DrawableCompositeImage((MagickGeometry^)arguments["offset"], (CompositeOperator)arguments["compose"], (MagickImage^)arguments["image"]));
-		else if (OnlyContains(arguments, "x", "y", "image"))
-			drawables->Add(gcnew DrawableCompositeImage((double)arguments["x"], (double)arguments["y"], (MagickImage^)arguments["image"]));
+		else if (OnlyContains(arguments, "offset", "image"))
+			drawables->Add(gcnew DrawableCompositeImage((MagickGeometry^)arguments["offset"], (MagickImage^)arguments["image"]));
 		else if (OnlyContains(arguments, "x", "y", "compose", "image"))
 			drawables->Add(gcnew DrawableCompositeImage((double)arguments["x"], (double)arguments["y"], (CompositeOperator)arguments["compose"], (MagickImage^)arguments["image"]));
+		else if (OnlyContains(arguments, "x", "y", "image"))
+			drawables->Add(gcnew DrawableCompositeImage((double)arguments["x"], (double)arguments["y"], (MagickImage^)arguments["image"]));
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'compositeImage', allowed combinations are: [offset, image] [offset, compose, image] [x, y, image] [x, y, compose, image]");
 	}

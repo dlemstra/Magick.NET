@@ -369,6 +369,15 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// The depth (bits allocated to red/green/blue components).
+		///</summary>
+		property int Depth
+		{
+			int get();
+			void set(int value);
+		}
+		///==========================================================================================
+		///<summary>
 		/// Endianness (little like Intel or big like SPARC) for image formats which support
 		/// endian-specific options.
 		///</summary>
@@ -992,6 +1001,27 @@ namespace ImageMagick
 		void AutoOrient();
 		///==========================================================================================
 		///<summary>
+		/// Returns the bit depth (bits allocated to red/green/blue components).
+		///</summary>
+		///<exception cref="MagickException"/>
+		int BitDepth();
+		///==========================================================================================
+		///<summary>
+		/// Returns the bit depth (bits allocated to red/green/blue components) of the specified channel.
+		///</summary>
+		///<param name="channels">The channel to get the depth for.</param>
+		///<exception cref="MagickException"/>
+		int BitDepth(Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Set the bit depth (bits allocated to red/green/blue components) of the specified channel.
+		///</summary>
+		///<param name="value">The depth.</param>
+		///<param name="channels">The channel to set the depth for.</param>
+		///<exception cref="MagickException"/>
+		void BitDepth(Channels channels, int value);
+		///==========================================================================================
+		///<summary>
 		/// Forces all pixels below the threshold into black while leaving all pixels at or above
 		/// the threshold unchanged.
 		///</summary>
@@ -1424,34 +1454,6 @@ namespace ImageMagick
 		///<param name="passphrase">The password that was used to encrypt the image.</param>
 		///<exception cref="MagickException"/>
 		void Decipher(String^ passphrase);
-		///==========================================================================================
-		///<summary>
-		/// Returns the depth (bits allocated to red/green/blue components).
-		///</summary>
-		///<exception cref="MagickException"/>
-		int Depth();
-		///==========================================================================================
-		///<summary>
-		/// Returns the depth (bits allocated to red/green/blue components) of the specified channel.
-		///</summary>
-		///<param name="channels">The channel to get the depth for.</param>
-		///<exception cref="MagickException"/>
-		int Depth(Channels channels);
-		///==========================================================================================
-		///<summary>
-		/// Returns the depth (bits allocated to red/green/blue components).
-		///</summary>
-		///<param name="value">The depth.</param>
-		///<exception cref="MagickException"/>
-		void Depth(int value);
-		///==========================================================================================
-		///<summary>
-		/// Set the depth (bits allocated to red/green/blue components) of the specified channel.
-		///</summary>
-		///<param name="value">The depth.</param>
-		///<param name="channels">The channel to set the depth for.</param>
-		///<exception cref="MagickException"/>
-		void Depth(int value, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Removes skew from the image. Skew is an artifact that occurs in scanned images because of

@@ -243,7 +243,6 @@ namespace ImageMagick
 			CopyTo(images);
 
 			Magick::Image combinedImage;
-			images->begin()->colorSpace(MagickCore::sRGBColorspace);
 			Magick::combineImages(&combinedImage, images->begin(), images->end(),
 				(MagickCore::ChannelType)channels);
 
