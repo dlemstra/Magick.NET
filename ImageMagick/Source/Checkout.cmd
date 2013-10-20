@@ -1,7 +1,7 @@
 @echo off
 
 set REPOS=https://subversion.imagemagick.org/subversion
-set REVISION=13290
+set REVISION=13503
 
 if not exist ImageMagick goto checkout
 rmdir /s /q ImageMagick
@@ -13,13 +13,15 @@ cd ImageMagick
 svn checkout %REPOS%/bzlib/trunk -r %REVISION% bzlib
 svn checkout %REPOS%/ImageMagick/branches/ImageMagick-6/coders -r %REVISION% coders
 svn checkout %REPOS%/ImageMagick/branches/ImageMagick-6/config -r %REVISION% config
-svn checkout %REPOS%/contrib/branches/contrib-6 -r %REVISION% contrib
+svn checkout %REPOS%/ffi/trunk -r %REVISION% ffi
 svn checkout %REPOS%/ImageMagick/branches/ImageMagick-6/filters -r %REVISION% filters
+svn checkout %REPOS%/glib/trunk -r %REVISION% glib
 svn checkout %REPOS%/jbig/trunk -r %REVISION% jbig
 svn checkout %REPOS%/jp2/trunk -r %REVISION% jp2
-svn checkout %REPOS%/jpeg/trunk -r %REVISION% jpeg
+svn checkout %REPOS%/jpeg-turbo/trunk -r %REVISION% jpeg
 svn checkout %REPOS%/lcms/trunk -r %REVISION% lcms
 svn checkout %REPOS%/libxml/trunk -r %REVISION% libxml
+svn checkout %REPOS%/lqr/trunk -r %REVISION% lqr
 svn checkout %REPOS%/ImageMagick/branches/ImageMagick-6/magick -r %REVISION% magick
 svn checkout %REPOS%/ImageMagick/branches/ImageMagick-6/Magick++ -r %REVISION% Magick++
 svn checkout %REPOS%/png/trunk -r %REVISION% png

@@ -98,6 +98,9 @@
 #define MAGICKCORE_LCMS_DELEGATE
 #define MAGICKCORE_HAVE_LCMS2_H
 
+// Define to use the Liquid Rescale library
+#define MAGICKCORE_LQR_DELEGATE
+
 // Define to use the PNG library
 #define MAGICKCORE_PNG_DELEGATE
 

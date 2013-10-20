@@ -22,11 +22,24 @@
 extern "C" {
 #endif
 
+typedef enum
+{
+  UndefinedComplexOperator,
+  AddComplexOperator,
+  ConjugateComplexOperator,
+  DivideComplexOperator,
+  MagnitudePhaseComplexOperator,
+  MultiplyComplexOperator,
+  RealImaginaryComplexOperator,
+  SubtractComplexOperator
+} ComplexOperator;
+
 extern MagickExport Image
- *ForwardFourierTransformImage(const Image *,const MagickBooleanType,
-   ExceptionInfo *),
- *InverseFourierTransformImage(const Image *,const Image *,
-   const MagickBooleanType,ExceptionInfo *);
+  *ComplexImages(const Image *,const ComplexOperator,ExceptionInfo *),
+  *ForwardFourierTransformImage(const Image *,const MagickBooleanType,
+    ExceptionInfo *),
+  *InverseFourierTransformImage(const Image *,const Image *,
+    const MagickBooleanType,ExceptionInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }
