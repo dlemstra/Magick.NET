@@ -102,6 +102,32 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
+		private void AddMethods(XElement element, IEnumerable<MethodBase> methods)
+		{
+			ParameterInfo[] parameters = (from method in methods
+													from parameter in method.GetParameters()
+													select parameter).ToArray();
+			if (parameters.Length == 0)
+			{
+				element.Add(new XAttribute("type", "empty"));
+			}
+			else
+			{
+				if (methods.Count() == 1 && IsTypedElement(parameters))
+				{
+					element.Add(new XAttribute("type", GetName(parameters[0])));
+				}
+				else
+				{
+					XElement complexType = new XElement(_Namespace + "complexType");
+
+					AddArguments(complexType, methods);
+
+					element.Add(complexType);
+				}
+			}
+		}
+		//===========================================================================================
 		private void AddParameterAttributes(XElement complexType, ParameterInfo[] parameters, string[] requiredParameters)
 		{
 			foreach (var parameter in from parameter in parameters
@@ -157,7 +183,7 @@ namespace Magick.NET.FileGenerator
 				complexType.Add(sequence);
 		}
 		//===========================================================================================
-		private void AddPropertyAttributes(XElement complexType, IEnumerable<PropertyInfo> properties)
+		private void AddSettingsAttributes(XElement complexType, IEnumerable<PropertyInfo> properties)
 		{
 			foreach (var property in from property in properties
 											 let typeName = GetAttributeType(property)
@@ -176,7 +202,7 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		private void AddPropertyElements(XElement complexType, IEnumerable<PropertyInfo> properties)
+		private void AddSettingsElements(XElement complexType, IEnumerable<PropertyInfo> properties, IEnumerable<MethodInfo> methods)
 		{
 			XElement sequence = new XElement(_Namespace + "sequence");
 
@@ -200,6 +226,19 @@ namespace Magick.NET.FileGenerator
 				sequence.Add(element);
 			}
 
+			if (methods.Count() > 0)
+			{
+				foreach (MethodBase method in methods)
+				{
+					XElement element = new XElement(_Namespace + "element",
+												new XAttribute("name", GetName(methods.First())),
+												new XAttribute("minOccurs", "0"),
+												new XAttribute("maxOccurs", "unbounded"));
+					AddMethods(element, new MethodBase[] { method });
+					sequence.Add(element);
+				}
+			}
+
 			if (sequence.HasElements)
 				complexType.Add(sequence);
 		}
@@ -209,29 +248,7 @@ namespace Magick.NET.FileGenerator
 			XElement element = new XElement(_Namespace + "element",
 										new XAttribute("name", GetName(methods.First())));
 
-			ParameterInfo[] parameters = (from method in methods
-													from parameter in method.GetParameters()
-													select parameter).ToArray();
-			if (parameters.Length == 0)
-			{
-				element.Add(new XAttribute("type", "empty"));
-			}
-			else
-			{
-				if (methods.Count() == 1 && IsTypedElement(parameters))
-				{
-					element.Add(new XAttribute("type", GetName(parameters[0])));
-				}
-				else
-				{
-					XElement complexType = new XElement(_Namespace + "complexType");
-
-					AddArguments(complexType, methods);
-
-					element.Add(complexType);
-				}
-			}
-
+			AddMethods(element, methods);
 			return element;
 		}
 		//===========================================================================================
@@ -450,7 +467,7 @@ namespace Magick.NET.FileGenerator
 						break;
 					case "magickReadSettings":
 					case "pixelStorageSettings":
-						ReplaceWithProperties(annotation, annotationID);
+						ReplaceWithSettings(annotation, annotationID);
 						break;
 					case "paths":
 						ReplacePaths(annotation);
@@ -568,10 +585,10 @@ namespace Magick.NET.FileGenerator
 							new XAttribute("value", max)))));
 		}
 		//===========================================================================================
-		private void ReplaceWithProperties(XElement annotation, string typeName)
+		private void ReplaceWithSettings(XElement annotation, string typeName)
 		{
-			AddPropertyElements(annotation.Parent, _MagickNET.GetProperties(typeName));
-			AddPropertyAttributes(annotation.Parent, _MagickNET.GetProperties(typeName));
+			AddSettingsElements(annotation.Parent, _MagickNET.GetProperties(typeName), _MagickNET.GetMethods(typeName));
+			AddSettingsAttributes(annotation.Parent, _MagickNET.GetProperties(typeName));
 
 			annotation.Remove();
 		}

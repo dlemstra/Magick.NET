@@ -1,5 +1,8 @@
 <msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
 	<read>
+		<settings>
+			<setOption format="Jpeg" name="size" value="64x64"/>
+		</settings>
 		<resize percentage="0.5"/>
 		<strip/>
 		<comment value="Magick.NET.Resize"/>

@@ -18,6 +18,8 @@
 #include "..\MagickGeometry.h"
 #include "PixelStorageSettings.h"
 
+using namespace System::Collections::Generic;
+
 namespace ImageMagick
 {
 	///=============================================================================================
@@ -27,14 +29,30 @@ namespace ImageMagick
 	public ref class MagickReadSettings sealed
 	{
 		//===========================================================================================
-	internal:
+	private:
 		//===========================================================================================
-		bool Ping;
+		Dictionary<String^, String^>^ _Options;
 		//===========================================================================================
 		property String^ Scenes
 		{
 			String^ get();
 		}
+		//===========================================================================================
+		void ApplyColorSpace(MagickCore::ImageInfo *imageInfo);
+		//===========================================================================================
+		void ApplyDensity(MagickCore::ImageInfo *imageInfo);
+		//===========================================================================================
+		void ApplyDimensions(MagickCore::ImageInfo *imageInfo);
+		//===========================================================================================
+		void ApplyFormat(MagickCore::ImageInfo *imageInfo);
+		//===========================================================================================
+		void ApplyFrame(MagickCore::ImageInfo *imageInfo);
+		//===========================================================================================
+		void ApplyOptions(MagickCore::ImageInfo *imageInfo);
+		//===========================================================================================
+	internal:
+		//===========================================================================================
+		bool Ping;
 		//===========================================================================================
 		void Apply(Magick::Image* image);
 		//===========================================================================================
@@ -86,6 +104,14 @@ namespace ImageMagick
 		/// The width.
 		///</summary>
 		property Nullable<int> Width;
+		///==========================================================================================
+		///<summary>
+		/// Sets a format-specific option.
+		///</summary>
+		///<param name="format">The format to set the option for.</param>
+		///<param name="name">The name of the option.</param>
+		///<param name="value">The value of the option.</param>
+		void SetOption(MagickFormat format, String^ name, String^ value);
 		//===========================================================================================
 	};
 	//==============================================================================================

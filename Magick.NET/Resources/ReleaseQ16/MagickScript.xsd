@@ -770,6 +770,13 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="pixelStorage" minOccurs="0" type="pixelStorageSettings" />
+						<xs:element name="setOption" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:attribute name="format" use="required" type="MagickFormat" />
+								<xs:attribute name="name" use="required" type="xs:string" />
+								<xs:attribute name="value" use="required" type="xs:string" />
+							</xs:complexType>
+						</xs:element>
 					</xs:sequence>
 					<xs:attribute name="colorSpace" type="ColorSpace" />
 					<xs:attribute name="density" type="geometry" />

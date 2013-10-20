@@ -184,6 +184,15 @@ namespace Magick.NET.FileGenerator
 			return GetProperties("MagickImage");
 		}
 		//===========================================================================================
+		public IEnumerable<MethodInfo> GetMethods(string typeName)
+		{
+			return from type in _MagickNET.GetTypes()
+					 where type.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase)
+					 from method in type.GetMethods()
+					 where IsSupported(method)
+					 select method;
+		}
+		//===========================================================================================
 		public IEnumerable<PropertyInfo> GetProperties(string typeName)
 		{
 			return from type in _MagickNET.GetTypes()

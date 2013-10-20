@@ -56,7 +56,8 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private void ResizeScriptRead(object sender, ScriptReadEventArgs arguments)
 		{
-			arguments.Image = new MagickImage(Files.MagickNETIconPNG);
+			arguments.Image = new MagickImage(Files.ImageMagickJPG, arguments.Settings);
+			Assert.AreEqual("64x64", arguments.Image.GetOption(MagickFormat.Jpeg, "size"));
 		}
 		//===========================================================================================
 		private void Script_ReadNothing(object sender, ScriptReadEventArgs arguments)
@@ -66,8 +67,8 @@ namespace Magick.NET.Tests
 		private static void TestScriptResizeResult(MagickImage result)
 		{
 			Assert.AreEqual("Magick.NET.Resize", result.Comment);
-			Assert.AreEqual(64, result.Width);
-			Assert.AreEqual(64, result.Height);
+			Assert.AreEqual(62, result.Width);
+			Assert.AreEqual(59, result.Height);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -188,7 +189,7 @@ namespace Magick.NET.Tests
 		{
 			MagickScript script = new MagickScript(Files.ResizeScript);
 
-			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+			using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
 			{
 				script.Execute(image);
 				TestScriptResizeResult(image);

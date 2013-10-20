@@ -15,14 +15,14 @@
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal sealed class PixelStorageSettingsGenerator : PropertyCodeGenerator
+	internal sealed class MagickReadSettingsGenerator : SettingsCodeGenerator
 	{
 		//===========================================================================================
 		protected override string ClassName
 		{
 			get
 			{
-				return "PixelStorageSettings";
+				return "MagickReadSettings";
 			}
 		}
 		//===========================================================================================

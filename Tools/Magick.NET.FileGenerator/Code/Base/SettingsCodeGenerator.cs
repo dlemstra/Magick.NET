@@ -19,19 +19,78 @@ using System.Reflection;
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal abstract class PropertyCodeGenerator : CodeGenerator
+	internal abstract class SettingsCodeGenerator : CodeGenerator
 	{
 		//===========================================================================================
-		private PropertyInfo[] _Properties;
+		private MethodBase[] Methods
+		{
+			get
+			{
+				return MagickNET.GetMethods(ClassName).ToArray();
+			}
+		}
 		//===========================================================================================
 		private PropertyInfo[] Properties
 		{
 			get
 			{
-				if (_Properties == null)
-					_Properties = MagickNET.GetProperties(ClassName).ToArray();
+				return MagickNET.GetProperties(ClassName).ToArray();
+			}
+		}
+		//===========================================================================================
+		private void WriteCallMethods(IndentedTextWriter writer)
+		{
+			foreach (MethodBase method in Methods)
+			{
+				string xsdMethodName = XsdGenerator.GetName(method);
+				ParameterInfo[] parameters = method.GetParameters();
 
-				return _Properties;
+				writer.Write("XmlElement^ ");
+				writer.Write(xsdMethodName);
+				writer.Write(" = (XmlElement^)element->SelectSingleNode(\"");
+				writer.Write(xsdMethodName);
+				writer.WriteLine("\");");
+
+				writer.Write("if (");
+				writer.Write(xsdMethodName);
+				writer.WriteLine(" != nullptr)");
+				writer.WriteLine("{");
+
+				writer.Indent++;
+
+				foreach (ParameterInfo parameter in parameters)
+				{
+					string typeName = MagickNET.GetTypeName(parameter);
+
+					writer.Write(typeName);
+					writer.Write(" ");
+					writer.Write(parameter.Name);
+					writer.Write("_ = XmlHelper::GetAttribute<");
+					writer.Write(typeName);
+					writer.Write(">(");
+					writer.Write(xsdMethodName);
+					writer.Write(", \"");
+					writer.Write(parameter.Name);
+					writer.WriteLine("\");");
+				}
+
+				writer.Write("result->");
+				writer.Write(method.Name);
+				writer.Write("(");
+
+				for (int i = 0; i < parameters.Length; i++)
+				{
+					if (i > 0)
+						writer.Write(",");
+
+					writer.Write(parameters[i].Name);
+					writer.Write("_");
+				}
+
+				writer.WriteLine(");");
+				writer.Indent--;
+
+				writer.WriteLine("}");
 			}
 		}
 		//===========================================================================================
@@ -96,6 +155,7 @@ namespace Magick.NET.FileGenerator
 			writer.Write(ClassName);
 			writer.WriteLine("();");
 			WriteSetProperties(writer);
+			WriteCallMethods(writer);
 			writer.WriteLine("return result;");
 			writer.Indent--;
 			writer.WriteLine("}");

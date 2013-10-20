@@ -15,8 +15,6 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
@@ -26,7 +24,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private List<ExecuteCodeGenerator> _ExecuteCodeGenerators;
 		private List<ConstructorCodeGenerator> _ConstructorCodeGenerators;
-		private List<PropertyCodeGenerator> _PropertyCodeGenerators;
+		private List<SettingsCodeGenerator> _SettingsCodeGenerators;
 		//===========================================================================================
 		private CodeFileGenerator()
 		{
@@ -49,9 +47,9 @@ namespace Magick.NET.FileGenerator
 			_ConstructorCodeGenerators.Add(new PathCurvetoGenerator());
 			_ConstructorCodeGenerators.Add(new PathQuadraticCurvetoGenerator());
 
-			_PropertyCodeGenerators = new List<PropertyCodeGenerator>();
-			_PropertyCodeGenerators.Add(new MagickReadSettingsGenerator());
-			_PropertyCodeGenerators.Add(new PixelStorageSettingsGenerator());
+			_SettingsCodeGenerators = new List<SettingsCodeGenerator>();
+			_SettingsCodeGenerators.Add(new MagickReadSettingsGenerator());
+			_SettingsCodeGenerators.Add(new PixelStorageSettingsGenerator());
 		}
 		//===========================================================================================
 		private void CreateCodeFile()
@@ -68,7 +66,7 @@ namespace Magick.NET.FileGenerator
 				WriteInitializeExecute(writer);
 				WriteExecuteMethods(writer);
 				WriteConstructors(writer);
-				WriteProperties(writer);
+				WriteSettings(writer);
 				writer.Indent--;
 				writer.WriteLine("}");
 				writer.WriteLine("#pragma warning (default: 4100)");
@@ -94,7 +92,7 @@ namespace Magick.NET.FileGenerator
 					codeGenerator.WriteHeader(writer);
 				}
 
-				foreach (PropertyCodeGenerator codeGenerator in _PropertyCodeGenerators)
+				foreach (SettingsCodeGenerator codeGenerator in _SettingsCodeGenerators)
 				{
 					codeGenerator.WriteHeader(writer);
 				}
@@ -187,9 +185,9 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		private void WriteProperties(IndentedTextWriter writer)
+		private void WriteSettings(IndentedTextWriter writer)
 		{
-			foreach (PropertyCodeGenerator codeGenerator in _PropertyCodeGenerators)
+			foreach (SettingsCodeGenerator codeGenerator in _SettingsCodeGenerators)
 			{
 				codeGenerator.WriteCode(writer);
 			}

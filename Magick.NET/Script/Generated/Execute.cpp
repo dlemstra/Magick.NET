@@ -2611,6 +2611,14 @@ namespace ImageMagick
 		result->Height = XmlHelper::GetAttribute<Nullable<Int32>>(element, "height");
 		result->PixelStorage = CreatePixelStorageSettings((XmlElement^)element->SelectSingleNode("pixelStorage"));
 		result->Width = XmlHelper::GetAttribute<Nullable<Int32>>(element, "width");
+		XmlElement^ setOption = (XmlElement^)element->SelectSingleNode("setOption");
+		if (setOption != nullptr)
+		{
+			MagickFormat format_ = XmlHelper::GetAttribute<MagickFormat>(setOption, "format");
+			String^ name_ = XmlHelper::GetAttribute<String^>(setOption, "name");
+			String^ value_ = XmlHelper::GetAttribute<String^>(setOption, "value");
+			result->SetOption(format_,name_,value_);
+		}
 		return result;
 	}
 	PixelStorageSettings^ MagickScript::CreatePixelStorageSettings(XmlElement^ element)

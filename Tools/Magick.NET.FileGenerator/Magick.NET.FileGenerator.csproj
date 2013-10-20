@@ -41,8 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\Base\PropertyCodeGenerator.cs" />
-    <Compile Include="Code\Properties\PixelStorageSettingsGenerator.cs" />
+    <Compile Include="Code\Base\SettingsCodeGenerator.cs" />
+    <Compile Include="Code\Settings\PixelStorageSettingsGenerator.cs" />
     <Compile Include="Code\Constructors\ImageProfileGenerator.cs" />
     <Compile Include="Code\Constructors\PathQuadraticCurvetoGenerator.cs" />
     <Compile Include="Code\Constructors\PathCurvetoGeneraror.cs" />
@@ -56,7 +56,7 @@
     <Compile Include="Code\Execute\MagickImageGenerator.cs" />
     <Compile Include="Code\Base\ExecuteCodeGenerator.cs" />
     <Compile Include="Code\Execute\PathsGenerator.cs" />
-    <Compile Include="Code\Properties\MagickReadSettingsGenerator.cs" />
+    <Compile Include="Code\Settings\MagickReadSettingsGenerator.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="MagickNET.cs" />
