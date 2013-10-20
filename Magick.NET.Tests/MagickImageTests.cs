@@ -248,6 +248,20 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_LiquidRescale()
+		{
+			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+			{
+				MagickGeometry geometry = new MagickGeometry(128, 64);
+				geometry.Aspect = true;
+
+				image.LiquidRescale(geometry);
+				Assert.AreEqual(128, image.Width);
+				Assert.AreEqual(64, image.Height);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Read()
 		{
 			MagickImage image = new MagickImage();

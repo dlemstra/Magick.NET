@@ -3018,6 +3018,26 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::LiquidRescale(MagickGeometry^ geometry)
+	{
+		Throw::IfNull("geometry", geometry);
+
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
+		try
+		{
+			Value->liquidRescale(*magickGeometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Lower(int size)
 	{
 		RaiseOrLower(size, false);

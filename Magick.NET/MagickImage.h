@@ -2012,7 +2012,13 @@ namespace ImageMagick
 		///</summary>
 		///<param name="blackPoint">The black point.</param>
 		///<param name="whitePoint">The white point.</param>
-		void LinearStretch(Percentage blackPoint, Percentage whitePoint); 
+		void LinearStretch(Percentage blackPoint, Percentage whitePoint);
+		///==========================================================================================
+		///<summary>
+		/// Rescales image with seam carving.
+		///</summary>
+		///<param name="geometry">The geomerty to use.</param>
+		void LiquidRescale(MagickGeometry^ geometry);
 		///==========================================================================================
 		///<summary>
 		/// Lower image (lighten or darken the edges of an image to give a 3-D lowered effect).
