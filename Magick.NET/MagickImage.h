@@ -566,6 +566,14 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// The names of the profiles.
+		///</summary>
+		property IEnumerable<String^>^ ProfileNames
+		{
+			IEnumerable<String^>^ get();
+		}
+		///==========================================================================================
+		///<summary>
 		/// JPEG/MIFF/PNG compression level (default 75).
 		///</summary>
 		property int Quality

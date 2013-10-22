@@ -742,6 +742,28 @@ namespace ImageMagick
 		delete geometry;
 	}
 	//==============================================================================================
+	IEnumerable<String^>^ MagickImage::ProfileNames::get()
+	{
+		List<String^>^ names = gcnew List<String^>();
+
+		std::list<std::string> *profileNames = new std::list<std::string>();
+
+		try
+		{
+			Magick::profileNames(profileNames, Value);
+			for (std::list<std::string>::iterator iter = profileNames->begin(), end = profileNames->end(); iter != end; ++iter)
+			{
+				names->Add(Marshaller::Marshal(*iter));
+			}
+
+			return names;
+		}
+		finally
+		{
+			delete[] profileNames;
+		}
+	}
+	//==============================================================================================
 	int MagickImage::Quality::get()
 	{
 		return Convert::ToInt32(Value->quality());

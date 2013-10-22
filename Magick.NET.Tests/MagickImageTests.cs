@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -284,6 +285,27 @@ namespace Magick.NET.Tests
 				image.LiquidRescale(geometry);
 				Assert.AreEqual(128, image.Width);
 				Assert.AreEqual(64, image.Height);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_ProfileNames()
+		{
+			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+			{
+				IEnumerable<string> names = image.ProfileNames;
+				Assert.IsNotNull(names);
+				Assert.AreEqual(5, names.Count());
+				Assert.AreEqual("8bim,exif,icc,iptc,xmp", string.Join(",", from name in names
+																							  orderby name
+																							  select name));
+			}
+
+			using (MagickImage image = new MagickImage(Files.RedPng))
+			{
+				IEnumerable<string> names = image.ProfileNames;
+				Assert.IsNotNull(names);
+				Assert.AreEqual(0, names.Count());
 			}
 		}
 		//===========================================================================================
