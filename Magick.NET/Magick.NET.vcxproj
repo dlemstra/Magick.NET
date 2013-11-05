@@ -267,6 +267,7 @@
     <ClInclude Include="Enums\FontStyleType.h" />
     <ClInclude Include="Enums\FontWeight.h" />
     <ClInclude Include="Enums\GifDisposeMethod.h" />
+    <ClInclude Include="Enums\PixelChannel.h" />
     <ClInclude Include="Enums\StorageType.h" />
     <ClInclude Include="Enums\LayerMethod.h" />
     <ClInclude Include="Enums\LineCap.h" />

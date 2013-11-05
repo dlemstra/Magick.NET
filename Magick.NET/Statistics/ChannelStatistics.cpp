@@ -17,16 +17,26 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	ChannelStatistics::ChannelStatistics(Magick::Image::ImageChannelStatistics channelStatistics)
+	ChannelStatistics::ChannelStatistics(const Magick::Image::ImageChannelStatistics channelStatistics)
 	{
-		_Maximum = channelStatistics.maximum;
-		_Minimum = channelStatistics.minimum;
-		_Mean = channelStatistics.mean;
+		//_Depth = channelStatistics.depth();
 		_Kurtosis = channelStatistics.kurtosis;
+		_Maximum = channelStatistics.maximum;
+		_Mean = channelStatistics.mean;
+		_Minimum = channelStatistics.minimum;
 		_Skewness = channelStatistics.skewness;
 		_StandardDeviation = channelStatistics.standard_deviation;
+		//_Sum = channelStatistics.sum();
+		//_SumCubed = channelStatistics.sumCubed();
+		//_SumFourthPower = channelStatistics.sumFourthPower();
+		//_SumSquared = channelStatistics.sumSquared();
 		_Variance = channelStatistics.variance;
 	}
+	//==============================================================================================
+	//int ChannelStatistics::Depth::get()
+	//{
+	//	return _Depth;
+	//}
 	//==============================================================================================
 	double ChannelStatistics::Maximum::get()
 	{
@@ -58,17 +68,37 @@ namespace ImageMagick
 		return _StandardDeviation;
 	}
 	//==============================================================================================
+	//double ChannelStatistics::Sum::get()
+	//{
+	//	return _Sum;
+	//}
+	//==============================================================================================
+	//double ChannelStatistics::SumCubed::get()
+	//{
+	//	return _SumCubed;
+	//}
+	//==============================================================================================
+	//double ChannelStatistics::SumFourthPower::get()
+	//{
+	//	return _SumFourthPower;
+	//}
+	//==============================================================================================
+	//double ChannelStatistics::SumSquared::get()
+	//{
+	//	return _SumSquared;
+	//}
+	//==============================================================================================
 	double ChannelStatistics::Variance::get()
 	{
 		return _Variance;
 	}
 	//==============================================================================================
-	bool ChannelStatistics::operator == (ChannelStatistics left, ChannelStatistics right)
+	bool ChannelStatistics::operator == (ChannelStatistics^ left, ChannelStatistics^ right)
 	{
 		return Object::Equals(left, right);
 	}
 	//==============================================================================================
-	bool ChannelStatistics::operator != (ChannelStatistics left, ChannelStatistics right)
+	bool ChannelStatistics::operator != (ChannelStatistics^ left, ChannelStatistics^ right)
 	{
 		return !Object::Equals(left, right);
 	}
@@ -78,30 +108,39 @@ namespace ImageMagick
 		if (obj == nullptr)
 			return false;
 
-		if (obj->GetType() == ChannelStatistics::typeid)
-			return Equals((ChannelStatistics)obj);
-
-		return false;
+		return Equals(dynamic_cast<ChannelStatistics^>(obj));
 	}
 	//==============================================================================================
-	bool ChannelStatistics::Equals(ChannelStatistics channelStatistics)
+	bool ChannelStatistics::Equals(ChannelStatistics^ other)
 	{
+		if (ReferenceEquals(other, nullptr))
+			return false;
+
+		if (ReferenceEquals(this, other))
+			return true;
+
 		return
-			_Maximum.Equals(channelStatistics._Maximum) &&
-			_Minimum.Equals(channelStatistics._Minimum) &&
-			_Mean.Equals(channelStatistics._Mean) &&
-			_Kurtosis.Equals(channelStatistics._Kurtosis) &&
-			_Skewness.Equals(channelStatistics._Skewness) &&
-			_StandardDeviation.Equals(channelStatistics._StandardDeviation) &&
-			_Variance.Equals(channelStatistics._Variance);
+			//_Depth.Equals(other->Depth) &&
+			_Kurtosis.Equals(other->_Kurtosis) &&
+			_Maximum.Equals(other->_Maximum) &&
+			_Mean.Equals(other->_Mean) &&
+			_Minimum.Equals(other->_Minimum) &&
+			_Skewness.Equals(other->_Skewness) &&
+			_StandardDeviation.Equals(other->_StandardDeviation) &&
+			//_Sum.Equals(other->_Sum) &&
+			//_SumCubed.Equals(other->_SumCubed) &&
+			//_SumFourthPower.Equals(other->_SumFourthPower) &&
+			//_SumSquared.Equals(other->_SumSquared) &&
+			_Variance.Equals(other->_Variance);
 	}
 	//==============================================================================================
 	int ChannelStatistics::GetHashCode()
 	{
 		return
-			_Maximum.GetHashCode() ^ _Minimum.GetHashCode() ^ _Mean.GetHashCode() ^
+			/*_Depth.GetHashCode() ^*/ _Maximum.GetHashCode() ^ _Mean.GetHashCode() ^ _Minimum.GetHashCode() ^
 			_Kurtosis.GetHashCode() ^ _Skewness.GetHashCode() ^ _StandardDeviation.GetHashCode() ^
-			_Variance.GetHashCode();
+			/*_Sum.GetHashCode() ^ _SumCubed.GetHashCode() ^ _SumFourthPower.GetHashCode() ^
+			_SumSquared.GetHashCode() ^*/ _Variance.GetHashCode();
 	}
 	//==============================================================================================
 }

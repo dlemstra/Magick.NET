@@ -71,11 +71,11 @@ namespace ImageMagick
 		static void Initialize(String^ path);
 		///==========================================================================================
 		///<summary>
-		/// Pixel cache threshold in megabytes. Once this memory threshold is exceeded, all subsequent
+		/// Pixel cache threshold in bytes. Once this memory threshold is exceeded, all subsequent
 		/// pixels cache operations are to/from disk. This setting is shared by all MagickImage objects.
 		///</summary>
-		///<param name="threshold">The threshold in megabytes.</param>
-		static void SetCacheThreshold(int threshold);
+		///<param name="threshold">The threshold in bytes.</param>
+		static void SetCacheThreshold(Magick::MagickSizeType threshold);
 		///==========================================================================================
 		///<summary>
 		/// Set the events that will be written to the log. The log will be written to the console and

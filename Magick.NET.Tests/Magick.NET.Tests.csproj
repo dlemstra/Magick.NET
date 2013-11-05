@@ -88,6 +88,7 @@
     <Compile Include="Script\MagickScriptTests.cs" />
     <Compile Include="Settings\MagickReadSettingsTests.cs" />
     <Compile Include="Settings\PixelStorageSettingsTests.cs" />
+    <Compile Include="Statistics\MagickImageStatisticsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Magick.NET\Magick.NET.vcxproj">

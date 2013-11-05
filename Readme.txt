@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 6.8.7.?:
+  - Refactored MagickImageStatistics to prepare for upcoming changes in ImageMagick 7.
+
 Magick.NET 6.8.7.101:
   - Renamed Matrix classes: MatrixColor = ColorMatrix and MatrixConvolve = ConvolveMatrix.
   - Renamed Depth method with Channels parameter to BitDepth and changed the other method into a property.

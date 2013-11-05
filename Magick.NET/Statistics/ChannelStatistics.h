@@ -19,24 +19,37 @@ namespace ImageMagick
 	///<summary>
 	/// Encapsulation of the ImageMagick ImageChannelStatistics object.
 	///</summary>
-	public value struct ChannelStatistics sealed
+	public ref class ChannelStatistics sealed : IEquatable<ChannelStatistics^>
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		double _Maximum;
-		double _Minimum;
-		double _Mean;
+		//int _Depth;
 		double _Kurtosis;
+		double _Maximum;
+		double _Mean;
+		double _Minimum;
 		double _Skewness;
 		double _StandardDeviation;
+		//double _Sum;
+		//double _SumCubed;
+		//double _SumFourthPower;
+		//double _SumSquared;
 		double _Variance;
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		ChannelStatistics(Magick::Image::ImageChannelStatistics channelStatistics);
+		ChannelStatistics(const Magick::Image::ImageChannelStatistics channelStatistics);
 		//===========================================================================================
 	public:
+		///==========================================================================================
+		///<summary>
+		/// Depth of the channel.
+		///</summary>
+		//property int Depth
+		//{
+		//	int get();
+		//}
 		///==========================================================================================
 		///<summary>
 		/// Maximum value observed.
@@ -47,17 +60,17 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Minimum value observed.
+		/// Average (mean) value observed.
 		///</summary>
-		property double Minimum
+		property double Mean
 		{
 			double get();
 		}
 		///==========================================================================================
 		///<summary>
-		/// Average (mean) value observed.
+		/// Minimum value observed.
 		///</summary>
-		property double Mean
+		property double Minimum
 		{
 			double get();
 		}
@@ -87,6 +100,38 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Sum.
+		///</summary>
+		//property double Sum
+		//{
+		//	double get();
+		//}
+		///==========================================================================================
+		///<summary>
+		/// Sum cubed.
+		///</summary>
+		//property double SumCubed
+		//{
+		//	double get();
+		//}
+		///==========================================================================================
+		///<summary>
+		/// Sum fourth power.
+		///</summary>
+		//property double SumFourthPower
+		//{
+		//	double get();
+		//}
+		///==========================================================================================
+		///<summary>
+		/// Sum squared.
+		///</summary>
+		//property double SumSquared
+		//{
+		//	double get();
+		//}
+		///==========================================================================================
+		///<summary>
 		/// Variance.
 		///</summary>
 		property double Variance
@@ -94,9 +139,9 @@ namespace ImageMagick
 			double get();
 		}
 		//===========================================================================================
-		static bool operator == (ChannelStatistics left, ChannelStatistics right);
+		static bool operator == (ChannelStatistics^ left, ChannelStatistics^ right);
 		//===========================================================================================
-		static bool operator != (ChannelStatistics left, ChannelStatistics right);
+		static bool operator != (ChannelStatistics^ left, ChannelStatistics^ right);
 		///==========================================================================================
 		///<summary>
 		/// Determines whether the specified object is equal to the current channel statistics.
@@ -107,8 +152,8 @@ namespace ImageMagick
 		///<summary>
 		/// Determines whether the specified channel statistics is equal to the current channel statistics.
 		///</summary>
-		///<param name="channelStatistics">The channel statistics to compare this channel statistics with.</param>
-		bool Equals(ChannelStatistics channelStatistics);
+		///<param name="other">The channel statistics to compare this channel statistics with.</param>
+		virtual bool Equals(ChannelStatistics^ other);
 		///==========================================================================================
 		///<summary>
 		/// Servers as a hash of this type.

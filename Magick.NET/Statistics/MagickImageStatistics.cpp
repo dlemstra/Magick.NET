@@ -17,40 +17,46 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickImageStatistics::MagickImageStatistics(Magick::Image::ImageStatistics statistics)
+	MagickImageStatistics::MagickImageStatistics(const Magick::Image::ImageStatistics* statistics)
 	{
-		_Alpha = ChannelStatistics(statistics.opacity);
-		_Blue = ChannelStatistics(statistics.blue);
-		_Green = ChannelStatistics(statistics.green);
-		_Red = ChannelStatistics(statistics.red);
+		_Channels = gcnew Dictionary<PixelChannel, ChannelStatistics^>();
+		/*for each (PixelChannel channel in Enum::GetValues(PixelChannel::typeid))
+		{
+			if (_Channels->ContainsKey(channel))
+				continue;
+
+			Magick::ChannelStatistics channelStatistics = statistics->channel((MagickCore::ChannelType)channel);
+
+			if (!channelStatistics.isValid())
+				continue;
+
+			_Channels->Add(channel, gcnew ChannelStatistics(channelStatistics));
+		}*/
+		_Channels->Add(PixelChannel::Alpha, gcnew ChannelStatistics(statistics->opacity));
+		_Channels->Add(PixelChannel::Blue, gcnew ChannelStatistics(statistics->blue));
+		_Channels->Add(PixelChannel::Green, gcnew ChannelStatistics(statistics->green));
+		_Channels->Add(PixelChannel::Red, gcnew ChannelStatistics(statistics->red));
 	}
 	//==============================================================================================
-	ChannelStatistics MagickImageStatistics::Alpha::get()
+	/*ChannelStatistics^ MagickImageStatistics::Composite()
 	{
-		return _Alpha;
+		return _Channels[PixelChannel::Composite];
+	}*/
+	//==============================================================================================
+	ChannelStatistics^ MagickImageStatistics::GetChannel(PixelChannel channel)
+	{
+		if (!_Channels->ContainsKey(channel))
+			return nullptr;
+
+		return _Channels[channel];
 	}
 	//==============================================================================================
-	ChannelStatistics MagickImageStatistics::Blue::get()
-	{
-		return _Blue;
-	}
-	//==============================================================================================
-	ChannelStatistics MagickImageStatistics::Green::get()
-	{
-		return _Green;
-	}
-	//==============================================================================================
-	ChannelStatistics MagickImageStatistics::Red::get()
-	{
-		return _Red;
-	}
-	//==============================================================================================
-	bool MagickImageStatistics::operator == (MagickImageStatistics left, MagickImageStatistics right)
+	bool MagickImageStatistics::operator == (MagickImageStatistics^ left, MagickImageStatistics^ right)
 	{
 		return Object::Equals(left, right);
 	}
 	//==============================================================================================
-	bool MagickImageStatistics::operator != (MagickImageStatistics left, MagickImageStatistics right)
+	bool MagickImageStatistics::operator != (MagickImageStatistics^ left, MagickImageStatistics^ right)
 	{
 		return !Object::Equals(left, right);
 	}
@@ -60,24 +66,42 @@ namespace ImageMagick
 		if (obj == nullptr)
 			return false;
 
-		if (obj->GetType() == MagickImageStatistics::typeid)
-			return Equals((MagickImageStatistics)obj);
-
-		return false;
+		return Equals(dynamic_cast<MagickImageStatistics^>(obj));
 	}
 	//==============================================================================================
-	bool MagickImageStatistics::Equals(MagickImageStatistics statistics)
+	bool MagickImageStatistics::Equals(MagickImageStatistics^ other)
 	{
-		return
-			_Alpha.Equals(statistics._Alpha) &&
-			_Blue.Equals(statistics._Blue) &&
-			_Green.Equals(statistics._Green) &&
-			_Red.Equals(statistics._Red);
+		if (ReferenceEquals(other, nullptr))
+			return false;
+
+		if (ReferenceEquals(this, other))
+			return true;
+
+		if (_Channels->Count != other->_Channels->Count)
+			return false;
+
+		for each(PixelChannel channel in _Channels->Keys)
+		{
+			if (!other->_Channels->ContainsKey(channel))
+				return false;
+
+			if (! _Channels[channel]->Equals( other->_Channels[channel]))
+				return false;
+		}
+
+		return true;
 	}
 	//==============================================================================================
 	int MagickImageStatistics::GetHashCode()
 	{
-		return _Alpha.GetHashCode() ^ _Blue.GetHashCode() ^ _Green.GetHashCode() ^_Red.GetHashCode();
+		int hashCode = _Channels->GetHashCode();
+
+		for each(PixelChannel channel in _Channels->Keys)
+		{
+			hashCode = hashCode ^ _Channels[channel]->GetHashCode();
+		}
+
+		return hashCode;
 	}
 	//==============================================================================================
 }

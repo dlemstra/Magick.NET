@@ -436,7 +436,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::ColorType::set(ImageMagick::ColorType value)
 	{
-		return Value->type((MagickCore::ImageType)value);
+		Value->type((MagickCore::ImageType)value);
 	}
 	//==============================================================================================
 	String^ MagickImage::Comment::get()
@@ -3958,7 +3958,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickImageStatistics MagickImage::Statistics()
+	MagickImageStatistics^ MagickImage::Statistics()
 	{
 		Magick::Image::ImageStatistics statistics;
 
@@ -3966,7 +3966,7 @@ namespace ImageMagick
 		{
 			Value->statistics(&statistics);
 
-			return MagickImageStatistics(statistics);
+			return gcnew MagickImageStatistics(&statistics);
 		}
 		catch(Magick::Exception& exception)
 		{

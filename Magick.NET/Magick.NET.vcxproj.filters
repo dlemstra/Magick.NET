@@ -633,6 +633,9 @@
     <ClInclude Include="Matrices\ConvolveMatrix.h">
       <Filter>Header Files\Matrices</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\PixelChannel.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">

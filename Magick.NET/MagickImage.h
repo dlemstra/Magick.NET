@@ -2688,7 +2688,7 @@ namespace ImageMagick
 		/// Returns image statistics.
 		///</summary>
 		///<exception cref="MagickException"/>
-		MagickImageStatistics Statistics();
+		MagickImageStatistics^ Statistics();
 		///==========================================================================================
 		///<summary>
 		/// Add a digital watermark to the image (based on second image)

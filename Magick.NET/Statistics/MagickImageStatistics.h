@@ -13,7 +13,10 @@
 //=================================================================================================
 #pragma once
 
+#include "..\Enums\PixelChannel.h"
 #include "ChannelStatistics.h"
+
+using namespace System::Collections::Generic;
 
 namespace ImageMagick
 {
@@ -21,57 +24,32 @@ namespace ImageMagick
 	///<summary>
 	/// Encapsulation of the ImageMagick ImageStatistics object.
 	///</summary>
-	public value struct MagickImageStatistics sealed
+	public ref class MagickImageStatistics : IEquatable<MagickImageStatistics^>
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		ChannelStatistics _Alpha;
-		ChannelStatistics _Blue;
-		ChannelStatistics _Green;
-		ChannelStatistics _Red;
+		Dictionary<PixelChannel, ChannelStatistics^>^ _Channels;
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickImageStatistics(Magick::Image::ImageStatistics statistics);
+		MagickImageStatistics(const Magick::Image::ImageStatistics* statistics);
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Statistics for the alpha channel.
+		/// Statistics for the all the channels.
 		///</summary>
-		property ChannelStatistics Alpha
-		{
-			ChannelStatistics get();
-		}
+		//ChannelStatistics^ Composite();
 		///==========================================================================================
 		///<summary>
-		/// Statistics for the blue channel.
+		/// Statistics for the specified channel.
 		///</summary>
-		property ChannelStatistics Blue
-		{
-			ChannelStatistics get();
-		}
-		///==========================================================================================
-		///<summary>
-		/// Statistics for the green channel.
-		///</summary>
-		property ChannelStatistics Green
-		{
-			ChannelStatistics get();
-		}
-		///==========================================================================================
-		///<summary>
-		/// Statistics for the red channel.
-		///</summary>
-		property ChannelStatistics Red
-		{
-			ChannelStatistics get();
-		}
+		ChannelStatistics^ GetChannel(PixelChannel channel);
 		//===========================================================================================
-		static bool operator == (MagickImageStatistics left, MagickImageStatistics right);
+		static bool operator == (MagickImageStatistics^ left, MagickImageStatistics^ right);
 		//===========================================================================================
-		static bool operator != (MagickImageStatistics left, MagickImageStatistics right);
+		static bool operator != (MagickImageStatistics^ left, MagickImageStatistics^ right);
 		///==========================================================================================
 		///<summary>
 		/// Determines whether the specified object is equal to the current image statistics.
@@ -82,8 +60,8 @@ namespace ImageMagick
 		///<summary>
 		/// Determines whether the specified image statistics is equal to the current image statistics.
 		///</summary>
-		///<param name="statistics">The image statistics to compare this image statistics with.</param>
-		bool Equals(MagickImageStatistics statistics);
+		///<param name="other">The image statistics to compare this image statistics with.</param>
+		virtual bool Equals(MagickImageStatistics^ other);
 		///==========================================================================================
 		///<summary>
 		/// Servers as a hash of this type.

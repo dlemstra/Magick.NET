@@ -19,14 +19,22 @@ namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Specifies gif disposal methods.
+	/// Specifies the pixel channels.
 	///</summary>
-	public enum class GifDisposeMethod
+	public enum class PixelChannel
 	{
-		Undefined = MagickCore::UndefinedDispose,
-		None = MagickCore::NoneDispose,
-		Background = MagickCore::BackgroundDispose,
-		Previous = MagickCore::PreviousDispose
+		Undefined = MagickCore::UndefinedChannel,
+		Red = MagickCore::RedChannel,
+		Cyan = MagickCore::CyanChannel,
+		Gray = MagickCore::GrayChannel,
+		Green = MagickCore::GreenChannel,
+		Magenta = MagickCore::MagentaChannel,
+		Blue = MagickCore::BlueChannel,
+		Yellow = MagickCore::YellowChannel,
+		Black = MagickCore::BlackChannel,
+		Alpha = MagickCore::AlphaChannel,
+		Index = MagickCore::IndexChannel,
+		Composite = MagickCore::CompositeChannels
 	};
 	//==============================================================================================
 }

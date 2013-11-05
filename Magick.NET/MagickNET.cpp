@@ -66,9 +66,9 @@ namespace ImageMagick
 		_putenv_s("MAGICK_CONFIGURE_PATH", Marshaller::Marshal(path, configurePath).c_str());
 	}
 	//==============================================================================================
-	void MagickNET::SetCacheThreshold(int threshold)
+	void MagickNET::SetCacheThreshold(Magick::MagickSizeType threshold)
 	{
-		Magick::Image::cacheThreshold(threshold);
+		Magick::Image::cacheThreshold((size_t)threshold);
 	}
 	//==============================================================================================
 	void MagickNET::SetLogEvents(LogEvents events)
