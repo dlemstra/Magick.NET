@@ -2872,7 +2872,7 @@ namespace ImageMagick
 			Dictionary<MagickColor^, int>^ result = gcnew Dictionary<MagickColor^, int>();
 			for (std::list<std::pair<const Magick::Color,size_t>>::iterator iter = colors->begin(), end = colors->end(); iter != end; ++iter)
 			{
-				result->Add(gcnew MagickColor(iter->first), iter->second);
+				result->Add(gcnew MagickColor(iter->first), (int)iter->second);
 			}
 
 			return result;

@@ -44,7 +44,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void Throw::IfNegative(String^ paramName, Percentage value)
 	{
-		if (value.ToDouble() <= 0.0)
+		if (value.ToDouble() < 0.0)
 			throw gcnew ArgumentException("Value should be greater then zero.", paramName);
 	}
 	//==============================================================================================
