@@ -375,6 +375,11 @@ namespace ImageMagick
 		void RePage();
 		///==========================================================================================
 		///<summary>
+		/// Reverses the order of the images in the collection.
+		///</summary>
+		void Reverse();
+		///==========================================================================================
+		///<summary>
 		/// Converts this instance to a byte array.
 		///</summary>
 		array<Byte>^ ToByteArray();

@@ -15,6 +15,7 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -247,6 +248,19 @@ namespace Magick.NET.Tests
 
 				Assert.AreEqual(0, collection[0].Page.X);
 				Assert.AreEqual(0, collection[0].Page.Y);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Reverse()
+		{
+			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+			{
+				MagickImage first = collection.First();
+				collection.Reverse();
+
+				MagickImage last = collection.Last();
+				Assert.IsTrue(last == first);
 			}
 		}
 		//===========================================================================================

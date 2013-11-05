@@ -509,6 +509,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImageCollection::Reverse()
+	{
+		_Images->Reverse();
+	}
+	//==============================================================================================
 	array<Byte>^ MagickImageCollection::ToByteArray()
 	{
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
