@@ -667,6 +667,16 @@ namespace ImageMagick
 		return Convert::ToInt32(Value->size().height());
 	}
 	//==============================================================================================
+	Interlace MagickImage::Interlace::get()
+	{
+		return (ImageMagick::Interlace)Value->interlaceType();
+	}
+	//==============================================================================================
+	void MagickImage::Interlace::set(ImageMagick::Interlace value)
+	{
+		Value->interlaceType((Magick::InterlaceType)value);
+	}
+	//==============================================================================================
 	bool MagickImage::IsMonochrome::get()
 	{
 		return Value->monochrome();

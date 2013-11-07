@@ -31,6 +31,7 @@
 #include "Enums\FilterType.h"
 #include "Enums\GifDisposeMethod.h"
 #include "Enums\Gravity.h"
+#include "Enums\Interlace.h"
 #include "Enums\LineCap.h"
 #include "Enums\LineJoin.h"
 #include "Enums\MagickFormat.h"
@@ -508,6 +509,15 @@ namespace ImageMagick
 		property int Height
 		{
 			int get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// Type of interlacing to use.
+		///</summary>
+		property Interlace Interlace
+		{
+			ImageMagick::Interlace get();
+			void set(ImageMagick::Interlace value);
 		}
 		///==========================================================================================
 		///<summary>
