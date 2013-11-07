@@ -2,6 +2,7 @@ Breaking changes.
 
 Magick.NET 6.8.7.?:
   - Refactored MagickImageStatistics to prepare for upcoming changes in ImageMagick 7.
+  - Renamed MagickImage.SetOption to SetDefine.
 
 Magick.NET 6.8.7.101:
   - Renamed Matrix classes: MatrixColor = ColorMatrix and MatrixConvolve = ConvolveMatrix.

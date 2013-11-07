@@ -69,14 +69,9 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteCallIfElse(IndentedTextWriter writer, MethodBase[] methods)
 		{
-			MethodBase[] sortedMethods = (from method in methods
-													orderby string.Join(" ", from parameter in method.GetParameters()
-																					 select parameter.Name)
-													select method).ToArray();
-
-			for (int i = 0; i < sortedMethods.Length; i++)
+			for (int i = 0; i < methods.Length; i++)
 			{
-				ParameterInfo[] parameters = sortedMethods[i].GetParameters();
+				ParameterInfo[] parameters = methods[i].GetParameters();
 
 				if (i > 0)
 					writer.Write("else ");
@@ -100,7 +95,7 @@ namespace Magick.NET.FileGenerator
 
 				writer.WriteLine(")");
 				writer.Indent++;
-				WriteHashtableCall(writer, sortedMethods[i], parameters);
+				WriteHashtableCall(writer, methods[i], parameters);
 				writer.Indent--;
 			}
 		}
@@ -319,9 +314,17 @@ namespace Magick.NET.FileGenerator
 													select param).DistinctBy(p => p.Name).ToArray();
 
 			if (methods.Length == 1)
+			{
 				WriteMethod(writer, methods[0], parameters);
+			}
 			else
-				WriteMethod(writer, methods, parameters);
+			{
+				MethodBase[] sortedMethods = (from method in methods
+														orderby string.Join(" ", from parameter in method.GetParameters()
+																						 select parameter.Name)
+														select method).ToArray();
+				WriteMethod(writer, sortedMethods, parameters);
+			}
 		}
 		//===========================================================================================
 		protected static void WriteSelectElement(IndentedTextWriter writer, string typeName, string elementName)

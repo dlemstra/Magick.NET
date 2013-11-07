@@ -3739,7 +3739,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::SetOption(MagickFormat format, String^ name, bool flag)
+	void MagickImage::SetDefine(MagickFormat format, String^ name, bool flag)
 	{
 		Throw::IfNullOrEmpty("name", name);
 
@@ -3758,7 +3758,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::SetOption(MagickFormat format, String^ name, String^ value)
+	void MagickImage::SetDefine(MagickFormat format, String^ name, String^ value)
 	{
 		Throw::IfNullOrEmpty("name", name);
 		Throw::IfNull("value", value);

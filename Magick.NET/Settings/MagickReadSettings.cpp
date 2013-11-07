@@ -90,17 +90,17 @@ namespace ImageMagick
 		imageInfo->number_scenes = FrameCount.HasValue ? FrameCount.Value : 1;
 	}
 	//==============================================================================================
-	void MagickReadSettings::ApplyOptions(MagickCore::ImageInfo *imageInfo)
+	void MagickReadSettings::ApplyDefines(MagickCore::ImageInfo *imageInfo)
 	{
-		if (_Options->Count == 0)
+		if (_Defines->Count == 0)
 			return;
 
-		for each (String^ key in _Options->Keys)
+		for each (String^ key in _Defines->Keys)
 		{
 			std::string option;
 			Marshaller::Marshal(key, option);
 			std::string value;
-			Marshaller::Marshal(_Options[key], value);
+			Marshaller::Marshal(_Defines[key], value);
 			(void) MagickCore::SetImageOption(imageInfo, option.c_str(), value.c_str());
 		}
 	}
@@ -120,20 +120,20 @@ namespace ImageMagick
 		ApplyDimensions(imageInfo);
 		ApplyFormat(imageInfo);
 		ApplyFrame(imageInfo);
-		ApplyOptions(imageInfo);
+		ApplyDefines(imageInfo);
 	}
 	//==============================================================================================
 	MagickReadSettings::MagickReadSettings()
 	{
-		_Options = gcnew Dictionary<String^, String^>();
+		_Defines = gcnew Dictionary<String^, String^>();
 	}
 	//==============================================================================================
-	void MagickReadSettings::SetOption(MagickFormat format, String^ name, String^ value)
+	void MagickReadSettings::SetDefine(MagickFormat format, String^ name, String^ value)
 	{
 		Throw::IfNullOrEmpty("name", name);
 		Throw::IfNull("value", value);
 
-		_Options[Enum::GetName(MagickFormat::typeid, format) + ":" + name] = value;
+		_Defines[Enum::GetName(MagickFormat::typeid, format) + ":" + name] = value;
 	}
 	//==============================================================================================
 }

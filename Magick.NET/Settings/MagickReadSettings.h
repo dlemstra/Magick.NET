@@ -31,7 +31,7 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		Dictionary<String^, String^>^ _Options;
+		Dictionary<String^, String^>^ _Defines;
 		//===========================================================================================
 		property String^ Scenes
 		{
@@ -48,7 +48,7 @@ namespace ImageMagick
 		//===========================================================================================
 		void ApplyFrame(MagickCore::ImageInfo *imageInfo);
 		//===========================================================================================
-		void ApplyOptions(MagickCore::ImageInfo *imageInfo);
+		void ApplyDefines(MagickCore::ImageInfo *imageInfo);
 		//===========================================================================================
 	internal:
 		//===========================================================================================
@@ -111,7 +111,7 @@ namespace ImageMagick
 		///<param name="format">The format to set the option for.</param>
 		///<param name="name">The name of the option.</param>
 		///<param name="value">The value of the option.</param>
-		void SetOption(MagickFormat format, String^ name, String^ value);
+		void SetDefine(MagickFormat format, String^ name, String^ value);
 		//===========================================================================================
 	};
 	//==============================================================================================

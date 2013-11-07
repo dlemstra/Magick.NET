@@ -343,6 +343,17 @@
 			<xs:enumeration value="West" />
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="Interlace">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Gif" />
+			<xs:enumeration value="Jpeg" />
+			<xs:enumeration value="Line" />
+			<xs:enumeration value="No" />
+			<xs:enumeration value="Partition" />
+			<xs:enumeration value="Plane" />
+			<xs:enumeration value="Png" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="LineCap">
 		<xs:restriction base="xs:NMTOKEN">
 			<xs:enumeration value="Butt" />
@@ -770,7 +781,7 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="pixelStorage" minOccurs="0" type="pixelStorageSettings" />
-						<xs:element name="setOption" minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="setDefine" minOccurs="0" maxOccurs="unbounded">
 							<xs:complexType>
 								<xs:attribute name="format" use="required" type="MagickFormat" />
 								<xs:attribute name="name" use="required" type="xs:string" />
@@ -946,6 +957,11 @@
 				<xs:element name="hasAlpha">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="xs:boolean" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="interlace">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="Interlace" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="isMonochrome">
@@ -1590,7 +1606,7 @@
 						<xs:attribute name="value" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="setOption">
+				<xs:element name="setDefine">
 					<xs:complexType>
 						<xs:attribute name="flag" type="xs:boolean" />
 						<xs:attribute name="format" use="required" type="MagickFormat" />
@@ -1780,6 +1796,7 @@
 							<xs:element name="optimize" type="empty" />
 							<xs:element name="optimizePlus" type="empty" />
 							<xs:element name="rePage" type="empty" />
+							<xs:element name="reverse" type="empty" />
 						</xs:choice>
 						<xs:element name="write" minOccurs="0">
 							<xs:complexType>

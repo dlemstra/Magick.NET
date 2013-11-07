@@ -2548,7 +2548,7 @@ namespace ImageMagick
 		///<param name="format">The format to set the option for.</param>
 		///<param name="name">The name of the option.</param>
 		///<param name="flag">The value of the option.</param>
-		void SetOption(MagickFormat format, String^ name, bool flag);
+		void SetDefine(MagickFormat format, String^ name, bool flag);
 		///==========================================================================================
 		///<summary>
 		/// Sets a format-specific option.
@@ -2556,7 +2556,7 @@ namespace ImageMagick
 		///<param name="format">The format to set the option for.</param>
 		///<param name="name">The name of the option.</param>
 		///<param name="value">The value of the option.</param>
-		void SetOption(MagickFormat format, String^ name, String^ value);
+		void SetDefine(MagickFormat format, String^ name, String^ value);
 		///==========================================================================================
 		///<summary>
 		/// Shade image using distant light source.
