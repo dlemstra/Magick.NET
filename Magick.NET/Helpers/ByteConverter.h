@@ -13,31 +13,17 @@
 //=================================================================================================
 #pragma once
 
-using namespace System::Xml;
-
 namespace ImageMagick
 {
 	//==============================================================================================
-	private ref class XmlHelper abstract sealed
+	private ref class ByteConverter abstract sealed
 	{
-		//===========================================================================================
-	private:
-		//===========================================================================================
-		generic <class T>
-		static T GetValue(String^ value);
 		//===========================================================================================
 	public:
 		//===========================================================================================
-		static XmlElement^ CreateElement(XmlNode^ node, String^ name);
+		static int ToInt(array<Byte>^ data, int% offset);
 		//===========================================================================================
-		generic <class T>
-		static T GetAttribute(XmlElement^ element, String^ name);
-		//===========================================================================================
-		generic <class T>
-		static T GetValue(XmlAttribute^ attribute);
-		//===========================================================================================
-		generic <class T>
-		static void SetAttribute(XmlElement^ element, String^ name, T value);
+		static short ToShort(array<Byte>^ data, int% offset);
 		//===========================================================================================
 	};
 	//==============================================================================================

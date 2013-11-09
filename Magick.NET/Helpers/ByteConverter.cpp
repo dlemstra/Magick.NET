@@ -12,49 +12,35 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "IptcProfile.h"
-#include "IptcTag.h"
-#include "..\..\Helpers\EnumHelper.h"
-#include "..\..\Helpers\ByteConverter.h"
+#include "ByteConverter.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	void IptcProfile::Initialize()
+	int ByteConverter::ToInt(array<Byte>^ data, int% offset)
 	{
-		if (_Values != nullptr)
-			return;
+		if (offset + 4 > data->Length)
+			return 0;
 
-		_Values = gcnew List<IptcValue^>();
+		int test = BitConverter::ToUInt32(data, offset);
+		if (test == -1)
+			return 0;
 
-		if (Data[0] != 0x1c)
-			return;
-
-		int i = 0;
-		while(i + 4 < Data->Length)
-		{
-			if (Data[i++] != 28)
-				continue;
-
-			i++;
-
-			IptcTag tag = EnumHelper::Parse<IptcTag>((int)Data[i++], IptcTag::Unknown);
-
-			short count = ByteConverter::ToShort(Data, i);
-
-			array<Byte>^ data = gcnew array<Byte>(count);
-			if (count > 0)
-				Buffer::BlockCopy(Data, i, data, 0, count);
-			_Values->Add(gcnew IptcValue(tag, data));
-
-			i += count;
-		}
+		int result = (int)(data[offset++] << 24);
+		result = (result | (int)(data[offset++] << 16));
+		result = (result | (int)(data[offset++] << 8));
+		result = (result | (int)(data[offset++]));
+		return (result & 0xffffffff);
 	}
 	//==============================================================================================
-	IEnumerable<IptcValue^>^ IptcProfile::Values::get()
+	short ByteConverter::ToShort(array<Byte>^ data, int% offset)
 	{
-		Initialize();
-		return _Values;
+		if (offset + 2 > data->Length)
+			return 0;
+
+		short result = (short)data[offset++] << 8;
+		result = result | (short)data[offset++];
+		return(result & 0xffff);
 	}
 	//==============================================================================================
 }

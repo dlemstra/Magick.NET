@@ -54,6 +54,14 @@ namespace ImageMagick
 		return (T)Convert::ChangeType(value, type, CultureInfo::InvariantCulture);
 	}
 	//==============================================================================================
+	XmlElement^ XmlHelper::CreateElement(XmlNode^ node, String^ name)
+	{
+		XmlDocument^ doc = node->GetType() == XmlDocument::typeid ? (XmlDocument^)node : node->OwnerDocument;
+		XmlElement^ element = doc->CreateElement(name);
+		node->AppendChild(element);
+		return element;
+	}
+	//==============================================================================================
 	generic <class T>
 	T XmlHelper::GetAttribute(XmlElement^ element, String^ name)
 	{
@@ -70,6 +78,21 @@ namespace ImageMagick
 			return T();
 
 		return GetValue<T>(attribute->Value);
+	}
+	//==============================================================================================
+	generic <class T>
+	void XmlHelper::SetAttribute(XmlElement^ element, String^ name, T value)
+	{
+		if (element == nullptr)
+			return;
+
+		XmlAttribute^ attribute;
+		if (element->HasAttribute(name))
+			attribute = element->Attributes[name];
+		else
+			attribute = element->Attributes->Append(element->OwnerDocument->CreateAttribute(name));
+
+		attribute->Value = (String^)Convert::ChangeType(value, String::typeid, CultureInfo::InvariantCulture);
 	}
 	//==============================================================================================
 }

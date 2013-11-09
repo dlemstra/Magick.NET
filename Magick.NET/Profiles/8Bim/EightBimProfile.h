@@ -13,74 +13,68 @@
 //=================================================================================================
 #pragma once
 
+#include "..\ImageProfile.h"
+
+using namespace System::Collections::Generic;
 using namespace System::IO;
+using namespace System::Xml;
+using namespace System::Xml::XPath;
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	ref class MagickImage;
 	///=============================================================================================
-	///<summary>
-	/// Class that contains an image profile.
-	///</summary>
-	public ref class ImageProfile
+	/// <summary>
+	/// Class that can be used to access an 8bim profile.
+	/// </summary>
+	public ref class EightBimProfile sealed : ImageProfile
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		array<Byte>^ _Data;
-		String^ _Name;
+		List<IXPathNavigable^>^ _ClipPaths;
+		int _Height;
+		int _Width;
 		//===========================================================================================
-		static array<Byte>^ Copy(array<Byte>^ data);
+		XmlDocument^ CreateClipPath(int offset, int length);
+		//===========================================================================================
+		String^ GetClipPath(int offset, int length);
+		//===========================================================================================
+		void Initialize();
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		ImageProfile() {};
+		EightBimProfile() {};
 		//===========================================================================================
-		property array<Byte>^ Data
-		{
-			array<Byte>^ get();
-		}
-		//===========================================================================================
-		void Initialize(String^ name, array<Byte>^ data);
-		//===========================================================================================
-		virtual void Initialize(MagickImage^ image);
+		virtual void Initialize(MagickImage^ image) override;
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the ImageProfile class.
+		/// Initializes a new instance of the EightBimProfile class.
 		///</summary>
-		///<param name="name">The name of the profile.</param>
-		///<param name="data">A byte array containing the profile.</param>
-		ImageProfile(String^ name, array<Byte>^ data);
+		///<param name="data">The byte array to read the 8bim profile from.</param>
+		EightBimProfile(array<Byte>^ data) : ImageProfile("8bim", data) {};
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the ImageProfile class.
+		/// Initializes a new instance of the EightBimProfile class.
 		///</summary>
-		///<param name="name">The name of the profile.</param>
-		///<param name="stream">A stream containing the profile.</param>
-		ImageProfile(String^ name, Stream^ stream);
+		///<param name="fileName">The fully qualified name of the 8bim profile file, or the relative
+		/// 8bim profile file name.</param>
+		EightBimProfile(String^ fileName) : ImageProfile("8bim", fileName) {};
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the ImageProfile class.
+		/// Initializes a new instance of the EightBimProfile class.
 		///</summary>
-		///<param name="name">The name of the profile.</param>
-		///<param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
-		ImageProfile(String^ name, String^ fileName);
+		///<param name="stream">The stream to read the 8bim profile from.</param>
+		EightBimProfile(Stream^ stream) : ImageProfile("8bim", stream) {};
 		///==========================================================================================
 		///<summary>
-		/// The name of the profile.
+		/// Returns the clipping paths this image contains.
 		///</summary>
-		property String^ Name
+		property IEnumerable<IXPathNavigable^>^ ClippingPaths
 		{
-			String^ get();
+			IEnumerable<IXPathNavigable^>^ get();
 		}
-		///==========================================================================================
-		///<summary>
-		/// Converts this instance to a byte array.
-		///</summary>
-		array<Byte>^ ToByteArray();
 		//===========================================================================================
 	};
 	//==============================================================================================

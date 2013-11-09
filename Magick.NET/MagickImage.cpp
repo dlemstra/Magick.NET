@@ -61,6 +61,7 @@ namespace ImageMagick
 
 			TImageProfile^ result = gcnew TImageProfile();
 			result->Initialize(name, data);
+			result->Initialize(this);
 			return result;
 		}
 		catch(Magick::ErrorCoder)
@@ -2810,6 +2811,11 @@ namespace ImageMagick
 			result = CreateProfile<ColorProfile>("icc");
 
 		return result;
+	}
+	//==============================================================================================
+	EightBimProfile^ MagickImage::Get8BimProfile()
+	{
+		return CreateProfile<EightBimProfile>("8bim");
 	}
 	//==============================================================================================
 	ExifProfile^ MagickImage::GetExifProfile()

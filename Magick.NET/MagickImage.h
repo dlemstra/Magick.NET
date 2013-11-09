@@ -54,6 +54,7 @@
 #include "Pixels\PixelCollection.h"
 #include "Pixels\WritablePixelCollection.h"
 #include "Profiles\ImageProfile.h"
+#include "Profiles\8Bim\EightBimProfile.h"
 #include "Profiles\Exif\ExifProfile.h"
 #include "Profiles\Iptc\IptcProfile.h"
 #include "Profiles\Color\ColorProfile.h"
@@ -1859,6 +1860,12 @@ namespace ImageMagick
 		///</summary>
 		///<exception cref="MagickException"/>
 		ColorProfile^ GetColorProfile();
+		///==========================================================================================
+		///<summary>
+		/// Retrieve the 8bim profile from the image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		EightBimProfile^ Get8BimProfile();
 		///==========================================================================================
 		///<summary>
 		/// Retrieve the exif profile from the image.

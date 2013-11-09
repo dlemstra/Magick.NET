@@ -36,6 +36,11 @@ namespace ImageMagick
 		_Data = data;
 	}
 	//==============================================================================================
+	void ImageProfile::Initialize(MagickImage^ image)
+	{
+		(image);
+	}
+	//==============================================================================================
 	array<Byte>^ ImageProfile::Data::get()
 	{
 		return _Data;

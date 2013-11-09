@@ -36,6 +36,14 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		public static string EightBimTIF
+		{
+			get
+			{
+				return _Root + @"Images\8Bim.tif";
+			}
+		}
+		//===========================================================================================
 		public static string EventsScript
 		{
 			get

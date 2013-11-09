@@ -151,6 +151,12 @@
     <Filter Include="Header Files\Profiles\Iptc">
       <UniqueIdentifier>{bc554ed0-c2cd-414b-a63c-12cb325f51a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Profiles\8Bim">
+      <UniqueIdentifier>{b68faca9-677f-4c58-a5dc-59a665e1e7be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Profiles\8Bim">
+      <UniqueIdentifier>{82b2a827-7fc2-4d9d-a1f7-f78fa3bae5b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
@@ -636,6 +642,12 @@
     <ClInclude Include="Enums\PixelChannel.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
+    <ClInclude Include="Profiles\8Bim\EightBimProfile.h">
+      <Filter>Header Files\Profiles\8Bim</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\ByteConverter.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
     <ClInclude Include="Enums\Interlace.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
@@ -1006,6 +1018,12 @@
     </ClCompile>
     <ClCompile Include="Matrices\ConvolveMatrix.cpp">
       <Filter>Source Files\Matrices</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiles\8Bim\EightBimProfile.cpp">
+      <Filter>Source Files\Profiles\8Bim</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\ByteConverter.cpp">
+      <Filter>Source Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

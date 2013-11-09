@@ -21,8 +21,6 @@ using namespace System::IO;
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	ref class MagickImage;
 	///=============================================================================================
 	/// <summary>
 	/// Class that can be used to access an Iptc profile.
