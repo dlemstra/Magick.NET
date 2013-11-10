@@ -35,6 +35,7 @@
 #include "Enums\LineCap.h"
 #include "Enums\LineJoin.h"
 #include "Enums\MagickFormat.h"
+#include "Enums\Metric.h"
 #include "Enums\NoiseType.h"
 #include "Enums\OrientationType.h"
 #include "Enums\PaintMethod.h"
@@ -1320,12 +1321,46 @@ namespace ImageMagick
 		void ColorMatrix(ColorMatrix^ matrix);
 		///==========================================================================================
 		///<summary>
-		/// Compare current image with another image. Returns error information if the images are not
-		/// identical.
+		/// Compare current image with another image and returns error information.
 		///</summary>
 		///<param name="image">The other image to compare with this image.</param>
 		///<exception cref="MagickException"/>
 		MagickErrorInfo^ Compare(MagickImage^ image);
+		///==========================================================================================
+		///<summary>
+		/// Returns the distortion based on the specified metric.
+		///</summary>
+		///<param name="image">The other image to compare with this image.</param>
+		///<param name="metric">The metric to use.</param>
+		///<exception cref="MagickException"/>
+		double Compare(MagickImage^ image, Metric metric);
+		///==========================================================================================
+		///<summary>
+		/// Returns the distortion based on the specified metric.
+		///</summary>
+		///<param name="image">The other image to compare with this image.</param>
+		///<param name="metric">The metric to use.</param>
+		///<param name="channels">The channel(s) to compare.</param>
+		///<exception cref="MagickException"/>
+		double Compare(MagickImage^ image, Metric metric, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Returns the distortion based on the specified metric.
+		///</summary>
+		///<param name="image">The other image to compare with this image.</param>
+		///<param name="metric">The metric to use.</param>
+		///<param name="difference">The image that will contain the difference.</param>
+		///<exception cref="MagickException"/>
+		double Compare(MagickImage^ image, Metric metric, MagickImage^ difference);
+		///==========================================================================================
+		///<summary>
+		/// Returns the distortion based on the specified metric.
+		///</summary>
+		///<param name="image">The other image to compare with this image.</param>
+		///<param name="metric">The metric to use.</param>
+		///<param name="difference">The image that will contain the difference.</param>
+		///<exception cref="MagickException"/>
+		double Compare(MagickImage^ image, Metric metric, MagickImage^ difference, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Compares the current instance with another object of the same type.

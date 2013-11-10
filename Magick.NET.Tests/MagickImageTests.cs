@@ -160,10 +160,22 @@ namespace Magick.NET.Tests
 			Assert.IsNotNull(same);
 			Assert.AreEqual(0, same.MeanErrorPerPixel);
 
+			double distortion = first.Compare(second, Metric.AbsoluteError);
+			Assert.AreEqual(0, distortion);
+
 			first.Threshold(0.5);
 			MagickErrorInfo different = first.Compare(second);
 			Assert.IsNotNull(different);
 			Assert.AreNotEqual(0, different.MeanErrorPerPixel);
+
+			distortion = first.Compare(second, Metric.AbsoluteError);
+			Assert.AreNotEqual(0, distortion);
+
+			MagickImage difference = new MagickImage();
+			distortion = first.Compare(second, Metric.RootMeanSquaredError, difference);
+			Assert.AreNotEqual(0, distortion);
+			Assert.AreNotEqual(first, difference);
+			Assert.AreNotEqual(second, difference);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

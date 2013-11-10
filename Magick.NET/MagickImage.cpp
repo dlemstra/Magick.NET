@@ -1876,6 +1876,49 @@ namespace ImageMagick
 		return gcnew MagickErrorInfo(Value);
 	}
 	//==============================================================================================
+	double MagickImage::Compare(MagickImage^ image, Metric metric)
+	{
+		return Compare(image, metric, Channels::Composite);
+	}
+	//==============================================================================================
+	double MagickImage::Compare(MagickImage^ image, Metric metric, Channels channels)
+	{
+		Throw::IfNull("image", image);
+
+		try
+		{
+			return Value->compareChannel((MagickCore::ChannelType)channels, *image->Value, (MagickCore::MetricType)metric);
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
+	double MagickImage::Compare(MagickImage^ image, Metric metric, MagickImage^ difference)
+	{
+		return Compare(image, metric, difference, Channels::Composite);
+	}
+	//==============================================================================================
+	double MagickImage::Compare(MagickImage^ image, Metric metric, MagickImage^ difference, Channels channels)
+	{
+		Throw::IfNull("image", image);
+		Throw::IfNull("difference", difference);
+
+		try
+		{
+			double distortion = 0.0;
+			Magick::Image result = Value->compareChannel((MagickCore::ChannelType)channels, *image->Value, (MagickCore::MetricType)metric, &distortion);
+			if (result.isValid())
+				difference->ReplaceValue(result);
+			return distortion;
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	int MagickImage::CompareTo(MagickImage^ other)
 	{
 		if (ReferenceEquals(other, nullptr))

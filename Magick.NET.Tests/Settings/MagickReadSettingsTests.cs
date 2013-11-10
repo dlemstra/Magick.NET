@@ -112,11 +112,13 @@ namespace Magick.NET.Tests
 				imageB.Read(Files.RoseSparkleGIF + "[2]");
 				Assert.AreEqual(imageA, imageB);
 
-				settings = new MagickReadSettings();
-				settings.FrameIndex = 3;
+				ExceptionAssert.Throws<MagickOptionErrorException>(delegate()
+				{
+					settings = new MagickReadSettings();
+					settings.FrameIndex = 3;
 
-				imageA.Read(Files.RoseSparkleGIF, settings);
-				Assert.AreEqual(image, imageA);
+					imageA.Read(Files.RoseSparkleGIF, settings);
+				});
 
 				imageA.Dispose();
 				imageB.Dispose();
