@@ -299,8 +299,8 @@ $builds = @(
 
 CheckDependancies
 
-$imVersion = "6.8.7.1"
-$version = "6.8.7.101"
+$imVersion = "6.8.7.5"
+$version = "6.8.7.501"
 
 UpdateAssemblyInfo "..\Magick.NET\AssemblyInfo.cpp" $version
 UpdateAssemblyInfo "..\Magick.NET.Web\Properties\AssemblyInfo.cs" $version

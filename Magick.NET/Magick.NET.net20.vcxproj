@@ -260,6 +260,9 @@
     <ClInclude Include="Enums\FontStyleType.h" />
     <ClInclude Include="Enums\FontWeight.h" />
     <ClInclude Include="Enums\GifDisposeMethod.h" />
+    <ClInclude Include="Enums\Interlace.h" />
+    <ClInclude Include="Enums\Metric.h" />
+    <ClInclude Include="Enums\PixelChannel.h" />
     <ClInclude Include="Enums\StorageType.h" />
     <ClInclude Include="Enums\LayerMethod.h" />
     <ClInclude Include="Enums\LineCap.h" />
@@ -274,6 +277,8 @@
     <ClInclude Include="Exceptions\MagickErrorExceptions.h" />
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
+    <ClInclude Include="Helpers\ByteConverter.h" />
+    <ClInclude Include="Profiles\8Bim\EightBimProfile.h" />
     <ClInclude Include="Profiles\Exif\ExifDataType.h" />
     <ClInclude Include="Profiles\Exif\ExifProfile.h" />
     <ClInclude Include="Profiles\Exif\ExifReader.h" />
@@ -410,6 +415,8 @@
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.cpp" />
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.cpp" />
     <ClCompile Include="Exceptions\Base\MagickException.cpp" />
+    <ClCompile Include="Helpers\ByteConverter.cpp" />
+    <ClCompile Include="Profiles\8Bim\EightBimProfile.cpp" />
     <ClCompile Include="Profiles\Exif\ExifProfile.cpp" />
     <ClCompile Include="Profiles\Exif\ExifReader.cpp" />
     <ClCompile Include="Profiles\Exif\ExifValue.cpp" />
