@@ -21,23 +21,23 @@ namespace ImageMagick
 	///</summary>
 	private enum class LayerMethod
 	{
-		Undefined = MagickCore::UndefinedLayer,
-		Coalesce = MagickCore::CoalesceLayer,
-		CompareAny = MagickCore::CompareAnyLayer,
-		CompareClear = MagickCore::CompareClearLayer,
-		CompareOverlay = MagickCore::CompareOverlayLayer,
-		Dispose = MagickCore::DisposeLayer,
-		Optimize = MagickCore::OptimizeLayer,
-		OptimizeImage = MagickCore::OptimizeImageLayer,
-		OptimizePlus = MagickCore::OptimizePlusLayer,
-		OptimizeTrans = MagickCore::OptimizeTransLayer,
-		RemoveDups = MagickCore::RemoveDupsLayer,
-		RemoveZero = MagickCore::RemoveZeroLayer,
-		Composite = MagickCore::CompositeLayer,
-		Merge = MagickCore::MergeLayer,
-		Flatten = MagickCore::FlattenLayer,
-		Mosaic = MagickCore::MosaicLayer,
-		Trimbounds = MagickCore::TrimBoundsLayer
+		Undefined = Magick::UndefinedLayer,
+		Coalesce = Magick::CoalesceLayer,
+		CompareAny = Magick::CompareAnyLayer,
+		CompareClear = Magick::CompareClearLayer,
+		CompareOverlay = Magick::CompareOverlayLayer,
+		Dispose = Magick::DisposeLayer,
+		Optimize = Magick::OptimizeLayer,
+		OptimizeImage = Magick::OptimizeImageLayer,
+		OptimizePlus = Magick::OptimizePlusLayer,
+		OptimizeTrans = Magick::OptimizeTransLayer,
+		RemoveDups = Magick::RemoveDupsLayer,
+		RemoveZero = Magick::RemoveZeroLayer,
+		Composite = Magick::CompositeLayer,
+		Merge = Magick::MergeLayer,
+		Flatten = Magick::FlattenLayer,
+		Mosaic = Magick::MosaicLayer,
+		Trimbounds = Magick::TrimBoundsLayer
 	};
 	//==============================================================================================
 }

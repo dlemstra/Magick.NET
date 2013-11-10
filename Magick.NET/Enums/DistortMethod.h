@@ -23,26 +23,26 @@ namespace ImageMagick
 	///</summary>
 	public enum class DistortMethod
 	{
-		Undefined = MagickCore::UndefinedDistortion,
-		Affine = MagickCore::AffineDistortion,
-		AffineProjection = MagickCore::AffineProjectionDistortion,
-		ScaleRotateTranslate = MagickCore::ScaleRotateTranslateDistortion,
-		Perspective = MagickCore::PerspectiveDistortion,
-		PerspectiveProjection = MagickCore::PerspectiveProjectionDistortion,
-		BilinearForward = MagickCore::BilinearForwardDistortion,
+		Undefined = Magick::UndefinedDistortion,
+		Affine = Magick::AffineDistortion,
+		AffineProjection = Magick::AffineProjectionDistortion,
+		ScaleRotateTranslate = Magick::ScaleRotateTranslateDistortion,
+		Perspective = Magick::PerspectiveDistortion,
+		PerspectiveProjection = Magick::PerspectiveProjectionDistortion,
+		BilinearForward = Magick::BilinearForwardDistortion,
 		Bilinear = BilinearForward,
-		BilinearReverse = MagickCore::BilinearReverseDistortion,
-		Polynomial = MagickCore::PolynomialDistortion,
-		Arc = MagickCore::ArcDistortion,
-		Polar = MagickCore::PolarDistortion,
-		DePolar = MagickCore::DePolarDistortion,
-		Cylinder2Plane = MagickCore::Cylinder2PlaneDistortion,
-		Plane2Cylinder = MagickCore::Plane2CylinderDistortion,
-		Barrel = MagickCore::BarrelDistortion,
-		BarrelInverse = MagickCore::BarrelInverseDistortion,
-		Shepards = MagickCore::ShepardsDistortion,
-		Resize = MagickCore::ResizeDistortion,
-		Sentinel = MagickCore::SentinelDistortion
+		BilinearReverse = Magick::BilinearReverseDistortion,
+		Polynomial = Magick::PolynomialDistortion,
+		Arc = Magick::ArcDistortion,
+		Polar = Magick::PolarDistortion,
+		DePolar = Magick::DePolarDistortion,
+		Cylinder2Plane = Magick::Cylinder2PlaneDistortion,
+		Plane2Cylinder = Magick::Plane2CylinderDistortion,
+		Barrel = Magick::BarrelDistortion,
+		BarrelInverse = Magick::BarrelInverseDistortion,
+		Shepards = Magick::ShepardsDistortion,
+		Resize = Magick::ResizeDistortion,
+		Sentinel = Magick::SentinelDistortion
 	};
 	//==============================================================================================
 }

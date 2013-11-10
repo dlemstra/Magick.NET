@@ -23,10 +23,10 @@ namespace ImageMagick
 	///</summary>
 	public enum class LineCap
 	{
-		Undefined = MagickCore::UndefinedCap,
-		Butt = MagickCore::ButtCap,
-		Round = MagickCore::RoundCap,
-		Square = MagickCore::SquareCap
+		Undefined = Magick::UndefinedCap,
+		Butt = Magick::ButtCap,
+		Round = Magick::RoundCap,
+		Square = Magick::SquareCap
 	};
 	//==============================================================================================
 }

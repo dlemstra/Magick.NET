@@ -23,13 +23,13 @@ namespace ImageMagick
 	///</summary>
 	public enum class SparseColorMethod
 	{
-		Undefined = MagickCore::UndefinedColorInterpolate,
-		Barycentric = MagickCore::BarycentricColorInterpolate,
-		Bilinear = MagickCore::BilinearColorInterpolate,
-		Polynomial = MagickCore::PolynomialColorInterpolate,
-		Shepards = MagickCore::ShepardsColorInterpolate,
-		Voronoi = MagickCore::VoronoiColorInterpolate,
-		Inverse = MagickCore::InverseColorInterpolate
+		Undefined = Magick::UndefinedColorInterpolate,
+		Barycentric = Magick::BarycentricColorInterpolate,
+		Bilinear = Magick::BilinearColorInterpolate,
+		Polynomial = Magick::PolynomialColorInterpolate,
+		Shepards = Magick::ShepardsColorInterpolate,
+		Voronoi = Magick::VoronoiColorInterpolate,
+		Inverse = Magick::InverseColorInterpolate
 	};
 	//==============================================================================================
 }

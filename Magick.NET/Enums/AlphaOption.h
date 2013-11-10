@@ -23,18 +23,18 @@ namespace ImageMagick
 	///</summary>
 	public enum class AlphaOption
 	{
-		Undefined = MagickCore::UndefinedAlphaChannel,
-		Activate = MagickCore::ActivateAlphaChannel,
-		Background = MagickCore::BackgroundAlphaChannel,
-		Copy = MagickCore::CopyAlphaChannel,
-		Deactivate = MagickCore::DeactivateAlphaChannel,
-		Extract = MagickCore::ExtractAlphaChannel,
-		Opaque = MagickCore::OpaqueAlphaChannel,
-		Set = MagickCore::SetAlphaChannel,
-		Shape = MagickCore::ShapeAlphaChannel,
-		Transparent = MagickCore::TransparentAlphaChannel,
-		Flatten = MagickCore::FlattenAlphaChannel,
-		Remove = MagickCore::RemoveAlphaChannel
+		Undefined = Magick::UndefinedAlphaChannel,
+		Activate = Magick::ActivateAlphaChannel,
+		Background = Magick::BackgroundAlphaChannel,
+		Copy = Magick::CopyAlphaChannel,
+		Deactivate = Magick::DeactivateAlphaChannel,
+		Extract = Magick::ExtractAlphaChannel,
+		Opaque = Magick::OpaqueAlphaChannel,
+		Set = Magick::SetAlphaChannel,
+		Shape = Magick::ShapeAlphaChannel,
+		Transparent = Magick::TransparentAlphaChannel,
+		Flatten = Magick::FlattenAlphaChannel,
+		Remove = Magick::RemoveAlphaChannel
 	};
 	//==============================================================================================
 }

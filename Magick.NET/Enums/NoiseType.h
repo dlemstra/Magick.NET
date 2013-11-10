@@ -23,13 +23,13 @@ namespace ImageMagick
 	///</summary>
 	public enum class NoiseType
 	{
-		Undefined = MagickCore::UndefinedNoise,
-		Uniform = MagickCore::UniformNoise,
-		Gaussian = MagickCore::GaussianNoise,
-		MultiplicativeGaussian = MagickCore::MultiplicativeGaussianNoise,
-		Impulse = MagickCore::ImpulseNoise,
-		Laplacian = MagickCore::LaplacianNoise,
-		Poisson = MagickCore::PoissonNoise
+		Undefined = Magick::UndefinedNoise,
+		Uniform = Magick::UniformNoise,
+		Gaussian = Magick::GaussianNoise,
+		MultiplicativeGaussian = Magick::MultiplicativeGaussianNoise,
+		Impulse = Magick::ImpulseNoise,
+		Laplacian = Magick::LaplacianNoise,
+		Poisson = Magick::PoissonNoise
 	};
 	//==============================================================================================
 }

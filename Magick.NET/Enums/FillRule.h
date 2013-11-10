@@ -23,9 +23,9 @@ namespace ImageMagick
 	///</summary>
 	public enum class FillRule
 	{
-		Undefined = MagickCore::UndefinedRule,
-		EvenOdd = MagickCore::EvenOddRule,
-		Nonzero = MagickCore::NonZeroRule
+		Undefined = Magick::UndefinedRule,
+		EvenOdd = Magick::EvenOddRule,
+		Nonzero = Magick::NonZeroRule
 	};
 	//==============================================================================================
 }

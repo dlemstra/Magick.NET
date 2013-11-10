@@ -101,6 +101,9 @@
 // Define to use the Liquid Rescale library
 #define MAGICKCORE_LQR_DELEGATE
 
+// Define to use the Pango/Cairo library
+#define MAGICKCORE_PANGOCAIRO_DELEGATE
+
 // Define to use the PNG library
 #define MAGICKCORE_PNG_DELEGATE
 
@@ -300,3 +303,13 @@ typedef long ssize_t;
 
 /* Define to 1 if you have the `TIFFIsBigEndian' function. */
 #define MAGICKCORE_HAVE_TIFFISBIGENDIAN  1
+
+/*
+  Disable specific warnings.
+*/
+#ifdef _MSC_VER
+#pragma warning(disable: 4054)
+#pragma warning(disable: 4055)
+#pragma warning(disable: 4130)
+#pragma warning(disable: 4431)
+#endif

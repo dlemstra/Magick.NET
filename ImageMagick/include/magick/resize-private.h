@@ -22,17 +22,43 @@
 extern "C" {
 #endif
 
-typedef struct _ResizeFilter
-  ResizeFilter;
+typedef enum
+{
+  BoxWeightingFunction = 0,
+  TriangleWeightingFunction,
+  CubicBCWeightingFunction,
+  HanningWeightingFunction,
+  HammingWeightingFunction,
+  BlackmanWeightingFunction,
+  GaussianWeightingFunction,
+  QuadraticWeightingFunction,
+  JincWeightingFunction,
+  SincWeightingFunction,
+  SincFastWeightingFunction,
+  KaiserWeightingFunction,
+  WelshWeightingFunction,
+  BohmanWeightingFunction,
+  LagrangeWeightingFunction,
+  CosineWeightingFunction,
+  LastWeightingFunction
+} ResizeWeightingFunctionType;
 
 extern MagickExport MagickRealType
+  *GetResizeFilterCoefficient(const ResizeFilter*),
+  GetResizeFilterBlur(const ResizeFilter *),
+  GetResizeFilterScale(const ResizeFilter *),
+  GetResizeFilterWindowSupport(const ResizeFilter *),
   GetResizeFilterSupport(const ResizeFilter *),
   GetResizeFilterWeight(const ResizeFilter *,const MagickRealType);
 
 extern MagickExport ResizeFilter
   *AcquireResizeFilter(const Image *,const FilterTypes,const MagickRealType,
-     const MagickBooleanType,ExceptionInfo *),
+    const MagickBooleanType,ExceptionInfo *),
   *DestroyResizeFilter(ResizeFilter *);
+
+extern MagickExport ResizeWeightingFunctionType
+  GetResizeFilterWeightingType(const ResizeFilter *),
+  GetResizeFilterWindowWeightingType(const ResizeFilter *);
 
 extern MagickExport void
   SetResizeFilterSupport(ResizeFilter *,const MagickRealType);

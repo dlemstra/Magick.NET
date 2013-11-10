@@ -23,15 +23,15 @@ namespace ImageMagick
 	///</summary>
 	public enum class OrientationType
 	{
-		Undefined = MagickCore::UndefinedOrientation,
-		TopLeft = MagickCore::TopLeftOrientation,
-		TopRight = MagickCore::TopRightOrientation,
-		BottomRight = MagickCore::BottomRightOrientation,
-		BottomLeft = MagickCore::BottomLeftOrientation,
-		LeftTop = MagickCore::LeftTopOrientation,
-		RightTop = MagickCore::RightTopOrientation,
-		RightBottom = MagickCore::RightBottomOrientation,
-		LeftBotom = MagickCore::LeftBottomOrientation
+		Undefined = Magick::UndefinedOrientation,
+		TopLeft = Magick::TopLeftOrientation,
+		TopRight = Magick::TopRightOrientation,
+		BottomRight = Magick::BottomRightOrientation,
+		BottomLeft = Magick::BottomLeftOrientation,
+		LeftTop = Magick::LeftTopOrientation,
+		RightTop = Magick::RightTopOrientation,
+		RightBottom = Magick::RightBottomOrientation,
+		LeftBotom = Magick::LeftBottomOrientation
 	};
 	//==============================================================================================
 }

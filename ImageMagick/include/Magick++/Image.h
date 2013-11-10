@@ -297,6 +297,24 @@ namespace Magick
     // in the current image. False is returned if the images are identical.
     bool            compare ( const Image &reference_ );
 
+    // Compare current image with another image
+    // Returns the distortion based on the specified metric.
+    double          compare ( const Image &reference_,
+                              const MetricType metric_ );
+    double          compareChannel ( const ChannelType channel_,
+                                     const Image &reference_,
+                                     const MetricType metric_ );
+
+    // Compare current image with another image
+    // Sets the distortion and returns the difference image.
+    Image           compare ( const Image &reference_,
+                              const MetricType metric_,
+                              double *distortion );
+    Image           compareChannel ( const ChannelType channel_,
+                                     const Image &reference_,
+                                     const MetricType metric_,
+                                     double *distortion );
+
     // Compose an image onto another at specified offset and using
     // specified algorithm
     void            composite ( const Image &compositeImage_,
@@ -961,7 +979,7 @@ namespace Magick
     void            boxColor ( const Color &boxColor_ );
     Color           boxColor ( void ) const;
 
-    // Pixel cache threshold in megabytes.  Once this memory threshold
+    // Pixel cache threshold in bytes. Once this memory threshold
     // is exceeded, all subsequent pixels cache operations are to/from
     // disk.  This setting is shared by all Image objects.
     static void     cacheThreshold ( const size_t threshold_ );

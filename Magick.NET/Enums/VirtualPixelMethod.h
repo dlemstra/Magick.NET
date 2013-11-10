@@ -23,23 +23,23 @@ namespace ImageMagick
 	///</summary>
 	public enum class VirtualPixelMethod
 	{
-		Undefined = MagickCore::UndefinedVirtualPixelMethod,
-		Background = MagickCore::BackgroundVirtualPixelMethod,
-		Dither = MagickCore::DitherVirtualPixelMethod,
-		Edge = MagickCore::EdgeVirtualPixelMethod,
-		Mirror = MagickCore::MirrorVirtualPixelMethod,
-		Random = MagickCore::RandomVirtualPixelMethod,
-		Tile = MagickCore::TileVirtualPixelMethod,
-		Transparent = MagickCore::TransparentVirtualPixelMethod,
-		Mask = MagickCore::MaskVirtualPixelMethod,
-		Black = MagickCore::BlackVirtualPixelMethod,
-		Gray = MagickCore::GrayVirtualPixelMethod,
-		White = MagickCore::WhiteVirtualPixelMethod,
-		HorizontalTile = MagickCore::HorizontalTileVirtualPixelMethod,
-		VerticalTile = MagickCore::VerticalTileVirtualPixelMethod,
-		HorizontalTileEdge = MagickCore::HorizontalTileEdgeVirtualPixelMethod,
-		VerticalTileEdge = MagickCore::VerticalTileEdgeVirtualPixelMethod,
-		CheckerTile = MagickCore::CheckerTileVirtualPixelMethod
+		Undefined = Magick::UndefinedVirtualPixelMethod,
+		Background = Magick::BackgroundVirtualPixelMethod,
+		Dither = Magick::DitherVirtualPixelMethod,
+		Edge = Magick::EdgeVirtualPixelMethod,
+		Mirror = Magick::MirrorVirtualPixelMethod,
+		Random = Magick::RandomVirtualPixelMethod,
+		Tile = Magick::TileVirtualPixelMethod,
+		Transparent = Magick::TransparentVirtualPixelMethod,
+		Mask = Magick::MaskVirtualPixelMethod,
+		Black = Magick::BlackVirtualPixelMethod,
+		Gray = Magick::GrayVirtualPixelMethod,
+		White = Magick::WhiteVirtualPixelMethod,
+		HorizontalTile = Magick::HorizontalTileVirtualPixelMethod,
+		VerticalTile = Magick::VerticalTileVirtualPixelMethod,
+		HorizontalTileEdge = Magick::HorizontalTileEdgeVirtualPixelMethod,
+		VerticalTileEdge = Magick::VerticalTileEdgeVirtualPixelMethod,
+		CheckerTile = Magick::CheckerTileVirtualPixelMethod
 	};
 	//==============================================================================================
 }

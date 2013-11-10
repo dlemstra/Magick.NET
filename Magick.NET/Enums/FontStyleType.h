@@ -23,11 +23,11 @@ namespace ImageMagick
 	///</summary>
 	public enum class FontStyleType
 	{
-		Undefined = MagickCore::UndefinedStyle,
-		Normal = MagickCore::NormalStyle,
-		Italic = MagickCore::ItalicStyle,
-		Oblique = MagickCore::ObliqueStyle,
-		Any = MagickCore::AnyStyle
+		Undefined = Magick::UndefinedStyle,
+		Normal = Magick::NormalStyle,
+		Italic = Magick::ItalicStyle,
+		Oblique = Magick::ObliqueStyle,
+		Any = Magick::AnyStyle
 	};
 	//==============================================================================================
 }

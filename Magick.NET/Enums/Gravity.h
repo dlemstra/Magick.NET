@@ -23,18 +23,18 @@ namespace ImageMagick
 	///</summary>
 	public enum class Gravity
 	{
-		Undefined = MagickCore::UndefinedGravity,
-		Forget = MagickCore::ForgetGravity,
-		Northwest = MagickCore::NorthWestGravity,
-		North = MagickCore::NorthGravity,
-		Northeast = MagickCore::NorthEastGravity,
-		West = MagickCore::WestGravity, 
-		Center = MagickCore::CenterGravity,
-		East = MagickCore::EastGravity,
-		Southwest = MagickCore::SouthWestGravity,
-		South = MagickCore::SouthGravity,
-		Southeast = MagickCore::SouthEastGravity,
-		Static = MagickCore::StaticGravity
+		Undefined = Magick::UndefinedGravity,
+		Forget = Magick::ForgetGravity,
+		Northwest = Magick::NorthWestGravity,
+		North = Magick::NorthGravity,
+		Northeast = Magick::NorthEastGravity,
+		West = Magick::WestGravity, 
+		Center = Magick::CenterGravity,
+		East = Magick::EastGravity,
+		Southwest = Magick::SouthWestGravity,
+		South = Magick::SouthGravity,
+		Southeast = Magick::SouthEastGravity,
+		Static = Magick::StaticGravity
 	};
 	//==============================================================================================
 }

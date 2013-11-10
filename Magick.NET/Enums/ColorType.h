@@ -23,18 +23,18 @@ namespace ImageMagick
 	///</summary>
 	public enum class ColorType
 	{
-		Undefined = MagickCore::UndefinedType,
-		Bilevel = MagickCore::BilevelType,
-		Grayscale = MagickCore::GrayscaleType,
-		GrayscaleMatte = MagickCore::GrayscaleMatteType,
-		Palette = MagickCore::PaletteType,
-		PaletteMatte = MagickCore::PaletteMatteType,
-		TrueColor = MagickCore::TrueColorType,
-		TrueColorMatte = MagickCore::TrueColorMatteType,
-		ColorSeparation = MagickCore::ColorSeparationType,
-		ColorSeparationMatte = MagickCore::ColorSeparationMatteType,
-		Optimize = MagickCore::OptimizeType,
-		PaletteBilevelMatte = MagickCore::PaletteBilevelMatteType
+		Undefined = Magick::UndefinedType,
+		Bilevel = Magick::BilevelType,
+		Grayscale = Magick::GrayscaleType,
+		GrayscaleMatte = Magick::GrayscaleMatteType,
+		Palette = Magick::PaletteType,
+		PaletteMatte = Magick::PaletteMatteType,
+		TrueColor = Magick::TrueColorType,
+		TrueColorMatte = Magick::TrueColorMatteType,
+		ColorSeparation = Magick::ColorSeparationType,
+		ColorSeparationMatte = Magick::ColorSeparationMatteType,
+		Optimize = Magick::OptimizeType,
+		PaletteBilevelMatte = Magick::PaletteBilevelMatteType
 	};
 	//==============================================================================================
 }

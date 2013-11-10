@@ -134,6 +134,22 @@ static inline MagickRealType GetPixelLuminance(const Image *restrict image,
   return(0.212656f*red+0.715158f*green+0.072186f*blue);
 }
 
+static inline MagickBooleanType IsPixelAtDepth(const Quantum pixel,
+  const QuantumAny range)
+{
+  Quantum
+    quantum;
+
+#if !defined(MAGICKCORE_HDRI_SUPPORT)
+  quantum=(Quantum) (((MagickRealType) QuantumRange*((QuantumAny)
+    (((MagickRealType) range*pixel)/QuantumRange+0.5)))/range+0.5);
+#else
+  quantum=(Quantum) (((MagickRealType) QuantumRange*((QuantumAny)
+    (((MagickRealType) range*pixel)/QuantumRange+0.5)))/range);
+#endif
+  return(pixel == quantum ? MagickTrue : MagickFalse);
+}
+
 static inline MagickBooleanType IsPixelGray(const PixelPacket *pixel)
 {
   MagickRealType

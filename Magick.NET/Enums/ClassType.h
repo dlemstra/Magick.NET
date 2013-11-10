@@ -23,9 +23,9 @@ namespace ImageMagick
 	///</summary>
 	public enum class ClassType
 	{
-		Undefined = MagickCore::UndefinedClass,
-		Direct = MagickCore::DirectClass,
-		Pseudo = MagickCore::PseudoClass
+		Undefined = Magick::UndefinedClass,
+		Direct = Magick::DirectClass,
+		Pseudo = Magick::PseudoClass
 	};
 	//==============================================================================================
 }

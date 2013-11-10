@@ -23,9 +23,9 @@ namespace ImageMagick
 	///</summary>
 	public enum class Endian
 	{
-		Undefined = MagickCore::UndefinedEndian,
-		LSB = MagickCore::LSBEndian,
-		MSB = MagickCore::MSBEndian
+		Undefined = Magick::UndefinedEndian,
+		LSB = Magick::LSBEndian,
+		MSB = Magick::MSBEndian
 	};
 	//==============================================================================================
 }

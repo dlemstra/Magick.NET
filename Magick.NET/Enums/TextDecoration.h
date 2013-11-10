@@ -23,11 +23,11 @@ namespace ImageMagick
 	///</summary>
 	public enum class TextDecoration
 	{
-		Undefined = MagickCore::UndefinedDecoration,
-		NoDecoration = MagickCore::NoDecoration,
-		Underline = MagickCore::UnderlineDecoration,
-		Overline = MagickCore::OverlineDecoration,
-		LineThrough = MagickCore::LineThroughDecoration
+		Undefined = Magick::UndefinedDecoration,
+		NoDecoration = Magick::NoDecoration,
+		Underline = Magick::UnderlineDecoration,
+		Overline = Magick::OverlineDecoration,
+		LineThrough = Magick::LineThroughDecoration
 	};
 	//==============================================================================================
 }

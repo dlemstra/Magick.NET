@@ -23,10 +23,10 @@ namespace ImageMagick
 	///</summary>
 	public enum class GifDisposeMethod
 	{
-		Undefined = MagickCore::UndefinedDispose,
-		None = MagickCore::NoneDispose,
-		Background = MagickCore::BackgroundDispose,
-		Previous = MagickCore::PreviousDispose
+		Undefined = Magick::UndefinedDispose,
+		None = Magick::NoneDispose,
+		Background = Magick::BackgroundDispose,
+		Previous = Magick::PreviousDispose
 	};
 	//==============================================================================================
 }

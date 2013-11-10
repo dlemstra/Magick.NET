@@ -23,14 +23,14 @@ namespace ImageMagick
 	///</summary>
 	public enum class Interlace
 	{
-		Undefined = MagickCore::UndefinedInterlace,
-		No = MagickCore::NoInterlace,
-		Line = MagickCore::LineInterlace,
-		Plane = MagickCore::PlaneInterlace,
-		Partition = MagickCore::PartitionInterlace,
-		Gif = MagickCore::GIFInterlace,
-		Jpeg = MagickCore::JPEGInterlace,
-		Png = MagickCore::PNGInterlace
+		Undefined = Magick::UndefinedInterlace,
+		No = Magick::NoInterlace,
+		Line = Magick::LineInterlace,
+		Plane = Magick::PlaneInterlace,
+		Partition = Magick::PartitionInterlace,
+		Gif = Magick::GIFInterlace,
+		Jpeg = Magick::JPEGInterlace,
+		Png = Magick::PNGInterlace
 	};
 	//==============================================================================================
 }

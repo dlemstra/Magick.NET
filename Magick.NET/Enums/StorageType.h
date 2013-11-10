@@ -23,14 +23,14 @@ namespace ImageMagick
 	///</summary>
 	public enum class StorageType
 	{
-		Undefined = MagickCore::UndefinedPixel,
-		Char = MagickCore::CharPixel,
-		Double = MagickCore::DoublePixel,
-		Float = MagickCore::FloatPixel,
-		Integer = MagickCore::IntegerPixel,
-		Long = MagickCore::LongPixel,
-		Quantum = MagickCore::QuantumPixel,
-		Short = MagickCore::ShortPixel
+		Undefined = Magick::UndefinedPixel,
+		Char = Magick::CharPixel,
+		Double = Magick::DoublePixel,
+		Float = Magick::FloatPixel,
+		Integer = Magick::IntegerPixel,
+		Long = Magick::LongPixel,
+		Quantum = Magick::QuantumPixel,
+		Short = Magick::ShortPixel
 	};
 	//==============================================================================================
 }

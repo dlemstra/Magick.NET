@@ -23,11 +23,11 @@ namespace ImageMagick
 	///</summary>
 	public enum class RenderingIntent
 	{
-		Undefined = MagickCore::UndefinedIntent,
-		Saturation = MagickCore::SaturationIntent,
-		Perceptual = MagickCore::PerceptualIntent,
-		Absolute = MagickCore::AbsoluteIntent,
-		Relative = MagickCore::RelativeIntent,
+		Undefined = Magick::UndefinedIntent,
+		Saturation = Magick::SaturationIntent,
+		Perceptual = Magick::PerceptualIntent,
+		Absolute = Magick::AbsoluteIntent,
+		Relative = Magick::RelativeIntent,
 	};
 	//==============================================================================================
 }

@@ -23,18 +23,18 @@ namespace ImageMagick
 	///</summary>
 	public enum class PixelChannel
 	{
-		Undefined = MagickCore::UndefinedChannel,
-		Red = MagickCore::RedChannel,
-		Cyan = MagickCore::CyanChannel,
-		Gray = MagickCore::GrayChannel,
-		Green = MagickCore::GreenChannel,
-		Magenta = MagickCore::MagentaChannel,
-		Blue = MagickCore::BlueChannel,
-		Yellow = MagickCore::YellowChannel,
-		Black = MagickCore::BlackChannel,
-		Alpha = MagickCore::AlphaChannel,
-		Index = MagickCore::IndexChannel,
-		Composite = MagickCore::CompositeChannels
+		Undefined = Magick::UndefinedChannel,
+		Red = Magick::RedChannel,
+		Cyan = Magick::CyanChannel,
+		Gray = Magick::GrayChannel,
+		Green = Magick::GreenChannel,
+		Magenta = Magick::MagentaChannel,
+		Blue = Magick::BlueChannel,
+		Yellow = Magick::YellowChannel,
+		Black = Magick::BlackChannel,
+		Alpha = Magick::AlphaChannel,
+		Index = Magick::IndexChannel,
+		Composite = Magick::CompositeChannels
 	};
 	//==============================================================================================
 }

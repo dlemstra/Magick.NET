@@ -23,17 +23,17 @@ namespace ImageMagick
 	///</summary>
 	public enum class FontStretch
 	{
-		Undefined = MagickCore::UndefinedStretch,
-		Normal = MagickCore::NormalStretch,
-		UltraCondensed = MagickCore::UltraCondensedStretch,
-		ExtraCondensed = MagickCore::ExtraCondensedStretch,
-		Condensed = MagickCore::CondensedStretch,
-		SemiCondensed = MagickCore::SemiCondensedStretch,
-		SemiExpanded = MagickCore::SemiExpandedStretch,
-		Expanded = MagickCore::ExpandedStretch,
-		ExtraExpanded = MagickCore::ExtraExpandedStretch,
-		UltraExpanded = MagickCore::UltraExpandedStretch,
-		Any = MagickCore::AnyStretch
+		Undefined = Magick::UndefinedStretch,
+		Normal = Magick::NormalStretch,
+		UltraCondensed = Magick::UltraCondensedStretch,
+		ExtraCondensed = Magick::ExtraCondensedStretch,
+		Condensed = Magick::CondensedStretch,
+		SemiCondensed = Magick::SemiCondensedStretch,
+		SemiExpanded = Magick::SemiExpandedStretch,
+		Expanded = Magick::ExpandedStretch,
+		ExtraExpanded = Magick::ExtraExpandedStretch,
+		UltraExpanded = Magick::UltraExpandedStretch,
+		Any = Magick::AnyStretch
 	};
 	//==============================================================================================
 }

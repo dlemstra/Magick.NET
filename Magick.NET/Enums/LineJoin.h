@@ -23,10 +23,10 @@ namespace ImageMagick
 	///</summary>
 	public enum class LineJoin
 	{
-		Undefined = MagickCore::UndefinedJoin,
-		Miter = MagickCore::MiterJoin,
-		Round = MagickCore::RoundJoin,
-		Bevel = MagickCore::BevelJoin
+		Undefined = Magick::UndefinedJoin,
+		Miter = Magick::MiterJoin,
+		Round = Magick::RoundJoin,
+		Bevel = Magick::BevelJoin
 	};
 	//==============================================================================================
 }

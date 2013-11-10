@@ -23,9 +23,9 @@ namespace ImageMagick
 	///</summary>
 	public enum class Resolution
 	{
-		Undefined = MagickCore::UndefinedResolution,
-		PixelsPerInch = MagickCore::PixelsPerInchResolution,
-		PixelsPerCentimeter = MagickCore::PixelsPerCentimeterResolution
+		Undefined = Magick::UndefinedResolution,
+		PixelsPerInch = Magick::PixelsPerInchResolution,
+		PixelsPerCentimeter = Magick::PixelsPerCentimeterResolution
 	};
 	//==============================================================================================
 }

@@ -23,12 +23,12 @@ namespace ImageMagick
 	///</summary>
 	public enum class PaintMethod
 	{
-		Undefined = MagickCore::UndefinedMethod,
-		Point = MagickCore::PointMethod,
-		Replace = MagickCore::ReplaceMethod,
-		Floodfill = MagickCore::FloodfillMethod,
-		FillToBorder = MagickCore::FillToBorderMethod,
-		Reset = MagickCore::ResetMethod
+		Undefined = Magick::UndefinedMethod,
+		Point = Magick::PointMethod,
+		Replace = Magick::ReplaceMethod,
+		Floodfill = Magick::FloodfillMethod,
+		FillToBorder = Magick::FillToBorderMethod,
+		Reset = Magick::ResetMethod
 	};
 	//==============================================================================================
 }

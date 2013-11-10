@@ -24,25 +24,25 @@ namespace ImageMagick
 	[Flags]
 	public enum class Channels
 	{
-		Undefined = MagickCore::UndefinedChannel,
-		Red = MagickCore::RedChannel,
-		Gray = MagickCore::GrayChannel,
-		Cyan = MagickCore::CyanChannel,
-		Green = MagickCore::GreenChannel,
-		Magenta = MagickCore::MagentaChannel,
-		Blue = MagickCore::BlueChannel,
-		Yellow = MagickCore::YellowChannel,
-		Alpha = MagickCore::AlphaChannel,
-		Opacity = MagickCore::OpacityChannel,
-		Black = MagickCore::BlackChannel,
-		Index = MagickCore::IndexChannel,
-		Composite = MagickCore::CompositeChannels,
-		All = MagickCore::AllChannels,
-		TrueAlpha= MagickCore::TrueAlphaChannel,
+		Undefined = Magick::UndefinedChannel,
+		Red = Magick::RedChannel,
+		Gray = Magick::GrayChannel,
+		Cyan = Magick::CyanChannel,
+		Green = Magick::GreenChannel,
+		Magenta = Magick::MagentaChannel,
+		Blue = Magick::BlueChannel,
+		Yellow = Magick::YellowChannel,
+		Alpha = Magick::AlphaChannel,
+		Opacity = Magick::OpacityChannel,
+		Black = Magick::BlackChannel,
+		Index = Magick::IndexChannel,
+		Composite = Magick::CompositeChannels,
+		All = Magick::AllChannels,
+		TrueAlpha= Magick::TrueAlphaChannel,
 		RGB = Red | Green | Blue,
-		Grays = MagickCore::GrayChannels,
-		Sync = MagickCore::SyncChannels,
-		Default = MagickCore::DefaultChannels
+		Grays = Magick::GrayChannels,
+		Sync = Magick::SyncChannels,
+		Default = Magick::DefaultChannels
 	};
 	//==============================================================================================
 }

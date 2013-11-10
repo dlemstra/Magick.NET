@@ -24,26 +24,26 @@ namespace ImageMagick
 	[FlagsAttribute]
 	public enum class LogEvents
 	{
-		None = MagickCore::NoEvents,
-		Trace = MagickCore::TraceEvent,
-		Annotate = MagickCore::AnnotateEvent,
-		Blob = MagickCore::BlobEvent,
-		Cache =  MagickCore::CacheEvent,
-		Coder =  MagickCore::CoderEvent,
-		Configure = MagickCore::ConfigureEvent,
-		Deprecate = MagickCore::DeprecateEvent,
-		Draw = MagickCore::DrawEvent,
-		Exception = MagickCore::ExceptionEvent,
-		Image = MagickCore::ImageEvent,
-		Locale = MagickCore::LocaleEvent,
-		Module = MagickCore::ModuleEvent,
-		Policy = MagickCore::PolicyEvent,
-		Resource = MagickCore::ResourceEvent,
-		Transform = MagickCore::TransformEvent,
-		User = MagickCore::UserEvent,
-		Wand = MagickCore::WandEvent,
-		Accelerate = MagickCore::AccelerateEvent,
-		All  = MagickCore::AllEvents
+		None = Magick::NoEvents,
+		Trace = Magick::TraceEvent,
+		Annotate = Magick::AnnotateEvent,
+		Blob = Magick::BlobEvent,
+		Cache =  Magick::CacheEvent,
+		Coder =  Magick::CoderEvent,
+		Configure = Magick::ConfigureEvent,
+		Deprecate = Magick::DeprecateEvent,
+		Draw = Magick::DrawEvent,
+		Exception = Magick::ExceptionEvent,
+		Image = Magick::ImageEvent,
+		Locale = Magick::LocaleEvent,
+		Module = Magick::ModuleEvent,
+		Policy = Magick::PolicyEvent,
+		Resource = Magick::ResourceEvent,
+		Transform = Magick::TransformEvent,
+		User = Magick::UserEvent,
+		Wand = Magick::WandEvent,
+		Accelerate = Magick::AccelerateEvent,
+		All  = Magick::AllEvents
 	};
 	//==============================================================================================
 }
