@@ -2286,7 +2286,7 @@ namespace ImageMagick
 	void MagickImage::Extent(int width, int height)
 	{
 		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
-		Resize(geometry);
+		Extent(geometry);
 	}
 	//==============================================================================================
 	void MagickImage::Extent(int width, int height, MagickColor^ backgroundColor)

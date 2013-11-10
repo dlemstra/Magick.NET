@@ -176,6 +176,22 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Extend()
+		{
+			using (MagickImage image = new MagickImage())
+			{
+				image.Read(Files.RedPNG);
+				image.Resize(new MagickGeometry(100, 100));
+				Assert.AreEqual(100, image.Width);
+				Assert.AreEqual(33, image.Height);
+
+				image.Extent(100, 100, Gravity.Center);
+				Assert.AreEqual(100, image.Width);
+				Assert.AreEqual(100, image.Height);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_FormatInfo()
 		{
 			MagickImage image = new MagickImage(Files.SnakewarePNG);
@@ -189,7 +205,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Histogram()
 		{
-			MagickImage image = new MagickImage(Files.RedPng);
+			MagickImage image = new MagickImage(Files.RedPNG);
 			Dictionary<MagickColor, int> histogram = image.Histogram();
 
 			Assert.IsNotNull(histogram);
@@ -301,7 +317,7 @@ namespace Magick.NET.Tests
 																							  select name));
 			}
 
-			using (MagickImage image = new MagickImage(Files.RedPng))
+			using (MagickImage image = new MagickImage(Files.RedPNG))
 			{
 				IEnumerable<string> names = image.ProfileNames;
 				Assert.IsNotNull(names);

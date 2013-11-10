@@ -100,7 +100,7 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
-		public static string RedPng
+		public static string RedPNG
 		{
 			get
 			{
