@@ -23,6 +23,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-x86</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ8\x86\Magick.NET.Web-x86.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseQ8|x64' ">
     <DebugType>pdbonly</DebugType>
@@ -35,6 +36,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-x64</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ8\x64\Magick.NET.Web-x64.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -52,6 +54,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-x86</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ16\x86\Magick.NET.Web-x86.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
     <OutputPath>bin\ReleaseQ16\x64\</OutputPath>
@@ -63,14 +66,24 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-x64</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ16\x64\Magick.NET.Web-x64.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\MagickWebSettings.cs" />
+    <Compile Include="Configuration\UrlResolverSettings.cs" />
+    <Compile Include="Configuration\UrlResolverSettingsCollection.cs" />
+    <Compile Include="MagickScriptHandler.cs" />
+    <Compile Include="MagickScriptModule.cs" />
+    <Compile Include="IUrlResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
