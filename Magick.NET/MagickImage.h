@@ -1363,7 +1363,7 @@ namespace ImageMagick
 		double Compare(MagickImage^ image, Metric metric, MagickImage^ difference, Channels channels);
 		///==========================================================================================
 		///<summary>
-		/// Compares the current instance with another object of the same type.
+		/// Compares the current instance with another image. Only the size of the image is compared.
 		///</summary>
 		///<param name="other">The object to compare this image with.</param>
 		virtual int CompareTo(MagickImage^ other);
