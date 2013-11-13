@@ -771,7 +771,7 @@ namespace ImageMagick
 		}
 		finally
 		{
-			delete[] profileNames;
+			delete profileNames;
 		}
 	}
 	//==============================================================================================
@@ -2942,7 +2942,7 @@ namespace ImageMagick
 		}
 		finally
 		{
-			delete[] colors;
+			delete colors;
 		}
 	}
 	//==============================================================================================
