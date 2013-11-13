@@ -52,7 +52,7 @@ using namespace System::Security::Permissions;
 [assembly: AssemblyConfiguration("Release")];
 [assembly: AssemblyCulture("")];
 [assembly: AssemblyVersion("6.0.0.0")];
-[assembly: AssemblyFileVersion("6.8.7.501")]
+[assembly: AssemblyFileVersion("6.8.7.502")]
 [assembly: ComVisible(false)];
 [assembly: CLSCompliant(true)];
 [assembly: SecurityPermission(SecurityAction::RequestMinimum, UnmanagedCode = true)];

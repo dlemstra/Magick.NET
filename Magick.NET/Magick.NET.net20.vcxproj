@@ -278,6 +278,7 @@
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
     <ClInclude Include="Helpers\ByteConverter.h" />
+    <ClInclude Include="Profiles\8Bim\ClipPathReader.h" />
     <ClInclude Include="Profiles\8Bim\EightBimProfile.h" />
     <ClInclude Include="Profiles\Exif\ExifDataType.h" />
     <ClInclude Include="Profiles\Exif\ExifProfile.h" />
@@ -416,6 +417,7 @@
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.cpp" />
     <ClCompile Include="Exceptions\Base\MagickException.cpp" />
     <ClCompile Include="Helpers\ByteConverter.cpp" />
+    <ClCompile Include="Profiles\8Bim\ClipPathReader.cpp" />
     <ClCompile Include="Profiles\8Bim\EightBimProfile.cpp" />
     <ClCompile Include="Profiles\Exif\ExifProfile.cpp" />
     <ClCompile Include="Profiles\Exif\ExifReader.cpp" />
