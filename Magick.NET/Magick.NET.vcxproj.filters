@@ -654,6 +654,9 @@
     <ClInclude Include="Enums\Metric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Profiles\8Bim\ClipPathReader.h">
+      <Filter>Header Files\Profiles\8Bim</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1027,6 +1030,9 @@
     </ClCompile>
     <ClCompile Include="Helpers\ByteConverter.cpp">
       <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiles\8Bim\ClipPathReader.cpp">
+      <Filter>Source Files\Profiles\8Bim</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -36,12 +36,12 @@ namespace Magick.NET.Tests
 			IXPathNavigable first = profile.ClippingPaths.First();
 			XDocument doc = XDocument.Load(first.CreateNavigator().ReadSubtree());
 
-			Assert.AreEqual(@"<svg width=""200"" height=""200""><g><path fill=""#00000000"" stroke=""#00000000"" stroke-width=""0"" stroke-antialiasing=""false"" d=""M 45,58&#xA;L 80,124&#xA;L 147,147&#xA;L 45,147&#xA;L 45,58 Z&#xA;"" /></g></svg>", doc.ToString(SaveOptions.DisableFormatting));
+			Assert.AreEqual(@"<svg width=""200"" height=""200""><g><path fill=""#00000000"" stroke=""#00000000"" stroke-width=""0"" stroke-antialiasing=""false"" d=""  45 58 m&#xA;  80 124 l&#xA;  147 147 l&#xA;  45 147 l&#xA;  45 58 l z&#xA;"" /></g></svg>", doc.ToString(SaveOptions.DisableFormatting));
 
 			IXPathNavigable second = profile.ClippingPaths.Skip(1).First();
 			doc = XDocument.Load(second.CreateNavigator().ReadSubtree());
 
-			Assert.AreEqual(@"<svg width=""200"" height=""200""><g><path fill=""#00000000"" stroke=""#00000000"" stroke-width=""0"" stroke-antialiasing=""false"" d=""M 52,144&#xA;L 130,57&#xA;L 157,121&#xA;L 131,106&#xA;L 52,144 Z&#xA;"" /></g></svg>", doc.ToString(SaveOptions.DisableFormatting));
+			Assert.AreEqual(@"<svg width=""200"" height=""200""><g><path fill=""#00000000"" stroke=""#00000000"" stroke-width=""0"" stroke-antialiasing=""false"" d=""  52 144 m&#xA;  130 57 l&#xA;  157 121 l&#xA;  131 106 l&#xA;  52 144 l z&#xA;"" /></g></svg>", doc.ToString(SaveOptions.DisableFormatting));
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
