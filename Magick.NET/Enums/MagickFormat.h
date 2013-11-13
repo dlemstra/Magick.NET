@@ -23,6 +23,7 @@ namespace ImageMagick
 	///</summary>
 	public enum class MagickFormat
 	{
+		Unknown,
 		ThreeFr,
 		A,
 		Aai,
@@ -222,7 +223,6 @@ namespace ImageMagick
 		Txt,
 		Ubrl,
 		Uil,
-		Unknown,
 		Uyvy,
 		Vda,
 		Vicar,

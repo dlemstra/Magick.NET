@@ -52,6 +52,15 @@ namespace ImageMagick.Web
 			}
 		}
 		//===========================================================================================
+		[ConfigurationProperty("showVersion", DefaultValue = true)]
+		private bool _ShowVersion
+		{
+			get
+			{
+				return (bool)this["showVersion"];
+			}
+		}
+		//===========================================================================================
 		[ConfigurationProperty("urlResolvers")]
 		private UrlResolverSettingsCollection _UrlResolvers
 		{
@@ -84,12 +93,22 @@ namespace ImageMagick.Web
 		/// <summary>
 		/// Returns the directory that contains scripted images.
 		/// </summary>
-		[ConfigurationProperty("cacheDirectory", IsRequired = true)]
 		public static string CacheDirectory
 		{
 			get
 			{
 				return _Instance._CacheDirectory;
+			}
+		}
+		///==========================================================================================
+		/// <summary>
+		/// Returns true if the version can be shown in the http headers.
+		/// </summary>
+		public static bool ShowVersion
+		{
+			get
+			{
+				return _Instance._ShowVersion;
 			}
 		}
 		///========================================================================================== 

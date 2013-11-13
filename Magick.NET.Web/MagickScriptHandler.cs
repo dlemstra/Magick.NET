@@ -15,6 +15,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -34,6 +35,7 @@ namespace ImageMagick.Web
 		private MagickFormatInfo _FormatInfo;
 		private static readonly ReaderWriterLockSlim _Lock = new ReaderWriterLockSlim();
 		private IUrlResolver _UrlResolver;
+		private static readonly string _Version = GetVersion();
 		//===========================================================================================
 		private static string CalculateMD5(string value)
 		{
@@ -78,6 +80,15 @@ namespace ImageMagick.Web
 				Directory.CreateDirectory(cacheDirectory);
 
 			return cacheDirectory + CalculateMD5(_UrlResolver.FileName) + "." + _UrlResolver.Format;
+		}
+		//===========================================================================================
+		private static string GetVersion()
+		{
+			if (!MagickWebSettings.ShowVersion)
+				return null;
+
+			Object version = typeof(MagickScriptHandler).Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
+			return ((AssemblyFileVersionAttribute)version).Version;
 		}
 		//===========================================================================================
 		private void OnScriptRead(object sender, ScriptReadEventArgs arguments)
@@ -233,6 +244,9 @@ namespace ImageMagick.Web
 				return;
 
 			context.Response.ContentType = _FormatInfo.MimeType;
+
+			if (!string.IsNullOrEmpty(_Version))
+				context.Response.Headers.Add("X-Magick", _Version);
 
 			if (!WriteScriptedFile(context))
 				WriteFile(context);
