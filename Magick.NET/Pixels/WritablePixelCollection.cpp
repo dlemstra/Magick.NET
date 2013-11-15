@@ -20,7 +20,7 @@ namespace ImageMagick
 	void WritablePixelCollection::SetPixel(int x, int y, array<Magick::Quantum>^ value)
 	{
 		CheckIndex(x, y);
-		Throw::IfTrue("pixel", value->Length != Channels, "Pixel should have the same amount of channels.");
+		Throw::IfTrue("value", value->Length != Channels, "Value should have the same amount of channels.");
 
 		int index = GetIndex(x, y);
 
@@ -48,7 +48,7 @@ namespace ImageMagick
 
 		try
 		{
-			_Pixels = View->get(x, y, width, height);
+			_Pixels = View->set(x, y, width, height);
 			LoadIndexes();
 		}
 		catch(Magick::Exception& exception)
@@ -78,21 +78,21 @@ namespace ImageMagick
 	//==============================================================================================
 	void WritablePixelCollection::Set(int x, int y, array<Magick::Quantum>^ value)
 	{
-		Throw::IfNull("value", value);
+		Throw::IfNullOrEmpty("value", value);
 
 		SetPixel(x, y, value);
 	}
 	//==============================================================================================
 	void WritablePixelCollection::Set(array<Magick::Quantum>^ values)
 	{
-		Throw::IfNull("values", values);
+		Throw::IfNullOrEmpty("values", values);
+		Throw::IfFalse("values", values->Length % Channels == 0, "Values should have the same amount of channels.");
 
-		long size = values->Length - Channels;
 		long i = 0;
 		int index = 0;
 		Magick::PixelPacket* p = _Pixels;
 
-		while (i < size)
+		while (i < values->Length)
 		{
 			p->red = values[i++];
 			p->green = values[i++];

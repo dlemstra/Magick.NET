@@ -48,19 +48,22 @@ namespace ImageMagick
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Changes the value of the specified pixel.
+		/// Changes the value of the specified pixel. Make sure to call Write after modifying all the
+		/// pixels to ensure the image is updated.
 		///</summary>
 		///<param name="pixel">The pixel to set.</param>
 		void Set(Pixel^ pixel);
 		///==========================================================================================
 		///<summary>
-		/// Changes the value of the specified pixels.
+		/// Changes the value of the specified pixels. Make sure to call Write after modifying all the
+		/// pixels to ensure the image is updated.
 		///</summary>
 		///<param name="pixels">The pixels to set.</param>
 		void Set(IEnumerable<Pixel^>^ pixels);
 		///==========================================================================================
 		///<summary>
-		/// Changes the value of the specified pixel.
+		/// Changes the value of the specified pixel. Make sure to call Write after modifying all the
+		/// pixels to ensure the image is updated.
 		///</summary>
 		///<param name="x">The X coordinate of the pixel.</param>
 		///<param name="y">The Y coordinate of the pixel.</param>
@@ -68,7 +71,8 @@ namespace ImageMagick
 		void Set(int x, int y, array<Magick::Quantum>^ value);
 		///==========================================================================================
 		///<summary>
-		/// Changes the values of the specified pixels.
+		/// Changes the values of the specified pixels. Make sure to call Write after modifying all the
+		/// pixels to ensure the image is updated.
 		///</summary>
 		///<param name="values">The values of the pixels.</param>
 		void Set(array<Magick::Quantum>^ values);

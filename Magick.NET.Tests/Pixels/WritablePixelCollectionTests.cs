@@ -12,8 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Drawing;
-using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,17 +21,34 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public sealed class PixelCollectionTests
+	public sealed class WritablePixelCollectionTests
 	{
 		//===========================================================================================
-		private const string _Category = "PixelCollection";
+		private const string _Category = "WritablePixelCollection";
+		//===========================================================================================
+		private static void Test_PixelColor(PixelBaseCollection pixels, Color color)
+		{
+			var values = pixels.GetValue(0, 0);
+			Assert.AreEqual(4, values.Length);
+
+			MagickColor magickColor = new MagickColor(values[0], values[1], values[2], values[3]);
+			ColorAssert.AreEqual(color, magickColor);
+		}
+		//===========================================================================================
+		private static void Test_Set(WritablePixelCollection pixels, float[] value)
+		{
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				pixels.Set(value);
+			});
+		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Dimensions()
 		{
 			using (MagickImage image = new MagickImage(Color.Red, 5, 10))
 			{
-				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				using (WritablePixelCollection pixels = image.GetWritablePixels())
 				{
 					Assert.AreEqual(5, pixels.Width);
 					Assert.AreEqual(10, pixels.Height);
@@ -45,24 +62,48 @@ namespace Magick.NET.Tests
 		{
 			using (MagickImage image = new MagickImage(Color.Red, 5, 10))
 			{
-				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				using (WritablePixelCollection pixels = image.GetWritablePixels())
 				{
-					var values = pixels.GetValue(0, 0);
-					Assert.AreEqual(4, values.Length);
-
-					MagickColor color = new MagickColor(values[0], values[1], values[2], values[3]);
-					ColorAssert.AreEqual(Color.Red, color);
+					Test_PixelColor(pixels, Color.Red);
 				}
 			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_IEnumerable()
+		public void Test_Set()
 		{
 			using (MagickImage image = new MagickImage(Color.Red, 5, 10))
 			{
-				PixelCollection pixels = image.GetReadOnlyPixels();
-				Assert.AreEqual(50, pixels.Count());
+				using (WritablePixelCollection pixels = image.GetWritablePixels())
+				{
+					ExceptionAssert.Throws<ArgumentNullException>(delegate()
+					{
+						pixels.Set((float[])null);
+					});
+
+					ExceptionAssert.Throws<ArgumentNullException>(delegate()
+					{
+						pixels.Set((Pixel)null);
+					});
+
+					ExceptionAssert.Throws<ArgumentNullException>(delegate()
+					{
+						pixels.Set((Pixel[])null);
+					});
+
+					Test_Set(pixels, new float[] { 0 });
+					Test_Set(pixels, new float[] { 0, 0 });
+					Test_Set(pixels, new float[] { 0, 0, 0 });
+
+					pixels.Set(new float[] { 0, 0, 0, 0 });
+					Test_PixelColor(pixels, Color.Black);
+					pixels.Write();
+				}
+
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					Test_PixelColor(pixels, Color.Black);
+				}
 			}
 		}
 		//===========================================================================================
