@@ -2295,6 +2295,18 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Enhance()
+	{
+		try
+		{
+			Value->enhance();
+		}
+		catch(Magick::Exception& exception)
+		{
+			throw MagickException::Create(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Equalize()
 	{
 		try

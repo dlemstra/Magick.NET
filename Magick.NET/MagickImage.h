@@ -1593,6 +1593,12 @@ namespace ImageMagick
 		MagickGeometry^ EncodingGeometry();
 		///==========================================================================================
 		///<summary>
+		/// Applies a digital filter that improves the quality of a noisy image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Enhance();
+		///==========================================================================================
+		///<summary>
 		/// Applies a histogram equalization to the image.
 		///</summary>
 		///<exception cref="MagickException"/>
