@@ -30,6 +30,7 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
+		static bool _ThrowWarnings = false;
 		static initonly array<String^>^ _ImageMagickFiles = gcnew array<String^>
 		{
 			"coder.xml", "colors.xml", "configure.xml", "delegates.xml",
@@ -47,6 +48,15 @@ namespace ImageMagick
 		static property IEnumerable<MagickFormatInfo^>^ SupportedFormats
 		{
 			IEnumerable<MagickFormatInfo^>^ get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// Gets or sets whether WarningExceptions should be thrown.
+		///</summary>
+		static property bool ThrowWarnings
+		{
+			bool get();
+			void set(bool value);
 		}
 		///==========================================================================================
 		///<summary>

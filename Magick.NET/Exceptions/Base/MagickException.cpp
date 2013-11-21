@@ -15,6 +15,7 @@
 #include "MagickException.h"
 #include "..\MagickErrorExceptions.h"
 #include "..\MagickWarningExceptions.h"
+#include "..\..\MagickNET.h"
 
 namespace ImageMagick
 {
@@ -24,20 +25,25 @@ namespace ImageMagick
 	{
 	}
 	//==============================================================================================
-	MagickException^ MagickException::Create(const Magick::Exception& exception)
+	void MagickException::Throw(const Magick::Exception& exception)
 	{
 		const Magick::Error* error = dynamic_cast<const Magick::Error*>(&exception);
 
 		if (error != NULL)
-			return MagickErrorException::Create(*error);
+			throw MagickErrorException::Create(*error);
 
 		const Magick::Warning* warning = dynamic_cast<const Magick::Warning*>(&exception);
 
 		if (warning != NULL)
-			return MagickWarningException::Create(*warning);
+		{
+			if (!MagickNET::ThrowWarnings)
+				return;
+
+			throw MagickWarningException::Create(*warning);
+		}
 
 		String^ message = Marshaller::Marshal(exception.what());
-		return gcnew MagickException(message);
+		throw gcnew MagickException(message);
 	}
 	//==============================================================================================
 }

@@ -54,7 +54,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			throw MagickException::Create(exception);
+			MagickException::Throw(exception);
 		}
 	}
 	//==============================================================================================

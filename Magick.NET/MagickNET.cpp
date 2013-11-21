@@ -35,6 +35,16 @@ namespace ImageMagick
 		return MagickFormatInfo::All;
 	}
 	//==============================================================================================
+	bool MagickNET::ThrowWarnings::get()
+	{
+		return _ThrowWarnings;
+	}
+	//==============================================================================================
+	void MagickNET::ThrowWarnings::set(bool value)
+	{
+		_ThrowWarnings = value;
+	}
+	//==============================================================================================
 	String^ MagickNET::Version::get()
 	{
 		Object^ title = (MagickNET::typeid)->Assembly->GetCustomAttributes(AssemblyTitleAttribute::typeid, false)[0];

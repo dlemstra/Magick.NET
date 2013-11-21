@@ -32,7 +32,8 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			throw MagickException::Create(exception);
+			MagickException::Throw(exception);
+			return nullptr;
 		}
 		finally
 		{
@@ -76,7 +77,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			throw MagickException::Create(exception);
+			MagickException::Throw(exception);
 		}
 		finally
 		{
@@ -109,7 +110,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			throw MagickException::Create(exception);
+			MagickException::Throw(exception);
 		}
 		finally
 		{
@@ -250,7 +251,8 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			throw MagickException::Create(exception);
+			MagickException::Throw(exception);
+			return nullptr;
 		}
 		finally
 		{
@@ -273,7 +275,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			throw MagickException::Create(exception);
+			MagickException::Throw(exception);
 		}
 		finally
 		{
@@ -311,7 +313,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			throw MagickException::Create(exception);
+			MagickException::Throw(exception);
 		}
 		finally
 		{
@@ -336,7 +338,8 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			throw MagickException::Create(exception);
+			MagickException::Throw(exception);
+			return nullptr;
 		}
 		finally
 		{
@@ -359,7 +362,8 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			throw MagickException::Create(exception);
+			MagickException::Throw(exception);
+			return nullptr;
 		}
 		finally
 		{
@@ -418,7 +422,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			throw MagickException::Create(exception);
+			MagickException::Throw(exception);
 		}
 		finally
 		{
