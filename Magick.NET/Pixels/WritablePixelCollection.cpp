@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "WritablePixelCollection.h"
+#include "..\Quantum.h"
 
 namespace ImageMagick
 {
@@ -25,14 +26,42 @@ namespace ImageMagick
 		int index = GetIndex(x, y);
 
 		Magick::PixelPacket *p = _Pixels + index;
-
-		p->red = value[0];
-		p->green = value[1];
-		p->blue = value[2];
-		p->opacity = value[3];
+		SetPixel(p, value, index);
 
 		if (Channels == 5)
-			Indexes[index] = value[4];
+			Indexes[index] = Quantum::Convert(value[4]);
+	}
+	//==============================================================================================
+	template<typename TType>
+	int WritablePixelCollection::SetPixel(Magick::PixelPacket *pixel, array<TType>^ value, int index)
+	{
+		pixel->red = Quantum::Convert(value[index++]);
+		pixel->green = Quantum::Convert(value[index++]);
+		pixel->blue = Quantum::Convert(value[index++]);
+		pixel->opacity = Quantum::Convert(value[index++]);
+
+		return index;
+	}
+	//==============================================================================================
+	template<typename TType>
+	void WritablePixelCollection::SetPixels(array<TType>^ values)
+	{
+		Throw::IfNullOrEmpty("values", values);
+		Throw::IfFalse("values", values->Length % Channels == 0, "Values should have the same amount of channels.");
+
+		long i = 0;
+		int index = 0;
+		Magick::PixelPacket* p = _Pixels;
+
+		while (i < values->Length)
+		{
+			i = SetPixel(p, values, i);
+
+			if (Channels == 5)
+				Indexes[index++] = Quantum::Convert((TType)values[i++]);
+
+			p++;
+		}
 	}
 	//==============================================================================================
 	const Magick::PixelPacket* WritablePixelCollection::Pixels::get()
@@ -83,27 +112,34 @@ namespace ImageMagick
 		SetPixel(x, y, value);
 	}
 	//==============================================================================================
+	void WritablePixelCollection::Set(array<Byte>^ values)
+	{
+		SetPixels(values);
+	}
+	//==============================================================================================
+	void WritablePixelCollection::Set(array<double>^ values)
+	{
+		SetPixels(values);
+	}
+	//==============================================================================================
+	void WritablePixelCollection::Set(array<int>^ values)
+	{
+		SetPixels(values);
+	}
+	//==============================================================================================
+	void WritablePixelCollection::Set(array<long>^ values)
+	{
+		SetPixels(values);
+	}
+	//==============================================================================================
 	void WritablePixelCollection::Set(array<Magick::Quantum>^ values)
 	{
-		Throw::IfNullOrEmpty("values", values);
-		Throw::IfFalse("values", values->Length % Channels == 0, "Values should have the same amount of channels.");
-
-		long i = 0;
-		int index = 0;
-		Magick::PixelPacket* p = _Pixels;
-
-		while (i < values->Length)
-		{
-			p->red = values[i++];
-			p->green = values[i++];
-			p->blue = values[i++];
-			p->opacity = values[i++];
-
-			if (Channels == 5)
-				Indexes[index++] = values[i++];
-
-			p++;
-		}
+		SetPixels(values);
+	}
+	//==============================================================================================
+	void WritablePixelCollection::Set(array<short>^ values)
+	{
+		SetPixels(values);
 	}
 	//==============================================================================================
 	void WritablePixelCollection::Write()

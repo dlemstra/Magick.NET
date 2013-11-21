@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "MagickColor.h"
+#include "..\Quantum.h"
 
 using namespace System::Globalization;
 
@@ -28,10 +29,10 @@ namespace ImageMagick
 		B = (Magick::Quantum)blue;
 		A = (Magick::Quantum)alpha;
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		R = (Magick::Quantum) (257.0*red);
-		G = (Magick::Quantum) (257.0*green);
-		B = (Magick::Quantum) (257.0*blue);
-		A = (Magick::Quantum) (257.0*alpha);
+		R = Quantum::Convert(red);
+		G = Quantum::Convert(green);
+		B = Quantum::Convert(blue);
+		A = Quantum::Convert(alpha);
 #else
 #error Not implemented!
 #endif

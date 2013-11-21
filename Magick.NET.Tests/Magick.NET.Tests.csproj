@@ -87,7 +87,6 @@
     <Compile Include="Profiles\Iptc\IptcValueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Files.cs" />
-    <Compile Include="Quantum.cs" />
     <Compile Include="Script\MagickScriptTests.cs" />
     <Compile Include="Settings\MagickReadSettingsTests.cs" />
     <Compile Include="Settings\PixelStorageSettingsTests.cs" />

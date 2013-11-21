@@ -14,6 +14,7 @@
 
 using System;
 using System.Drawing;
+using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests

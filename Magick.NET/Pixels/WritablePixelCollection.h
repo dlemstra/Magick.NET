@@ -34,6 +34,12 @@ namespace ImageMagick
 		//===========================================================================================
 		void SetPixel(int x, int y, array<Magick::Quantum>^ value);
 		//===========================================================================================
+		template<typename TType>
+		static int SetPixel(Magick::PixelPacket *pixel, array<TType>^ value, int index);
+		//===========================================================================================
+		template<typename TType>
+		void SetPixels(array<TType>^ values);
+		//===========================================================================================
 	protected private:
 		//===========================================================================================
 		property const Magick::PixelPacket* Pixels
@@ -75,7 +81,42 @@ namespace ImageMagick
 		/// pixels to ensure the image is updated.
 		///</summary>
 		///<param name="values">The values of the pixels.</param>
+		void Set(array<Byte>^ values);
+		///==========================================================================================
+		///<summary>
+		/// Changes the values of the specified pixels. Make sure to call Write after modifying all the
+		/// pixels to ensure the image is updated.
+		///</summary>
+		///<param name="values">The values of the pixels.</param>
+		void Set(array<double>^ values);
+		///==========================================================================================
+		///<summary>
+		/// Changes the values of the specified pixels. Make sure to call Write after modifying all the
+		/// pixels to ensure the image is updated.
+		///</summary>
+		///<param name="values">The values of the pixels.</param>
+		void Set(array<int>^ values);
+		///==========================================================================================
+		///<summary>
+		/// Changes the values of the specified pixels. Make sure to call Write after modifying all the
+		/// pixels to ensure the image is updated.
+		///</summary>
+		///<param name="values">The values of the pixels.</param>
+		void Set(array<long>^ values);
+		///==========================================================================================
+		///<summary>
+		/// Changes the values of the specified pixels. Make sure to call Write after modifying all the
+		/// pixels to ensure the image is updated.
+		///</summary>
+		///<param name="values">The values of the pixels.</param>
 		void Set(array<Magick::Quantum>^ values);
+		///==========================================================================================
+		///<summary>
+		/// Changes the values of the specified pixels. Make sure to call Write after modifying all the
+		/// pixels to ensure the image is updated.
+		///</summary>
+		///<param name="values">The values of the pixels.</param>
+		void Set(array<short>^ values);
 		///==========================================================================================
 		///<summary>
 		/// Writes the pixels to the image.

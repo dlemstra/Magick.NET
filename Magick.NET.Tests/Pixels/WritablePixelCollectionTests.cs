@@ -91,6 +91,7 @@ namespace Magick.NET.Tests
 						pixels.Set((Pixel[])null);
 					});
 
+					Test_Set(pixels, new float[] { });
 					Test_Set(pixels, new float[] { 0 });
 					Test_Set(pixels, new float[] { 0, 0 });
 					Test_Set(pixels, new float[] { 0, 0, 0 });
@@ -103,6 +104,16 @@ namespace Magick.NET.Tests
 				using (PixelCollection pixels = image.GetReadOnlyPixels())
 				{
 					Test_PixelColor(pixels, Color.Black);
+				}
+
+				using (WritablePixelCollection pixels = image.GetWritablePixels())
+				{
+					pixels.Set(new int[] { 131070, 0, 0, 0 });
+					Test_PixelColor(pixels, Color.Red);
+					pixels.Set(new byte[] { 0, 255, 0, 0 });
+					Test_PixelColor(pixels, Color.Lime);
+					pixels.Set(new short[] { 0, 0, 32767, 0 });
+					Test_PixelColor(pixels, Color.Blue);
 				}
 			}
 		}
