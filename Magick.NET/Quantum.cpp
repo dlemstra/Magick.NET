@@ -19,7 +19,13 @@ namespace ImageMagick
 	//==============================================================================================
 	Magick::Quantum Quantum::Convert(Byte value)
 	{
+#if (MAGICKCORE_QUANTUM_DEPTH == 8)
+		return (Magick::Quantum) value;
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
 		return (Magick::Quantum) (257.0*value);
+#else
+#error Not implemented!
+#endif
 	}
 	//==============================================================================================
 	Magick::Quantum Quantum::Convert(double value)
@@ -44,7 +50,13 @@ namespace ImageMagick
 	//==============================================================================================
 	Magick::Quantum Quantum::Convert(short value)
 	{
+#if (MAGICKCORE_QUANTUM_DEPTH == 8)
+		return MagickCore::ClampToQuantum(value);
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
 		return (Magick::Quantum) (2.0*value);
+#else
+#error Not implemented!
+#endif
 	}
 	//==============================================================================================
 	int Quantum::Depth::get()
