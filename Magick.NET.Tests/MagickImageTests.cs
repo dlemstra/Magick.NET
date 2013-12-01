@@ -308,7 +308,7 @@ namespace Magick.NET.Tests
 			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
 			{
 				MagickGeometry geometry = new MagickGeometry(128, 64);
-				geometry.Aspect = true;
+				geometry.IgnoreAspectRatio = true;
 
 				image.LiquidRescale(geometry);
 				Assert.AreEqual(128, image.Width);

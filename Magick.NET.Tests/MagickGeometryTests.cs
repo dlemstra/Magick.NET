@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
 			MagickGeometry geometry = new MagickGeometry("5x10!");
 			Assert.AreEqual(5, geometry.Width);
 			Assert.AreEqual(10, geometry.Height);
-			Assert.AreEqual(true, geometry.Aspect);
+			Assert.AreEqual(true, geometry.IgnoreAspectRatio);
 
 			geometry = new MagickGeometry("10x5<");
 			Assert.AreEqual(10, geometry.Width);

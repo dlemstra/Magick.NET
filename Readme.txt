@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 6.8.X.X:
+  - Renamed MagickGeometry.Aspect to IgnoreAspectRatio.
+
 Magick.NET 6.8.7.501:
   - Refactored MagickImageStatistics to prepare for upcoming changes in ImageMagick 7.
   - Renamed MagickImage.SetOption to SetDefine.

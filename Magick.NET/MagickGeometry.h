@@ -92,11 +92,6 @@ namespace ImageMagick
 		MagickGeometry(String^ value);
 		///==========================================================================================
 		///<summary>
-		/// Resize without preserving aspect ratio (!)
-		///</summary>
-		property bool Aspect;
-		///==========================================================================================
-		///<summary>
 		/// Resize the image based on the smallest fitting dimension (^).
 		///</summary>
 		property bool FillArea;
@@ -111,6 +106,11 @@ namespace ImageMagick
 		///</summary>
 		///==========================================================================================
 		property int Height;
+		///==========================================================================================
+		///<summary>
+		/// Resize without preserving aspect ratio (!)
+		///</summary>
+		property bool IgnoreAspectRatio;
 		///==========================================================================================
 		///<summary>
 		/// True if width and height are expressed as percentages.

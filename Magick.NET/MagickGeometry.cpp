@@ -24,7 +24,7 @@ namespace ImageMagick
 		Width = (int)geometry.width();
 		Height = (int)geometry.height();
 		IsPercentage = geometry.percent();
-		Aspect = geometry.aspect();
+		IgnoreAspectRatio = geometry.aspect();
 		Less = geometry.less();
 		Greater = geometry.greater();
 		FillArea = geometry.fillArea();
@@ -49,7 +49,7 @@ namespace ImageMagick
 	{
 		Magick::Geometry* result = new Magick::Geometry(Width, Height, Math::Abs(X), Math::Abs(Y), X < 0, Y < 0);
 		result->percent(IsPercentage);
-		result->aspect(Aspect);
+		result->aspect(IgnoreAspectRatio);
 		result->less(Less);
 		result->greater(Greater);
 		result->fillArea(FillArea);
@@ -190,7 +190,7 @@ namespace ImageMagick
 			X == other->X &&
 			Y == other->Y &&
 			IsPercentage == other->IsPercentage &&
-			Aspect == other->Aspect &&
+			IgnoreAspectRatio == other->IgnoreAspectRatio &&
 			Less == other->Less &&
 			Greater == other->Greater &&
 			FillArea == other->FillArea &&
@@ -205,7 +205,7 @@ namespace ImageMagick
 			X.GetHashCode() ^
 			Y.GetHashCode() ^
 			IsPercentage.GetHashCode() ^
-			Aspect.GetHashCode() ^
+			IgnoreAspectRatio.GetHashCode() ^
 			Less.GetHashCode() ^
 			Greater.GetHashCode() ^
 			FillArea.GetHashCode() ^
