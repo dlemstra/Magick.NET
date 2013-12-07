@@ -371,6 +371,33 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	MagickImage^ MagickImageCollection::Fx(String^ expression)
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+
+		try
+		{
+			CopyTo(images);
+
+			std::string fxExpression;
+			Marshaller::Marshal(expression, fxExpression);
+
+			Magick::Image fxImage;
+			Magick::fxImages(&fxImage, images->begin(), images->end(), fxExpression);
+
+			return gcnew MagickImage(fxImage);
+		}
+		catch(Magick::Exception& exception)
+		{
+			MagickException::Throw(exception);
+			return nullptr;
+		}
+		finally
+		{
+			delete images;
+		}
+	}
+	//==============================================================================================
 	IEnumerator<MagickImage^>^ MagickImageCollection::GetEnumerator()
 	{
 		return _Images->GetEnumerator();

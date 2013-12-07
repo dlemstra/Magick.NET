@@ -241,6 +241,13 @@ namespace ImageMagick
 		MagickImage^ Flatten();
 		///==========================================================================================
 		///<summary>
+		/// Applies a mathematical expression to the images.
+		///</summary>
+		///<param name="expression">The expression to apply.</param>
+		///<exception cref="MagickException"/>
+		MagickImage^ Fx(String^ expression);
+		///==========================================================================================
+		///<summary>
 		/// Returns an enumerator that can iterate through the collection.
 		///</summary>
 		virtual IEnumerator<MagickImage^>^ GetEnumerator();
