@@ -427,7 +427,14 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::ColorSpace::set(ImageMagick::ColorSpace value)
 	{
-		return Value->colorSpace((MagickCore::ColorspaceType)value);
+		try
+		{
+			Value->colorSpace((MagickCore::ColorspaceType)value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			MagickException::Throw(exception);
+		}
 	}
 	//==============================================================================================
 	ColorType MagickImage::ColorType::get()
