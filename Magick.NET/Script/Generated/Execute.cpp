@@ -115,6 +115,7 @@ namespace ImageMagick
 		result["gifDisposeMethod"] = gcnew ExecuteElementImage(MagickScript::ExecuteGifDisposeMethod);
 		result["hasAlpha"] = gcnew ExecuteElementImage(MagickScript::ExecuteHasAlpha);
 		result["interlace"] = gcnew ExecuteElementImage(MagickScript::ExecuteInterlace);
+		result["interpolate"] = gcnew ExecuteElementImage(MagickScript::ExecuteInterpolate);
 		result["isMonochrome"] = gcnew ExecuteElementImage(MagickScript::ExecuteIsMonochrome);
 		result["label"] = gcnew ExecuteElementImage(MagickScript::ExecuteLabel);
 		result["matteColor"] = gcnew ExecuteElementImage(MagickScript::ExecuteMatteColor);
@@ -179,6 +180,7 @@ namespace ImageMagick
 		result["edge"] = gcnew ExecuteElementImage(MagickScript::ExecuteEdge);
 		result["emboss"] = gcnew ExecuteElementImage(MagickScript::ExecuteEmboss);
 		result["encipher"] = gcnew ExecuteElementImage(MagickScript::ExecuteEncipher);
+		result["enhance"] = gcnew ExecuteElementImage(MagickScript::ExecuteEnhance);
 		result["equalize"] = gcnew ExecuteElementImage(MagickScript::ExecuteEqualize);
 		result["extent"] = gcnew ExecuteElementImage(MagickScript::ExecuteExtent);
 		result["flip"] = gcnew ExecuteElementImage(MagickScript::ExecuteFlip);
@@ -211,6 +213,7 @@ namespace ImageMagick
 		result["randomThreshold"] = gcnew ExecuteElementImage(MagickScript::ExecuteRandomThreshold);
 		result["reduceNoise"] = gcnew ExecuteElementImage(MagickScript::ExecuteReduceNoise);
 		result["removeProfile"] = gcnew ExecuteElementImage(MagickScript::ExecuteRemoveProfile);
+		result["resample"] = gcnew ExecuteElementImage(MagickScript::ExecuteResample);
 		result["resize"] = gcnew ExecuteElementImage(MagickScript::ExecuteResize);
 		result["roll"] = gcnew ExecuteElementImage(MagickScript::ExecuteRoll);
 		result["rotate"] = gcnew ExecuteElementImage(MagickScript::ExecuteRotate);
@@ -279,6 +282,7 @@ namespace ImageMagick
 		result["combine"] = gcnew ExecuteElementCollection(MagickScript::ExecuteCombine);
 		result["evaluate"] = gcnew ExecuteElementCollection(MagickScript::ExecuteEvaluate);
 		result["flatten"] = gcnew ExecuteElementCollection(MagickScript::ExecuteFlatten);
+		result["fx"] = gcnew ExecuteElementCollection(MagickScript::ExecuteFx);
 		result["merge"] = gcnew ExecuteElementCollection(MagickScript::ExecuteMerge);
 		result["mosaic"] = gcnew ExecuteElementCollection(MagickScript::ExecuteMosaic);
 		result["trimBounds"] = gcnew ExecuteElementCollection(MagickScript::ExecuteTrimBounds);
@@ -490,6 +494,10 @@ namespace ImageMagick
 	void MagickScript::ExecuteInterlace(XmlElement^ element, MagickImage^ image)
 	{
 		image->Interlace = XmlHelper::GetAttribute<Interlace>(element, "value");
+	}
+	void MagickScript::ExecuteInterpolate(XmlElement^ element, MagickImage^ image)
+	{
+		image->Interpolate = XmlHelper::GetAttribute<PixelInterpolateMethod>(element, "value");
 	}
 	void MagickScript::ExecuteIsMonochrome(XmlElement^ element, MagickImage^ image)
 	{
@@ -1122,6 +1130,10 @@ namespace ImageMagick
 		String^ passphrase_ = XmlHelper::GetAttribute<String^>(element, "passphrase");
 		image->Encipher(passphrase_);
 	}
+	void MagickScript::ExecuteEnhance(XmlElement^ element, MagickImage^ image)
+	{
+		image->Enhance();
+	}
 	void MagickScript::ExecuteEqualize(XmlElement^ element, MagickImage^ image)
 	{
 		image->Equalize();
@@ -1605,6 +1617,35 @@ namespace ImageMagick
 	{
 		String^ name_ = XmlHelper::GetAttribute<String^>(element, "name");
 		image->RemoveProfile(name_);
+	}
+	void MagickScript::ExecuteResample(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+			else if (attribute->Name == "height")
+				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+			else if (attribute->Name == "percentage")
+				arguments["percentage"] = XmlHelper::GetAttribute<Percentage>(element, "percentage");
+			else if (attribute->Name == "percentageHeight")
+				arguments["percentageHeight"] = XmlHelper::GetAttribute<Percentage>(element, "percentageHeight");
+			else if (attribute->Name == "percentageWidth")
+				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
+			else if (attribute->Name == "width")
+				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+		}
+		if (OnlyContains(arguments, "geometry"))
+			image->Resample((MagickGeometry^)arguments["geometry"]);
+		else if (OnlyContains(arguments, "percentage"))
+			image->Resample((Percentage)arguments["percentage"]);
+		else if (OnlyContains(arguments, "percentageWidth", "percentageHeight"))
+			image->Resample((Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
+		else if (OnlyContains(arguments, "width", "height"))
+			image->Resample((int)arguments["width"], (int)arguments["height"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'resample', allowed combinations are: [geometry] [percentage] [percentageWidth, percentageHeight] [width, height]");
 	}
 	void MagickScript::ExecuteResize(XmlElement^ element, MagickImage^ image)
 	{
@@ -2104,6 +2145,11 @@ namespace ImageMagick
 	MagickImage^ MagickScript::ExecuteFlatten(XmlElement^ element, MagickImageCollection^ collection)
 	{
 		return collection->Flatten();
+	}
+	MagickImage^ MagickScript::ExecuteFx(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		String^ expression_ = XmlHelper::GetAttribute<String^>(element, "expression");
+		return collection->Fx(expression_);
 	}
 	MagickImage^ MagickScript::ExecuteMerge(XmlElement^ element, MagickImageCollection^ collection)
 	{

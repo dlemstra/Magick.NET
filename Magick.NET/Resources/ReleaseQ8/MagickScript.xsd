@@ -1339,6 +1339,7 @@
 						<xs:attribute name="passphrase" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="enhance" type="empty" />
 				<xs:element name="equalize" type="empty" />
 				<xs:element name="extent">
 					<xs:complexType>
@@ -1544,6 +1545,16 @@
 				<xs:element name="removeProfile">
 					<xs:complexType>
 						<xs:attribute name="name" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="resample">
+					<xs:complexType>
+						<xs:attribute name="geometry" type="geometry" />
+						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="percentageHeight" type="xs:double" />
+						<xs:attribute name="percentageWidth" type="xs:double" />
+						<xs:attribute name="width" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="resize">
@@ -1816,6 +1827,11 @@
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="flatten" type="empty" />
+							<xs:element name="fx">
+								<xs:complexType>
+									<xs:attribute name="expression" use="required" type="xs:string" />
+								</xs:complexType>
+							</xs:element>
 							<xs:element name="merge" type="empty" />
 							<xs:element name="mosaic" type="empty" />
 							<xs:element name="trimBounds" type="empty" />
