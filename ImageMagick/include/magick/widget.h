@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2013 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
   You may not use this file except in compliance with the License.
@@ -18,14 +18,15 @@
 #ifndef _MAGICKCORE_WIDGET_H
 #define _MAGICKCORE_WIDGET_H
 
+#if defined(MAGICKCORE_X11_DELEGATE)
+#include "magick/xwindow-private.h"
+#endif
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
 
 #if defined(MAGICKCORE_X11_DELEGATE)
-
-#include "magick/xwindow-private.h"
-
 extern MagickExport int
   XCommandWidget(Display *,XWindows *,const char **,XEvent *),
   XConfirmWidget(Display *,XWindows *,const char *,const char *),

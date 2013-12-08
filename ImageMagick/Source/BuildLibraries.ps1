@@ -11,9 +11,6 @@ function Build($folder, $platform, $builds)
 	$configFile = "$folder\magick\magick-baseconfig.h"
 	$config = [IO.File]::ReadAllText($configFile, [System.Text.Encoding]::Default)
 	$config = $config.Replace("#define ProvideDllMain", "#undef ProvideDllMain")
-	$config = $config.Replace("#define MAGICKCORE_HDRI_ENABLE 0", "#define MAGICKCORE_HDRI_ENABLE 1")
-	$config = $config.Replace("#define MAGICKCORE_X11_DELEGATE", "#undef MAGICKCORE_X11_DELEGATE")
-	$config = $config.Replace("//#undef MAGICKCORE_EXCLUDE_DEPRECATED", "#define MAGICKCORE_EXCLUDE_DEPRECATED")
 	$config = $config.Replace("// #undef MAGICKCORE_WMF_DELEGATE", "#define MAGICKCORE_WMF_DELEGATE")
 	$config = $config.Replace("// #define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"")
 
@@ -115,11 +112,11 @@ function CreateSolution($folder, $platform)
 	Write-Host "Static Multi-Threaded DLL runtimes ($platform)."
 	if ($platform -eq "x64")
 	{
-		Start-Process .\configure.exe -ArgumentList "/x64 /mtsd /noWizard" -wait
+		Start-Process .\configure.exe -ArgumentList "/x64 /mtsd /hdri /noWizard" -wait
 	}
 	else
 	{
-		Start-Process .\configure.exe -ArgumentList "/mtsd /noWizard" -wait
+		Start-Process .\configure.exe -ArgumentList "/mtsd /hdri /noWizard" -wait
 	}
 
 	set-location $location

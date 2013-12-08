@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2013 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
   You may not use this file except in compliance with the License.
@@ -59,9 +59,6 @@ extern MagickExport ResizeFilter
 extern MagickExport ResizeWeightingFunctionType
   GetResizeFilterWeightingType(const ResizeFilter *),
   GetResizeFilterWindowWeightingType(const ResizeFilter *);
-
-extern MagickExport void
-  SetResizeFilterSupport(ResizeFilter *,const MagickRealType);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

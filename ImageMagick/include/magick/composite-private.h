@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2013 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
 
   You may not use this file except in compliance with the License.
@@ -18,6 +18,11 @@
 #ifndef _MAGICKCORE_COMPOSITE_PRIVATE_H
 #define _MAGICKCORE_COMPOSITE_PRIVATE_H
 
+#include "magick/color.h"
+#include "magick/image.h"
+#include "magick/image-private.h"
+#include "magick/pixel-private.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
@@ -25,12 +30,6 @@ extern "C" {
 /*
   ImageMagick Alpha Composite Inline Methods (special export)
 */
-
-#include "magick/color.h"
-#include "magick/image.h"
-#include "magick/image-private.h"
-#include "magick/pixel-private.h"
-
 static inline MagickRealType RoundToUnity(const MagickRealType value)
 {
   return(value < 0.0 ? 0.0 : (value > 1.0) ? 1.0 : value);

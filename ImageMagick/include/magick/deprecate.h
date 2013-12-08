@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2013 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
   You may not use this file except in compliance with the License.
@@ -18,12 +18,6 @@
 #ifndef _MAGICKCORE_DEPRECATE_H
 #define _MAGICKCORE_DEPRECATE_H
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
-
-#if !defined(MAGICKCORE_EXCLUDE_DEPRECATED)
-
 #include <stdarg.h>
 #include "magick/blob.h"
 #include "magick/cache-view.h"
@@ -35,6 +29,12 @@ extern "C" {
 #include "magick/quantum.h"
 #include "magick/registry.h"
 #include "magick/semaphore.h"
+
+#if defined(__cplusplus) || defined(c_plusplus)
+extern "C" {
+#endif
+
+#if !defined(MAGICKCORE_EXCLUDE_DEPRECATED)
 
 #if !defined(magick_attribute)
 #  if !defined(__GNUC__)

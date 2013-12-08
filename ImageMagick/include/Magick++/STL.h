@@ -2275,27 +2275,6 @@ namespace Magick
     (void) MagickCore::DestroyExceptionInfo( &exceptionInfo );
   }
 
-  // Applies a mathematical expression to a sequence of images.
-  template <class InputIterator>
-  void fxImages(Image *fxImage_,InputIterator first_,InputIterator last_,
-    const std::string expression)
-  {
-    MagickCore::ExceptionInfo
-      exceptionInfo;
-
-    MagickCore::Image
-      *image;
-
-    MagickCore::GetExceptionInfo(&exceptionInfo);
-    linkImages(first_,last_);
-    image=FxImageChannel(first_->constImage(),DefaultChannels,
-      expression.c_str(),&exceptionInfo);
-    unlinkImages(first_,last_);
-    fxImage_->replaceImage(image);
-    throwException(exceptionInfo);
-    (void) DestroyExceptionInfo(&exceptionInfo);
-  }
-
   // Implements the discrete Fourier transform (DFT) of the image either as a
   // magnitude / phase or real / imaginary image pair.
   template <class Container >
@@ -2338,6 +2317,27 @@ namespace Magick
     // Report any error
     throwException( exceptionInfo );
     (void) MagickCore::DestroyExceptionInfo( &exceptionInfo );
+  }
+
+  // Applies a mathematical expression to a sequence of images.
+  template <class InputIterator>
+  void fxImages(Image *fxImage_,InputIterator first_,InputIterator last_,
+    const std::string expression)
+  {
+    MagickCore::ExceptionInfo
+      exceptionInfo;
+
+    MagickCore::Image
+      *image;
+
+    MagickCore::GetExceptionInfo(&exceptionInfo);
+    linkImages(first_,last_);
+    image=FxImageChannel(first_->constImage(),DefaultChannels,
+      expression.c_str(),&exceptionInfo);
+    unlinkImages(first_,last_);
+    fxImage_->replaceImage(image);
+    throwException(exceptionInfo);
+    (void) DestroyExceptionInfo(&exceptionInfo);
   }
 
   // Replace the colors of a sequence of images with the closest color

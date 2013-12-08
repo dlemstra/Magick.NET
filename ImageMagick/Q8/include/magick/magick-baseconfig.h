@@ -50,17 +50,14 @@
 //
 #undef ProvideDllMain
 
-// Define if MIT X11 is available (or stubbed).  It is not actually
-// necessary to use X11 or the X11 stubs library. The VisualMagick configure
-// program assumes that X11 stubs is being used if X11 is not supported.
-// To achieve a slimmer ImageMagick, undefine MAGICKCORE_X11_DELEGATE and
-// remove the 'xlib' project from the ImageMagick workspace.
-//
-#undef MAGICKCORE_X11_DELEGATE
-
 // Define to enable high dynamic range imagery (HDRI)
 //
 #define MAGICKCORE_HDRI_ENABLE 1
+
+// Define to enable OpenCL
+//
+#undef MAGICKCORE__OPENCL
+#undef MAGICKCORE_HAVE_CL_CL_H
 
 // Exclude deprecated methods in MagickCore API 
 //
@@ -69,6 +66,13 @@
 // Permit enciphering and deciphering image pixels.
 //
 #define MAGICKCORE_CIPHER_SUPPORT
+
+// Define if MIT X11 is available (or stubbed). It is not actually
+// necessary to use X11 or the X11 stubs library. To achieve a slimmer
+// ImageMagick, undefine MAGICKCORE_X11_DELEGATE and remove the 'xlib'
+// project from the ImageMagick workspace.
+//
+#undef MAGICKCORE_X11_DELEGATE
 
 /////////////
 //
@@ -202,7 +206,6 @@ typedef long ssize_t;
   #define __FUNCTION__  "unknown"
 #endif
 #define __func__  __FUNCTION__
-#define nearbyint(x)  ((ssize_t) ((x)+0.5))
 
 /* Define to 1 if you have the <ft2build.h> header file. */
 #define MAGICKCORE_HAVE_FT2BUILD_H 1

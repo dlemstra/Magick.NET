@@ -1,5 +1,5 @@
 /*
-Copyright 1999-2013 ImageMagick Studio LLC, a non-profit organization
+Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
 dedicated to making software imaging solutions freely available.
 
 You may not use this file except in compliance with the License.
@@ -22,11 +22,11 @@ MagickCore OpenCL private methods.
 Include declarations.
 */
 #include "magick/studio.h"
+#include "magick/opencl.h"
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
 
 #if defined(MAGICKCORE_OPENCL_SUPPORT)
 #include <CL/cl.h>
@@ -36,9 +36,8 @@ extern "C" {
   typedef void* cl_context;
   typedef void* cl_command_queue;
   typedef void* cl_kernel;
-  typedef struct { unsigned char t[8]; } cl_device_type; // 64-bit
+  typedef struct { unsigned char t[8]; } cl_device_type; /* 64-bit */
 #endif
-
 
 #if defined(MAGICKCORE_HDRI_SUPPORT)
 #define CLOptions "-cl-single-precision-constant -cl-mad-enable -DMAGICKCORE_HDRI_SUPPORT=1 "\
@@ -77,22 +76,50 @@ extern "C" {
 #define CLCharQuantumScale 72340172838076673.0f
 #endif
 
-extern MagickExport
-  cl_context GetOpenCLContext(MagickCLEnv);
+extern MagickExport cl_context 
+  GetOpenCLContext(MagickCLEnv);
 
-extern MagickExport
-  cl_command_queue AcquireOpenCLCommandQueue(MagickCLEnv);
+extern MagickExport cl_kernel 
+  AcquireOpenCLKernel(MagickCLEnv, MagickOpenCLProgram, const char*);
 
-extern MagickExport
-  MagickBooleanType RelinquishOpenCLCommandQueue(MagickCLEnv, cl_command_queue);
+extern MagickExport cl_command_queue 
+  AcquireOpenCLCommandQueue(MagickCLEnv);
 
-extern MagickExport
-  cl_kernel AcquireOpenCLKernel(MagickCLEnv, MagickOpenCLProgram program, const char*);
-extern MagickExport
-  MagickBooleanType RelinquishOpenCLKernel(MagickCLEnv, cl_kernel);
+extern MagickExport MagickBooleanType 
+  OpenCLThrowMagickException(ExceptionInfo *,
+  const char *,const char *,const size_t,
+  const ExceptionType,const char *,const char *,...),
+  RelinquishOpenCLCommandQueue(MagickCLEnv, cl_command_queue),
+  RelinquishOpenCLKernel(MagickCLEnv, cl_kernel);
 
-extern MagickExport
- unsigned long GetOpenCLDeviceLocalMemorySize(MagickCLEnv);
+extern MagickExport unsigned long 
+  GetOpenCLDeviceLocalMemorySize(MagickCLEnv),
+  GetOpenCLDeviceMaxMemAllocSize(MagickCLEnv);
+
+extern MagickExport const char* 
+  GetOpenCLCachedFilesDirectory();
+
+extern MagickExport void 
+  OpenCLLog(const char*);
+
+/* #define OPENCLLOG_ENABLED 1 */
+static inline void OpenCLLogException(const char* function, 
+                        const unsigned int line, 
+                        ExceptionInfo* exception) {
+#ifdef OPENCLLOG_ENABLED
+  if (exception->severity!=0) {
+    char message[MaxTextExtent];
+    /*  dump the source into a file */
+    (void) FormatLocaleString(message,MaxTextExtent,"%s:%d Exception(%d):%s "
+        ,function,line,exception->severity,exception->reason);
+    OpenCLLog(message);
+  }
+#else
+  magick_unreferenced(function);
+  magick_unreferenced(line);
+  magick_unreferenced(exception);
+#endif
+}
 
 
 #if defined(__cplusplus) || defined(c_plusplus)

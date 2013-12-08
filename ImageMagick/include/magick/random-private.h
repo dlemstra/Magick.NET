@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2013 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
   You may not use this file except in compliance with the License.
@@ -18,11 +18,11 @@
 #ifndef _MAGICKCORE_RANDOM_PRIVATE_H
 #define _MAGICKCORE_RANDOM_PRIVATE_H
 
+#include "magick/thread-private.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include "magick/thread-private.h"
 
 static inline RandomInfo **DestroyRandomInfoThreadSet(
   RandomInfo **random_info)
@@ -62,6 +62,12 @@ static inline RandomInfo **AcquireRandomInfoThreadSet(void)
   }
   return(random_info);
 }
+
+extern MagickExport
+  unsigned long* GetRandomInfoSeed(RandomInfo*);
+
+extern MagickExport
+  double GetRandomInfoNormalize(RandomInfo*);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

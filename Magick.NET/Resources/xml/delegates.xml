@@ -88,9 +88,9 @@
   <delegate decode="pdf" encode="eps" mode="bi" command="&quot;@PSDelegate@&quot; -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT -dMaxBitmap=500000000 -sDEVICE=epswrite &quot;-sOutputFile=%o&quot; -- &quot;%i&quot;"/>
   <delegate decode="pdf" encode="ps" mode="bi" command="&quot;@PSDelegate@&quot; -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT -dMaxBitmap=500000000 -dAlignToPixels=0 -dGridFitTT=2 -sDEVICE=pswrite &quot;-sOutputFile=%o&quot; -- &quot;%i&quot;"/>
   <delegate decode="pgp" command="pgpv -fq &quot;%i&quot;"/>
-  <delegate decode="png" encode="launch" spawn="True" mode="encode" command="cmd.exe /C start &quot;%m&quot; file:///&quot;%i.&quot;" />
-  <delegate decode="png" encode="show" spawn="True" mode="encode" command="cmd.exe /C start &quot;%m&quot; file:///&quot;%i.&quot;" />
-  <delegate decode="png" encode="win" spawn="True" mode="encode" command="cmd.exe /C start &quot;%m&quot; file:///&quot;%i.&quot;" />
+  <delegate decode="png" encode="launch" spawn="True" mode="encode" command="imdisplay &quot;%i&quot;" />
+  <delegate decode="png" encode="show" spawn="True" mode="encode" command="imdisplay &quot;%i&quot;" />
+  <delegate decode="png" encode="win" spawn="True" mode="encode" command="imdisplay &quot;%i&quot;" />
   <delegate decode="pnm" encode="ilbm" mode="encode" command="ppmtoilbm -24if &quot;%i&quot; &gt; &quot;%o&quot;"/>
   <delegate decode="pnm" encode="jxr" command="rename &quot;%i&quot; &quot;%i.pnm&quot;; &quot;@JXREncodeDelegate@&quot; -i &quot;%i.pnm&quot; -o &quot;%o.jxr&quot;; rename &quot;%i.pnm&quot; &quot;%i&quot;; rename &quot;%o.jxr&quot; &quot;%o&quot;"/>
   <delegate decode="pnm" encode="wdp" command="rename &quot;%i&quot; &quot;%i.pnm&quot;; &quot;@JXREncodeDelegate@&quot; -i &quot;%i.pnm&quot; -o &quot;%o.jxr&quot;; rename &quot;%i.pnm&quot; &quot;%i&quot;; rename &quot;%o.jxr&quot; &quot;%o&quot;"/>

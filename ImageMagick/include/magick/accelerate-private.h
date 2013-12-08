@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2013 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
   You may not use this file except in compliance with the License.
@@ -92,7 +92,6 @@ const char* accelerateKernels =
 
   OPENCL_ELIF((MAGICKCORE_QUANTUM_DEPTH == 16))
 
-
   STRINGIFY(
     inline CLQuantum ScaleCharToQuantum(const unsigned char value)
     {
@@ -101,7 +100,6 @@ const char* accelerateKernels =
   )
 
   OPENCL_ELIF((MAGICKCORE_QUANTUM_DEPTH == 32))
-
 
   STRINGIFY(
     inline CLQuantum ScaleCharToQuantum(const unsigned char value)
@@ -117,6 +115,13 @@ const char* accelerateKernels =
     inline int ClampToCanvas(const int offset,const int range)
       {
         return clamp(offset, (int)0, range-1);
+      }
+  )
+
+  STRINGIFY(
+    inline int ClampToCanvasWithHalo(const int offset,const int range, const int edge, const int section)
+      {
+        return clamp(offset, section?(int)(0-edge):(int)0, section?(range-1):(range-1+edge));
       }
   )
 
@@ -188,7 +193,7 @@ const char* accelerateKernels =
 
   STRINGIFY(
     __kernel 
-    void Convolve(const __global CLPixelType *input, __global CLPixelType *output,
+    void ConvolveOptimized(const __global CLPixelType *input, __global CLPixelType *output,
     const unsigned int imageWidth, const unsigned int imageHeight,
     __constant float *filter, const unsigned int filterWidth, const unsigned int filterHeight,
     const uint matte, const ChannelType channel, __local CLPixelType *pixelLocalCache, __local float* filterCache) {
@@ -205,7 +210,6 @@ const char* accelerateKernels =
       int2 midFilterDimen;
       midFilterDimen.x = (filterWidth-1)/2;
       midFilterDimen.y = (filterHeight-1)/2;
-
 
       int2 cachedAreaOrg = imageAreaOrg - midFilterDimen;
 
@@ -300,6 +304,93 @@ const char* accelerateKernels =
         gamma = PerceptibleReciprocal(gamma);
         sum.xyz = gamma*sum.xyz;
       }
+      CLPixelType outputPixel;
+      outputPixel.x = ClampToQuantum(sum.x);
+      outputPixel.y = ClampToQuantum(sum.y);
+      outputPixel.z = ClampToQuantum(sum.z);
+      outputPixel.w = ((channel & OpacityChannel)!=0)?ClampToQuantum(sum.w):input[imageIndex.y * imageWidth + imageIndex.x].w;
+
+      output[imageIndex.y * imageWidth + imageIndex.x] = outputPixel;
+    }
+  )
+
+  STRINGIFY(
+    __kernel 
+    void Convolve(const __global CLPixelType *input, __global CLPixelType *output,
+                  __constant float *filter, const unsigned int filterWidth, const unsigned int filterHeight,
+                  const uint matte, const ChannelType channel) {
+
+      int2 imageIndex;
+      imageIndex.x = get_global_id(0);
+      imageIndex.y = get_global_id(1);
+
+      unsigned int imageWidth = get_global_size(0);
+      unsigned int imageHeight = get_global_size(1);
+
+      if (imageIndex.x >= imageWidth
+          || imageIndex.y >= imageHeight)
+          return;
+
+      int2 midFilterDimen;
+      midFilterDimen.x = (filterWidth-1)/2;
+      midFilterDimen.y = (filterHeight-1)/2;
+
+      int filterIndex = 0;
+      float4 sum = (float4)0.0f;
+      float gamma = 0.0f;
+      if (((channel & OpacityChannel) == 0) || (matte == 0)) {
+        for (int j = 0; j < filterHeight; j++) {
+          int2 inputPixelIndex;
+          inputPixelIndex.y = imageIndex.y - midFilterDimen.y + j;
+          inputPixelIndex.y = ClampToCanvas(inputPixelIndex.y, imageHeight);
+          for (int i = 0; i < filterWidth; i++) {
+            inputPixelIndex.x = imageIndex.x - midFilterDimen.x + i;
+            inputPixelIndex.x = ClampToCanvas(inputPixelIndex.x, imageWidth);
+        
+            CLPixelType p = input[inputPixelIndex.y * imageWidth + inputPixelIndex.x];
+            float f = filter[filterIndex];
+
+            sum.x += f * p.x;
+            sum.y += f * p.y;
+            sum.z += f * p.z; 
+            sum.w += f * p.w;
+
+            gamma += f;
+
+            filterIndex++;
+          }
+        }
+      }
+      else {
+
+        for (int j = 0; j < filterHeight; j++) {
+          int2 inputPixelIndex;
+          inputPixelIndex.y = imageIndex.y - midFilterDimen.y + j;
+          inputPixelIndex.y = ClampToCanvas(inputPixelIndex.y, imageHeight);
+          for (int i = 0; i < filterWidth; i++) {
+            inputPixelIndex.x = imageIndex.x - midFilterDimen.x + i;
+            inputPixelIndex.x = ClampToCanvas(inputPixelIndex.x, imageWidth);
+        
+            CLPixelType p = input[inputPixelIndex.y * imageWidth + inputPixelIndex.x];
+            float alpha = QuantumScale*(QuantumRange-p.w);
+            float f = filter[filterIndex];
+            float g = alpha * f;
+
+            sum.x += g*p.x;
+            sum.y += g*p.y;
+            sum.z += g*p.z;
+            sum.w += f*p.w;
+
+            gamma += g;
+
+
+            filterIndex++;
+          }
+        }
+        gamma = PerceptibleReciprocal(gamma);
+        sum.xyz = gamma*sum.xyz;
+      }
+
       CLPixelType outputPixel;
       outputPixel.x = ClampToQuantum(sum.x);
       outputPixel.y = ClampToQuantum(sum.y);
@@ -496,16 +587,13 @@ const char* accelerateKernels =
       __kernel void BlurRow(__global CLPixelType *im, __global float4 *filtered_im,
                          const ChannelType channel, __constant float *filter,
                          const unsigned int width, 
-                         const unsigned int oColumns, const unsigned int oRows,
+                         const unsigned int imageColumns, const unsigned int imageRows,
                          __local CLPixelType *temp)
       {
         const int x = get_global_id(0);  
         const int y = get_global_id(1);  
 
-        //const int columns = get_global_size(0);  
-        //const int rows = get_global_size(1);  
-        const int columns = oColumns;  
-        const int rows = oRows;  
+        const int columns = imageColumns;  
 
         const unsigned int radius = (width-1)/2;
         const int wsize = get_local_size(0);  
@@ -589,6 +677,89 @@ const char* accelerateKernels =
           // write back to global
           filtered_im[y*columns+x] = result;
         }
+      }
+    )
+
+    STRINGIFY(
+      /*
+      Reduce image noise and reduce detail levels by row
+      im: input pixels filtered_in  filtered_im: output pixels
+      filter : convolve kernel  width: convolve kernel size
+      channel : define which channel is blured
+      is_RGBA_BGRA : define the input is RGBA or BGRA
+      */
+      __kernel void BlurRowSection(__global CLPixelType *im, __global float4 *filtered_im,
+                         const ChannelType channel, __constant float *filter,
+                         const unsigned int width, 
+                         const unsigned int imageColumns, const unsigned int imageRows,
+                         __local CLPixelType *temp, 
+                         const unsigned int offsetRows, const unsigned int section)
+      {
+        const int x = get_global_id(0);  
+        const int y = get_global_id(1);  
+
+        const int columns = imageColumns;  
+
+        const unsigned int radius = (width-1)/2;
+        const int wsize = get_local_size(0);  
+        const unsigned int loadSize = wsize+width;
+
+        //group coordinate
+        const int groupX=get_local_size(0)*get_group_id(0);
+        const int groupY=get_local_size(1)*get_group_id(1);
+
+        //offset the input data, assuming section is 0, 1 
+        im += imageColumns * (offsetRows - radius * section);
+
+        //parallel load and clamp
+        for (int i=get_local_id(0); i < loadSize; i=i+get_local_size(0))
+        {
+          //int cx = ClampToCanvas(groupX+i, columns);
+          temp[i] = im[y * columns + ClampToCanvas(i+groupX-radius, columns)];
+
+          if (0 && y==0 && get_group_id(1) == 0)
+          {
+            printf("(%d %d) temp %d load %d groupX %d\n", x, y, i, ClampToCanvas(groupX+i, columns), groupX);
+          }
+        }
+
+        // barrier        
+        barrier(CLK_LOCAL_MEM_FENCE);
+
+        // only do the work if this is not a patched item
+        if (get_global_id(0) < columns) 
+        {
+          // compute
+          float4 result = (float4) 0;
+
+          int i = 0;
+          
+          \n #ifndef UFACTOR   \n 
+          \n #define UFACTOR 8 \n 
+          \n #endif                  \n 
+
+          for ( ; i+UFACTOR < width; ) 
+          {
+            \n #pragma unroll UFACTOR\n
+            for (int j=0; j < UFACTOR; j++, i++)
+            {
+              result+=filter[i]*convert_float4(temp[i+get_local_id(0)]);
+            }
+          }
+
+          for ( ; i < width; i++)
+          {
+            result+=filter[i]*convert_float4(temp[i+get_local_id(0)]);
+          }
+
+          result.x = ClampToQuantum(result.x);
+          result.y = ClampToQuantum(result.y);
+          result.z = ClampToQuantum(result.z);
+          result.w = ClampToQuantum(result.w);
+
+          // write back to global
+          filtered_im[y*columns+x] = result;
+        }
 
       }
     )
@@ -601,10 +772,10 @@ const char* accelerateKernels =
       channel : define which channel is blured\
       is_RGBA_BGRA : define the input is RGBA or BGRA
       */
-      __kernel void BlurColumn(const __global float4 *im, __global CLPixelType *filtered_im,
+      __kernel void BlurColumn(const __global float4 *blurRowData, __global CLPixelType *filtered_im,
                                 const ChannelType channel, __constant float *filter,
                                 const unsigned int width, 
-                                const unsigned int oColumns, const unsigned int oRows,
+                                const unsigned int imageColumns, const unsigned int imageRows,
                                 __local float4 *temp)
       {
         const int x = get_global_id(0);  
@@ -612,8 +783,8 @@ const char* accelerateKernels =
 
         //const int columns = get_global_size(0);
         //const int rows = get_global_size(1);  
-        const int columns = oColumns;  
-        const int rows = oRows;  
+        const int columns = imageColumns;  
+        const int rows = imageRows;  
 
         unsigned int radius = (width-1)/2;
         const int wsize = get_local_size(1);  
@@ -628,7 +799,7 @@ const char* accelerateKernels =
         //parallel load and clamp
         for (int i = get_local_id(1); i < loadSize; i=i+get_local_size(1))
         {
-          temp[i] = im[ClampToCanvas(i+groupY-radius, rows) * columns + groupX];
+          temp[i] = blurRowData[ClampToCanvas(i+groupY-radius, rows) * columns + groupX];
         }
         
         // barrier        
@@ -674,7 +845,95 @@ const char* accelerateKernels =
 
 
     STRINGIFY(
-    __kernel void UnsharpMaskBlurColumn(const __global CLPixelType* inputImage, const __global float4 *blurRowData, __global CLPixelType *filtered_im,
+      /*
+      Reduce image noise and reduce detail levels by line
+      im: input pixels filtered_in  filtered_im: output pixels
+      filter : convolve kernel  width: convolve kernel size
+      channel : define which channel is blured\
+      is_RGBA_BGRA : define the input is RGBA or BGRA
+      */
+      __kernel void BlurColumnSection(const __global float4 *blurRowData, __global CLPixelType *filtered_im,
+                                const ChannelType channel, __constant float *filter,
+                                const unsigned int width, 
+                                const unsigned int imageColumns, const unsigned int imageRows,
+                                __local float4 *temp, 
+                                const unsigned int offsetRows, const unsigned int section)
+      {
+        const int x = get_global_id(0);  
+        const int y = get_global_id(1);
+
+        //const int columns = get_global_size(0);
+        //const int rows = get_global_size(1);  
+        const int columns = imageColumns;  
+        const int rows = imageRows;  
+
+        unsigned int radius = (width-1)/2;
+        const int wsize = get_local_size(1);  
+        const unsigned int loadSize = wsize+width;
+
+        //group coordinate
+        const int groupX=get_local_size(0)*get_group_id(0);
+        const int groupY=get_local_size(1)*get_group_id(1);
+        //notice that get_local_size(0) is 1, so
+        //groupX=get_group_id(0);
+       
+        // offset the input data
+        blurRowData += imageColumns * radius * section;
+
+        //parallel load and clamp
+        for (int i = get_local_id(1); i < loadSize; i=i+get_local_size(1))
+        {
+          int pos = ClampToCanvasWithHalo(i+groupY-radius, rows, radius, section) * columns + groupX;
+          temp[i] = *(blurRowData+pos);
+        }
+        
+        // barrier        
+        barrier(CLK_LOCAL_MEM_FENCE);
+
+        // only do the work if this is not a patched item
+        if (get_global_id(1) < rows)
+        {
+          // compute
+          float4 result = (float4) 0;
+
+          int i = 0;
+          
+          \n #ifndef UFACTOR   \n 
+          \n #define UFACTOR 8 \n 
+          \n #endif                  \n 
+          
+          for ( ; i+UFACTOR < width; ) 
+          {
+            \n #pragma unroll UFACTOR \n
+            for (int j=0; j < UFACTOR; j++, i++)
+            {
+              result+=filter[i]*temp[i+get_local_id(1)];
+            }
+          }
+          for ( ; i < width; i++)
+          {
+            result+=filter[i]*temp[i+get_local_id(1)];
+          }
+
+          result.x = ClampToQuantum(result.x);
+          result.y = ClampToQuantum(result.y);
+          result.z = ClampToQuantum(result.z);
+          result.w = ClampToQuantum(result.w);
+
+          // offset the output data
+          filtered_im += imageColumns * offsetRows;
+
+          // write back to global
+          filtered_im[y*columns+x] = (CLPixelType) (result.x,result.y,result.z,result.w);
+        }
+
+      }
+    )
+
+
+    STRINGIFY(
+    __kernel void UnsharpMaskBlurColumn(const __global CLPixelType* inputImage, 
+          const __global float4 *blurRowData, __global CLPixelType *filtered_im,
           const unsigned int imageColumns, const unsigned int imageRows, 
           __local float4* cachedData, __local float* cachedFilter,
           const ChannelType channel, const __global float *filter, const unsigned int width, 
@@ -731,9 +990,93 @@ const char* accelerateKernels =
           blurredPixel+=cachedFilter[i]*cachedData[i+get_local_id(1)];
         }
 
+        blurredPixel = floor((float4)(ClampToQuantum(blurredPixel.x), ClampToQuantum(blurredPixel.y)
+                                      ,ClampToQuantum(blurredPixel.z), ClampToQuantum(blurredPixel.w)));
+
+        float4 inputImagePixel = convert_float4(inputImage[cy*imageColumns+groupX]);
+        float4 outputPixel = inputImagePixel - blurredPixel;
+
+        float quantumThreshold = QuantumRange*threshold;
+
+        int4 mask = isless(fabs(2.0f*outputPixel), (float4)quantumThreshold);
+        outputPixel = select(inputImagePixel + outputPixel * gain, inputImagePixel, mask);
+
+        //write back
+        filtered_im[cy*imageColumns+groupX] = (CLPixelType) (ClampToQuantum(outputPixel.x), ClampToQuantum(outputPixel.y)
+                                                            ,ClampToQuantum(outputPixel.z), ClampToQuantum(outputPixel.w));
+
+      }
+    }
+
+    __kernel void UnsharpMaskBlurColumnSection(const __global CLPixelType* inputImage, 
+          const __global float4 *blurRowData, __global CLPixelType *filtered_im,
+          const unsigned int imageColumns, const unsigned int imageRows, 
+          __local float4* cachedData, __local float* cachedFilter,
+          const ChannelType channel, const __global float *filter, const unsigned int width, 
+          const float gain, const float threshold, 
+          const unsigned int offsetRows, const unsigned int section)
+    {
+      const unsigned int radius = (width-1)/2;
+
+      // cache the pixel shared by the workgroup
+      const int groupX = get_group_id(0);
+      const int groupStartY = get_group_id(1)*get_local_size(1) - radius;
+      const int groupStopY = (get_group_id(1)+1)*get_local_size(1) + radius;
+
+      // offset the input data
+      blurRowData += imageColumns * radius * section;
+
+      if (groupStartY >= 0
+          && groupStopY < imageRows) {
+        event_t e = async_work_group_strided_copy(cachedData
+                                                ,blurRowData+groupStartY*imageColumns+groupX
+                                                ,groupStopY-groupStartY,imageColumns,0);
+        wait_group_events(1,&e);
+      }
+      else {
+        for (int i = get_local_id(1); i < (groupStopY - groupStartY); i+=get_local_size(1)) {
+          int pos = ClampToCanvasWithHalo(groupStartY+i,imageRows, radius, section)*imageColumns+ groupX;
+          cachedData[i] = *(blurRowData + pos);
+        }
+        barrier(CLK_LOCAL_MEM_FENCE);
+      }
+      // cache the filter as well
+      event_t e = async_work_group_copy(cachedFilter,filter,width,0);
+      wait_group_events(1,&e);
+
+      // only do the work if this is not a patched item
+      //const int cy = get_group_id(1)*get_local_size(1)+get_local_id(1);
+      const int cy = get_global_id(1);
+
+      if (cy < imageRows) {
+        float4 blurredPixel = (float4) 0.0f;
+
+        int i = 0;
+
+        \n #ifndef UFACTOR   \n 
+          \n #define UFACTOR 8 \n 
+          \n #endif                  \n 
+
+          for ( ; i+UFACTOR < width; ) 
+          {
+            \n #pragma unroll UFACTOR \n
+              for (int j=0; j < UFACTOR; j++, i++)
+              {
+                blurredPixel+=cachedFilter[i]*cachedData[i+get_local_id(1)];
+              }
+          }
+
+        for ( ; i < width; i++)
+        {
+          blurredPixel+=cachedFilter[i]*cachedData[i+get_local_id(1)];
+        }
 
         blurredPixel = floor((float4)(ClampToQuantum(blurredPixel.x), ClampToQuantum(blurredPixel.y)
                                       ,ClampToQuantum(blurredPixel.z), ClampToQuantum(blurredPixel.w)));
+
+        // offset the output data
+        inputImage += imageColumns * offsetRows; 
+        filtered_im += imageColumns * offsetRows;
 
         float4 inputImagePixel = convert_float4(inputImage[cy*imageColumns+groupX]);
         float4 outputPixel = inputImagePixel - blurredPixel;
@@ -753,8 +1096,8 @@ const char* accelerateKernels =
     )
 
 
-  STRINGIFY(
 
+  STRINGIFY(
 
   __kernel void HullPass1(const __global CLPixelType *inputImage, __global CLPixelType *outputImage
   , const unsigned int imageWidth, const unsigned int imageHeight
@@ -980,6 +1323,46 @@ const char* accelerateKernels =
       }
   )
  
+  STRINGIFY(
+  typedef enum
+  {
+    UndefinedColorspace,
+    RGBColorspace,            /* Linear RGB colorspace */
+    GRAYColorspace,           /* greyscale (linear) image (faked 1 channel) */
+    TransparentColorspace,
+    OHTAColorspace,
+    LabColorspace,
+    XYZColorspace,
+    YCbCrColorspace,
+    YCCColorspace,
+    YIQColorspace,
+    YPbPrColorspace,
+    YUVColorspace,
+    CMYKColorspace,           /* negared linear RGB with black separated */
+    sRGBColorspace,           /* Default: non-lienar sRGB colorspace */
+    HSBColorspace,
+    HSLColorspace,
+    HWBColorspace,
+    Rec601LumaColorspace,
+    Rec601YCbCrColorspace,
+    Rec709LumaColorspace,
+    Rec709YCbCrColorspace,
+    LogColorspace,
+    CMYColorspace,            /* negated linear RGB colorspace */
+    LuvColorspace,
+    HCLColorspace,
+    LCHColorspace,            /* alias for LCHuv */
+    LMSColorspace,
+    LCHabColorspace,          /* Cylindrical (Polar) Lab */
+    LCHuvColorspace,          /* Cylindrical (Polar) Luv */
+    scRGBColorspace,
+    HSIColorspace,
+    HSVColorspace,            /* alias for HSB */
+    HCLpColorspace,
+    YDbDrColorspace
+  } ColorspaceType;
+  )
+
 
   STRINGIFY(
 
@@ -989,9 +1372,9 @@ const char* accelerateKernels =
     HueSaturationBrightness.y = 0.0f; // Saturation
     HueSaturationBrightness.z = 0.0f; // Brightness
 
-    float r=(float) pixel.x;
-    float g=(float) pixel.y;
-    float b=(float) pixel.z;
+    float r=(float) getRed(pixel);
+    float g=(float) getGreen(pixel);
+    float b=(float) getBlue(pixel);
 
     float tmin=min(min(r,g),b);
     float tmax=max(max(r,g),b);
@@ -1020,9 +1403,9 @@ const char* accelerateKernels =
     CLPixelType rgb;
 
     if (saturation == 0.0f) {
-      rgb.x=ClampToQuantum(QuantumRange*brightness);
-      rgb.y=rgb.x;
-      rgb.z=rgb.x;
+      setRed(&rgb,ClampToQuantum(QuantumRange*brightness));
+      setGreen(&rgb,getRed(rgb));
+      setBlue(&rgb,getRed(rgb));
     }
     else {
 
@@ -1037,49 +1420,239 @@ const char* accelerateKernels =
       float clamped_p = ClampToQuantum(QuantumRange*p);
       float clamped_q = ClampToQuantum(QuantumRange*q);     
       int ih = (int)h;
-      rgb.x = (ih == 1)?clamped_q:
+      setRed(&rgb, (ih == 1)?clamped_q:
 	      (ih == 2 || ih == 3)?clamped_p:
 	      (ih == 4)?clamped_t:
-	               clampedBrightness;
+                 clampedBrightness);
  
-      rgb.y = (ih == 1 || ih == 2)?clampedBrightness:
+      setGreen(&rgb, (ih == 1 || ih == 2)?clampedBrightness:
 	      (ih == 3)?clamped_q:
 	      (ih == 4 || ih == 5)?clamped_p:
-	               clamped_t;
+                 clamped_t);
 
-
-      rgb.z = (ih == 2)?clamped_t:
+      setBlue(&rgb, (ih == 2)?clamped_t:
 	      (ih == 3 || ih == 4)?clampedBrightness:
 	      (ih == 5)?clamped_q:
-	               clamped_p;
+                 clamped_p);
     }
     return rgb;
   }
 
-    __kernel void Contrast(__global CLPixelType *im, const unsigned int sharpen)
-    {
+  __kernel void Contrast(__global CLPixelType *im, const unsigned int sharpen)
+  {
 
-        const int sign = sharpen!=0?1:-1;
-        const int x = get_global_id(0);  
-        const int y = get_global_id(1);
-        const int columns = get_global_size(0);
-        const int c = x + y * columns;
+    const int sign = sharpen!=0?1:-1;
+    const int x = get_global_id(0);  
+    const int y = get_global_id(1);
+    const int columns = get_global_size(0);
+    const int c = x + y * columns;
 
-	CLPixelType pixel = im[c];
-	float3 HueSaturationBrightness = ConvertRGBToHSB(pixel);
-        float brightness = HueSaturationBrightness.z;
-	brightness+=0.5f*sign*(0.5f*(sinpi(brightness-0.5f)+1.0f)-brightness);
-        brightness = clamp(brightness,0.0f,1.0f);
-        HueSaturationBrightness.z = brightness;
+    CLPixelType pixel = im[c];
+    float3 HueSaturationBrightness = ConvertRGBToHSB(pixel);
+    float brightness = HueSaturationBrightness.z;
+    brightness+=0.5f*sign*(0.5f*(sinpi(brightness-0.5f)+1.0f)-brightness);
+    brightness = clamp(brightness,0.0f,1.0f);
+    HueSaturationBrightness.z = brightness;
 
-	CLPixelType filteredPixel = ConvertHSBToRGB(HueSaturationBrightness);
-        filteredPixel.w = pixel.w;
-	im[c] = filteredPixel;
-    }
+    CLPixelType filteredPixel = ConvertHSBToRGB(HueSaturationBrightness);
+    filteredPixel.w = pixel.w;
+    im[c] = filteredPixel;
+  }
 
 
   )
 
+  STRINGIFY(
+
+  inline void ConvertRGBToHSL(const CLQuantum red,const CLQuantum green, const CLQuantum blue,
+    float *hue, float *saturation, float *lightness)
+  {
+  float
+    c,
+    tmax,
+    tmin;
+
+  /*
+     Convert RGB to HSL colorspace.
+     */
+  tmax=max(QuantumScale*red,max(QuantumScale*green, QuantumScale*blue));
+  tmin=min(QuantumScale*red,min(QuantumScale*green, QuantumScale*blue));
+
+  c=tmax-tmin;
+
+  *lightness=(tmax+tmin)/2.0;
+  if (c <= 0.0)
+  {
+    *hue=0.0;
+    *saturation=0.0;
+    return;
+  }
+
+  if (tmax == (QuantumScale*red))
+  {
+    *hue=(QuantumScale*green-QuantumScale*blue)/c;
+    if ((QuantumScale*green) < (QuantumScale*blue))
+      *hue+=6.0;
+  }
+  else
+    if (tmax == (QuantumScale*green))
+      *hue=2.0+(QuantumScale*blue-QuantumScale*red)/c;
+    else
+      *hue=4.0+(QuantumScale*red-QuantumScale*green)/c;
+
+  *hue*=60.0/360.0;
+  if (*lightness <= 0.5)
+    *saturation=c/(2.0*(*lightness));
+  else
+    *saturation=c/(2.0-2.0*(*lightness));
+  }
+
+  inline void ConvertHSLToRGB(const float hue,const float saturation, const float lightness,
+      CLQuantum *red,CLQuantum *green,CLQuantum *blue)
+  {
+    float
+      b,
+      c,
+      g,
+      h,
+      tmin,
+      r,
+      x;
+
+    /*
+       Convert HSL to RGB colorspace.
+       */
+    h=hue*360.0;
+    if (lightness <= 0.5)
+      c=2.0*lightness*saturation;
+    else
+      c=(2.0-2.0*lightness)*saturation;
+    tmin=lightness-0.5*c;
+    h-=360.0*floor(h/360.0);
+    h/=60.0;
+    x=c*(1.0-fabs(h-2.0*floor(h/2.0)-1.0));
+    switch ((int) floor(h))
+    {
+      case 0:
+        {
+          r=tmin+c;
+          g=tmin+x;
+          b=tmin;
+          break;
+        }
+      case 1:
+        {
+          r=tmin+x;
+          g=tmin+c;
+          b=tmin;
+          break;
+        }
+      case 2:
+        {
+          r=tmin;
+          g=tmin+c;
+          b=tmin+x;
+          break;
+        }
+      case 3:
+        {
+          r=tmin;
+          g=tmin+x;
+          b=tmin+c;
+          break;
+        }
+      case 4:
+        {
+          r=tmin+x;
+          g=tmin;
+          b=tmin+c;
+          break;
+        }
+      case 5:
+        {
+          r=tmin+c;
+          g=tmin;
+          b=tmin+x;
+          break;
+        }
+      default:
+        {
+          r=0.0;
+          g=0.0;
+          b=0.0;
+        }
+    }
+    *red=ClampToQuantum(QuantumRange*r);
+    *green=ClampToQuantum(QuantumRange*g);
+    *blue=ClampToQuantum(QuantumRange*b);
+  }
+
+  inline void ModulateHSL(const float percent_hue, const float percent_saturation,const float percent_lightness, 
+    CLQuantum *red,CLQuantum *green,CLQuantum *blue)
+  {
+    float
+      hue,
+      lightness,
+      saturation;
+
+    /*
+    Increase or decrease color lightness, saturation, or hue.
+    */
+    ConvertRGBToHSL(*red,*green,*blue,&hue,&saturation,&lightness);
+    hue+=0.5*(0.01*percent_hue-1.0);
+    while (hue < 0.0)
+      hue+=1.0;
+    while (hue >= 1.0)
+      hue-=1.0;
+    saturation*=0.01*percent_saturation;
+    lightness*=0.01*percent_lightness;
+    ConvertHSLToRGB(hue,saturation,lightness,red,green,blue);
+  }
+
+  __kernel void Modulate(__global CLPixelType *im, 
+    const float percent_brightness, 
+    const float percent_hue, 
+    const float percent_saturation, 
+    const int colorspace)
+  {
+
+    const int x = get_global_id(0);  
+    const int y = get_global_id(1);
+    const int columns = get_global_size(0);
+    const int c = x + y * columns;
+
+    CLPixelType pixel = im[c];
+
+    CLQuantum
+        blue,
+        green,
+        red;
+
+    red=getRed(pixel);
+    green=getGreen(pixel);
+    blue=getBlue(pixel);
+
+    switch (colorspace)
+    {
+      case HSLColorspace:
+      default:
+        {
+          ModulateHSL(percent_hue, percent_saturation, percent_brightness, 
+              &red, &green, &blue);
+        }
+
+    }
+
+    CLPixelType filteredPixel;
+   
+    setRed(&filteredPixel, red);
+    setGreen(&filteredPixel, green);
+    setBlue(&filteredPixel, blue);
+    filteredPixel.w = pixel.w;
+
+    im[c] = filteredPixel;
+  }
+  )
 
   STRINGIFY(
   // Based on Box from resize.c
@@ -1292,7 +1865,7 @@ const char* accelerateKernels =
   )
 
   STRINGIFY(
- __kernel __kernel __attribute__((reqd_work_group_size(256, 1, 1)))
+ __kernel __attribute__((reqd_work_group_size(256, 1, 1)))
  void ResizeHorizontalFilter(const __global CLPixelType* inputImage, const unsigned int inputColumns, const unsigned int inputRows, const unsigned int matte
   , const float xFactor, __global CLPixelType* filteredImage, const unsigned int filteredColumns, const unsigned int filteredRows
   , const int resizeFilterType, const int resizeWindowType
@@ -1485,7 +2058,7 @@ const char* accelerateKernels =
 
 
   STRINGIFY(
- __kernel __kernel __attribute__((reqd_work_group_size(1, 256, 1)))
+ __kernel __attribute__((reqd_work_group_size(1, 256, 1)))
  void ResizeVerticalFilter(const __global CLPixelType* inputImage, const unsigned int inputColumns, const unsigned int inputRows, const unsigned int matte
   , const float yFactor, __global CLPixelType* filteredImage, const unsigned int filteredColumns, const unsigned int filteredRows
   , const int resizeFilterType, const int resizeWindowType
@@ -1656,7 +2229,7 @@ const char* accelerateKernels =
 
 
   STRINGIFY(
- __kernel __kernel __attribute__((reqd_work_group_size(1, 256, 1)))
+ __kernel __attribute__((reqd_work_group_size(1, 256, 1)))
  void ResizeVerticalFilterSinc(const __global CLPixelType* inputImage, const unsigned int inputColumns, const unsigned int inputRows, const unsigned int matte
   , const float yFactor, __global CLPixelType* filteredImage, const unsigned int filteredColumns, const unsigned int filteredRows
   , const int resizeFilterType, const int resizeWindowType
@@ -1673,7 +2246,231 @@ const char* accelerateKernels =
       ,outputPixelCache,densityCache,gammaCache);
   }
   )
+
+  STRINGIFY(
+
+
+  __kernel void randomNumberGeneratorKernel(__global uint* seeds, const float normalizeRand
+                                           , __global float* randomNumbers, const uint init
+                                           ,const uint numRandomNumbers) {
+
+    unsigned int id = get_global_id(0);
+    unsigned int seed[4];
+
+    if (init!=0) {
+      seed[0] = seeds[id*4];
+      seed[1] = 0x50a7f451;
+      seed[2] = 0x5365417e;
+      seed[3] = 0xc3a4171a;
+    }
+    else {
+      seed[0] = seeds[id*4];
+      seed[1] = seeds[id*4+1];
+      seed[2] = seeds[id*4+2];
+      seed[3] = seeds[id*4+3];
+    }
+
+    unsigned int numRandomNumbersPerItem = (numRandomNumbers+get_global_size(0)-1)/get_global_size(0);
+    for (unsigned int i = 0; i < numRandomNumbersPerItem; i++) {
+      do
+      {
+        unsigned int alpha=(unsigned int) (seed[1] ^ (seed[1] << 11));
+        seed[1]=seed[2];
+        seed[2]=seed[3];
+        seed[3]=seed[0];
+        seed[0]=(seed[0] ^ (seed[0] >> 19)) ^ (alpha ^ (alpha >> 8));
+      } while (seed[0] == ~0UL);
+      unsigned int pos = (get_group_id(0)*get_local_size(0)*numRandomNumbersPerItem) 
+                          + get_local_size(0) * i + get_local_id(0);
+
+      if (pos >= numRandomNumbers)
+        break;
+      randomNumbers[pos] = normalizeRand*seed[0];
+    }
+
+    /* save the seeds for the time*/
+    seeds[id*4]   = seed[0];
+    seeds[id*4+1] = seed[1];
+    seeds[id*4+2] = seed[2];
+    seeds[id*4+3] = seed[3];
+  }
+
+  )
+
+
+  STRINGIFY(
+  
+  typedef enum
+  {
+    UndefinedNoise,
+    UniformNoise,
+    GaussianNoise,
+    MultiplicativeGaussianNoise,
+    ImpulseNoise,
+    LaplacianNoise,
+    PoissonNoise,
+    RandomNoise
+  } NoiseType;
+
+  typedef struct {
+    const global float* rns;
+  } RandomNumbers;
+
+
+  float GetPseudoRandomValue(RandomNumbers* r) {
+    float v = *r->rns;
+    r->rns++;
+    return v;
+  }
+  )
+
+  OPENCL_DEFINE(SigmaUniform, (attenuate*0.015625f))
+  OPENCL_DEFINE(SigmaGaussian,(attenuate*0.015625f))
+  OPENCL_DEFINE(SigmaImpulse,  (attenuate*0.1f))
+  OPENCL_DEFINE(SigmaLaplacian, (attenuate*0.0390625f))
+  OPENCL_DEFINE(SigmaMultiplicativeGaussian,  (attenuate*0.5f))
+  OPENCL_DEFINE(SigmaPoisson,  (attenuate*12.5f))
+  OPENCL_DEFINE(SigmaRandom,  (attenuate))
+  OPENCL_DEFINE(TauGaussian,  (attenuate*0.078125f))
+
+  STRINGIFY(
+  float GenerateDifferentialNoise(RandomNumbers* r, CLQuantum pixel, NoiseType noise_type, float attenuate) {
+ 
+    float 
+      alpha,
+      beta,
+      noise,
+      sigma;
+
+    noise = 0.0f;
+    alpha=GetPseudoRandomValue(r);
+    switch(noise_type) {
+    case UniformNoise:
+    default:
+      {
+        noise=(pixel+QuantumRange*SigmaUniform*(alpha-0.5f));
+        break;
+      }
+    case GaussianNoise:
+      {
+        float
+          gamma,
+          tau;
+
+        if (alpha == 0.0f)
+          alpha=1.0f;
+        beta=GetPseudoRandomValue(r);
+        gamma=sqrt(-2.0f*log(alpha));
+        sigma=gamma*cospi((2.0f*beta));
+        tau=gamma*sinpi((2.0f*beta));
+        noise=(float)(pixel+sqrt((float) pixel)*SigmaGaussian*sigma+
+                      QuantumRange*TauGaussian*tau);        
+        break;
+      }
+
+
+    case ImpulseNoise:
+    {
+      if (alpha < (SigmaImpulse/2.0f))
+        noise=0.0f;
+      else
+        if (alpha >= (1.0f-(SigmaImpulse/2.0f)))
+          noise=(float)QuantumRange;
+        else
+          noise=(float)pixel;
+      break;
+    }
+    case LaplacianNoise:
+    {
+      if (alpha <= 0.5f)
+        {
+          if (alpha <= MagickEpsilon)
+            noise=(float) (pixel-QuantumRange);
+          else
+            noise=(float) (pixel+QuantumRange*SigmaLaplacian*log(2.0f*alpha)+
+              0.5f);
+          break;
+        }
+      beta=1.0f-alpha;
+      if (beta <= (0.5f*MagickEpsilon))
+        noise=(float) (pixel+QuantumRange);
+      else
+        noise=(float) (pixel-QuantumRange*SigmaLaplacian*log(2.0f*beta)+0.5f);
+      break;
+    }
+    case MultiplicativeGaussianNoise:
+    {
+      sigma=1.0f;
+      if (alpha > MagickEpsilon)
+        sigma=sqrt(-2.0f*log(alpha));
+      beta=GetPseudoRandomValue(r);
+      noise=(float) (pixel+pixel*SigmaMultiplicativeGaussian*sigma*
+        cospi((float) (2.0f*beta))/2.0f);
+      break;
+    }
+    case PoissonNoise:
+    {
+      float 
+        poisson;
+      unsigned int i;
+      poisson=exp(-SigmaPoisson*QuantumScale*pixel);
+      for (i=0; alpha > poisson; i++)
+      {
+        beta=GetPseudoRandomValue(r);
+        alpha*=beta;
+      }
+      noise=(float) (QuantumRange*i/SigmaPoisson);
+      break;
+    }
+    case RandomNoise:
+    {
+      noise=(float) (QuantumRange*SigmaRandom*alpha);
+      break;
+    }
+
+    };
+    return noise;
+  }
+
+  __kernel
+  void AddNoiseImage(const __global CLPixelType* inputImage, __global CLPixelType* filteredImage
+                    ,const unsigned int inputColumns, const unsigned int inputRows
+                    ,const ChannelType channel 
+                    ,const NoiseType noise_type, const float attenuate
+                    ,const __global float* randomNumbers, const unsigned int numRandomNumbersPerPixel
+                    ,const unsigned int rowOffset) {
+
+    unsigned int x = get_global_id(0);
+    unsigned int y = get_global_id(1) + rowOffset;
+    RandomNumbers r;
+    r.rns = randomNumbers + (get_global_id(1) * inputColumns + get_global_id(0))*numRandomNumbersPerPixel;
+
+    CLPixelType p = inputImage[y*inputColumns+x];
+    CLPixelType q = filteredImage[y*inputColumns+x];
+
+    if ((channel&RedChannel)!=0) {
+      setRed(&q,ClampToQuantum(GenerateDifferentialNoise(&r,getRed(p),noise_type,attenuate)));
+    }
+    
+    if ((channel&GreenChannel)!=0) {
+      setGreen(&q,ClampToQuantum(GenerateDifferentialNoise(&r,getGreen(p),noise_type,attenuate)));
+    }
+
+    if ((channel&BlueChannel)!=0) {
+      setBlue(&q,ClampToQuantum(GenerateDifferentialNoise(&r,getBlue(p),noise_type,attenuate)));
+    }
+
+    if ((channel & OpacityChannel) != 0) {
+      setOpacity(&q,ClampToQuantum(GenerateDifferentialNoise(&r,getOpacity(p),noise_type,attenuate)));
+    }
+
+    filteredImage[y*inputColumns+x] = q;
+  }
+
+  )
   ;
+
+
 
 
 #endif // MAGICKCORE_OPENCL_SUPPORT
