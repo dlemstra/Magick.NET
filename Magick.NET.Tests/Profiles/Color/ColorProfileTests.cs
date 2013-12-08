@@ -86,8 +86,15 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_WithImage()
 		{
-			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+			using (MagickImage image = new MagickImage())
 			{
+				image.AddProfile(ColorProfile.USWebCoatedSWOP);
+				ExceptionAssert.Throws<MagickCacheErrorException>(delegate()
+				{
+					image.ColorSpace = ColorSpace.CMYK;
+				});
+				image.Read(Files.SnakewarePNG);
+
 				ColorProfile profile = image.GetColorProfile();
 				Assert.IsNull(profile);
 
