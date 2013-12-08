@@ -12,7 +12,9 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Linq;
+using System.Text;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -30,10 +32,30 @@ namespace Magick.NET.Tests
 			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
 			{
 				IptcProfile profile = image.GetIptcProfile();
-				Assert.IsNotNull(profile);
-
 				return profile.Values.ElementAt(1);
 			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Encoding()
+		{
+			IptcValue value = GetIptcValue();
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				value.Encoding = null;
+			});
+
+			Assert.AreEqual("Communications", value.Value);
+
+			value.Encoding = Encoding.UTF32;
+			Assert.AreNotEqual("Communications", value.Value);
+
+			value.Value = "Communications";
+			Assert.AreEqual("Communications", value.Value);
+
+			value.Encoding = Encoding.Default;
+			Assert.AreNotEqual("Communications", value.Value);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -56,6 +78,22 @@ namespace Magick.NET.Tests
 			Assert.AreEqual("Communications", value.ToString());
 			Assert.AreEqual("Communications", value.Value);
 			Assert.AreEqual(14, value.ToByteArray().Length);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_ToString()
+		{
+			IptcValue value = GetIptcValue();
+
+			Assert.AreEqual("Communications", value.ToString());
+			Assert.AreEqual("Communications", value.ToString(Encoding.Default));
+			Assert.AreNotEqual("Communications", value.ToString(Encoding.UTF32));
+
+			value.Encoding = Encoding.UTF32;
+			value.Value = "Test";
+			Assert.AreEqual("Test", value.ToString());
+			Assert.AreEqual("Test", value.ToString(Encoding.UTF32));
+			Assert.AreNotEqual("Test", value.ToString(Encoding.Default));
 		}
 		//===========================================================================================
 	}

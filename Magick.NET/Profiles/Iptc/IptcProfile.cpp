@@ -51,10 +51,70 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	array<Byte>^ IptcProfile::GetData()
+	{
+		int length = 0;
+		for each (IptcValue^ value in Values)
+		{
+			length += value->Length + 5;
+		}
+
+		array<Byte>^ result = gcnew array<Byte>(length);
+
+		int i = 0;
+		for each (IptcValue^ value in Values)
+		{
+			result[i++] = 28;
+			i++;
+			result[i++] = (Byte)value->Tag;
+			result[i++] = (Byte)(value->Length & 0xFF00);
+			result[i++] = (Byte)(value->Length & 0x00FF);
+			if (value->Length > 0)
+			{
+				Buffer::BlockCopy(value->ToByteArray(), 0, result, i, value->Length);
+				i += value->Length;
+			}
+		}
+
+		return result;
+	}
+	//==============================================================================================
 	IEnumerable<IptcValue^>^ IptcProfile::Values::get()
 	{
 		Initialize();
 		return _Values;
+	}
+	//==============================================================================================
+	void IptcProfile::SetEncoding(Encoding^ encoding)
+	{
+		Throw::IfNull("encoding", encoding);
+
+		for each (IptcValue^ value in Values)
+		{
+			value->Encoding = encoding;
+		}
+	}
+	//==============================================================================================
+	void IptcProfile::SetValue(IptcTag tag, Encoding^ encoding, String^ value)
+	{
+		Throw::IfNull("encoding", encoding);
+
+		for each (IptcValue^ iptcValue in Values)
+		{
+			if (iptcValue->Tag == tag)
+			{
+				iptcValue->Encoding = encoding;
+				iptcValue->Value = value;
+				return;
+			}
+		}
+
+		_Values->Add(gcnew IptcValue(tag, encoding, value));
+	}
+	//==============================================================================================
+	void IptcProfile::SetValue(IptcTag tag, String^ value)
+	{
+		SetValue(tag, Encoding::Default, value);
 	}
 	//==============================================================================================
 }

@@ -19,12 +19,55 @@ using namespace System::Text;
 namespace ImageMagick
 {
 	//==============================================================================================
-	IptcValue::IptcValue(IptcTag tag, array<Byte>^ data)
+	IptcValue::IptcValue(IptcTag tag, array<Byte>^ value)
 	{
-		Throw::IfNull("data", data);
+		Throw::IfNullOrEmpty("value", value);
 
 		_Tag = tag;
-		_Data = data;
+		_Data = value;
+		_Encoding = System::Text::Encoding::Default;
+	}
+	//==============================================================================================
+	IptcValue::IptcValue(IptcTag tag, System::Text::Encoding^ encoding, String^ value)
+	{
+		_Tag = tag;
+		_Encoding = encoding;
+		Value = value;
+	}
+	//==============================================================================================
+	int IptcValue::Length::get()
+	{
+		return _Data->Length;
+	}
+	//==============================================================================================
+	Encoding^ IptcValue::Encoding::get()
+	{
+		return _Encoding;
+	}
+	//==============================================================================================
+	void IptcValue::Encoding::set(System::Text::Encoding^ value)
+	{
+		Throw::IfNull("value", value);
+
+		_Encoding = value;
+	}
+	//==============================================================================================
+	IptcTag IptcValue::Tag::get()
+	{
+		return _Tag;
+	}
+	//==============================================================================================
+	String^ IptcValue::Value::get()
+	{
+		return _Encoding->GetString(_Data);
+	}
+	//==============================================================================================
+	void IptcValue::Value::set(String^ value)
+	{
+		if (String::IsNullOrEmpty(value))
+			_Data = gcnew array<Byte>(0);
+		else
+			_Data = _Encoding->GetBytes(value);
 	}
 	//==============================================================================================
 	bool IptcValue::operator == (IptcValue^ left, IptcValue^ right)
@@ -68,16 +111,6 @@ namespace ImageMagick
 		return true;
 	}
 	//==============================================================================================
-	IptcTag IptcValue::Tag::get()
-	{
-		return _Tag;
-	}
-	//==============================================================================================
-	String^ IptcValue::Value::get()
-	{
-		return Encoding::Default->GetString(_Data);
-	}
-	//==============================================================================================
 	int IptcValue::GetHashCode()
 	{
 		return _Tag.GetHashCode() ^ _Data->GetHashCode();
@@ -94,6 +127,13 @@ namespace ImageMagick
 	String^ IptcValue::ToString()
 	{
 		return Value;
+	}
+	//==============================================================================================
+	String^ IptcValue::ToString(System::Text::Encoding^ encoding)
+	{
+		Throw::IfNull("encoding", encoding);
+
+		return encoding->GetString(_Data);
 	}
 	//==============================================================================================
 }

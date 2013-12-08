@@ -27,6 +27,11 @@ namespace ImageMagick
 		return result;
 	}
 	//==============================================================================================
+	array<Byte>^ ImageProfile::Data::get()
+	{
+		return _Data;
+	}
+	//==============================================================================================
 	void ImageProfile::Initialize(String^ name, array<Byte>^ data)
 	{
 		Throw::IfNullOrEmpty("name", name);
@@ -36,14 +41,14 @@ namespace ImageMagick
 		_Data = data;
 	}
 	//==============================================================================================
+	array<Byte>^ ImageProfile::GetData()
+	{
+		return _Data;
+	}
+	//==============================================================================================
 	void ImageProfile::Initialize(MagickImage^ image)
 	{
 		(image);
-	}
-	//==============================================================================================
-	array<Byte>^ ImageProfile::Data::get()
-	{
-		return _Data;
 	}
 	//==============================================================================================
 	ImageProfile::ImageProfile(String^ name, array<Byte>^ data)

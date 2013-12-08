@@ -1215,7 +1215,7 @@ namespace ImageMagick
 		try
 		{
 			Magick::Blob blob;
-			Marshaller::Marshal(profile->Data, &blob);
+			Marshaller::Marshal(profile->GetData(), &blob);
 
 			std::string profileName;
 			Marshaller::Marshal(profile->Name, profileName);

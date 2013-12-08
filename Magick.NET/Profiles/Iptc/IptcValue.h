@@ -15,6 +15,8 @@
 
 #include "IptcTag.h"
 
+using namespace System::Text;
+
 namespace ImageMagick
 {
 	///=============================================================================================
@@ -26,14 +28,31 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		IptcTag _Tag;
 		array<Byte>^ _Data;
+		Encoding^ _Encoding;
+		IptcTag _Tag;
 		//===========================================================================================
 	internal:
 		//===========================================================================================
 		IptcValue(IptcTag tag, array<Byte>^ value);
 		//===========================================================================================
+		IptcValue(IptcTag tag, Encoding^ encoding, String^ value);
+		//===========================================================================================
+		property int Length
+		{
+			int get();
+		}
+		//===========================================================================================
 	public:
+		//===========================================================================================
+		/// <summary>
+		/// The encoding to use for the Value.
+		/// </summary>
+		property Encoding^ Encoding
+		{
+			System::Text::Encoding^ get();
+			void set(System::Text::Encoding^ value);
+		}
 		//===========================================================================================
 		/// <summary>
 		/// The tag of the iptc value.
@@ -49,6 +68,7 @@ namespace ImageMagick
 		property String^ Value
 		{
 			String^ get();
+			void set(String^ value);
 		}
 		//===========================================================================================
 		static bool operator == (IptcValue^ left, IptcValue^ right);
@@ -81,6 +101,11 @@ namespace ImageMagick
 		/// Returns a string that represents the current value.
 		///</summary>
 		virtual String^ ToString() override;
+		///==========================================================================================
+		///<summary>
+		/// Returns a string that represents the current value with the specified encoding.
+		///</summary>
+		String^ ToString(System::Text::Encoding^ encoding);
 		//===========================================================================================
 	};
 	//==============================================================================================
