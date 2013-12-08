@@ -1,6 +1,6 @@
 Breaking changes.
 
-Magick.NET 6.8.X.X:
+Magick.NET 6.8.7.901:
   - Renamed MagickGeometry.Aspect to IgnoreAspectRatio.
 
 Magick.NET 6.8.7.501:
