@@ -2436,6 +2436,36 @@ namespace ImageMagick
 		void RemoveProfile(String^ name);
 		///==========================================================================================
 		///<summary>
+		/// Resize image in terms of its pixel size.
+		///</summary>
+		///<param name="width">The new width.</param>
+		///<param name="height">The new height.</param>
+		///<exception cref="MagickException"/>
+		void Resample(int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Resize image in terms of its pixel size.
+		///</summary>
+		///<param name="geometry">The geometry to use.</param>
+		///<exception cref="MagickException"/>
+		void Resample(MagickGeometry^ geometry);
+		///==========================================================================================
+		///<summary>
+		/// Resize image in terms of its pixel size with the specified percentage.
+		///</summary>
+		///<param name="percentage">The percentage.</param>
+		///<exception cref="MagickException"/>
+		void Resample(Percentage percentage);
+		///==========================================================================================
+		///<summary>
+		/// Resize image in terms of its pixel size with the specified percentage.
+		///</summary>
+		///<param name="percentageWidth">The percentage of the width.</param>
+		///<param name="percentageHeight">The percentage of the height.</param>
+		///<exception cref="MagickException"/>
+		void Resample(Percentage percentageWidth, Percentage percentageHeight);
+		///==========================================================================================
+		///<summary>
 		/// Resize image to specified size.
 		///</summary>
 		///<param name="width">The new width.</param>

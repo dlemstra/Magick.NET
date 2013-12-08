@@ -87,7 +87,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::RaiseOrLower(int size, bool raiseFlag)
 	{
-		Magick::Geometry* geometry = new Magick::Geometry(size, size);
+		const Magick::Geometry* geometry = new Magick::Geometry(size, size);
 
 		try
 		{
@@ -213,12 +213,18 @@ namespace ImageMagick
 	{
 		Throw::IfNull("color", color);
 
-		Magick::Geometry* geometry = new Magick::Geometry(width, height);
+		const Magick::Geometry* geometry = new Magick::Geometry(width, height);
 		const Magick::Color* background = color->CreateColor();
-		Value = new Magick::Image(*geometry, *background);
-		Value->backgroundColor(*background);
-		delete geometry;
-		delete background;
+		try
+		{
+			Value = new Magick::Image(*geometry, *background);
+			Value->backgroundColor(*background);
+		}
+		finally
+		{
+			delete geometry;
+			delete background;
+		}
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(MagickImage^ image)
@@ -1520,7 +1526,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Border(int width, int height)
 	{
-		Magick::Geometry* geometry = new Magick::Geometry(width, height);
+		const Magick::Geometry* geometry = new Magick::Geometry(width, height);
 
 		try
 		{
@@ -1634,14 +1640,12 @@ namespace ImageMagick
 	{
 		MagickGeometry^ geometry = gcnew MagickGeometry(offset, 0, width, 0);
 		Chop(geometry);
-		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::ChopVertical(int offset, int height)
 	{
 		MagickGeometry^ geometry = gcnew MagickGeometry(0, offset, 0, height);
 		Chop(geometry);
-		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::ChromaBluePrimary(double x, double y)
@@ -2141,7 +2145,6 @@ namespace ImageMagick
 		}
 
 		Crop(geometry);
-		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::CycleColormap(int amount)
@@ -3587,6 +3590,46 @@ namespace ImageMagick
 		SetProfile(name, blob);
 	}
 	//==============================================================================================
+	void MagickImage::Resample(int width, int height)
+	{
+		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		Resize(geometry);
+	}
+	//==============================================================================================
+	void MagickImage::Resample(MagickGeometry^ geometry)
+	{
+		Throw::IfNull("geometry", geometry);
+
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
+		try
+		{
+			Value->resample(*magickGeometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			MagickException::Throw(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Resample(Percentage percentage)
+	{
+		Resample(percentage, percentage);
+	}
+	//==============================================================================================
+	void MagickImage::Resample(Percentage percentageWidth, Percentage percentageHeight)
+	{
+		Throw::IfNegative("percentageWidth", percentageWidth);
+		Throw::IfNegative("percentageHeight", percentageHeight);
+
+		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
+		Resample(geometry);
+	}
+	//==============================================================================================
 	void MagickImage::Resize(int width, int height)
 	{
 		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
@@ -3625,7 +3668,6 @@ namespace ImageMagick
 
 		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
 		Resize(geometry);
-		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::Roll(int xOffset, int yOffset)
@@ -3656,7 +3698,6 @@ namespace ImageMagick
 	{
 		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
 		Sample(geometry);
-		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::Sample(MagickGeometry^ geometry)
@@ -3691,14 +3732,12 @@ namespace ImageMagick
 
 		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
 		Sample(geometry);
-		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::Scale(int width, int height)
 	{
 		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
 		Scale(geometry);
-		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::Scale(MagickGeometry^ geometry)
@@ -3733,7 +3772,6 @@ namespace ImageMagick
 
 		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
 		Scale(geometry);
-		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::Segment()
@@ -3964,7 +4002,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Shave(int leftRight, int topBottom)
 	{
-		Magick::Geometry* geometry = new Magick::Geometry(leftRight, topBottom);
+		const Magick::Geometry* geometry = new Magick::Geometry(leftRight, topBottom);
 
 		try
 		{
@@ -4392,7 +4430,6 @@ namespace ImageMagick
 	{
 		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
 		Zoom(geometry);
-		delete geometry;
 	}
 	//==============================================================================================
 	void MagickImage::Zoom(MagickGeometry^ geometry)
@@ -4427,7 +4464,6 @@ namespace ImageMagick
 
 		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
 		Zoom(geometry);
-		delete geometry;
 	}
 	//==============================================================================================
 }
