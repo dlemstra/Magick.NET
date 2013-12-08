@@ -43,6 +43,14 @@ namespace ImageMagick
 	public:
 		///==========================================================================================
 		///<summary>
+		/// Returns the features reported by ImageMagick.
+		///</summary>
+		static property String^ Features
+		{
+			String^ get();
+		}
+		///==========================================================================================
+		///<summary>
 		/// Returns information about the supported formats.
 		///</summary>
 		static property IEnumerable<MagickFormatInfo^>^ SupportedFormats

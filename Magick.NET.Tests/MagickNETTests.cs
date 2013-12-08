@@ -47,6 +47,12 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Features()
+		{
+			Assert.AreEqual("DPC HDRI Modules OpenMP", MagickNET.Features);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Initialize()
 		{
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()

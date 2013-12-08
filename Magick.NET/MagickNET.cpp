@@ -30,6 +30,13 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	String^ MagickNET::Features::get()
+	{
+		std::string features = std::string(MagickCore::GetMagickFeatures());
+
+		return Marshaller::Marshal(features);
+	}
+	//==============================================================================================
 	IEnumerable<MagickFormatInfo^>^ MagickNET::SupportedFormats::get()
 	{
 		return MagickFormatInfo::All;
