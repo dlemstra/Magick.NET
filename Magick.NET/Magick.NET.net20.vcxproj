@@ -115,7 +115,7 @@
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x86;..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;Resources\ColorProfiles\RGB\AdobeRGB1998.icc;Resources\ColorProfiles\RGB\AppleRGB.icc;Resources\ColorProfiles\RGB\ColorMatchRGB.icc;Resources\ColorProfiles\RGB\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
@@ -136,7 +136,7 @@
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x86;..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;Resources\ColorProfiles\RGB\AdobeRGB1998.icc;Resources\ColorProfiles\RGB\AppleRGB.icc;Resources\ColorProfiles\RGB\ColorMatchRGB.icc;Resources\ColorProfiles\RGB\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
@@ -157,7 +157,7 @@
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;Resources\ColorProfiles\RGB\AdobeRGB1998.icc;Resources\ColorProfiles\RGB\AppleRGB.icc;Resources\ColorProfiles\RGB\ColorMatchRGB.icc;Resources\ColorProfiles\RGB\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
@@ -178,7 +178,7 @@
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EmbedManagedResourceFile>Resources\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;Resources\ColorProfiles\RGB\AdobeRGB1998.icc;Resources\ColorProfiles\RGB\AppleRGB.icc;Resources\ColorProfiles\RGB\ColorMatchRGB.icc;Resources\ColorProfiles\RGB\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -263,6 +263,7 @@
     <ClInclude Include="Enums\Interlace.h" />
     <ClInclude Include="Enums\Metric.h" />
     <ClInclude Include="Enums\PixelChannel.h" />
+    <ClInclude Include="Enums\PixelInterpolateMethod.h" />
     <ClInclude Include="Enums\StorageType.h" />
     <ClInclude Include="Enums\LayerMethod.h" />
     <ClInclude Include="Enums\LineCap.h" />
@@ -292,6 +293,7 @@
     <ClInclude Include="Profiles\Iptc\IptcProfile.h" />
     <ClInclude Include="Profiles\Iptc\IptcTag.h" />
     <ClInclude Include="Profiles\Iptc\IptcValue.h" />
+    <ClInclude Include="Quantum.h" />
     <ClInclude Include="Script\ScriptReadEventArgs.h" />
     <ClInclude Include="Script\MagickScript.h" />
     <ClInclude Include="Script\ScriptWriteEventArgs.h" />
@@ -428,6 +430,7 @@
     <ClCompile Include="Profiles\ImageProfile.cpp" />
     <ClCompile Include="Profiles\Iptc\IptcProfile.cpp" />
     <ClCompile Include="Profiles\Iptc\IptcValue.cpp" />
+    <ClCompile Include="Quantum.cpp" />
     <ClCompile Include="Script\Generated\Execute.cpp" />
     <ClCompile Include="Script\MagickScript.cpp" />
     <ClCompile Include="Script\ScriptReadEventArgs.cpp" />
@@ -485,7 +488,12 @@
     <ClCompile Include="Helpers\Throw.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\sRGB.icm" />
+    <None Include="Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc" />
+    <None Include="Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc" />
+    <None Include="Resources\ColorProfiles\RGB\AdobeRGB1998.icc" />
+    <None Include="Resources\ColorProfiles\RGB\AppleRGB.icc" />
+    <None Include="Resources\ColorProfiles\RGB\ColorMatchRGB.icc" />
+    <None Include="Resources\ColorProfiles\RGB\sRGB.icm" />
     <None Include="Resources\$(Configuration)\MagickScript.xsd" />
   </ItemGroup>
   <ItemGroup>
