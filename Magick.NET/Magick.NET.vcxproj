@@ -163,7 +163,7 @@
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EmbedManagedResourceFile>Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;Resources\ColorProfiles\RGB\AdobeRGB1998.icc;Resources\ColorProfiles\RGB\AppleRGB.icc;Resources\ColorProfiles\RGB\ColorMatchRGB.icc;Resources\ColorProfiles\RGB\sRGB.icm;sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;Resources\ColorProfiles\RGB\AdobeRGB1998.icc;Resources\ColorProfiles\RGB\AppleRGB.icc;Resources\ColorProfiles\RGB\ColorMatchRGB.icc;Resources\ColorProfiles\RGB\sRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
