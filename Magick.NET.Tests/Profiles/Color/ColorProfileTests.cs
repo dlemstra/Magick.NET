@@ -24,6 +24,12 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private const string _Category = "ColorProfile";
 		//===========================================================================================
+		private static void TestEmbeddedResource(ColorProfile profile)
+		{
+			Assert.IsNotNull(profile);
+			Assert.AreEqual("icc", profile.Name);
+		}
+		//===========================================================================================
 		private static void TestProfile(ColorProfile profile, string name)
 		{
 			Assert.IsNotNull(profile);
@@ -34,9 +40,12 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_EmbeddedResources()
 		{
-			ColorProfile sRGB = ColorProfile.SRGB;
-			Assert.IsNotNull(sRGB);
-			Assert.AreEqual("icc", sRGB.Name);
+			TestEmbeddedResource(ColorProfile.AdobeRGB1998);
+			TestEmbeddedResource(ColorProfile.AppleRGB);
+			TestEmbeddedResource(ColorProfile.CoatedFOGRA39);
+			TestEmbeddedResource(ColorProfile.ColorMatchRGB);
+			TestEmbeddedResource(ColorProfile.SRGB);
+			TestEmbeddedResource(ColorProfile.USWebCoatedSWOP);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

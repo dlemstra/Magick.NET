@@ -1045,12 +1045,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\sRGB.icm">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Resources\$(Configuration)\MagickScript.xsd">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Resources\ColorProfiles\RGB\sRGB.icm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc" />
+    <None Include="Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc" />
+    <None Include="Resources\ColorProfiles\RGB\AdobeRGB1998.icc" />
+    <None Include="Resources\ColorProfiles\RGB\AppleRGB.icc" />
+    <None Include="Resources\ColorProfiles\RGB\ColorMatchRGB.icc" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\Magick.NET.rc">

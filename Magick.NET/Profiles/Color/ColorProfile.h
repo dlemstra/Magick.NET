@@ -59,9 +59,49 @@ namespace ImageMagick
 		ColorProfile(String^ fileName) : ImageProfile("icc", fileName) {};
 		///==========================================================================================
 		///<summary>
-		/// The sRGB icm profile.
+		/// The AdobeRGB1998 profile.
+		///</summary>
+		static property ColorProfile^ AdobeRGB1998
+		{
+			ColorProfile^ get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// The AppleRGB profile.
+		///</summary>
+		static property ColorProfile^ AppleRGB
+		{
+			ColorProfile^ get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// The CoatedFOGRA39 profile.
+		///</summary>
+		static property ColorProfile^ CoatedFOGRA39
+		{
+			ColorProfile^ get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// The ColorMatchRGB profile.
+		///</summary>
+		static property ColorProfile^ ColorMatchRGB
+		{
+			ColorProfile^ get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// The sRGB profile.
 		///</summary>
 		static property ColorProfile^ SRGB
+		{
+			ColorProfile^ get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// The USWebCoatedSWOP profile.
+		///</summary>
+		static property ColorProfile^ USWebCoatedSWOP
 		{
 			ColorProfile^ get();
 		}

@@ -36,9 +36,34 @@ namespace ImageMagick
 		return _Profiles[resourceName];
 	}
 	//==============================================================================================
+	ColorProfile^ ColorProfile::AdobeRGB1998::get()
+	{
+		return Load("AdobeRGB1998.icc");
+	}
+	//==============================================================================================
+	ColorProfile^ ColorProfile::AppleRGB::get()
+	{
+		return Load("AppleRGB.icc");
+	}
+	//==============================================================================================
+	ColorProfile^ ColorProfile::CoatedFOGRA39::get()
+	{
+		return Load("CoatedFOGRA39.icc");
+	}
+	//==============================================================================================
+	ColorProfile^ ColorProfile::ColorMatchRGB::get()
+	{
+		return Load("ColorMatchRGB.icc");
+	}
+	//==============================================================================================
 	ColorProfile^ ColorProfile::SRGB::get()
 	{
 		return Load("sRGB.icm");
+	}
+	//==============================================================================================
+	ColorProfile^ ColorProfile::USWebCoatedSWOP::get()
+	{
+		return Load("USWebCoatedSWOP.icc");
 	}
 	//==============================================================================================
 }
