@@ -691,6 +691,16 @@ namespace ImageMagick
 		Value->interlaceType((Magick::InterlaceType)value);
 	}
 	//==============================================================================================
+	PixelInterpolateMethod MagickImage::Interpolate::get()
+	{
+		return (PixelInterpolateMethod)Value->interpolate();
+	}
+	//==============================================================================================
+	void MagickImage::Interpolate::set(PixelInterpolateMethod value)
+	{
+		Value->interpolate((Magick::InterpolatePixelMethod)value);
+	}
+	//==============================================================================================
 	bool MagickImage::IsMonochrome::get()
 	{
 		return Value->monochrome();

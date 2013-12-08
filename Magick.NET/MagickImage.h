@@ -39,6 +39,7 @@
 #include "Enums\NoiseType.h"
 #include "Enums\OrientationType.h"
 #include "Enums\PaintMethod.h"
+#include "Enums\PixelInterpolateMethod.h"
 #include "Enums\Resolution.h"
 #include "Enums\RenderingIntent.h"
 #include "Enums\SparseColorMethod.h"
@@ -520,6 +521,15 @@ namespace ImageMagick
 		{
 			ImageMagick::Interlace get();
 			void set(ImageMagick::Interlace value);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Pixel color interpolate method to use.
+		///</summary>
+		property PixelInterpolateMethod Interpolate
+		{
+			PixelInterpolateMethod get();
+			void set(PixelInterpolateMethod);
 		}
 		///==========================================================================================
 		///<summary>
