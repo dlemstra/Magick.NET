@@ -123,7 +123,7 @@ namespace ImageMagick
 		if (size > 4)
 		{			
 			int oldIndex = _Index;
-			_Index = ToUInt16(data) + _StartIndex;
+			_Index = ToUInt32(data) + _StartIndex;
 			value = ConvertValue(dataType, GetBytes(size), numberOfComponents);
 			_Index = oldIndex;
 		}
@@ -222,46 +222,40 @@ namespace ImageMagick
 	//==============================================================================================
 	Byte ExifReader::ToByte(array<Byte>^ data)
 	{
-		if (_IsLittleEndian != BitConverter::IsLittleEndian)
-			Array::Reverse(data);
-
 		return data[0];
 	}
 	//==============================================================================================
 	double ExifReader::ToDouble(array<Byte>^ data)
 	{
-		if (_IsLittleEndian != BitConverter::IsLittleEndian)
-			Array::Reverse(data);
+		if (!ValidateArray(data, 4))
+			return double();
 
 		return BitConverter::ToDouble(data, 0);
 	}
 	//==============================================================================================
 	short ExifReader::ToInt16(array<Byte>^ data)
 	{
-		if (_IsLittleEndian != BitConverter::IsLittleEndian)
-			Array::Reverse(data);
+		if (!ValidateArray(data, 2))
+			return short();
 
 		return BitConverter::ToInt16(data, 0);
 	}
 	//==============================================================================================
 	int ExifReader::ToInt32(array<Byte>^ data)
 	{
-		if (_IsLittleEndian != BitConverter::IsLittleEndian)
-			Array::Reverse(data);
+		if (!ValidateArray(data, 4))
+			return int();
 
 		return BitConverter::ToInt32(data, 0);
 	}
 	//==============================================================================================
 	double ExifReader::ToRational(array<Byte>^ data)
 	{
-		array<Byte>^ numeratorData = gcnew array<Byte>(4);
-		array<Byte>^ denominatorData = gcnew array<Byte>(4);
+		if (!ValidateArray(data, 4))
+			return double();
 
-		Array::Copy(data, numeratorData, 4);
-		Array::Copy(data, 4, denominatorData, 0, 4);
-
-		unsigned int numerator = ToInt32(numeratorData);
-		unsigned int denominator = ToInt32(denominatorData);
+		unsigned int numerator = BitConverter::ToInt32(data, 0);
+		unsigned int denominator = BitConverter::ToInt32(data, 4);
 
 		return numerator/(double) denominator;
 	}
@@ -273,8 +267,8 @@ namespace ImageMagick
 	//==============================================================================================
 	float ExifReader::ToSingle(array<Byte>^ data)
 	{
-		if (_IsLittleEndian != BitConverter::IsLittleEndian)
-			Array::Reverse(data);
+		if (!ValidateArray(data, 4))
+			return float();
 
 		return BitConverter::ToSingle(data, 0);
 	}
@@ -291,32 +285,45 @@ namespace ImageMagick
 	//==============================================================================================
 	unsigned short ExifReader::ToUInt16(array<Byte>^ data)
 	{
-		if (_IsLittleEndian != BitConverter::IsLittleEndian)
-			Array::Reverse(data);
+		if (!ValidateArray(data, 2))
+			return unsigned short();
 
 		return BitConverter::ToUInt16(data, 0);
 	}
 	//==============================================================================================
 	unsigned int ExifReader::ToUInt32(array<Byte>^ data)
 	{
-		if (_IsLittleEndian != BitConverter::IsLittleEndian)
-			Array::Reverse(data);
+		if (!ValidateArray(data, 4))
+			return unsigned int();
 
 		return BitConverter::ToUInt32(data, 0);
 	}
 	//==============================================================================================
 	double ExifReader::ToURational(array<Byte>^ data)
 	{
-		array<Byte>^ numeratorData = gcnew array<Byte>(4);
-		array<Byte>^ denominatorData = gcnew array<Byte>(4);
+		if (!ValidateArray(data, 4))
+			return double();
 
-		Array::Copy(data, numeratorData, 4);
-		Array::Copy(data, 4, denominatorData, 0, 4);
-
-		unsigned int numerator = ToUInt32(numeratorData);
-		unsigned int denominator = ToUInt32(denominatorData);
+		unsigned int numerator = BitConverter::ToUInt32(data, 0);
+		unsigned int denominator = BitConverter::ToUInt32(data, 4);
 
 		return numerator/(double) denominator;
+	}
+	//==============================================================================================
+	bool ExifReader::ValidateArray(array<Byte>^ data, int size)
+	{
+		if (data->Length < size)
+			return false;
+
+		if (_IsLittleEndian == BitConverter::IsLittleEndian)
+			return true;
+
+		for (int i=0; i < data->Length; i+=size)
+		{
+			Array::Reverse(data, i, size);
+		}
+
+		return true;
 	}
 	//==============================================================================================
 	unsigned int ExifReader::ThumbnailLength::get()

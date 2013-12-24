@@ -34,6 +34,12 @@ namespace Magick.NET.Tests
 			foreach (ExifValue value in profile.Values)
 			{
 				Assert.IsNotNull(value.Value);
+
+				if (value.Tag == ExifTag.Software)
+					Assert.AreEqual("Adobe Photoshop 7.0", value.ToString());
+
+				if (value.Tag == ExifTag.XResolution)
+					Assert.AreEqual(300.0, value.Value);
 			}
 		}
 		//===========================================================================================
