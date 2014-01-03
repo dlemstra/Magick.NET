@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 6.8.X.X:
+  - Removed MagickImage.ModulusDepth property and moved functionality to BitDepth method.
+
 Magick.NET 6.8.7.901:
   - Renamed MagickGeometry.Aspect to IgnoreAspectRatio.
 

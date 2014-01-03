@@ -742,16 +742,6 @@ namespace ImageMagick
 		delete color;
 	}
 	//==============================================================================================
-	int MagickImage::ModulusDepth::get()
-	{
-		return Convert::ToInt32(Value->modulusDepth());
-	}
-	//==============================================================================================
-	void MagickImage::ModulusDepth::set(int value)
-	{
-		Value->modulusDepth(value);
-	}
-	//==============================================================================================
 	OrientationType MagickImage::Orientation::get()
 	{
 		return (OrientationType)Value->orientation();
@@ -1444,6 +1434,11 @@ namespace ImageMagick
 		{
 			MagickException::Throw(exception);
 		}
+	}
+	//==============================================================================================
+	void MagickImage::BitDepth(int value)
+	{
+		BitDepth(Channels::Composite, value);
 	}
 	//==============================================================================================
 	void MagickImage::BlackThreshold(Percentage threshold)

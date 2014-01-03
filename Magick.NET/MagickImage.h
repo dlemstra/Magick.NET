@@ -560,16 +560,6 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Image modulus depth (minimum number of bits required to support red/green/blue components
-		/// without loss of accuracy).
-		///</summary>
-		property int ModulusDepth
-		{
-			int get();
-			void set(int value);
-		}
-		///==========================================================================================
-		///<summary>
 		/// Photo orientation of the image.
 		///</summary>
 		property OrientationType Orientation
@@ -1050,6 +1040,12 @@ namespace ImageMagick
 		///<param name="channels">The channel to set the depth for.</param>
 		///<exception cref="MagickException"/>
 		void BitDepth(Channels channels, int value);
+		///==========================================================================================
+		///<summary>
+		/// Set the bit depth (bits allocated to red/green/blue components)
+		/// without loss of accuracy).
+		///</summary>
+		void BitDepth(int value);
 		///==========================================================================================
 		///<summary>
 		/// Forces all pixels below the threshold into black while leaving all pixels at or above
