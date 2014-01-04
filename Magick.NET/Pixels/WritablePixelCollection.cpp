@@ -26,7 +26,7 @@ namespace ImageMagick
 		int index = GetIndex(x, y);
 
 		Magick::PixelPacket *p = _Pixels + index;
-		SetPixel(p, value, index);
+		SetPixel(p, value, 0);
 
 		if (Channels == 5)
 			Indexes[index] = Quantum::Convert(value[4]);
@@ -38,7 +38,8 @@ namespace ImageMagick
 		pixel->red = Quantum::Convert(value[index++]);
 		pixel->green = Quantum::Convert(value[index++]);
 		pixel->blue = Quantum::Convert(value[index++]);
-		pixel->opacity = Quantum::Convert(value[index++]);
+		if (Channels > 3)
+			pixel->opacity = Quantum::Convert(value[index++]);
 
 		return index;
 	}

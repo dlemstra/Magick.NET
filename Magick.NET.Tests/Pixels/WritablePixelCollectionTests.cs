@@ -115,6 +115,17 @@ namespace Magick.NET.Tests
 					pixels.Set(new short[] { 0, 0, 32767, 0 });
 					Test_PixelColor(pixels, Color.Blue);
 				}
+
+				using (WritablePixelCollection pixels = image.GetWritablePixels())
+				{
+					for (int x = 0; x < pixels.Width; x++)
+					{
+						for (int y = 0; y < pixels.Height; y++)
+						{
+							pixels.Set(x, y, new float[] { 0, 0, 0, 0 });
+						}
+					}
+				}
 			}
 		}
 		//===========================================================================================
