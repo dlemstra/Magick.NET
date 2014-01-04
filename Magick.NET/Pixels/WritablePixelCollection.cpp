@@ -127,11 +127,6 @@ namespace ImageMagick
 		SetPixels(values);
 	}
 	//==============================================================================================
-	void WritablePixelCollection::Set(array<long>^ values)
-	{
-		SetPixels(values);
-	}
-	//==============================================================================================
 	void WritablePixelCollection::Set(array<Magick::Quantum>^ values)
 	{
 		SetPixels(values);

@@ -38,11 +38,6 @@ namespace ImageMagick
 		return MagickCore::ClampToQuantum((Magick::Quantum)value);
 	}
 	//==============================================================================================
-	Magick::Quantum Quantum::Convert(long value)
-	{
-		return MagickCore::ClampToQuantum((Magick::Quantum)value);
-	}
-	//==============================================================================================
 	Magick::Quantum Quantum::Convert(Magick::Quantum value)
 	{
 		return MagickCore::ClampToQuantum(value);

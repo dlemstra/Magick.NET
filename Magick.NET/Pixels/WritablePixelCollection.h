@@ -102,13 +102,6 @@ namespace ImageMagick
 		/// pixels to ensure the image is updated.
 		///</summary>
 		///<param name="values">The values of the pixels.</param>
-		void Set(array<long>^ values);
-		///==========================================================================================
-		///<summary>
-		/// Changes the values of the specified pixels. Make sure to call Write after modifying all the
-		/// pixels to ensure the image is updated.
-		///</summary>
-		///<param name="values">The values of the pixels.</param>
 		void Set(array<Magick::Quantum>^ values);
 		///==========================================================================================
 		///<summary>
