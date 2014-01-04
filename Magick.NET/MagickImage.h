@@ -1042,9 +1042,10 @@ namespace ImageMagick
 		void BitDepth(Channels channels, int value);
 		///==========================================================================================
 		///<summary>
-		/// Set the bit depth (bits allocated to red/green/blue components)
-		/// without loss of accuracy).
+		/// Set the bit depth (bits allocated to red/green/blue components).
 		///</summary>
+		///<param name="value">The depth.</param>
+		///<exception cref="MagickException"/>
 		void BitDepth(int value);
 		///==========================================================================================
 		///<summary>
