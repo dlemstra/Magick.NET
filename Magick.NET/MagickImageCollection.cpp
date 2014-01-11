@@ -32,7 +32,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 		finally
@@ -59,6 +59,36 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImageCollection::HandleException(const Magick::Exception& exception)
+	{
+		HandleException(MagickException::Create(exception));
+	}
+	//==============================================================================================
+	void MagickImageCollection::HandleException(MagickException^ exception)
+	{
+		if (exception == nullptr)
+			return;
+
+		MagickWarningException^ warning = dynamic_cast<MagickWarningException^>(exception);
+		if (warning == nullptr)
+			throw exception;
+
+		Warning(this, gcnew WarningEventArgs(warning));
+	}
+	//==============================================================================================
+	void MagickImageCollection::HandleReadException(MagickException^ exception)
+	{
+		if (exception == nullptr)
+			return;
+
+		MagickWarningException^ warning = dynamic_cast<MagickWarningException^>(exception);
+		if (warning == nullptr)
+			throw exception;
+
+		_ReadWarning = warning;
+		Warning(this, gcnew WarningEventArgs(warning));
+	}
+	//==============================================================================================
 	void MagickImageCollection::Optimize(LayerMethod optizeMethod)
 	{
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
@@ -77,7 +107,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -110,7 +140,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -251,7 +281,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 		finally
@@ -275,7 +305,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -313,7 +343,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -338,7 +368,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 		finally
@@ -362,7 +392,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 		finally
@@ -389,7 +419,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 		finally
@@ -449,7 +479,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -485,7 +515,7 @@ namespace ImageMagick
 	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
-		_ReadWarning = MagickReader::Read(images, data, readSettings);
+		HandleReadException(MagickReader::Read(images, data, readSettings));
 		CopyFrom(images);
 
 		delete images;
@@ -500,7 +530,7 @@ namespace ImageMagick
 	MagickWarningException^ MagickImageCollection::Read(String^ fileName, MagickReadSettings^ readSettings)
 	{
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
-		_ReadWarning = MagickReader::Read(images, fileName, readSettings);
+		HandleReadException(MagickReader::Read(images, fileName, readSettings));
 		CopyFrom(images);
 
 		delete images;
@@ -515,7 +545,7 @@ namespace ImageMagick
 	MagickWarningException^ MagickImageCollection::Read(Stream^ stream, MagickReadSettings^ readSettings)
 	{
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
-		_ReadWarning = MagickReader::Read(images, stream, readSettings);
+		HandleReadException(MagickReader::Read(images, stream, readSettings));
 		CopyFrom(images);
 
 		delete images;

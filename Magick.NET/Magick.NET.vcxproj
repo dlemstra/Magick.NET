@@ -282,6 +282,7 @@
     <ClInclude Include="Enums\SparseColorMethod.h" />
     <ClInclude Include="Enums\TextDecoration.h" />
     <ClInclude Include="Enums\VirtualPixelMethod.h" />
+    <ClInclude Include="Events\WarningEventArgs.h" />
     <ClInclude Include="Exceptions\MagickErrorExceptions.h" />
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
@@ -424,6 +425,7 @@
     <ClCompile Include="Drawables\Paths\PathSmoothCurvetoRel.cpp" />
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.cpp" />
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.cpp" />
+    <ClCompile Include="Events\WarningEventArgs.cpp" />
     <ClCompile Include="Exceptions\Base\MagickException.cpp" />
     <ClCompile Include="Helpers\ByteConverter.cpp" />
     <ClCompile Include="Profiles\8Bim\ClipPathReader.cpp" />

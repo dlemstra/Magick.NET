@@ -513,7 +513,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteModulusDepth(XmlElement^ element, MagickImage^ image)
 	{
-		image->ModulusDepth = XmlHelper::GetAttribute<int>(element, "value");
+		//image->ModulusDepth = XmlHelper::GetAttribute<int>(element, "value");
 	}
 	void MagickScript::ExecuteOrientation(XmlElement^ element, MagickImage^ image)
 	{

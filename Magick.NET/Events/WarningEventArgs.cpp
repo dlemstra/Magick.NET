@@ -12,38 +12,24 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "MagickException.h"
-#include "..\MagickErrorExceptions.h"
-#include "..\MagickWarningExceptions.h"
-#include "..\..\MagickNET.h"
+#include "WarningEventArgs.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickException::MagickException(String^ message)
-		: Exception(message)
+	WarningEventArgs::WarningEventArgs(MagickWarningException^ exception)
 	{
+		_Exception = exception;
 	}
 	//==============================================================================================
-	MagickException^ MagickException::Create(const Magick::Exception& exception)
+	String^ WarningEventArgs::Message::get()
 	{
-		const Magick::Warning* warning = dynamic_cast<const Magick::Warning*>(&exception);
-
-		if (warning != NULL)
-			return MagickWarningException::Create(*warning);
-
-		const Magick::Error* error = dynamic_cast<const Magick::Error*>(&exception);
-
-		if (error != NULL)
-			return MagickErrorException::Create(*error);
-
-		String^ message = Marshaller::Marshal(exception.what());
-		throw gcnew MagickException(message);
+		return _Exception->Message;
 	}
 	//==============================================================================================
-	void MagickException::Throw(const Magick::Exception& exception)
+	MagickWarningException^ WarningEventArgs::Exception::get()
 	{
-		throw Create(exception);
+		return _Exception;
 	}
 	//==============================================================================================
 }

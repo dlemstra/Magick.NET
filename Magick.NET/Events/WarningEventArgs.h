@@ -12,26 +12,36 @@
 // limitations under the License.
 //=================================================================================================
 #pragma once
+#include "../Exceptions//MagickWarningExceptions.h"
 
 namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Encapsulation of the ImageMagick exception object.
+	/// Arguments for the Warning event.
 	///</summary>
-	[Serializable]
-	public ref class MagickException : Exception
+	public ref class WarningEventArgs sealed : EventArgs
 	{
 		//===========================================================================================
-	protected private:
+	private:
 		//===========================================================================================
-		MagickException(String^ message);
+		MagickWarningException^ _Exception;
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		static MagickException^ Create(const Magick::Exception& exception);
+		WarningEventArgs(MagickWarningException^ exception);
 		//===========================================================================================
-		static void Throw(const Magick::Exception& exception);
+	public:
+		//===========================================================================================
+		property String^ Message
+		{
+			String^ get();
+		}
+		//===========================================================================================
+		property MagickWarningException^ Exception
+		{
+			MagickWarningException^ get();
+		}
 		//===========================================================================================
 	};
 	//==============================================================================================

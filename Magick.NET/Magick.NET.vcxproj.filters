@@ -157,6 +157,12 @@
     <Filter Include="Source Files\Profiles\8Bim">
       <UniqueIdentifier>{82b2a827-7fc2-4d9d-a1f7-f78fa3bae5b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Events">
+      <UniqueIdentifier>{d0d9a59c-4b0f-475a-be55-ff30d554c99f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Events">
+      <UniqueIdentifier>{f3106bea-6f3e-4afd-9dbf-0d26a8471a28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
@@ -663,6 +669,9 @@
     <ClInclude Include="Enums\PixelInterpolateMethod.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
+    <ClInclude Include="Events\WarningEventArgs.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1042,6 +1051,9 @@
     </ClCompile>
     <ClCompile Include="Quantum.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\WarningEventArgs.cpp">
+      <Filter>Source Files\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

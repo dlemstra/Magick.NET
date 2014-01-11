@@ -402,6 +402,34 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_ReadWarning()
+		{
+			using (MagickImage image = new MagickImage(Files.EightBimTIF))
+			{
+				Assert.IsNotNull(image.ReadWarning);
+			}
+
+			using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+			{
+				Assert.IsNull(image.ReadWarning);
+			}
+
+			using (MagickImage image = new MagickImage())
+			{
+				MagickWarningException exception = image.Read(Files.EightBimTIF);
+				Assert.IsNotNull(exception);
+				Assert.IsNotNull(image.ReadWarning);
+			}
+
+			using (MagickImage image = new MagickImage())
+			{
+				MagickWarningException exception = image.Read(Files.ImageMagickJPG);
+				Assert.IsNull(exception);
+				Assert.IsNull(image.ReadWarning);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Resize()
 		{
 			using (MagickImage image = new MagickImage())
@@ -504,6 +532,38 @@ namespace Magick.NET.Tests
 				Test_ToBitmap(image, ImageFormat.Jpeg);
 				Test_ToBitmap(image, ImageFormat.Png);
 				Test_ToBitmap(image, ImageFormat.Tiff);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Warning()
+		{
+			int count = 0;
+			EventHandler<WarningEventArgs> warningDelegate = delegate(object sender, WarningEventArgs arguments)
+			{
+				Assert.IsNotNull(sender);
+				Assert.IsNotNull(arguments);
+				Assert.IsNotNull(arguments.Message);
+				Assert.IsNotNull(arguments.Exception);
+				Assert.AreNotEqual("", arguments.Message);
+
+				count++;
+			};
+
+			using (MagickImage image = new MagickImage())
+			{
+				image.Warning += warningDelegate;
+				MagickWarningException exception = image.Read(Files.EightBimTIF);
+				
+				Assert.IsNotNull(exception);
+				Assert.AreNotEqual(0, count);
+
+				int expectedCount = count;
+				image.Warning -= warningDelegate;
+				exception = image.Read(Files.EightBimTIF);
+
+				Assert.IsNotNull(exception);
+				Assert.AreEqual(expectedCount, count);
 			}
 		}
 		//===========================================================================================

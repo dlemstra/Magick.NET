@@ -59,15 +59,6 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Gets or sets whether WarningExceptions should be thrown.
-		///</summary>
-		static property bool ThrowWarnings
-		{
-			bool get();
-			void set(bool value);
-		}
-		///==========================================================================================
-		///<summary>
 		/// Returns the version of Magick.NET.
 		///</summary>
 		static property String^ Version

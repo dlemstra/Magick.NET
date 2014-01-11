@@ -21,30 +21,6 @@ using namespace System::Globalization;
 namespace ImageMagick
 {
 	//==============================================================================================
-	String^ MagickImage::FormatedFileSize()
-	{
-		Decimal fileSize = FileSize;
-
-		String^ suffix = "";
-		if (fileSize > 1073741824)
-		{
-			fileSize /= 1073741824;
-			suffix = "GB";
-		}
-		else if (fileSize > 1048576)
-		{
-			fileSize /= 1048576;
-			suffix = "MB";
-		}
-		else if (fileSize > 1024)
-		{
-			fileSize /= 1024;
-			suffix = "kB";
-		}
-
-		return String::Format(CultureInfo::InvariantCulture, "{0:N2}{1}", fileSize, suffix);
-	}
-	//==============================================================================================
 	template<class TImageProfile>
 	TImageProfile^ MagickImage::CreateProfile(String^ name)
 	{
@@ -70,8 +46,63 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
+	}
+	//==============================================================================================
+	String^ MagickImage::FormatedFileSize()
+	{
+		Decimal fileSize = FileSize;
+
+		String^ suffix = "";
+		if (fileSize > 1073741824)
+		{
+			fileSize /= 1073741824;
+			suffix = "GB";
+		}
+		else if (fileSize > 1048576)
+		{
+			fileSize /= 1048576;
+			suffix = "MB";
+		}
+		else if (fileSize > 1024)
+		{
+			fileSize /= 1024;
+			suffix = "kB";
+		}
+
+		return String::Format(CultureInfo::InvariantCulture, "{0:N2}{1}", fileSize, suffix);
+	}
+	//==============================================================================================
+	void MagickImage::HandleException(const Magick::Exception& exception)
+	{
+		HandleException(MagickException::Create(exception));
+	}
+	//==============================================================================================
+	void MagickImage::HandleException(MagickException^ exception)
+	{
+		if (exception == nullptr)
+			return;
+
+		MagickWarningException^ warning = dynamic_cast<MagickWarningException^>(exception);
+		if (warning == nullptr)
+			throw exception;
+
+		Warning(this, gcnew WarningEventArgs(warning));
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImage::HandleReadException(MagickException^ exception)
+	{
+		if (exception == nullptr)
+			return nullptr;
+
+		MagickWarningException^ warning = dynamic_cast<MagickWarningException^>(exception);
+		if (warning == nullptr)
+			throw exception;
+
+		_ReadWarning = warning;
+		Warning(this, gcnew WarningEventArgs(warning));
+		return warning;
 	}
 	//==============================================================================================
 	bool MagickImage::IsSupportedImageFormat(ImageFormat^ format)
@@ -95,7 +126,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -114,7 +145,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -133,7 +164,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -172,7 +203,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -332,7 +363,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -415,7 +446,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 
 		return colorMapSize;
@@ -439,7 +470,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1109,7 +1140,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1131,7 +1162,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -1157,7 +1188,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1169,7 +1200,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1186,7 +1217,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1198,7 +1229,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1210,7 +1241,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1230,7 +1261,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1244,7 +1275,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1256,7 +1287,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1275,7 +1306,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -1298,7 +1329,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -1321,7 +1352,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -1342,7 +1373,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1354,7 +1385,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1366,7 +1397,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1378,7 +1409,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1390,7 +1421,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1402,7 +1433,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1419,7 +1450,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return -1;
 		}
 	}
@@ -1432,7 +1463,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1453,7 +1484,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1469,7 +1500,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1486,7 +1517,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1508,7 +1539,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1520,7 +1551,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1539,7 +1570,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -1555,7 +1586,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1567,7 +1598,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1587,7 +1618,7 @@ namespace ImageMagick
 		}
 		catch (Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1604,7 +1635,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1617,7 +1648,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1633,7 +1664,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -1661,7 +1692,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1673,7 +1704,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1685,7 +1716,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1697,7 +1728,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1709,7 +1740,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1721,7 +1752,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1733,7 +1764,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1749,7 +1780,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1768,7 +1799,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1782,7 +1813,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1820,7 +1851,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -1836,7 +1867,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 	}
@@ -1853,7 +1884,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -1869,7 +1900,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -1888,7 +1919,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 
 		return gcnew MagickErrorInfo(Value);
@@ -1909,7 +1940,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return -1;
 		}
 	}
@@ -1934,7 +1965,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return -1;
 		}
 	}
@@ -1976,7 +2007,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2006,7 +2037,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2037,7 +2068,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2054,7 +2085,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2070,7 +2101,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2090,7 +2121,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2160,7 +2191,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2176,7 +2207,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2190,7 +2221,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2202,7 +2233,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2223,7 +2254,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2253,7 +2284,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2265,7 +2296,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2282,7 +2313,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2298,7 +2329,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2310,7 +2341,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 	}
@@ -2323,7 +2354,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2335,7 +2366,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2394,7 +2425,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2416,7 +2447,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2437,7 +2468,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2459,7 +2490,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2476,7 +2507,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2488,7 +2519,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2504,7 +2535,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2526,7 +2557,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2549,7 +2580,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2574,7 +2605,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2594,7 +2625,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2611,7 +2642,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2632,7 +2663,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2655,7 +2686,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2672,7 +2703,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2691,7 +2722,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 		finally
@@ -2717,7 +2748,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -2753,7 +2784,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2769,7 +2800,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2781,7 +2812,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return -1;
 		}
 	}
@@ -2799,7 +2830,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2811,7 +2842,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2823,7 +2854,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2840,7 +2871,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 	}
@@ -2858,7 +2889,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 	}
@@ -2878,7 +2909,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 	}
@@ -2953,7 +2984,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -2975,7 +3006,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 		finally
@@ -2992,7 +3023,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3011,7 +3042,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3033,7 +3064,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3045,7 +3076,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3063,7 +3094,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -3086,7 +3117,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -3109,7 +3140,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -3132,7 +3163,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -3152,7 +3183,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3168,7 +3199,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -3189,7 +3220,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3208,7 +3239,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3225,7 +3256,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3237,7 +3268,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3253,7 +3284,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3265,7 +3296,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3282,7 +3313,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3299,7 +3330,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3311,7 +3342,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3328,7 +3359,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3346,7 +3377,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -3363,7 +3394,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	///=============================================================================================
@@ -3375,7 +3406,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3392,7 +3423,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3409,7 +3440,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3421,7 +3452,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3443,7 +3474,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 
 		return measureError ? gcnew MagickErrorInfo(Value) : nullptr;
@@ -3458,7 +3489,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3476,7 +3507,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3518,8 +3549,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImage::Read(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
-		_ReadWarning = MagickReader::Read(Value, data, readSettings);
-		return _ReadWarning;
+		return HandleReadException(MagickReader::Read(Value, data, readSettings));
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImage::Read(Bitmap^ bitmap)
@@ -3550,8 +3580,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImage::Read(String^ fileName, MagickReadSettings^ readSettings)
 	{
-		_ReadWarning = MagickReader::Read(Value, fileName, readSettings);
-		return _ReadWarning;
+		return HandleReadException(MagickReader::Read(Value, fileName, readSettings));
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImage::Read(Stream^ stream)
@@ -3561,8 +3590,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImage::Read(Stream^ stream, MagickReadSettings^ readSettings)
 	{
-		_ReadWarning = MagickReader::Read(Value, stream, readSettings);
-		return _ReadWarning;
+		return HandleReadException(MagickReader::Read(Value, stream, readSettings));
 	}
 	//==============================================================================================
 	void MagickImage::ReduceNoise()
@@ -3573,7 +3601,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3585,7 +3613,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3613,7 +3641,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -3653,7 +3681,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -3683,7 +3711,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3695,7 +3723,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3717,7 +3745,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -3757,7 +3785,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -3792,7 +3820,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3813,7 +3841,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 		finally
@@ -3838,7 +3866,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3858,7 +3886,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3877,7 +3905,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3899,7 +3927,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3916,7 +3944,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -3938,7 +3966,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	///=============================================================================================
@@ -3962,7 +3990,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -3989,7 +4017,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4001,7 +4029,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4015,7 +4043,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -4031,7 +4059,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4048,7 +4076,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4065,7 +4093,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4083,7 +4111,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -4103,7 +4131,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 			return nullptr;
 		}
 	}
@@ -4118,7 +4146,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4132,7 +4160,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4144,7 +4172,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4156,7 +4184,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4170,7 +4198,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4182,7 +4210,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4232,7 +4260,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -4254,7 +4282,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -4305,7 +4333,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -4327,7 +4355,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{
@@ -4344,7 +4372,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4356,7 +4384,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4368,7 +4396,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4385,7 +4413,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4401,7 +4429,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4417,7 +4445,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4449,7 +4477,7 @@ namespace ImageMagick
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			HandleException(exception);
 		}
 		finally
 		{

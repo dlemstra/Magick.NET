@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013 Dirk Lemstra
+// Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at

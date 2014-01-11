@@ -46,6 +46,12 @@ namespace ImageMagick
 		//===========================================================================================
 		void CopyTo(std::list<Magick::Image>* images);
 		//===========================================================================================
+		void HandleException(const Magick::Exception& exception);
+		//===========================================================================================
+		void HandleException(MagickException^ exception);
+		//===========================================================================================
+		void HandleReadException(MagickException^ exception);
+		//===========================================================================================
 		void Optimize(LayerMethod optizeMethod);
 		//===========================================================================================
 	internal:
@@ -157,6 +163,11 @@ namespace ImageMagick
 
 			return collection->ToByteArray();
 		}
+		///==========================================================================================
+		///<summary>
+		/// Event that will we raised when a warning is thrown by ImageMagick.
+		///</summary>
+		event EventHandler<WarningEventArgs^>^ Warning;
 		///==========================================================================================
 		///<summary>
 		/// Adds an image to the collection.

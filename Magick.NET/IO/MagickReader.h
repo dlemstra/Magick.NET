@@ -41,22 +41,22 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, array<Byte>^ bytes,
+		static MagickException^ Read(Magick::Image* image, array<Byte>^ bytes,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, Stream^ stream,
+		static MagickException^ Read(Magick::Image* image, Stream^ stream,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickWarningException^ Read(Magick::Image* image, String^ fileName,
+		static MagickException^ Read(Magick::Image* image, String^ fileName,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, array<Byte>^ bytes,
+		static MagickException^ Read(std::list<Magick::Image>* imageList, array<Byte>^ bytes,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, Stream^ stream,
+		static MagickException^ Read(std::list<Magick::Image>* imageList, Stream^ stream,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickWarningException^ Read(std::list<Magick::Image>* imageList, String^ fileName,
+		static MagickException^ Read(std::list<Magick::Image>* imageList, String^ fileName,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
 		static array<Byte>^ Read(Stream^ stream);

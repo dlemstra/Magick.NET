@@ -216,6 +216,34 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_ReadWarning()
+		{
+			using (MagickImageCollection collection = new MagickImageCollection(Files.EightBimTIF))
+			{
+				Assert.IsNotNull(collection.ReadWarning);
+			}
+
+			using (MagickImageCollection collection = new MagickImageCollection(Files.ImageMagickJPG))
+			{
+				Assert.IsNull(collection.ReadWarning);
+			}
+
+			using (MagickImageCollection collection = new MagickImageCollection())
+			{
+				MagickWarningException exception = collection.Read(Files.EightBimTIF);
+				Assert.IsNotNull(exception);
+				Assert.IsNotNull(collection.ReadWarning);
+			}
+
+			using (MagickImageCollection collection = new MagickImageCollection())
+			{
+				MagickWarningException exception = collection.Read(Files.ImageMagickJPG);
+				Assert.IsNull(exception);
+				Assert.IsNull(collection.ReadWarning);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Remove()
 		{
 			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
@@ -261,6 +289,38 @@ namespace Magick.NET.Tests
 
 				MagickImage last = collection.Last();
 				Assert.IsTrue(last == first);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Warning()
+		{
+			int count = 0;
+			EventHandler<WarningEventArgs> warningDelegate = delegate(object sender, WarningEventArgs arguments)
+			{
+				Assert.IsNotNull(sender);
+				Assert.IsNotNull(arguments);
+				Assert.IsNotNull(arguments.Message);
+				Assert.IsNotNull(arguments.Exception);
+				Assert.AreNotEqual("", arguments.Message);
+
+				count++;
+			};
+
+			using (MagickImageCollection collection = new MagickImageCollection())
+			{
+				collection.Warning += warningDelegate;
+				MagickWarningException exception = collection.Read(Files.EightBimTIF);
+
+				Assert.IsNotNull(exception);
+				Assert.AreNotEqual(0, count);
+
+				int expectedCount = count;
+				collection.Warning -= warningDelegate;
+				exception = collection.Read(Files.EightBimTIF);
+
+				Assert.IsNotNull(exception);
+				Assert.AreEqual(expectedCount, count);
 			}
 		}
 		//===========================================================================================

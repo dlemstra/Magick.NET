@@ -44,6 +44,7 @@
 #include "Enums\RenderingIntent.h"
 #include "Enums\SparseColorMethod.h"
 #include "Enums\VirtualPixelMethod.h"
+#include "Events\WarningEventArgs.h"
 #include "Exceptions\Base\MagickException.h"
 #include "Helpers\EnumHelper.h"
 #include "IO\MagickReader.h"
@@ -83,10 +84,16 @@ namespace ImageMagick
 		static initonly MagickGeometry^ _DefaultFrameGeometry = gcnew MagickGeometry(25, 25, 6, 6);
 		MagickWarningException^ _ReadWarning;
 		//===========================================================================================
-		String^ FormatedFileSize();
-		//===========================================================================================
 		template<class TImageProfile>
 		TImageProfile^ CreateProfile(String^ name);
+		//===========================================================================================
+		String^ FormatedFileSize();
+		//===========================================================================================
+		void HandleException(const Magick::Exception& exception);
+		//===========================================================================================
+		void HandleException(MagickException^ exception);
+		//===========================================================================================
+		MagickWarningException^ HandleReadException(MagickException^ exception);
 		//===========================================================================================
 		static bool IsSupportedImageFormat(ImageFormat^ format);
 		//===========================================================================================
@@ -827,6 +834,11 @@ namespace ImageMagick
 		static bool operator <= (MagickImage^ left, MagickImage^ right);
 		//===========================================================================================
 		static explicit operator array<Byte>^ (MagickImage^ image);
+		///==========================================================================================
+		///<summary>
+		/// Event that will we raised when a warning is thrown by ImageMagick.
+		///</summary>
+		event EventHandler<WarningEventArgs^>^ Warning;
 		///==========================================================================================
 		///<summary>
 		/// Adaptive-blur image with the default blur factor (0x1).
