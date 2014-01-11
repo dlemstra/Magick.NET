@@ -229,6 +229,9 @@
     <ClInclude Include="Drawables\DrawableText.h" />
     <ClInclude Include="Drawables\DrawableTextAntialias.h" />
     <ClInclude Include="Drawables\DrawableTextDecoration.h" />
+    <ClInclude Include="Drawables\DrawableTextInterlineSpacing.h" />
+    <ClInclude Include="Drawables\DrawableTextInterwordSpacing.h" />
+    <ClInclude Include="Drawables\DrawableTextKerning.h" />
     <ClInclude Include="Drawables\DrawableTextUnderColor.h" />
     <ClInclude Include="Drawables\DrawableTranslation.h" />
     <ClInclude Include="Drawables\DrawableViewbox.h" />
@@ -401,6 +404,9 @@
     <ClCompile Include="Drawables\DrawableText.cpp" />
     <ClCompile Include="Drawables\DrawableTextAntialias.cpp" />
     <ClCompile Include="Drawables\DrawableTextDecoration.cpp" />
+    <ClCompile Include="Drawables\DrawableTextInterlineSpacing.cpp" />
+    <ClCompile Include="Drawables\DrawableTextInterwordSpacing.cpp" />
+    <ClCompile Include="Drawables\DrawableTextKerning.cpp" />
     <ClCompile Include="Drawables\DrawableTextUnderColor.cpp" />
     <ClCompile Include="Drawables\DrawableTranslation.cpp" />
     <ClCompile Include="Drawables\DrawableViewbox.cpp" />

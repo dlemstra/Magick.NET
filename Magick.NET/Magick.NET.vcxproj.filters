@@ -675,6 +675,15 @@
     <ClInclude Include="Events\WarningEventArgs.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Drawables\DrawableTextInterlineSpacing.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\DrawableTextInterwordSpacing.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\DrawableTextKerning.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1060,6 +1069,15 @@
     </ClCompile>
     <ClCompile Include="Events\LogEventArgs.cpp">
       <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\DrawableTextInterlineSpacing.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\DrawableTextInterwordSpacing.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\DrawableTextKerning.cpp">
+      <Filter>Source Files\Drawables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1040,6 +1040,36 @@ namespace ImageMagick
 		Value->textEncoding(Marshaller::Marshal(name, encoding));
 	}
 	//==============================================================================================
+	double MagickImage::TextInterlineSpacing::get()
+	{
+		return Value->textInterlineSpacing();
+	}
+	//==============================================================================================
+	void MagickImage::TextInterlineSpacing::set(double value)
+	{
+		Value->textInterlineSpacing(value);
+	}
+	//==============================================================================================
+	double MagickImage::TextInterwordSpacing::get()
+	{
+		return Value->textInterwordSpacing();
+	}
+	//==============================================================================================
+	void MagickImage::TextInterwordSpacing::set(double value)
+	{
+		Value->textInterwordSpacing(value);
+	}
+	//==============================================================================================
+	double MagickImage::TextKerning::get()
+	{
+		return Value->textKerning();
+	}
+	//==============================================================================================
+	void MagickImage::TextKerning::set(double value)
+	{
+		Value->textKerning(value);
+	}
+	//==============================================================================================
 	String^ MagickImage::TileName::get()
 	{
 		return Marshaller::Marshal(Value->tileName());

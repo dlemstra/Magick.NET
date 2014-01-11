@@ -770,12 +770,39 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Annotation text encoding (e.g. "UTF-16")
+		/// Annotation text encoding (e.g. "UTF-16").
 		///</summary>
 		property Encoding^ TextEncoding
 		{
 			Encoding^ get();
 			void set(Encoding^ value);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Text inter-line spacing.
+		///</summary>
+		property double TextInterlineSpacing
+		{
+			double get();
+			void set(double value);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Text inter-word spacing.
+		///</summary>
+		property double TextInterwordSpacing
+		{
+			double get();
+			void set(double value);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Text inter-character kerning.
+		///</summary>
+		property double TextKerning
+		{
+			double get();
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
