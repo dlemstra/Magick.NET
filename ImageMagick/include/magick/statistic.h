@@ -22,6 +22,8 @@
 extern "C" {
 #endif
 
+#include "magick/draw.h"
+
 typedef struct _ChannelStatistics
 {
   size_t
@@ -40,6 +42,21 @@ typedef struct _ChannelStatistics
     kurtosis,
     skewness;
 } ChannelStatistics;
+
+typedef struct _ChannelMoments
+{
+  double
+    I[32];
+
+  PointInfo
+    centroid,
+    ellipse_axis;
+
+  double
+    ellipse_angle,
+    ellipse_eccentricity,
+    ellipse_intensity;
+} ChannelMoments;
 
 typedef enum
 {
@@ -101,6 +118,9 @@ typedef enum
 
 extern MagickExport ChannelStatistics
   *GetImageChannelStatistics(const Image *,ExceptionInfo *);
+
+extern MagickExport ChannelMoments
+  *GetImageChannelMoments(const Image *,ExceptionInfo *);
 
 extern MagickExport Image
   *EvaluateImages(const Image *,const MagickEvaluateOperator,ExceptionInfo *),

@@ -281,6 +281,10 @@ namespace Magick
     // Long image format description
     std::string format(void) const;
 
+    // Formats the specified expression
+    // More info here: http://www.imagemagick.org/script/escape.php
+    std::string formatExpression(const std::string expression);
+
     // Gamma level of the image
     double gamma(void) const;
 
@@ -474,6 +478,18 @@ namespace Magick
     // Annotation text encoding (e.g. "UTF-16")
     void textEncoding(const std::string &encoding_);
     std::string textEncoding(void) const;
+
+    // Text inter-line spacing
+    void textInterlineSpacing(double spacing_);
+    double textInterlineSpacing(void) const;
+
+    // Text inter-word spacing
+    void textInterwordSpacing(double spacing_);
+    double textInterwordSpacing(void) const;
+
+    // Text inter-character kerning
+    void textKerning(double kerning_);
+    double textKerning(void) const;
 
     // Tile name
     void tileName(const std::string &tileName_);
@@ -1248,6 +1264,9 @@ namespace Magick
 
     // Threshold image
     void threshold(const double threshold_);
+
+    // Resize image to thumbnail size
+    void thumbnail(const Geometry &geometry_);
 
     // Transform image based on image and crop geometries
     // Crop geometry is optional

@@ -27,11 +27,11 @@ extern "C" {
 */
 #define MagickPackageName "ImageMagick"
 #define MagickCopyright  "Copyright (C) 1999-2014 ImageMagick Studio LLC"
-#define MagickSVNRevision  "13849:13851M"
-#define MagickLibVersion  0x687
-#define MagickLibVersionText  "6.8.7"
+#define MagickSVNRevision  "14253:14281M"
+#define MagickLibVersion  0x688
+#define MagickLibVersionText  "6.8.8"
 #define MagickLibVersionNumber  1,0,0
-#define MagickLibAddendum  "-9"
+#define MagickLibAddendum  "-2"
 #define MagickLibInterface  1
 #define MagickLibMinInterface  1
 #if defined(_WINDOWS)
@@ -43,16 +43,16 @@ extern "C" {
 #else
 #define MagickPlatform  "x86_64"
 #endif
-#define MagickppLibVersionText  "6.8.7"
+#define MagickppLibVersionText  "6.8.8"
 #define MagickppLibVersionNumber  3:0:0
-#define MagickppLibAddendum  "-9"
+#define MagickppLibAddendum  "-2"
 #define MagickppLibInterface  3
 #define MagickppLibMinInterface  3
-#define MagickReleaseDate  "2013-11-28"
-#define MagickChangeDate   "20131127"
+#define MagickReleaseDate  "2014-01-09"
+#define MagickChangeDate   "20131230"
 #define MagickFeatures "DPC OpenMP"
-#define MagickDelegates "bzlib djvu mpeg fftw fpx fontconfig freetype jng jp2 jpeg lcms lzma openexr pango png ps tiff webp x xml zlib"
-#define MagickHomeURL  "file:///usr/share/doc/ImageMagick-6/index.html"
+#define MagickDelegates "bzlib djvu mpeg fftw fpx fontconfig freetype jng jpeg lcms lzma openexr pango png ps tiff webp x xml zlib"
+#define MagickHomeURL  "file:///usr/local/share/doc/ImageMagick-6/index.html"
 #define MagickAuthoritativeURL  "http://www.imagemagick.org"
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
 #define MagickQuantumDepth  "Q8"

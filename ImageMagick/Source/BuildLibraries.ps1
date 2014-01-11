@@ -11,7 +11,6 @@ function Build($folder, $platform, $builds)
 	$configFile = "$folder\magick\magick-baseconfig.h"
 	$config = [IO.File]::ReadAllText($configFile, [System.Text.Encoding]::Default)
 	$config = $config.Replace("#define ProvideDllMain", "#undef ProvideDllMain")
-	$config = $config.Replace("// #undef MAGICKCORE_WMF_DELEGATE", "#define MAGICKCORE_WMF_DELEGATE")
 	$config = $config.Replace("// #define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"")
 
 	ModifyDebugInformationFormat $folder

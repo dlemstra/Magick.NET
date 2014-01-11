@@ -102,6 +102,9 @@
 #define MAGICKCORE_LCMS_DELEGATE
 #define MAGICKCORE_HAVE_LCMS2_H
 
+// Define to use the OpenJPEG library
+#define MAGICKCORE_LIBOPENJP2_DELEGATE
+
 // Define to use the Liquid Rescale library
 #define MAGICKCORE_LQR_DELEGATE
 
@@ -111,6 +114,10 @@
 // Define to use the PNG library
 #define MAGICKCORE_PNG_DELEGATE
 
+// Define to use the RSVG library
+#define MAGICKCORE_RSVG_DELEGATE
+#define MAGICKCORE_CAIRO_DELEGATE
+
 // Define to use the TIFF library
 #define MAGICKCORE_TIFF_DELEGATE
 
@@ -119,9 +126,6 @@
 
 // Define to use the Windows GDI32 library (for clipboard and emf modules)
 #define MAGICKCORE_WINGDI32_DELEGATE
-
-// Define to use the WMF library
-#define MAGICKCORE_WMF_DELEGATE
 
 // Define to use the GNOME XML library
 #define MAGICKCORE_XML_DELEGATE

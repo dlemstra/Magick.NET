@@ -132,6 +132,9 @@ namespace MagickCore
 #        if defined(MAGICKCORE_LCMS_DELEGATE)
 #          pragma comment(lib, "CORE_DB_lcms_.lib")
 #        endif
+#        if defined(MAGICKCORE_LIBOPENJP2_DELEGATE)
+#          pragma comment(lib, "CORE_DB_openjpeg_.lib")
+#        endif
 #        pragma comment(lib, "CORE_DB_libxml_.lib")
 #        if defined(MAGICKCORE_LQR_DELEGATE)
 #          pragma comment(lib, "CORE_DB_lqr_.lib")
@@ -146,6 +149,10 @@ namespace MagickCore
 #        if defined(MAGICKCORE_PNG_DELEGATE)
 #          pragma comment(lib, "CORE_DB_png_.lib")
 #        endif
+#        if defined(MAGICKCORE_RSVG_DELEGATE)
+#          pragma comment(lib, "CORE_DB_croco_.lib")
+#          pragma comment(lib, "CORE_DB_librsvg_.lib")
+#        endif
 #        if defined(MAGICKCORE_TIFF_DELEGATE)
 #          pragma comment(lib, "CORE_DB_tiff_.lib")
 #        endif
@@ -155,9 +162,6 @@ namespace MagickCore
 #        pragma comment(lib, "CORE_DB_wand_.lib")
 #        if defined(MAGICKCORE_WEBP_DELEGATE)
 #          pragma comment(lib, "CORE_DB_webp_.lib")
-#        endif
-#        if defined(MAGICKCORE_WMF_DELEGATE)
-#          pragma comment(lib, "CORE_DB_wmf_.lib")
 #        endif
 #        if defined(MAGICKCORE_X11_DELEGATE)
 #          pragma comment(lib, "CORE_DB_xlib_.lib")
@@ -190,6 +194,9 @@ namespace MagickCore
 #        if defined(MAGICKCORE_LCMS_DELEGATE)
 #          pragma comment(lib, "CORE_RL_lcms_.lib")
 #        endif
+#        if defined(MAGICKCORE_LIBOPENJP2_DELEGATE)
+#          pragma comment(lib, "CORE_RL_openjpeg_.lib")
+#        endif
 #        pragma comment(lib, "CORE_RL_libxml_.lib")
 #        if defined(MAGICKCORE_LQR_DELEGATE)
 #          pragma comment(lib, "CORE_RL_lqr_.lib")
@@ -204,6 +211,10 @@ namespace MagickCore
 #        if defined(MAGICKCORE_PNG_DELEGATE)
 #          pragma comment(lib, "CORE_RL_png_.lib")
 #        endif
+#        if defined(MAGICKCORE_RSVG_DELEGATE)
+#          pragma comment(lib, "CORE_RL_croco_.lib")
+#          pragma comment(lib, "CORE_RL_librsvg_.lib")
+#        endif
 #        if defined(MAGICKCORE_TIFF_DELEGATE)
 #          pragma comment(lib, "CORE_RL_tiff_.lib")
 #        endif
@@ -213,9 +224,6 @@ namespace MagickCore
 #        pragma comment(lib, "CORE_RL_wand_.lib")
 #        if defined(MAGICKCORE_WEBP_DELEGATE)
 #          pragma comment(lib, "CORE_RL_webp_.lib")
-#        endif
-#        if defined(MAGICKCORE_WMF_DELEGATE)
-#          pragma comment(lib, "CORE_RL_wmf_.lib")
 #        endif
 #        if defined(MAGICKCORE_X11_DELEGATE)
 #          pragma comment(lib, "CORE_RL_xlib_.lib")
@@ -970,6 +978,7 @@ namespace Magick
   using MagickCore::DestroyPixelWand;
   using MagickCore::DestroyQuantizeInfo;
   using MagickCore::DestroyQuantumInfo;
+  using MagickCore::DestroyString;
   using MagickCore::DestroyStringInfo;
   using MagickCore::DisplayImages;
   using MagickCore::DistortImage;
@@ -1052,6 +1061,9 @@ namespace Magick
   using MagickCore::DrawSetTextAntialias;
   using MagickCore::DrawSetTextDecoration;
   using MagickCore::DrawSetTextEncoding;
+  using MagickCore::DrawSetTextInterlineSpacing;
+  using MagickCore::DrawSetTextInterwordSpacing;
+  using MagickCore::DrawSetTextKerning;
   using MagickCore::DrawSetTextUnderColor;
   using MagickCore::DrawSetViewbox;
   using MagickCore::DrawSkewX;
@@ -1139,6 +1151,7 @@ namespace Magick
   using MagickCore::ImageWarning;
   using MagickCore::ImplodeImage;
   using MagickCore::ImportQuantumPixels;
+  using MagickCore::InterpretImageProperties;
   using MagickCore::InverseFourierTransformImage;
   using MagickCore::InvokeDynamicImageFilter;
   using MagickCore::IsEventLogging;

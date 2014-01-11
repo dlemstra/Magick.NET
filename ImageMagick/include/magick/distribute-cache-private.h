@@ -41,6 +41,9 @@ typedef struct _DistributeCacheInfo
 
   size_t
     signature;
+
+  MagickBooleanType
+    debug;
 } DistributeCacheInfo;
 
 extern MagickPrivate const char
