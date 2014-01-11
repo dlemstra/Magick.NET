@@ -32,7 +32,7 @@
 -->
 <logmap>
   <log events="None"/>
-  <log output="Debug, Console"/>
+  <log output="Debug"/>
   <log filename="Magick-%g.log"/>
   <log generations="3"/>
   <log limit="2000"/>

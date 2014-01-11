@@ -14,13 +14,18 @@
 #pragma once
 
 #include "Enums\LogEvents.h"
+#include "Events\LogEventArgs.h"
 #include "MagickFormatInfo.h"
 
-using namespace System::Reflection;
 using namespace System::Collections::Generic;
+using namespace System::Reflection;
+using namespace System::Runtime::InteropServices;
 
 namespace ImageMagick
 {
+	///=============================================================================================
+	[UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]
+	private delegate void MagickLogFuncDelegate(const Magick::LogEventType type, const char* text);
 	///=============================================================================================
 	///<summary>
 	/// Class that can be used to initialize Magick.NET.
@@ -30,6 +35,8 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
+		static MagickLogFuncDelegate^ _LogDelegate;
+		static EventHandler<LogEventArgs^>^ _LogEvent;
 		static initonly array<String^>^ _ImageMagickFiles = gcnew array<String^>
 		{
 			"coder.xml", "colors.xml", "configure.xml", "delegates.xml",
@@ -39,6 +46,8 @@ namespace ImageMagick
 		//===========================================================================================
 		static void CheckImageMagickFiles(String^ path);
 		//===========================================================================================
+		static void OnLog(const Magick::LogEventType type, const char* text);
+		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
@@ -47,6 +56,12 @@ namespace ImageMagick
 		static property String^ Features
 		{
 			String^ get();
+		}
+		///==========================================================================================
+		static event EventHandler<LogEventArgs^>^ Log
+		{
+			void add(EventHandler<LogEventArgs^>^ handler);
+			void remove(EventHandler<LogEventArgs^>^ handler);
 		}
 		///==========================================================================================
 		///<summary>
@@ -86,9 +101,9 @@ namespace ImageMagick
 		static void SetCacheThreshold(Magick::MagickSizeType threshold);
 		///==========================================================================================
 		///<summary>
-		/// Set the events that will be written to the log. The log will be written to the console and
-		/// the debug window in VisualStudio. To change the log settings you must use a custom log.xml
-		/// file.
+		/// Set the events that will be written to the log. The log will be written to the Log event
+		/// and the debug window in VisualStudio. To change the log settings you must use a custom
+		/// log.xml file.
 		///</summary>
 		///<param name="events">The events that will be logged.</param>
 		static void SetLogEvents(LogEvents events);

@@ -158,10 +158,10 @@
       <UniqueIdentifier>{82b2a827-7fc2-4d9d-a1f7-f78fa3bae5b6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Events">
-      <UniqueIdentifier>{d0d9a59c-4b0f-475a-be55-ff30d554c99f}</UniqueIdentifier>
+      <UniqueIdentifier>{62451a82-e6b8-4d27-baa4-a30ecaa7ff5c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Events">
-      <UniqueIdentifier>{f3106bea-6f3e-4afd-9dbf-0d26a8471a28}</UniqueIdentifier>
+      <UniqueIdentifier>{4b877b5f-f693-4866-8229-43765c48cfaf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -612,9 +612,6 @@
     <ClInclude Include="Profiles\ImageProfile.h">
       <Filter>Header Files\Profiles</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\LogEvents.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="Helpers\XmlHelper.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
@@ -668,6 +665,12 @@
     </ClInclude>
     <ClInclude Include="Enums\PixelInterpolateMethod.h">
       <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\LogEvents.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\LogEventArgs.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="Events\WarningEventArgs.h">
       <Filter>Header Files\Events</Filter>
@@ -1055,6 +1058,9 @@
     <ClCompile Include="Events\WarningEventArgs.cpp">
       <Filter>Source Files\Events</Filter>
     </ClCompile>
+    <ClCompile Include="Events\LogEventArgs.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\$(Configuration)\MagickScript.xsd">
@@ -1063,11 +1069,21 @@
     <None Include="Resources\ColorProfiles\RGB\sRGB.icm">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc" />
-    <None Include="Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc" />
-    <None Include="Resources\ColorProfiles\RGB\AdobeRGB1998.icc" />
-    <None Include="Resources\ColorProfiles\RGB\AppleRGB.icc" />
-    <None Include="Resources\ColorProfiles\RGB\ColorMatchRGB.icc" />
+    <None Include="Resources\ColorProfiles\RGB\AdobeRGB1998.icc">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\ColorProfiles\RGB\AppleRGB.icc">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\ColorProfiles\RGB\ColorMatchRGB.icc">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\Magick.NET.rc">

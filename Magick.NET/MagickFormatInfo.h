@@ -31,10 +31,8 @@ namespace ImageMagick
 		//===========================================================================================
 		String^ _Description;
 		MagickFormat _Format;
-		bool _IsMultiFrame;
-		bool _IsReadable;
-		bool _IsWritable;
 		String^ _MimeType;
+		Magick::CoderInfo* _CoderInfo;
 		//===========================================================================================
 		MagickFormatInfo() {};
 		//===========================================================================================
@@ -100,6 +98,11 @@ namespace ImageMagick
 		/// Returns a string that represents the current format.
 		///</summary>
 		virtual String^ ToString() override;
+		///==========================================================================================
+		///<summary>
+		/// Unregisters this format.
+		///</summary>
+		bool Unregister(void);
 		//===========================================================================================
 	};
 	//==============================================================================================

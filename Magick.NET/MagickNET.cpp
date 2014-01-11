@@ -30,11 +30,45 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickNET::OnLog(const Magick::LogEventType type, const char* text)
+	{
+		if (text == NULL)
+			return;
+
+		if (_LogEvent == nullptr)
+			return;
+
+		std::string message=std::string(text);
+		_LogEvent->Invoke(nullptr, gcnew LogEventArgs((LogEvents)type, Marshaller::Marshal(message)));
+	}
+	//==============================================================================================
 	String^ MagickNET::Features::get()
 	{
 		std::string features = std::string(MagickCore::GetMagickFeatures());
 
 		return Marshaller::Marshal(features);
+	}
+	//==============================================================================================
+	void MagickNET::Log::add(EventHandler<LogEventArgs^>^ handler)
+	{
+		_LogEvent += handler;
+
+		if (_LogDelegate != nullptr)
+			return;
+
+		_LogDelegate = gcnew MagickLogFuncDelegate(&OnLog);
+		MagickCore::SetLogMethod((MagickCore::MagickLogMethod)Marshal::GetFunctionPointerForDelegate(_LogDelegate).ToPointer());
+	}
+	//==============================================================================================
+	void MagickNET::Log::remove(EventHandler<LogEventArgs^>^ handler)
+	{
+		_LogEvent -= handler;
+
+		if (_LogEvent != nullptr)
+			return;
+
+		MagickCore::SetLogMethod((MagickCore::MagickLogMethod)NULL);
+		_LogDelegate = nullptr;
 	}
 	//==============================================================================================
 	IEnumerable<MagickFormatInfo^>^ MagickNET::SupportedFormats::get()

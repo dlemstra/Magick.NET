@@ -67,10 +67,8 @@ namespace ImageMagick
 
 			formatInfo->_Format = EnumHelper::Parse<MagickFormat>(name, MagickFormat::Unknown);
 			formatInfo->_Description = Marshaller::Marshal(coder->description());
-			formatInfo->_IsMultiFrame = coder->isMultiFrame();
-			formatInfo->_IsReadable = coder->isReadable();
-			formatInfo->_IsWritable = coder->isWritable();
 			formatInfo->_MimeType = Marshaller::Marshal(coder->mimeType());
+			formatInfo->_CoderInfo = new Magick::CoderInfo(*coder);
 
 			result->Add(formatInfo);
 
@@ -92,17 +90,17 @@ namespace ImageMagick
 	//==============================================================================================
 	bool MagickFormatInfo::IsMultiFrame::get()
 	{
-		return _IsMultiFrame;
+		return _CoderInfo->isMultiFrame();
 	}
 	//==============================================================================================
 	bool MagickFormatInfo::IsReadable::get()
 	{
-		return _IsReadable;
+		return _CoderInfo->isReadable();
 	}
 	//==============================================================================================
 	bool MagickFormatInfo::IsWritable::get()
 	{
-		return _IsWritable;
+		return _CoderInfo->isWritable();
 	}
 	//==============================================================================================
 	String^ MagickFormatInfo::MimeType::get()
@@ -113,7 +111,12 @@ namespace ImageMagick
 	String^ MagickFormatInfo::ToString()
 	{
 		return String::Format(CultureInfo::InvariantCulture, "{0}: {1} ({2}R{3}W{4}M)", Format, Description, 
-			_IsReadable ? "+" : "-", _IsWritable ? "+" : "-", _IsMultiFrame ? "+" : "-");
+			IsReadable ? "+" : "-", IsWritable ? "+" : "-", IsMultiFrame ? "+" : "-");
+	}
+	//==============================================================================================
+	bool MagickFormatInfo::Unregister()
+	{
+		return _CoderInfo->unregister();
 	}
 	//==============================================================================================
 }

@@ -80,13 +80,38 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_MimeType()
+		public void Test_Log()
 		{
-			MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jpg);
-			Assert.AreEqual("image/jpeg", formatInfo.MimeType);
+			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+			{
+				int count = 0;
+				EventHandler<LogEventArgs> logDelegate = delegate(object sender, LogEventArgs arguments)
+				{
+					Assert.IsNull(sender);
+					Assert.IsNotNull(arguments);
+					Assert.AreNotEqual(LogEvents.None, arguments.EventType);
+					Assert.IsNotNull(arguments.Message);
+					Assert.AreNotEqual(0, arguments.Message.Length);
 
-			formatInfo = MagickNET.GetFormatInformation(MagickFormat.Png);
-			Assert.AreEqual("image/png", formatInfo.MimeType);
+					count++;
+				};
+
+				MagickNET.Log += logDelegate;
+
+				image.Flip();
+				Assert.AreEqual(0, count);
+
+				MagickNET.SetLogEvents(LogEvents.All);
+
+				image.Flip();
+				Assert.AreNotEqual(0, count);
+
+				MagickNET.Log -= logDelegate;
+				count = 0;
+
+				image.Flip();
+				Assert.AreEqual(0, count);
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
