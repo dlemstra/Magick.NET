@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013 Dirk Lemstra
+// Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -32,7 +32,7 @@ using System.Web;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("6.0.0.0")]
-[assembly: AssemblyFileVersion("6.8.7.901")]
+[assembly: AssemblyFileVersion("6.8.8.201")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 //=================================================================================================

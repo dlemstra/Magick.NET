@@ -222,6 +222,9 @@
     <ClInclude Include="Drawables\DrawableText.h" />
     <ClInclude Include="Drawables\DrawableTextAntialias.h" />
     <ClInclude Include="Drawables\DrawableTextDecoration.h" />
+    <ClInclude Include="Drawables\DrawableTextInterlineSpacing.h" />
+    <ClInclude Include="Drawables\DrawableTextInterwordSpacing.h" />
+    <ClInclude Include="Drawables\DrawableTextKerning.h" />
     <ClInclude Include="Drawables\DrawableTextUnderColor.h" />
     <ClInclude Include="Drawables\DrawableTranslation.h" />
     <ClInclude Include="Drawables\DrawableViewbox.h" />
@@ -275,6 +278,8 @@
     <ClInclude Include="Enums\SparseColorMethod.h" />
     <ClInclude Include="Enums\TextDecoration.h" />
     <ClInclude Include="Enums\VirtualPixelMethod.h" />
+    <ClInclude Include="Events\LogEventArgs.h" />
+    <ClInclude Include="Events\WarningEventArgs.h" />
     <ClInclude Include="Exceptions\MagickErrorExceptions.h" />
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
@@ -392,6 +397,9 @@
     <ClCompile Include="Drawables\DrawableText.cpp" />
     <ClCompile Include="Drawables\DrawableTextAntialias.cpp" />
     <ClCompile Include="Drawables\DrawableTextDecoration.cpp" />
+    <ClCompile Include="Drawables\DrawableTextInterlineSpacing.cpp" />
+    <ClCompile Include="Drawables\DrawableTextInterwordSpacing.cpp" />
+    <ClCompile Include="Drawables\DrawableTextKerning.cpp" />
     <ClCompile Include="Drawables\DrawableTextUnderColor.cpp" />
     <ClCompile Include="Drawables\DrawableTranslation.cpp" />
     <ClCompile Include="Drawables\DrawableViewbox.cpp" />
@@ -417,6 +425,8 @@
     <ClCompile Include="Drawables\Paths\PathSmoothCurvetoRel.cpp" />
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.cpp" />
     <ClCompile Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.cpp" />
+    <ClCompile Include="Events\LogEventArgs.cpp" />
+    <ClCompile Include="Events\WarningEventArgs.cpp" />
     <ClCompile Include="Exceptions\Base\MagickException.cpp" />
     <ClCompile Include="Helpers\ByteConverter.cpp" />
     <ClCompile Include="Profiles\8Bim\ClipPathReader.cpp" />

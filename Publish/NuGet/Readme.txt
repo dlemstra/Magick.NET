@@ -7,7 +7,8 @@ downloads and changes to Magick.NET and ImageMagick.
 
 If you have an uncontrollable urge to give me something for the time and effort I am putting into this
 project then please buy me something from my amazon wish list or send me an amazon gift card. You can
-find my wishlist here: https://www.amazon.co.uk/registry/wishlist/1C3TE3001VQZE.
+find my wishlist here: https://www.amazon.co.uk/registry/wishlist/1C3TE3001VQZE. If you prefer to use
+PayPal then contact me on CodePlex to get my information. 
 
 WARNING: I am planning to use ImageMagick v7 instead of v6. You will be able to recognize this by the
          version number of Magick.NET. Be careful when upgrading to this version, it includes a lot of

@@ -1,6 +1,6 @@
 Breaking changes.
 
-Magick.NET 6.8.X.X:
+Magick.NET 6.8.8.201:
   - Removed MagickImage.ModulusDepth property and moved functionality to BitDepth method.
 
 Magick.NET 6.8.7.901:
