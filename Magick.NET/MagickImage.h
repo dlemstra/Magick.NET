@@ -1818,6 +1818,12 @@ namespace ImageMagick
 		TypeMetric^ FontTypeMetrics(String^ text);
 		///==========================================================================================
 		///<summary>
+		/// Formats the specified expression, more info here: http://www.imagemagick.org/script/escape.php.
+		///</summary>
+		///<exception cref="MagickException"/>
+		String^ FormatExpression(String^ expression);
+		///==========================================================================================
+		///<summary>
 		/// Frame image with the default geometry (25x25+6+6).
 		///</summary>
 		///<exception cref="MagickException"/>
@@ -2843,6 +2849,36 @@ namespace ImageMagick
 		///<param name="value">The threshold value.</param>
 		///<exception cref="MagickException"/>
 		void Threshold(double value);
+		///==========================================================================================
+		///<summary>
+		/// Resize image to thumbnail size.
+		///</summary>
+		///<param name="width">The new width.</param>
+		///<param name="height">The new height.</param>
+		///<exception cref="MagickException"/>
+		void Thumbnail(int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Resize image to thumbnail size.
+		///</summary>
+		///<param name="geometry">The geometry to use.</param>
+		///<exception cref="MagickException"/>
+		void Thumbnail(MagickGeometry^ geometry);
+		///==========================================================================================
+		///<summary>
+		/// Resize image to thumbnail size.
+		///</summary>
+		///<param name="percentage">The percentage.</param>
+		///<exception cref="MagickException"/>
+		void Thumbnail(Percentage percentage);
+		///==========================================================================================
+		///<summary>
+		/// Resize image to thumbnail size.
+		///</summary>
+		///<param name="percentageWidth">The percentage of the width.</param>
+		///<param name="percentageHeight">The percentage of the height.</param>
+		///<exception cref="MagickException"/>
+		void Thumbnail(Percentage percentageWidth, Percentage percentageHeight);
 		///==========================================================================================
 		///<summary>
 		/// Converts this instance to a base64 string.

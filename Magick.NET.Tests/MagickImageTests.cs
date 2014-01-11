@@ -81,11 +81,46 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_BitDepth()
 		{
-			MagickImage image = new MagickImage(Files.RoseSparkleGIF);
-			Assert.AreEqual(8, image.BitDepth());
+			using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
+			{
+				Assert.AreEqual(8, image.BitDepth());
 
-			image.Threshold(0.5);
-			Assert.AreEqual(1, image.BitDepth());
+				image.Threshold(0.5);
+				Assert.AreEqual(1, image.BitDepth());
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Clip()
+		{
+			using (MagickImage image = new MagickImage(Files.InvitationTif))
+			{
+				image.Clip("Pad A", false);
+				Assert.IsNotNull(image.ClipMask);
+
+				using (PixelCollection pixels = image.ClipMask.GetReadOnlyPixels())
+				{
+					Pixel pixelA = pixels.GetPixel(0, 0);
+					Pixel pixelB = pixels.GetPixel(pixels.Width - 1, pixels.Height - 1);
+					for (int i = 0; i < 3; i++)
+					{
+						Assert.AreEqual(0, pixelA.GetChannel(i));
+						Assert.AreEqual(0, pixelB.GetChannel(i));
+					}
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Clone()
+		{
+			MagickImage first = new MagickImage(Files.SnakewarePNG);
+			MagickImage second = first.Clone();
+
+			Test_Clone(first, second);
+
+			second = new MagickImage(first);
+			Test_Clone(first, second);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -139,18 +174,6 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_Clone()
-		{
-			MagickImage first = new MagickImage(Files.SnakewarePNG);
-			MagickImage second = first.Clone();
-
-			Test_Clone(first, second);
-
-			second = new MagickImage(first);
-			Test_Clone(first, second);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
 		public void Test_Compare()
 		{
 			MagickImage first = new MagickImage(Files.SnakewarePNG);
@@ -200,6 +223,27 @@ namespace Magick.NET.Tests
 				image.Extent(100, 100, Gravity.Center);
 				Assert.AreEqual(100, image.Width);
 				Assert.AreEqual(100, image.Height);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_FormatExpression()
+		{
+			using (MagickImage image = new MagickImage(Files.RedPNG))
+			{
+				ExceptionAssert.Throws<ArgumentNullException>(delegate()
+				{
+					image.FormatExpression(null);
+				});
+
+				Assert.AreEqual("FOO", image.FormatExpression("FOO"));
+				Assert.AreEqual(null, image.FormatExpression("%FOO"));
+				Assert.AreEqual("fd8c44fe1b88ad5e28e26bfd11da116a48bceca4be53cba317c93406e1a85f06", image.FormatExpression("%#"));
+			}
+
+			using (MagickImage image = new MagickImage(Files.InvitationTif))
+			{
+				Assert.AreEqual("sRGB IEC61966-2.1", image.FormatExpression("%[profile:icc]"));
 			}
 		}
 		//===========================================================================================
@@ -536,6 +580,17 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Thumbnail()
+		{
+			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+			{
+				image.Thumbnail(100, 100);
+				Assert.AreEqual(image.Width, 100);
+				Assert.AreEqual(image.Height, 58);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Warning()
 		{
 			int count = 0;
@@ -554,7 +609,7 @@ namespace Magick.NET.Tests
 			{
 				image.Warning += warningDelegate;
 				MagickWarningException exception = image.Read(Files.EightBimTIF);
-				
+
 				Assert.IsNotNull(exception);
 				Assert.AreNotEqual(0, count);
 

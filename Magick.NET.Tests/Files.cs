@@ -84,6 +84,14 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		public static string InvitationTif
+		{
+			get
+			{
+				return _Root + @"Images\Invitation.tif";
+			}
+		}
+		//===========================================================================================
 		public static string MagickNETIconPNG
 		{
 			get

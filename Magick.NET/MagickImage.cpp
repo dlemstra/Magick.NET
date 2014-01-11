@@ -2744,6 +2744,24 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	String^ MagickImage::FormatExpression(String^ expression)
+	{
+		Throw::IfNullOrEmpty("expression", expression);
+
+		try
+		{
+			std::string magickExpression;
+			Marshaller::Marshal(expression, magickExpression);
+			std::string result = Value->formatExpression(magickExpression);
+			return Marshaller::Marshal(result);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+			return nullptr;
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Frame()
 	{
 		Frame(_DefaultFrameGeometry);
@@ -3506,7 +3524,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::QuantumOperator(Channels channels, MagickGeometry^ geometry,  
+	void MagickImage::QuantumOperator(Channels channels, MagickGeometry^ geometry,
 		EvaluateOperator evaluateOperator, double value)
 	{
 		Throw::IfNull("geometry", geometry);
@@ -4225,6 +4243,46 @@ namespace ImageMagick
 		{
 			HandleException(exception);
 		}
+	}
+	//==============================================================================================
+	void MagickImage::Thumbnail(int width, int height)
+	{
+		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		Thumbnail(geometry);
+	}
+	//==============================================================================================
+	void MagickImage::Thumbnail(MagickGeometry^ geometry)
+	{
+		Throw::IfNull("geometry", geometry);
+
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
+		try
+		{
+			Value->thumbnail(*magickGeometry);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Thumbnail(Percentage percentage)
+	{
+		Thumbnail(percentage, percentage);
+	}
+	//==============================================================================================
+	void MagickImage::Thumbnail(Percentage percentageWidth, Percentage percentageHeight)
+	{
+		Throw::IfNegative("percentageWidth", percentageWidth);
+		Throw::IfNegative("percentageHeight", percentageHeight);
+
+		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
+		Thumbnail(geometry);
 	}
 	//==============================================================================================
 	String^ MagickImage::ToBase64()
