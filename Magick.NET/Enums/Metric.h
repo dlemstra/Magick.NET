@@ -33,7 +33,8 @@ namespace ImageMagick
 		RootMeanSquaredError = Magick::RootMeanSquaredErrorMetric,
 		NormalizedCrossCorrelationError = Magick::NormalizedCrossCorrelationErrorMetric,
 		FuzzError = Magick::FuzzErrorMetric,
-		UndefinedError = Magick::UndefinedErrorMetric
+		UndefinedError = Magick::UndefinedErrorMetric,
+		PerceptualHashErrorMetric = Magick::PerceptualHashErrorMetric
 	};
 	//==============================================================================================
 }
