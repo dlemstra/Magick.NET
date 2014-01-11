@@ -34,6 +34,7 @@ namespace ImageMagick
 		//===========================================================================================
 		List<MagickImage^>^ _Images;
 		MagickWarningException^ _ReadWarning;
+		EventHandler<WarningEventArgs^>^ _WarningEvent;
 		//===========================================================================================
 		!MagickImageCollection() 
 		{ 
@@ -167,7 +168,11 @@ namespace ImageMagick
 		///<summary>
 		/// Event that will we raised when a warning is thrown by ImageMagick.
 		///</summary>
-		event EventHandler<WarningEventArgs^>^ Warning;
+		event EventHandler<WarningEventArgs^>^ Warning
+		{
+			void add(EventHandler<WarningEventArgs^>^ handler);
+			void remove(EventHandler<WarningEventArgs^>^ handler);
+		}
 		///==========================================================================================
 		///<summary>
 		/// Adds an image to the collection.

@@ -88,7 +88,8 @@ namespace ImageMagick
 		if (warning == nullptr)
 			throw exception;
 
-		Warning(this, gcnew WarningEventArgs(warning));
+		if (_WarningEvent != nullptr)
+			_WarningEvent->Invoke(this, gcnew WarningEventArgs(warning));
 	}
 	//==============================================================================================
 	MagickWarningException^ MagickImage::HandleReadException(MagickException^ exception)
@@ -101,7 +102,9 @@ namespace ImageMagick
 			throw exception;
 
 		_ReadWarning = warning;
-		Warning(this, gcnew WarningEventArgs(warning));
+		if (_WarningEvent != nullptr)
+			_WarningEvent->Invoke(this, gcnew WarningEventArgs(warning));
+
 		return warning;
 	}
 	//==============================================================================================
@@ -1125,6 +1128,16 @@ namespace ImageMagick
 		Throw::IfNull("image", image);
 
 		return image->ToByteArray();
+	}
+	//==============================================================================================
+	void MagickImage::Warning::add(EventHandler<WarningEventArgs^>^ handler)
+	{
+		_WarningEvent += handler;
+	}
+	//==============================================================================================
+	void MagickImage::Warning::remove(EventHandler<WarningEventArgs^>^ handler)
+	{
+		_WarningEvent -= handler;
 	}
 	//==============================================================================================
 	void MagickImage::AdaptiveBlur()

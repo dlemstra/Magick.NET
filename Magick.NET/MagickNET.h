@@ -30,7 +30,6 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		static bool _ThrowWarnings = false;
 		static initonly array<String^>^ _ImageMagickFiles = gcnew array<String^>
 		{
 			"coder.xml", "colors.xml", "configure.xml", "delegates.xml",

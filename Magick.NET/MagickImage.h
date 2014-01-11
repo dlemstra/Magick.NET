@@ -83,6 +83,7 @@ namespace ImageMagick
 		//===========================================================================================
 		static initonly MagickGeometry^ _DefaultFrameGeometry = gcnew MagickGeometry(25, 25, 6, 6);
 		MagickWarningException^ _ReadWarning;
+		EventHandler<WarningEventArgs^>^ _WarningEvent;
 		//===========================================================================================
 		template<class TImageProfile>
 		TImageProfile^ CreateProfile(String^ name);
@@ -838,7 +839,11 @@ namespace ImageMagick
 		///<summary>
 		/// Event that will we raised when a warning is thrown by ImageMagick.
 		///</summary>
-		event EventHandler<WarningEventArgs^>^ Warning;
+		event EventHandler<WarningEventArgs^>^ Warning
+		{
+			void add(EventHandler<WarningEventArgs^>^ handler);
+			void remove(EventHandler<WarningEventArgs^>^ handler);
+		}
 		///==========================================================================================
 		///<summary>
 		/// Adaptive-blur image with the default blur factor (0x1).

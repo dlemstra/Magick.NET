@@ -73,7 +73,8 @@ namespace ImageMagick
 		if (warning == nullptr)
 			throw exception;
 
-		Warning(this, gcnew WarningEventArgs(warning));
+		if (_WarningEvent != nullptr)
+			_WarningEvent->Invoke(this, gcnew WarningEventArgs(warning));
 	}
 	//==============================================================================================
 	void MagickImageCollection::HandleReadException(MagickException^ exception)
@@ -86,7 +87,8 @@ namespace ImageMagick
 			throw exception;
 
 		_ReadWarning = warning;
-		Warning(this, gcnew WarningEventArgs(warning));
+		if (_WarningEvent != nullptr)
+			_WarningEvent->Invoke(this, gcnew WarningEventArgs(warning));
 	}
 	//==============================================================================================
 	void MagickImageCollection::Optimize(LayerMethod optizeMethod)
@@ -223,6 +225,16 @@ namespace ImageMagick
 	MagickWarningException^ MagickImageCollection::ReadWarning::get()
 	{
 		return _ReadWarning;
+	}
+	//==============================================================================================
+	void MagickImageCollection::Warning::add(EventHandler<WarningEventArgs^>^ handler)
+	{
+		_WarningEvent += handler;
+	}
+	//==============================================================================================
+	void MagickImageCollection::Warning::remove(EventHandler<WarningEventArgs^>^ handler)
+	{
+		_WarningEvent -= handler;
 	}
 	//==============================================================================================
 	void MagickImageCollection::Add(MagickImage^ item)
