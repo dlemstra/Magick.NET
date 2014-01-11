@@ -446,7 +446,6 @@
 			<xs:enumeration value="Inline" />
 			<xs:enumeration value="Ipl" />
 			<xs:enumeration value="Isobrl" />
-			<xs:enumeration value="J2c" />
 			<xs:enumeration value="J2k" />
 			<xs:enumeration value="Jbg" />
 			<xs:enumeration value="Jbig" />
@@ -456,7 +455,7 @@
 			<xs:enumeration value="Jpc" />
 			<xs:enumeration value="Jpeg" />
 			<xs:enumeration value="Jpg" />
-			<xs:enumeration value="Jpx" />
+			<xs:enumeration value="Jpt" />
 			<xs:enumeration value="K" />
 			<xs:enumeration value="K25" />
 			<xs:enumeration value="Kdc" />
@@ -510,7 +509,6 @@
 			<xs:enumeration value="Pfb" />
 			<xs:enumeration value="Pfm" />
 			<xs:enumeration value="Pgm" />
-			<xs:enumeration value="Pgx" />
 			<xs:enumeration value="Picon" />
 			<xs:enumeration value="Pict" />
 			<xs:enumeration value="Pix" />
@@ -579,9 +577,7 @@
 			<xs:enumeration value="Wbmp" />
 			<xs:enumeration value="WebP" />
 			<xs:enumeration value="Wmf" />
-			<xs:enumeration value="Wmfwin32" />
 			<xs:enumeration value="Wmv" />
-			<xs:enumeration value="Wmz" />
 			<xs:enumeration value="Wpg" />
 			<xs:enumeration value="X3f" />
 			<xs:enumeration value="Xbm" />
@@ -1001,11 +997,6 @@
 						<xs:attribute name="value" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="modulusDepth">
-					<xs:complexType>
-						<xs:attribute name="value" use="required" type="xs:int" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="orientation">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="OrientationType" />
@@ -1098,6 +1089,21 @@
 						<xs:attribute name="value" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="textInterlineSpacing">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="textInterwordSpacing">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="textKerning">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="tileName">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="xs:string" />
@@ -1173,7 +1179,7 @@
 				<xs:element name="autoOrient" type="empty" />
 				<xs:element name="bitDepth">
 					<xs:complexType>
-						<xs:attribute name="channels" use="required" type="Channels" />
+						<xs:attribute name="channels" type="Channels" />
 						<xs:attribute name="value" use="required" type="xs:int" />
 					</xs:complexType>
 				</xs:element>
@@ -1726,6 +1732,16 @@
 						<xs:attribute name="value" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="thumbnail">
+					<xs:complexType>
+						<xs:attribute name="geometry" type="geometry" />
+						<xs:attribute name="height" type="xs:int" />
+						<xs:attribute name="percentage" type="xs:double" />
+						<xs:attribute name="percentageHeight" type="xs:double" />
+						<xs:attribute name="percentageWidth" type="xs:double" />
+						<xs:attribute name="width" type="xs:int" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="transform">
 					<xs:complexType>
 						<xs:attribute name="cropGeometry" type="geometry" />
@@ -2104,6 +2120,21 @@
 				<xs:element name="textDecoration">
 					<xs:complexType>
 						<xs:attribute name="decoration" use="required" type="TextDecoration" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="textInterlineSpacing">
+					<xs:complexType>
+						<xs:attribute name="spacing" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="textInterwordSpacing">
+					<xs:complexType>
+						<xs:attribute name="spacing" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="textKerning">
+					<xs:complexType>
+						<xs:attribute name="kerning" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="textUnderColor">

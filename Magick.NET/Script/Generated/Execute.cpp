@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013 Dirk Lemstra <http://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -53,6 +53,9 @@
 #include "..\..\Drawables\DrawableText.h"
 #include "..\..\Drawables\DrawableTextAntialias.h"
 #include "..\..\Drawables\DrawableTextDecoration.h"
+#include "..\..\Drawables\DrawableTextInterlineSpacing.h"
+#include "..\..\Drawables\DrawableTextInterwordSpacing.h"
+#include "..\..\Drawables\DrawableTextKerning.h"
 #include "..\..\Drawables\DrawableTextUnderColor.h"
 #include "..\..\Drawables\DrawableTranslation.h"
 #include "..\..\Drawables\DrawableViewbox.h"
@@ -119,7 +122,6 @@ namespace ImageMagick
 		result["isMonochrome"] = gcnew ExecuteElementImage(MagickScript::ExecuteIsMonochrome);
 		result["label"] = gcnew ExecuteElementImage(MagickScript::ExecuteLabel);
 		result["matteColor"] = gcnew ExecuteElementImage(MagickScript::ExecuteMatteColor);
-		result["modulusDepth"] = gcnew ExecuteElementImage(MagickScript::ExecuteModulusDepth);
 		result["orientation"] = gcnew ExecuteElementImage(MagickScript::ExecuteOrientation);
 		result["page"] = gcnew ExecuteElementImage(MagickScript::ExecutePage);
 		result["quality"] = gcnew ExecuteElementImage(MagickScript::ExecuteQuality);
@@ -137,6 +139,9 @@ namespace ImageMagick
 		result["strokeMiterLimit"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrokeMiterLimit);
 		result["strokeWidth"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrokeWidth);
 		result["textEncoding"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextEncoding);
+		result["textInterlineSpacing"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextInterlineSpacing);
+		result["textInterwordSpacing"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextInterwordSpacing);
+		result["textKerning"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextKerning);
 		result["tileName"] = gcnew ExecuteElementImage(MagickScript::ExecuteTileName);
 		result["verbose"] = gcnew ExecuteElementImage(MagickScript::ExecuteVerbose);
 		result["virtualPixelMethod"] = gcnew ExecuteElementImage(MagickScript::ExecuteVirtualPixelMethod);
@@ -233,6 +238,7 @@ namespace ImageMagick
 		result["strip"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrip);
 		result["swirl"] = gcnew ExecuteElementImage(MagickScript::ExecuteSwirl);
 		result["threshold"] = gcnew ExecuteElementImage(MagickScript::ExecuteThreshold);
+		result["thumbnail"] = gcnew ExecuteElementImage(MagickScript::ExecuteThumbnail);
 		result["transform"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransform);
 		result["transformOrigin"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformOrigin);
 		result["transformReset"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformReset);
@@ -329,6 +335,9 @@ namespace ImageMagick
 		result["text"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteText);
 		result["textAntialias"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextAntialias);
 		result["textDecoration"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextDecoration);
+		result["textInterlineSpacing"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextInterlineSpacing);
+		result["textInterwordSpacing"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextInterwordSpacing);
+		result["textKerning"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextKerning);
 		result["textUnderColor"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextUnderColor);
 		result["translation"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTranslation);
 		result["viewbox"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteViewbox);
@@ -511,10 +520,6 @@ namespace ImageMagick
 	{
 		image->MatteColor = XmlHelper::GetAttribute<MagickColor^>(element, "value");
 	}
-	void MagickScript::ExecuteModulusDepth(XmlElement^ element, MagickImage^ image)
-	{
-		//image->ModulusDepth = XmlHelper::GetAttribute<int>(element, "value");
-	}
 	void MagickScript::ExecuteOrientation(XmlElement^ element, MagickImage^ image)
 	{
 		image->Orientation = XmlHelper::GetAttribute<OrientationType>(element, "value");
@@ -586,6 +591,18 @@ namespace ImageMagick
 	void MagickScript::ExecuteTextEncoding(XmlElement^ element, MagickImage^ image)
 	{
 		image->TextEncoding = XmlHelper::GetAttribute<Encoding^>(element, "value");
+	}
+	void MagickScript::ExecuteTextInterlineSpacing(XmlElement^ element, MagickImage^ image)
+	{
+		image->TextInterlineSpacing = XmlHelper::GetAttribute<double>(element, "value");
+	}
+	void MagickScript::ExecuteTextInterwordSpacing(XmlElement^ element, MagickImage^ image)
+	{
+		image->TextInterwordSpacing = XmlHelper::GetAttribute<double>(element, "value");
+	}
+	void MagickScript::ExecuteTextKerning(XmlElement^ element, MagickImage^ image)
+	{
+		image->TextKerning = XmlHelper::GetAttribute<double>(element, "value");
 	}
 	void MagickScript::ExecuteTileName(XmlElement^ element, MagickImage^ image)
 	{
@@ -755,9 +772,20 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteBitDepth(XmlElement^ element, MagickImage^ image)
 	{
-		Channels channels_ = XmlHelper::GetAttribute<Channels>(element, "channels");
-		int value_ = XmlHelper::GetAttribute<int>(element, "value");
-		image->BitDepth(channels_, value_);
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "channels")
+				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+			else if (attribute->Name == "value")
+				arguments["value"] = XmlHelper::GetAttribute<int>(element, "value");
+		}
+		if (OnlyContains(arguments, "channels", "value"))
+			image->BitDepth((Channels)arguments["channels"], (int)arguments["value"]);
+		else if (OnlyContains(arguments, "value"))
+			image->BitDepth((int)arguments["value"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'bitDepth', allowed combinations are: [channels, value] [value]");
 	}
 	void MagickScript::ExecuteBlackThreshold(XmlElement^ element, MagickImage^ image)
 	{
@@ -1935,6 +1963,35 @@ namespace ImageMagick
 		double value_ = XmlHelper::GetAttribute<double>(element, "value");
 		image->Threshold(value_);
 	}
+	void MagickScript::ExecuteThumbnail(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+			else if (attribute->Name == "height")
+				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+			else if (attribute->Name == "percentage")
+				arguments["percentage"] = XmlHelper::GetAttribute<Percentage>(element, "percentage");
+			else if (attribute->Name == "percentageHeight")
+				arguments["percentageHeight"] = XmlHelper::GetAttribute<Percentage>(element, "percentageHeight");
+			else if (attribute->Name == "percentageWidth")
+				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
+			else if (attribute->Name == "width")
+				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+		}
+		if (OnlyContains(arguments, "geometry"))
+			image->Thumbnail((MagickGeometry^)arguments["geometry"]);
+		else if (OnlyContains(arguments, "percentage"))
+			image->Thumbnail((Percentage)arguments["percentage"]);
+		else if (OnlyContains(arguments, "percentageWidth", "percentageHeight"))
+			image->Thumbnail((Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
+		else if (OnlyContains(arguments, "width", "height"))
+			image->Thumbnail((int)arguments["width"], (int)arguments["height"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'thumbnail', allowed combinations are: [geometry] [percentage] [percentageWidth, percentageHeight] [width, height]");
+	}
 	void MagickScript::ExecuteTransform(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -2461,6 +2518,21 @@ namespace ImageMagick
 	{
 		TextDecoration decoration_ = XmlHelper::GetAttribute<TextDecoration>(element, "decoration");
 		drawables->Add(gcnew DrawableTextDecoration(decoration_));
+	}
+	void MagickScript::ExecuteTextInterlineSpacing(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double spacing_ = XmlHelper::GetAttribute<double>(element, "spacing");
+		drawables->Add(gcnew DrawableTextInterlineSpacing(spacing_));
+	}
+	void MagickScript::ExecuteTextInterwordSpacing(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double spacing_ = XmlHelper::GetAttribute<double>(element, "spacing");
+		drawables->Add(gcnew DrawableTextInterwordSpacing(spacing_));
+	}
+	void MagickScript::ExecuteTextKerning(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double kerning_ = XmlHelper::GetAttribute<double>(element, "kerning");
+		drawables->Add(gcnew DrawableTextKerning(kerning_));
 	}
 	void MagickScript::ExecuteTextUnderColor(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
