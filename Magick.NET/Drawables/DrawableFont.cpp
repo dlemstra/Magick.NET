@@ -30,8 +30,8 @@ namespace ImageMagick
 		Throw::IfNullOrEmpty("family", family);
 
 		std::string font;
-		BaseValue = new Magick::DrawableFont(Marshaller::Marshal(family, font), (MagickCore::StyleType)style,
-			(int)weight, (MagickCore::StretchType)stretch);
+		BaseValue = new Magick::DrawableFont(Marshaller::Marshal(family, font), (Magick::StyleType)style,
+			(int)weight, (Magick::StretchType)stretch);
 	}
 	//==============================================================================================
 	String^ DrawableFont::Family::get()

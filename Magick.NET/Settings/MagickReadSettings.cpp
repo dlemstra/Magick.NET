@@ -34,7 +34,7 @@ namespace ImageMagick
 	void MagickReadSettings::ApplyColorSpace(MagickCore::ImageInfo *imageInfo)
 	{
 		if (ColorSpace.HasValue)
-			imageInfo->colorspace = (MagickCore::ColorspaceType)ColorSpace.Value;
+			imageInfo->colorspace = (Magick::ColorspaceType)ColorSpace.Value;
 	}
 	//==============================================================================================
 	void MagickReadSettings::ApplyDensity(MagickCore::ImageInfo *imageInfo)

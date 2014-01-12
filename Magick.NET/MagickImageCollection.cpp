@@ -287,7 +287,7 @@ namespace ImageMagick
 
 			Magick::Image combinedImage;
 			Magick::combineImages(&combinedImage, images->begin(), images->end(),
-				(MagickCore::ChannelType)channels);
+				(Magick::ChannelType)channels);
 
 			return gcnew MagickImage(combinedImage);
 		}
@@ -374,7 +374,7 @@ namespace ImageMagick
 
 			Magick::Image evaluatedImage;
 			Magick::evaluateImages(&evaluatedImage, images->begin(), images->end(),
-				(MagickCore::MagickEvaluateOperator)evaluateOperator);
+				(Magick::MagickEvaluateOperator)evaluateOperator);
 
 			return gcnew MagickImage(evaluatedImage);
 		}

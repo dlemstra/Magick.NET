@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableStrokeLineCap::DrawableStrokeLineCap(ImageMagick::LineCap lineCap)
 	{
-		BaseValue = new Magick::DrawableStrokeLineCap((MagickCore::LineCap)lineCap);
+		BaseValue = new Magick::DrawableStrokeLineCap((Magick::LineCap)lineCap);
 	}
 	//==============================================================================================
 	LineCap DrawableStrokeLineCap::LineCap::get()
@@ -29,7 +29,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void DrawableStrokeLineCap::LineCap::set(ImageMagick::LineCap value)
 	{
-		Value->linecap((MagickCore::LineCap)value);
+		Value->linecap((Magick::LineCap)value);
 	}
 	//==============================================================================================
 }

@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableFillRule::DrawableFillRule(ImageMagick::FillRule fillRule)
 	{
-		BaseValue = new Magick::DrawableFillRule((MagickCore::FillRule)fillRule);
+		BaseValue = new Magick::DrawableFillRule((Magick::FillRule)fillRule);
 	}
 	//==============================================================================================
 	ImageMagick::FillRule DrawableFillRule::FillRule::get()
@@ -29,7 +29,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void DrawableFillRule::FillRule::set(ImageMagick::FillRule value)
 	{
-		Value->fillRule((MagickCore::FillRule)value);
+		Value->fillRule((Magick::FillRule)value);
 	}
 	//==============================================================================================
 }

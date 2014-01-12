@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableGravity::DrawableGravity(ImageMagick::Gravity gravity)
 	{
-		BaseValue = new Magick::DrawableGravity((MagickCore::GravityType)gravity);
+		BaseValue = new Magick::DrawableGravity((Magick::GravityType)gravity);
 	}
 	//==============================================================================================
 	ImageMagick::Gravity DrawableGravity::Gravity::get()
@@ -29,7 +29,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void DrawableGravity::Gravity::set(ImageMagick::Gravity value)
 	{
-		Value->gravity((MagickCore::GravityType)value);
+		Value->gravity((Magick::GravityType)value);
 	}
 	//==============================================================================================
 }

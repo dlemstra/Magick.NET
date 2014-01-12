@@ -25,7 +25,7 @@ namespace ImageMagick
 			if (_Channels->ContainsKey(channel))
 				continue;
 
-			Magick::ChannelStatistics channelStatistics = statistics->channel((MagickCore::ChannelType)channel);
+			Magick::ChannelStatistics channelStatistics = statistics->channel((Magick::ChannelType)channel);
 
 			if (!channelStatistics.isValid())
 				continue;

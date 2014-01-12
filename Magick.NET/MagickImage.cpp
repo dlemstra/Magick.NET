@@ -163,7 +163,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->randomThresholdChannel(*geometry, (MagickCore::ChannelType)channels);
+			Value->randomThresholdChannel(*geometry, (Magick::ChannelType)channels);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -401,7 +401,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::ClassType::set(ImageMagick::ClassType value)
 	{
-		return Value->classType((MagickCore::ClassType)value);
+		return Value->classType((Magick::ClassType)value);
 	}
 	//==============================================================================================
 	MagickImage^ MagickImage::ClipMask::get()
@@ -469,7 +469,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->colorSpace((MagickCore::ColorspaceType)value);
+			Value->colorSpace((Magick::ColorspaceType)value);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -484,7 +484,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::ColorType::set(ImageMagick::ColorType value)
 	{
-		Value->type((MagickCore::ImageType)value);
+		Value->type((Magick::ImageType)value);
 	}
 	//==============================================================================================
 	String^ MagickImage::Comment::get()
@@ -515,7 +515,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::CompressionMethod::set(ImageMagick::CompressionMethod value)
 	{
-		Value->compressType((MagickCore::CompressionType)value);
+		Value->compressType((Magick::CompressionType)value);
 	}
 	//==============================================================================================
 	bool MagickImage::Debug::get()
@@ -560,7 +560,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Endian::set(ImageMagick::Endian value)
 	{
-		Value->endian((MagickCore::EndianType)value);
+		Value->endian((Magick::EndianType)value);
 	}
 	//==============================================================================================
 	int MagickImage::FileSize::get()
@@ -852,7 +852,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::QuantizeColorSpace::set(ImageMagick::ColorSpace value)
 	{
-		return Value->quantizeColorSpace((MagickCore::ColorspaceType)value);
+		return Value->quantizeColorSpace((Magick::ColorspaceType)value);
 	}
 	//==============================================================================================
 	bool MagickImage::QuantizeDither::get()
@@ -887,7 +887,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::RenderingIntent::set(ImageMagick::RenderingIntent value)
 	{
-		return Value->renderingIntent((MagickCore::RenderingIntent)value);
+		return Value->renderingIntent((Magick::RenderingIntent)value);
 	}
 	//==============================================================================================
 	Resolution MagickImage::ResolutionUnits::get()
@@ -897,7 +897,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::ResolutionUnits::set(Resolution value)
 	{
-		return Value->resolutionUnits((MagickCore::ResolutionType)value);
+		return Value->resolutionUnits((Magick::ResolutionType)value);
 	}
 	//==============================================================================================
 	double MagickImage::ResolutionX::get()
@@ -965,7 +965,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::StrokeLineCap::set(LineCap value)
 	{
-		Value->strokeLineCap((MagickCore::LineCap)value);
+		Value->strokeLineCap((Magick::LineCap)value);
 	}
 	//==============================================================================================
 	LineJoin MagickImage::StrokeLineJoin::get()
@@ -975,7 +975,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::StrokeLineJoin::set(LineJoin value)
 	{
-		Value->strokeLineJoin((MagickCore::LineJoin)value);
+		Value->strokeLineJoin((Magick::LineJoin)value);
 	}
 	//==============================================================================================
 	int MagickImage::StrokeMiterLimit::get()
@@ -1103,7 +1103,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::VirtualPixelMethod::set(ImageMagick::VirtualPixelMethod value)
 	{
-		Value->virtualPixelMethod((MagickCore::VirtualPixelMethod)value);
+		Value->virtualPixelMethod((Magick::VirtualPixelMethod)value);
 	}
 	//==============================================================================================
 	int MagickImage::Width::get()
@@ -1239,7 +1239,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->adaptiveSharpenChannel((MagickCore::ChannelType)channels, radius, sigma);
+			Value->adaptiveSharpenChannel((Magick::ChannelType)channels, radius, sigma);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1326,7 +1326,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->alphaChannel((MagickCore::AlphaChannelType)option);
+			Value->alphaChannel((Magick::AlphaChannelType)option);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1436,7 +1436,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->autoGammaChannel((MagickCore::ChannelType)channels);
+			Value->autoGammaChannel((Magick::ChannelType)channels);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1460,7 +1460,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->autoLevelChannel((MagickCore::ChannelType)channels);
+			Value->autoLevelChannel((Magick::ChannelType)channels);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1489,7 +1489,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			return Convert::ToInt32(Value->channelDepth((MagickCore::ChannelType)channels));
+			return Convert::ToInt32(Value->channelDepth((Magick::ChannelType)channels));
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1502,7 +1502,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->channelDepth((MagickCore::ChannelType)channels, value);
+			Value->channelDepth((Magick::ChannelType)channels, value);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1539,7 +1539,7 @@ namespace ImageMagick
 		{
 			std::string threshold_;
 			Marshaller::Marshal(threshold.ToString(), threshold_);
-			Value->blackThresholdChannel((MagickCore::ChannelType)channels, threshold_);
+			Value->blackThresholdChannel((Magick::ChannelType)channels, threshold_);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1637,7 +1637,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->brightnessContrastChannel((MagickCore::ChannelType)channels, brightness.ToInt32(), contrast.ToInt32());
+			Value->brightnessContrastChannel((Magick::ChannelType)channels, brightness.ToInt32(), contrast.ToInt32());
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1791,7 +1791,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->clampChannel((MagickCore::ChannelType)channels);
+			Value->clampChannel((Magick::ChannelType)channels);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1852,7 +1852,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->clutChannel((MagickCore::ChannelType)channels, *image->Value);
+			Value->clutChannel((Magick::ChannelType)channels, *image->Value);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1979,7 +1979,7 @@ namespace ImageMagick
 
 		try
 		{
-			return Value->compareChannel((MagickCore::ChannelType)channels, *image->Value, (MagickCore::MetricType)metric);
+			return Value->compareChannel((Magick::ChannelType)channels, *image->Value, (Magick::MetricType)metric);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2001,7 +2001,7 @@ namespace ImageMagick
 		try
 		{
 			double distortion = 0.0;
-			Magick::Image result = Value->compareChannel((MagickCore::ChannelType)channels, *image->Value, (MagickCore::MetricType)metric, &distortion);
+			Magick::Image result = Value->compareChannel((Magick::ChannelType)channels, *image->Value, (Magick::MetricType)metric, &distortion);
 			if (result.isValid())
 				difference->ReplaceValue(result);
 			return distortion;
@@ -2046,7 +2046,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->composite(*(image->Value), x, y, (MagickCore::CompositeOperator)compose);
+			Value->composite(*(image->Value), x, y, (Magick::CompositeOperator)compose);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2076,7 +2076,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->composite(*(image->Value), *magickGeometry, (MagickCore::CompositeOperator)compose);
+			Value->composite(*(image->Value), *magickGeometry, (Magick::CompositeOperator)compose);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2107,7 +2107,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->composite(*(image->Value), (MagickCore::GravityType)gravity, (MagickCore::CompositeOperator)compose);
+			Value->composite(*(image->Value), (Magick::GravityType)gravity, (Magick::CompositeOperator)compose);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2293,7 +2293,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->distort((MagickCore::DistortImageMethod)method, arguments->Length, distortArguments, bestfit);
+			Value->distort((Magick::DistortImageMethod)method, arguments->Length, distortArguments, bestfit);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2507,7 +2507,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->extent(*magickGeometry, (MagickCore::GravityType)gravity);
+			Value->extent(*magickGeometry, (Magick::GravityType)gravity);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2529,7 +2529,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->extent(*magickGeometry, *color, (MagickCore::GravityType)gravity);
+			Value->extent(*magickGeometry, *color, (Magick::GravityType)gravity);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2558,7 +2558,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->floodFillOpacity(x, y, alpha, (MagickCore::PaintMethod)paintMethod);
+			Value->floodFillOpacity(x, y, alpha, (Magick::PaintMethod)paintMethod);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2857,7 +2857,7 @@ namespace ImageMagick
 		{
 			std::string fxExpression;
 			Marshaller::Marshal(expression, fxExpression);
-			Value->fx(fxExpression, (MagickCore::ChannelType)channels);
+			Value->fx(fxExpression, (Magick::ChannelType)channels);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2911,7 +2911,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->gaussianBlurChannel((MagickCore::ChannelType)channels, width, sigma);
+			Value->gaussianBlurChannel((Magick::ChannelType)channels, width, sigma);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -3133,7 +3133,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->levelChannel((MagickCore::ChannelType)channels, blackPoint, whitePoint, midpoint);
+			Value->levelChannel((Magick::ChannelType)channels, blackPoint, whitePoint, midpoint);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -3197,7 +3197,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->levelColorsChannel((MagickCore::ChannelType)channels, *black, *white, invert);
+			Value->levelColorsChannel((Magick::ChannelType)channels, *black, *white, invert);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -3220,7 +3220,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->levelColorsChannel((MagickCore::ChannelType)channels, *black, *white);
+			Value->levelColorsChannel((Magick::ChannelType)channels, *black, *white);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -3387,7 +3387,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->negateChannel((MagickCore::ChannelType)channels, onlyGrayscale);
+			Value->negateChannel((Magick::ChannelType)channels, onlyGrayscale);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -3463,7 +3463,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->perceptibleChannel((MagickCore::ChannelType)channels, epsilon);
+			Value->perceptibleChannel((Magick::ChannelType)channels, epsilon);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -3509,7 +3509,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->posterizeChannel((MagickCore::ChannelType)channels, levels, dither);
+			Value->posterizeChannel((Magick::ChannelType)channels, levels, dither);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -3545,8 +3545,8 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->quantumOperator((MagickCore::ChannelType)channels,
-				(MagickCore::MagickEvaluateOperator)evaluateOperator, value);
+			Value->quantumOperator((Magick::ChannelType)channels,
+				(Magick::MagickEvaluateOperator)evaluateOperator, value);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -3563,7 +3563,7 @@ namespace ImageMagick
 		try
 		{
 			Value->quantumOperator(geometry->X, geometry->Y, geometry->Width, geometry->Height,
-				(MagickCore::ChannelType)channels, (MagickCore::MagickEvaluateOperator)evaluateOperator,
+				(Magick::ChannelType)channels, (Magick::MagickEvaluateOperator)evaluateOperator,
 				value);
 		}
 		catch(Magick::Exception& exception)
@@ -3896,7 +3896,7 @@ namespace ImageMagick
 
 		try
 		{
-			separateImages(images, *Value, (MagickCore::ChannelType)channels);
+			separateImages(images, *Value, (Magick::ChannelType)channels);
 
 			return MagickImageCollection::CreateList(images);
 		}
@@ -4086,7 +4086,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->sharpenChannel((MagickCore::ChannelType)channels, radius, sigma);
+			Value->sharpenChannel((Magick::ChannelType)channels, radius, sigma);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -4167,7 +4167,7 @@ namespace ImageMagick
 		try
 		{
 
-			Value->sparseColor((MagickCore::ChannelType)channels, (MagickCore::SparseColorMethod)method,
+			Value->sparseColor((Magick::ChannelType)channels, (Magick::SparseColorMethod)method,
 				coordinates->Length, arguments);
 		}
 		catch(Magick::Exception& exception)
@@ -4542,7 +4542,7 @@ namespace ImageMagick
 		{
 			std::string threshold_;
 			Marshaller::Marshal(threshold.ToString(), threshold_);
-			Value->whiteThresholdChannel((MagickCore::ChannelType)channels, threshold_);
+			Value->whiteThresholdChannel((Magick::ChannelType)channels, threshold_);
 		}
 		catch(Magick::Exception& exception)
 		{

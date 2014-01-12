@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	DrawableTextDecoration::DrawableTextDecoration(TextDecoration decoration)
 	{
-		BaseValue = new Magick::DrawableTextDecoration((MagickCore::DecorationType)decoration);
+		BaseValue = new Magick::DrawableTextDecoration((Magick::DecorationType)decoration);
 	}
 	//==============================================================================================
 	TextDecoration DrawableTextDecoration::Decoration::get()
@@ -29,7 +29,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void DrawableTextDecoration::Decoration::set(TextDecoration value)
 	{
-		Value->decoration((MagickCore::DecorationType)value);
+		Value->decoration((Magick::DecorationType)value);
 	}
 	//==============================================================================================
 }
