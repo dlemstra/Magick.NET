@@ -3341,7 +3341,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->modulate((double)brightness, (double)saturation, (double)hue);
+			Value->modulate(brightness.ToInt32(), saturation.ToInt32(), hue.ToInt32());
 		}
 		catch(Magick::Exception& exception)
 		{
