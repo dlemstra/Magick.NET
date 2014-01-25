@@ -13,6 +13,7 @@
 //=================================================================================================
 #pragma once
 #include "..\Exceptions\Base\MagickException.h"
+#include "..\Colors\MagickColor.h"
 
 namespace ImageMagick
 {
@@ -130,6 +131,11 @@ namespace ImageMagick
 		///<param name="channel">The channel to set the value of.</param>
 		///<param name="value">The value.</param>
 		void SetChannel(int channel, Magick::Quantum value);
+		///==========================================================================================
+		///<summary>
+		/// Converts the pixel to a color. Assumes the pixel is RGBA.
+		///</summary>
+		MagickColor^ ToColor();
 		//===========================================================================================
 	};
 	//==============================================================================================

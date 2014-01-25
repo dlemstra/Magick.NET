@@ -160,4 +160,15 @@ namespace ImageMagick
 		_Value[channel] = value;
 	}
 	//==============================================================================================
+	MagickColor^ Pixel::ToColor()
+	{
+		if (_Value->Length == 3)
+			return gcnew MagickColor(_Value[0], _Value[1], _Value[2]);
+
+		if (_Value->Length == 4)
+			return gcnew MagickColor(_Value[0], _Value[1], _Value[2], _Value[3]);
+
+		return nullptr;
+	}
+	//==============================================================================================
 }
