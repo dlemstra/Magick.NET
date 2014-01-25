@@ -106,7 +106,7 @@ namespace ImageMagick
 			if (color->Length == 17)
 				A = (Magick::Quantum)((ParseHexChar(color[13]) * 4096) + (ParseHexChar(color[14]) * 256) + (ParseHexChar(color[15]) * 16) + ParseHexChar(color[16]));
 			else
-				A = MaxMap;
+				A = Quantum::Max;
 		}
 		else
 		{
@@ -129,7 +129,7 @@ namespace ImageMagick
 		R = color.redQuantum();
 		G = color.greenQuantum();
 		B = color.blueQuantum();
-		A = MaxMap - color.alphaQuantum();
+		A = Quantum::Max - color.alphaQuantum();
 	}
 	//==============================================================================================
 	void MagickColor::Initialize(Color color)
@@ -139,12 +139,12 @@ namespace ImageMagick
 	//==============================================================================================
 	const Magick::Color* MagickColor::CreateColor()
 	{
-		return new Magick::Color(R, G, B, MaxMap - A);
+		return new Magick::Color(R, G, B, Quantum::Max - A);
 	}
 	//==============================================================================================
 	MagickColor::MagickColor()
 	{
-		A = MaxMap;
+		A = Quantum::Max;
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(Color color)
@@ -157,7 +157,7 @@ namespace ImageMagick
 		R = red;
 		G = green;
 		B = blue;
-		A = MaxMap;
+		A = Quantum::Max;
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue,
@@ -175,9 +175,9 @@ namespace ImageMagick
 
 		if (hexValue->Equals("transparent", StringComparison::OrdinalIgnoreCase))
 		{
-			R = MaxMap;
-			G = MaxMap;
-			B = MaxMap;
+			R = Quantum::Max;
+			G = Quantum::Max;
+			B = Quantum::Max;
 			A = 0;
 			return;
 		}
@@ -195,7 +195,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickColor^ MagickColor::Transparent::get()
 	{
-		return gcnew MagickColor(MaxMap, MaxMap, MaxMap, 0);
+		return gcnew MagickColor(Quantum::Max, Quantum::Max, Quantum::Max, 0);
 	}
 	//==============================================================================================
 	bool MagickColor::operator == (MagickColor^ left, MagickColor^ right)

@@ -227,6 +227,35 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_FillColor()
+		{
+			using (MagickImage image = new MagickImage(MagickColor.Transparent, 100, 100))
+			{
+				image.FillColor = null;
+
+				MagickColor colorA;
+				image.FillColor = Color.Red;
+				image.Read("caption:Magick.NET");
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					Pixel pixel = pixels.GetPixel(69, 6);
+					colorA = pixel.ToColor();
+				}
+
+				MagickColor colorB;
+				image.FillColor = Color.Yellow;
+				image.Read("caption:Magick.NET");
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					Pixel pixel = pixels.GetPixel(69, 6);
+					colorB = pixel.ToColor();
+				}
+
+				ColorAssert.AreNotEqual(colorA, colorB);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_FormatExpression()
 		{
 			using (MagickImage image = new MagickImage(Files.RedPNG))

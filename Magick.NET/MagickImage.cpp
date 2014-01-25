@@ -193,6 +193,24 @@ namespace ImageMagick
 			throw gcnew NotSupportedException("Unsupported image format: " + format->ToString());
 	}
 	//==============================================================================================
+	void MagickImage::SetOption(String^ name, String^ value)
+	{
+		try
+		{
+			std::string option;
+			Marshaller::Marshal(name, option);
+
+			std::string optionValue;
+			Marshaller::Marshal(value, optionValue);
+
+			MagickCore::SetImageOption(Value->imageInfo(), option.c_str(), optionValue.c_str());
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::SetProfile(String^ name, Magick::Blob& blob)
 	{
 		Throw::IfNullOrEmpty("name", name);
@@ -583,6 +601,8 @@ namespace ImageMagick
 		const Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 		Value->fillColor(*color);
 		delete color;
+		String^ colorName = ReferenceEquals(value, nullptr) ? nullptr : value->ToString();
+		SetOption("fill", colorName);
 	}
 	//==============================================================================================
 	MagickImage^ MagickImage::FillPattern::get()
@@ -930,6 +950,8 @@ namespace ImageMagick
 		const Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
 		Value->strokeColor(*color);
 		delete color;
+		String^ colorName = ReferenceEquals(value, nullptr) ? nullptr : value->ToString();
+		SetOption("stroke", colorName);
 	}
 	//==============================================================================================
 	array<double>^ MagickImage::StrokeDashArray::get()
@@ -1013,6 +1035,7 @@ namespace ImageMagick
 	void MagickImage::StrokeWidth::set(double value)
 	{
 		Value->strokeWidth(value);
+		SetOption("strokeWidth", value.ToString(CultureInfo::InvariantCulture));
 	}
 	//==============================================================================================
 	Encoding^ MagickImage::TextEncoding::get()
@@ -1038,6 +1061,7 @@ namespace ImageMagick
 
 		std::string encoding;
 		Value->textEncoding(Marshaller::Marshal(name, encoding));
+		SetOption("encoding", name);
 	}
 	//==============================================================================================
 	double MagickImage::TextInterlineSpacing::get()
@@ -1048,6 +1072,7 @@ namespace ImageMagick
 	void MagickImage::TextInterlineSpacing::set(double value)
 	{
 		Value->textInterlineSpacing(value);
+		SetOption("interline-spacing", value.ToString(CultureInfo::InvariantCulture));
 	}
 	//==============================================================================================
 	double MagickImage::TextInterwordSpacing::get()
@@ -1058,6 +1083,7 @@ namespace ImageMagick
 	void MagickImage::TextInterwordSpacing::set(double value)
 	{
 		Value->textInterwordSpacing(value);
+		SetOption("interword-spacing", value.ToString(CultureInfo::InvariantCulture));
 	}
 	//==============================================================================================
 	double MagickImage::TextKerning::get()
@@ -1068,6 +1094,7 @@ namespace ImageMagick
 	void MagickImage::TextKerning::set(double value)
 	{
 		Value->textKerning(value);
+		SetOption("kerning", value.ToString(CultureInfo::InvariantCulture));
 	}
 	//==============================================================================================
 	String^ MagickImage::TileName::get()
