@@ -229,6 +229,7 @@
     <ClInclude Include="Drawables\DrawableText.h" />
     <ClInclude Include="Drawables\DrawableTextAntialias.h" />
     <ClInclude Include="Drawables\DrawableTextDecoration.h" />
+    <ClInclude Include="Drawables\DrawableTextDirection.h" />
     <ClInclude Include="Drawables\DrawableTextInterlineSpacing.h" />
     <ClInclude Include="Drawables\DrawableTextInterwordSpacing.h" />
     <ClInclude Include="Drawables\DrawableTextKerning.h" />
@@ -284,6 +285,7 @@
     <ClInclude Include="Enums\RenderingIntent.h" />
     <ClInclude Include="Enums\SparseColorMethod.h" />
     <ClInclude Include="Enums\TextDecoration.h" />
+    <ClInclude Include="Enums\TextDirection.h" />
     <ClInclude Include="Enums\VirtualPixelMethod.h" />
     <ClInclude Include="Events\LogEventArgs.h" />
     <ClInclude Include="Events\WarningEventArgs.h" />
@@ -405,6 +407,7 @@
     <ClCompile Include="Drawables\DrawableText.cpp" />
     <ClCompile Include="Drawables\DrawableTextAntialias.cpp" />
     <ClCompile Include="Drawables\DrawableTextDecoration.cpp" />
+    <ClCompile Include="Drawables\DrawableTextDirection.cpp" />
     <ClCompile Include="Drawables\DrawableTextInterlineSpacing.cpp" />
     <ClCompile Include="Drawables\DrawableTextInterwordSpacing.cpp" />
     <ClCompile Include="Drawables\DrawableTextKerning.cpp" />

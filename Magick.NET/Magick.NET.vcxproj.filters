@@ -687,6 +687,12 @@
     <ClInclude Include="ResourceLimits.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\TextDirection.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\DrawableTextDirection.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1087,6 +1093,9 @@
     </ClCompile>
     <ClCompile Include="Initialize.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\DrawableTextDirection.cpp">
+      <Filter>Source Files\Drawables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
