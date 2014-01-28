@@ -306,6 +306,7 @@
     <ClInclude Include="Profiles\Iptc\IptcTag.h" />
     <ClInclude Include="Profiles\Iptc\IptcValue.h" />
     <ClInclude Include="Quantum.h" />
+    <ClInclude Include="ResourceLimits.h" />
     <ClInclude Include="Script\ScriptReadEventArgs.h" />
     <ClInclude Include="Script\MagickScript.h" />
     <ClInclude Include="Script\ScriptWriteEventArgs.h" />
@@ -436,6 +437,12 @@
     <ClCompile Include="Events\WarningEventArgs.cpp" />
     <ClCompile Include="Exceptions\Base\MagickException.cpp" />
     <ClCompile Include="Helpers\ByteConverter.cpp" />
+    <ClCompile Include="Initialize.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Profiles\8Bim\ClipPathReader.cpp" />
     <ClCompile Include="Profiles\8Bim\EightBimProfile.cpp" />
     <ClCompile Include="Profiles\Exif\ExifProfile.cpp" />
@@ -458,6 +465,7 @@
     <ClCompile Include="Profiles\Iptc\IptcProfile.cpp" />
     <ClCompile Include="Profiles\Iptc\IptcValue.cpp" />
     <ClCompile Include="Quantum.cpp" />
+    <ClCompile Include="ResourceLimits.cpp" />
     <ClCompile Include="Script\Generated\Execute.cpp" />
     <ClCompile Include="Script\MagickScript.cpp" />
     <ClCompile Include="Script\ScriptReadEventArgs.cpp" />
