@@ -35,14 +35,14 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		static MagickLogFuncDelegate^ _LogDelegate;
-		static EventHandler<LogEventArgs^>^ _LogEvent;
 		static initonly array<String^>^ _ImageMagickFiles = gcnew array<String^>
 		{
-			"coder.xml", "colors.xml", "configure.xml", "delegates.xml",
-			"english.xml", "locale.xml", "log.xml", "magic.xml",
-			"policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml"
+			"coder.xml", "colors.xml", "configure.xml", "delegates.xml", "english.xml", "locale.xml",
+				"log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml"
 		};
+		static MagickLogFuncDelegate^ _LogDelegate;
+		static EventHandler<LogEventArgs^>^ _LogEvent;
+		//static bool _UseOpenCL = true;
 		//===========================================================================================
 		static void CheckImageMagickFiles(String^ path);
 		//===========================================================================================
@@ -73,6 +73,15 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Gets or sets the use of OpenCL.
+		///</summary>
+		/*static property bool UseOpenCL
+		{
+			bool get();
+			void set(bool value);
+		}*/
+		///==========================================================================================
+		///<summary>
 		/// Returns the version of Magick.NET.
 		///</summary>
 		static property String^ Version
@@ -92,13 +101,6 @@ namespace ImageMagick
 		///</summary>
 		///<param name="path">The path that contains the ImageMagick xml files.</param>
 		static void Initialize(String^ path);
-		///==========================================================================================
-		///<summary>
-		/// Pixel cache threshold in bytes. Once this memory threshold is exceeded, all subsequent
-		/// pixels cache operations are to/from disk. This setting is shared by all MagickImage objects.
-		///</summary>
-		///<param name="threshold">The threshold in bytes.</param>
-		static void SetCacheThreshold(Magick::MagickSizeType threshold);
 		///==========================================================================================
 		///<summary>
 		/// Set the events that will be written to the log. The log will be written to the Log event

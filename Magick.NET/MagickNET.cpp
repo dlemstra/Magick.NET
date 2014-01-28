@@ -76,6 +76,27 @@ namespace ImageMagick
 		return MagickFormatInfo::All;
 	}
 	//==============================================================================================
+	/*bool MagickNET::UseOpenCL::get()
+	{
+		return _UseOpenCL;
+	}
+	//==============================================================================================
+	void MagickNET::UseOpenCL::set(bool value)
+	{
+		_UseOpenCL=value;
+		try
+		{
+			if (value)
+				Magick::EnableOpenCL();
+			else
+				Magick::DisableOpenCL();
+		}
+		catch(Magick::Exception &exception)
+		{
+			MagickException::Throw(exception);
+		}
+	}*/
+	//==============================================================================================
 	String^ MagickNET::Version::get()
 	{
 		Object^ title = (MagickNET::typeid)->Assembly->GetCustomAttributes(AssemblyTitleAttribute::typeid, false)[0];
@@ -105,11 +126,6 @@ namespace ImageMagick
 
 		std::string configurePath;
 		_putenv_s("MAGICK_CONFIGURE_PATH", Marshaller::Marshal(path, configurePath).c_str());
-	}
-	//==============================================================================================
-	void MagickNET::SetCacheThreshold(Magick::MagickSizeType threshold)
-	{
-		Magick::Image::cacheThreshold((size_t)threshold);
 	}
 	//==============================================================================================
 	void MagickNET::SetLogEvents(LogEvents events)
