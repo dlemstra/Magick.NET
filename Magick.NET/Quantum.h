@@ -21,12 +21,14 @@ namespace ImageMagick
 	///<summary>
 	/// Class that can be used to acquire information about the Quantum.
 	///</summary>
-	public ref class Quantum  abstract sealed
+	public ref class Quantum abstract sealed
 	{
 		//===========================================================================================
 	internal:
 		//===========================================================================================
+#if (MAGICKCORE_QUANTUM_DEPTH > 8)
 		static Magick::Quantum Convert(Byte value);
+#endif
 		//===========================================================================================
 		static Magick::Quantum Convert(double value);
 		//===========================================================================================

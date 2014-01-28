@@ -112,11 +112,13 @@ namespace ImageMagick
 
 		SetPixel(x, y, value);
 	}
+#if (MAGICKCORE_QUANTUM_DEPTH > 8)
 	//==============================================================================================
 	void WritablePixelCollection::Set(array<Byte>^ values)
 	{
 		SetPixels(values);
 	}
+#endif
 	//==============================================================================================
 	void WritablePixelCollection::Set(array<double>^ values)
 	{

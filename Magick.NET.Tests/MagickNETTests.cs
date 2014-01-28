@@ -49,7 +49,11 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Features()
 		{
+#if Q8
+			Assert.AreEqual("DPC Modules OpenMP", MagickNET.Features);
+#else
 			Assert.AreEqual("DPC HDRI Modules OpenMP", MagickNET.Features);
+#endif
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

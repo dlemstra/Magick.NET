@@ -111,6 +111,7 @@ namespace ImageMagick
 		Jpeg,
 		Jpg,
 		Jpt,
+		Json,
 		K,
 		K25,
 		Kdc,

@@ -52,7 +52,7 @@
 
 // Define to enable high dynamic range imagery (HDRI)
 //
-#define MAGICKCORE_HDRI_ENABLE 1
+#define MAGICKCORE_HDRI_ENABLE 0
 
 // Define to enable OpenCL
 //

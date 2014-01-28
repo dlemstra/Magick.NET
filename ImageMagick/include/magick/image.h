@@ -348,6 +348,9 @@ struct _Image
 
   PixelIntensityMethod
     intensity;      /* method to generate an intensity value from a pixel */
+
+  size_t
+    duration;       /* Total animation duration sum(delay*iterations) */
 };
 
 struct _ImageInfo

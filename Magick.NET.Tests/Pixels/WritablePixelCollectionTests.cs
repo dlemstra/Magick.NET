@@ -16,6 +16,13 @@ using System;
 using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#if Q8
+	using Quantum = System.Byte;
+#elif Q16
+	using Quantum = System.Single;
+#else
+#error Not implemented!
+#endif
 
 namespace Magick.NET.Tests
 {
@@ -35,7 +42,7 @@ namespace Magick.NET.Tests
 			ColorAssert.AreEqual(color, magickColor);
 		}
 		//===========================================================================================
-		private static void Test_Set(WritablePixelCollection pixels, float[] value)
+		private static void Test_Set(WritablePixelCollection pixels, Quantum[] value)
 		{
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
@@ -78,7 +85,7 @@ namespace Magick.NET.Tests
 				{
 					ExceptionAssert.Throws<ArgumentNullException>(delegate()
 					{
-						pixels.Set((float[])null);
+						pixels.Set((Quantum[])null);
 					});
 
 					ExceptionAssert.Throws<ArgumentNullException>(delegate()
@@ -91,12 +98,12 @@ namespace Magick.NET.Tests
 						pixels.Set((Pixel[])null);
 					});
 
-					Test_Set(pixels, new float[] { });
-					Test_Set(pixels, new float[] { 0 });
-					Test_Set(pixels, new float[] { 0, 0 });
-					Test_Set(pixels, new float[] { 0, 0, 0 });
+					Test_Set(pixels, new Quantum[] { });
+					Test_Set(pixels, new Quantum[] { 0 });
+					Test_Set(pixels, new Quantum[] { 0, 0 });
+					Test_Set(pixels, new Quantum[] { 0, 0, 0 });
 
-					pixels.Set(new float[] { 0, 0, 0, 0 });
+					pixels.Set(new Quantum[] { 0, 0, 0, 0 });
 					Test_PixelColor(pixels, Color.Black);
 					pixels.Write();
 				}
@@ -108,12 +115,14 @@ namespace Magick.NET.Tests
 
 				using (WritablePixelCollection pixels = image.GetWritablePixels())
 				{
+#if !Q8
 					pixels.Set(new int[] { 131070, 0, 0, 0 });
 					Test_PixelColor(pixels, Color.Red);
-					pixels.Set(new byte[] { 0, 255, 0, 0 });
-					Test_PixelColor(pixels, Color.Lime);
 					pixels.Set(new short[] { 0, 0, 32767, 0 });
 					Test_PixelColor(pixels, Color.Blue);
+#endif
+					pixels.Set(new byte[] { 0, 255, 0, 0 });
+					Test_PixelColor(pixels, Color.Lime);
 				}
 
 				using (WritablePixelCollection pixels = image.GetWritablePixels())
@@ -122,7 +131,7 @@ namespace Magick.NET.Tests
 					{
 						for (int y = 0; y < pixels.Height; y++)
 						{
-							pixels.Set(x, y, new float[] { 0, 0, 0, 0 });
+							pixels.Set(x, y, new Quantum[] { 0, 0, 0, 0 });
 						}
 					}
 				}

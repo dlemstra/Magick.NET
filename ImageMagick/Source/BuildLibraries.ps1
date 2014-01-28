@@ -28,11 +28,25 @@ function Build($folder, $platform, $builds)
 		
 		if ($platform -eq "x64")
 		{
-			msbuild /m VisualStaticMTDLL.sln /t:Rebuild ("/p:Configuration=Release,Platform=x64")
+			if ($build.Framework -eq "v2.0")
+			{
+				msbuild /m VisualStaticMTDLL.sln /t:Rebuild ("/p:Configuration=Release,Platform=x64,VCBuildAdditionalOptions=/arch:SSE")
+			}
+			else
+			{
+				msbuild /m VisualStaticMTDLL.sln /t:Rebuild ("/p:Configuration=Release,Platform=x64")
+			}
 		}
 		else
 		{
-			msbuild /m VisualStaticMTDLL.sln /t:Rebuild ("/p:Configuration=Release,Platform=Win32")
+			if ($build.Framework -eq "v2.0")
+			{
+				msbuild /m VisualStaticMTDLL.sln /t:Rebuild ("/p:Configuration=Release,Platform=Win32,VCBuildAdditionalOptions=/arch:SSSSE")
+			}
+			else
+			{
+				msbuild /m VisualStaticMTDLL.sln /t:Rebuild ("/p:Configuration=Release,Platform=Win32")
+			}
 		}
 		
 		CheckExitCode "Build failed."
@@ -95,7 +109,7 @@ function CopyFiles($folder)
 	}
 }
 
-function CreateSolution($folder, $platform)
+function CreateSolution($folder, $platform, $options)
 {
 	$solutionFile = "$folder\VisualMagick\VisualStaticMTDLL.sln"
 
@@ -109,19 +123,26 @@ function CreateSolution($folder, $platform)
 
 	Write-Host ""
 	Write-Host "Static Multi-Threaded DLL runtimes ($platform)."
-	if ($platform -eq "x64")
+	if ($options -ne "")
 	{
-		Start-Process .\configure.exe -ArgumentList "/x64 /mtsd /hdri /noWizard" -wait
+		Write-Host "Options: $options."
 	}
-	else
-	{
-		Start-Process .\configure.exe -ArgumentList "/mtsd /hdri /noWizard" -wait
-	}
+
+	Start-Process .\configure.exe -ArgumentList "/mtsd /noWizard $options" -wait
 
 	set-location $location
 
 	RemoveProjects $solutionFile
 	UpgradeSolution $folder $solutionFile
+}
+
+function ExecuteConfigurations($folder, $configurations)
+{
+	foreach ($config in $configurations)
+	{
+		CreateSolution $folder $config.Platform $config.Options
+		Build $folder $config.Platform $config.Builds
+	}
 }
 
 function ModifyDebugInformationFormat($folder)
@@ -203,23 +224,58 @@ function UpgradeSolution($folder, $solutionFile)
 	Remove-Item "$folder\VisualMagick\UpgradeLog.xml"
 }
 
-$builds = @(
-		@{QuantumDepth = "8"; Framework = "v2.0"; PlatformToolset="v90"}
-		@{QuantumDepth = "8"; Framework = "v4.0"; PlatformToolset="v110"}
-		@{QuantumDepth = "16"; Framework = "v2.0"; PlatformToolset="v90"}
-		@{QuantumDepth = "16"; Framework = "v4.0"; PlatformToolset="v110"}
-	)
+$Q8Builds = @(
+	@{
+		QuantumDepth		= "8";
+		Framework			= "v2.0"
+		PlatformToolset	= "v90"
+	}
+	@{
+		QuantumDepth		= "8";
+		Framework			= "v4.0";
+		PlatformToolset	= "v110"
+	}
+)
+
+$Q16Builds = @(
+	@{
+		QuantumDepth		= "16";
+		Framework			= "v2.0"
+		PlatformToolset	= "v90"
+	}
+	@{
+		QuantumDepth		= "16";
+		Framework			= "v4.0";
+		PlatformToolset	= "v110"
+	}
+)
+
+$configurations = @(
+	@{
+		Platform = "x86";
+		Options  = "";
+		Builds   = $Q8Builds;
+	}
+	@{
+		Platform = "x86";
+		Options  = "/hdri";
+		Builds   = $Q16Builds;
+	}
+	@{
+		Platform = "x64";
+		Options  = "/x64";
+		Builds   = $Q8Builds;
+	}
+	@{
+		Platform = "x64";
+		Options  = "/x64 /hdri";
+		Builds   = $Q16Builds;
+	}
+)
 
 $folder = "ImageMagick"
 
 CheckFolder $folder
 PatchFiles $folder
 CopyFiles $folder
-
-$platform = "x86"
-CreateSolution $folder $platform
-Build $folder $platform $builds
-
-$platform = "x64"
-CreateSolution $folder $platform
-Build $folder $platform $builds
+ExecuteConfigurations $folder $configurations

@@ -459,6 +459,12 @@ namespace Magick
   using MagickCore::OverlineDecoration;
   using MagickCore::LineThroughDecoration;
 
+  // Direction types
+  using MagickCore::DirectionType;
+  using MagickCore::UndefinedDirection;
+  using MagickCore::RightToLeftDirection;
+  using MagickCore::LeftToRightDirection;
+
   // Dispose methods
   using MagickCore::DisposeType;
   using MagickCore::UndefinedDispose;
@@ -794,7 +800,12 @@ namespace Magick
   using MagickCore::RelativeIntent;
   
   // Resource types
+  using MagickCore::ResourceType;
+  using MagickCore::AreaResource;
+  using MagickCore::DiskResource;
+  using MagickCore::MapResource;
   using MagickCore::MemoryResource;
+  using MagickCore::ThreadResource;
 
   // Resolution units
   using MagickCore::ResolutionType;
@@ -1129,6 +1140,7 @@ namespace Magick
   using MagickCore::GetImageType;
   using MagickCore::GetMagickInfo;
   using MagickCore::GetMagickPixelPacket;
+  using MagickCore::GetMultilineTypeMetrics;
   using MagickCore::GetNumberColors;
   using MagickCore::GetPageGeometry;
   using MagickCore::GetQuantizeInfo;
@@ -1299,6 +1311,8 @@ namespace Magick
   using MagickCore::TransformImageColorspace;
   using MagickCore::TransparentPaintImage;
   using MagickCore::TransparentPaintImageChroma;
+  using MagickCore::TransposeImage;
+  using MagickCore::TransverseImage;
   using MagickCore::TrimImage;
   using MagickCore::TypeError;
   using MagickCore::TypeFatalError;

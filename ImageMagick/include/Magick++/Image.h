@@ -43,9 +43,6 @@ namespace Magick
   MagickPPExport int operator <=
     (const Magick::Image &left_,const Magick::Image &right_);
 
-  // C library initialization routine
-  MagickPPExport void InitializeMagick(const char *path_);
-
   //
   // Image is the representation of an image. In reality, it actually
   // a handle object which contains a pointer to a shared reference
@@ -172,9 +169,7 @@ namespace Magick
     void boxColor(const Color &boxColor_);
     Color boxColor(void) const;
 
-    // Pixel cache threshold in bytes. Once this memory threshold
-    // is exceeded, all subsequent pixels cache operations are to/from
-    // disk. This setting is shared by all Image objects.
+    // This method is now deprecated. Please use ResourceLimits instead.
     static void cacheThreshold(const size_t threshold_);
 
     // Image class (DirectClass or PseudoClass)
@@ -475,9 +470,17 @@ namespace Magick
     void subRange(const size_t subRange_);
     size_t subRange(void) const;
 
+    // Render text right-to-left or left-to-right.
+    void textDirection(DirectionType direction_);
+    DirectionType textDirection() const;
+
     // Annotation text encoding (e.g. "UTF-16")
     void textEncoding(const std::string &encoding_);
     std::string textEncoding(void) const;
+
+    // Text gravity.
+    void textGravity(GravityType gravity_);
+    GravityType textGravity() const;
 
     // Text inter-line spacing
     void textInterlineSpacing(double spacing_);
@@ -904,6 +907,11 @@ namespace Magick
     // pointsize, and density settings.
     void fontTypeMetrics(const std::string &text_,TypeMetric *metrics);
 
+    // Obtain multi line font metrics for text string given current font,
+    // pointsize, and density settings.
+    void fontTypeMetricsMultiline(const std::string &text_,
+      TypeMetric *metrics);
+
     // Frame image
     void frame(const Geometry &geometry_=frameGeometryDefault);
     void frame(const size_t width_,const size_t height_,
@@ -1290,6 +1298,14 @@ namespace Magick
     // Add matte image to image, for all the pixels that lies in between
     // the given two color
     void transparentChroma(const Color &colorLow_,const Color &colorHigh_);
+
+    // Creates a horizontal mirror image by reflecting the pixels around the
+    // central y-axis while rotating them by 90 degrees.
+    void transpose(void);
+
+    // Creates a vertical mirror image by reflecting the pixels around the
+    // central x-axis while rotating them by 270 degrees.
+    void transverse(void);
 
     // Trim edges that are the background color from the image
     void trim(void);

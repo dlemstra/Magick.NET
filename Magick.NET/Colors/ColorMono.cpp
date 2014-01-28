@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "ColorMono.h"
+#include "..\Quantum.h"
 
 namespace ImageMagick
 {
@@ -25,7 +26,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void ColorMono::UpdateValue()
 	{
-		Magick::Quantum color =  (Magick::Quantum)(IsBlack ? 0.0 : QuantumRange);
+		Magick::Quantum color = (IsBlack ? (Magick::Quantum)0.0 : Quantum::Max);
 		Value->R = color;
 		Value->G = color;
 		Value->B = color;

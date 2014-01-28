@@ -22,13 +22,30 @@
 extern "C" {
 #endif
 
-#define DegreesToRadians(x)  (MagickPI*(x)/180.0)
 #define MagickPI  3.14159265358979323846264338327950288419716939937510
 #define MagickWandId  "MagickWand"
 #define QuantumTick(i,span) ((MagickBooleanType) ((((i) & ((i)-1)) == 0) || \
    (((i) & 0xfff) == 0) || \
    ((MagickOffsetType) (i) == ((MagickOffsetType) (span)-1))))
-#define RadiansToDegrees(x) (180.0*(x)/MagickPI)
+#define ThrowWandException(severity,tag,context) \
+{ \
+  (void) ThrowMagickException(wand->exception,GetMagickModule(),severity, \
+    tag,"`%s'",context); \
+  return(MagickFalse); \
+}
+#define ThrowWandFatalException(severity,tag,context) \
+{ \
+  ExceptionInfo \
+    exception; \
+ \
+  GetExceptionInfo(&exception); \
+  (void) ThrowMagickException(&exception,GetMagickModule(),severity,tag, \
+    "`%s'",context); \
+  CatchException(&exception); \
+  (void) DestroyExceptionInfo(&exception); \
+  MagickWandTerminus(); \
+  _exit((int) (severity-FatalErrorException)+1); \
+}
 
 struct _MagickWand
 {

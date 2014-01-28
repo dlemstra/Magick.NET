@@ -75,6 +75,7 @@ namespace ImageMagick
 		///<param name="y">The Y coordinate of the pixel.</param>
 		///<param name="value">The value the pixel (RGBA).</param>
 		void Set(int x, int y, array<Magick::Quantum>^ value);
+#if (MAGICKCORE_QUANTUM_DEPTH > 8)
 		///==========================================================================================
 		///<summary>
 		/// Changes the values of the specified pixels. Make sure to call Write after modifying all the
@@ -82,6 +83,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="values">The values of the pixels (RGBA).</param>
 		void Set(array<Byte>^ values);
+#endif
 		///==========================================================================================
 		///<summary>
 		/// Changes the values of the specified pixels. Make sure to call Write after modifying all the

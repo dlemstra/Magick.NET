@@ -17,16 +17,16 @@
 namespace ImageMagick
 {
 	//==============================================================================================
+#if (MAGICKCORE_QUANTUM_DEPTH > 8)
 	Magick::Quantum Quantum::Convert(Byte value)
 	{
-#if (MAGICKCORE_QUANTUM_DEPTH == 8)
-		return (Magick::Quantum) value;
-#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+#if (MAGICKCORE_QUANTUM_DEPTH == 16)
 		return (Magick::Quantum) (257.0*value);
 #else
 #error Not implemented!
 #endif
 	}
+#endif
 	//==============================================================================================
 	Magick::Quantum Quantum::Convert(double value)
 	{
@@ -61,7 +61,7 @@ namespace ImageMagick
 	//==============================================================================================
 	Magick::Quantum Quantum::Max::get()
 	{
-		return (Magick::Quantum)QuantumRange;
+		return (Magick::Quantum)MaxMap;
 	}
 	//==============================================================================================
 }

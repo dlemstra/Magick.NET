@@ -41,7 +41,8 @@ extern "C" {
 #define GetPixelCyan(pixel) ((pixel)->red)
 #define GetPixelGray(pixel) ((pixel)->red)
 #define GetPixelGreen(pixel) ((pixel)->green)
-#define GetPixelIndex(indexes) (*(indexes))
+#define GetPixelIndex(indexes) \
+  ((indexes == (const IndexPacket *) NULL) ? 0 : (*(indexes)))
 #define GetPixelL(pixel) ((pixel)->red)
 #define GetPixelMagenta(pixel) ((pixel)->green)
 #define GetPixelNext(pixel)  ((pixel)+1)
@@ -74,7 +75,11 @@ extern "C" {
 #define SetPixelGray(pixel,value) \
   ((pixel)->red=(pixel)->green=(pixel)->blue=(Quantum) (value))
 #define SetPixelGreen(pixel,value) ((pixel)->green=(Quantum) (value))
-#define SetPixelIndex(indexes,value) (*(indexes)=(IndexPacket) (value))
+#define SetPixelIndex(indexes,value) \
+{ \
+  if (indexes != (IndexPacket *) NULL) \
+    (*(indexes)=(IndexPacket) (value)); \
+}
 #define SetPixelL(pixel,value) ((pixel)->red=(Quantum) (value))
 #define SetPixelMagenta(pixel,value) ((pixel)->green=(Quantum) (value))
 #define SetPixelOpacity(pixel,value) \
@@ -173,7 +178,8 @@ static inline Quantum PixelPacketIntensity(const PixelPacket *pixel)
 
   if ((pixel->red  == pixel->green) && (pixel->green == pixel->blue))
     return(pixel->red);
-  intensity=0.212656*pixel->red+0.715158*pixel->green+0.072186*pixel->blue;
+  intensity=(MagickRealType) (0.212656*pixel->red+0.715158*pixel->green+
+    0.072186*pixel->blue);
   return(ClampToQuantum(intensity));
 }
 
