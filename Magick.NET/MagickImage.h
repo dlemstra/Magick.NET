@@ -43,6 +43,7 @@
 #include "Enums\Resolution.h"
 #include "Enums\RenderingIntent.h"
 #include "Enums\SparseColorMethod.h"
+#include "Enums\TextDirection.h"
 #include "Enums\VirtualPixelMethod.h"
 #include "Events\WarningEventArgs.h"
 #include "Exceptions\Base\MagickException.h"
@@ -772,12 +773,30 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Render text right-to-left or left-to-right. 
+		///</summary>
+		property TextDirection TextDirection
+		{
+			ImageMagick::TextDirection get();
+			void set(ImageMagick::TextDirection value);
+		}
+		///==========================================================================================
+		///<summary>
 		/// Annotation text encoding (e.g. "UTF-16").
 		///</summary>
 		property Encoding^ TextEncoding
 		{
 			Encoding^ get();
 			void set(Encoding^ value);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Annotation text gravity.
+		///</summary>
+		property Gravity TextGravity
+		{
+			Gravity get();
+			void set(Gravity value);
 		}
 		///==========================================================================================
 		///<summary>

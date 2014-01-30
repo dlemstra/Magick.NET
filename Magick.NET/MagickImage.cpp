@@ -1038,6 +1038,17 @@ namespace ImageMagick
 		SetOption("strokeWidth", value.ToString(CultureInfo::InvariantCulture));
 	}
 	//==============================================================================================
+	TextDirection MagickImage::TextDirection::get()
+	{
+		return (ImageMagick::TextDirection)Value->textDirection();
+	}
+	//==============================================================================================
+	void MagickImage::TextDirection::set(ImageMagick::TextDirection value)
+	{
+		Value->textDirection((Magick::DirectionType)value);
+		SetOption("direction", Enum::GetName(MagickFormat::typeid, value) + "Direction");
+	}
+	//==============================================================================================
 	Encoding^ MagickImage::TextEncoding::get()
 	{
 		String^ encoding = Marshaller::Marshal(Value->textEncoding());
@@ -1053,6 +1064,17 @@ namespace ImageMagick
 		{
 			return nullptr;
 		}
+	}
+	//==============================================================================================
+	Gravity MagickImage::TextGravity::get()
+	{
+		return (ImageMagick::Gravity)Value->textGravity();
+	}
+	//==============================================================================================
+	void MagickImage::TextGravity::set(Gravity value)
+	{
+		Value->textGravity((Magick::GravityType)value);
+		SetOption("gravity", Enum::GetName(MagickFormat::typeid, value) + "Gravity");
 	}
 	//==============================================================================================
 	void MagickImage::TextEncoding::set(Encoding^ value)
