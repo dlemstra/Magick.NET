@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013 Dirk Lemstra <http://magick.codeplex.com/>
+// Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -146,7 +146,7 @@ namespace Magick.NET.FileGenerator
 		private static void WriteHeader(IndentedTextWriter writer)
 		{
 			writer.WriteLine("//=================================================================================================");
-			writer.WriteLine("// Copyright 2013 Dirk Lemstra <http://magick.codeplex.com/>");
+			writer.WriteLine("// Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>");
 			writer.WriteLine("//");
 			writer.WriteLine("// Licensed under the ImageMagick License (the \"License\"); you may not use this file except in");
 			writer.WriteLine("// compliance with the License. You may obtain a copy of the License at");
