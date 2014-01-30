@@ -21,9 +21,11 @@ namespace ImageMagick
 	{
 		_Ascent = metrics->ascent();
 		_Descent = metrics->descent();
+		_MaxHorizontalAdvance = metrics->maxHorizontalAdvance();
 		_TextWidth = metrics->textWidth();
 		_TextHeight = metrics->textHeight();
-		_MaxHorizontalAdvance = metrics->maxHorizontalAdvance();
+		_UnderlinePosition = metrics->underlinePosition();
+		_UnderlineThickness = metrics->underlineThickness();
 	}
 	//==============================================================================================
 	double TypeMetric::Ascent::get()
@@ -49,6 +51,16 @@ namespace ImageMagick
 	double TypeMetric::TextWidth::get()
 	{
 		return _TextWidth;
+	}
+	//==============================================================================================
+	double TypeMetric::UnderlinePosition::get()
+	{
+		return _UnderlinePosition;
+	}
+	//==============================================================================================
+	double TypeMetric::UnderlineThickness::get()
+	{
+		return _UnderlineThickness;
 	}
 	//==============================================================================================
 }

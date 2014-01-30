@@ -29,6 +29,8 @@ namespace ImageMagick
 		double _MaxHorizontalAdvance;
 		double _TextWidth;
 		double _TextHeight;
+		double _UnderlinePosition;
+		double _UnderlineThickness;
 		//===========================================================================================
 	internal:
 		//===========================================================================================
@@ -77,6 +79,22 @@ namespace ImageMagick
 		{
 			double get();
 		}
+		///==========================================================================================
+		///<summary>
+		/// Underline position.
+		///</summary>
+		property double UnderlinePosition
+		{
+			double get();
+		} 
+		///==========================================================================================
+		///<summary>
+		/// Underline thickness.
+		///</summary>
+		property double UnderlineThickness
+		{
+			double get();
+		} 
 		//===========================================================================================
 	};
 	//==============================================================================================

@@ -2801,6 +2801,11 @@ namespace ImageMagick
 	//==============================================================================================
 	TypeMetric^ MagickImage::FontTypeMetrics(String^ text)
 	{
+		return FontTypeMetrics(text, false);
+	}
+	//==============================================================================================
+	TypeMetric^ MagickImage::FontTypeMetrics(String^ text, bool ignoreNewLines)
+	{
 		Throw::IfNullOrEmpty("text", text);
 
 		Magick::TypeMetric* metric = new Magick::TypeMetric();
@@ -2809,7 +2814,12 @@ namespace ImageMagick
 		{
 			std::string fontText;
 			Marshaller::Marshal(text, fontText);
-			Value->fontTypeMetrics(fontText, metric);
+
+			if (ignoreNewLines)
+				Value->fontTypeMetrics(fontText, metric);
+			else
+				Value->fontTypeMetricsMultiline(fontText, metric);
+
 			return gcnew TypeMetric(metric);
 		}
 		catch(Magick::Exception& exception)

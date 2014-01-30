@@ -1866,6 +1866,13 @@ namespace ImageMagick
 		TypeMetric^ FontTypeMetrics(String^ text);
 		///==========================================================================================
 		///<summary>
+		/// Obtain font metrics for text string given current font, pointsize, and density settings.
+		///</summary>
+		///<param name="ignoreNewLines">Specifies if new lines should be ignored.</param>
+		///<exception cref="MagickException"/>
+		TypeMetric^ FontTypeMetrics(String^ text, bool ignoreNewLines);
+		///==========================================================================================
+		///<summary>
 		/// Formats the specified expression, more info here: http://www.imagemagick.org/script/escape.php.
 		///</summary>
 		///<exception cref="MagickException"/>
