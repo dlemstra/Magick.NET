@@ -4514,6 +4514,30 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Transpose()
+	{
+		try
+		{
+			Value->transpose();
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Transverse()
+	{
+		try
+		{
+			Value->transverse();
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Trim()
 	{
 		try

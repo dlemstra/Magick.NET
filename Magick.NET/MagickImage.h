@@ -3026,6 +3026,20 @@ namespace ImageMagick
 		void TransparentChroma(MagickColor^ colorLow, MagickColor^ colorHigh);
 		///==========================================================================================
 		///<summary>
+		/// Creates a horizontal mirror image by reflecting the pixels around the central y-axis while
+		/// rotating them by 90 degrees. 
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Transpose();
+		///==========================================================================================
+		///<summary>
+		/// Creates a vertical mirror image by reflecting the pixels around the central x-axis while
+		/// rotating them by 270 degrees. 
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Transverse();
+		///==========================================================================================
+		///<summary>
 		/// Trim edges that are the background color from the image.
 		///</summary>
 		///<exception cref="MagickException"/>
