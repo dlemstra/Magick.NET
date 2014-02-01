@@ -276,6 +276,7 @@ namespace Magick.NET.FileGenerator
 					return "IEnumerable<PathBase^>^";
 				case "Int32":
 					return "int";
+				case "Byte":
 				case "Single":
 					return "Magick::Quantum";
 				case "Boolean":

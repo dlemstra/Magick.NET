@@ -562,13 +562,16 @@ namespace Magick.NET.FileGenerator
 		private void ReplaceQuantum(XElement annotation)
 		{
 			string max;
+			string baseType;
 			switch (_Depth)
 			{
 				case QuantumDepth.Q8:
 					max = "255";
+					baseType = "xs:byte";
 					break;
 				case QuantumDepth.Q16:
 					max = "65535";
+					baseType = "xs:float";
 					break;
 				default:
 					throw new NotImplementedException();
@@ -578,7 +581,7 @@ namespace Magick.NET.FileGenerator
 				new XElement(_Namespace + "simpleType",
 					new XAttribute("name", "quantum"),
 					new XElement(_Namespace + "restriction",
-						new XAttribute("base", "xs:float"),
+						new XAttribute("base", baseType),
 						new XElement(_Namespace + "minInclusive",
 							new XAttribute("value", "0")),
 						new XElement(_Namespace + "maxInclusive",
