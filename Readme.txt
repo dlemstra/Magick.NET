@@ -1,6 +1,6 @@
 Breaking changes.
 
-Magick.NET 6.8.8.301:
+Magick.NET 6.8.8.401:
   - To reduce memory usage the Q8 version of Magick.NET no longer uses HDRI.
   - Removed MagickNET.SetCacheThreshold (Use ResourceLimits).
 
