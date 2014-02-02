@@ -26,7 +26,7 @@ namespace ImageMagick
 		Undefined = Magick::UndefinedEvaluateOperator,
 		Add = Magick::AddEvaluateOperator,
 		And = Magick::AndEvaluateOperator,
-		Devide = Magick::DivideEvaluateOperator,
+		Divide = Magick::DivideEvaluateOperator,
 		LeftShift = Magick::LeftShiftEvaluateOperator,
 		Max = Magick::MaxEvaluateOperator,
 		Min = Magick::MinEvaluateOperator,
