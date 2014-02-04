@@ -2481,6 +2481,37 @@ namespace ImageMagick
 		return (Magick::operator == (*Value, *other->Value)) ? true : false;
 	}
 	//==============================================================================================
+	void MagickImage::Evaluate(Channels channels, EvaluateOperator evaluateOperator, double value)
+	{
+		try
+		{
+			Value->quantumOperator((Magick::ChannelType)channels,
+				(Magick::MagickEvaluateOperator)evaluateOperator, value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Evaluate(Channels channels, MagickGeometry^ geometry,
+		EvaluateOperator evaluateOperator, double value)
+	{
+		Throw::IfNull("geometry", geometry);
+		Throw::IfTrue("geometry", geometry->IsPercentage, "Percentage is not supported.");
+
+		try
+		{
+			Value->quantumOperator(geometry->X, geometry->Y, geometry->Width, geometry->Height,
+				(Magick::ChannelType)channels, (Magick::MagickEvaluateOperator)evaluateOperator,
+				value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Extent(int width, int height)
 	{
 		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
@@ -3598,37 +3629,6 @@ namespace ImageMagick
 		}
 
 		return measureError ? gcnew MagickErrorInfo(Value) : nullptr;
-	}
-	//==============================================================================================
-	void MagickImage::QuantumOperator(Channels channels, EvaluateOperator evaluateOperator, double value)
-	{
-		try
-		{
-			Value->quantumOperator((Magick::ChannelType)channels,
-				(Magick::MagickEvaluateOperator)evaluateOperator, value);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-	}
-	//==============================================================================================
-	void MagickImage::QuantumOperator(Channels channels, MagickGeometry^ geometry,
-		EvaluateOperator evaluateOperator, double value)
-	{
-		Throw::IfNull("geometry", geometry);
-		Throw::IfTrue("geometry", geometry->IsPercentage, "Percentage is not supported.");
-
-		try
-		{
-			Value->quantumOperator(geometry->X, geometry->Y, geometry->Width, geometry->Height,
-				(Magick::ChannelType)channels, (Magick::MagickEvaluateOperator)evaluateOperator,
-				value);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
 	}
 	//==============================================================================================
 	void MagickImage::Raise(int size)

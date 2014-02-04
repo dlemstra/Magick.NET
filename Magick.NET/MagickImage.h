@@ -1689,6 +1689,25 @@ namespace ImageMagick
 		virtual bool Equals(MagickImage^ other);
 		///==========================================================================================
 		///<summary>
+		/// Apply an arithmetic or bitwise operator to the image pixel quantums.
+		///</summary>
+		///<param name="channels">The channel(s) to apply the operator on.</param>
+		///<param name="evaluateOperator">The operator.</param>
+		///<param name="value">The value.</param>
+		///<exception cref="MagickException"/>
+		void Evaluate(Channels channels, EvaluateOperator evaluateOperator, double value);
+		///==========================================================================================
+		///<summary>
+		/// Apply an arithmetic or bitwise operator to the image pixel quantums.
+		///</summary>
+		///<param name="channels">The channel(s) to apply the operator on.</param>
+		///<param name="geometry">The geometry to use.</param>
+		///<param name="evaluateOperator">The operator.</param>
+		///<param name="value">The value.</param>
+		///<exception cref="MagickException"/>
+		void Evaluate(Channels channels, MagickGeometry^ geometry, EvaluateOperator evaluateOperator, double value);
+		///==========================================================================================
+		///<summary>
 		/// Extend the image as defined by the width and height.
 		///</summary>
 		///<param name="width">The width to extend the image to.</param>
@@ -2376,25 +2395,6 @@ namespace ImageMagick
 		///<param name="measureError">When false is specified this method will return null.</param>
 		///<exception cref="MagickException"/>
 		MagickErrorInfo^ Quantize(bool measureError);
-		///==========================================================================================
-		///<summary>
-		/// Apply an arithmetic or bitwise operator to the image pixel quantums.
-		///</summary>
-		///<param name="channels">The channel(s) to apply the operator on.</param>
-		///<param name="evaluateOperator">The operator.</param>
-		///<param name="value">The value.</param>
-		///<exception cref="MagickException"/>
-		void QuantumOperator(Channels channels, EvaluateOperator evaluateOperator, double value);
-		///==========================================================================================
-		///<summary>
-		/// Apply an arithmetic or bitwise operator to the image pixel quantums.
-		///</summary>
-		///<param name="channels">The channel(s) to apply the operator on.</param>
-		///<param name="geometry">The geometry to use.</param>
-		///<param name="evaluateOperator">The operator.</param>
-		///<param name="value">The value.</param>
-		///<exception cref="MagickException"/>
-		void QuantumOperator(Channels channels, MagickGeometry^ geometry, EvaluateOperator evaluateOperator, double value);
 		///==========================================================================================
 		///<summary>
 		/// Raise image (lighten or darken the edges of an image to give a 3-D raised effect).

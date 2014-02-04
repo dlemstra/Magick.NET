@@ -1589,9 +1589,9 @@ namespace ImageMagick
 				arguments["value"] = XmlHelper::GetAttribute<double>(element, "value");
 		}
 		if (OnlyContains(arguments, "channels", "evaluateOperator", "value"))
-			image->QuantumOperator((Channels)arguments["channels"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
+			image->Evaluate((Channels)arguments["channels"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
 		else if (OnlyContains(arguments, "channels", "geometry", "evaluateOperator", "value"))
-			image->QuantumOperator((Channels)arguments["channels"], (MagickGeometry^)arguments["geometry"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
+			image->Evaluate((Channels)arguments["channels"], (MagickGeometry^)arguments["geometry"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'quantumOperator', allowed combinations are: [channels, evaluateOperator, value] [channels, geometry, evaluateOperator, value]");
 	}

@@ -1,8 +1,9 @@
 Breaking changes.
 
-Magick.NET 6.8.8.401:
+Magick.NET 6.8.8.501:
   - To reduce memory usage the Q8 version of Magick.NET no longer uses HDRI.
   - Removed MagickNET.SetCacheThreshold (Use ResourceLimits).
+  - Renamed MagickImage.QuantumOperator to MagickImage.Evaluate.
 
 Magick.NET 6.8.8.201:
   - Removed MagickImage.ModulusDepth property and moved functionality to BitDepth method.
