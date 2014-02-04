@@ -45,26 +45,6 @@ namespace Magick.NET.Tests
 			ResourceLimits.Thread = 4U;
 		}
 		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Performance()
-		{
-			using (MagickImage image = new MagickImage())
-			{
-				image.Read("rose:");
-				ResourceLimits.Thread = 1;
-				Stopwatch oneThread = Stopwatch.StartNew();
-				image.Resize(2000, 1000);
-				oneThread.Stop();
-
-				image.Read("rose:");
-				ResourceLimits.Thread = 4;
-				Stopwatch fourThreads = Stopwatch.StartNew();
-				image.Resize(2000, 1000);
-				fourThreads.Stop();
-				Assert.IsTrue(oneThread.ElapsedMilliseconds > fourThreads.ElapsedMilliseconds);
-			}
-		}
-		//===========================================================================================
 	}
 	//==============================================================================================
 }
