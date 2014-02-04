@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:simpleType name="quantum">
-		<xs:restriction base="xs:float">
+		<xs:restriction base="xs:byte">
 			<xs:minInclusive value="0" />
 			<xs:maxInclusive value="255" />
 		</xs:restriction>
@@ -217,7 +217,7 @@
 			<xs:enumeration value="AddModulus" />
 			<xs:enumeration value="And" />
 			<xs:enumeration value="Cosine" />
-			<xs:enumeration value="Devide" />
+			<xs:enumeration value="Divide" />
 			<xs:enumeration value="Exponential" />
 			<xs:enumeration value="GaussianNoise" />
 			<xs:enumeration value="ImpulseNoise" />
@@ -455,6 +455,7 @@
 			<xs:enumeration value="Jpeg" />
 			<xs:enumeration value="Jpg" />
 			<xs:enumeration value="Jpt" />
+			<xs:enumeration value="Json" />
 			<xs:enumeration value="K" />
 			<xs:enumeration value="K25" />
 			<xs:enumeration value="Kdc" />
@@ -670,6 +671,12 @@
 			<xs:enumeration value="NoDecoration" />
 			<xs:enumeration value="Overline" />
 			<xs:enumeration value="Underline" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TextDirection">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="LeftToRight" />
+			<xs:enumeration value="RightToLeft" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="VirtualPixelMethod">
@@ -1083,9 +1090,19 @@
 						<xs:attribute name="value" use="required" type="xs:double" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="textDirection">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="TextDirection" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="textEncoding">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="textGravity">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="Gravity" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="textInterlineSpacing">
@@ -1369,6 +1386,14 @@
 				</xs:element>
 				<xs:element name="enhance" type="empty" />
 				<xs:element name="equalize" type="empty" />
+				<xs:element name="evaluate">
+					<xs:complexType>
+						<xs:attribute name="channels" use="required" type="Channels" />
+						<xs:attribute name="evaluateOperator" use="required" type="EvaluateOperator" />
+						<xs:attribute name="geometry" type="geometry" />
+						<xs:attribute name="value" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="extent">
 					<xs:complexType>
 						<xs:attribute name="backgroundColor" type="color" />
@@ -1543,14 +1568,6 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="quantize" type="empty" />
-				<xs:element name="quantumOperator">
-					<xs:complexType>
-						<xs:attribute name="channels" use="required" type="Channels" />
-						<xs:attribute name="evaluateOperator" use="required" type="EvaluateOperator" />
-						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="value" use="required" type="xs:double" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="raise">
 					<xs:complexType>
 						<xs:attribute name="size" use="required" type="xs:int" />
@@ -1786,6 +1803,8 @@
 						<xs:attribute name="colorLow" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="transpose" type="empty" />
+				<xs:element name="transverse" type="empty" />
 				<xs:element name="trim" type="empty" />
 				<xs:element name="unsharpmask">
 					<xs:complexType>
@@ -2119,6 +2138,11 @@
 				<xs:element name="textDecoration">
 					<xs:complexType>
 						<xs:attribute name="decoration" use="required" type="TextDecoration" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="textDirection">
+					<xs:complexType>
+						<xs:attribute name="direction" use="required" type="TextDirection" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="textInterlineSpacing">

@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013 Dirk Lemstra <http://magick.codeplex.com/>
+// Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -70,7 +70,9 @@ static void ExecuteStrokeLineJoin(XmlElement^ element, MagickImage^ image);
 static void ExecuteStrokeMiterLimit(XmlElement^ element, MagickImage^ image);
 void ExecuteStrokePattern(XmlElement^ element, MagickImage^ image);
 static void ExecuteStrokeWidth(XmlElement^ element, MagickImage^ image);
+static void ExecuteTextDirection(XmlElement^ element, MagickImage^ image);
 static void ExecuteTextEncoding(XmlElement^ element, MagickImage^ image);
+static void ExecuteTextGravity(XmlElement^ element, MagickImage^ image);
 static void ExecuteTextInterlineSpacing(XmlElement^ element, MagickImage^ image);
 static void ExecuteTextInterwordSpacing(XmlElement^ element, MagickImage^ image);
 static void ExecuteTextKerning(XmlElement^ element, MagickImage^ image);
@@ -121,6 +123,7 @@ static void ExecuteEmboss(XmlElement^ element, MagickImage^ image);
 static void ExecuteEncipher(XmlElement^ element, MagickImage^ image);
 static void ExecuteEnhance(XmlElement^ element, MagickImage^ image);
 static void ExecuteEqualize(XmlElement^ element, MagickImage^ image);
+static void ExecuteEvaluate(XmlElement^ element, MagickImage^ image);
 static void ExecuteExtent(XmlElement^ element, MagickImage^ image);
 static void ExecuteFlip(XmlElement^ element, MagickImage^ image);
 void ExecuteFloodFill(XmlElement^ element, MagickImage^ image);
@@ -151,7 +154,6 @@ static void ExecutePerceptible(XmlElement^ element, MagickImage^ image);
 static void ExecutePolaroid(XmlElement^ element, MagickImage^ image);
 static void ExecutePosterize(XmlElement^ element, MagickImage^ image);
 static void ExecuteQuantize(XmlElement^ element, MagickImage^ image);
-static void ExecuteQuantumOperator(XmlElement^ element, MagickImage^ image);
 static void ExecuteRaise(XmlElement^ element, MagickImage^ image);
 static void ExecuteRandomThreshold(XmlElement^ element, MagickImage^ image);
 static void ExecuteReduceNoise(XmlElement^ element, MagickImage^ image);
@@ -189,6 +191,8 @@ static void ExecuteTransformSkewX(XmlElement^ element, MagickImage^ image);
 static void ExecuteTransformSkewY(XmlElement^ element, MagickImage^ image);
 static void ExecuteTransparent(XmlElement^ element, MagickImage^ image);
 static void ExecuteTransparentChroma(XmlElement^ element, MagickImage^ image);
+static void ExecuteTranspose(XmlElement^ element, MagickImage^ image);
+static void ExecuteTransverse(XmlElement^ element, MagickImage^ image);
 static void ExecuteTrim(XmlElement^ element, MagickImage^ image);
 static void ExecuteUnsharpmask(XmlElement^ element, MagickImage^ image);
 static void ExecuteWave(XmlElement^ element, MagickImage^ image);
@@ -258,6 +262,7 @@ static void ExecuteStrokeWidth(XmlElement^ element, System::Collections::ObjectM
 static void ExecuteText(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables);
 static void ExecuteTextAntialias(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables);
 static void ExecuteTextDecoration(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables);
+static void ExecuteTextDirection(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables);
 static void ExecuteTextInterlineSpacing(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables);
 static void ExecuteTextInterwordSpacing(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables);
 static void ExecuteTextKerning(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables);

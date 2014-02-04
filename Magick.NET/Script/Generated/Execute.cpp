@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013 Dirk Lemstra <http://magick.codeplex.com/>
+// Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -53,6 +53,7 @@
 #include "..\..\Drawables\DrawableText.h"
 #include "..\..\Drawables\DrawableTextAntialias.h"
 #include "..\..\Drawables\DrawableTextDecoration.h"
+#include "..\..\Drawables\DrawableTextDirection.h"
 #include "..\..\Drawables\DrawableTextInterlineSpacing.h"
 #include "..\..\Drawables\DrawableTextInterwordSpacing.h"
 #include "..\..\Drawables\DrawableTextKerning.h"
@@ -138,7 +139,9 @@ namespace ImageMagick
 		result["strokeLineJoin"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrokeLineJoin);
 		result["strokeMiterLimit"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrokeMiterLimit);
 		result["strokeWidth"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrokeWidth);
+		result["textDirection"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextDirection);
 		result["textEncoding"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextEncoding);
+		result["textGravity"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextGravity);
 		result["textInterlineSpacing"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextInterlineSpacing);
 		result["textInterwordSpacing"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextInterwordSpacing);
 		result["textKerning"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextKerning);
@@ -187,6 +190,7 @@ namespace ImageMagick
 		result["encipher"] = gcnew ExecuteElementImage(MagickScript::ExecuteEncipher);
 		result["enhance"] = gcnew ExecuteElementImage(MagickScript::ExecuteEnhance);
 		result["equalize"] = gcnew ExecuteElementImage(MagickScript::ExecuteEqualize);
+		result["evaluate"] = gcnew ExecuteElementImage(MagickScript::ExecuteEvaluate);
 		result["extent"] = gcnew ExecuteElementImage(MagickScript::ExecuteExtent);
 		result["flip"] = gcnew ExecuteElementImage(MagickScript::ExecuteFlip);
 		result["flop"] = gcnew ExecuteElementImage(MagickScript::ExecuteFlop);
@@ -213,7 +217,6 @@ namespace ImageMagick
 		result["polaroid"] = gcnew ExecuteElementImage(MagickScript::ExecutePolaroid);
 		result["posterize"] = gcnew ExecuteElementImage(MagickScript::ExecutePosterize);
 		result["quantize"] = gcnew ExecuteElementImage(MagickScript::ExecuteQuantize);
-		result["quantumOperator"] = gcnew ExecuteElementImage(MagickScript::ExecuteQuantumOperator);
 		result["raise"] = gcnew ExecuteElementImage(MagickScript::ExecuteRaise);
 		result["randomThreshold"] = gcnew ExecuteElementImage(MagickScript::ExecuteRandomThreshold);
 		result["reduceNoise"] = gcnew ExecuteElementImage(MagickScript::ExecuteReduceNoise);
@@ -248,6 +251,8 @@ namespace ImageMagick
 		result["transformSkewY"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformSkewY);
 		result["transparent"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransparent);
 		result["transparentChroma"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransparentChroma);
+		result["transpose"] = gcnew ExecuteElementImage(MagickScript::ExecuteTranspose);
+		result["transverse"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransverse);
 		result["trim"] = gcnew ExecuteElementImage(MagickScript::ExecuteTrim);
 		result["unsharpmask"] = gcnew ExecuteElementImage(MagickScript::ExecuteUnsharpmask);
 		result["wave"] = gcnew ExecuteElementImage(MagickScript::ExecuteWave);
@@ -335,6 +340,7 @@ namespace ImageMagick
 		result["text"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteText);
 		result["textAntialias"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextAntialias);
 		result["textDecoration"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextDecoration);
+		result["textDirection"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextDirection);
 		result["textInterlineSpacing"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextInterlineSpacing);
 		result["textInterwordSpacing"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextInterwordSpacing);
 		result["textKerning"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextKerning);
@@ -588,9 +594,17 @@ namespace ImageMagick
 	{
 		image->StrokeWidth = XmlHelper::GetAttribute<double>(element, "value");
 	}
+	void MagickScript::ExecuteTextDirection(XmlElement^ element, MagickImage^ image)
+	{
+		image->TextDirection = XmlHelper::GetAttribute<TextDirection>(element, "value");
+	}
 	void MagickScript::ExecuteTextEncoding(XmlElement^ element, MagickImage^ image)
 	{
 		image->TextEncoding = XmlHelper::GetAttribute<Encoding^>(element, "value");
+	}
+	void MagickScript::ExecuteTextGravity(XmlElement^ element, MagickImage^ image)
+	{
+		image->TextGravity = XmlHelper::GetAttribute<Gravity>(element, "value");
 	}
 	void MagickScript::ExecuteTextInterlineSpacing(XmlElement^ element, MagickImage^ image)
 	{
@@ -1166,6 +1180,27 @@ namespace ImageMagick
 	{
 		image->Equalize();
 	}
+	void MagickScript::ExecuteEvaluate(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "channels")
+				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+			else if (attribute->Name == "evaluateOperator")
+				arguments["evaluateOperator"] = XmlHelper::GetAttribute<EvaluateOperator>(element, "evaluateOperator");
+			else if (attribute->Name == "geometry")
+				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+			else if (attribute->Name == "value")
+				arguments["value"] = XmlHelper::GetAttribute<double>(element, "value");
+		}
+		if (OnlyContains(arguments, "channels", "evaluateOperator", "value"))
+			image->Evaluate((Channels)arguments["channels"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
+		else if (OnlyContains(arguments, "channels", "geometry", "evaluateOperator", "value"))
+			image->Evaluate((Channels)arguments["channels"], (MagickGeometry^)arguments["geometry"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'evaluate', allowed combinations are: [channels, evaluateOperator, value] [channels, geometry, evaluateOperator, value]");
+	}
 	void MagickScript::ExecuteExtent(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -1573,27 +1608,6 @@ namespace ImageMagick
 	void MagickScript::ExecuteQuantize(XmlElement^ element, MagickImage^ image)
 	{
 		image->Quantize();
-	}
-	void MagickScript::ExecuteQuantumOperator(XmlElement^ element, MagickImage^ image)
-	{
-		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
-		for each(XmlAttribute^ attribute in element->Attributes)
-		{
-			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
-			else if (attribute->Name == "evaluateOperator")
-				arguments["evaluateOperator"] = XmlHelper::GetAttribute<EvaluateOperator>(element, "evaluateOperator");
-			else if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
-			else if (attribute->Name == "value")
-				arguments["value"] = XmlHelper::GetAttribute<double>(element, "value");
-		}
-		if (OnlyContains(arguments, "channels", "evaluateOperator", "value"))
-			image->Evaluate((Channels)arguments["channels"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
-		else if (OnlyContains(arguments, "channels", "geometry", "evaluateOperator", "value"))
-			image->Evaluate((Channels)arguments["channels"], (MagickGeometry^)arguments["geometry"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
-		else
-			throw gcnew ArgumentException("Invalid argument combination for 'quantumOperator', allowed combinations are: [channels, evaluateOperator, value] [channels, geometry, evaluateOperator, value]");
 	}
 	void MagickScript::ExecuteRaise(XmlElement^ element, MagickImage^ image)
 	{
@@ -2047,6 +2061,14 @@ namespace ImageMagick
 		MagickColor^ colorLow_ = XmlHelper::GetAttribute<MagickColor^>(element, "colorLow");
 		MagickColor^ colorHigh_ = XmlHelper::GetAttribute<MagickColor^>(element, "colorHigh");
 		image->TransparentChroma(colorLow_, colorHigh_);
+	}
+	void MagickScript::ExecuteTranspose(XmlElement^ element, MagickImage^ image)
+	{
+		image->Transpose();
+	}
+	void MagickScript::ExecuteTransverse(XmlElement^ element, MagickImage^ image)
+	{
+		image->Transverse();
 	}
 	void MagickScript::ExecuteTrim(XmlElement^ element, MagickImage^ image)
 	{
@@ -2518,6 +2540,11 @@ namespace ImageMagick
 	{
 		TextDecoration decoration_ = XmlHelper::GetAttribute<TextDecoration>(element, "decoration");
 		drawables->Add(gcnew DrawableTextDecoration(decoration_));
+	}
+	void MagickScript::ExecuteTextDirection(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		TextDirection direction_ = XmlHelper::GetAttribute<TextDirection>(element, "direction");
+		drawables->Add(gcnew DrawableTextDirection(direction_));
 	}
 	void MagickScript::ExecuteTextInterlineSpacing(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
