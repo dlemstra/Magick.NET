@@ -222,6 +222,7 @@
     <ClInclude Include="Drawables\DrawableText.h" />
     <ClInclude Include="Drawables\DrawableTextAntialias.h" />
     <ClInclude Include="Drawables\DrawableTextDecoration.h" />
+    <ClInclude Include="Drawables\DrawableTextDirection.h" />
     <ClInclude Include="Drawables\DrawableTextInterlineSpacing.h" />
     <ClInclude Include="Drawables\DrawableTextInterwordSpacing.h" />
     <ClInclude Include="Drawables\DrawableTextKerning.h" />
@@ -277,6 +278,7 @@
     <ClInclude Include="Enums\RenderingIntent.h" />
     <ClInclude Include="Enums\SparseColorMethod.h" />
     <ClInclude Include="Enums\TextDecoration.h" />
+    <ClInclude Include="Enums\TextDirection.h" />
     <ClInclude Include="Enums\VirtualPixelMethod.h" />
     <ClInclude Include="Events\LogEventArgs.h" />
     <ClInclude Include="Events\WarningEventArgs.h" />
@@ -284,6 +286,7 @@
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
     <ClInclude Include="Helpers\ByteConverter.h" />
+    <ClInclude Include="MagickSearchResult.h" />
     <ClInclude Include="Profiles\8Bim\ClipPathReader.h" />
     <ClInclude Include="Profiles\8Bim\EightBimProfile.h" />
     <ClInclude Include="Profiles\Exif\ExifDataType.h" />
@@ -299,6 +302,7 @@
     <ClInclude Include="Profiles\Iptc\IptcTag.h" />
     <ClInclude Include="Profiles\Iptc\IptcValue.h" />
     <ClInclude Include="Quantum.h" />
+    <ClInclude Include="ResourceLimits.h" />
     <ClInclude Include="Script\ScriptReadEventArgs.h" />
     <ClInclude Include="Script\MagickScript.h" />
     <ClInclude Include="Script\ScriptWriteEventArgs.h" />
@@ -397,6 +401,7 @@
     <ClCompile Include="Drawables\DrawableText.cpp" />
     <ClCompile Include="Drawables\DrawableTextAntialias.cpp" />
     <ClCompile Include="Drawables\DrawableTextDecoration.cpp" />
+    <ClCompile Include="Drawables\DrawableTextDirection.cpp" />
     <ClCompile Include="Drawables\DrawableTextInterlineSpacing.cpp" />
     <ClCompile Include="Drawables\DrawableTextInterwordSpacing.cpp" />
     <ClCompile Include="Drawables\DrawableTextKerning.cpp" />
@@ -429,6 +434,13 @@
     <ClCompile Include="Events\WarningEventArgs.cpp" />
     <ClCompile Include="Exceptions\Base\MagickException.cpp" />
     <ClCompile Include="Helpers\ByteConverter.cpp" />
+    <ClCompile Include="Initialize.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="MagickSearchResult.cpp" />
     <ClCompile Include="Profiles\8Bim\ClipPathReader.cpp" />
     <ClCompile Include="Profiles\8Bim\EightBimProfile.cpp" />
     <ClCompile Include="Profiles\Exif\ExifProfile.cpp" />
@@ -441,6 +453,7 @@
     <ClCompile Include="Profiles\Iptc\IptcProfile.cpp" />
     <ClCompile Include="Profiles\Iptc\IptcValue.cpp" />
     <ClCompile Include="Quantum.cpp" />
+    <ClCompile Include="ResourceLimits.cpp" />
     <ClCompile Include="Script\Generated\Execute.cpp" />
     <ClCompile Include="Script\MagickScript.cpp" />
     <ClCompile Include="Script\ScriptReadEventArgs.cpp" />

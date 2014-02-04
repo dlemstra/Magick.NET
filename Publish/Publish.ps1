@@ -49,6 +49,15 @@ function Build($builds)
 	set-location $location
 }
 
+function CheckArchive($version)
+{
+	if ((Test-Path "Archive\$version"))
+	{
+		Write-Error "$version has already been published"
+		Exit
+	}
+}
+
 function CheckDependancies()
 {
 	if (!(Test-Path "NuGet.exe"))
@@ -299,9 +308,10 @@ $builds = @(
 
 CheckDependancies
 
-$imVersion = "6.8.8.2"
-$version = "6.8.8.201"
+$imVersion = "6.8.8.5"
+$version = "6.8.8.501"
 
+CheckArchive $version
 UpdateAssemblyInfo "..\Magick.NET\AssemblyInfo.cpp" $version
 UpdateAssemblyInfo "..\Magick.NET.Web\Properties\AssemblyInfo.cs" $version
 UpdateResourceFiles $builds $version
