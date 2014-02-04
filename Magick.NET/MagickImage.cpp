@@ -4308,6 +4308,38 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	MagickSearchResult^ MagickImage::SubImageSearch(MagickImage^ image)
+	{
+		return SubImageSearch(image, Metric::RootMeanSquaredError, -1);
+	}
+	//==============================================================================================
+	MagickSearchResult^ MagickImage::SubImageSearch(MagickImage^ image, Metric metric)
+	{
+		return SubImageSearch(image, metric, -1);
+	}
+	//==============================================================================================
+	MagickSearchResult^ MagickImage::SubImageSearch(MagickImage^ image, Metric metric, double similarityThreshold)
+	{
+		Throw::IfNull("image", image);
+
+		try
+		{
+			Magick::Geometry offset;
+			double similarityMetric = 0.0;
+
+			Magick::Image result = Value->subImageSearch(*image->Value, (Magick::MetricType)metric, &offset, &similarityMetric, similarityThreshold);
+
+			if (result.isValid())
+				return gcnew MagickSearchResult(result,offset,similarityMetric);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+
+		return nullptr;
+	}
+	//==============================================================================================
 	void MagickImage::Texture(MagickImage^ image)
 	{
 		Throw::IfNull("image", image);

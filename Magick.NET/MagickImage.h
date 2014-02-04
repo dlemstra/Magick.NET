@@ -53,6 +53,7 @@
 #include "MagickErrorInfo.h"
 #include "MagickGeometry.h"
 #include "MagickFormatInfo.h"
+#include "MagickSearchResult.h"
 #include "Matrices\ColorMatrix.h"
 #include "Matrices\ConvolveMatrix.h"
 #include "Pixels\PixelCollection.h"
@@ -2890,6 +2891,36 @@ namespace ImageMagick
 		///<param name="degrees">The number of degrees.</param>
 		///<exception cref="MagickException"/>
 		void Swirl(double degrees);
+		///==========================================================================================
+		///<summary>
+		/// Search for the specified image at EVERY possible location in this image. This is slow!
+		/// very very slow.. It returns a similarity image such that an exact match location is
+		/// completely white and if none of the pixels match, black, otherwise some gray level in-between.
+		///</summary>
+		///<param name="image">The image to search for.</param>
+		///<exception cref="MagickException"/>
+		MagickSearchResult^ SubImageSearch(MagickImage^ image);
+		///==========================================================================================
+		///<summary>
+		/// Search for the specified image at EVERY possible location in this image. This is slow!
+		/// very very slow.. It returns a similarity image such that an exact match location is
+		/// completely white and if none of the pixels match, black, otherwise some gray level in-between.
+		///</summary>
+		///<param name="image">The image to search for.</param>
+		///<param name="metric">The metric to use.</param>
+		///<exception cref="MagickException"/>
+		MagickSearchResult^ SubImageSearch(MagickImage^ image, Metric metric);
+		///==========================================================================================
+		///<summary>
+		/// Search for the specified image at EVERY possible location in this image. This is slow!
+		/// very very slow.. It returns a similarity image such that an exact match location is
+		/// completely white and if none of the pixels match, black, otherwise some gray level in-between.
+		///</summary>
+		///<param name="image">The image to search for.</param>
+		///<param name="metric">The metric to use.</param>
+		///<param name="similarityThreshold">Minimum distortion for (sub)image match.</param>
+		///<exception cref="MagickException"/>
+		MagickSearchResult^ SubImageSearch(MagickImage^ image, Metric metric, double similarityThreshold);
 		///==========================================================================================
 		///<summary>
 		/// Channel a texture on image background.

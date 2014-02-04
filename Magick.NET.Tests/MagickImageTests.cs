@@ -585,6 +585,29 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_SubImageSearch()
+		{
+			using (MagickImageCollection images = new MagickImageCollection())
+			{
+				images.Add(new MagickImage(Color.Green, 2, 2));
+				images.Add(new MagickImage(Color.Red, 2, 2));
+
+				using (MagickImage combined = images.AppendHorizontally())
+				{
+					using (MagickSearchResult searchResult = combined.SubImageSearch(new MagickImage(Color.Red, 0, 0), Metric.RootMeanSquaredError))
+					{
+						Assert.IsNotNull(searchResult);
+						Assert.IsNotNull(searchResult.SimilarityImage);
+						Assert.IsNotNull(searchResult.BestMatch);
+						Assert.AreEqual(0.0, searchResult.SimilarityMetric);
+						Assert.AreEqual(2, searchResult.BestMatch.X);
+						Assert.AreEqual(0, searchResult.BestMatch.Y);
+					}
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_ToBitmap()
 		{
 			using (MagickImage image = new MagickImage(Color.Red, 10, 10))
