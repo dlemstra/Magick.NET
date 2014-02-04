@@ -567,7 +567,7 @@ namespace Magick.NET.FileGenerator
 			{
 				case QuantumDepth.Q8:
 					max = "255";
-					baseType = "xs:byte";
+					baseType = "xs:unsignedByte";
 					break;
 				case QuantumDepth.Q16:
 					max = "65535";
