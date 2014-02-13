@@ -4413,7 +4413,7 @@ namespace ImageMagick
 	//==============================================================================================
 	Bitmap^ MagickImage::ToBitmap()
 	{
-		return ToBitmap(ImageFormat::Png);
+		return ToBitmap(ImageFormat::Bmp);
 	}
 	//==============================================================================================
 	Bitmap^ MagickImage::ToBitmap(ImageFormat^ format)
