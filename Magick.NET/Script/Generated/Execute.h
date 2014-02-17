@@ -145,6 +145,7 @@ void ExecuteMap(XmlElement^ element, MagickImage^ image);
 static void ExecuteMedianFilter(XmlElement^ element, MagickImage^ image);
 static void ExecuteMinify(XmlElement^ element, MagickImage^ image);
 static void ExecuteModulate(XmlElement^ element, MagickImage^ image);
+static void ExecuteMorphology(XmlElement^ element, MagickImage^ image);
 static void ExecuteMotionBlur(XmlElement^ element, MagickImage^ image);
 static void ExecuteNegate(XmlElement^ element, MagickImage^ image);
 static void ExecuteNormalize(XmlElement^ element, MagickImage^ image);

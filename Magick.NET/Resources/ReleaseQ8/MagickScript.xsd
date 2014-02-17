@@ -353,6 +353,47 @@
 			<xs:enumeration value="Png" />
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="Kernel">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Binomial" />
+			<xs:enumeration value="Blur" />
+			<xs:enumeration value="Chebyshev" />
+			<xs:enumeration value="Comet" />
+			<xs:enumeration value="Compass" />
+			<xs:enumeration value="ConvexHull" />
+			<xs:enumeration value="Corners" />
+			<xs:enumeration value="Cross" />
+			<xs:enumeration value="Diagonals" />
+			<xs:enumeration value="Diamond" />
+			<xs:enumeration value="Disk" />
+			<xs:enumeration value="DoG" />
+			<xs:enumeration value="Edges" />
+			<xs:enumeration value="Euclidean" />
+			<xs:enumeration value="FreiChen" />
+			<xs:enumeration value="Gaussian" />
+			<xs:enumeration value="Kirsch" />
+			<xs:enumeration value="Laplacian" />
+			<xs:enumeration value="LineEnds" />
+			<xs:enumeration value="LineJunctions" />
+			<xs:enumeration value="LoG" />
+			<xs:enumeration value="Manhattan" />
+			<xs:enumeration value="Octagon" />
+			<xs:enumeration value="Octagonal" />
+			<xs:enumeration value="Peaks" />
+			<xs:enumeration value="Plus" />
+			<xs:enumeration value="Prewitt" />
+			<xs:enumeration value="Rectangle" />
+			<xs:enumeration value="Ridges" />
+			<xs:enumeration value="Ring" />
+			<xs:enumeration value="Roberts" />
+			<xs:enumeration value="Skeleton" />
+			<xs:enumeration value="Sobel" />
+			<xs:enumeration value="Square" />
+			<xs:enumeration value="ThinSE" />
+			<xs:enumeration value="Unity" />
+			<xs:enumeration value="UserDefined" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="LineCap">
 		<xs:restriction base="xs:NMTOKEN">
 			<xs:enumeration value="Butt" />
@@ -445,6 +486,7 @@
 			<xs:enumeration value="Inline" />
 			<xs:enumeration value="Ipl" />
 			<xs:enumeration value="Isobrl" />
+			<xs:enumeration value="J2c" />
 			<xs:enumeration value="J2k" />
 			<xs:enumeration value="Jbg" />
 			<xs:enumeration value="Jbig" />
@@ -590,6 +632,32 @@
 			<xs:enumeration value="Ycbcr" />
 			<xs:enumeration value="Ycbcra" />
 			<xs:enumeration value="Yuv" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MorphologyMethod">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="BottomHat" />
+			<xs:enumeration value="Close" />
+			<xs:enumeration value="CloseIntensity" />
+			<xs:enumeration value="Convolve" />
+			<xs:enumeration value="Correlate" />
+			<xs:enumeration value="Dilate" />
+			<xs:enumeration value="DilateIntensity" />
+			<xs:enumeration value="Distance" />
+			<xs:enumeration value="Edge" />
+			<xs:enumeration value="EdgeIn" />
+			<xs:enumeration value="EdgeOut" />
+			<xs:enumeration value="Erode" />
+			<xs:enumeration value="ErodeIntensity" />
+			<xs:enumeration value="HitAndMiss" />
+			<xs:enumeration value="IterativeDistance" />
+			<xs:enumeration value="Open" />
+			<xs:enumeration value="OpenIntensity" />
+			<xs:enumeration value="Smooth" />
+			<xs:enumeration value="Thicken" />
+			<xs:enumeration value="Thinning" />
+			<xs:enumeration value="TopHat" />
+			<xs:enumeration value="Voronoi" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="NoiseType">
@@ -1521,6 +1589,16 @@
 						<xs:attribute name="brightness" use="required" type="xs:double" />
 						<xs:attribute name="hue" use="required" type="xs:double" />
 						<xs:attribute name="saturation" use="required" type="xs:double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="morphology">
+					<xs:complexType>
+						<xs:attribute name="arguments" type="xs:string" />
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="iterations" type="xs:int" />
+						<xs:attribute name="kernel" type="Kernel" />
+						<xs:attribute name="method" use="required" type="MorphologyMethod" />
+						<xs:attribute name="userKernel" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="motionBlur">

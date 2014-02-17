@@ -208,6 +208,7 @@ namespace ImageMagick
 		result["medianFilter"] = gcnew ExecuteElementImage(MagickScript::ExecuteMedianFilter);
 		result["minify"] = gcnew ExecuteElementImage(MagickScript::ExecuteMinify);
 		result["modulate"] = gcnew ExecuteElementImage(MagickScript::ExecuteModulate);
+		result["morphology"] = gcnew ExecuteElementImage(MagickScript::ExecuteMorphology);
 		result["motionBlur"] = gcnew ExecuteElementImage(MagickScript::ExecuteMotionBlur);
 		result["negate"] = gcnew ExecuteElementImage(MagickScript::ExecuteNegate);
 		result["normalize"] = gcnew ExecuteElementImage(MagickScript::ExecuteNormalize);
@@ -1506,6 +1507,51 @@ namespace ImageMagick
 		Percentage saturation_ = XmlHelper::GetAttribute<Percentage>(element, "saturation");
 		Percentage hue_ = XmlHelper::GetAttribute<Percentage>(element, "hue");
 		image->Modulate(brightness_, saturation_, hue_);
+	}
+	void MagickScript::ExecuteMorphology(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "arguments")
+				arguments["arguments"] = XmlHelper::GetAttribute<String^>(element, "arguments");
+			else if (attribute->Name == "channels")
+				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+			else if (attribute->Name == "iterations")
+				arguments["iterations"] = XmlHelper::GetAttribute<int>(element, "iterations");
+			else if (attribute->Name == "kernel")
+				arguments["kernel"] = XmlHelper::GetAttribute<Kernel>(element, "kernel");
+			else if (attribute->Name == "method")
+				arguments["method"] = XmlHelper::GetAttribute<MorphologyMethod>(element, "method");
+			else if (attribute->Name == "userKernel")
+				arguments["userKernel"] = XmlHelper::GetAttribute<String^>(element, "userKernel");
+		}
+		if (OnlyContains(arguments, "method", "kernel"))
+			image->Morphology((MorphologyMethod)arguments["method"], (Kernel)arguments["kernel"]);
+		else if (OnlyContains(arguments, "method", "kernel", "arguments"))
+			image->Morphology((MorphologyMethod)arguments["method"], (Kernel)arguments["kernel"], (String^)arguments["arguments"]);
+		else if (OnlyContains(arguments, "method", "kernel", "arguments", "channels"))
+			image->Morphology((MorphologyMethod)arguments["method"], (Kernel)arguments["kernel"], (String^)arguments["arguments"], (Channels)arguments["channels"]);
+		else if (OnlyContains(arguments, "method", "kernel", "arguments", "channels", "iterations"))
+			image->Morphology((MorphologyMethod)arguments["method"], (Kernel)arguments["kernel"], (String^)arguments["arguments"], (Channels)arguments["channels"], (int)arguments["iterations"]);
+		else if (OnlyContains(arguments, "method", "kernel", "arguments", "iterations"))
+			image->Morphology((MorphologyMethod)arguments["method"], (Kernel)arguments["kernel"], (String^)arguments["arguments"], (int)arguments["iterations"]);
+		else if (OnlyContains(arguments, "method", "kernel", "channels"))
+			image->Morphology((MorphologyMethod)arguments["method"], (Kernel)arguments["kernel"], (Channels)arguments["channels"]);
+		else if (OnlyContains(arguments, "method", "kernel", "channels", "iterations"))
+			image->Morphology((MorphologyMethod)arguments["method"], (Kernel)arguments["kernel"], (Channels)arguments["channels"], (int)arguments["iterations"]);
+		else if (OnlyContains(arguments, "method", "kernel", "iterations"))
+			image->Morphology((MorphologyMethod)arguments["method"], (Kernel)arguments["kernel"], (int)arguments["iterations"]);
+		else if (OnlyContains(arguments, "method", "userKernel"))
+			image->Morphology((MorphologyMethod)arguments["method"], (String^)arguments["userKernel"]);
+		else if (OnlyContains(arguments, "method", "userKernel", "channels"))
+			image->Morphology((MorphologyMethod)arguments["method"], (String^)arguments["userKernel"], (Channels)arguments["channels"]);
+		else if (OnlyContains(arguments, "method", "userKernel", "channels", "iterations"))
+			image->Morphology((MorphologyMethod)arguments["method"], (String^)arguments["userKernel"], (Channels)arguments["channels"], (int)arguments["iterations"]);
+		else if (OnlyContains(arguments, "method", "userKernel", "iterations"))
+			image->Morphology((MorphologyMethod)arguments["method"], (String^)arguments["userKernel"], (int)arguments["iterations"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'morphology', allowed combinations are: [method, kernel] [method, kernel, arguments] [method, kernel, arguments, channels] [method, kernel, arguments, channels, iterations] [method, kernel, arguments, iterations] [method, kernel, channels] [method, kernel, channels, iterations] [method, kernel, iterations] [method, userKernel] [method, userKernel, channels] [method, userKernel, channels, iterations] [method, userKernel, iterations]");
 	}
 	void MagickScript::ExecuteMotionBlur(XmlElement^ element, MagickImage^ image)
 	{
