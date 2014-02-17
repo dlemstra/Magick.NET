@@ -2349,37 +2349,37 @@ namespace ImageMagick
 		/// Applies a kernel to the image according to the given mophology method.
 		///</summary>
 		///<param name="method">The morphology method.</param>
-		///<param name="kernel">User suplied kernel.</param>
+		///<param name="userKernel">User suplied kernel.</param>
 		///<exception cref="MagickException"/>
-		void Morphology(MorphologyMethod method, String^ kernel);
+		void Morphology(MorphologyMethod method, String^ userKernel);
 		///==========================================================================================
 		///<summary>
 		/// Applies a kernel to the image according to the given mophology method.
 		///</summary>
 		///<param name="method">The morphology method.</param>
-		///<param name="kernel">User suplied kernel.</param>
+		///<param name="userKernel">User suplied kernel.</param>
 		///<param name="channels">The channels to apply the kernel to.</param>
 		///<exception cref="MagickException"/>
-		void Morphology(MorphologyMethod method, String^ kernel, Channels channels);
+		void Morphology(MorphologyMethod method, String^ userKernel, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Applies a kernel to the image according to the given mophology method.
 		///</summary>
 		///<param name="method">The morphology method.</param>
-		///<param name="kernel">User suplied kernel.</param>
+		///<param name="userKernel">User suplied kernel.</param>
 		///<param name="channels">The channels to apply the kernel to.</param>
 		///<param name="iterations">The number of iterations.</param>
 		///<exception cref="MagickException"/>
-		void Morphology(MorphologyMethod method, String^ kernel, Channels channels, int iterations);
+		void Morphology(MorphologyMethod method, String^ userKernel, Channels channels, int iterations);
 		///==========================================================================================
 		///<summary>
 		/// Applies a kernel to the image according to the given mophology method.
 		///</summary>
 		///<param name="method">The morphology method.</param>
-		///<param name="kernel">User suplied kernel.</param>
+		///<param name="userKernel">User suplied kernel.</param>
 		///<param name="iterations">The number of iterations.</param>
 		///<exception cref="MagickException"/>
-		void Morphology(MorphologyMethod method, String^ kernel, int iterations);
+		void Morphology(MorphologyMethod method, String^ userKernel, int iterations);
 		///==========================================================================================
 		///<summary>
 		/// Motion blur image with specified blur factor.
