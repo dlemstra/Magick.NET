@@ -32,10 +32,9 @@ extern MagickExport SemaphoreInfo
   *AllocateSemaphoreInfo(void);
 
 extern MagickExport void
-  AcquireSemaphoreInfo(SemaphoreInfo **),
+  ActivateSemaphoreInfo(SemaphoreInfo **),
   DestroySemaphoreInfo(SemaphoreInfo **),
   LockSemaphoreInfo(SemaphoreInfo *),
-  RelinquishSemaphoreInfo(SemaphoreInfo *),
   SemaphoreComponentTerminus(void),
   UnlockSemaphoreInfo(SemaphoreInfo *);
 

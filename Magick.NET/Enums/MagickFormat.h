@@ -101,6 +101,7 @@ namespace ImageMagick
 		Inline,
 		Ipl,
 		Isobrl,
+		J2c,
 		J2k,
 		Jbg,
 		Jbig,

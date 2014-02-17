@@ -71,11 +71,11 @@ namespace ImageMagick
 		{
 			IEnumerable<MagickFormatInfo^>^ get();
 		}
-		///==========================================================================================
+		/*///==========================================================================================
 		///<summary>
 		/// Gets or sets the use of OpenCL.
 		///</summary>
-		/*static property bool UseOpenCL
+		static property bool UseOpenCL
 		{
 			bool get();
 			void set(bool value);
