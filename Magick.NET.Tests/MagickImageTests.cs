@@ -618,7 +618,7 @@ namespace Magick.NET.Tests
 				});
 
 				Bitmap bmp = image.ToBitmap();
-				Assert.AreEqual(ImageFormat.Png, bmp.RawFormat);
+				Assert.AreEqual(ImageFormat.Bmp, bmp.RawFormat);
 				ColorAssert.AreEqual(Color.Red, bmp.GetPixel(0, 0));
 				bmp.Dispose();
 

@@ -3439,6 +3439,171 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Morphology(MorphologyMethod method, Kernel kernel)
+	{
+		try
+		{
+			Value->morphology((Magick::MorphologyMethod)method, (Magick::KernelInfoType)kernel, "");
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Morphology(MorphologyMethod method, Kernel kernel, Channels channels)
+	{
+		try
+		{
+			Value->morphologyChannel((Magick::ChannelType)channels, (Magick::MorphologyMethod)method,
+				(Magick::KernelInfoType)kernel, "");
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Morphology(MorphologyMethod method, Kernel kernel, Channels channels, int iterations)
+	{
+		try
+		{
+			Value->morphologyChannel((Magick::ChannelType)channels, (Magick::MorphologyMethod)method,
+				(Magick::KernelInfoType)kernel, "", iterations);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Morphology(MorphologyMethod method, Kernel kernel, int iterations)
+	{
+		try
+		{
+			Value->morphology((Magick::MorphologyMethod)method, (Magick::KernelInfoType)kernel, "", iterations);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Morphology(MorphologyMethod method, Kernel kernel, String^ arguments)
+	{
+		try
+		{
+			std::string args;
+			Marshaller::Marshal(arguments, args);
+			Value->morphology((Magick::MorphologyMethod)method, (Magick::KernelInfoType)kernel, args);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Morphology(MorphologyMethod method, Kernel kernel, String^ arguments, Channels channels)
+	{
+		try
+		{
+			std::string args;
+			Marshaller::Marshal(arguments, args);
+			Value->morphologyChannel((Magick::ChannelType)channels, (Magick::MorphologyMethod)method,
+				(Magick::KernelInfoType)kernel, args);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Morphology(MorphologyMethod method, Kernel kernel, String^ arguments, Channels channels, int iterations)
+	{
+		try
+		{
+			std::string args;
+			Marshaller::Marshal(arguments, args);
+			Value->morphologyChannel((Magick::ChannelType)channels, (Magick::MorphologyMethod)method,
+				(Magick::KernelInfoType)kernel, args, iterations);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Morphology(MorphologyMethod method, Kernel kernel, String^ arguments, int iterations)
+	{
+		try
+		{
+			std::string args;
+			Marshaller::Marshal(arguments, args);
+			Value->morphology((Magick::MorphologyMethod)method, (Magick::KernelInfoType)kernel, args, iterations);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Morphology(MorphologyMethod method, String^ kernel)
+	{
+		try
+		{
+			std::string magickKernel;
+			Marshaller::Marshal(kernel, magickKernel);
+			Value->morphology((Magick::MorphologyMethod)method, magickKernel);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Morphology(MorphologyMethod method, String^ kernel, Channels channels)
+	{
+		try
+		{
+			std::string magickKernel;
+			Marshaller::Marshal(kernel, magickKernel);
+			Value->morphologyChannel((Magick::ChannelType)channels, (Magick::MorphologyMethod)method, magickKernel);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Morphology(MorphologyMethod method, String^ kernel, Channels channels, int iterations)
+	{
+		try
+		{
+			std::string magickKernel;
+			Marshaller::Marshal(kernel, magickKernel);
+			Value->morphologyChannel((Magick::ChannelType)channels, (Magick::MorphologyMethod)method, magickKernel,
+				iterations);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Morphology(MorphologyMethod method, String^ kernel, int iterations)
+	{
+		try
+		{
+			std::string magickKernel;
+			Marshaller::Marshal(kernel, magickKernel);
+			Value->morphology((Magick::MorphologyMethod)method, magickKernel, iterations);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::MotionBlur(double radius, double sigma, double angle)
 	{
 		try

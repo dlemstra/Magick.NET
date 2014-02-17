@@ -696,6 +696,12 @@
     <ClInclude Include="MagickSearchResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\MorphologyMethod.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\Kernel.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
