@@ -265,7 +265,9 @@
     <ClInclude Include="Enums\FontWeight.h" />
     <ClInclude Include="Enums\GifDisposeMethod.h" />
     <ClInclude Include="Enums\Interlace.h" />
+    <ClInclude Include="Enums\Kernel.h" />
     <ClInclude Include="Enums\Metric.h" />
+    <ClInclude Include="Enums\MorphologyMethod.h" />
     <ClInclude Include="Enums\PixelChannel.h" />
     <ClInclude Include="Enums\PixelInterpolateMethod.h" />
     <ClInclude Include="Enums\StorageType.h" />

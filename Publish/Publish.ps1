@@ -308,8 +308,8 @@ $builds = @(
 
 CheckDependancies
 
-$imVersion = "6.8.8.5"
-$version = "6.8.8.501"
+$imVersion = "6.8.8.7"
+$version = "6.8.8.701"
 
 CheckArchive $version
 UpdateAssemblyInfo "..\Magick.NET\AssemblyInfo.cpp" $version
