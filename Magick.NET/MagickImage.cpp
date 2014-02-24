@@ -211,6 +211,22 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	template<typename TMagickOption>
+	void MagickImage::SetOption(String^ name, TMagickOption commandOption, ssize_t value)
+	{
+		try
+		{
+			std::string option;
+			Marshaller::Marshal(name, option);
+
+			MagickCore::SetImageOption(Value->imageInfo(), option.c_str(), MagickCore::CommandOptionToMnemonic(commandOption, value));
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::SetProfile(String^ name, Magick::Blob& blob)
 	{
 		Throw::IfNullOrEmpty("name", name);
@@ -1046,7 +1062,7 @@ namespace ImageMagick
 	void MagickImage::TextDirection::set(ImageMagick::TextDirection value)
 	{
 		Value->textDirection((Magick::DirectionType)value);
-		SetOption("direction", Enum::GetName(MagickFormat::typeid, value) + "Direction");
+		SetOption("direction", MagickCore::MagickDirectionOptions, (ssize_t)value);;
 	}
 	//==============================================================================================
 	Encoding^ MagickImage::TextEncoding::get()
@@ -1074,7 +1090,7 @@ namespace ImageMagick
 	void MagickImage::TextGravity::set(Gravity value)
 	{
 		Value->textGravity((Magick::GravityType)value);
-		SetOption("gravity", Enum::GetName(MagickFormat::typeid, value) + "Gravity");
+		SetOption("gravity", MagickCore::MagickGravityOptions, (ssize_t)value);
 	}
 	//==============================================================================================
 	void MagickImage::TextEncoding::set(Encoding^ value)

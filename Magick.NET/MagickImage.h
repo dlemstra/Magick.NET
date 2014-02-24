@@ -112,6 +112,9 @@ namespace ImageMagick
 		//===========================================================================================
 		void SetOption(String^ name, String^ value);
 		//===========================================================================================
+		template<typename TMagickOption>
+		void SetOption(String^ name, TMagickOption commandOption, ssize_t value);
+		//===========================================================================================
 		void SetProfile(String^ name, Magick::Blob& blob);
 		//===========================================================================================
 	internal:
