@@ -93,6 +93,17 @@ function CheckStrongName($builds)
 	}
 }
 
+function CopyPdbFiles($builds, $version)
+{
+	foreach ($build in $builds)
+	{
+		$source = ("..\Magick.NET\bin\Release" + $build.Quantum + "\" + $build.Framework + "\" + $build.Platform + "\Magick.NET-" + $build.PlatformName + ".pdb")
+		$destination = ("Pdb\" + $build.Quantum + "-" + $build.FrameworkName + ".Magick.NET-" + $build.PlatformName + ".pdb")
+
+		Copy-Item $source $destination
+	}
+}
+
 function CreateNet20ProjectFiles()
 {
 	$xml = [xml](get-content "..\Magick.NET\Magick.NET.vcxproj")
@@ -320,5 +331,6 @@ CreateNet20ProjectFiles
 
 Build $builds
 CheckStrongName $builds
+CopyPdbFiles $builds
 CreateZipFiles $builds $version
 CreateNuGetPackages $builds $imVersion $version
