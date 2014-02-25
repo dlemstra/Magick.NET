@@ -42,6 +42,12 @@ namespace ImageMagick
 		_LogEvent->Invoke(nullptr, gcnew LogEventArgs((LogEvents)type, Marshaller::Marshal(message)));
 	}
 	//==============================================================================================
+	void MagickNET::SetEnv(const char* name, String^ value)
+	{
+		std::string val;
+		_putenv_s(name, Marshaller::Marshal(value, val).c_str());
+	}
+	//==============================================================================================
 	String^ MagickNET::Features::get()
 	{
 		std::string features = std::string(MagickCore::GetMagickFeatures());
@@ -78,23 +84,23 @@ namespace ImageMagick
 	//==============================================================================================
 	/*bool MagickNET::UseOpenCL::get()
 	{
-		return _UseOpenCL;
+	return _UseOpenCL;
 	}
 	//==============================================================================================
 	void MagickNET::UseOpenCL::set(bool value)
 	{
-		_UseOpenCL=value;
-		try
-		{
-			if (value)
-				Magick::EnableOpenCL();
-			else
-				Magick::DisableOpenCL();
-		}
-		catch(Magick::Exception &exception)
-		{
-			MagickException::Throw(exception);
-		}
+	_UseOpenCL=value;
+	try
+	{
+	if (value)
+	Magick::EnableOpenCL();
+	else
+	Magick::DisableOpenCL();
+	}
+	catch(Magick::Exception &exception)
+	{
+	MagickException::Throw(exception);
+	}
 	}*/
 	//==============================================================================================
 	String^ MagickNET::Version::get()
@@ -120,12 +126,11 @@ namespace ImageMagick
 		Throw::IfNullOrEmpty("path", path);
 
 		path = Path::GetFullPath(path);
-		Throw::IfFalse("path", Directory::Exists(path), "Unable to find path: " + path);
+		Throw::IfFalse("path", Directory::Exists(path), "Unable to find directory: " + path);
 
 		CheckImageMagickFiles(path);
 
-		std::string configurePath;
-		_putenv_s("MAGICK_CONFIGURE_PATH", Marshaller::Marshal(path, configurePath).c_str());
+		SetEnv("MAGICK_CONFIGURE_PATH", path);
 	}
 	//==============================================================================================
 	void MagickNET::SetLogEvents(LogEvents events)
@@ -156,11 +161,25 @@ namespace ImageMagick
 	void MagickNET::SetTempDirectory(String^ path)
 	{
 		Throw::IfNullOrEmpty("path", path);
-		Throw::IfFalse("directory", Directory::Exists(path), "Unable to find directory: " + path);
+		Throw::IfFalse("path", Directory::Exists(path), "Unable to find directory: " + path);
 
-		std::string tempDirectory;
-		Marshaller::Marshal(path, tempDirectory);
-		_putenv_s("MAGICK_TEMPORARY_PATH", tempDirectory.c_str());
+		SetEnv("MAGICK_TEMPORARY_PATH", path);
+	}
+	//==============================================================================================
+	void MagickNET::SetGhostscriptDirectory(String^ path)
+	{
+		Throw::IfNullOrEmpty("path", path);
+		Throw::IfFalse("path", Directory::Exists(path), "Unable to find directory: " + path);
+
+		SetEnv("MAGICK_GHOSTSCRIPT_PATH", path);
+	}
+	//==============================================================================================
+	void MagickNET::SetGhostscriptFontDirectory(String^ path)
+	{
+		Throw::IfNullOrEmpty("path", path);
+		Throw::IfFalse("path", Directory::Exists(path), "Unable to find directory: " + path);
+
+		SetEnv("MAGICK_GHOSTSCRIPT_FONT_PATH", path);
 	}
 	//==============================================================================================
 }
