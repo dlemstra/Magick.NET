@@ -19,14 +19,14 @@ using System.IO;
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal sealed class CodeFileGenerator
+	internal sealed class MagickScriptGenerator
 	{
 		//===========================================================================================
 		private List<ExecuteCodeGenerator> _ExecuteCodeGenerators;
 		private List<ConstructorCodeGenerator> _ConstructorCodeGenerators;
 		private List<SettingsCodeGenerator> _SettingsCodeGenerators;
 		//===========================================================================================
-		private CodeFileGenerator()
+		private MagickScriptGenerator()
 		{
 			InitializeCodeGenerators();
 		}
@@ -195,7 +195,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		internal static void Generate()
 		{
-			CodeFileGenerator generator = new CodeFileGenerator();
+			MagickScriptGenerator generator = new MagickScriptGenerator();
 			generator.CreateHeaderFile();
 			generator.CreateCodeFile();
 		}

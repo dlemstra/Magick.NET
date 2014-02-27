@@ -47,7 +47,7 @@
     <Compile Include="Code\Constructors\PathQuadraticCurvetoGenerator.cs" />
     <Compile Include="Code\Constructors\PathCurvetoGeneraror.cs" />
     <Compile Include="Code\Base\ConstructorCodeGenerator.cs" />
-    <Compile Include="Code\CodeFileGenerator.cs" />
+    <Compile Include="Code\MagickScriptGenerator.cs" />
     <Compile Include="Code\Base\CodeGenerator.cs" />
     <Compile Include="Code\Constructors\CoordinateGenerator.cs" />
     <Compile Include="Code\Constructors\PathArcGenerator.cs" />

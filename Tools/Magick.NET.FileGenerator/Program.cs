@@ -22,7 +22,7 @@ namespace Magick.NET.FileGenerator
 		internal static void Main(string[] args)
 		{
 			XsdGenerator.Generate();
-			CodeFileGenerator.Generate();
+			MagickScriptGenerator.Generate();
 		}
 	}
 	//==============================================================================================
