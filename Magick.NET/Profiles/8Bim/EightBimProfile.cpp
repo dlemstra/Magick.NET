@@ -39,7 +39,7 @@ namespace ImageMagick
 		XmlHelper::SetAttribute(path, "stroke", "#00000000");
 		XmlHelper::SetAttribute(path, "stroke-width", "0");
 		XmlHelper::SetAttribute(path, "stroke-antialiasing", "false");
-		String^ test =  GetClipPath(offset, length);
+		String^ test = GetClipPath(offset, length);
 		XmlHelper::SetAttribute(path, "d",test);
 
 		return clipPath;
@@ -59,7 +59,7 @@ namespace ImageMagick
 		_ClipPaths = gcnew List<IXPathNavigable^>();
 
 		int i = 0;
-		while(i + 11 < Data->Length)
+		while (i < Data->Length)
 		{
 			if (Data[i++] != '8')
 				continue;
@@ -69,6 +69,9 @@ namespace ImageMagick
 				continue;
 			if (Data[i++] != 'M')
 				continue;
+
+			if (i + 7 > Data->Length)
+				return;
 
 			short id = ByteConverter::ToShort(Data, i);
 
@@ -80,12 +83,11 @@ namespace ImageMagick
 				i++;
 
 			length = ByteConverter::ToInt(Data, i);
+			if (i + length > Data->Length)
+				return;
 
 			if (id > 1999 && id < 2998)
-			{
-
 				_ClipPaths->Add(CreateClipPath(i, length));
-			}
 
 			i += length;
 		}
