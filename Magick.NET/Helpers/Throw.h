@@ -20,10 +20,13 @@ namespace ImageMagick
 	//==============================================================================================
 	private ref class Throw abstract sealed
 	{
+	private:
+		//===========================================================================================
+		static String^ FormatMessage(String^ message, ... array<Object^>^ args);
 		//===========================================================================================
 	public:
 		//===========================================================================================
-		static void IfFalse(String^ paramName, bool condition, String^ message);
+		static void IfFalse(String^ paramName, bool condition, String^ message, ... array<Object^>^ args);
 		//===========================================================================================
 		static void IfInvalidFileName(String^ fileName);
 		//===========================================================================================
@@ -31,17 +34,17 @@ namespace ImageMagick
 		//===========================================================================================
 		static void IfNull(String^ paramName, Object^ value);
 		//===========================================================================================
-		static void IfNull(String^ paramName, Object^ value, String^ message);
+		static void IfNull(String^ paramName, Object^ value, String^ message, ... array<Object^>^ args);
 		//===========================================================================================
 		static void IfNullOrEmpty(String^ paramName, Array^ value);
 		//===========================================================================================
 		static void IfNullOrEmpty(String^ paramName, String^ value);
 		//===========================================================================================
-		static void IfNullOrEmpty(String^ paramName, String^ value, String^ message);
+		static void IfNullOrEmpty(String^ paramName, String^ value, String^ message, ... array<Object^>^ args);
 		//===========================================================================================
 		static void IfOutOfRange(String^ paramName, int index, int length);
 		//===========================================================================================
-		static void IfTrue(String^ paramName, bool condition, String^ message);
+		static void IfTrue(String^ paramName, bool condition, String^ message, ... array<Object^>^ args);
 		//===========================================================================================
 	};
 	//==============================================================================================

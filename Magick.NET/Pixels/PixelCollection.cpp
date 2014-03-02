@@ -20,8 +20,8 @@ namespace ImageMagick
 	PixelCollection::PixelCollection(Magick::Image* image, int x, int y, int width, int height)
 		: PixelBaseCollection(image, width, height)
 	{
-		Throw::IfTrue("width", x + width > (int)image->size().width(), "Invalid X coordinate specified.");
-		Throw::IfTrue("height", y + height > (int)image->size().height(), "Invalid Y coordinate specified.");
+		Throw::IfTrue("width", x + width > (int)image->size().width(), "Invalid X coordinate specified: {0}.", x);
+		Throw::IfTrue("height", y + height > (int)image->size().height(), "Invalid Y coordinate specified: {0}.", y);
 
 		try
 		{

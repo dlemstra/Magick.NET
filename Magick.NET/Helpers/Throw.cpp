@@ -14,14 +14,23 @@
 #include "Stdafx.h"
 
 using namespace System::IO;
+using namespace System::Globalization;
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	void Throw::IfFalse(String^ paramName, bool condition, String^ message)
+	String^ Throw::FormatMessage(String^ message, ... array<Object^>^ args)
+	{
+		if (args->Length == 0)
+			return message;
+
+		return String::Format(CultureInfo::InvariantCulture, message, args);
+	}
+	//==============================================================================================
+	void Throw::IfFalse(String^ paramName, bool condition, String^ message, ... array<Object^>^ args)
 	{
 		if (!condition)
-			throw gcnew ArgumentException(message, paramName);
+			throw gcnew ArgumentException(FormatMessage(message, args), paramName);
 	}
 	//==============================================================================================
 	void Throw::IfInvalidFileName(String^ fileName)
@@ -39,7 +48,7 @@ namespace ImageMagick
 				path = path->Substring(0, endIndex);
 		}
 
-		Throw::IfFalse("fileName", File::Exists(path), "Unable to find file: " + path);
+		Throw::IfFalse("fileName", File::Exists(path), "Unable to find file: {0}", path);
 	}
 	//==============================================================================================
 	void Throw::IfNegative(String^ paramName, Percentage value)
@@ -54,10 +63,10 @@ namespace ImageMagick
 			throw gcnew ArgumentNullException(paramName);
 	}
 	//==============================================================================================
-	void Throw::IfNull(String^ paramName, Object^ value, String^ message)
+	void Throw::IfNull(String^ paramName, Object^ value, String^ message, ... array<Object^>^ args)
 	{
 		if (value == nullptr)
-			throw gcnew ArgumentNullException(paramName, message);
+			throw gcnew ArgumentNullException(paramName, FormatMessage(message, args));
 	}
 	//==============================================================================================
 	void Throw::IfNullOrEmpty(String^ paramName, Array^ value)
@@ -76,12 +85,12 @@ namespace ImageMagick
 			throw gcnew ArgumentException("Value cannot be empty", paramName);
 	}
 	//==============================================================================================
-	void Throw::IfNullOrEmpty(String^ paramName, String^ value, String^ message)
+	void Throw::IfNullOrEmpty(String^ paramName, String^ value, String^ message, ... array<Object^>^ args)
 	{
-		Throw::IfNull(paramName, value, message);
+		Throw::IfNull(paramName, value, message, args);
 
 		if (value->Length == 0)
-			throw gcnew ArgumentException(message, paramName);
+			throw gcnew ArgumentException(FormatMessage(message, args), paramName);
 	}
 	//==============================================================================================
 	void Throw::IfOutOfRange(String^ paramName, int index, int length)
@@ -90,10 +99,10 @@ namespace ImageMagick
 			throw gcnew ArgumentOutOfRangeException(paramName);
 	}
 	//==============================================================================================
-	void Throw::IfTrue(String^ paramName, bool condition, String^ message)
+	void Throw::IfTrue(String^ paramName, bool condition, String^ message, ... array<Object^>^ args)
 	{
 		if (condition)
-			throw gcnew ArgumentException(message, paramName);
+			throw gcnew ArgumentException(FormatMessage(message, args), paramName);
 	}
 	//==============================================================================================
 }

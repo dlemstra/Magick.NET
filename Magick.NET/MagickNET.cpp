@@ -21,12 +21,21 @@ using namespace System::Security;
 namespace ImageMagick
 {
 	//==============================================================================================
+	String^ MagickNET::CheckDirectory(String^ path)
+	{
+		Throw::IfNullOrEmpty("path", path);
+
+		path = Path::GetFullPath(path);
+		Throw::IfFalse("path", Directory::Exists(path), "Unable to find directory: {0}", path);
+		return path;
+	}
+	//==============================================================================================
 	void MagickNET::CheckImageMagickFiles(String^ path)
 	{
 		for each (String^ imageMagickFile in _ImageMagickFiles)
 		{
 			String^ fileName = path + "\\" + imageMagickFile;
-			Throw::IfFalse("path", File::Exists(fileName), "Unable to find file: " + fileName);
+			Throw::IfFalse("path", File::Exists(fileName), "Unable to find file: {0}", fileName);
 		}
 	}
 	//==============================================================================================
@@ -123,10 +132,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickNET::Initialize(String^ path)
 	{
-		Throw::IfNullOrEmpty("path", path);
-
-		path = Path::GetFullPath(path);
-		Throw::IfFalse("path", Directory::Exists(path), "Unable to find directory: " + path);
+		path = CheckDirectory(path);
 
 		CheckImageMagickFiles(path);
 
@@ -160,26 +166,17 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickNET::SetTempDirectory(String^ path)
 	{
-		Throw::IfNullOrEmpty("path", path);
-		Throw::IfFalse("path", Directory::Exists(path), "Unable to find directory: " + path);
-
-		SetEnv("MAGICK_TEMPORARY_PATH", path);
+		SetEnv("MAGICK_TEMPORARY_PATH", CheckDirectory(path));
 	}
 	//==============================================================================================
 	void MagickNET::SetGhostscriptDirectory(String^ path)
 	{
-		Throw::IfNullOrEmpty("path", path);
-		Throw::IfFalse("path", Directory::Exists(path), "Unable to find directory: " + path);
-
-		SetEnv("MAGICK_GHOSTSCRIPT_PATH", path);
+		SetEnv("MAGICK_GHOSTSCRIPT_PATH", CheckDirectory(path));
 	}
 	//==============================================================================================
 	void MagickNET::SetGhostscriptFontDirectory(String^ path)
 	{
-		Throw::IfNullOrEmpty("path", path);
-		Throw::IfFalse("path", Directory::Exists(path), "Unable to find directory: " + path);
-
-		SetEnv("MAGICK_GHOSTSCRIPT_FONT_PATH", path);
+		SetEnv("MAGICK_GHOSTSCRIPT_FONT_PATH", CheckDirectory(path));
 	}
 	//==============================================================================================
 }

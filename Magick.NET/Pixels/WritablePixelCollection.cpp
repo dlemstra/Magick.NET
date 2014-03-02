@@ -21,7 +21,7 @@ namespace ImageMagick
 	void WritablePixelCollection::SetPixel(int x, int y, array<Magick::Quantum>^ value)
 	{
 		CheckIndex(x, y);
-		Throw::IfTrue("value", value->Length != Channels, "Value should have the same amount of channels.");
+		Throw::IfFalse("value", value->Length % Channels == 0, "Value should have {0} channels.", Channels);
 
 		int index = GetIndex(x, y);
 
@@ -48,7 +48,7 @@ namespace ImageMagick
 	void WritablePixelCollection::SetPixels(array<TType>^ values)
 	{
 		Throw::IfNullOrEmpty("values", values);
-		Throw::IfFalse("values", values->Length % Channels == 0, "Values should have the same amount of channels.");
+		Throw::IfFalse("values", values->Length % Channels == 0, "Values should have {0} channels.", Channels);
 
 		long i = 0;
 		int index = 0;
@@ -73,8 +73,8 @@ namespace ImageMagick
 	WritablePixelCollection::WritablePixelCollection(Magick::Image* image, int x, int y, int width, int height)
 		: PixelBaseCollection(image, width, height)
 	{
-		Throw::IfTrue("width", x + width > (int)image->size().width(), "Invalid X coordinate specified.");
-		Throw::IfTrue("height", y + height > (int)image->size().height(), "Invalid Y coordinate specified.");
+		Throw::IfTrue("width", x + width > (int)image->size().width(), "Invalid X coordinate specified: {0}.", x);
+		Throw::IfTrue("height", y + height > (int)image->size().height(), "Invalid Y coordinate specified: {0}.", y);
 
 		try
 		{

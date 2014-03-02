@@ -51,7 +51,7 @@ namespace ImageMagick
 				count++;
 			}
 
-			Throw::IfTrue("coordinates", count < 3, "Coordinates must contain at least 3 coordinates.");
+			Throw::IfTrue("coordinates", count < 3, "Coordinates must contain at least 3 coordinates, only {0} specified.", count);
 
 			BaseValue = new TMagickObject(magickCoordinates);
 		}

@@ -182,7 +182,7 @@ namespace ImageMagick
 			return;
 		}
 
-		Throw::IfFalse("hexValue", hexValue[0] == '#', "Value should start with '#'.");
+		Throw::IfFalse("hexValue", hexValue[0] == '#', "Value '{0}' should start with '#'.", hexValue);
 
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
 		ParseQ8HexColor(hexValue);

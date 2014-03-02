@@ -84,8 +84,8 @@ namespace ImageMagick
 	//==============================================================================================
 	PixelBaseCollection::PixelBaseCollection(Magick::Image* image, int width, int height)
 	{
-		Throw::IfTrue("width", width > (int)image->size().width(), "Invalid width specified.");
-		Throw::IfTrue("height", height > (int)image->size().height(), "Invalid height specified.");
+		Throw::IfTrue("width", width > (int)image->size().width(), "Invalid width specified: {0}.", width);
+		Throw::IfTrue("height", height > (int)image->size().height(), "Invalid height specified: {0}.", height);
 
 		_View = new Magick::Pixels(*image);
 		_Width = width;
@@ -104,8 +104,8 @@ namespace ImageMagick
 	//==============================================================================================
 	void PixelBaseCollection::CheckIndex(int x, int y)
 	{
-		Throw::IfFalse("x", x >= 0 && x < _Width, "Invalid X coordinate.");
-		Throw::IfFalse("y", y >= 0 && y < _Height, "Invalid Y coordinate.");
+		Throw::IfFalse("x", x >= 0 && x < _Width, "Invalid X coordinate: {0}.", x);
+		Throw::IfFalse("y", y >= 0 && y < _Height, "Invalid Y coordinate: {0}.", y);
 	}
 	//==============================================================================================
 	int PixelBaseCollection::GetIndex(int x, int y)

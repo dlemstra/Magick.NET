@@ -44,6 +44,8 @@ namespace ImageMagick
 		static EventHandler<LogEventArgs^>^ _LogEvent;
 		//static bool _UseOpenCL = true;
 		//===========================================================================================
+		static String^ CheckDirectory(String^ path);
+		//===========================================================================================
 		static void CheckImageMagickFiles(String^ path);
 		//===========================================================================================
 		static void OnLog(const Magick::LogEventType type, const char* text);

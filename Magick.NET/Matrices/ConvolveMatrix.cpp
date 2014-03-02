@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	ConvolveMatrix::ConvolveMatrix(int order)
 	{
-		Throw::IfTrue("order", order < 1, "Invalid order specified.");
+		Throw::IfTrue("order", order < 1, "Invalid order specified, value has to be at least 1.");
 		Throw::IfTrue("order", order % 2 == 0, "Order must be an odd number.");
 
 		Initialize(order);

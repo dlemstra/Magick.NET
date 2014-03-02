@@ -19,7 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	ColorMatrix::ColorMatrix(int order)
 	{
-		Throw::IfTrue("order", (order < 1) || (order > 6), "Invalid order specified.");
+		Throw::IfTrue("order", (order < 1) || (order > 6), "Invalid order specified, range 1-6.");
 
 		Initialize(order);
 	}
