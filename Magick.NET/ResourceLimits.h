@@ -28,6 +28,7 @@ namespace ImageMagick
 		///<summary>
 		/// Pixel cache limit in bytes. Requests for memory above this limit will fail.
 		///</summary>
+		[CLSCompliantAttribute(false)]
 		static property Magick::MagickSizeType Disk
 		{
 			Magick::MagickSizeType get();
@@ -38,6 +39,7 @@ namespace ImageMagick
 		/// Pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
 		/// operations are to/from disk.
 		///</summary>
+		[CLSCompliantAttribute(false)]
 		static property Magick::MagickSizeType Memory
 		{
 			Magick::MagickSizeType get();
@@ -47,6 +49,7 @@ namespace ImageMagick
 		///<summary>
 		/// Limits the number of threads used in multithreaded operations.
 		///</summary>
+		[CLSCompliantAttribute(false)]
 		static property Magick::MagickSizeType Thread
 		{
 			Magick::MagickSizeType get();
