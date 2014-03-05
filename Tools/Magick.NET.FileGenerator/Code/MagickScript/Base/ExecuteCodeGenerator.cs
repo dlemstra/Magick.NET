@@ -34,7 +34,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private static bool IsStatic(PropertyInfo property)
 		{
-			return MagickNET.GetTypeName(property) != "MagickImage^";
+			return MagickNET.GetCppTypeName(property) != "MagickImage^";
 		}
 		//===========================================================================================
 		private void WriteInitializeExecuteMethods(IndentedTextWriter writer, bool isStatic)
@@ -236,7 +236,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected static void WriteGetValue(IndentedTextWriter writer, PropertyInfo property)
 		{
-			string typeName = MagickNET.GetTypeName(property);
+			string typeName = MagickNET.GetCppTypeName(property);
 			string xsdTypeName = XsdGenerator.GetAttributeType(property);
 
 			if (xsdTypeName != null)

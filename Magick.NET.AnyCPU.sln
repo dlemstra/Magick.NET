@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.AnyCPU", "Magick.NET.AnyCPU\Magick.NET.AnyCPU.csproj", "{4821793C-60F1-4D7A-A8F9-A566A70744B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Tests.AnyCPU", "Magick.NET.Tests\Magick.NET.Tests.AnyCPU.csproj", "{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Q16|Any CPU = Q16|Any CPU
+		Q16|Mixed Platforms = Q16|Mixed Platforms
+		Q16|x86 = Q16|x86
+		Q8|Any CPU = Q8|Any CPU
+		Q8|Mixed Platforms = Q8|Mixed Platforms
+		Q8|x86 = Q8|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4821793C-60F1-4D7A-A8F9-A566A70744B7}.Q16|Any CPU.ActiveCfg = Q16|Any CPU
+		{4821793C-60F1-4D7A-A8F9-A566A70744B7}.Q16|Any CPU.Build.0 = Q16|Any CPU
+		{4821793C-60F1-4D7A-A8F9-A566A70744B7}.Q16|Mixed Platforms.ActiveCfg = Q16|Any CPU
+		{4821793C-60F1-4D7A-A8F9-A566A70744B7}.Q16|Mixed Platforms.Build.0 = Q16|Any CPU
+		{4821793C-60F1-4D7A-A8F9-A566A70744B7}.Q16|x86.ActiveCfg = Q16|Any CPU
+		{4821793C-60F1-4D7A-A8F9-A566A70744B7}.Q8|Any CPU.ActiveCfg = Q8|Any CPU
+		{4821793C-60F1-4D7A-A8F9-A566A70744B7}.Q8|Any CPU.Build.0 = Q8|Any CPU
+		{4821793C-60F1-4D7A-A8F9-A566A70744B7}.Q8|Mixed Platforms.ActiveCfg = Q8|Any CPU
+		{4821793C-60F1-4D7A-A8F9-A566A70744B7}.Q8|Mixed Platforms.Build.0 = Q8|Any CPU
+		{4821793C-60F1-4D7A-A8F9-A566A70744B7}.Q8|x86.ActiveCfg = Q8|Any CPU
+		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.Q16|Any CPU.ActiveCfg = ReleaseQ16|x86
+		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.Q16|Mixed Platforms.ActiveCfg = ReleaseQ16|x86
+		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.Q16|Mixed Platforms.Build.0 = ReleaseQ16|x86
+		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.Q16|x86.ActiveCfg = ReleaseQ16|x86
+		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.Q16|x86.Build.0 = ReleaseQ16|x86
+		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.Q8|Any CPU.ActiveCfg = ReleaseQ8|x86
+		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.Q8|Mixed Platforms.ActiveCfg = ReleaseQ8|x86
+		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.Q8|Mixed Platforms.Build.0 = ReleaseQ8|x86
+		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.Q8|x86.ActiveCfg = ReleaseQ8|x86
+		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.Q8|x86.Build.0 = ReleaseQ8|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

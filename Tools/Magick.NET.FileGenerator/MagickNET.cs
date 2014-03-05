@@ -47,6 +47,23 @@ namespace Magick.NET.FileGenerator
 			return IsSupportedMethod(method);
 		}
 		//===========================================================================================
+		private bool IsPublicType(Type type, bool withEnums)
+		{
+			if (!type.IsPublic)
+				return false;
+
+			if (type.IsEnum)
+				return withEnums;
+
+			if (!type.IsClass && !type.IsValueType)
+				return false;
+
+			if (type.Name.IndexOf("Wrapper<", StringComparison.Ordinal) != -1)
+				return false;
+
+			return true;
+		}
+		//===========================================================================================
 		private bool IsSupported(ConstructorInfo constructor, ConstructorInfo[] constructors)
 		{
 			if (!constructor.IsPublic)
@@ -56,7 +73,7 @@ namespace Magick.NET.FileGenerator
 			if (parameters.Length == 0)
 				return false;
 
-			if (parameters.Any(parameter => GetTypeName(parameter) == "Unsupported"))
+			if (parameters.Any(parameter => GetCppTypeName(parameter) == "Unsupported"))
 				return false;
 
 			if (parameters.Length == 1)
@@ -89,7 +106,7 @@ namespace Magick.NET.FileGenerator
 			if (property.SetMethod == null)
 				return false;
 
-			return GetTypeName(property) != "Unsupported";
+			return GetCppTypeName(property) != "Unsupported";
 		}
 		//===========================================================================================
 		private bool IsSupportedMethod(MethodInfo method)
@@ -103,7 +120,7 @@ namespace Magick.NET.FileGenerator
 			if (_UnsupportedMethods.Contains(method.Name))
 				return false;
 
-			if (method.GetParameters().Any(parameter => GetTypeName(parameter) == "Unsupported"))
+			if (method.GetParameters().Any(parameter => GetCppTypeName(parameter) == "Unsupported"))
 				return false;
 
 			return true;
@@ -141,111 +158,24 @@ namespace Magick.NET.FileGenerator
 					 select constructor;
 		}
 		//===========================================================================================
-		public IEnumerable<ConstructorInfo[]> GetDrawables()
+		public static string GetCppTypeName(ConstructorInfo constructor)
 		{
-			return GetSubclassConstructors("Drawable");
+			return GetCppTypeName(constructor.DeclaringType);
 		}
 		//===========================================================================================
-		public IEnumerable<MethodInfo[]> GetGroupedMagickImageMethods()
+		public static string GetCppTypeName(ParameterInfo parameter)
 		{
-			return from type in _MagickNET.GetTypes()
-					 where type.Name == "MagickImage"
-					 from method in type.GetMethods()
-					 where IsSupported(method)
-					 group method by method.Name into g
-					 orderby g.Key
-					 select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+			return GetCppTypeName(parameter.ParameterType);
 		}
 		//===========================================================================================
-		public IEnumerable<MethodInfo[]> GetGroupedMagickImageCollectionMethods()
+		public static string GetCppTypeName(PropertyInfo property)
 		{
-			return from type in _MagickNET.GetTypes()
-					 where type.Name == "MagickImageCollection"
-					 from method in type.GetMethods()
-					 where IsSupported(method)
-					 group method by method.Name into g
-					 orderby g.Key
-					 select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+			return GetCppTypeName(property.PropertyType);
 		}
 		//===========================================================================================
-		public IEnumerable<MethodInfo[]> GetGroupedMagickImageCollectionResultMethods()
+		public static string GetCppTypeName(Type type)
 		{
-			return from type in _MagickNET.GetTypes()
-					 where type.Name == "MagickImageCollection"
-					 from method in type.GetMethods()
-					 where HasSupportedResult(method)
-					 group method by method.Name into g
-					 orderby g.Key
-					 select g.OrderBy(m => m.GetParameters().Count()).ToArray();
-		}
-		//===========================================================================================
-		internal IEnumerable<PropertyInfo> GetMagickImageProperties()
-		{
-			return GetProperties("MagickImage");
-		}
-		//===========================================================================================
-		public IEnumerable<MethodInfo> GetMethods(string typeName)
-		{
-			return from type in _MagickNET.GetTypes()
-					 where type.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase)
-					 from method in type.GetMethods()
-					 where IsSupported(method)
-					 select method;
-		}
-		//===========================================================================================
-		public IEnumerable<PropertyInfo> GetProperties(string typeName)
-		{
-			return from type in _MagickNET.GetTypes()
-					 where type.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase)
-					 from property in type.GetProperties()
-					 where IsSupported(property)
-					 orderby property.Name
-					 select property;
-		}
-		//===========================================================================================
-		public static string GetName(MemberInfo member)
-		{
-			ConstructorInfo constructor = member as ConstructorInfo;
-			if (constructor != null)
-			{
-				string name = constructor.DeclaringType.Name;
-				if (name.StartsWith("Drawable", StringComparison.OrdinalIgnoreCase))
-					name = name.Substring(8);
-				else if (name.StartsWith("Path", StringComparison.OrdinalIgnoreCase))
-					name = name.Substring(4);
-
-				return name;
-			}
-
-			return member.Name;
-		}
-		//===========================================================================================
-		public IEnumerable<ConstructorInfo[]> GetPaths()
-		{
-			return GetSubclassConstructors("PathBase");
-		}
-		//===========================================================================================
-		public static string GetTypeName(ConstructorInfo constructor)
-		{
-			return GetTypeName(constructor.DeclaringType);
-		}
-		//===========================================================================================
-		public static string GetTypeName(ParameterInfo parameter)
-		{
-			return GetTypeName(parameter.ParameterType);
-		}
-		//===========================================================================================
-		public static string GetTypeName(PropertyInfo property)
-		{
-			return GetTypeName(property.PropertyType);
-		}
-		//===========================================================================================
-		public static string GetTypeName(Type type)
-		{
-			string name = type.Name;
-
-			if (type.IsGenericType)
-				name = name.Replace("`1", "") + "<" + type.GetGenericArguments()[0].Name + ">";
+			string name = GetTypeName(type);
 
 			if (type.IsEnum)
 				return name;
@@ -305,6 +235,156 @@ namespace Magick.NET.FileGenerator
 					throw new NotImplementedException(name);
 			}
 		}
+		//===========================================================================================
+		public IEnumerable<ConstructorInfo[]> GetDrawables()
+		{
+			return GetSubclassConstructors("Drawable");
+		}
+		//===========================================================================================
+		public IEnumerable<MethodInfo[]> GetGroupedMagickImageMethods()
+		{
+			return from type in _MagickNET.GetTypes()
+					 where type.Name == "MagickImage"
+					 from method in type.GetMethods()
+					 where IsSupported(method)
+					 group method by method.Name into g
+					 orderby g.Key
+					 select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+		}
+		//===========================================================================================
+		public IEnumerable<MethodInfo[]> GetGroupedMagickImageCollectionMethods()
+		{
+			return from type in _MagickNET.GetTypes()
+					 where type.Name == "MagickImageCollection"
+					 from method in type.GetMethods()
+					 where IsSupported(method)
+					 group method by method.Name into g
+					 orderby g.Key
+					 select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+		}
+		//===========================================================================================
+		public IEnumerable<MethodInfo[]> GetGroupedMagickImageCollectionResultMethods()
+		{
+			return from type in _MagickNET.GetTypes()
+					 where type.Name == "MagickImageCollection"
+					 from method in type.GetMethods()
+					 where HasSupportedResult(method)
+					 group method by method.Name into g
+					 orderby g.Key
+					 select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+		}
+		//===========================================================================================
+		internal IEnumerable<PropertyInfo> GetMagickImageProperties()
+		{
+			return GetProperties("MagickImage");
+		}
+		//===========================================================================================
+		public IEnumerable<MethodInfo> GetMethods(string typeName)
+		{
+			return from type in _MagickNET.GetTypes()
+					 where type.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase)
+					 from method in type.GetMethods()
+					 where IsSupported(method)
+					 select method;
+		}
+		//===========================================================================================
+		public static string GetName(MemberInfo member)
+		{
+			ConstructorInfo constructor = member as ConstructorInfo;
+			if (constructor != null)
+			{
+				string name = constructor.DeclaringType.Name;
+				if (name.StartsWith("Drawable", StringComparison.OrdinalIgnoreCase))
+					name = name.Substring(8);
+				else if (name.StartsWith("Path", StringComparison.OrdinalIgnoreCase))
+					name = name.Substring(4);
+
+				return name;
+			}
+
+			return member.Name;
+		}
+		//===========================================================================================
+		public IEnumerable<PropertyInfo> GetProperties(string typeName)
+		{
+			return from type in _MagickNET.GetTypes()
+					 where type.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase)
+					 from property in type.GetProperties()
+					 where IsSupported(property)
+					 orderby property.Name
+					 select property;
+		}
+		//===========================================================================================
+		public IEnumerable<ConstructorInfo[]> GetPaths()
+		{
+			return GetSubclassConstructors("PathBase");
+		}
+		//===========================================================================================
+		public IEnumerable<Type> GetPublicTypes(bool withEnums)
+		{
+			return from type in _MagickNET.GetTypes()
+					 where IsPublicType(type, withEnums)
+					 select type;
+		}
+		//===========================================================================================
+		public static Type GetBaseType(Type type)
+		{
+			if (type.BaseType.Name.IndexOf("Wrapper") != -1)
+				return type.BaseType.BaseType;
+
+			return type.BaseType;
+		}
+		//===========================================================================================
+		public static string GetTypeName(Type type)
+		{
+			string name = type.Name;
+
+			if (type.IsGenericType)
+			{
+				Type[] arguments = type.GetGenericArguments();
+				for (int i = 0; i < arguments.Length; i++)
+				{
+					name = name.Replace("`" + (i + 1), "");
+				}
+				name += "<";
+				for (int i = 0; i < arguments.Length; i++)
+				{
+					if (i > 0)
+						name += ",";
+
+					name += arguments[i].Name;
+				}
+				name += ">";
+			}
+
+			if (type == typeof(void))
+				return "void";
+
+			return name;
+		}
+		//===========================================================================================
+		public static bool IsQuantumDependant(Type type)
+		{
+			switch (type.Name)
+			{
+				case "ColorCMYK":
+				case "ColorGray":
+				case "ColorHSL":
+				case "ColorMono":
+				case "ColorRGB":
+				case "ColorYUV":
+				case "MagickColor":
+				case "MagickImage":
+				case "Pixel":
+				case "PixelBaseCollection":
+				case "Quantum":
+				case "WritablePixelCollection":
+					return true;
+				default:
+					return false;
+			}
+		}
+		//===========================================================================================
 	}
 	//==============================================================================================
 }

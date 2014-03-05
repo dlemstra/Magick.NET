@@ -60,7 +60,7 @@ namespace Magick.NET.FileGenerator
 
 				foreach (ParameterInfo parameter in parameters)
 				{
-					string typeName = MagickNET.GetTypeName(parameter);
+					string typeName = MagickNET.GetCppTypeName(parameter);
 
 					writer.Write(typeName);
 					writer.Write(" ");
@@ -96,7 +96,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteGetValue(IndentedTextWriter writer, PropertyInfo property)
 		{
-			string typeName = MagickNET.GetTypeName(property);
+			string typeName = MagickNET.GetCppTypeName(property);
 			string xsdTypeName = XsdGenerator.GetAttributeType(property);
 
 			if (xsdTypeName != null)

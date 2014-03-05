@@ -11,28 +11,20 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System;
 
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal class Program
+	[Flags]
+	internal enum ParameterMode
 	{
-		//===========================================================================================
-		internal static void Main(string[] args)
-		{
-			bool generateMagickScript = (args.Length == 0);
-			bool generateAnyCPU = (args.Length == 0) || (args[0] == "--AnyCPU");
-
-			if (generateMagickScript)
-			{
-				XsdGenerator.Generate();
-				MagickScriptGenerator.Generate();
-			}
-
-			if (generateAnyCPU)
-				AnyCPUGenerator.Generate();
-		}
+		None = 0,
+		Name = 1,
+		AddColon = 2,
+		Type = 4,
+		Instance = 8
 	}
 	//==============================================================================================
 }

@@ -11,28 +11,38 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-using System;
+using System.IO;
 
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal class Program
+	internal class AnyCPUGenerator : FileGenerator
 	{
 		//===========================================================================================
-		internal static void Main(string[] args)
+		private AnyCPUGenerator()
+			: base(@"Magick.NET.AnyCPU\Generated")
 		{
-			bool generateMagickScript = (args.Length == 0);
-			bool generateAnyCPU = (args.Length == 0) || (args[0] == "--AnyCPU");
-
-			if (generateMagickScript)
-			{
-				XsdGenerator.Generate();
-				MagickScriptGenerator.Generate();
-			}
-
-			if (generateAnyCPU)
-				AnyCPUGenerator.Generate();
 		}
+		//===========================================================================================
+		private void Cleanup()
+		{
+			foreach (string fileName in Directory.GetFiles(OutputFolder, "*.cs", SearchOption.AllDirectories))
+			{
+				File.Delete(fileName);
+			}
+		}
+		//===========================================================================================
+		public static void Generate()
+		{
+			AnyCPUGenerator generator = new AnyCPUGenerator();
+			generator.Cleanup();
+
+			EnumGenerator.Generate();
+			ClassGenerator.Generate();
+			ExceptionGenerator.Generate();
+			TypesGenerator.Generate();
+		}
+		//===========================================================================================
 	}
 	//==============================================================================================
 }

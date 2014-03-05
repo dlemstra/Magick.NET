@@ -303,7 +303,7 @@ namespace Magick.NET.FileGenerator
 			if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
 				newType = type.GetGenericArguments().First();
 
-			string typeName = MagickNET.GetTypeName(newType);
+			string typeName = MagickNET.GetCppTypeName(newType);
 
 			if (newType.IsEnum)
 				return typeName;
@@ -348,7 +348,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private static string GetXsdElementType(Type type)
 		{
-			string typeName = MagickNET.GetTypeName(type);
+			string typeName = MagickNET.GetCppTypeName(type);
 
 			switch (typeName)
 			{

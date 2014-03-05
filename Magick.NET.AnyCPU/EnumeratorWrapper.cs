@@ -12,27 +12,43 @@
 // limitations under the License.
 //=================================================================================================
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
+using System.Reflection;
+using Fasterflect;
 
-namespace Magick.NET.FileGenerator
+namespace ImageMagick
 {
 	//==============================================================================================
-	internal class Program
+	internal sealed class EnumeratorWrapper<T> : IEnumerable<T>
 	{
 		//===========================================================================================
-		internal static void Main(string[] args)
+		private object _Items;
+		//===========================================================================================
+		public EnumeratorWrapper(object items)
 		{
-			bool generateMagickScript = (args.Length == 0);
-			bool generateAnyCPU = (args.Length == 0) || (args[0] == "--AnyCPU");
-
-			if (generateMagickScript)
-			{
-				XsdGenerator.Generate();
-				MagickScriptGenerator.Generate();
-			}
-
-			if (generateAnyCPU)
-				AnyCPUGenerator.Generate();
+			_Items = items;
 		}
+		//===========================================================================================
+		public IEnumerator<T> GetEnumerator()
+		{
+			IEnumerator enumerator = (IEnumerator)_Items;
+			List<T> list = new List<T>();
+			while (enumerator.MoveNext())
+			{
+				T item = (T)typeof(T).CreateInstance(new Type[] { typeof(object) }, enumerator.Current);
+				list.Add(item);
+			}
+			return list.GetEnumerator();
+		}
+		//===========================================================================================
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
+		//===========================================================================================
 	}
 	//==============================================================================================
 }

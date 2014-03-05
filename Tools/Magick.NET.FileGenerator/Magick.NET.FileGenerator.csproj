@@ -41,6 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\AnyCPU\AnyCPUGenerator.cs" />
+    <Compile Include="Code\AnyCPU\TypesGenerator.cs" />
+    <Compile Include="Code\AnyCPU\ExceptionGenerator.cs" />
+    <Compile Include="Code\AnyCPU\ClassGenerator.cs" />
+    <Compile Include="Code\AnyCPU\ParameterMode.cs" />
+    <Compile Include="Code\AnyCPU\EnumGenerator.cs" />
+    <Compile Include="Code\Base\FileGenerator.cs" />
     <Compile Include="Code\MagickScript\Base\SettingsCodeGenerator.cs" />
     <Compile Include="Code\MagickScript\Settings\PixelStorageSettingsGenerator.cs" />
     <Compile Include="Code\MagickScript\Constructors\ImageProfileGenerator.cs" />
@@ -71,6 +78,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

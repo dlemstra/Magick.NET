@@ -38,7 +38,7 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return MagickNET.GetTypeName(Constructors[0]);
+				return MagickNET.GetCppTypeName(Constructors[0]);
 			}
 		}
 		//===========================================================================================

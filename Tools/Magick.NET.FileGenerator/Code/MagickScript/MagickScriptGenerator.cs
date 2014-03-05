@@ -11,15 +11,13 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal sealed class MagickScriptGenerator
+	internal sealed class MagickScriptGenerator : FileGenerator
 	{
 		//===========================================================================================
 		private List<ExecuteCodeGenerator> _ExecuteCodeGenerators;
@@ -27,6 +25,7 @@ namespace Magick.NET.FileGenerator
 		private List<SettingsCodeGenerator> _SettingsCodeGenerators;
 		//===========================================================================================
 		private MagickScriptGenerator()
+			: base(@"Magick.NET\Script\Generated")
 		{
 			InitializeCodeGenerators();
 		}
@@ -59,19 +58,16 @@ namespace Magick.NET.FileGenerator
 				WriteHeader(writer);
 				WriteIncludes(writer);
 				writer.WriteLine("#pragma warning (disable: 4100)");
-				writer.WriteLine("namespace ImageMagick");
-				writer.WriteLine("{");
-				writer.Indent++;
+				WriteStartNamespace(writer);
 				WriteCallInitializeExecute(writer);
 				WriteInitializeExecute(writer);
 				WriteExecuteMethods(writer);
 				WriteConstructors(writer);
 				WriteSettings(writer);
-				writer.Indent--;
-				writer.WriteLine("}");
+				WriteEndColon(writer);
 				writer.WriteLine("#pragma warning (default: 4100)");
 
-				writer.InnerWriter.Dispose();
+				Close(writer);
 			}
 		}
 		//===========================================================================================
@@ -97,19 +93,8 @@ namespace Magick.NET.FileGenerator
 					codeGenerator.WriteHeader(writer);
 				}
 
-				writer.InnerWriter.Dispose();
+				Close(writer);
 			}
-		}
-		//===========================================================================================
-		private static IndentedTextWriter CreateWriter(string fileName)
-		{
-			string outputFile = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\Script\Generated\" + fileName);
-			Console.WriteLine("Creating: " + outputFile);
-
-			FileStream output = File.Create(outputFile);
-			StreamWriter streamWriter = new StreamWriter(output);
-			IndentedTextWriter writer = new IndentedTextWriter(streamWriter, "\t");
-			return writer;
 		}
 		//===========================================================================================
 		private void WriteCallInitializeExecute(IndentedTextWriter writer)
@@ -141,23 +126,6 @@ namespace Magick.NET.FileGenerator
 			{
 				codeGenerator.WriteExecuteMethods(writer);
 			}
-		}
-		//===========================================================================================
-		private static void WriteHeader(IndentedTextWriter writer)
-		{
-			writer.WriteLine("//=================================================================================================");
-			writer.WriteLine("// Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>");
-			writer.WriteLine("//");
-			writer.WriteLine("// Licensed under the ImageMagick License (the \"License\"); you may not use this file except in");
-			writer.WriteLine("// compliance with the License. You may obtain a copy of the License at");
-			writer.WriteLine("//");
-			writer.WriteLine("//   http://www.imagemagick.org/script/license.php");
-			writer.WriteLine("//");
-			writer.WriteLine("// Unless required by applicable law or agreed to in writing, software distributed under the");
-			writer.WriteLine("// License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either");
-			writer.WriteLine("// express or implied. See the License for the specific language governing permissions and");
-			writer.WriteLine("// limitations under the License.");
-			writer.WriteLine("//=================================================================================================");
 		}
 		//===========================================================================================
 		private void WriteIncludes(IndentedTextWriter writer)
@@ -193,7 +161,7 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		internal static void Generate()
+		public static void Generate()
 		{
 			MagickScriptGenerator generator = new MagickScriptGenerator();
 			generator.CreateHeaderFile();
