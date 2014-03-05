@@ -139,6 +139,8 @@ namespace Magick.NET.Tests
 
 					collection[i] = collection[i];
 					Assert.AreEqual(35, collection[i].Width);
+
+					collection[i] = null;
 				}
 			}
 		}

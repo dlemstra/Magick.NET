@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
@@ -24,17 +25,20 @@ namespace Magick.NET.Tests
 		public static void Throws<TException>(Action action)
 			 where TException : Exception
 		{
-			Throws<TException>(action, "Exception of type " + typeof(TException).Name + " was not thrown.");
+			Throws<TException>(action, "Exception of type {0} was not thrown.", typeof(TException).Name);
 		}
 		//===========================================================================================
-		public static void Throws<TException>(Action action, string message)
+		public static void Throws<TException>(Action action, string message, params object[] arguments)
 			 where TException : Exception
 		{
 			try
 			{
 				action();
 
-				Assert.Fail(message);
+				if (arguments != null && arguments.Length > 0)
+					Assert.Fail(String.Format(CultureInfo.InvariantCulture, message, arguments));
+				else
+					Assert.Fail(message);
 			}
 			catch (TException)
 			{

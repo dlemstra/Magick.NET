@@ -211,6 +211,20 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Drawable()
+		{
+			using (MagickImage image = new MagickImage(Color.Red, 10, 10))
+			{
+				MagickColor yellow = Color.Yellow;
+				image.Draw(new DrawableFillColor(yellow), new DrawableRectangle(0, 0, 10, 10));
+				using (PixelCollection collection = image.GetReadOnlyPixels())
+				{
+					Assert.AreEqual(collection.GetPixel(5, 5).ToColor(), yellow);
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Extend()
 		{
 			using (MagickImage image = new MagickImage())
