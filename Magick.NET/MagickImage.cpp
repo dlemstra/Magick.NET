@@ -575,6 +575,9 @@ namespace ImageMagick
 		const Magick::Geometry* geometry = value->CreateGeometry();
 		Value->density(*geometry);
 		delete geometry;
+
+		if (ResolutionUnits == Resolution::Undefined)
+			ResolutionUnits = Resolution::PixelsPerInch;
 	}
 	//==============================================================================================
 	int MagickImage::Depth::get()
