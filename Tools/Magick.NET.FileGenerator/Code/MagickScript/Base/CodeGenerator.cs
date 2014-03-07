@@ -33,12 +33,11 @@ namespace Magick.NET.FileGenerator
 			parameters = parameters.OrderBy(p => p.Name).ToArray();
 
 			writer.WriteLine("for each(XmlAttribute^ attribute in element->Attributes)");
-			writer.WriteLine("{");
-			writer.Indent++;
+			WriteStartColon(writer);
 
 			if (parameters.DistinctBy(p => MagickNET.GetCppTypeName(p)).Count() == 1)
 			{
-				writer.Write("arguments[attribute->Name] = XmlHelper::GetValue<");
+				writer.Write("arguments[attribute->Name] = _Variables->GetValue<");
 				writer.Write(MagickNET.GetCppTypeName(parameters[0]));
 				writer.WriteLine(">(attribute);");
 			}
@@ -63,8 +62,7 @@ namespace Magick.NET.FileGenerator
 				}
 			}
 
-			writer.Indent--;
-			writer.WriteLine("}");
+			WriteEndColon(writer);
 		}
 		//===========================================================================================
 		private void WriteCallIfElse(IndentedTextWriter writer, MethodBase[] methods)
@@ -107,8 +105,7 @@ namespace Magick.NET.FileGenerator
 				return;
 
 			writer.WriteLine("for each(XmlElement^ elem in element->SelectNodes(\"*\"))");
-			writer.WriteLine("{");
-			writer.Indent++;
+			WriteStartColon(writer);
 
 			if (parameters.DistinctBy(p => MagickNET.GetCppTypeName(p)).Count() == 1)
 			{
@@ -138,8 +135,7 @@ namespace Magick.NET.FileGenerator
 				}
 			}
 
-			writer.Indent--;
-			writer.WriteLine("}");
+			WriteEndColon(writer);
 		}
 		//===========================================================================================
 		private static void WriteGetValue(IndentedTextWriter writer, ParameterInfo parameter)
@@ -149,7 +145,7 @@ namespace Magick.NET.FileGenerator
 
 			if (xsdTypeName != null)
 			{
-				WriteGetAttributeValue(writer, typeName, parameter.Name);
+				WriteGetElementValue(writer, typeName, parameter.Name);
 			}
 			else
 			{
@@ -251,11 +247,6 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected abstract void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters);
 		//===========================================================================================
-		protected static bool IsStatic(MethodBase[] methods)
-		{
-			return !methods.Any(method => method.GetParameters().Any(parameter => MagickNET.GetCppTypeName(parameter) == "MagickImage^"));
-		}
-		//===========================================================================================
 		protected static void WriteCreateMethod(IndentedTextWriter writer, string typeName)
 		{
 			switch (typeName)
@@ -298,13 +289,26 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		protected static void WriteGetAttributeValue(IndentedTextWriter writer, string typeName, string attributeName)
+		protected static void WriteEndColon(IndentedTextWriter writer)
 		{
-			writer.Write("XmlHelper::GetAttribute<");
+			writer.Indent--;
+			writer.WriteLine("}");
+		}
+		//===========================================================================================
+		protected static void WriteGetElementValue(IndentedTextWriter writer, string typeName, string attributeName)
+		{
+			writer.Write("_Variables->GetValue<");
 			writer.Write(typeName);
 			writer.Write(">(element, \"");
 			writer.Write(attributeName);
 			writer.WriteLine("\");");
+		}
+		//===========================================================================================
+		protected static void WriteGetAttributeValue(IndentedTextWriter writer, string typeName, string attributeName)
+		{
+			writer.Write("_Variables->GetValue<");
+			writer.Write(typeName);
+			writer.WriteLine(">(attribute);");
 		}
 		//===========================================================================================
 		protected void WriteMethod(IndentedTextWriter writer, MethodBase[] methods)
@@ -364,6 +368,12 @@ namespace Magick.NET.FileGenerator
 				default:
 					throw new NotImplementedException(typeName);
 			}
+		}
+		//===========================================================================================
+		protected static void WriteStartColon(IndentedTextWriter writer)
+		{
+			writer.WriteLine("{");
+			writer.Indent++;
 		}
 		//===========================================================================================
 	}

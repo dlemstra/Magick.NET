@@ -13,7 +13,9 @@
 //=================================================================================================
 
 using System;
+using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
 using ImageMagick;
@@ -198,6 +200,52 @@ namespace Magick.NET.Tests
 				using (MagickImage result = script.Execute())
 				{
 					TestScriptResizeResult(result);
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Execute_Variables()
+		{
+			MagickScript script = new MagickScript(Files.VariablesScript);
+			string[] names = script.Variables.Names.ToArray();
+			Assert.AreEqual(3, names.Length);
+			Assert.AreEqual("width", names[0]);
+			Assert.AreEqual("height", names[1]);
+			Assert.AreEqual("color", names[2]);
+
+			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+			{
+				ExceptionAssert.Throws<ArgumentException>(delegate()
+				{
+					script.Execute(image);
+				});
+
+				script.Variables["width"] = "test";
+
+				ExceptionAssert.Throws<FormatException>(delegate()
+				{
+					script.Execute(image);
+				});
+
+				script.Variables.Set("width", 100);
+
+				ExceptionAssert.Throws<ArgumentException>(delegate()
+				{
+					script.Execute(image);
+				});
+
+				script.Variables["height"] = "100";
+				Assert.AreEqual("100", script.Variables.Get("height"));
+				script.Variables["color"] = Color.Yellow;
+
+				script.Execute(image);
+
+				Assert.AreEqual(100, image.Width);
+				Assert.AreEqual(100, image.Height);
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					ColorAssert.AreEqual(Color.Yellow, pixels.GetPixel(0, 0).ToColor());
 				}
 			}
 		}

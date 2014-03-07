@@ -59,8 +59,6 @@ namespace Magick.NET.FileGenerator
 				WriteIncludes(writer);
 				writer.WriteLine("#pragma warning (disable: 4100)");
 				WriteStartNamespace(writer);
-				WriteCallInitializeExecute(writer);
-				WriteInitializeExecute(writer);
 				WriteExecuteMethods(writer);
 				WriteConstructors(writer);
 				WriteSettings(writer);
@@ -76,7 +74,6 @@ namespace Magick.NET.FileGenerator
 			using (IndentedTextWriter writer = CreateWriter(@"Execute.h"))
 			{
 				WriteHeader(writer);
-				writer.WriteLine("void InitializeExecute();");
 
 				foreach (ExecuteCodeGenerator codeGenerator in _ExecuteCodeGenerators)
 				{
@@ -95,21 +92,6 @@ namespace Magick.NET.FileGenerator
 
 				Close(writer);
 			}
-		}
-		//===========================================================================================
-		private void WriteCallInitializeExecute(IndentedTextWriter writer)
-		{
-			writer.WriteLine("void MagickScript::InitializeExecute()");
-			writer.WriteLine("{");
-			writer.Indent++;
-
-			foreach (ExecuteCodeGenerator codeGenerator in _ExecuteCodeGenerators)
-			{
-				codeGenerator.WriteCallInitializeExecute(writer);
-			}
-
-			writer.Indent--;
-			writer.WriteLine("}");
 		}
 		//===========================================================================================
 		private void WriteConstructors(IndentedTextWriter writer)
@@ -142,14 +124,6 @@ namespace Magick.NET.FileGenerator
 			foreach (ConstructorCodeGenerator codeGenerator in _ConstructorCodeGenerators)
 			{
 				codeGenerator.WriteIncludes(writer);
-			}
-		}
-		//===========================================================================================
-		private void WriteInitializeExecute(IndentedTextWriter writer)
-		{
-			foreach (ExecuteCodeGenerator codeGenerator in _ExecuteCodeGenerators)
-			{
-				codeGenerator.WriteInitializeExecute(writer);
 			}
 		}
 		//===========================================================================================

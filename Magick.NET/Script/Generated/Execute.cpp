@@ -82,342 +82,1519 @@
 #pragma warning (disable: 4100)
 namespace ImageMagick
 {
-	void MagickScript::InitializeExecute()
-	{
-		InitializeExecuteImage();
-		InitializeExecuteDrawable();
-	}
-	System::Collections::Hashtable^ MagickScript::InitializeStaticExecuteImage()
-	{
-		System::Collections::Hashtable^ result = gcnew System::Collections::Hashtable();
-		result["adjoin"] = gcnew ExecuteElementImage(MagickScript::ExecuteAdjoin);
-		result["animationDelay"] = gcnew ExecuteElementImage(MagickScript::ExecuteAnimationDelay);
-		result["animationIterations"] = gcnew ExecuteElementImage(MagickScript::ExecuteAnimationIterations);
-		result["antiAlias"] = gcnew ExecuteElementImage(MagickScript::ExecuteAntiAlias);
-		result["backgroundColor"] = gcnew ExecuteElementImage(MagickScript::ExecuteBackgroundColor);
-		result["borderColor"] = gcnew ExecuteElementImage(MagickScript::ExecuteBorderColor);
-		result["boxColor"] = gcnew ExecuteElementImage(MagickScript::ExecuteBoxColor);
-		result["classType"] = gcnew ExecuteElementImage(MagickScript::ExecuteClassType);
-		result["colorFuzz"] = gcnew ExecuteElementImage(MagickScript::ExecuteColorFuzz);
-		result["colorMapSize"] = gcnew ExecuteElementImage(MagickScript::ExecuteColorMapSize);
-		result["colorSpace"] = gcnew ExecuteElementImage(MagickScript::ExecuteColorSpace);
-		result["colorType"] = gcnew ExecuteElementImage(MagickScript::ExecuteColorType);
-		result["comment"] = gcnew ExecuteElementImage(MagickScript::ExecuteComment);
-		result["compose"] = gcnew ExecuteElementImage(MagickScript::ExecuteCompose);
-		result["compressionMethod"] = gcnew ExecuteElementImage(MagickScript::ExecuteCompressionMethod);
-		result["debug"] = gcnew ExecuteElementImage(MagickScript::ExecuteDebug);
-		result["density"] = gcnew ExecuteElementImage(MagickScript::ExecuteDensity);
-		result["depth"] = gcnew ExecuteElementImage(MagickScript::ExecuteDepth);
-		result["endian"] = gcnew ExecuteElementImage(MagickScript::ExecuteEndian);
-		result["fillColor"] = gcnew ExecuteElementImage(MagickScript::ExecuteFillColor);
-		result["fillRule"] = gcnew ExecuteElementImage(MagickScript::ExecuteFillRule);
-		result["filterType"] = gcnew ExecuteElementImage(MagickScript::ExecuteFilterType);
-		result["flashPixView"] = gcnew ExecuteElementImage(MagickScript::ExecuteFlashPixView);
-		result["font"] = gcnew ExecuteElementImage(MagickScript::ExecuteFont);
-		result["fontPointsize"] = gcnew ExecuteElementImage(MagickScript::ExecuteFontPointsize);
-		result["format"] = gcnew ExecuteElementImage(MagickScript::ExecuteFormat);
-		result["gifDisposeMethod"] = gcnew ExecuteElementImage(MagickScript::ExecuteGifDisposeMethod);
-		result["hasAlpha"] = gcnew ExecuteElementImage(MagickScript::ExecuteHasAlpha);
-		result["interlace"] = gcnew ExecuteElementImage(MagickScript::ExecuteInterlace);
-		result["interpolate"] = gcnew ExecuteElementImage(MagickScript::ExecuteInterpolate);
-		result["isMonochrome"] = gcnew ExecuteElementImage(MagickScript::ExecuteIsMonochrome);
-		result["label"] = gcnew ExecuteElementImage(MagickScript::ExecuteLabel);
-		result["matteColor"] = gcnew ExecuteElementImage(MagickScript::ExecuteMatteColor);
-		result["orientation"] = gcnew ExecuteElementImage(MagickScript::ExecuteOrientation);
-		result["page"] = gcnew ExecuteElementImage(MagickScript::ExecutePage);
-		result["quality"] = gcnew ExecuteElementImage(MagickScript::ExecuteQuality);
-		result["quantizeColors"] = gcnew ExecuteElementImage(MagickScript::ExecuteQuantizeColors);
-		result["quantizeColorSpace"] = gcnew ExecuteElementImage(MagickScript::ExecuteQuantizeColorSpace);
-		result["quantizeDither"] = gcnew ExecuteElementImage(MagickScript::ExecuteQuantizeDither);
-		result["quantizeTreeDepth"] = gcnew ExecuteElementImage(MagickScript::ExecuteQuantizeTreeDepth);
-		result["renderingIntent"] = gcnew ExecuteElementImage(MagickScript::ExecuteRenderingIntent);
-		result["resolutionUnits"] = gcnew ExecuteElementImage(MagickScript::ExecuteResolutionUnits);
-		result["strokeAntiAlias"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrokeAntiAlias);
-		result["strokeColor"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrokeColor);
-		result["strokeDashOffset"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrokeDashOffset);
-		result["strokeLineCap"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrokeLineCap);
-		result["strokeLineJoin"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrokeLineJoin);
-		result["strokeMiterLimit"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrokeMiterLimit);
-		result["strokeWidth"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrokeWidth);
-		result["textDirection"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextDirection);
-		result["textEncoding"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextEncoding);
-		result["textGravity"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextGravity);
-		result["textInterlineSpacing"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextInterlineSpacing);
-		result["textInterwordSpacing"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextInterwordSpacing);
-		result["textKerning"] = gcnew ExecuteElementImage(MagickScript::ExecuteTextKerning);
-		result["tileName"] = gcnew ExecuteElementImage(MagickScript::ExecuteTileName);
-		result["verbose"] = gcnew ExecuteElementImage(MagickScript::ExecuteVerbose);
-		result["virtualPixelMethod"] = gcnew ExecuteElementImage(MagickScript::ExecuteVirtualPixelMethod);
-		result["adaptiveBlur"] = gcnew ExecuteElementImage(MagickScript::ExecuteAdaptiveBlur);
-		result["adaptiveResize"] = gcnew ExecuteElementImage(MagickScript::ExecuteAdaptiveResize);
-		result["adaptiveSharpen"] = gcnew ExecuteElementImage(MagickScript::ExecuteAdaptiveSharpen);
-		result["adaptiveThreshold"] = gcnew ExecuteElementImage(MagickScript::ExecuteAdaptiveThreshold);
-		result["addNoise"] = gcnew ExecuteElementImage(MagickScript::ExecuteAddNoise);
-		result["addProfile"] = gcnew ExecuteElementImage(MagickScript::ExecuteAddProfile);
-		result["alpha"] = gcnew ExecuteElementImage(MagickScript::ExecuteAlpha);
-		result["annotate"] = gcnew ExecuteElementImage(MagickScript::ExecuteAnnotate);
-		result["autoGamma"] = gcnew ExecuteElementImage(MagickScript::ExecuteAutoGamma);
-		result["autoLevel"] = gcnew ExecuteElementImage(MagickScript::ExecuteAutoLevel);
-		result["autoOrient"] = gcnew ExecuteElementImage(MagickScript::ExecuteAutoOrient);
-		result["bitDepth"] = gcnew ExecuteElementImage(MagickScript::ExecuteBitDepth);
-		result["blackThreshold"] = gcnew ExecuteElementImage(MagickScript::ExecuteBlackThreshold);
-		result["blueShift"] = gcnew ExecuteElementImage(MagickScript::ExecuteBlueShift);
-		result["blur"] = gcnew ExecuteElementImage(MagickScript::ExecuteBlur);
-		result["border"] = gcnew ExecuteElementImage(MagickScript::ExecuteBorder);
-		result["brightnessContrast"] = gcnew ExecuteElementImage(MagickScript::ExecuteBrightnessContrast);
-		result["cdl"] = gcnew ExecuteElementImage(MagickScript::ExecuteCDL);
-		result["charcoal"] = gcnew ExecuteElementImage(MagickScript::ExecuteCharcoal);
-		result["chop"] = gcnew ExecuteElementImage(MagickScript::ExecuteChop);
-		result["chopHorizontal"] = gcnew ExecuteElementImage(MagickScript::ExecuteChopHorizontal);
-		result["chopVertical"] = gcnew ExecuteElementImage(MagickScript::ExecuteChopVertical);
-		result["chromaBluePrimary"] = gcnew ExecuteElementImage(MagickScript::ExecuteChromaBluePrimary);
-		result["chromaGreenPrimary"] = gcnew ExecuteElementImage(MagickScript::ExecuteChromaGreenPrimary);
-		result["chromaRedPrimary"] = gcnew ExecuteElementImage(MagickScript::ExecuteChromaRedPrimary);
-		result["chromaWhitePoint"] = gcnew ExecuteElementImage(MagickScript::ExecuteChromaWhitePoint);
-		result["clamp"] = gcnew ExecuteElementImage(MagickScript::ExecuteClamp);
-		result["clip"] = gcnew ExecuteElementImage(MagickScript::ExecuteClip);
-		result["colorAlpha"] = gcnew ExecuteElementImage(MagickScript::ExecuteColorAlpha);
-		result["colorize"] = gcnew ExecuteElementImage(MagickScript::ExecuteColorize);
-		result["colorMap"] = gcnew ExecuteElementImage(MagickScript::ExecuteColorMap);
-		result["contrast"] = gcnew ExecuteElementImage(MagickScript::ExecuteContrast);
-		result["crop"] = gcnew ExecuteElementImage(MagickScript::ExecuteCrop);
-		result["cycleColormap"] = gcnew ExecuteElementImage(MagickScript::ExecuteCycleColormap);
-		result["decipher"] = gcnew ExecuteElementImage(MagickScript::ExecuteDecipher);
-		result["deskew"] = gcnew ExecuteElementImage(MagickScript::ExecuteDeskew);
-		result["despeckle"] = gcnew ExecuteElementImage(MagickScript::ExecuteDespeckle);
-		result["edge"] = gcnew ExecuteElementImage(MagickScript::ExecuteEdge);
-		result["emboss"] = gcnew ExecuteElementImage(MagickScript::ExecuteEmboss);
-		result["encipher"] = gcnew ExecuteElementImage(MagickScript::ExecuteEncipher);
-		result["enhance"] = gcnew ExecuteElementImage(MagickScript::ExecuteEnhance);
-		result["equalize"] = gcnew ExecuteElementImage(MagickScript::ExecuteEqualize);
-		result["evaluate"] = gcnew ExecuteElementImage(MagickScript::ExecuteEvaluate);
-		result["extent"] = gcnew ExecuteElementImage(MagickScript::ExecuteExtent);
-		result["flip"] = gcnew ExecuteElementImage(MagickScript::ExecuteFlip);
-		result["flop"] = gcnew ExecuteElementImage(MagickScript::ExecuteFlop);
-		result["frame"] = gcnew ExecuteElementImage(MagickScript::ExecuteFrame);
-		result["fx"] = gcnew ExecuteElementImage(MagickScript::ExecuteFx);
-		result["gamma"] = gcnew ExecuteElementImage(MagickScript::ExecuteGamma);
-		result["gaussianBlur"] = gcnew ExecuteElementImage(MagickScript::ExecuteGaussianBlur);
-		result["implode"] = gcnew ExecuteElementImage(MagickScript::ExecuteImplode);
-		result["level"] = gcnew ExecuteElementImage(MagickScript::ExecuteLevel);
-		result["levelColors"] = gcnew ExecuteElementImage(MagickScript::ExecuteLevelColors);
-		result["linearStretch"] = gcnew ExecuteElementImage(MagickScript::ExecuteLinearStretch);
-		result["liquidRescale"] = gcnew ExecuteElementImage(MagickScript::ExecuteLiquidRescale);
-		result["lower"] = gcnew ExecuteElementImage(MagickScript::ExecuteLower);
-		result["magnify"] = gcnew ExecuteElementImage(MagickScript::ExecuteMagnify);
-		result["medianFilter"] = gcnew ExecuteElementImage(MagickScript::ExecuteMedianFilter);
-		result["minify"] = gcnew ExecuteElementImage(MagickScript::ExecuteMinify);
-		result["modulate"] = gcnew ExecuteElementImage(MagickScript::ExecuteModulate);
-		result["morphology"] = gcnew ExecuteElementImage(MagickScript::ExecuteMorphology);
-		result["motionBlur"] = gcnew ExecuteElementImage(MagickScript::ExecuteMotionBlur);
-		result["negate"] = gcnew ExecuteElementImage(MagickScript::ExecuteNegate);
-		result["normalize"] = gcnew ExecuteElementImage(MagickScript::ExecuteNormalize);
-		result["oilPaint"] = gcnew ExecuteElementImage(MagickScript::ExecuteOilPaint);
-		result["opaque"] = gcnew ExecuteElementImage(MagickScript::ExecuteOpaque);
-		result["perceptible"] = gcnew ExecuteElementImage(MagickScript::ExecutePerceptible);
-		result["polaroid"] = gcnew ExecuteElementImage(MagickScript::ExecutePolaroid);
-		result["posterize"] = gcnew ExecuteElementImage(MagickScript::ExecutePosterize);
-		result["quantize"] = gcnew ExecuteElementImage(MagickScript::ExecuteQuantize);
-		result["raise"] = gcnew ExecuteElementImage(MagickScript::ExecuteRaise);
-		result["randomThreshold"] = gcnew ExecuteElementImage(MagickScript::ExecuteRandomThreshold);
-		result["reduceNoise"] = gcnew ExecuteElementImage(MagickScript::ExecuteReduceNoise);
-		result["removeProfile"] = gcnew ExecuteElementImage(MagickScript::ExecuteRemoveProfile);
-		result["resample"] = gcnew ExecuteElementImage(MagickScript::ExecuteResample);
-		result["resize"] = gcnew ExecuteElementImage(MagickScript::ExecuteResize);
-		result["roll"] = gcnew ExecuteElementImage(MagickScript::ExecuteRoll);
-		result["rotate"] = gcnew ExecuteElementImage(MagickScript::ExecuteRotate);
-		result["sample"] = gcnew ExecuteElementImage(MagickScript::ExecuteSample);
-		result["scale"] = gcnew ExecuteElementImage(MagickScript::ExecuteScale);
-		result["segment"] = gcnew ExecuteElementImage(MagickScript::ExecuteSegment);
-		result["setArtifact"] = gcnew ExecuteElementImage(MagickScript::ExecuteSetArtifact);
-		result["setAttribute"] = gcnew ExecuteElementImage(MagickScript::ExecuteSetAttribute);
-		result["setDefine"] = gcnew ExecuteElementImage(MagickScript::ExecuteSetDefine);
-		result["shade"] = gcnew ExecuteElementImage(MagickScript::ExecuteShade);
-		result["shadow"] = gcnew ExecuteElementImage(MagickScript::ExecuteShadow);
-		result["sharpen"] = gcnew ExecuteElementImage(MagickScript::ExecuteSharpen);
-		result["shave"] = gcnew ExecuteElementImage(MagickScript::ExecuteShave);
-		result["shear"] = gcnew ExecuteElementImage(MagickScript::ExecuteShear);
-		result["sigmoidalContrast"] = gcnew ExecuteElementImage(MagickScript::ExecuteSigmoidalContrast);
-		result["solarize"] = gcnew ExecuteElementImage(MagickScript::ExecuteSolarize);
-		result["strip"] = gcnew ExecuteElementImage(MagickScript::ExecuteStrip);
-		result["swirl"] = gcnew ExecuteElementImage(MagickScript::ExecuteSwirl);
-		result["threshold"] = gcnew ExecuteElementImage(MagickScript::ExecuteThreshold);
-		result["thumbnail"] = gcnew ExecuteElementImage(MagickScript::ExecuteThumbnail);
-		result["transform"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransform);
-		result["transformOrigin"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformOrigin);
-		result["transformReset"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformReset);
-		result["transformRotation"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformRotation);
-		result["transformScale"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformScale);
-		result["transformSkewX"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformSkewX);
-		result["transformSkewY"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransformSkewY);
-		result["transparent"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransparent);
-		result["transparentChroma"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransparentChroma);
-		result["transpose"] = gcnew ExecuteElementImage(MagickScript::ExecuteTranspose);
-		result["transverse"] = gcnew ExecuteElementImage(MagickScript::ExecuteTransverse);
-		result["trim"] = gcnew ExecuteElementImage(MagickScript::ExecuteTrim);
-		result["unsharpmask"] = gcnew ExecuteElementImage(MagickScript::ExecuteUnsharpmask);
-		result["wave"] = gcnew ExecuteElementImage(MagickScript::ExecuteWave);
-		result["whiteThreshold"] = gcnew ExecuteElementImage(MagickScript::ExecuteWhiteThreshold);
-		result["zoom"] = gcnew ExecuteElementImage(MagickScript::ExecuteZoom);
-		return result;
-	}
-	void MagickScript::InitializeExecuteImage()
-	{
-		_ExecuteImage = gcnew System::Collections::Hashtable();
-		_ExecuteImage["clipMask"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteClipMask);
-		_ExecuteImage["fillPattern"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteFillPattern);
-		_ExecuteImage["strokePattern"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteStrokePattern);
-		_ExecuteImage["clut"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteClut);
-		_ExecuteImage["composite"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteComposite);
-		_ExecuteImage["floodFill"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteFloodFill);
-		_ExecuteImage["haldClut"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteHaldClut);
-		_ExecuteImage["inverseFourierTransform"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteInverseFourierTransform);
-		_ExecuteImage["map"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteMap);
-		_ExecuteImage["stegano"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteStegano);
-		_ExecuteImage["stereo"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteStereo);
-		_ExecuteImage["texture"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteTexture);
-		_ExecuteImage["clone"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteClone);
-		_ExecuteImage["draw"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteDraw);
-		_ExecuteImage["write"] = gcnew ExecuteElementImage(this, &MagickScript::ExecuteWrite);
-	}
-	System::Collections::Hashtable^ MagickScript::InitializeStaticExecuteCollection()
-	{
-		System::Collections::Hashtable^ result = gcnew System::Collections::Hashtable();
-		result["coalesce"] = gcnew ExecuteElementCollection(MagickScript::ExecuteCoalesce);
-		result["deconstruct"] = gcnew ExecuteElementCollection(MagickScript::ExecuteDeconstruct);
-		result["optimize"] = gcnew ExecuteElementCollection(MagickScript::ExecuteOptimize);
-		result["optimizePlus"] = gcnew ExecuteElementCollection(MagickScript::ExecuteOptimizePlus);
-		result["rePage"] = gcnew ExecuteElementCollection(MagickScript::ExecuteRePage);
-		result["reverse"] = gcnew ExecuteElementCollection(MagickScript::ExecuteReverse);
-		result["appendHorizontally"] = gcnew ExecuteElementCollection(MagickScript::ExecuteAppendHorizontally);
-		result["appendVertically"] = gcnew ExecuteElementCollection(MagickScript::ExecuteAppendVertically);
-		result["combine"] = gcnew ExecuteElementCollection(MagickScript::ExecuteCombine);
-		result["evaluate"] = gcnew ExecuteElementCollection(MagickScript::ExecuteEvaluate);
-		result["flatten"] = gcnew ExecuteElementCollection(MagickScript::ExecuteFlatten);
-		result["fx"] = gcnew ExecuteElementCollection(MagickScript::ExecuteFx);
-		result["merge"] = gcnew ExecuteElementCollection(MagickScript::ExecuteMerge);
-		result["mosaic"] = gcnew ExecuteElementCollection(MagickScript::ExecuteMosaic);
-		result["trimBounds"] = gcnew ExecuteElementCollection(MagickScript::ExecuteTrimBounds);
-		return result;
-	}
-	System::Collections::Hashtable^ MagickScript::InitializeStaticExecuteDrawable()
-	{
-		System::Collections::Hashtable^ result = gcnew System::Collections::Hashtable();
-		result["affine"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteAffine);
-		result["arc"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteArc);
-		result["bezier"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteBezier);
-		result["circle"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteCircle);
-		result["clipPath"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteClipPath);
-		result["color"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteColor);
-		result["dashOffset"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteDashOffset);
-		result["ellipse"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteEllipse);
-		result["fillColor"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteFillColor);
-		result["fillOpacity"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteFillOpacity);
-		result["fillRule"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteFillRule);
-		result["font"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteFont);
-		result["gravity"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteGravity);
-		result["line"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteLine);
-		result["matte"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteMatte);
-		result["miterLimit"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteMiterLimit);
-		result["path"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePath);
-		result["point"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePoint);
-		result["pointSize"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePointSize);
-		result["polygon"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePolygon);
-		result["polyline"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePolyline);
-		result["pushClipPath"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePushClipPath);
-		result["pushPattern"] = gcnew ExecuteElementDrawable(MagickScript::ExecutePushPattern);
-		result["rectangle"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteRectangle);
-		result["rotation"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteRotation);
-		result["roundRectangle"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteRoundRectangle);
-		result["scaling"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteScaling);
-		result["skewX"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteSkewX);
-		result["skewY"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteSkewY);
-		result["strokeAntialias"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteStrokeAntialias);
-		result["strokeColor"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteStrokeColor);
-		result["strokeLineCap"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteStrokeLineCap);
-		result["strokeLineJoin"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteStrokeLineJoin);
-		result["strokeOpacity"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteStrokeOpacity);
-		result["strokeWidth"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteStrokeWidth);
-		result["text"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteText);
-		result["textAntialias"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextAntialias);
-		result["textDecoration"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextDecoration);
-		result["textDirection"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextDirection);
-		result["textInterlineSpacing"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextInterlineSpacing);
-		result["textInterwordSpacing"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextInterwordSpacing);
-		result["textKerning"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextKerning);
-		result["textUnderColor"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTextUnderColor);
-		result["translation"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteTranslation);
-		result["viewbox"] = gcnew ExecuteElementDrawable(MagickScript::ExecuteViewbox);
-		return result;
-	}
-	void MagickScript::InitializeExecuteDrawable()
-	{
-		_ExecuteDrawable = gcnew System::Collections::Hashtable();
-		_ExecuteDrawable["compositeImage"] = gcnew ExecuteElementDrawable(this, &MagickScript::ExecuteCompositeImage);
-	}
-	System::Collections::Hashtable^ MagickScript::InitializeStaticExecutePath()
-	{
-		System::Collections::Hashtable^ result = gcnew System::Collections::Hashtable();
-		result["arcAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteArcAbs);
-		result["arcRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteArcRel);
-		result["curvetoAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteCurvetoAbs);
-		result["curvetoRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteCurvetoRel);
-		result["linetoAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteLinetoAbs);
-		result["linetoHorizontalAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteLinetoHorizontalAbs);
-		result["linetoHorizontalRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteLinetoHorizontalRel);
-		result["linetoRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteLinetoRel);
-		result["linetoVerticalAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteLinetoVerticalAbs);
-		result["linetoVerticalRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteLinetoVerticalRel);
-		result["movetoAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteMovetoAbs);
-		result["movetoRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteMovetoRel);
-		result["quadraticCurvetoAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteQuadraticCurvetoAbs);
-		result["quadraticCurvetoRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteQuadraticCurvetoRel);
-		result["smoothCurvetoAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteSmoothCurvetoAbs);
-		result["smoothCurvetoRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteSmoothCurvetoRel);
-		result["smoothQuadraticCurvetoAbs"] = gcnew ExecuteElementPath(MagickScript::ExecuteSmoothQuadraticCurvetoAbs);
-		result["smoothQuadraticCurvetoRel"] = gcnew ExecuteElementPath(MagickScript::ExecuteSmoothQuadraticCurvetoRel);
-		return result;
-	}
 	void MagickScript::ExecuteImage(XmlElement^ element, MagickImage^ image)
 	{
-		ExecuteElementImage^ method = dynamic_cast<ExecuteElementImage^>(_StaticExecuteImage[element->Name]);
-		if (method == nullptr)
-			method = dynamic_cast<ExecuteElementImage^>(_ExecuteImage[element->Name]);
-		if (method == nullptr)
-			throw gcnew NotImplementedException(element->Name);
-		method(element,image);
+		switch(element->Name[0])
+		{
+			case 'a':
+			{
+				switch(element->Name[1])
+				{
+					case 'd':
+					{
+						switch(element->Name[2])
+						{
+							case 'j':
+							{
+								ExecuteAdjoin(element, image);
+								return;
+							}
+							case 'a':
+							{
+								switch(element->Name[8])
+								{
+									case 'B':
+									{
+										ExecuteAdaptiveBlur(element, image);
+										return;
+									}
+									case 'R':
+									{
+										ExecuteAdaptiveResize(element, image);
+										return;
+									}
+									case 'S':
+									{
+										ExecuteAdaptiveSharpen(element, image);
+										return;
+									}
+									case 'T':
+									{
+										ExecuteAdaptiveThreshold(element, image);
+										return;
+									}
+								}
+								break;
+							}
+							case 'd':
+							{
+								switch(element->Name[3])
+								{
+									case 'N':
+									{
+										ExecuteAddNoise(element, image);
+										return;
+									}
+									case 'P':
+									{
+										ExecuteAddProfile(element, image);
+										return;
+									}
+								}
+								break;
+							}
+						}
+						break;
+					}
+					case 'n':
+					{
+						switch(element->Name[2])
+						{
+							case 'i':
+							{
+								switch(element->Name[9])
+								{
+									case 'D':
+									{
+										ExecuteAnimationDelay(element, image);
+										return;
+									}
+									case 'I':
+									{
+										ExecuteAnimationIterations(element, image);
+										return;
+									}
+								}
+								break;
+							}
+							case 't':
+							{
+								ExecuteAntiAlias(element, image);
+								return;
+							}
+							case 'n':
+							{
+								ExecuteAnnotate(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'l':
+					{
+						ExecuteAlpha(element, image);
+						return;
+					}
+					case 'u':
+					{
+						switch(element->Name[4])
+						{
+							case 'G':
+							{
+								ExecuteAutoGamma(element, image);
+								return;
+							}
+							case 'L':
+							{
+								ExecuteAutoLevel(element, image);
+								return;
+							}
+							case 'O':
+							{
+								ExecuteAutoOrient(image);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+			case 'b':
+			{
+				switch(element->Name[1])
+				{
+					case 'a':
+					{
+						ExecuteBackgroundColor(element, image);
+						return;
+					}
+					case 'o':
+					{
+						switch(element->Name[2])
+						{
+							case 'r':
+							{
+								if (element->Name->Length == 11)
+								{
+									ExecuteBorderColor(element, image);
+									return;
+								}
+							}
+							case 'x':
+							{
+								ExecuteBoxColor(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'i':
+					{
+						ExecuteBitDepth(element, image);
+						return;
+					}
+					case 'l':
+					{
+						switch(element->Name[2])
+						{
+							case 'a':
+							{
+								ExecuteBlackThreshold(element, image);
+								return;
+							}
+							case 'u':
+							{
+								switch(element->Name[3])
+								{
+									case 'e':
+									{
+										ExecuteBlueShift(element, image);
+										return;
+									}
+									case 'r':
+									{
+										ExecuteBlur(element, image);
+										return;
+									}
+								}
+								break;
+							}
+						}
+						break;
+					}
+					case 'r':
+					{
+						ExecuteBrightnessContrast(element, image);
+						return;
+					}
+				}
+				break;
+			}
+			case 'c':
+			{
+				switch(element->Name[1])
+				{
+					case 'l':
+					{
+						switch(element->Name[2])
+						{
+							case 'a':
+							{
+								switch(element->Name[3])
+								{
+									case 's':
+									{
+										ExecuteClassType(element, image);
+										return;
+									}
+									case 'm':
+									{
+										ExecuteClamp(element, image);
+										return;
+									}
+								}
+								break;
+							}
+							case 'i':
+							{
+								if (element->Name->Length == 8)
+								{
+									ExecuteClipMask(element, image);
+									return;
+								}
+							}
+							case 'u':
+							{
+								ExecuteClut(element, image);
+								return;
+							}
+							case 'o':
+							{
+								ExecuteClone(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'o':
+					{
+						switch(element->Name[2])
+						{
+							case 'l':
+							{
+								switch(element->Name[5])
+								{
+									case 'F':
+									{
+										ExecuteColorFuzz(element, image);
+										return;
+									}
+									case 'M':
+									{
+										if (element->Name->Length == 12)
+										{
+											ExecuteColorMapSize(element, image);
+											return;
+										}
+									}
+									case 'S':
+									{
+										ExecuteColorSpace(element, image);
+										return;
+									}
+									case 'T':
+									{
+										ExecuteColorType(element, image);
+										return;
+									}
+									case 'A':
+									{
+										ExecuteColorAlpha(element, image);
+										return;
+									}
+									case 'i':
+									{
+										ExecuteColorize(element, image);
+										return;
+									}
+								}
+								break;
+							}
+							case 'm':
+							{
+								switch(element->Name[3])
+								{
+									case 'm':
+									{
+										ExecuteComment(element, image);
+										return;
+									}
+									case 'p':
+									{
+										switch(element->Name[4])
+										{
+											case 'o':
+											{
+												switch(element->Name[6])
+												{
+													case 'e':
+													{
+														ExecuteCompose(element, image);
+														return;
+													}
+													case 'i':
+													{
+														ExecuteComposite(element, image);
+														return;
+													}
+												}
+												break;
+											}
+											case 'r':
+											{
+												ExecuteCompressionMethod(element, image);
+												return;
+											}
+										}
+										break;
+									}
+								}
+								break;
+							}
+							case 'n':
+							{
+								ExecuteContrast(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'd':
+					{
+						ExecuteCDL(element, image);
+						return;
+					}
+					case 'h':
+					{
+						switch(element->Name[2])
+						{
+							case 'a':
+							{
+								ExecuteCharcoal(element, image);
+								return;
+							}
+							case 'o':
+							{
+								if (element->Name->Length == 4)
+								{
+									ExecuteChop(element, image);
+									return;
+								}
+								switch(element->Name[4])
+								{
+									case 'H':
+									{
+										ExecuteChopHorizontal(element, image);
+										return;
+									}
+									case 'V':
+									{
+										ExecuteChopVertical(element, image);
+										return;
+									}
+								}
+								break;
+							}
+							case 'r':
+							{
+								switch(element->Name[6])
+								{
+									case 'B':
+									{
+										ExecuteChromaBluePrimary(element, image);
+										return;
+									}
+									case 'G':
+									{
+										ExecuteChromaGreenPrimary(element, image);
+										return;
+									}
+									case 'R':
+									{
+										ExecuteChromaRedPrimary(element, image);
+										return;
+									}
+									case 'W':
+									{
+										ExecuteChromaWhitePoint(element, image);
+										return;
+									}
+								}
+								break;
+							}
+						}
+						break;
+					}
+					case 'r':
+					{
+						ExecuteCrop(element, image);
+						return;
+					}
+					case 'y':
+					{
+						ExecuteCycleColormap(element, image);
+						return;
+					}
+				}
+				break;
+			}
+			case 'd':
+			{
+				switch(element->Name[1])
+				{
+					case 'e':
+					{
+						switch(element->Name[2])
+						{
+							case 'b':
+							{
+								ExecuteDebug(element, image);
+								return;
+							}
+							case 'n':
+							{
+								ExecuteDensity(element, image);
+								return;
+							}
+							case 'p':
+							{
+								ExecuteDepth(element, image);
+								return;
+							}
+							case 'c':
+							{
+								ExecuteDecipher(element, image);
+								return;
+							}
+							case 's':
+							{
+								switch(element->Name[3])
+								{
+									case 'k':
+									{
+										ExecuteDeskew(element, image);
+										return;
+									}
+									case 'p':
+									{
+										ExecuteDespeckle(image);
+										return;
+									}
+								}
+								break;
+							}
+						}
+						break;
+					}
+					case 'r':
+					{
+						ExecuteDraw(element, image);
+						return;
+					}
+				}
+				break;
+			}
+			case 'e':
+			{
+				switch(element->Name[1])
+				{
+					case 'n':
+					{
+						switch(element->Name[2])
+						{
+							case 'd':
+							{
+								ExecuteEndian(element, image);
+								return;
+							}
+							case 'c':
+							{
+								ExecuteEncipher(element, image);
+								return;
+							}
+							case 'h':
+							{
+								ExecuteEnhance(image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'd':
+					{
+						ExecuteEdge(element, image);
+						return;
+					}
+					case 'm':
+					{
+						ExecuteEmboss(element, image);
+						return;
+					}
+					case 'q':
+					{
+						ExecuteEqualize(image);
+						return;
+					}
+					case 'v':
+					{
+						ExecuteEvaluate(element, image);
+						return;
+					}
+					case 'x':
+					{
+						ExecuteExtent(element, image);
+						return;
+					}
+				}
+				break;
+			}
+			case 'f':
+			{
+				switch(element->Name[1])
+				{
+					case 'i':
+					{
+						switch(element->Name[3])
+						{
+							case 'l':
+							{
+								switch(element->Name[4])
+								{
+									case 'C':
+									{
+										ExecuteFillColor(element, image);
+										return;
+									}
+									case 'P':
+									{
+										ExecuteFillPattern(element, image);
+										return;
+									}
+									case 'R':
+									{
+										ExecuteFillRule(element, image);
+										return;
+									}
+								}
+								break;
+							}
+							case 't':
+							{
+								ExecuteFilterType(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'l':
+					{
+						switch(element->Name[2])
+						{
+							case 'a':
+							{
+								ExecuteFlashPixView(element, image);
+								return;
+							}
+							case 'i':
+							{
+								ExecuteFlip(image);
+								return;
+							}
+							case 'o':
+							{
+								switch(element->Name[3])
+								{
+									case 'o':
+									{
+										ExecuteFloodFill(element, image);
+										return;
+									}
+									case 'p':
+									{
+										ExecuteFlop(image);
+										return;
+									}
+								}
+								break;
+							}
+						}
+						break;
+					}
+					case 'o':
+					{
+						switch(element->Name[2])
+						{
+							case 'n':
+							{
+								if (element->Name->Length == 13)
+								{
+									ExecuteFontPointsize(element, image);
+									return;
+								}
+							}
+							case 'r':
+							{
+								ExecuteFormat(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'r':
+					{
+						ExecuteFrame(element, image);
+						return;
+					}
+					case 'x':
+					{
+						ExecuteFx(element, image);
+						return;
+					}
+				}
+				break;
+			}
+			case 'g':
+			{
+				switch(element->Name[1])
+				{
+					case 'i':
+					{
+						ExecuteGifDisposeMethod(element, image);
+						return;
+					}
+					case 'a':
+					{
+						switch(element->Name[2])
+						{
+							case 'm':
+							{
+								ExecuteGamma(element, image);
+								return;
+							}
+							case 'u':
+							{
+								ExecuteGaussianBlur(element, image);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+			case 'h':
+			{
+				switch(element->Name[2])
+				{
+					case 's':
+					{
+						ExecuteHasAlpha(element, image);
+						return;
+					}
+					case 'l':
+					{
+						ExecuteHaldClut(element, image);
+						return;
+					}
+				}
+				break;
+			}
+			case 'i':
+			{
+				switch(element->Name[1])
+				{
+					case 'n':
+					{
+						switch(element->Name[2])
+						{
+							case 't':
+							{
+								switch(element->Name[5])
+								{
+									case 'l':
+									{
+										ExecuteInterlace(element, image);
+										return;
+									}
+									case 'p':
+									{
+										ExecuteInterpolate(element, image);
+										return;
+									}
+								}
+								break;
+							}
+							case 'v':
+							{
+								ExecuteInverseFourierTransform(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 's':
+					{
+						ExecuteIsMonochrome(element, image);
+						return;
+					}
+					case 'm':
+					{
+						ExecuteImplode(element, image);
+						return;
+					}
+				}
+				break;
+			}
+			case 'l':
+			{
+				switch(element->Name[1])
+				{
+					case 'a':
+					{
+						ExecuteLabel(element, image);
+						return;
+					}
+					case 'e':
+					{
+						if (element->Name->Length == 11)
+						{
+							ExecuteLevelColors(element, image);
+							return;
+						}
+					}
+					case 'i':
+					{
+						switch(element->Name[2])
+						{
+							case 'n':
+							{
+								ExecuteLinearStretch(element, image);
+								return;
+							}
+							case 'q':
+							{
+								ExecuteLiquidRescale(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'o':
+					{
+						ExecuteLower(element, image);
+						return;
+					}
+				}
+				break;
+			}
+			case 'm':
+			{
+				switch(element->Name[1])
+				{
+					case 'a':
+					{
+						switch(element->Name[2])
+						{
+							case 't':
+							{
+								ExecuteMatteColor(element, image);
+								return;
+							}
+							case 'g':
+							{
+								ExecuteMagnify(image);
+								return;
+							}
+							case 'p':
+							{
+								ExecuteMap(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'e':
+					{
+						ExecuteMedianFilter(element, image);
+						return;
+					}
+					case 'i':
+					{
+						ExecuteMinify(image);
+						return;
+					}
+					case 'o':
+					{
+						switch(element->Name[2])
+						{
+							case 'd':
+							{
+								ExecuteModulate(element, image);
+								return;
+							}
+							case 'r':
+							{
+								ExecuteMorphology(element, image);
+								return;
+							}
+							case 't':
+							{
+								ExecuteMotionBlur(element, image);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+			case 'o':
+			{
+				switch(element->Name[1])
+				{
+					case 'r':
+					{
+						ExecuteOrientation(element, image);
+						return;
+					}
+					case 'i':
+					{
+						ExecuteOilPaint(element, image);
+						return;
+					}
+					case 'p':
+					{
+						ExecuteOpaque(element, image);
+						return;
+					}
+				}
+				break;
+			}
+			case 'p':
+			{
+				switch(element->Name[1])
+				{
+					case 'a':
+					{
+						ExecutePage(element, image);
+						return;
+					}
+					case 'e':
+					{
+						ExecutePerceptible(element, image);
+						return;
+					}
+					case 'o':
+					{
+						switch(element->Name[2])
+						{
+							case 'l':
+							{
+								ExecutePolaroid(element, image);
+								return;
+							}
+							case 's':
+							{
+								ExecutePosterize(element, image);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+			case 'q':
+			{
+				switch(element->Name[3])
+				{
+					case 'l':
+					{
+						ExecuteQuality(element, image);
+						return;
+					}
+					case 'n':
+					{
+						if (element->Name->Length == 8)
+						{
+							ExecuteQuantize(image);
+							return;
+						}
+						switch(element->Name[8])
+						{
+							case 'C':
+							{
+								switch(element->Name[13])
+								{
+									case 's':
+									{
+										ExecuteQuantizeColors(element, image);
+										return;
+									}
+									case 'S':
+									{
+										ExecuteQuantizeColorSpace(element, image);
+										return;
+									}
+								}
+								break;
+							}
+							case 'D':
+							{
+								ExecuteQuantizeDither(element, image);
+								return;
+							}
+							case 'T':
+							{
+								ExecuteQuantizeTreeDepth(element, image);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+			case 'r':
+			{
+				switch(element->Name[1])
+				{
+					case 'e':
+					{
+						switch(element->Name[2])
+						{
+							case 'n':
+							{
+								ExecuteRenderingIntent(element, image);
+								return;
+							}
+							case 's':
+							{
+								switch(element->Name[3])
+								{
+									case 'o':
+									{
+										ExecuteResolutionUnits(element, image);
+										return;
+									}
+									case 'a':
+									{
+										ExecuteResample(element, image);
+										return;
+									}
+									case 'i':
+									{
+										ExecuteResize(element, image);
+										return;
+									}
+								}
+								break;
+							}
+							case 'd':
+							{
+								ExecuteReduceNoise(element, image);
+								return;
+							}
+							case 'm':
+							{
+								ExecuteRemoveProfile(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'a':
+					{
+						switch(element->Name[2])
+						{
+							case 'i':
+							{
+								ExecuteRaise(element, image);
+								return;
+							}
+							case 'n':
+							{
+								ExecuteRandomThreshold(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'o':
+					{
+						switch(element->Name[2])
+						{
+							case 'l':
+							{
+								ExecuteRoll(element, image);
+								return;
+							}
+							case 't':
+							{
+								ExecuteRotate(element, image);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+			case 's':
+			{
+				switch(element->Name[1])
+				{
+					case 't':
+					{
+						switch(element->Name[2])
+						{
+							case 'r':
+							{
+								switch(element->Name[3])
+								{
+									case 'o':
+									{
+										switch(element->Name[6])
+										{
+											case 'A':
+											{
+												ExecuteStrokeAntiAlias(element, image);
+												return;
+											}
+											case 'C':
+											{
+												ExecuteStrokeColor(element, image);
+												return;
+											}
+											case 'D':
+											{
+												ExecuteStrokeDashOffset(element, image);
+												return;
+											}
+											case 'L':
+											{
+												switch(element->Name[10])
+												{
+													case 'C':
+													{
+														ExecuteStrokeLineCap(element, image);
+														return;
+													}
+													case 'J':
+													{
+														ExecuteStrokeLineJoin(element, image);
+														return;
+													}
+												}
+												break;
+											}
+											case 'M':
+											{
+												ExecuteStrokeMiterLimit(element, image);
+												return;
+											}
+											case 'P':
+											{
+												ExecuteStrokePattern(element, image);
+												return;
+											}
+											case 'W':
+											{
+												ExecuteStrokeWidth(element, image);
+												return;
+											}
+										}
+										break;
+									}
+									case 'i':
+									{
+										ExecuteStrip(image);
+										return;
+									}
+								}
+								break;
+							}
+							case 'e':
+							{
+								switch(element->Name[3])
+								{
+									case 'g':
+									{
+										ExecuteStegano(element, image);
+										return;
+									}
+									case 'r':
+									{
+										ExecuteStereo(element, image);
+										return;
+									}
+								}
+								break;
+							}
+						}
+						break;
+					}
+					case 'a':
+					{
+						ExecuteSample(element, image);
+						return;
+					}
+					case 'c':
+					{
+						ExecuteScale(element, image);
+						return;
+					}
+					case 'e':
+					{
+						switch(element->Name[2])
+						{
+							case 'g':
+							{
+								ExecuteSegment(element, image);
+								return;
+							}
+							case 't':
+							{
+								switch(element->Name[3])
+								{
+									case 'A':
+									{
+										switch(element->Name[4])
+										{
+											case 'r':
+											{
+												ExecuteSetArtifact(element, image);
+												return;
+											}
+											case 't':
+											{
+												ExecuteSetAttribute(element, image);
+												return;
+											}
+										}
+										break;
+									}
+									case 'D':
+									{
+										ExecuteSetDefine(element, image);
+										return;
+									}
+								}
+								break;
+							}
+						}
+						break;
+					}
+					case 'h':
+					{
+						switch(element->Name[2])
+						{
+							case 'a':
+							{
+								switch(element->Name[3])
+								{
+									case 'd':
+									{
+										switch(element->Name[4])
+										{
+											case 'e':
+											{
+												ExecuteShade(element, image);
+												return;
+											}
+											case 'o':
+											{
+												ExecuteShadow(element, image);
+												return;
+											}
+										}
+										break;
+									}
+									case 'r':
+									{
+										ExecuteSharpen(element, image);
+										return;
+									}
+									case 'v':
+									{
+										ExecuteShave(element, image);
+										return;
+									}
+								}
+								break;
+							}
+							case 'e':
+							{
+								ExecuteShear(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'i':
+					{
+						ExecuteSigmoidalContrast(element, image);
+						return;
+					}
+					case 'o':
+					{
+						ExecuteSolarize(element, image);
+						return;
+					}
+					case 'w':
+					{
+						ExecuteSwirl(element, image);
+						return;
+					}
+				}
+				break;
+			}
+			case 't':
+			{
+				switch(element->Name[1])
+				{
+					case 'e':
+					{
+						switch(element->Name[4])
+						{
+							case 'D':
+							{
+								ExecuteTextDirection(element, image);
+								return;
+							}
+							case 'E':
+							{
+								ExecuteTextEncoding(element, image);
+								return;
+							}
+							case 'G':
+							{
+								ExecuteTextGravity(element, image);
+								return;
+							}
+							case 'I':
+							{
+								switch(element->Name[9])
+								{
+									case 'l':
+									{
+										ExecuteTextInterlineSpacing(element, image);
+										return;
+									}
+									case 'w':
+									{
+										ExecuteTextInterwordSpacing(element, image);
+										return;
+									}
+								}
+								break;
+							}
+							case 'K':
+							{
+								ExecuteTextKerning(element, image);
+								return;
+							}
+							case 'u':
+							{
+								ExecuteTexture(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'i':
+					{
+						ExecuteTileName(element, image);
+						return;
+					}
+					case 'h':
+					{
+						switch(element->Name[2])
+						{
+							case 'r':
+							{
+								ExecuteThreshold(element, image);
+								return;
+							}
+							case 'u':
+							{
+								ExecuteThumbnail(element, image);
+								return;
+							}
+						}
+						break;
+					}
+					case 'r':
+					{
+						switch(element->Name[2])
+						{
+							case 'a':
+							{
+								switch(element->Name[5])
+								{
+									case 'f':
+									{
+										if (element->Name->Length == 9)
+										{
+											ExecuteTransform(element, image);
+											return;
+										}
+										switch(element->Name[9])
+										{
+											case 'O':
+											{
+												ExecuteTransformOrigin(element, image);
+												return;
+											}
+											case 'R':
+											{
+												switch(element->Name[10])
+												{
+													case 'e':
+													{
+														ExecuteTransformReset(image);
+														return;
+													}
+													case 'o':
+													{
+														ExecuteTransformRotation(element, image);
+														return;
+													}
+												}
+												break;
+											}
+											case 'S':
+											{
+												switch(element->Name[10])
+												{
+													case 'c':
+													{
+														ExecuteTransformScale(element, image);
+														return;
+													}
+													case 'k':
+													{
+														switch(element->Name[13])
+														{
+															case 'X':
+															{
+																ExecuteTransformSkewX(element, image);
+																return;
+															}
+															case 'Y':
+															{
+																ExecuteTransformSkewY(element, image);
+																return;
+															}
+														}
+														break;
+													}
+												}
+												break;
+											}
+										}
+										break;
+									}
+									case 'p':
+									{
+										switch(element->Name[6])
+										{
+											case 'a':
+											{
+												if (element->Name->Length == 17)
+												{
+													ExecuteTransparentChroma(element, image);
+													return;
+												}
+											}
+											case 'o':
+											{
+												ExecuteTranspose(image);
+												return;
+											}
+										}
+										break;
+									}
+									case 'v':
+									{
+										ExecuteTransverse(image);
+										return;
+									}
+								}
+								break;
+							}
+							case 'i':
+							{
+								ExecuteTrim(image);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+			case 'v':
+			{
+				switch(element->Name[1])
+				{
+					case 'e':
+					{
+						ExecuteVerbose(element, image);
+						return;
+					}
+					case 'i':
+					{
+						ExecuteVirtualPixelMethod(element, image);
+						return;
+					}
+				}
+				break;
+			}
+			case 'n':
+			{
+				switch(element->Name[1])
+				{
+					case 'e':
+					{
+						ExecuteNegate(element, image);
+						return;
+					}
+					case 'o':
+					{
+						ExecuteNormalize(image);
+						return;
+					}
+				}
+				break;
+			}
+			case 'u':
+			{
+				ExecuteUnsharpmask(element, image);
+				return;
+			}
+			case 'w':
+			{
+				switch(element->Name[1])
+				{
+					case 'a':
+					{
+						ExecuteWave(element, image);
+						return;
+					}
+					case 'h':
+					{
+						ExecuteWhiteThreshold(element, image);
+						return;
+					}
+					case 'r':
+					{
+						ExecuteWrite(element, image);
+						return;
+					}
+				}
+				break;
+			}
+			case 'z':
+			{
+				ExecuteZoom(element, image);
+				return;
+			}
+		}
+		throw gcnew NotImplementedException(element->Name);
 	}
 	void MagickScript::ExecuteAdjoin(XmlElement^ element, MagickImage^ image)
 	{
-		image->Adjoin = XmlHelper::GetAttribute<bool>(element, "value");
+		image->Adjoin = _Variables->GetValue<bool>(element, "value");
 	}
 	void MagickScript::ExecuteAnimationDelay(XmlElement^ element, MagickImage^ image)
 	{
-		image->AnimationDelay = XmlHelper::GetAttribute<int>(element, "value");
+		image->AnimationDelay = _Variables->GetValue<int>(element, "value");
 	}
 	void MagickScript::ExecuteAnimationIterations(XmlElement^ element, MagickImage^ image)
 	{
-		image->AnimationIterations = XmlHelper::GetAttribute<int>(element, "value");
+		image->AnimationIterations = _Variables->GetValue<int>(element, "value");
 	}
 	void MagickScript::ExecuteAntiAlias(XmlElement^ element, MagickImage^ image)
 	{
-		image->AntiAlias = XmlHelper::GetAttribute<bool>(element, "value");
+		image->AntiAlias = _Variables->GetValue<bool>(element, "value");
 	}
 	void MagickScript::ExecuteBackgroundColor(XmlElement^ element, MagickImage^ image)
 	{
-		image->BackgroundColor = XmlHelper::GetAttribute<MagickColor^>(element, "value");
+		image->BackgroundColor = _Variables->GetValue<MagickColor^>(element, "value");
 	}
 	void MagickScript::ExecuteBorderColor(XmlElement^ element, MagickImage^ image)
 	{
-		image->BorderColor = XmlHelper::GetAttribute<MagickColor^>(element, "value");
+		image->BorderColor = _Variables->GetValue<MagickColor^>(element, "value");
 	}
 	void MagickScript::ExecuteBoxColor(XmlElement^ element, MagickImage^ image)
 	{
-		image->BoxColor = XmlHelper::GetAttribute<MagickColor^>(element, "value");
+		image->BoxColor = _Variables->GetValue<MagickColor^>(element, "value");
 	}
 	void MagickScript::ExecuteClassType(XmlElement^ element, MagickImage^ image)
 	{
-		image->ClassType = XmlHelper::GetAttribute<ClassType>(element, "value");
+		image->ClassType = _Variables->GetValue<ClassType>(element, "value");
 	}
 	void MagickScript::ExecuteClipMask(XmlElement^ element, MagickImage^ image)
 	{
@@ -425,51 +1602,51 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteColorFuzz(XmlElement^ element, MagickImage^ image)
 	{
-		image->ColorFuzz = XmlHelper::GetAttribute<double>(element, "value");
+		image->ColorFuzz = _Variables->GetValue<double>(element, "value");
 	}
 	void MagickScript::ExecuteColorMapSize(XmlElement^ element, MagickImage^ image)
 	{
-		image->ColorMapSize = XmlHelper::GetAttribute<int>(element, "value");
+		image->ColorMapSize = _Variables->GetValue<int>(element, "value");
 	}
 	void MagickScript::ExecuteColorSpace(XmlElement^ element, MagickImage^ image)
 	{
-		image->ColorSpace = XmlHelper::GetAttribute<ColorSpace>(element, "value");
+		image->ColorSpace = _Variables->GetValue<ColorSpace>(element, "value");
 	}
 	void MagickScript::ExecuteColorType(XmlElement^ element, MagickImage^ image)
 	{
-		image->ColorType = XmlHelper::GetAttribute<ColorType>(element, "value");
+		image->ColorType = _Variables->GetValue<ColorType>(element, "value");
 	}
 	void MagickScript::ExecuteComment(XmlElement^ element, MagickImage^ image)
 	{
-		image->Comment = XmlHelper::GetAttribute<String^>(element, "value");
+		image->Comment = _Variables->GetValue<String^>(element, "value");
 	}
 	void MagickScript::ExecuteCompose(XmlElement^ element, MagickImage^ image)
 	{
-		image->Compose = XmlHelper::GetAttribute<CompositeOperator>(element, "value");
+		image->Compose = _Variables->GetValue<CompositeOperator>(element, "value");
 	}
 	void MagickScript::ExecuteCompressionMethod(XmlElement^ element, MagickImage^ image)
 	{
-		image->CompressionMethod = XmlHelper::GetAttribute<CompressionMethod>(element, "value");
+		image->CompressionMethod = _Variables->GetValue<CompressionMethod>(element, "value");
 	}
 	void MagickScript::ExecuteDebug(XmlElement^ element, MagickImage^ image)
 	{
-		image->Debug = XmlHelper::GetAttribute<bool>(element, "value");
+		image->Debug = _Variables->GetValue<bool>(element, "value");
 	}
 	void MagickScript::ExecuteDensity(XmlElement^ element, MagickImage^ image)
 	{
-		image->Density = XmlHelper::GetAttribute<MagickGeometry^>(element, "value");
+		image->Density = _Variables->GetValue<MagickGeometry^>(element, "value");
 	}
 	void MagickScript::ExecuteDepth(XmlElement^ element, MagickImage^ image)
 	{
-		image->Depth = XmlHelper::GetAttribute<int>(element, "value");
+		image->Depth = _Variables->GetValue<int>(element, "value");
 	}
 	void MagickScript::ExecuteEndian(XmlElement^ element, MagickImage^ image)
 	{
-		image->Endian = XmlHelper::GetAttribute<Endian>(element, "value");
+		image->Endian = _Variables->GetValue<Endian>(element, "value");
 	}
 	void MagickScript::ExecuteFillColor(XmlElement^ element, MagickImage^ image)
 	{
-		image->FillColor = XmlHelper::GetAttribute<MagickColor^>(element, "value");
+		image->FillColor = _Variables->GetValue<MagickColor^>(element, "value");
 	}
 	void MagickScript::ExecuteFillPattern(XmlElement^ element, MagickImage^ image)
 	{
@@ -477,115 +1654,115 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteFillRule(XmlElement^ element, MagickImage^ image)
 	{
-		image->FillRule = XmlHelper::GetAttribute<FillRule>(element, "value");
+		image->FillRule = _Variables->GetValue<FillRule>(element, "value");
 	}
 	void MagickScript::ExecuteFilterType(XmlElement^ element, MagickImage^ image)
 	{
-		image->FilterType = XmlHelper::GetAttribute<FilterType>(element, "value");
+		image->FilterType = _Variables->GetValue<FilterType>(element, "value");
 	}
 	void MagickScript::ExecuteFlashPixView(XmlElement^ element, MagickImage^ image)
 	{
-		image->FlashPixView = XmlHelper::GetAttribute<String^>(element, "value");
+		image->FlashPixView = _Variables->GetValue<String^>(element, "value");
 	}
 	void MagickScript::ExecuteFont(XmlElement^ element, MagickImage^ image)
 	{
-		image->Font = XmlHelper::GetAttribute<String^>(element, "value");
+		image->Font = _Variables->GetValue<String^>(element, "value");
 	}
 	void MagickScript::ExecuteFontPointsize(XmlElement^ element, MagickImage^ image)
 	{
-		image->FontPointsize = XmlHelper::GetAttribute<double>(element, "value");
+		image->FontPointsize = _Variables->GetValue<double>(element, "value");
 	}
 	void MagickScript::ExecuteFormat(XmlElement^ element, MagickImage^ image)
 	{
-		image->Format = XmlHelper::GetAttribute<MagickFormat>(element, "value");
+		image->Format = _Variables->GetValue<MagickFormat>(element, "value");
 	}
 	void MagickScript::ExecuteGifDisposeMethod(XmlElement^ element, MagickImage^ image)
 	{
-		image->GifDisposeMethod = XmlHelper::GetAttribute<GifDisposeMethod>(element, "value");
+		image->GifDisposeMethod = _Variables->GetValue<GifDisposeMethod>(element, "value");
 	}
 	void MagickScript::ExecuteHasAlpha(XmlElement^ element, MagickImage^ image)
 	{
-		image->HasAlpha = XmlHelper::GetAttribute<bool>(element, "value");
+		image->HasAlpha = _Variables->GetValue<bool>(element, "value");
 	}
 	void MagickScript::ExecuteInterlace(XmlElement^ element, MagickImage^ image)
 	{
-		image->Interlace = XmlHelper::GetAttribute<Interlace>(element, "value");
+		image->Interlace = _Variables->GetValue<Interlace>(element, "value");
 	}
 	void MagickScript::ExecuteInterpolate(XmlElement^ element, MagickImage^ image)
 	{
-		image->Interpolate = XmlHelper::GetAttribute<PixelInterpolateMethod>(element, "value");
+		image->Interpolate = _Variables->GetValue<PixelInterpolateMethod>(element, "value");
 	}
 	void MagickScript::ExecuteIsMonochrome(XmlElement^ element, MagickImage^ image)
 	{
-		image->IsMonochrome = XmlHelper::GetAttribute<bool>(element, "value");
+		image->IsMonochrome = _Variables->GetValue<bool>(element, "value");
 	}
 	void MagickScript::ExecuteLabel(XmlElement^ element, MagickImage^ image)
 	{
-		image->Label = XmlHelper::GetAttribute<String^>(element, "value");
+		image->Label = _Variables->GetValue<String^>(element, "value");
 	}
 	void MagickScript::ExecuteMatteColor(XmlElement^ element, MagickImage^ image)
 	{
-		image->MatteColor = XmlHelper::GetAttribute<MagickColor^>(element, "value");
+		image->MatteColor = _Variables->GetValue<MagickColor^>(element, "value");
 	}
 	void MagickScript::ExecuteOrientation(XmlElement^ element, MagickImage^ image)
 	{
-		image->Orientation = XmlHelper::GetAttribute<OrientationType>(element, "value");
+		image->Orientation = _Variables->GetValue<OrientationType>(element, "value");
 	}
 	void MagickScript::ExecutePage(XmlElement^ element, MagickImage^ image)
 	{
-		image->Page = XmlHelper::GetAttribute<MagickGeometry^>(element, "value");
+		image->Page = _Variables->GetValue<MagickGeometry^>(element, "value");
 	}
 	void MagickScript::ExecuteQuality(XmlElement^ element, MagickImage^ image)
 	{
-		image->Quality = XmlHelper::GetAttribute<int>(element, "value");
+		image->Quality = _Variables->GetValue<int>(element, "value");
 	}
 	void MagickScript::ExecuteQuantizeColors(XmlElement^ element, MagickImage^ image)
 	{
-		image->QuantizeColors = XmlHelper::GetAttribute<int>(element, "value");
+		image->QuantizeColors = _Variables->GetValue<int>(element, "value");
 	}
 	void MagickScript::ExecuteQuantizeColorSpace(XmlElement^ element, MagickImage^ image)
 	{
-		image->QuantizeColorSpace = XmlHelper::GetAttribute<ColorSpace>(element, "value");
+		image->QuantizeColorSpace = _Variables->GetValue<ColorSpace>(element, "value");
 	}
 	void MagickScript::ExecuteQuantizeDither(XmlElement^ element, MagickImage^ image)
 	{
-		image->QuantizeDither = XmlHelper::GetAttribute<bool>(element, "value");
+		image->QuantizeDither = _Variables->GetValue<bool>(element, "value");
 	}
 	void MagickScript::ExecuteQuantizeTreeDepth(XmlElement^ element, MagickImage^ image)
 	{
-		image->QuantizeTreeDepth = XmlHelper::GetAttribute<int>(element, "value");
+		image->QuantizeTreeDepth = _Variables->GetValue<int>(element, "value");
 	}
 	void MagickScript::ExecuteRenderingIntent(XmlElement^ element, MagickImage^ image)
 	{
-		image->RenderingIntent = XmlHelper::GetAttribute<RenderingIntent>(element, "value");
+		image->RenderingIntent = _Variables->GetValue<RenderingIntent>(element, "value");
 	}
 	void MagickScript::ExecuteResolutionUnits(XmlElement^ element, MagickImage^ image)
 	{
-		image->ResolutionUnits = XmlHelper::GetAttribute<Resolution>(element, "value");
+		image->ResolutionUnits = _Variables->GetValue<Resolution>(element, "value");
 	}
 	void MagickScript::ExecuteStrokeAntiAlias(XmlElement^ element, MagickImage^ image)
 	{
-		image->StrokeAntiAlias = XmlHelper::GetAttribute<bool>(element, "value");
+		image->StrokeAntiAlias = _Variables->GetValue<bool>(element, "value");
 	}
 	void MagickScript::ExecuteStrokeColor(XmlElement^ element, MagickImage^ image)
 	{
-		image->StrokeColor = XmlHelper::GetAttribute<MagickColor^>(element, "value");
+		image->StrokeColor = _Variables->GetValue<MagickColor^>(element, "value");
 	}
 	void MagickScript::ExecuteStrokeDashOffset(XmlElement^ element, MagickImage^ image)
 	{
-		image->StrokeDashOffset = XmlHelper::GetAttribute<double>(element, "value");
+		image->StrokeDashOffset = _Variables->GetValue<double>(element, "value");
 	}
 	void MagickScript::ExecuteStrokeLineCap(XmlElement^ element, MagickImage^ image)
 	{
-		image->StrokeLineCap = XmlHelper::GetAttribute<LineCap>(element, "value");
+		image->StrokeLineCap = _Variables->GetValue<LineCap>(element, "value");
 	}
 	void MagickScript::ExecuteStrokeLineJoin(XmlElement^ element, MagickImage^ image)
 	{
-		image->StrokeLineJoin = XmlHelper::GetAttribute<LineJoin>(element, "value");
+		image->StrokeLineJoin = _Variables->GetValue<LineJoin>(element, "value");
 	}
 	void MagickScript::ExecuteStrokeMiterLimit(XmlElement^ element, MagickImage^ image)
 	{
-		image->StrokeMiterLimit = XmlHelper::GetAttribute<int>(element, "value");
+		image->StrokeMiterLimit = _Variables->GetValue<int>(element, "value");
 	}
 	void MagickScript::ExecuteStrokePattern(XmlElement^ element, MagickImage^ image)
 	{
@@ -593,50 +1770,50 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteStrokeWidth(XmlElement^ element, MagickImage^ image)
 	{
-		image->StrokeWidth = XmlHelper::GetAttribute<double>(element, "value");
+		image->StrokeWidth = _Variables->GetValue<double>(element, "value");
 	}
 	void MagickScript::ExecuteTextDirection(XmlElement^ element, MagickImage^ image)
 	{
-		image->TextDirection = XmlHelper::GetAttribute<TextDirection>(element, "value");
+		image->TextDirection = _Variables->GetValue<TextDirection>(element, "value");
 	}
 	void MagickScript::ExecuteTextEncoding(XmlElement^ element, MagickImage^ image)
 	{
-		image->TextEncoding = XmlHelper::GetAttribute<Encoding^>(element, "value");
+		image->TextEncoding = _Variables->GetValue<Encoding^>(element, "value");
 	}
 	void MagickScript::ExecuteTextGravity(XmlElement^ element, MagickImage^ image)
 	{
-		image->TextGravity = XmlHelper::GetAttribute<Gravity>(element, "value");
+		image->TextGravity = _Variables->GetValue<Gravity>(element, "value");
 	}
 	void MagickScript::ExecuteTextInterlineSpacing(XmlElement^ element, MagickImage^ image)
 	{
-		image->TextInterlineSpacing = XmlHelper::GetAttribute<double>(element, "value");
+		image->TextInterlineSpacing = _Variables->GetValue<double>(element, "value");
 	}
 	void MagickScript::ExecuteTextInterwordSpacing(XmlElement^ element, MagickImage^ image)
 	{
-		image->TextInterwordSpacing = XmlHelper::GetAttribute<double>(element, "value");
+		image->TextInterwordSpacing = _Variables->GetValue<double>(element, "value");
 	}
 	void MagickScript::ExecuteTextKerning(XmlElement^ element, MagickImage^ image)
 	{
-		image->TextKerning = XmlHelper::GetAttribute<double>(element, "value");
+		image->TextKerning = _Variables->GetValue<double>(element, "value");
 	}
 	void MagickScript::ExecuteTileName(XmlElement^ element, MagickImage^ image)
 	{
-		image->TileName = XmlHelper::GetAttribute<String^>(element, "value");
+		image->TileName = _Variables->GetValue<String^>(element, "value");
 	}
 	void MagickScript::ExecuteVerbose(XmlElement^ element, MagickImage^ image)
 	{
-		image->Verbose = XmlHelper::GetAttribute<bool>(element, "value");
+		image->Verbose = _Variables->GetValue<bool>(element, "value");
 	}
 	void MagickScript::ExecuteVirtualPixelMethod(XmlElement^ element, MagickImage^ image)
 	{
-		image->VirtualPixelMethod = XmlHelper::GetAttribute<VirtualPixelMethod>(element, "value");
+		image->VirtualPixelMethod = _Variables->GetValue<VirtualPixelMethod>(element, "value");
 	}
 	void MagickScript::ExecuteAdaptiveBlur(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->AdaptiveBlur();
@@ -651,11 +1828,11 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+				arguments["height"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+				arguments["width"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->AdaptiveResize((MagickGeometry^)arguments["geometry"]);
@@ -670,11 +1847,11 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "radius")
-				arguments["radius"] = XmlHelper::GetAttribute<double>(element, "radius");
+				arguments["radius"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "sigma")
-				arguments["sigma"] = XmlHelper::GetAttribute<double>(element, "sigma");
+				arguments["sigma"] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->AdaptiveSharpen();
@@ -692,7 +1869,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<int>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "width", "height"))
 			image->AdaptiveThreshold((int)arguments["width"], (int)arguments["height"]);
@@ -707,9 +1884,9 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "noiseType")
-				arguments["noiseType"] = XmlHelper::GetAttribute<NoiseType>(element, "noiseType");
+				arguments["noiseType"] = _Variables->GetValue<NoiseType>(attribute);
 		}
 		if (OnlyContains(arguments, "noiseType"))
 			image->AddNoise((NoiseType)arguments["noiseType"]);
@@ -725,7 +1902,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteAlpha(XmlElement^ element, MagickImage^ image)
 	{
-		AlphaOption option_ = XmlHelper::GetAttribute<AlphaOption>(element, "option");
+		AlphaOption option_ = _Variables->GetValue<AlphaOption>(element, "option");
 		image->Alpha(option_);
 	}
 	void MagickScript::ExecuteAnnotate(XmlElement^ element, MagickImage^ image)
@@ -734,13 +1911,13 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "boundingArea")
-				arguments["boundingArea"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "boundingArea");
+				arguments["boundingArea"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "degrees")
-				arguments["degrees"] = XmlHelper::GetAttribute<double>(element, "degrees");
+				arguments["degrees"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "gravity")
-				arguments["gravity"] = XmlHelper::GetAttribute<Gravity>(element, "gravity");
+				arguments["gravity"] = _Variables->GetValue<Gravity>(attribute);
 			else if (attribute->Name == "text")
-				arguments["text"] = XmlHelper::GetAttribute<String^>(element, "text");
+				arguments["text"] = _Variables->GetValue<String^>(attribute);
 		}
 		if (OnlyContains(arguments, "text", "boundingArea"))
 			image->Annotate((String^)arguments["text"], (MagickGeometry^)arguments["boundingArea"]);
@@ -758,7 +1935,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<Channels>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<Channels>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->AutoGamma();
@@ -772,7 +1949,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<Channels>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<Channels>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->AutoLevel();
@@ -781,7 +1958,7 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'autoLevel', allowed combinations are: [] [channels]");
 	}
-	void MagickScript::ExecuteAutoOrient(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteAutoOrient(MagickImage^ image)
 	{
 		image->AutoOrient();
 	}
@@ -791,9 +1968,9 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "value")
-				arguments["value"] = XmlHelper::GetAttribute<int>(element, "value");
+				arguments["value"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "channels", "value"))
 			image->BitDepth((Channels)arguments["channels"], (int)arguments["value"]);
@@ -808,9 +1985,9 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "threshold")
-				arguments["threshold"] = XmlHelper::GetAttribute<Percentage>(element, "threshold");
+				arguments["threshold"] = _Variables->GetValue<Percentage>(attribute);
 		}
 		if (OnlyContains(arguments, "threshold"))
 			image->BlackThreshold((Percentage)arguments["threshold"]);
@@ -824,7 +2001,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->BlueShift();
@@ -839,11 +2016,11 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "radius")
-				arguments["radius"] = XmlHelper::GetAttribute<double>(element, "radius");
+				arguments["radius"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "sigma")
-				arguments["sigma"] = XmlHelper::GetAttribute<double>(element, "sigma");
+				arguments["sigma"] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Blur();
@@ -861,7 +2038,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<int>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "size"))
 			image->Border((int)arguments["size"]);
@@ -876,11 +2053,11 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "brightness")
-				arguments["brightness"] = XmlHelper::GetAttribute<Percentage>(element, "brightness");
+				arguments["brightness"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "contrast")
-				arguments["contrast"] = XmlHelper::GetAttribute<Percentage>(element, "contrast");
+				arguments["contrast"] = _Variables->GetValue<Percentage>(attribute);
 		}
 		if (OnlyContains(arguments, "brightness", "contrast"))
 			image->BrightnessContrast((Percentage)arguments["brightness"], (Percentage)arguments["contrast"]);
@@ -891,7 +2068,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteCDL(XmlElement^ element, MagickImage^ image)
 	{
-		String^ fileName_ = XmlHelper::GetAttribute<String^>(element, "fileName");
+		String^ fileName_ = _Variables->GetValue<String^>(element, "fileName");
 		image->CDL(fileName_);
 	}
 	void MagickScript::ExecuteCharcoal(XmlElement^ element, MagickImage^ image)
@@ -899,7 +2076,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Charcoal();
@@ -914,15 +2091,15 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+				arguments["height"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+				arguments["width"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "xOffset")
-				arguments["xOffset"] = XmlHelper::GetAttribute<int>(element, "xOffset");
+				arguments["xOffset"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "yOffset")
-				arguments["yOffset"] = XmlHelper::GetAttribute<int>(element, "yOffset");
+				arguments["yOffset"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Chop((MagickGeometry^)arguments["geometry"]);
@@ -933,38 +2110,38 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteChopHorizontal(XmlElement^ element, MagickImage^ image)
 	{
-		int offset_ = XmlHelper::GetAttribute<int>(element, "offset");
-		int width_ = XmlHelper::GetAttribute<int>(element, "width");
+		int offset_ = _Variables->GetValue<int>(element, "offset");
+		int width_ = _Variables->GetValue<int>(element, "width");
 		image->ChopHorizontal(offset_, width_);
 	}
 	void MagickScript::ExecuteChopVertical(XmlElement^ element, MagickImage^ image)
 	{
-		int offset_ = XmlHelper::GetAttribute<int>(element, "offset");
-		int height_ = XmlHelper::GetAttribute<int>(element, "height");
+		int offset_ = _Variables->GetValue<int>(element, "offset");
+		int height_ = _Variables->GetValue<int>(element, "height");
 		image->ChopVertical(offset_, height_);
 	}
 	void MagickScript::ExecuteChromaBluePrimary(XmlElement^ element, MagickImage^ image)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
 		image->ChromaBluePrimary(x_, y_);
 	}
 	void MagickScript::ExecuteChromaGreenPrimary(XmlElement^ element, MagickImage^ image)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
 		image->ChromaGreenPrimary(x_, y_);
 	}
 	void MagickScript::ExecuteChromaRedPrimary(XmlElement^ element, MagickImage^ image)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
 		image->ChromaRedPrimary(x_, y_);
 	}
 	void MagickScript::ExecuteChromaWhitePoint(XmlElement^ element, MagickImage^ image)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
 		image->ChromaWhitePoint(x_, y_);
 	}
 	void MagickScript::ExecuteClamp(XmlElement^ element, MagickImage^ image)
@@ -972,7 +2149,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<Channels>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<Channels>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Clamp();
@@ -987,9 +2164,9 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "inside")
-				arguments["inside"] = XmlHelper::GetAttribute<bool>(element, "inside");
+				arguments["inside"] = _Variables->GetValue<bool>(attribute);
 			else if (attribute->Name == "pathName")
-				arguments["pathName"] = XmlHelper::GetAttribute<String^>(element, "pathName");
+				arguments["pathName"] = _Variables->GetValue<String^>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Clip();
@@ -1003,7 +2180,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<Channels>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<Channels>(attribute);
 		}
 		for each(XmlElement^ elem in element->SelectNodes("*"))
 		{
@@ -1018,7 +2195,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteColorAlpha(XmlElement^ element, MagickImage^ image)
 	{
-		MagickColor^ color_ = XmlHelper::GetAttribute<MagickColor^>(element, "color");
+		MagickColor^ color_ = _Variables->GetValue<MagickColor^>(element, "color");
 		image->ColorAlpha(color_);
 	}
 	void MagickScript::ExecuteColorize(XmlElement^ element, MagickImage^ image)
@@ -1027,15 +2204,15 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "alpha")
-				arguments["alpha"] = XmlHelper::GetAttribute<Percentage>(element, "alpha");
+				arguments["alpha"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "alphaBlue")
-				arguments["alphaBlue"] = XmlHelper::GetAttribute<Percentage>(element, "alphaBlue");
+				arguments["alphaBlue"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "alphaGreen")
-				arguments["alphaGreen"] = XmlHelper::GetAttribute<Percentage>(element, "alphaGreen");
+				arguments["alphaGreen"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "alphaRed")
-				arguments["alphaRed"] = XmlHelper::GetAttribute<Percentage>(element, "alphaRed");
+				arguments["alphaRed"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "color")
-				arguments["color"] = XmlHelper::GetAttribute<MagickColor^>(element, "color");
+				arguments["color"] = _Variables->GetValue<MagickColor^>(attribute);
 		}
 		if (OnlyContains(arguments, "color", "alpha"))
 			image->Colorize((MagickColor^)arguments["color"], (Percentage)arguments["alpha"]);
@@ -1046,8 +2223,8 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteColorMap(XmlElement^ element, MagickImage^ image)
 	{
-		int index_ = XmlHelper::GetAttribute<int>(element, "index");
-		MagickColor^ color_ = XmlHelper::GetAttribute<MagickColor^>(element, "color");
+		int index_ = _Variables->GetValue<int>(element, "index");
+		MagickColor^ color_ = _Variables->GetValue<MagickColor^>(element, "color");
 		image->ColorMap(index_, color_);
 	}
 	void MagickScript::ExecuteComposite(XmlElement^ element, MagickImage^ image)
@@ -1056,17 +2233,17 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "args")
-				arguments["args"] = XmlHelper::GetAttribute<String^>(element, "args");
+				arguments["args"] = _Variables->GetValue<String^>(attribute);
 			else if (attribute->Name == "compose")
-				arguments["compose"] = XmlHelper::GetAttribute<CompositeOperator>(element, "compose");
+				arguments["compose"] = _Variables->GetValue<CompositeOperator>(attribute);
 			else if (attribute->Name == "gravity")
-				arguments["gravity"] = XmlHelper::GetAttribute<Gravity>(element, "gravity");
+				arguments["gravity"] = _Variables->GetValue<Gravity>(attribute);
 			else if (attribute->Name == "offset")
-				arguments["offset"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "offset");
+				arguments["offset"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "x")
-				arguments["x"] = XmlHelper::GetAttribute<int>(element, "x");
+				arguments["x"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "y")
-				arguments["y"] = XmlHelper::GetAttribute<int>(element, "y");
+				arguments["y"] = _Variables->GetValue<int>(attribute);
 		}
 		for each(XmlElement^ elem in element->SelectNodes("*"))
 		{
@@ -1098,7 +2275,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<bool>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<bool>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Contrast();
@@ -1113,13 +2290,13 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "gravity")
-				arguments["gravity"] = XmlHelper::GetAttribute<Gravity>(element, "gravity");
+				arguments["gravity"] = _Variables->GetValue<Gravity>(attribute);
 			else if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+				arguments["height"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+				arguments["width"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Crop((MagickGeometry^)arguments["geometry"]);
@@ -1132,26 +2309,26 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteCycleColormap(XmlElement^ element, MagickImage^ image)
 	{
-		int amount_ = XmlHelper::GetAttribute<int>(element, "amount");
+		int amount_ = _Variables->GetValue<int>(element, "amount");
 		image->CycleColormap(amount_);
 	}
 	void MagickScript::ExecuteDecipher(XmlElement^ element, MagickImage^ image)
 	{
-		String^ passphrase_ = XmlHelper::GetAttribute<String^>(element, "passphrase");
+		String^ passphrase_ = _Variables->GetValue<String^>(element, "passphrase");
 		image->Decipher(passphrase_);
 	}
 	void MagickScript::ExecuteDeskew(XmlElement^ element, MagickImage^ image)
 	{
-		Percentage threshold_ = XmlHelper::GetAttribute<Percentage>(element, "threshold");
+		Percentage threshold_ = _Variables->GetValue<Percentage>(element, "threshold");
 		image->Deskew(threshold_);
 	}
-	void MagickScript::ExecuteDespeckle(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteDespeckle(MagickImage^ image)
 	{
 		image->Despeckle();
 	}
 	void MagickScript::ExecuteEdge(XmlElement^ element, MagickImage^ image)
 	{
-		double radius_ = XmlHelper::GetAttribute<double>(element, "radius");
+		double radius_ = _Variables->GetValue<double>(element, "radius");
 		image->Edge(radius_);
 	}
 	void MagickScript::ExecuteEmboss(XmlElement^ element, MagickImage^ image)
@@ -1159,7 +2336,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Emboss();
@@ -1170,14 +2347,14 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteEncipher(XmlElement^ element, MagickImage^ image)
 	{
-		String^ passphrase_ = XmlHelper::GetAttribute<String^>(element, "passphrase");
+		String^ passphrase_ = _Variables->GetValue<String^>(element, "passphrase");
 		image->Encipher(passphrase_);
 	}
-	void MagickScript::ExecuteEnhance(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteEnhance(MagickImage^ image)
 	{
 		image->Enhance();
 	}
-	void MagickScript::ExecuteEqualize(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteEqualize(MagickImage^ image)
 	{
 		image->Equalize();
 	}
@@ -1187,13 +2364,13 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "evaluateOperator")
-				arguments["evaluateOperator"] = XmlHelper::GetAttribute<EvaluateOperator>(element, "evaluateOperator");
+				arguments["evaluateOperator"] = _Variables->GetValue<EvaluateOperator>(attribute);
 			else if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "value")
-				arguments["value"] = XmlHelper::GetAttribute<double>(element, "value");
+				arguments["value"] = _Variables->GetValue<double>(attribute);
 		}
 		if (OnlyContains(arguments, "channels", "evaluateOperator", "value"))
 			image->Evaluate((Channels)arguments["channels"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
@@ -1208,15 +2385,15 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "backgroundColor")
-				arguments["backgroundColor"] = XmlHelper::GetAttribute<MagickColor^>(element, "backgroundColor");
+				arguments["backgroundColor"] = _Variables->GetValue<MagickColor^>(attribute);
 			else if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "gravity")
-				arguments["gravity"] = XmlHelper::GetAttribute<Gravity>(element, "gravity");
+				arguments["gravity"] = _Variables->GetValue<Gravity>(attribute);
 			else if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+				arguments["height"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+				arguments["width"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Extent((MagickGeometry^)arguments["geometry"]);
@@ -1237,7 +2414,7 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'extent', allowed combinations are: [geometry] [geometry, backgroundColor] [geometry, gravity] [geometry, gravity, backgroundColor] [width, height] [width, height, backgroundColor] [width, height, gravity] [width, height, gravity, backgroundColor]");
 	}
-	void MagickScript::ExecuteFlip(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteFlip(MagickImage^ image)
 	{
 		image->Flip();
 	}
@@ -1247,19 +2424,19 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "alpha")
-				arguments["alpha"] = XmlHelper::GetAttribute<int>(element, "alpha");
+				arguments["alpha"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "borderColor")
-				arguments["borderColor"] = XmlHelper::GetAttribute<MagickColor^>(element, "borderColor");
+				arguments["borderColor"] = _Variables->GetValue<MagickColor^>(attribute);
 			else if (attribute->Name == "color")
-				arguments["color"] = XmlHelper::GetAttribute<MagickColor^>(element, "color");
+				arguments["color"] = _Variables->GetValue<MagickColor^>(attribute);
 			else if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "paintMethod")
-				arguments["paintMethod"] = XmlHelper::GetAttribute<PaintMethod>(element, "paintMethod");
+				arguments["paintMethod"] = _Variables->GetValue<PaintMethod>(attribute);
 			else if (attribute->Name == "x")
-				arguments["x"] = XmlHelper::GetAttribute<int>(element, "x");
+				arguments["x"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "y")
-				arguments["y"] = XmlHelper::GetAttribute<int>(element, "y");
+				arguments["y"] = _Variables->GetValue<int>(attribute);
 		}
 		for each(XmlElement^ elem in element->SelectNodes("*"))
 		{
@@ -1286,7 +2463,7 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'floodFill', allowed combinations are: [alpha, x, y, paintMethod] [color, geometry] [color, geometry, borderColor] [color, x, y] [color, x, y, borderColor] [image, geometry] [image, geometry, borderColor] [image, x, y] [image, x, y, borderColor]");
 	}
-	void MagickScript::ExecuteFlop(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteFlop(MagickImage^ image)
 	{
 		image->Flop();
 	}
@@ -1296,15 +2473,15 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+				arguments["height"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "innerBevel")
-				arguments["innerBevel"] = XmlHelper::GetAttribute<int>(element, "innerBevel");
+				arguments["innerBevel"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "outerBevel")
-				arguments["outerBevel"] = XmlHelper::GetAttribute<int>(element, "outerBevel");
+				arguments["outerBevel"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+				arguments["width"] = _Variables->GetValue<int>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Frame();
@@ -1323,9 +2500,9 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "expression")
-				arguments["expression"] = XmlHelper::GetAttribute<String^>(element, "expression");
+				arguments["expression"] = _Variables->GetValue<String^>(attribute);
 		}
 		if (OnlyContains(arguments, "expression"))
 			image->Fx((String^)arguments["expression"]);
@@ -1339,7 +2516,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
 		}
 		if (OnlyContains(arguments, "gammeRed", "gammeGreen", "gammeBlue"))
 			image->Gamma((double)arguments["gammeRed"], (double)arguments["gammeGreen"], (double)arguments["gammeBlue"]);
@@ -1354,11 +2531,11 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "sigma")
-				arguments["sigma"] = XmlHelper::GetAttribute<double>(element, "sigma");
+				arguments["sigma"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<double>(element, "width");
+				arguments["width"] = _Variables->GetValue<double>(attribute);
 		}
 		if (OnlyContains(arguments, "width", "sigma"))
 			image->GaussianBlur((double)arguments["width"], (double)arguments["sigma"]);
@@ -1374,7 +2551,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteImplode(XmlElement^ element, MagickImage^ image)
 	{
-		double factor_ = XmlHelper::GetAttribute<double>(element, "factor");
+		double factor_ = _Variables->GetValue<double>(element, "factor");
 		image->Implode(factor_);
 	}
 	void MagickScript::ExecuteInverseFourierTransform(XmlElement^ element, MagickImage^ image)
@@ -1382,7 +2559,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<bool>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<bool>(attribute);
 		}
 		for each(XmlElement^ elem in element->SelectNodes("*"))
 		{
@@ -1401,13 +2578,13 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "blackPoint")
-				arguments["blackPoint"] = XmlHelper::GetAttribute<Magick::Quantum>(element, "blackPoint");
+				arguments["blackPoint"] = _Variables->GetValue<Magick::Quantum>(attribute);
 			else if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "midpoint")
-				arguments["midpoint"] = XmlHelper::GetAttribute<double>(element, "midpoint");
+				arguments["midpoint"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "whitePoint")
-				arguments["whitePoint"] = XmlHelper::GetAttribute<Magick::Quantum>(element, "whitePoint");
+				arguments["whitePoint"] = _Variables->GetValue<Magick::Quantum>(attribute);
 		}
 		if (OnlyContains(arguments, "blackPoint", "whitePoint"))
 			image->Level((Magick::Quantum)arguments["blackPoint"], (Magick::Quantum)arguments["whitePoint"]);
@@ -1426,13 +2603,13 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "blackColor")
-				arguments["blackColor"] = XmlHelper::GetAttribute<MagickColor^>(element, "blackColor");
+				arguments["blackColor"] = _Variables->GetValue<MagickColor^>(attribute);
 			else if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "invert")
-				arguments["invert"] = XmlHelper::GetAttribute<bool>(element, "invert");
+				arguments["invert"] = _Variables->GetValue<bool>(attribute);
 			else if (attribute->Name == "whiteColor")
-				arguments["whiteColor"] = XmlHelper::GetAttribute<MagickColor^>(element, "whiteColor");
+				arguments["whiteColor"] = _Variables->GetValue<MagickColor^>(attribute);
 		}
 		if (OnlyContains(arguments, "blackColor", "whiteColor"))
 			image->LevelColors((MagickColor^)arguments["blackColor"], (MagickColor^)arguments["whiteColor"]);
@@ -1447,21 +2624,21 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteLinearStretch(XmlElement^ element, MagickImage^ image)
 	{
-		Percentage blackPoint_ = XmlHelper::GetAttribute<Percentage>(element, "blackPoint");
-		Percentage whitePoint_ = XmlHelper::GetAttribute<Percentage>(element, "whitePoint");
+		Percentage blackPoint_ = _Variables->GetValue<Percentage>(element, "blackPoint");
+		Percentage whitePoint_ = _Variables->GetValue<Percentage>(element, "whitePoint");
 		image->LinearStretch(blackPoint_, whitePoint_);
 	}
 	void MagickScript::ExecuteLiquidRescale(XmlElement^ element, MagickImage^ image)
 	{
-		MagickGeometry^ geometry_ = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+		MagickGeometry^ geometry_ = _Variables->GetValue<MagickGeometry^>(element, "geometry");
 		image->LiquidRescale(geometry_);
 	}
 	void MagickScript::ExecuteLower(XmlElement^ element, MagickImage^ image)
 	{
-		int size_ = XmlHelper::GetAttribute<int>(element, "size");
+		int size_ = _Variables->GetValue<int>(element, "size");
 		image->Lower(size_);
 	}
-	void MagickScript::ExecuteMagnify(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteMagnify(MagickImage^ image)
 	{
 		image->Magnify();
 	}
@@ -1470,7 +2647,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<bool>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<bool>(attribute);
 		}
 		for each(XmlElement^ elem in element->SelectNodes("*"))
 		{
@@ -1488,7 +2665,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->MedianFilter();
@@ -1497,15 +2674,15 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'medianFilter', allowed combinations are: [] [radius]");
 	}
-	void MagickScript::ExecuteMinify(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteMinify(MagickImage^ image)
 	{
 		image->Minify();
 	}
 	void MagickScript::ExecuteModulate(XmlElement^ element, MagickImage^ image)
 	{
-		Percentage brightness_ = XmlHelper::GetAttribute<Percentage>(element, "brightness");
-		Percentage saturation_ = XmlHelper::GetAttribute<Percentage>(element, "saturation");
-		Percentage hue_ = XmlHelper::GetAttribute<Percentage>(element, "hue");
+		Percentage brightness_ = _Variables->GetValue<Percentage>(element, "brightness");
+		Percentage saturation_ = _Variables->GetValue<Percentage>(element, "saturation");
+		Percentage hue_ = _Variables->GetValue<Percentage>(element, "hue");
 		image->Modulate(brightness_, saturation_, hue_);
 	}
 	void MagickScript::ExecuteMorphology(XmlElement^ element, MagickImage^ image)
@@ -1514,17 +2691,17 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "arguments")
-				arguments["arguments"] = XmlHelper::GetAttribute<String^>(element, "arguments");
+				arguments["arguments"] = _Variables->GetValue<String^>(attribute);
 			else if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "iterations")
-				arguments["iterations"] = XmlHelper::GetAttribute<int>(element, "iterations");
+				arguments["iterations"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "kernel")
-				arguments["kernel"] = XmlHelper::GetAttribute<Kernel>(element, "kernel");
+				arguments["kernel"] = _Variables->GetValue<Kernel>(attribute);
 			else if (attribute->Name == "method")
-				arguments["method"] = XmlHelper::GetAttribute<MorphologyMethod>(element, "method");
+				arguments["method"] = _Variables->GetValue<MorphologyMethod>(attribute);
 			else if (attribute->Name == "userKernel")
-				arguments["userKernel"] = XmlHelper::GetAttribute<String^>(element, "userKernel");
+				arguments["userKernel"] = _Variables->GetValue<String^>(attribute);
 		}
 		if (OnlyContains(arguments, "method", "kernel"))
 			image->Morphology((MorphologyMethod)arguments["method"], (Kernel)arguments["kernel"]);
@@ -1555,9 +2732,9 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteMotionBlur(XmlElement^ element, MagickImage^ image)
 	{
-		double radius_ = XmlHelper::GetAttribute<double>(element, "radius");
-		double sigma_ = XmlHelper::GetAttribute<double>(element, "sigma");
-		double angle_ = XmlHelper::GetAttribute<double>(element, "angle");
+		double radius_ = _Variables->GetValue<double>(element, "radius");
+		double sigma_ = _Variables->GetValue<double>(element, "sigma");
+		double angle_ = _Variables->GetValue<double>(element, "angle");
 		image->MotionBlur(radius_, sigma_, angle_);
 	}
 	void MagickScript::ExecuteNegate(XmlElement^ element, MagickImage^ image)
@@ -1566,9 +2743,9 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "onlyGrayscale")
-				arguments["onlyGrayscale"] = XmlHelper::GetAttribute<bool>(element, "onlyGrayscale");
+				arguments["onlyGrayscale"] = _Variables->GetValue<bool>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Negate();
@@ -1581,7 +2758,7 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'negate', allowed combinations are: [] [channels] [channels, onlyGrayscale] [onlyGrayscale]");
 	}
-	void MagickScript::ExecuteNormalize(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteNormalize(MagickImage^ image)
 	{
 		image->Normalize();
 	}
@@ -1590,7 +2767,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->OilPaint();
@@ -1601,8 +2778,8 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteOpaque(XmlElement^ element, MagickImage^ image)
 	{
-		MagickColor^ opaqueColor_ = XmlHelper::GetAttribute<MagickColor^>(element, "opaqueColor");
-		MagickColor^ penColor_ = XmlHelper::GetAttribute<MagickColor^>(element, "penColor");
+		MagickColor^ opaqueColor_ = _Variables->GetValue<MagickColor^>(element, "opaqueColor");
+		MagickColor^ penColor_ = _Variables->GetValue<MagickColor^>(element, "penColor");
 		image->Opaque(opaqueColor_, penColor_);
 	}
 	void MagickScript::ExecutePerceptible(XmlElement^ element, MagickImage^ image)
@@ -1611,9 +2788,9 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "epsilon")
-				arguments["epsilon"] = XmlHelper::GetAttribute<double>(element, "epsilon");
+				arguments["epsilon"] = _Variables->GetValue<double>(attribute);
 		}
 		if (OnlyContains(arguments, "epsilon"))
 			image->Perceptible((double)arguments["epsilon"]);
@@ -1624,8 +2801,8 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecutePolaroid(XmlElement^ element, MagickImage^ image)
 	{
-		String^ caption_ = XmlHelper::GetAttribute<String^>(element, "caption");
-		double angle_ = XmlHelper::GetAttribute<double>(element, "angle");
+		String^ caption_ = _Variables->GetValue<String^>(element, "caption");
+		double angle_ = _Variables->GetValue<double>(element, "angle");
 		image->Polaroid(caption_, angle_);
 	}
 	void MagickScript::ExecutePosterize(XmlElement^ element, MagickImage^ image)
@@ -1634,11 +2811,11 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "dither")
-				arguments["dither"] = XmlHelper::GetAttribute<bool>(element, "dither");
+				arguments["dither"] = _Variables->GetValue<bool>(attribute);
 			else if (attribute->Name == "levels")
-				arguments["levels"] = XmlHelper::GetAttribute<int>(element, "levels");
+				arguments["levels"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "levels"))
 			image->Posterize((int)arguments["levels"]);
@@ -1651,13 +2828,13 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'posterize', allowed combinations are: [levels] [levels, channels] [levels, dither] [levels, dither, channels]");
 	}
-	void MagickScript::ExecuteQuantize(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteQuantize(MagickImage^ image)
 	{
 		image->Quantize();
 	}
 	void MagickScript::ExecuteRaise(XmlElement^ element, MagickImage^ image)
 	{
-		int size_ = XmlHelper::GetAttribute<int>(element, "size");
+		int size_ = _Variables->GetValue<int>(element, "size");
 		image->Raise(size_);
 	}
 	void MagickScript::ExecuteRandomThreshold(XmlElement^ element, MagickImage^ image)
@@ -1666,15 +2843,15 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "high")
-				arguments["high"] = XmlHelper::GetAttribute<Magick::Quantum>(element, "high");
+				arguments["high"] = _Variables->GetValue<Magick::Quantum>(attribute);
 			else if (attribute->Name == "low")
-				arguments["low"] = XmlHelper::GetAttribute<Magick::Quantum>(element, "low");
+				arguments["low"] = _Variables->GetValue<Magick::Quantum>(attribute);
 			else if (attribute->Name == "percentageHigh")
-				arguments["percentageHigh"] = XmlHelper::GetAttribute<Percentage>(element, "percentageHigh");
+				arguments["percentageHigh"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageLow")
-				arguments["percentageLow"] = XmlHelper::GetAttribute<Percentage>(element, "percentageLow");
+				arguments["percentageLow"] = _Variables->GetValue<Percentage>(attribute);
 		}
 		if (OnlyContains(arguments, "low", "high"))
 			image->RandomThreshold((Magick::Quantum)arguments["low"], (Magick::Quantum)arguments["high"]);
@@ -1692,7 +2869,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<int>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<int>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->ReduceNoise();
@@ -1703,7 +2880,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteRemoveProfile(XmlElement^ element, MagickImage^ image)
 	{
-		String^ name_ = XmlHelper::GetAttribute<String^>(element, "name");
+		String^ name_ = _Variables->GetValue<String^>(element, "name");
 		image->RemoveProfile(name_);
 	}
 	void MagickScript::ExecuteResample(XmlElement^ element, MagickImage^ image)
@@ -1712,17 +2889,17 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+				arguments["height"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "percentage")
-				arguments["percentage"] = XmlHelper::GetAttribute<Percentage>(element, "percentage");
+				arguments["percentage"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageHeight")
-				arguments["percentageHeight"] = XmlHelper::GetAttribute<Percentage>(element, "percentageHeight");
+				arguments["percentageHeight"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageWidth")
-				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
+				arguments["percentageWidth"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+				arguments["width"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Resample((MagickGeometry^)arguments["geometry"]);
@@ -1741,17 +2918,17 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+				arguments["height"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "percentage")
-				arguments["percentage"] = XmlHelper::GetAttribute<Percentage>(element, "percentage");
+				arguments["percentage"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageHeight")
-				arguments["percentageHeight"] = XmlHelper::GetAttribute<Percentage>(element, "percentageHeight");
+				arguments["percentageHeight"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageWidth")
-				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
+				arguments["percentageWidth"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+				arguments["width"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Resize((MagickGeometry^)arguments["geometry"]);
@@ -1766,13 +2943,13 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteRoll(XmlElement^ element, MagickImage^ image)
 	{
-		int xOffset_ = XmlHelper::GetAttribute<int>(element, "xOffset");
-		int yOffset_ = XmlHelper::GetAttribute<int>(element, "yOffset");
+		int xOffset_ = _Variables->GetValue<int>(element, "xOffset");
+		int yOffset_ = _Variables->GetValue<int>(element, "yOffset");
 		image->Roll(xOffset_, yOffset_);
 	}
 	void MagickScript::ExecuteRotate(XmlElement^ element, MagickImage^ image)
 	{
-		double degrees_ = XmlHelper::GetAttribute<double>(element, "degrees");
+		double degrees_ = _Variables->GetValue<double>(element, "degrees");
 		image->Rotate(degrees_);
 	}
 	void MagickScript::ExecuteSample(XmlElement^ element, MagickImage^ image)
@@ -1781,17 +2958,17 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+				arguments["height"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "percentage")
-				arguments["percentage"] = XmlHelper::GetAttribute<Percentage>(element, "percentage");
+				arguments["percentage"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageHeight")
-				arguments["percentageHeight"] = XmlHelper::GetAttribute<Percentage>(element, "percentageHeight");
+				arguments["percentageHeight"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageWidth")
-				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
+				arguments["percentageWidth"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+				arguments["width"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Sample((MagickGeometry^)arguments["geometry"]);
@@ -1810,17 +2987,17 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+				arguments["height"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "percentage")
-				arguments["percentage"] = XmlHelper::GetAttribute<Percentage>(element, "percentage");
+				arguments["percentage"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageHeight")
-				arguments["percentageHeight"] = XmlHelper::GetAttribute<Percentage>(element, "percentageHeight");
+				arguments["percentageHeight"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageWidth")
-				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
+				arguments["percentageWidth"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+				arguments["width"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Scale((MagickGeometry^)arguments["geometry"]);
@@ -1838,7 +3015,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Segment();
@@ -1849,14 +3026,14 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteSetArtifact(XmlElement^ element, MagickImage^ image)
 	{
-		String^ name_ = XmlHelper::GetAttribute<String^>(element, "name");
-		String^ value_ = XmlHelper::GetAttribute<String^>(element, "value");
+		String^ name_ = _Variables->GetValue<String^>(element, "name");
+		String^ value_ = _Variables->GetValue<String^>(element, "value");
 		image->SetArtifact(name_, value_);
 	}
 	void MagickScript::ExecuteSetAttribute(XmlElement^ element, MagickImage^ image)
 	{
-		String^ name_ = XmlHelper::GetAttribute<String^>(element, "name");
-		String^ value_ = XmlHelper::GetAttribute<String^>(element, "value");
+		String^ name_ = _Variables->GetValue<String^>(element, "name");
+		String^ value_ = _Variables->GetValue<String^>(element, "value");
 		image->SetAttribute(name_, value_);
 	}
 	void MagickScript::ExecuteSetDefine(XmlElement^ element, MagickImage^ image)
@@ -1865,13 +3042,13 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "flag")
-				arguments["flag"] = XmlHelper::GetAttribute<bool>(element, "flag");
+				arguments["flag"] = _Variables->GetValue<bool>(attribute);
 			else if (attribute->Name == "format")
-				arguments["format"] = XmlHelper::GetAttribute<MagickFormat>(element, "format");
+				arguments["format"] = _Variables->GetValue<MagickFormat>(attribute);
 			else if (attribute->Name == "name")
-				arguments["name"] = XmlHelper::GetAttribute<String^>(element, "name");
+				arguments["name"] = _Variables->GetValue<String^>(attribute);
 			else if (attribute->Name == "value")
-				arguments["value"] = XmlHelper::GetAttribute<String^>(element, "value");
+				arguments["value"] = _Variables->GetValue<String^>(attribute);
 		}
 		if (OnlyContains(arguments, "format", "name", "flag"))
 			image->SetDefine((MagickFormat)arguments["format"], (String^)arguments["name"], (bool)arguments["flag"]);
@@ -1886,11 +3063,11 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "azimuth")
-				arguments["azimuth"] = XmlHelper::GetAttribute<double>(element, "azimuth");
+				arguments["azimuth"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "colorShading")
-				arguments["colorShading"] = XmlHelper::GetAttribute<bool>(element, "colorShading");
+				arguments["colorShading"] = _Variables->GetValue<bool>(attribute);
 			else if (attribute->Name == "elevation")
-				arguments["elevation"] = XmlHelper::GetAttribute<double>(element, "elevation");
+				arguments["elevation"] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Shade();
@@ -1905,15 +3082,15 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "alpha")
-				arguments["alpha"] = XmlHelper::GetAttribute<Percentage>(element, "alpha");
+				arguments["alpha"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "color")
-				arguments["color"] = XmlHelper::GetAttribute<MagickColor^>(element, "color");
+				arguments["color"] = _Variables->GetValue<MagickColor^>(attribute);
 			else if (attribute->Name == "sigma")
-				arguments["sigma"] = XmlHelper::GetAttribute<double>(element, "sigma");
+				arguments["sigma"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "x")
-				arguments["x"] = XmlHelper::GetAttribute<int>(element, "x");
+				arguments["x"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "y")
-				arguments["y"] = XmlHelper::GetAttribute<int>(element, "y");
+				arguments["y"] = _Variables->GetValue<int>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Shadow();
@@ -1932,11 +3109,11 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "radius")
-				arguments["radius"] = XmlHelper::GetAttribute<double>(element, "radius");
+				arguments["radius"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "sigma")
-				arguments["sigma"] = XmlHelper::GetAttribute<double>(element, "sigma");
+				arguments["sigma"] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Sharpen();
@@ -1951,14 +3128,14 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteShave(XmlElement^ element, MagickImage^ image)
 	{
-		int leftRight_ = XmlHelper::GetAttribute<int>(element, "leftRight");
-		int topBottom_ = XmlHelper::GetAttribute<int>(element, "topBottom");
+		int leftRight_ = _Variables->GetValue<int>(element, "leftRight");
+		int topBottom_ = _Variables->GetValue<int>(element, "topBottom");
 		image->Shave(leftRight_, topBottom_);
 	}
 	void MagickScript::ExecuteShear(XmlElement^ element, MagickImage^ image)
 	{
-		double xAngle_ = XmlHelper::GetAttribute<double>(element, "xAngle");
-		double yAngle_ = XmlHelper::GetAttribute<double>(element, "yAngle");
+		double xAngle_ = _Variables->GetValue<double>(element, "xAngle");
+		double yAngle_ = _Variables->GetValue<double>(element, "yAngle");
 		image->Shear(xAngle_, yAngle_);
 	}
 	void MagickScript::ExecuteSigmoidalContrast(XmlElement^ element, MagickImage^ image)
@@ -1967,11 +3144,11 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "contrast")
-				arguments["contrast"] = XmlHelper::GetAttribute<double>(element, "contrast");
+				arguments["contrast"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "midpoint")
-				arguments["midpoint"] = XmlHelper::GetAttribute<double>(element, "midpoint");
+				arguments["midpoint"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "sharpen")
-				arguments["sharpen"] = XmlHelper::GetAttribute<bool>(element, "sharpen");
+				arguments["sharpen"] = _Variables->GetValue<bool>(attribute);
 		}
 		if (OnlyContains(arguments, "sharpen", "contrast"))
 			image->SigmoidalContrast((bool)arguments["sharpen"], (double)arguments["contrast"]);
@@ -1985,7 +3162,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Solarize();
@@ -2004,13 +3181,13 @@ namespace ImageMagick
 		MagickImage^ rightImage_ = CreateMagickImage((XmlElement^)element->SelectSingleNode("rightImage"));
 		image->Stereo(rightImage_);
 	}
-	void MagickScript::ExecuteStrip(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteStrip(MagickImage^ image)
 	{
 		image->Strip();
 	}
 	void MagickScript::ExecuteSwirl(XmlElement^ element, MagickImage^ image)
 	{
-		double degrees_ = XmlHelper::GetAttribute<double>(element, "degrees");
+		double degrees_ = _Variables->GetValue<double>(element, "degrees");
 		image->Swirl(degrees_);
 	}
 	void MagickScript::ExecuteTexture(XmlElement^ element, MagickImage^ image)
@@ -2020,7 +3197,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteThreshold(XmlElement^ element, MagickImage^ image)
 	{
-		double value_ = XmlHelper::GetAttribute<double>(element, "value");
+		double value_ = _Variables->GetValue<double>(element, "value");
 		image->Threshold(value_);
 	}
 	void MagickScript::ExecuteThumbnail(XmlElement^ element, MagickImage^ image)
@@ -2029,17 +3206,17 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+				arguments["height"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "percentage")
-				arguments["percentage"] = XmlHelper::GetAttribute<Percentage>(element, "percentage");
+				arguments["percentage"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageHeight")
-				arguments["percentageHeight"] = XmlHelper::GetAttribute<Percentage>(element, "percentageHeight");
+				arguments["percentageHeight"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageWidth")
-				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
+				arguments["percentageWidth"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+				arguments["width"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Thumbnail((MagickGeometry^)arguments["geometry"]);
@@ -2057,7 +3234,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<MagickGeometry^>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<MagickGeometry^>(attribute);
 		}
 		if (OnlyContains(arguments, "imageGeometry"))
 			image->Transform((MagickGeometry^)arguments["imageGeometry"]);
@@ -2068,55 +3245,55 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteTransformOrigin(XmlElement^ element, MagickImage^ image)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
 		image->TransformOrigin(x_, y_);
 	}
-	void MagickScript::ExecuteTransformReset(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteTransformReset(MagickImage^ image)
 	{
 		image->TransformReset();
 	}
 	void MagickScript::ExecuteTransformRotation(XmlElement^ element, MagickImage^ image)
 	{
-		double angle_ = XmlHelper::GetAttribute<double>(element, "angle");
+		double angle_ = _Variables->GetValue<double>(element, "angle");
 		image->TransformRotation(angle_);
 	}
 	void MagickScript::ExecuteTransformScale(XmlElement^ element, MagickImage^ image)
 	{
-		double scaleX_ = XmlHelper::GetAttribute<double>(element, "scaleX");
-		double scaleY_ = XmlHelper::GetAttribute<double>(element, "scaleY");
+		double scaleX_ = _Variables->GetValue<double>(element, "scaleX");
+		double scaleY_ = _Variables->GetValue<double>(element, "scaleY");
 		image->TransformScale(scaleX_, scaleY_);
 	}
 	void MagickScript::ExecuteTransformSkewX(XmlElement^ element, MagickImage^ image)
 	{
-		double skewX_ = XmlHelper::GetAttribute<double>(element, "skewX");
+		double skewX_ = _Variables->GetValue<double>(element, "skewX");
 		image->TransformSkewX(skewX_);
 	}
 	void MagickScript::ExecuteTransformSkewY(XmlElement^ element, MagickImage^ image)
 	{
-		double skewY_ = XmlHelper::GetAttribute<double>(element, "skewY");
+		double skewY_ = _Variables->GetValue<double>(element, "skewY");
 		image->TransformSkewY(skewY_);
 	}
 	void MagickScript::ExecuteTransparent(XmlElement^ element, MagickImage^ image)
 	{
-		MagickColor^ color_ = XmlHelper::GetAttribute<MagickColor^>(element, "color");
+		MagickColor^ color_ = _Variables->GetValue<MagickColor^>(element, "color");
 		image->Transparent(color_);
 	}
 	void MagickScript::ExecuteTransparentChroma(XmlElement^ element, MagickImage^ image)
 	{
-		MagickColor^ colorLow_ = XmlHelper::GetAttribute<MagickColor^>(element, "colorLow");
-		MagickColor^ colorHigh_ = XmlHelper::GetAttribute<MagickColor^>(element, "colorHigh");
+		MagickColor^ colorLow_ = _Variables->GetValue<MagickColor^>(element, "colorLow");
+		MagickColor^ colorHigh_ = _Variables->GetValue<MagickColor^>(element, "colorHigh");
 		image->TransparentChroma(colorLow_, colorHigh_);
 	}
-	void MagickScript::ExecuteTranspose(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteTranspose(MagickImage^ image)
 	{
 		image->Transpose();
 	}
-	void MagickScript::ExecuteTransverse(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteTransverse(MagickImage^ image)
 	{
 		image->Transverse();
 	}
-	void MagickScript::ExecuteTrim(XmlElement^ element, MagickImage^ image)
+	void MagickScript::ExecuteTrim(MagickImage^ image)
 	{
 		image->Trim();
 	}
@@ -2126,15 +3303,15 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "amount")
-				arguments["amount"] = XmlHelper::GetAttribute<double>(element, "amount");
+				arguments["amount"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "radius")
-				arguments["radius"] = XmlHelper::GetAttribute<double>(element, "radius");
+				arguments["radius"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "sigma")
-				arguments["sigma"] = XmlHelper::GetAttribute<double>(element, "sigma");
+				arguments["sigma"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "threshold")
-				arguments["threshold"] = XmlHelper::GetAttribute<double>(element, "threshold");
+				arguments["threshold"] = _Variables->GetValue<double>(attribute);
 		}
 		if (OnlyContains(arguments, "radius", "sigma", "amount", "threshold"))
 			image->Unsharpmask((double)arguments["radius"], (double)arguments["sigma"], (double)arguments["amount"], (double)arguments["threshold"]);
@@ -2148,7 +3325,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<double>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Wave();
@@ -2163,9 +3340,9 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "channels")
-				arguments["channels"] = XmlHelper::GetAttribute<Channels>(element, "channels");
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "threshold")
-				arguments["threshold"] = XmlHelper::GetAttribute<Percentage>(element, "threshold");
+				arguments["threshold"] = _Variables->GetValue<Percentage>(attribute);
 		}
 		if (OnlyContains(arguments, "threshold"))
 			image->WhiteThreshold((Percentage)arguments["threshold"]);
@@ -2180,17 +3357,17 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "geometry")
-				arguments["geometry"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "geometry");
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "height")
-				arguments["height"] = XmlHelper::GetAttribute<int>(element, "height");
+				arguments["height"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "percentage")
-				arguments["percentage"] = XmlHelper::GetAttribute<Percentage>(element, "percentage");
+				arguments["percentage"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageHeight")
-				arguments["percentageHeight"] = XmlHelper::GetAttribute<Percentage>(element, "percentageHeight");
+				arguments["percentageHeight"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "percentageWidth")
-				arguments["percentageWidth"] = XmlHelper::GetAttribute<Percentage>(element, "percentageWidth");
+				arguments["percentageWidth"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "width")
-				arguments["width"] = XmlHelper::GetAttribute<int>(element, "width");
+				arguments["width"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Zoom((MagickGeometry^)arguments["geometry"]);
@@ -2205,46 +3382,140 @@ namespace ImageMagick
 	}
 	MagickImage^ MagickScript::ExecuteCollection(XmlElement^ element, MagickImageCollection^ collection)
 	{
-		ExecuteElementCollection^ method = dynamic_cast<ExecuteElementCollection^>(_StaticExecuteCollection[element->Name]);
-		if (method == nullptr)
-			throw gcnew NotImplementedException(element->Name);
-		return method(element,collection);
+		switch(element->Name[0])
+		{
+			case 'c':
+			{
+				switch(element->Name[2])
+				{
+					case 'a':
+					{
+						return ExecuteCoalesce(collection);
+					}
+					case 'm':
+					{
+						return ExecuteCombine(element, collection);
+					}
+				}
+				break;
+			}
+			case 'd':
+			{
+				return ExecuteDeconstruct(collection);
+			}
+			case 'o':
+			{
+				if (element->Name->Length == 12)
+				{
+					return ExecuteOptimizePlus(collection);
+				}
+			}
+			case 'r':
+			{
+				switch(element->Name[2])
+				{
+					case 'P':
+					{
+						return ExecuteRePage(collection);
+					}
+					case 'v':
+					{
+						return ExecuteReverse(collection);
+					}
+				}
+				break;
+			}
+			case 'a':
+			{
+				switch(element->Name[6])
+				{
+					case 'H':
+					{
+						return ExecuteAppendHorizontally(collection);
+					}
+					case 'V':
+					{
+						return ExecuteAppendVertically(collection);
+					}
+				}
+				break;
+			}
+			case 'e':
+			{
+				return ExecuteEvaluate(element, collection);
+			}
+			case 'f':
+			{
+				switch(element->Name[1])
+				{
+					case 'l':
+					{
+						return ExecuteFlatten(collection);
+					}
+					case 'x':
+					{
+						return ExecuteFx(element, collection);
+					}
+				}
+				break;
+			}
+			case 'm':
+			{
+				switch(element->Name[1])
+				{
+					case 'e':
+					{
+						return ExecuteMerge(collection);
+					}
+					case 'o':
+					{
+						return ExecuteMosaic(collection);
+					}
+				}
+				break;
+			}
+			case 't':
+			{
+				return ExecuteTrimBounds(collection);
+			}
+		}
+		throw gcnew NotImplementedException(element->Name);
 	}
-	MagickImage^ MagickScript::ExecuteCoalesce(XmlElement^ element, MagickImageCollection^ collection)
+	MagickImage^ MagickScript::ExecuteCoalesce(MagickImageCollection^ collection)
 	{
 		collection->Coalesce();
 		return nullptr;
 	}
-	MagickImage^ MagickScript::ExecuteDeconstruct(XmlElement^ element, MagickImageCollection^ collection)
+	MagickImage^ MagickScript::ExecuteDeconstruct(MagickImageCollection^ collection)
 	{
 		collection->Deconstruct();
 		return nullptr;
 	}
-	MagickImage^ MagickScript::ExecuteOptimize(XmlElement^ element, MagickImageCollection^ collection)
+	MagickImage^ MagickScript::ExecuteOptimize(MagickImageCollection^ collection)
 	{
 		collection->Optimize();
 		return nullptr;
 	}
-	MagickImage^ MagickScript::ExecuteOptimizePlus(XmlElement^ element, MagickImageCollection^ collection)
+	MagickImage^ MagickScript::ExecuteOptimizePlus(MagickImageCollection^ collection)
 	{
 		collection->OptimizePlus();
 		return nullptr;
 	}
-	MagickImage^ MagickScript::ExecuteRePage(XmlElement^ element, MagickImageCollection^ collection)
+	MagickImage^ MagickScript::ExecuteRePage(MagickImageCollection^ collection)
 	{
 		collection->RePage();
 		return nullptr;
 	}
-	MagickImage^ MagickScript::ExecuteReverse(XmlElement^ element, MagickImageCollection^ collection)
+	MagickImage^ MagickScript::ExecuteReverse(MagickImageCollection^ collection)
 	{
 		collection->Reverse();
 		return nullptr;
 	}
-	MagickImage^ MagickScript::ExecuteAppendHorizontally(XmlElement^ element, MagickImageCollection^ collection)
+	MagickImage^ MagickScript::ExecuteAppendHorizontally(MagickImageCollection^ collection)
 	{
 		return collection->AppendHorizontally();
 	}
-	MagickImage^ MagickScript::ExecuteAppendVertically(XmlElement^ element, MagickImageCollection^ collection)
+	MagickImage^ MagickScript::ExecuteAppendVertically(MagickImageCollection^ collection)
 	{
 		return collection->AppendVertically();
 	}
@@ -2253,7 +3524,7 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = XmlHelper::GetValue<Channels>(attribute);
+			arguments[attribute->Name] = _Variables->GetValue<Channels>(attribute);
 		}
 		if (arguments->Count == 0)
 			return collection->Combine();
@@ -2264,57 +3535,423 @@ namespace ImageMagick
 	}
 	MagickImage^ MagickScript::ExecuteEvaluate(XmlElement^ element, MagickImageCollection^ collection)
 	{
-		EvaluateOperator evaluateOperator_ = XmlHelper::GetAttribute<EvaluateOperator>(element, "evaluateOperator");
+		EvaluateOperator evaluateOperator_ = _Variables->GetValue<EvaluateOperator>(element, "evaluateOperator");
 		return collection->Evaluate(evaluateOperator_);
 	}
-	MagickImage^ MagickScript::ExecuteFlatten(XmlElement^ element, MagickImageCollection^ collection)
+	MagickImage^ MagickScript::ExecuteFlatten(MagickImageCollection^ collection)
 	{
 		return collection->Flatten();
 	}
 	MagickImage^ MagickScript::ExecuteFx(XmlElement^ element, MagickImageCollection^ collection)
 	{
-		String^ expression_ = XmlHelper::GetAttribute<String^>(element, "expression");
+		String^ expression_ = _Variables->GetValue<String^>(element, "expression");
 		return collection->Fx(expression_);
 	}
-	MagickImage^ MagickScript::ExecuteMerge(XmlElement^ element, MagickImageCollection^ collection)
+	MagickImage^ MagickScript::ExecuteMerge(MagickImageCollection^ collection)
 	{
 		return collection->Merge();
 	}
-	MagickImage^ MagickScript::ExecuteMosaic(XmlElement^ element, MagickImageCollection^ collection)
+	MagickImage^ MagickScript::ExecuteMosaic(MagickImageCollection^ collection)
 	{
 		return collection->Mosaic();
 	}
-	MagickImage^ MagickScript::ExecuteTrimBounds(XmlElement^ element, MagickImageCollection^ collection)
+	MagickImage^ MagickScript::ExecuteTrimBounds(MagickImageCollection^ collection)
 	{
 		return collection->TrimBounds();
 	}
 	void MagickScript::ExecuteDrawable(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		ExecuteElementDrawable^ method = dynamic_cast<ExecuteElementDrawable^>(_StaticExecuteDrawable[element->Name]);
-		if (method == nullptr)
-			method = dynamic_cast<ExecuteElementDrawable^>(_ExecuteDrawable[element->Name]);
-		if (method == nullptr)
-			throw gcnew NotImplementedException(element->Name);
-		method(element,drawables);
+		switch(element->Name[0])
+		{
+			case 'a':
+			{
+				switch(element->Name[1])
+				{
+					case 'f':
+					{
+						ExecuteAffine(element, drawables);
+						return;
+					}
+					case 'r':
+					{
+						ExecuteArc(element, drawables);
+						return;
+					}
+				}
+				break;
+			}
+			case 'b':
+			{
+				ExecuteBezier(element, drawables);
+				return;
+			}
+			case 'c':
+			{
+				switch(element->Name[1])
+				{
+					case 'i':
+					{
+						ExecuteCircle(element, drawables);
+						return;
+					}
+					case 'l':
+					{
+						ExecuteClipPath(element, drawables);
+						return;
+					}
+					case 'o':
+					{
+						switch(element->Name[2])
+						{
+							case 'l':
+							{
+								ExecuteColor(element, drawables);
+								return;
+							}
+							case 'm':
+							{
+								ExecuteCompositeImage(element, drawables);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+			case 'd':
+			{
+				ExecuteDashOffset(element, drawables);
+				return;
+			}
+			case 'e':
+			{
+				ExecuteEllipse(element, drawables);
+				return;
+			}
+			case 'f':
+			{
+				switch(element->Name[1])
+				{
+					case 'i':
+					{
+						switch(element->Name[4])
+						{
+							case 'C':
+							{
+								ExecuteFillColor(element, drawables);
+								return;
+							}
+							case 'O':
+							{
+								ExecuteFillOpacity(element, drawables);
+								return;
+							}
+							case 'R':
+							{
+								ExecuteFillRule(element, drawables);
+								return;
+							}
+						}
+						break;
+					}
+					case 'o':
+					{
+						ExecuteFont(element, drawables);
+						return;
+					}
+				}
+				break;
+			}
+			case 'g':
+			{
+				ExecuteGravity(element, drawables);
+				return;
+			}
+			case 'l':
+			{
+				ExecuteLine(element, drawables);
+				return;
+			}
+			case 'm':
+			{
+				switch(element->Name[1])
+				{
+					case 'a':
+					{
+						ExecuteMatte(element, drawables);
+						return;
+					}
+					case 'i':
+					{
+						ExecuteMiterLimit(element, drawables);
+						return;
+					}
+				}
+				break;
+			}
+			case 'p':
+			{
+				switch(element->Name[1])
+				{
+					case 'a':
+					{
+						ExecutePath(element, drawables);
+						return;
+					}
+					case 'o':
+					{
+						switch(element->Name[2])
+						{
+							case 'i':
+							{
+								if (element->Name->Length == 9)
+								{
+									ExecutePointSize(element, drawables);
+									return;
+								}
+							}
+							case 'l':
+							{
+								switch(element->Name[4])
+								{
+									case 'g':
+									{
+										ExecutePolygon(element, drawables);
+										return;
+									}
+									case 'l':
+									{
+										ExecutePolyline(element, drawables);
+										return;
+									}
+								}
+								break;
+							}
+						}
+						break;
+					}
+					case 'u':
+					{
+						switch(element->Name[4])
+						{
+							case 'C':
+							{
+								ExecutePushClipPath(element, drawables);
+								return;
+							}
+							case 'P':
+							{
+								ExecutePushPattern(element, drawables);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+			case 'r':
+			{
+				switch(element->Name[1])
+				{
+					case 'e':
+					{
+						ExecuteRectangle(element, drawables);
+						return;
+					}
+					case 'o':
+					{
+						switch(element->Name[2])
+						{
+							case 't':
+							{
+								ExecuteRotation(element, drawables);
+								return;
+							}
+							case 'u':
+							{
+								ExecuteRoundRectangle(element, drawables);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+			case 's':
+			{
+				switch(element->Name[1])
+				{
+					case 'c':
+					{
+						ExecuteScaling(element, drawables);
+						return;
+					}
+					case 'k':
+					{
+						switch(element->Name[4])
+						{
+							case 'X':
+							{
+								ExecuteSkewX(element, drawables);
+								return;
+							}
+							case 'Y':
+							{
+								ExecuteSkewY(element, drawables);
+								return;
+							}
+						}
+						break;
+					}
+					case 't':
+					{
+						switch(element->Name[6])
+						{
+							case 'A':
+							{
+								ExecuteStrokeAntialias(element, drawables);
+								return;
+							}
+							case 'C':
+							{
+								ExecuteStrokeColor(element, drawables);
+								return;
+							}
+							case 'L':
+							{
+								switch(element->Name[10])
+								{
+									case 'C':
+									{
+										ExecuteStrokeLineCap(element, drawables);
+										return;
+									}
+									case 'J':
+									{
+										ExecuteStrokeLineJoin(element, drawables);
+										return;
+									}
+								}
+								break;
+							}
+							case 'O':
+							{
+								ExecuteStrokeOpacity(element, drawables);
+								return;
+							}
+							case 'W':
+							{
+								ExecuteStrokeWidth(element, drawables);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+			case 't':
+			{
+				switch(element->Name[1])
+				{
+					case 'e':
+					{
+						if (element->Name->Length == 4)
+						{
+							ExecuteText(element, drawables);
+							return;
+						}
+						switch(element->Name[4])
+						{
+							case 'A':
+							{
+								ExecuteTextAntialias(element, drawables);
+								return;
+							}
+							case 'D':
+							{
+								switch(element->Name[5])
+								{
+									case 'e':
+									{
+										ExecuteTextDecoration(element, drawables);
+										return;
+									}
+									case 'i':
+									{
+										ExecuteTextDirection(element, drawables);
+										return;
+									}
+								}
+								break;
+							}
+							case 'I':
+							{
+								switch(element->Name[9])
+								{
+									case 'l':
+									{
+										ExecuteTextInterlineSpacing(element, drawables);
+										return;
+									}
+									case 'w':
+									{
+										ExecuteTextInterwordSpacing(element, drawables);
+										return;
+									}
+								}
+								break;
+							}
+							case 'K':
+							{
+								ExecuteTextKerning(element, drawables);
+								return;
+							}
+							case 'U':
+							{
+								ExecuteTextUnderColor(element, drawables);
+								return;
+							}
+						}
+						break;
+					}
+					case 'r':
+					{
+						ExecuteTranslation(element, drawables);
+						return;
+					}
+				}
+				break;
+			}
+			case 'v':
+			{
+				ExecuteViewbox(element, drawables);
+				return;
+			}
+		}
+		throw gcnew NotImplementedException(element->Name);
 	}
 	void MagickScript::ExecuteAffine(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double scaleX_ = XmlHelper::GetAttribute<double>(element, "scaleX");
-		double scaleY_ = XmlHelper::GetAttribute<double>(element, "scaleY");
-		double shearX_ = XmlHelper::GetAttribute<double>(element, "shearX");
-		double shearY_ = XmlHelper::GetAttribute<double>(element, "shearY");
-		double translateX_ = XmlHelper::GetAttribute<double>(element, "translateX");
-		double translateY_ = XmlHelper::GetAttribute<double>(element, "translateY");
+		double scaleX_ = _Variables->GetValue<double>(element, "scaleX");
+		double scaleY_ = _Variables->GetValue<double>(element, "scaleY");
+		double shearX_ = _Variables->GetValue<double>(element, "shearX");
+		double shearY_ = _Variables->GetValue<double>(element, "shearY");
+		double translateX_ = _Variables->GetValue<double>(element, "translateX");
+		double translateY_ = _Variables->GetValue<double>(element, "translateY");
 		drawables->Add(gcnew DrawableAffine(scaleX_, scaleY_, shearX_, shearY_, translateX_, translateY_));
 	}
 	void MagickScript::ExecuteArc(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double startX_ = XmlHelper::GetAttribute<double>(element, "startX");
-		double startY_ = XmlHelper::GetAttribute<double>(element, "startY");
-		double endX_ = XmlHelper::GetAttribute<double>(element, "endX");
-		double endY_ = XmlHelper::GetAttribute<double>(element, "endY");
-		double startDegrees_ = XmlHelper::GetAttribute<double>(element, "startDegrees");
-		double endDegrees_ = XmlHelper::GetAttribute<double>(element, "endDegrees");
+		double startX_ = _Variables->GetValue<double>(element, "startX");
+		double startY_ = _Variables->GetValue<double>(element, "startY");
+		double endX_ = _Variables->GetValue<double>(element, "endX");
+		double endY_ = _Variables->GetValue<double>(element, "endY");
+		double startDegrees_ = _Variables->GetValue<double>(element, "startDegrees");
+		double endDegrees_ = _Variables->GetValue<double>(element, "endDegrees");
 		drawables->Add(gcnew DrawableArc(startX_, startY_, endX_, endY_, startDegrees_, endDegrees_));
 	}
 	void MagickScript::ExecuteBezier(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
@@ -2324,22 +3961,22 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteCircle(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double originX_ = XmlHelper::GetAttribute<double>(element, "originX");
-		double originY_ = XmlHelper::GetAttribute<double>(element, "originY");
-		double perimeterX_ = XmlHelper::GetAttribute<double>(element, "perimeterX");
-		double perimeterY_ = XmlHelper::GetAttribute<double>(element, "perimeterY");
+		double originX_ = _Variables->GetValue<double>(element, "originX");
+		double originY_ = _Variables->GetValue<double>(element, "originY");
+		double perimeterX_ = _Variables->GetValue<double>(element, "perimeterX");
+		double perimeterY_ = _Variables->GetValue<double>(element, "perimeterY");
 		drawables->Add(gcnew DrawableCircle(originX_, originY_, perimeterX_, perimeterY_));
 	}
 	void MagickScript::ExecuteClipPath(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		String^ clipPath_ = XmlHelper::GetAttribute<String^>(element, "clipPath");
+		String^ clipPath_ = _Variables->GetValue<String^>(element, "clipPath");
 		drawables->Add(gcnew DrawableClipPath(clipPath_));
 	}
 	void MagickScript::ExecuteColor(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
-		PaintMethod paintMethod_ = XmlHelper::GetAttribute<PaintMethod>(element, "paintMethod");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
+		PaintMethod paintMethod_ = _Variables->GetValue<PaintMethod>(element, "paintMethod");
 		drawables->Add(gcnew DrawableColor(x_, y_, paintMethod_));
 	}
 	void MagickScript::ExecuteCompositeImage(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
@@ -2348,13 +3985,13 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "compose")
-				arguments["compose"] = XmlHelper::GetAttribute<CompositeOperator>(element, "compose");
+				arguments["compose"] = _Variables->GetValue<CompositeOperator>(attribute);
 			else if (attribute->Name == "offset")
-				arguments["offset"] = XmlHelper::GetAttribute<MagickGeometry^>(element, "offset");
+				arguments["offset"] = _Variables->GetValue<MagickGeometry^>(attribute);
 			else if (attribute->Name == "x")
-				arguments["x"] = XmlHelper::GetAttribute<double>(element, "x");
+				arguments["x"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "y")
-				arguments["y"] = XmlHelper::GetAttribute<double>(element, "y");
+				arguments["y"] = _Variables->GetValue<double>(attribute);
 		}
 		for each(XmlElement^ elem in element->SelectNodes("*"))
 		{
@@ -2373,32 +4010,32 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteDashOffset(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double offset_ = XmlHelper::GetAttribute<double>(element, "offset");
+		double offset_ = _Variables->GetValue<double>(element, "offset");
 		drawables->Add(gcnew DrawableDashOffset(offset_));
 	}
 	void MagickScript::ExecuteEllipse(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double originX_ = XmlHelper::GetAttribute<double>(element, "originX");
-		double originY_ = XmlHelper::GetAttribute<double>(element, "originY");
-		double radiusX_ = XmlHelper::GetAttribute<double>(element, "radiusX");
-		double radiusY_ = XmlHelper::GetAttribute<double>(element, "radiusY");
-		double startDegrees_ = XmlHelper::GetAttribute<double>(element, "startDegrees");
-		double endDegrees_ = XmlHelper::GetAttribute<double>(element, "endDegrees");
+		double originX_ = _Variables->GetValue<double>(element, "originX");
+		double originY_ = _Variables->GetValue<double>(element, "originY");
+		double radiusX_ = _Variables->GetValue<double>(element, "radiusX");
+		double radiusY_ = _Variables->GetValue<double>(element, "radiusY");
+		double startDegrees_ = _Variables->GetValue<double>(element, "startDegrees");
+		double endDegrees_ = _Variables->GetValue<double>(element, "endDegrees");
 		drawables->Add(gcnew DrawableEllipse(originX_, originY_, radiusX_, radiusY_, startDegrees_, endDegrees_));
 	}
 	void MagickScript::ExecuteFillColor(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		MagickColor^ color_ = XmlHelper::GetAttribute<MagickColor^>(element, "color");
+		MagickColor^ color_ = _Variables->GetValue<MagickColor^>(element, "color");
 		drawables->Add(gcnew DrawableFillColor(color_));
 	}
 	void MagickScript::ExecuteFillOpacity(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double opacity_ = XmlHelper::GetAttribute<double>(element, "opacity");
+		double opacity_ = _Variables->GetValue<double>(element, "opacity");
 		drawables->Add(gcnew DrawableFillOpacity(opacity_));
 	}
 	void MagickScript::ExecuteFillRule(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		FillRule fillRule_ = XmlHelper::GetAttribute<FillRule>(element, "fillRule");
+		FillRule fillRule_ = _Variables->GetValue<FillRule>(element, "fillRule");
 		drawables->Add(gcnew DrawableFillRule(fillRule_));
 	}
 	void MagickScript::ExecuteFont(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
@@ -2407,13 +4044,13 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "family")
-				arguments["family"] = XmlHelper::GetAttribute<String^>(element, "family");
+				arguments["family"] = _Variables->GetValue<String^>(attribute);
 			else if (attribute->Name == "stretch")
-				arguments["stretch"] = XmlHelper::GetAttribute<FontStretch>(element, "stretch");
+				arguments["stretch"] = _Variables->GetValue<FontStretch>(attribute);
 			else if (attribute->Name == "style")
-				arguments["style"] = XmlHelper::GetAttribute<FontStyleType>(element, "style");
+				arguments["style"] = _Variables->GetValue<FontStyleType>(attribute);
 			else if (attribute->Name == "weight")
-				arguments["weight"] = XmlHelper::GetAttribute<FontWeight>(element, "weight");
+				arguments["weight"] = _Variables->GetValue<FontWeight>(attribute);
 		}
 		if (OnlyContains(arguments, "family"))
 			drawables->Add(gcnew DrawableFont((String^)arguments["family"]));
@@ -2424,27 +4061,27 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteGravity(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		Gravity gravity_ = XmlHelper::GetAttribute<Gravity>(element, "gravity");
+		Gravity gravity_ = _Variables->GetValue<Gravity>(element, "gravity");
 		drawables->Add(gcnew DrawableGravity(gravity_));
 	}
 	void MagickScript::ExecuteLine(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double startX_ = XmlHelper::GetAttribute<double>(element, "startX");
-		double startY_ = XmlHelper::GetAttribute<double>(element, "startY");
-		double endX_ = XmlHelper::GetAttribute<double>(element, "endX");
-		double endY_ = XmlHelper::GetAttribute<double>(element, "endY");
+		double startX_ = _Variables->GetValue<double>(element, "startX");
+		double startY_ = _Variables->GetValue<double>(element, "startY");
+		double endX_ = _Variables->GetValue<double>(element, "endX");
+		double endY_ = _Variables->GetValue<double>(element, "endY");
 		drawables->Add(gcnew DrawableLine(startX_, startY_, endX_, endY_));
 	}
 	void MagickScript::ExecuteMatte(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
-		PaintMethod paintMethod_ = XmlHelper::GetAttribute<PaintMethod>(element, "paintMethod");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
+		PaintMethod paintMethod_ = _Variables->GetValue<PaintMethod>(element, "paintMethod");
 		drawables->Add(gcnew DrawableMatte(x_, y_, paintMethod_));
 	}
 	void MagickScript::ExecuteMiterLimit(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		int miterlimit_ = XmlHelper::GetAttribute<int>(element, "miterlimit");
+		int miterlimit_ = _Variables->GetValue<int>(element, "miterlimit");
 		drawables->Add(gcnew DrawableMiterLimit(miterlimit_));
 	}
 	void MagickScript::ExecutePath(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
@@ -2454,13 +4091,13 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecutePoint(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
 		drawables->Add(gcnew DrawablePoint(x_, y_));
 	}
 	void MagickScript::ExecutePointSize(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double pointSize_ = XmlHelper::GetAttribute<double>(element, "pointSize");
+		double pointSize_ = _Variables->GetValue<double>(element, "pointSize");
 		drawables->Add(gcnew DrawablePointSize(pointSize_));
 	}
 	void MagickScript::ExecutePolygon(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
@@ -2475,85 +4112,85 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecutePushClipPath(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		String^ clipPath_ = XmlHelper::GetAttribute<String^>(element, "clipPath");
+		String^ clipPath_ = _Variables->GetValue<String^>(element, "clipPath");
 		drawables->Add(gcnew DrawablePushClipPath(clipPath_));
 	}
 	void MagickScript::ExecutePushPattern(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		String^ id_ = XmlHelper::GetAttribute<String^>(element, "id");
-		int x_ = XmlHelper::GetAttribute<int>(element, "x");
-		int y_ = XmlHelper::GetAttribute<int>(element, "y");
-		int width_ = XmlHelper::GetAttribute<int>(element, "width");
-		int height_ = XmlHelper::GetAttribute<int>(element, "height");
+		String^ id_ = _Variables->GetValue<String^>(element, "id");
+		int x_ = _Variables->GetValue<int>(element, "x");
+		int y_ = _Variables->GetValue<int>(element, "y");
+		int width_ = _Variables->GetValue<int>(element, "width");
+		int height_ = _Variables->GetValue<int>(element, "height");
 		drawables->Add(gcnew DrawablePushPattern(id_, x_, y_, width_, height_));
 	}
 	void MagickScript::ExecuteRectangle(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double upperLeftX_ = XmlHelper::GetAttribute<double>(element, "upperLeftX");
-		double upperLeftY_ = XmlHelper::GetAttribute<double>(element, "upperLeftY");
-		double lowerRightX_ = XmlHelper::GetAttribute<double>(element, "lowerRightX");
-		double lowerRightY_ = XmlHelper::GetAttribute<double>(element, "lowerRightY");
+		double upperLeftX_ = _Variables->GetValue<double>(element, "upperLeftX");
+		double upperLeftY_ = _Variables->GetValue<double>(element, "upperLeftY");
+		double lowerRightX_ = _Variables->GetValue<double>(element, "lowerRightX");
+		double lowerRightY_ = _Variables->GetValue<double>(element, "lowerRightY");
 		drawables->Add(gcnew DrawableRectangle(upperLeftX_, upperLeftY_, lowerRightX_, lowerRightY_));
 	}
 	void MagickScript::ExecuteRotation(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double angle_ = XmlHelper::GetAttribute<double>(element, "angle");
+		double angle_ = _Variables->GetValue<double>(element, "angle");
 		drawables->Add(gcnew DrawableRotation(angle_));
 	}
 	void MagickScript::ExecuteRoundRectangle(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double centerX_ = XmlHelper::GetAttribute<double>(element, "centerX");
-		double centerY_ = XmlHelper::GetAttribute<double>(element, "centerY");
-		double width_ = XmlHelper::GetAttribute<double>(element, "width");
-		double height_ = XmlHelper::GetAttribute<double>(element, "height");
-		double cornerWidth_ = XmlHelper::GetAttribute<double>(element, "cornerWidth");
-		double cornerHeight_ = XmlHelper::GetAttribute<double>(element, "cornerHeight");
+		double centerX_ = _Variables->GetValue<double>(element, "centerX");
+		double centerY_ = _Variables->GetValue<double>(element, "centerY");
+		double width_ = _Variables->GetValue<double>(element, "width");
+		double height_ = _Variables->GetValue<double>(element, "height");
+		double cornerWidth_ = _Variables->GetValue<double>(element, "cornerWidth");
+		double cornerHeight_ = _Variables->GetValue<double>(element, "cornerHeight");
 		drawables->Add(gcnew DrawableRoundRectangle(centerX_, centerY_, width_, height_, cornerWidth_, cornerHeight_));
 	}
 	void MagickScript::ExecuteScaling(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
 		drawables->Add(gcnew DrawableScaling(x_, y_));
 	}
 	void MagickScript::ExecuteSkewX(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double angle_ = XmlHelper::GetAttribute<double>(element, "angle");
+		double angle_ = _Variables->GetValue<double>(element, "angle");
 		drawables->Add(gcnew DrawableSkewX(angle_));
 	}
 	void MagickScript::ExecuteSkewY(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double angle_ = XmlHelper::GetAttribute<double>(element, "angle");
+		double angle_ = _Variables->GetValue<double>(element, "angle");
 		drawables->Add(gcnew DrawableSkewY(angle_));
 	}
 	void MagickScript::ExecuteStrokeAntialias(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		bool isEnabled_ = XmlHelper::GetAttribute<bool>(element, "isEnabled");
+		bool isEnabled_ = _Variables->GetValue<bool>(element, "isEnabled");
 		drawables->Add(gcnew DrawableStrokeAntialias(isEnabled_));
 	}
 	void MagickScript::ExecuteStrokeColor(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		MagickColor^ color_ = XmlHelper::GetAttribute<MagickColor^>(element, "color");
+		MagickColor^ color_ = _Variables->GetValue<MagickColor^>(element, "color");
 		drawables->Add(gcnew DrawableStrokeColor(color_));
 	}
 	void MagickScript::ExecuteStrokeLineCap(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		LineCap lineCap_ = XmlHelper::GetAttribute<LineCap>(element, "lineCap");
+		LineCap lineCap_ = _Variables->GetValue<LineCap>(element, "lineCap");
 		drawables->Add(gcnew DrawableStrokeLineCap(lineCap_));
 	}
 	void MagickScript::ExecuteStrokeLineJoin(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		LineJoin lineJoin_ = XmlHelper::GetAttribute<LineJoin>(element, "lineJoin");
+		LineJoin lineJoin_ = _Variables->GetValue<LineJoin>(element, "lineJoin");
 		drawables->Add(gcnew DrawableStrokeLineJoin(lineJoin_));
 	}
 	void MagickScript::ExecuteStrokeOpacity(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double opacity_ = XmlHelper::GetAttribute<double>(element, "opacity");
+		double opacity_ = _Variables->GetValue<double>(element, "opacity");
 		drawables->Add(gcnew DrawableStrokeOpacity(opacity_));
 	}
 	void MagickScript::ExecuteStrokeWidth(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double width_ = XmlHelper::GetAttribute<double>(element, "width");
+		double width_ = _Variables->GetValue<double>(element, "width");
 		drawables->Add(gcnew DrawableStrokeWidth(width_));
 	}
 	void MagickScript::ExecuteText(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
@@ -2562,13 +4199,13 @@ namespace ImageMagick
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
 			if (attribute->Name == "encoding")
-				arguments["encoding"] = XmlHelper::GetAttribute<Encoding^>(element, "encoding");
+				arguments["encoding"] = _Variables->GetValue<Encoding^>(attribute);
 			else if (attribute->Name == "value")
-				arguments["value"] = XmlHelper::GetAttribute<String^>(element, "value");
+				arguments["value"] = _Variables->GetValue<String^>(attribute);
 			else if (attribute->Name == "x")
-				arguments["x"] = XmlHelper::GetAttribute<double>(element, "x");
+				arguments["x"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "y")
-				arguments["y"] = XmlHelper::GetAttribute<double>(element, "y");
+				arguments["y"] = _Variables->GetValue<double>(attribute);
 		}
 		if (OnlyContains(arguments, "x", "y", "value"))
 			drawables->Add(gcnew DrawableText((double)arguments["x"], (double)arguments["y"], (String^)arguments["value"]));
@@ -2579,59 +4216,219 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteTextAntialias(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		bool isEnabled_ = XmlHelper::GetAttribute<bool>(element, "isEnabled");
+		bool isEnabled_ = _Variables->GetValue<bool>(element, "isEnabled");
 		drawables->Add(gcnew DrawableTextAntialias(isEnabled_));
 	}
 	void MagickScript::ExecuteTextDecoration(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		TextDecoration decoration_ = XmlHelper::GetAttribute<TextDecoration>(element, "decoration");
+		TextDecoration decoration_ = _Variables->GetValue<TextDecoration>(element, "decoration");
 		drawables->Add(gcnew DrawableTextDecoration(decoration_));
 	}
 	void MagickScript::ExecuteTextDirection(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		TextDirection direction_ = XmlHelper::GetAttribute<TextDirection>(element, "direction");
+		TextDirection direction_ = _Variables->GetValue<TextDirection>(element, "direction");
 		drawables->Add(gcnew DrawableTextDirection(direction_));
 	}
 	void MagickScript::ExecuteTextInterlineSpacing(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double spacing_ = XmlHelper::GetAttribute<double>(element, "spacing");
+		double spacing_ = _Variables->GetValue<double>(element, "spacing");
 		drawables->Add(gcnew DrawableTextInterlineSpacing(spacing_));
 	}
 	void MagickScript::ExecuteTextInterwordSpacing(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double spacing_ = XmlHelper::GetAttribute<double>(element, "spacing");
+		double spacing_ = _Variables->GetValue<double>(element, "spacing");
 		drawables->Add(gcnew DrawableTextInterwordSpacing(spacing_));
 	}
 	void MagickScript::ExecuteTextKerning(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double kerning_ = XmlHelper::GetAttribute<double>(element, "kerning");
+		double kerning_ = _Variables->GetValue<double>(element, "kerning");
 		drawables->Add(gcnew DrawableTextKerning(kerning_));
 	}
 	void MagickScript::ExecuteTextUnderColor(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		MagickColor^ color_ = XmlHelper::GetAttribute<MagickColor^>(element, "color");
+		MagickColor^ color_ = _Variables->GetValue<MagickColor^>(element, "color");
 		drawables->Add(gcnew DrawableTextUnderColor(color_));
 	}
 	void MagickScript::ExecuteTranslation(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
 		drawables->Add(gcnew DrawableTranslation(x_, y_));
 	}
 	void MagickScript::ExecuteViewbox(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
-		int upperLeftX_ = XmlHelper::GetAttribute<int>(element, "upperLeftX");
-		int upperLeftY_ = XmlHelper::GetAttribute<int>(element, "upperLeftY");
-		int lowerRightX_ = XmlHelper::GetAttribute<int>(element, "lowerRightX");
-		int lowerRightY_ = XmlHelper::GetAttribute<int>(element, "lowerRightY");
+		int upperLeftX_ = _Variables->GetValue<int>(element, "upperLeftX");
+		int upperLeftY_ = _Variables->GetValue<int>(element, "upperLeftY");
+		int lowerRightX_ = _Variables->GetValue<int>(element, "lowerRightX");
+		int lowerRightY_ = _Variables->GetValue<int>(element, "lowerRightY");
 		drawables->Add(gcnew DrawableViewbox(upperLeftX_, upperLeftY_, lowerRightX_, lowerRightY_));
 	}
 	void MagickScript::ExecutePath(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
 	{
-		ExecuteElementPath^ method = dynamic_cast<ExecuteElementPath^>(_StaticExecutePath[element->Name]);
-		if (method == nullptr)
-			throw gcnew NotImplementedException(element->Name);
-		method(element,paths);
+		switch(element->Name[0])
+		{
+			case 'a':
+			{
+				switch(element->Name[3])
+				{
+					case 'A':
+					{
+						ExecuteArcAbs(element, paths);
+						return;
+					}
+					case 'R':
+					{
+						ExecuteArcRel(element, paths);
+						return;
+					}
+				}
+				break;
+			}
+			case 'c':
+			{
+				switch(element->Name[7])
+				{
+					case 'A':
+					{
+						ExecuteCurvetoAbs(element, paths);
+						return;
+					}
+					case 'R':
+					{
+						ExecuteCurvetoRel(element, paths);
+						return;
+					}
+				}
+				break;
+			}
+			case 'l':
+			{
+				switch(element->Name[6])
+				{
+					case 'A':
+					{
+						ExecuteLinetoAbs(element, paths);
+						return;
+					}
+					case 'H':
+					{
+						switch(element->Name[16])
+						{
+							case 'A':
+							{
+								ExecuteLinetoHorizontalAbs(element, paths);
+								return;
+							}
+							case 'R':
+							{
+								ExecuteLinetoHorizontalRel(element, paths);
+								return;
+							}
+						}
+						break;
+					}
+					case 'R':
+					{
+						ExecuteLinetoRel(element, paths);
+						return;
+					}
+					case 'V':
+					{
+						switch(element->Name[14])
+						{
+							case 'A':
+							{
+								ExecuteLinetoVerticalAbs(element, paths);
+								return;
+							}
+							case 'R':
+							{
+								ExecuteLinetoVerticalRel(element, paths);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+			case 'm':
+			{
+				switch(element->Name[6])
+				{
+					case 'A':
+					{
+						ExecuteMovetoAbs(element, paths);
+						return;
+					}
+					case 'R':
+					{
+						ExecuteMovetoRel(element, paths);
+						return;
+					}
+				}
+				break;
+			}
+			case 'q':
+			{
+				switch(element->Name[16])
+				{
+					case 'A':
+					{
+						ExecuteQuadraticCurvetoAbs(element, paths);
+						return;
+					}
+					case 'R':
+					{
+						ExecuteQuadraticCurvetoRel(element, paths);
+						return;
+					}
+				}
+				break;
+			}
+			case 's':
+			{
+				switch(element->Name[6])
+				{
+					case 'C':
+					{
+						switch(element->Name[13])
+						{
+							case 'A':
+							{
+								ExecuteSmoothCurvetoAbs(element, paths);
+								return;
+							}
+							case 'R':
+							{
+								ExecuteSmoothCurvetoRel(element, paths);
+								return;
+							}
+						}
+						break;
+					}
+					case 'Q':
+					{
+						switch(element->Name[22])
+						{
+							case 'A':
+							{
+								ExecuteSmoothQuadraticCurvetoAbs(element, paths);
+								return;
+							}
+							case 'R':
+							{
+								ExecuteSmoothQuadraticCurvetoRel(element, paths);
+								return;
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
+		}
+		throw gcnew NotImplementedException(element->Name);
 	}
 	void MagickScript::ExecuteArcAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
 	{
@@ -2660,12 +4457,12 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteLinetoHorizontalAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double x_ = _Variables->GetValue<double>(element, "x");
 		paths->Add(gcnew PathLinetoHorizontalAbs(x_));
 	}
 	void MagickScript::ExecuteLinetoHorizontalRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double x_ = _Variables->GetValue<double>(element, "x");
 		paths->Add(gcnew PathLinetoHorizontalRel(x_));
 	}
 	void MagickScript::ExecuteLinetoRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
@@ -2675,12 +4472,12 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteLinetoVerticalAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double x_ = _Variables->GetValue<double>(element, "x");
 		paths->Add(gcnew PathLinetoVerticalAbs(x_));
 	}
 	void MagickScript::ExecuteLinetoVerticalRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
+		double x_ = _Variables->GetValue<double>(element, "x");
 		paths->Add(gcnew PathLinetoVerticalRel(x_));
 	}
 	void MagickScript::ExecuteMovetoAbs(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths)
@@ -2725,8 +4522,8 @@ namespace ImageMagick
 	}
 	Coordinate MagickScript::CreateCoordinate(XmlElement^ element)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
 		return Coordinate(x_, y_);
 	}
 	Collection<Coordinate>^  MagickScript::CreateCoordinates(XmlElement^ element)
@@ -2740,19 +4537,19 @@ namespace ImageMagick
 	}
 	ImageProfile^ MagickScript::CreateImageProfile(XmlElement^ element)
 	{
-		String^ name_ = XmlHelper::GetAttribute<String^>(element, "name");
-		String^ fileName_ = XmlHelper::GetAttribute<String^>(element, "fileName");
+		String^ name_ = _Variables->GetValue<String^>(element, "name");
+		String^ fileName_ = _Variables->GetValue<String^>(element, "fileName");
 		return gcnew ImageProfile(name_, fileName_);
 	}
 	PathArc^ MagickScript::CreatePathArc(XmlElement^ element)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
-		double radiusX_ = XmlHelper::GetAttribute<double>(element, "radiusX");
-		double radiusY_ = XmlHelper::GetAttribute<double>(element, "radiusY");
-		double rotationX_ = XmlHelper::GetAttribute<double>(element, "rotationX");
-		bool useLargeArc_ = XmlHelper::GetAttribute<bool>(element, "useLargeArc");
-		bool useSweep_ = XmlHelper::GetAttribute<bool>(element, "useSweep");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
+		double radiusX_ = _Variables->GetValue<double>(element, "radiusX");
+		double radiusY_ = _Variables->GetValue<double>(element, "radiusY");
+		double rotationX_ = _Variables->GetValue<double>(element, "rotationX");
+		bool useLargeArc_ = _Variables->GetValue<bool>(element, "useLargeArc");
+		bool useSweep_ = _Variables->GetValue<bool>(element, "useSweep");
 		return gcnew PathArc(x_, y_, radiusX_, radiusY_, rotationX_, useLargeArc_, useSweep_);
 	}
 	Collection<PathArc^>^  MagickScript::CreatePathArcs(XmlElement^ element)
@@ -2766,12 +4563,12 @@ namespace ImageMagick
 	}
 	PathCurveto^ MagickScript::CreatePathCurveto(XmlElement^ element)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
-		double x1_ = XmlHelper::GetAttribute<double>(element, "x1");
-		double y1_ = XmlHelper::GetAttribute<double>(element, "y1");
-		double x2_ = XmlHelper::GetAttribute<double>(element, "x2");
-		double y2_ = XmlHelper::GetAttribute<double>(element, "y2");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
+		double x1_ = _Variables->GetValue<double>(element, "x1");
+		double y1_ = _Variables->GetValue<double>(element, "y1");
+		double x2_ = _Variables->GetValue<double>(element, "x2");
+		double y2_ = _Variables->GetValue<double>(element, "y2");
 		return gcnew PathCurveto(x_, y_, x1_, y1_, x2_, y2_);
 	}
 	Collection<PathCurveto^>^  MagickScript::CreatePathCurvetos(XmlElement^ element)
@@ -2785,10 +4582,10 @@ namespace ImageMagick
 	}
 	PathQuadraticCurveto^ MagickScript::CreatePathQuadraticCurveto(XmlElement^ element)
 	{
-		double x_ = XmlHelper::GetAttribute<double>(element, "x");
-		double y_ = XmlHelper::GetAttribute<double>(element, "y");
-		double x1_ = XmlHelper::GetAttribute<double>(element, "x1");
-		double y1_ = XmlHelper::GetAttribute<double>(element, "y1");
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
+		double x1_ = _Variables->GetValue<double>(element, "x1");
+		double y1_ = _Variables->GetValue<double>(element, "y1");
 		return gcnew PathQuadraticCurveto(x_, y_, x1_, y1_);
 	}
 	Collection<PathQuadraticCurveto^>^  MagickScript::CreatePathQuadraticCurvetos(XmlElement^ element)
@@ -2805,14 +4602,14 @@ namespace ImageMagick
 		if (element == nullptr)
 			return nullptr;
 		MagickReadSettings^ result = gcnew MagickReadSettings();
-		result->ColorSpace = XmlHelper::GetAttribute<Nullable<ColorSpace>>(element, "colorSpace");
-		result->Density = XmlHelper::GetAttribute<MagickGeometry^>(element, "density");
-		result->Format = XmlHelper::GetAttribute<Nullable<MagickFormat>>(element, "format");
-		result->FrameCount = XmlHelper::GetAttribute<Nullable<Int32>>(element, "frameCount");
-		result->FrameIndex = XmlHelper::GetAttribute<Nullable<Int32>>(element, "frameIndex");
-		result->Height = XmlHelper::GetAttribute<Nullable<Int32>>(element, "height");
+		result->ColorSpace = _Variables->GetValue<Nullable<ColorSpace>>(element, "colorSpace");
+		result->Density = _Variables->GetValue<MagickGeometry^>(element, "density");
+		result->Format = _Variables->GetValue<Nullable<MagickFormat>>(element, "format");
+		result->FrameCount = _Variables->GetValue<Nullable<Int32>>(element, "frameCount");
+		result->FrameIndex = _Variables->GetValue<Nullable<Int32>>(element, "frameIndex");
+		result->Height = _Variables->GetValue<Nullable<Int32>>(element, "height");
 		result->PixelStorage = CreatePixelStorageSettings((XmlElement^)element->SelectSingleNode("pixelStorage"));
-		result->Width = XmlHelper::GetAttribute<Nullable<Int32>>(element, "width");
+		result->Width = _Variables->GetValue<Nullable<Int32>>(element, "width");
 		XmlElement^ setDefine = (XmlElement^)element->SelectSingleNode("setDefine");
 		if (setDefine != nullptr)
 		{
@@ -2828,8 +4625,8 @@ namespace ImageMagick
 		if (element == nullptr)
 			return nullptr;
 		PixelStorageSettings^ result = gcnew PixelStorageSettings();
-		result->Mapping = XmlHelper::GetAttribute<String^>(element, "mapping");
-		result->StorageType = XmlHelper::GetAttribute<StorageType>(element, "storageType");
+		result->Mapping = _Variables->GetValue<String^>(element, "mapping");
+		result->StorageType = _Variables->GetValue<StorageType>(element, "storageType");
 		return result;
 	}
 }

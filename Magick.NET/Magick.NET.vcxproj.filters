@@ -702,6 +702,12 @@
     <ClInclude Include="Enums\Kernel.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
+    <ClInclude Include="MagickConverter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\ScriptVariables.h">
+      <Filter>Header Files\Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1108,6 +1114,12 @@
     </ClCompile>
     <ClCompile Include="MagickSearchResult.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MagickConverter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\ScriptVariables.cpp">
+      <Filter>Source Files\Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -92,6 +92,7 @@ namespace ImageMagick
 		XmlReaderSettings^ settings = gcnew XmlReaderSettings();
 		settings->ValidationType = ValidationType::Schema;
 		settings->ValidationFlags = XmlSchemaValidationFlags::ReportValidationWarnings;
+		settings->IgnoreComments = true;
 		settings->IgnoreWhitespace = true;
 
 		Stream^ resourceStream = Assembly::GetAssembly(MagickScript::typeid)->GetManifestResourceStream("MagickScript.xsd");
@@ -124,7 +125,7 @@ namespace ImageMagick
 			collection->Write(fileName_);
 			return nullptr;
 		}
-		
+
 		return ExecuteCollection(element, collection);
 	}
 	//==============================================================================================
@@ -205,7 +206,7 @@ namespace ImageMagick
 		_Script->Load(xmlReader);
 		delete xmlReader;
 
-		InitializeExecute();
+		_Variables = gcnew ScriptVariables(_Script);
 	}
 	//==============================================================================================
 	bool MagickScript::OnlyContains(System::Collections::Hashtable^ arguments, ... array<Object^>^ keys)
@@ -220,6 +221,12 @@ namespace ImageMagick
 		}
 
 		return true;
+	}
+	//==============================================================================================
+	generic <class T>
+	void MagickScript::SetArgument(System::Collections::Hashtable^ arguments, XmlAttribute^ attribute)
+	{
+		arguments[attribute->Name] = _Variables->GetValue<T>(attribute);
 	}
 	//==============================================================================================
 	MagickScript::MagickScript(IXPathNavigable^ xml)
@@ -255,6 +262,11 @@ namespace ImageMagick
 	MagickScript::MagickScript(Stream^ stream)
 	{
 		Initialize(stream);
+	}
+	//==============================================================================================
+	ScriptVariables^ MagickScript::Variables::get()
+	{
+		return _Variables;
 	}
 	//==============================================================================================
 	void MagickScript::Read::add(EventHandler<ScriptReadEventArgs^>^ handler)

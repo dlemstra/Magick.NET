@@ -1,4 +1,5 @@
-﻿//=================================================================================================
+﻿using System;
+//=================================================================================================
 // Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -22,39 +23,121 @@ namespace Magick.NET.FileGenerator
 	internal abstract class ExecuteCodeGenerator : CodeGenerator
 	{
 		//===========================================================================================
-		private string _HashtableName;
-		//===========================================================================================
-		private bool HasOnlyStatic
+		private bool IsStatic(MethodBase[] methods)
 		{
-			get
+			if (methods.Length != 1)
+				return false;
+
+			return IsStatic(methods[0]);
+		}
+		//===========================================================================================
+		private bool IsStatic(MethodBase method)
+		{
+			if (method == null)
+				return false;
+
+			return method.GetParameters().Length == 0;
+		}
+		//===========================================================================================
+		private bool IsStatic(MemberInfo memberInfo)
+		{
+			return IsStatic(memberInfo as MethodBase);
+		}
+		//===========================================================================================
+		private void WriteSwitch(IndentedTextWriter writer, IEnumerable<string> names, int level)
+		{
+			IEnumerable<char> chars = (from name in names
+												where name.Length > level
+												select name[level]).Distinct();
+
+
+			if (chars.Count() == 1 && names.Count() > 1)
 			{
-				return !Properties.Any(p => !IsStatic(p)) && !Methods.Any(m => !IsStatic(m));
+				WriteSwitch(writer, names, ++level);
+			}
+			else
+			{
+				string shortName = (from name in names
+										  where name.Length == level
+										  select name).FirstOrDefault();
+				if (shortName != null)
+				{
+					writer.Write("if (element->Name->Length == ");
+					writer.Write(level);
+					writer.WriteLine(")");
+					WriteStartColon(writer);
+					WriteExecute(writer, shortName);
+					WriteEndColon(writer);
+				}
+
+				if (chars.Count() > 1)
+				{
+					writer.Write("switch(element->Name[");
+					writer.Write(level);
+					writer.WriteLine("])");
+					WriteStartColon(writer);
+				}
+
+				foreach (char c in chars)
+				{
+					writer.Write("case '");
+					writer.Write(c);
+					writer.WriteLine("':");
+					WriteStartColon(writer);
+
+					IEnumerable<string> children = from name in names
+															 where name.Length > level && name[level] == c
+															 select name;
+
+					if (children.Count() == 1)
+						WriteExecute(writer, children.First());
+					else
+						WriteSwitch(writer, children, level + 1);
+
+					WriteEndColon(writer);
+				}
+
+				if (chars.Count() > 1)
+				{
+					WriteEndColon(writer);
+					if (level != 0)
+						writer.WriteLine("break;");
+				}
 			}
 		}
 		//===========================================================================================
-		private static bool IsStatic(PropertyInfo property)
+		private void WriteExecute(IndentedTextWriter writer, string name)
 		{
-			return MagickNET.GetCppTypeName(property) != "MagickImage^";
-		}
-		//===========================================================================================
-		private void WriteInitializeExecuteMethods(IndentedTextWriter writer, bool isStatic)
-		{
-			foreach (MethodBase[] method in from m in Methods
-													  where IsStatic(m) == isStatic
-													  select m)
+			MemberInfo member = (from property in Properties
+										where XsdGenerator.GetName(property).Equals(name, StringComparison.OrdinalIgnoreCase)
+										select property).FirstOrDefault();
+
+			if (member == null)
+				member = (from overloads in Methods
+							 let method = overloads[overloads.Length - 1]
+							 where XsdGenerator.GetName(method).Equals(name, StringComparison.OrdinalIgnoreCase)
+							 select method).FirstOrDefault();
+
+
+			if (ReturnType != "void")
+				writer.Write("return ");
+			writer.Write("Execute");
+			if (member == null)
 			{
-				WriteInitializeExecute(writer, XsdGenerator.GetName(method[0]), MagickNET.GetName(method[0]), isStatic);
+				writer.Write(char.ToUpper(name[0]));
+				writer.Write(name.Substring(1));
 			}
-		}
-		//===========================================================================================
-		private void WriteInitializeExecuteProperties(IndentedTextWriter writer, bool isStatic)
-		{
-			foreach (PropertyInfo property in from p in Properties
-														 where IsStatic(p) == isStatic
-														 select p)
+			else
 			{
-				WriteInitializeExecute(writer, XsdGenerator.GetName(property), property.Name, isStatic);
+				writer.Write(MagickNET.GetName(member));
 			}
+			writer.Write("(");
+			if (member == null || !IsStatic(member))
+				writer.Write("element, ");
+			writer.Write(ExecuteArgument.Split(' ').Last());
+			writer.WriteLine(");");
+			if (ReturnType == "void")
+				writer.WriteLine("return;");
 		}
 		//===========================================================================================
 		private void WriteExecute(IndentedTextWriter writer)
@@ -65,41 +148,18 @@ namespace Magick.NET.FileGenerator
 			writer.Write("(XmlElement^ element, ");
 			writer.Write(ExecuteArgument);
 			writer.WriteLine(")");
-			writer.WriteLine("{");
-			writer.Indent++;
-			writer.Write("ExecuteElement");
-			writer.Write(ExecuteName);
-			writer.Write("^ method = dynamic_cast<ExecuteElement");
-			writer.Write(ExecuteName);
-			writer.Write("^>(_StaticExecute");
-			writer.Write(ExecuteName);
-			writer.WriteLine("[element->Name]);");
+			WriteStartColon(writer);
 
-			if (!HasOnlyStatic)
-			{
-				writer.WriteLine("if (method == nullptr)");
-				writer.Indent++;
-				writer.Write("method = dynamic_cast<ExecuteElement");
-				writer.Write(ExecuteName);
-				writer.Write("^>(_Execute");
-				writer.Write(ExecuteName);
-				writer.WriteLine("[element->Name]);");
-				writer.Indent--;
-			}
+			IEnumerable<string> names = (from property in Properties
+												  select XsdGenerator.GetName(property)).Concat(
+												  from method in Methods
+												  select XsdGenerator.GetName(method[0])).Concat(
+												  CustomMethods);
 
-			writer.WriteLine("if (method == nullptr)");
-			writer.Indent++;
+			WriteSwitch(writer, names, 0);
+
 			writer.WriteLine("throw gcnew NotImplementedException(element->Name);");
-			writer.Indent--;
-
-			if (ReturnType != "void")
-				writer.Write("return ");
-			writer.Write("method(element,");
-			writer.Write(ExecuteArgument.Split(' ').Last());
-			writer.WriteLine(");");
-
-			writer.Indent--;
-			writer.WriteLine("}");
+			WriteEndColon(writer);
 		}
 		//===========================================================================================
 		private void WriteExecute(IndentedTextWriter writer, MethodBase[] methods)
@@ -107,16 +167,16 @@ namespace Magick.NET.FileGenerator
 			writer.Write(ReturnType);
 			writer.Write(" MagickScript::Execute");
 			writer.Write(MagickNET.GetName(methods[0]));
-			writer.Write("(XmlElement^ element, ");
+			writer.Write("(");
+			if (!IsStatic(methods))
+				writer.Write("XmlElement^ element, ");
 			writer.Write(ExecuteArgument);
 			writer.WriteLine(")");
-			writer.WriteLine("{");
-			writer.Indent++;
+			WriteStartColon(writer);
 
 			WriteMethod(writer, methods);
 
-			writer.Indent--;
-			writer.WriteLine("}");
+			WriteEndColon(writer);
 		}
 		//===========================================================================================
 		private void WriteExecute(IndentedTextWriter writer, PropertyInfo property)
@@ -126,20 +186,15 @@ namespace Magick.NET.FileGenerator
 			writer.Write("(XmlElement^ element, ");
 			writer.Write(ExecuteArgument);
 			writer.WriteLine(")");
-			writer.WriteLine("{");
-			writer.Indent++;
+			WriteStartColon(writer);
 
 			WriteSet(writer, property);
 
-			writer.Indent--;
-			writer.WriteLine("}");
+			WriteEndColon(writer);
 		}
 		//===========================================================================================
 		private void WriteExecuteHeader(IndentedTextWriter writer)
 		{
-			if (HasOnlyStatic)
-				writer.Write("static ");
-
 			writer.Write(ReturnType);
 			writer.Write(" Execute");
 			writer.Write(ExecuteName);
@@ -148,56 +203,35 @@ namespace Magick.NET.FileGenerator
 			writer.WriteLine(");");
 		}
 		//===========================================================================================
-		private void WriteHashtableHeader(IndentedTextWriter writer)
-		{
-			writer.Write("delegate ");
-			writer.Write(ReturnType);
-			writer.Write(" ExecuteElement");
-			writer.Write(ExecuteName);
-			writer.Write("(XmlElement^ element, ");
-			writer.Write(ExecuteArgument);
-			writer.WriteLine(");");
-			writer.Write("static initonly System::Collections::Hashtable^ _StaticExecute");
-			writer.Write(ExecuteName);
-			writer.Write(" = InitializeStaticExecute");
-			writer.Write(ExecuteName);
-			writer.WriteLine("();");
-			writer.Write("static System::Collections::Hashtable^ InitializeStaticExecute");
-			writer.Write(ExecuteName);
-			writer.WriteLine("();");
-
-			if (HasOnlyStatic)
-				return;
-
-			writer.Write("System::Collections::Hashtable^ _Execute");
-			writer.Write(ExecuteName);
-			writer.WriteLine(";");
-			writer.Write("void InitializeExecute");
-			writer.Write(ExecuteName);
-			writer.WriteLine("();");
-		}
-		//===========================================================================================
 		private void WriteHeader(IndentedTextWriter writer, MethodBase[] methods)
 		{
-			if (IsStatic(methods))
+			bool isStatic = IsStatic(methods);
+			if (isStatic)
 				writer.Write("static ");
 
 			writer.Write(ReturnType);
 			writer.Write(" Execute");
 			writer.Write(MagickNET.GetName(methods[0]));
-			writer.Write("(XmlElement^ element, ");
+			writer.Write("(");
+			if (!isStatic)
+				writer.Write("XmlElement^ element, ");
 			writer.Write(ExecuteArgument);
 			writer.WriteLine(");");
 		}
 		//===========================================================================================
 		private void WriteHeader(IndentedTextWriter writer, PropertyInfo property)
 		{
-			if (IsStatic(property))
-				writer.Write("static ");
-
 			writer.Write("void Execute");
 			writer.Write(property.Name);
 			writer.WriteLine("(XmlElement^ element, MagickImage^ image);");
+		}
+		//===========================================================================================
+		protected virtual string[] CustomMethods
+		{
+			get
+			{
+				return new string[] { };
+			}
 		}
 		//===========================================================================================
 		protected abstract string ExecuteArgument
@@ -241,7 +275,7 @@ namespace Magick.NET.FileGenerator
 
 			if (xsdTypeName != null)
 			{
-				WriteGetAttributeValue(writer, typeName, "value");
+				WriteGetElementValue(writer, typeName, "value");
 			}
 			else
 			{
@@ -252,36 +286,7 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		protected virtual void WriteInitializeExecute(IndentedTextWriter writer, bool isStatic)
-		{
-		}
-		//===========================================================================================
-		protected void WriteInitializeExecute(IndentedTextWriter writer, string xsdName, string name, bool isStatic)
-		{
-			writer.Write(_HashtableName);
-			writer.Write("[\"");
-			writer.Write(xsdName);
-			writer.Write("\"] = gcnew ExecuteElement");
-			writer.Write(ExecuteName);
-			writer.Write("(");
-			if (!isStatic)
-				writer.Write("this, &");
-			writer.Write("MagickScript::Execute");
-			writer.Write(name);
-			writer.WriteLine(");");
-		}
-		//===========================================================================================
 		protected abstract void WriteSet(IndentedTextWriter writer, PropertyInfo property);
-		//===========================================================================================
-		public void WriteCallInitializeExecute(IndentedTextWriter writer)
-		{
-			if (HasOnlyStatic)
-				return;
-
-			writer.Write("InitializeExecute");
-			writer.Write(ExecuteName);
-			writer.WriteLine("();");
-		}
 		//===========================================================================================
 		public void WriteExecuteMethods(IndentedTextWriter writer)
 		{
@@ -300,7 +305,6 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		public void WriteHeader(IndentedTextWriter writer)
 		{
-			WriteHashtableHeader(writer);
 			WriteExecuteHeader(writer);
 
 			foreach (PropertyInfo property in Properties)
@@ -312,45 +316,6 @@ namespace Magick.NET.FileGenerator
 			{
 				WriteHeader(writer, overloads);
 			}
-		}
-		//===========================================================================================
-		public void WriteInitializeExecute(IndentedTextWriter writer)
-		{
-			writer.Write("System::Collections::Hashtable^ MagickScript::InitializeStaticExecute");
-			writer.Write(ExecuteName);
-			writer.WriteLine("()");
-			writer.WriteLine("{");
-			writer.Indent++;
-			writer.WriteLine("System::Collections::Hashtable^ result = gcnew System::Collections::Hashtable();");
-
-			_HashtableName = "result";
-			WriteInitializeExecuteProperties(writer, true);
-			WriteInitializeExecuteMethods(writer, true);
-			WriteInitializeExecute(writer, true);
-
-			writer.WriteLine("return result;");
-			writer.Indent--;
-			writer.WriteLine("}");
-
-			if (HasOnlyStatic)
-				return;
-
-			writer.Write("void MagickScript::InitializeExecute");
-			writer.Write(ExecuteName);
-			writer.WriteLine("()");
-			writer.WriteLine("{");
-			writer.Indent++;
-			writer.Write("_Execute");
-			writer.Write(ExecuteName);
-			writer.WriteLine(" = gcnew System::Collections::Hashtable();");
-
-			_HashtableName = "_Execute" + ExecuteName;
-			WriteInitializeExecuteProperties(writer, false);
-			WriteInitializeExecuteMethods(writer, false);
-			WriteInitializeExecute(writer, false);
-
-			writer.Indent--;
-			writer.WriteLine("}");
 		}
 		//===========================================================================================
 		public virtual void WriteIncludes(IndentedTextWriter writer)

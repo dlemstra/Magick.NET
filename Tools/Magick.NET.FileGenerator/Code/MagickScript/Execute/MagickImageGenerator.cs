@@ -21,6 +21,14 @@ namespace Magick.NET.FileGenerator
 	internal sealed class MagickImageGenerator : ExecuteCodeGenerator
 	{
 		//===========================================================================================
+		protected override string[] CustomMethods
+		{
+			get
+			{
+				return new string[] { "clone", "draw", "write" };
+			}
+		}
+		//===========================================================================================
 		protected override string ExecuteArgument
 		{
 			get
@@ -69,18 +77,6 @@ namespace Magick.NET.FileGenerator
 			writer.Write("(");
 			WriteHashtableParameters(writer, parameters);
 			writer.WriteLine(");");
-		}
-		//===========================================================================================
-		protected override void WriteInitializeExecute(IndentedTextWriter writer, bool isStatic)
-		{
-			base.WriteInitializeExecute(writer, isStatic);
-
-			if (!isStatic)
-			{
-				WriteInitializeExecute(writer, "clone", "Clone", isStatic);
-				WriteInitializeExecute(writer, "draw", "Draw", isStatic);
-				WriteInitializeExecute(writer, "write", "Write", isStatic);
-			}
 		}
 		//===========================================================================================
 		protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)

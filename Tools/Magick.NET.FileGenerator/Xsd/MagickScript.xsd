@@ -1,6 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<!--=========================================================================================-->
+	<xs:simpleType name="var">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\{[$]([0-9a-zA-Z_-]{1,16})\}" />
+		</xs:restriction>
+	</xs:simpleType>
+	<!--=========================================================================================-->
+	<xs:simpleType name="bool">
+		<xs:union memberTypes="xs:boolean var"/>
+	</xs:simpleType>
+	<!--=========================================================================================-->
+	<xs:simpleType name="double">
+		<xs:union memberTypes="xs:double var"/>
+	</xs:simpleType>
+	<!--=========================================================================================-->
+	<xs:simpleType name="int">
+		<xs:union memberTypes="xs:int var"/>
+	</xs:simpleType>
+	<!--=========================================================================================-->
 	<xs:annotation id="quantum"/>
 	<!--=========================================================================================-->
 	<xs:annotation id="color"/>

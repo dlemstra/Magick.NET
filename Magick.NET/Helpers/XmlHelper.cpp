@@ -12,47 +12,13 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "..\Colors\MagickColor.h"
-#include "..\MagickGeometry.h"
-#include "EnumHelper.h"
+#include "..\MagickConverter.h"
 #include "XmlHelper.h"
 
 using namespace System::Globalization;
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	generic <class T>
-	T XmlHelper::GetValue(String^ value)
-	{
-		Type^ type = T::typeid;
-
-		if (type == String::typeid)
-			return (T)value;
-
-		if (String::IsNullOrEmpty(value))
-			return T();
-
-		if (type->IsGenericType && type->GetGenericTypeDefinition()->Name == "Nullable`1")
-			type = type->GetGenericArguments()[0];
-
-		if (type->IsEnum)
-			return (T)EnumHelper::Parse(type, value);
-
-		if (type == MagickColor::typeid)
-			return (T)gcnew MagickColor(value);
-
-		if (type == MagickGeometry::typeid)
-			return (T)gcnew MagickGeometry(value);
-
-		if (type == Percentage::typeid)
-			return (T)gcnew Percentage((double)Convert::ChangeType(value, double::typeid, CultureInfo::InvariantCulture));
-
-		if (type == bool::typeid)
-			return (T)(value == "1" || value == "true");
-
-		return (T)Convert::ChangeType(value, type, CultureInfo::InvariantCulture);
-	}
 	//==============================================================================================
 	XmlElement^ XmlHelper::CreateElement(XmlNode^ node, String^ name)
 	{
@@ -68,7 +34,7 @@ namespace ImageMagick
 		if (element == nullptr || !element->HasAttribute(name))
 			return T();
 
-		return GetValue<T>(element->GetAttribute(name));
+		return MagickConverter::Convert<T>(element->GetAttribute(name));
 	}
 	//==============================================================================================
 	generic <class T>
@@ -77,7 +43,7 @@ namespace ImageMagick
 		if (attribute == nullptr)
 			return T();
 
-		return GetValue<T>(attribute->Value);
+		return MagickConverter::Convert<T>(attribute->Value);
 	}
 	//==============================================================================================
 	generic <class T>

@@ -101,7 +101,7 @@ namespace Magick.NET.FileGenerator
 
 			if (xsdTypeName != null)
 			{
-				WriteGetAttributeValue(writer, typeName, XsdGenerator.GetName(property));
+				WriteGetElementValue(writer, typeName, XsdGenerator.GetName(property));
 			}
 			else
 			{
@@ -144,8 +144,7 @@ namespace Magick.NET.FileGenerator
 			writer.Write("^ MagickScript::Create");
 			writer.Write(ClassName);
 			writer.WriteLine("(XmlElement^ element)");
-			writer.WriteLine("{");
-			writer.Indent++;
+			WriteStartColon(writer);
 			writer.WriteLine("if (element == nullptr)");
 			writer.Indent++;
 			writer.WriteLine("return nullptr;");
@@ -157,13 +156,11 @@ namespace Magick.NET.FileGenerator
 			WriteSetProperties(writer);
 			WriteCallMethods(writer);
 			writer.WriteLine("return result;");
-			writer.Indent--;
-			writer.WriteLine("}");
+			WriteEndColon(writer);
 		}
 		//===========================================================================================
 		public void WriteHeader(IndentedTextWriter writer)
 		{
-			writer.Write("static ");
 			writer.Write(ClassName);
 			writer.Write("^ Create");
 			writer.Write(ClassName);

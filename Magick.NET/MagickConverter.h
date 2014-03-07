@@ -13,26 +13,19 @@
 //=================================================================================================
 #pragma once
 
-using namespace System::Xml;
-
 namespace ImageMagick
 {
 	//==============================================================================================
-	private ref class XmlHelper abstract sealed
+	private ref class MagickConverter abstract sealed
 	{
 		//===========================================================================================
 	public:
 		//===========================================================================================
-		static XmlElement^ CreateElement(XmlNode^ node, String^ name);
+		generic <class T>
+		static T Convert(String^ value);
 		//===========================================================================================
 		generic <class T>
-		static T GetAttribute(XmlElement^ element, String^ name);
-		//===========================================================================================
-		generic <class T>
-		static T GetValue(XmlAttribute^ attribute);
-		//===========================================================================================
-		generic <class T>
-		static void SetAttribute(XmlElement^ element, String^ name, T value);
+		static T Convert(Object^ value);
 		//===========================================================================================
 	};
 	//==============================================================================================

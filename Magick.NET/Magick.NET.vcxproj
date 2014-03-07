@@ -189,10 +189,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MagickConverter.h" />
     <ClInclude Include="Drawables\DrawableDashArray.h" />
     <ClInclude Include="Drawables\DrawableDashOffset.h" />
     <ClInclude Include="Drawables\DrawableEllipse.h" />
@@ -314,6 +316,7 @@
     <ClInclude Include="ResourceLimits.h" />
     <ClInclude Include="Script\ScriptReadEventArgs.h" />
     <ClInclude Include="Script\MagickScript.h" />
+    <ClInclude Include="Script\ScriptVariables.h" />
     <ClInclude Include="Script\ScriptWriteEventArgs.h" />
     <ClInclude Include="Settings\PixelStorageSettings.h" />
     <ClInclude Include="Statistics\ChannelStatistics.h" />
@@ -374,6 +377,7 @@
     <ClInclude Include="Helpers\Throw.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MagickConverter.cpp" />
     <ClCompile Include="Drawables\DrawableDashArray.cpp" />
     <ClCompile Include="Drawables\DrawableDashOffset.cpp" />
     <ClCompile Include="Drawables\DrawableEllipse.cpp" />
@@ -476,6 +480,7 @@
     <ClCompile Include="Script\Generated\Execute.cpp" />
     <ClCompile Include="Script\MagickScript.cpp" />
     <ClCompile Include="Script\ScriptReadEventArgs.cpp" />
+    <ClCompile Include="Script\ScriptVariables.cpp" />
     <ClCompile Include="Script\ScriptWriteEventArgs.cpp" />
     <ClCompile Include="Settings\MagickReadSettings.cpp" />
     <ClCompile Include="Settings\PixelStorageSettings.cpp" />

@@ -285,9 +285,19 @@ namespace Magick.NET.FileGenerator
 			XElement restriction = new XElement(_Namespace + "restriction", new XAttribute("base", "xs:NMTOKEN"));
 			AddEnumValues(enumType, restriction);
 
+			return CreateVarElement(enumType.Name, restriction);
+		}
+		//===========================================================================================
+		private XElement CreateVarElement(string name, XElement restriction)
+		{
 			return new XElement(_Namespace + "simpleType",
-						new XAttribute("name", enumType.Name),
-						restriction);
+						new XAttribute("name", name),
+						new XElement(_Namespace + "union",
+							new XElement(_Namespace + "simpleType",
+								restriction),
+							new XElement(_Namespace + "simpleType",
+								new XElement(_Namespace + "restriction",
+									new XAttribute("base", "var")))));
 		}
 		//===========================================================================================
 		private static void Generate(QuantumDepth depth)
@@ -314,12 +324,11 @@ namespace Magick.NET.FileGenerator
 				case "String^":
 					return "xs:string";
 				case "Percentage":
-					return "xs:double";
+					return "double";
 				case "bool":
-					return "xs:boolean";
 				case "int":
 				case "double":
-					return "xs:" + typeName;
+					return typeName;
 				case "Magick::Quantum":
 					return "quantum";
 				case "MagickColor^":
@@ -418,12 +427,15 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void RemoveUnusedSimpleTypes()
 		{
-			XElement[] simpleTypes = (from element in _Document.XPathSelectElements("//xs:simpleType", _Namespaces)
+			XElement[] simpleTypes = (from element in _Document.Root.XPathSelectElements("./xs:simpleType", _Namespaces)
 											  select element).ToArray();
 
 			foreach (XElement simpleType in simpleTypes)
 			{
 				string name = (string)simpleType.Attribute("name");
+
+				if (name == "var")
+					continue;
 
 				if (!_Document.XPathSelectElements("//xs:attribute[@type='" + name + "']", _Namespaces).Any())
 					simpleType.Remove();
@@ -536,9 +548,7 @@ namespace Magick.NET.FileGenerator
 			restriction.Add(new XElement(_Namespace + "pattern",
 						new XAttribute("value", "Transparent")));
 
-			annotation.ReplaceWith(new XElement(_Namespace + "simpleType",
-											new XAttribute("name", "color"),
-											restriction));
+			annotation.ReplaceWith(CreateVarElement("color", restriction));
 		}
 		//===========================================================================================
 		private void ReplaceImageActions(XElement annotation)
@@ -578,8 +588,7 @@ namespace Magick.NET.FileGenerator
 			}
 
 			annotation.ReplaceWith(
-				new XElement(_Namespace + "simpleType",
-					new XAttribute("name", "quantum"),
+				CreateVarElement("quantum",
 					new XElement(_Namespace + "restriction",
 						new XAttribute("base", baseType),
 						new XElement(_Namespace + "minInclusive",

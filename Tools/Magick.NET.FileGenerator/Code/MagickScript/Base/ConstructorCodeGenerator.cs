@@ -61,11 +61,9 @@ namespace Magick.NET.FileGenerator
 			writer.Write(" MagickScript::Create");
 			writer.Write(ClassName);
 			writer.WriteLine("(XmlElement^ element)");
-			writer.WriteLine("{");
-			writer.Indent++;
+			WriteStartColon(writer);
 			WriteMethod(writer, Constructors);
-			writer.Indent--;
-			writer.WriteLine("}");
+			WriteEndColon(writer);
 
 			if (!WriteEnumerable)
 				return;
@@ -75,29 +73,24 @@ namespace Magick.NET.FileGenerator
 			writer.Write(">^  MagickScript::Create");
 			writer.Write(ClassName);
 			writer.WriteLine("s(XmlElement^ element)");
-			writer.WriteLine("{");
-			writer.Indent++;
+			WriteStartColon(writer);
 			writer.Write("Collection<");
 			writer.Write(TypeName);
 			writer.Write(">^ collection = gcnew Collection<");
 			writer.Write(TypeName);
 			writer.WriteLine(">();");
 			writer.WriteLine("for each (XmlElement^ elem in element->SelectNodes(\"*\"))");
-			writer.WriteLine("{");
-			writer.Indent++;
+			WriteStartColon(writer);
 			writer.Write("collection->Add(Create");
 			writer.Write(TypeName.Replace("^", ""));
 			writer.WriteLine("(elem));");
-			writer.Indent--;
-			writer.WriteLine("}");
+			WriteEndColon(writer);
 			writer.WriteLine("return collection;");
-			writer.Indent--;
-			writer.WriteLine("}");
+			WriteEndColon(writer);
 		}
 		//===========================================================================================
 		public void WriteHeader(IndentedTextWriter writer)
 		{
-			writer.Write("static ");
 			writer.Write(TypeName);
 			writer.Write(" Create");
 			writer.Write(ClassName);
@@ -106,7 +99,7 @@ namespace Magick.NET.FileGenerator
 			if (!WriteEnumerable)
 				return;
 
-			writer.Write("static Collection<");
+			writer.Write("Collection<");
 			writer.Write(TypeName);
 			writer.Write(">^ Create");
 			writer.Write(ClassName);

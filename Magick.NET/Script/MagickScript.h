@@ -14,6 +14,7 @@
 #pragma once
 
 #include "ScriptReadEventArgs.h"
+#include "ScriptVariables.h"
 #include "ScriptWriteEventArgs.h"
 #include "..\MagickImage.h"
 #include "..\MagickImageCollection.h"
@@ -44,13 +45,14 @@ namespace ImageMagick
 		//===========================================================================================
 		EventHandler<ScriptReadEventArgs^>^ _ReadHandler;
 		XmlDocument^ _Script;
+		ScriptVariables^ _Variables;
 		EventHandler<ScriptWriteEventArgs^>^ _WriteHandler;
 		//===========================================================================================
 		MagickImage^ CreateMagickImage(XmlElement^ element);
 		//===========================================================================================
-		static Collection<PathBase^>^ CreatePaths(XmlElement^ element);
+		Collection<PathBase^>^ CreatePaths(XmlElement^ element);
 		//===========================================================================================
-		static ImageProfile^ CreateProfile(XmlElement^ element);
+		ImageProfile^ CreateProfile(XmlElement^ element);
 		//===========================================================================================
 		static XmlReaderSettings^ CreateXmlReaderSettings();
 		//===========================================================================================
@@ -71,6 +73,9 @@ namespace ImageMagick
 		void Initialize(Stream^ stream);
 		//===========================================================================================
 		static bool OnlyContains(System::Collections::Hashtable^ arguments, ... array<Object^>^ keys);
+		//===========================================================================================
+		generic <class T>
+		void SetArgument(System::Collections::Hashtable^ arguments, XmlAttribute^ attribute);
 		//===========================================================================================
 #include "Generated\Execute.h"
 		//===========================================================================================
@@ -93,6 +98,14 @@ namespace ImageMagick
 		///</summary>
 		///<param name="stream">The stream to read the script data from.</param>
 		MagickScript(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// The variables of this script.
+		///</summary>
+		property ScriptVariables^ Variables
+		{
+			ScriptVariables^ get();
+		}
 		///==========================================================================================
 		///<summary>
 		/// Event that will be raised when the script needs an image to be read.
