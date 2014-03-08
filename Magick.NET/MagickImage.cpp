@@ -12,9 +12,10 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "MagickImage.h"
 #include "Helpers\FileHelper.h"
+#include "MagickImage.h"
 #include "MagickImageCollection.h"
+#include "Quantum.h"
 
 using namespace System::Globalization;
 
@@ -4538,11 +4539,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Threshold(double value)
+	void MagickImage::Threshold(Percentage percentage)
 	{
 		try
 		{
-			Value->threshold(value);
+			Value->threshold((double)percentage * Quantum::Max);
 		}
 		catch(Magick::Exception& exception)
 		{

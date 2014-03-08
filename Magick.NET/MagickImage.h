@@ -3049,9 +3049,9 @@ namespace ImageMagick
 		///<summary>
 		/// Threshold image.
 		///</summary>
-		///<param name="value">The threshold value.</param>
+		///<param name="percentage">The threshold percentage.</param>
 		///<exception cref="MagickException"/>
-		void Threshold(double value);
+		void Threshold(Percentage percentage);
 		///==========================================================================================
 		///<summary>
 		/// Resize image to thumbnail size.
