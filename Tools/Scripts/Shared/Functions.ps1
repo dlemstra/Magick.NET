@@ -19,8 +19,19 @@ function CheckExitCode($msg)
 	if ($LastExitCode -ne 0)
 	{
 		Write-Error $msg
-		Exit
+		Exit 1
 	}
+}
+#==================================================================================================
+function CheckFolder($folder)
+{
+	if (Test-Path $folder)
+	{
+		return;
+	}
+
+	Write-Error "Unable to find folder: $($folder)"
+	Exit 1
 }
 #==================================================================================================
 function ExecuteFile($path)
