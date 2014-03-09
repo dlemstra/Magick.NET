@@ -189,9 +189,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickConverter.h" />

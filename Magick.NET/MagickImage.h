@@ -73,6 +73,12 @@ using namespace System::Collections::Generic;
 using namespace System::Drawing::Imaging;
 using namespace System::Text;
 
+#if !(NET20)
+using namespace System::Windows::Media::Imaging;
+typedef System::Windows::Media::PixelFormat MediaPixelFormat;
+typedef System::Windows::Media::PixelFormats MediaPixelFormats;
+#endif
+
 namespace ImageMagick
 {
 	///=============================================================================================
@@ -3297,6 +3303,15 @@ namespace ImageMagick
 		///<param name="percentageHeight">The percentage of the height.</param>
 		///<exception cref="MagickException"/>
 		void Zoom(Percentage percentageWidth, Percentage percentageHeight);
+		//===========================================================================================
+#if !(NET20)
+		///==========================================================================================
+		///<summary>
+		/// Converts this instance to a BitmapSource.
+		///</summary>
+		BitmapSource^ ToBitmapSource();
+		//===========================================================================================
+#endif
 		//===========================================================================================
 	};
 	//==============================================================================================

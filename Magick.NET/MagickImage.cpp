@@ -4900,4 +4900,95 @@ namespace ImageMagick
 		Zoom(geometry);
 	}
 	//==============================================================================================
+#if !(NET20)
+	//==============================================================================================
+	BitmapSource^ MagickImage::ToBitmapSource()
+	{
+#if (MAGICKCORE_QUANTUM_DEPTH == 8)
+		MediaPixelFormat format = MediaPixelFormats::Rgb24;
+		if (HasAlpha)
+			format = MediaPixelFormats::Bgra32;
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+		MediaPixelFormat format = MediaPixelFormats::Rgb48;
+		if (HasAlpha)
+			format = MediaPixelFormats::Rgba64;
+#else
+#error Not implemented!
+#endif
+
+		if (ColorSpace == ImageMagick::ColorSpace::CMYK)
+			format = MediaPixelFormats::Cmyk32;
+
+		int step = (format.BitsPerPixel / 8);
+		int stride = Width * step;
+		array<Byte>^ pixelData = gcnew array<Byte>(stride * Height);
+
+		Magick::Pixels* view = new Magick::Pixels(*Value);
+		try
+		{
+			for (int y = 0; y < Height; y++)
+			{
+				int yIndex = y * stride;
+				const Magick::PixelPacket* pixels = view->getConst(0, y, Width, 1);
+
+				for (int x = 0; x < Width; x++)
+				{
+					int xIndex = yIndex + (x * step);
+
+#if (MAGICKCORE_QUANTUM_DEPTH == 8)
+					if (format == MediaPixelFormats::Bgra32)
+					{
+						pixelData[xIndex] = pixels[x].blue;
+						pixelData[xIndex + 1] = pixels[x].green;
+						pixelData[xIndex + 2] = pixels[x].red;
+						pixelData[xIndex + 3] = (Quantum::Max - pixels[x].opacity);
+					}
+					else
+					{
+						pixelData[xIndex] = pixels[x].red;
+						pixelData[xIndex + 1] = pixels[x].green;
+						pixelData[xIndex + 2] = pixels[x].blue;
+						if (step == 4)
+							pixelData[xIndex + 3] = (Quantum::Max - pixels[x].opacity);
+					}
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+					if (format != MediaPixelFormats::Cmyk32)
+					{
+						pixelData[xIndex] = (Byte)((unsigned short)pixels[x].red >> 8);
+						pixelData[xIndex + 1] = (Byte)((unsigned short)pixels[x].red);
+						pixelData[xIndex + 2] = (Byte)((unsigned short)pixels[x].green >> 8);
+						pixelData[xIndex + 3] = (Byte)((unsigned short)pixels[x].green);
+						pixelData[xIndex + 4] = (Byte)((unsigned short)pixels[x].blue >> 8);
+						pixelData[xIndex + 5] = (Byte)((unsigned short)pixels[x].blue);
+						if (format == MediaPixelFormats::Rgba64)
+						{
+							unsigned short alpha = (unsigned short)(Quantum::Max - pixels[x].opacity);
+							pixelData[xIndex + 6] = (Byte)(alpha >> 8);
+							pixelData[xIndex + 7] = (Byte)(alpha);
+						}
+					}
+					else
+					{
+						pixelData[xIndex] = MagickCore::ScaleQuantumToChar(pixels[x].red);
+						pixelData[xIndex + 1] = MagickCore::ScaleQuantumToChar(pixels[x].green);
+						pixelData[xIndex + 2] = MagickCore::ScaleQuantumToChar(pixels[x].blue);
+						pixelData[xIndex + 3] = MagickCore::ScaleQuantumToChar(Quantum::Max - pixels[x].opacity);
+					}
+#else
+#error Not implemented!
+#endif
+				}
+			}
+		}
+		finally
+		{
+			if (view != NULL)
+				delete view;
+		}
+
+		return BitmapSource::Create(Width, Height, 96, 96, format, nullptr, pixelData, stride);
+	}
+	//==============================================================================================
+#endif
+	//==============================================================================================
 }
