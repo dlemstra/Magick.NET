@@ -527,7 +527,7 @@ namespace Magick.NET.Tests
 				Assert.AreEqual(64, image.Height);
 
 				image.Read(Files.MagickNETIconPNG);
-				image.Resize(2.0);
+				image.Resize(200);
 				Assert.AreEqual(256, image.Width);
 				Assert.AreEqual(256, image.Height);
 

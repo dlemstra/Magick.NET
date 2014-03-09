@@ -73,12 +73,12 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(15, geometry.Width);
 			Assert.AreEqual(20, geometry.Height);
 
-			geometry = new MagickGeometry(0.5, 0.1);
+			geometry = new MagickGeometry(50.0, 10.0);
 			Assert.AreEqual(50, geometry.Width);
 			Assert.AreEqual(10, geometry.Height);
 			Assert.AreEqual(true, geometry.IsPercentage);
 
-			geometry = new MagickGeometry(5, 10, 0.15, 0.2);
+			geometry = new MagickGeometry(5, 10, 15.0, 20.0);
 			Assert.AreEqual(5, geometry.X);
 			Assert.AreEqual(10, geometry.Y);
 			Assert.AreEqual(15, geometry.Width);

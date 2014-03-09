@@ -28,30 +28,22 @@ namespace Magick.NET.Tests
 		public void Test_Constructor()
 		{
 			Percentage percentage = new Percentage();
-			Assert.AreEqual(0.0, percentage.ToDouble());
-			Assert.AreEqual(0, percentage.ToInt32());
 			Assert.AreEqual("0%", percentage.ToString());
 
-			percentage = new Percentage(0.5);
-			Assert.AreEqual(0.5, percentage.ToDouble());
-			Assert.AreEqual(50, percentage.ToInt32());
+			percentage = new Percentage(50);
 			Assert.AreEqual("50%", percentage.ToString());
 
-			percentage = new Percentage(200);
-			Assert.AreEqual(2.0, percentage.ToDouble());
-			Assert.AreEqual(200, percentage.ToInt32());
+			percentage = new Percentage(200.0);
 			Assert.AreEqual("200%", percentage.ToString());
 
-			percentage = new Percentage(-0.25);
-			Assert.AreEqual(-0.25, percentage.ToDouble());
-			Assert.AreEqual(-25, percentage.ToInt32());
+			percentage = new Percentage(-25);
 			Assert.AreEqual("-25%", percentage.ToString());
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_IEquatable()
 		{
-			Percentage first = new Percentage(0.5);
+			Percentage first = new Percentage(50.0);
 			Percentage second = new Percentage(50);
 
 			Assert.IsTrue(first == second);

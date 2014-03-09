@@ -1694,7 +1694,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->brightnessContrast(brightness.ToInt32(), contrast.ToInt32());
+			Value->brightnessContrast((double)brightness, (double)contrast);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -1706,7 +1706,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->brightnessContrastChannel((Magick::ChannelType)channels, brightness.ToInt32(), contrast.ToInt32());
+			Value->brightnessContrastChannel((Magick::ChannelType)channels, (double)brightness, (double)contrast);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -3451,7 +3451,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->modulate(brightness.ToInt32(), saturation.ToInt32(), hue.ToInt32());
+			Value->modulate((double)brightness, (double)saturation, (double)hue);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -4267,7 +4267,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->shadow((double)alpha * 100, sigma, x, y);
+			Value->shadow((double)alpha, sigma, x, y);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -4286,7 +4286,7 @@ namespace ImageMagick
 		{
 			MagickImage^ clone = Clone();
 			clone->Value->backgroundColor(*backgroundColor);
-			clone->Value->shadow((double)alpha * 100, sigma, x, y);
+			clone->Value->shadow((double)alpha, sigma, x, y);
 			clone->Value->backgroundColor(Magick::Color());
 
 			images->Add(clone);
@@ -4543,7 +4543,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->threshold((double)percentage * Quantum::Max);
+			Value->threshold((double)percentage.ToQuantum());
 		}
 		catch(Magick::Exception& exception)
 		{

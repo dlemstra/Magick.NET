@@ -32,15 +32,19 @@ namespace ImageMagick
 		//===========================================================================================
 		static explicit operator Magick::Quantum(Percentage percentage);
 		//===========================================================================================
+		static explicit operator double(Percentage percentage);
+		//===========================================================================================
+		static explicit operator int(Percentage percentage);
+		//===========================================================================================
 		Magick::Quantum ToQuantum();
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the Percentage class using the specified value.
-		/// (0% = 0.0, 100% = 1.0)
+		/// (0% = 0.0, 100% = 100.0)
 		///</summary>
-		///<param name="value">The value (0% = 0.0, 100% = 1.0)</param>
+		///<param name="value">The value (0% = 0.0, 100% = 100.0)</param>
 		Percentage(double value);
 		///==========================================================================================
 		///<summary>
@@ -53,10 +57,6 @@ namespace ImageMagick
 		static bool operator == (Percentage left, Percentage right);
 		//===========================================================================================
 		static bool operator != (Percentage left, Percentage right);
-		//===========================================================================================
-		static explicit operator double(Percentage percentage);
-		//===========================================================================================
-		static explicit operator int(Percentage percentage);
 		//===========================================================================================
 		static operator Percentage(double value);
 		//===========================================================================================
@@ -78,16 +78,6 @@ namespace ImageMagick
 		/// Servers as a hash of this type.
 		///</summary>
 		virtual int GetHashCode() override;
-		///==========================================================================================
-		///<summary>
-		/// Converts the value to a double.
-		///</summary>
-		double ToDouble();
-		///==========================================================================================
-		///<summary>
-		/// Converts the value to an integer.
-		///</summary>
-		int ToInt32();
 		///==========================================================================================
 		///<summary>
 		/// Returns a string that represents the current percentage.

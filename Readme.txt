@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 6.8.8.801:
+  - Fixed double value of Percentage (50% is 50.0 instead of 0.5).
+
 Magick.NET 6.8.8.501:
   - To reduce memory usage the Q8 version of Magick.NET no longer uses HDRI.
   - Removed MagickNET.SetCacheThreshold (Use ResourceLimits).

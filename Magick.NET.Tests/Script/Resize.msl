@@ -3,7 +3,7 @@
 		<settings>
 			<setDefine format="Jpeg" name="size" value="64x64"/>
 		</settings>
-		<resize percentage="0.5"/>
+		<resize percentage="50"/>
 		<strip/>
 		<comment value="Magick.NET.Resize"/>
 	</read>

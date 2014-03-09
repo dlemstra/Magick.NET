@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "Percentage.h"
+#include "Quantum.h"
 
 using namespace System::Globalization;
 
@@ -22,17 +23,27 @@ namespace ImageMagick
 	Percentage::operator Magick::Quantum(Percentage percentage)
 	{
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
-		return Convert::ToByte(percentage._Value * 100);
+		return Convert::ToByte(percentage._Value);
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		return Convert::ToUInt16(percentage._Value * 100);
+		return Convert::ToUInt16(percentage._Value);
 #else
 #error Not implemented!
 #endif
 	}
 	//==============================================================================================
+	Percentage::operator double(Percentage percentage)
+	{
+		return percentage._Value;
+	}
+	//==============================================================================================
+	Percentage::operator int(Percentage percentage)
+	{
+		return (int)percentage._Value;
+	}
+	//==============================================================================================
 	Magick::Quantum Percentage::ToQuantum()
 	{
-		return (Magick::Quantum)(MaxMap * _Value);
+		return (Magick::Quantum)((double)Quantum::Max * (_Value / 100));
 	}
 	//==============================================================================================
 	Percentage::Percentage(double value)
@@ -42,7 +53,7 @@ namespace ImageMagick
 	//==============================================================================================
 	Percentage::Percentage(int value)
 	{
-		_Value = (double)value / 100;
+		_Value = (double)value;
 	}
 	//==============================================================================================
 	bool Percentage::operator == (Percentage left, Percentage right)
@@ -53,16 +64,6 @@ namespace ImageMagick
 	bool Percentage::operator != (Percentage left, Percentage right)
 	{
 		return !Object::Equals(left, right);
-	}
-	//==============================================================================================
-	Percentage::operator double(Percentage percentage)
-	{
-		return percentage.ToDouble();
-	}
-	//==============================================================================================
-	Percentage::operator int(Percentage percentage)
-	{
-		return percentage.ToInt32();
 	}
 	//==============================================================================================
 	Percentage::operator Percentage(double value)
@@ -87,7 +88,7 @@ namespace ImageMagick
 			return _Value.Equals(obj);
 
 		if (obj->GetType() == int::typeid)
-			return this->ToInt32().Equals((int)obj);
+			return ((int)_Value).Equals((int)obj);
 
 		return false;
 	}
@@ -102,19 +103,9 @@ namespace ImageMagick
 		return _Value.GetHashCode();
 	}
 	//==============================================================================================
-	double Percentage::ToDouble()
-	{
-		return _Value;
-	}
-	//==============================================================================================
-	int Percentage::ToInt32()
-	{
-		return Convert::ToInt32(_Value * 100);
-	}
-	//==============================================================================================
 	String^ Percentage::ToString()
 	{
-		return String::Format(CultureInfo::InvariantCulture, "{0}%", ToInt32());
+		return String::Format(CultureInfo::InvariantCulture, "{0:0.##}%", _Value);
 	}
 	//==============================================================================================
 }
