@@ -709,7 +709,7 @@
       <Filter>Header Files\Script</Filter>
     </ClInclude>
     <ClInclude Include="Settings\QuantizeSettings.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Settings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1125,7 +1125,7 @@
       <Filter>Source Files\Script</Filter>
     </ClCompile>
     <ClCompile Include="Settings\QuantizeSettings.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Settings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

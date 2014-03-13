@@ -17,7 +17,9 @@
 #include "Enums\EvaluateOperator.h"
 #include "Enums\LayerMethod.h"
 #include "IO\MagickReader.h"
+#include "MagickErrorInfo.h"
 #include "Settings\MagickReadSettings.h"
+#include "Settings\QuantizeSettings.h"
 
 using namespace System::Collections::Generic;
 
@@ -328,6 +330,13 @@ namespace ImageMagick
 		///</summary>
 		///<exception cref="MagickException"/>
 		void OptimizePlus();
+		///==========================================================================================
+		///<summary>
+		/// Quantize images (reduce number of colors).
+		///</summary>
+		///<param name="settings">Quantize settings.</param>
+		///<exception cref="MagickException"/>
+		MagickErrorInfo^ Quantize(QuantizeSettings^ settings);
 		///==========================================================================================
 		///<summary>
 		/// Read all image frames.

@@ -519,6 +519,31 @@ namespace ImageMagick
 		Optimize(LayerMethod::OptimizePlus);
 	}
 	//==============================================================================================
+	MagickErrorInfo^ MagickImageCollection::Quantize(QuantizeSettings^ settings)
+	{
+		Throw::IfNull("settings", settings);
+
+		MagickImage^ colorMap = nullptr;
+
+		try 
+		{
+			colorMap=AppendHorizontally();
+			MagickErrorInfo^ result = colorMap->Quantize(settings);
+
+			for each (MagickImage^ image in _Images)
+			{
+				image->Map(colorMap);
+			}
+
+			return result;
+		}
+		finally
+		{
+			if(colorMap != nullptr)
+				delete colorMap;
+		}
+	}
+	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data)
 	{
 		return Read(data, nullptr);
