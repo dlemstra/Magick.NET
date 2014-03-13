@@ -120,6 +120,10 @@
 		</xs:sequence>
 	</xs:complexType>
 	<!--=========================================================================================-->
+	<xs:complexType name="quantizeSettings">
+		<xs:annotation id="quantizeSettings"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
 	<xs:complexType name="read">
 		<xs:sequence>
 			<xs:element name="settings" minOccurs="0">

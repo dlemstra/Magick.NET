@@ -11,28 +11,21 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-using System;
 
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal class Program
+	internal sealed class QuantizeSettingsGenerator : SettingsCodeGenerator
 	{
 		//===========================================================================================
-		internal static void Main(string[] args)
+		protected override string ClassName
 		{
-			bool generateMagickScript = (args.Length == 0);
-			bool generateAnyCPU = (args.Length == 0) || (args[0] == "--AnyCPU");
-
-			if (generateMagickScript)
+			get
 			{
-				XsdGenerator.Generate();
-				MagickScriptGenerator.Generate();
+				return "QuantizeSettings";
 			}
-
-			//if (generateAnyCPU)
-			//	AnyCPUGenerator.Generate();
 		}
+		//===========================================================================================
 	}
 	//==============================================================================================
 }

@@ -349,6 +349,7 @@ namespace Magick.NET.FileGenerator
 				case "PathCurveto^":
 				case "PathQuadraticCurveto^":
 				case "PixelStorageSettings^":
+				case "QuantizeSettings^":
 					return null;
 				default:
 					throw new NotImplementedException(typeName);
@@ -389,6 +390,8 @@ namespace Magick.NET.FileGenerator
 					return "pathQuadraticCurveto";
 				case "PixelStorageSettings^":
 					return "pixelStorageSettings";
+				case "QuantizeSettings^":
+					return "quantizeSettings";
 				default:
 					return null;
 			}
@@ -479,6 +482,7 @@ namespace Magick.NET.FileGenerator
 						break;
 					case "magickReadSettings":
 					case "pixelStorageSettings":
+					case "quantizeSettings":
 						ReplaceWithSettings(annotation, annotationID);
 						break;
 					case "paths":

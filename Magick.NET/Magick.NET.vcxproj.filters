@@ -708,6 +708,9 @@
     <ClInclude Include="Script\ScriptVariables.h">
       <Filter>Header Files\Script</Filter>
     </ClInclude>
+    <ClInclude Include="Settings\QuantizeSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1120,6 +1123,9 @@
     </ClCompile>
     <ClCompile Include="Script\ScriptVariables.cpp">
       <Filter>Source Files\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings\QuantizeSettings.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

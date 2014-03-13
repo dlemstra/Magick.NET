@@ -66,6 +66,7 @@
 #include "Profiles\Iptc\IptcProfile.h"
 #include "Profiles\Color\ColorProfile.h"
 #include "Settings\MagickReadSettings.h"
+#include "Settings\QuantizeSettings.h"
 #include "Statistics\MagickImageStatistics.h"
 #include "TypeMetric.h"
 
@@ -612,42 +613,6 @@ namespace ImageMagick
 		/// JPEG/MIFF/PNG compression level (default 75).
 		///</summary>
 		property int Quality
-		{
-			int get();
-			void set(int value);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Maximum number of colors to quantize to.
-		///</summary>
-		property int QuantizeColors
-		{
-			int get();
-			void set(int value);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Colorspace to quantize in.
-		///</summary>
-		property ImageMagick::ColorSpace QuantizeColorSpace
-		{
-			ImageMagick::ColorSpace get();
-			void set(ImageMagick::ColorSpace value);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Dither image during quantization (default true).
-		///</summary>
-		property bool QuantizeDither
-		{
-			bool get();
-			void set(bool value);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Quantization tree-depth.
-		///</summary>
-		property int QuantizeTreeDepth
 		{
 			int get();
 			void set(int value);
@@ -2510,15 +2475,9 @@ namespace ImageMagick
 		///<summary>
 		/// Quantize image (reduce number of colors).
 		///</summary>
+		///<param name="settings">Quantize settings.</param>
 		///<exception cref="MagickException"/>
-		void Quantize();
-		///==========================================================================================
-		///<summary>
-		/// Quantize image (reduce number of colors).
-		///</summary>
-		///<param name="measureError">When false is specified this method will return null.</param>
-		///<exception cref="MagickException"/>
-		MagickErrorInfo^ Quantize(bool measureError);
+		MagickErrorInfo^ Quantize(QuantizeSettings^ settings);
 		///==========================================================================================
 		///<summary>
 		/// Raise image (lighten or darken the edges of an image to give a 3-D raised effect).
@@ -2792,13 +2751,14 @@ namespace ImageMagick
 		/// components and identifying units that are homogeneous with the fuzzy c-means technique.
 		/// Also uses QuantizeColorSpace and Verbose image attributes.
 		///</summary>
+		///<param name="quantizeColorSpace">Quantize colorspace</param>
 		///<param name="clusterThreshold">This represents the minimum number of pixels contained in
 		/// a hexahedra before it can be considered valid (expressed as a percentage).</param>
 		///<param name="smoothingThreshold">The smoothing threshold eliminates noise in the second
 		/// derivative of the histogram. As the value is increased, you can expect a smoother second
 		/// derivative</param>
 		///<exception cref="MagickException"/>
-		void Segment(double clusterThreshold, double smoothingThreshold);
+		void Segment(ImageMagick::ColorSpace quantizeColorSpace, double clusterThreshold, double smoothingThreshold);
 		///==========================================================================================
 		///<summary>
 		/// Separates the channels from the image and returns it as grayscale images.

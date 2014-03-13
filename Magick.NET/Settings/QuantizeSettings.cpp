@@ -1,4 +1,4 @@
-﻿//=================================================================================================
+//=================================================================================================
 // Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -11,28 +11,21 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-using System;
+#include "Stdafx.h"
+#include "QuantizeSettings.h"
 
-namespace Magick.NET.FileGenerator
+namespace ImageMagick
 {
 	//==============================================================================================
-	internal class Program
+	void QuantizeSettings::Apply(Magick::Image* image)
 	{
-		//===========================================================================================
-		internal static void Main(string[] args)
-		{
-			bool generateMagickScript = (args.Length == 0);
-			bool generateAnyCPU = (args.Length == 0) || (args[0] == "--AnyCPU");
-
-			if (generateMagickScript)
-			{
-				XsdGenerator.Generate();
-				MagickScriptGenerator.Generate();
-			}
-
-			//if (generateAnyCPU)
-			//	AnyCPUGenerator.Generate();
-		}
+		image->quantizeColors(Colors);
+		image->quantizeColorSpace((Magick::ColorspaceType)ColorSpace);
+		image->quantizeTreeDepth(TreeDepth);
+	}
+	//==============================================================================================
+	QuantizeSettings::QuantizeSettings()
+	{
 	}
 	//==============================================================================================
 }

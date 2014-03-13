@@ -29,6 +29,17 @@ namespace Magick.NET.FileGenerator
 			"Add", "Clear", "Dispose", "Draw", "Insert", "RemoveAt", "Write"
 		};
 		//===========================================================================================
+		private bool CanIgnoreResult(MethodInfo method)
+		{
+			if (method.IsSpecialName)
+				return false;
+
+			if (method.Name == "Quantize")
+				return true;
+
+			return false;
+		}
+		//===========================================================================================
 		private IEnumerable<ConstructorInfo[]> GetSubclassConstructors(string baseClass)
 		{
 			return from type in _MagickNET.GetTypes()
@@ -96,7 +107,7 @@ namespace Magick.NET.FileGenerator
 		private bool IsSupported(MethodInfo method)
 		{
 			if (method.ReturnType != typeof(void))
-				return false;
+				return CanIgnoreResult(method);
 
 			return IsSupportedMethod(method);
 		}
@@ -192,6 +203,7 @@ namespace Magick.NET.FileGenerator
 				case "PathCurveto":
 				case "PathQuadraticCurveto":
 				case "PixelStorageSettings":
+				case "QuantizeSettings":
 				case "String":
 					return name + "^";
 				case "IEnumerable<Coordinate>":

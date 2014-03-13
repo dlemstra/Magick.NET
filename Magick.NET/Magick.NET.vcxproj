@@ -321,6 +321,7 @@
     <ClInclude Include="Script\ScriptVariables.h" />
     <ClInclude Include="Script\ScriptWriteEventArgs.h" />
     <ClInclude Include="Settings\PixelStorageSettings.h" />
+    <ClInclude Include="Settings\QuantizeSettings.h" />
     <ClInclude Include="Statistics\ChannelStatistics.h" />
     <ClInclude Include="MagickFormatInfo.h" />
     <ClInclude Include="Statistics\MagickImageStatistics.h" />
@@ -486,6 +487,7 @@
     <ClCompile Include="Script\ScriptWriteEventArgs.cpp" />
     <ClCompile Include="Settings\MagickReadSettings.cpp" />
     <ClCompile Include="Settings\PixelStorageSettings.cpp" />
+    <ClCompile Include="Settings\QuantizeSettings.cpp" />
     <ClCompile Include="Statistics\ChannelStatistics.cpp" />
     <ClCompile Include="MagickFormatInfo.cpp" />
     <ClCompile Include="Statistics\MagickImageStatistics.cpp" />

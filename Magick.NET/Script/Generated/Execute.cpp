@@ -976,42 +976,8 @@ namespace ImageMagick
 					}
 					case 'n':
 					{
-						if (element->Name->Length == 8)
-						{
-							ExecuteQuantize(image);
-							return;
-						}
-						switch(element->Name[8])
-						{
-							case 'C':
-							{
-								switch(element->Name[13])
-								{
-									case 's':
-									{
-										ExecuteQuantizeColors(element, image);
-										return;
-									}
-									case 'S':
-									{
-										ExecuteQuantizeColorSpace(element, image);
-										return;
-									}
-								}
-								break;
-							}
-							case 'D':
-							{
-								ExecuteQuantizeDither(element, image);
-								return;
-							}
-							case 'T':
-							{
-								ExecuteQuantizeTreeDepth(element, image);
-								return;
-							}
-						}
-						break;
+						ExecuteQuantize(element, image);
+						return;
 					}
 				}
 				break;
@@ -1715,22 +1681,6 @@ namespace ImageMagick
 	void MagickScript::ExecuteQuality(XmlElement^ element, MagickImage^ image)
 	{
 		image->Quality = _Variables->GetValue<int>(element, "value");
-	}
-	void MagickScript::ExecuteQuantizeColors(XmlElement^ element, MagickImage^ image)
-	{
-		image->QuantizeColors = _Variables->GetValue<int>(element, "value");
-	}
-	void MagickScript::ExecuteQuantizeColorSpace(XmlElement^ element, MagickImage^ image)
-	{
-		image->QuantizeColorSpace = _Variables->GetValue<ColorSpace>(element, "value");
-	}
-	void MagickScript::ExecuteQuantizeDither(XmlElement^ element, MagickImage^ image)
-	{
-		image->QuantizeDither = _Variables->GetValue<bool>(element, "value");
-	}
-	void MagickScript::ExecuteQuantizeTreeDepth(XmlElement^ element, MagickImage^ image)
-	{
-		image->QuantizeTreeDepth = _Variables->GetValue<int>(element, "value");
 	}
 	void MagickScript::ExecuteRenderingIntent(XmlElement^ element, MagickImage^ image)
 	{
@@ -2828,9 +2778,10 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'posterize', allowed combinations are: [levels] [levels, channels] [levels, dither] [levels, dither, channels]");
 	}
-	void MagickScript::ExecuteQuantize(MagickImage^ image)
+	void MagickScript::ExecuteQuantize(XmlElement^ element, MagickImage^ image)
 	{
-		image->Quantize();
+		QuantizeSettings^ settings_ = CreateQuantizeSettings((XmlElement^)element->SelectSingleNode("settings"));
+		image->Quantize(settings_);
 	}
 	void MagickScript::ExecuteRaise(XmlElement^ element, MagickImage^ image)
 	{
@@ -3015,14 +2966,19 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
+			if (attribute->Name == "clusterThreshold")
+				arguments["clusterThreshold"] = _Variables->GetValue<double>(attribute);
+			else if (attribute->Name == "quantizeColorSpace")
+				arguments["quantizeColorSpace"] = _Variables->GetValue<ColorSpace>(attribute);
+			else if (attribute->Name == "smoothingThreshold")
+				arguments["smoothingThreshold"] = _Variables->GetValue<double>(attribute);
 		}
 		if (arguments->Count == 0)
 			image->Segment();
-		else if (OnlyContains(arguments, "clusterThreshold", "smoothingThreshold"))
-			image->Segment((double)arguments["clusterThreshold"], (double)arguments["smoothingThreshold"]);
+		else if (OnlyContains(arguments, "quantizeColorSpace", "clusterThreshold", "smoothingThreshold"))
+			image->Segment((ColorSpace)arguments["quantizeColorSpace"], (double)arguments["clusterThreshold"], (double)arguments["smoothingThreshold"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'segment', allowed combinations are: [] [clusterThreshold, smoothingThreshold]");
+			throw gcnew ArgumentException("Invalid argument combination for 'segment', allowed combinations are: [] [quantizeColorSpace, clusterThreshold, smoothingThreshold]");
 	}
 	void MagickScript::ExecuteSetArtifact(XmlElement^ element, MagickImage^ image)
 	{
@@ -3197,8 +3153,8 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteThreshold(XmlElement^ element, MagickImage^ image)
 	{
-		double value_ = _Variables->GetValue<double>(element, "value");
-		image->Threshold(value_);
+		Percentage percentage_ = _Variables->GetValue<Percentage>(element, "percentage");
+		image->Threshold(percentage_);
 	}
 	void MagickScript::ExecuteThumbnail(XmlElement^ element, MagickImage^ image)
 	{
@@ -4627,6 +4583,17 @@ namespace ImageMagick
 		PixelStorageSettings^ result = gcnew PixelStorageSettings();
 		result->Mapping = _Variables->GetValue<String^>(element, "mapping");
 		result->StorageType = _Variables->GetValue<StorageType>(element, "storageType");
+		return result;
+	}
+	QuantizeSettings^ MagickScript::CreateQuantizeSettings(XmlElement^ element)
+	{
+		if (element == nullptr)
+			return nullptr;
+		QuantizeSettings^ result = gcnew QuantizeSettings();
+		result->Colors = _Variables->GetValue<int>(element, "colors");
+		result->ColorSpace = _Variables->GetValue<ColorSpace>(element, "colorSpace");
+		result->MeasureErrors = _Variables->GetValue<bool>(element, "measureErrors");
+		result->TreeDepth = _Variables->GetValue<int>(element, "treeDepth");
 		return result;
 	}
 }

@@ -1114,6 +1114,7 @@
 			</xs:choice>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="quantizeSettings" />
 	<xs:complexType name="read">
 		<xs:sequence>
 			<xs:element name="settings" minOccurs="0">
@@ -1897,7 +1898,11 @@
 						<xs:attribute name="levels" use="required" type="int" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="quantize" type="empty" />
+				<xs:element name="quantize">
+					<xs:complexType>
+						<xs:attribute name="measureError" type="bool" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="raise">
 					<xs:complexType>
 						<xs:attribute name="size" use="required" type="int" />

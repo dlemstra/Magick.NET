@@ -284,6 +284,9 @@ namespace Magick.NET.FileGenerator
 				case "PixelStorageSettings^":
 					writer.Write("CreatePixelStorageSettings");
 					break;
+				case "QuantizeSettings^":
+					writer.Write("CreateQuantizeSettings");
+					break;
 				default:
 					throw new NotImplementedException(typeName);
 			}
@@ -345,6 +348,8 @@ namespace Magick.NET.FileGenerator
 					writer.Write("element");
 					break;
 				case "MagickImage^":
+				case "PixelStorageSettings^":
+				case "QuantizeSettings^":
 					writer.Write("(XmlElement^)element->SelectSingleNode(\"");
 					if (string.IsNullOrEmpty(elementName))
 						writer.Write("read");
@@ -358,11 +363,6 @@ namespace Magick.NET.FileGenerator
 						writer.Write("geometry");
 					else
 						writer.Write(elementName);
-					writer.Write("\")");
-					break;
-				case "PixelStorageSettings^":
-					writer.Write("(XmlElement^)element->SelectSingleNode(\"");
-					writer.Write(elementName);
 					writer.Write("\")");
 					break;
 				default:

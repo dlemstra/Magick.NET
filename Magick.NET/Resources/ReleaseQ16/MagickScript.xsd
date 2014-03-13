@@ -1115,6 +1115,12 @@
 			</xs:choice>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="quantizeSettings">
+		<xs:attribute name="colors" type="int" />
+		<xs:attribute name="colorSpace" type="ColorSpace" />
+		<xs:attribute name="measureErrors" type="bool" />
+		<xs:attribute name="treeDepth" type="int" />
+	</xs:complexType>
 	<xs:complexType name="read">
 		<xs:sequence>
 			<xs:element name="settings" minOccurs="0">
@@ -1335,26 +1341,6 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="quality">
-					<xs:complexType>
-						<xs:attribute name="value" use="required" type="int" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="quantizeColors">
-					<xs:complexType>
-						<xs:attribute name="value" use="required" type="int" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="quantizeColorSpace">
-					<xs:complexType>
-						<xs:attribute name="value" use="required" type="ColorSpace" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="quantizeDither">
-					<xs:complexType>
-						<xs:attribute name="value" use="required" type="bool" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="quantizeTreeDepth">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="int" />
 					</xs:complexType>
@@ -1898,7 +1884,13 @@
 						<xs:attribute name="levels" use="required" type="int" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="quantize" type="empty" />
+				<xs:element name="quantize">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="settings" type="quantizeSettings" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="raise">
 					<xs:complexType>
 						<xs:attribute name="size" use="required" type="int" />
@@ -1977,6 +1969,7 @@
 				<xs:element name="segment">
 					<xs:complexType>
 						<xs:attribute name="clusterThreshold" type="double" />
+						<xs:attribute name="quantizeColorSpace" type="ColorSpace" />
 						<xs:attribute name="smoothingThreshold" type="double" />
 					</xs:complexType>
 				</xs:element>
@@ -2076,7 +2069,7 @@
 				</xs:element>
 				<xs:element name="threshold">
 					<xs:complexType>
-						<xs:attribute name="value" use="required" type="double" />
+						<xs:attribute name="percentage" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="thumbnail">

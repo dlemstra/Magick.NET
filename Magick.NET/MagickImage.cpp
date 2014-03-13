@@ -875,46 +875,6 @@ namespace ImageMagick
 		Value->quality(quality);
 	}
 	//==============================================================================================
-	int MagickImage::QuantizeColors::get()
-	{
-		return Convert::ToInt32(Value->quantizeColors());
-	}
-	//==============================================================================================
-	void MagickImage::QuantizeColors::set(int value)
-	{
-		Value->quantizeColors(value);
-	}
-	//==============================================================================================
-	ImageMagick::ColorSpace MagickImage::QuantizeColorSpace::get()
-	{
-		return (ImageMagick::ColorSpace)Value->quantizeColorSpace();
-	}
-	//==============================================================================================
-	void MagickImage::QuantizeColorSpace::set(ImageMagick::ColorSpace value)
-	{
-		return Value->quantizeColorSpace((Magick::ColorspaceType)value);
-	}
-	//==============================================================================================
-	bool MagickImage::QuantizeDither::get()
-	{
-		return Value->quantizeDither();
-	}
-	//==============================================================================================
-	void MagickImage::QuantizeDither::set(bool value)
-	{
-		Value->quantizeDither(value);
-	}
-	//==============================================================================================
-	int MagickImage::QuantizeTreeDepth::get()
-	{
-		return Convert::ToInt32(Value->quantizeTreeDepth());
-	}
-	//==============================================================================================
-	void MagickImage::QuantizeTreeDepth::set(int value)
-	{
-		Value->quantizeTreeDepth(value);
-	}
-	//==============================================================================================
 	MagickWarningException^ MagickImage::ReadWarning::get()
 	{
 		return _ReadWarning;
@@ -3797,23 +3757,21 @@ namespace ImageMagick
 		Posterize(levels, false, channels);
 	}
 	//==============================================================================================
-	void MagickImage::Quantize()
+	MagickErrorInfo^ MagickImage::Quantize(QuantizeSettings^ settings)
 	{
-		Quantize(false);
-	}
-	//==============================================================================================
-	MagickErrorInfo^ MagickImage::Quantize(bool measureError)
-	{
+		Throw::IfNull("settings", settings);
+
 		try
 		{
-			Value->quantize(measureError);
+			settings->Apply(Value);
+			Value->quantize(settings->MeasureErrors);
 		}
 		catch(Magick::Exception& exception)
 		{
 			HandleException(exception);
 		}
 
-		return measureError ? gcnew MagickErrorInfo(Value) : nullptr;
+		return settings->MeasureErrors ? gcnew MagickErrorInfo(Value) : nullptr;
 	}
 	//==============================================================================================
 	void MagickImage::Raise(int size)
@@ -4114,13 +4072,14 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Segment()
 	{
-		Segment(1.0, 1.5);
+		Segment(ImageMagick::ColorSpace::Undefined, 1.0, 1.5);
 	}
 	//==============================================================================================
-	void MagickImage::Segment(double clusterThreshold, double smoothingThreshold)
+	void MagickImage::Segment(ImageMagick::ColorSpace quantizeColorSpace, double clusterThreshold, double smoothingThreshold)
 	{
 		try
 		{
+			Value->quantizeColorSpace((Magick::ColorspaceType)quantizeColorSpace);
 			Value->segment(clusterThreshold, smoothingThreshold);
 		}
 		catch(Magick::Exception& exception)
