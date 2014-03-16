@@ -72,32 +72,32 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
-    <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
     <TargetName>Magick.NET-x86</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
     <TargetName>Magick.NET-x86</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
-    <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
     <TargetName>Magick.NET-x64</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)bin\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</OutDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
-    <IntDir>$(ProjectDir)lib\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\</IntDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
     <TargetName>Magick.NET-x64</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
@@ -548,7 +548,7 @@
     <None Include="Resources\$(Configuration)\MagickScript.xsd" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resources\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\Magick.NET.rc" />
+    <ResourceCompile Include="Resources\$(Configuration)\$(Platform)\Magick.NET.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

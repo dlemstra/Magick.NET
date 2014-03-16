@@ -22,6 +22,14 @@
 extern "C" {
 #endif
 
+#define LockSemaphoreInfo(mutex) \
+  printf("LockSemaphoreInfo[%d] (%s %s:%d)\n",(int)mutex,__FILE__,__func__,(unsigned long) __LINE__); \
+  LLockSemaphoreInfo(mutex);
+
+#define UnlockSemaphoreInfo(mutex) \
+  printf("UnlockSemaphoreInfo[%d] (%s %s:%d)\n",(int)mutex,__FILE__,__func__,(unsigned long) __LINE__); \
+  UUnlockSemaphoreInfo(mutex);
+
 typedef struct SemaphoreInfo
   SemaphoreInfo;
 
@@ -34,9 +42,9 @@ extern MagickExport SemaphoreInfo
 extern MagickExport void
   ActivateSemaphoreInfo(SemaphoreInfo **),
   DestroySemaphoreInfo(SemaphoreInfo **),
-  LockSemaphoreInfo(SemaphoreInfo *),
+  LLockSemaphoreInfo(SemaphoreInfo *),
   SemaphoreComponentTerminus(void),
-  UnlockSemaphoreInfo(SemaphoreInfo *);
+  UUnlockSemaphoreInfo(SemaphoreInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

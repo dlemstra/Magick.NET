@@ -15,6 +15,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -75,6 +76,13 @@ namespace Magick.NET.FileGenerator
 				return true;
 
 			return false;
+		}
+		//===========================================================================================
+		private void CopyDocumentation()
+		{
+			string source = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\bin\Release" + MagickNET.Depth + @"\Win32\Magick.NET-x86.xml";
+			string destination = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET.AnyCPU\bin\Release" + MagickNET.Depth + @"\AnyCPU\Magick.NET-AnyCPU.xml";
+			File.Copy(source, destination, true);
 		}
 		//===========================================================================================
 		private static bool HasMethod(Type type, MethodInfo method)
@@ -874,10 +882,6 @@ namespace Magick.NET.FileGenerator
 							writer.Write(".GetInstance(");
 							writer.WriteLine("value));");
 						}
-						else if (parameter.ParameterType == typeof(UInt64))
-						{
-							writer.WriteLine("(Int64)value);");
-						}
 						else
 						{
 							writer.WriteLine("value);");
@@ -973,10 +977,6 @@ namespace Magick.NET.FileGenerator
 				WriteType(writer, genericArgument);
 				writer.WriteLine(">(result).GetEnumerator();");
 			}
-			else if (type == typeof(UInt64))
-			{
-				writer.WriteLine("return (UInt64)(Int64)result;");
-			}
 			else if (type.IsSubclassOf(typeof(Exception)))
 			{
 				writer.Write("return (");
@@ -1059,6 +1059,7 @@ namespace Magick.NET.FileGenerator
 			writer.WriteLine("using System.IO;");
 			writer.WriteLine("using System.Reflection;");
 			writer.WriteLine("using System.Text;");
+			writer.WriteLine("using System.Windows.Media.Imaging;");
 			writer.WriteLine("using System.Xml.XPath;");
 			writer.WriteLine("using Fasterflect;");
 			writer.WriteLine();
@@ -1084,24 +1085,30 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
+		private static void Generate(QuantumDepth depth)
+		{
+			ClassGenerator generator = new ClassGenerator(depth);
+			foreach (Type type in generator._Types)
+			{
+				if (!MagickNET.IsQuantumDependant(type))
+					continue;
+
+				generator.Generate(type);
+				generator.CopyDocumentation();
+			}
+		}
+		//===========================================================================================
 		public static void Generate()
 		{
 			ClassGenerator generator = new ClassGenerator();
 			foreach (Type type in generator._Types)
 			{
 				if (!MagickNET.IsQuantumDependant(type))
-				{
 					generator.Generate(type);
-				}
-				else
-				{
-					ClassGenerator generatorQ8 = new ClassGenerator(QuantumDepth.Q8);
-					generatorQ8.Generate(type);
-
-					ClassGenerator generatorQ16 = new ClassGenerator(QuantumDepth.Q16);
-					generatorQ16.Generate(type);
-				}
 			}
+
+			Generate(QuantumDepth.Q8);
+			Generate(QuantumDepth.Q16);
 		}
 		//===========================================================================================
 	}

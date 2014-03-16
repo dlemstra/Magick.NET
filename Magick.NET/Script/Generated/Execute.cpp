@@ -3366,6 +3366,10 @@ namespace ImageMagick
 					return ExecuteOptimizePlus(collection);
 				}
 			}
+			case 'q':
+			{
+				return ExecuteQuantize(element, collection);
+			}
 			case 'r':
 			{
 				switch(element->Name[2])
@@ -3455,6 +3459,12 @@ namespace ImageMagick
 	MagickImage^ MagickScript::ExecuteOptimizePlus(MagickImageCollection^ collection)
 	{
 		collection->OptimizePlus();
+		return nullptr;
+	}
+	MagickImage^ MagickScript::ExecuteQuantize(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		QuantizeSettings^ settings_ = CreateQuantizeSettings((XmlElement^)element->SelectSingleNode("settings"));
+		collection->Quantize(settings_);
 		return nullptr;
 	}
 	MagickImage^ MagickScript::ExecuteRePage(MagickImageCollection^ collection)

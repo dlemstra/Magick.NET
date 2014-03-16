@@ -1,4 +1,4 @@
-﻿//=================================================================================================
+//=================================================================================================
 // Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -18,11 +18,17 @@ using System.Runtime.InteropServices;
 using System.Web;
 
 //=================================================================================================
-[assembly: AssemblyTitle("Magick.NET.AnyCPU net40-client")]
+#if Q8
+[assembly: AssemblyTitle("Magick.NET Q8 AnyCPU net40-client")]
+#elif Q16
+[assembly: AssemblyTitle("Magick.NET Q16 AnyCPU net40-client")]
+#else
+#error Not implemented!
+#endif
 [assembly: AssemblyProduct("Magick.NET")]
 [assembly: AssemblyDescription("Magick.NET.AnyCPU")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright © Dirk Lemstra 2014")]
+[assembly: AssemblyCopyright("Copyright � Dirk Lemstra 2014")]
 [assembly: AssemblyTrademark("")]
 //=================================================================================================
 [assembly: AssemblyConfiguration("Release")]

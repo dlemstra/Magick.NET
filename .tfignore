@@ -40,8 +40,8 @@
 #
 ################################################################################
 
-\Magick.NET\lib
 \Magick.NET\bin
+\Magick.NET\lib
 \Magick.NET\Resources\ReleaseQ8\v2.0\x64\Magick.NET.aps
 \Magick.NET\Resources\ReleaseQ8\v2.0\Win32\Magick.NET.aps
 \Magick.NET\Resources\ReleaseQ8\v4.0\x64\Magick.NET.aps
@@ -50,9 +50,13 @@
 \Magick.NET\Resources\ReleaseQ16\v2.0\Win32\Magick.NET.aps
 \Magick.NET\Resources\ReleaseQ16\v4.0\x64\Magick.NET.aps
 \Magick.NET\Resources\ReleaseQ16\v4.0\Win32\Magick.NET.aps
-\Magick.NET.AnyCPU\Generated
-\Magick.NET.AnyCPU\Resources\Q8
-\Magick.NET.AnyCPU\Resources\Q16
+\Magick.NET.net20\bin
+\Magick.NET.net20\lib
+\Magick.NET.AnyCPU\bin
+\Magick.NET.AnyCPU\lib
+\Magick.NET.AnyCPU\Generated\*
+\Magick.NET.AnyCPU\Resources\ReleaseQ8
+\Magick.NET.AnyCPU\Resources\ReleaseQ16
 \ImageMagick\Source\ImageMagick
 \Publish\Archive\*
 \Publish\NuGet\*.nupkg

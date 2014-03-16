@@ -3,7 +3,6 @@ $scriptPath = Split-Path -parent $MyInvocation.MyCommand.Path
 . $scriptPath\Shared\Functions.ps1
 SetFolder $scriptPath
 #==================================================================================================
-. Tools\Scripts\Shared\Build.ps1
 . Tools\Scripts\Shared\GzipAssembly.ps1
 . Tools\Scripts\Shared\FileGenerator.ps1
 . Tools\Scripts\Shared\ProjectFiles.ps1
@@ -19,5 +18,5 @@ function BuildMagickNET()
 BuildMagickNET
 GzipAssemblies
 GenerateAnyCPUFiles
-CreateTestProjectForAnyCPU
+CreateAnyCPUProjectFiles
 #==================================================================================================

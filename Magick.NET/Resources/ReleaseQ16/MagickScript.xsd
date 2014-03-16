@@ -2186,6 +2186,13 @@
 							<xs:element name="deconstruct" type="empty" />
 							<xs:element name="optimize" type="empty" />
 							<xs:element name="optimizePlus" type="empty" />
+							<xs:element name="quantize">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="settings" type="quantizeSettings" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
 							<xs:element name="rePage" type="empty" />
 							<xs:element name="reverse" type="empty" />
 						</xs:choice>

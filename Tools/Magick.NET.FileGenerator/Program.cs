@@ -30,8 +30,8 @@ namespace Magick.NET.FileGenerator
 				MagickScriptGenerator.Generate();
 			}
 
-			//if (generateAnyCPU)
-			//	AnyCPUGenerator.Generate();
+			if (generateAnyCPU)
+				AnyCPUGenerator.Generate();
 		}
 	}
 	//==============================================================================================

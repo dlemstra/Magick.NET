@@ -19,7 +19,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseQ16|x86' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ16\AnyCPU\x86\</OutputPath>
+    <OutputPath>bin\ReleaseQ16\Magick.NET.AnyCPU\</OutputPath>
     <DefineConstants>TRACE;DEBUG;Q16</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -28,7 +28,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ8\AnyCPU\x86</OutputPath>
+    <OutputPath>bin\ReleaseQ8\Magick.NET.AnyCPU\</OutputPath>
     <DefineConstants>TRACE;DEBUG;Q8</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -106,7 +106,10 @@
     <None Include="Script\Events.msl" />
     <None Include="Script\ImageProfile.msl" />
     <None Include="Script\Invalid.msl" />
-    <None Include="Script\Resize.msl" />
+    <None Include="Script\Resize.msl">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Script\Variables.msl" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

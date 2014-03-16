@@ -87,7 +87,7 @@ function Build($platform, $builds)
 
 		if ($build.Framework -eq "v2.0")
 		{
-			$options = "$($options)VCBuildAdditionalOptions=/arch:SSE";
+			$options = "$($options),VCBuildAdditionalOptions=/arch:SSE";
 		}
 
 		BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMTDLL.sln" $options

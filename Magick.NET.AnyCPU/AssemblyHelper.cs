@@ -39,11 +39,14 @@ namespace ImageMagick
 		//===========================================================================================
 		private static Assembly LoadAssembly()
 		{
-			string name = "Magick.NET-" + (Environment.Is64BitProcess ? "x64" : "x86");
 #if Q8
-			string resourceName = "ImageMagick.Resources.Q8.Magick.NET-" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gzip";
+			string name = "Magick.NET-Q8-" + (Environment.Is64BitProcess ? "x64" : "x86");
+			string resourceName = "ImageMagick.Resources.ReleaseQ8.Magick.NET-" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gz";
 #elif Q16
-			string resourceName = "ImageMagick.Resources.Q16." + name + ".gzip";
+			string name = "Magick.NET-Q16-" + (Environment.Is64BitProcess ? "x64" : "x86");
+			string resourceName = "ImageMagick.Resources.ReleaseQ16.Magick.NET-" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gz";
+#else
+#error Not implemented!
 #endif
 
 			string tempFile = GetTempFileName(name);

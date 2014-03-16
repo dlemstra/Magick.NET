@@ -499,6 +499,13 @@ namespace Magick
   using MagickCore::ResizeDistortion;
   using MagickCore::SentinelDistortion;
 
+  // Dither methods
+  using MagickCore::DitherMethod;
+  using MagickCore::UndefinedDitherMethod;
+  using MagickCore::NoDitherMethod;
+  using MagickCore::RiemersmaDitherMethod;
+  using MagickCore::FloydSteinbergDitherMethod;
+
   // Endian options
   using MagickCore::EndianType;
   using MagickCore::UndefinedEndian;
@@ -1328,6 +1335,8 @@ namespace Magick
   using MagickCore::ResourceLimitWarning;
   using MagickCore::RollImage;
   using MagickCore::RotateImage;
+  using MagickCore::RotationalBlurImage;
+  using MagickCore::RotationalBlurImageChannel;
   using MagickCore::SampleImage;
   using MagickCore::ScaleImage;
   using MagickCore::SegmentImage;

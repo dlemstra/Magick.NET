@@ -139,12 +139,19 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		public MagickNET(QuantumDepth depth)
 		{
-			string assemblyFile = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\bin\Release" + depth + @"\v4.0\Win32\Magick.NET-x86.dll";
+			string assemblyFile = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\bin\Release" + depth + @"\Win32\Magick.NET-x86.dll";
 
 			if (!File.Exists(assemblyFile))
 				throw new ArgumentException("Unable to find file: " + assemblyFile, "assemblyFile");
 
 			_MagickNET = Assembly.LoadFile(assemblyFile);
+			Depth = depth;
+		}
+		//===========================================================================================
+		public QuantumDepth Depth
+		{
+			get;
+			private set;
 		}
 		//===========================================================================================
 		public IEnumerable<Type> Enums

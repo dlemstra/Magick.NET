@@ -29,9 +29,9 @@ function GzipAssembly($inFile,$outFile)
 #==================================================================================================
 function GzipAssemblies()
 {
-	GzipAssembly "Magick.NET\bin\ReleaseQ8\v4.0\Win32\Magick.NET-x86.dll" "Magick.NET.AnyCPU\Resources\Q8\Magick.NET-x86.gzip"
-	GzipAssembly "Magick.NET\bin\ReleaseQ8\v4.0\x64\Magick.NET-x64.dll" "Magick.NET.AnyCPU\Resources\Q8\Magick.NET-x64.gzip"
-	GzipAssembly "Magick.NET\bin\ReleaseQ16\v4.0\Win32\Magick.NET-x86.dll" "Magick.NET.AnyCPU\Resources\Q16\Magick.NET-x86.gzip"
-	GzipAssembly "Magick.NET\bin\ReleaseQ16\v4.0\x64\Magick.NET-x64.dll" "Magick.NET.AnyCPU\Resources\Q16\Magick.NET-x64.gzip"
+	GzipAssembly "Magick.NET\bin\ReleaseQ8\Win32\Magick.NET-x86.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ8\Magick.NET-x86.gz"
+	GzipAssembly "Magick.NET\bin\ReleaseQ8\x64\Magick.NET-x64.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ8\Magick.NET-x64.gz"
+	GzipAssembly "Magick.NET\bin\ReleaseQ16\Win32\Magick.NET-x86.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16\Magick.NET-x86.gz"
+	GzipAssembly "Magick.NET\bin\ReleaseQ16\x64\Magick.NET-x64.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16\Magick.NET-x64.gz"
 }
 #==================================================================================================

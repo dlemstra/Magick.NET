@@ -95,7 +95,7 @@
     <Compile Include="Statistics\MagickImageStatisticsTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Magick.NET\Magick.NET.net20.vcxproj">
+    <ProjectReference Include="..\Magick.NET.net20\Magick.NET.net20.vcxproj">
       <Project>{13c84dce-50bc-42a3-bcec-d3bffe3bc49e}</Project>
       <Name>Magick.NET</Name>
     </ProjectReference>
@@ -106,7 +106,10 @@
     <None Include="Script\Events.msl" />
     <None Include="Script\ImageProfile.msl" />
     <None Include="Script\Invalid.msl" />
-    <None Include="Script\Resize.msl" />
+    <None Include="Script\Resize.msl">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Script\Variables.msl" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

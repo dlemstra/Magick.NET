@@ -194,6 +194,7 @@ static MagickImage^ ExecuteCoalesce(MagickImageCollection^ collection);
 static MagickImage^ ExecuteDeconstruct(MagickImageCollection^ collection);
 static MagickImage^ ExecuteOptimize(MagickImageCollection^ collection);
 static MagickImage^ ExecuteOptimizePlus(MagickImageCollection^ collection);
+MagickImage^ ExecuteQuantize(XmlElement^ element, MagickImageCollection^ collection);
 static MagickImage^ ExecuteRePage(MagickImageCollection^ collection);
 static MagickImage^ ExecuteReverse(MagickImageCollection^ collection);
 static MagickImage^ ExecuteAppendHorizontally(MagickImageCollection^ collection);

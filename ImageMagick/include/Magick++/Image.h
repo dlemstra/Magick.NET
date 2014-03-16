@@ -386,6 +386,10 @@ namespace Magick
     void quantizeDither(const bool ditherFlag_);
     bool quantizeDither(void) const;
 
+    // Dither method
+    void quantizeDitherMethod(const DitherMethod ditherMethod_);
+    DitherMethod quantizeDitherMethod(void) const; 
+
     // Quantization tree-depth
     void quantizeTreeDepth(const size_t treeDepth_);
     size_t quantizeTreeDepth(void) const;
@@ -1195,6 +1199,11 @@ namespace Magick
 
     // Rotate image counter-clockwise by specified number of degrees.
     void rotate(const double degrees_);
+
+    // Rotational blur image.
+    void rotationalBlur(const double angle_);
+    void rotationalBlurChannel(const ChannelType channel_,
+      const double angle_);
 
     // Resize image by using pixel sampling algorithm
     void sample(const Geometry &geometry_);

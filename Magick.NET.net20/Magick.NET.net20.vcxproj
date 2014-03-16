@@ -1,0 +1,537 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="ReleaseQ16|Win32">
+      <Configuration>ReleaseQ16</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseQ16|x64">
+      <Configuration>ReleaseQ16</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseQ8|Win32">
+      <Configuration>ReleaseQ8</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseQ8|x64">
+      <Configuration>ReleaseQ8</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}</ProjectGuid>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>ImageMagick</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v90</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v90</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v90</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v90</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <LinkKeyFile>$(ProjectDir)\..\Magick.NET\Magick.NET.snk</LinkKeyFile>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>Magick.NET-x86</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <LinkKeyFile>$(ProjectDir)\..\Magick.NET\Magick.NET.snk</LinkKeyFile>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>Magick.NET-x86</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <LinkKeyFile>$(ProjectDir)\..\Magick.NET\Magick.NET.snk</LinkKeyFile>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>Magick.NET-x64</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <LinkKeyFile>$(ProjectDir)\..\Magick.NET\Magick.NET.snk</LinkKeyFile>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>Magick.NET-x64</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>NET20;WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\ImageMagick\include;..\ImageMagick\Q8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>true</EnablePREfast>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x86;..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EmbedManagedResourceFile>..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\sRGB.icm;..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>NET20;WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\ImageMagick\include;..\ImageMagick\Q16\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>true</EnablePREfast>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x86;..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EmbedManagedResourceFile>..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\sRGB.icm;..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>NET20;WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\ImageMagick\include;..\ImageMagick\Q8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>true</EnablePREfast>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EmbedManagedResourceFile>..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\sRGB.icm;..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>NET20;WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\ImageMagick\include;..\ImageMagick\Q16\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>true</EnablePREfast>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EmbedManagedResourceFile>..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\sRGB.icm;..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Magick.NET\MagickConverter.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableDashArray.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableDashOffset.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableEllipse.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableFillColor.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableFillOpacity.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableFillRule.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableFont.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableGravity.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableMatte.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableMiterLimit.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawablePath.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawablePoint.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawablePointSize.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawablePolygon.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawablePolyline.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawablePopClipPath.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawablePopGraphicContext.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawablePopPattern.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawablePushClipPath.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawablePushGraphicContext.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawablePushPattern.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableRectangle.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableRotation.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableRoundRectangle.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableScaling.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableSkewX.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableSkewY.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableStrokeAntialias.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableStrokeColor.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableStrokeLineCap.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableStrokeLineJoin.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableStrokeOpacity.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableStrokeWidth.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableText.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableTextAntialias.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableTextDecoration.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableTextDirection.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableTextInterlineSpacing.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableTextInterwordSpacing.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableTextKerning.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableTextUnderColor.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableTranslation.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableViewbox.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\Args\PathQuadraticCurveto.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathArcAbs.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\Args\PathArc.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathArcRel.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\Args\Base\PathArgsWrapper.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathClosePath.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathCurvetoAbs.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\Args\PathCurveto.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathCurvetoRel.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\Base\PathWrapper.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\Base\PathBase.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathLinetoAbs.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathLinetoHorizontalAbs.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathLinetoHorizontalRel.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathLinetoRel.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathLinetoVerticalAbs.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathLinetoVerticalRel.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathMovetoAbs.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathMovetoRel.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathQuadraticCurvetoAbs.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathQuadraticCurvetoRel.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathSmoothCurvetoAbs.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathSmoothCurvetoRel.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathSmoothQuadraticCurvetoAbs.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Paths\PathSmoothQuadraticCurvetoRel.h" />
+    <ClInclude Include="..\Magick.NET\Enums\AlphaOption.h" />
+    <ClInclude Include="..\Magick.NET\Enums\ClassType.h" />
+    <ClInclude Include="..\Magick.NET\Enums\CompressionMethod.h" />
+    <ClInclude Include="..\Magick.NET\Enums\Endian.h" />
+    <ClInclude Include="..\Magick.NET\Enums\FillRule.h" />
+    <ClInclude Include="..\Magick.NET\Enums\FilterType.h" />
+    <ClInclude Include="..\Magick.NET\Enums\FontStretch.h" />
+    <ClInclude Include="..\Magick.NET\Enums\FontStyleType.h" />
+    <ClInclude Include="..\Magick.NET\Enums\FontWeight.h" />
+    <ClInclude Include="..\Magick.NET\Enums\GifDisposeMethod.h" />
+    <ClInclude Include="..\Magick.NET\Enums\Interlace.h" />
+    <ClInclude Include="..\Magick.NET\Enums\Kernel.h" />
+    <ClInclude Include="..\Magick.NET\Enums\Metric.h" />
+    <ClInclude Include="..\Magick.NET\Enums\MorphologyMethod.h" />
+    <ClInclude Include="..\Magick.NET\Enums\PixelChannel.h" />
+    <ClInclude Include="..\Magick.NET\Enums\PixelInterpolateMethod.h" />
+    <ClInclude Include="..\Magick.NET\Enums\StorageType.h" />
+    <ClInclude Include="..\Magick.NET\Enums\LayerMethod.h" />
+    <ClInclude Include="..\Magick.NET\Enums\LineCap.h" />
+    <ClInclude Include="..\Magick.NET\Enums\LineJoin.h" />
+    <ClInclude Include="..\Magick.NET\Enums\EvaluateOperator.h" />
+    <ClInclude Include="..\Magick.NET\Enums\LogEvents.h" />
+    <ClInclude Include="..\Magick.NET\Enums\OrientationType.h" />
+    <ClInclude Include="..\Magick.NET\Enums\RenderingIntent.h" />
+    <ClInclude Include="..\Magick.NET\Enums\SparseColorMethod.h" />
+    <ClInclude Include="..\Magick.NET\Enums\TextDecoration.h" />
+    <ClInclude Include="..\Magick.NET\Enums\TextDirection.h" />
+    <ClInclude Include="..\Magick.NET\Enums\VirtualPixelMethod.h" />
+    <ClInclude Include="..\Magick.NET\Events\LogEventArgs.h" />
+    <ClInclude Include="..\Magick.NET\Events\WarningEventArgs.h" />
+    <ClInclude Include="..\Magick.NET\Exceptions\MagickErrorExceptions.h" />
+    <ClInclude Include="..\Magick.NET\Exceptions\Base\MagickException.h" />
+    <ClInclude Include="..\Magick.NET\Exceptions\MagickWarningExceptions.h" />
+    <ClInclude Include="..\Magick.NET\Helpers\ByteConverter.h" />
+    <ClInclude Include="..\Magick.NET\MagickSearchResult.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\8Bim\ClipPathReader.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\8Bim\EightBimProfile.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\Exif\ExifDataType.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\Exif\ExifProfile.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\Exif\ExifReader.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\Exif\ExifTag.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\Exif\ExifValue.h" />
+    <ClInclude Include="..\Magick.NET\Helpers\EnumHelper.h" />
+    <ClInclude Include="..\Magick.NET\Helpers\FileHelper.h" />
+    <ClInclude Include="..\Magick.NET\Helpers\XmlHelper.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\ImageProfile.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\Iptc\IptcProfile.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\Iptc\IptcTag.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\Iptc\IptcValue.h" />
+    <ClInclude Include="..\Magick.NET\Quantum.h" />
+    <ClInclude Include="..\Magick.NET\ResourceLimits.h" />
+    <ClInclude Include="..\Magick.NET\Script\ScriptReadEventArgs.h" />
+    <ClInclude Include="..\Magick.NET\Script\MagickScript.h" />
+    <ClInclude Include="..\Magick.NET\Script\ScriptVariables.h" />
+    <ClInclude Include="..\Magick.NET\Script\ScriptWriteEventArgs.h" />
+    <ClInclude Include="..\Magick.NET\Settings\PixelStorageSettings.h" />
+    <ClInclude Include="..\Magick.NET\Settings\QuantizeSettings.h" />
+    <ClInclude Include="..\Magick.NET\Statistics\ChannelStatistics.h" />
+    <ClInclude Include="..\Magick.NET\MagickFormatInfo.h" />
+    <ClInclude Include="..\Magick.NET\Statistics\MagickImageStatistics.h" />
+    <ClInclude Include="..\Magick.NET\MagickErrorInfo.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Coordinate.h" />
+    <ClInclude Include="..\Magick.NET\Enums\DistortMethod.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Base\Drawable.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableArc.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\Base\DrawableWrapper.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableBezier.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableCircle.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableClipPath.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableColor.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableCompositeImage.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableLine.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableAffine.h" />
+    <ClInclude Include="..\Magick.NET\Enums\Channels.h" />
+    <ClInclude Include="..\Magick.NET\Colors\ColorCMYK.h" />
+    <ClInclude Include="..\Magick.NET\Colors\ColorGray.h" />
+    <ClInclude Include="..\Magick.NET\Colors\ColorHSL.h" />
+    <ClInclude Include="..\Magick.NET\Colors\ColorMono.h" />
+    <ClInclude Include="..\Magick.NET\Colors\ColorRGB.h" />
+    <ClInclude Include="..\Magick.NET\Colors\ColorYUV.h" />
+    <ClInclude Include="..\Magick.NET\Enums\CompositeOperator.h" />
+    <ClInclude Include="..\Magick.NET\Enums\ColorType.h" />
+    <ClInclude Include="..\Magick.NET\Enums\Gravity.h" />
+    <ClInclude Include="..\Magick.NET\Colors\MagickColor.h" />
+    <ClInclude Include="..\Magick.NET\Colors\Base\ColorBase.h" />
+    <ClInclude Include="..\Magick.NET\Percentage.h" />
+    <ClInclude Include="..\Magick.NET\Enums\Resolution.h" />
+    <ClInclude Include="..\Magick.NET\TypeMetric.h" />
+    <ClInclude Include="..\Magick.NET\Settings\MagickReadSettings.h" />
+    <ClInclude Include="..\Magick.NET\Matrices\ColorMatrix.h" />
+    <ClInclude Include="..\Magick.NET\Matrices\ConvolveMatrix.h" />
+    <ClInclude Include="..\Magick.NET\MagickImageCollection.h" />
+    <ClInclude Include="..\Magick.NET\MagickImageInfo.h" />
+    <ClInclude Include="..\Magick.NET\MagickNET.h" />
+    <ClInclude Include="..\Magick.NET\Enums\ColorSpace.h" />
+    <ClInclude Include="..\Magick.NET\Enums\MagickFormat.h" />
+    <ClInclude Include="..\Magick.NET\MagickGeometry.h" />
+    <ClInclude Include="..\Magick.NET\MagickImage.h" />
+    <ClInclude Include="..\Magick.NET\IO\MagickReader.h" />
+    <ClInclude Include="..\Magick.NET\Base\MagickWrapper.h" />
+    <ClInclude Include="..\Magick.NET\IO\MagickWriter.h" />
+    <ClInclude Include="..\Magick.NET\Matrices\Base\DoubleMatrix.h" />
+    <ClInclude Include="..\Magick.NET\Enums\NoiseType.h" />
+    <ClInclude Include="..\Magick.NET\Enums\PaintMethod.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\Color\ColorProfile.h" />
+    <ClInclude Include="..\Magick.NET\Pixels\Pixel.h" />
+    <ClInclude Include="..\Magick.NET\Pixels\PixelCollection.h" />
+    <ClInclude Include="..\Magick.NET\Pixels\Base\PixelBaseCollection.h" />
+    <ClInclude Include="..\Magick.NET\Pixels\WritablePixelCollection.h" />
+    <ClInclude Include="..\Magick.NET\Resources\resource.h" />
+    <ClInclude Include="..\Magick.NET\Stdafx.h" />
+    <ClInclude Include="..\Magick.NET\Helpers\Marshaller.h" />
+    <ClInclude Include="..\Magick.NET\Helpers\Throw.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Magick.NET\MagickConverter.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableDashArray.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableDashOffset.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableEllipse.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableFillColor.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableFillOpacity.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableFillRule.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableFont.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableGravity.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableMatte.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableMiterLimit.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawablePath.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawablePoint.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawablePointSize.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawablePolygon.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawablePolyline.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawablePopClipPath.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawablePopGraphicContext.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawablePopPattern.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawablePushClipPath.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawablePushGraphicContext.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawablePushPattern.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableRectangle.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableRotation.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableRoundRectangle.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableScaling.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableSkewX.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableSkewY.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableStrokeAntialias.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableStrokeColor.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableStrokeLineCap.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableStrokeLineJoin.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableStrokeOpacity.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableStrokeWidth.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableText.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableTextAntialias.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableTextDecoration.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableTextDirection.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableTextInterlineSpacing.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableTextInterwordSpacing.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableTextKerning.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableTextUnderColor.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableTranslation.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableViewbox.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\Args\PathQuadraticCurveto.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathArcAbs.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\Args\PathArc.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathArcRel.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathClosePath.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathCurvetoAbs.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\Args\PathCurveto.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathCurvetoRel.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathLinetoAbs.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathLinetoHorizontalAbs.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathLinetoHorizontalRel.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathLinetoRel.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathLinetoVerticalAbs.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathLinetoVerticalRel.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathMovetoAbs.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathMovetoRel.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathQuadraticCurvetoAbs.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathQuadraticCurvetoRel.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathSmoothCurvetoAbs.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathSmoothCurvetoRel.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathSmoothQuadraticCurvetoAbs.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Paths\PathSmoothQuadraticCurvetoRel.cpp" />
+    <ClCompile Include="..\Magick.NET\Events\LogEventArgs.cpp" />
+    <ClCompile Include="..\Magick.NET\Events\WarningEventArgs.cpp" />
+    <ClCompile Include="..\Magick.NET\Exceptions\Base\MagickException.cpp" />
+    <ClCompile Include="..\Magick.NET\Helpers\ByteConverter.cpp" />
+    <ClCompile Include="..\Magick.NET\Initialize.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET\MagickSearchResult.cpp" />
+    <ClCompile Include="..\Magick.NET\Profiles\8Bim\ClipPathReader.cpp" />
+    <ClCompile Include="..\Magick.NET\Profiles\8Bim\EightBimProfile.cpp" />
+    <ClCompile Include="..\Magick.NET\Profiles\Exif\ExifProfile.cpp" />
+    <ClCompile Include="..\Magick.NET\Profiles\Exif\ExifReader.cpp" />
+    <ClCompile Include="..\Magick.NET\Profiles\Exif\ExifValue.cpp" />
+    <ClCompile Include="..\Magick.NET\Helpers\EnumHelper.cpp" />
+    <ClCompile Include="..\Magick.NET\Helpers\FileHelper.cpp" />
+    <ClCompile Include="..\Magick.NET\Helpers\XmlHelper.cpp" />
+    <ClCompile Include="..\Magick.NET\Profiles\ImageProfile.cpp" />
+    <ClCompile Include="..\Magick.NET\Profiles\Iptc\IptcProfile.cpp" />
+    <ClCompile Include="..\Magick.NET\Profiles\Iptc\IptcValue.cpp" />
+    <ClCompile Include="..\Magick.NET\Quantum.cpp" />
+    <ClCompile Include="..\Magick.NET\ResourceLimits.cpp" />
+    <ClCompile Include="..\Magick.NET\Script\Generated\Execute.cpp" />
+    <ClCompile Include="..\Magick.NET\Script\MagickScript.cpp" />
+    <ClCompile Include="..\Magick.NET\Script\ScriptReadEventArgs.cpp" />
+    <ClCompile Include="..\Magick.NET\Script\ScriptVariables.cpp" />
+    <ClCompile Include="..\Magick.NET\Script\ScriptWriteEventArgs.cpp" />
+    <ClCompile Include="..\Magick.NET\Settings\MagickReadSettings.cpp" />
+    <ClCompile Include="..\Magick.NET\Settings\PixelStorageSettings.cpp" />
+    <ClCompile Include="..\Magick.NET\Settings\QuantizeSettings.cpp" />
+    <ClCompile Include="..\Magick.NET\Statistics\ChannelStatistics.cpp" />
+    <ClCompile Include="..\Magick.NET\MagickFormatInfo.cpp" />
+    <ClCompile Include="..\Magick.NET\Statistics\MagickImageStatistics.cpp" />
+    <ClCompile Include="..\Magick.NET\MagickErrorInfo.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\Coordinate.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableArc.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableBezier.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableCircle.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableClipPath.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableColor.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableCompositeImage.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableLine.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableAffine.cpp" />
+    <ClCompile Include="..\Magick.NET\AssemblyInfo.cpp" />
+    <ClCompile Include="..\Magick.NET\Colors\ColorCMYK.cpp" />
+    <ClCompile Include="..\Magick.NET\Colors\ColorGray.cpp" />
+    <ClCompile Include="..\Magick.NET\Colors\ColorHSL.cpp" />
+    <ClCompile Include="..\Magick.NET\Colors\ColorMono.cpp" />
+    <ClCompile Include="..\Magick.NET\Colors\ColorRGB.cpp" />
+    <ClCompile Include="..\Magick.NET\Colors\ColorYUV.cpp" />
+    <ClCompile Include="..\Magick.NET\Colors\MagickColor.cpp" />
+    <ClCompile Include="..\Magick.NET\Colors\Base\ColorBase.cpp" />
+    <ClCompile Include="..\Magick.NET\Percentage.cpp" />
+    <ClCompile Include="..\Magick.NET\TypeMetric.cpp" />
+    <ClCompile Include="..\Magick.NET\Exceptions\MagickErrorExceptions.cpp" />
+    <ClCompile Include="..\Magick.NET\Exceptions\MagickWarningExceptions.cpp" />
+    <ClCompile Include="..\Magick.NET\Matrices\ColorMatrix.cpp" />
+    <ClCompile Include="..\Magick.NET\Matrices\ConvolveMatrix.cpp" />
+    <ClCompile Include="..\Magick.NET\MagickImageCollection.cpp" />
+    <ClCompile Include="..\Magick.NET\MagickImageInfo.cpp" />
+    <ClCompile Include="..\Magick.NET\MagickNET.cpp" />
+    <ClCompile Include="..\Magick.NET\MagickGeometry.cpp" />
+    <ClCompile Include="..\Magick.NET\MagickImage.cpp" />
+    <ClCompile Include="..\Magick.NET\IO\MagickReader.cpp" />
+    <ClCompile Include="..\Magick.NET\IO\MagickWriter.cpp" />
+    <ClCompile Include="..\Magick.NET\Matrices\Base\DoubleMatrix.cpp" />
+    <ClCompile Include="..\Magick.NET\Profiles\Color\ColorProfile.cpp" />
+    <ClCompile Include="..\Magick.NET\Pixels\Pixel.cpp" />
+    <ClCompile Include="..\Magick.NET\Pixels\PixelCollection.cpp" />
+    <ClCompile Include="..\Magick.NET\Pixels\Base\PixelBaseCollection.cpp" />
+    <ClCompile Include="..\Magick.NET\Pixels\WritablePixelCollection.cpp" />
+    <ClCompile Include="..\Magick.NET\Stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET\Helpers\Marshaller.cpp" />
+    <ClCompile Include="..\Magick.NET\Helpers\Throw.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc" />
+    <None Include="..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc" />
+    <None Include="..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc" />
+    <None Include="..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc" />
+    <None Include="..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc" />
+    <None Include="..\Magick.NET\Resources\ColorProfiles\RGB\sRGB.icm" />
+    <None Include="..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\Magick.NET\Resources\$(Configuration)\$(Platform)\Magick.NET.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
