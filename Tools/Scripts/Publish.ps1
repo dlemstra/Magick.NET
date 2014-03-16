@@ -294,16 +294,16 @@ function UpdateResourceFiles($builds)
 	}
 }
 #==================================================================================================
-#CheckArchive
-#UpdateAssemblyInfo "Magick.NET\AssemblyInfo.cpp"
-#UpdateAssemblyInfo "Magick.NET.AnyCPU\Properties\AssemblyInfo.cs"
-#UpdateAssemblyInfo "Magick.NET.Web\Properties\AssemblyInfo.cs"
-#CreateNet20ProjectFiles
-#Publish $builds
-#CreateScriptZipFile $builds[0]
-#CreateScriptZipFile $builds[2]
-#GzipAssemblies
-#GenerateAnyCPUFiles
-#CreateAnyCPUProjectFiles
+CheckArchive
+UpdateAssemblyInfo "Magick.NET\AssemblyInfo.cpp"
+UpdateAssemblyInfo "Magick.NET.AnyCPU\Properties\AssemblyInfo.cs"
+UpdateAssemblyInfo "Magick.NET.Web\Properties\AssemblyInfo.cs"
+CreateNet20ProjectFiles
+Publish $builds
+CreateScriptZipFile $builds[0]
+CreateScriptZipFile $builds[2]
+GzipAssemblies
+GenerateAnyCPUFiles
+CreateAnyCPUProjectFiles
 Publish $anyCPUbuilds
 #==================================================================================================
