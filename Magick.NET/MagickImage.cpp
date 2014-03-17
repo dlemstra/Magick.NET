@@ -3990,6 +3990,30 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::RotationalBlur(double angle)
+	{
+		try
+		{
+			Value->rotationalBlur(angle);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::RotationalBlur(double angle, Channels channels)
+	{
+		try
+		{
+			Value->rotationalBlurChannel((Magick::ChannelType)channels, angle);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Sample(int width, int height)
 	{
 		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);

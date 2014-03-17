@@ -711,6 +711,9 @@
     <ClInclude Include="Settings\QuantizeSettings.h">
       <Filter>Header Files\Settings</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\DitherMethod.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1152,7 +1155,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resources\$(Configuration)\$(TargetFrameworkVersion)\$(Platform)\Magick.NET.rc">
+    <ResourceCompile Include="Resources\$(Configuration)\$(Platform)\Magick.NET.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

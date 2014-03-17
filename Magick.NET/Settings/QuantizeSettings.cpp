@@ -21,6 +21,16 @@ namespace ImageMagick
 	{
 		image->quantizeColors(Colors);
 		image->quantizeColorSpace((Magick::ColorspaceType)ColorSpace);
+		if (DitherMethod.HasValue)
+		{
+			image->quantizeDither(true);
+			image->quantizeDitherMethod((Magick::DitherMethod)DitherMethod.Value);
+		}
+		else
+		{
+			image->quantizeDither(false);
+
+		}
 		image->quantizeTreeDepth(TreeDepth);
 	}
 	//==============================================================================================

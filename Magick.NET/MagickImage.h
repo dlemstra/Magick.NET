@@ -2679,6 +2679,21 @@ namespace ImageMagick
 		void Rotate(double degrees);
 		///==========================================================================================
 		///<summary>
+		/// Rotational blur image.
+		///</summary>
+		///<param name="angle">The angle to use.</param>
+		///<exception cref="MagickException"/>
+		void RotationalBlur(double angle);
+		///==========================================================================================
+		///<summary>
+		/// Rotational blur image.
+		///</summary>
+		///<param name="angle">The angle to use.</param>
+		///<param name="channels">The channel(s) to use.</param>
+		///<exception cref="MagickException"/>
+		void RotationalBlur(double angle, Channels channels);
+		///==========================================================================================
+		///<summary>
 		/// Resize image by using pixel sampling algorithm.
 		///</summary>
 		///<param name="width">The new width.</param>

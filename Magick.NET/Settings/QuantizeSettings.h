@@ -14,6 +14,7 @@
 #pragma once
 
 #include "..\Enums\ColorSpace.h"
+#include "..\Enums\DitherMethod.h"
 
 namespace ImageMagick
 {
@@ -43,7 +44,12 @@ namespace ImageMagick
 		///<summary>
 		/// Colorspace to quantize in.
 		///</summary>
-		property ImageMagick::ColorSpace ColorSpace;
+		property ColorSpace ColorSpace;
+		///==========================================================================================
+		///<summary>
+		/// Dither method to use.
+		///</summary>
+		property Nullable<DitherMethod> DitherMethod;
 		///==========================================================================================
 		///<summary>
 		/// Measure errors.
