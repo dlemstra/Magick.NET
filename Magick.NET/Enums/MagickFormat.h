@@ -198,6 +198,7 @@ namespace ImageMagick
 		Rgf,
 		Rla,
 		Rle,
+		Rmf,
 		Rw2,
 		Scr,
 		Sct,

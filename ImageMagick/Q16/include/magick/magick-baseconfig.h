@@ -312,6 +312,11 @@ typedef long ssize_t;
 #define MAGICKCORE_HAVE_TIFFISBIGENDIAN  1
 
 /*
+  Png features.
+*/
+#define IMPNG_SETJMP_IS_THREAD_SAFE 1
+
+/*
   Disable specific warnings.
 */
 #ifdef _MSC_VER
