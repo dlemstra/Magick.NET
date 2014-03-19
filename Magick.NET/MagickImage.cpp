@@ -3682,6 +3682,36 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::OrderedDither(String^ thresholdMap)
+	{
+		Throw::IfNullOrEmpty("thresholdMap", thresholdMap);
+		try
+		{
+			std::string threshold;
+			Marshaller::Marshal(thresholdMap, threshold);
+			Value->orderedDither(threshold);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::OrderedDither(String^ thresholdMap, Channels channels)
+	{
+		Throw::IfNullOrEmpty("thresholdMap", thresholdMap);
+		try
+		{
+			std::string threshold;
+			Marshaller::Marshal(thresholdMap, threshold);
+			Value->orderedDitherChannel((Magick::ChannelType)channels, threshold);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Perceptible(double epsilon)
 	{
 		try
@@ -4112,6 +4142,30 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::SelectiveBlur(double radius, double sigma, double threshold)
+	{
+		try
+		{
+			Value->selectiveBlur(radius, sigma, threshold);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::SelectiveBlur(double radius, double sigma, double threshold, Channels channels)
+	{
+		try
+		{
+			Value->selectiveBlurChannel((Magick::ChannelType)channels, radius, sigma, threshold);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	IEnumerable<MagickImage^>^ MagickImage::Separate()
 	{
 		return Separate(Channels::All);
@@ -4135,6 +4189,23 @@ namespace ImageMagick
 		finally
 		{
 			delete images;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::SepiaTone()
+	{
+		SepiaTone(Percentage(80));
+	}
+	//==============================================================================================
+	void MagickImage::SepiaTone(Percentage threshold)
+	{
+		try
+		{
+			return Value->sepiaTone(threshold.ToQuantum());
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
@@ -4368,6 +4439,30 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Sketch()
+	{
+		try
+		{
+			Value->sketch();
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Sketch(double radius, double sigma, double angle)
+	{
+		try
+		{
+			Value->sketch(radius, sigma, angle);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Solarize()
 	{
 		Solarize(50.0);
@@ -4574,6 +4669,22 @@ namespace ImageMagick
 		Thumbnail(geometry);
 	}
 	//==============================================================================================
+	void MagickImage::Tint(String^ opacity)
+	{
+		Throw::IfNullOrEmpty("opacity", opacity);
+
+		try
+		{
+			std::string magickOpacity;
+			Marshaller::Marshal(opacity, magickOpacity);
+			Value->tint(magickOpacity);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	String^ MagickImage::ToBase64()
 	{
 		return Convert::ToBase64String(ToByteArray());
@@ -4760,6 +4871,15 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	MagickImage^ MagickImage::UniqueColors()
+	{
+		Magick::Image uniqueColors = Value->uniqueColors();
+		if (!uniqueColors.isValid())
+			return nullptr;
+
+		return gcnew MagickImage(uniqueColors);
+	}
+	//==============================================================================================
 	void MagickImage::Unsharpmask(double radius, double sigma, double amount, double threshold)
 	{
 		try
@@ -4777,6 +4897,30 @@ namespace ImageMagick
 		try
 		{
 			Value->unsharpmaskChannel((Magick::ChannelType)channels, radius, sigma, amount, threshold);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Vignette()
+	{
+		try
+		{
+			Value->vignette();
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Vignette(double radius, double sigma, int x, int y)
+	{
+		try
+		{
+			Value->vignette(radius, sigma, x, y);
 		}
 		catch(Magick::Exception& exception)
 		{

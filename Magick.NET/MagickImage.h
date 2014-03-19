@@ -2420,6 +2420,25 @@ namespace ImageMagick
 		void Opaque(MagickColor^ opaqueColor, MagickColor^ penColor);
 		///==========================================================================================
 		///<summary>
+		/// Perform a ordered dither based on a number of pre-defined dithering threshold maps, but over
+		/// multiple intensity levels.
+		///</summary>
+		///<param name="thresholdMap">A string containing the name of the threshold dither map to use,
+		///followed by zero or more numbers representing the number of color levels tho dither between.</param>
+		///<exception cref="MagickException"/>
+		void OrderedDither(String^ thresholdMap);
+		///==========================================================================================
+		///<summary>
+		/// Perform a ordered dither based on a number of pre-defined dithering threshold maps, but over
+		/// multiple intensity levels.
+		///</summary>
+		///<param name="thresholdMap">A string containing the name of the threshold dither map to use,
+		///followed by zero or more numbers representing the number of color levels tho dither between.</param>
+		///<param name="channels">The channel(s) to dither.</param>
+		///<exception cref="MagickException"/>
+		void OrderedDither(String^ thresholdMap, Channels channels);
+		///==========================================================================================
+		///<summary>
 		/// Set each pixel whose value is less than epsilon to epsilon or -epsilon (whichever is closer)
 		/// otherwise the pixel value remains unchanged.
 		///</summary>
@@ -2776,6 +2795,27 @@ namespace ImageMagick
 		void Segment(ImageMagick::ColorSpace quantizeColorSpace, double clusterThreshold, double smoothingThreshold);
 		///==========================================================================================
 		///<summary>
+		/// Selectively blur pixels within a contrast threshold. It is similar to the unsharpen mask
+		/// that sharpens everything with contrast above a certain threshold.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
+		///<param name="threshold">Only pixels within this contrast threshold are included in the blur operation.</param>
+		///<exception cref="MagickException"/>
+		void SelectiveBlur(double radius, double sigma, double threshold);
+		///==========================================================================================
+		///<summary>
+		/// Selectively blur pixels within a contrast threshold. It is similar to the unsharpen mask
+		/// that sharpens everything with contrast above a certain threshold.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
+		///<param name="threshold">Only pixels within this contrast threshold are included in the blur operation.</param>
+		///<param name="channels">The channel(s) to blur.</param>
+		///<exception cref="MagickException"/>
+		void SelectiveBlur(double radius, double sigma, double threshold, Channels channels);
+		///==========================================================================================
+		///<summary>
 		/// Separates the channels from the image and returns it as grayscale images.
 		///</summary>
 		///<exception cref="MagickException"/>
@@ -2787,6 +2827,21 @@ namespace ImageMagick
 		///<param name="channels">The channel(s) to separates.</param>
 		///<exception cref="MagickException"/>
 		IEnumerable<MagickImage^>^ Separate(Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Applies a special effect to the image, similar to the effect achieved in a photo darkroom
+		/// by sepia toning.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void SepiaTone();
+		///==========================================================================================
+		///<summary>
+		/// Applies a special effect to the image, similar to the effect achieved in a photo darkroom
+		/// by sepia toning.
+		///</summary>
+		///<param name="threshold">The tone threshold.</param>
+		///<exception cref="MagickException"/>
+		void SepiaTone(Percentage threshold);
 		///==========================================================================================
 		///<summary>
 		/// Inserts the artifact with the specified name and value into the artifact tree of the image.
@@ -2932,6 +2987,23 @@ namespace ImageMagick
 		void SigmoidalContrast(bool sharpen, double contrast, double midpoint);
 		///==========================================================================================
 		///<summary>
+		/// Simulates a pencil sketch.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Sketch();
+		///==========================================================================================
+		///<summary>
+		/// Simulates a pencil sketch. We convolve the image with a Gaussian operator of the given
+		/// radius and standard deviation (sigma). For reasonable results, radius should be larger than sigma.
+		/// Use a radius of 0 and sketch selects a suitable radius for you.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		///<param name="angle">Apply the effect along this angle.</param>
+		///<exception cref="MagickException"/>
+		void Sketch(double radius, double sigma, double angle);
+		///==========================================================================================
+		///<summary>
 		/// Solarize image (similar to effect seen when exposing a photographic film to light during
 		/// the development process)
 		///</summary>
@@ -3065,6 +3137,15 @@ namespace ImageMagick
 		void Thumbnail(Percentage percentageWidth, Percentage percentageHeight);
 		///==========================================================================================
 		///<summary>
+		/// Applies a color vector to each pixel in the image. The length of the vector is 0 for black
+		/// and white and at its maximum for the midtones. The vector weighting function is
+		/// f(x)=(1-(4.0*((x-0.5)*(x-0.5))))
+		///</summary>
+		///<param name="opacity">A color value used for tinting.</param>
+		///<exception cref="MagickException"/>
+		void Tint(String^ opacity);
+		///==========================================================================================
+		///<summary>
 		/// Converts this instance to a base64 string.
 		///</summary>
 		String^ ToBase64();
@@ -3182,6 +3263,12 @@ namespace ImageMagick
 		void Trim();
 		///==========================================================================================
 		///<summary>
+		/// Returns the unique colors of an image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		MagickImage^ UniqueColors();
+		///==========================================================================================
+		///<summary>
 		/// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
 		///</summary>
 		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
@@ -3203,6 +3290,22 @@ namespace ImageMagick
 		///<param name="channels">The channel(s) that should be sharpened.</param>
 		///<exception cref="MagickException"/>
 		void Unsharpmask(double radius, double sigma, double amount, double threshold, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Softens the edges of the image in vignette style.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Vignette();
+		///==========================================================================================
+		///<summary>
+		/// Softens the edges of the image in vignette style.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		///<param name="x">The x ellipse offset.</param>
+		///<param name="y">the y ellipse offset.</param>
+		///<exception cref="MagickException"/>
+		void Vignette(double radius, double sigma, int x, int y);
 		///==========================================================================================
 		///<summary>
 		/// Map image pixels to a sine wave.

@@ -57,6 +57,8 @@ namespace ImageMagick
 		//===========================================================================================
 		void Optimize(LayerMethod optizeMethod);
 		//===========================================================================================
+		MagickImage^ Smush(bool vertically, int offset);
+		//===========================================================================================
 	internal:
 		//===========================================================================================
 		static List<MagickImage^>^ CreateList(std::list<Magick::Image>* images);
@@ -192,11 +194,13 @@ namespace ImageMagick
 		///<summary>
 		/// Creates a single image, by appending all the images in the collection horizontally.
 		///</summary>
+		///<exception cref="MagickException"/>
 		MagickImage^ AppendHorizontally();
 		///==========================================================================================
 		///<summary>
 		/// Creates a single image, by appending all the images in the collection vertically.
 		///</summary>
+		///<exception cref="MagickException"/>
 		MagickImage^ AppendVertically();
 		///==========================================================================================
 		///<summary>
@@ -208,6 +212,7 @@ namespace ImageMagick
 		/// Merge a sequence of images. This is useful for GIF animation sequences that have page
 		/// offsets and disposal methods
 		///</summary>
+		///<exception cref="MagickException"/>
 		void Coalesce();
 		///==========================================================================================
 		///<summary>
@@ -228,6 +233,7 @@ namespace ImageMagick
 		/// The typical ordering would be image 1 => Red, 2 => Green, 3 => Blue, etc.
 		///</summary>
 		///<param name="channels">The channel(s) to combine.</param>
+		///<exception cref="MagickException"/>
 		MagickImage^ Combine(Channels channels);
 		///==========================================================================================
 		///<summary>
@@ -241,6 +247,7 @@ namespace ImageMagick
 		/// Break down an image sequence into constituent parts. This is useful for creating GIF or
 		/// MNG animation sequences.
 		///</summary>
+		///<exception cref="MagickException"/>
 		void Deconstruct();
 		///==========================================================================================
 		///<summary>
@@ -404,12 +411,27 @@ namespace ImageMagick
 		///<summary>
 		/// Resets the page property of every image in the collection.
 		///</summary>
+		///<exception cref="MagickException"/>
 		void RePage();
 		///==========================================================================================
 		///<summary>
 		/// Reverses the order of the images in the collection.
 		///</summary>
 		void Reverse();
+		///==========================================================================================
+		///<summary>
+		/// Smush images from list into single image in horizontal direction.
+		///</summary>
+		///<param name="offset">Minimum distance in pixels between images.</param>
+		///<exception cref="MagickException"/>
+		MagickImage^ SmushHorizontal(int offset);
+		///==========================================================================================
+		///<summary>
+		/// Smush images from list into single image in vertical direction.
+		///</summary>
+		///<param name="offset">Minimum distance in pixels between images.</param>
+		///<exception cref="MagickException"/>
+		MagickImage^ SmushVertical(int offset);
 		///==========================================================================================
 		///<summary>
 		/// Converts this instance to a byte array.
@@ -428,6 +450,7 @@ namespace ImageMagick
 		/// allow multi-image files multiple files will be written.
 		///</summary>
 		///<param name="stream">The stream to write the images to.</param>
+		///<exception cref="MagickException"/>
 		void Write(Stream^ stream);
 		///==========================================================================================
 		///<summary>
@@ -435,6 +458,7 @@ namespace ImageMagick
 		/// allow multi-image files multiple files will be written.
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<exception cref="MagickException"/>
 		void Write(String^ fileName);
 		//===========================================================================================
 	};

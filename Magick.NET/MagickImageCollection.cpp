@@ -118,6 +118,30 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	MagickImage^ MagickImageCollection::Smush(bool vertically, int offset)
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+
+		try
+		{
+			CopyTo(images);
+
+			Magick::Image smushedImage;
+			Magick::smushImages(&smushedImage, images->begin(), images->end(), offset, vertically);
+
+			return gcnew MagickImage(smushedImage);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+			return nullptr;
+		}
+		finally
+		{
+			delete images;
+		}
+	}
+	//==============================================================================================
 	List<MagickImage^>^ MagickImageCollection::CreateList(std::list<Magick::Image>* images)
 	{
 		List<MagickImage^>^ list = gcnew List<MagickImage^>();
@@ -610,6 +634,16 @@ namespace ImageMagick
 	void MagickImageCollection::Reverse()
 	{
 		_Images->Reverse();
+	}
+	//==============================================================================================
+	MagickImage^ MagickImageCollection::SmushHorizontal(int offset)
+	{
+		return Smush(false, offset);
+	}
+	//==============================================================================================
+	MagickImage^ MagickImageCollection::SmushVertical(int offset)
+	{
+		return Smush(true, offset);
 	}
 	//==============================================================================================
 	array<Byte>^ MagickImageCollection::ToByteArray()
