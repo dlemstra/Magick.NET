@@ -117,6 +117,7 @@
     <Compile Include="Generated\Enums\CompositeOperator.cs" />
     <Compile Include="Generated\Enums\CompressionMethod.cs" />
     <Compile Include="Generated\Enums\DistortMethod.cs" />
+    <Compile Include="Generated\Enums\DitherMethod.cs" />
     <Compile Include="Generated\Enums\Endian.cs" />
     <Compile Include="Generated\Enums\EvaluateOperator.cs" />
     <Compile Include="Generated\Enums\ExifDataType.cs" />

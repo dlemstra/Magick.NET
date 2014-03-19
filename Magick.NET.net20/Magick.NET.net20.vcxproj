@@ -187,6 +187,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Magick.NET\Enums\DitherMethod.h" />
     <ClInclude Include="..\Magick.NET\MagickConverter.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableDashArray.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableDashOffset.h" />

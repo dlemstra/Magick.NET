@@ -10,8 +10,13 @@ SetFolder $scriptPath
 [void][Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem")
 $compressionLevel = [System.IO.Compression.CompressionLevel]::Optimal
 #==================================================================================================
-$imVersion = "6.8.8.7"
-$version = "6.8.8.701"
+if ($args.count -ne 2)
+{
+	Write-Error "Invalid arguments"
+	Exit 1
+}
+$imVersion = $args[0]
+$version = $args[1]
 #==================================================================================================
 $builds = @(
 		@{Name = "Magick.NET.net20"; Quantum = "Q8"; Platform = "Win32"; PlatformName = "x86"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $true}
@@ -237,7 +242,6 @@ function CreateZipFiles($builds)
 #==================================================================================================
 function Publish($builds)
 {
-	UpdateResourceFiles $builds
 	Build $builds
 	CheckStrongName $builds
 	CopyPdbFiles $builds
@@ -299,6 +303,7 @@ UpdateAssemblyInfo "Magick.NET\AssemblyInfo.cpp"
 UpdateAssemblyInfo "Magick.NET.AnyCPU\Properties\AssemblyInfo.cs"
 UpdateAssemblyInfo "Magick.NET.Web\Properties\AssemblyInfo.cs"
 CreateNet20ProjectFiles
+UpdateResourceFiles $builds
 Publish $builds
 CreateScriptZipFile $builds[0]
 CreateScriptZipFile $builds[2]
