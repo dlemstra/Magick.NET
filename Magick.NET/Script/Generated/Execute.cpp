@@ -915,8 +915,20 @@ namespace ImageMagick
 				{
 					case 'r':
 					{
-						ExecuteOrientation(element, image);
-						return;
+						switch(element->Name[2])
+						{
+							case 'i':
+							{
+								ExecuteOrientation(element, image);
+								return;
+							}
+							case 'd':
+							{
+								ExecuteOrderedDither(element, image);
+								return;
+							}
+						}
+						break;
 					}
 					case 'i':
 					{
@@ -1058,8 +1070,20 @@ namespace ImageMagick
 							}
 							case 't':
 							{
-								ExecuteRotate(element, image);
-								return;
+								switch(element->Name[5])
+								{
+									case 'e':
+									{
+										ExecuteRotate(element, image);
+										return;
+									}
+									case 'i':
+									{
+										ExecuteRotationalBlur(element, image);
+										return;
+									}
+								}
+								break;
 							}
 						}
 						break;
@@ -1180,6 +1204,16 @@ namespace ImageMagick
 								ExecuteSegment(element, image);
 								return;
 							}
+							case 'l':
+							{
+								ExecuteSelectiveBlur(element, image);
+								return;
+							}
+							case 'p':
+							{
+								ExecuteSepiaTone(element, image);
+								return;
+							}
 							case 't':
 							{
 								switch(element->Name[3])
@@ -1263,6 +1297,11 @@ namespace ImageMagick
 						ExecuteSigmoidalContrast(element, image);
 						return;
 					}
+					case 'k':
+					{
+						ExecuteSketch(element, image);
+						return;
+					}
 					case 'o':
 					{
 						ExecuteSolarize(element, image);
@@ -1331,8 +1370,20 @@ namespace ImageMagick
 					}
 					case 'i':
 					{
-						ExecuteTileName(element, image);
-						return;
+						switch(element->Name[2])
+						{
+							case 'l':
+							{
+								ExecuteTileName(element, image);
+								return;
+							}
+							case 'n':
+							{
+								ExecuteTint(element, image);
+								return;
+							}
+						}
+						break;
 					}
 					case 'h':
 					{
@@ -1472,8 +1523,20 @@ namespace ImageMagick
 					}
 					case 'i':
 					{
-						ExecuteVirtualPixelMethod(element, image);
-						return;
+						switch(element->Name[2])
+						{
+							case 'r':
+							{
+								ExecuteVirtualPixelMethod(element, image);
+								return;
+							}
+							case 'g':
+							{
+								ExecuteVignette(element, image);
+								return;
+							}
+						}
+						break;
 					}
 				}
 				break;
@@ -2732,6 +2795,23 @@ namespace ImageMagick
 		MagickColor^ penColor_ = _Variables->GetValue<MagickColor^>(element, "penColor");
 		image->Opaque(opaqueColor_, penColor_);
 	}
+	void MagickScript::ExecuteOrderedDither(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "channels")
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
+			else if (attribute->Name == "thresholdMap")
+				arguments["thresholdMap"] = _Variables->GetValue<String^>(attribute);
+		}
+		if (OnlyContains(arguments, "thresholdMap"))
+			image->OrderedDither((String^)arguments["thresholdMap"]);
+		else if (OnlyContains(arguments, "thresholdMap", "channels"))
+			image->OrderedDither((String^)arguments["thresholdMap"], (Channels)arguments["channels"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'orderedDither', allowed combinations are: [thresholdMap] [thresholdMap, channels]");
+	}
 	void MagickScript::ExecutePerceptible(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -2903,6 +2983,23 @@ namespace ImageMagick
 		double degrees_ = _Variables->GetValue<double>(element, "degrees");
 		image->Rotate(degrees_);
 	}
+	void MagickScript::ExecuteRotationalBlur(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "angle")
+				arguments["angle"] = _Variables->GetValue<double>(attribute);
+			else if (attribute->Name == "channels")
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
+		}
+		if (OnlyContains(arguments, "angle"))
+			image->RotationalBlur((double)arguments["angle"]);
+		else if (OnlyContains(arguments, "angle", "channels"))
+			image->RotationalBlur((double)arguments["angle"], (Channels)arguments["channels"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'rotationalBlur', allowed combinations are: [angle] [angle, channels]");
+	}
 	void MagickScript::ExecuteSample(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -2979,6 +3076,41 @@ namespace ImageMagick
 			image->Segment((ColorSpace)arguments["quantizeColorSpace"], (double)arguments["clusterThreshold"], (double)arguments["smoothingThreshold"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'segment', allowed combinations are: [] [quantizeColorSpace, clusterThreshold, smoothingThreshold]");
+	}
+	void MagickScript::ExecuteSelectiveBlur(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "channels")
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
+			else if (attribute->Name == "radius")
+				arguments["radius"] = _Variables->GetValue<double>(attribute);
+			else if (attribute->Name == "sigma")
+				arguments["sigma"] = _Variables->GetValue<double>(attribute);
+			else if (attribute->Name == "threshold")
+				arguments["threshold"] = _Variables->GetValue<double>(attribute);
+		}
+		if (OnlyContains(arguments, "radius", "sigma", "threshold"))
+			image->SelectiveBlur((double)arguments["radius"], (double)arguments["sigma"], (double)arguments["threshold"]);
+		else if (OnlyContains(arguments, "radius", "sigma", "threshold", "channels"))
+			image->SelectiveBlur((double)arguments["radius"], (double)arguments["sigma"], (double)arguments["threshold"], (Channels)arguments["channels"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'selectiveBlur', allowed combinations are: [radius, sigma, threshold] [radius, sigma, threshold, channels]");
+	}
+	void MagickScript::ExecuteSepiaTone(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			arguments[attribute->Name] = _Variables->GetValue<Percentage>(attribute);
+		}
+		if (arguments->Count == 0)
+			image->SepiaTone();
+		else if (OnlyContains(arguments, "threshold"))
+			image->SepiaTone((Percentage)arguments["threshold"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'sepiaTone', allowed combinations are: [] [threshold]");
 	}
 	void MagickScript::ExecuteSetArtifact(XmlElement^ element, MagickImage^ image)
 	{
@@ -3113,6 +3245,20 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'sigmoidalContrast', allowed combinations are: [sharpen, contrast] [sharpen, contrast, midpoint]");
 	}
+	void MagickScript::ExecuteSketch(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
+		}
+		if (arguments->Count == 0)
+			image->Sketch();
+		else if (OnlyContains(arguments, "radius", "sigma", "angle"))
+			image->Sketch((double)arguments["radius"], (double)arguments["sigma"], (double)arguments["angle"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'sketch', allowed combinations are: [] [radius, sigma, angle]");
+	}
 	void MagickScript::ExecuteSolarize(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -3184,6 +3330,11 @@ namespace ImageMagick
 			image->Thumbnail((int)arguments["width"], (int)arguments["height"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'thumbnail', allowed combinations are: [geometry] [percentage] [percentageWidth, percentageHeight] [width, height]");
+	}
+	void MagickScript::ExecuteTint(XmlElement^ element, MagickImage^ image)
+	{
+		String^ opacity_ = _Variables->GetValue<String^>(element, "opacity");
+		image->Tint(opacity_);
 	}
 	void MagickScript::ExecuteTransform(XmlElement^ element, MagickImage^ image)
 	{
@@ -3275,6 +3426,27 @@ namespace ImageMagick
 			image->Unsharpmask((double)arguments["radius"], (double)arguments["sigma"], (double)arguments["amount"], (double)arguments["threshold"], (Channels)arguments["channels"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'unsharpmask', allowed combinations are: [radius, sigma, amount, threshold] [radius, sigma, amount, threshold, channels]");
+	}
+	void MagickScript::ExecuteVignette(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "radius")
+				arguments["radius"] = _Variables->GetValue<double>(attribute);
+			else if (attribute->Name == "sigma")
+				arguments["sigma"] = _Variables->GetValue<double>(attribute);
+			else if (attribute->Name == "x")
+				arguments["x"] = _Variables->GetValue<int>(attribute);
+			else if (attribute->Name == "y")
+				arguments["y"] = _Variables->GetValue<int>(attribute);
+		}
+		if (arguments->Count == 0)
+			image->Vignette();
+		else if (OnlyContains(arguments, "radius", "sigma", "x", "y"))
+			image->Vignette((double)arguments["radius"], (double)arguments["sigma"], (int)arguments["x"], (int)arguments["y"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'vignette', allowed combinations are: [] [radius, sigma, x, y]");
 	}
 	void MagickScript::ExecuteWave(XmlElement^ element, MagickImage^ image)
 	{
@@ -3434,6 +3606,21 @@ namespace ImageMagick
 				}
 				break;
 			}
+			case 's':
+			{
+				switch(element->Name[5])
+				{
+					case 'H':
+					{
+						return ExecuteSmushHorizontal(element, collection);
+					}
+					case 'V':
+					{
+						return ExecuteSmushVertical(element, collection);
+					}
+				}
+				break;
+			}
 			case 't':
 			{
 				return ExecuteTrimBounds(collection);
@@ -3520,6 +3707,16 @@ namespace ImageMagick
 	MagickImage^ MagickScript::ExecuteMosaic(MagickImageCollection^ collection)
 	{
 		return collection->Mosaic();
+	}
+	MagickImage^ MagickScript::ExecuteSmushHorizontal(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		int offset_ = _Variables->GetValue<int>(element, "offset");
+		return collection->SmushHorizontal(offset_);
+	}
+	MagickImage^ MagickScript::ExecuteSmushVertical(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		int offset_ = _Variables->GetValue<int>(element, "offset");
+		return collection->SmushVertical(offset_);
 	}
 	MagickImage^ MagickScript::ExecuteTrimBounds(MagickImageCollection^ collection)
 	{
@@ -4602,6 +4799,7 @@ namespace ImageMagick
 		QuantizeSettings^ result = gcnew QuantizeSettings();
 		result->Colors = _Variables->GetValue<int>(element, "colors");
 		result->ColorSpace = _Variables->GetValue<ColorSpace>(element, "colorSpace");
+		result->DitherMethod = _Variables->GetValue<Nullable<DitherMethod>>(element, "ditherMethod");
 		result->MeasureErrors = _Variables->GetValue<bool>(element, "measureErrors");
 		result->TreeDepth = _Variables->GetValue<int>(element, "treeDepth");
 		return result;

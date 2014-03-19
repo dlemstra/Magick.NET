@@ -235,6 +235,7 @@ namespace Magick.NET.FileGenerator
 				case "Coordinate":
 				case "Nullable<Int32>":
 				case "Nullable<ColorSpace>":
+				case "Nullable<DitherMethod>":
 				case "Nullable<MagickFormat>":
 				case "Percentage":
 					return name;

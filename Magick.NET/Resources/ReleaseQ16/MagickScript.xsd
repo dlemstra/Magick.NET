@@ -282,6 +282,20 @@
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
+	<xs:simpleType name="DitherMethod">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="FloydSteinberg" />
+					<xs:enumeration value="No" />
+					<xs:enumeration value="Riemersma" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="var" />
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
 	<xs:simpleType name="Endian">
 		<xs:union>
 			<xs:simpleType>
@@ -754,6 +768,7 @@
 					<xs:enumeration value="Rgf" />
 					<xs:enumeration value="Rla" />
 					<xs:enumeration value="Rle" />
+					<xs:enumeration value="Rmf" />
 					<xs:enumeration value="Rw2" />
 					<xs:enumeration value="Scr" />
 					<xs:enumeration value="Sct" />
@@ -1118,6 +1133,7 @@
 	<xs:complexType name="quantizeSettings">
 		<xs:attribute name="colors" type="int" />
 		<xs:attribute name="colorSpace" type="ColorSpace" />
+		<xs:attribute name="ditherMethod" type="DitherMethod" />
 		<xs:attribute name="measureErrors" type="bool" />
 		<xs:attribute name="treeDepth" type="int" />
 	</xs:complexType>
@@ -1865,6 +1881,12 @@
 						<xs:attribute name="penColor" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="orderedDither">
+					<xs:complexType>
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="thresholdMap" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="perceptible">
 					<xs:complexType>
 						<xs:attribute name="channels" type="Channels" />
@@ -1946,6 +1968,12 @@
 						<xs:attribute name="degrees" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="rotationalBlur">
+					<xs:complexType>
+						<xs:attribute name="angle" use="required" type="double" />
+						<xs:attribute name="channels" type="Channels" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="sample">
 					<xs:complexType>
 						<xs:attribute name="geometry" type="geometry" />
@@ -1971,6 +1999,19 @@
 						<xs:attribute name="clusterThreshold" type="double" />
 						<xs:attribute name="quantizeColorSpace" type="ColorSpace" />
 						<xs:attribute name="smoothingThreshold" type="double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="selectiveBlur">
+					<xs:complexType>
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="radius" use="required" type="double" />
+						<xs:attribute name="sigma" use="required" type="double" />
+						<xs:attribute name="threshold" use="required" type="double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sepiaTone">
+					<xs:complexType>
+						<xs:attribute name="threshold" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="setArtifact">
@@ -2035,6 +2076,13 @@
 						<xs:attribute name="sharpen" use="required" type="bool" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="sketch">
+					<xs:complexType>
+						<xs:attribute name="angle" type="double" />
+						<xs:attribute name="radius" type="double" />
+						<xs:attribute name="sigma" type="double" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="solarize">
 					<xs:complexType>
 						<xs:attribute name="factor" type="double" />
@@ -2080,6 +2128,11 @@
 						<xs:attribute name="percentageHeight" type="double" />
 						<xs:attribute name="percentageWidth" type="double" />
 						<xs:attribute name="width" type="int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="tint">
+					<xs:complexType>
+						<xs:attribute name="opacity" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="transform">
@@ -2137,6 +2190,14 @@
 						<xs:attribute name="radius" use="required" type="double" />
 						<xs:attribute name="sigma" use="required" type="double" />
 						<xs:attribute name="threshold" use="required" type="double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="vignette">
+					<xs:complexType>
+						<xs:attribute name="radius" type="double" />
+						<xs:attribute name="sigma" type="double" />
+						<xs:attribute name="x" type="int" />
+						<xs:attribute name="y" type="int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="wave">
@@ -2222,6 +2283,16 @@
 							</xs:element>
 							<xs:element name="merge" type="empty" />
 							<xs:element name="mosaic" type="empty" />
+							<xs:element name="smushHorizontal">
+								<xs:complexType>
+									<xs:attribute name="offset" use="required" type="int" />
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="smushVertical">
+								<xs:complexType>
+									<xs:attribute name="offset" use="required" type="int" />
+								</xs:complexType>
+							</xs:element>
 							<xs:element name="trimBounds" type="empty" />
 						</xs:choice>
 					</xs:sequence>
