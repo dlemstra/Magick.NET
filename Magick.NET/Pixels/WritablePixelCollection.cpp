@@ -79,6 +79,7 @@ namespace ImageMagick
 		try
 		{
 			_Pixels = View->set(x, y, width, height);
+			CheckPixels();
 			LoadIndexes();
 		}
 		catch(Magick::Exception& exception)

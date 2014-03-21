@@ -2456,6 +2456,27 @@ namespace ImageMagick
 		void Perceptible(double epsilon, Channels channels);
 		///==========================================================================================
 		///<summary>
+		/// Reads only metadata and not the pixel data.
+		///</summary>
+		///<param name="data">The byte array to read the information from.</param>
+		///<exception cref="MagickException"/>
+		void Ping(array<Byte>^ data);
+		///==========================================================================================
+		///<summary>
+		/// Reads only metadata and not the pixel data.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<exception cref="MagickException"/>
+		void Ping(String^ fileName);
+		///==========================================================================================
+		///<summary>
+		/// Reads only metadata and not the pixel data.
+		///</summary>
+		///<param name="stream">The stream to read the image data from.</param>
+		///<exception cref="MagickException"/>
+		void Ping(Stream^ stream);
+		///==========================================================================================
+		///<summary>
 		/// Simulates a Polaroid picture.
 		///</summary>
 		///<param name="caption">The caption to put on the image.</param>

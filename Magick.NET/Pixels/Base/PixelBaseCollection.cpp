@@ -108,6 +108,12 @@ namespace ImageMagick
 		Throw::IfFalse("y", y >= 0 && y < _Height, "Invalid Y coordinate: {0}.", y);
 	}
 	//==============================================================================================
+	void PixelBaseCollection::CheckPixels()
+	{
+		if (Pixels == NULL)
+			throw gcnew InvalidOperationException("Image contains no pixel data.");
+	}
+	//==============================================================================================
 	int PixelBaseCollection::GetIndex(int x, int y)
 	{
 		return (y * _Width) + x;

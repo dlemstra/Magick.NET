@@ -404,6 +404,23 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Ping()
+		{
+			using (MagickImage image = new MagickImage())
+			{
+				image.Ping(Files.FujiFilmFinePixS1ProJPG);
+
+				ExceptionAssert.Throws<InvalidOperationException>(delegate()
+				{
+					image.GetReadOnlyPixels();
+				});
+
+				ImageProfile profile = image.Get8BimProfile();
+				Assert.IsNotNull(profile);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_ProfileNames()
 		{
 			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))

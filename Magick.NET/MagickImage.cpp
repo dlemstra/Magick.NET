@@ -3736,6 +3736,27 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Ping(array<Byte>^ data)
+	{
+		MagickReadSettings^ readSettings = gcnew MagickReadSettings();
+		readSettings->Ping = true;
+		Read(data, readSettings);
+	}
+	//==============================================================================================
+	void MagickImage::Ping(String^ fileName)
+	{
+		MagickReadSettings^ readSettings = gcnew MagickReadSettings();
+		readSettings->Ping = true;
+		Read(fileName, readSettings);
+	}
+	//==============================================================================================
+	void MagickImage::Ping(Stream^ stream)
+	{
+		MagickReadSettings^ readSettings = gcnew MagickReadSettings();
+		readSettings->Ping = true;
+		Read(stream, readSettings);
+	}
+	//==============================================================================================
 	void MagickImage::Polaroid(String^ caption, double angle)
 	{
 		Throw::IfNull("caption", caption);
