@@ -2460,21 +2460,21 @@ namespace ImageMagick
 		///</summary>
 		///<param name="data">The byte array to read the information from.</param>
 		///<exception cref="MagickException"/>
-		void Ping(array<Byte>^ data);
+		MagickWarningException^ Ping(array<Byte>^ data);
 		///==========================================================================================
 		///<summary>
 		/// Reads only metadata and not the pixel data.
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
 		///<exception cref="MagickException"/>
-		void Ping(String^ fileName);
+		MagickWarningException^ Ping(String^ fileName);
 		///==========================================================================================
 		///<summary>
 		/// Reads only metadata and not the pixel data.
 		///</summary>
 		///<param name="stream">The stream to read the image data from.</param>
 		///<exception cref="MagickException"/>
-		void Ping(Stream^ stream);
+		MagickWarningException^ Ping(Stream^ stream);
 		///==========================================================================================
 		///<summary>
 		/// Simulates a Polaroid picture.

@@ -3736,25 +3736,25 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Ping(array<Byte>^ data)
+	MagickWarningException^ MagickImage::Ping(array<Byte>^ data)
 	{
 		MagickReadSettings^ readSettings = gcnew MagickReadSettings();
 		readSettings->Ping = true;
-		Read(data, readSettings);
+		return Read(data, readSettings);
 	}
 	//==============================================================================================
-	void MagickImage::Ping(String^ fileName)
+	MagickWarningException^ MagickImage::Ping(String^ fileName)
 	{
 		MagickReadSettings^ readSettings = gcnew MagickReadSettings();
 		readSettings->Ping = true;
-		Read(fileName, readSettings);
+		return Read(fileName, readSettings);
 	}
 	//==============================================================================================
-	void MagickImage::Ping(Stream^ stream)
+	MagickWarningException^ MagickImage::Ping(Stream^ stream)
 	{
 		MagickReadSettings^ readSettings = gcnew MagickReadSettings();
 		readSettings->Ping = true;
-		Read(stream, readSettings);
+		return Read(stream, readSettings);
 	}
 	//==============================================================================================
 	void MagickImage::Polaroid(String^ caption, double angle)

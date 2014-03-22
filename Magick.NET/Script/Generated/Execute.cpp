@@ -1631,7 +1631,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteColorFuzz(XmlElement^ element, MagickImage^ image)
 	{
-		image->ColorFuzz = _Variables->GetValue<double>(element, "value");
+		image->ColorFuzz = _Variables->GetValue<Percentage>(element, "value");
 	}
 	void MagickScript::ExecuteColorMapSize(XmlElement^ element, MagickImage^ image)
 	{
