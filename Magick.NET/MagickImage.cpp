@@ -462,14 +462,14 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	double MagickImage::ColorFuzz::get()
+	Percentage MagickImage::ColorFuzz::get()
 	{
-		return Value->colorFuzz();
+		return Percentage::FromQuantum(Value->colorFuzz());
 	}
 	//==============================================================================================
-	void MagickImage::ColorFuzz::set(double value)
+	void MagickImage::ColorFuzz::set(Percentage value)
 	{
-		Value->colorFuzz(value);
+		Value->colorFuzz(value.ToQuantum());
 	}
 	//==============================================================================================
 	int MagickImage::ColorMapSize::get()
@@ -4642,7 +4642,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->threshold((double)percentage.ToQuantum());
+			Value->threshold(percentage.ToQuantum());
 		}
 		catch(Magick::Exception& exception)
 		{

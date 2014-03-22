@@ -319,10 +319,10 @@ namespace ImageMagick
 		///<summary>
 		/// Colors within this distance are considered equal.
 		///</summary>
-		property double ColorFuzz
+		property Percentage ColorFuzz
 		{
-			double get();
-			void set(double value);
+			Percentage get();
+			void set(Percentage value);
 		}
 		///==========================================================================================
 		///<summary>

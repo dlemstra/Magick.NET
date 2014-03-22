@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 6.8.8.901:
+  - Changed datatype of MagickImage.ColorFuzz to Percentage.
+
 Magick.NET 6.8.8.801:
   - Fixed double value of Percentage (50% is 50.0 instead of 0.5).
   - Refactored Quantize methods and properties to only one method that use a QuantizeSettings paramater.
