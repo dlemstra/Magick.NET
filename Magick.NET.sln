@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Web", "Magick.NE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Tests", "Magick.NET.Tests\Magick.NET.Tests.csproj", "{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Samples", "Magick.NET.Samples\Magick.NET.Samples.csproj", "{F5A76C84-4735-4741-8534-8D38EBD3B844}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ReleaseQ16|Win32 = ReleaseQ16|Win32
@@ -56,8 +58,17 @@ Global
 		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.TestsQ16|Win32.Build.0 = ReleaseQ16|x86
 		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.TestsQ16|x64.ActiveCfg = ReleaseQ8|x86
 		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.TestsQ8|Win32.ActiveCfg = ReleaseQ8|x86
-		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.TestsQ8|Win32.Build.0 = ReleaseQ8|x86
 		{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}.TestsQ8|x64.ActiveCfg = ReleaseQ8|x86
+		{F5A76C84-4735-4741-8534-8D38EBD3B844}.ReleaseQ16|Win32.ActiveCfg = ReleaseQ16|x86
+		{F5A76C84-4735-4741-8534-8D38EBD3B844}.ReleaseQ16|Win32.Build.0 = ReleaseQ16|x86
+		{F5A76C84-4735-4741-8534-8D38EBD3B844}.ReleaseQ16|x64.ActiveCfg = ReleaseQ16|x86
+		{F5A76C84-4735-4741-8534-8D38EBD3B844}.ReleaseQ8|Win32.ActiveCfg = ReleaseQ16|x86
+		{F5A76C84-4735-4741-8534-8D38EBD3B844}.ReleaseQ8|x64.ActiveCfg = ReleaseQ16|x86
+		{F5A76C84-4735-4741-8534-8D38EBD3B844}.TestsQ16|Win32.ActiveCfg = ReleaseQ16|x86
+		{F5A76C84-4735-4741-8534-8D38EBD3B844}.TestsQ16|Win32.Build.0 = ReleaseQ16|x86
+		{F5A76C84-4735-4741-8534-8D38EBD3B844}.TestsQ16|x64.ActiveCfg = ReleaseQ16|x86
+		{F5A76C84-4735-4741-8534-8D38EBD3B844}.TestsQ8|Win32.ActiveCfg = ReleaseQ16|x86
+		{F5A76C84-4735-4741-8534-8D38EBD3B844}.TestsQ8|x64.ActiveCfg = ReleaseQ16|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

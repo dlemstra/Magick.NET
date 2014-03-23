@@ -116,6 +116,26 @@ function CopyPdbFiles($builds)
 	}
 }
 #==================================================================================================
+function CreateNuGetPackage($id, $xml)
+{
+	$xml.package.metadata.id = $id
+	$xml.package.metadata.title = $id
+	$xml.package.metadata.version = $version
+
+	$dir = FullPath "Publish\NuGet"
+	$nuspecFile = "$dir\$id.nuspec"
+	if (Test-Path $nuspecFile)
+	{
+		Remove-Item $nuspecFile
+	}
+
+	$xml.Save($nuspecFile)
+
+	.\Tools\Programs\NuGet.exe pack $nuspecFile -NoPackageAnalysis -OutputDirectory $dir
+
+	Remove-Item $nuspecFile
+}
+#==================================================================================================
 function CreateNuGetPackages($builds)
 {
 	$hasNet20 = $false
@@ -135,20 +155,10 @@ function CreateNuGetPackages($builds)
 		}
 
 		$path = FullPath "Publish\NuGet\Magick.NET.nuspec"
-		$xml = [xml](get-content $path)
+		$xml = [xml](Get-Content $path)
 
 		$id = "Magick.NET-$($build.Quantum)-$($build.PlatformName)"
-		$xml.package.metadata.id = $id
-		$xml.package.metadata.title = $id
-		$xml.package.metadata.version = $version
 		$xml.package.metadata.releaseNotes = "Magick.NET linked with ImageMagick " + $imVersion
-
-		$dir = FullPath "Publish\NuGet"
-		$nuspecFile = "$dir\$id.nuspec"
-		if (Test-Path $nuspecFile)
-		{
-			Remove-Item $nuspecFile
-		}
 
 		if ($hasNet20 -eq $true)
 		{
@@ -160,11 +170,36 @@ function CreateNuGetPackages($builds)
 
 		AddFileElement $xml ("Readme.txt") "Readme.txt"
 
-		$xml.Save($nuspecFile)
+		#CreateNuGetPackage $id $xml
 
-		.\Tools\Programs\NuGet.exe pack $nuspecFile -NoPackageAnalysis -OutputDirectory $dir
+		$path = FullPath "Publish\NuGet\Magick.NET.Sample.nuspec"
+		$xml = [xml](Get-Content $path)
+		
+		$xml.package.metadata.dependencies.dependency.id = $id
+		$xml.package.metadata.dependencies.dependency.version = $version
+		
+		$id = "Magick.NET-$($build.Quantum)-$($build.PlatformName).Sample"
+		$samples = FullPath "Magick.NET.Samples\Samples\Magick.NET"
+		$files = Get-ChildItem -File -Path $samples -Exclude *.cs -Recurse
+		$offset = $files[0].FullName.LastIndexOf("\Magick.NET.Samples\") + 20
+		foreach($file in $files)
+		{
+			AddFileElement $xml $file "Content\$($file.FullName.SubString($offset))"
+		}
 
-		Remove-Item $nuspecFile
+		CreateNuGetPackage $id $xml
+	}
+}
+#==================================================================================================
+function CreatePreProcessedFiles()
+{
+	$samples = FullPath "Magick.NET.Samples\Samples\Magick.NET"
+	$files = Get-ChildItem -Path $samples -Include *.cs -Recurse
+	foreach($file in $files)
+	{
+		$content = Get-Content $file
+		$content = $content.Replace("namespace RootNamespace.","namespace `$rootnamespace`$.")
+		Set-Content "$file.pp" $content
 	}
 }
 #==================================================================================================
@@ -304,6 +339,7 @@ UpdateAssemblyInfo "Magick.NET.AnyCPU\Properties\AssemblyInfo.cs"
 UpdateAssemblyInfo "Magick.NET.Web\Properties\AssemblyInfo.cs"
 CreateNet20ProjectFiles
 UpdateResourceFiles $builds
+CreatePreProcessedFiles
 Publish $builds
 CreateScriptZipFile $builds[0]
 CreateScriptZipFile $builds[2]

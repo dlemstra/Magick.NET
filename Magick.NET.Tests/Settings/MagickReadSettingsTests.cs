@@ -74,11 +74,11 @@ namespace Magick.NET.Tests
 			using (MagickImage image = new MagickImage())
 			{
 				MagickReadSettings settings = new MagickReadSettings();
-				settings.Density = new MagickGeometry(150, 150);
+				settings.Density = new MagickGeometry(300, 300);
 
 				image.Read(Files.SnakewarePNG, settings);
 
-				Assert.AreEqual(150, image.Density.Width);
+				Assert.AreEqual(300, image.Density.Width);
 
 				settings = null;
 				image.Read(Files.ImageMagickJPG, settings);

@@ -10,13 +10,11 @@
 		<projectUrl>https://magick.codeplex.com</projectUrl>
 		<iconUrl>http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=26438&amp;itemId=581988</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop.</description>
-		<summary>A .NET API to the ImageMagick image-processing library for Desktop and Web.</summary>
-		<releaseNotes/>
+		<description>This package contains samples that demonstrate the use of the Magick.NET library.</description>
 		<copyright>Copyright 2014</copyright>
 		<tags>ImageMagick, Magick.NET</tags>
-		<frameworkAssemblies>
-			<frameworkAssembly assemblyName="System.Drawing"/>
-		</frameworkAssemblies>
+		<dependencies>
+			<dependency id="" version="" />
+		</dependencies>
 	</metadata>
 </package>

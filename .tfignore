@@ -57,6 +57,9 @@
 \Magick.NET.AnyCPU\Generated\*
 \Magick.NET.AnyCPU\Resources\ReleaseQ8\*
 \Magick.NET.AnyCPU\Resources\ReleaseQ16\*
+\Magick.NET.Samples\bin
+\Magick.NET.Samples\obj
+\Magick.NET.Samples\Samples\Magick.NET\*.pp
 \ImageMagick\Source\ImageMagick
 \Publish\Archive\*
 \Publish\NuGet\*.nupkg

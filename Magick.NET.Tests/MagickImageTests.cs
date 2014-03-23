@@ -683,8 +683,8 @@ namespace Magick.NET.Tests
 			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
 			{
 				image.Thumbnail(100, 100);
-				Assert.AreEqual(image.Width, 100);
-				Assert.AreEqual(image.Height, 58);
+				Assert.AreEqual(100, image.Width);
+				Assert.AreEqual(23, image.Height);
 			}
 		}
 		//===========================================================================================
