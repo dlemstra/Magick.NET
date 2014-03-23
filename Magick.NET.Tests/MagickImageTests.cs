@@ -663,6 +663,21 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Threshold()
+		{
+			using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+			{
+				using(MemoryStream memStream = new MemoryStream())
+				{
+					image.Threshold(80);
+					image.CompressionMethod = CompressionMethod.Group4;
+					image.Format = MagickFormat.Pdf;
+					image.Write(memStream);
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Thumbnail()
 		{
 			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
