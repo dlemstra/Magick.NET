@@ -18,6 +18,46 @@ namespace RootNamespace.Samples.MagickNET
 	{
 		private const string _FilesDirectory = @"$fullpath$Samples\Magick.NET\Files\";
 
+		public static string CorruptImageJpg
+		{
+			get
+			{
+				return _FilesDirectory + "CorruptImage.jpg";
+			}
+		}
+
+		public static string FileWithWarningJpg
+		{
+			get
+			{
+				return _FilesDirectory + "FileWithWarning.jpg";
+			}
+		}
+
+		public static string InvalidFileJpg
+		{
+			get
+			{
+				return _FilesDirectory + "InvalidFile.jpg";
+			}
+		}
+
+		public static string OutputDirectory
+		{
+			get
+			{
+				return @"$fullpath$Samples\Magick.NET\Output\";
+			}
+		}
+
+		public static string SnakewareEps
+		{
+			get
+			{
+				return _FilesDirectory + "Snakeware.eps";
+			}
+		}
+
 		public static string SnakewareGif
 		{
 			get
@@ -47,6 +87,14 @@ namespace RootNamespace.Samples.MagickNET
 			get
 			{
 				return _FilesDirectory + "Snakeware.png";
+			}
+		}
+
+		public static string YourProfileIcc
+		{
+			get
+			{
+				return _FilesDirectory + "YourProfile.icc";
 			}
 		}
 	}

@@ -28,6 +28,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Samples\Magick.NET\ConvertImage.cs" />
+    <Compile Include="Samples\Magick.NET\ExceptionHandling.cs" />
     <Compile Include="Samples\Magick.NET\Files.cs" />
     <Compile Include="Samples\Magick.NET\ReadImage.cs" />
   </ItemGroup>
@@ -37,14 +39,21 @@
       <Name>Magick.NET</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Samples\Magick.NET\Output\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\Magick.NET\Files\CorruptImage.jpg" />
+    <Content Include="Samples\Magick.NET\Files\FileWithWarning.jpg" />
+    <Content Include="Samples\Magick.NET\Files\InvalidFile.jpg" />
     <Content Include="Samples\Magick.NET\Files\Snakeware.gif" />
     <Content Include="Samples\Magick.NET\Files\Snakeware.jpg" />
     <Content Include="Samples\Magick.NET\Files\Snakeware.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Samples\Magick.NET\Files\Snakeware.eps" />
     <None Include="Samples\Magick.NET\Files\Snakeware.pdf" />
+    <None Include="Samples\Magick.NET\Files\YourProfile.icc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
