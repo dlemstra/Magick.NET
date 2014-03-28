@@ -89,7 +89,7 @@ namespace Magick.NET.FileGenerator
 			WriteEndColon(writer);
 		}
 		//===========================================================================================
-		public void WriteHeader(IndentedTextWriter writer)
+		public virtual void WriteHeader(IndentedTextWriter writer)
 		{
 			writer.Write(TypeName);
 			writer.Write(" Create");

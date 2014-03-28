@@ -385,7 +385,9 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		public IEnumerable<string> GetColorProfileNames()
 		{
-			foreach (string resourceName in _MagickNET.GetManifestResourceNames())
+			foreach (string resourceName in from name in _MagickNET.GetManifestResourceNames()
+													  orderby name
+													  select name)
 			{
 				if (resourceName.EndsWith(".icc", StringComparison.OrdinalIgnoreCase) ||
 					resourceName.EndsWith(".icm", StringComparison.OrdinalIgnoreCase))

@@ -1040,12 +1040,12 @@
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:NMTOKEN">
-					<xs:enumeration value="CoatedFOGRA39" />
-					<xs:enumeration value="USWebCoatedSWOP" />
 					<xs:enumeration value="AdobeRGB1998" />
 					<xs:enumeration value="AppleRGB" />
+					<xs:enumeration value="CoatedFOGRA39" />
 					<xs:enumeration value="ColorMatchRGB" />
-					<xs:enumeration value="sRGB" />
+					<xs:enumeration value="SRGB" />
+					<xs:enumeration value="USWebCoatedSWOP" />
 				</xs:restriction>
 			</xs:simpleType>
 			<xs:simpleType>

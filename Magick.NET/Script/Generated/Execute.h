@@ -283,8 +283,7 @@ void ExecuteSmoothQuadraticCurvetoAbs(XmlElement^ element, System::Collections::
 void ExecuteSmoothQuadraticCurvetoRel(XmlElement^ element, System::Collections::ObjectModel::Collection<PathBase^>^ paths);
 Coordinate CreateCoordinate(XmlElement^ element);
 Collection<Coordinate>^ CreateCoordinates(XmlElement^ element);
-ColorProfile^ CreateColorProfile(XmlElement^ element);
-Collection<ColorProfile^>^ CreateColorProfiles(XmlElement^ element);
+static ColorProfile^ CreateColorProfile(XmlElement^ element);
 ImageProfile^ CreateImageProfile(XmlElement^ element);
 PathArc^ CreatePathArc(XmlElement^ element);
 Collection<PathArc^>^ CreatePathArcs(XmlElement^ element);

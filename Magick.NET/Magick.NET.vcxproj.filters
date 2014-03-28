@@ -1150,7 +1150,7 @@
     <None Include="Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\ColorProfiles\RGB\tmpSRGB.icm">
+    <None Include="Resources\ColorProfiles\RGB\SRGB.icm">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

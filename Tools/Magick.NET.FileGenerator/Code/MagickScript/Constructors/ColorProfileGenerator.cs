@@ -52,7 +52,17 @@ namespace Magick.NET.FileGenerator
 				writer.WriteLine(";");
 				writer.Indent--;
 			}
+			writer.WriteLine("throw gcnew NotImplementedException(element->Name);");
 			WriteEndColon(writer);
+		}
+		//===========================================================================================
+		public override void WriteHeader(IndentedTextWriter writer)
+		{
+			writer.Write("static ");
+			writer.Write(TypeName);
+			writer.Write(" Create");
+			writer.Write(ClassName);
+			writer.WriteLine("(XmlElement^ element);");
 		}
 		//===========================================================================================
 		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
