@@ -49,6 +49,7 @@
     <Compile Include="Code\AnyCPU\EnumGenerator.cs" />
     <Compile Include="Code\Base\FileGenerator.cs" />
     <Compile Include="Code\MagickScript\Base\SettingsCodeGenerator.cs" />
+    <Compile Include="Code\MagickScript\Constructors\ColorProfileGenerator.cs" />
     <Compile Include="Code\MagickScript\Settings\QuantizeSettingsGenerator.cs" />
     <Compile Include="Code\MagickScript\Settings\PixelStorageSettingsGenerator.cs" />
     <Compile Include="Code\MagickScript\Constructors\ImageProfileGenerator.cs" />

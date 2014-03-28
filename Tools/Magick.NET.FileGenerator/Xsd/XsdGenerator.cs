@@ -464,6 +464,9 @@ namespace Magick.NET.FileGenerator
 					case "collection-results":
 						ReplaceCollectionResults(annotation);
 						break;
+					case "ColorProfile":
+						ReplaceColorProfile(annotation);
+						break;
 					case "coordinate":
 					case "imageProfile":
 					case "pathArc":
@@ -509,6 +512,19 @@ namespace Magick.NET.FileGenerator
 			AddMagickImageCollectionResultMethods(annotation);
 
 			annotation.Remove();
+		}
+		//===========================================================================================
+		private void ReplaceColorProfile(XElement annotation)
+		{
+			XElement restriction = new XElement(_Namespace + "restriction",
+											new XAttribute("base", "xs:NMTOKEN"));
+			foreach (string name in _MagickNET.GetColorProfileNames())
+			{
+				restriction.Add(new XElement(_Namespace + "enumeration",
+										new XAttribute("value", name)));
+			}
+
+			annotation.ReplaceWith(CreateVarElement("ColorProfile", restriction));
 		}
 		//===========================================================================================
 		private void ReplaceEnums(XElement annotation)

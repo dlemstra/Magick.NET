@@ -25,11 +25,7 @@
 	<!--=========================================================================================-->
 	<xs:annotation id="enums"/>
 	<!--=========================================================================================-->
-	<xs:simpleType name="ColorProfile">
-		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="SRGB" />
-		</xs:restriction>
-	</xs:simpleType>
+	<xs:annotation id="ColorProfile"/>
 	<!--=========================================================================================-->
 	<xs:complexType name="coordinate">
 		<xs:annotation id="coordinate"/>

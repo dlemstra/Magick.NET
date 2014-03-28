@@ -201,6 +201,7 @@ namespace Magick.NET.FileGenerator
 			switch (name)
 			{
 				case "Encoding":
+				case "ColorProfile":
 				case "ImageProfile":
 				case "MagickColor":
 				case "MagickGeometry":
@@ -242,7 +243,6 @@ namespace Magick.NET.FileGenerator
 				case "Byte[]":
 				case "Color":
 				case "ColorMatrix":
-				case "ColorProfile":
 				case "ConvolveMatrix":
 				case "Double[]":
 				case "DrawableAffine":
@@ -381,6 +381,18 @@ namespace Magick.NET.FileGenerator
 				return "void";
 
 			return name;
+		}
+		//===========================================================================================
+		public IEnumerable<string> GetColorProfileNames()
+		{
+			foreach (string resourceName in _MagickNET.GetManifestResourceNames())
+			{
+				if (resourceName.EndsWith(".icc", StringComparison.OrdinalIgnoreCase) ||
+					resourceName.EndsWith(".icm", StringComparison.OrdinalIgnoreCase))
+				{
+					yield return resourceName.Substring(0, resourceName.Length - 4);
+				}
+			}
 		}
 		//===========================================================================================
 		public static bool IsQuantumDependant(Type type)

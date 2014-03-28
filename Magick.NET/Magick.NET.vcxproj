@@ -545,7 +545,7 @@
     <None Include="Resources\ColorProfiles\RGB\AdobeRGB1998.icc" />
     <None Include="Resources\ColorProfiles\RGB\AppleRGB.icc" />
     <None Include="Resources\ColorProfiles\RGB\ColorMatchRGB.icc" />
-    <None Include="Resources\ColorProfiles\RGB\sRGB.icm" />
+    <None Include="Resources\ColorProfiles\RGB\tmpSRGB.icm" />
     <None Include="Resources\$(Configuration)\MagickScript.xsd" />
   </ItemGroup>
   <ItemGroup>

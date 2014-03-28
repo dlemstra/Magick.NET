@@ -58,7 +58,7 @@ namespace ImageMagick
 	//==============================================================================================
 	ColorProfile^ ColorProfile::SRGB::get()
 	{
-		return Load("sRGB.icm");
+		return Load("SRGB.icm");
 	}
 	//==============================================================================================
 	ColorProfile^ ColorProfile::USWebCoatedSWOP::get()

@@ -75,14 +75,9 @@ namespace ImageMagick
 		XmlElement^ elem = (XmlElement^)element->SelectSingleNode("*");
 
 		if (elem->Name == "imageProfile")
-		{
-			return CreateImageProfile(element);
-		}
+			return CreateImageProfile(elem);
 		else if (elem->Name == "colorProfile")
-		{
-			if (elem->GetAttribute("name") == "SRGB")
-				return ColorProfile::SRGB;
-		}
+			return CreateColorProfile(elem);
 
 		throw gcnew NotImplementedException(elem->Name);
 	}

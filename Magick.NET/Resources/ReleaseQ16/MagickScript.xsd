@@ -786,6 +786,7 @@
 					<xs:enumeration value="Tga" />
 					<xs:enumeration value="ThreeFr" />
 					<xs:enumeration value="Thumbnail" />
+					<xs:enumeration value="Tif" />
 					<xs:enumeration value="Tiff" />
 					<xs:enumeration value="Tiff64" />
 					<xs:enumeration value="Tile" />
@@ -1036,9 +1037,21 @@
 		</xs:union>
 	</xs:simpleType>
 	<xs:simpleType name="ColorProfile">
-		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="SRGB" />
-		</xs:restriction>
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="CoatedFOGRA39" />
+					<xs:enumeration value="USWebCoatedSWOP" />
+					<xs:enumeration value="AdobeRGB1998" />
+					<xs:enumeration value="AppleRGB" />
+					<xs:enumeration value="ColorMatchRGB" />
+					<xs:enumeration value="sRGB" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="var" />
+			</xs:simpleType>
+		</xs:union>
 	</xs:simpleType>
 	<xs:complexType name="coordinate">
 		<xs:attribute name="x" use="required" type="double" />

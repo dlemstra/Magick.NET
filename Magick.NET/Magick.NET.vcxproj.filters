@@ -1135,9 +1135,6 @@
     <None Include="Resources\$(Configuration)\MagickScript.xsd">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\ColorProfiles\RGB\sRGB.icm">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Resources\ColorProfiles\RGB\AdobeRGB1998.icc">
       <Filter>Resource Files</Filter>
     </None>
@@ -1151,6 +1148,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\ColorProfiles\RGB\tmpSRGB.icm">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

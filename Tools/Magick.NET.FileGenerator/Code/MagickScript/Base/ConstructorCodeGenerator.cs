@@ -34,7 +34,7 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		private string TypeName
+		protected string TypeName
 		{
 			get
 			{
@@ -55,7 +55,7 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		public void WriteCode(IndentedTextWriter writer)
+		public virtual void WriteCode(IndentedTextWriter writer)
 		{
 			writer.Write(TypeName);
 			writer.Write(" MagickScript::Create");
