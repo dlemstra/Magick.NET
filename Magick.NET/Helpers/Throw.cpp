@@ -40,6 +40,9 @@ namespace ImageMagick
 		if (!fileName->Contains("\\") && fileName->Contains(":"))
 			return;
 
+		if (fileName->Length > _MAX_PATH)
+			return;
+
 		String^ path = Path::GetFullPath(fileName);
 		if (path->EndsWith("]", StringComparison::OrdinalIgnoreCase))
 		{
