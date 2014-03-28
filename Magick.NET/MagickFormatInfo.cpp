@@ -53,6 +53,7 @@ namespace ImageMagick
 		}
 
 		AddStealthCoder(&coderList, "DIB");
+		AddStealthCoder(&coderList, "TIF");
 
 		std::list<Magick::CoderInfo>::const_iterator coder = coderList.begin(); 
 		while(coder != coderList.end())

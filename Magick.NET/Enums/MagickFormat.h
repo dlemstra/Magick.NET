@@ -215,6 +215,7 @@ namespace ImageMagick
 		Text,
 		Tga,
 		Thumbnail,
+		Tif,
 		Tiff,
 		Tiff64,
 		Tile,
