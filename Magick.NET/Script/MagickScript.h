@@ -56,6 +56,8 @@ namespace ImageMagick
 		//===========================================================================================
 		static XmlReaderSettings^ CreateXmlReaderSettings();
 		//===========================================================================================
+		void Execute(XmlElement^ element, MagickImage^ image);
+		//===========================================================================================
 		MagickImage^ Execute(XmlElement^ element, MagickImageCollection^ collection);
 		//===========================================================================================
 		void ExecuteClone(XmlElement^ element, MagickImage^ image);
@@ -63,10 +65,6 @@ namespace ImageMagick
 		MagickImage^ ExecuteCollection(XmlElement^ element);
 		//===========================================================================================
 		void ExecuteDraw(XmlElement^ element, MagickImage^ image);
-		//===========================================================================================
-		MagickImage^ ExecuteRead(XmlElement^ element);
-		//===========================================================================================
-		void ExecuteRead(XmlElement^ element, MagickImage^ image);
 		//===========================================================================================
 		void ExecuteWrite(XmlElement^ element, MagickImage^ image);
 		//===========================================================================================

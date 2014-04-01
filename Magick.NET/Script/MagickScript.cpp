@@ -55,6 +55,8 @@ namespace ImageMagick
 			image = eventArgs->Image;
 		}
 
+		Execute(element, image);
+
 		return image;
 	}
 	//==============================================================================================
@@ -106,11 +108,19 @@ namespace ImageMagick
 		return settings;
 	}
 	//==============================================================================================
+	void MagickScript::Execute(XmlElement^ element, MagickImage^ image)
+	{
+		for each (XmlElement^ elem in element->SelectNodes("*[name() != 'settings']"))
+		{
+			ExecuteImage(elem, image);
+		}
+	}
+	//==============================================================================================
 	MagickImage^ MagickScript::Execute(XmlElement^ element, MagickImageCollection^ collection)
 	{
 		if (element->Name == "read")
 		{
-			collection->Add(ExecuteRead(element));
+			collection->Add(CreateMagickImage(element));
 			return nullptr;
 		}
 
@@ -126,7 +136,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickScript::ExecuteClone(XmlElement^ element, MagickImage^ image)
 	{
-		ExecuteRead(element, image->Clone());
+		Execute(element, image->Clone());
 	}
 	//==============================================================================================
 	MagickImage^ MagickScript::ExecuteCollection(XmlElement^ element)
@@ -156,21 +166,6 @@ namespace ImageMagick
 		}
 
 		image->Draw(drawables);
-	}
-	//==============================================================================================
-	MagickImage^ MagickScript::ExecuteRead(XmlElement^ element)
-	{
-		MagickImage^ image = CreateMagickImage(element);
-		ExecuteRead(element, image);
-		return image;
-	}
-	//==============================================================================================
-	void MagickScript::ExecuteRead(XmlElement^ element, MagickImage^ image)
-	{
-		for each (XmlElement^ elem in element->SelectNodes("*[name() != 'settings']"))
-		{
-			ExecuteImage(elem, image);
-		}
 	}
 	//==============================================================================================
 	void MagickScript::ExecuteWrite(XmlElement^ element, MagickImage^ image)
@@ -299,7 +294,7 @@ namespace ImageMagick
 		XmlElement^ element = (XmlElement^)_Script->SelectSingleNode("/msl/*");
 
 		if (element->Name == "read")
-			return ExecuteRead(element);
+			return CreateMagickImage(element);
 		else if (element->Name == "collection")
 			return ExecuteCollection(element);
 		else
@@ -314,7 +309,7 @@ namespace ImageMagick
 		if (element == nullptr)
 			throw gcnew InvalidOperationException("This method only works with a script that contains a single read operation.");
 
-		ExecuteRead(element, image);
+		Execute(element, image);
 	}
 	//==============================================================================================
 }

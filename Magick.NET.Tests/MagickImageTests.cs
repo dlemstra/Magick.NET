@@ -667,7 +667,7 @@ namespace Magick.NET.Tests
 		{
 			using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
 			{
-				using(MemoryStream memStream = new MemoryStream())
+				using (MemoryStream memStream = new MemoryStream())
 				{
 					image.Threshold(80);
 					image.CompressionMethod = CompressionMethod.Group4;

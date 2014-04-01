@@ -381,7 +381,7 @@ namespace Magick.NET.FileGenerator
 				case "ImageProfile^":
 					return "profile";
 				case "MagickImage^":
-					return "read";
+					return "image";
 				case "PathArc^":
 					return "pathArc";
 				case "PathCurveto^":

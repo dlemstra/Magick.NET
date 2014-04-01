@@ -785,6 +785,7 @@
 					<xs:enumeration value="Tga" />
 					<xs:enumeration value="ThreeFr" />
 					<xs:enumeration value="Thumbnail" />
+					<xs:enumeration value="Tif" />
 					<xs:enumeration value="Tiff" />
 					<xs:enumeration value="Tiff64" />
 					<xs:enumeration value="Tile" />
@@ -1042,7 +1043,7 @@
 					<xs:enumeration value="AppleRGB" />
 					<xs:enumeration value="CoatedFOGRA39" />
 					<xs:enumeration value="ColorMatchRGB" />
-					<xs:enumeration value="sRGB" />
+					<xs:enumeration value="SRGB" />
 					<xs:enumeration value="USWebCoatedSWOP" />
 				</xs:restriction>
 			</xs:simpleType>
@@ -1078,6 +1079,34 @@
 			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))([+-]\d+[+-]\d+)?([\&gt;\&lt;\@\%^!]{1,2})?" />
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:complexType name="image">
+		<xs:sequence>
+			<xs:element name="settings" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="pixelStorage" minOccurs="0" type="pixelStorageSettings" />
+						<xs:element name="setDefine" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:attribute name="format" use="required" type="MagickFormat" />
+								<xs:attribute name="name" use="required" type="xs:string" />
+								<xs:attribute name="value" use="required" type="xs:string" />
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="colorSpace" type="ColorSpace" />
+					<xs:attribute name="density" type="geometry" />
+					<xs:attribute name="format" type="MagickFormat" />
+					<xs:attribute name="frameCount" type="int" />
+					<xs:attribute name="frameIndex" type="int" />
+					<xs:attribute name="height" type="int" />
+					<xs:attribute name="width" type="int" />
+				</xs:complexType>
+			</xs:element>
+			<xs:group ref="actions" />
+		</xs:sequence>
+		<xs:attribute name="fileName" type="xs:string" />
+		<xs:attribute name="id" type="xs:string" />
+	</xs:complexType>
 	<xs:complexType name="imageProfile">
 		<xs:attribute name="fileName" use="required" type="xs:string" />
 		<xs:attribute name="name" use="required" type="xs:string" />
@@ -1148,33 +1177,6 @@
 		<xs:attribute name="measureErrors" type="bool" />
 		<xs:attribute name="treeDepth" type="int" />
 	</xs:complexType>
-	<xs:complexType name="read">
-		<xs:sequence>
-			<xs:element name="settings" minOccurs="0">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="pixelStorage" minOccurs="0" type="pixelStorageSettings" />
-						<xs:element name="setDefine" minOccurs="0" maxOccurs="unbounded">
-							<xs:complexType>
-								<xs:attribute name="format" use="required" type="MagickFormat" />
-								<xs:attribute name="name" use="required" type="xs:string" />
-								<xs:attribute name="value" use="required" type="xs:string" />
-							</xs:complexType>
-						</xs:element>
-					</xs:sequence>
-					<xs:attribute name="colorSpace" type="ColorSpace" />
-					<xs:attribute name="density" type="geometry" />
-					<xs:attribute name="format" type="MagickFormat" />
-					<xs:attribute name="frameCount" type="int" />
-					<xs:attribute name="frameIndex" type="int" />
-					<xs:attribute name="height" type="int" />
-					<xs:attribute name="width" type="int" />
-				</xs:complexType>
-			</xs:element>
-		</xs:sequence>
-		<xs:attribute name="fileName" type="xs:string" />
-		<xs:attribute name="id" type="xs:string" />
-	</xs:complexType>
 	<xs:group name="actions">
 		<xs:sequence>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -1221,7 +1223,7 @@
 				<xs:element name="clipMask">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="read" type="read" />
+							<xs:element name="image" type="image" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -1288,7 +1290,7 @@
 				<xs:element name="fillPattern">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="read" type="read" />
+							<xs:element name="image" type="image" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -1415,7 +1417,7 @@
 				<xs:element name="strokePattern">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="read" type="read" />
+							<xs:element name="image" type="image" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -1635,7 +1637,7 @@
 				<xs:element name="clut">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="image" type="read" />
+							<xs:element name="image" type="image" />
 						</xs:sequence>
 						<xs:attribute name="channels" type="Channels" />
 					</xs:complexType>
@@ -1663,7 +1665,7 @@
 				<xs:element name="composite">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="image" type="read" />
+							<xs:element name="image" type="image" />
 						</xs:sequence>
 						<xs:attribute name="args" type="xs:string" />
 						<xs:attribute name="compose" type="CompositeOperator" />
@@ -1741,7 +1743,7 @@
 				<xs:element name="floodFill">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="image" minOccurs="0" type="read" />
+							<xs:element name="image" minOccurs="0" type="image" />
 						</xs:sequence>
 						<xs:attribute name="alpha" type="int" />
 						<xs:attribute name="borderColor" type="color" />
@@ -1786,7 +1788,7 @@
 				<xs:element name="haldClut">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="image" type="read" />
+							<xs:element name="image" type="image" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -1798,7 +1800,7 @@
 				<xs:element name="inverseFourierTransform">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="image" type="read" />
+							<xs:element name="image" type="image" />
 						</xs:sequence>
 						<xs:attribute name="magnitude" type="bool" />
 					</xs:complexType>
@@ -1839,7 +1841,7 @@
 				<xs:element name="map">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="image" type="read" />
+							<xs:element name="image" type="image" />
 						</xs:sequence>
 						<xs:attribute name="dither" type="bool" />
 					</xs:complexType>
@@ -2102,14 +2104,14 @@
 				<xs:element name="stegano">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="watermark" type="read" />
+							<xs:element name="watermark" type="image" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="stereo">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="rightImage" type="read" />
+							<xs:element name="rightImage" type="image" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -2122,7 +2124,7 @@
 				<xs:element name="texture">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="image" type="read" />
+							<xs:element name="image" type="image" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -2367,7 +2369,7 @@
 				<xs:element name="compositeImage">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="image" type="read" />
+							<xs:element name="image" type="image" />
 						</xs:sequence>
 						<xs:attribute name="compose" type="CompositeOperator" />
 						<xs:attribute name="offset" type="geometry" />
@@ -2637,15 +2639,7 @@
 	</xs:group>
 	<xs:group name="read">
 		<xs:sequence>
-			<xs:element name="read">
-				<xs:complexType>
-					<xs:complexContent>
-						<xs:extension base="read">
-							<xs:group ref="actions" />
-						</xs:extension>
-					</xs:complexContent>
-				</xs:complexType>
-			</xs:element>
+			<xs:element name="read" type="image" />
 		</xs:sequence>
 	</xs:group>
 	<xs:element name="msl">

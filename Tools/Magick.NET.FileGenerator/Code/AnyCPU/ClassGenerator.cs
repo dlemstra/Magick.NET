@@ -82,6 +82,7 @@ namespace Magick.NET.FileGenerator
 		{
 			string source = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\bin\Release" + MagickNET.Depth + @"\Win32\Magick.NET-x86.xml";
 			string destination = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET.AnyCPU\bin\Release" + MagickNET.Depth + @"\AnyCPU\Magick.NET-AnyCPU.xml";
+			Directory.CreateDirectory(Path.GetDirectoryName(destination));
 			File.Copy(source, destination, true);
 		}
 		//===========================================================================================

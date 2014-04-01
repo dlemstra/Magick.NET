@@ -59,6 +59,19 @@
 		</xs:restriction>
 	</xs:simpleType>
 	<!--=========================================================================================-->
+	<xs:complexType name="image">
+		<xs:sequence>
+			<xs:element name="settings" minOccurs="0">
+				<xs:complexType>
+					<xs:annotation id="magickReadSettings"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:group ref="actions" />
+		</xs:sequence>
+		<xs:attribute name="fileName" type="xs:string"/>
+		<xs:attribute name="id" type="xs:string"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
 	<xs:complexType name="imageProfile">
 		<xs:annotation id="imageProfile"/>
 	</xs:complexType>
@@ -118,18 +131,6 @@
 	<!--=========================================================================================-->
 	<xs:complexType name="quantizeSettings">
 		<xs:annotation id="quantizeSettings"/>
-	</xs:complexType>
-	<!--=========================================================================================-->
-	<xs:complexType name="read">
-		<xs:sequence>
-			<xs:element name="settings" minOccurs="0">
-				<xs:complexType>
-					<xs:annotation id="magickReadSettings"/>
-				</xs:complexType>
-			</xs:element>
-		</xs:sequence>
-		<xs:attribute name="fileName" type="xs:string"/>
-		<xs:attribute name="id" type="xs:string"/>
 	</xs:complexType>
 	<!--=========================================================================================-->
 	<xs:group name="actions">
@@ -202,15 +203,7 @@
 	<!--=========================================================================================-->
 	<xs:group name="read">
 		<xs:sequence>
-			<xs:element name="read">
-				<xs:complexType>
-					<xs:complexContent>
-						<xs:extension base="read">
-							<xs:group ref="actions" />
-						</xs:extension>
-					</xs:complexContent>
-				</xs:complexType>
-			</xs:element>
+			<xs:element name="read" type="image"/>
 		</xs:sequence>
 	</xs:group>
 	<!--=========================================================================================-->
