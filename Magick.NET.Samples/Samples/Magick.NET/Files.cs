@@ -90,6 +90,14 @@ namespace RootNamespace.Samples.MagickNET
 			}
 		}
 
+		public static string StillLifeCR2
+		{
+			get
+			{
+				return _FilesDirectory + "StillLife.cr2";
+			}
+		}
+
 		public static string YourProfileIcc
 		{
 			get

@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.IO;
 using ImageMagick;
 
@@ -60,7 +59,7 @@ namespace RootNamespace.Samples.MagickNET
 			{
 				image.AddProfile(ColorProfile.SRGB);
 				image.Read(SampleFiles.SnakewareEps, settings);
-				image.Write("Snakeware.tiff");
+				image.Write(SampleFiles.OutputDirectory + "Snakeware.tiff");
 			}
 
 			// Convert CMYK jpeg to RGB.
