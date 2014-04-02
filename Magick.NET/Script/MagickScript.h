@@ -30,6 +30,10 @@ using namespace System::Xml;
 using namespace System::Xml::XPath;
 using namespace System::Collections::ObjectModel;
 
+#if !(NET20)
+using namespace System::Xml::Linq;
+#endif
+
 namespace ImageMagick
 {
 	///=============================================================================================
@@ -69,6 +73,8 @@ namespace ImageMagick
 		void ExecuteWrite(XmlElement^ element, MagickImage^ image);
 		//===========================================================================================
 		void Initialize(Stream^ stream);
+		//===========================================================================================
+		void Initialize(XPathNavigator^ navigator);
 		//===========================================================================================
 		static bool OnlyContains(System::Collections::Hashtable^ arguments, ... array<Object^>^ keys);
 		//===========================================================================================
@@ -137,6 +143,16 @@ namespace ImageMagick
 		///</summary>
 		///<param name="image">The image to execute the script on.</param>
 		void Execute(MagickImage^ image);
+		//===========================================================================================
+#if !(NET20)
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickScript class using the specified XElement.
+		///</summary>
+		///<param name="xml">The XElement that contains the script.</param>
+		MagickScript(XElement^ xml);
+		//===========================================================================================
+#endif
 		//===========================================================================================
 	};
 	//==============================================================================================

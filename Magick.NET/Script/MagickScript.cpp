@@ -199,6 +199,24 @@ namespace ImageMagick
 		_Variables = gcnew ScriptVariables(_Script);
 	}
 	//==============================================================================================
+	void MagickScript::Initialize(XPathNavigator^ navigator)
+	{
+		MemoryStream^ memStream = gcnew MemoryStream();
+		XmlWriter^ writer = XmlWriter::Create(memStream);
+		try
+		{
+			navigator->WriteSubtree(writer);
+			writer->Flush();
+			memStream->Position = 0;
+			Initialize(memStream);
+		}
+		finally
+		{
+			delete writer;
+			delete memStream;
+		}
+	}
+	//==============================================================================================
 	bool MagickScript::OnlyContains(System::Collections::Hashtable^ arguments, ... array<Object^>^ keys)
 	{
 		if (arguments->Count != keys->Length)
@@ -222,21 +240,7 @@ namespace ImageMagick
 	MagickScript::MagickScript(IXPathNavigable^ xml)
 	{
 		Throw::IfNull("xml", xml);
-
-		MemoryStream^ memStream = gcnew MemoryStream();
-		XmlWriter^ writer = XmlWriter::Create(memStream);
-		try
-		{
-			xml->CreateNavigator()->WriteSubtree(writer);
-			writer->Flush();
-			memStream->Position = 0;
-			Initialize(memStream);
-		}
-		finally
-		{
-			delete writer;
-			delete memStream;
-		}
+		Initialize(xml->CreateNavigator());
 	}
 	//==============================================================================================
 	MagickScript::MagickScript(String^ fileName)
@@ -311,5 +315,15 @@ namespace ImageMagick
 
 		Execute(element, image);
 	}
+	//==============================================================================================
+#if !(NET20)
+	//==============================================================================================
+	MagickScript::MagickScript(XElement^ xml)
+	{
+		Throw::IfNull("xml", xml);
+		Initialize(System::Xml::XPath::Extensions::CreateNavigator(xml));
+	}
+	//==============================================================================================
+#endif
 	//==============================================================================================
 }
