@@ -17,12 +17,29 @@ namespace RootNamespace.Samples.MagickNET
 	public static class SampleFiles
 	{
 		private const string _FilesDirectory = @"$fullpath$Samples\Magick.NET\Files\";
+		private const string _ScriptsDirectory = @"$fullpath$Samples\Magick.NET\Scripts\";
 
 		public static string CorruptImageJpg
 		{
 			get
 			{
 				return _FilesDirectory + "CorruptImage.jpg";
+			}
+		}
+
+		public static string CloneMsl
+		{
+			get
+			{
+				return _ScriptsDirectory + "Clone.msl";
+			}
+		}
+
+		public static string CropMsl
+		{
+			get
+			{
+				return _ScriptsDirectory + "Crop.msl";
 			}
 		}
 
@@ -55,6 +72,14 @@ namespace RootNamespace.Samples.MagickNET
 			get
 			{
 				return @"$fullpath$Samples\Magick.NET\Output\";
+			}
+		}
+
+		public static string ResizeMsl
+		{
+			get
+			{
+				return _ScriptsDirectory + "Resize.msl";
 			}
 		}
 
@@ -103,6 +128,14 @@ namespace RootNamespace.Samples.MagickNET
 			get
 			{
 				return _FilesDirectory + "StillLife.cr2";
+			}
+		}
+
+		public static string WaveMsl
+		{
+			get
+			{
+				return _ScriptsDirectory + "Wave.msl";
 			}
 		}
 
