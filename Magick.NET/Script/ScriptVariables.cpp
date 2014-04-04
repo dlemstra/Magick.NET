@@ -66,6 +66,25 @@ namespace ImageMagick
 		GetNames(script->DocumentElement);
 	}
 	//==============================================================================================
+	array<double>^ ScriptVariables::GetDoubleArray(XmlElement^ element)
+	{
+		XmlAttribute^ attribute = element->Attributes["variable"];
+		if (attribute != nullptr)
+		{
+			array<String^>^ names = GetNames(attribute->Value);
+			if (names != nullptr)
+				return (array<double>^) _Variables[names[0]];
+		}
+
+		array<double>^ result = gcnew array<double>(element->ChildNodes->Count);
+		int index = 0;
+		for each(XmlElement^ child in element->ChildNodes)
+		{
+			result[index++] = double::Parse(child->InnerText, CultureInfo::InvariantCulture);
+		}
+		return result;
+	}
+	//==============================================================================================
 	generic <class T>
 	T ScriptVariables::GetValue(XmlAttribute^ attribute)
 	{

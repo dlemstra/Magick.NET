@@ -17,8 +17,8 @@
 #include "..\MagickImageCollection.h"
 #include "MagickScript.h"
 
-using namespace System::Xml::Schema;
 using namespace System::Reflection;
+using namespace System::Xml::Schema;
 
 namespace ImageMagick
 {

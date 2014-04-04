@@ -233,6 +233,8 @@ namespace Magick.NET.FileGenerator
 					return "bool";
 				case "Double":
 					return "double";
+				case "Double[]":
+					return "array<double>^";
 				case "Coordinate":
 				case "Nullable<Int32>":
 				case "Nullable<ColorSpace>":
@@ -244,7 +246,6 @@ namespace Magick.NET.FileGenerator
 				case "Color":
 				case "ColorMatrix":
 				case "ConvolveMatrix":
-				case "Double[]":
 				case "DrawableAffine":
 				case "MagickImage[]":
 				case "Matrix":

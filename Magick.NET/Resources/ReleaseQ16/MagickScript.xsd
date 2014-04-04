@@ -282,6 +282,36 @@
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
+	<xs:simpleType name="DistortMethod">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Affine" />
+					<xs:enumeration value="AffineProjection" />
+					<xs:enumeration value="Arc" />
+					<xs:enumeration value="Barrel" />
+					<xs:enumeration value="BarrelInverse" />
+					<xs:enumeration value="Bilinear" />
+					<xs:enumeration value="BilinearForward" />
+					<xs:enumeration value="BilinearReverse" />
+					<xs:enumeration value="Cylinder2Plane" />
+					<xs:enumeration value="DePolar" />
+					<xs:enumeration value="Perspective" />
+					<xs:enumeration value="PerspectiveProjection" />
+					<xs:enumeration value="Plane2Cylinder" />
+					<xs:enumeration value="Polar" />
+					<xs:enumeration value="Polynomial" />
+					<xs:enumeration value="Resize" />
+					<xs:enumeration value="ScaleRotateTranslate" />
+					<xs:enumeration value="Sentinel" />
+					<xs:enumeration value="Shepards" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="var" />
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
 	<xs:simpleType name="DitherMethod">
 		<xs:union>
 			<xs:simpleType>
@@ -963,6 +993,23 @@
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
+	<xs:simpleType name="SparseColorMethod">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Barycentric" />
+					<xs:enumeration value="Bilinear" />
+					<xs:enumeration value="Inverse" />
+					<xs:enumeration value="Polynomial" />
+					<xs:enumeration value="Shepards" />
+					<xs:enumeration value="Voronoi" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="var" />
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
 	<xs:simpleType name="StorageType">
 		<xs:union>
 			<xs:simpleType>
@@ -1061,6 +1108,12 @@
 		<xs:sequence>
 			<xs:element name="coordinate" minOccurs="3" maxOccurs="unbounded" type="coordinate" />
 		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="doubleArray">
+		<xs:sequence>
+			<xs:element name="value" type="xs:double" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="variable" type="var" use="optional" />
 	</xs:complexType>
 	<xs:complexType name="drawable">
 		<xs:group ref="drawables" />
@@ -1221,13 +1274,7 @@
 						<xs:attribute name="value" use="required" type="ClassType" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="clipMask">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="image" type="image" />
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
+				<xs:element name="clipMask" type="image" />
 				<xs:element name="colorFuzz">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="double" />
@@ -1288,13 +1335,7 @@
 						<xs:attribute name="value" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="fillPattern">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="image" type="image" />
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
+				<xs:element name="fillPattern" type="image" />
 				<xs:element name="fillRule">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="FillRule" />
@@ -1395,6 +1436,7 @@
 						<xs:attribute name="value" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="strokeDashArray" type="doubleArray" />
 				<xs:element name="strokeDashOffset">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="double" />
@@ -1415,13 +1457,7 @@
 						<xs:attribute name="value" use="required" type="int" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="strokePattern">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="image" type="image" />
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
+				<xs:element name="strokePattern" type="image" />
 				<xs:element name="strokeWidth">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="double" />
@@ -1705,6 +1741,15 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="despeckle" type="empty" />
+				<xs:element name="distort">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="arguments" type="doubleArray" />
+						</xs:sequence>
+						<xs:attribute name="bestfit" type="bool" />
+						<xs:attribute name="method" use="required" type="DistortMethod" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="edge">
 					<xs:complexType>
 						<xs:attribute name="radius" use="required" type="double" />
@@ -2102,6 +2147,15 @@
 						<xs:attribute name="factor" type="double" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="sparseColor">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="coordinates" type="doubleArray" />
+						</xs:sequence>
+						<xs:attribute name="channels" use="required" type="Channels" />
+						<xs:attribute name="method" use="required" type="SparseColorMethod" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="stegano">
 					<xs:complexType>
 						<xs:sequence>
@@ -2376,6 +2430,13 @@
 						<xs:attribute name="offset" type="geometry" />
 						<xs:attribute name="x" type="double" />
 						<xs:attribute name="y" type="double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="dashArray">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="dash" type="doubleArray" />
+						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="dashOffset">

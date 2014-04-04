@@ -21,6 +21,7 @@
 #include "..\..\Drawables\DrawableClipPath.h"
 #include "..\..\Drawables\DrawableColor.h"
 #include "..\..\Drawables\DrawableCompositeImage.h"
+#include "..\..\Drawables\DrawableDashArray.h"
 #include "..\..\Drawables\DrawableDashOffset.h"
 #include "..\..\Drawables\DrawableEllipse.h"
 #include "..\..\Drawables\DrawableFillColor.h"
@@ -546,6 +547,11 @@ namespace ImageMagick
 							}
 						}
 						break;
+					}
+					case 'i':
+					{
+						ExecuteDistort(element, image);
+						return;
 					}
 					case 'r':
 					{
@@ -1119,8 +1125,20 @@ namespace ImageMagick
 											}
 											case 'D':
 											{
-												ExecuteStrokeDashOffset(element, image);
-												return;
+												switch(element->Name[10])
+												{
+													case 'A':
+													{
+														ExecuteStrokeDashArray(element, image);
+														return;
+													}
+													case 'O':
+													{
+														ExecuteStrokeDashOffset(element, image);
+														return;
+													}
+												}
+												break;
 											}
 											case 'L':
 											{
@@ -1305,6 +1323,11 @@ namespace ImageMagick
 					case 'o':
 					{
 						ExecuteSolarize(element, image);
+						return;
+					}
+					case 'p':
+					{
+						ExecuteSparseColor(element, image);
 						return;
 					}
 					case 'w':
@@ -1627,7 +1650,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteClipMask(XmlElement^ element, MagickImage^ image)
 	{
-		image->ClipMask = CreateMagickImage((XmlElement^)element->SelectSingleNode("read"));
+		image->ClipMask = CreateMagickImage(element);
 	}
 	void MagickScript::ExecuteColorFuzz(XmlElement^ element, MagickImage^ image)
 	{
@@ -1679,7 +1702,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteFillPattern(XmlElement^ element, MagickImage^ image)
 	{
-		image->FillPattern = CreateMagickImage((XmlElement^)element->SelectSingleNode("read"));
+		image->FillPattern = CreateMagickImage(element);
 	}
 	void MagickScript::ExecuteFillRule(XmlElement^ element, MagickImage^ image)
 	{
@@ -1761,6 +1784,10 @@ namespace ImageMagick
 	{
 		image->StrokeColor = _Variables->GetValue<MagickColor^>(element, "value");
 	}
+	void MagickScript::ExecuteStrokeDashArray(XmlElement^ element, MagickImage^ image)
+	{
+		image->StrokeDashArray = _Variables->GetDoubleArray(element);
+	}
 	void MagickScript::ExecuteStrokeDashOffset(XmlElement^ element, MagickImage^ image)
 	{
 		image->StrokeDashOffset = _Variables->GetValue<double>(element, "value");
@@ -1779,7 +1806,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteStrokePattern(XmlElement^ element, MagickImage^ image)
 	{
-		image->StrokePattern = CreateMagickImage((XmlElement^)element->SelectSingleNode("read"));
+		image->StrokePattern = CreateMagickImage(element);
 	}
 	void MagickScript::ExecuteStrokeWidth(XmlElement^ element, MagickImage^ image)
 	{
@@ -2339,6 +2366,27 @@ namespace ImageMagick
 	{
 		image->Despeckle();
 	}
+	void MagickScript::ExecuteDistort(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "bestfit")
+				arguments["bestfit"] = _Variables->GetValue<bool>(attribute);
+			else if (attribute->Name == "method")
+				arguments["method"] = _Variables->GetValue<DistortMethod>(attribute);
+		}
+		for each(XmlElement^ elem in element->SelectNodes("*"))
+		{
+			arguments[elem->Name] = _Variables->GetDoubleArray(elem);
+		}
+		if (OnlyContains(arguments, "method", "arguments"))
+			image->Distort((DistortMethod)arguments["method"], (array<double>^)arguments["arguments"]);
+		else if (OnlyContains(arguments, "method", "arguments", "bestfit"))
+			image->Distort((DistortMethod)arguments["method"], (array<double>^)arguments["arguments"], (bool)arguments["bestfit"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'distort', allowed combinations are: [method, arguments] [method, arguments, bestfit]");
+	}
 	void MagickScript::ExecuteEdge(XmlElement^ element, MagickImage^ image)
 	{
 		double radius_ = _Variables->GetValue<double>(element, "radius");
@@ -2559,7 +2607,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteHaldClut(XmlElement^ element, MagickImage^ image)
 	{
-		MagickImage^ image_ = CreateMagickImage((XmlElement^)element->SelectSingleNode("image"));
+		MagickImage^ image_ = CreateMagickImage(element["image"]);
 		image->HaldClut(image_);
 	}
 	void MagickScript::ExecuteImplode(XmlElement^ element, MagickImage^ image)
@@ -2860,7 +2908,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteQuantize(XmlElement^ element, MagickImage^ image)
 	{
-		QuantizeSettings^ settings_ = CreateQuantizeSettings((XmlElement^)element->SelectSingleNode("settings"));
+		QuantizeSettings^ settings_ = CreateQuantizeSettings(element["settings"]);
 		image->Quantize(settings_);
 	}
 	void MagickScript::ExecuteRaise(XmlElement^ element, MagickImage^ image)
@@ -3273,14 +3321,21 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'solarize', allowed combinations are: [] [factor]");
 	}
+	void MagickScript::ExecuteSparseColor(XmlElement^ element, MagickImage^ image)
+	{
+		Channels channels_ = _Variables->GetValue<Channels>(element, "channels");
+		SparseColorMethod method_ = _Variables->GetValue<SparseColorMethod>(element, "method");
+		array<double>^ coordinates_ = _Variables->GetDoubleArray(element["coordinates"]);
+		image->SparseColor(channels_, method_, coordinates_);
+	}
 	void MagickScript::ExecuteStegano(XmlElement^ element, MagickImage^ image)
 	{
-		MagickImage^ watermark_ = CreateMagickImage((XmlElement^)element->SelectSingleNode("watermark"));
+		MagickImage^ watermark_ = CreateMagickImage(element["watermark"]);
 		image->Stegano(watermark_);
 	}
 	void MagickScript::ExecuteStereo(XmlElement^ element, MagickImage^ image)
 	{
-		MagickImage^ rightImage_ = CreateMagickImage((XmlElement^)element->SelectSingleNode("rightImage"));
+		MagickImage^ rightImage_ = CreateMagickImage(element["rightImage"]);
 		image->Stereo(rightImage_);
 	}
 	void MagickScript::ExecuteStrip(MagickImage^ image)
@@ -3294,7 +3349,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteTexture(XmlElement^ element, MagickImage^ image)
 	{
-		MagickImage^ image_ = CreateMagickImage((XmlElement^)element->SelectSingleNode("image"));
+		MagickImage^ image_ = CreateMagickImage(element["image"]);
 		image->Texture(image_);
 	}
 	void MagickScript::ExecuteThreshold(XmlElement^ element, MagickImage^ image)
@@ -3650,7 +3705,7 @@ namespace ImageMagick
 	}
 	MagickImage^ MagickScript::ExecuteQuantize(XmlElement^ element, MagickImageCollection^ collection)
 	{
-		QuantizeSettings^ settings_ = CreateQuantizeSettings((XmlElement^)element->SelectSingleNode("settings"));
+		QuantizeSettings^ settings_ = CreateQuantizeSettings(element["settings"]);
 		collection->Quantize(settings_);
 		return nullptr;
 	}
@@ -3784,8 +3839,20 @@ namespace ImageMagick
 			}
 			case 'd':
 			{
-				ExecuteDashOffset(element, drawables);
-				return;
+				switch(element->Name[4])
+				{
+					case 'A':
+					{
+						ExecuteDashArray(element, drawables);
+						return;
+					}
+					case 'O':
+					{
+						ExecuteDashOffset(element, drawables);
+						return;
+					}
+				}
+				break;
 			}
 			case 'e':
 			{
@@ -4170,6 +4237,11 @@ namespace ImageMagick
 			drawables->Add(gcnew DrawableCompositeImage((double)arguments["x"], (double)arguments["y"], (MagickImage^)arguments["image"]));
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'compositeImage', allowed combinations are: [offset, compose, image] [offset, image] [x, y, compose, image] [x, y, image]");
+	}
+	void MagickScript::ExecuteDashArray(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		array<double>^ dash_ = _Variables->GetDoubleArray(element["dash"]);
+		drawables->Add(gcnew DrawableDashArray(dash_));
 	}
 	void MagickScript::ExecuteDashOffset(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
@@ -4787,7 +4859,7 @@ namespace ImageMagick
 		result->FrameCount = _Variables->GetValue<Nullable<Int32>>(element, "frameCount");
 		result->FrameIndex = _Variables->GetValue<Nullable<Int32>>(element, "frameIndex");
 		result->Height = _Variables->GetValue<Nullable<Int32>>(element, "height");
-		result->PixelStorage = CreatePixelStorageSettings((XmlElement^)element->SelectSingleNode("pixelStorage"));
+		result->PixelStorage = CreatePixelStorageSettings(element["pixelStorage"]);
 		result->Width = _Variables->GetValue<Nullable<Int32>>(element, "width");
 		XmlElement^ setDefine = (XmlElement^)element->SelectSingleNode("setDefine");
 		if (setDefine != nullptr)

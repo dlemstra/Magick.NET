@@ -37,6 +37,13 @@
 		</xs:sequence>
 	</xs:complexType>
 	<!--=========================================================================================-->
+	<xs:complexType name="doubleArray">
+		<xs:sequence>
+			<xs:element name="value" type="xs:double" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="variable" type="var" use="optional"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
 	<xs:complexType name="drawable">
 		<xs:group ref="drawables" />
 	</xs:complexType>

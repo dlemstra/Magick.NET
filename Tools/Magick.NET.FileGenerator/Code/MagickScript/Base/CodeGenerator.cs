@@ -251,6 +251,9 @@ namespace Magick.NET.FileGenerator
 		{
 			switch (typeName)
 			{
+				case "array<double>^":
+					writer.Write("_Variables->GetDoubleArray");
+					break;
 				case "Coordinate":
 					writer.Write("CreateCoordinate");
 					break;
@@ -338,6 +341,16 @@ namespace Magick.NET.FileGenerator
 		{
 			switch (typeName)
 			{
+				case "array<double>^":
+				case "MagickImage^":
+					writer.Write("element");
+					if (!string.IsNullOrEmpty(elementName))
+					{
+						writer.Write("[\"");
+						writer.Write(elementName);
+						writer.Write("\"]");
+					}
+					break;
 				case "IEnumerable<Coordinate>^":
 				case "IEnumerable<Drawable^>^":
 				case "IEnumerable<PathBase^>^":
@@ -347,23 +360,11 @@ namespace Magick.NET.FileGenerator
 				case "ImageProfile^":
 					writer.Write("element");
 					break;
-				case "MagickImage^":
 				case "PixelStorageSettings^":
 				case "QuantizeSettings^":
-					writer.Write("(XmlElement^)element->SelectSingleNode(\"");
-					if (string.IsNullOrEmpty(elementName))
-						writer.Write("read");
-					else
-						writer.Write(elementName);
-					writer.Write("\")");
-					break;
-				case "MagickGeometry^":
-					writer.Write("(XmlElement^)element->SelectSingleNode(\"");
-					if (string.IsNullOrEmpty(elementName))
-						writer.Write("geometry");
-					else
-						writer.Write(elementName);
-					writer.Write("\")");
+					writer.Write("element[\"");
+					writer.Write(elementName);
+					writer.Write("\"]");
 					break;
 				default:
 					throw new NotImplementedException(typeName);

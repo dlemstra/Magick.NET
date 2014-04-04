@@ -256,28 +256,27 @@ namespace Magick.NET.FileGenerator
 		{
 			string name = GetName(property);
 
-			XElement complexType = new XElement(_Namespace + "complexType");
 
 			string attributeTypeName = GetAttributeType(property);
 
 			if (attributeTypeName != null)
 			{
+				XElement complexType = new XElement(_Namespace + "complexType");
 				complexType.Add(new XElement(_Namespace + "attribute",
 										new XAttribute("name", "value"),
 										new XAttribute("use", "required"),
 										new XAttribute("type", attributeTypeName)));
+
+				return new XElement(_Namespace + "element",
+							new XAttribute("name", name),
+							complexType);
 			}
 			else
 			{
-				string elementTypeName = GetElementType(property);
-
-				complexType.Add(new XElement(_Namespace + "sequence",
-										new XElement(_Namespace + "element",
-											new XAttribute("name", elementTypeName),
-											new XAttribute("type", elementTypeName))));
+				return new XElement(_Namespace + "element",
+					new XAttribute("name", name),
+					new XAttribute("type", GetElementType(property)));
 			}
-
-			return new XElement(_Namespace + "element", new XAttribute("name", name), complexType);
 		}
 		//===========================================================================================
 		private XElement CreateEnumElement(Type enumType)
@@ -335,6 +334,7 @@ namespace Magick.NET.FileGenerator
 					return "color";
 				case "MagickGeometry^":
 					return "geometry";
+				case "array<double>^":
 				case "Coordinate":
 				case "Drawable^":
 				case "IEnumerable<Coordinate>^":
@@ -362,6 +362,8 @@ namespace Magick.NET.FileGenerator
 
 			switch (typeName)
 			{
+				case "array<double>^":
+					return "doubleArray";
 				case "Coordinate":
 					return "coordinate";
 				case "Drawable^":
