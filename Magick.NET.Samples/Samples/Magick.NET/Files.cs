@@ -34,6 +34,14 @@ namespace RootNamespace.Samples.MagickNET
 			}
 		}
 
+		public static string FujiFilmFinePixS1ProJpg
+		{
+			get
+			{
+				return _FilesDirectory + "FujiFilmFinePixS1Pro.jpg";
+			}
+		}
+
 		public static string InvalidFileJpg
 		{
 			get

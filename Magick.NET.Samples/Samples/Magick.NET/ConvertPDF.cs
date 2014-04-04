@@ -16,16 +16,15 @@ using ImageMagick;
 
 namespace RootNamespace.Samples.MagickNET
 {
+	/// <summary>
+	/// You need to install the latest version of GhostScript before you can convert a pdf using
+	/// Magick.NET. Make sure you only install the version of GhostScript with the same platform. If
+	/// you use the 64-bit version of Magick.NET you should also install the 64-bit version of 
+	/// Ghostscript. You can use the 32-bit version together with the 64-version but you will get a
+	/// better performance if you keep the platforms the same.
+	/// </summary>
 	public static class ConvertPDFSamples
 	{
-		/*
-			You need to install the latest version of GhostScript before you can convert a pdf using Magick.NET.
-
-			Make sure you only install the version of GhostScript with the same platform. If you use the 64-bit
-			version of Magick.NET you should also install the 64-bit version of Ghostscript. You can use the 32-bit
-			version together with the 64-version but you will get a better performance if you keep the platforms the same.
-		*/
-
 		public static void ConvertPDFToMultipleImages()
 		{
 			MagickReadSettings settings = new MagickReadSettings();

@@ -28,13 +28,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Samples\Magick.NET\CommandLineOptionDefine.cs" />
     <Compile Include="Samples\Magick.NET\ConvertPDF.cs" />
     <Compile Include="Samples\Magick.NET\ConvertImage.cs" />
     <Compile Include="Samples\Magick.NET\CombiningImages.cs" />
     <Compile Include="Samples\Magick.NET\ExceptionHandling.cs" />
+    <Compile Include="Samples\Magick.NET\ExifData.cs" />
     <Compile Include="Samples\Magick.NET\Files.cs" />
     <Compile Include="Samples\Magick.NET\ReadImage.cs" />
     <Compile Include="Samples\Magick.NET\ReadRawImageFromCamera.cs" />
+    <Compile Include="Samples\Magick.NET\UsingColors.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Magick.NET\Magick.NET.vcxproj">

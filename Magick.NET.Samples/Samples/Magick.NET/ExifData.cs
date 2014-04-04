@@ -12,22 +12,34 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using ImageMagick;
 
 namespace RootNamespace.Samples.MagickNET
 {
-	/// <summary>
-	/// You need to put the executable dcraw.exe into the directory that contains the Magick.NET dll.
-	/// The zip file ImageMagick-6.X.X-X-Q16-x86-windows.zip that you can download from
-	/// http://www.imagemagick.org/script/binary-releases.php#windows contains this file.
-	/// </summary>
-	public static class ReadRawImageFromCameraSamples
+	public static class ExifDataSamples
 	{
-		public static void ConvertCR2ToJPG()
+		public static void ReadExifData()
 		{
-			using (MagickImage image = new MagickImage(SampleFiles.StillLifeCR2))
+			using (MagickImage image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg))
 			{
-				image.Write("StillLife.jpg");
+				ExifProfile profile = image.GetExifProfile();
+				foreach (ExifValue value in profile.Values)
+				{
+					Console.WriteLine("{0}({1}): {2}", value.Tag, value.DataType, value.ToString());
+				}
+			}
+		}
+
+		public static void CreateThumbnailFromExifData()
+		{
+			using (MagickImage image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg))
+			{
+				ExifProfile profile = image.GetExifProfile();
+				using (MagickImage thumbnail = profile.CreateThumbnail())
+				{
+					thumbnail.Write(SampleFiles.OutputDirectory + "FujiFilmFinePixS1Pro.thumb.jpg");
+				}
 			}
 		}
 	}
