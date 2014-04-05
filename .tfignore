@@ -60,6 +60,7 @@
 \Magick.NET.Samples\bin
 \Magick.NET.Samples\obj
 \Magick.NET.Samples\Samples\Magick.NET\*.pp
+\Magick.NET.Samples\Samples\Magick.NET\Scripts\*.pp
 \ImageMagick\Source\ImageMagick
 \Publish\Archive\*
 \Publish\NuGet\*.nupkg

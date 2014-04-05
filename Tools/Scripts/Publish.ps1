@@ -180,7 +180,7 @@ function CreateNuGetPackages($builds)
 		
 		$id = "Magick.NET-$($build.Quantum)-$($build.PlatformName).Sample"
 		$samples = FullPath "Magick.NET.Samples\Samples\Magick.NET"
-		$files = Get-ChildItem -File -Path $samples -Exclude *.cs -Recurse
+		$files = Get-ChildItem -File -Path $samples\* -Exclude *.cs,*.msl -Recurse
 		$offset = $files[0].FullName.LastIndexOf("\Magick.NET.Samples\") + 20
 		foreach($file in $files)
 		{
@@ -194,7 +194,7 @@ function CreateNuGetPackages($builds)
 function CreatePreProcessedFiles()
 {
 	$samples = FullPath "Magick.NET.Samples\Samples\Magick.NET"
-	$files = Get-ChildItem -Path $samples -Include *.cs -Recurse
+	$files = Get-ChildItem -Path $samples\* -Include *.cs,*.msl -Recurse
 	foreach($file in $files)
 	{
 		$content = Get-Content $file
