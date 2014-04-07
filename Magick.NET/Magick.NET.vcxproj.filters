@@ -714,6 +714,9 @@
     <ClInclude Include="Enums\DitherMethod.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
+    <ClInclude Include="Settings\MontageSettings.h">
+      <Filter>Header Files\Settings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1128,6 +1131,9 @@
       <Filter>Source Files\Script</Filter>
     </ClCompile>
     <ClCompile Include="Settings\QuantizeSettings.cpp">
+      <Filter>Source Files\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings\MontageSettings.cpp">
       <Filter>Source Files\Settings</Filter>
     </ClCompile>
   </ItemGroup>

@@ -19,6 +19,7 @@
 #include "IO\MagickReader.h"
 #include "MagickErrorInfo.h"
 #include "Settings\MagickReadSettings.h"
+#include "Settings\MontageSettings.h"
 #include "Settings\QuantizeSettings.h"
 
 using namespace System::Collections::Generic;
@@ -308,6 +309,13 @@ namespace ImageMagick
 		///</summary>
 		///<exception cref="MagickException"/>
 		MagickImage^ Merge();
+		///==========================================================================================
+		///<summary>
+		/// Create a composite image by combining the images with the specified settings.
+		///</summary>
+		///<param name="settings">The settings to use.</param>
+		///<exception cref="MagickException"/>
+		MagickImage^ Montage(MontageSettings^ settings);
 		///==========================================================================================
 		///<summary>
 		/// The Morph method requires a minimum of two images. The first image is transformed into

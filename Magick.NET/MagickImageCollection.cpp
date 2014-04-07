@@ -19,6 +19,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::Append(bool vertically)
 	{
+		if (Count == 0)
+			return nullptr;
+
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 
 		try
@@ -93,6 +96,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageCollection::Optimize(LayerMethod optizeMethod)
 	{
+		if (Count == 0)
+			return;
+
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		std::list<Magick::Image>* optimizedImages = new std::list<Magick::Image>();
 
@@ -120,6 +126,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::Smush(bool vertically, int offset)
 	{
+		if (Count == 0)
+			return nullptr;
+
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 
 		try
@@ -303,6 +312,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::Combine(Channels channels)
 	{
+		if (Count == 0)
+			nullptr;
+
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 
 		try
@@ -328,6 +340,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageCollection::Coalesce()
 	{
+		if (Count == 0)
+			return;
+
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		std::list<Magick::Image>* coalescedImages = new std::list<Magick::Image>();
 
@@ -352,6 +367,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageCollection::CopyTo(array<MagickImage^>^ destination, int arrayIndex)
 	{
+		if (Count == 0)
+			return;
+
 		Throw::IfNull("destination", destination);
 		Throw::IfOutOfRange("arrayIndex", arrayIndex, _Images->Count);
 		Throw::IfOutOfRange("arrayIndex", arrayIndex, destination->Length);
@@ -366,6 +384,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageCollection::Deconstruct()
 	{
+		if (Count == 0)
+			return;
+
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		std::list<Magick::Image>* deconstructedImages = new std::list<Magick::Image>();
 
@@ -390,6 +411,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::Evaluate(EvaluateOperator evaluateOperator)
 	{
+		if (Count == 0)
+			return nullptr;
+
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 
 		try
@@ -415,6 +439,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::Flatten()
 	{
+		if (Count == 0)
+			return nullptr;
+
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 
 		try
@@ -439,6 +466,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::Fx(String^ expression)
 	{
+		if (Count == 0)
+			return nullptr;
+
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 
 		try
@@ -491,13 +521,52 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::Merge()
 	{
+		if (Count == 0)
+			return nullptr;
+
 		Magick::Image mergedImage;
 		Merge(&mergedImage, LayerMethod::Merge);
 		return gcnew MagickImage(mergedImage);
 	}
 	//==============================================================================================
+	MagickImage^ MagickImageCollection::Montage(MontageSettings^ settings)
+	{
+		if (Count == 0)
+			return nullptr;
+
+		Throw::IfNull("settings", settings);
+
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		MagickImageCollection^ collection = gcnew MagickImageCollection();
+
+		try
+		{
+			CopyTo(images);
+
+			Magick::MontageFramed options;
+			settings->Apply(&options);
+			Magick::montageImages(images, images->begin(), images->end(), options);
+			collection->CopyFrom(images);
+			return collection->Merge();
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+			return nullptr;
+		}
+		finally
+		{
+			delete images;
+			delete collection;
+		}
+
+	}
+	//==============================================================================================
 	MagickImageCollection^ MagickImageCollection::Morph(int frames)
 	{
+		if (Count == 0)
+			return nullptr;
+
 		Throw::IfTrue("frames", frames < 1, "Frames must be at least 1.");
 
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
@@ -528,6 +597,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::Mosaic()
 	{
+		if (Count == 0)
+			return nullptr;
+
 		Magick::Image mosaicImage;
 		Merge(&mosaicImage, LayerMethod::Mosaic);
 		return gcnew MagickImage(mosaicImage);
@@ -545,6 +617,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickErrorInfo^ MagickImageCollection::Quantize(QuantizeSettings^ settings)
 	{
+		if (Count == 0)
+			return nullptr;
+
 		Throw::IfNull("settings", settings);
 
 		MagickImage^ colorMap = nullptr;
@@ -648,6 +723,9 @@ namespace ImageMagick
 	//==============================================================================================
 	array<Byte>^ MagickImageCollection::ToByteArray()
 	{
+		if (Count == 0)
+			return nullptr;
+
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		CopyTo(images);
 
@@ -660,6 +738,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::TrimBounds()
 	{
+		if (Count == 0)
+			return nullptr;
+
 		Magick::Image trimBoundsImage;
 		Merge(&trimBoundsImage, LayerMethod::Trimbounds);
 		return gcnew MagickImage(trimBoundsImage);
@@ -667,6 +748,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageCollection::Write(Stream^ stream)
 	{
+		if (Count == 0)
+			return;
+
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		CopyTo(images);
 
@@ -677,6 +761,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageCollection::Write(String^ fileName)
 	{
+		if (Count == 0)
+			return;
+
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		CopyTo(images);
 
