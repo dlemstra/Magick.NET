@@ -201,6 +201,7 @@ namespace ImageMagick
 		Rmf,
 		Rw2,
 		Scr,
+		Screenshot,
 		Sct,
 		Sfw,
 		Sgi,

@@ -57,6 +57,26 @@ namespace ImageMagick
 		_putenv_s(name, Marshaller::Marshal(value, val).c_str());
 	}
 	//==============================================================================================
+	bool MagickNET::SetUseOpenCL(bool value)
+	{
+		try
+		{
+			if (value)
+			{
+				return Magick::EnableOpenCL();
+			}
+			else
+			{
+				Magick::DisableOpenCL();
+				return false;
+			}
+		}
+		catch(Magick::Exception &exception)
+		{
+			MagickException::Throw(exception);
+		}
+	}
+	//==============================================================================================
 	String^ MagickNET::Features::get()
 	{
 		std::string features = std::string(MagickCore::GetMagickFeatures());
@@ -91,26 +111,15 @@ namespace ImageMagick
 		return MagickFormatInfo::All;
 	}
 	//==============================================================================================
-	/*bool MagickNET::UseOpenCL::get()
+	bool MagickNET::UseOpenCL::get()
 	{
-	return _UseOpenCL;
+		return _UseOpenCL;
 	}
 	//==============================================================================================
 	void MagickNET::UseOpenCL::set(bool value)
 	{
-	_UseOpenCL=value;
-	try
-	{
-	if (value)
-	Magick::EnableOpenCL();
-	else
-	Magick::DisableOpenCL();
+		_UseOpenCL=SetUseOpenCL(value);
 	}
-	catch(Magick::Exception &exception)
-	{
-	MagickException::Throw(exception);
-	}
-	}*/
 	//==============================================================================================
 	String^ MagickNET::Version::get()
 	{

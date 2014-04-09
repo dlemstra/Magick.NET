@@ -42,7 +42,7 @@ namespace ImageMagick
 		};
 		static MagickLogFuncDelegate^ _LogDelegate;
 		static EventHandler<LogEventArgs^>^ _LogEvent;
-		//static bool _UseOpenCL = true;
+		static bool _UseOpenCL = SetUseOpenCL(true);
 		//===========================================================================================
 		static String^ CheckDirectory(String^ path);
 		//===========================================================================================
@@ -51,6 +51,8 @@ namespace ImageMagick
 		static void OnLog(const Magick::LogEventType type, const char* text);
 		//===========================================================================================
 		static void SetEnv(const char* name, String^ value);
+		//===========================================================================================
+		static bool SetUseOpenCL(bool value);
 		//===========================================================================================
 	public:
 		///==========================================================================================
@@ -75,7 +77,7 @@ namespace ImageMagick
 		{
 			IEnumerable<MagickFormatInfo^>^ get();
 		}
-		/*///==========================================================================================
+		///==========================================================================================
 		///<summary>
 		/// Gets or sets the use of OpenCL.
 		///</summary>
@@ -83,7 +85,7 @@ namespace ImageMagick
 		{
 			bool get();
 			void set(bool value);
-		}*/
+		}
 		///==========================================================================================
 		///<summary>
 		/// Returns the version of Magick.NET.

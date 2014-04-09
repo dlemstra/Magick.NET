@@ -50,9 +50,9 @@ namespace Magick.NET.Tests
 		public void Test_Features()
 		{
 #if Q8
-			Assert.AreEqual("DPC Modules OpenMP", MagickNET.Features);
+			Assert.AreEqual("DPC Modules OpenCL OpenMP", MagickNET.Features);
 #else
-			Assert.AreEqual("DPC HDRI Modules OpenMP", MagickNET.Features);
+			Assert.AreEqual("DPC HDRI Modules OpenCL OpenMP", MagickNET.Features);
 #endif
 		}
 		//===========================================================================================
@@ -116,6 +116,12 @@ namespace Magick.NET.Tests
 				image.Flip();
 				Assert.AreEqual(0, count);
 			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_OpenCL()
+		{
+			Assert.AreEqual(MagickNET.UseOpenCL, true);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
