@@ -2324,20 +2324,16 @@ namespace Magick
   void fxImages(Image *fxImage_,InputIterator first_,InputIterator last_,
     const std::string expression)
   {
-    MagickCore::ExceptionInfo
-      exceptionInfo;
-
     MagickCore::Image
       *image;
 
-    MagickCore::GetExceptionInfo(&exceptionInfo);
+    GetPPException;
     linkImages(first_,last_);
     image=FxImageChannel(first_->constImage(),DefaultChannels,
       expression.c_str(),&exceptionInfo);
     unlinkImages(first_,last_);
     fxImage_->replaceImage(image);
-    throwException(exceptionInfo);
-    (void) DestroyExceptionInfo(&exceptionInfo);
+    ThrowPPException;
   }
 
   // Replace the colors of a sequence of images with the closest color
@@ -2555,19 +2551,19 @@ namespace Magick
 
   // Adds the names of the profiles from the image to the container.
   template <class Container>
-  void profileNames( Container *names_, const Image* image_ )
+  void profileNames(Container *names_,const Image* image_)
   {
-    const char*
-      name;
+    const char
+      *name;
 
     names_->clear();
 
-    MagickCore::ResetImageProfileIterator( image_->constImage() );
-    name=MagickCore::GetNextImageProfile( image_->constImage() );
+    MagickCore::ResetImageProfileIterator(image_->constImage());
+    name=MagickCore::GetNextImageProfile(image_->constImage());
     while (name != (const char *) NULL)
     {
-      names_->push_back( std::string(name) );
-      name=MagickCore::GetNextImageProfile( image_->constImage() );
+      names_->push_back(std::string(name));
+      name=MagickCore::GetNextImageProfile(image_->constImage());
     }
   }
 

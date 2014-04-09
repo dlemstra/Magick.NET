@@ -30,22 +30,22 @@ $Q16Builds = @(
 $configurations = @(
 	@{
 		Platform = "x86";
-		Options  = "";
+		Options  = "/opencl";
 		Builds   = $Q8Builds;
 	}
 	@{
 		Platform = "x86";
-		Options  = "/hdri";
+		Options  = "/opencl /hdri";
 		Builds   = $Q16Builds;
 	}
 	@{
 		Platform = "x64";
-		Options  = "/x64";
+		Options  = "/opencl /x64";
 		Builds   = $Q8Builds;
 	}
 	@{
 		Platform = "x64";
-		Options  = "/x64 /hdri";
+		Options  = "/opencl /x64 /hdri";
 		Builds   = $Q16Builds;
 	}
 )

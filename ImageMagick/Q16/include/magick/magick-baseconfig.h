@@ -56,8 +56,8 @@
 
 // Define to enable OpenCL
 //
-#undef MAGICKCORE__OPENCL
-#undef MAGICKCORE_HAVE_CL_CL_H
+#define MAGICKCORE__OPENCL
+#define MAGICKCORE_HAVE_CL_CL_H
 
 // Exclude deprecated methods in MagickCore API 
 //
@@ -268,7 +268,7 @@ typedef long ssize_t;
 /* Define to 1 if you have the `_wstat' function. */
 #define MAGICKCORE_HAVE__WSTAT 1
 
-#if defined(_VISUALC_) && (_MSC_VER >= 1400)
+#if defined(_VISUALC_) && (_MSC_VER >= 1310)
 #define MAGICKCORE_HAVE__ALIGNED_MALLOC 1
 #endif
 #define MAGICKCORE_HAVE_VSNPRINTF 1
