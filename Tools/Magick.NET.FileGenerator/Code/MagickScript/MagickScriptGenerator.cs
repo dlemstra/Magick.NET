@@ -49,6 +49,7 @@ namespace Magick.NET.FileGenerator
 
 			_SettingsCodeGenerators = new List<SettingsCodeGenerator>();
 			_SettingsCodeGenerators.Add(new MagickReadSettingsGenerator());
+			_SettingsCodeGenerators.Add(new MontageSettingsGenerator());
 			_SettingsCodeGenerators.Add(new PixelStorageSettingsGenerator());
 			_SettingsCodeGenerators.Add(new QuantizeSettingsGenerator());
 		}

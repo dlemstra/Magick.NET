@@ -83,6 +83,10 @@
 		<xs:annotation id="imageProfile"/>
 	</xs:complexType>
 	<!--=========================================================================================-->
+	<xs:complexType name="montageSettings">
+		<xs:annotation id="montageSettings"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
 	<xs:complexType name="paths">
 		<xs:sequence>
 			<xs:group ref="paths" maxOccurs="unbounded"/>

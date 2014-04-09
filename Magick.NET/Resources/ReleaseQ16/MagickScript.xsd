@@ -801,6 +801,7 @@
 					<xs:enumeration value="Rmf" />
 					<xs:enumeration value="Rw2" />
 					<xs:enumeration value="Scr" />
+					<xs:enumeration value="Screenshot" />
 					<xs:enumeration value="Sct" />
 					<xs:enumeration value="Sfw" />
 					<xs:enumeration value="Sgi" />
@@ -1165,6 +1166,25 @@
 		<xs:attribute name="fileName" use="required" type="xs:string" />
 		<xs:attribute name="name" use="required" type="xs:string" />
 	</xs:complexType>
+	<xs:complexType name="montageSettings">
+		<xs:attribute name="backgroundColor" type="color" />
+		<xs:attribute name="borderColor" type="color" />
+		<xs:attribute name="borderWidth" type="int" />
+		<xs:attribute name="compose" type="CompositeOperator" />
+		<xs:attribute name="fillColor" type="color" />
+		<xs:attribute name="font" type="xs:string" />
+		<xs:attribute name="fontPointsize" type="int" />
+		<xs:attribute name="frameGeometry" type="geometry" />
+		<xs:attribute name="geometry" type="geometry" />
+		<xs:attribute name="gravity" type="Gravity" />
+		<xs:attribute name="label" type="xs:string" />
+		<xs:attribute name="shadow" type="bool" />
+		<xs:attribute name="strokeColor" type="color" />
+		<xs:attribute name="textureFileName" type="xs:string" />
+		<xs:attribute name="tileGeometry" type="geometry" />
+		<xs:attribute name="title" type="xs:string" />
+		<xs:attribute name="transparentColor" type="color" />
+	</xs:complexType>
 	<xs:complexType name="paths">
 		<xs:sequence>
 			<xs:group ref="paths" maxOccurs="unbounded" />
@@ -1257,6 +1277,11 @@
 				<xs:element name="backgroundColor">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="blackPointCompensation">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="bool" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="borderColor">
@@ -2350,6 +2375,13 @@
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="merge" type="empty" />
+							<xs:element name="montage">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="settings" type="montageSettings" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
 							<xs:element name="mosaic" type="empty" />
 							<xs:element name="smushHorizontal">
 								<xs:complexType>

@@ -220,6 +220,47 @@ namespace ImageMagick
 						ExecuteBackgroundColor(element, image);
 						return;
 					}
+					case 'l':
+					{
+						switch(element->Name[2])
+						{
+							case 'a':
+							{
+								switch(element->Name[5])
+								{
+									case 'P':
+									{
+										ExecuteBlackPointCompensation(element, image);
+										return;
+									}
+									case 'T':
+									{
+										ExecuteBlackThreshold(element, image);
+										return;
+									}
+								}
+								break;
+							}
+							case 'u':
+							{
+								switch(element->Name[3])
+								{
+									case 'e':
+									{
+										ExecuteBlueShift(element, image);
+										return;
+									}
+									case 'r':
+									{
+										ExecuteBlur(element, image);
+										return;
+									}
+								}
+								break;
+							}
+						}
+						break;
+					}
 					case 'o':
 					{
 						switch(element->Name[2])
@@ -244,35 +285,6 @@ namespace ImageMagick
 					{
 						ExecuteBitDepth(element, image);
 						return;
-					}
-					case 'l':
-					{
-						switch(element->Name[2])
-						{
-							case 'a':
-							{
-								ExecuteBlackThreshold(element, image);
-								return;
-							}
-							case 'u':
-							{
-								switch(element->Name[3])
-								{
-									case 'e':
-									{
-										ExecuteBlueShift(element, image);
-										return;
-									}
-									case 'r':
-									{
-										ExecuteBlur(element, image);
-										return;
-									}
-								}
-								break;
-							}
-						}
-						break;
 					}
 					case 'r':
 					{
@@ -1635,6 +1647,10 @@ namespace ImageMagick
 	void MagickScript::ExecuteBackgroundColor(XmlElement^ element, MagickImage^ image)
 	{
 		image->BackgroundColor = _Variables->GetValue<MagickColor^>(element, "value");
+	}
+	void MagickScript::ExecuteBlackPointCompensation(XmlElement^ element, MagickImage^ image)
+	{
+		image->BlackPointCompensation = _Variables->GetValue<bool>(element, "value");
 	}
 	void MagickScript::ExecuteBorderColor(XmlElement^ element, MagickImage^ image)
 	{
@@ -3656,7 +3672,18 @@ namespace ImageMagick
 					}
 					case 'o':
 					{
-						return ExecuteMosaic(collection);
+						switch(element->Name[2])
+						{
+							case 'n':
+							{
+								return ExecuteMontage(element, collection);
+							}
+							case 's':
+							{
+								return ExecuteMosaic(collection);
+							}
+						}
+						break;
 					}
 				}
 				break;
@@ -3758,6 +3785,11 @@ namespace ImageMagick
 	MagickImage^ MagickScript::ExecuteMerge(MagickImageCollection^ collection)
 	{
 		return collection->Merge();
+	}
+	MagickImage^ MagickScript::ExecuteMontage(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		MontageSettings^ settings_ = CreateMontageSettings(element["settings"]);
+		return collection->Montage(settings_);
 	}
 	MagickImage^ MagickScript::ExecuteMosaic(MagickImageCollection^ collection)
 	{
@@ -4869,6 +4901,30 @@ namespace ImageMagick
 			String^ value_ = XmlHelper::GetAttribute<String^>(setDefine, "value");
 			result->SetDefine(format_,name_,value_);
 		}
+		return result;
+	}
+	MontageSettings^ MagickScript::CreateMontageSettings(XmlElement^ element)
+	{
+		if (element == nullptr)
+			return nullptr;
+		MontageSettings^ result = gcnew MontageSettings();
+		result->BackgroundColor = _Variables->GetValue<MagickColor^>(element, "backgroundColor");
+		result->BorderColor = _Variables->GetValue<MagickColor^>(element, "borderColor");
+		result->BorderWidth = _Variables->GetValue<int>(element, "borderWidth");
+		result->Compose = _Variables->GetValue<CompositeOperator>(element, "compose");
+		result->FillColor = _Variables->GetValue<MagickColor^>(element, "fillColor");
+		result->Font = _Variables->GetValue<String^>(element, "font");
+		result->FontPointsize = _Variables->GetValue<int>(element, "fontPointsize");
+		result->FrameGeometry = _Variables->GetValue<MagickGeometry^>(element, "frameGeometry");
+		result->Geometry = _Variables->GetValue<MagickGeometry^>(element, "geometry");
+		result->Gravity = _Variables->GetValue<Gravity>(element, "gravity");
+		result->Label = _Variables->GetValue<String^>(element, "label");
+		result->Shadow = _Variables->GetValue<bool>(element, "shadow");
+		result->StrokeColor = _Variables->GetValue<MagickColor^>(element, "strokeColor");
+		result->TextureFileName = _Variables->GetValue<String^>(element, "textureFileName");
+		result->TileGeometry = _Variables->GetValue<MagickGeometry^>(element, "tileGeometry");
+		result->Title = _Variables->GetValue<String^>(element, "title");
+		result->TransparentColor = _Variables->GetValue<MagickColor^>(element, "transparentColor");
 		return result;
 	}
 	PixelStorageSettings^ MagickScript::CreatePixelStorageSettings(XmlElement^ element)

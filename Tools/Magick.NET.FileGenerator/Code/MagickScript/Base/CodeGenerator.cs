@@ -284,6 +284,9 @@ namespace Magick.NET.FileGenerator
 				case "MagickGeometry^":
 					writer.Write("CreateMagickGeometry");
 					break;
+				case "MontageSettings^":
+					writer.Write("CreateMontageSettings");
+					break;
 				case "PixelStorageSettings^":
 					writer.Write("CreatePixelStorageSettings");
 					break;
@@ -360,6 +363,7 @@ namespace Magick.NET.FileGenerator
 				case "ImageProfile^":
 					writer.Write("element");
 					break;
+				case "MontageSettings^":
 				case "PixelStorageSettings^":
 				case "QuantizeSettings^":
 					writer.Write("element[\"");

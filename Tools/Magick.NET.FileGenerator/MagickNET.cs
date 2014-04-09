@@ -207,6 +207,7 @@ namespace Magick.NET.FileGenerator
 				case "MagickGeometry":
 				case "MagickImage":
 				case "MagickReadSettings":
+				case "MontageSettings":
 				case "PathArc":
 				case "PathCurveto":
 				case "PathQuadraticCurveto":

@@ -1061,6 +1061,7 @@ namespace Magick.NET.FileGenerator
 			writer.WriteLine("using System.Reflection;");
 			writer.WriteLine("using System.Text;");
 			writer.WriteLine("using System.Windows.Media.Imaging;");
+			writer.WriteLine("using System.Xml.Linq;");
 			writer.WriteLine("using System.Xml.XPath;");
 			writer.WriteLine("using Fasterflect;");
 			writer.WriteLine();

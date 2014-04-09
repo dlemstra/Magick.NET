@@ -345,6 +345,7 @@ namespace Magick.NET.FileGenerator
 				case "IEnumerable<PathBase^>^":
 				case "ImageProfile^":
 				case "MagickImage^":
+				case "MontageSettings^":
 				case "PathArc^":
 				case "PathCurveto^":
 				case "PathQuadraticCurveto^":
@@ -384,6 +385,8 @@ namespace Magick.NET.FileGenerator
 					return "profile";
 				case "MagickImage^":
 					return "image";
+				case "MontageSettings^":
+					return "montageSettings";
 				case "PathArc^":
 					return "pathArc";
 				case "PathCurveto^":
@@ -486,6 +489,7 @@ namespace Magick.NET.FileGenerator
 						ReplaceImageActions(annotation);
 						break;
 					case "magickReadSettings":
+					case "montageSettings":
 					case "pixelStorageSettings":
 					case "quantizeSettings":
 						ReplaceWithSettings(annotation, annotationID);
