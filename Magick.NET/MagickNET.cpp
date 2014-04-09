@@ -62,19 +62,16 @@ namespace ImageMagick
 		try
 		{
 			if (value)
-			{
 				return Magick::EnableOpenCL();
-			}
 			else
-			{
 				Magick::DisableOpenCL();
-				return false;
-			}
 		}
 		catch(Magick::Exception &exception)
 		{
 			MagickException::Throw(exception);
 		}
+
+		return false;
 	}
 	//==============================================================================================
 	String^ MagickNET::Features::get()
