@@ -389,6 +389,16 @@ namespace ImageMagick
 		return Convert::ToInt32(Value->baseColumns());
 	}
 	//==============================================================================================
+	bool MagickImage::BlackPointCompensation::get()
+	{
+		return Value->blackPointCompensation();
+	}
+	//==============================================================================================
+	void MagickImage::BlackPointCompensation::set(bool value)
+	{
+		Value->blackPointCompensation(value);
+	}
+	//==============================================================================================
 	MagickGeometry^ MagickImage::BoundingBox::get()
 	{
 		try

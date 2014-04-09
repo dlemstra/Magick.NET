@@ -268,6 +268,15 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Use black point compensation.
+		///</summary>
+		property bool BlackPointCompensation
+		{
+			bool get();
+			void set(bool value);
+		}
+		///==========================================================================================
+		///<summary>
 		/// Return smallest bounding box enclosing non-border pixels. The current fuzz value is used
 		/// when discriminating between pixels.
 		///</summary>
