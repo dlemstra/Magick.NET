@@ -1,0 +1,1 @@
+﻿This folder contains the images that are created by some of the samples.

@@ -27,14 +27,11 @@ namespace RootNamespace.Samples.MagickNET
 				image.BackgroundColor = new ColorMono(true);
 
 				// Q16:
-				/*
-				// This will not work in Q8 and that is why the comment was added.
 				image.TransparentChroma(new MagickColor(0, 0, 0), new MagickColor(0, 0, 65535));
 				image.TransparentChroma(new ColorRGB(0, 0, 0), new ColorRGB(0, 0, 65535));
 				image.BackgroundColor = new MagickColor("#00f");
 				image.BackgroundColor = new MagickColor("#0000ff");
 				image.BackgroundColor = new MagickColor("#00000000ffff");
-				*/
 
 				// Q8:
 				image.TransparentChroma(new MagickColor(0, 0, 0), new MagickColor(0, 0, 255));

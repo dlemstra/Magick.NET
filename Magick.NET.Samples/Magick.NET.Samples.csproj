@@ -47,9 +47,7 @@
       <Name>Magick.NET</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Samples\Magick.NET\Output\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Samples\Magick.NET\Files\CorruptImage.jpg" />
     <Content Include="Samples\Magick.NET\Files\FileWithWarning.jpg" />
@@ -58,6 +56,7 @@
     <Content Include="Samples\Magick.NET\Files\Snakeware.gif" />
     <Content Include="Samples\Magick.NET\Files\Snakeware.jpg" />
     <Content Include="Samples\Magick.NET\Files\Snakeware.png" />
+    <Content Include="Samples\Magick.NET\Output\Readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Magick.NET\Files\Snakeware.eps" />

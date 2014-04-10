@@ -65,14 +65,20 @@ namespace RootNamespace.Samples.MagickNET
 			// Convert CMYK jpeg to RGB.
 			using (MagickImage image = new MagickImage(SampleFiles.SnakewareJpg))
 			{
+				// First add a CMYK profile if your image does not contain a color profile.
+				image.AddProfile(ColorProfile.USWebCoatedSWOP);
+
 				image.AddProfile(ColorProfile.SRGB);
 				image.ColorSpace = ColorSpace.sRGB;
 				image.Write(SampleFiles.OutputDirectory + "Snakeware.png");
 			}
 
-			// Use custom color profile
+			// Use custom color profile,
 			using (MagickImage image = new MagickImage(SampleFiles.SnakewareJpg))
 			{
+				// First add a CMYK profile if your image does not contain a color profile.
+				image.AddProfile(ColorProfile.USWebCoatedSWOP);
+
 				image.AddProfile(new ColorProfile(SampleFiles.YourProfileIcc));
 				image.ColorSpace = ColorSpace.sRGB;
 				image.Write(SampleFiles.OutputDirectory + "Snakeware.tiff");

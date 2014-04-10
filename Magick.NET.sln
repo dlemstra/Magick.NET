@@ -69,7 +69,6 @@ Global
 		{F5A76C84-4735-4741-8534-8D38EBD3B844}.TestsQ16|Win32.Build.0 = ReleaseQ16|x86
 		{F5A76C84-4735-4741-8534-8D38EBD3B844}.TestsQ16|x64.ActiveCfg = ReleaseQ16|x86
 		{F5A76C84-4735-4741-8534-8D38EBD3B844}.TestsQ8|Win32.ActiveCfg = ReleaseQ16|x86
-		{F5A76C84-4735-4741-8534-8D38EBD3B844}.TestsQ8|Win32.Build.0 = ReleaseQ16|x86
 		{F5A76C84-4735-4741-8534-8D38EBD3B844}.TestsQ8|x64.ActiveCfg = ReleaseQ16|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
