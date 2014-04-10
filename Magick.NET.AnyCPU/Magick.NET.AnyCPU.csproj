@@ -222,6 +222,7 @@
     <Compile Include="Generated\MagickReadSettings.cs" />
     <Compile Include="Generated\MagickScript.cs" />
     <Compile Include="Generated\MagickSearchResult.cs" />
+    <Compile Include="Generated\MontageSettings.cs" />
     <Compile Include="Generated\PathArc.cs" />
     <Compile Include="Generated\PathArcAbs.cs" />
     <Compile Include="Generated\PathArcRel.cs" />

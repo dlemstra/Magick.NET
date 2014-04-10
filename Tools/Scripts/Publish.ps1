@@ -170,7 +170,12 @@ function CreateNuGetPackages($builds)
 
 		AddFileElement $xml ("Readme.txt") "Readme.txt"
 
-		#CreateNuGetPackage $id $xml
+		CreateNuGetPackage $id $xml
+
+		if ($build.Quantum -ne "Q16")
+		{
+			continue
+		}
 
 		$path = FullPath "Publish\NuGet\Magick.NET.Sample.nuspec"
 		$xml = [xml](Get-Content $path)

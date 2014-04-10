@@ -115,7 +115,7 @@
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x86;..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EmbedManagedResourceFile>..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\sRGB.icm;..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\SRGB.icm;..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
@@ -136,7 +136,7 @@
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x86;..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EmbedManagedResourceFile>..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\sRGB.icm;..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\SRGB.icm;..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
@@ -157,7 +157,7 @@
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q8\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EmbedManagedResourceFile>..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\sRGB.icm;..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\SRGB.icm;..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
@@ -178,7 +178,7 @@
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EmbedManagedResourceFile>..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\sRGB.icm;..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+      <EmbedManagedResourceFile>..\Magick.NET\Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;..\Magick.NET\Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc;..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc;..\Magick.NET\Resources\ColorProfiles\RGB\SRGB.icm;..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -312,6 +312,7 @@
     <ClInclude Include="..\Magick.NET\Script\MagickScript.h" />
     <ClInclude Include="..\Magick.NET\Script\ScriptVariables.h" />
     <ClInclude Include="..\Magick.NET\Script\ScriptWriteEventArgs.h" />
+    <ClInclude Include="..\Magick.NET\Settings\MontageSettings.h" />
     <ClInclude Include="..\Magick.NET\Settings\PixelStorageSettings.h" />
     <ClInclude Include="..\Magick.NET\Settings\QuantizeSettings.h" />
     <ClInclude Include="..\Magick.NET\Statistics\ChannelStatistics.h" />
@@ -467,6 +468,7 @@
     <ClCompile Include="..\Magick.NET\Script\ScriptReadEventArgs.cpp" />
     <ClCompile Include="..\Magick.NET\Script\ScriptVariables.cpp" />
     <ClCompile Include="..\Magick.NET\Script\ScriptWriteEventArgs.cpp" />
+    <ClCompile Include="..\Magick.NET\Settings\MontageSettings.cpp" />
     <ClCompile Include="..\Magick.NET\Settings\MagickReadSettings.cpp" />
     <ClCompile Include="..\Magick.NET\Settings\PixelStorageSettings.cpp" />
     <ClCompile Include="..\Magick.NET\Settings\QuantizeSettings.cpp" />
@@ -526,7 +528,7 @@
     <None Include="..\Magick.NET\Resources\ColorProfiles\RGB\AdobeRGB1998.icc" />
     <None Include="..\Magick.NET\Resources\ColorProfiles\RGB\AppleRGB.icc" />
     <None Include="..\Magick.NET\Resources\ColorProfiles\RGB\ColorMatchRGB.icc" />
-    <None Include="..\Magick.NET\Resources\ColorProfiles\RGB\sRGB.icm" />
+    <None Include="..\Magick.NET\Resources\ColorProfiles\RGB\SRGB.icm" />
     <None Include="..\Magick.NET\Resources\$(Configuration)\MagickScript.xsd" />
   </ItemGroup>
   <ItemGroup>
