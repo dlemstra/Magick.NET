@@ -727,14 +727,18 @@ namespace ImageMagick
 			return nullptr;
 
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
-		CopyTo(images);
+		try
+		{
+			CopyTo(images);
 
-		Magick::Blob blob;
-		MagickException^ exception = MagickWriter::Write(images, &blob);
-
-		delete images;
-		HandleException(exception);
-		return Marshaller::Marshal(&blob);
+			Magick::Blob blob;
+			HandleException(MagickWriter::Write(images, &blob));
+			return Marshaller::Marshal(&blob);
+		}
+		finally
+		{
+			delete images;
+		}
 	}
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::TrimBounds()
@@ -753,12 +757,15 @@ namespace ImageMagick
 			return;
 
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
-		CopyTo(images);
-
-		MagickException^ exception = MagickWriter::Write(images, stream);
-
-		delete images;
-		HandleException(exception);
+		try
+		{
+			CopyTo(images);
+			HandleException(MagickWriter::Write(images, stream));
+		}
+		finally
+		{
+			delete images;
+		}
 	}
 	//==============================================================================================
 	void MagickImageCollection::Write(String^ fileName)
@@ -767,12 +774,15 @@ namespace ImageMagick
 			return;
 
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
-		CopyTo(images);
-
-		MagickException^ exception = MagickWriter::Write(images, fileName);
-
-		delete images;
-		HandleException(exception);
+		try
+		{
+			CopyTo(images);
+			HandleException(MagickWriter::Write(images, fileName));
+		}
+		finally
+		{
+			delete images;
+		}
 	}
 	//==============================================================================================
 }
