@@ -26,6 +26,16 @@ namespace ImageMagick
 		return settings;
 	}
 	//==============================================================================================
+	void MagickImageInfo::HandleException(MagickException^ exception)
+	{
+		if (exception == nullptr)
+			return;
+
+		MagickWarningException^ warning = dynamic_cast<MagickWarningException^>(exception);
+		if (warning == nullptr)
+			throw exception;
+	}
+	//==============================================================================================
 	IEnumerable<MagickImageInfo^>^ MagickImageInfo::Enumerate(std::list<Magick::Image>* images)
 	{
 		Collection<MagickImageInfo^>^ result = gcnew Collection<MagickImageInfo^>();
@@ -40,7 +50,7 @@ namespace ImageMagick
 		return result;
 	}
 	//==============================================================================================
-	void MagickImageInfo::Initialize(Magick::Image* image)
+	MagickException^ MagickImageInfo::Initialize(Magick::Image* image)
 	{
 		try
 		{
@@ -51,10 +61,11 @@ namespace ImageMagick
 			_ResolutionX = image->xResolution();
 			_ResolutionY = image->yResolution();
 			_Width = Convert::ToInt32(image->size().width());
+			return nullptr;
 		}
 		catch(Magick::Exception& exception)
 		{
-			MagickException::Throw(exception);
+			return MagickException::Create(exception);
 		}
 	}
 	//==============================================================================================
@@ -203,25 +214,43 @@ namespace ImageMagick
 	void MagickImageInfo::Read(array<Byte>^ data)
 	{
 		Magick::Image* image = new Magick::Image();
-		MagickReader::Read(image, data, CreateReadSettings());
-		Initialize(image);
-		delete image;
+		try
+		{
+			HandleException(MagickReader::Read(image, data, CreateReadSettings()));
+			HandleException(Initialize(image));
+		}
+		finally
+		{
+			delete image;
+		}
 	}
 	//==============================================================================================
 	void MagickImageInfo::Read(String^ fileName)
 	{
 		Magick::Image* image = new Magick::Image();
-		MagickReader::Read(image, fileName, CreateReadSettings());
-		Initialize(image);
-		delete image;
+		try
+		{
+			HandleException(MagickReader::Read(image, fileName, CreateReadSettings()));
+			HandleException(Initialize(image));
+		}
+		finally
+		{
+			delete image;
+		}
 	}
 	//==============================================================================================
 	void MagickImageInfo::Read(Stream^ stream)
 	{
 		Magick::Image* image = new Magick::Image();
-		MagickReader::Read(image, stream, CreateReadSettings());
-		Initialize(image);
-		delete image;
+		try
+		{
+			HandleException(MagickReader::Read(image, stream, CreateReadSettings()));
+			HandleException(Initialize(image));
+		}
+		finally
+		{
+			delete image;
+		}
 	}
 	//==============================================================================================
 	IEnumerable<MagickImageInfo^>^ MagickImageInfo::ReadCollection(array<Byte>^ data)
@@ -229,7 +258,7 @@ namespace ImageMagick
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		try
 		{
-			MagickReader::Read(images, data, CreateReadSettings());
+			HandleException(MagickReader::Read(images, data, CreateReadSettings()));
 			return Enumerate(images);
 		}
 		finally
@@ -243,7 +272,7 @@ namespace ImageMagick
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		try
 		{
-			MagickReader::Read(images, fileName, CreateReadSettings());
+			HandleException(MagickReader::Read(images, fileName, CreateReadSettings()));
 			return Enumerate(images);
 		}
 		finally
@@ -257,7 +286,7 @@ namespace ImageMagick
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		try
 		{
-			MagickReader::Read(images, stream, CreateReadSettings());
+			HandleException(MagickReader::Read(images, stream, CreateReadSettings()));
 			return Enumerate(images);
 		}
 		finally
