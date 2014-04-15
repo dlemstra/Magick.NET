@@ -730,9 +730,10 @@ namespace ImageMagick
 		CopyTo(images);
 
 		Magick::Blob blob;
-		MagickWriter::Write(images, &blob);
+		MagickException^ exception = MagickWriter::Write(images, &blob);
 
 		delete images;
+		HandleException(exception);
 		return Marshaller::Marshal(&blob);
 	}
 	//==============================================================================================
@@ -754,9 +755,10 @@ namespace ImageMagick
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		CopyTo(images);
 
-		MagickWriter::Write(images, stream);
+		MagickException^ exception = MagickWriter::Write(images, stream);
 
 		delete images;
+		HandleException(exception);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Write(String^ fileName)
@@ -767,9 +769,10 @@ namespace ImageMagick
 		std::list<Magick::Image>* images = new std::list<Magick::Image>();
 		CopyTo(images);
 
-		MagickWriter::Write(images, fileName);
+		MagickException^ exception = MagickWriter::Write(images, fileName);
 
 		delete images;
+		HandleException(exception);
 	}
 	//==============================================================================================
 }

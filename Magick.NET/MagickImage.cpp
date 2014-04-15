@@ -4740,7 +4740,7 @@ namespace ImageMagick
 	array<Byte>^ MagickImage::ToByteArray()
 	{
 		Magick::Blob blob;
-		MagickWriter::Write(this->Value, &blob);
+		HandleException(MagickWriter::Write(this->Value, &blob));
 		return Marshaller::Marshal(&blob);
 	}
 	//==============================================================================================
@@ -5010,12 +5010,12 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Write(String^ fileName)
 	{
-		MagickWriter::Write(Value, fileName);
+		HandleException(MagickWriter::Write(Value, fileName));
 	}
 	//==============================================================================================
 	void MagickImage::Write(Stream^ stream)
 	{
-		MagickWriter::Write(Value, stream);
+		HandleException(MagickWriter::Write(Value, stream));
 	}
 	//==============================================================================================
 	void MagickImage::Zoom(int width, int height)
