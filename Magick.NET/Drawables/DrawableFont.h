@@ -32,20 +32,20 @@ namespace ImageMagick
 		///<summary>
 		/// Creates a new DrawableFont instance.
 		///</summary>
-		///<param name="family">The font family.</param>
+		///<param name="family">The font family or the full path to the font file.</param>
 		DrawableFont(String^ family);
 		///==========================================================================================
 		///<summary>
 		/// Creates a new DrawableFont instance.
 		///</summary>
-		///<param name="family">The font family.</param>
+		///<param name="family">The font family or the full path to the font file.</param>
 		///<param name="style">The style of the font.</param>
 		///<param name="weight">The weight of the font.</param>
 		///<param name="stretch">The font stretching type.</param>
 		DrawableFont(String^ family, FontStyleType style, FontWeight weight, FontStretch stretch);
 		///==========================================================================================
 		///<summary>
-		/// The font family.
+		/// The font family or the full path to the font file.
 		///</summary>
 		property String^ Family
 		{
