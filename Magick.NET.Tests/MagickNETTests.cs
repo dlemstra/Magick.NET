@@ -72,14 +72,19 @@ namespace Magick.NET.Tests
 			string path = Path.GetDirectoryName(GetType().Assembly.Location) + @"..\..\..\..\..\Magick.NET\Resources\xml";
 			foreach (string fileName in Directory.GetFiles(path, "*.xml"))
 			{
-				File.Move(fileName, fileName + ".tmp");
+				string tempFile = fileName + ".tmp";
+
+				if (File.Exists(tempFile))
+					File.Delete(tempFile);
+
+				File.Move(fileName, tempFile);
 
 				ExceptionAssert.Throws<ArgumentException>(delegate()
 				{
 					MagickNET.Initialize(path);
 				}, "MagickNET._ImageMagickFiles does not contain: " + Path.GetFileName(fileName));
 
-				File.Move(fileName + ".tmp", fileName);
+				File.Move(tempFile, fileName);
 			}
 		}
 		//===========================================================================================

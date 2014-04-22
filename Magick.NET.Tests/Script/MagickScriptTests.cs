@@ -112,6 +112,17 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Execute_Distort()
+		{
+			MagickScript script = new MagickScript(Files.DistortScript);
+			MagickImage image = script.Execute();
+
+			Assert.IsNotNull(image);
+			Assert.AreEqual(500, image.Width);
+			Assert.AreEqual(500, image.Height);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Execute_Draw()
 		{
 			XmlDocument doc = new XmlDocument();

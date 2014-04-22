@@ -36,9 +36,10 @@ namespace ImageMagick
 			}
 		}
 
-		for each(XmlElement^ child in element->ChildNodes)
+		for each(XmlNode^ child in element->ChildNodes)
 		{
-			GetNames(child);
+			if (child->GetType() == XmlElement::typeid)
+				GetNames((XmlElement^)child);
 		}
 	}
 	//==============================================================================================

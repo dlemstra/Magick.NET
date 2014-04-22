@@ -28,6 +28,14 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		public static string DistortScript
+		{
+			get
+			{
+				return _Root + @"Script\Distort.msl";
+			}
+		}
+		//===========================================================================================
 		public static string DrawScript
 		{
 			get

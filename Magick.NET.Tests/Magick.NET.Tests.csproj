@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Script\Collection.msl" />
+    <None Include="Script\Distort.msl" />
     <None Include="Script\Draw.msl" />
     <None Include="Script\Events.msl" />
     <None Include="Script\ImageProfile.msl" />
