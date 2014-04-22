@@ -2023,11 +2023,8 @@
 				<xs:element name="resample">
 					<xs:complexType>
 						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="height" type="int" />
-						<xs:attribute name="percentage" type="double" />
-						<xs:attribute name="percentageHeight" type="double" />
-						<xs:attribute name="percentageWidth" type="double" />
-						<xs:attribute name="width" type="int" />
+						<xs:attribute name="resolutionX" type="int" />
+						<xs:attribute name="resolutionY" type="int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="resize">

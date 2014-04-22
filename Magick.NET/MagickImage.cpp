@@ -3947,9 +3947,9 @@ namespace ImageMagick
 		SetProfile(name, blob);
 	}
 	//==============================================================================================
-	void MagickImage::Resample(int width, int height)
+	void MagickImage::Resample(int resolutionX, int resolutionY)
 	{
-		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		MagickGeometry^ geometry = gcnew MagickGeometry(resolutionX, resolutionY);
 		Resize(geometry);
 	}
 	//==============================================================================================
@@ -3971,20 +3971,6 @@ namespace ImageMagick
 		{
 			delete magickGeometry;
 		}
-	}
-	//==============================================================================================
-	void MagickImage::Resample(Percentage percentage)
-	{
-		Resample(percentage, percentage);
-	}
-	//==============================================================================================
-	void MagickImage::Resample(Percentage percentageWidth, Percentage percentageHeight)
-	{
-		Throw::IfNegative("percentageWidth", percentageWidth);
-		Throw::IfNegative("percentageHeight", percentageHeight);
-
-		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
-		Resample(geometry);
 	}
 	//==============================================================================================
 	void MagickImage::Resize(int width, int height)

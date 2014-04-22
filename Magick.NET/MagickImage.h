@@ -2655,10 +2655,10 @@ namespace ImageMagick
 		///<summary>
 		/// Resize image in terms of its pixel size.
 		///</summary>
-		///<param name="width">The new width.</param>
-		///<param name="height">The new height.</param>
+		///<param name="resolutionX">The new X resolution.</param>
+		///<param name="resolutionY">The new Y resolution.</param>
 		///<exception cref="MagickException"/>
-		void Resample(int width, int height);
+		void Resample(int resolutionX, int resolutionY);
 		///==========================================================================================
 		///<summary>
 		/// Resize image in terms of its pixel size.
@@ -2666,21 +2666,6 @@ namespace ImageMagick
 		///<param name="geometry">The geometry to use.</param>
 		///<exception cref="MagickException"/>
 		void Resample(MagickGeometry^ geometry);
-		///==========================================================================================
-		///<summary>
-		/// Resize image in terms of its pixel size with the specified percentage.
-		///</summary>
-		///<param name="percentage">The percentage.</param>
-		///<exception cref="MagickException"/>
-		void Resample(Percentage percentage);
-		///==========================================================================================
-		///<summary>
-		/// Resize image in terms of its pixel size with the specified percentage.
-		///</summary>
-		///<param name="percentageWidth">The percentage of the width.</param>
-		///<param name="percentageHeight">The percentage of the height.</param>
-		///<exception cref="MagickException"/>
-		void Resample(Percentage percentageWidth, Percentage percentageHeight);
 		///==========================================================================================
 		///<summary>
 		/// Resize image to specified size.

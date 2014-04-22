@@ -2985,27 +2985,17 @@ namespace ImageMagick
 		{
 			if (attribute->Name == "geometry")
 				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
-			else if (attribute->Name == "height")
-				arguments["height"] = _Variables->GetValue<int>(attribute);
-			else if (attribute->Name == "percentage")
-				arguments["percentage"] = _Variables->GetValue<Percentage>(attribute);
-			else if (attribute->Name == "percentageHeight")
-				arguments["percentageHeight"] = _Variables->GetValue<Percentage>(attribute);
-			else if (attribute->Name == "percentageWidth")
-				arguments["percentageWidth"] = _Variables->GetValue<Percentage>(attribute);
-			else if (attribute->Name == "width")
-				arguments["width"] = _Variables->GetValue<int>(attribute);
+			else if (attribute->Name == "resolutionX")
+				arguments["resolutionX"] = _Variables->GetValue<int>(attribute);
+			else if (attribute->Name == "resolutionY")
+				arguments["resolutionY"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "geometry"))
 			image->Resample((MagickGeometry^)arguments["geometry"]);
-		else if (OnlyContains(arguments, "percentage"))
-			image->Resample((Percentage)arguments["percentage"]);
-		else if (OnlyContains(arguments, "percentageWidth", "percentageHeight"))
-			image->Resample((Percentage)arguments["percentageWidth"], (Percentage)arguments["percentageHeight"]);
-		else if (OnlyContains(arguments, "width", "height"))
-			image->Resample((int)arguments["width"], (int)arguments["height"]);
+		else if (OnlyContains(arguments, "resolutionX", "resolutionY"))
+			image->Resample((int)arguments["resolutionX"], (int)arguments["resolutionY"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'resample', allowed combinations are: [geometry] [percentage] [percentageWidth, percentageHeight] [width, height]");
+			throw gcnew ArgumentException("Invalid argument combination for 'resample', allowed combinations are: [geometry] [resolutionX, resolutionY]");
 	}
 	void MagickScript::ExecuteResize(XmlElement^ element, MagickImage^ image)
 	{
