@@ -47,6 +47,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MagickAnyCPU.cs" />
     <Compile Include="AssemblyHelper.cs" />
     <Compile Include="EnumeratorWrapper.cs" />
     <Compile Include="Generated\ChannelStatistics.cs" />

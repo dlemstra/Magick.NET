@@ -30,7 +30,7 @@ namespace ImageMagick
 		{
 			AssemblyFileVersionAttribute version = (AssemblyFileVersionAttribute)typeof(AssemblyHelper).Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
 
-			string path = Path.Combine(Path.GetTempPath(), "Magick.NET." + version.Version);
+			string path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET." + version.Version);
 			if (!Directory.Exists(path))
 				Directory.CreateDirectory(path);
 
