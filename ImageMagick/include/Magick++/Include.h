@@ -1012,6 +1012,7 @@ namespace Magick
   using MagickCore::CacheError;
   using MagickCore::CacheFatalError;
   using MagickCore::CacheWarning;
+  using MagickCore::CannyEdgeImage;
   using MagickCore::CharcoalImage;
   using MagickCore::ChopImage;
   using MagickCore::ClampImage;
@@ -1211,6 +1212,7 @@ namespace Magick
   using MagickCore::GetImageDistortion;
   using MagickCore::GetImageInfo;
   using MagickCore::GetImageInfoFile;
+  using MagickCore::GetImageChannelMoments;
   using MagickCore::GetImageOption;
   using MagickCore::GetAuthenticPixels;
   using MagickCore::GetImageProfile;
@@ -1234,6 +1236,7 @@ namespace Magick
   using MagickCore::GreaterValue;
   using MagickCore::HaldClutImage;
   using MagickCore::HeightValue;
+  using MagickCore::HoughLineImage;
   using MagickCore::ImageError;
   using MagickCore::ImageFatalError;
   using MagickCore::ImageInfo;

@@ -231,6 +231,7 @@ namespace ImageMagick
 		Vicar,
 		Vid,
 		Viff,
+		Vips,
 		Vst,
 		WebP,
 		Wbmp,

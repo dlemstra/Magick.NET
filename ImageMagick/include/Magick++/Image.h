@@ -12,6 +12,7 @@
 #include <string>
 #include <list>
 #include "Magick++/Blob.h"
+#include "Magick++/ChannelMoments.h"
 #include "Magick++/Color.h"
 #include "Magick++/Drawable.h"
 #include "Magick++/Exception.h"
@@ -670,6 +671,10 @@ namespace Magick
     void brightnessContrastChannel(const ChannelType channel_,
       const double brightness_=0.0,const double contrast_=0.0);
 
+    // Uses a multi-stage algorithm to detect a wide range of edges in images.
+    void cannyEdge(const double radius_=0.0,const double sigma_=1.0,
+      const double lowerPercent_=0.1,const double upperPercent_=0.3);
+
     // Extract channel from image
     void channel(const ChannelType channel_);
 
@@ -963,6 +968,10 @@ namespace Magick
     // Apply a color lookup table (Hald CLUT) to the image.
     void haldClut(const Image &clutImage_);
 
+    // Identifies lines in the image.
+    void houghLine(const size_t width_,const size_t height_,
+      const size_t threshold_=40);
+
     // Implode image (special effect)
     void implode(const double factor_);
 
@@ -1027,6 +1036,9 @@ namespace Magick
     // Modulate percent hue, saturation, and brightness of an image
     void modulate(const double brightness_,const double saturation_,
       const double hue_);
+
+    // Returns the normalized moments of one or more image channels.
+    ChannelMoments moments(void);
 
     // Applies a kernel to the image according to the given mophology method.
     void morphology(const MorphologyMethod method_,const std::string kernel_,
