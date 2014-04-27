@@ -421,6 +421,31 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Profile()
+		{
+			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+			{
+				ImageProfile profile = image.GetIptcProfile();
+				Assert.IsNotNull(profile);
+				image.RemoveProfile(profile.Name);
+				profile = image.GetIptcProfile();
+				Assert.IsNull(profile);
+
+				using (MemoryStream memStream = new MemoryStream())
+				{
+					image.Write(memStream);
+					memStream.Position = 0;
+
+					using (MagickImage newImage = new MagickImage(memStream))
+					{
+						profile = newImage.GetIptcProfile();
+						Assert.IsNull(profile);
+					}
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_ProfileNames()
 		{
 			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
