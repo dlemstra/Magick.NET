@@ -1197,6 +1197,22 @@ namespace ImageMagick
 		void BrightnessContrast(Percentage brightness, Percentage contrast, Channels channels);
 		///==========================================================================================
 		///<summary>
+		/// Uses a multi-stage algorithm to detect a wide range of edges in images.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void CannyEdge();
+		///==========================================================================================
+		///<summary>
+		/// Uses a multi-stage algorithm to detect a wide range of edges in images.
+		///</summary>
+		///<param name="radius">The radius of the gaussian smoothing filter.</param>
+		///<param name="sigma">The sigma of the gaussian smoothing filter.</param>
+		///<param name="lower">Percentage of edge pixels in the lower threshold.</param>
+		///<param name="upper">Percentage of edge pixels in the upper threshold.</param>
+		///<exception cref="MagickException"/>
+		void CannyEdge(double radius, double sigma, Percentage lower, Percentage upper);
+		///==========================================================================================
+		///<summary>
 		/// Applies the color decision list from the specified ASC CDL file.
 		///</summary>
 		///<param name="fileName">The file to read the ASC CDL information from.</param>
@@ -2081,6 +2097,21 @@ namespace ImageMagick
 		///</summary>
 		///<exception cref="MagickException"/>
 		Dictionary<MagickColor^, int>^ Histogram();
+		///==========================================================================================
+		///<summary>
+		/// Identifies lines in the image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void HoughLine();
+		///==========================================================================================
+		///<summary>
+		/// Identifies lines in the image.
+		///</summary>
+		///<param name="width">Find line pairs as local maxima in this neighborhood.</param>
+		///<param name="height">Find line pairs as local maxima in this neighborhood.</param>
+		///<param name="threshold">The line count threshold.</param>
+		///<exception cref="MagickException"/>
+		void HoughLine(int width, int height, int threshold);
 		///==========================================================================================
 		///<summary>
 		/// Implode image (special effect).

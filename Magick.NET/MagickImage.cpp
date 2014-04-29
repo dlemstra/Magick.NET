@@ -1684,6 +1684,23 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::CannyEdge()
+	{
+		CannyEdge(0.0, 1.0, 10, 30);
+	}
+	//==============================================================================================
+	void MagickImage::CannyEdge(double radius, double sigma, Percentage lower, Percentage upper)
+	{
+		try
+		{
+			Value->cannyEdge(radius, sigma, (double)lower / 100, (double)upper / 100);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::CDL(String^ fileName)
 	{
 		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
@@ -3165,6 +3182,23 @@ namespace ImageMagick
 		finally
 		{
 			delete colors;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::HoughLine()
+	{
+		HoughLine(0, 0, 40);
+	}
+	//==============================================================================================
+	void MagickImage::HoughLine(int width, int height, int threshold)
+	{
+		try
+		{
+			Value->houghLine(width, height, threshold);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
 		}
 	}
 	//==============================================================================================
