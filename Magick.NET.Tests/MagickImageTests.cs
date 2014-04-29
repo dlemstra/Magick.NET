@@ -174,6 +174,39 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_ColorType()
+		{
+			using (MagickImage image = new MagickImage(Files.WireframeTIF))
+			{
+				Assert.AreEqual(ColorType.TrueColor, image.ColorType);
+				using (MemoryStream memStream = new MemoryStream())
+				{
+					image.Write(memStream);
+					memStream.Position = 0;
+					using (MagickImage result = new MagickImage(memStream))
+					{
+						Assert.AreEqual(ColorType.Grayscale, image.ColorType);
+					}
+				}
+			}
+
+			using (MagickImage image = new MagickImage(Files.WireframeTIF))
+			{
+				Assert.AreEqual(ColorType.TrueColor, image.ColorType);
+				image.PreserveColorType();
+				using (MemoryStream memStream = new MemoryStream())
+				{
+					image.Write(memStream);
+					memStream.Position = 0;
+					using (MagickImage result = new MagickImage(memStream))
+					{
+						Assert.AreEqual(ColorType.TrueColor, image.ColorType);
+					}
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Compare()
 		{
 			MagickImage first = new MagickImage(Files.SnakewarePNG);

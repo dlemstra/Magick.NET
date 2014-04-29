@@ -2319,6 +2319,18 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::DetermineColorType()
+	{
+		try
+		{
+			Value->determineType();
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Distort(DistortMethod method, array<double>^ arguments)
 	{
 		Distort(method, arguments, false);
@@ -3816,6 +3828,11 @@ namespace ImageMagick
 	void MagickImage::Posterize(int levels, Channels channels)
 	{
 		Posterize(levels, false, channels);
+	}
+	//==============================================================================================
+	void MagickImage::PreserveColorType()
+	{
+		ColorType = ColorType;
 	}
 	//==============================================================================================
 	MagickErrorInfo^ MagickImage::Quantize(QuantizeSettings^ settings)

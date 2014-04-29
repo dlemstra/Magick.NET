@@ -1584,6 +1584,13 @@ namespace ImageMagick
 		void Despeckle();
 		///==========================================================================================
 		///<summary>
+		/// Determines the color type of the image. This method can be used to automaticly make the
+		/// type GrayScale.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void DetermineColorType();
+		///==========================================================================================
+		///<summary>
 		/// Distorts an image using various distortion methods, by mapping color lookups of the source
 		/// image to a new destination image of the same size as the source image.
 		///</summary>
@@ -2497,6 +2504,7 @@ namespace ImageMagick
 		/// Reduces the image to a limited number of colors for a "poster" effect.
 		///</summary>
 		///<param name="levels">Number of color levels allowed in each channel.</param>
+		///<exception cref="MagickException"/>
 		void Posterize(int levels);
 		///==========================================================================================
 		///<summary>
@@ -2504,6 +2512,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="levels">Number of color levels allowed in each channel.</param>
 		///<param name="dither">Dither the image.</param>
+		///<exception cref="MagickException"/>
 		void Posterize(int levels, bool dither);
 		///==========================================================================================
 		///<summary>
@@ -2512,6 +2521,7 @@ namespace ImageMagick
 		///<param name="levels">Number of color levels allowed in each channel.</param>
 		///<param name="dither">Dither the image.</param>
 		///<param name="channels">The channel(s) to posterize.</param>
+		///<exception cref="MagickException"/>
 		void Posterize(int levels, bool dither, Channels channels);
 		///==========================================================================================
 		///<summary>
@@ -2519,7 +2529,14 @@ namespace ImageMagick
 		///</summary>
 		///<param name="levels">Number of color levels allowed in each channel.</param>
 		///<param name="channels">The channel(s) to posterize.</param>
+		///<exception cref="MagickException"/>
 		void Posterize(int levels, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Sets an internal option to preserve the color type.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void PreserveColorType();
 		///==========================================================================================
 		///<summary>
 		/// Quantize image (reduce number of colors).
