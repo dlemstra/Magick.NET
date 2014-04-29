@@ -68,6 +68,7 @@
 #include "Settings\MagickReadSettings.h"
 #include "Settings\QuantizeSettings.h"
 #include "Statistics\MagickImageStatistics.h"
+#include "Statistics\MagickImageMoments.h"
 #include "TypeMetric.h"
 
 using namespace System::Collections::Generic;
@@ -2258,6 +2259,12 @@ namespace ImageMagick
 		///<param name="hue">The hue percentage.</param>
 		///<exception cref="MagickException"/>
 		void Modulate(Percentage brightness, Percentage saturation, Percentage hue);
+		///==========================================================================================
+		///<summary>
+		/// Returns the normalized moments of one or more image channels.
+		///</summary>
+		///<exception cref="MagickException"/>
+		MagickImageMoments^ Moments(); 
 		///==========================================================================================
 		///<summary>
 		/// Applies a kernel to the image according to the given mophology method.

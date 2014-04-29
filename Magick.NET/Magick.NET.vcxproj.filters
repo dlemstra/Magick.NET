@@ -717,6 +717,15 @@
     <ClInclude Include="Settings\MontageSettings.h">
       <Filter>Header Files\Settings</Filter>
     </ClInclude>
+    <ClInclude Include="Statistics\ChannelMoments.h">
+      <Filter>Header Files\Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="PointD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\MagickImageMoments.h">
+      <Filter>Header Files\Statistics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1135,6 +1144,15 @@
     </ClCompile>
     <ClCompile Include="Settings\MontageSettings.cpp">
       <Filter>Source Files\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\ChannelMoments.cpp">
+      <Filter>Source Files\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="PointD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\MagickImageMoments.cpp">
+      <Filter>Source Files\Statistics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

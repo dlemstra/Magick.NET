@@ -3441,6 +3441,20 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	MagickImageMoments^ MagickImage::Moments()
+	{
+		try
+		{
+			Magick::ImageMoments moments = Value->moments();
+			return gcnew MagickImageMoments(&moments);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+			return nullptr;
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Morphology(MorphologyMethod method, Kernel kernel)
 	{
 		try

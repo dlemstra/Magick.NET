@@ -325,8 +325,10 @@
     <ClInclude Include="Settings\MontageSettings.h" />
     <ClInclude Include="Settings\PixelStorageSettings.h" />
     <ClInclude Include="Settings\QuantizeSettings.h" />
+    <ClInclude Include="Statistics\ChannelMoments.h" />
     <ClInclude Include="Statistics\ChannelStatistics.h" />
     <ClInclude Include="MagickFormatInfo.h" />
+    <ClInclude Include="Statistics\MagickImageMoments.h" />
     <ClInclude Include="Statistics\MagickImageStatistics.h" />
     <ClInclude Include="MagickErrorInfo.h" />
     <ClInclude Include="Drawables\Coordinate.h" />
@@ -355,6 +357,7 @@
     <ClInclude Include="Colors\Base\ColorBase.h" />
     <ClInclude Include="Percentage.h" />
     <ClInclude Include="Enums\Resolution.h" />
+    <ClInclude Include="PointD.h" />
     <ClInclude Include="TypeMetric.h" />
     <ClInclude Include="Settings\MagickReadSettings.h" />
     <ClInclude Include="Matrices\ColorMatrix.h" />
@@ -492,8 +495,10 @@
     <ClCompile Include="Settings\MagickReadSettings.cpp" />
     <ClCompile Include="Settings\PixelStorageSettings.cpp" />
     <ClCompile Include="Settings\QuantizeSettings.cpp" />
+    <ClCompile Include="Statistics\ChannelMoments.cpp" />
     <ClCompile Include="Statistics\ChannelStatistics.cpp" />
     <ClCompile Include="MagickFormatInfo.cpp" />
+    <ClCompile Include="Statistics\MagickImageMoments.cpp" />
     <ClCompile Include="Statistics\MagickImageStatistics.cpp" />
     <ClCompile Include="MagickErrorInfo.cpp" />
     <ClCompile Include="Drawables\Coordinate.cpp" />
@@ -515,6 +520,7 @@
     <ClCompile Include="Colors\MagickColor.cpp" />
     <ClCompile Include="Colors\Base\ColorBase.cpp" />
     <ClCompile Include="Percentage.cpp" />
+    <ClCompile Include="PointD.cpp" />
     <ClCompile Include="TypeMetric.cpp" />
     <ClCompile Include="Exceptions\MagickErrorExceptions.cpp" />
     <ClCompile Include="Exceptions\MagickWarningExceptions.cpp" />
