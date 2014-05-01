@@ -29,6 +29,19 @@ namespace Magick.NET.Tests
 		private const string _Category = "MagickImageCollection";
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_AddRange()
+		{
+			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+			{
+				Assert.AreEqual(3, collection.Count);
+				collection.AddRange(Files.RoseSparkleGIF);
+				Assert.AreEqual(6, collection.Count);
+				collection.AddRange(collection);
+				Assert.AreEqual(12, collection.Count);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Constructor()
 		{
 			ExceptionAssert.Throws<ArgumentException>(delegate()

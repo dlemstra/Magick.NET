@@ -44,6 +44,8 @@ namespace ImageMagick
 			Clear();
 		}
 		//===========================================================================================
+		void AddFrom(std::list<Magick::Image>* images);
+		//===========================================================================================
 		MagickImage^ Append(bool vertically);
 		//===========================================================================================
 		void CopyFrom(std::list<Magick::Image>* images);
@@ -191,6 +193,58 @@ namespace ImageMagick
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
 		///<exception cref="MagickException"/>
 		void Add(String^ fileName);
+		///==========================================================================================
+		///<summary>
+		/// Adds the image(s) from the specified byte array to the collection.
+		///</summary>
+		///<param name="data">The byte array to read the image data from.</param>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ AddRange(array<Byte>^ data);
+		///==========================================================================================
+		///<summary>
+		/// Adds the image(s) from the specified byte array to the collection.
+		///</summary>
+		///<param name="data">The byte array to read the image data from.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ AddRange(array<Byte>^ data, MagickReadSettings^ readSettings);
+		///==========================================================================================
+		///<summary>
+		/// Adds a Clone of the images from the specified collection to this collection.
+		///</summary>
+		///<param name="images">A collection of MagickImages.</param>
+		///<exception cref="MagickException"/>
+		void AddRange(MagickImageCollection^ images);
+		///==========================================================================================
+		///<summary>
+		/// Adds the image(s) from the specified file name to the collection.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ AddRange(String^ fileName);
+		///==========================================================================================
+		///<summary>
+		// Adds the image(s) from the specified file name to the collection.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ AddRange(String^ fileName, MagickReadSettings^ readSettings);
+		///==========================================================================================
+		///<summary>
+		/// Adds the image(s) from the specified stream to the collection.
+		///</summary>
+		///<param name="stream">The stream to read the images from.</param>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ AddRange(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Adds the image(s) from the specified stream to the collection.
+		///</summary>
+		///<param name="stream">The stream to read the images from.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ AddRange(Stream^ stream, MagickReadSettings^ readSettings);
 		///==========================================================================================
 		///<summary>
 		/// Creates a single image, by appending all the images in the collection horizontally.

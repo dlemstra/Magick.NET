@@ -16,6 +16,15 @@
 
 namespace ImageMagick
 {
+
+	//==============================================================================================
+	void MagickImageCollection::AddFrom(std::list<Magick::Image>* images)
+	{
+		for (std::list<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
+		{
+			Add(gcnew MagickImage(*iter));
+		}
+	}
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::Append(bool vertically)
 	{
@@ -47,11 +56,7 @@ namespace ImageMagick
 	void MagickImageCollection::CopyFrom(std::list<Magick::Image>* images)
 	{
 		Clear();
-
-		for (std::list<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
-		{
-			Add(gcnew MagickImage(*iter));
-		}
+		AddFrom(images);
 	}
 	//==============================================================================================
 	void MagickImageCollection::CopyTo(std::list<Magick::Image>* images)
@@ -278,6 +283,62 @@ namespace ImageMagick
 	void MagickImageCollection::Add(String^ fileName)
 	{
 		Add(gcnew MagickImage(fileName));
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::AddRange(array<Byte>^ data)
+	{
+		return AddRange(data, nullptr);
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::AddRange(array<Byte>^ data, MagickReadSettings^ readSettings)
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		HandleReadException(MagickReader::Read(images, data, readSettings));
+		AddFrom(images);
+
+		delete images;
+		return _ReadWarning;
+	}
+	//==============================================================================================
+	void MagickImageCollection::AddRange(MagickImageCollection^ images)
+	{
+		Throw::IfNull("images", images);
+
+		int count = images->Count;
+		for (int i=0; i < count; i++)
+		{
+			Add(images[i]->Clone());
+		}
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::AddRange(Stream^ stream)
+	{
+		return AddRange(stream, nullptr);
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::AddRange(Stream^ stream, MagickReadSettings^ readSettings)
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		HandleReadException(MagickReader::Read(images, stream, readSettings));
+		AddFrom(images);
+
+		delete images;
+		return _ReadWarning;
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::AddRange(String^ fileName)
+	{
+		return AddRange(fileName, nullptr);
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::AddRange(String^ fileName, MagickReadSettings^ readSettings)
+	{
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		HandleReadException(MagickReader::Read(images, fileName, readSettings));
+		AddFrom(images);
+
+		delete images;
+		return _ReadWarning;
 	}
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::AppendHorizontally()

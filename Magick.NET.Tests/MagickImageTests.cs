@@ -467,6 +467,11 @@ namespace Magick.NET.Tests
 				Assert.IsTrue(first.Centroid == second.Centroid);
 				Assert.IsTrue(first.Centroid.Equals(second.Centroid));
 				Assert.IsTrue(first.Centroid.Equals((object)second.Centroid));
+
+				ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate()
+				{
+					first.HuInvariants(9);
+				});
 			}
 		}
 		//===========================================================================================
