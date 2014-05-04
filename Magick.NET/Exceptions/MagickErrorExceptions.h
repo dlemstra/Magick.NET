@@ -26,7 +26,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickErrorException(String^ message) : MagickException(message) {};
+		MagickErrorException(String^ message, MagickException^ innerException)
+			: MagickException(message, innerException) {};
 		//===========================================================================================
 		static MagickErrorException^ Create(const Magick::Error& exception);
 		//===========================================================================================
@@ -41,7 +42,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickBlobErrorException(String^ message) : MagickErrorException(message) {};
+		MagickBlobErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -54,7 +56,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickCacheErrorException(String^ message) : MagickErrorException(message) {};
+		MagickCacheErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -67,7 +70,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickCoderErrorException(String^ message) : MagickErrorException(message) {};
+		MagickCoderErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -80,7 +84,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickConfigureErrorException(String^ message) : MagickErrorException(message) {};
+		MagickConfigureErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -93,7 +98,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickUndefinedErrorException(String^ message) : MagickErrorException(message) {};
+		MagickUndefinedErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -106,7 +112,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickCorruptImageErrorException(String^ message) : MagickErrorException(message) {};
+		MagickCorruptImageErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -119,7 +126,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickDelegateErrorException(String^ message) : MagickErrorException(message) {};
+		MagickDelegateErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -132,7 +140,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickDrawErrorException(String^ message) : MagickErrorException(message) {};
+		MagickDrawErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -145,7 +154,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickFileOpenErrorException(String^ message) : MagickErrorException(message) {};
+		MagickFileOpenErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -158,7 +168,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickImageErrorException(String^ message) : MagickErrorException(message) {};
+		MagickImageErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -171,7 +182,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickMissingDelegateErrorException(String^ message) : MagickErrorException(message) {};
+		MagickMissingDelegateErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -184,7 +196,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickModuleErrorException(String^ message) : MagickErrorException(message) {};
+		MagickModuleErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -197,7 +210,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickOptionErrorException(String^ message) : MagickErrorException(message) {};
+		MagickOptionErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -210,7 +224,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickRegistryErrorException(String^ message) : MagickErrorException(message) {};
+		MagickRegistryErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -223,7 +238,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickResourceLimitErrorException(String^ message) : MagickErrorException(message) {};
+		MagickResourceLimitErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -236,7 +252,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickStreamErrorException(String^ message) : MagickErrorException(message) {};
+		MagickStreamErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	///=============================================================================================
@@ -249,7 +266,8 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickTypeErrorException(String^ message) : MagickErrorException(message) {};
+		MagickTypeErrorException(String^ message, MagickException^ innerException)
+			: MagickErrorException(message, innerException) {};
 		//===========================================================================================
 	};
 	//==============================================================================================

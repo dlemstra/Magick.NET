@@ -20,59 +20,62 @@ namespace ImageMagick
 	MagickWarningException^ MagickWarningException::Create(const Magick::Warning& exception)
 	{
 		String^ message = Marshaller::Marshal(exception.what());
+		MagickException^ innerException = nullptr;
+		if (exception.nested() != nullptr)
+			innerException = MagickException::Create(*exception.nested());
 
 		if (typeid(exception) == typeid(Magick::WarningBlob))
-			return gcnew MagickBlobWarningException(message);
+			return gcnew MagickBlobWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningCache))
-			return gcnew MagickCacheWarningException(message);
+			return gcnew MagickCacheWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningCoder))
-			return gcnew MagickCoderWarningException(message);
+			return gcnew MagickCoderWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningConfigure))
-			return gcnew MagickConfigureWarningException(message);
+			return gcnew MagickConfigureWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningCorruptImage))
-			return gcnew MagickCorruptImageWarningException(message);
+			return gcnew MagickCorruptImageWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningDelegate))
-			return gcnew MagickDelegateWarningException(message);
+			return gcnew MagickDelegateWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningDraw))
-			return gcnew MagickDrawWarningException(message);
+			return gcnew MagickDrawWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningFileOpen))
-			return gcnew MagickFileOpenWarningException(message);
+			return gcnew MagickFileOpenWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningImage))
-			return gcnew MagickImageWarningException(message);
+			return gcnew MagickImageWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningMissingDelegate))
-			return gcnew MagickMissingDelegateWarningException(message);
+			return gcnew MagickMissingDelegateWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningModule))
-			return gcnew MagickModuleWarningException(message);
+			return gcnew MagickModuleWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningOption))
-			return gcnew MagickOptionWarningException(message);
+			return gcnew MagickOptionWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningRegistry))
-			return gcnew MagickRegistryWarningException(message);
+			return gcnew MagickRegistryWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningResourceLimit))
-			return gcnew MagickResourceLimitWarningException(message);
+			return gcnew MagickResourceLimitWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningStream))
-			return gcnew MagickStreamWarningException(message);
+			return gcnew MagickStreamWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningType))
-			return gcnew MagickTypeWarningException(message);
+			return gcnew MagickTypeWarningException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::WarningUndefined))
-			return gcnew MagickUndefinedWarningException(message);
+			return gcnew MagickUndefinedWarningException(message, innerException);
 
-		return gcnew MagickWarningException(message);
+		return gcnew MagickWarningException(message, innerException);
 	}
 	//==============================================================================================
 }

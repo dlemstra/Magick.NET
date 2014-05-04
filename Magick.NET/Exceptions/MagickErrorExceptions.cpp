@@ -20,59 +20,62 @@ namespace ImageMagick
 	MagickErrorException^ MagickErrorException::Create(const Magick::Error& exception)
 	{
 		String^ message = Marshaller::Marshal(exception.what());
+		MagickException^ innerException = nullptr;
+		if (exception.nested() != nullptr)
+			innerException = MagickException::Create(*exception.nested());
 
 		if (typeid(exception) == typeid(Magick::ErrorBlob))
-			return gcnew MagickBlobErrorException(message);
+			return gcnew MagickBlobErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorCache))
-			return gcnew MagickCacheErrorException(message);
+			return gcnew MagickCacheErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorCoder))
-			return gcnew MagickCoderErrorException(message);
+			return gcnew MagickCoderErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorConfigure))
-			return gcnew MagickConfigureErrorException(message);
+			return gcnew MagickConfigureErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorCorruptImage))
-			return gcnew MagickCorruptImageErrorException(message);
+			return gcnew MagickCorruptImageErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorDelegate))
-			return gcnew MagickDelegateErrorException(message);
+			return gcnew MagickDelegateErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorDraw))
-			return gcnew MagickDrawErrorException(message);
+			return gcnew MagickDrawErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorFileOpen))
-			return gcnew MagickFileOpenErrorException(message);
+			return gcnew MagickFileOpenErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorImage))
-			return gcnew MagickImageErrorException(message);
+			return gcnew MagickImageErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorMissingDelegate))
-			return gcnew MagickMissingDelegateErrorException(message);
+			return gcnew MagickMissingDelegateErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorModule))
-			return gcnew MagickModuleErrorException(message);
+			return gcnew MagickModuleErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorOption))
-			return gcnew MagickOptionErrorException(message);
+			return gcnew MagickOptionErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorRegistry))
-			return gcnew MagickRegistryErrorException(message);
+			return gcnew MagickRegistryErrorException(message,innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorResourceLimit))
-			return gcnew MagickResourceLimitErrorException(message);
+			return gcnew MagickResourceLimitErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorStream))
-			return gcnew MagickStreamErrorException(message);
+			return gcnew MagickStreamErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorType))
-			return gcnew MagickTypeErrorException(message);
+			return gcnew MagickTypeErrorException(message, innerException);
 
 		if (typeid(exception) == typeid(Magick::ErrorUndefined))
-			return gcnew MagickUndefinedErrorException(message);
+			return gcnew MagickUndefinedErrorException(message, innerException);
 
-		return gcnew MagickErrorException(message);
+		return gcnew MagickErrorException(message, innerException);
 	}
 	//==============================================================================================
 }

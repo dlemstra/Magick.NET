@@ -20,8 +20,8 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickException::MagickException(String^ message)
-		: Exception(message)
+	MagickException::MagickException(String^ message, MagickException^ innerException)
+		: Exception(message, innerException)
 	{
 	}
 	//==============================================================================================
@@ -38,7 +38,7 @@ namespace ImageMagick
 			return MagickErrorException::Create(*error);
 
 		String^ message = Marshaller::Marshal(exception.what());
-		throw gcnew MagickException(message);
+		throw gcnew MagickException(message, nullptr);
 	}
 	//==============================================================================================
 	void MagickException::Throw(const Magick::Exception& exception)
