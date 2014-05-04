@@ -72,6 +72,7 @@ namespace Magick
   {
   public:
     explicit ErrorBlob(const std::string& what_);
+    explicit ErrorBlob(const std::string& what_,Exception *nested_);
     ~ErrorBlob() throw();
   };
 
@@ -79,6 +80,7 @@ namespace Magick
   {
   public:
     explicit ErrorCache(const std::string& what_);
+    explicit ErrorCache(const std::string& what_,Exception *nested_);
     ~ErrorCache() throw();
   };
 
@@ -86,6 +88,7 @@ namespace Magick
   {
   public:
     explicit ErrorCoder(const std::string& what_);
+    explicit ErrorCoder(const std::string& what_,Exception *nested_);
     ~ErrorCoder() throw();
   };
 
@@ -93,6 +96,7 @@ namespace Magick
   {
   public:
     explicit ErrorConfigure(const std::string& what_);
+    explicit ErrorConfigure(const std::string& what_,Exception *nested_);
     ~ErrorConfigure() throw();
   };
 
@@ -100,6 +104,7 @@ namespace Magick
   {
   public:
     explicit ErrorCorruptImage(const std::string& what_);
+    explicit ErrorCorruptImage(const std::string& what_,Exception *nested_);
     ~ErrorCorruptImage() throw();
   };
   
@@ -115,6 +120,7 @@ namespace Magick
   {
   public:
     explicit ErrorDraw(const std::string& what_);
+    explicit ErrorDraw(const std::string& what_,Exception *nested_);
     ~ErrorDraw() throw();
   };
 
@@ -122,6 +128,7 @@ namespace Magick
   {
   public:
     explicit ErrorFileOpen(const std::string& what_);
+    explicit ErrorFileOpen(const std::string& what_,Exception *nested_);
     ~ErrorFileOpen() throw();
   };
 
@@ -129,6 +136,7 @@ namespace Magick
   {
   public:
     explicit ErrorImage(const std::string& what_);
+    explicit ErrorImage(const std::string& what_,Exception *nested_);
     ~ErrorImage() throw();
   };
 
@@ -136,6 +144,7 @@ namespace Magick
   {
   public:
     explicit ErrorMissingDelegate(const std::string& what_);
+    explicit ErrorMissingDelegate(const std::string& what_,Exception *nested_);
     ~ErrorMissingDelegate() throw();
   };
 
@@ -143,6 +152,7 @@ namespace Magick
   {
   public:
     explicit ErrorModule(const std::string& what_);
+    explicit ErrorModule(const std::string& what_,Exception *nested_);
     ~ErrorModule() throw();
   };
 
@@ -150,6 +160,7 @@ namespace Magick
   {
   public:
     explicit ErrorMonitor(const std::string& what_);
+    explicit ErrorMonitor(const std::string& what_,Exception *nested_);
     ~ErrorMonitor() throw();
   };
 
@@ -157,6 +168,7 @@ namespace Magick
   {
   public:
     explicit ErrorOption(const std::string& what_);
+    explicit ErrorOption(const std::string& what_,Exception *nested_);
     ~ErrorOption() throw();
   };
 
@@ -164,6 +176,7 @@ namespace Magick
   {
   public:
     explicit ErrorPolicy(const std::string& what_);
+    explicit ErrorPolicy(const std::string& what_,Exception *nested_);
     ~ErrorPolicy() throw();
   };
 
@@ -171,6 +184,7 @@ namespace Magick
   {
   public:
     explicit ErrorRegistry(const std::string& what_);
+    explicit ErrorRegistry(const std::string& what_,Exception *nested_);
     ~ErrorRegistry() throw();
   };
 
@@ -178,6 +192,7 @@ namespace Magick
   {
   public:
     explicit ErrorResourceLimit(const std::string& what_);
+    explicit ErrorResourceLimit(const std::string& what_,Exception *nested_);
     ~ErrorResourceLimit() throw();
   };
 
@@ -185,6 +200,7 @@ namespace Magick
   {
   public:
     explicit ErrorStream(const std::string& what_);
+    explicit ErrorStream(const std::string& what_,Exception *nested_);
     ~ErrorStream() throw();
   };
 
@@ -192,6 +208,7 @@ namespace Magick
   {
   public:
     explicit ErrorType(const std::string& what_);
+    explicit ErrorType(const std::string& what_,Exception *nested_);
     ~ErrorType() throw();
   };
 
@@ -199,6 +216,7 @@ namespace Magick
   {
   public:
     explicit ErrorUndefined(const std::string& what_);
+    explicit ErrorUndefined(const std::string& what_,Exception *nested_);
     ~ErrorUndefined() throw();
   };
   
@@ -206,6 +224,7 @@ namespace Magick
   {
   public:
     explicit ErrorXServer(const std::string& what_);
+    explicit ErrorXServer(const std::string& what_,Exception *nested_);
     ~ErrorXServer() throw();
   };
 
@@ -217,6 +236,7 @@ namespace Magick
   {
   public:
     explicit Warning(const std::string& what_);
+    explicit Warning(const std::string& what_,Exception *nested_);
     ~Warning() throw();
   };
 
@@ -224,6 +244,7 @@ namespace Magick
   {
   public:
     explicit WarningBlob(const std::string& what_);
+    explicit WarningBlob(const std::string& what_,Exception *nested_);
     ~WarningBlob() throw();
   };
 
@@ -231,6 +252,7 @@ namespace Magick
   {
   public:
     explicit WarningCache(const std::string& what_);
+    explicit WarningCache(const std::string& what_,Exception *nested_);
     ~WarningCache() throw();
   };
 
@@ -238,6 +260,7 @@ namespace Magick
   {
   public:
     explicit WarningCoder(const std::string& what_);
+    explicit WarningCoder(const std::string& what_,Exception *nested_);
     ~WarningCoder() throw();
   };
 
@@ -245,6 +268,7 @@ namespace Magick
   {
   public:
     explicit WarningConfigure(const std::string& what_);
+    explicit WarningConfigure(const std::string& what_,Exception *nested_);
     ~WarningConfigure() throw();
   };
 
@@ -252,6 +276,7 @@ namespace Magick
   {
   public:
     explicit WarningCorruptImage(const std::string& what_);
+    explicit WarningCorruptImage(const std::string& what_,Exception *nested_);
     ~WarningCorruptImage() throw();
   };
 
@@ -259,6 +284,7 @@ namespace Magick
   {
   public:
     explicit WarningDelegate(const std::string& what_);
+    explicit WarningDelegate(const std::string& what_,Exception *nested_);
     ~WarningDelegate() throw();
   };
 
@@ -266,6 +292,7 @@ namespace Magick
   {
   public:
     explicit WarningDraw(const std::string& what_);
+    explicit WarningDraw(const std::string& what_,Exception *nested_);
     ~WarningDraw() throw();
   };
 
@@ -273,6 +300,7 @@ namespace Magick
   {
   public:
     explicit WarningFileOpen(const std::string& what_);
+    explicit WarningFileOpen(const std::string& what_,Exception *nested_);
     ~WarningFileOpen() throw();
   };
 
@@ -280,6 +308,7 @@ namespace Magick
   {
   public:
     explicit WarningImage(const std::string& what_);
+    explicit WarningImage(const std::string& what_,Exception *nested_);
     ~WarningImage() throw();
   };
 
@@ -287,6 +316,8 @@ namespace Magick
   {
   public:
     explicit WarningMissingDelegate(const std::string& what_);
+    explicit WarningMissingDelegate(const std::string& what_,
+      Exception *nested_);
     ~WarningMissingDelegate() throw();
   };
 
@@ -294,6 +325,7 @@ namespace Magick
   {
   public:
     explicit WarningModule(const std::string& what_);
+    explicit WarningModule(const std::string& what_,Exception *nested_);
     ~WarningModule() throw();
   };
 
@@ -301,6 +333,7 @@ namespace Magick
   {
   public:
     explicit WarningMonitor(const std::string& what_);
+    explicit WarningMonitor(const std::string& what_,Exception *nested_);
     ~WarningMonitor() throw();
   };
 
@@ -308,6 +341,7 @@ namespace Magick
   {
   public:
     explicit WarningOption(const std::string& what_);
+    explicit WarningOption(const std::string& what_,Exception *nested_);
     ~WarningOption() throw();
   };
 
@@ -315,6 +349,7 @@ namespace Magick
   {
   public:
     explicit WarningPolicy(const std::string& what_);
+    explicit WarningPolicy(const std::string& what_,Exception *nested_);
     ~WarningPolicy() throw();
   };
 
@@ -322,6 +357,7 @@ namespace Magick
   {
   public:
     explicit WarningRegistry(const std::string& what_);
+    explicit WarningRegistry(const std::string& what_,Exception *nested_);
     ~WarningRegistry() throw();
   };
 
@@ -329,6 +365,7 @@ namespace Magick
   {
   public:
     explicit WarningResourceLimit(const std::string& what_);
+    explicit WarningResourceLimit(const std::string& what_,Exception *nested_);
     ~WarningResourceLimit() throw();
   };
 
@@ -336,6 +373,7 @@ namespace Magick
   {
   public:
     explicit WarningStream(const std::string& what_);
+    explicit WarningStream(const std::string& what_,Exception *nested_);
     ~WarningStream() throw();
   };
 
@@ -343,6 +381,7 @@ namespace Magick
   {
   public:
     explicit WarningType(const std::string& what_);
+    explicit WarningType(const std::string& what_,Exception *nested_);
     ~WarningType() throw();
   };
 
@@ -350,6 +389,7 @@ namespace Magick
   {
   public:
     explicit WarningUndefined(const std::string& what_);
+    explicit WarningUndefined(const std::string& what_,Exception *nested_);
     ~WarningUndefined() throw();
   };
 
@@ -357,6 +397,7 @@ namespace Magick
   {
   public:
     explicit WarningXServer(const std::string& what_);
+    explicit WarningXServer(const std::string& what_,Exception *nested_);
     ~WarningXServer() throw();
   };
 
