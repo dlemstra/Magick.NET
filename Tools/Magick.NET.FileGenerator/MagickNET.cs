@@ -249,6 +249,7 @@ namespace Magick.NET.FileGenerator
 				case "ConvolveMatrix":
 				case "DrawableAffine":
 				case "MagickImage[]":
+				case "MagickImageCollection":
 				case "Matrix":
 				case "Rectangle":
 				case "Stream":

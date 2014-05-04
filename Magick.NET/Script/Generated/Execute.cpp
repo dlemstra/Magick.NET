@@ -433,6 +433,11 @@ namespace ImageMagick
 						}
 						break;
 					}
+					case 'a':
+					{
+						ExecuteCannyEdge(element, image);
+						return;
+					}
 					case 'd':
 					{
 						ExecuteCDL(element, image);
@@ -556,6 +561,11 @@ namespace ImageMagick
 									}
 								}
 								break;
+							}
+							case 't':
+							{
+								ExecuteDetermineColorType(image);
+								return;
 							}
 						}
 						break;
@@ -763,16 +773,28 @@ namespace ImageMagick
 			}
 			case 'h':
 			{
-				switch(element->Name[2])
+				switch(element->Name[1])
 				{
-					case 's':
+					case 'a':
 					{
-						ExecuteHasAlpha(element, image);
-						return;
+						switch(element->Name[2])
+						{
+							case 's':
+							{
+								ExecuteHasAlpha(element, image);
+								return;
+							}
+							case 'l':
+							{
+								ExecuteHaldClut(element, image);
+								return;
+							}
+						}
+						break;
 					}
-					case 'l':
+					case 'o':
 					{
-						ExecuteHaldClut(element, image);
+						ExecuteHoughLine(element, image);
 						return;
 					}
 				}
@@ -991,6 +1013,11 @@ namespace ImageMagick
 							}
 						}
 						break;
+					}
+					case 'r':
+					{
+						ExecutePreserveColorType(image);
+						return;
 					}
 				}
 				break;
@@ -2122,6 +2149,27 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'brightnessContrast', allowed combinations are: [brightness, contrast] [brightness, contrast, channels]");
 	}
+	void MagickScript::ExecuteCannyEdge(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "lower")
+				arguments["lower"] = _Variables->GetValue<Percentage>(attribute);
+			else if (attribute->Name == "radius")
+				arguments["radius"] = _Variables->GetValue<double>(attribute);
+			else if (attribute->Name == "sigma")
+				arguments["sigma"] = _Variables->GetValue<double>(attribute);
+			else if (attribute->Name == "upper")
+				arguments["upper"] = _Variables->GetValue<Percentage>(attribute);
+		}
+		if (arguments->Count == 0)
+			image->CannyEdge();
+		else if (OnlyContains(arguments, "radius", "sigma", "lower", "upper"))
+			image->CannyEdge((double)arguments["radius"], (double)arguments["sigma"], (Percentage)arguments["lower"], (Percentage)arguments["upper"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'cannyEdge', allowed combinations are: [] [radius, sigma, lower, upper]");
+	}
 	void MagickScript::ExecuteCDL(XmlElement^ element, MagickImage^ image)
 	{
 		String^ fileName_ = _Variables->GetValue<String^>(element, "fileName");
@@ -2382,6 +2430,10 @@ namespace ImageMagick
 	{
 		image->Despeckle();
 	}
+	void MagickScript::ExecuteDetermineColorType(MagickImage^ image)
+	{
+		image->DetermineColorType();
+	}
 	void MagickScript::ExecuteDistort(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -2625,6 +2677,20 @@ namespace ImageMagick
 	{
 		MagickImage^ image_ = CreateMagickImage(element["image"]);
 		image->HaldClut(image_);
+	}
+	void MagickScript::ExecuteHoughLine(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			arguments[attribute->Name] = _Variables->GetValue<int>(attribute);
+		}
+		if (arguments->Count == 0)
+			image->HoughLine();
+		else if (OnlyContains(arguments, "width", "height", "threshold"))
+			image->HoughLine((int)arguments["width"], (int)arguments["height"], (int)arguments["threshold"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'houghLine', allowed combinations are: [] [width, height, threshold]");
 	}
 	void MagickScript::ExecuteImplode(XmlElement^ element, MagickImage^ image)
 	{
@@ -2921,6 +2987,10 @@ namespace ImageMagick
 			image->Posterize((int)arguments["levels"], (bool)arguments["dither"], (Channels)arguments["channels"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'posterize', allowed combinations are: [levels] [levels, channels] [levels, dither] [levels, dither, channels]");
+	}
+	void MagickScript::ExecutePreserveColorType(MagickImage^ image)
+	{
+		image->PreserveColorType();
 	}
 	void MagickScript::ExecuteQuantize(XmlElement^ element, MagickImage^ image)
 	{

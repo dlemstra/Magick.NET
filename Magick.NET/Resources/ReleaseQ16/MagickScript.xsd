@@ -833,6 +833,7 @@
 					<xs:enumeration value="Vicar" />
 					<xs:enumeration value="Vid" />
 					<xs:enumeration value="Viff" />
+					<xs:enumeration value="Vips" />
 					<xs:enumeration value="Vst" />
 					<xs:enumeration value="Wbmp" />
 					<xs:enumeration value="WebP" />
@@ -1629,6 +1630,14 @@
 						<xs:attribute name="contrast" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="cannyEdge">
+					<xs:complexType>
+						<xs:attribute name="lower" type="double" />
+						<xs:attribute name="radius" type="double" />
+						<xs:attribute name="sigma" type="double" />
+						<xs:attribute name="upper" type="double" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="cdl">
 					<xs:complexType>
 						<xs:attribute name="fileName" use="required" type="xs:string" />
@@ -1766,6 +1775,7 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="despeckle" type="empty" />
+				<xs:element name="determineColorType" type="empty" />
 				<xs:element name="distort">
 					<xs:complexType>
 						<xs:sequence>
@@ -1861,6 +1871,13 @@
 						<xs:sequence>
 							<xs:element name="image" type="image" />
 						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="houghLine">
+					<xs:complexType>
+						<xs:attribute name="height" type="int" />
+						<xs:attribute name="threshold" type="int" />
+						<xs:attribute name="width" type="int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="implode">
@@ -1990,6 +2007,7 @@
 						<xs:attribute name="levels" use="required" type="int" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="preserveColorType" type="empty" />
 				<xs:element name="quantize">
 					<xs:complexType>
 						<xs:sequence>
