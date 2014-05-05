@@ -315,8 +315,10 @@
     <ClInclude Include="..\Magick.NET\Settings\MontageSettings.h" />
     <ClInclude Include="..\Magick.NET\Settings\PixelStorageSettings.h" />
     <ClInclude Include="..\Magick.NET\Settings\QuantizeSettings.h" />
+    <ClInclude Include="..\Magick.NET\Statistics\ChannelMoments.h" />
     <ClInclude Include="..\Magick.NET\Statistics\ChannelStatistics.h" />
     <ClInclude Include="..\Magick.NET\MagickFormatInfo.h" />
+    <ClInclude Include="..\Magick.NET\Statistics\MagickImageMoments.h" />
     <ClInclude Include="..\Magick.NET\Statistics\MagickImageStatistics.h" />
     <ClInclude Include="..\Magick.NET\MagickErrorInfo.h" />
     <ClInclude Include="..\Magick.NET\Drawables\Coordinate.h" />
@@ -345,6 +347,7 @@
     <ClInclude Include="..\Magick.NET\Colors\Base\ColorBase.h" />
     <ClInclude Include="..\Magick.NET\Percentage.h" />
     <ClInclude Include="..\Magick.NET\Enums\Resolution.h" />
+    <ClInclude Include="..\Magick.NET\PointD.h" />
     <ClInclude Include="..\Magick.NET\TypeMetric.h" />
     <ClInclude Include="..\Magick.NET\Settings\MagickReadSettings.h" />
     <ClInclude Include="..\Magick.NET\Matrices\ColorMatrix.h" />
@@ -472,8 +475,10 @@
     <ClCompile Include="..\Magick.NET\Settings\MagickReadSettings.cpp" />
     <ClCompile Include="..\Magick.NET\Settings\PixelStorageSettings.cpp" />
     <ClCompile Include="..\Magick.NET\Settings\QuantizeSettings.cpp" />
+    <ClCompile Include="..\Magick.NET\Statistics\ChannelMoments.cpp" />
     <ClCompile Include="..\Magick.NET\Statistics\ChannelStatistics.cpp" />
     <ClCompile Include="..\Magick.NET\MagickFormatInfo.cpp" />
+    <ClCompile Include="..\Magick.NET\Statistics\MagickImageMoments.cpp" />
     <ClCompile Include="..\Magick.NET\Statistics\MagickImageStatistics.cpp" />
     <ClCompile Include="..\Magick.NET\MagickErrorInfo.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\Coordinate.cpp" />
@@ -495,6 +500,7 @@
     <ClCompile Include="..\Magick.NET\Colors\MagickColor.cpp" />
     <ClCompile Include="..\Magick.NET\Colors\Base\ColorBase.cpp" />
     <ClCompile Include="..\Magick.NET\Percentage.cpp" />
+    <ClCompile Include="..\Magick.NET\PointD.cpp" />
     <ClCompile Include="..\Magick.NET\TypeMetric.cpp" />
     <ClCompile Include="..\Magick.NET\Exceptions\MagickErrorExceptions.cpp" />
     <ClCompile Include="..\Magick.NET\Exceptions\MagickWarningExceptions.cpp" />
