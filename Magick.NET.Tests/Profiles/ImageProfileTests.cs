@@ -56,6 +56,32 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_IEquatable()
+		{
+			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+			{
+				ImageProfile first = image.GetIptcProfile();
+
+				Assert.IsFalse(first == null);
+				Assert.IsFalse(first.Equals(null));
+				Assert.IsTrue(first.Equals(first));
+				Assert.IsTrue(first.Equals((object)first));
+
+				ImageProfile second = image.GetIptcProfile();
+				Assert.IsNotNull(second);
+
+				Assert.IsTrue(first == second);
+				Assert.IsTrue(first.Equals(second));
+				Assert.IsTrue(first.Equals((object)second));
+
+				second = new IptcProfile(new byte[] { 0 });
+
+				Assert.IsTrue(first != second);
+				Assert.IsFalse(first.Equals(second));
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_ToByteArray()
 		{
 			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))

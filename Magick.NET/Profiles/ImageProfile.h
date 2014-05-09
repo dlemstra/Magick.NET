@@ -23,7 +23,7 @@ namespace ImageMagick
 	///<summary>
 	/// Class that contains an image profile.
 	///</summary>
-	public ref class ImageProfile
+	public ref class ImageProfile : IEquatable<ImageProfile^>
 	{
 		//===========================================================================================
 	private:
@@ -80,6 +80,27 @@ namespace ImageMagick
 		{
 			String^ get();
 		}
+		//===========================================================================================
+		static bool operator == (ImageProfile^ left, ImageProfile^ right);
+		//===========================================================================================
+		static bool operator != (ImageProfile^ left, ImageProfile^ right);
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified object is equal to the current image profile.
+		///</summary>
+		///<param name="obj">The object to compare this image profile with.</param>
+		virtual bool Equals(Object^ obj) override;
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified image is equal to the current image profile.
+		///</summary>
+		///<param name="other">The image profile to compare this image profile with.</param>
+		virtual bool Equals(ImageProfile^ other);
+		///==========================================================================================
+		///<summary>
+		/// Servers as a hash of this type.
+		///</summary>
+		virtual int GetHashCode() override;
 		///==========================================================================================
 		///<summary>
 		/// Converts this instance to a byte array.

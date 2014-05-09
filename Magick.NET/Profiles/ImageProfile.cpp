@@ -71,6 +71,52 @@ namespace ImageMagick
 		return _Name;
 	}
 	//==============================================================================================
+	bool ImageProfile::operator == (ImageProfile^ left, ImageProfile^ right)
+	{
+		return Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool ImageProfile::operator != (ImageProfile^ left, ImageProfile^ right)
+	{
+		return !Object::Equals(left, right);
+	}
+	//==============================================================================================
+	bool ImageProfile::Equals(Object^ obj)
+	{
+		if (ReferenceEquals(this, obj))
+			return true;
+
+		return Equals(dynamic_cast<ImageProfile^>(obj));
+	}
+	//==============================================================================================
+	bool ImageProfile::Equals(ImageProfile^ other)
+	{
+		if (ReferenceEquals(other, nullptr))
+			return false;
+
+		if (ReferenceEquals(this, other))
+			return true;
+
+		if (_Name != other->_Name)
+			return false;
+
+		if (_Data->Length != other->_Data->Length)
+			return false;
+
+		for(int i=0; i < _Data->Length; i++)
+		{
+			if (_Data[i] != other->_Data[i])
+				return false;
+		}
+
+		return true;
+	}
+	//==============================================================================================
+	int ImageProfile::GetHashCode()
+	{
+		return _Name->GetHashCode() ^ _Data->GetHashCode();
+	}
+	//==============================================================================================
 	array<Byte>^ ImageProfile::ToByteArray()
 	{
 		array<Byte>^ result = gcnew array<Byte>(_Data->Length);
