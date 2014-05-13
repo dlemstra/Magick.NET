@@ -30,7 +30,7 @@ namespace ImageMagick
 		Throw::IfNull("image", image);
 
 		BaseValue = new Magick::DrawableCompositeImage(x, y, image->Width, image->Height,
-			(Magick::Image&)image, (Magick::CompositeOperator)compose);
+			image->ReuseValue(), (Magick::CompositeOperator)compose);
 	}
 	//==============================================================================================
 	DrawableCompositeImage::DrawableCompositeImage(MagickGeometry^ offset, MagickImage^ image)
@@ -39,7 +39,7 @@ namespace ImageMagick
 		Throw::IfNull("image", image);
 
 		BaseValue = new Magick::DrawableCompositeImage(offset->X, offset->Y, offset->Width,
-			offset->Height, (Magick::Image&)image);
+			offset->Height, image->ReuseValue());
 	}
 	//==============================================================================================
 	DrawableCompositeImage::DrawableCompositeImage(MagickGeometry^ offset, CompositeOperator compose,
@@ -49,7 +49,7 @@ namespace ImageMagick
 		Throw::IfNull("image", image);
 
 		BaseValue = new Magick::DrawableCompositeImage(offset->X, offset->Y, offset->Width,
-			offset->Height, (Magick::Image&)image, (Magick::CompositeOperator)compose);
+			offset->Height, image->ReuseValue(), (Magick::CompositeOperator)compose);
 	}
 	//==============================================================================================
 	double DrawableCompositeImage::Height::get()
