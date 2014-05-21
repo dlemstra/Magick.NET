@@ -539,6 +539,24 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Quantize()
+		{
+			QuantizeSettings settings = new QuantizeSettings();
+			settings.Colors = 8;
+
+			Assert.AreEqual(null, settings.DitherMethod);
+			settings.DitherMethod = null;
+			Assert.AreEqual(null, settings.DitherMethod);
+			settings.DitherMethod = DitherMethod.No;
+			Assert.AreEqual(DitherMethod.No, settings.DitherMethod);
+
+			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+			{
+				image.Quantize(settings);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Read()
 		{
 			MagickImage image = new MagickImage();

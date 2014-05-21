@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 using System;
+using System.Linq;
 using System.CodeDom.Compiler;
 
 namespace Magick.NET.FileGenerator
@@ -45,19 +46,38 @@ namespace Magick.NET.FileGenerator
 					WriteType(writer, type);
 					writer.WriteLine("\");");
 
-					if (!IsUsedAsIEnumerable(_Types, type))
-						continue;
+					if (IsUsedAsIEnumerable(_Types, type))
+						WriteIEnumerable(writer, type);
 
-					writer.Write("public static readonly Type IEnumerable");
-					WriteType(writer, type);
-					writer.Write(" = typeof(IEnumerable<>).MakeGenericType(");
-					WriteType(writer, type);
-					writer.WriteLine(");");
+					if (IsUsedAsNullable(_Types, type))
+						WriteNullable(writer, type);
 				}
+				WriteNullable(writer, typeof(int));
 				WriteEndColon(writer);
 				WriteEndColon(writer);
 				Close(writer);
 			}
+		}
+		//===========================================================================================
+		private static void WriteIEnumerable(IndentedTextWriter writer, Type type)
+		{
+			writer.Write("public static readonly Type IEnumerable");
+			WriteType(writer, type);
+			writer.Write(" = typeof(IEnumerable<>).MakeGenericType(");
+			WriteType(writer, type);
+			writer.WriteLine(");");
+		}
+		//===========================================================================================
+		private void WriteNullable(IndentedTextWriter writer, Type type)
+		{
+			writer.Write("public static readonly Type Nullable");
+			WriteType(writer, type);
+			writer.Write(" = typeof(Nullable<>).MakeGenericType(");
+			if (type == typeof(int))
+				writer.Write("typeof(Int32)");
+			else
+				WriteType(writer, type);
+			writer.WriteLine(");");
 		}
 		//===========================================================================================
 		private static void WriteUsing(IndentedTextWriter writer)

@@ -876,17 +876,8 @@ namespace Magick.NET.FileGenerator
 						writer.Write(".SetPropertyValue(\"");
 						writer.Write(property.Name);
 						writer.Write("\", ");
-						ParameterInfo parameter = property.SetMethod.GetParameters()[0];
-						if (_Types.Contains(parameter.ParameterType) || parameter.ParameterType == typeof(object))
-						{
-							WriteType(writer, parameter.ParameterType);
-							writer.Write(".GetInstance(");
-							writer.WriteLine("value));");
-						}
-						else
-						{
-							writer.WriteLine("value);");
-						}
+						WriteValue(writer, property);
+						writer.WriteLine(");");
 					}
 					WriteCatch(writer);
 					WriteEndColon(writer);
@@ -947,6 +938,13 @@ namespace Magick.NET.FileGenerator
 				}
 				writer.Indent--;
 			}
+			else if ((type.IsGenericType && type.Name.StartsWith("IEnumerator", StringComparison.Ordinal)))
+			{
+				Type genericArgument = type.GetGenericArguments()[0];
+				writer.Write("return new EnumeratorWrapper<");
+				WriteType(writer, genericArgument);
+				writer.WriteLine(">(result).GetEnumerator();");
+			}
 			else if (type.IsGenericType && type.Name.StartsWith("Dictionary", StringComparison.Ordinal))
 			{
 				Type key = type.GetGenericArguments()[0];
@@ -971,12 +969,24 @@ namespace Magick.NET.FileGenerator
 				WriteEndColon(writer);
 				writer.WriteLine("return casted_result;");
 			}
-			else if ((type.IsGenericType && type.Name.StartsWith("IEnumerator", StringComparison.Ordinal)))
+			else if (type.IsGenericType && type.Name.StartsWith("Nullable", StringComparison.Ordinal))
 			{
 				Type genericArgument = type.GetGenericArguments()[0];
-				writer.Write("return new EnumeratorWrapper<");
+
+				writer.WriteLine("if (result == null)");
+				writer.Indent++;
+				writer.Write("return new Nullable<");
 				WriteType(writer, genericArgument);
-				writer.WriteLine(">(result).GetEnumerator();");
+				writer.WriteLine(">();");
+				writer.Indent--;
+				writer.WriteLine("else");
+				writer.Indent++;
+				writer.Write("return new Nullable<");
+				WriteType(writer, genericArgument);
+				writer.Write(">((");
+				WriteType(writer, genericArgument);
+				writer.WriteLine(")result);");
+				writer.Indent--;
 			}
 			else if (type.IsSubclassOf(typeof(Exception)))
 			{
@@ -1065,6 +1075,48 @@ namespace Magick.NET.FileGenerator
 			writer.WriteLine("using System.Xml.XPath;");
 			writer.WriteLine("using Fasterflect;");
 			writer.WriteLine();
+		}
+		//===========================================================================================
+		private void WriteValue(IndentedTextWriter writer, PropertyInfo property)
+		{
+			ParameterInfo parameter = property.SetMethod.GetParameters()[0];
+			if (parameter.ParameterType.IsGenericType)
+			{
+				Type genericArgument = parameter.ParameterType.GetGenericArguments()[0];
+
+				if (parameter.ParameterType.Name.StartsWith("Nullable", StringComparison.Ordinal))
+				{
+					writer.Write("value == null ? Types.Nullable");
+					WriteType(writer, genericArgument);
+					writer.Write(".CreateInstance() : Types.Nullable");
+					WriteType(writer, genericArgument);
+					writer.Write(".CreateInstance(new Type[] { ");
+					if (genericArgument == typeof(int))
+					{
+						writer.Write("typeof(Int32)");
+					}
+					else
+					{
+						writer.Write("Types.");
+						WriteType(writer, genericArgument);
+					}
+					writer.Write(" }, value.Value)");
+				}
+				else
+				{
+					throw new NotImplementedException();
+				}
+			}
+			else if (_Types.Contains(parameter.ParameterType) || parameter.ParameterType == typeof(object))
+			{
+				WriteType(writer, parameter.ParameterType);
+				writer.Write(".GetInstance(");
+				writer.Write("value)");
+			}
+			else
+			{
+				writer.Write("value");
+			}
 		}
 		//===========================================================================================
 		private void Generate(Type type)

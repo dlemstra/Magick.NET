@@ -88,6 +88,17 @@ namespace Magick.NET.FileGenerator
 			return paramater.ParameterType.GetGenericArguments()[0];
 		}
 		//===========================================================================================
+		protected static Type GetNullable(ParameterInfo paramater)
+		{
+			if (!paramater.ParameterType.IsGenericType)
+				return null;
+
+			if (!paramater.ParameterType.Name.StartsWith("Nullable", StringComparison.Ordinal))
+				return null;
+
+			return paramater.ParameterType.GetGenericArguments()[0];
+		}
+		//===========================================================================================
 		protected Type[] GetTypes()
 		{
 			return GetTypes(false);
@@ -114,6 +125,25 @@ namespace Magick.NET.FileGenerator
 				  from c in t.GetConstructors()
 				  from p in c.GetParameters()
 				  where GetIEnumerable(p) == type
+				  select t).Count() > 0)
+				return true;
+
+			return false;
+		}
+		//===========================================================================================
+		protected static bool IsUsedAsNullable(Type[] types, Type type)
+		{
+			if ((from t in types
+				  from m in t.GetMethods()
+				  from p in m.GetParameters()
+				  where GetNullable(p) == type
+				  select t).Count() > 0)
+				return true;
+
+			if ((from t in types
+				  from c in t.GetConstructors()
+				  from p in c.GetParameters()
+				  where GetNullable(p) == type
 				  select t).Count() > 0)
 				return true;
 
