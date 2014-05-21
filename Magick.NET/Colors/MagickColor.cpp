@@ -38,6 +38,29 @@ namespace ImageMagick
 #endif
 	}
 	//==============================================================================================
+	void MagickColor::ParseColor(String^ color)
+	{
+		std::string x11colorString;
+		Marshaller::Marshal(color, x11colorString);
+
+		Magick::Color x11color;
+		try
+		{
+			x11color = x11colorString.c_str();
+		}
+		catch(Magick::Exception&)
+		{
+		}
+
+		if (!x11color.isValid())
+			throw gcnew ArgumentException("Invalid color specified", "color");
+
+		R = x11color.redQuantum();
+		G = x11color.greenQuantum();
+		B = x11color.blueQuantum();
+		A = Quantum::Max - x11color.alphaQuantum();
+	}
+	//==============================================================================================
 	char MagickColor::ParseHexChar(wchar_t c)
 	{
 		if (c >= '0' && c <= '9')
@@ -169,11 +192,11 @@ namespace ImageMagick
 		A = alpha;
 	}
 	//==============================================================================================
-	MagickColor::MagickColor(String^ hexValue)
+	MagickColor::MagickColor(String^ color)
 	{
-		Throw::IfNullOrEmpty("hexValue", hexValue);
+		Throw::IfNullOrEmpty("color", color);
 
-		if (hexValue->Equals("transparent", StringComparison::OrdinalIgnoreCase))
+		if (color->Equals("transparent", StringComparison::OrdinalIgnoreCase))
 		{
 			R = Quantum::Max;
 			G = Quantum::Max;
@@ -182,15 +205,19 @@ namespace ImageMagick
 			return;
 		}
 
-		Throw::IfFalse("hexValue", hexValue[0] == '#', "Value '{0}' should start with '#'.", hexValue);
-
+		if (color[0] == '#')
+		{
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
-		ParseQ8HexColor(hexValue);
+			ParseQ8HexColor(color);
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		ParseQ16HexColor(hexValue);
+			ParseQ16HexColor(color);
 #else
 #error Not implemented!
 #endif
+			return;
+		}
+
+		ParseColor(color);
 	}
 	//==============================================================================================
 	MagickColor^ MagickColor::Transparent::get()

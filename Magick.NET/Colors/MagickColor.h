@@ -28,7 +28,9 @@ namespace ImageMagick
 		//===========================================================================================
 		void Initialize(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
 		//===========================================================================================
-		static char MagickColor::ParseHexChar(wchar_t c);
+		void ParseColor(String^ color);
+		//===========================================================================================
+		static char ParseHexChar(wchar_t c);
 		//===========================================================================================
 		void ParseQ8HexColor(String^ color);
 		//===========================================================================================
@@ -80,7 +82,8 @@ namespace ImageMagick
 			Magick::Quantum alpha);
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the MagickColor class using the specified RGBA hex string.
+		/// Initializes a new instance of the MagickColor class using the specified RGBA hex string or
+		/// name of the color (http://www.imagemagick.org/script/color.php).
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
 		/// For example: #F00, #F00C, #FF0000, #FF0000CC
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
@@ -89,8 +92,8 @@ namespace ImageMagick
 #error Not implemented!
 #endif
 		///</summary>
-		///<param name="hexValue">The RGBA hex string.</param>
-		MagickColor(String^ hexValue);
+		///<param name="color">The RGBA hex string or name of the color.</param>
+		MagickColor(String^ color);
 		///==========================================================================================
 		///<summary>
 		/// Alpha component value of this color.

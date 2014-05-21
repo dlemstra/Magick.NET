@@ -26,13 +26,13 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private const string _Category = "MagickColor";
 		//===========================================================================================
-		private void TestHexColor(string hexValue, float red, float green, float blue, bool isTransparent)
+		private void TestColor(string hexValue, float red, float green, float blue, bool isTransparent)
 		{
 			MagickColor color = new MagickColor(hexValue);
 
-			Assert.AreEqual(red, color.R);
-			Assert.AreEqual(green, color.G);
-			Assert.AreEqual(blue, color.B);
+			Assert.AreEqual(red, color.R, 0.01);
+			Assert.AreEqual(green, color.G, 0.01);
+			Assert.AreEqual(blue, color.B, 0.01);
 
 			if (isTransparent)
 				ColorAssert.IsTransparent(color.A);
@@ -63,10 +63,10 @@ namespace Magick.NET.Tests
 				new MagickColor("#GGFFF");
 			});
 
-			TestHexColor("#F00", Quantum.Max, 0, 0, false);
-			TestHexColor("#0F00", 0, Quantum.Max, 0, true);
-			TestHexColor("#0000FF", 0, 0, Quantum.Max, false);
-			TestHexColor("#FF00FF00", Quantum.Max, 0, Quantum.Max, true);
+			TestColor("#F00", Quantum.Max, 0, 0, false);
+			TestColor("#0F00", 0, Quantum.Max, 0, true);
+			TestColor("#0000FF", 0, 0, Quantum.Max, false);
+			TestColor("#FF00FF00", Quantum.Max, 0, Quantum.Max, true);
 
 #if Q8
 			ExceptionAssert.Throws<ArgumentException>(delegate()
@@ -74,11 +74,14 @@ namespace Magick.NET.Tests
 				new MagickColor("#FFFF0000FFFF");
 			});
 #elif Q16
-			TestHexColor("#0000FFFF0000", 0, Quantum.Max, 0, false);
-			TestHexColor("#FFFF000000000000", Quantum.Max, 0, 0, true);
+			TestColor("#0000FFFF0000", 0, Quantum.Max, 0, false);
+			TestColor("#FFFF000000000000", Quantum.Max, 0, 0, true);
 #else
 #error Not implemented!
 #endif
+
+			TestColor("gray(50%) ", Quantum.Max / 2, Quantum.Max / 2, Quantum.Max / 2, false);
+			TestColor("rgba(100%, 0%, 0%, 0.0)", Quantum.Max, 0, 0, true);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
