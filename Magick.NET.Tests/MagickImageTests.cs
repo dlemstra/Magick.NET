@@ -252,7 +252,7 @@ namespace Magick.NET.Tests
 				image.Draw(new DrawableFillColor(yellow), new DrawableRectangle(0, 0, 10, 10));
 				using (PixelCollection collection = image.GetReadOnlyPixels())
 				{
-					Assert.AreEqual(collection.GetPixel(5, 5).ToColor(), yellow);
+					ColorAssert.AreEqual(yellow, collection.GetPixel(5, 5).ToColor());
 				}
 			}
 		}

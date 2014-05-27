@@ -16,10 +16,10 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\ReleaseQ8\x86\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE;Q8</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-x86</AssemblyName>
@@ -29,10 +29,10 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\ReleaseQ8\x64\</OutputPath>
-    <DefineConstants>TRACE;_M_X64;CODE_ANALYSIS;</DefineConstants>
+    <DefineConstants>TRACE;_M_X64;Q8</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <PlatformTarget>x64</PlatformTarget>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-x64</AssemblyName>
@@ -46,7 +46,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|Win32'">
     <OutputPath>bin\ReleaseQ16\x86\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE;CODE_ANALYSIS;Q16</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -58,7 +58,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
     <OutputPath>bin\ReleaseQ16\x64\</OutputPath>
-    <DefineConstants>TRACE;_M_X64;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE;CODE_ANALYSIS;_M_X64;Q16</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -67,6 +67,28 @@
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-x64</AssemblyName>
     <DocumentationFile>bin\ReleaseQ16\x64\Magick.NET.Web-x64.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|Win32'">
+    <OutputPath>bin\ReleaseQ16-HDRI\x86\</OutputPath>
+    <DefineConstants>TRACE;Q16HDRI</DefineConstants>
+    <DocumentationFile>bin\ReleaseQ16-HDRI\x86\Magick.NET.Web-x86.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
+    <OutputPath>bin\ReleaseQ16-HDRI\x64\</OutputPath>
+    <DefineConstants>TRACE;_M_X64;Q16HDRI</DefineConstants>
+    <DocumentationFile>bin\ReleaseQ16-HDRI\x64\Magick.NET.Web-x64.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -61,16 +61,30 @@ namespace ImageMagick
 		A = Quantum::Max - x11color.alphaQuantum();
 	}
 	//==============================================================================================
-	char MagickColor::ParseHexChar(wchar_t c)
+	Magick::Quantum MagickColor::ParseHex(String^ color, int offset, int length)
 	{
-		if (c >= '0' && c <= '9')
-			return ((char)c - '0');
-		if (c >= 'a' && c <= 'f')
-			return ((char)c - 'a' + '\n');
-		if (c >= 'A' && c <= 'F')
-			return ((char)c - 'A' + '\n');
+		Magick::Quantum result = 0;
+		Magick::Quantum k = 1;
 
-		throw gcnew ArgumentException("Invalid character: " + c + ".");
+		int i = length - 1;
+		while (i >= 0)
+		{
+			wchar_t c = color[offset + i];
+
+			if (c >= '0' && c <= '9')
+				result += k * ((char)c - '0');
+			else if (c >= 'a' && c <= 'f')
+				result += k * ((char)c - 'a' + '\n');
+			else if (c >= 'A' && c <= 'F')
+				result += k * ((char)c - 'A' + '\n');
+			else
+				throw gcnew ArgumentException("Invalid character: " + c + ".");
+
+			i--;
+			k = k * 16;
+		}
+
+		return result;
 	}
 	//==============================================================================================
 	void MagickColor::ParseQ8HexColor(String^ color)
@@ -82,27 +96,27 @@ namespace ImageMagick
 
 		if (color->Length == 4 || color->Length == 5)
 		{
-			red = ParseHexChar(color[1]);
+			red = (unsigned char)ParseHex(color, 1, 1);
 			red += red * 16;
-			green = ParseHexChar(color[2]);
+			green = (unsigned char)ParseHex(color, 2, 1);
 			green += green * 16;
-			blue = ParseHexChar(color[3]);
+			blue = (unsigned char)ParseHex(color, 3, 1);
 			blue += blue * 16;
 
 			if (color->Length == 5)
 			{
-				alpha = ParseHexChar(color[4]);
+				alpha = (unsigned char)ParseHex(color, 4, 1);
 				alpha += alpha * 16;
 			}
 		}
 		else if (color->Length == 7 || color->Length == 9)
 		{
-			red = (ParseHexChar(color[1]) * 16) + ParseHexChar(color[2]);
-			green = (ParseHexChar(color[3]) * 16) + ParseHexChar(color[4]);
-			blue = (ParseHexChar(color[5]) * 16) + ParseHexChar(color[6]);
+			red = (unsigned char)ParseHex(color, 1, 2);
+			green = (unsigned char)ParseHex(color, 3, 2);
+			blue = (unsigned char)ParseHex(color, 5, 2);
 
 			if (color->Length == 9)
-				alpha = (ParseHexChar(color[7]) * 16) + ParseHexChar(color[8]);
+				alpha = (unsigned char)ParseHex(color, 7, 2);
 		}
 		else
 		{
@@ -113,7 +127,6 @@ namespace ImageMagick
 	}
 	//==============================================================================================
 #if (MAGICKCORE_QUANTUM_DEPTH > 8)
-	//==============================================================================================
 	void MagickColor::ParseQ16HexColor(String^ color)
 	{
 		if (color->Length < 13)
@@ -122,12 +135,12 @@ namespace ImageMagick
 		}
 		else if (color->Length == 13 || color->Length == 17)
 		{
-			R = (Magick::Quantum)((ParseHexChar(color[1]) * 4096) + (ParseHexChar(color[2]) * 256) + (ParseHexChar(color[3]) * 16) + ParseHexChar(color[4]));
-			G = (Magick::Quantum)((ParseHexChar(color[5]) * 4096) + (ParseHexChar(color[6]) * 256) + (ParseHexChar(color[7]) * 16) + ParseHexChar(color[8]));
-			B = (Magick::Quantum)((ParseHexChar(color[9]) * 4096) + (ParseHexChar(color[10]) * 256) + (ParseHexChar(color[11]) * 16) + ParseHexChar(color[12]));
+			R = ParseHex(color, 1, 4);
+			G = ParseHex(color, 5, 4);
+			B = ParseHex(color, 9, 4);
 
 			if (color->Length == 17)
-				A = (Magick::Quantum)((ParseHexChar(color[13]) * 4096) + (ParseHexChar(color[14]) * 256) + (ParseHexChar(color[15]) * 16) + ParseHexChar(color[16]));
+				A = ParseHex(color, 13, 4);
 			else
 				A = Quantum::Max;
 		}
@@ -136,7 +149,6 @@ namespace ImageMagick
 			throw gcnew ArgumentException("Invalid hex value.");
 		}
 	}
-	//==============================================================================================
 #endif
 	//==============================================================================================
 	MagickColor::MagickColor(MagickColor^ color)

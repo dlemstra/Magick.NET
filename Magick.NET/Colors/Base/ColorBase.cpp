@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "ColorBase.h"
+#include "..\..\Quantum.h"
 
 namespace ImageMagick
 {
@@ -20,7 +21,7 @@ namespace ImageMagick
 	ColorBase::ColorBase(bool hasAlpha)
 	{
 		_Value = gcnew MagickColor();
-		_Value->A = MaxMap;
+		_Value->A = Quantum::Max;
 
 		_HasAlpha = hasAlpha;
 	}
@@ -32,7 +33,7 @@ namespace ImageMagick
 		_Value = gcnew MagickColor(color);
 
 		if (!hasAlpha)
-			_Value->A = MaxMap;
+			_Value->A = Quantum::Max;
 
 		_HasAlpha = hasAlpha;
 	}
@@ -138,7 +139,7 @@ namespace ImageMagick
 		MagickColor^ magickColor = gcnew MagickColor(_Value);
 
 		if (!_HasAlpha)
-			magickColor->A = MaxMap;
+			magickColor->A = Quantum::Max;
 
 		return magickColor;
 	}

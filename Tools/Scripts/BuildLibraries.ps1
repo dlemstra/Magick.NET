@@ -5,11 +5,13 @@ SetFolder $scriptPath
 #==================================================================================================
 $Q8Builds = @(
 	@{
+		Name					= "Q8";
 		QuantumDepth		= "8";
 		Framework			= "v2.0"
 		PlatformToolset	= "v90"
 	}
 	@{
+		Name					= "Q8";
 		QuantumDepth		= "8";
 		Framework			= "v4.0";
 		PlatformToolset	= "v110"
@@ -17,11 +19,27 @@ $Q8Builds = @(
 )
 $Q16Builds = @(
 	@{
+		Name					= "Q16";
 		QuantumDepth		= "16";
 		Framework			= "v2.0"
 		PlatformToolset	= "v90"
 	}
 	@{
+		Name					= "Q16";
+		QuantumDepth		= "16";
+		Framework			= "v4.0";
+		PlatformToolset	= "v110"
+	}
+)
+$Q16HDRIBuilds = @(
+	@{
+		Name					= "Q16-HDRI";
+		QuantumDepth		= "16";
+		Framework			= "v2.0"
+		PlatformToolset	= "v90"
+	}
+	@{
+		Name					= "Q16-HDRI";
 		QuantumDepth		= "16";
 		Framework			= "v4.0";
 		PlatformToolset	= "v110"
@@ -35,8 +53,13 @@ $configurations = @(
 	}
 	@{
 		Platform = "x86";
-		Options  = "/opencl /hdri";
+		Options  = "/opencl";
 		Builds   = $Q16Builds;
+	}
+	@{
+		Platform = "x86";
+		Options  = "/opencl /hdri";
+		Builds   = $Q16HDRIBuilds;
 	}
 	@{
 		Platform = "x64";
@@ -45,8 +68,13 @@ $configurations = @(
 	}
 	@{
 		Platform = "x64";
-		Options  = "/opencl /x64 /hdri";
+		Options  = "/opencl /x64";
 		Builds   = $Q16Builds;
+	}
+	@{
+		Platform = "x64";
+		Options  = "/opencl /x64 /hdri";
+		Builds   = $Q16HDRIBuilds;
 	}
 )
 #==================================================================================================
@@ -95,13 +123,13 @@ function Build($platform, $builds)
 		$newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"", "// #define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"")
 		[IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
 
-		Copy-Item $configFile "ImageMagick\Q$($build.QuantumDepth)\include\magick"
+		Copy-Item $configFile "ImageMagick\$($build.Name)\include\magick"
 		Copy-Item ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_*.lib "ImageMagick\lib\$($build.Framework)\$platform"
 
-		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_coders_.lib"   "ImageMagick\Q$($build.QuantumDepth)\lib\$($build.Framework)\$platform" -force
-		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_magick_.lib"   "ImageMagick\Q$($build.QuantumDepth)\lib\$($build.Framework)\$platform" -force
-		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_Magick++_.lib" "ImageMagick\Q$($build.QuantumDepth)\lib\$($build.Framework)\$platform" -force
-		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_wand_.lib"     "ImageMagick\Q$($build.QuantumDepth)\lib\$($build.Framework)\$platform" -force
+		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_coders_.lib"   "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
+		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_magick_.lib"   "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
+		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_Magick++_.lib" "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
+		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_wand_.lib"     "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
 	}
 }
 #==================================================================================================

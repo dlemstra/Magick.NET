@@ -19,6 +19,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 #if Q8
 	using Quantum = System.Byte;
 #elif Q16
+using Quantum = System.UInt16;
+#elif Q16HDRI
 	using Quantum = System.Single;
 #else
 #error Not implemented!
@@ -115,12 +117,10 @@ namespace Magick.NET.Tests
 
 				using (WritablePixelCollection pixels = image.GetWritablePixels())
 				{
-#if !Q8
-					pixels.Set(new int[] { 131070, 0, 0, 0 });
+					pixels.Set(new uint[] { 4294967295, 0, 0, 0 });
 					Test_PixelColor(pixels, Color.Red);
-					pixels.Set(new short[] { 0, 0, 32767, 0 });
+					pixels.Set(new ushort[] { 0, 0, 65535, 0 });
 					Test_PixelColor(pixels, Color.Blue);
-#endif
 					pixels.Set(new byte[] { 0, 255, 0, 0 });
 					Test_PixelColor(pixels, Color.Lime);
 				}

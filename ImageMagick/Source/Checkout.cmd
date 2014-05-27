@@ -1,13 +1,10 @@
 @echo off
 
 set REPOS=https://subversion.imagemagick.org/subversion
-set REVISION=15682
+set REVISION=15894
 
-if not exist ImageMagick goto checkout
-rmdir /s /q ImageMagick
-if exist ImageMagick goto done
+if exist ImageMagick goto update
 
-:checkout
 mkdir ImageMagick
 cd ImageMagick
 svn checkout %REPOS%/bzlib/trunk -r %REVISION% bzlib
@@ -37,6 +34,37 @@ svn checkout %REPOS%/VisualMagick/branches/VisualMagick-6 -r %REVISION% VisualMa
 svn checkout %REPOS%/ImageMagick/branches/ImageMagick-6/wand -r %REVISION% wand
 svn checkout %REPOS%/webp/trunk -r %REVISION% webp
 svn checkout %REPOS%/zlib/trunk -r %REVISION% zlib
+goto done
+
+:update
+cd ImageMagick
+svn update -r %REVISION% bzlib
+svn update -r %REVISION% cairo
+svn update -r %REVISION% croco
+svn update -r %REVISION% coders
+svn update -r %REVISION% config
+svn update -r %REVISION% ffi
+svn update -r %REVISION% filters
+svn update -r %REVISION% glib
+svn update -r %REVISION% jbig
+svn update -r %REVISION% jp2
+svn update -r %REVISION% jpeg
+svn update -r %REVISION% lcms
+svn update -r %REVISION% libxml
+svn update -r %REVISION% librsvg
+svn update -r %REVISION% lqr
+svn update -r %REVISION% magick
+svn update -r %REVISION% Magick++
+svn update -r %REVISION% openjpeg
+svn update -r %REVISION% pango
+svn update -r %REVISION% pixman
+svn update -r %REVISION% png
+svn update -r %REVISION% tiff
+svn update -r %REVISION% ttf
+svn update -r %REVISION% VisualMagick
+svn update -r %REVISION% wand
+svn update -r %REVISION% webp
+svn update -r %REVISION% zlib
 
 :done
 pause

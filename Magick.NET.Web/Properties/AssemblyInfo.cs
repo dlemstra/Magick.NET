@@ -18,10 +18,26 @@ using System.Runtime.InteropServices;
 using System.Web;
 
 //=================================================================================================
-#if _M_X64
-[assembly: AssemblyTitle("Magick.NET.Web x64 net40-client")]
+#if Q8
+#if (_M_X64)
+[assembly: AssemblyTitle("Magick.NET.Web Q8 x64 net40-client")]
 #else
-[assembly: AssemblyTitle("Magick.NET.Web x86 net40-client")]
+[assembly: AssemblyTitle("Magick.NET.Web Q8 x86 net40-client")]
+#endif
+#elif Q16
+#if (_M_X64)
+[assembly: AssemblyTitle("Magick.NET.Web Q16 x64 net40-client")]
+#else
+[assembly: AssemblyTitle("Magick.NET.Web Q16 x86 net40-client")]
+#endif
+#elif Q16HDRI
+#if (_M_X64)
+[assembly: AssemblyTitle("Magick.NET.Web Q16-HDRI x64 net40-client")]
+#else
+[assembly: AssemblyTitle("Magick.NET.Web Q16-HDRI x86 net40-client")]
+#endif
+#else
+#error Not implemented!
 #endif
 [assembly: AssemblyProduct("Magick.NET")]
 [assembly: AssemblyDescription("Magick.NET.Web")]

@@ -97,7 +97,7 @@ namespace ImageMagick
 		/// pixels to ensure the image is updated.
 		///</summary>
 		///<param name="values">The values of the pixels (RGBA).</param>
-		void Set(array<int>^ values);
+		void Set(array<unsigned int>^ values);
 		///==========================================================================================
 		///<summary>
 		/// Changes the values of the specified pixels. Make sure to call Write after modifying all the
@@ -105,13 +105,15 @@ namespace ImageMagick
 		///</summary>
 		///<param name="values">The values of the pixels (RGBA).</param>
 		void Set(array<Magick::Quantum>^ values);
+#if (MAGICKCORE_QUANTUM_DEPTH != 16 || defined(MAGICKCORE_HDRI_SUPPORT))
 		///==========================================================================================
 		///<summary>
 		/// Changes the values of the specified pixels. Make sure to call Write after modifying all the
 		/// pixels to ensure the image is updated.
 		///</summary>
 		///<param name="values">The values of the pixels (RGBA).</param>
-		void Set(array<short>^ values);
+		void Set(array<unsigned short>^ values);
+#endif
 		///==========================================================================================
 		///<summary>
 		/// Writes the pixels to the image.

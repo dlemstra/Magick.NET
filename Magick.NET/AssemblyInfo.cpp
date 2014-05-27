@@ -30,7 +30,7 @@ using namespace System::Security::Permissions;
 #else
 [assembly: AssemblyTitle("Magick.NET Q8 x86 net40-client")];
 #endif
-#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16 && !defined(MAGICKCORE_HDRI_SUPPORT))
 #if (_M_X64 && NET20)
 [assembly: AssemblyTitle("Magick.NET Q16 x64 net20")];
 #elif (NET20)
@@ -39,6 +39,16 @@ using namespace System::Security::Permissions;
 [assembly: AssemblyTitle("Magick.NET Q16 x64 net40-client")];
 #else
 [assembly: AssemblyTitle("Magick.NET Q16 x86 net40-client")];
+#endif
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+#if (_M_X64 && NET20)
+[assembly: AssemblyTitle("Magick.NET Q16-HDRI x64 net20")];
+#elif (NET20)
+[assembly: AssemblyTitle("Magick.NET Q16-HDRI x86 net20")];
+#elif (_M_X64)
+[assembly: AssemblyTitle("Magick.NET Q16-HDRI x64 net40-client")];
+#else
+[assembly: AssemblyTitle("Magick.NET Q16-HDRI x86 net40-client")];
 #endif
 #else
 #error Not implemented!

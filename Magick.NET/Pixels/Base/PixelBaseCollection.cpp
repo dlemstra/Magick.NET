@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "PixelBaseCollection.h"
+#include "..\..\Quantum.h"
 
 namespace ImageMagick
 {
@@ -74,7 +75,7 @@ namespace ImageMagick
 		value[0] = pixelPacket->red;
 		value[1] = pixelPacket->green;
 		value[2] = pixelPacket->blue;
-		value[3] = MaxMap - pixelPacket->opacity;
+		value[3] = Quantum::Max - pixelPacket->opacity;
 
 		if (_Channels == 5)
 			value[4] = _Indexes[index];

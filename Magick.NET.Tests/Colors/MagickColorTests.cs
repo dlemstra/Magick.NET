@@ -28,11 +28,16 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private void TestColor(string hexValue, float red, float green, float blue, bool isTransparent)
 		{
+			TestColor(hexValue, red, green, blue, isTransparent, 0.01);
+		}
+		//===========================================================================================
+		private void TestColor(string hexValue, float red, float green, float blue, bool isTransparent, double delta)
+		{
 			MagickColor color = new MagickColor(hexValue);
 
-			Assert.AreEqual(red, color.R, 0.01);
-			Assert.AreEqual(green, color.G, 0.01);
-			Assert.AreEqual(blue, color.B, 0.01);
+			Assert.AreEqual(red, color.R, delta);
+			Assert.AreEqual(green, color.G, delta);
+			Assert.AreEqual(blue, color.B, delta);
 
 			if (isTransparent)
 				ColorAssert.IsTransparent(color.A);
@@ -73,14 +78,15 @@ namespace Magick.NET.Tests
 			{
 				new MagickColor("#FFFF0000FFFF");
 			});
-#elif Q16
+#elif Q16 || Q16HDRI
 			TestColor("#0000FFFF0000", 0, Quantum.Max, 0, false);
 			TestColor("#FFFF000000000000", Quantum.Max, 0, 0, true);
 #else
 #error Not implemented!
 #endif
 
-			TestColor("gray(50%) ", Quantum.Max / 2, Quantum.Max / 2, Quantum.Max / 2, false);
+			float half = (float)Quantum.Max * 0.5f;
+			TestColor("gray(50%) ", half, half, half, false, 1);
 			TestColor("rgba(100%, 0%, 0%, 0.0)", Quantum.Max, 0, 0, true);
 		}
 		//===========================================================================================
@@ -154,7 +160,7 @@ namespace Magick.NET.Tests
 			MagickColor color = new MagickColor(Color.Red);
 #if Q8
 			Assert.AreEqual("#FF0000FF", color.ToString());
-#elif Q16
+#elif Q16 || Q16HDRI
 			Assert.AreEqual("#FFFF00000000FFFF", color.ToString());
 #else
 #error Not implemented!

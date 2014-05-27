@@ -51,8 +51,12 @@ namespace Magick.NET.Tests
 		{
 #if Q8
 			Assert.AreEqual("DPC Modules OpenCL OpenMP", MagickNET.Features);
-#else
+#elif Q16
+			Assert.AreEqual("DPC Modules OpenCL OpenMP", MagickNET.Features);
+#elif Q16HDRI
 			Assert.AreEqual("DPC HDRI Modules OpenCL OpenMP", MagickNET.Features);
+#else
+#error Not implemented!
 #endif
 		}
 		//===========================================================================================
@@ -153,6 +157,8 @@ namespace Magick.NET.Tests
 			StringAssert.Contains(MagickNET.Version, "Q8");
 #elif Q16
 			StringAssert.Contains(MagickNET.Version, "Q16");
+#elif Q16HDRI
+			StringAssert.Contains(MagickNET.Version, "Q16-HDRI");
 #else
 #error Not implemented!
 #endif

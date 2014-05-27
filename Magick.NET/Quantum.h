@@ -32,11 +32,13 @@ namespace ImageMagick
 		//===========================================================================================
 		static Magick::Quantum Convert(double value);
 		//===========================================================================================
-		static Magick::Quantum Convert(int value);
-		//===========================================================================================
 		static Magick::Quantum Convert(Magick::Quantum value);
 		//===========================================================================================
-		static Magick::Quantum Convert(short value);
+		static Magick::Quantum Convert(unsigned int value);
+		//===========================================================================================
+#if (MAGICKCORE_QUANTUM_DEPTH != 16 || defined(MAGICKCORE_HDRI_SUPPORT))
+		static Magick::Quantum Convert(unsigned short value);
+#endif
 		//===========================================================================================
 	public:
 		///==========================================================================================

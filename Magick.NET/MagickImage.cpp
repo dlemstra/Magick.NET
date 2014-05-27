@@ -4506,7 +4506,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::SigmoidalContrast(bool sharpen, double contrast)
 	{
-		SigmoidalContrast(sharpen, contrast, MaxMap / 2.0);
+		SigmoidalContrast(sharpen, contrast, Quantum::Max / 2.0);
 	}
 	//==============================================================================================
 	void MagickImage::SigmoidalContrast(bool sharpen, double contrast, double midpoint)
@@ -4777,9 +4777,9 @@ namespace ImageMagick
 		return ToBitmap(ImageFormat::Bmp);
 	}
 	//==============================================================================================
-	Bitmap^ MagickImage::ToBitmap(ImageFormat^ format)
+	Bitmap^ MagickImage::ToBitmap(ImageFormat^ imageFormat)
 	{
-		SetFormat(format);
+		SetFormat(imageFormat);
 
 		MemoryStream^ memStream = gcnew MemoryStream();
 		Write(memStream);
@@ -5160,15 +5160,32 @@ namespace ImageMagick
 						if (step == 4)
 							pixelData[xIndex + 3] = (Quantum::Max - pixels[x].opacity);
 					}
+#else
+#if (MAGICKCORE_QUANTUM_DEPTH == 16 && !defined(MAGICKCORE_HDRI_SUPPORT))
+					if (format != MediaPixelFormats::Cmyk32)
+					{
+						pixelData[xIndex] = (Byte)(pixels[x].red >> 8);
+						pixelData[xIndex + 1] = (Byte)(pixels[x].red);
+						pixelData[xIndex + 2] = (Byte)(pixels[x].green >> 8);
+						pixelData[xIndex + 3] = (Byte)(pixels[x].green);
+						pixelData[xIndex + 4] = (Byte)(pixels[x].blue >> 8);
+						pixelData[xIndex + 5] = (Byte)(pixels[x].blue);
+						if (format == MediaPixelFormats::Rgba64)
+						{
+							unsigned short alpha = (Quantum::Max - pixels[x].opacity);
+							pixelData[xIndex + 6] = (Byte)(alpha >> 8);
+							pixelData[xIndex + 7] = (Byte)(alpha);
+						}
+					}
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
 					if (format != MediaPixelFormats::Cmyk32)
 					{
-						pixelData[xIndex] = (Byte)((unsigned short)pixels[x].red >> 8);
-						pixelData[xIndex + 1] = (Byte)((unsigned short)pixels[x].red);
-						pixelData[xIndex + 2] = (Byte)((unsigned short)pixels[x].green >> 8);
-						pixelData[xIndex + 3] = (Byte)((unsigned short)pixels[x].green);
-						pixelData[xIndex + 4] = (Byte)((unsigned short)pixels[x].blue >> 8);
-						pixelData[xIndex + 5] = (Byte)((unsigned short)pixels[x].blue);
+						pixelData[xIndex] = (Byte)((unsigned short) pixels[x].red >> 8);
+						pixelData[xIndex + 1] = (Byte)((unsigned short) pixels[x].red);
+						pixelData[xIndex + 2] = (Byte)((unsigned short) pixels[x].green >> 8);
+						pixelData[xIndex + 3] = (Byte)((unsigned short) pixels[x].green);
+						pixelData[xIndex + 4] = (Byte)((unsigned short) pixels[x].blue >> 8);
+						pixelData[xIndex + 5] = (Byte)((unsigned short) pixels[x].blue);
 						if (format == MediaPixelFormats::Rgba64)
 						{
 							unsigned short alpha = (unsigned short)(Quantum::Max - pixels[x].opacity);
@@ -5176,15 +5193,16 @@ namespace ImageMagick
 							pixelData[xIndex + 7] = (Byte)(alpha);
 						}
 					}
-					else
-					{
-						pixelData[xIndex] = MagickCore::ScaleQuantumToChar(pixels[x].red);
-						pixelData[xIndex + 1] = MagickCore::ScaleQuantumToChar(pixels[x].green);
-						pixelData[xIndex + 2] = MagickCore::ScaleQuantumToChar(pixels[x].blue);
-						pixelData[xIndex + 3] = MagickCore::ScaleQuantumToChar(Quantum::Max - pixels[x].opacity);
-					}
 #else
 #error Not implemented!
+#endif
+		else
+		{
+			pixelData[xIndex] = MagickCore::ScaleQuantumToChar(pixels[x].red);
+			pixelData[xIndex + 1] = MagickCore::ScaleQuantumToChar(pixels[x].green);
+			pixelData[xIndex + 2] = MagickCore::ScaleQuantumToChar(pixels[x].blue);
+			pixelData[xIndex + 3] = MagickCore::ScaleQuantumToChar(Quantum::Max - pixels[x].opacity);
+		}
 #endif
 				}
 			}

@@ -21,7 +21,7 @@ namespace ImageMagick
 	Magick::Quantum Quantum::Convert(Byte value)
 	{
 #if (MAGICKCORE_QUANTUM_DEPTH == 16)
-		return (Magick::Quantum) (257.0*value);
+		return (Magick::Quantum) (257UL * value);
 #else
 #error Not implemented!
 #endif
@@ -33,26 +33,22 @@ namespace ImageMagick
 		return MagickCore::ClampToQuantum((Magick::Quantum)value);
 	}
 	//==============================================================================================
-	Magick::Quantum Quantum::Convert(int value)
-	{
-		return MagickCore::ClampToQuantum((Magick::Quantum)value);
-	}
-	//==============================================================================================
 	Magick::Quantum Quantum::Convert(Magick::Quantum value)
 	{
 		return MagickCore::ClampToQuantum(value);
 	}
 	//==============================================================================================
-	Magick::Quantum Quantum::Convert(short value)
+	Magick::Quantum Quantum::Convert(unsigned int value)
 	{
-#if (MAGICKCORE_QUANTUM_DEPTH == 8)
-		return MagickCore::ClampToQuantum(value);
-#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		return (Magick::Quantum) (2.0*value);
-#else
-#error Not implemented!
-#endif
+		return MagickCore::ClampToQuantum((Magick::Quantum)value);
 	}
+	//==============================================================================================
+#if (MAGICKCORE_QUANTUM_DEPTH != 16 || defined(MAGICKCORE_HDRI_SUPPORT))
+	Magick::Quantum Quantum::Convert(unsigned short value)
+	{
+		return MagickCore::ClampToQuantum((Magick::Quantum)value);
+	}
+#endif
 	//==============================================================================================
 	int Quantum::Depth::get()
 	{
@@ -61,7 +57,13 @@ namespace ImageMagick
 	//==============================================================================================
 	Magick::Quantum Quantum::Max::get()
 	{
-		return (Magick::Quantum)MaxMap;
+#if (MAGICKCORE_QUANTUM_DEPTH == 8)
+		return (Magick::Quantum) 255;
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+		return (Magick::Quantum) 65535;
+#else
+#error Not implemented!
+#endif
 	}
 	//==============================================================================================
 }

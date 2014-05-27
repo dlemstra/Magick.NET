@@ -113,8 +113,8 @@ namespace ImageMagick
 
 		SetPixel(x, y, value);
 	}
-#if (MAGICKCORE_QUANTUM_DEPTH > 8)
 	//==============================================================================================
+#if (MAGICKCORE_QUANTUM_DEPTH > 8)
 	void WritablePixelCollection::Set(array<Byte>^ values)
 	{
 		SetPixels(values);
@@ -126,7 +126,7 @@ namespace ImageMagick
 		SetPixels(values);
 	}
 	//==============================================================================================
-	void WritablePixelCollection::Set(array<int>^ values)
+	void WritablePixelCollection::Set(array<unsigned int>^ values)
 	{
 		SetPixels(values);
 	}
@@ -136,10 +136,12 @@ namespace ImageMagick
 		SetPixels(values);
 	}
 	//==============================================================================================
-	void WritablePixelCollection::Set(array<short>^ values)
+#if (MAGICKCORE_QUANTUM_DEPTH != 16 || defined(MAGICKCORE_HDRI_SUPPORT))
+	void WritablePixelCollection::Set(array<unsigned short>^ values)
 	{
 		SetPixels(values);
 	}
+#endif
 	//==============================================================================================
 	void WritablePixelCollection::Write()
 	{

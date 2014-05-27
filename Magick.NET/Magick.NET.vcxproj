@@ -9,6 +9,14 @@
       <Configuration>ReleaseQ16</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseQ16-HDRI|Win32">
+      <Configuration>ReleaseQ16-HDRI</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseQ16-HDRI|x64">
+      <Configuration>ReleaseQ16-HDRI</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="ReleaseQ8|Win32">
       <Configuration>ReleaseQ8</Configuration>
       <Platform>Win32</Platform>
@@ -40,6 +48,13 @@
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -48,6 +63,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
@@ -63,10 +85,16 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -86,6 +114,14 @@
     <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
     <TargetName>Magick.NET-x86</TargetName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>Magick.NET-x86</TargetName>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
@@ -94,6 +130,13 @@
     <TargetName>Magick.NET-x64</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>Magick.NET-x64</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
     <LinkKeyFile>$(ProjectDir)Magick.NET.snk</LinkKeyFile>
@@ -144,6 +187,28 @@
       <EmbedManagedResourceFile>Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;Resources\ColorProfiles\RGB\AdobeRGB1998.icc;Resources\ColorProfiles\RGB\AppleRGB.icc;Resources\ColorProfiles\RGB\ColorMatchRGB.icc;Resources\ColorProfiles\RGB\SRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\ImageMagick\include;..\ImageMagick\Q16-HDRI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>true</EnablePREfast>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <ForcedIncludeFiles>CodeAnalysis\SourceAnnotations.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x86;..\ImageMagick\Q16-HDRI\lib\$(TargetFrameworkVersion)\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EmbedManagedResourceFile>Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;Resources\ColorProfiles\RGB\AdobeRGB1998.icc;Resources\ColorProfiles\RGB\AppleRGB.icc;Resources\ColorProfiles\RGB\ColorMatchRGB.icc;Resources\ColorProfiles\RGB\SRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
@@ -184,6 +249,28 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q16\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EmbedManagedResourceFile>Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;Resources\ColorProfiles\RGB\AdobeRGB1998.icc;Resources\ColorProfiles\RGB\AppleRGB.icc;Resources\ColorProfiles\RGB\ColorMatchRGB.icc;Resources\ColorProfiles\RGB\SRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\ImageMagick\include;..\ImageMagick\Q16-HDRI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>true</EnablePREfast>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <ForcedIncludeFiles>CodeAnalysis\SourceAnnotations.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\$(TargetFrameworkVersion)\x64;..\ImageMagick\Q16-HDRI\lib\$(TargetFrameworkVersion)\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EmbedManagedResourceFile>Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc;Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc;Resources\ColorProfiles\RGB\AdobeRGB1998.icc;Resources\ColorProfiles\RGB\AppleRGB.icc;Resources\ColorProfiles\RGB\ColorMatchRGB.icc;Resources\ColorProfiles\RGB\SRGB.icm;Resources\$(Configuration)\MagickScript.xsd</EmbedManagedResourceFile>
     </Link>
@@ -458,8 +545,10 @@
     <ClCompile Include="Helpers\ByteConverter.cpp" />
     <ClCompile Include="Initialize.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="MagickSearchResult.cpp" />
@@ -473,9 +562,13 @@
     <ClCompile Include="GlobalSuppressions.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
       </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|Win32'">
+      </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
       </PrecompiledHeader>
@@ -543,7 +636,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Helpers\Marshaller.cpp" />
     <ClCompile Include="Helpers\Throw.cpp" />
