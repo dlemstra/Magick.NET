@@ -14,6 +14,7 @@
 
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using ImageMagick;
@@ -304,6 +305,19 @@ namespace Magick.NET.Tests
 
 				MagickImage last = collection.Last();
 				Assert.IsTrue(last == first);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_ToBitmap()
+		{
+			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+			{
+				Assert.AreEqual(3, collection.Count);
+
+				Bitmap bitmap = collection.ToBitmap();
+				Assert.IsNotNull(bitmap);
+				Assert.AreEqual(3, bitmap.GetFrameCount(FrameDimension.Page));
 			}
 		}
 		//===========================================================================================

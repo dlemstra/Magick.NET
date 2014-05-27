@@ -129,6 +129,25 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImageCollection::SetFormat(ImageFormat^ format)
+	{
+		MagickFormat magickFormat = MagickFormat::Unknown;
+
+		if (format == ImageFormat::Gif)
+			magickFormat = MagickFormat::Gif;
+		else if (format == ImageFormat::Icon)
+			magickFormat = MagickFormat::Icon;
+		else if (format == ImageFormat::Tiff)
+			magickFormat = MagickFormat::Tiff;
+		else
+			throw gcnew NotSupportedException("Unsupported image format: " + format->ToString());
+
+		for each (MagickImage^ image in _Images)
+		{
+			image->Format = magickFormat;
+		}
+	}
+	//==============================================================================================
 	MagickImage^ MagickImageCollection::Smush(bool vertically, int offset)
 	{
 		if (Count == 0)
@@ -800,6 +819,22 @@ namespace ImageMagick
 		{
 			delete images;
 		}
+	}
+	//==============================================================================================
+	Bitmap^ MagickImageCollection::ToBitmap()
+	{
+		return ToBitmap(ImageFormat::Tiff);;
+	}
+	//==============================================================================================
+	Bitmap^ MagickImageCollection::ToBitmap(ImageFormat^ imageFormat)
+	{
+		SetFormat(imageFormat);
+
+		MemoryStream^ memStream = gcnew MemoryStream();
+		Write(memStream);
+		memStream->Position = 0;
+		// Do not dispose the memStream, the bitmap owns it.
+		return gcnew Bitmap(memStream);
 	}
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::TrimBounds()

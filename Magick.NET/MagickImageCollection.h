@@ -60,6 +60,8 @@ namespace ImageMagick
 		//===========================================================================================
 		void Optimize(LayerMethod optizeMethod);
 		//===========================================================================================
+		void SetFormat(ImageFormat^ imageFormat);
+		//===========================================================================================
 		MagickImage^ Smush(bool vertically, int offset);
 		//===========================================================================================
 	internal:
@@ -499,6 +501,17 @@ namespace ImageMagick
 		/// Converts this instance to a byte array.
 		///</summary>
 		array<Byte>^ ToByteArray();
+		///==========================================================================================
+		///<summary>
+		/// Converts the images in this instance to a bitmap using ImageFormat.Tiff.
+		///</summary>
+		Bitmap^ ToBitmap();
+		///==========================================================================================
+		///<summary>
+		/// Converts the images in this instance to a bitmap using the specified ImageFormat.
+		/// Supported formats are: Gif, Icon, Tiff.
+		///</summary>
+		Bitmap^ ToBitmap(ImageFormat^ imageFormat);
 		///==========================================================================================
 		///<summary>
 		/// Merge this collection into a single image.
