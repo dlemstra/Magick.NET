@@ -246,7 +246,7 @@ namespace ImageMagick.Web
 			context.Response.ContentType = _FormatInfo.MimeType;
 
 			if (!string.IsNullOrEmpty(_Version))
-				context.Response.Headers.Add("X-Magick", _Version);
+				context.Response.AddHeader("X-Magick", _Version);
 
 			if (!WriteScriptedFile(context))
 				WriteFile(context);
