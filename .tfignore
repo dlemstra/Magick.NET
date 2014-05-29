@@ -58,6 +58,7 @@
 \Magick.NET.AnyCPU\Resources\ReleaseQ8\*
 \Magick.NET.AnyCPU\Resources\ReleaseQ16\*
 \Magick.NET.AnyCPU\Resources\ReleaseQ16-HDRI\*
+\Magick.NET.AnyCPU\Resources\xml\*
 \Magick.NET.Samples\bin
 \Magick.NET.Samples\obj
 \Magick.NET.Samples\Samples\Magick.NET\*.pp

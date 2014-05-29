@@ -27,7 +27,7 @@ namespace RootNamespace.Samples.MagickNET
 		{
 			using (MagickImage image = new MagickImage(SampleFiles.StillLifeCR2))
 			{
-				image.Write("StillLife.jpg");
+				image.Write(SampleFiles.OutputDirectory + "StillLife.jpg");
 			}
 		}
 	}
