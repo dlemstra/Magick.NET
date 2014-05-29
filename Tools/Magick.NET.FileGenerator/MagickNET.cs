@@ -139,7 +139,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		public MagickNET(QuantumDepth depth)
 		{
-			string assemblyFile = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\bin\Release" + depth + @"\Win32\Magick.NET-x86.dll";
+			string assemblyFile = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\bin\" + GetFolderName(depth) + @"\Win32\Magick.NET-x86.dll";
 
 			if (!File.Exists(assemblyFile))
 				throw new ArgumentException("Unable to find file: " + assemblyFile, "assemblyFile");
@@ -262,6 +262,21 @@ namespace Magick.NET.FileGenerator
 		public IEnumerable<ConstructorInfo[]> GetDrawables()
 		{
 			return GetSubclassConstructors("Drawable");
+		}
+		//===========================================================================================
+		public static string GetFolderName(QuantumDepth depth)
+		{
+			switch (depth)
+			{
+				case QuantumDepth.Q8:
+					return "ReleaseQ8";
+				case QuantumDepth.Q16:
+					return "ReleaseQ16";
+				case QuantumDepth.Q16HDRI:
+					return "ReleaseQ16-HDRI";
+				default:
+					throw new NotImplementedException();
+			}
 		}
 		//===========================================================================================
 		public IEnumerable<MethodInfo[]> GetGroupedMagickImageMethods()

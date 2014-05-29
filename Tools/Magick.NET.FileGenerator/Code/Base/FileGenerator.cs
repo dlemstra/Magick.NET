@@ -43,7 +43,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected FileGenerator(string outputFolder, QuantumDepth depth)
 		{
-			OutputFolder = SetOutputFolder(outputFolder + "\\Release" + Enum.GetName(typeof(QuantumDepth), depth));
+			OutputFolder = SetOutputFolder(outputFolder + "\\" + MagickNET.GetFolderName(depth));
 			_MagickNET = new MagickNET(depth);
 		}
 		//===========================================================================================

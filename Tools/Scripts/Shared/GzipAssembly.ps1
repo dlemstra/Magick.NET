@@ -33,5 +33,7 @@ function GzipAssemblies()
 	GzipAssembly "Magick.NET\bin\ReleaseQ8\x64\Magick.NET-x64.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ8\Magick.NET-x64.gz"
 	GzipAssembly "Magick.NET\bin\ReleaseQ16\Win32\Magick.NET-x86.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16\Magick.NET-x86.gz"
 	GzipAssembly "Magick.NET\bin\ReleaseQ16\x64\Magick.NET-x64.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16\Magick.NET-x64.gz"
+	GzipAssembly "Magick.NET\bin\ReleaseQ16-HDRI\Win32\Magick.NET-x86.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16-HDRI\Magick.NET-x86.gz"
+	GzipAssembly "Magick.NET\bin\ReleaseQ16-HDRI\x64\Magick.NET-x64.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16-HDRI\Magick.NET-x64.gz"
 }
 #==================================================================================================

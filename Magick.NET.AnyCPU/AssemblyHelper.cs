@@ -25,6 +25,23 @@ namespace ImageMagick
 	{
 		//===========================================================================================
 		private static readonly Assembly _Assembly = LoadAssembly();
+		private static Exception _LoadException;
+		//===========================================================================================
+		private static Assembly Assembly
+		{
+			get
+			{
+				if (_Assembly == null)
+				{
+					if (_LoadException == null)
+						throw new InvalidOperationException("Failed to load embedded assembly.");
+					else
+						throw new InvalidOperationException("Failed to load embedded assembly: " + _LoadException.Message, _LoadException);
+				}
+
+				return _Assembly;
+			}
+		}
 		//===========================================================================================
 		private static string GetTempFileName(string name)
 		{
@@ -45,15 +62,26 @@ namespace ImageMagick
 #elif Q16
 			string name = "Magick.NET-Q16-" + (Environment.Is64BitProcess ? "x64" : "x86");
 			string resourceName = "ImageMagick.Resources.ReleaseQ16.Magick.NET-" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gz";
+#elif Q16HDRI
+			string name = "Magick.NET-Q16-HDRI-" + (Environment.Is64BitProcess ? "x64" : "x86");
+			string resourceName = "ImageMagick.Resources.ReleaseQ16_HDRI.Magick.NET-" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gz";
 #else
 #error Not implemented!
 #endif
 
-			string tempFile = GetTempFileName(name);
-			if (!File.Exists(tempFile))
-				WriteAssembly(resourceName, tempFile);
+			try
+			{
+				string tempFile = GetTempFileName(name);
+				if (!File.Exists(tempFile))
+					WriteAssembly(resourceName, tempFile);
 
-			return Assembly.LoadFile(tempFile);
+				return Assembly.LoadFile(tempFile);
+			}
+			catch (Exception exception)
+			{
+				_LoadException = exception;
+				return null;
+			}
 		}
 		//===========================================================================================
 		private static void WriteAssembly(string resourceName, string outputFile)
@@ -72,7 +100,7 @@ namespace ImageMagick
 		//===========================================================================================
 		public static Type GetType(string name)
 		{
-			return _Assembly.GetType(name);
+			return Assembly.GetType(name);
 		}
 		//===========================================================================================
 		public static object CreateInstance(Type type)

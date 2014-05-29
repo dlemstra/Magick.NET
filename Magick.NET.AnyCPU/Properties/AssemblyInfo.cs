@@ -22,6 +22,8 @@ using System.Web;
 [assembly: AssemblyTitle("Magick.NET Q8 AnyCPU net40-client")]
 #elif Q16
 [assembly: AssemblyTitle("Magick.NET Q16 AnyCPU net40-client")]
+#elif Q16HDRI
+[assembly: AssemblyTitle("Magick.NET Q16-HDRI AnyCPU net40-client")]
 #else
 #error Not implemented!
 #endif

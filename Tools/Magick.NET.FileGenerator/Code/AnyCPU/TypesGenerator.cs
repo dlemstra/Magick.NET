@@ -29,6 +29,50 @@ namespace Magick.NET.FileGenerator
 			_Types = GetTypes(true);
 		}
 		//===========================================================================================
+		private static void WriteMember(IndentedTextWriter writer, Type type, string suffix)
+		{
+			writer.Write("private static Type _");
+			if (!string.IsNullOrEmpty(suffix))
+				writer.Write(suffix);
+			WriteType(writer, type);
+			writer.WriteLine(";");
+		}
+		//===========================================================================================
+		private static void WritePropertyStart(IndentedTextWriter writer, Type type, string suffix)
+		{
+			writer.Write("public static Type ");
+			if (!string.IsNullOrEmpty(suffix))
+				writer.Write(suffix);
+			WriteType(writer, type);
+			writer.WriteLine();
+			WriteStartColon(writer);
+			writer.WriteLine("get");
+			WriteStartColon(writer);
+			writer.Write("if (_");
+			if (!string.IsNullOrEmpty(suffix))
+				writer.Write(suffix);
+			WriteType(writer, type);
+			writer.WriteLine(" == null)");
+			writer.Indent++;
+			writer.Write("_");
+			if (!string.IsNullOrEmpty(suffix))
+				writer.Write(suffix);
+			WriteType(writer, type);
+			writer.Write(" = ");
+		}
+		//===========================================================================================
+		private static void WritePropertyEnd(IndentedTextWriter writer, Type type, string suffix)
+		{
+			writer.Indent--;
+			writer.Write("return _");
+			if (!string.IsNullOrEmpty(suffix))
+				writer.Write(suffix);
+			WriteType(writer, type);
+			writer.WriteLine(";");
+			WriteEndColon(writer);
+			WriteEndColon(writer);
+		}
+		//===========================================================================================
 		private void CreateFile()
 		{
 			using (IndentedTextWriter writer = CreateWriter("Types.cs"))
@@ -40,11 +84,12 @@ namespace Magick.NET.FileGenerator
 				WriteStartColon(writer);
 				foreach (Type type in _Types)
 				{
-					writer.Write("public static readonly Type ");
-					WriteType(writer, type);
-					writer.Write(" = AssemblyHelper.GetType(\"ImageMagick.");
+					WriteMember(writer, type, null);
+					WritePropertyStart(writer, type, null);
+					writer.Write("AssemblyHelper.GetType(\"ImageMagick.");
 					WriteType(writer, type);
 					writer.WriteLine("\");");
+					WritePropertyEnd(writer, type, null);
 
 					if (IsUsedAsIEnumerable(_Types, type))
 						WriteIEnumerable(writer, type);
@@ -61,23 +106,25 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private static void WriteIEnumerable(IndentedTextWriter writer, Type type)
 		{
-			writer.Write("public static readonly Type IEnumerable");
-			WriteType(writer, type);
-			writer.Write(" = typeof(IEnumerable<>).MakeGenericType(");
+			WriteMember(writer, type, "IEnumerable");
+			WritePropertyStart(writer, type, "IEnumerable");
+			writer.Write("typeof(IEnumerable<>).MakeGenericType(");
 			WriteType(writer, type);
 			writer.WriteLine(");");
+			WritePropertyEnd(writer, type, "IEnumerable");
 		}
 		//===========================================================================================
 		private void WriteNullable(IndentedTextWriter writer, Type type)
 		{
-			writer.Write("public static readonly Type Nullable");
-			WriteType(writer, type);
-			writer.Write(" = typeof(Nullable<>).MakeGenericType(");
+			WriteMember(writer, type, "Nullable");
+			WritePropertyStart(writer, type, "Nullable");
+			writer.Write("typeof(Nullable<>).MakeGenericType(");
 			if (type == typeof(int))
 				writer.Write("typeof(Int32)");
 			else
 				WriteType(writer, type);
 			writer.WriteLine(");");
+			WritePropertyEnd(writer, type, "Nullable");
 		}
 		//===========================================================================================
 		private static void WriteUsing(IndentedTextWriter writer)

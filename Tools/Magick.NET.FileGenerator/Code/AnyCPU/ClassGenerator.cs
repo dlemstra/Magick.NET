@@ -80,8 +80,9 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void CopyDocumentation()
 		{
-			string source = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\bin\Release" + MagickNET.Depth + @"\Win32\Magick.NET-x86.xml";
-			string destination = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET.AnyCPU\bin\Release" + MagickNET.Depth + @"\AnyCPU\Magick.NET-AnyCPU.xml";
+			string folder = MagickNET.GetFolderName(MagickNET.Depth);
+			string source = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\bin\" + folder + @"\Win32\Magick.NET-x86.xml";
+			string destination = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET.AnyCPU\bin\" + folder + @"\AnyCPU\Magick.NET-AnyCPU.xml";
 			Directory.CreateDirectory(Path.GetDirectoryName(destination));
 			File.Copy(source, destination, true);
 		}
@@ -291,6 +292,9 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteConstructor(IndentedTextWriter writer, Type type, ConstructorInfo constructor)
 		{
+			if (constructor != null && constructor.GetCustomAttribute<CLSCompliantAttribute>() != null)
+				writer.WriteLine("[CLSCompliant(false)]");
+
 			writer.Write("public ");
 			WriteType(writer, type);
 			writer.Write("(");
@@ -574,6 +578,9 @@ namespace Magick.NET.FileGenerator
 					WriteEndColon(writer);
 					continue;
 				}
+
+				if (method.GetCustomAttribute<CLSCompliantAttribute>() != null)
+					writer.WriteLine("[CLSCompliant(false)]");
 
 				if (method.IsStatic)
 					writer.Write("public static ");
@@ -1163,6 +1170,7 @@ namespace Magick.NET.FileGenerator
 
 			Generate(QuantumDepth.Q8);
 			Generate(QuantumDepth.Q16);
+			Generate(QuantumDepth.Q16HDRI);
 		}
 		//===========================================================================================
 	}
