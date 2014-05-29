@@ -23,14 +23,19 @@ $builds = @(
 		@{Name = "Magick.NET.net20"; Quantum = "Q8"; Platform = "x64"; PlatformName = "x64"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $false}
 		@{Name = "Magick.NET.net20"; Quantum = "Q16"; Platform = "Win32"; PlatformName = "x86"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $true}
 		@{Name = "Magick.NET.net20"; Quantum = "Q16"; Platform = "x64"; PlatformName = "x64"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $false}
+		@{Name = "Magick.NET.net20"; Quantum = "Q16-HDRI"; Platform = "Win32"; PlatformName = "x86"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $true}
+		@{Name = "Magick.NET.net20"; Quantum = "Q16-HDRI"; Platform = "x64"; PlatformName = "x64"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $false}
 		@{Name = "Magick.NET"; Quantum = "Q8"; Platform = "Win32"; PlatformName = "x86"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
 		@{Name = "Magick.NET"; Quantum = "Q8"; Platform = "x64"; PlatformName = "x64"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $false}
 		@{Name = "Magick.NET"; Quantum = "Q16"; Platform = "Win32"; PlatformName = "x86"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
 		@{Name = "Magick.NET"; Quantum = "Q16"; Platform = "x64"; PlatformName = "x64"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $false}
+		@{Name = "Magick.NET"; Quantum = "Q16-HDRI"; Platform = "Win32"; PlatformName = "x86"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
+		@{Name = "Magick.NET"; Quantum = "Q16-HDRI"; Platform = "x64"; PlatformName = "x64"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $false}
 	)
 $anyCPUbuilds = @(
 		@{Name = "Magick.NET.AnyCPU"; Quantum = "Q8"; Platform = "AnyCPU"; PlatformName = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
 		@{Name = "Magick.NET.AnyCPU"; Quantum = "Q16"; Platform = "AnyCPU"; PlatformName = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
+		@{Name = "Magick.NET.AnyCPU"; Quantum = "Q16-HDRI"; Platform = "AnyCPU"; PlatformName = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
 	)
 #==================================================================================================
 function AddFileElement($xml, $src, $target)
@@ -132,6 +137,7 @@ function CreateNuGetPackage($id, $xml)
 	$xml.Save($nuspecFile)
 
 	.\Tools\Programs\NuGet.exe pack $nuspecFile -NoPackageAnalysis -OutputDirectory $dir
+	CheckExitCode "Failed to create NuGet package"
 
 	Remove-Item $nuspecFile
 }

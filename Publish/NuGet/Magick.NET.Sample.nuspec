@@ -7,7 +7,7 @@
 		<authors>Dirk Lemstra</authors>
 		<owners>Dirk Lemstra</owners>
 		<licenseUrl>https://magick.codeplex.com/license</licenseUrl>
-		<projectUrl>https://magick.codeplex.com</projectUrl>
+		<projectUrl>https://magick.codeplex.com/documentation</projectUrl>
 		<iconUrl>http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=26438&amp;itemId=581988</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>This package contains samples that demonstrate the use of the Magick.NET library.</description>
