@@ -43,7 +43,7 @@ namespace ImageMagick
 			}
 		}
 		//===========================================================================================
-		private static string GetTempFileName(string name)
+		private static string CreateCacheDirectory()
 		{
 			AssemblyFileVersionAttribute version = (AssemblyFileVersionAttribute)typeof(AssemblyHelper).Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
 
@@ -51,31 +51,42 @@ namespace ImageMagick
 			if (!Directory.Exists(path))
 				Directory.CreateDirectory(path);
 
-			return Path.Combine(path, name + ".dll");
+			return path;
 		}
 		//===========================================================================================
 		private static Assembly LoadAssembly()
 		{
 #if Q8
 			string name = "Magick.NET-Q8-" + (Environment.Is64BitProcess ? "x64" : "x86");
-			string resourceName = "ImageMagick.Resources.ReleaseQ8.Magick.NET-" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gz";
+			string resourcePrefix = "ImageMagick.Resources.ReleaseQ8.";
 #elif Q16
 			string name = "Magick.NET-Q16-" + (Environment.Is64BitProcess ? "x64" : "x86");
-			string resourceName = "ImageMagick.Resources.ReleaseQ16.Magick.NET-" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gz";
+			string resourcePrefix = "ImageMagick.Resources.ReleaseQ16.";
 #elif Q16HDRI
 			string name = "Magick.NET-Q16-HDRI-" + (Environment.Is64BitProcess ? "x64" : "x86");
-			string resourceName = "ImageMagick.Resources.ReleaseQ16_HDRI.Magick.NET-" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gz";
+			string resourcePrefix = "ImageMagick.Resources.ReleaseQ16_HDRI.";
 #else
 #error Not implemented!
 #endif
 
 			try
 			{
-				string tempFile = GetTempFileName(name);
+				string cacheDirectory = CreateCacheDirectory();
+
+				string tempFile = Path.Combine(cacheDirectory, name + ".dll");
+				string resourceName = resourcePrefix + "Magick.NET-" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gz";
+
 				if (!File.Exists(tempFile))
 					WriteAssembly(resourceName, tempFile);
 
-				return Assembly.LoadFile(tempFile);
+				WriteXmlResources(cacheDirectory);
+
+				Assembly assembly = Assembly.LoadFile(tempFile);
+
+				Type magickNET = assembly.GetType("ImageMagick.MagickNET");
+				magickNET.CallMethod("Initialize", new Type[] { typeof(String) }, cacheDirectory);
+
+				return assembly;
 			}
 			catch (Exception exception)
 			{
@@ -93,6 +104,31 @@ namespace ImageMagick
 					using (FileStream fileStream = File.Open(outputFile, FileMode.CreateNew))
 					{
 						compressedStream.CopyTo(fileStream);
+					}
+				}
+			}
+		}
+		//===========================================================================================
+		private static void WriteXmlResources(string cacheDirectory)
+		{
+			string[] xmlFiles = 
+			{
+				"coder.xml", "colors.xml", "configure.xml", "delegates.xml", "english.xml", "locale.xml",
+				"log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml"
+			};
+
+			foreach (string xmlFile in xmlFiles)
+			{
+				string outputFile = Path.Combine(cacheDirectory, xmlFile);
+				if (File.Exists(outputFile))
+					continue;
+
+				string resourceName = "ImageMagick.Resources.xml." + xmlFile;
+				using (Stream stream = typeof(MagickImage).Assembly.GetManifestResourceStream(resourceName))
+				{
+					using (FileStream fileStream = File.Open(outputFile, FileMode.CreateNew))
+					{
+						stream.CopyTo(fileStream);
 					}
 				}
 			}

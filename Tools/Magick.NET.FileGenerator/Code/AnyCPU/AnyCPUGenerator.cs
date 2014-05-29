@@ -1,4 +1,5 @@
-﻿//=================================================================================================
+﻿using System;
+//=================================================================================================
 // Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -32,10 +33,23 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
+		private void CopyXmlResources()
+		{
+			string folder = MagickNET.GetFolderName(MagickNET.Depth);
+			DirectoryInfo source = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\Resources\xml");
+			string destination = OutputFolder + @"..\Resources\xml\";
+			Directory.CreateDirectory(Path.GetDirectoryName(destination));
+			foreach (FileInfo file in source.GetFiles("*.xml"))
+			{
+				File.Copy(file.FullName, destination + file.Name, true);
+			}
+		}
+		//===========================================================================================
 		public static void Generate()
 		{
 			AnyCPUGenerator generator = new AnyCPUGenerator();
 			generator.Cleanup();
+			generator.CopyXmlResources();
 
 			EnumGenerator.Generate();
 			ClassGenerator.Generate();

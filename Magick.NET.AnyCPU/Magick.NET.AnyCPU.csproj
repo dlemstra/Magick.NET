@@ -293,5 +293,19 @@
   <ItemGroup>
     <None Include="Magick.NET.snk" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\xml\coder.xml" />
+    <EmbeddedResource Include="Resources\xml\colors.xml" />
+    <EmbeddedResource Include="Resources\xml\configure.xml" />
+    <EmbeddedResource Include="Resources\xml\delegates.xml" />
+    <EmbeddedResource Include="Resources\xml\english.xml" />
+    <EmbeddedResource Include="Resources\xml\locale.xml" />
+    <EmbeddedResource Include="Resources\xml\log.xml" />
+    <EmbeddedResource Include="Resources\xml\magic.xml" />
+    <EmbeddedResource Include="Resources\xml\policy.xml" />
+    <EmbeddedResource Include="Resources\xml\thresholds.xml" />
+    <EmbeddedResource Include="Resources\xml\type-ghostscript.xml" />
+    <EmbeddedResource Include="Resources\xml\type.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
