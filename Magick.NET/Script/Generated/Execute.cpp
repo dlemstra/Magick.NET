@@ -1286,8 +1286,20 @@ namespace ImageMagick
 											}
 											case 't':
 											{
-												ExecuteSetAttribute(element, image);
-												return;
+												switch(element->Name[6])
+												{
+													case 'e':
+													{
+														ExecuteSetAttenuate(element, image);
+														return;
+													}
+													case 'r':
+													{
+														ExecuteSetAttribute(element, image);
+														return;
+													}
+												}
+												break;
 											}
 										}
 										break;
@@ -1295,6 +1307,16 @@ namespace ImageMagick
 									case 'D':
 									{
 										ExecuteSetDefine(element, image);
+										return;
+									}
+									case 'H':
+									{
+										ExecuteSetHighlightColor(element, image);
+										return;
+									}
+									case 'L':
+									{
+										ExecuteSetLowlightColor(element, image);
 										return;
 									}
 								}
@@ -3242,6 +3264,11 @@ namespace ImageMagick
 		String^ value_ = _Variables->GetValue<String^>(element, "value");
 		image->SetArtifact(name_, value_);
 	}
+	void MagickScript::ExecuteSetAttenuate(XmlElement^ element, MagickImage^ image)
+	{
+		double attenuate_ = _Variables->GetValue<double>(element, "attenuate");
+		image->SetAttenuate(attenuate_);
+	}
 	void MagickScript::ExecuteSetAttribute(XmlElement^ element, MagickImage^ image)
 	{
 		String^ name_ = _Variables->GetValue<String^>(element, "name");
@@ -3268,6 +3295,16 @@ namespace ImageMagick
 			image->SetDefine((MagickFormat)arguments["format"], (String^)arguments["name"], (String^)arguments["value"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'setDefine', allowed combinations are: [format, name, flag] [format, name, value]");
+	}
+	void MagickScript::ExecuteSetHighlightColor(XmlElement^ element, MagickImage^ image)
+	{
+		MagickColor^ color_ = _Variables->GetValue<MagickColor^>(element, "color");
+		image->SetHighlightColor(color_);
+	}
+	void MagickScript::ExecuteSetLowlightColor(XmlElement^ element, MagickImage^ image)
+	{
+		MagickColor^ color_ = _Variables->GetValue<MagickColor^>(element, "color");
+		image->SetLowlightColor(color_);
 	}
 	void MagickScript::ExecuteShade(XmlElement^ element, MagickImage^ image)
 	{

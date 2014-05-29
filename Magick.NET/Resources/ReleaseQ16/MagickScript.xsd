@@ -17,7 +17,7 @@
 	<xs:simpleType name="quantum">
 		<xs:union>
 			<xs:simpleType>
-				<xs:restriction base="xs:float">
+				<xs:restriction base="xs:unsignedShort">
 					<xs:minInclusive value="0" />
 					<xs:maxInclusive value="65535" />
 				</xs:restriction>
@@ -2119,6 +2119,11 @@
 						<xs:attribute name="value" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="setAttenuate">
+					<xs:complexType>
+						<xs:attribute name="attenuate" use="required" type="double" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="setAttribute">
 					<xs:complexType>
 						<xs:attribute name="name" use="required" type="xs:string" />
@@ -2131,6 +2136,16 @@
 						<xs:attribute name="format" use="required" type="MagickFormat" />
 						<xs:attribute name="name" use="required" type="xs:string" />
 						<xs:attribute name="value" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="setHighlightColor">
+					<xs:complexType>
+						<xs:attribute name="color" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="setLowlightColor">
+					<xs:complexType>
+						<xs:attribute name="color" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="shade">

@@ -42,7 +42,7 @@ namespace Magick.NET.FileGenerator
 		{
 			foreach (MethodBase method in Methods)
 			{
-				string xsdMethodName = XsdGenerator.GetName(method);
+				string xsdMethodName = MagickNET.GetXsdName(method);
 				ParameterInfo[] parameters = method.GetParameters();
 
 				writer.Write("XmlElement^ ");
@@ -97,17 +97,17 @@ namespace Magick.NET.FileGenerator
 		private void WriteGetValue(IndentedTextWriter writer, PropertyInfo property)
 		{
 			string typeName = MagickNET.GetCppTypeName(property);
-			string xsdTypeName = XsdGenerator.GetAttributeType(property);
+			string xsdTypeName = MagickNET.GetXsdAttributeType(property);
 
 			if (xsdTypeName != null)
 			{
-				WriteGetElementValue(writer, typeName, XsdGenerator.GetName(property));
+				WriteGetElementValue(writer, typeName, MagickNET.GetXsdName(property));
 			}
 			else
 			{
 				WriteCreateMethod(writer, typeName);
 				writer.Write("(");
-				WriteSelectElement(writer, typeName, XsdGenerator.GetName(property));
+				WriteSelectElement(writer, typeName, MagickNET.GetXsdName(property));
 				writer.WriteLine(");");
 			}
 		}

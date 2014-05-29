@@ -50,6 +50,112 @@ namespace Magick.NET.FileGenerator
 					 select constructors;
 		}
 		//===========================================================================================
+		private string GetXsdAttributeType(Type type)
+		{
+			Type newType = type;
+
+			if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+				newType = type.GetGenericArguments().First();
+
+			string typeName = GetCppTypeName(newType);
+
+			if (newType.IsEnum)
+				return typeName;
+
+			switch (typeName)
+			{
+				case "Encoding^":
+				case "String^":
+					return "xs:string";
+				case "Percentage":
+					return "double";
+				case "bool":
+				case "int":
+				case "double":
+					return typeName;
+				case "Magick::Quantum":
+					return "quantum";
+				case "MagickColor^":
+					return "color";
+				case "MagickGeometry^":
+					return "geometry";
+				case "array<double>^":
+				case "Coordinate":
+				case "Drawable^":
+				case "IEnumerable<Coordinate>^":
+				case "IEnumerable<Drawable^>^":
+				case "IEnumerable<PathArc^>^":
+				case "IEnumerable<PathCurveto^>^":
+				case "IEnumerable<PathQuadraticCurveto^>^":
+				case "IEnumerable<PathBase^>^":
+				case "ImageProfile^":
+				case "MagickImage^":
+				case "MontageSettings^":
+				case "PathArc^":
+				case "PathCurveto^":
+				case "PathQuadraticCurveto^":
+				case "PixelStorageSettings^":
+				case "QuantizeSettings^":
+					return null;
+				default:
+					throw new NotImplementedException(typeName);
+			}
+		}
+		//===========================================================================================
+		private string GetXsdElementType(Type type)
+		{
+			string typeName = GetCppTypeName(type);
+
+			switch (typeName)
+			{
+				case "array<double>^":
+					return "doubleArray";
+				case "Coordinate":
+					return "coordinate";
+				case "Drawable^":
+					return "drawable";
+				case "IEnumerable<Coordinate>^":
+					return "coordinates";
+				case "IEnumerable<Drawable^>^":
+					return "drawables";
+				case "IEnumerable<PathBase^>^":
+					return "paths";
+				case "IEnumerable<PathArc^>^":
+					return "pathArcs";
+				case "IEnumerable<PathCurveto^>^":
+					return "pathCurvetos";
+				case "IEnumerable<PathQuadraticCurveto^>^":
+					return "pathQuadraticCurvetos";
+				case "ImageProfile^":
+					return "profile";
+				case "MagickImage^":
+					return "image";
+				case "MontageSettings^":
+					return "montageSettings";
+				case "PathArc^":
+					return "pathArc";
+				case "PathCurveto^":
+					return "pathCurveto";
+				case "PathQuadraticCurveto^":
+					return "pathQuadraticCurveto";
+				case "PixelStorageSettings^":
+					return "pixelStorageSettings";
+				case "QuantizeSettings^":
+					return "quantizeSettings";
+				default:
+					return null;
+			}
+		}
+		//===========================================================================================
+		private static string GetXsdName(string name)
+		{
+			string newName = name;
+			if (name.ToUpperInvariant() == name)
+				return name.ToLowerInvariant();
+
+			return char.ToLowerInvariant(name[0]) + name.Substring(1);
+		}
+		//===========================================================================================
 		private bool HasSupportedResult(MethodInfo method)
 		{
 			if (method.ReturnType.Name != "MagickImage")
@@ -176,22 +282,37 @@ namespace Magick.NET.FileGenerator
 					 select constructor;
 		}
 		//===========================================================================================
-		public static string GetCppTypeName(ConstructorInfo constructor)
+		private string CheckQuantum(string name)
+		{
+			switch (name)
+			{
+				case "Byte":
+					return Depth == QuantumDepth.Q8 ? "Magick::Quantum" : "unsigned char";
+				case "Single":
+					return Depth == QuantumDepth.Q16HDRI ? "Magick::Quantum" : "float";
+				case "UInt16":
+					return Depth == QuantumDepth.Q16 ? "Magick::Quantum" : "unsigned short";
+				default:
+					throw new NotImplementedException(name);
+			}
+		}
+		//===========================================================================================
+		public string GetCppTypeName(ConstructorInfo constructor)
 		{
 			return GetCppTypeName(constructor.DeclaringType);
 		}
 		//===========================================================================================
-		public static string GetCppTypeName(ParameterInfo parameter)
+		public string GetCppTypeName(ParameterInfo parameter)
 		{
 			return GetCppTypeName(parameter.ParameterType);
 		}
 		//===========================================================================================
-		public static string GetCppTypeName(PropertyInfo property)
+		public string GetCppTypeName(PropertyInfo property)
 		{
 			return GetCppTypeName(property.PropertyType);
 		}
 		//===========================================================================================
-		public static string GetCppTypeName(Type type)
+		public string GetCppTypeName(Type type)
 		{
 			string name = GetTypeName(type);
 
@@ -229,7 +350,8 @@ namespace Magick.NET.FileGenerator
 					return "int";
 				case "Byte":
 				case "Single":
-					return "Magick::Quantum";
+				case "UInt16":
+					return CheckQuantum(name);
 				case "Boolean":
 					return "bool";
 				case "Double":
@@ -413,6 +535,41 @@ namespace Magick.NET.FileGenerator
 					yield return resourceName.Substring(0, resourceName.Length - 4);
 				}
 			}
+		}
+		//===========================================================================================
+		public string GetXsdAttributeType(ParameterInfo parameter)
+		{
+			return GetXsdAttributeType(parameter.ParameterType);
+		}
+		//===========================================================================================
+		public string GetXsdAttributeType(PropertyInfo property)
+		{
+			return GetXsdAttributeType(property.PropertyType);
+		}
+		//===========================================================================================
+		public string GetXsdElementType(ParameterInfo parameter)
+		{
+			return GetXsdElementType(parameter.ParameterType);
+		}
+		//===========================================================================================
+		public string GetXsdElementType(PropertyInfo property)
+		{
+			return GetXsdElementType(property.PropertyType);
+		}
+		//===========================================================================================
+		public string GetXsdName(MemberInfo member)
+		{
+			return GetXsdName(MagickNET.GetName(member));
+		}
+		//===========================================================================================
+		public string GetXsdName(ParameterInfo parameter)
+		{
+			return GetXsdName(parameter.Name);
+		}
+		//===========================================================================================
+		public string GetXsdName(PropertyInfo property)
+		{
+			return GetXsdName(property.Name);
 		}
 		//===========================================================================================
 		public static bool IsQuantumDependant(Type type)

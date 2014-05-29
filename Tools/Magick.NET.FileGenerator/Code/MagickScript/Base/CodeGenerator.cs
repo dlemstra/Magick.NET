@@ -24,9 +24,9 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private MagickNET _MagickNET;
 		//===========================================================================================
-		private static void WriteAttributeForEach(IndentedTextWriter writer, ParameterInfo[] allParameters)
+		private void WriteAttributeForEach(IndentedTextWriter writer, ParameterInfo[] allParameters)
 		{
-			ParameterInfo[] parameters = allParameters.Where(p => XsdGenerator.GetAttributeType(p) != null).ToArray();
+			ParameterInfo[] parameters = allParameters.Where(p => _MagickNET.GetXsdAttributeType(p) != null).ToArray();
 			if (parameters.Length == 0)
 				return;
 
@@ -35,17 +35,17 @@ namespace Magick.NET.FileGenerator
 			writer.WriteLine("for each(XmlAttribute^ attribute in element->Attributes)");
 			WriteStartColon(writer);
 
-			if (parameters.DistinctBy(p => MagickNET.GetCppTypeName(p)).Count() == 1)
+			if (parameters.DistinctBy(p => _MagickNET.GetCppTypeName(p)).Count() == 1)
 			{
 				writer.Write("arguments[attribute->Name] = _Variables->GetValue<");
-				writer.Write(MagickNET.GetCppTypeName(parameters[0]));
+				writer.Write(_MagickNET.GetCppTypeName(parameters[0]));
 				writer.WriteLine(">(attribute);");
 			}
 			else
 			{
 				for (int i = 0; i < parameters.Length; i++)
 				{
-					string xsdName = XsdGenerator.GetName(parameters[i]);
+					string xsdName = _MagickNET.GetXsdName(parameters[i]);
 
 					if (i > 0)
 						writer.Write("else ");
@@ -57,7 +57,7 @@ namespace Magick.NET.FileGenerator
 					writer.Write("arguments[\"");
 					writer.Write(xsdName);
 					writer.Write("\"] = ");
-					WriteGetAttributeValue(writer, MagickNET.GetCppTypeName(parameters[i]), xsdName);
+					WriteGetAttributeValue(writer, _MagickNET.GetCppTypeName(parameters[i]), xsdName);
 					writer.Indent--;
 				}
 			}
@@ -98,26 +98,26 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		private static void WriteElementForEach(IndentedTextWriter writer, ParameterInfo[] allParameters)
+		private void WriteElementForEach(IndentedTextWriter writer, ParameterInfo[] allParameters)
 		{
-			ParameterInfo[] parameters = allParameters.Where(p => XsdGenerator.GetAttributeType(p) == null).ToArray();
+			ParameterInfo[] parameters = allParameters.Where(p => _MagickNET.GetXsdAttributeType(p) == null).ToArray();
 			if (parameters.Length == 0)
 				return;
 
 			writer.WriteLine("for each(XmlElement^ elem in element->SelectNodes(\"*\"))");
 			WriteStartColon(writer);
 
-			if (parameters.DistinctBy(p => MagickNET.GetCppTypeName(p)).Count() == 1)
+			if (parameters.DistinctBy(p => _MagickNET.GetCppTypeName(p)).Count() == 1)
 			{
 				writer.Write("arguments[elem->Name] = ");
-				WriteCreateMethod(writer, MagickNET.GetCppTypeName(parameters[0]));
+				WriteCreateMethod(writer, _MagickNET.GetCppTypeName(parameters[0]));
 				writer.WriteLine("(elem);");
 			}
 			else
 			{
 				for (int i = 0; i < parameters.Length; i++)
 				{
-					string xsdName = XsdGenerator.GetName(parameters[i]);
+					string xsdName = _MagickNET.GetXsdName(parameters[i]);
 
 					if (i > 0)
 						writer.Write("else ");
@@ -129,7 +129,7 @@ namespace Magick.NET.FileGenerator
 					writer.Write("arguments[\"");
 					writer.Write(xsdName);
 					writer.Write("\"] = ");
-					WriteCreateMethod(writer, MagickNET.GetCppTypeName(parameters[i]));
+					WriteCreateMethod(writer, _MagickNET.GetCppTypeName(parameters[i]));
 					writer.WriteLine("(elem);");
 					writer.Indent--;
 				}
@@ -138,10 +138,10 @@ namespace Magick.NET.FileGenerator
 			WriteEndColon(writer);
 		}
 		//===========================================================================================
-		private static void WriteGetValue(IndentedTextWriter writer, ParameterInfo parameter)
+		private void WriteGetValue(IndentedTextWriter writer, ParameterInfo parameter)
 		{
-			string typeName = MagickNET.GetCppTypeName(parameter);
-			string xsdTypeName = XsdGenerator.GetAttributeType(parameter);
+			string typeName = _MagickNET.GetCppTypeName(parameter);
+			string xsdTypeName = _MagickNET.GetXsdAttributeType(parameter);
 
 			if (xsdTypeName != null)
 			{
@@ -156,12 +156,12 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		protected static void WriteHashtableParameters(IndentedTextWriter writer, ParameterInfo[] parameters)
+		protected void WriteHashtableParameters(IndentedTextWriter writer, ParameterInfo[] parameters)
 		{
 			for (int k = 0; k < parameters.Length; k++)
 			{
 				writer.Write("(");
-				writer.Write(MagickNET.GetCppTypeName(parameters[k]));
+				writer.Write(_MagickNET.GetCppTypeName(parameters[k]));
 				writer.Write(")arguments[\"");
 				writer.Write(parameters[k].Name);
 				writer.Write("\"]");
@@ -171,11 +171,11 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		private static void WriteInvalidCombinations(IndentedTextWriter writer, MethodBase[] methods)
+		private void WriteInvalidCombinations(IndentedTextWriter writer, MethodBase[] methods)
 		{
 			writer.WriteLine("else");
 			writer.Indent++;
-			writer.Write("throw gcnew ArgumentException(\"Invalid argument combination for '" + XsdGenerator.GetName(methods[0]) + "', allowed combinations are:");
+			writer.Write("throw gcnew ArgumentException(\"Invalid argument combination for '" + _MagickNET.GetXsdName(methods[0]) + "', allowed combinations are:");
 			foreach (MethodBase method in methods)
 			{
 				writer.Write(" [");

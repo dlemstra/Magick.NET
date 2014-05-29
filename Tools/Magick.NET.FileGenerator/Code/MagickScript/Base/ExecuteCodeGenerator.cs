@@ -109,13 +109,13 @@ namespace Magick.NET.FileGenerator
 		private void WriteExecute(IndentedTextWriter writer, string name)
 		{
 			MemberInfo member = (from property in Properties
-										where XsdGenerator.GetName(property).Equals(name, StringComparison.OrdinalIgnoreCase)
+										where MagickNET.GetXsdName(property).Equals(name, StringComparison.OrdinalIgnoreCase)
 										select property).FirstOrDefault();
 
 			if (member == null)
 				member = (from overloads in Methods
 							 let method = overloads[overloads.Length - 1]
-							 where XsdGenerator.GetName(method).Equals(name, StringComparison.OrdinalIgnoreCase)
+							 where MagickNET.GetXsdName(method).Equals(name, StringComparison.OrdinalIgnoreCase)
 							 select method).FirstOrDefault();
 
 
@@ -151,9 +151,9 @@ namespace Magick.NET.FileGenerator
 			WriteStartColon(writer);
 
 			IEnumerable<string> names = (from property in Properties
-												  select XsdGenerator.GetName(property)).Concat(
+												  select MagickNET.GetXsdName(property)).Concat(
 												  from method in Methods
-												  select XsdGenerator.GetName(method[0])).Concat(
+												  select MagickNET.GetXsdName(method[0])).Concat(
 												  CustomMethods);
 
 			WriteSwitch(writer, names, 0);
@@ -268,10 +268,10 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		protected static void WriteGetValue(IndentedTextWriter writer, PropertyInfo property)
+		protected void WriteGetValue(IndentedTextWriter writer, PropertyInfo property)
 		{
 			string typeName = MagickNET.GetCppTypeName(property);
-			string xsdTypeName = XsdGenerator.GetAttributeType(property);
+			string xsdTypeName = MagickNET.GetXsdAttributeType(property);
 
 			if (xsdTypeName != null)
 			{

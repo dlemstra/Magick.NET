@@ -115,7 +115,7 @@ namespace Magick.NET.FileGenerator
 			{
 				if (methods.Count() == 1 && IsTypedElement(parameters))
 				{
-					element.Add(new XAttribute("type", GetName(parameters[0])));
+					element.Add(new XAttribute("type", _MagickNET.GetXsdName(parameters[0])));
 				}
 				else
 				{
@@ -131,7 +131,7 @@ namespace Magick.NET.FileGenerator
 		private void AddParameterAttributes(XElement complexType, ParameterInfo[] parameters, string[] requiredParameters)
 		{
 			foreach (var parameter in from parameter in parameters
-											  let typeName = GetAttributeType(parameter)
+											  let typeName = _MagickNET.GetXsdAttributeType(parameter)
 											  where typeName != null
 											  orderby parameter.Name
 											  select new
@@ -158,7 +158,7 @@ namespace Magick.NET.FileGenerator
 			XElement sequence = new XElement(_Namespace + "sequence");
 
 			foreach (var parameter in from parameter in parameters
-											  let typeName = GetElementType(parameter)
+											  let typeName = _MagickNET.GetXsdElementType(parameter)
 											  where typeName != null
 											  orderby parameter.Name
 											  select new
@@ -186,9 +186,9 @@ namespace Magick.NET.FileGenerator
 		private void AddSettingsAttributes(XElement complexType, IEnumerable<PropertyInfo> properties)
 		{
 			foreach (var property in from property in properties
-											 let typeName = GetAttributeType(property)
+											 let typeName = _MagickNET.GetXsdAttributeType(property)
 											 where typeName != null
-											 let name = GetName(property)
+											 let name = _MagickNET.GetXsdName(property)
 											 orderby name
 											 select new
 											 {
@@ -207,9 +207,9 @@ namespace Magick.NET.FileGenerator
 			XElement sequence = new XElement(_Namespace + "sequence");
 
 			foreach (var property in from property in properties
-											 let typeName = GetElementType(property)
+											 let typeName = _MagickNET.GetXsdElementType(property)
 											 where typeName != null
-											 let name = GetName(property)
+											 let name = _MagickNET.GetXsdName(property)
 											 orderby name
 											 select new
 											 {
@@ -231,7 +231,7 @@ namespace Magick.NET.FileGenerator
 				foreach (MethodBase method in methods)
 				{
 					XElement element = new XElement(_Namespace + "element",
-												new XAttribute("name", GetName(methods.First())),
+												new XAttribute("name", _MagickNET.GetXsdName(methods.First())),
 												new XAttribute("minOccurs", "0"),
 												new XAttribute("maxOccurs", "unbounded"));
 					AddMethods(element, new MethodBase[] { method });
@@ -246,7 +246,7 @@ namespace Magick.NET.FileGenerator
 		private object CreateElement(IEnumerable<MethodBase> methods)
 		{
 			XElement element = new XElement(_Namespace + "element",
-										new XAttribute("name", GetName(methods.First())));
+										new XAttribute("name", _MagickNET.GetXsdName(methods.First())));
 
 			AddMethods(element, methods);
 			return element;
@@ -254,10 +254,10 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private XElement CreateElement(PropertyInfo property)
 		{
-			string name = GetName(property);
+			string name = _MagickNET.GetXsdName(property);
 
 
-			string attributeTypeName = GetAttributeType(property);
+			string attributeTypeName = _MagickNET.GetXsdAttributeType(property);
 
 			if (attributeTypeName != null)
 			{
@@ -275,7 +275,7 @@ namespace Magick.NET.FileGenerator
 			{
 				return new XElement(_Namespace + "element",
 					new XAttribute("name", name),
-					new XAttribute("type", GetElementType(property)));
+					new XAttribute("type", _MagickNET.GetXsdElementType(property)));
 			}
 		}
 		//===========================================================================================
@@ -303,112 +303,6 @@ namespace Magick.NET.FileGenerator
 		{
 			XsdGenerator generator = new XsdGenerator(depth);
 			generator.WriteDocument();
-		}
-		//===========================================================================================
-		private static string GetXsdAttributeType(Type type)
-		{
-			Type newType = type;
-
-			if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
-				newType = type.GetGenericArguments().First();
-
-			string typeName = MagickNET.GetCppTypeName(newType);
-
-			if (newType.IsEnum)
-				return typeName;
-
-			switch (typeName)
-			{
-				case "Encoding^":
-				case "String^":
-					return "xs:string";
-				case "Percentage":
-					return "double";
-				case "bool":
-				case "int":
-				case "double":
-					return typeName;
-				case "Magick::Quantum":
-					return "quantum";
-				case "MagickColor^":
-					return "color";
-				case "MagickGeometry^":
-					return "geometry";
-				case "array<double>^":
-				case "Coordinate":
-				case "Drawable^":
-				case "IEnumerable<Coordinate>^":
-				case "IEnumerable<Drawable^>^":
-				case "IEnumerable<PathArc^>^":
-				case "IEnumerable<PathCurveto^>^":
-				case "IEnumerable<PathQuadraticCurveto^>^":
-				case "IEnumerable<PathBase^>^":
-				case "ImageProfile^":
-				case "MagickImage^":
-				case "MontageSettings^":
-				case "PathArc^":
-				case "PathCurveto^":
-				case "PathQuadraticCurveto^":
-				case "PixelStorageSettings^":
-				case "QuantizeSettings^":
-					return null;
-				default:
-					throw new NotImplementedException(typeName);
-			}
-		}
-		//===========================================================================================
-		private static string GetXsdElementType(Type type)
-		{
-			string typeName = MagickNET.GetCppTypeName(type);
-
-			switch (typeName)
-			{
-				case "array<double>^":
-					return "doubleArray";
-				case "Coordinate":
-					return "coordinate";
-				case "Drawable^":
-					return "drawable";
-				case "IEnumerable<Coordinate>^":
-					return "coordinates";
-				case "IEnumerable<Drawable^>^":
-					return "drawables";
-				case "IEnumerable<PathBase^>^":
-					return "paths";
-				case "IEnumerable<PathArc^>^":
-					return "pathArcs";
-				case "IEnumerable<PathCurveto^>^":
-					return "pathCurvetos";
-				case "IEnumerable<PathQuadraticCurveto^>^":
-					return "pathQuadraticCurvetos";
-				case "ImageProfile^":
-					return "profile";
-				case "MagickImage^":
-					return "image";
-				case "MontageSettings^":
-					return "montageSettings";
-				case "PathArc^":
-					return "pathArc";
-				case "PathCurveto^":
-					return "pathCurveto";
-				case "PathQuadraticCurveto^":
-					return "pathQuadraticCurveto";
-				case "PixelStorageSettings^":
-					return "pixelStorageSettings";
-				case "QuantizeSettings^":
-					return "quantizeSettings";
-				default:
-					return null;
-			}
-		}
-		//===========================================================================================
-		private static string GetXsdName(string name)
-		{
-			string newName = name;
-			if (name.ToUpperInvariant() == name)
-				return name.ToLowerInvariant();
-
-			return char.ToLowerInvariant(name[0]) + name.Substring(1);
 		}
 		//===========================================================================================
 		private bool IsTypedElement(ParameterInfo[] parameters)
@@ -607,6 +501,10 @@ namespace Magick.NET.FileGenerator
 					break;
 				case QuantumDepth.Q16:
 					max = "65535";
+					baseType = "xs:unsignedShort";
+					break;
+				case QuantumDepth.Q16HDRI:
+					max = "65535";
 					baseType = "xs:float";
 					break;
 				default:
@@ -640,7 +538,8 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void Write()
 		{
-			string outputFile = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\Resources\Release" + _Depth + @"\MagickScript.xsd");
+			string folder = MagickNET.GetFolderName(_Depth);
+			string outputFile = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\Resources\" + folder + @"\MagickScript.xsd");
 			Console.WriteLine("Creating: " + outputFile);
 
 			XmlWriterSettings settings = new XmlWriterSettings();
@@ -666,41 +565,7 @@ namespace Magick.NET.FileGenerator
 		{
 			Generate(QuantumDepth.Q8);
 			Generate(QuantumDepth.Q16);
-		}
-		//===========================================================================================
-		public static string GetAttributeType(ParameterInfo parameter)
-		{
-			return GetXsdAttributeType(parameter.ParameterType);
-		}
-		//===========================================================================================
-		public static string GetAttributeType(PropertyInfo property)
-		{
-			return GetXsdAttributeType(property.PropertyType);
-		}
-		//===========================================================================================
-		public static string GetElementType(ParameterInfo parameter)
-		{
-			return GetXsdElementType(parameter.ParameterType);
-		}
-		//===========================================================================================
-		public static string GetElementType(PropertyInfo property)
-		{
-			return GetXsdElementType(property.PropertyType);
-		}
-		//===========================================================================================
-		public static string GetName(MemberInfo member)
-		{
-			return GetXsdName(MagickNET.GetName(member));
-		}
-		//===========================================================================================
-		public static string GetName(ParameterInfo parameter)
-		{
-			return GetXsdName(parameter.Name);
-		}
-		//===========================================================================================
-		public static string GetName(PropertyInfo property)
-		{
-			return GetXsdName(property.Name);
+			Generate(QuantumDepth.Q16HDRI);
 		}
 		//===========================================================================================
 	}
