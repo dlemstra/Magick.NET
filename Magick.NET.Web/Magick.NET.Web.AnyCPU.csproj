@@ -46,13 +46,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|AnyCPU'">
     <OutputPath>bin\ReleaseQ16-HDRI\AnyCPU\</OutputPath>
     <DefineConstants>TRACE;Q16HDRI</DefineConstants>
-    <DocumentationFile>bin\ReleaseQ16-HDRI\AnyCPU\Magick.NET.Web-AnyCPU.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
+    <AssemblyName>Magick.NET.Web-AnyCPU</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ16-HDRI\AnyCPU\Magick.NET.Web-AnyCPU.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
