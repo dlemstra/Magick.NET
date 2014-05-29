@@ -2922,6 +2922,12 @@ namespace ImageMagick
 		void SetArtifact(String^ name, String^ value);
 		///==========================================================================================
 		///<summary>
+		/// Lessen (or intensify) when adding noise to an image.
+		///</summary>
+		///<param name="attenuate">The attenuate value.</param>
+		void SetAttenuate(double attenuate);
+		///==========================================================================================
+		///<summary>
 		/// Sets a named image attribute.
 		///</summary>
 		///<param name="name">The name of the attribute.</param>
@@ -2944,6 +2950,18 @@ namespace ImageMagick
 		///<param name="name">The name of the option.</param>
 		///<param name="value">The value of the option.</param>
 		void SetDefine(MagickFormat format, String^ name, String^ value);
+		///==========================================================================================
+		///<summary>
+		/// When comparing images, emphasize pixel differences with this color.
+		///</summary>
+		///<param name="color">The color.</param>
+		void SetHighlightColor(MagickColor^ color);
+		///==========================================================================================
+		///<summary>
+		/// When comparing images, de-emphasize pixel differences with this color.
+		///</summary>
+		///<param name="color">The color.</param>
+		void SetLowlightColor(MagickColor^ color);
 		///==========================================================================================
 		///<summary>
 		/// Shade image using distant light source.

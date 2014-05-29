@@ -4311,6 +4311,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::SetAttenuate(double attenuate)
+	{
+		return Value->attenuate(attenuate);
+	}
+	//==============================================================================================
 	void MagickImage::SetAttribute(String^ name, String^ value)
 	{
 		Throw::IfNullOrEmpty("name", name);
@@ -4369,6 +4374,36 @@ namespace ImageMagick
 		catch(Magick::Exception& exception)
 		{
 			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::SetHighlightColor(MagickColor^ color)
+	{
+		Throw::IfNull("color", color);
+
+		const Magick::Color* highlightColor = color->CreateColor();
+		try
+		{
+			Value->highlightColor(*highlightColor);
+		}
+		finally
+		{
+			delete highlightColor;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::SetLowlightColor(MagickColor^ color)
+	{
+		Throw::IfNull("color", color);
+
+		const Magick::Color* lowlightColor = color->CreateColor();
+		try
+		{
+			Value->lowlightColor(*lowlightColor);
+		}
+		finally
+		{
+			delete lowlightColor;
 		}
 	}
 	//==============================================================================================
