@@ -167,12 +167,12 @@ namespace ImageMagick
 		///</summary>
 		///<param name="x">The X coordinate of the pixel.</param>
 		///<param name="y">The Y coordinate of the pixel.</param>
-		array<Magick::Quantum>^ GetValue(int x, int y);
+		QUANTUM_CLS_COMPLIANT array<Magick::Quantum>^ GetValue(int x, int y);
 		///==========================================================================================
 		///<summary>
 		/// Returns the values of the pixels as an array.
 		///</summary>
-		array<Magick::Quantum>^ GetValues();
+		QUANTUM_CLS_COMPLIANT array<Magick::Quantum>^ GetValues();
 		//===========================================================================================
 	};
 	//==============================================================================================

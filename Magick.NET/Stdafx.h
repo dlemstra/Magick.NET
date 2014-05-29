@@ -23,6 +23,16 @@
 
 #pragma warning(default: 4244)
 
+#if (MAGICKCORE_QUANTUM_DEPTH == 8)
+#define QUANTUM_CLS_COMPLIANT
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16 && !defined(MAGICKCORE_HDRI_SUPPORT))
+#define QUANTUM_CLS_COMPLIANT [CLSCompliantAttribute(false)]
+#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+#define QUANTUM_CLS_COMPLIANT
+#else
+#error Not implemented!
+#endif
+
 using namespace System;
 
 #include "Helpers\Marshaller.h"

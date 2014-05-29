@@ -67,7 +67,7 @@ namespace ImageMagick
 		///<param name="red">Red component value of this color.</param>
 		///<param name="green">Green component value of this color.</param>
 		///<param name="blue">Blue component value of this color.</param>
-		MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue);
+		QUANTUM_CLS_COMPLIANT MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickColor class.
@@ -76,7 +76,7 @@ namespace ImageMagick
 		///<param name="green">Green component value of this color.</param>
 		///<param name="blue">Blue component value of this color.</param>
 		///<param name="alpha">Alpha component value of this color.</param>
-		MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue,
+		QUANTUM_CLS_COMPLIANT MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue,
 			Magick::Quantum alpha);
 		///==========================================================================================
 		///<summary>
@@ -96,22 +96,22 @@ namespace ImageMagick
 		///<summary>
 		/// Alpha component value of this color.
 		///</summary>
-		property Magick::Quantum A;
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum A;
 		///==========================================================================================
 		///<summary>
 		/// Blue component value of this color.
 		///</summary>
-		property Magick::Quantum B;
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum B;
 		///==========================================================================================
 		///<summary>
 		/// Green component value of this color.
 		///</summary>
-		property Magick::Quantum G;
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum G;
 		///==========================================================================================
 		///<summary>
 		/// Red component value of this color.
 		///</summary>
-		property Magick::Quantum R;
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum R;
 		///==========================================================================================
 		///<summary>
 		/// Returns a transparent color.

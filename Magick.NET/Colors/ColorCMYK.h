@@ -37,7 +37,7 @@ namespace ImageMagick
 		///<param name="magenta">Magenta component value of this color.</param>
 		///<param name="yellow">Yellow component value of this color.</param>
 		///<param name="key">Key (black) component value of this color.</param>
-		ColorCMYK(Magick::Quantum cyan, Magick::Quantum magenta, Magick::Quantum yellow,
+		QUANTUM_CLS_COMPLIANT ColorCMYK(Magick::Quantum cyan, Magick::Quantum magenta, Magick::Quantum yellow,
 			Magick::Quantum key);
 		///==========================================================================================
 		///<summary>
@@ -49,7 +49,7 @@ namespace ImageMagick
 		///<summary>
 		/// Cyan component value of this color.
 		///</summary>
-		property Magick::Quantum C
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum C
 		{
 			Magick::Quantum get();
 			void set(Magick::Quantum value);
@@ -58,7 +58,7 @@ namespace ImageMagick
 		///<summary>
 		/// Key (black) component value of this color.
 		///</summary>
-		property Magick::Quantum K
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum K
 		{
 			Magick::Quantum get();
 			void set(Magick::Quantum value);
@@ -67,7 +67,7 @@ namespace ImageMagick
 		///<summary>
 		/// Magenta component value of this color.
 		///</summary>
-		property Magick::Quantum M
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum M
 		{
 			Magick::Quantum get();
 			void set(Magick::Quantum value);
@@ -76,7 +76,7 @@ namespace ImageMagick
 		///<summary>
 		/// Yellow component value of this color.
 		///</summary>
-		property Magick::Quantum Y
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum Y
 		{
 			Magick::Quantum get();
 			void set(Magick::Quantum value);

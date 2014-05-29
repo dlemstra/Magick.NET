@@ -53,7 +53,7 @@ namespace ImageMagick
 		///<summary>
 		/// Returns the maximum value of the quantum.
 		///</summary>
-		static property Magick::Quantum Max
+		QUANTUM_CLS_COMPLIANT static property Magick::Quantum Max
 		{
 			Magick::Quantum get();
 		}

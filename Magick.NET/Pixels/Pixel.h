@@ -53,7 +53,7 @@ namespace ImageMagick
 		///<param name="x">The X coordinate of the pixel.</param>
 		///<param name="y">The Y coordinate of the pixel.</param>
 		///<param name="value">The value of the pixel.</param>
-		Pixel(int x, int y, array<Magick::Quantum>^ value);
+		QUANTUM_CLS_COMPLIANT Pixel(int x, int y, array<Magick::Quantum>^ value);
 		///==========================================================================================
 		///<summary>
 		/// Creates a new Pixel instance.
@@ -66,7 +66,7 @@ namespace ImageMagick
 		///<summary>
 		/// Returns the value of the specified channel.
 		///</summary>
-		property Magick::Quantum default[int]
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum default[int]
 		{
 			Magick::Quantum get(int channel);
 			void set(int channel, Magick::Quantum value);
@@ -118,7 +118,7 @@ namespace ImageMagick
 		/// Returns the value of the specified channel.
 		///</summary>
 		///<param name="channel">The channel to get the value of.</param>
-		Magick::Quantum GetChannel(int channel);
+		QUANTUM_CLS_COMPLIANT Magick::Quantum GetChannel(int channel);
 		///==========================================================================================
 		///<summary>
 		/// Servers as a hash of this type.
@@ -130,7 +130,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="channel">The channel to set the value of.</param>
 		///<param name="value">The value.</param>
-		void SetChannel(int channel, Magick::Quantum value);
+		QUANTUM_CLS_COMPLIANT void SetChannel(int channel, Magick::Quantum value);
 		///==========================================================================================
 		///<summary>
 		/// Converts the pixel to a color. Assumes the pixel is RGBA.

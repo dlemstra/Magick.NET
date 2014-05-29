@@ -2143,7 +2143,7 @@ namespace ImageMagick
 		///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
 		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
 		///<exception cref="MagickException"/>
-		void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint);
+		QUANTUM_CLS_COMPLIANT void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint);
 		///==========================================================================================
 		///<summary>
 		/// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -2153,7 +2153,7 @@ namespace ImageMagick
 		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
 		///<param name="channels">The channel(s) to level.</param>
 		///<exception cref="MagickException"/>
-		void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, Channels channels);
+		QUANTUM_CLS_COMPLIANT void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -2163,7 +2163,7 @@ namespace ImageMagick
 		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
 		///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
 		///<exception cref="MagickException"/>
-		void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint);
+		QUANTUM_CLS_COMPLIANT void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint);
 		///==========================================================================================
 		///<summary>
 		/// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -2174,7 +2174,7 @@ namespace ImageMagick
 		///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
 		///<param name="channels">The channel(s) to level.</param>
 		///<exception cref="MagickException"/>
-		void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, Channels channels);
+		QUANTUM_CLS_COMPLIANT void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
@@ -2616,7 +2616,7 @@ namespace ImageMagick
 		///<param name="low">The low threshold.</param>
 		///<param name="high">The low threshold.</param>
 		///<exception cref="MagickException"/>
-		void RandomThreshold(Magick::Quantum low, Magick::Quantum high);
+		QUANTUM_CLS_COMPLIANT void RandomThreshold(Magick::Quantum low, Magick::Quantum high);
 		///==========================================================================================
 		///<summary>
 		/// Changes the value of individual pixels based on the intensity of each pixel compared to a
@@ -2626,7 +2626,7 @@ namespace ImageMagick
 		///<param name="high">The low threshold.</param>
 		///<param name="channels">The channel(s) to use.</param>
 		///<exception cref="MagickException"/>
-		void RandomThreshold(Magick::Quantum low, Magick::Quantum high, Channels channels);
+		QUANTUM_CLS_COMPLIANT void RandomThreshold(Magick::Quantum low, Magick::Quantum high, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.

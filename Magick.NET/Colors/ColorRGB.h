@@ -36,7 +36,7 @@ namespace ImageMagick
 		///<param name="red">Red component value of this color.</param>
 		///<param name="green">Green component value of this color.</param>
 		///<param name="blue">Blue component value of this color.</param>
-		ColorRGB(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue);
+		QUANTUM_CLS_COMPLIANT ColorRGB(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue);
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the ColorRGB class using the specified color.
@@ -47,7 +47,7 @@ namespace ImageMagick
 		///<summary>
 		/// Blue component value of this color.
 		///</summary>
-		property Magick::Quantum B
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum B
 		{
 			Magick::Quantum get();
 			void set(Magick::Quantum value);
@@ -56,7 +56,7 @@ namespace ImageMagick
 		///<summary>
 		/// Green component value of this color.
 		///</summary>
-		property Magick::Quantum G
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum G
 		{
 			Magick::Quantum get();
 			void set(Magick::Quantum value);
@@ -65,7 +65,7 @@ namespace ImageMagick
 		///<summary>
 		/// Red component value of this color.
 		///</summary>
-		property Magick::Quantum R
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum R
 		{
 			Magick::Quantum get();
 			void set(Magick::Quantum value);
