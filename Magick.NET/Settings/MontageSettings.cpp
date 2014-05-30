@@ -75,7 +75,7 @@ namespace ImageMagick
 		BackgroundColor = gcnew MagickColor(settings.backgroundColor());
 		Compose = (CompositeOperator) settings.compose();
 		FillColor = gcnew MagickColor(settings.fillColor());
-		FontPointsize = settings.pointSize();
+		FontPointsize = (int)settings.pointSize();
 		Geometry = gcnew MagickGeometry(settings.geometry());
 		Gravity = (ImageMagick::Gravity) settings.gravity();
 		Shadow = settings.shadow();
