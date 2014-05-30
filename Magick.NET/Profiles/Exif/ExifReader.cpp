@@ -22,12 +22,14 @@ namespace ImageMagick
 	//==============================================================================================
 	void ExifReader::AddValues(List<ExifValue^>^ values, unsigned int index)
 	{
-		_Index =  _StartIndex +index;
+		_Index =  _StartIndex + index;
 		unsigned short count = GetUInt16();
 
 		for (unsigned short i = 0; i < count; i++)
 		{
 			ExifValue^ value = CreateValue();
+			if (value == nullptr)
+				continue;
 
 			if (value->Tag == ExifTag::SubIFDOffset)
 				_SubIFDoffset = (unsigned int)value->Value;
@@ -40,6 +42,9 @@ namespace ImageMagick
 	//==============================================================================================
 	Object^ ExifReader::ConvertValue(ExifDataType dataType, array<Byte>^ data, int numberOfComponents)
 	{
+		if (data == nullptr || data->Length == 0)
+			return nullptr;
+
 		switch (dataType)
 		{
 		case ExifDataType::Unknown:
@@ -132,11 +137,15 @@ namespace ImageMagick
 			value = ConvertValue(dataType, data, numberOfComponents);
 		}
 
-		return gcnew ExifValue(tag, dataType, value, numberOfComponents > 1);
+		bool isArray = value != nullptr && numberOfComponents > 1;
+		return gcnew ExifValue(tag, dataType, value, isArray);
 	}
 	//==============================================================================================
 	array<Byte>^ ExifReader::GetBytes(int length)
 	{
+		if (_Index + length >= _Data->Length)
+			return nullptr;
+
 		array<Byte>^ data = gcnew array<Byte>(length);
 		Array::Copy(_Data, _Index, data, 0, length);
 		_Index += length;
@@ -312,7 +321,7 @@ namespace ImageMagick
 	//==============================================================================================
 	bool ExifReader::ValidateArray(array<Byte>^ data, int size)
 	{
-		if (data->Length < size)
+		if (data == nullptr || data->Length < size)
 			return false;
 
 		if (_IsLittleEndian == BitConverter::IsLittleEndian)

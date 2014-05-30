@@ -94,6 +94,13 @@ namespace Magick.NET.Tests
 			Assert.AreEqual("Test", value.ToString());
 			Assert.AreEqual("Test", value.ToString(Encoding.UTF32));
 			Assert.AreNotEqual("Test", value.ToString(Encoding.Default));
+
+			value.Value = "";
+			Assert.AreEqual("", value.ToString());
+			value.Value = "Test";
+			Assert.AreEqual("Test", value.ToString());
+			value.Value = null;
+			Assert.AreEqual("", value.ToString());
 		}
 		//===========================================================================================
 	}

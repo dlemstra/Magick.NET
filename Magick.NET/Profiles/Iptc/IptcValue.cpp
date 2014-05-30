@@ -21,7 +21,7 @@ namespace ImageMagick
 	//==============================================================================================
 	IptcValue::IptcValue(IptcTag tag, array<Byte>^ value)
 	{
-		Throw::IfNullOrEmpty("value", value);
+		Throw::IfNull("value", value);
 
 		_Tag = tag;
 		_Data = value;
