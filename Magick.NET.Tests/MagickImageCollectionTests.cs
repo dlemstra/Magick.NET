@@ -43,6 +43,31 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Append()
+		{
+			int width = 70;
+			int height = 46;
+
+			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+			{
+				Assert.AreEqual(width, collection[0].Width);
+				Assert.AreEqual(height, collection[0].Height);
+
+				using (MagickImage image = collection.AppendHorizontally())
+				{
+					Assert.AreEqual(width * 3, image.Width);
+					Assert.AreEqual(height, image.Height);
+				}
+
+				using (MagickImage image = collection.AppendVertically())
+				{
+					Assert.AreEqual(width, image.Width);
+					Assert.AreEqual(height * 3, image.Height);
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Constructor()
 		{
 			ExceptionAssert.Throws<ArgumentException>(delegate()
