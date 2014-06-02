@@ -38,12 +38,6 @@
     <AssemblyName>Magick.NET.Web-x64</AssemblyName>
     <DocumentationFile>bin\ReleaseQ8\x64\Magick.NET.Web-x64.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Magick.NET.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|Win32'">
     <OutputPath>bin\ReleaseQ16\x86\</OutputPath>
     <DefineConstants>TRACE;CODE_ANALYSIS;Q16</DefineConstants>
@@ -91,6 +85,12 @@
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-x64</AssemblyName>
     <DocumentationFile>bin\ReleaseQ16-HDRI\x64\Magick.NET.Web-x64.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Magick.NET.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
