@@ -5174,6 +5174,7 @@ namespace ImageMagick
 			{
 				int yIndex = y * stride;
 				const Magick::PixelPacket* pixels = view->getConst(0, y, Width, 1);
+				const Magick::IndexPacket* indexes = view->indexes();
 
 				for (int x = 0; x < Width; x++)
 				{
@@ -5236,7 +5237,7 @@ namespace ImageMagick
 			pixelData[xIndex] = MagickCore::ScaleQuantumToChar(pixels[x].red);
 			pixelData[xIndex + 1] = MagickCore::ScaleQuantumToChar(pixels[x].green);
 			pixelData[xIndex + 2] = MagickCore::ScaleQuantumToChar(pixels[x].blue);
-			pixelData[xIndex + 3] = MagickCore::ScaleQuantumToChar(Quantum::Max - pixels[x].opacity);
+			pixelData[xIndex + 3] = MagickCore::ScaleQuantumToChar(indexes[x]);
 		}
 #endif
 				}
