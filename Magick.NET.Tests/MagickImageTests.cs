@@ -21,6 +21,10 @@ using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+#if !(NET20)
+using System.Windows.Media.Imaging;
+#endif
+
 namespace Magick.NET.Tests
 {
 	//==============================================================================================
@@ -776,6 +780,60 @@ namespace Magick.NET.Tests
 				Test_ToBitmap(image, ImageFormat.Tiff);
 			}
 		}
+#if !(NET20)
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_ToBitmapSource()
+		{
+			Byte[] pixels = new Byte[600];
+
+			using (MagickImage image = new MagickImage(Color.Red, 10, 10))
+			{
+				BitmapSource bitmap = image.ToBitmapSource();
+				bitmap.CopyPixels(pixels, 60, 0);
+
+#if Q8
+				Assert.AreEqual(255, pixels[0]);
+				Assert.AreEqual(0, pixels[1]);
+				Assert.AreEqual(0, pixels[2]);
+#elif Q16 || Q16HDRI
+				Assert.AreEqual(65535, BitConverter.ToUInt16(pixels, 0));
+				Assert.AreEqual(0, BitConverter.ToUInt16(pixels, 2));
+				Assert.AreEqual(0, BitConverter.ToUInt16(pixels, 4));
+#else
+#error Not implemented!
+#endif
+
+				image.ColorSpace = ColorSpace.CMYK;
+
+				bitmap = image.ToBitmapSource();
+				bitmap.CopyPixels(pixels, 60, 0);
+
+				Assert.AreEqual(0, pixels[0]);
+				Assert.AreEqual(255, pixels[1]);
+				Assert.AreEqual(255, pixels[2]);
+				Assert.AreEqual(0, pixels[3]);
+
+				image.AddProfile(ColorProfile.USWebCoatedSWOP);
+				image.AddProfile(ColorProfile.SRGB);
+
+				bitmap = image.ToBitmapSource();
+				bitmap.CopyPixels(pixels, 60, 0);
+
+#if Q8
+				Assert.AreEqual(237, pixels[0]);
+				Assert.AreEqual(28, pixels[1]);
+				Assert.AreEqual(36, pixels[2]);
+#elif Q16 || Q16HDRI
+				Assert.AreEqual(60976, BitConverter.ToUInt16(pixels, 0));
+				Assert.AreEqual(7291, BitConverter.ToUInt16(pixels, 2));
+				Assert.AreEqual(9289, BitConverter.ToUInt16(pixels, 4));
+#else
+#error Not implemented!
+#endif
+			}
+		}
+#endif
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Threshold()
