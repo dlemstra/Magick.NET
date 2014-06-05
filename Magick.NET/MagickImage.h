@@ -3427,6 +3427,13 @@ namespace ImageMagick
 		void WhiteThreshold(Percentage threshold, Channels channels);
 		///==========================================================================================
 		///<summary>
+		/// Writes the image to the specified file.
+		///</summary>
+		///<param name="file">The file to write the image to.</param>
+		///<exception cref="MagickException"/>
+		void Write(FileInfo^ file);
+		///==========================================================================================
+		///<summary>
 		/// Writes the image to the specified stream.
 		///</summary>
 		///<param name="stream">The stream to write the image data to.</param>

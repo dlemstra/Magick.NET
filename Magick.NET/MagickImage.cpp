@@ -5094,14 +5094,21 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Write(String^ fileName)
+	void MagickImage::Write(FileInfo^ file)
 	{
-		HandleException(MagickWriter::Write(Value, fileName));
+		Throw::IfNull("file", file);
+		Write(file->FullName);
+		file->Refresh();
 	}
 	//==============================================================================================
 	void MagickImage::Write(Stream^ stream)
 	{
 		HandleException(MagickWriter::Write(Value, stream));
+	}
+	//==============================================================================================
+	void MagickImage::Write(String^ fileName)
+	{
+		HandleException(MagickWriter::Write(Value, fileName));
 	}
 	//==============================================================================================
 	void MagickImage::Zoom(int width, int height)

@@ -521,6 +521,14 @@ namespace ImageMagick
 		MagickImage^ TrimBounds();
 		///==========================================================================================
 		///<summary>
+		/// Writes the images to the specified file. If the output image's file format does not
+		/// allow multi-image files multiple files will be written.
+		///</summary>
+		///<param name="file">The file to write the image to.</param>
+		///<exception cref="MagickException"/>
+		void Write(FileInfo^ file);
+		///==========================================================================================
+		///<summary>
 		/// Writes the imagse to the specified stream. If the output image's file format does not
 		/// allow multi-image files multiple files will be written.
 		///</summary>

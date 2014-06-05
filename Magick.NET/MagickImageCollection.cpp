@@ -847,6 +847,13 @@ namespace ImageMagick
 		return gcnew MagickImage(trimBoundsImage);
 	}
 	//==============================================================================================
+	void MagickImageCollection::Write(FileInfo^ file)
+	{
+		Throw::IfNull("file", file);
+		Write(file->FullName);
+		file->Refresh();
+	}
+	//==============================================================================================
 	void MagickImageCollection::Write(Stream^ stream)
 	{
 		if (Count == 0)
