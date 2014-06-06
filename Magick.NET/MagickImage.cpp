@@ -3962,6 +3962,18 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	MagickWarningException^ MagickImage::Read(FileInfo^ file)
+	{
+		Throw::IfNull("file", file);
+		return Read(file->FullName);
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImage::Read(FileInfo^ file, MagickReadSettings^ readSettings)
+	{
+		Throw::IfNull("file", file);
+		return Read(file->FullName, readSettings);
+	}
+	//==============================================================================================
 	MagickWarningException^ MagickImage::Read(String^ fileName)
 	{
 		return Read(fileName, nullptr);

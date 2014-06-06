@@ -429,6 +429,23 @@ namespace ImageMagick
 		///<summary>
 		/// Read all image frames.
 		///</summary>
+		///<param name="file">The file to read the frames from.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ Read(FileInfo^ file);
+		///==========================================================================================
+		///<summary>
+		/// Read all image frames.
+		///</summary>
+		///<param name="file">The file to read the frames from.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ Read(FileInfo^ file, MagickReadSettings^ readSettings);
+		///==========================================================================================
+		///<summary>
+		/// Read all image frames.
+		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>

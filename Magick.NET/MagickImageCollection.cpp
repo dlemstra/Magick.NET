@@ -738,6 +738,18 @@ namespace ImageMagick
 		return _ReadWarning;
 	}
 	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::Read(FileInfo^ file)
+	{
+		Throw::IfNull("file", file);
+		return Read(file->FullName);
+	}
+	//==============================================================================================
+	MagickWarningException^ MagickImageCollection::Read(FileInfo^ file, MagickReadSettings^ readSettings)
+	{
+		Throw::IfNull("file", file);
+		return Read(file->FullName, readSettings);
+	}
+	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(String^ fileName)
 	{
 		return Read(fileName, nullptr);
@@ -823,7 +835,7 @@ namespace ImageMagick
 	//==============================================================================================
 	Bitmap^ MagickImageCollection::ToBitmap()
 	{
-		return ToBitmap(ImageFormat::Tiff);;
+		return ToBitmap(ImageFormat::Tiff);
 	}
 	//==============================================================================================
 	Bitmap^ MagickImageCollection::ToBitmap(ImageFormat^ imageFormat)
