@@ -13,6 +13,8 @@
 //=================================================================================================
 #pragma once
 
+#include "..\..\PointD.h"
+
 using namespace System::Drawing;
 using namespace System::Text;
 
@@ -24,18 +26,18 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		array<Point>^ _First;
+		array<PointD>^ _First;
 		int _Index;
 		int _Height;
 		bool _InSubpath;
 		StringBuilder^ _Path;
 		int _KnotCount;
-		array<Point>^ _Last;
+		array<PointD>^ _Last;
 		int _Width;
 		//===========================================================================================
 		void AddPath(array<Byte>^ data);
 		//===========================================================================================
-		array<Point>^ CreatePoint(array<Byte>^ data);
+		array<PointD>^ CreatePoint(array<Byte>^ data);
 		//===========================================================================================
 		void ClosePath();
 		//===========================================================================================

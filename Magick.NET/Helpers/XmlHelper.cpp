@@ -58,7 +58,10 @@ namespace ImageMagick
 		else
 			attribute = element->Attributes->Append(element->OwnerDocument->CreateAttribute(name));
 
-		attribute->Value = (String^)Convert::ChangeType(value, String::typeid, CultureInfo::InvariantCulture);
+		if (T::typeid == String::typeid)
+			attribute->Value = (String^)value;
+		else
+			attribute->Value = (String^)Convert::ChangeType(value, String::typeid, CultureInfo::InvariantCulture);
 	}
 	//==============================================================================================
 }

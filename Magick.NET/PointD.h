@@ -41,6 +41,8 @@ namespace ImageMagick
 		property double X
 		{
 			double get();
+		internal:
+			void set(double value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -49,6 +51,8 @@ namespace ImageMagick
 		property double Y
 		{
 			double get();
+		internal:
+			void set(double value);
 		}
 		//===========================================================================================
 		static bool operator == (PointD left, PointD right);

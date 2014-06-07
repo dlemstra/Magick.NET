@@ -28,11 +28,11 @@ namespace ImageMagick
 			return;
 		}
 
-		array<Point>^ point = CreatePoint(data);
+		array<PointD>^ point = CreatePoint(data);
 
 		if (_InSubpath == false)
 		{
-			_Path->AppendFormat(CultureInfo::InvariantCulture, "  {0} {1} m\n", point[1].X, point[1].Y);
+			_Path->AppendFormat(CultureInfo::InvariantCulture, "M {0:0.###} {1:0.###}\n", point[1].X, point[1].Y);
 
 			for (int k=0; k < 3; k++)
 			{
@@ -43,13 +43,13 @@ namespace ImageMagick
 		else
 		{
 			if ((_Last[1].X == _Last[2].X) && (_Last[1].Y == _Last[2].Y) && (point[0].X == point[1].X) && (point[0].Y == point[1].Y))
-				_Path->AppendFormat(CultureInfo::InvariantCulture, "  {0} {1} l\n", point[1].X, point[1].Y);
+				_Path->AppendFormat(CultureInfo::InvariantCulture, "L {0:0.###} {1:0.###}\n", point[1].X, point[1].Y);
 			else if ((_Last[1].X == _Last[2].X) && (_Last[1].Y == _Last[2].Y))
-				_Path->AppendFormat(CultureInfo::InvariantCulture, "  {0} {1} {2} {3} v\n", point[0].X, point[0].Y, point[1].X, point[1].Y);
+				_Path->AppendFormat(CultureInfo::InvariantCulture, "Q {0:0.###} {1:0.###} {2:0.###} {3:0.###}\n", point[0].X, point[0].Y, point[1].X, point[1].Y);
 			else if ((point[0].X == point[1].X) && (point[0].Y == point[1].Y))
-				_Path->AppendFormat(CultureInfo::InvariantCulture, "  {0} {1} {2} {3} y\n", _Last[2].X, _Last[2].Y, point[1].X, point[1].Y);
+				_Path->AppendFormat(CultureInfo::InvariantCulture, "S {0:0.###} {1:0.###} {2:0.###} {3:0.###}\n", _Last[2].X, _Last[2].Y, point[1].X, point[1].Y);
 			else
-				_Path->AppendFormat(CultureInfo::InvariantCulture, "  {0} {1} {2} {3} {4} {5} c\n", _Last[2].X, _Last[2].Y, point[0].X, point[0].Y, point[1].X, point[1].Y);
+				_Path->AppendFormat(CultureInfo::InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###}\n", _Last[2].X, _Last[2].Y, point[0].X, point[0].Y, point[1].X, point[1].Y);
 
 			for (int k=0; k < 3; k++)
 				_Last[k]=point[k];
@@ -67,18 +67,18 @@ namespace ImageMagick
 	void ClipPathReader::ClosePath()
 	{
 		if ((_Last[1].X == _Last[2].X) && (_Last[1].Y == _Last[2].Y) && (_First[0].X == _First[1].X) && (_First[0].Y == _First[1].Y))
-			_Path->AppendFormat(CultureInfo::InvariantCulture, "  {0} {1} l z\n", _First[1].X, _First[1].Y);
+			_Path->AppendFormat(CultureInfo::InvariantCulture, "L {0:0.###} {1:0.###} Z\n", _First[1].X, _First[1].Y);
 		else if ((_Last[1].X == _Last[2].X) && (_Last[1].Y == _Last[2].Y))
-			_Path->AppendFormat(CultureInfo::InvariantCulture, "  {0} {1} {2} {3} v z\n", _First[0].X, _First[0].Y, _First[1].X, _First[1].Y);
+			_Path->AppendFormat(CultureInfo::InvariantCulture, "Q {0:0.###} {1:0.###} {2:0.###} {3:0.###} Z\n", _First[0].X, _First[0].Y, _First[1].X, _First[1].Y);
 		else if ((_First[0].X == _First[1].X) && (_First[0].Y == _First[1].Y))
-			_Path->AppendFormat(CultureInfo::InvariantCulture, "  {0} {1} {2} {3} y z\n", _Last[2].X, _Last[2].Y, _First[1].X, _First[1].Y);
+			_Path->AppendFormat(CultureInfo::InvariantCulture, "S {0:0.###} {1:0.###} {2:0.###} {3:0.###} Z\n", _Last[2].X, _Last[2].Y, _First[1].X, _First[1].Y);
 		else
-			_Path->AppendFormat(CultureInfo::InvariantCulture, "  {0} {1} {2} {3} {4} {5} c z\n", _Last[2].X, _Last[2].Y, _First[0].X, _First[0].Y, _First[1].X, _First[1].Y);
+			_Path->AppendFormat(CultureInfo::InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###} Z\n", _Last[2].X, _Last[2].Y, _First[0].X, _First[0].Y, _First[1].X, _First[1].Y);
 	}
 	//==============================================================================================
-	array<Point>^ ClipPathReader::CreatePoint(array<Byte>^ data)
+	array<PointD>^ ClipPathReader::CreatePoint(array<Byte>^ data)
 	{
-		array<Point>^ result = gcnew array<Point>(3);
+		array<PointD>^ result = gcnew array<PointD>(3);
 
 		for (int i=0; i < 3; i++)
 		{
@@ -92,8 +92,8 @@ namespace ImageMagick
 			if (xx > 2147483647)
 				x = (long)xx-4294967295U-1;
 
-			result[i].X = (int)(((double)x*_Width/4096/4096) + 0.5);
-			result[i].Y = (int)(((double)y*_Height/4096/4096) + 0.5);
+			result[i].X = ((double)x*_Width/4096/4096);
+			result[i].Y = ((double)y*_Height/4096/4096);
 		}
 
 		return result;
@@ -105,8 +105,8 @@ namespace ImageMagick
 		_KnotCount = 0;
 		_InSubpath = false;
 		_Path = gcnew StringBuilder();
-		_First = gcnew array<Point>(3);
-		_Last = gcnew array<Point>(3);
+		_First = gcnew array<PointD>(3);
+		_Last = gcnew array<PointD>(3);
 	}
 	//==============================================================================================
 	void ClipPathReader::SetKnotCount(array<Byte>^ data)
