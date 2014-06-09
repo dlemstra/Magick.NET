@@ -767,10 +767,12 @@ namespace Magick.NET.Tests
 					image.ToBitmap(ImageFormat.Exif);
 				});
 
-				Bitmap bmp = image.ToBitmap();
-				Assert.AreEqual(ImageFormat.Bmp, bmp.RawFormat);
-				ColorAssert.AreEqual(Color.Red, bmp.GetPixel(0, 0));
-				bmp.Dispose();
+				Bitmap bitmap = image.ToBitmap();
+				Assert.AreEqual(ImageFormat.MemoryBmp, bitmap.RawFormat);
+				ColorAssert.AreEqual(Color.Red, bitmap.GetPixel(0, 0));
+				ColorAssert.AreEqual(Color.Red, bitmap.GetPixel(5, 5));
+				ColorAssert.AreEqual(Color.Red, bitmap.GetPixel(9, 9));
+				bitmap.Dispose();
 
 				Test_ToBitmap(image, ImageFormat.Bmp);
 				Test_ToBitmap(image, ImageFormat.Gif);
@@ -778,6 +780,17 @@ namespace Magick.NET.Tests
 				Test_ToBitmap(image, ImageFormat.Jpeg);
 				Test_ToBitmap(image, ImageFormat.Png);
 				Test_ToBitmap(image, ImageFormat.Tiff);
+			}
+
+			using (MagickImage image = new MagickImage(new MagickColor(0, Quantum.Max, Quantum.Max, 0), 10, 10))
+			{
+				Bitmap bitmap = image.ToBitmap();
+				Assert.AreEqual(ImageFormat.MemoryBmp, bitmap.RawFormat);
+				Color color = Color.FromArgb(0, 0, 255, 255);
+				ColorAssert.AreEqual(color, bitmap.GetPixel(0, 0));
+				ColorAssert.AreEqual(color, bitmap.GetPixel(5, 5));
+				ColorAssert.AreEqual(color, bitmap.GetPixel(9, 9));
+				bitmap.Dispose();
 			}
 		}
 #if !(NET20)

@@ -4821,7 +4821,43 @@ namespace ImageMagick
 	//==============================================================================================
 	Bitmap^ MagickImage::ToBitmap()
 	{
-		return ToBitmap(ImageFormat::Bmp);
+		if (ColorSpace == ImageMagick::ColorSpace::CMYK)
+			ColorSpace = ImageMagick::ColorSpace::sRGB;
+
+		std::string map = "BGR";
+		StorageType type = StorageType::Char;
+		PixelFormat format = PixelFormat::Format24bppRgb;
+		if (HasAlpha)
+		{
+			map = "BGRA";
+			format = PixelFormat::Format32bppArgb;
+		}
+
+		try
+		{
+			Magick::PixelData pixelData(*Value, map, (MagickCore::StorageType)type);
+			if (pixelData.length() == 0)
+				return nullptr;
+
+			Bitmap^ bitmap = gcnew Bitmap(Width, Height, format);
+			BitmapData^ data = bitmap->LockBits(Rectangle(0, 0, Width, Height), ImageLockMode::ReadWrite, format);
+			IntPtr destination = data->Scan0;
+			int stride = pixelData.size() / Height;
+			const char* source = (const char *)pixelData.data();
+			for(int i=0; i < Height; i++)
+			{
+				MagickCore::CopyMagickMemory(destination.ToPointer(), source, stride);
+				source += stride;
+				destination = IntPtr(destination.ToInt64() + data->Stride);
+			}
+			bitmap->UnlockBits(data);
+			return bitmap;
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+			return nullptr;
+		}
 	}
 	//==============================================================================================
 	Bitmap^ MagickImage::ToBitmap(ImageFormat^ imageFormat)
@@ -5167,103 +5203,50 @@ namespace ImageMagick
 	//==============================================================================================
 	BitmapSource^ MagickImage::ToBitmapSource()
 	{
+		std::string map = "RGB";
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
+		StorageType type = StorageType::Char;
 		MediaPixelFormat format = MediaPixelFormats::Rgb24;
 		if (HasAlpha)
+		{
+			map = "BGRA";
 			format = MediaPixelFormats::Bgra32;
+		}
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
+		StorageType type = StorageType::Short;
 		MediaPixelFormat format = MediaPixelFormats::Rgb48;
 		if (HasAlpha)
+		{
+			map = "RGBA";
 			format = MediaPixelFormats::Rgba64;
+		}
 #else
 #error Not implemented!
 #endif
 
 		if (ColorSpace == ImageMagick::ColorSpace::CMYK)
+		{
+			type = StorageType::Char;
+			map = "CMYK";
 			format = MediaPixelFormats::Cmyk32;
+		}
 
 		int step = (format.BitsPerPixel / 8);
 		int stride = Width * step;
-		array<Byte>^ pixelData = gcnew array<Byte>(stride * Height);
 
-		Magick::Pixels* view = new Magick::Pixels(*Value);
 		try
 		{
-			for (int y = 0; y < Height; y++)
-			{
-				int yIndex = y * stride;
-				const Magick::PixelPacket* pixels = view->getConst(0, y, Width, 1);
-				const Magick::IndexPacket* indexes = view->indexes();
+			Magick::PixelData pixelData(*Value, map, (MagickCore::StorageType)type);
+			if (pixelData.length() == 0)
+				return nullptr;
 
-				for (int x = 0; x < Width; x++)
-				{
-					int xIndex = yIndex + (x * step);
-
-					if (format == MediaPixelFormats::Cmyk32)
-					{
-						pixelData[xIndex] = MagickCore::ScaleQuantumToChar(pixels[x].red);
-						pixelData[xIndex + 1] = MagickCore::ScaleQuantumToChar(pixels[x].green);
-						pixelData[xIndex + 2] = MagickCore::ScaleQuantumToChar(pixels[x].blue);
-						pixelData[xIndex + 3] = MagickCore::ScaleQuantumToChar(indexes[x]);
-					}
-					else
-					{
-#if (MAGICKCORE_QUANTUM_DEPTH == 8)
-						if (format == MediaPixelFormats::Bgra32)
-						{
-							pixelData[xIndex] = pixels[x].blue;
-							pixelData[xIndex + 1] = pixels[x].green;
-							pixelData[xIndex + 2] = pixels[x].red;
-							pixelData[xIndex + 3] = (Quantum::Max - pixels[x].opacity);
-						}
-						else
-						{
-							pixelData[xIndex] = pixels[x].red;
-							pixelData[xIndex + 1] = pixels[x].green;
-							pixelData[xIndex + 2] = pixels[x].blue;
-							if (step == 4)
-								pixelData[xIndex + 3] = (Quantum::Max - pixels[x].opacity);
-						}
-#elif (MAGICKCORE_QUANTUM_DEPTH == 16 && !defined(MAGICKCORE_HDRI_SUPPORT))
-						pixelData[xIndex] = (Byte)(pixels[x].red);
-						pixelData[xIndex + 1] = (Byte)(pixels[x].red >> 8);
-						pixelData[xIndex + 2] = (Byte)(pixels[x].green);
-						pixelData[xIndex + 3] = (Byte)(pixels[x].green >> 8);
-						pixelData[xIndex + 4] = (Byte)(pixels[x].blue);
-						pixelData[xIndex + 5] = (Byte)(pixels[x].blue >> 8);
-						if (format == MediaPixelFormats::Rgba64)
-						{
-							unsigned short alpha = (Quantum::Max - pixels[x].opacity);
-							pixelData[xIndex + 6] = (Byte)(alpha >> 8);
-							pixelData[xIndex + 7] = (Byte)(alpha);
-						}
-#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-						pixelData[xIndex] = (Byte)((unsigned short) pixels[x].red);
-						pixelData[xIndex + 1] = (Byte)((unsigned short) pixels[x].red >> 8);
-						pixelData[xIndex + 2] = (Byte)((unsigned short) pixels[x].green);
-						pixelData[xIndex + 3] = (Byte)((unsigned short) pixels[x].green >> 8);
-						pixelData[xIndex + 4] = (Byte)((unsigned short) pixels[x].blue);
-						pixelData[xIndex + 5] = (Byte)((unsigned short) pixels[x].blue >> 8);
-						if (format == MediaPixelFormats::Rgba64)
-						{
-							unsigned short alpha = (unsigned short)(Quantum::Max - pixels[x].opacity);
-							pixelData[xIndex + 6] = (Byte)(alpha >> 8);
-							pixelData[xIndex + 7] = (Byte)(alpha);
-						}
-#else
-#error Not implemented!
-#endif
-					}
-				}
-			}
+			return BitmapSource::Create(Width, Height, 96, 96, format, nullptr, IntPtr((void *) pixelData.data()), stride * Height, stride);
 		}
-		finally
+		catch(Magick::Exception& exception)
 		{
-			if (view != NULL)
-				delete view;
+			HandleException(exception);
+			return nullptr;
 		}
-
-		return BitmapSource::Create(Width, Height, 96, 96, format, nullptr, pixelData, stride);
 	}
 	//==============================================================================================
 #endif
