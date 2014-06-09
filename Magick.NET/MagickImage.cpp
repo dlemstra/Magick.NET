@@ -5204,7 +5204,6 @@ namespace ImageMagick
 	BitmapSource^ MagickImage::ToBitmapSource()
 	{
 		std::string map = "RGB";
-#if (MAGICKCORE_QUANTUM_DEPTH == 8)
 		StorageType type = StorageType::Char;
 		MediaPixelFormat format = MediaPixelFormats::Rgb24;
 		if (HasAlpha)
@@ -5212,21 +5211,9 @@ namespace ImageMagick
 			map = "BGRA";
 			format = MediaPixelFormats::Bgra32;
 		}
-#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		StorageType type = StorageType::Short;
-		MediaPixelFormat format = MediaPixelFormats::Rgb48;
-		if (HasAlpha)
-		{
-			map = "RGBA";
-			format = MediaPixelFormats::Rgba64;
-		}
-#else
-#error Not implemented!
-#endif
 
 		if (ColorSpace == ImageMagick::ColorSpace::CMYK)
 		{
-			type = StorageType::Char;
 			map = "CMYK";
 			format = MediaPixelFormats::Cmyk32;
 		}
