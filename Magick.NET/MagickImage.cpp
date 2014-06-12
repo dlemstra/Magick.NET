@@ -2098,7 +2098,7 @@ namespace ImageMagick
 		Throw::IfNull("image", image);
 
 		if (!String::IsNullOrEmpty(args))
-			SetArtifact("compose:args", args);
+			image->SetArtifact("compose:args", args);
 
 		try
 		{
@@ -2128,7 +2128,7 @@ namespace ImageMagick
 		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
 
 		if (!String::IsNullOrEmpty(args))
-			SetArtifact("compose:args", args);
+			image->SetArtifact("compose:args", args);
 
 		try
 		{
@@ -2159,7 +2159,7 @@ namespace ImageMagick
 		Throw::IfNull("image", image);
 
 		if (!String::IsNullOrEmpty(args))
-			SetArtifact("compose:args", args);
+			image->SetArtifact("compose:args", args);
 
 		try
 		{

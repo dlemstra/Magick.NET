@@ -34,6 +34,11 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private const string _Category = "MagickImage";
 		//===========================================================================================
+		private static void ShouldNotRaiseWarning(object sender, WarningEventArgs arguments)
+		{
+			Assert.Fail(arguments.Message);
+		}
+		//===========================================================================================
 		private static void Test_Clone(MagickImage first, MagickImage second)
 		{
 			Assert.AreEqual(first, second);
@@ -236,6 +241,19 @@ namespace Magick.NET.Tests
 			Assert.AreNotEqual(0, distortion);
 			Assert.AreNotEqual(first, difference);
 			Assert.AreNotEqual(second, difference);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Composite()
+		{
+			using (MagickImage image = new MagickImage("logo:"))
+			{
+				using (MagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+				{
+					image.Warning += ShouldNotRaiseWarning;
+					image.Composite(blur, Gravity.Center, CompositeOperator.Blur, "3");
+				}
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
