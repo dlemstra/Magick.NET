@@ -442,6 +442,10 @@ namespace Magick.NET.Tests
 
 			first.Dispose();
 			second.Dispose();
+
+			first = null;
+			Assert.IsTrue(first == null);
+			Assert.IsFalse(first != null);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

@@ -364,7 +364,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteEquals(IndentedTextWriter writer, MethodInfo method, string suffix)
 		{
-			WriteReferenceEquals(writer, "", method.GetParameters());
+			WriteReferenceEquals(writer, suffix, method.GetParameters());
 			writer.Write("return ");
 			writer.Write(suffix);
 			writer.Write("Object.Equals(");
