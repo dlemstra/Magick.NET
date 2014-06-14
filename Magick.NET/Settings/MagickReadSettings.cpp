@@ -70,8 +70,8 @@ namespace ImageMagick
 			return;
 
 		std::string name;
-		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, Format.Value), name);
-		MagickCore::CopyMagickString(imageInfo->magick, name.c_str(), MaxTextExtent - 1);
+		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, Format.Value) + ":", name);
+		MagickCore::CopyMagickString(imageInfo->filename, name.c_str(), MaxTextExtent - 1);
 	}
 	//==============================================================================================
 	void MagickReadSettings::ApplyFrame(MagickCore::ImageInfo *imageInfo)
