@@ -26,9 +26,6 @@ namespace RootNamespace.Samples.MagickNET
 
 		public static void MagickNET_Log(object sender, LogEventArgs arguments)
 		{
-			if (arguments.EventType == LogEvents.Resource) // This is an example.
-				return;
-
 			WriteLogMessage(arguments.Message);
 		}
 
