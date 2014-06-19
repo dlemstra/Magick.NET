@@ -364,6 +364,7 @@
 					<xs:enumeration value="PoissonNoise" />
 					<xs:enumeration value="Pow" />
 					<xs:enumeration value="Right" />
+					<xs:enumeration value="RootMeanSquare" />
 					<xs:enumeration value="Set" />
 					<xs:enumeration value="Sine" />
 					<xs:enumeration value="Subtract" />
@@ -791,6 +792,7 @@
 					<xs:enumeration value="RadialGradient" />
 					<xs:enumeration value="Raf" />
 					<xs:enumeration value="Ras" />
+					<xs:enumeration value="Raw" />
 					<xs:enumeration value="Rgb" />
 					<xs:enumeration value="Rgba" />
 					<xs:enumeration value="Rgbo" />
@@ -1977,8 +1979,9 @@
 				</xs:element>
 				<xs:element name="opaque">
 					<xs:complexType>
-						<xs:attribute name="opaqueColor" use="required" type="color" />
-						<xs:attribute name="penColor" use="required" type="color" />
+						<xs:attribute name="fill" use="required" type="color" />
+						<xs:attribute name="invert" type="bool" />
+						<xs:attribute name="target" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="orderedDither">

@@ -2943,9 +2943,22 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteOpaque(XmlElement^ element, MagickImage^ image)
 	{
-		MagickColor^ opaqueColor_ = _Variables->GetValue<MagickColor^>(element, "opaqueColor");
-		MagickColor^ penColor_ = _Variables->GetValue<MagickColor^>(element, "penColor");
-		image->Opaque(opaqueColor_, penColor_);
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "fill")
+				arguments["fill"] = _Variables->GetValue<MagickColor^>(attribute);
+			else if (attribute->Name == "invert")
+				arguments["invert"] = _Variables->GetValue<bool>(attribute);
+			else if (attribute->Name == "target")
+				arguments["target"] = _Variables->GetValue<MagickColor^>(attribute);
+		}
+		if (OnlyContains(arguments, "target", "fill"))
+			image->Opaque((MagickColor^)arguments["target"], (MagickColor^)arguments["fill"]);
+		else if (OnlyContains(arguments, "target", "fill", "invert"))
+			image->Opaque((MagickColor^)arguments["target"], (MagickColor^)arguments["fill"], (bool)arguments["invert"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'opaque', allowed combinations are: [target, fill] [target, fill, invert]");
 	}
 	void MagickScript::ExecuteOrderedDither(XmlElement^ element, MagickImage^ image)
 	{
