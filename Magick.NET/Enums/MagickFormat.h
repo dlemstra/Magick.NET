@@ -192,6 +192,7 @@ namespace ImageMagick
 		RadialGradient,
 		Raf,
 		Ras,
+		Raw,
 		Rgb,
 		Rgba,
 		Rgbo,

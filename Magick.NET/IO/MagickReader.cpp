@@ -175,6 +175,7 @@ namespace ImageMagick
 		Throw::IfNullOrEmpty("bytes", bytes);
 
 		MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(NULL);
+		MagickCore::ExceptionInfo *exceptionInfo = MagickCore::AcquireExceptionInfo();
 		unsigned char* data;
 
 		try
@@ -188,19 +189,17 @@ namespace ImageMagick
 					readSettings->Apply(imageInfo);
 			}
 
-			MagickCore::ExceptionInfo exceptionInfo;
-			MagickCore::GetExceptionInfo(&exceptionInfo);
 			data = Marshaller::Marshal(bytes);
 			MagickCore::Image *images;
 
 			if (readSettings != nullptr && readSettings->Ping)
-				images = MagickCore::PingBlob(imageInfo, data, bytes->Length, &exceptionInfo);
+				images = MagickCore::PingBlob(imageInfo, data, bytes->Length, exceptionInfo);
 			else
-				images = MagickCore::BlobToImage(imageInfo, data, bytes->Length, &exceptionInfo);
+				images = MagickCore::BlobToImage(imageInfo, data, bytes->Length, exceptionInfo);
 
 			Magick::insertImages(imageList, images);
 			Magick::throwException(exceptionInfo);
-			MagickCore::DestroyExceptionInfo(&exceptionInfo);
+			MagickCore::DestroyExceptionInfo(exceptionInfo);
 
 			return nullptr;
 		}
@@ -211,6 +210,8 @@ namespace ImageMagick
 		finally
 		{
 			MagickCore::DestroyImageInfo(imageInfo);
+			if (data != NULL)
+				delete[] data;
 		}
 	}
 	//==============================================================================================
@@ -227,6 +228,7 @@ namespace ImageMagick
 		Throw::IfInvalidFileName(filePath);
 
 		MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(NULL);
+		MagickCore::ExceptionInfo *exceptionInfo = MagickCore::AcquireExceptionInfo();
 
 		try
 		{
@@ -244,16 +246,14 @@ namespace ImageMagick
 
 			MagickCore::CopyMagickString(imageInfo->filename, imageSpec.c_str(), MaxTextExtent - 1);
 
-			MagickCore::ExceptionInfo exceptionInfo;
-			MagickCore::GetExceptionInfo(&exceptionInfo);
 			MagickCore::Image* images;
 			if (readSettings != nullptr && readSettings->Ping)
-				images = MagickCore::PingImage(imageInfo, &exceptionInfo);
+				images = MagickCore::PingImage(imageInfo, exceptionInfo);
 			else
-				images = MagickCore::ReadImage(imageInfo, &exceptionInfo);
+				images = MagickCore::ReadImage(imageInfo, exceptionInfo);
 			Magick::insertImages(imageList, images);
 			Magick::throwException(exceptionInfo);
-			MagickCore::DestroyExceptionInfo(&exceptionInfo);
+			MagickCore::DestroyExceptionInfo(exceptionInfo);
 
 			return nullptr;
 		}

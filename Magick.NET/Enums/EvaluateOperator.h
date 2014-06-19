@@ -54,7 +54,8 @@ namespace ImageMagick
 		Abs = Magick::AbsEvaluateOperator,
 		Exponential = Magick::ExponentialEvaluateOperator,
 		Median = Magick::MedianEvaluateOperator,
-		Sum = Magick::SumEvaluateOperator
+		Sum = Magick::SumEvaluateOperator,
+		RootMeanSquare = Magick::RootMeanSquareEvaluateOperator
 	};
 	//==============================================================================================
 }
