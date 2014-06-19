@@ -2466,12 +2466,21 @@ namespace ImageMagick
 		void OilPaint(double radius);
 		///==========================================================================================
 		///<summary>
-		/// Changes any pixel that matches opaqueColor with the color defined by penColor.
+		/// Changes any pixel that matches target with the color defined by fill.
 		///</summary>
-		///<param name="opaqueColor">The color to replace.</param>
-		///<param name="penColor">The color to replace opaque color with.</param>
+		///<param name="target">The color to replace.</param>
+		///<param name="fill">The color to replace opaque color with.</param>
 		///<exception cref="MagickException"/>
-		void Opaque(MagickColor^ opaqueColor, MagickColor^ penColor);
+		void Opaque(MagickColor^ target, MagickColor^ fill);
+		///==========================================================================================
+		///<summary>
+		/// Changes any pixel that matches target with the color defined by fill.
+		///</summary>
+		///<param name="target">The color to replace.</param>
+		///<param name="fill">The color to replace opaque color with.</param>
+		///<param name="invert">If true is specified all colors that do not match target are replaced with fill</param>
+		///<exception cref="MagickException"/>
+		void Opaque(MagickColor^ target, MagickColor^ fill, bool invert);
 		///==========================================================================================
 		///<summary>
 		/// Perform a ordered dither based on a number of pre-defined dithering threshold maps, but over

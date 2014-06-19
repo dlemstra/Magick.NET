@@ -3729,17 +3729,22 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Opaque(MagickColor^ opaqueColor, MagickColor^ penColor)
+	void MagickImage::Opaque(MagickColor^ target, MagickColor^ fill)
 	{
-		Throw::IfNull("opaqueColor", opaqueColor);
-		Throw::IfNull("penColor", penColor);
+		Opaque(target, fill, false);
+	}
+	//==============================================================================================
+	void MagickImage::Opaque(MagickColor^ target, MagickColor^ fill, bool invert)
+	{
+		Throw::IfNull("target", target);
+		Throw::IfNull("fill", fill);
 
-		const Magick::Color* opaque = opaqueColor->CreateColor();
-		const Magick::Color* pen = penColor->CreateColor();
+		const Magick::Color* opaque = target->CreateColor();
+		const Magick::Color* pen = fill->CreateColor();
 
 		try
 		{
-			Value->opaque(*opaque, *pen);
+			Value->opaque(*opaque, *pen, invert);
 		}
 		catch(Magick::Exception& exception)
 		{

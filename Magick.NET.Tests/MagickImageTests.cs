@@ -49,6 +49,14 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(first.Format, MagickFormat.Png);
 		}
 		//===========================================================================================
+		private static void Test_Pixel(MagickImage image, int x, int y, MagickColor color)
+		{
+			using (PixelCollection collection = image.GetReadOnlyPixels())
+			{
+				ColorAssert.AreEqual(color, collection.GetPixel(x, y).ToColor());
+			}
+		}
+		//===========================================================================================
 		private static void Test_ToBitmap(MagickImage image, ImageFormat format)
 		{
 			using (Bitmap bmp = image.ToBitmap(format))
@@ -272,10 +280,7 @@ namespace Magick.NET.Tests
 			{
 				MagickColor yellow = Color.Yellow;
 				image.Draw(new DrawableFillColor(yellow), new DrawableRectangle(0, 0, 10, 10));
-				using (PixelCollection collection = image.GetReadOnlyPixels())
-				{
-					ColorAssert.AreEqual(yellow, collection.GetPixel(5, 5).ToColor());
-				}
+				Test_Pixel(image, 5, 5, yellow);
 			}
 		}
 		//===========================================================================================
@@ -498,6 +503,24 @@ namespace Magick.NET.Tests
 				{
 					first.HuInvariants(9);
 				});
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Opaque()
+		{
+			using (MagickImage image = new MagickImage(Color.Red, 10, 10))
+			{
+				Test_Pixel(image, 0, 0, Color.Red);
+
+				image.Opaque(Color.Red, Color.Yellow);
+				Test_Pixel(image, 0, 0, Color.Yellow);
+
+				image.Opaque(Color.Yellow, Color.Red, true);
+				Test_Pixel(image, 0, 0, Color.Yellow);
+
+				image.Opaque(Color.Red, Color.Red, true);
+				Test_Pixel(image, 0, 0, Color.Red);
 			}
 		}
 		//===========================================================================================
@@ -827,17 +850,9 @@ namespace Magick.NET.Tests
 				BitmapSource bitmap = image.ToBitmapSource();
 				bitmap.CopyPixels(pixels, 60, 0);
 
-#if Q8
 				Assert.AreEqual(255, pixels[0]);
 				Assert.AreEqual(0, pixels[1]);
 				Assert.AreEqual(0, pixels[2]);
-#elif Q16 || Q16HDRI
-				Assert.AreEqual(65535, BitConverter.ToUInt16(pixels, 0));
-				Assert.AreEqual(0, BitConverter.ToUInt16(pixels, 2));
-				Assert.AreEqual(0, BitConverter.ToUInt16(pixels, 4));
-#else
-#error Not implemented!
-#endif
 
 				image.ColorSpace = ColorSpace.CMYK;
 
@@ -855,17 +870,9 @@ namespace Magick.NET.Tests
 				bitmap = image.ToBitmapSource();
 				bitmap.CopyPixels(pixels, 60, 0);
 
-#if Q8
 				Assert.AreEqual(237, pixels[0]);
 				Assert.AreEqual(28, pixels[1]);
 				Assert.AreEqual(36, pixels[2]);
-#elif Q16 || Q16HDRI
-				Assert.AreEqual(60976, BitConverter.ToUInt16(pixels, 0));
-				Assert.AreEqual(7291, BitConverter.ToUInt16(pixels, 2));
-				Assert.AreEqual(9289, BitConverter.ToUInt16(pixels, 4));
-#else
-#error Not implemented!
-#endif
 			}
 		}
 #endif
