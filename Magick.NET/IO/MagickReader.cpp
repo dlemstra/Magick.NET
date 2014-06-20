@@ -176,7 +176,7 @@ namespace ImageMagick
 
 		MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(NULL);
 		MagickCore::ExceptionInfo *exceptionInfo = MagickCore::AcquireExceptionInfo();
-		unsigned char* data;
+		unsigned char* data = NULL;
 
 		try
 		{
