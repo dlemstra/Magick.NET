@@ -10,8 +10,8 @@ function CreateNet20ProjectFiles()
 	$path = FullPath "Magick.NET\Magick.NET.vcxproj"
 	$xml = [xml](get-content $path)
 	
-	SelectNodes $xml "//msb:ClCompile[@Include]" | Foreach {$_.SetAttribute("Include", "..\Magick.NET\" + $_.GetAttribute("Include"))}
 	SelectNodes $xml "//msb:ClCompile[@Include='GlobalSuppressions.cpp']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
+	SelectNodes $xml "//msb:ClCompile[@Include]" | Foreach {$_.SetAttribute("Include", "..\Magick.NET\" + $_.GetAttribute("Include"))}
 	SelectNodes $xml "//msb:ClInclude[@Include]" | Foreach {$_.SetAttribute("Include", "..\Magick.NET\" + $_.GetAttribute("Include"))}
 	SelectNodes $xml "//msb:CodeAnalysisRuleSet" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
 	SelectNodes $xml "//msb:EmbedManagedResourceFile" | Foreach {$_.InnerText = $_.InnerText.Replace("Resources\", "..\Magick.NET\Resources\")}
@@ -35,6 +35,7 @@ function CreateNet20ProjectFiles()
 	SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "NET20;" + $_.InnerText}
 	SelectNodes $xml "//msb:OutputPath" | Foreach {$_.InnerText = $_.InnerText.Replace("Magick.NET", "Magick.NET.net20")}
 	SelectNodes $xml "//msb:ProjectReference[@Include = '..\Magick.NET\Magick.NET.vcxproj']" | Foreach {$_.SetAttribute("Include", "..\Magick.NET.net20\Magick.NET.net20.vcxproj")}
+	SelectNodes $xml "//msb:Reference[@Include='PresentationCore' or @Include='WindowsBase']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
 	
 	$net20csproj = FullPath "Magick.NET.Tests\Magick.NET.Tests.net20.csproj"
 	Write-Host "Creating file: $net20csproj"
