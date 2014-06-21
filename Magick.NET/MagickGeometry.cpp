@@ -58,6 +58,11 @@ namespace ImageMagick
 		return result;
 	}
 	//==============================================================================================
+	MagickGeometry::MagickGeometry(int widthAndHeight)
+	{
+		Initialize(0, 0, widthAndHeight, widthAndHeight, false);
+	}
+	//==============================================================================================
 	MagickGeometry::MagickGeometry(int width, int height)
 	{
 		Initialize(0, 0, width, height, false);

@@ -44,6 +44,13 @@ namespace ImageMagick
 		/// Initializes a new instance of the MagickGeometry class using the specified width and
 		/// height.
 		///</summary>
+		///<param name="widthAndHeight">The width and height.</param>
+		MagickGeometry(int widthAndHeight);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickGeometry class using the specified width and
+		/// height.
+		///</summary>
 		///<param name="width">The width.</param>
 		///<param name="height">The height.</param>
 		MagickGeometry(int width, int height);
