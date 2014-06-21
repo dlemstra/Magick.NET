@@ -31,19 +31,24 @@ namespace RootNamespace.Samples.MagickNET
 
 		public static void Resize()
 		{
+			// Load resize script and execute it
 			MagickScript script = new MagickScript(SampleFiles.ResizeMsl);
 			script.Execute();
 		}
 
 		public static void ReuseSameScript()
 		{
+			// Load wave script
 			MagickScript script = new MagickScript(SampleFiles.WaveMsl);
 
+			// Execute script multiple times
 			string[] files = new string[] { SampleFiles.FujiFilmFinePixS1ProJpg, SampleFiles.SnakewareJpg };
 			foreach (string fileName in files)
 			{
+				// Read image from file
 				using (MagickImage image = new MagickImage(fileName))
 				{
+					// Execute script with the image and write it to a jpg file
 					script.Execute(image);
 					image.Write(SampleFiles.OutputDirectory + fileName + ".wave.jpg");
 				}
@@ -52,14 +57,19 @@ namespace RootNamespace.Samples.MagickNET
 
 		public static void ReadWriteEvents()
 		{
+			// Load crop script
 			MagickScript script = new MagickScript(SampleFiles.CropMsl);
+			// Event that will be raised when the script wants to read a file
 			script.Read += OnScriptRead;
+			// Event that will be raised when the script wants to write a file
 			script.Write += OnScriptWrite;
+			// Execute the script
 			script.Execute();
 		}
 
 		public static void WriteMultipleOutputFiles()
 		{
+			// Load clone script and execute it
 			MagickScript script = new MagickScript(SampleFiles.CloneMsl);
 			script.Execute();
 		}

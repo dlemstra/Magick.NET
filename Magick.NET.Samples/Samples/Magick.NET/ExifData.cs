@@ -21,24 +21,40 @@ namespace RootNamespace.Samples.MagickNET
 	{
 		public static void ReadExifData()
 		{
+			// Read image from file
 			using (MagickImage image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg))
 			{
+				// Retrieve the exif information
 				ExifProfile profile = image.GetExifProfile();
-				foreach (ExifValue value in profile.Values)
+
+				// Check if image contains an exif profile
+				if (profile == null)
+					Console.WriteLine("Image does not contain exif information.");
+				else
 				{
-					Console.WriteLine("{0}({1}): {2}", value.Tag, value.DataType, value.ToString());
+					// Write all values to the console
+					foreach (ExifValue value in profile.Values)
+					{
+						Console.WriteLine("{0}({1}): {2}", value.Tag, value.DataType, value.ToString());
+					}
 				}
 			}
 		}
 
 		public static void CreateThumbnailFromExifData()
 		{
+			// Read image from file
 			using (MagickImage image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg))
 			{
+				// Retrieve the exif information
 				ExifProfile profile = image.GetExifProfile();
+
+				// Create thumbnail from exif information
 				using (MagickImage thumbnail = profile.CreateThumbnail())
 				{
-					thumbnail.Write(SampleFiles.OutputDirectory + "FujiFilmFinePixS1Pro.thumb.jpg");
+					// Check if exif profile contains thumbnail and save it
+					if (thumbnail != null)
+						thumbnail.Write(SampleFiles.OutputDirectory + "FujiFilmFinePixS1Pro.thumb.jpg");
 				}
 			}
 		}

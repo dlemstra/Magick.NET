@@ -28,15 +28,18 @@ namespace RootNamespace.Samples.MagickNET
 		public static void ConvertPDFToMultipleImages()
 		{
 			MagickReadSettings settings = new MagickReadSettings();
+			// Settings the density to 300 dpi will create an image with a better quality
 			settings.Density = new MagickGeometry(300, 300);
 
 			using (MagickImageCollection images = new MagickImageCollection())
 			{
+				// Add all the pages of the pdf file to the collection
 				images.Read(SampleFiles.SnakewarePdf, settings);
 
 				int page = 1;
 				foreach (MagickImage image in images)
 				{
+					// Write page to file that contains the page number
 					image.Write(SampleFiles.OutputDirectory + "Snakeware.Page" + page + ".png");
 					// Writing to a specific format works the same as for a single image
 					image.Format = MagickFormat.Ptif;
@@ -49,17 +52,27 @@ namespace RootNamespace.Samples.MagickNET
 		public static void ConvertPDFTOneImage()
 		{
 			MagickReadSettings settings = new MagickReadSettings();
+			// Settings the density to 300 dpi will create an image with a better quality
 			settings.Density = new MagickGeometry(300, 300);
 
 			using (MagickImageCollection images = new MagickImageCollection())
 			{
+				// Add all the pages of the pdf file to the collection
 				images.Read(SampleFiles.SnakewarePdf, settings);
 
-				MagickImage horizontal = images.AppendHorizontally();
-				horizontal.Write(SampleFiles.OutputDirectory + "Snakeware.horizontal.png");
+				// Create new image that appends all the pages horizontally
+				using (MagickImage horizontal = images.AppendHorizontally())
+				{
+					// Save result as a png
+					horizontal.Write(SampleFiles.OutputDirectory + "Snakeware.horizontal.png");
+				}
 
-				MagickImage vertical = images.AppendVertically();
-				vertical.Write(SampleFiles.OutputDirectory + "Snakeware.vertical.png");
+				// Create new image that appends all the pages horizontally
+				using (MagickImage vertical = images.AppendVertically())
+				{
+					// Save result as a png
+					vertical.Write(SampleFiles.OutputDirectory + "Snakeware.vertical.png");
+				}
 			}
 		}
 
@@ -67,17 +80,22 @@ namespace RootNamespace.Samples.MagickNET
 		{
 			using (MagickImageCollection collection = new MagickImageCollection())
 			{
+				// Add first page
 				collection.Add(new MagickImage(SampleFiles.SnakewareJpg));
+				// Add second page
 				collection.Add(new MagickImage(SampleFiles.SnakewareJpg));
 
+				// Create pdf file with two pages
 				collection.Write(SampleFiles.OutputDirectory + "Snakeware.pdf");
 			}
 		}
 
 		public static void CreatePDFFromSingleImage()
 		{
+			// Read image from file
 			using (MagickImage image = new MagickImage(SampleFiles.SnakewareJpg))
 			{
+				// Create pdf file with a single page
 				image.Write(SampleFiles.OutputDirectory + "Snakeware.pdf");
 			}
 		}
@@ -90,7 +108,16 @@ namespace RootNamespace.Samples.MagickNET
 				settings.FrameIndex = 0; // First page
 				settings.FrameCount = 1; // Number of pages
 
-				collection.Read(SampleFiles.OutputDirectory + "Snakeware.pdf", settings);
+				// Read only the first page of the pdf file
+				collection.Read(SampleFiles.SnakewarePdf, settings);
+
+				// Clear the collection
+				collection.Clear();
+
+				settings.FrameCount = 2; // Number of pages
+
+				// Read the first two pages of the pdf file
+				collection.Read(SampleFiles.SnakewarePdf, settings);
 			}
 		}
 	}

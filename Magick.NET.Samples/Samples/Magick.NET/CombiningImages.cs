@@ -22,14 +22,18 @@ namespace RootNamespace.Samples.MagickNET
 		{
 			using (MagickImageCollection images = new MagickImageCollection())
 			{
+				// Add the first image
 				MagickImage first = new MagickImage(SampleFiles.SnakewarePng);
 				images.Add(first);
 
+				// Add the second image
 				MagickImage second = new MagickImage(SampleFiles.SnakewarePng);
 				images.Add(second);
 
+				// Create a mosaic from both images
 				using (MagickImage result = images.Mosaic())
 				{
+					// Save the result
 					result.Write(SampleFiles.OutputDirectory + "Mosaic.png");
 				}
 			}
@@ -39,10 +43,12 @@ namespace RootNamespace.Samples.MagickNET
 		{
 			using (MagickImageCollection collection = new MagickImageCollection())
 			{
-				collection.Add("Snakeware.png");
+				// Add first image and set the animation delay to 100ms
+				collection.Add(SampleFiles.SnakewarePng);
 				collection[0].AnimationDelay = 100;
 
-				collection.Add("Snakeware.png");
+				// Add second image, set the animation delay to 100ms and flip the image
+				collection.Add(SampleFiles.SnakewarePng);
 				collection[1].AnimationDelay = 100;
 				collection[1].Flip();
 
@@ -51,8 +57,10 @@ namespace RootNamespace.Samples.MagickNET
 				settings.Colors = 256;
 				collection.Quantize(settings);
 
+				// Optionally optimize the images (images should have the same size).
 				collection.Optimize();
 
+				// Save gif
 				collection.Write(SampleFiles.OutputDirectory + "Snakeware.Animated.gif");
 			}
 		}

@@ -162,10 +162,10 @@ function CreateNuGetPackages($builds)
 
 		$path = FullPath "Publish\NuGet\Magick.NET.nuspec"
 		$xml = [xml](Get-Content $path)
-
+		
 		$id = "Magick.NET-$($build.Quantum)-$($build.PlatformName)"
 		$xml.package.metadata.releaseNotes = "Magick.NET linked with ImageMagick " + $imVersion
-
+		
 		if ($hasNet20 -eq $true)
 		{
 			AddFileElement $xml "..\..\Magick.NET.net20\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.PlatformName).dll" "lib\net20"
@@ -173,9 +173,9 @@ function CreateNuGetPackages($builds)
 		}
 		AddFileElement $xml "..\..\$($build.Name)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.PlatformName).dll" "lib\net40-client"
 		AddFileElement $xml "..\..\$($build.Name)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.PlatformName).xml" "lib\net40-client"
-
+		
 		AddFileElement $xml ("Readme.txt") "Readme.txt"
-
+		
 		CreateNuGetPackage $id $xml
 
 		if ($build.Quantum -ne "Q16")
@@ -191,12 +191,15 @@ function CreateNuGetPackages($builds)
 		
 		$id = "Magick.NET-$($build.Quantum)-$($build.PlatformName).Sample"
 		$samples = FullPath "Magick.NET.Samples\Samples\Magick.NET"
-		$files = Get-ChildItem -File -Path $samples\* -Exclude *.cs,*.msl -Recurse
+		$files = Get-ChildItem -File -Path $samples\* -Exclude *.cs,*.msl,*.vb -Recurse
 		$offset = $files[0].FullName.LastIndexOf("\Magick.NET.Samples\") + 20
 		foreach($file in $files)
 		{
 			AddFileElement $xml $file "Content\$($file.FullName.SubString($offset))"
 		}
+
+		$file = FullPath "Publish\NuGet\Sample.Install.ps1"
+		AddFileElement $xml $file "Tools\Install.ps1"
 
 		CreateNuGetPackage $id $xml
 	}
@@ -205,11 +208,18 @@ function CreateNuGetPackages($builds)
 function CreatePreProcessedFiles()
 {
 	$samples = FullPath "Magick.NET.Samples\Samples\Magick.NET"
-	$files = Get-ChildItem -Path $samples\* -Include *.cs,*.msl -Recurse
+	$files = Get-ChildItem -Path $samples\* -Include *.cs,*.msl,*.vb -Recurse
 	foreach($file in $files)
 	{
 		$content = Get-Content $file
-		$content = $content.Replace("namespace RootNamespace.","namespace `$rootnamespace`$.")
+		if ($file.FullName.EndsWith(".cs"))
+		{
+			$content = $content.Replace("namespace RootNamespace.","namespace `$rootnamespace`$.")
+		}
+		if ($file.FullName.EndsWith(".vb"))
+		{
+			$content = $content.Replace("Namespace RootNamespace.","Namespace `$rootnamespace`$.")
+		}
 		Set-Content "$file.pp" $content
 	}
 }

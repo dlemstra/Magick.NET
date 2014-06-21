@@ -35,7 +35,7 @@
     <Compile Include="Samples\Magick.NET\DetailedDebugInformation.cs" />
     <Compile Include="Samples\Magick.NET\ExceptionHandling.cs" />
     <Compile Include="Samples\Magick.NET\ExifData.cs" />
-    <Compile Include="Samples\Magick.NET\Files.cs" />
+    <Compile Include="Samples\Magick.NET\Files\Files.cs" />
     <Compile Include="Samples\Magick.NET\MagickScript.cs" />
     <Compile Include="Samples\Magick.NET\ReadImage.cs" />
     <Compile Include="Samples\Magick.NET\ReadRawImageFromCamera.cs" />
@@ -49,7 +49,19 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Samples\Magick.NET\CombiningImages.vb" />
+    <Content Include="Samples\Magick.NET\CommandLineOptionDefine.vb" />
+    <Content Include="Samples\Magick.NET\ConvertImage.vb" />
+    <Content Include="Samples\Magick.NET\ConvertPDF.vb" />
+    <Content Include="Samples\Magick.NET\UsingColors.vb" />
+    <Content Include="Samples\Magick.NET\ReadRawImageFromCamera.vb" />
+    <Content Include="Samples\Magick.NET\ReadImage.vb" />
+    <Content Include="Samples\Magick.NET\MagickScript.vb" />
+    <Content Include="Samples\Magick.NET\ExceptionHandling.vb" />
+    <Content Include="Samples\Magick.NET\DetailedDebugInformation.vb" />
+    <Content Include="Samples\Magick.NET\ExifData.vb" />
     <Content Include="Samples\Magick.NET\Files\CorruptImage.jpg" />
+    <Content Include="Samples\Magick.NET\Files\Files.vb" />
     <Content Include="Samples\Magick.NET\Files\FileWithWarning.jpg" />
     <Content Include="Samples\Magick.NET\Files\FujiFilmFinePixS1Pro.jpg" />
     <Content Include="Samples\Magick.NET\Files\InvalidFile.jpg" />

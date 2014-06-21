@@ -26,17 +26,21 @@ namespace RootNamespace.Samples.MagickNET
 
 		public static void MagickNET_Log(object sender, LogEventArgs arguments)
 		{
+			// Write log message
 			WriteLogMessage(arguments.Message);
 		}
 
 		public static void ReadImage()
 		{
+			// Log all events
 			ImageMagick.MagickNET.SetLogEvents(LogEvents.All);
+			// Set the log handler (all threads use the same handler)
 			ImageMagick.MagickNET.Log += MagickNET_Log;
 
 			using (MagickImage image = new MagickImage())
 			{
-				image.Read("Snakeware.png");
+				// Reading the image will send all log events to the log handler
+				image.Read(SampleFiles.SnakewarePng);
 			}
 		}
 	}
