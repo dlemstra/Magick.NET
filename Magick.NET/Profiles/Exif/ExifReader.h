@@ -31,10 +31,10 @@ namespace ImageMagick
 			delegate TDataType ConverterMethod(array<Byte>^ data);
 		//===========================================================================================
 		array<Byte>^ _Data;
-		int _Index;
+		unsigned int _Index;
 		bool _IsLittleEndian;
 		unsigned int _GPSIFDoffset;
-		int _StartIndex;
+		unsigned int _StartIndex;
 		unsigned int _SubIFDoffset;
 		unsigned int _ThumbnailLength;
 		unsigned int _ThumbnailOffset;
@@ -45,11 +45,11 @@ namespace ImageMagick
 		//===========================================================================================
 		ExifValue^ CreateValue();
 		//===========================================================================================
-		array<Byte>^ GetBytes(int length);
+		array<Byte>^ GetBytes(unsigned int length);
 		//===========================================================================================
-		static int GetSize(ExifDataType dataType);
+		static unsigned int GetSize(ExifDataType dataType);
 		//===========================================================================================
-		String^ GetString(int length);
+		String^ GetString(unsigned int length);
 		//===========================================================================================
 		void GetThumbnail();
 		//===========================================================================================
@@ -59,7 +59,7 @@ namespace ImageMagick
 		//===========================================================================================
 		generic<typename TDataType>
 		where TDataType : value class
-			static array<TDataType>^ ToArray(ExifDataType dataType, array<Byte>^ data, 
+			static array<TDataType>^ ToArray(ExifDataType dataType, array<Byte>^ data,
 			ConverterMethod<TDataType>^ converter);
 		//===========================================================================================
 		static Byte ToByte(array<Byte>^ data);

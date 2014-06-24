@@ -4847,7 +4847,7 @@ namespace ImageMagick
 			Bitmap^ bitmap = gcnew Bitmap(Width, Height, format);
 			BitmapData^ data = bitmap->LockBits(Rectangle(0, 0, Width, Height), ImageLockMode::ReadWrite, format);
 			IntPtr destination = data->Scan0;
-			int stride = pixelData.size() / Height;
+			size_t stride = pixelData.size() / Height;
 			const char* source = (const char *)pixelData.data();
 			for(int i=0; i < Height; i++)
 			{

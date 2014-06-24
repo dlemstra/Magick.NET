@@ -32,9 +32,15 @@ namespace ImageMagick
 				continue;
 
 			if (value->Tag == ExifTag::SubIFDOffset)
-				_SubIFDoffset = (unsigned int)value->Value;
+			{
+				if (value->DataType == ExifDataType::Long)
+					_SubIFDoffset = (unsigned int)value->Value;
+			}
 			else if (value->Tag == ExifTag::GPSIFDOffset)
-				_GPSIFDoffset =  (unsigned int)value->Value;
+			{
+				if (value->DataType == ExifDataType::Long)
+					_GPSIFDoffset =  (unsigned int)value->Value;
+			}
 			else
 				values->Add(value);
 		}
@@ -141,9 +147,9 @@ namespace ImageMagick
 		return gcnew ExifValue(tag, dataType, value, isArray);
 	}
 	//==============================================================================================
-	array<Byte>^ ExifReader::GetBytes(int length)
+	array<Byte>^ ExifReader::GetBytes(unsigned int length)
 	{
-		if (_Index + length >= _Data->Length)
+		if (_Index + length >= (unsigned int)_Data->Length)
 			return nullptr;
 
 		array<Byte>^ data = gcnew array<Byte>(length);
@@ -153,7 +159,7 @@ namespace ImageMagick
 		return data;
 	}
 	//==============================================================================================
-	int ExifReader::GetSize(ExifDataType dataType)
+	unsigned int ExifReader::GetSize(ExifDataType dataType)
 	{
 		switch (dataType)
 		{
@@ -178,7 +184,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	String^ ExifReader::GetString(int length)
+	String^ ExifReader::GetString(unsigned int length)
 	{
 		return ToString(GetBytes(length));
 	}
@@ -192,9 +198,9 @@ namespace ImageMagick
 
 		for each(ExifValue^ value in values)
 		{
-			if (value->Tag == ExifTag::JPEGInterchangeFormat)
+			if (value->Tag == ExifTag::JPEGInterchangeFormat && (value->DataType == ExifDataType::Long))
 				_ThumbnailOffset = (unsigned int)value->Value + _StartIndex;
-			else if (value->Tag == ExifTag::JPEGInterchangeFormatLength)
+			else if (value->Tag == ExifTag::JPEGInterchangeFormatLength && value->DataType == ExifDataType::Long)
 				_ThumbnailLength = (unsigned int)value->Value;
 		}
 	}
@@ -213,7 +219,7 @@ namespace ImageMagick
 	where TDataType : value class
 		array<TDataType>^ ExifReader::ToArray(ExifDataType dataType, array<Byte>^ data, ConverterMethod<TDataType>^ converter)
 	{
-		int dataTypeSize =  GetSize(dataType);
+		int dataTypeSize = GetSize(dataType);
 		int length = data->Length / dataTypeSize;
 
 		array<TDataType>^ result = gcnew array<TDataType>(length);

@@ -43,7 +43,7 @@ namespace ImageMagick
 			short count = ByteConverter::ToShort(Data, i);
 
 			array<Byte>^ data = gcnew array<Byte>(count);
-			if (count > 0)
+			if ((count > 0) && (i + count <= Data->Length))
 				Buffer::BlockCopy(Data, i, data, 0, count);
 			_Values->Add(gcnew IptcValue(tag, data));
 
