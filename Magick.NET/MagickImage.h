@@ -3281,6 +3281,12 @@ namespace ImageMagick
 		array<Byte>^ ToByteArray();
 		///==========================================================================================
 		///<summary>
+		/// Converts this instance to a byte array.
+		///</summary>
+		///<param name="format">The format to use.</param>
+		array<Byte>^ ToByteArray(MagickFormat format);
+		///==========================================================================================
+		///<summary>
 		/// Returns a string that represents the current image.
 		///</summary>
 		virtual String^ ToString() override;
@@ -3465,6 +3471,14 @@ namespace ImageMagick
 		///<param name="stream">The stream to write the image data to.</param>
 		///<exception cref="MagickException"/>
 		void Write(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Writes the image to the specified stream.
+		///</summary>
+		///<param name="stream">The stream to write the image data to.</param>
+		///<param name="format">The format to use.</param>
+		///<exception cref="MagickException"/>
+		void Write(Stream^ stream, MagickFormat format);
 		///==========================================================================================
 		///<summary>
 		/// Writes the image to the specified file name.

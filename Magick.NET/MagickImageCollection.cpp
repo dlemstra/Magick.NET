@@ -142,9 +142,14 @@ namespace ImageMagick
 		else
 			throw gcnew NotSupportedException("Unsupported image format: " + format->ToString());
 
+		SetFormat(magickFormat);
+	}
+	//==============================================================================================
+	void MagickImageCollection::SetFormat(MagickFormat format)
+	{
 		for each (MagickImage^ image in _Images)
 		{
-			image->Format = magickFormat;
+			image->Format = format;
 		}
 	}
 	//==============================================================================================
@@ -833,6 +838,12 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	array<Byte>^ MagickImageCollection::ToByteArray(MagickFormat format)
+	{
+		SetFormat(format);
+		return ToByteArray();
+	}
+	//==============================================================================================
 	Bitmap^ MagickImageCollection::ToBitmap()
 	{
 		return ToBitmap(ImageFormat::Tiff);
@@ -881,6 +892,12 @@ namespace ImageMagick
 		{
 			delete images;
 		}
+	}
+	//==============================================================================================
+	void MagickImageCollection::Write(Stream^ stream, MagickFormat format)
+	{
+		SetFormat(format);
+		Write(stream);
 	}
 	//==============================================================================================
 	void MagickImageCollection::Write(String^ fileName)

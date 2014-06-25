@@ -62,6 +62,8 @@ namespace ImageMagick
 		//===========================================================================================
 		void SetFormat(ImageFormat^ imageFormat);
 		//===========================================================================================
+		void SetFormat(MagickFormat imageFormat);
+		//===========================================================================================
 		MagickImage^ Smush(bool vertically, int offset);
 		//===========================================================================================
 	internal:
@@ -520,6 +522,12 @@ namespace ImageMagick
 		array<Byte>^ ToByteArray();
 		///==========================================================================================
 		///<summary>
+		/// Converts this instance to a byte array.
+		///</summary>
+		///<param name="format">The format to use.</param>
+		array<Byte>^ ToByteArray(MagickFormat format);
+		///==========================================================================================
+		///<summary>
 		/// Converts the images in this instance to a bitmap using ImageFormat.Tiff.
 		///</summary>
 		Bitmap^ ToBitmap();
@@ -552,6 +560,14 @@ namespace ImageMagick
 		///<param name="stream">The stream to write the images to.</param>
 		///<exception cref="MagickException"/>
 		void Write(Stream^ stream);
+		///==========================================================================================
+		///<summary>
+		/// Writes the image to the specified stream.
+		///</summary>
+		///<param name="stream">The stream to write the image data to.</param>
+		///<param name="format">The format to use.</param>
+		///<exception cref="MagickException"/>
+		void Write(Stream^ stream, MagickFormat format);
 		///==========================================================================================
 		///<summary>
 		/// Writes the images to the specified file name. If the output image's file format does not

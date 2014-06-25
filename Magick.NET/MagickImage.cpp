@@ -4883,6 +4883,12 @@ namespace ImageMagick
 		return Marshaller::Marshal(&blob);
 	}
 	//==============================================================================================
+	array<Byte>^ MagickImage::ToByteArray(MagickFormat format)
+	{
+		Format = format;
+		return ToByteArray();
+	}
+	//==============================================================================================
 	String^ MagickImage::ToString()
 	{
 		return String::Format(CultureInfo::InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}",
@@ -5157,6 +5163,12 @@ namespace ImageMagick
 	void MagickImage::Write(Stream^ stream)
 	{
 		HandleException(MagickWriter::Write(Value, stream));
+	}
+	//==============================================================================================
+	void MagickImage::Write(Stream^ stream, MagickFormat format)
+	{
+		Format=format;
+		Write(stream);
 	}
 	//==============================================================================================
 	void MagickImage::Write(String^ fileName)
