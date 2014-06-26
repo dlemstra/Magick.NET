@@ -149,7 +149,7 @@ namespace ImageMagick
 	//==============================================================================================
 	array<Byte>^ ExifReader::GetBytes(unsigned int length)
 	{
-		if (_Index + length >= (unsigned int)_Data->Length)
+		if (_Index + length > (unsigned int)_Data->Length)
 			return nullptr;
 
 		array<Byte>^ data = gcnew array<Byte>(length);
