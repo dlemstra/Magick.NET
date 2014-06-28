@@ -32,9 +32,13 @@ namespace ImageMagick
 		return _Data;
 	}
 	//==============================================================================================
+	ImageProfile::ImageProfile(String^ name)
+	{
+		_Name = name;
+	}
+	//==============================================================================================
 	void ImageProfile::Initialize(String^ name, array<Byte>^ data)
 	{
-		Throw::IfNullOrEmpty("name", name);
 		Throw::IfNullOrEmpty("data", data);
 
 		_Name = name;

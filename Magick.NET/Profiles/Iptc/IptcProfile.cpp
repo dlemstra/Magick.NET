@@ -27,7 +27,7 @@ namespace ImageMagick
 
 		_Values = gcnew List<IptcValue^>();
 
-		if (Data[0] != 0x1c)
+		if (Data == nullptr || Data[0] != 0x1c)
 			return;
 
 		int i = 0;
@@ -65,7 +65,7 @@ namespace ImageMagick
 		for each (IptcValue^ value in Values)
 		{
 			result[i++] = 28;
-			i++;
+			result[i++] = 2;
 			result[i++] = (Byte)value->Tag;
 			result[i++] = (Byte)(value->Length & 0xFF00);
 			result[i++] = (Byte)(value->Length & 0x00FF);
