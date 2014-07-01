@@ -33,9 +33,9 @@ namespace ImageMagick
 		array<Byte>^ _Data;
 		unsigned int _Index;
 		bool _IsLittleEndian;
-		unsigned int _GPSIFDoffset;
+		unsigned int _ExifOffset;
+		unsigned int _GPSOffset;
 		unsigned int _StartIndex;
-		unsigned int _SubIFDoffset;
 		unsigned int _ThumbnailLength;
 		unsigned int _ThumbnailOffset;
 		//===========================================================================================
@@ -47,11 +47,9 @@ namespace ImageMagick
 		//===========================================================================================
 		array<Byte>^ GetBytes(unsigned int length);
 		//===========================================================================================
-		static unsigned int GetSize(ExifDataType dataType);
-		//===========================================================================================
 		String^ GetString(unsigned int length);
 		//===========================================================================================
-		void GetThumbnail();
+		void ExifReader::GetThumbnail(unsigned int offset);
 		//===========================================================================================
 		unsigned short GetUInt16();
 		//===========================================================================================

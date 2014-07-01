@@ -22,7 +22,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void ExifReader::AddValues(List<ExifValue^>^ values, unsigned int index)
 	{
-		_Index =  _StartIndex + index;
+		_Index = _StartIndex + index;
 		unsigned short count = GetUInt16();
 
 		for (unsigned short i = 0; i < count; i++)
@@ -31,15 +31,28 @@ namespace ImageMagick
 			if (value == nullptr)
 				continue;
 
+			bool duplicate = false;
+			for each (ExifValue^ val in values)
+			{
+				if (val->Tag == value->Tag)
+				{
+					duplicate = true;
+					break;
+				}
+			}
+
+			if (duplicate)
+				continue;
+
 			if (value->Tag == ExifTag::SubIFDOffset)
 			{
 				if (value->DataType == ExifDataType::Long)
-					_SubIFDoffset = (unsigned int)value->Value;
+					_ExifOffset = (unsigned int)value->Value;
 			}
 			else if (value->Tag == ExifTag::GPSIFDOffset)
 			{
 				if (value->DataType == ExifDataType::Long)
-					_GPSIFDoffset =  (unsigned int)value->Value;
+					_GPSOffset =  (unsigned int)value->Value;
 			}
 			else
 				values->Add(value);
@@ -62,11 +75,11 @@ namespace ImageMagick
 				return ToByte(data);
 			else 
 				return data;
-		case ExifDataType::Short:
+		case ExifDataType::DoubleFloat:
 			if (numberOfComponents == 1)
-				return ToUInt16(data);
+				return ToDouble(data);
 			else
-				return ToArray<unsigned short>(dataType, data, gcnew ConverterMethod<unsigned short>(this, &ExifReader::ToUInt16));
+				return ToArray<double>(dataType, data, gcnew ConverterMethod<double>(this, &ExifReader::ToDouble));
 		case ExifDataType::Long:
 			if (numberOfComponents == 1)
 				return ToUInt32(data);
@@ -77,21 +90,16 @@ namespace ImageMagick
 				return ToURational(data);
 			else
 				return ToArray<double>(dataType, data, gcnew ConverterMethod<double>(this, &ExifReader::ToURational));
+		case ExifDataType::Short:
+			if (numberOfComponents == 1)
+				return ToUInt16(data);
+			else
+				return ToArray<unsigned short>(dataType, data, gcnew ConverterMethod<unsigned short>(this, &ExifReader::ToUInt16));
 		case ExifDataType::SignedByte:
 			if (numberOfComponents == 1)
 				return ToSByte(data);
 			else
 				return ToArray<SByte>(dataType, data, gcnew ConverterMethod<SByte>(this, &ExifReader::ToSByte));
-		case ExifDataType::Undefined:
-			if (numberOfComponents == 1)
-				return ToByte(data);
-			else
-				return data;
-		case ExifDataType::SignedShort:
-			if (numberOfComponents == 1)
-				return ToInt16(data);
-			else
-				return ToArray<short>(dataType, data, gcnew ConverterMethod<short>(this, &ExifReader::ToInt16));
 		case ExifDataType::SignedLong:
 			if (numberOfComponents == 1)
 				return ToInt32(data);
@@ -102,16 +110,21 @@ namespace ImageMagick
 				return ToRational(data);
 			else
 				return ToArray<double>(dataType, data, gcnew ConverterMethod<double>(this, &ExifReader::ToRational));
+		case ExifDataType::SignedShort:
+			if (numberOfComponents == 1)
+				return ToInt16(data);
+			else
+				return ToArray<short>(dataType, data, gcnew ConverterMethod<short>(this, &ExifReader::ToInt16));
 		case ExifDataType::SingleFloat:
 			if (numberOfComponents == 1)
 				return ToSingle(data);
 			else
 				return ToArray<float>(dataType, data, gcnew ConverterMethod<float>(this, &ExifReader::ToSingle));
-		case ExifDataType::DoubleFloat:
+		case ExifDataType::Undefined:
 			if (numberOfComponents == 1)
-				return ToDouble(data);
+				return ToByte(data);
 			else
-				return ToArray<double>(dataType, data, gcnew ConverterMethod<double>(this, &ExifReader::ToDouble));
+				return data;
 		default:
 			throw gcnew NotImplementedException();
 		}
@@ -128,7 +141,7 @@ namespace ImageMagick
 
 		unsigned int numberOfComponents = GetUInt32();
 
-		int size = (int)(numberOfComponents*GetSize(dataType));
+		int size = (int)(numberOfComponents*ExifValue::GetSize(dataType));
 		array<Byte>^ data = GetBytes(4);
 
 		if (size > 4)
@@ -159,42 +172,15 @@ namespace ImageMagick
 		return data;
 	}
 	//==============================================================================================
-	unsigned int ExifReader::GetSize(ExifDataType dataType)
-	{
-		switch (dataType)
-		{
-		case ExifDataType::Byte:
-		case ExifDataType::Ascii:
-		case ExifDataType::SignedByte:
-		case ExifDataType::Undefined:
-			return 1;
-		case ExifDataType::Short:
-		case ExifDataType::SignedShort:
-			return 2;
-		case ExifDataType::Long:
-		case ExifDataType::SignedLong:
-		case ExifDataType::SingleFloat:
-			return 4;
-		case ExifDataType::Rational:
-		case ExifDataType::SignedRational:
-		case ExifDataType::DoubleFloat:
-			return 8;
-		default:
-			throw gcnew NotImplementedException(dataType.ToString());
-		}
-	}
-	//==============================================================================================
 	String^ ExifReader::GetString(unsigned int length)
 	{
 		return ToString(GetBytes(length));
 	}
 	//==============================================================================================
-	void ExifReader::GetThumbnail()
+	void ExifReader::GetThumbnail(unsigned int offset)
 	{
-		unsigned int ifd1Offset = GetUInt32();
-
 		List<ExifValue^>^ values = gcnew List<ExifValue^>();
-		AddValues(values, ifd1Offset);
+		AddValues(values, offset);
 
 		for each(ExifValue^ value in values)
 		{
@@ -219,7 +205,7 @@ namespace ImageMagick
 	where TDataType : value class
 		array<TDataType>^ ExifReader::ToArray(ExifDataType dataType, array<Byte>^ data, ConverterMethod<TDataType>^ converter)
 	{
-		int dataTypeSize = GetSize(dataType);
+		int dataTypeSize = ExifValue::GetSize(dataType);
 		int length = data->Length / dataTypeSize;
 
 		array<TDataType>^ result = gcnew array<TDataType>(length);
@@ -242,7 +228,7 @@ namespace ImageMagick
 	//==============================================================================================
 	double ExifReader::ToDouble(array<Byte>^ data)
 	{
-		if (!ValidateArray(data, 4))
+		if (!ValidateArray(data, 8))
 			return double();
 
 		return BitConverter::ToDouble(data, 0);
@@ -266,11 +252,11 @@ namespace ImageMagick
 	//==============================================================================================
 	double ExifReader::ToRational(array<Byte>^ data)
 	{
-		if (!ValidateArray(data, 4))
+		if (!ValidateArray(data, 8))
 			return double();
 
-		unsigned int numerator = BitConverter::ToInt32(data, 0);
-		unsigned int denominator = BitConverter::ToInt32(data, 4);
+		int numerator = BitConverter::ToInt32(data, 0);
+		int denominator = BitConverter::ToInt32(data, 4);
 
 		return numerator/(double) denominator;
 	}
@@ -316,7 +302,7 @@ namespace ImageMagick
 	//==============================================================================================
 	double ExifReader::ToURational(array<Byte>^ data)
 	{
-		if (!ValidateArray(data, 4))
+		if (!ValidateArray(data, 8))
 			return double();
 
 		unsigned int numerator = BitConverter::ToUInt32(data, 0);
@@ -374,19 +360,17 @@ namespace ImageMagick
 		if (GetUInt16() != 0x002A)
 			return result;
 
-		AddValues(result, GetUInt32());
+		unsigned int ifdOffset = GetUInt32();
+		AddValues(result, ifdOffset);
 
-		GetThumbnail();
+		unsigned int thumbnailOffset = GetUInt32();
+		GetThumbnail(thumbnailOffset);
 
-		if (_SubIFDoffset == 0)
-			return result;
+		if (_ExifOffset != 0)
+			AddValues(result, _ExifOffset);
 
-		AddValues(result, _SubIFDoffset);
-
-		if (_GPSIFDoffset == 0)
-			return result;
-
-		AddValues(result, _GPSIFDoffset);
+		if (_GPSOffset != 0)
+			AddValues(result, _GPSOffset);
 
 		return result;
 	}

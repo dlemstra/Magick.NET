@@ -399,6 +399,8 @@
     <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="Helpers\FileHelper.h" />
     <ClInclude Include="Helpers\XmlHelper.h" />
+    <ClInclude Include="Profiles\Exif\ExifParts.h" />
+    <ClInclude Include="Profiles\Exif\ExifWriter.h" />
     <ClInclude Include="Profiles\ImageProfile.h" />
     <ClInclude Include="Profiles\Iptc\IptcProfile.h" />
     <ClInclude Include="Profiles\Iptc\IptcTag.h" />
@@ -574,6 +576,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Helpers\XmlHelper.cpp" />
+    <ClCompile Include="Profiles\Exif\ExifWriter.cpp" />
     <ClCompile Include="Profiles\ImageProfile.cpp" />
     <ClCompile Include="Profiles\Iptc\IptcProfile.cpp" />
     <ClCompile Include="Profiles\Iptc\IptcValue.cpp" />

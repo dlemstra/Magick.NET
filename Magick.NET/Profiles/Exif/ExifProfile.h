@@ -14,6 +14,7 @@
 #pragma once
 
 #include "..\ImageProfile.h"
+#include "ExifParts.h"
 #include "ExifValue.h"
 
 using namespace System::Collections::Generic;
@@ -32,6 +33,7 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
+		ExifParts _Parts;
 		List<ExifValue^>^ _Values;
 		unsigned int _ThumbnailOffset;
 		unsigned int _ThumbnailLength;
@@ -40,9 +42,14 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		ExifProfile() {};
+		virtual array<Byte>^ GetData() override;
 		//===========================================================================================
 	public:
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the IptcProfile class.
+		///</summary>
+		ExifProfile() : ImageProfile("iptc") {};
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the ExifProfile class.
@@ -64,6 +71,15 @@ namespace ImageMagick
 		ExifProfile(Stream^ stream) : ImageProfile("exif", stream) {};
 		///==========================================================================================
 		///<summary>
+		/// Specifies which parts will be written when the profile is added to an image.
+		///</summary>
+		property ExifParts Parts
+		{
+			ExifParts get();
+			void set(ExifParts value);
+		}
+		///==========================================================================================
+		///<summary>
 		/// Returns the values of this exif profile.
 		///</summary>
 		property IEnumerable<ExifValue^>^ Values
@@ -75,6 +91,13 @@ namespace ImageMagick
 		/// Returns the thumbnail in the exif profile when available.
 		///</summary>
 		MagickImage^ CreateThumbnail();
+		///==========================================================================================
+		///<summary>
+		/// Sets the value of the specified tag.
+		///</summary>
+		///<param name="tag">The tag of the exif value.</param>
+		///<param name="value">The value.</param>
+		void SetValue(ExifTag tag, Object^ value);
 		//===========================================================================================
 	};
 	//==============================================================================================

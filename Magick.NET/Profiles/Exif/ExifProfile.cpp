@@ -14,6 +14,7 @@
 #include "Stdafx.h"
 #include "ExifProfile.h"
 #include "ExifReader.h"
+#include "ExifWriter.h"
 #include "..\..\IO\MagickReader.h"
 #include "..\..\Helpers\FileHelper.h"
 
@@ -29,6 +30,27 @@ namespace ImageMagick
 		_Values = reader->Read(Data);
 		_ThumbnailOffset = reader->ThumbnailOffset;
 		_ThumbnailLength = reader->ThumbnailLength;
+
+		_Parts = ExifParts::All;
+	}
+	//==============================================================================================
+	array<Byte>^ ExifProfile::GetData()
+	{
+		if (_Values == nullptr || _Values->Count == 0)
+			return nullptr;
+
+		ExifWriter^ writer = gcnew ExifWriter(_Values, _Parts);
+		return writer->GetData();
+	}
+	//==============================================================================================
+	ExifParts ExifProfile::Parts::get()
+	{
+		return _Parts;
+	}
+	//==============================================================================================
+	void ExifProfile::Parts::set(ExifParts value)
+	{
+		_Parts = value;
 	}
 	//==============================================================================================
 	IEnumerable<ExifValue^>^ ExifProfile::Values::get()
@@ -47,6 +69,21 @@ namespace ImageMagick
 		array<Byte>^ data = gcnew array<Byte>(_ThumbnailLength);
 		Array::Copy(Data, _ThumbnailOffset, data, 0, _ThumbnailLength);
 		return gcnew MagickImage(data);
+	}
+	//==============================================================================================
+	void ExifProfile::SetValue(ExifTag tag, Object^ value)
+	{
+		for each (ExifValue^ exifValue in Values)
+		{
+			if (exifValue->Tag == tag)
+			{
+				exifValue->Value = value;
+				return;
+			}
+		}
+
+		ExifValue^ exifValue = ExifValue::Create(tag, value);
+		_Values->Add(exifValue);
 	}
 	//==============================================================================================
 }

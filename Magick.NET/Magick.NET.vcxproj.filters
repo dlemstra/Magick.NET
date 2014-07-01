@@ -726,6 +726,12 @@
     <ClInclude Include="Statistics\MagickImageMoments.h">
       <Filter>Header Files\Statistics</Filter>
     </ClInclude>
+    <ClInclude Include="Profiles\Exif\ExifParts.h">
+      <Filter>Header Files\Profiles\Exif</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiles\Exif\ExifWriter.h">
+      <Filter>Header Files\Profiles\Exif</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1153,6 +1159,9 @@
     </ClCompile>
     <ClCompile Include="Statistics\MagickImageMoments.cpp">
       <Filter>Source Files\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiles\Exif\ExifWriter.cpp">
+      <Filter>Source Files\Profiles\Exif</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

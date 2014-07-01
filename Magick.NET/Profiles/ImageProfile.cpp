@@ -39,7 +39,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void ImageProfile::Initialize(String^ name, array<Byte>^ data)
 	{
-		Throw::IfNullOrEmpty("data", data);
+		Throw::IfNullOrEmpty("name", name);
 
 		_Name = name;
 		_Data = data;

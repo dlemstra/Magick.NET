@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
+using System.IO;
 using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -40,6 +42,103 @@ namespace Magick.NET.Tests
 
 				if (value.Tag == ExifTag.XResolution)
 					Assert.AreEqual(300.0, value.Value);
+			}
+		}
+		//===========================================================================================
+		private static void TestValue(ExifValue value, string expected)
+		{
+			Assert.IsNotNull(value);
+			Assert.AreEqual(expected, value.Value);
+		}
+		//===========================================================================================
+		private static void TestValue(ExifValue value, double expected)
+		{
+			Assert.IsNotNull(value);
+			Assert.AreEqual(expected, value.Value);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_SetValue()
+		{
+			using (MemoryStream memStream = new MemoryStream())
+			{
+				using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+				{
+					ExifProfile profile = image.GetExifProfile();
+					TestProfile(profile);
+
+					profile.SetValue(ExifTag.Software, "Magick.NET");
+
+					ExifValue value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.Software);
+					TestValue(value, "Magick.NET");
+
+					ExceptionAssert.Throws<ArgumentException>(delegate()
+					{
+						value.Value = 15;
+					});
+
+					profile.SetValue(ExifTag.ShutterSpeedValue, 75.55);
+
+					value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.ShutterSpeedValue);
+					TestValue(value, 75.55);
+
+					ExceptionAssert.Throws<ArgumentException>(delegate()
+					{
+						value.Value = 75;
+					});
+
+					profile.SetValue(ExifTag.XResolution, 150.0);
+
+					value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.XResolution);
+					TestValue(value, 150.0);
+
+					ExceptionAssert.Throws<ArgumentException>(delegate()
+					{
+						value.Value = "Magick.NET";
+					});
+
+					image.Density = new MagickGeometry(72);
+
+					profile.SetValue(ExifTag.ReferenceBlackWhite, null);
+
+					image.AddProfile(profile);
+
+					image.Write(memStream);
+				}
+
+				memStream.Position = 0;
+				using (MagickImage image = new MagickImage(memStream))
+				{
+					ExifProfile profile = image.GetExifProfile();
+
+					Assert.IsNotNull(profile);
+					Assert.AreEqual(43, profile.Values.Count());
+
+					ExifValue value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.Software);
+					TestValue(value, "Magick.NET");
+
+					value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.ShutterSpeedValue);
+					TestValue(value, 75.55);
+
+					value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.XResolution);
+					TestValue(value, 72.0);
+
+					profile.Parts = ExifParts.ExifTags;
+
+					image.AddProfile(profile);
+
+					memStream.Position = 0;
+					image.Write(memStream);
+				}
+
+				memStream.Position = 0;
+				using (MagickImage image = new MagickImage(memStream))
+				{
+					ExifProfile profile = image.GetExifProfile();
+
+					Assert.IsNotNull(profile);
+					Assert.AreEqual(24, profile.Values.Count());
+				}
 			}
 		}
 		//===========================================================================================
