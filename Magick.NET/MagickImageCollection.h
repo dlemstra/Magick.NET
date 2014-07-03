@@ -17,12 +17,13 @@
 #include "Enums\EvaluateOperator.h"
 #include "Enums\LayerMethod.h"
 #include "IO\MagickReader.h"
-#include "MagickErrorInfo.h"
 #include "Settings\MagickReadSettings.h"
 #include "Settings\MontageSettings.h"
 #include "Settings\QuantizeSettings.h"
+#include "Results\MagickErrorInfo.h"
 
 using namespace System::Collections::Generic;
+using namespace System::Drawing::Imaging;
 
 namespace ImageMagick
 {

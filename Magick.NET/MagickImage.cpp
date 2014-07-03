@@ -4614,17 +4614,51 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::SparseColor(Channels channels, SparseColorMethod method, array<double>^ coordinates)
+	void MagickImage::SparseColor(SparseColorMethod method, IEnumerable<SparseColorArgs^>^ args)
 	{
-		Throw::IfNull("coordinates", coordinates);
+		SparseColor(Channels::Default, method, args);
+	}
+	//==============================================================================================
+	void MagickImage::SparseColor(Channels channels, SparseColorMethod method, IEnumerable<SparseColorArgs^>^ args)
+	{
+		Throw::IfNull("args", args);
 
-		double* arguments = Marshaller::Marshal(coordinates);
+		bool hasRed = ((int)channels & (int)Channels::Red) != 0;
+		bool hasGreen = ((int)channels & (int)Channels::Green) != 0;
+		bool hasBlue = ((int)channels & (int)Channels::Blue) != 0;
+		bool hasOpacity = ((int)channels & (int)Channels::Opacity) != 0;
+
+		Throw::IfTrue("channels", !hasRed && !hasGreen && !hasBlue && !hasOpacity, "Invalid channels specified.");
+
+		List<double>^ argsList = gcnew List<double>();
+
+		IEnumerator<SparseColorArgs^>^ enumerator = args->GetEnumerator();
+		while(enumerator->MoveNext())
+		{
+			SparseColorArgs^ arg = enumerator->Current;
+
+			argsList->Add(arg->X);
+			argsList->Add(arg->Y);
+			if (hasRed)
+				argsList->Add(Quantum::Scale(arg->Color->R));
+			if (hasGreen)
+				argsList->Add(Quantum::Scale(arg->Color->G));
+			if (hasBlue)
+				argsList->Add(Quantum::Scale(arg->Color->B));
+			if (hasOpacity)
+				argsList->Add(Quantum::Scale(arg->Color->Opacity));
+		}
+
+		Throw::IfTrue("args", argsList->Count == 0, "Value cannot be empty");
+
+		double* arguments = Marshaller::Marshal(argsList->ToArray());
 
 		try
 		{
-
-			Value->sparseColor((Magick::ChannelType)channels, (Magick::SparseColorMethod)method,
-				coordinates->Length, arguments);
+			Magick::ChannelType magickChannels = (Magick::ChannelType)channels;
+			magickChannels = (Magick::ChannelType) (magickChannels & ~Magick::IndexChannel);
+			Value->sparseColor(magickChannels, (Magick::SparseColorMethod)method,
+				argsList->Count, arguments);
 		}
 		catch(Magick::Exception& exception)
 		{

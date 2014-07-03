@@ -13,6 +13,8 @@
 //=================================================================================================
 #pragma once
 
+#include "Arguments\MagickGeometry.h"
+#include "Arguments\SparseColorArgs.h"
 #include "Base\MagickWrapper.h"
 #include "Colors\MagickColor.h"
 #include "Drawables\DrawableAffine.h"
@@ -52,10 +54,7 @@
 #include "Helpers\EnumHelper.h"
 #include "IO\MagickReader.h"
 #include "IO\MagickWriter.h"
-#include "MagickErrorInfo.h"
-#include "MagickGeometry.h"
 #include "MagickFormatInfo.h"
-#include "MagickSearchResult.h"
 #include "Matrices\ColorMatrix.h"
 #include "Matrices\ConvolveMatrix.h"
 #include "Pixels\PixelCollection.h"
@@ -65,11 +64,13 @@
 #include "Profiles\Exif\ExifProfile.h"
 #include "Profiles\Iptc\IptcProfile.h"
 #include "Profiles\Color\ColorProfile.h"
+#include "Results\MagickErrorInfo.h"
+#include "Results\MagickSearchResult.h"
+#include "Results\TypeMetric.h"
 #include "Settings\MagickReadSettings.h"
 #include "Settings\QuantizeSettings.h"
 #include "Statistics\MagickImageStatistics.h"
 #include "Statistics\MagickImageMoments.h"
-#include "TypeMetric.h"
 
 using namespace System::Collections::Generic;
 using namespace System::Drawing::Imaging;
@@ -3136,11 +3137,20 @@ namespace ImageMagick
 		/// Sparse color image, given a set of coordinates, interpolates the colors found at those
 		/// coordinates, across the whole image, using various methods.
 		///</summary>
-		///<param name="channels">The channel(s) to use.</param>
-		///<param name="method">The spare color method to use.</param>
-		///<param name="coordinates">The coordinates to use.</param>
+		///<param name="method">The sparse color method to use.</param>
+		///<param name="args">The sparse color arguments.</param>
 		///<exception cref="MagickException"/>
-		void SparseColor(Channels channels, SparseColorMethod method, array<double>^ coordinates);
+		void SparseColor(SparseColorMethod method, IEnumerable<SparseColorArgs^>^ args);
+		///==========================================================================================
+		///<summary>
+		/// Sparse color image, given a set of coordinates, interpolates the colors found at those
+		/// coordinates, across the whole image, using various methods.
+		///</summary>
+		///<param name="channels">The channel(s) to use.</param>
+		///<param name="method">The sparse color method to use.</param>
+		///<param name="args">The sparse color arguments.</param>
+		///<exception cref="MagickException"/>
+		void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<SparseColorArgs^>^ args);
 		///==========================================================================================
 		///<summary>
 		/// Returns image statistics.

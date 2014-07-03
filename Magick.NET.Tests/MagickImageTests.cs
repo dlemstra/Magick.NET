@@ -803,6 +803,11 @@ namespace Magick.NET.Tests
 					ColorAssert.AreEqual(pixels.GetPixel(0, 0), pixels.GetPixel(599, 59));
 				}
 
+				ExceptionAssert.Throws<ArgumentException>(delegate()
+				{
+					args.Add(new SparseColorArgs(0, 0, null));
+				});
+
 				args.Add(new SparseColorArgs(0, 0, new MagickColor("skyblue")));
 				args.Add(new SparseColorArgs(-600, 60, new MagickColor("skyblue")));
 				args.Add(new SparseColorArgs(600, 60, new MagickColor("black")));
