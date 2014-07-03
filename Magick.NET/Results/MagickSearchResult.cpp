@@ -12,8 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
+#include "..\MagickImage.h"
 #include "MagickSearchResult.h"
-#include "MagickImage.h"
 
 using namespace System::Globalization;
 

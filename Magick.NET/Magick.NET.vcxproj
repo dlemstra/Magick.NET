@@ -284,8 +284,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Arguments\SparseColorArgs.h" />
     <ClInclude Include="Enums\DitherMethod.h" />
-    <ClInclude Include="MagickConverter.h" />
+    <ClInclude Include="Helpers\MagickConverter.h" />
     <ClInclude Include="Drawables\DrawableDashArray.h" />
     <ClInclude Include="Drawables\DrawableDashOffset.h" />
     <ClInclude Include="Drawables\DrawableEllipse.h" />
@@ -388,7 +389,7 @@
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
     <ClInclude Include="Helpers\ByteConverter.h" />
-    <ClInclude Include="MagickSearchResult.h" />
+    <ClInclude Include="Results\MagickSearchResult.h" />
     <ClInclude Include="Profiles\8Bim\ClipPathReader.h" />
     <ClInclude Include="Profiles\8Bim\EightBimProfile.h" />
     <ClInclude Include="Profiles\Exif\ExifDataType.h" />
@@ -419,7 +420,7 @@
     <ClInclude Include="MagickFormatInfo.h" />
     <ClInclude Include="Statistics\MagickImageMoments.h" />
     <ClInclude Include="Statistics\MagickImageStatistics.h" />
-    <ClInclude Include="MagickErrorInfo.h" />
+    <ClInclude Include="Results\MagickErrorInfo.h" />
     <ClInclude Include="Drawables\Coordinate.h" />
     <ClInclude Include="Enums\DistortMethod.h" />
     <ClInclude Include="Drawables\Base\Drawable.h" />
@@ -444,10 +445,10 @@
     <ClInclude Include="Enums\Gravity.h" />
     <ClInclude Include="Colors\MagickColor.h" />
     <ClInclude Include="Colors\Base\ColorBase.h" />
-    <ClInclude Include="Percentage.h" />
+    <ClInclude Include="Arguments\Percentage.h" />
     <ClInclude Include="Enums\Resolution.h" />
-    <ClInclude Include="PointD.h" />
-    <ClInclude Include="TypeMetric.h" />
+    <ClInclude Include="Arguments\PointD.h" />
+    <ClInclude Include="Results\TypeMetric.h" />
     <ClInclude Include="Settings\MagickReadSettings.h" />
     <ClInclude Include="Matrices\ColorMatrix.h" />
     <ClInclude Include="Matrices\ConvolveMatrix.h" />
@@ -456,7 +457,7 @@
     <ClInclude Include="MagickNET.h" />
     <ClInclude Include="Enums\ColorSpace.h" />
     <ClInclude Include="Enums\MagickFormat.h" />
-    <ClInclude Include="MagickGeometry.h" />
+    <ClInclude Include="Arguments\MagickGeometry.h" />
     <ClInclude Include="MagickImage.h" />
     <ClInclude Include="IO\MagickReader.h" />
     <ClInclude Include="Base\MagickWrapper.h" />
@@ -475,7 +476,8 @@
     <ClInclude Include="Helpers\Throw.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MagickConverter.cpp" />
+    <ClCompile Include="Arguments\SparseColorArgs.cpp" />
+    <ClCompile Include="Helpers\MagickConverter.cpp" />
     <ClCompile Include="Drawables\DrawableDashArray.cpp" />
     <ClCompile Include="Drawables\DrawableDashOffset.cpp" />
     <ClCompile Include="Drawables\DrawableEllipse.cpp" />
@@ -553,7 +555,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="MagickSearchResult.cpp" />
+    <ClCompile Include="Results\MagickSearchResult.cpp" />
     <ClCompile Include="Profiles\8Bim\ClipPathReader.cpp" />
     <ClCompile Include="Profiles\8Bim\EightBimProfile.cpp" />
     <ClCompile Include="Profiles\Exif\ExifProfile.cpp" />
@@ -596,7 +598,7 @@
     <ClCompile Include="MagickFormatInfo.cpp" />
     <ClCompile Include="Statistics\MagickImageMoments.cpp" />
     <ClCompile Include="Statistics\MagickImageStatistics.cpp" />
-    <ClCompile Include="MagickErrorInfo.cpp" />
+    <ClCompile Include="Results\MagickErrorInfo.cpp" />
     <ClCompile Include="Drawables\Coordinate.cpp" />
     <ClCompile Include="Drawables\DrawableArc.cpp" />
     <ClCompile Include="Drawables\DrawableBezier.cpp" />
@@ -615,9 +617,9 @@
     <ClCompile Include="Colors\ColorYUV.cpp" />
     <ClCompile Include="Colors\MagickColor.cpp" />
     <ClCompile Include="Colors\Base\ColorBase.cpp" />
-    <ClCompile Include="Percentage.cpp" />
-    <ClCompile Include="PointD.cpp" />
-    <ClCompile Include="TypeMetric.cpp" />
+    <ClCompile Include="Arguments\Percentage.cpp" />
+    <ClCompile Include="Arguments\PointD.cpp" />
+    <ClCompile Include="Results\TypeMetric.cpp" />
     <ClCompile Include="Exceptions\MagickErrorExceptions.cpp" />
     <ClCompile Include="Exceptions\MagickWarningExceptions.cpp" />
     <ClCompile Include="Matrices\ColorMatrix.cpp" />
@@ -625,7 +627,7 @@
     <ClCompile Include="MagickImageCollection.cpp" />
     <ClCompile Include="MagickImageInfo.cpp" />
     <ClCompile Include="MagickNET.cpp" />
-    <ClCompile Include="MagickGeometry.cpp" />
+    <ClCompile Include="Arguments\MagickGeometry.cpp" />
     <ClCompile Include="MagickImage.cpp" />
     <ClCompile Include="IO\MagickReader.cpp" />
     <ClCompile Include="IO\MagickWriter.cpp" />

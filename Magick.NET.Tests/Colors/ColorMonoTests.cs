@@ -64,13 +64,13 @@ namespace Magick.NET.Tests
 
 			MagickColor white = new MagickColor("#fff");
 			Assert.AreEqual(white, mono.ToMagickColor());
-			ColorAssert.AreEqual(Color.White, mono.ToMagickColor().ToColor());
+			ColorAssert.AreEqual(Color.White, mono.ToMagickColor());
 
 			mono = new ColorMono(true);
 
 			MagickColor black = new MagickColor("#000");
 			Assert.AreEqual(black, mono.ToMagickColor());
-			ColorAssert.AreEqual(Color.Black, mono.ToMagickColor().ToColor());
+			ColorAssert.AreEqual(Color.Black, mono.ToMagickColor());
 		}
 		//===========================================================================================
 	}

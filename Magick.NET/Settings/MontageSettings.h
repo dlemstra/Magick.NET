@@ -13,10 +13,10 @@
 //=================================================================================================
 #pragma once
 
+#include "..\Arguments\MagickGeometry.h"
 #include "..\Colors\MagickColor.h"
 #include "..\Enums\CompositeOperator.h"
 #include "..\Enums\Gravity.h"
-#include "..\MagickGeometry.h"
 
 namespace ImageMagick
 {

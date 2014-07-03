@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "Base\MagickWrapper.h"
+#include "..\Base\MagickWrapper.h"
 
 using namespace System::Drawing;
 

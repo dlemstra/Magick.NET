@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "..\Percentage.h"
+#include "..\Arguments\Percentage.h"
 
 namespace ImageMagick
 {

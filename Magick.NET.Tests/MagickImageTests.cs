@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
 		{
 			using (PixelCollection collection = image.GetReadOnlyPixels())
 			{
-				ColorAssert.AreEqual(color, collection.GetPixel(x, y).ToColor());
+				ColorAssert.AreEqual(color, collection.GetPixel(x, y));
 			}
 		}
 		//===========================================================================================
@@ -307,25 +307,23 @@ namespace Magick.NET.Tests
 			{
 				image.FillColor = null;
 
-				MagickColor colorA;
+				Pixel pixelA;
 				image.FillColor = Color.Red;
 				image.Read("caption:Magick.NET");
 				using (PixelCollection pixels = image.GetReadOnlyPixels())
 				{
-					Pixel pixel = pixels.GetPixel(69, 6);
-					colorA = pixel.ToColor();
+					pixelA = pixels.GetPixel(69, 6);
 				}
 
-				MagickColor colorB;
+				Pixel pixelB;
 				image.FillColor = Color.Yellow;
 				image.Read("caption:Magick.NET");
 				using (PixelCollection pixels = image.GetReadOnlyPixels())
 				{
-					Pixel pixel = pixels.GetPixel(69, 6);
-					colorB = pixel.ToColor();
+					pixelB = pixels.GetPixel(69, 6);
 				}
 
-				ColorAssert.AreNotEqual(colorA, colorB);
+				ColorAssert.AreNotEqual(pixelA, pixelB);
 			}
 		}
 		//===========================================================================================
@@ -776,6 +774,50 @@ namespace Magick.NET.Tests
 				}
 
 				Assert.AreEqual(3, i);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_SparseColors()
+		{
+			MagickReadSettings settings = new MagickReadSettings();
+			settings.Width = 600;
+			settings.Height = 60;
+
+			using (MagickImage image = new MagickImage("xc:", settings))
+			{
+				ExceptionAssert.Throws<ArgumentNullException>(delegate()
+				{
+					image.SparseColor(Channels.Red, SparseColorMethod.Barycentric, null);
+				});
+
+				List<SparseColorArgs> args = new List<SparseColorArgs>();
+
+				ExceptionAssert.Throws<ArgumentException>(delegate()
+				{
+					image.SparseColor(Channels.Blue, SparseColorMethod.Barycentric, args);
+				});
+
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					ColorAssert.AreEqual(pixels.GetPixel(0, 0), pixels.GetPixel(599, 59));
+				}
+
+				args.Add(new SparseColorArgs(0, 0, new MagickColor("skyblue")));
+				args.Add(new SparseColorArgs(-600, 60, new MagickColor("skyblue")));
+				args.Add(new SparseColorArgs(600, 60, new MagickColor("black")));
+
+				image.SparseColor(SparseColorMethod.Barycentric, args);
+
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					ColorAssert.AreNotEqual(pixels.GetPixel(0, 0), pixels.GetPixel(599, 59));
+				}
+
+				ExceptionAssert.Throws<ArgumentException>(delegate()
+				{
+					image.SparseColor(Channels.Black, SparseColorMethod.Barycentric, args);
+				});
 			}
 		}
 		//===========================================================================================

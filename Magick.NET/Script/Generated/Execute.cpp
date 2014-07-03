@@ -3449,10 +3449,10 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteSparseColor(XmlElement^ element, MagickImage^ image)
 	{
-		Channels channels_ = _Variables->GetValue<Channels>(element, "channels");
-		SparseColorMethod method_ = _Variables->GetValue<SparseColorMethod>(element, "method");
-		array<double>^ coordinates_ = _Variables->GetDoubleArray(element["coordinates"]);
-		image->SparseColor(channels_, method_, coordinates_);
+		//Channels channels_ = _Variables->GetValue<Channels>(element, "channels");
+		//SparseColorMethod method_ = _Variables->GetValue<SparseColorMethod>(element, "method");
+		//array<double>^ coordinates_ = _Variables->GetDoubleArray(element["coordinates"]);
+		//image->SparseColor(channels_, method_, coordinates_);
 	}
 	void MagickScript::ExecuteStegano(XmlElement^ element, MagickImage^ image)
 	{

@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "..\..\PointD.h"
+#include "..\..\Arguments\PointD.h"
 
 using namespace System::Drawing;
 using namespace System::Text;

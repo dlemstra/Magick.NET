@@ -14,8 +14,8 @@
 #include "Stdafx.h"
 #include "ScriptVariables.h"
 #include "..\Colors\MagickColor.h"
+#include "..\Helpers\MagickConverter.h"
 #include "..\Helpers\XmlHelper.h"
-#include "..\MagickConverter.h"
 
 using namespace System::Globalization;
 

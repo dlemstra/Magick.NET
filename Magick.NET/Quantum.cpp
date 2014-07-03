@@ -50,6 +50,11 @@ namespace ImageMagick
 	}
 #endif
 	//==============================================================================================
+	double Quantum::Scale(Magick::Quantum value)
+	{
+		return ((double) 1.0/(double) Max)*value;
+	}
+	//==============================================================================================
 	int Quantum::Depth::get()
 	{
 		return MAGICKCORE_QUANTUM_DEPTH;

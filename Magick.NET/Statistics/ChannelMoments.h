@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "..\PointD.h"
+#include "..\Arguments\PointD.h"
 #include "..\Enums\PixelChannel.h"
 
 namespace ImageMagick

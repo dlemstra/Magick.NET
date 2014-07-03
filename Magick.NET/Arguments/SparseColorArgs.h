@@ -14,61 +14,47 @@
 #pragma once
 
 #include "Stdafx.h"
-#include "MagickGeometry.h"
+#include "..\Colors\MagickColor.h"
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	ref class MagickImage;
 	///=============================================================================================
 	///<summary>
-	/// Result for a sub image search operation.
+	/// Represents an argument for the SparseColor method.
 	///</summary>
-	public ref class MagickSearchResult sealed
+	public ref class SparseColorArgs sealed
 	{
 		//===========================================================================================
-	private:
-		//===========================================================================================
-		MagickGeometry^ _BestMatch;
-		MagickImage^ _SimilarityImage;
-		double _SimilarityMetric;
-		//===========================================================================================
-		!MagickSearchResult();
-		//===========================================================================================
-	internal:
-		//===========================================================================================
-		MagickSearchResult(const Magick::Image& image, Magick::Geometry bestMatch, double similarityMetric);
+		double _X;
+		double _Y;
+		MagickColor^ _Color;
 		//===========================================================================================
 	public:
 		//===========================================================================================
-		~MagickSearchResult()
-		{
-			this->!MagickSearchResult();
-		}
+		SparseColorArgs(double x, double y, MagickColor^ color);
 		///==========================================================================================
 		///<summary>
-		/// The offset for the best match.
+		/// The X position.
 		///</summary>
-		property MagickGeometry^ BestMatch
-		{
-			MagickGeometry^ get();
-		}
-		///==========================================================================================
-		///<summary>
-		/// A similarity image such that an exact match location is completely white and if none of
-		/// the pixels match, black, otherwise some gray level in-between.
-		///</summary>
-		property MagickImage^ SimilarityImage
-		{
-			MagickImage^ get();
-		}
-		///==========================================================================================
-		///<summary>
-		/// Similarity metric.
-		///</summary>
-		property double SimilarityMetric
+		property double X
 		{
 			double get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// The Y position.
+		///</summary>
+		property double Y
+		{
+			double get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// The color.
+		///</summary>
+		property MagickColor^ Color
+		{
+			MagickColor^ get();
 		}
 		//===========================================================================================
 	};

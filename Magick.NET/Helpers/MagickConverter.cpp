@@ -12,10 +12,10 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "Colors\MagickColor.h"
-#include "Helpers\EnumHelper.h"
+#include "..\Arguments\MagickGeometry.h"
+#include "..\Colors\MagickColor.h"
+#include "EnumHelper.h"
 #include "MagickConverter.h"
-#include "MagickGeometry.h"
 
 using namespace System::Drawing;
 using namespace System::Globalization;

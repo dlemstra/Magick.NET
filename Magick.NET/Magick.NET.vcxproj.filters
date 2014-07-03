@@ -163,15 +163,24 @@
     <Filter Include="Source Files\Events">
       <UniqueIdentifier>{4b877b5f-f693-4866-8229-43765c48cfaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Arguments">
+      <UniqueIdentifier>{e7e64c7a-47c5-4b2a-9376-0c3e85df9c24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Results">
+      <UniqueIdentifier>{e4d3fe17-d458-43d2-92b3-849f0f9abc81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Arguments">
+      <UniqueIdentifier>{3b09f455-6f97-45e6-803e-987d3d8fbe1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Results">
+      <UniqueIdentifier>{2c6bdaa1-a2c4-43c0-831f-9decba916c06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagickImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MagickGeometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MagickImageInfo.h">
@@ -552,16 +561,7 @@
     <ClInclude Include="Statistics\ChannelStatistics.h">
       <Filter>Header Files\Statistics</Filter>
     </ClInclude>
-    <ClInclude Include="MagickErrorInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MagickFormatInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Percentage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TypeMetric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Drawables\Coordinate.h">
@@ -654,9 +654,6 @@
     <ClInclude Include="Enums\Interlace.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\Metric.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Profiles\8Bim\ClipPathReader.h">
       <Filter>Header Files\Profiles\8Bim</Filter>
     </ClInclude>
@@ -693,17 +690,11 @@
     <ClInclude Include="Drawables\DrawableTextDirection.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
-    <ClInclude Include="MagickSearchResult.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\MorphologyMethod.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\Kernel.h">
       <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="MagickConverter.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Script\ScriptVariables.h">
       <Filter>Header Files\Script</Filter>
@@ -720,9 +711,6 @@
     <ClInclude Include="Statistics\ChannelMoments.h">
       <Filter>Header Files\Statistics</Filter>
     </ClInclude>
-    <ClInclude Include="PointD.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Statistics\MagickImageMoments.h">
       <Filter>Header Files\Statistics</Filter>
     </ClInclude>
@@ -731,6 +719,33 @@
     </ClInclude>
     <ClInclude Include="Profiles\Exif\ExifWriter.h">
       <Filter>Header Files\Profiles\Exif</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\MagickConverter.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Results\MagickErrorInfo.h">
+      <Filter>Header Files\Results</Filter>
+    </ClInclude>
+    <ClInclude Include="Results\MagickSearchResult.h">
+      <Filter>Header Files\Results</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\Metric.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Arguments\Percentage.h">
+      <Filter>Header Files\Arguments</Filter>
+    </ClInclude>
+    <ClInclude Include="Arguments\PointD.h">
+      <Filter>Header Files\Arguments</Filter>
+    </ClInclude>
+    <ClInclude Include="Arguments\SparseColorArgs.h">
+      <Filter>Header Files\Arguments</Filter>
+    </ClInclude>
+    <ClInclude Include="Results\TypeMetric.h">
+      <Filter>Header Files\Results</Filter>
+    </ClInclude>
+    <ClInclude Include="Arguments\MagickGeometry.h">
+      <Filter>Header Files\Arguments</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -741,9 +756,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MagickImage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MagickGeometry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Colors\ColorCMYK.cpp">
@@ -1025,16 +1037,7 @@
     <ClCompile Include="Statistics\ChannelStatistics.cpp">
       <Filter>Source Files\Statistics</Filter>
     </ClCompile>
-    <ClCompile Include="MagickErrorInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MagickFormatInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Percentage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TypeMetric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Drawables\Coordinate.cpp">
@@ -1136,12 +1139,6 @@
     <ClCompile Include="Drawables\DrawableTextDirection.cpp">
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
-    <ClCompile Include="MagickSearchResult.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MagickConverter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Script\ScriptVariables.cpp">
       <Filter>Source Files\Script</Filter>
     </ClCompile>
@@ -1154,14 +1151,35 @@
     <ClCompile Include="Statistics\ChannelMoments.cpp">
       <Filter>Source Files\Statistics</Filter>
     </ClCompile>
-    <ClCompile Include="PointD.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Statistics\MagickImageMoments.cpp">
       <Filter>Source Files\Statistics</Filter>
     </ClCompile>
     <ClCompile Include="Profiles\Exif\ExifWriter.cpp">
       <Filter>Source Files\Profiles\Exif</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\MagickConverter.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Results\MagickErrorInfo.cpp">
+      <Filter>Source Files\Results</Filter>
+    </ClCompile>
+    <ClCompile Include="Results\MagickSearchResult.cpp">
+      <Filter>Source Files\Results</Filter>
+    </ClCompile>
+    <ClCompile Include="Arguments\Percentage.cpp">
+      <Filter>Source Files\Arguments</Filter>
+    </ClCompile>
+    <ClCompile Include="Arguments\PointD.cpp">
+      <Filter>Source Files\Arguments</Filter>
+    </ClCompile>
+    <ClCompile Include="Arguments\SparseColorArgs.cpp">
+      <Filter>Source Files\Arguments</Filter>
+    </ClCompile>
+    <ClCompile Include="Results\TypeMetric.cpp">
+      <Filter>Source Files\Results</Filter>
+    </ClCompile>
+    <ClCompile Include="Arguments\MagickGeometry.cpp">
+      <Filter>Source Files\Arguments</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

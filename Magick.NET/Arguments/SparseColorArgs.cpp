@@ -12,56 +12,33 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "..\Helpers\MagickConverter.h"
-#include "XmlHelper.h"
-
-using namespace System::Globalization;
+#include "SparseColorArgs.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	XmlElement^ XmlHelper::CreateElement(XmlNode^ node, String^ name)
+	SparseColorArgs::SparseColorArgs(double x, double y, MagickColor^ color)
 	{
-		XmlDocument^ doc = node->GetType() == XmlDocument::typeid ? (XmlDocument^)node : node->OwnerDocument;
-		XmlElement^ element = doc->CreateElement(name);
-		node->AppendChild(element);
-		return element;
+		Throw::IfNull("color", color);
+
+		_X = x;
+		_Y = y;
+		_Color = color;
 	}
 	//==============================================================================================
-	generic <class T>
-	T XmlHelper::GetAttribute(XmlElement^ element, String^ name)
+	double SparseColorArgs::X::get()
 	{
-		if (element == nullptr || !element->HasAttribute(name))
-			return T();
-
-		return MagickConverter::Convert<T>(element->GetAttribute(name));
+		return _X;
 	}
 	//==============================================================================================
-	generic <class T>
-	T XmlHelper::GetValue(XmlAttribute^ attribute)
+	double SparseColorArgs::Y::get()
 	{
-		if (attribute == nullptr)
-			return T();
-
-		return MagickConverter::Convert<T>(attribute->Value);
+		return _Y;
 	}
 	//==============================================================================================
-	generic <class T>
-	void XmlHelper::SetAttribute(XmlElement^ element, String^ name, T value)
+	MagickColor^ SparseColorArgs::Color::get()
 	{
-		if (element == nullptr)
-			return;
-
-		XmlAttribute^ attribute;
-		if (element->HasAttribute(name))
-			attribute = element->Attributes[name];
-		else
-			attribute = element->Attributes->Append(element->OwnerDocument->CreateAttribute(name));
-
-		if (T::typeid == String::typeid)
-			attribute->Value = (String^)value;
-		else
-			attribute->Value = (String^)Convert::ChangeType(value, String::typeid, CultureInfo::InvariantCulture);
+		return _Color;
 	}
 	//==============================================================================================
 }

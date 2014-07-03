@@ -13,9 +13,9 @@
 //=================================================================================================
 #pragma once
 
+#include "..\Arguments\MagickGeometry.h"
 #include "..\Enums\ColorSpace.h"
 #include "..\Enums\MagickFormat.h"
-#include "..\MagickGeometry.h"
 #include "PixelStorageSettings.h"
 
 using namespace System::Collections::Generic;

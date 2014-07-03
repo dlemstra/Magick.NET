@@ -256,7 +256,7 @@ namespace Magick.NET.Tests
 				Assert.AreEqual(100, image.Height);
 				using (PixelCollection pixels = image.GetReadOnlyPixels())
 				{
-					ColorAssert.AreEqual(Color.Yellow, pixels.GetPixel(0, 0).ToColor());
+					ColorAssert.AreEqual(Color.Yellow, pixels.GetPixel(0, 0));
 				}
 			}
 		}

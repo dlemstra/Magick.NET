@@ -38,6 +38,27 @@ namespace Magick.NET.Tests
 				Assert.Fail("Colors are the same");
 		}
 		//===========================================================================================
+		public static void AreEqual(Color expected, Pixel actual)
+		{
+			AreEqual(expected, actual.ToColor());
+		}
+		//===========================================================================================
+		public static void AreEqual(Pixel expected, Pixel actual)
+		{
+			Assert.IsNotNull(expected);
+			Assert.IsNotNull(actual);
+
+			AreEqual(expected.ToColor(), actual.ToColor());
+		}
+		//===========================================================================================
+		public static void AreNotEqual(Pixel expected, Pixel actual)
+		{
+			Assert.IsNotNull(expected);
+			Assert.IsNotNull(actual);
+
+			AreNotEqual(expected.ToColor(), actual.ToColor());
+		}
+		//===========================================================================================
 		public static void IsNotTransparent(Color color)
 		{
 			Assert.AreEqual(255, color.A);

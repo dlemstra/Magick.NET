@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 6.8.9.501:
+  - Changed arguments for the SparseColor method of MagickImage.
+
 Magick.NET 6.8.9.101:
   - Int/short Set methods of WritablePixelCollection are now unsigned.
   - The Q16 build no longer uses HDRI, switch to the new Q16-HDRI build if you need HDRI.

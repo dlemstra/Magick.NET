@@ -12,8 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
+#include "..\Quantum.h"
 #include "Percentage.h"
-#include "Quantum.h"
 
 using namespace System::Globalization;
 

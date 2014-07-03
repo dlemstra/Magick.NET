@@ -167,6 +167,11 @@ namespace ImageMagick
 		A = Quantum::Max - color.alphaQuantum();
 	}
 	//==============================================================================================
+	Magick::Quantum MagickColor::Opacity::get()
+	{
+		return Quantum::Max - A;
+	}
+	//==============================================================================================
 	void MagickColor::Initialize(Color color)
 	{
 		Initialize(color.R, color.G, color.B, color.A);
@@ -174,7 +179,7 @@ namespace ImageMagick
 	//==============================================================================================
 	const Magick::Color* MagickColor::CreateColor()
 	{
-		return new Magick::Color(R, G, B, Quantum::Max - A);
+		return new Magick::Color(R, G, B, Opacity);
 	}
 	//==============================================================================================
 	MagickColor::MagickColor()

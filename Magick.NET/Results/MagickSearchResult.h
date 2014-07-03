@@ -14,50 +14,61 @@
 #pragma once
 
 #include "Stdafx.h"
+#include "..\Arguments\MagickGeometry.h"
 
 namespace ImageMagick
 {
+	//==============================================================================================
+	ref class MagickImage;
 	///=============================================================================================
 	///<summary>
-	/// Class that can be used to acquire information about the Quantum.
+	/// Result for a sub image search operation.
 	///</summary>
-	public ref class Quantum abstract sealed
+	public ref class MagickSearchResult sealed
 	{
+		//===========================================================================================
+	private:
+		//===========================================================================================
+		MagickGeometry^ _BestMatch;
+		MagickImage^ _SimilarityImage;
+		double _SimilarityMetric;
+		//===========================================================================================
+		!MagickSearchResult();
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-#if (MAGICKCORE_QUANTUM_DEPTH > 8)
-		static Magick::Quantum Convert(Byte value);
-#endif
-		//===========================================================================================
-		static Magick::Quantum Convert(double value);
-		//===========================================================================================
-		static Magick::Quantum Convert(Magick::Quantum value);
-		//===========================================================================================
-		static Magick::Quantum Convert(unsigned int value);
-		//===========================================================================================
-#if (MAGICKCORE_QUANTUM_DEPTH != 16 || defined(MAGICKCORE_HDRI_SUPPORT))
-		static Magick::Quantum Convert(unsigned short value);
-#endif
-		//===========================================================================================
-		static double Scale(Magick::Quantum value);
+		MagickSearchResult(const Magick::Image& image, Magick::Geometry bestMatch, double similarityMetric);
 		//===========================================================================================
 	public:
-		///==========================================================================================
-		///<summary>
-		/// Returns the Quantum depth.
-		///</summary>
-		static property int Depth
+		//===========================================================================================
+		~MagickSearchResult()
 		{
-			int get();
+			this->!MagickSearchResult();
 		}
 		///==========================================================================================
 		///<summary>
-		/// Returns the maximum value of the quantum.
+		/// The offset for the best match.
 		///</summary>
-		QUANTUM_CLS_COMPLIANT static property Magick::Quantum Max
+		property MagickGeometry^ BestMatch
 		{
-			Magick::Quantum get();
+			MagickGeometry^ get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// A similarity image such that an exact match location is completely white and if none of
+		/// the pixels match, black, otherwise some gray level in-between.
+		///</summary>
+		property MagickImage^ SimilarityImage
+		{
+			MagickImage^ get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// Similarity metric.
+		///</summary>
+		property double SimilarityMetric
+		{
+			double get();
 		}
 		//===========================================================================================
 	};
