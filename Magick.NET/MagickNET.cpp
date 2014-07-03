@@ -14,6 +14,7 @@
 #include "Stdafx.h"
 #include "MagickNET.h"
 #include "Helpers\EnumHelper.h"
+#include "Helpers\FileHelper.h"
 
 using namespace System::IO;
 using namespace System::Security;
@@ -25,6 +26,7 @@ namespace ImageMagick
 	{
 		Throw::IfNullOrEmpty("path", path);
 
+		path = FileHelper::CheckForBaseDirectory(path);
 		path = Path::GetFullPath(path);
 		Throw::IfFalse("path", Directory::Exists(path), "Unable to find directory: {0}", path);
 		return path;
