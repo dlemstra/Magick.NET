@@ -814,6 +814,29 @@ namespace ImageMagick
 		Value->label(label);
 	}
 	//==============================================================================================
+	MagickImage^ MagickImage::Mask::get()
+	{
+		Magick::Image mask = Value->mask();
+		if (!mask.isValid())
+			return nullptr;
+
+		return gcnew MagickImage(mask);
+	}
+	//==============================================================================================
+	void MagickImage::Mask::set(MagickImage^ value)
+	{
+		if (value == nullptr)
+		{
+			Magick::Image* image = new Magick::Image();
+			Value->mask(*image);
+			delete image;
+		}
+		else
+		{
+			Value->mask(*value->Value);
+		}
+	}
+	//==============================================================================================
 	MagickColor^ MagickImage::MatteColor::get()
 	{
 		return gcnew MagickColor(Value->matteColor());
@@ -1721,6 +1744,18 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::ChangeColorSpace(ImageMagick::ColorSpace value)
+	{
+		try
+		{
+			Value->colorspaceType((Magick::ColorspaceType)value);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Charcoal()
 	{
 		Charcoal(0.0, 1.0);
@@ -2280,6 +2315,37 @@ namespace ImageMagick
 		}
 
 		Crop(geometry);
+	}
+	//==============================================================================================
+	IEnumerable<MagickImage^>^  MagickImage::CropToTiles(int width, int height)
+	{
+		MagickGeometry^ geometry = gcnew MagickGeometry(width, height);
+		return CropToTiles(geometry);
+	}
+	//==============================================================================================
+	IEnumerable<MagickImage^>^ MagickImage::CropToTiles(MagickGeometry^ geometry)
+	{
+		Throw::IfNull("geometry", geometry);
+
+		std::list<Magick::Image> *images = new std::list<Magick::Image>();
+		const Magick::Geometry *cropGeometry = geometry->CreateGeometry();
+
+		try
+		{
+			cropToTiles(images, *Value, *cropGeometry);
+
+			return MagickImageCollection::CreateList(images);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+			return nullptr;
+		}
+		finally
+		{
+			delete images;
+			delete cropGeometry;
+		}
 	}
 	//==============================================================================================
 	void MagickImage::CycleColormap(int amount)

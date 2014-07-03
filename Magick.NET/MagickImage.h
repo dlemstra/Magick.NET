@@ -586,6 +586,16 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Associate a mask with the image. The mask must be the same dimensions as the image. Pass
+		/// null to unset an existing mask.
+		///</summary>
+		property MagickImage^ Mask
+		{
+			MagickImage^ get();
+			void set(MagickImage^ value);
+		}
+		///==========================================================================================
+		///<summary>
 		/// Transparent color.
 		///</summary>
 		property MagickColor^ MatteColor
@@ -1221,6 +1231,11 @@ namespace ImageMagick
 		void CDL(String^ fileName);
 		///==========================================================================================
 		///<summary>
+		/// Changes the ColorSpace of the image without applying a color profile.
+		///</summary>
+		void ChangeColorSpace(ImageMagick::ColorSpace value);
+		///==========================================================================================
+		///<summary>
 		/// Charcoal effect image (looks like charcoal sketch).
 		///</summary>
 		///<exception cref="MagickException"/>
@@ -1570,6 +1585,19 @@ namespace ImageMagick
 		///<param name="gravity">The position where the cropping should start from.</param>
 		///<exception cref="MagickException"/>
 		void Crop(int width, int height, Gravity gravity);
+		///==========================================================================================
+		///<summary>
+		/// Creates tiles of the current image in the specified dimension.
+		///</summary>
+		///<param name="width">The width of the tile.</param>
+		///<param name="height">The height of the tile.</param>
+		IEnumerable<MagickImage^>^ CropToTiles(int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Creates tiles of the current image in the specified dimension.
+		///</summary>
+		///<param name="geometry">The size of the tile.</param>
+		IEnumerable<MagickImage^>^ CropToTiles(MagickGeometry^ geometry);
 		///==========================================================================================
 		///<summary>
 		/// Displaces an image's colormap by a given number of positions.

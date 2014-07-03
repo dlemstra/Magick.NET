@@ -90,7 +90,8 @@ namespace ImageMagick
 		DivideSrc = Magick::DivideSrcCompositeOp,
 		MinusSrc = Magick::MinusSrcCompositeOp,
 		DarkenIntensity = Magick::DarkenIntensityCompositeOp,
-		LightenIntensity = Magick::LightenIntensityCompositeOp
+		LightenIntensity = Magick::LightenIntensityCompositeOp,
+		HardMix = Magick::HardMixCompositeOp
 	};
 	//==============================================================================================
 }
