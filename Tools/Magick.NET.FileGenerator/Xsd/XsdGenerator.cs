@@ -371,6 +371,7 @@ namespace Magick.NET.FileGenerator
 					case "pathArc":
 					case "pathCurveto":
 					case "pathQuadraticCurveto":
+					case "sparseColorArg":
 						ReplaceWithType(annotation, annotationID);
 						break;
 					case "drawables":

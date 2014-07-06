@@ -449,8 +449,20 @@ namespace ImageMagick
 						{
 							case 'a':
 							{
-								ExecuteCharcoal(element, image);
-								return;
+								switch(element->Name[3])
+								{
+									case 'n':
+									{
+										ExecuteChangeColorSpace(element, image);
+										return;
+									}
+									case 'r':
+									{
+										ExecuteCharcoal(element, image);
+										return;
+									}
+								}
+								break;
 							}
 							case 'o':
 							{
@@ -896,6 +908,11 @@ namespace ImageMagick
 					{
 						switch(element->Name[2])
 						{
+							case 's':
+							{
+								ExecuteMask(element, image);
+								return;
+							}
 							case 't':
 							{
 								ExecuteMatteColor(element, image);
@@ -1817,6 +1834,10 @@ namespace ImageMagick
 	{
 		image->Label = _Variables->GetValue<String^>(element, "value");
 	}
+	void MagickScript::ExecuteMask(XmlElement^ element, MagickImage^ image)
+	{
+		image->Mask = CreateMagickImage(element);
+	}
 	void MagickScript::ExecuteMatteColor(XmlElement^ element, MagickImage^ image)
 	{
 		image->MatteColor = _Variables->GetValue<MagickColor^>(element, "value");
@@ -2196,6 +2217,11 @@ namespace ImageMagick
 	{
 		String^ fileName_ = _Variables->GetValue<String^>(element, "fileName");
 		image->CDL(fileName_);
+	}
+	void MagickScript::ExecuteChangeColorSpace(XmlElement^ element, MagickImage^ image)
+	{
+		ColorSpace value_ = _Variables->GetValue<ColorSpace>(element, "value");
+		image->ChangeColorSpace(value_);
 	}
 	void MagickScript::ExecuteCharcoal(XmlElement^ element, MagickImage^ image)
 	{
@@ -3449,10 +3475,24 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteSparseColor(XmlElement^ element, MagickImage^ image)
 	{
-		//Channels channels_ = _Variables->GetValue<Channels>(element, "channels");
-		//SparseColorMethod method_ = _Variables->GetValue<SparseColorMethod>(element, "method");
-		//array<double>^ coordinates_ = _Variables->GetDoubleArray(element["coordinates"]);
-		//image->SparseColor(channels_, method_, coordinates_);
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "channels")
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
+			else if (attribute->Name == "method")
+				arguments["method"] = _Variables->GetValue<SparseColorMethod>(attribute);
+		}
+		for each(XmlElement^ elem in element->SelectNodes("*"))
+		{
+			arguments[elem->Name] = CreateSparseColorArgs(elem);
+		}
+		if (OnlyContains(arguments, "channels", "method", "args"))
+			image->SparseColor((Channels)arguments["channels"], (SparseColorMethod)arguments["method"], (IEnumerable<SparseColorArg^>^)arguments["args"]);
+		else if (OnlyContains(arguments, "method", "args"))
+			image->SparseColor((SparseColorMethod)arguments["method"], (IEnumerable<SparseColorArg^>^)arguments["args"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'sparseColor', allowed combinations are: [channels, method, args] [method, args]");
 	}
 	void MagickScript::ExecuteStegano(XmlElement^ element, MagickImage^ image)
 	{
@@ -4987,6 +5027,22 @@ namespace ImageMagick
 		for each (XmlElement^ elem in element->SelectNodes("*"))
 		{
 			collection->Add(CreatePathQuadraticCurveto(elem));
+		}
+		return collection;
+	}
+	SparseColorArg^ MagickScript::CreateSparseColorArg(XmlElement^ element)
+	{
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
+		MagickColor^ color_ = _Variables->GetValue<MagickColor^>(element, "color");
+		return gcnew SparseColorArg(x_, y_, color_);
+	}
+	Collection<SparseColorArg^>^  MagickScript::CreateSparseColorArgs(XmlElement^ element)
+	{
+		Collection<SparseColorArg^>^ collection = gcnew Collection<SparseColorArg^>();
+		for each (XmlElement^ elem in element->SelectNodes("*"))
+		{
+			collection->Add(CreateSparseColorArg(elem));
 		}
 		return collection;
 	}

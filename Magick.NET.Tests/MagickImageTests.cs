@@ -791,7 +791,7 @@ namespace Magick.NET.Tests
 					image.SparseColor(Channels.Red, SparseColorMethod.Barycentric, null);
 				});
 
-				List<SparseColorArgs> args = new List<SparseColorArgs>();
+				List<SparseColorArg> args = new List<SparseColorArg>();
 
 				ExceptionAssert.Throws<ArgumentException>(delegate()
 				{
@@ -805,12 +805,12 @@ namespace Magick.NET.Tests
 
 				ExceptionAssert.Throws<ArgumentException>(delegate()
 				{
-					args.Add(new SparseColorArgs(0, 0, null));
+					args.Add(new SparseColorArg(0, 0, null));
 				});
 
-				args.Add(new SparseColorArgs(0, 0, new MagickColor("skyblue")));
-				args.Add(new SparseColorArgs(-600, 60, new MagickColor("skyblue")));
-				args.Add(new SparseColorArgs(600, 60, new MagickColor("black")));
+				args.Add(new SparseColorArg(0, 0, new MagickColor("skyblue")));
+				args.Add(new SparseColorArg(-600, 60, new MagickColor("skyblue")));
+				args.Add(new SparseColorArg(600, 60, new MagickColor("black")));
 
 				image.SparseColor(SparseColorMethod.Barycentric, args);
 

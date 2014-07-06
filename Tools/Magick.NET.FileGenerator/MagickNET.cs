@@ -88,6 +88,7 @@ namespace Magick.NET.FileGenerator
 				case "IEnumerable<PathCurveto^>^":
 				case "IEnumerable<PathQuadraticCurveto^>^":
 				case "IEnumerable<PathBase^>^":
+				case "IEnumerable<SparseColorArg^>^":
 				case "ImageProfile^":
 				case "MagickImage^":
 				case "MontageSettings^":
@@ -126,6 +127,8 @@ namespace Magick.NET.FileGenerator
 					return "pathCurvetos";
 				case "IEnumerable<PathQuadraticCurveto^>^":
 					return "pathQuadraticCurvetos";
+				case "IEnumerable<SparseColorArg^>^":
+					return "sparseColorArgs";
 				case "ImageProfile^":
 					return "profile";
 				case "MagickImage^":
@@ -334,6 +337,7 @@ namespace Magick.NET.FileGenerator
 				case "PathQuadraticCurveto":
 				case "PixelStorageSettings":
 				case "QuantizeSettings":
+				case "SparseColorArg":
 				case "String":
 					return name + "^";
 				case "IEnumerable<Coordinate>":
@@ -346,6 +350,8 @@ namespace Magick.NET.FileGenerator
 					return "IEnumerable<PathQuadraticCurveto^>^";
 				case "IEnumerable<PathBase>":
 					return "IEnumerable<PathBase^>^";
+				case "IEnumerable<SparseColorArg>":
+					return "IEnumerable<SparseColorArg^>^";
 				case "Int32":
 					return "int";
 				case "Byte":

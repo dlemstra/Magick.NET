@@ -144,6 +144,16 @@
 		<xs:annotation id="quantizeSettings"/>
 	</xs:complexType>
 	<!--=========================================================================================-->
+	<xs:complexType name="sparseColorArg">
+		<xs:annotation id="sparseColorArg"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="sparseColorArgs">
+		<xs:sequence>
+			<xs:element name="sparseColorArg" maxOccurs="unbounded" type="sparseColorArg"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--=========================================================================================-->
 	<xs:group name="actions">
 		<xs:sequence>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">

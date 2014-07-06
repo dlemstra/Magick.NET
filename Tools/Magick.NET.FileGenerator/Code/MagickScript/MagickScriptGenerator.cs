@@ -46,6 +46,7 @@ namespace Magick.NET.FileGenerator
 			_ConstructorCodeGenerators.Add(new PathArcGenerator());
 			_ConstructorCodeGenerators.Add(new PathCurvetoGenerator());
 			_ConstructorCodeGenerators.Add(new PathQuadraticCurvetoGenerator());
+			_ConstructorCodeGenerators.Add(new SparseColorArg());
 
 			_SettingsCodeGenerators = new List<SettingsCodeGenerator>();
 			_SettingsCodeGenerators.Add(new MagickReadSettingsGenerator());

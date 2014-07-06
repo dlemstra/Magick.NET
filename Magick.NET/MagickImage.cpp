@@ -4680,12 +4680,12 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::SparseColor(SparseColorMethod method, IEnumerable<SparseColorArgs^>^ args)
+	void MagickImage::SparseColor(SparseColorMethod method, IEnumerable<SparseColorArg^>^ args)
 	{
 		SparseColor(Channels::Default, method, args);
 	}
 	//==============================================================================================
-	void MagickImage::SparseColor(Channels channels, SparseColorMethod method, IEnumerable<SparseColorArgs^>^ args)
+	void MagickImage::SparseColor(Channels channels, SparseColorMethod method, IEnumerable<SparseColorArg^>^ args)
 	{
 		Throw::IfNull("args", args);
 
@@ -4698,10 +4698,10 @@ namespace ImageMagick
 
 		List<double>^ argsList = gcnew List<double>();
 
-		IEnumerator<SparseColorArgs^>^ enumerator = args->GetEnumerator();
+		IEnumerator<ImageMagick::SparseColorArg^>^ enumerator = args->GetEnumerator();
 		while(enumerator->MoveNext())
 		{
-			SparseColorArgs^ arg = enumerator->Current;
+			ImageMagick::SparseColorArg^ arg = enumerator->Current;
 
 			argsList->Add(arg->X);
 			argsList->Add(arg->Y);

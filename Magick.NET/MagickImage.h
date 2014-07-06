@@ -14,7 +14,7 @@
 #pragma once
 
 #include "Arguments\MagickGeometry.h"
-#include "Arguments\SparseColorArgs.h"
+#include "Arguments\SparseColorArg.h"
 #include "Base\MagickWrapper.h"
 #include "Colors\MagickColor.h"
 #include "Drawables\DrawableAffine.h"
@@ -3168,7 +3168,7 @@ namespace ImageMagick
 		///<param name="method">The sparse color method to use.</param>
 		///<param name="args">The sparse color arguments.</param>
 		///<exception cref="MagickException"/>
-		void SparseColor(SparseColorMethod method, IEnumerable<SparseColorArgs^>^ args);
+		void SparseColor(SparseColorMethod method, IEnumerable<SparseColorArg^>^ args);
 		///==========================================================================================
 		///<summary>
 		/// Sparse color image, given a set of coordinates, interpolates the colors found at those
@@ -3178,7 +3178,7 @@ namespace ImageMagick
 		///<param name="method">The sparse color method to use.</param>
 		///<param name="args">The sparse color arguments.</param>
 		///<exception cref="MagickException"/>
-		void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<SparseColorArgs^>^ args);
+		void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<SparseColorArg^>^ args);
 		///==========================================================================================
 		///<summary>
 		/// Returns image statistics.

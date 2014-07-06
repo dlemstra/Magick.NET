@@ -209,6 +209,7 @@
 					<xs:enumeration value="DstOver" />
 					<xs:enumeration value="Exclusion" />
 					<xs:enumeration value="HardLight" />
+					<xs:enumeration value="HardMix" />
 					<xs:enumeration value="Hue" />
 					<xs:enumeration value="In" />
 					<xs:enumeration value="Lighten" />
@@ -365,6 +366,7 @@
 					<xs:enumeration value="PoissonNoise" />
 					<xs:enumeration value="Pow" />
 					<xs:enumeration value="Right" />
+					<xs:enumeration value="RootMeanSquare" />
 					<xs:enumeration value="Set" />
 					<xs:enumeration value="Sine" />
 					<xs:enumeration value="Subtract" />
@@ -792,6 +794,7 @@
 					<xs:enumeration value="RadialGradient" />
 					<xs:enumeration value="Raf" />
 					<xs:enumeration value="Ras" />
+					<xs:enumeration value="Raw" />
 					<xs:enumeration value="Rgb" />
 					<xs:enumeration value="Rgba" />
 					<xs:enumeration value="Rgbo" />
@@ -1252,6 +1255,16 @@
 		<xs:attribute name="measureErrors" type="bool" />
 		<xs:attribute name="treeDepth" type="int" />
 	</xs:complexType>
+	<xs:complexType name="sparseColorArg">
+		<xs:attribute name="color" use="required" type="color" />
+		<xs:attribute name="x" use="required" type="double" />
+		<xs:attribute name="y" use="required" type="double" />
+	</xs:complexType>
+	<xs:complexType name="sparseColorArgs">
+		<xs:sequence>
+			<xs:element name="sparseColorArg" maxOccurs="unbounded" type="sparseColorArg" />
+		</xs:sequence>
+	</xs:complexType>
 	<xs:group name="actions">
 		<xs:sequence>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -1422,6 +1435,7 @@
 						<xs:attribute name="value" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="mask" type="image" />
 				<xs:element name="matteColor">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="color" />
@@ -1641,6 +1655,11 @@
 				<xs:element name="cdl">
 					<xs:complexType>
 						<xs:attribute name="fileName" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="changeColorSpace">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="ColorSpace" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="charcoal">
@@ -1978,8 +1997,9 @@
 				</xs:element>
 				<xs:element name="opaque">
 					<xs:complexType>
-						<xs:attribute name="opaqueColor" use="required" type="color" />
-						<xs:attribute name="penColor" use="required" type="color" />
+						<xs:attribute name="fill" use="required" type="color" />
+						<xs:attribute name="invert" type="bool" />
+						<xs:attribute name="target" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="orderedDither">
@@ -2205,9 +2225,9 @@
 				<xs:element name="sparseColor">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="coordinates" type="doubleArray" />
+							<xs:element name="args" type="sparseColorArgs" />
 						</xs:sequence>
-						<xs:attribute name="channels" use="required" type="Channels" />
+						<xs:attribute name="channels" type="Channels" />
 						<xs:attribute name="method" use="required" type="SparseColorMethod" />
 					</xs:complexType>
 				</xs:element>

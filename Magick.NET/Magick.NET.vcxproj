@@ -284,7 +284,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Arguments\SparseColorArgs.h" />
+    <ClInclude Include="Arguments\SparseColorArg.h" />
     <ClInclude Include="Enums\DitherMethod.h" />
     <ClInclude Include="Helpers\MagickConverter.h" />
     <ClInclude Include="Drawables\DrawableDashArray.h" />
@@ -476,7 +476,7 @@
     <ClInclude Include="Helpers\Throw.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Arguments\SparseColorArgs.cpp" />
+    <ClCompile Include="Arguments\SparseColorArg.cpp" />
     <ClCompile Include="Helpers\MagickConverter.cpp" />
     <ClCompile Include="Drawables\DrawableDashArray.cpp" />
     <ClCompile Include="Drawables\DrawableDashOffset.cpp" />

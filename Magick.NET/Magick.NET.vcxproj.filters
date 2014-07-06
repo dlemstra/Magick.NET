@@ -738,13 +738,13 @@
     <ClInclude Include="Arguments\PointD.h">
       <Filter>Header Files\Arguments</Filter>
     </ClInclude>
-    <ClInclude Include="Arguments\SparseColorArgs.h">
-      <Filter>Header Files\Arguments</Filter>
-    </ClInclude>
     <ClInclude Include="Results\TypeMetric.h">
       <Filter>Header Files\Results</Filter>
     </ClInclude>
     <ClInclude Include="Arguments\MagickGeometry.h">
+      <Filter>Header Files\Arguments</Filter>
+    </ClInclude>
+    <ClInclude Include="Arguments\SparseColorArg.h">
       <Filter>Header Files\Arguments</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1172,13 +1172,13 @@
     <ClCompile Include="Arguments\PointD.cpp">
       <Filter>Source Files\Arguments</Filter>
     </ClCompile>
-    <ClCompile Include="Arguments\SparseColorArgs.cpp">
-      <Filter>Source Files\Arguments</Filter>
-    </ClCompile>
     <ClCompile Include="Results\TypeMetric.cpp">
       <Filter>Source Files\Results</Filter>
     </ClCompile>
     <ClCompile Include="Arguments\MagickGeometry.cpp">
+      <Filter>Source Files\Arguments</Filter>
+    </ClCompile>
+    <ClCompile Include="Arguments\SparseColorArg.cpp">
       <Filter>Source Files\Arguments</Filter>
     </ClCompile>
   </ItemGroup>

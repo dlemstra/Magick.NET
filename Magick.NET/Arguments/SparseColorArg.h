@@ -22,7 +22,7 @@ namespace ImageMagick
 	///<summary>
 	/// Represents an argument for the SparseColor method.
 	///</summary>
-	public ref class SparseColorArgs sealed
+	public ref class SparseColorArg sealed
 	{
 		//===========================================================================================
 		double _X;
@@ -31,7 +31,7 @@ namespace ImageMagick
 		//===========================================================================================
 	public:
 		//===========================================================================================
-		SparseColorArgs(double x, double y, MagickColor^ color);
+		SparseColorArg(double x, double y, MagickColor^ color);
 		///==========================================================================================
 		///<summary>
 		/// The X position.

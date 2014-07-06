@@ -12,12 +12,12 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "SparseColorArgs.h"
+#include "SparseColorArg.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	SparseColorArgs::SparseColorArgs(double x, double y, MagickColor^ color)
+	SparseColorArg::SparseColorArg(double x, double y, MagickColor^ color)
 	{
 		Throw::IfNull("color", color);
 
@@ -26,17 +26,17 @@ namespace ImageMagick
 		_Color = color;
 	}
 	//==============================================================================================
-	double SparseColorArgs::X::get()
+	double SparseColorArg::X::get()
 	{
 		return _X;
 	}
 	//==============================================================================================
-	double SparseColorArgs::Y::get()
+	double SparseColorArg::Y::get()
 	{
 		return _Y;
 	}
 	//==============================================================================================
-	MagickColor^ SparseColorArgs::Color::get()
+	MagickColor^ SparseColorArg::Color::get()
 	{
 		return _Color;
 	}
