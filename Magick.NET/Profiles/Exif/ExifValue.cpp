@@ -171,9 +171,9 @@ namespace ImageMagick
 
 		ExifValue^ exifValue = nullptr;
 		bool isArray = false;
-		Type^ type = value != nullptr ? value->GetType() :  nullptr;
+		Type^ type = value != nullptr ? value->GetType() : nullptr;
 		if (type != nullptr && type->IsArray)
-			type == type->GetElementType();
+			type = type->GetElementType();
 
 		switch(tag)
 		{
