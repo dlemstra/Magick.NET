@@ -74,7 +74,7 @@
     <Compile Include="MagickFormatInfoTests.cs" />
     <Compile Include="Matrices\ConvolveMatrixTests.cs" />
     <Compile Include="Matrices\ColorMatrixTests.cs" />
-    <Compile Include="PercentageTests.cs" />
+    <Compile Include="Arguments\PercentageTests.cs" />
     <Compile Include="Pixels\PixelCollectionTests.cs" />
     <Compile Include="Pixels\PixelTests.cs" />
     <Compile Include="Pixels\WritablePixelCollectionTests.cs" />
@@ -87,7 +87,7 @@
     <Compile Include="Profiles\Exif\ExifProfileTests.cs" />
     <Compile Include="Profiles\Exif\ExifValueTests.cs" />
     <Compile Include="Colors\MagickColorTests.cs" />
-    <Compile Include="MagickGeometryTests.cs" />
+    <Compile Include="Arguments\MagickGeometryTests.cs" />
     <Compile Include="MagickImageCollectionTests.cs" />
     <Compile Include="MagickImageInfoTests.cs" />
     <Compile Include="MagickImageTests.cs" />

@@ -271,8 +271,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Magick.NET\Arguments\SparseColorArg.h" />
     <ClInclude Include="..\Magick.NET\Enums\DitherMethod.h" />
-    <ClInclude Include="..\Magick.NET\MagickConverter.h" />
+    <ClInclude Include="..\Magick.NET\Helpers\MagickConverter.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableDashArray.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableDashOffset.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableEllipse.h" />
@@ -375,7 +376,7 @@
     <ClInclude Include="..\Magick.NET\Exceptions\Base\MagickException.h" />
     <ClInclude Include="..\Magick.NET\Exceptions\MagickWarningExceptions.h" />
     <ClInclude Include="..\Magick.NET\Helpers\ByteConverter.h" />
-    <ClInclude Include="..\Magick.NET\MagickSearchResult.h" />
+    <ClInclude Include="..\Magick.NET\Results\MagickSearchResult.h" />
     <ClInclude Include="..\Magick.NET\Profiles\8Bim\ClipPathReader.h" />
     <ClInclude Include="..\Magick.NET\Profiles\8Bim\EightBimProfile.h" />
     <ClInclude Include="..\Magick.NET\Profiles\Exif\ExifDataType.h" />
@@ -386,6 +387,8 @@
     <ClInclude Include="..\Magick.NET\Helpers\EnumHelper.h" />
     <ClInclude Include="..\Magick.NET\Helpers\FileHelper.h" />
     <ClInclude Include="..\Magick.NET\Helpers\XmlHelper.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\Exif\ExifParts.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\Exif\ExifWriter.h" />
     <ClInclude Include="..\Magick.NET\Profiles\ImageProfile.h" />
     <ClInclude Include="..\Magick.NET\Profiles\Iptc\IptcProfile.h" />
     <ClInclude Include="..\Magick.NET\Profiles\Iptc\IptcTag.h" />
@@ -404,7 +407,7 @@
     <ClInclude Include="..\Magick.NET\MagickFormatInfo.h" />
     <ClInclude Include="..\Magick.NET\Statistics\MagickImageMoments.h" />
     <ClInclude Include="..\Magick.NET\Statistics\MagickImageStatistics.h" />
-    <ClInclude Include="..\Magick.NET\MagickErrorInfo.h" />
+    <ClInclude Include="..\Magick.NET\Results\MagickErrorInfo.h" />
     <ClInclude Include="..\Magick.NET\Drawables\Coordinate.h" />
     <ClInclude Include="..\Magick.NET\Enums\DistortMethod.h" />
     <ClInclude Include="..\Magick.NET\Drawables\Base\Drawable.h" />
@@ -429,10 +432,10 @@
     <ClInclude Include="..\Magick.NET\Enums\Gravity.h" />
     <ClInclude Include="..\Magick.NET\Colors\MagickColor.h" />
     <ClInclude Include="..\Magick.NET\Colors\Base\ColorBase.h" />
-    <ClInclude Include="..\Magick.NET\Percentage.h" />
+    <ClInclude Include="..\Magick.NET\Arguments\Percentage.h" />
     <ClInclude Include="..\Magick.NET\Enums\Resolution.h" />
-    <ClInclude Include="..\Magick.NET\PointD.h" />
-    <ClInclude Include="..\Magick.NET\TypeMetric.h" />
+    <ClInclude Include="..\Magick.NET\Arguments\PointD.h" />
+    <ClInclude Include="..\Magick.NET\Results\TypeMetric.h" />
     <ClInclude Include="..\Magick.NET\Settings\MagickReadSettings.h" />
     <ClInclude Include="..\Magick.NET\Matrices\ColorMatrix.h" />
     <ClInclude Include="..\Magick.NET\Matrices\ConvolveMatrix.h" />
@@ -441,7 +444,7 @@
     <ClInclude Include="..\Magick.NET\MagickNET.h" />
     <ClInclude Include="..\Magick.NET\Enums\ColorSpace.h" />
     <ClInclude Include="..\Magick.NET\Enums\MagickFormat.h" />
-    <ClInclude Include="..\Magick.NET\MagickGeometry.h" />
+    <ClInclude Include="..\Magick.NET\Arguments\MagickGeometry.h" />
     <ClInclude Include="..\Magick.NET\MagickImage.h" />
     <ClInclude Include="..\Magick.NET\IO\MagickReader.h" />
     <ClInclude Include="..\Magick.NET\Base\MagickWrapper.h" />
@@ -460,7 +463,8 @@
     <ClInclude Include="..\Magick.NET\Helpers\Throw.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Magick.NET\MagickConverter.cpp" />
+    <ClCompile Include="..\Magick.NET\Arguments\SparseColorArg.cpp" />
+    <ClCompile Include="..\Magick.NET\Helpers\MagickConverter.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableDashArray.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableDashOffset.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableEllipse.cpp" />
@@ -538,7 +542,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\Magick.NET\MagickSearchResult.cpp" />
+    <ClCompile Include="..\Magick.NET\Results\MagickSearchResult.cpp" />
     <ClCompile Include="..\Magick.NET\Profiles\8Bim\ClipPathReader.cpp" />
     <ClCompile Include="..\Magick.NET\Profiles\8Bim\EightBimProfile.cpp" />
     <ClCompile Include="..\Magick.NET\Profiles\Exif\ExifProfile.cpp" />
@@ -547,6 +551,7 @@
     <ClCompile Include="..\Magick.NET\Helpers\EnumHelper.cpp" />
     <ClCompile Include="..\Magick.NET\Helpers\FileHelper.cpp" />
     <ClCompile Include="..\Magick.NET\Helpers\XmlHelper.cpp" />
+    <ClCompile Include="..\Magick.NET\Profiles\Exif\ExifWriter.cpp" />
     <ClCompile Include="..\Magick.NET\Profiles\ImageProfile.cpp" />
     <ClCompile Include="..\Magick.NET\Profiles\Iptc\IptcProfile.cpp" />
     <ClCompile Include="..\Magick.NET\Profiles\Iptc\IptcValue.cpp" />
@@ -566,7 +571,7 @@
     <ClCompile Include="..\Magick.NET\MagickFormatInfo.cpp" />
     <ClCompile Include="..\Magick.NET\Statistics\MagickImageMoments.cpp" />
     <ClCompile Include="..\Magick.NET\Statistics\MagickImageStatistics.cpp" />
-    <ClCompile Include="..\Magick.NET\MagickErrorInfo.cpp" />
+    <ClCompile Include="..\Magick.NET\Results\MagickErrorInfo.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\Coordinate.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableArc.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableBezier.cpp" />
@@ -585,9 +590,9 @@
     <ClCompile Include="..\Magick.NET\Colors\ColorYUV.cpp" />
     <ClCompile Include="..\Magick.NET\Colors\MagickColor.cpp" />
     <ClCompile Include="..\Magick.NET\Colors\Base\ColorBase.cpp" />
-    <ClCompile Include="..\Magick.NET\Percentage.cpp" />
-    <ClCompile Include="..\Magick.NET\PointD.cpp" />
-    <ClCompile Include="..\Magick.NET\TypeMetric.cpp" />
+    <ClCompile Include="..\Magick.NET\Arguments\Percentage.cpp" />
+    <ClCompile Include="..\Magick.NET\Arguments\PointD.cpp" />
+    <ClCompile Include="..\Magick.NET\Results\TypeMetric.cpp" />
     <ClCompile Include="..\Magick.NET\Exceptions\MagickErrorExceptions.cpp" />
     <ClCompile Include="..\Magick.NET\Exceptions\MagickWarningExceptions.cpp" />
     <ClCompile Include="..\Magick.NET\Matrices\ColorMatrix.cpp" />
@@ -595,7 +600,7 @@
     <ClCompile Include="..\Magick.NET\MagickImageCollection.cpp" />
     <ClCompile Include="..\Magick.NET\MagickImageInfo.cpp" />
     <ClCompile Include="..\Magick.NET\MagickNET.cpp" />
-    <ClCompile Include="..\Magick.NET\MagickGeometry.cpp" />
+    <ClCompile Include="..\Magick.NET\Arguments\MagickGeometry.cpp" />
     <ClCompile Include="..\Magick.NET\MagickImage.cpp" />
     <ClCompile Include="..\Magick.NET\IO\MagickReader.cpp" />
     <ClCompile Include="..\Magick.NET\IO\MagickWriter.cpp" />
