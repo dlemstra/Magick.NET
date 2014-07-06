@@ -1114,7 +1114,7 @@ namespace Magick.NET.FileGenerator
 					throw new NotImplementedException();
 				}
 			}
-			else if (_Types.Contains(parameter.ParameterType) || parameter.ParameterType == typeof(object))
+			else if (_Types.Contains(parameter.ParameterType))
 			{
 				WriteType(writer, parameter.ParameterType);
 				writer.Write(".GetInstance(");

@@ -56,8 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Generated\ChannelMoments.cs" />
+    <Compile Include="Generated\Enums\ExifParts.cs" />
     <Compile Include="Generated\MagickImageMoments.cs" />
     <Compile Include="Generated\PointD.cs" />
+    <Compile Include="Generated\SparseColorArg.cs" />
     <Compile Include="MagickAnyCPU.cs" />
     <Compile Include="AssemblyHelper.cs" />
     <Compile Include="EnumeratorWrapper.cs" />
