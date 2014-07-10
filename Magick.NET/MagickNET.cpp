@@ -112,7 +112,10 @@ namespace ImageMagick
 	//==============================================================================================
 	bool MagickNET::UseOpenCL::get()
 	{
-		return _UseOpenCL;
+		if (!_UseOpenCL.HasValue)
+			_UseOpenCL = SetUseOpenCL(true);
+
+		return _UseOpenCL.Value;
 	}
 	//==============================================================================================
 	void MagickNET::UseOpenCL::set(bool value)

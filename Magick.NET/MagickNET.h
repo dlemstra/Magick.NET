@@ -42,7 +42,7 @@ namespace ImageMagick
 		};
 		static MagickLogFuncDelegate^ _LogDelegate;
 		static EventHandler<LogEventArgs^>^ _LogEvent;
-		static bool _UseOpenCL = SetUseOpenCL(true);
+		static Nullable<bool> _UseOpenCL;
 		//===========================================================================================
 		static String^ CheckDirectory(String^ path);
 		//===========================================================================================
