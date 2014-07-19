@@ -1079,6 +1079,15 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::TextEncoding::set(Encoding^ value)
+	{
+		String^ name = value != nullptr ? value->WebName : nullptr;
+
+		std::string encoding;
+		Value->textEncoding(Marshaller::Marshal(name, encoding));
+		SetOption("encoding", name);
+	}
+	//==============================================================================================
 	Gravity MagickImage::TextGravity::get()
 	{
 		return (ImageMagick::Gravity)Value->textGravity();
@@ -1088,15 +1097,6 @@ namespace ImageMagick
 	{
 		Value->textGravity((Magick::GravityType)value);
 		SetOption("gravity", MagickCore::MagickGravityOptions, (ssize_t)value);
-	}
-	//==============================================================================================
-	void MagickImage::TextEncoding::set(Encoding^ value)
-	{
-		String^ name = value != nullptr ? value->WebName : nullptr;
-
-		std::string encoding;
-		Value->textEncoding(Marshaller::Marshal(name, encoding));
-		SetOption("encoding", name);
 	}
 	//==============================================================================================
 	double MagickImage::TextInterlineSpacing::get()

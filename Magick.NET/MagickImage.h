@@ -3388,14 +3388,15 @@ namespace ImageMagick
 		void TransformSkewY(double skewY);
 		///==========================================================================================
 		///<summary>
-		/// Add matte channel to image, setting pixels matching color to transparent.
+		/// Add alpha channel to image, setting pixels matching color to transparent.
 		///</summary>
 		///<param name="color">The color to make transparent.</param>
 		///<exception cref="MagickException"/>
 		void Transparent(MagickColor^ color);
 		///==========================================================================================
 		///<summary>
-		/// Add matte image to image, for all the pixels that lies in between the given two colors.
+		/// Add alpha channel to image, setting pixels that lie in between the given two colors to
+		/// transparent.
 		///</summary>
 		///<exception cref="MagickException"/>
 		void TransparentChroma(MagickColor^ colorLow, MagickColor^ colorHigh);
