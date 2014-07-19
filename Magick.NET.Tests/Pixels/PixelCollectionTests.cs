@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
 				{
 					Assert.AreEqual(5, pixels.Width);
 					Assert.AreEqual(10, pixels.Height);
-					Assert.AreEqual(5 * 10 * 4, pixels.GetValues().Length);
+					Assert.AreEqual(5 * 10 * pixels.Channels, pixels.GetValues().Length);
 				}
 			}
 		}
