@@ -17,11 +17,11 @@ using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 #if Q8
-	using Quantum = System.Byte;
+using QuantumType = System.Byte;
 #elif Q16
-using Quantum = System.UInt16;
+using QuantumType = System.UInt16;
 #elif Q16HDRI
-	using Quantum = System.Single;
+	using QuantumType = System.Single;
 #else
 #error Not implemented!
 #endif
@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
 			ColorAssert.AreEqual(color, magickColor);
 		}
 		//===========================================================================================
-		private static void Test_Set(WritablePixelCollection pixels, Quantum[] value)
+		private static void Test_Set(WritablePixelCollection pixels, QuantumType[] value)
 		{
 			ExceptionAssert.Throws<ArgumentException>(delegate()
 			{
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
 				{
 					ExceptionAssert.Throws<ArgumentNullException>(delegate()
 					{
-						pixels.Set((Quantum[])null);
+						pixels.Set((QuantumType[])null);
 					});
 
 					ExceptionAssert.Throws<ArgumentNullException>(delegate()
@@ -100,12 +100,12 @@ namespace Magick.NET.Tests
 						pixels.Set((Pixel[])null);
 					});
 
-					Test_Set(pixels, new Quantum[] { });
-					Test_Set(pixels, new Quantum[] { 0 });
-					Test_Set(pixels, new Quantum[] { 0, 0 });
-					Test_Set(pixels, new Quantum[] { 0, 0, 0 });
+					Test_Set(pixels, new QuantumType[] { });
+					Test_Set(pixels, new QuantumType[] { 0 });
+					Test_Set(pixels, new QuantumType[] { 0, 0 });
+					Test_Set(pixels, new QuantumType[] { 0, 0, 0 });
 
-					pixels.Set(new Quantum[] { 0, 0, 0, 0 });
+					pixels.Set(new QuantumType[] { 0, 0, 0, 0 });
 					Test_PixelColor(pixels, Color.Black);
 					pixels.Write();
 				}
@@ -131,7 +131,7 @@ namespace Magick.NET.Tests
 					{
 						for (int y = 0; y < pixels.Height; y++)
 						{
-							pixels.Set(x, y, new Quantum[] { 0, 0, 0, 0 });
+							pixels.Set(x, y, new QuantumType[] { 0, 0, 0, 0 });
 						}
 					}
 				}
