@@ -285,7 +285,7 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_Extend()
+		public void Test_Extent()
 		{
 			using (MagickImage image = new MagickImage())
 			{
