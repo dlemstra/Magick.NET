@@ -3181,6 +3181,18 @@ namespace ImageMagick
 		void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<SparseColorArg^>^ args);
 		///==========================================================================================
 		///<summary>
+		/// Spread pixels randomly within image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Spread();
+		///==========================================================================================
+		///<summary>
+		/// Spread pixels randomly within image by specified ammount.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Spread(int amount);
+		///==========================================================================================
+		///<summary>
 		/// Returns image statistics.
 		///</summary>
 		///<exception cref="MagickException"/>
@@ -3426,6 +3438,23 @@ namespace ImageMagick
 		///</summary>
 		///<exception cref="MagickException"/>
 		MagickImage^ UniqueColors();
+		///==========================================================================================
+		///<summary>
+		/// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		///<exception cref="MagickException"/>
+		void Unsharpmask(double radius, double sigma);
+		///==========================================================================================
+		///<summary>
+		/// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		///<param name="channels">The channel(s) that should be sharpened.</param>
+		///<exception cref="MagickException"/>
+		void Unsharpmask(double radius, double sigma, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Replace image with a sharpened version of the original image using the unsharp mask algorithm.

@@ -120,7 +120,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickNET::UseOpenCL::set(bool value)
 	{
-		_UseOpenCL=SetUseOpenCL(value);
+		_UseOpenCL = SetUseOpenCL(value);
 	}
 	//==============================================================================================
 	String^ MagickNET::Version::get()

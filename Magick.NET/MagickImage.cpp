@@ -4736,6 +4736,23 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Spread()
+	{
+		Spread(3);
+	}
+	//==============================================================================================
+	void MagickImage::Spread(int amount)
+	{
+		try
+		{
+			Value->spread(amount);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	MagickImageStatistics^ MagickImage::Statistics()
 	{
 		Magick::Image::ImageStatistics statistics;
@@ -5154,6 +5171,16 @@ namespace ImageMagick
 			return nullptr;
 
 		return gcnew MagickImage(uniqueColors);
+	}
+	//==============================================================================================
+	void MagickImage::Unsharpmask(double radius, double sigma)
+	{
+		Unsharpmask(radius, sigma, 1.0, 0.05);
+	}
+	//==============================================================================================
+	void MagickImage::Unsharpmask(double radius, double sigma, Channels channels)
+	{
+		Unsharpmask(radius, sigma, 1.0, 0.05, channels);
 	}
 	//==============================================================================================
 	void MagickImage::Unsharpmask(double radius, double sigma, double amount, double threshold)
