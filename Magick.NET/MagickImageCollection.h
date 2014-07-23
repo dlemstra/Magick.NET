@@ -363,6 +363,19 @@ namespace ImageMagick
 		virtual void Insert(int index, String^ fileName);
 		///==========================================================================================
 		///<summary>
+		/// Remap image colors.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Map();
+		///==========================================================================================
+		///<summary>
+		/// Remap image colors.
+		///</summary>
+		///<param name="settings">Quantize settings.</param>
+		///<exception cref="MagickException"/>
+		void Map(QuantizeSettings^ settings);
+		///==========================================================================================
+		///<summary>
 		/// Merge this collection into a single image.
 		/// This is useful for combining Photoshop layers into a single image.
 		///</summary>
@@ -404,6 +417,19 @@ namespace ImageMagick
 		///</summary>
 		///<exception cref="MagickException"/>
 		void OptimizePlus();
+		///==========================================================================================
+		///<summary>
+		/// Compares each image the GIF disposed forms of the previous image in the sequence. Any
+		/// pixel that does not change the displayed result is replaced with transparency. 
+		///</summary>
+		///<exception cref="MagickException"/>
+		void OptimizeTransparency();
+		///==========================================================================================
+		///<summary>
+		/// Quantize images (reduce number of colors).
+		///</summary>
+		///<exception cref="MagickException"/>
+		MagickErrorInfo^ Quantize();
 		///==========================================================================================
 		///<summary>
 		/// Quantize images (reduce number of colors).

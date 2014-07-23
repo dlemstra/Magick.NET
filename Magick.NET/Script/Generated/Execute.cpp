@@ -923,11 +923,6 @@ namespace ImageMagick
 								ExecuteMagnify(image);
 								return;
 							}
-							case 'p':
-							{
-								ExecuteMap(element, image);
-								return;
-							}
 						}
 						break;
 					}
@@ -1405,8 +1400,20 @@ namespace ImageMagick
 					}
 					case 'p':
 					{
-						ExecuteSparseColor(element, image);
-						return;
+						switch(element->Name[2])
+						{
+							case 'a':
+							{
+								ExecuteSparseColor(element, image);
+								return;
+							}
+							case 'r':
+							{
+								ExecuteSpread(element, image);
+								return;
+							}
+						}
+						break;
 					}
 					case 'w':
 					{
@@ -2833,24 +2840,6 @@ namespace ImageMagick
 	{
 		image->Magnify();
 	}
-	void MagickScript::ExecuteMap(XmlElement^ element, MagickImage^ image)
-	{
-		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
-		for each(XmlAttribute^ attribute in element->Attributes)
-		{
-			arguments[attribute->Name] = _Variables->GetValue<bool>(attribute);
-		}
-		for each(XmlElement^ elem in element->SelectNodes("*"))
-		{
-			arguments[elem->Name] = CreateMagickImage(elem);
-		}
-		if (OnlyContains(arguments, "image"))
-			image->Map((MagickImage^)arguments["image"]);
-		else if (OnlyContains(arguments, "image", "dither"))
-			image->Map((MagickImage^)arguments["image"], (bool)arguments["dither"]);
-		else
-			throw gcnew ArgumentException("Invalid argument combination for 'map', allowed combinations are: [image] [image, dither]");
-	}
 	void MagickScript::ExecuteMedianFilter(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -3494,6 +3483,20 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'sparseColor', allowed combinations are: [channels, method, args] [method, args]");
 	}
+	void MagickScript::ExecuteSpread(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			arguments[attribute->Name] = _Variables->GetValue<int>(attribute);
+		}
+		if (arguments->Count == 0)
+			image->Spread();
+		else if (OnlyContains(arguments, "amount"))
+			image->Spread((int)arguments["amount"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'spread', allowed combinations are: [] [amount]");
+	}
 	void MagickScript::ExecuteStegano(XmlElement^ element, MagickImage^ image)
 	{
 		MagickImage^ watermark_ = CreateMagickImage(element["watermark"]);
@@ -3641,12 +3644,16 @@ namespace ImageMagick
 			else if (attribute->Name == "threshold")
 				arguments["threshold"] = _Variables->GetValue<double>(attribute);
 		}
-		if (OnlyContains(arguments, "radius", "sigma", "amount", "threshold"))
+		if (OnlyContains(arguments, "radius", "sigma"))
+			image->Unsharpmask((double)arguments["radius"], (double)arguments["sigma"]);
+		else if (OnlyContains(arguments, "radius", "sigma", "amount", "threshold"))
 			image->Unsharpmask((double)arguments["radius"], (double)arguments["sigma"], (double)arguments["amount"], (double)arguments["threshold"]);
 		else if (OnlyContains(arguments, "radius", "sigma", "amount", "threshold", "channels"))
 			image->Unsharpmask((double)arguments["radius"], (double)arguments["sigma"], (double)arguments["amount"], (double)arguments["threshold"], (Channels)arguments["channels"]);
+		else if (OnlyContains(arguments, "radius", "sigma", "channels"))
+			image->Unsharpmask((double)arguments["radius"], (double)arguments["sigma"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'unsharpmask', allowed combinations are: [radius, sigma, amount, threshold] [radius, sigma, amount, threshold, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'unsharpmask', allowed combinations are: [radius, sigma] [radius, sigma, amount, threshold] [radius, sigma, amount, threshold, channels] [radius, sigma, channels]");
 	}
 	void MagickScript::ExecuteVignette(XmlElement^ element, MagickImage^ image)
 	{
@@ -3752,12 +3759,54 @@ namespace ImageMagick
 			{
 				return ExecuteDeconstruct(collection);
 			}
+			case 'm':
+			{
+				switch(element->Name[1])
+				{
+					case 'a':
+					{
+						return ExecuteMap(element, collection);
+					}
+					case 'e':
+					{
+						return ExecuteMerge(collection);
+					}
+					case 'o':
+					{
+						switch(element->Name[2])
+						{
+							case 'n':
+							{
+								return ExecuteMontage(element, collection);
+							}
+							case 's':
+							{
+								return ExecuteMosaic(collection);
+							}
+						}
+						break;
+					}
+				}
+				break;
+			}
 			case 'o':
 			{
-				if (element->Name->Length == 12)
+				if (element->Name->Length == 8)
 				{
-					return ExecuteOptimizePlus(collection);
+					return ExecuteOptimize(collection);
 				}
+				switch(element->Name[8])
+				{
+					case 'P':
+					{
+						return ExecuteOptimizePlus(collection);
+					}
+					case 'T':
+					{
+						return ExecuteOptimizeTransparency(collection);
+					}
+				}
+				break;
 			}
 			case 'q':
 			{
@@ -3812,32 +3861,6 @@ namespace ImageMagick
 				}
 				break;
 			}
-			case 'm':
-			{
-				switch(element->Name[1])
-				{
-					case 'e':
-					{
-						return ExecuteMerge(collection);
-					}
-					case 'o':
-					{
-						switch(element->Name[2])
-						{
-							case 'n':
-							{
-								return ExecuteMontage(element, collection);
-							}
-							case 's':
-							{
-								return ExecuteMosaic(collection);
-							}
-						}
-						break;
-					}
-				}
-				break;
-			}
 			case 's':
 			{
 				switch(element->Name[5])
@@ -3870,6 +3893,26 @@ namespace ImageMagick
 		collection->Deconstruct();
 		return nullptr;
 	}
+	MagickImage^ MagickScript::ExecuteMap(XmlElement^ element, MagickImageCollection^ collection)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlElement^ elem in element->SelectNodes("*"))
+		{
+			arguments[elem->Name] = CreateQuantizeSettings(elem);
+		}
+		if (arguments->Count == 0)
+			{
+				collection->Map();
+				return nullptr;
+			}
+		else if (OnlyContains(arguments, "settings"))
+			{
+				collection->Map((QuantizeSettings^)arguments["settings"]);
+				return nullptr;
+			}
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'map', allowed combinations are: [] [settings]");
+	}
 	MagickImage^ MagickScript::ExecuteOptimize(MagickImageCollection^ collection)
 	{
 		collection->Optimize();
@@ -3880,11 +3923,30 @@ namespace ImageMagick
 		collection->OptimizePlus();
 		return nullptr;
 	}
+	MagickImage^ MagickScript::ExecuteOptimizeTransparency(MagickImageCollection^ collection)
+	{
+		collection->OptimizeTransparency();
+		return nullptr;
+	}
 	MagickImage^ MagickScript::ExecuteQuantize(XmlElement^ element, MagickImageCollection^ collection)
 	{
-		QuantizeSettings^ settings_ = CreateQuantizeSettings(element["settings"]);
-		collection->Quantize(settings_);
-		return nullptr;
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlElement^ elem in element->SelectNodes("*"))
+		{
+			arguments[elem->Name] = CreateQuantizeSettings(elem);
+		}
+		if (arguments->Count == 0)
+			{
+				collection->Quantize();
+				return nullptr;
+			}
+		else if (OnlyContains(arguments, "settings"))
+			{
+				collection->Quantize((QuantizeSettings^)arguments["settings"]);
+				return nullptr;
+			}
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'quantize', allowed combinations are: [] [settings]");
 	}
 	MagickImage^ MagickScript::ExecuteRePage(MagickImageCollection^ collection)
 	{

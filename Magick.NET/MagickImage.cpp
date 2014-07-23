@@ -250,6 +250,22 @@ namespace ImageMagick
 		Value = new Magick::Image(image);
 	}
 	//==============================================================================================
+	void MagickImage::Apply(QuantizeSettings^ settings)
+	{
+		Value->quantizeColors(settings->Colors);
+		Value->quantizeColorSpace((Magick::ColorspaceType)settings->ColorSpace);
+		if (settings->DitherMethod.HasValue)
+		{
+			Value->quantizeDither(true);
+			Value->quantizeDitherMethod((Magick::DitherMethod)settings->DitherMethod.Value);
+		}
+		else
+		{
+			Value->quantizeDither(false);
+		}
+		Value->quantizeTreeDepth(settings->TreeDepth);
+	}
+	//==============================================================================================
 	const Magick::Image& MagickImage::ReuseValue()
 	{
 		return *Value;
@@ -3477,23 +3493,27 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Map(MagickImage^ image)
+	MagickErrorInfo^ MagickImage::Map(MagickImage^ image)
 	{
-		Map(image, false);
+		return Map(image, gcnew QuantizeSettings());
 	}
 	//==============================================================================================
-	void MagickImage::Map(MagickImage^ image, bool dither)
+	MagickErrorInfo^ MagickImage::Map(MagickImage^ image, QuantizeSettings^ settings)
 	{
 		Throw::IfNull("image", image);
+		Throw::IfNull("settings", settings);
 
 		try
 		{
-			Value->map(*image->Value, dither);
+			Apply(settings);
+			Value->map(*image->Value, settings->DitherMethod.HasValue);
 		}
 		catch(Magick::Exception& exception)
 		{
 			HandleException(exception);
 		}
+
+		return settings->MeasureErrors ? gcnew MagickErrorInfo(Value) : nullptr;
 	}
 	//==============================================================================================
 	void MagickImage::MedianFilter()
@@ -3960,7 +3980,7 @@ namespace ImageMagick
 
 		try
 		{
-			settings->Apply(Value);
+			Apply(settings);
 			Value->quantize(settings->MeasureErrors);
 		}
 		catch(Magick::Exception& exception)

@@ -111,12 +111,20 @@ namespace ImageMagick
 		{
 			CopyTo(images);
 
-			if (optizeMethod == LayerMethod::OptimizeImage)
-				Magick::optimizeImageLayers(optimizedImages, images->begin(), images->end());
+			if (optizeMethod == LayerMethod::OptimizeTrans)
+			{
+				Magick::optimizeTransparency(images->begin(), images->end());
+				CopyFrom(images);
+			}
 			else
-				Magick::optimizePlusImageLayers(optimizedImages, images->begin(), images->end());
 
-			CopyFrom(optimizedImages);
+			{
+				if (optizeMethod == LayerMethod::OptimizeImage)
+					Magick::optimizeImageLayers(optimizedImages, images->begin(), images->end());
+				else
+					Magick::optimizePlusImageLayers(optimizedImages, images->begin(), images->end());
+				CopyFrom(optimizedImages);
+			}
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -604,6 +612,41 @@ namespace ImageMagick
 		Insert(index, gcnew MagickImage(fileName));
 	}
 	//==============================================================================================
+	void MagickImageCollection::Map()
+	{
+		Map(gcnew QuantizeSettings());
+	}
+	//==============================================================================================
+	void MagickImageCollection::Map(QuantizeSettings^ settings)
+	{
+		Throw::IfNull("settings", settings);
+
+		for each(MagickImage^ image in _Images)
+		{
+			image->Apply(settings);
+		}
+
+		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+
+		try
+		{
+			CopyTo(images);
+
+			Magick::Image mapImage;
+			Magick::mapImages(images->begin(), images->end(), mapImage, settings->DitherMethod.HasValue, settings->MeasureErrors);
+
+			CopyFrom(images);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+		finally
+		{
+			delete images;
+		}
+	}
+	//==============================================================================================
 	MagickImage^ MagickImageCollection::Merge()
 	{
 		if (Count == 0)
@@ -698,6 +741,16 @@ namespace ImageMagick
 	void MagickImageCollection::OptimizePlus()
 	{
 		Optimize(LayerMethod::OptimizePlus);
+	}
+	//==============================================================================================
+	void MagickImageCollection::OptimizeTransparency()
+	{
+		Optimize(LayerMethod::OptimizeTrans);
+	}
+	//==============================================================================================
+	MagickErrorInfo^ MagickImageCollection::Quantize()
+	{
+		return Quantize(gcnew QuantizeSettings());
 	}
 	//==============================================================================================
 	MagickErrorInfo^ MagickImageCollection::Quantize(QuantizeSettings^ settings)

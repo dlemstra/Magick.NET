@@ -78,8 +78,12 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			if (ReturnsImage(method))
+			bool returnsImage = ReturnsImage(method);
+
+			if (returnsImage)
 				writer.Write("return ");
+			else
+				WriteStartColon(writer);
 
 			writer.Write("collection->");
 			writer.Write(method.Name);
@@ -88,7 +92,10 @@ namespace Magick.NET.FileGenerator
 			writer.WriteLine(");");
 
 			if (!ReturnsImage(method))
+			{
 				writer.WriteLine("return nullptr;");
+				WriteEndColon(writer);
+			}
 		}
 		//===========================================================================================
 		protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)

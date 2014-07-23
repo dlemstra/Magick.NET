@@ -1,5 +1,9 @@
 Breaking changes.
 
+Magick.NET 6.8.9.601:
+  - Changed arguments for the Map method of MagickImage.
+  - QuantizeSettings uses Riemersma by default.
+
 Magick.NET 6.8.9.501:
   - Changed arguments for the SparseColor method of MagickImage.
 

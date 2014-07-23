@@ -1944,14 +1944,6 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="magnify" type="empty" />
-				<xs:element name="map">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="image" type="image" />
-						</xs:sequence>
-						<xs:attribute name="dither" type="bool" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="medianFilter">
 					<xs:complexType>
 						<xs:attribute name="radius" type="double" />
@@ -2230,6 +2222,11 @@
 						<xs:attribute name="method" use="required" type="SparseColorMethod" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="spread">
+					<xs:complexType>
+						<xs:attribute name="amount" type="int" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="stegano">
 					<xs:complexType>
 						<xs:sequence>
@@ -2327,11 +2324,11 @@
 				<xs:element name="trim" type="empty" />
 				<xs:element name="unsharpmask">
 					<xs:complexType>
-						<xs:attribute name="amount" use="required" type="double" />
+						<xs:attribute name="amount" type="double" />
 						<xs:attribute name="channels" type="Channels" />
 						<xs:attribute name="radius" use="required" type="double" />
 						<xs:attribute name="sigma" use="required" type="double" />
-						<xs:attribute name="threshold" use="required" type="double" />
+						<xs:attribute name="threshold" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="vignette">
@@ -2387,12 +2384,20 @@
 						<xs:choice minOccurs="0" maxOccurs="unbounded">
 							<xs:element name="coalesce" type="empty" />
 							<xs:element name="deconstruct" type="empty" />
+							<xs:element name="map">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="settings" minOccurs="0" type="quantizeSettings" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
 							<xs:element name="optimize" type="empty" />
 							<xs:element name="optimizePlus" type="empty" />
+							<xs:element name="optimizeTransparency" type="empty" />
 							<xs:element name="quantize">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="settings" type="quantizeSettings" />
+										<xs:element name="settings" minOccurs="0" type="quantizeSettings" />
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
