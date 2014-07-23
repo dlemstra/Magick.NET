@@ -591,7 +591,7 @@ namespace Magick.NET.Tests
 			QuantizeSettings settings = new QuantizeSettings();
 			settings.Colors = 8;
 
-			Assert.AreEqual(null, settings.DitherMethod);
+			Assert.AreEqual(DitherMethod.Riemersma, settings.DitherMethod);
 			settings.DitherMethod = null;
 			Assert.AreEqual(null, settings.DitherMethod);
 			settings.DitherMethod = DitherMethod.No;
