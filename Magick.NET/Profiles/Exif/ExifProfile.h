@@ -47,9 +47,9 @@ namespace ImageMagick
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the IptcProfile class.
+		/// Initializes a new instance of the ExifProfile class.
 		///</summary>
-		ExifProfile() : ImageProfile("iptc") {};
+		ExifProfile() : ImageProfile("exif") {};
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the ExifProfile class.

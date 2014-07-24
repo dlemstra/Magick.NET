@@ -26,12 +26,18 @@ namespace ImageMagick
 		if (_Values != nullptr)
 			return;
 
+		_Parts = ExifParts::All;
+
+		if (Data == nullptr)
+		{
+			_Values = gcnew List<ExifValue^>();
+			return;
+		}
+
 		ExifReader^ reader = gcnew ExifReader();
 		_Values = reader->Read(Data);
 		_ThumbnailOffset = reader->ThumbnailOffset;
 		_ThumbnailLength = reader->ThumbnailLength;
-
-		_Parts = ExifParts::All;
 	}
 	//==============================================================================================
 	array<Byte>^ ExifProfile::GetData()

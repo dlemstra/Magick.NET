@@ -58,6 +58,41 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Constructor()
+		{
+			using (MemoryStream memStream = new MemoryStream())
+			{
+				using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+				{
+					ExifProfile profile = image.GetExifProfile();
+					Assert.IsNull(profile);
+
+					profile = new ExifProfile();
+					profile.SetValue(ExifTag.Copyright, "Dirk Lemstra");
+
+					image.AddProfile(profile);
+
+					profile = image.GetExifProfile();
+					Assert.IsNotNull(profile);
+
+					image.Write(memStream);
+				}
+
+				memStream.Position = 0;
+				using (MagickImage image = new MagickImage(memStream))
+				{
+					ExifProfile profile = image.GetExifProfile();
+
+					Assert.IsNotNull(profile);
+					Assert.AreEqual(1, profile.Values.Count());
+
+					ExifValue value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.Copyright);
+					TestValue(value, "Dirk Lemstra");
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_SetValue()
 		{
 			using (MemoryStream memStream = new MemoryStream())
