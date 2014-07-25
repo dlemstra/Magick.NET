@@ -1557,6 +1557,29 @@ namespace ImageMagick
 		///<param name="enhance">Use true to enhance the contrast and false to reduce the contrast.</param>
 		///<exception cref="MagickException"/>
 		void Contrast(bool enhance);
+		///==========================================================================================
+		///<summary>
+		/// A simple image enhancement technique that attempts to improve the contrast in an image by
+		/// 'stretching' the range of intensity values it contains to span a desired range of values.
+		/// It differs from the more sophisticated histogram equalization in that it can only apply a
+		/// linear scaling function to the image pixel values. As a result the 'enhancement' is less harsh.
+		///</summary>
+		///<param name="blackPoint">The black point.</param>
+		///<param name="whitePoint">The white point.</param>
+		///<exception cref="MagickException"/>
+		void ContrastStretch(Percentage blackPoint, Percentage whitePoint);
+		///==========================================================================================
+		///<summary>
+		/// A simple image enhancement technique that attempts to improve the contrast in an image by
+		/// 'stretching' the range of intensity values it contains to span a desired range of values.
+		/// It differs from the more sophisticated histogram equalization in that it can only apply a
+		/// linear scaling function to the image pixel values. As a result the 'enhancement' is less harsh.
+		///</summary>
+		///<param name="blackPoint">The black point.</param>
+		///<param name="whitePoint">The white point.</param>
+		///<param name="channels">The channel(s) to constrast stretch.</param>
+		///<exception cref="MagickException"/>
+		void ContrastStretch(Percentage blackPoint, Percentage whitePoint, Channels channels);
 		//==========================================================================================
 		///<summary>
 		/// Convolve image. Applies a user-specified convolution to the image.

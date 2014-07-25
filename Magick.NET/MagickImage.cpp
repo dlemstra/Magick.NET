@@ -2239,6 +2239,36 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::ContrastStretch(Percentage blackPoint, Percentage whitePoint)
+	{
+		Throw::IfNegative("blackPoint", blackPoint);
+		Throw::IfNegative("whitePoint", whitePoint);
+
+		try
+		{
+			Value->contrastStretch(blackPoint.ToQuantum(), whitePoint.ToQuantum());
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::ContrastStretch(Percentage blackPoint, Percentage whitePoint, Channels channels)
+	{
+		Throw::IfNegative("blackPoint", blackPoint);
+		Throw::IfNegative("whitePoint", whitePoint);
+
+		try
+		{
+			Value->contrastStretchChannel((Magick::ChannelType)channels, blackPoint.ToQuantum(), whitePoint.ToQuantum());
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Convolve(ConvolveMatrix^ convolveMatrix)
 	{
 		Throw::IfNull("convolveMatrix", convolveMatrix);
