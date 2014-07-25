@@ -138,6 +138,12 @@ namespace ImageMagick
 		///</summary>
 		///<param name="path">The path of the Ghostscript font directory.</param>
 		static void SetGhostscriptFontDirectory(String^ path);
+		///==========================================================================================
+		///<summary>
+		/// Sets the directory that will be used by ImageMagick to store OpenCL cache files.
+		///</summary>
+		///<param name="path">The path of the OpenCL cache directory.</param>
+		static void SetOpenCLCacheDirectory(String^ path);
 		//===========================================================================================
 	};
 	//==============================================================================================

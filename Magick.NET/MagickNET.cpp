@@ -190,4 +190,9 @@ namespace ImageMagick
 		SetEnv("MAGICK_GHOSTSCRIPT_FONT_PATH", CheckDirectory(path));
 	}
 	//==============================================================================================
+	void MagickNET::SetOpenCLCacheDirectory(String^ path)
+	{
+		SetEnv("MAGICK_OPENCL_CACHE_DIR", CheckDirectory(path));
+	}
+	//==============================================================================================
 }
