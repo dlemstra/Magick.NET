@@ -747,8 +747,11 @@
     <ClInclude Include="Arguments\SparseColorArg.h">
       <Filter>Header Files\Arguments</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\PixelIntensityMethod.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
     <ClInclude Include="Enums\MontageMode.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
