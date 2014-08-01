@@ -273,6 +273,8 @@
   <ItemGroup>
     <ClInclude Include="..\Magick.NET\Arguments\SparseColorArg.h" />
     <ClInclude Include="..\Magick.NET\Enums\DitherMethod.h" />
+    <ClInclude Include="..\Magick.NET\Enums\MontageMode.h" />
+    <ClInclude Include="..\Magick.NET\Enums\PixelIntensityMethod.h" />
     <ClInclude Include="..\Magick.NET\Helpers\MagickConverter.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableDashArray.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableDashOffset.h" />
