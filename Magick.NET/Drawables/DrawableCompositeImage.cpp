@@ -21,7 +21,7 @@ namespace ImageMagick
 	{
 		Throw::IfNull("image", image);
 
-		BaseValue = new Magick::DrawableCompositeImage(x, y, (Magick::Image&)image);
+		BaseValue = new Magick::DrawableCompositeImage(x, y, image->ReuseValue());
 	}
 	//==============================================================================================
 	DrawableCompositeImage::DrawableCompositeImage(double x, double y, CompositeOperator compose, 
