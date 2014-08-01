@@ -286,6 +286,7 @@
   <ItemGroup>
     <ClInclude Include="Arguments\SparseColorArg.h" />
     <ClInclude Include="Enums\DitherMethod.h" />
+    <ClInclude Include="Enums\MontageMode.h" />
     <ClInclude Include="Helpers\MagickConverter.h" />
     <ClInclude Include="Drawables\DrawableDashArray.h" />
     <ClInclude Include="Drawables\DrawableDashOffset.h" />

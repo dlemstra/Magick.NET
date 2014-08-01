@@ -69,9 +69,8 @@ namespace ImageMagick
 			settings->transparentColor(Magick::Color());
 	}
 	//==============================================================================================
-	MontageSettings::MontageSettings()
+	void MontageSettings::Initialize(const Magick::Montage &settings)
 	{
-		Magick::Montage settings;
 		BackgroundColor = gcnew MagickColor(settings.backgroundColor());
 		Compose = (CompositeOperator) settings.compose();
 		FillColor = gcnew MagickColor(settings.fillColor());
@@ -79,6 +78,52 @@ namespace ImageMagick
 		Geometry = gcnew MagickGeometry(settings.geometry());
 		Gravity = (ImageMagick::Gravity) settings.gravity();
 		Shadow = settings.shadow();
+	}
+	//==============================================================================================
+	MontageSettings::MontageSettings()
+	{
+		Magick::Montage settings;
+		Initialize(settings);
+	}
+	//==============================================================================================
+	MontageSettings::MontageSettings(MontageMode mode)
+	{
+		switch(mode)
+		{
+		case MontageMode::Concatenate:
+			{
+				Magick::MontageFramed settings;
+				settings.frameGeometry(Magick::Geometry());
+				settings.shadow(false);
+				settings.gravity(MagickCore::NorthGravity);
+				settings.geometry(Magick::Geometry("+0+0"));
+				settings.borderWidth(0);
+				Initialize(settings);
+				break;
+			}
+		case MontageMode::Frame:
+			{
+				Magick::MontageFramed settings;
+				settings.frameGeometry(Magick::Geometry());
+				settings.shadow(false);
+				settings.borderWidth(0);
+				Initialize(settings);
+				break;
+			}
+		case MontageMode::Unframe:
+			{
+				Magick::MontageFramed settings;
+				Initialize(settings);
+				break;
+			}
+		default:
+		case MontageMode::Undefined:
+			{
+				Magick::Montage settings;
+				Initialize(settings);
+				break;
+			}
+		}
 	}
 	//==============================================================================================
 }

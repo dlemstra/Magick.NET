@@ -17,6 +17,7 @@
 #include "..\Colors\MagickColor.h"
 #include "..\Enums\CompositeOperator.h"
 #include "..\Enums\Gravity.h"
+#include "..\Enums\MontageMode.h"
 
 namespace ImageMagick
 {
@@ -31,12 +32,19 @@ namespace ImageMagick
 		//===========================================================================================
 		void Apply(Magick::MontageFramed *settings);
 		//===========================================================================================
+		void Initialize(const Magick::Montage &montage);
+		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the MagickReadSettings class.
 		///</summary>
 		MontageSettings();
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickReadSettings class.
+		///</summary>
+		MontageSettings(MontageMode mode);
 		///==========================================================================================
 		///<summary>
 		/// Color that thumbnails are composed on
