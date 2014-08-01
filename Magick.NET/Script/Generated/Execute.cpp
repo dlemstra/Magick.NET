@@ -427,8 +427,11 @@ namespace ImageMagick
 							}
 							case 'n':
 							{
-								ExecuteContrast(element, image);
-								return;
+								if (element->Name->Length == 15)
+								{
+									ExecuteContrastStretch(element, image);
+									return;
+								}
 							}
 						}
 						break;
@@ -779,6 +782,11 @@ namespace ImageMagick
 							}
 						}
 						break;
+					}
+					case 'r':
+					{
+						ExecuteGrayscale(element, image);
+						return;
 					}
 				}
 				break;
@@ -2443,6 +2451,25 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'contrast', allowed combinations are: [] [enhance]");
 	}
+	void MagickScript::ExecuteContrastStretch(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "blackPoint")
+				arguments["blackPoint"] = _Variables->GetValue<Percentage>(attribute);
+			else if (attribute->Name == "channels")
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
+			else if (attribute->Name == "whitePoint")
+				arguments["whitePoint"] = _Variables->GetValue<Percentage>(attribute);
+		}
+		if (OnlyContains(arguments, "blackPoint", "whitePoint"))
+			image->ContrastStretch((Percentage)arguments["blackPoint"], (Percentage)arguments["whitePoint"]);
+		else if (OnlyContains(arguments, "blackPoint", "whitePoint", "channels"))
+			image->ContrastStretch((Percentage)arguments["blackPoint"], (Percentage)arguments["whitePoint"], (Channels)arguments["channels"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'contrastStretch', allowed combinations are: [blackPoint, whitePoint] [blackPoint, whitePoint, channels]");
+	}
 	void MagickScript::ExecuteCrop(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -2615,6 +2642,8 @@ namespace ImageMagick
 				arguments["color"] = _Variables->GetValue<MagickColor^>(attribute);
 			else if (attribute->Name == "geometry")
 				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
+			else if (attribute->Name == "invert")
+				arguments["invert"] = _Variables->GetValue<bool>(attribute);
 			else if (attribute->Name == "paintMethod")
 				arguments["paintMethod"] = _Variables->GetValue<PaintMethod>(attribute);
 			else if (attribute->Name == "x")
@@ -2632,20 +2661,36 @@ namespace ImageMagick
 			image->FloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"]);
 		else if (OnlyContains(arguments, "color", "geometry", "borderColor"))
 			image->FloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"]);
+		else if (OnlyContains(arguments, "color", "geometry", "borderColor", "invert"))
+			image->FloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"], (bool)arguments["invert"]);
+		else if (OnlyContains(arguments, "color", "geometry", "invert"))
+			image->FloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"], (bool)arguments["invert"]);
 		else if (OnlyContains(arguments, "color", "x", "y"))
 			image->FloodFill((MagickColor^)arguments["color"], (int)arguments["x"], (int)arguments["y"]);
 		else if (OnlyContains(arguments, "color", "x", "y", "borderColor"))
 			image->FloodFill((MagickColor^)arguments["color"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"]);
+		else if (OnlyContains(arguments, "color", "x", "y", "borderColor", "invert"))
+			image->FloodFill((MagickColor^)arguments["color"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"], (bool)arguments["invert"]);
+		else if (OnlyContains(arguments, "color", "x", "y", "invert"))
+			image->FloodFill((MagickColor^)arguments["color"], (int)arguments["x"], (int)arguments["y"], (bool)arguments["invert"]);
 		else if (OnlyContains(arguments, "image", "geometry"))
 			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"]);
 		else if (OnlyContains(arguments, "image", "geometry", "borderColor"))
 			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"]);
+		else if (OnlyContains(arguments, "image", "geometry", "borderColor", "invert"))
+			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"], (bool)arguments["invert"]);
+		else if (OnlyContains(arguments, "image", "geometry", "invert"))
+			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"], (bool)arguments["invert"]);
 		else if (OnlyContains(arguments, "image", "x", "y"))
 			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"]);
 		else if (OnlyContains(arguments, "image", "x", "y", "borderColor"))
 			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"]);
+		else if (OnlyContains(arguments, "image", "x", "y", "borderColor", "invert"))
+			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"], (bool)arguments["invert"]);
+		else if (OnlyContains(arguments, "image", "x", "y", "invert"))
+			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (bool)arguments["invert"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'floodFill', allowed combinations are: [alpha, x, y, paintMethod] [color, geometry] [color, geometry, borderColor] [color, x, y] [color, x, y, borderColor] [image, geometry] [image, geometry, borderColor] [image, x, y] [image, x, y, borderColor]");
+			throw gcnew ArgumentException("Invalid argument combination for 'floodFill', allowed combinations are: [alpha, x, y, paintMethod] [color, geometry] [color, geometry, borderColor] [color, geometry, borderColor, invert] [color, geometry, invert] [color, x, y] [color, x, y, borderColor] [color, x, y, borderColor, invert] [color, x, y, invert] [image, geometry] [image, geometry, borderColor] [image, geometry, borderColor, invert] [image, geometry, invert] [image, x, y] [image, x, y, borderColor] [image, x, y, borderColor, invert] [image, x, y, invert]");
 	}
 	void MagickScript::ExecuteFlop(MagickImage^ image)
 	{
@@ -2727,6 +2772,11 @@ namespace ImageMagick
 			image->GaussianBlur((double)arguments["width"], (double)arguments["sigma"], (Channels)arguments["channels"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'gaussianBlur', allowed combinations are: [width, sigma] [width, sigma, channels]");
+	}
+	void MagickScript::ExecuteGrayscale(XmlElement^ element, MagickImage^ image)
+	{
+		PixelIntensityMethod method_ = _Variables->GetValue<PixelIntensityMethod>(element, "method");
+		image->Grayscale(method_);
 	}
 	void MagickScript::ExecuteHaldClut(XmlElement^ element, MagickImage^ image)
 	{

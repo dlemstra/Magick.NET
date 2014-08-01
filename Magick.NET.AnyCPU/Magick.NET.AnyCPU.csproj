@@ -57,6 +57,8 @@
   <ItemGroup>
     <Compile Include="Generated\ChannelMoments.cs" />
     <Compile Include="Generated\Enums\ExifParts.cs" />
+    <Compile Include="Generated\Enums\MontageMode.cs" />
+    <Compile Include="Generated\Enums\PixelIntensityMethod.cs" />
     <Compile Include="Generated\MagickImageMoments.cs" />
     <Compile Include="Generated\PointD.cs" />
     <Compile Include="Generated\SparseColorArg.cs" />

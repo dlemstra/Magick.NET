@@ -637,7 +637,6 @@
 					<xs:enumeration value="B" />
 					<xs:enumeration value="Bgr" />
 					<xs:enumeration value="Bgra" />
-					<xs:enumeration value="Bie" />
 					<xs:enumeration value="Bmp" />
 					<xs:enumeration value="Bmp2" />
 					<xs:enumeration value="Bmp3" />
@@ -705,8 +704,6 @@
 					<xs:enumeration value="Isobrl" />
 					<xs:enumeration value="J2c" />
 					<xs:enumeration value="J2k" />
-					<xs:enumeration value="Jbg" />
-					<xs:enumeration value="Jbig" />
 					<xs:enumeration value="Jng" />
 					<xs:enumeration value="Jnx" />
 					<xs:enumeration value="Jp2" />
@@ -939,6 +936,26 @@
 					<xs:enumeration value="Point" />
 					<xs:enumeration value="Replace" />
 					<xs:enumeration value="Reset" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="var" />
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="PixelIntensityMethod">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Average" />
+					<xs:enumeration value="Brightness" />
+					<xs:enumeration value="Lightness" />
+					<xs:enumeration value="MS" />
+					<xs:enumeration value="Rec601Luma" />
+					<xs:enumeration value="Rec601Luminance" />
+					<xs:enumeration value="Rec709LumaPixel" />
+					<xs:enumeration value="Rec709Luminance" />
+					<xs:enumeration value="RMS" />
 				</xs:restriction>
 			</xs:simpleType>
 			<xs:simpleType>
@@ -1770,6 +1787,13 @@
 						<xs:attribute name="enhance" type="bool" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="contrastStretch">
+					<xs:complexType>
+						<xs:attribute name="blackPoint" use="required" type="double" />
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="whitePoint" use="required" type="double" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="crop">
 					<xs:complexType>
 						<xs:attribute name="geometry" type="geometry" />
@@ -1849,6 +1873,7 @@
 						<xs:attribute name="borderColor" type="color" />
 						<xs:attribute name="color" type="color" />
 						<xs:attribute name="geometry" type="geometry" />
+						<xs:attribute name="invert" type="bool" />
 						<xs:attribute name="paintMethod" type="PaintMethod" />
 						<xs:attribute name="x" type="int" />
 						<xs:attribute name="y" type="int" />
@@ -1883,6 +1908,11 @@
 						<xs:attribute name="channels" type="Channels" />
 						<xs:attribute name="sigma" use="required" type="double" />
 						<xs:attribute name="width" use="required" type="double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="grayscale">
+					<xs:complexType>
+						<xs:attribute name="method" use="required" type="PixelIntensityMethod" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="haldClut">
