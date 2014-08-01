@@ -90,7 +90,7 @@
 #define MAGICKCORE_FREETYPE_DELEGATE
 
 // Define to use the JBIG library
-#define MAGICKCORE_JBIG_DELEGATE
+#undef MAGICKCORE_JBIG_DELEGATE
 
 // Define to use the Jasper JPEG v2 library
 #define MAGICKCORE_JP2_DELEGATE

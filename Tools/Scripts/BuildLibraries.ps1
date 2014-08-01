@@ -91,6 +91,7 @@ function Build($platform, $builds)
 	$configFile = FullPath "ImageMagick\Source\ImageMagick\magick\magick-baseconfig.h"
 	$config = [IO.File]::ReadAllText($configFile, [System.Text.Encoding]::Default)
 	$config = $config.Replace("#define ProvideDllMain", "#undef ProvideDllMain")
+	$config = $config.Replace("#define MAGICKCORE_JBIG_DELEGATE", "#undef MAGICKCORE_JBIG_DELEGATE")
 	$config = $config.Replace("// #define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"")
 
 	ModifyDebugInformationFormat
