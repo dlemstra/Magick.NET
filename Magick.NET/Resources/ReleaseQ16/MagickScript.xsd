@@ -1873,7 +1873,6 @@
 						<xs:attribute name="borderColor" type="color" />
 						<xs:attribute name="color" type="color" />
 						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="invert" type="bool" />
 						<xs:attribute name="paintMethod" type="PaintMethod" />
 						<xs:attribute name="x" type="int" />
 						<xs:attribute name="y" type="int" />
@@ -1934,12 +1933,37 @@
 						<xs:attribute name="factor" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="inverseFloodFill">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="image" minOccurs="0" type="image" />
+						</xs:sequence>
+						<xs:attribute name="borderColor" type="color" />
+						<xs:attribute name="color" type="color" />
+						<xs:attribute name="geometry" type="geometry" />
+						<xs:attribute name="x" type="int" />
+						<xs:attribute name="y" type="int" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="inverseFourierTransform">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="image" type="image" />
 						</xs:sequence>
 						<xs:attribute name="magnitude" type="bool" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="inverseLevelColors">
+					<xs:complexType>
+						<xs:attribute name="blackColor" use="required" type="color" />
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="whiteColor" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="inverseOpaque">
+					<xs:complexType>
+						<xs:attribute name="fill" use="required" type="color" />
+						<xs:attribute name="target" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="level">
@@ -1954,7 +1978,6 @@
 					<xs:complexType>
 						<xs:attribute name="blackColor" use="required" type="color" />
 						<xs:attribute name="channels" type="Channels" />
-						<xs:attribute name="invert" type="bool" />
 						<xs:attribute name="whiteColor" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
@@ -2020,7 +2043,6 @@
 				<xs:element name="opaque">
 					<xs:complexType>
 						<xs:attribute name="fill" use="required" type="color" />
-						<xs:attribute name="invert" type="bool" />
 						<xs:attribute name="target" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>

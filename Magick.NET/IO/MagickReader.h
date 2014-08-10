@@ -37,7 +37,7 @@ namespace ImageMagick
 		static void ReadPixels(Magick::Image* image, MagickReadSettings^ readSettings,
 			array<Byte>^ pixels);
 		//===========================================================================================
-		static array<Byte>^ ReadUnChecked(String^ filePath);
+		static array<Byte>^ ReadUnchecked(String^ filePath);
 		//===========================================================================================
 	internal:
 		//===========================================================================================

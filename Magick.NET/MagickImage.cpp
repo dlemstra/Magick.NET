@@ -51,6 +51,178 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::FloodFill(MagickColor^ color, int x, int y, bool invert)
+	{
+		Throw::IfNull("color", color);
+
+		const Magick::Color* fillColor = color->CreateColor();
+
+		try
+		{
+			Value->floodFillColor(x, y, *fillColor, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+		finally
+		{
+			delete fillColor;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFill(MagickColor^ color, int x, int y, MagickColor^ borderColor, bool invert)
+	{
+		Throw::IfNull("color", color);
+		Throw::IfNull("borderColor", borderColor);
+
+		const Magick::Color* fillColor = color->CreateColor();
+		const Magick::Color* fillBorderColor = borderColor->CreateColor();
+
+		try
+		{
+			Value->floodFillColor(x, y, *fillColor, *fillBorderColor, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+		finally
+		{
+			delete fillColor;
+			delete fillBorderColor;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFill(MagickColor^ color, MagickGeometry^ geometry, bool invert)
+	{
+		Throw::IfNull("color", color);
+		Throw::IfNull("geometry", geometry);
+
+		const Magick::Color* fillColor = color->CreateColor();
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
+		try
+		{
+			Value->floodFillColor(*magickGeometry, *fillColor, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+		finally
+		{
+			delete fillColor;
+			delete magickGeometry;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFill(MagickColor^ color, MagickGeometry^ geometry, MagickColor^ borderColor, bool invert)
+	{
+		Throw::IfNull("color", color);
+		Throw::IfNull("geometry", geometry);
+		Throw::IfNull("borderColor", borderColor);
+
+		const Magick::Color* fillColor = color->CreateColor();
+		const Magick::Color* fillBorderColor = borderColor->CreateColor();
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
+		try
+		{
+			Value->floodFillColor(*magickGeometry, *fillColor, *fillBorderColor, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+		finally
+		{
+			delete fillColor;
+			delete fillBorderColor;
+			delete magickGeometry;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFill(MagickImage^ image, int x, int y, bool invert)
+	{
+		Throw::IfNull("image", image);
+
+		try
+		{
+			Value->floodFillTexture(x, y, *image->Value, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFill(MagickImage^ image, int x, int y, MagickColor^ borderColor, bool invert)
+	{
+		Throw::IfNull("image", image);
+		Throw::IfNull("borderColor", borderColor);
+
+		const Magick::Color* fillBorderColor = borderColor->CreateColor();
+
+		try
+		{
+			Value->floodFillTexture(x, y, *image->Value, *fillBorderColor, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+		finally
+		{
+			delete fillBorderColor;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFill(MagickImage^ image, MagickGeometry^ geometry, bool invert)
+	{
+		Throw::IfNull("image", image);
+		Throw::IfNull("geometry", geometry);
+
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
+		try
+		{
+			Value->floodFillTexture(*magickGeometry, *image->Value, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+		finally
+		{
+			delete magickGeometry;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::FloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor, bool invert)
+	{
+		Throw::IfNull("image", image);
+		Throw::IfNull("geometry", geometry);
+		Throw::IfNull("borderColor", borderColor);
+
+		const Magick::Color* fillBorderColor = borderColor->CreateColor();
+		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
+		try
+		{
+			Value->floodFillTexture(*magickGeometry, *image->Value, *fillBorderColor, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+		finally
+		{
+			delete fillBorderColor;
+			delete magickGeometry;
+		}
+	}
+	//==============================================================================================
 	String^ MagickImage::FormatedFileSize()
 	{
 		Decimal fileSize = FileSize;
@@ -118,6 +290,75 @@ namespace ImageMagick
 			format->Guid.Equals(ImageFormat::Jpeg->Guid) ||
 			format->Guid.Equals(ImageFormat::Png->Guid) ||
 			format->Guid.Equals(ImageFormat::Tiff->Guid);
+	}
+	//==============================================================================================
+	void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, bool invert)
+	{
+		Throw::IfNull("blackColor", blackColor);
+		Throw::IfNull("whiteColor", whiteColor);
+
+		const Magick::Color* black = blackColor->CreateColor();
+		const Magick::Color* white = whiteColor->CreateColor();
+
+		try
+		{
+			Value->levelColors(*black, *white, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+		finally
+		{
+			delete black;
+			delete white;
+		}
+	}
+	///=============================================================================================
+	void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, Channels channels, bool invert)
+	{
+		Throw::IfNull("blackColor", blackColor);
+		Throw::IfNull("whiteColor", whiteColor);
+
+		const Magick::Color* black = blackColor->CreateColor();
+		const Magick::Color* white = whiteColor->CreateColor();
+
+		try
+		{
+			Value->levelColorsChannel((Magick::ChannelType)channels, *black, *white, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+		finally
+		{
+			delete black;
+			delete white;
+		}
+	}
+	//==============================================================================================
+	void MagickImage::Opaque(MagickColor^ target, MagickColor^ fill, bool invert)
+	{
+		Throw::IfNull("target", target);
+		Throw::IfNull("fill", fill);
+
+		const Magick::Color* opaque = target->CreateColor();
+		const Magick::Color* pen = fill->CreateColor();
+
+		try
+		{
+			Value->opaque(*opaque, *pen, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+		finally
+		{
+			delete opaque;
+			delete pen;
+		}
 	}
 	//==============================================================================================
 	void MagickImage::RaiseOrLower(int size, bool raiseFlag)
@@ -2782,52 +3023,9 @@ namespace ImageMagick
 		FloodFill(color, x, y, false);
 	}
 	//==============================================================================================
-	void MagickImage::FloodFill(MagickColor^ color, int x, int y, bool invert)
-	{
-		Throw::IfNull("color", color);
-
-		const Magick::Color* fillColor = color->CreateColor();
-
-		try
-		{
-			Value->floodFillColor(x, y, *fillColor, invert);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-		finally
-		{
-			delete fillColor;
-		}
-	}
-	//==============================================================================================
 	void MagickImage::FloodFill(MagickColor^ color, int x, int y, MagickColor^ borderColor)
 	{
 		FloodFill(color, x, y, borderColor, false);
-	}
-	//==============================================================================================
-	void MagickImage::FloodFill(MagickColor^ color, int x, int y, MagickColor^ borderColor, bool invert)
-	{
-		Throw::IfNull("color", color);
-		Throw::IfNull("borderColor", borderColor);
-
-		const Magick::Color* fillColor = color->CreateColor();
-		const Magick::Color* fillBorderColor = borderColor->CreateColor();
-
-		try
-		{
-			Value->floodFillColor(x, y, *fillColor, *fillBorderColor, invert);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-		finally
-		{
-			delete fillColor;
-			delete fillBorderColor;
-		}
 	}
 	//==============================================================================================
 	void MagickImage::FloodFill(MagickColor^ color, MagickGeometry^ geometry)
@@ -2835,58 +3033,9 @@ namespace ImageMagick
 		FloodFill(color, geometry, false);
 	}
 	//==============================================================================================
-	void MagickImage::FloodFill(MagickColor^ color, MagickGeometry^ geometry, bool invert)
-	{
-		Throw::IfNull("color", color);
-		Throw::IfNull("geometry", geometry);
-
-		const Magick::Color* fillColor = color->CreateColor();
-		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
-
-		try
-		{
-			Value->floodFillColor(*magickGeometry, *fillColor, invert);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-		finally
-		{
-			delete fillColor;
-			delete magickGeometry;
-		}
-	}
-	//==============================================================================================
 	void MagickImage::FloodFill(MagickColor^ color, MagickGeometry^ geometry, MagickColor^ borderColor)
 	{
 		FloodFill(color, geometry, borderColor, false);
-	}
-	//==============================================================================================
-	void MagickImage::FloodFill(MagickColor^ color, MagickGeometry^ geometry, MagickColor^ borderColor, bool invert)
-	{
-		Throw::IfNull("color", color);
-		Throw::IfNull("geometry", geometry);
-		Throw::IfNull("borderColor", borderColor);
-
-		const Magick::Color* fillColor = color->CreateColor();
-		const Magick::Color* fillBorderColor = borderColor->CreateColor();
-		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
-
-		try
-		{
-			Value->floodFillColor(*magickGeometry, *fillColor, *fillBorderColor, invert);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-		finally
-		{
-			delete fillColor;
-			delete fillBorderColor;
-			delete magickGeometry;
-		}
 	}
 	//==============================================================================================
 	void MagickImage::FloodFill(MagickImage^ image, int x, int y)
@@ -2894,44 +3043,9 @@ namespace ImageMagick
 		FloodFill(image, x, y, false);
 	}
 	//==============================================================================================
-	void MagickImage::FloodFill(MagickImage^ image, int x, int y, bool invert)
-	{
-		Throw::IfNull("image", image);
-
-		try
-		{
-			Value->floodFillTexture(x, y, *image->Value, invert);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-	}
-	//==============================================================================================
 	void MagickImage::FloodFill(MagickImage^ image, int x, int y, MagickColor^ borderColor)
 	{
 		FloodFill(image, x, y, borderColor, false);
-	}
-	//==============================================================================================
-	void MagickImage::FloodFill(MagickImage^ image, int x, int y, MagickColor^ borderColor, bool invert)
-	{
-		Throw::IfNull("image", image);
-		Throw::IfNull("borderColor", borderColor);
-
-		const Magick::Color* fillBorderColor = borderColor->CreateColor();
-
-		try
-		{
-			Value->floodFillTexture(x, y, *image->Value, *fillBorderColor, invert);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-		finally
-		{
-			delete fillBorderColor;
-		}
 	}
 	//==============================================================================================
 	void MagickImage::FloodFill(MagickImage^ image, MagickGeometry^ geometry)
@@ -2939,54 +3053,9 @@ namespace ImageMagick
 		FloodFill(image, geometry, false);
 	}
 	//==============================================================================================
-	void MagickImage::FloodFill(MagickImage^ image, MagickGeometry^ geometry, bool invert)
-	{
-		Throw::IfNull("image", image);
-		Throw::IfNull("geometry", geometry);
-
-		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
-
-		try
-		{
-			Value->floodFillTexture(*magickGeometry, *image->Value, invert);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-		finally
-		{
-			delete magickGeometry;
-		}
-	}
-	//==============================================================================================
 	void MagickImage::FloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor)
 	{
 		FloodFill(image, geometry, borderColor, false);
-	}
-	//==============================================================================================
-	void MagickImage::FloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor, bool invert)
-	{
-		Throw::IfNull("image", image);
-		Throw::IfNull("geometry", geometry);
-		Throw::IfNull("borderColor", borderColor);
-
-		const Magick::Color* fillBorderColor = borderColor->CreateColor();
-		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
-
-		try
-		{
-			Value->floodFillTexture(*magickGeometry, *image->Value, *fillBorderColor, invert);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-		finally
-		{
-			delete fillBorderColor;
-			delete magickGeometry;
-		}
 	}
 	//==============================================================================================
 	void MagickImage::Flop()
@@ -3377,6 +3446,47 @@ namespace ImageMagick
 			HandleException(exception);
 		}
 	}
+	
+	//==============================================================================================
+	void MagickImage::InverseFloodFill(MagickColor^ color, int x, int y)
+	{
+		FloodFill(color, x, y, true);
+	}
+	//==============================================================================================
+	void MagickImage::InverseFloodFill(MagickColor^ color, int x, int y, MagickColor^ borderColor)
+	{
+		FloodFill(color, x, y, borderColor, true);
+	}
+	//==============================================================================================
+	void MagickImage::InverseFloodFill(MagickColor^ color, MagickGeometry^ geometry)
+	{
+		FloodFill(color, geometry, true);
+	}
+	//==============================================================================================
+	void MagickImage::InverseFloodFill(MagickColor^ color, MagickGeometry^ geometry, MagickColor^ borderColor)
+	{
+		FloodFill(color, geometry, borderColor, true);
+	}
+	//==============================================================================================
+	void MagickImage::InverseFloodFill(MagickImage^ image, int x, int y)
+	{
+		FloodFill(image, x, y, true);
+	}
+	//==============================================================================================
+	void MagickImage::InverseFloodFill(MagickImage^ image, int x, int y, MagickColor^ borderColor)
+	{
+		FloodFill(image, x, y, borderColor, true);
+	}
+	//==============================================================================================
+	void MagickImage::InverseFloodFill(MagickImage^ image, MagickGeometry^ geometry)
+	{
+		FloodFill(image, geometry, true);
+	}
+	//==============================================================================================
+	void MagickImage::InverseFloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor)
+	{
+		FloodFill(image, geometry, borderColor, true);
+	}
 	//==============================================================================================
 	void MagickImage::InverseFourierTransform(MagickImage^ image)
 	{
@@ -3395,6 +3505,21 @@ namespace ImageMagick
 		{
 			HandleException(exception);
 		}
+	}
+	//==============================================================================================
+	void MagickImage::InverseLevelColors(MagickColor^ blackColor, MagickColor^ whiteColor)
+	{
+		LevelColors(blackColor, whiteColor, false);
+	}
+	//==============================================================================================
+	void MagickImage::InverseLevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, Channels channels)
+	{
+		LevelColors(blackColor, whiteColor, channels, false);
+	}
+	//==============================================================================================
+	void MagickImage::InverseOpaque(MagickColor^ target, MagickColor^ fill)
+	{
+		Opaque(target, fill, true);
 	}
 	//==============================================================================================
 	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint)
@@ -3433,94 +3558,12 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor)
 	{
-		Throw::IfNull("blackColor", blackColor);
-		Throw::IfNull("whiteColor", whiteColor);
-
-		const Magick::Color* black = blackColor->CreateColor();
-		const Magick::Color* white = whiteColor->CreateColor();
-
-		try
-		{
-			Value->levelColors(*black, *white);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-		finally
-		{
-			delete black;
-			delete white;
-		}
-	}
-	//==============================================================================================
-	void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, bool invert)
-	{
-		Throw::IfNull("blackColor", blackColor);
-		Throw::IfNull("whiteColor", whiteColor);
-
-		const Magick::Color* black = blackColor->CreateColor();
-		const Magick::Color* white = whiteColor->CreateColor();
-
-		try
-		{
-			Value->levelColors(*black, *white, invert);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-		finally
-		{
-			delete black;
-			delete white;
-		}
-	}
-	///=============================================================================================
-	void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, bool invert, Channels channels)
-	{
-		Throw::IfNull("blackColor", blackColor);
-		Throw::IfNull("whiteColor", whiteColor);
-
-		const Magick::Color* black = blackColor->CreateColor();
-		const Magick::Color* white = whiteColor->CreateColor();
-
-		try
-		{
-			Value->levelColorsChannel((Magick::ChannelType)channels, *black, *white, invert);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-		finally
-		{
-			delete black;
-			delete white;
-		}
+		LevelColors(blackColor, whiteColor, true);
 	}
 	///=============================================================================================
 	void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, Channels channels)
 	{
-		Throw::IfNull("blackColor", blackColor);
-		Throw::IfNull("whiteColor", whiteColor);
-
-		const Magick::Color* black = blackColor->CreateColor();
-		const Magick::Color* white = whiteColor->CreateColor();
-
-		try
-		{
-			Value->levelColorsChannel((Magick::ChannelType)channels, *black, *white);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-		finally
-		{
-			delete black;
-			delete white;
-		}
+		LevelColors(blackColor, whiteColor, channels, true);
 	}
 	//==============================================================================================
 	void MagickImage::LinearStretch(Percentage blackPoint, Percentage whitePoint)
@@ -3900,29 +3943,6 @@ namespace ImageMagick
 	void MagickImage::Opaque(MagickColor^ target, MagickColor^ fill)
 	{
 		Opaque(target, fill, false);
-	}
-	//==============================================================================================
-	void MagickImage::Opaque(MagickColor^ target, MagickColor^ fill, bool invert)
-	{
-		Throw::IfNull("target", target);
-		Throw::IfNull("fill", fill);
-
-		const Magick::Color* opaque = target->CreateColor();
-		const Magick::Color* pen = fill->CreateColor();
-
-		try
-		{
-			Value->opaque(*opaque, *pen, invert);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
-		finally
-		{
-			delete opaque;
-			delete pen;
-		}
 	}
 	//==============================================================================================
 	void MagickImage::OrderedDither(String^ thresholdMap)

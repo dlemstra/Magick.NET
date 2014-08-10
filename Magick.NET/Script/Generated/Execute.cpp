@@ -847,8 +847,37 @@ namespace ImageMagick
 							}
 							case 'v':
 							{
-								ExecuteInverseFourierTransform(element, image);
-								return;
+								switch(element->Name[7])
+								{
+									case 'F':
+									{
+										switch(element->Name[8])
+										{
+											case 'l':
+											{
+												ExecuteInverseFloodFill(element, image);
+												return;
+											}
+											case 'o':
+											{
+												ExecuteInverseFourierTransform(element, image);
+												return;
+											}
+										}
+										break;
+									}
+									case 'L':
+									{
+										ExecuteInverseLevelColors(element, image);
+										return;
+									}
+									case 'O':
+									{
+										ExecuteInverseOpaque(element, image);
+										return;
+									}
+								}
+								break;
 							}
 						}
 						break;
@@ -2642,8 +2671,6 @@ namespace ImageMagick
 				arguments["color"] = _Variables->GetValue<MagickColor^>(attribute);
 			else if (attribute->Name == "geometry")
 				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
-			else if (attribute->Name == "invert")
-				arguments["invert"] = _Variables->GetValue<bool>(attribute);
 			else if (attribute->Name == "paintMethod")
 				arguments["paintMethod"] = _Variables->GetValue<PaintMethod>(attribute);
 			else if (attribute->Name == "x")
@@ -2661,36 +2688,20 @@ namespace ImageMagick
 			image->FloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"]);
 		else if (OnlyContains(arguments, "color", "geometry", "borderColor"))
 			image->FloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"]);
-		else if (OnlyContains(arguments, "color", "geometry", "borderColor", "invert"))
-			image->FloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"], (bool)arguments["invert"]);
-		else if (OnlyContains(arguments, "color", "geometry", "invert"))
-			image->FloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"], (bool)arguments["invert"]);
 		else if (OnlyContains(arguments, "color", "x", "y"))
 			image->FloodFill((MagickColor^)arguments["color"], (int)arguments["x"], (int)arguments["y"]);
 		else if (OnlyContains(arguments, "color", "x", "y", "borderColor"))
 			image->FloodFill((MagickColor^)arguments["color"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"]);
-		else if (OnlyContains(arguments, "color", "x", "y", "borderColor", "invert"))
-			image->FloodFill((MagickColor^)arguments["color"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"], (bool)arguments["invert"]);
-		else if (OnlyContains(arguments, "color", "x", "y", "invert"))
-			image->FloodFill((MagickColor^)arguments["color"], (int)arguments["x"], (int)arguments["y"], (bool)arguments["invert"]);
 		else if (OnlyContains(arguments, "image", "geometry"))
 			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"]);
 		else if (OnlyContains(arguments, "image", "geometry", "borderColor"))
 			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"]);
-		else if (OnlyContains(arguments, "image", "geometry", "borderColor", "invert"))
-			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"], (bool)arguments["invert"]);
-		else if (OnlyContains(arguments, "image", "geometry", "invert"))
-			image->FloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"], (bool)arguments["invert"]);
 		else if (OnlyContains(arguments, "image", "x", "y"))
 			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"]);
 		else if (OnlyContains(arguments, "image", "x", "y", "borderColor"))
 			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"]);
-		else if (OnlyContains(arguments, "image", "x", "y", "borderColor", "invert"))
-			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"], (bool)arguments["invert"]);
-		else if (OnlyContains(arguments, "image", "x", "y", "invert"))
-			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (bool)arguments["invert"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'floodFill', allowed combinations are: [alpha, x, y, paintMethod] [color, geometry] [color, geometry, borderColor] [color, geometry, borderColor, invert] [color, geometry, invert] [color, x, y] [color, x, y, borderColor] [color, x, y, borderColor, invert] [color, x, y, invert] [image, geometry] [image, geometry, borderColor] [image, geometry, borderColor, invert] [image, geometry, invert] [image, x, y] [image, x, y, borderColor] [image, x, y, borderColor, invert] [image, x, y, invert]");
+			throw gcnew ArgumentException("Invalid argument combination for 'floodFill', allowed combinations are: [alpha, x, y, paintMethod] [color, geometry] [color, geometry, borderColor] [color, x, y] [color, x, y, borderColor] [image, geometry] [image, geometry, borderColor] [image, x, y] [image, x, y, borderColor]");
 	}
 	void MagickScript::ExecuteFlop(MagickImage^ image)
 	{
@@ -2802,6 +2813,45 @@ namespace ImageMagick
 		double factor_ = _Variables->GetValue<double>(element, "factor");
 		image->Implode(factor_);
 	}
+	void MagickScript::ExecuteInverseFloodFill(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "borderColor")
+				arguments["borderColor"] = _Variables->GetValue<MagickColor^>(attribute);
+			else if (attribute->Name == "color")
+				arguments["color"] = _Variables->GetValue<MagickColor^>(attribute);
+			else if (attribute->Name == "geometry")
+				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
+			else if (attribute->Name == "x")
+				arguments["x"] = _Variables->GetValue<int>(attribute);
+			else if (attribute->Name == "y")
+				arguments["y"] = _Variables->GetValue<int>(attribute);
+		}
+		for each(XmlElement^ elem in element->SelectNodes("*"))
+		{
+			arguments[elem->Name] = CreateMagickImage(elem);
+		}
+		if (OnlyContains(arguments, "color", "geometry"))
+			image->InverseFloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"]);
+		else if (OnlyContains(arguments, "color", "geometry", "borderColor"))
+			image->InverseFloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"]);
+		else if (OnlyContains(arguments, "color", "x", "y"))
+			image->InverseFloodFill((MagickColor^)arguments["color"], (int)arguments["x"], (int)arguments["y"]);
+		else if (OnlyContains(arguments, "color", "x", "y", "borderColor"))
+			image->InverseFloodFill((MagickColor^)arguments["color"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"]);
+		else if (OnlyContains(arguments, "image", "geometry"))
+			image->InverseFloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"]);
+		else if (OnlyContains(arguments, "image", "geometry", "borderColor"))
+			image->InverseFloodFill((MagickImage^)arguments["image"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"]);
+		else if (OnlyContains(arguments, "image", "x", "y"))
+			image->InverseFloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"]);
+		else if (OnlyContains(arguments, "image", "x", "y", "borderColor"))
+			image->InverseFloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'inverseFloodFill', allowed combinations are: [color, geometry] [color, geometry, borderColor] [color, x, y] [color, x, y, borderColor] [image, geometry] [image, geometry, borderColor] [image, x, y] [image, x, y, borderColor]");
+	}
 	void MagickScript::ExecuteInverseFourierTransform(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -2819,6 +2869,31 @@ namespace ImageMagick
 			image->InverseFourierTransform((MagickImage^)arguments["image"], (bool)arguments["magnitude"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'inverseFourierTransform', allowed combinations are: [image] [image, magnitude]");
+	}
+	void MagickScript::ExecuteInverseLevelColors(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "blackColor")
+				arguments["blackColor"] = _Variables->GetValue<MagickColor^>(attribute);
+			else if (attribute->Name == "channels")
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
+			else if (attribute->Name == "whiteColor")
+				arguments["whiteColor"] = _Variables->GetValue<MagickColor^>(attribute);
+		}
+		if (OnlyContains(arguments, "blackColor", "whiteColor"))
+			image->InverseLevelColors((MagickColor^)arguments["blackColor"], (MagickColor^)arguments["whiteColor"]);
+		else if (OnlyContains(arguments, "blackColor", "whiteColor", "channels"))
+			image->InverseLevelColors((MagickColor^)arguments["blackColor"], (MagickColor^)arguments["whiteColor"], (Channels)arguments["channels"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'inverseLevelColors', allowed combinations are: [blackColor, whiteColor] [blackColor, whiteColor, channels]");
+	}
+	void MagickScript::ExecuteInverseOpaque(XmlElement^ element, MagickImage^ image)
+	{
+		MagickColor^ target_ = _Variables->GetValue<MagickColor^>(element, "target");
+		MagickColor^ fill_ = _Variables->GetValue<MagickColor^>(element, "fill");
+		image->InverseOpaque(target_, fill_);
 	}
 	void MagickScript::ExecuteLevel(XmlElement^ element, MagickImage^ image)
 	{
@@ -2854,8 +2929,6 @@ namespace ImageMagick
 				arguments["blackColor"] = _Variables->GetValue<MagickColor^>(attribute);
 			else if (attribute->Name == "channels")
 				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
-			else if (attribute->Name == "invert")
-				arguments["invert"] = _Variables->GetValue<bool>(attribute);
 			else if (attribute->Name == "whiteColor")
 				arguments["whiteColor"] = _Variables->GetValue<MagickColor^>(attribute);
 		}
@@ -2863,12 +2936,8 @@ namespace ImageMagick
 			image->LevelColors((MagickColor^)arguments["blackColor"], (MagickColor^)arguments["whiteColor"]);
 		else if (OnlyContains(arguments, "blackColor", "whiteColor", "channels"))
 			image->LevelColors((MagickColor^)arguments["blackColor"], (MagickColor^)arguments["whiteColor"], (Channels)arguments["channels"]);
-		else if (OnlyContains(arguments, "blackColor", "whiteColor", "invert"))
-			image->LevelColors((MagickColor^)arguments["blackColor"], (MagickColor^)arguments["whiteColor"], (bool)arguments["invert"]);
-		else if (OnlyContains(arguments, "blackColor", "whiteColor", "invert", "channels"))
-			image->LevelColors((MagickColor^)arguments["blackColor"], (MagickColor^)arguments["whiteColor"], (bool)arguments["invert"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'levelColors', allowed combinations are: [blackColor, whiteColor] [blackColor, whiteColor, channels] [blackColor, whiteColor, invert] [blackColor, whiteColor, invert, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'levelColors', allowed combinations are: [blackColor, whiteColor] [blackColor, whiteColor, channels]");
 	}
 	void MagickScript::ExecuteLinearStretch(XmlElement^ element, MagickImage^ image)
 	{
@@ -3008,22 +3077,9 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteOpaque(XmlElement^ element, MagickImage^ image)
 	{
-		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
-		for each(XmlAttribute^ attribute in element->Attributes)
-		{
-			if (attribute->Name == "fill")
-				arguments["fill"] = _Variables->GetValue<MagickColor^>(attribute);
-			else if (attribute->Name == "invert")
-				arguments["invert"] = _Variables->GetValue<bool>(attribute);
-			else if (attribute->Name == "target")
-				arguments["target"] = _Variables->GetValue<MagickColor^>(attribute);
-		}
-		if (OnlyContains(arguments, "target", "fill"))
-			image->Opaque((MagickColor^)arguments["target"], (MagickColor^)arguments["fill"]);
-		else if (OnlyContains(arguments, "target", "fill", "invert"))
-			image->Opaque((MagickColor^)arguments["target"], (MagickColor^)arguments["fill"], (bool)arguments["invert"]);
-		else
-			throw gcnew ArgumentException("Invalid argument combination for 'opaque', allowed combinations are: [target, fill] [target, fill, invert]");
+		MagickColor^ target_ = _Variables->GetValue<MagickColor^>(element, "target");
+		MagickColor^ fill_ = _Variables->GetValue<MagickColor^>(element, "fill");
+		image->Opaque(target_, fill_);
 	}
 	void MagickScript::ExecuteOrderedDither(XmlElement^ element, MagickImage^ image)
 	{

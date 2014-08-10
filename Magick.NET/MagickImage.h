@@ -102,6 +102,22 @@ namespace ImageMagick
 		template<class TImageProfile>
 		TImageProfile^ CreateProfile(String^ name);
 		//===========================================================================================
+		void FloodFill(MagickColor^ color, int x, int y, bool invert);
+		//===========================================================================================
+		void FloodFill(MagickColor^ color, int x, int y, MagickColor^ borderColor, bool invert);
+		//===========================================================================================
+		void FloodFill(MagickColor^ color, MagickGeometry^ geometry, bool invert);
+		//===========================================================================================
+		void FloodFill(MagickColor^ color, MagickGeometry^ geometry, MagickColor^ borderColor, bool invert);
+		//===========================================================================================
+		void FloodFill(MagickImage^ image, int x, int y, bool invert);
+		//===========================================================================================
+		void FloodFill(MagickImage^ image, int x, int y, MagickColor^ borderColor, bool invert);
+		//===========================================================================================
+		void FloodFill(MagickImage^ image, MagickGeometry^ geometry, bool invert);
+		//===========================================================================================
+		void FloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor, bool invert);
+		//===========================================================================================
 		String^ FormatedFileSize();
 		//===========================================================================================
 		void HandleException(const Magick::Exception& exception);
@@ -111,6 +127,12 @@ namespace ImageMagick
 		MagickWarningException^ HandleReadException(MagickException^ exception);
 		//===========================================================================================
 		static bool IsSupportedImageFormat(ImageFormat^ format);
+		//===========================================================================================
+		void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, bool invert);
+		//===========================================================================================
+		void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, Channels channels, bool invert);
+		//===========================================================================================
+		void Opaque(MagickColor^ target, MagickColor^ fill, bool invert);
 		//===========================================================================================
 		void RaiseOrLower(int size, bool raiseFlag);
 		//===========================================================================================
@@ -1874,32 +1896,9 @@ namespace ImageMagick
 		///<param name="color">The color to use.</param>
 		///<param name="x">The X coordinate.</param>
 		///<param name="y">The Y coordinate.</param>
-		///<param name="invert">Inverse flood fill.</param>
-		///<exception cref="MagickException"/>
-		void FloodFill(MagickColor^ color, int x, int y, bool invert);
-		///==========================================================================================
-		///<summary>
-		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
-		/// of the target pixel. Uses current fuzz setting when determining color match.
-		///</summary>
-		///<param name="color">The color to use.</param>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
 		///<param name="borderColor">The color of the border.</param>
 		///<exception cref="MagickException"/>
 		void FloodFill(MagickColor^ color, int x, int y, MagickColor^ borderColor);
-		///==========================================================================================
-		///<summary>
-		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
-		/// of the target pixel. Uses current fuzz setting when determining color match.
-		///</summary>
-		///<param name="color">The color to use.</param>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
-		///<param name="borderColor">The color of the border.</param>
-		///<param name="invert">Inverse flood fill.</param>
-		///<exception cref="MagickException"/>
-		void FloodFill(MagickColor^ color, int x, int y, MagickColor^ borderColor, bool invert);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
@@ -1911,16 +1910,6 @@ namespace ImageMagick
 		void FloodFill(MagickColor^ color, MagickGeometry^ geometry);
 		///==========================================================================================
 		///<summary>
-		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
-		/// of the target pixel. Uses current fuzz setting when determining color match.
-		///</summary>
-		///<param name="color">The color to use.</param>
-		///<param name="geometry">The position of the pixel.</param>
-		///<param name="invert">Inverse flood fill.</param>
-		///<exception cref="MagickException"/>
-		void FloodFill(MagickColor^ color, MagickGeometry^ geometry, bool invert);
-		///==========================================================================================
-		///<summary>
 		/// Flood-fill color across pixels that match the color of the target pixel and are neighbors
 		/// of the target pixel. Uses current fuzz setting when determining color match.
 		///</summary>
@@ -1929,17 +1918,6 @@ namespace ImageMagick
 		///<param name="borderColor">The color of the border.</param>
 		///<exception cref="MagickException"/>
 		void FloodFill(MagickColor^ color, MagickGeometry^ geometry, MagickColor^ borderColor);
-		///==========================================================================================
-		///<summary>
-		/// Flood-fill color across pixels that match the color of the target pixel and are neighbors
-		/// of the target pixel. Uses current fuzz setting when determining color match.
-		///</summary>
-		///<param name="color">The color to use.</param>
-		///<param name="geometry">The position of the pixel.</param>
-		///<param name="borderColor">The color of the border.</param>
-		///<param name="invert">Inverse flood fill.</param>
-		///<exception cref="MagickException"/>
-		void FloodFill(MagickColor^ color, MagickGeometry^ geometry, MagickColor^ borderColor, bool invert);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1958,32 +1936,9 @@ namespace ImageMagick
 		///<param name="image">The image to use.</param>
 		///<param name="x">The X coordinate.</param>
 		///<param name="y">The Y coordinate.</param>
-		///<param name="invert">Inverse flood fill.</param>
-		///<exception cref="MagickException"/>
-		void FloodFill(MagickImage^ image, int x, int y, bool invert);
-		///==========================================================================================
-		///<summary>
-		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
-		/// of the target pixel. Uses current fuzz setting when determining color match.
-		///</summary>
-		///<param name="image">The image to use.</param>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
 		///<param name="borderColor">The color of the border.</param>
 		///<exception cref="MagickException"/>
 		void FloodFill(MagickImage^ image, int x, int y, MagickColor^ borderColor);
-		///==========================================================================================
-		///<summary>
-		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
-		/// of the target pixel. Uses current fuzz setting when determining color match.
-		///</summary>
-		///<param name="image">The image to use.</param>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
-		///<param name="borderColor">The color of the border.</param>
-		///<param name="invert">Inverse flood fill.</param>
-		///<exception cref="MagickException"/>
-		void FloodFill(MagickImage^ image, int x, int y, MagickColor^ borderColor, bool invert);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -2000,30 +1955,9 @@ namespace ImageMagick
 		///</summary>
 		///<param name="image">The image to use.</param>
 		///<param name="geometry">The position of the pixel.</param>
-		///<param name="invert">Inverse flood fill.</param>
-		///<exception cref="MagickException"/>
-		void FloodFill(MagickImage^ image, MagickGeometry^ geometry, bool invert);
-		///==========================================================================================
-		///<summary>
-		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
-		/// of the target pixel. Uses current fuzz setting when determining color match.
-		///</summary>
-		///<param name="image">The image to use.</param>
-		///<param name="geometry">The position of the pixel.</param>
 		///<param name="borderColor">The color of the border.</param>
 		///<exception cref="MagickException"/>
 		void FloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor);
-		///==========================================================================================
-		///<summary>
-		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
-		/// of the target pixel. Uses current fuzz setting when determining color match.
-		///</summary>
-		///<param name="image">The image to use.</param>
-		///<param name="geometry">The position of the pixel.</param>
-		///<param name="borderColor">The color of the border.</param>
-		///<param name="invert">Inverse flood fill.</param>
-		///<exception cref="MagickException"/>
-		void FloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor, bool invert);
 		///==========================================================================================
 		///<summary>
 		/// Flop image (reflect each scanline in the horizontal direction).
@@ -2271,6 +2205,86 @@ namespace ImageMagick
 		void Implode(double factor);
 		///==========================================================================================
 		///<summary>
+		/// Flood-fill texture across pixels that do not match the color of the target pixel and are
+		/// neighbors of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="color">The color to use.</param>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<exception cref="MagickException"/>
+		void InverseFloodFill(MagickColor^ color, int x, int y);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill texture across pixels that do not match the color of the target pixel and are
+		/// neighbors of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="color">The color to use.</param>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<param name="borderColor">The color of the border.</param>
+		///<exception cref="MagickException"/>
+		void InverseFloodFill(MagickColor^ color, int x, int y, MagickColor^ borderColor);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
+		/// of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="color">The color to use.</param>
+		///<param name="geometry">The position of the pixel.</param>
+		///<exception cref="MagickException"/>
+		void InverseFloodFill(MagickColor^ color, MagickGeometry^ geometry);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill texture across pixels that do not match the color of the target pixel and are
+		/// neighbors of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="color">The color to use.</param>
+		///<param name="geometry">The position of the pixel.</param>
+		///<param name="borderColor">The color of the border.</param>
+		///<exception cref="MagickException"/>
+		void InverseFloodFill(MagickColor^ color, MagickGeometry^ geometry, MagickColor^ borderColor);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill texture across pixels that do not match the color of the target pixel and are
+		/// neighbors of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="image">The image to use.</param>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<exception cref="MagickException"/>
+		void InverseFloodFill(MagickImage^ image, int x, int y);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
+		/// of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="image">The image to use.</param>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<param name="borderColor">The color of the border.</param>
+		///<exception cref="MagickException"/>
+		void InverseFloodFill(MagickImage^ image, int x, int y, MagickColor^ borderColor);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill texture across pixels that do not match the color of the target pixel and are
+		/// neighbors of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="image">The image to use.</param>
+		///<param name="geometry">The position of the pixel.</param>
+		///<exception cref="MagickException"/>
+		void InverseFloodFill(MagickImage^ image, MagickGeometry^ geometry);
+		///==========================================================================================
+		///<summary>
+		/// Flood-fill texture across pixels that do not match the color of the target pixel and are
+		/// neighbors of the target pixel. Uses current fuzz setting when determining color match.
+		///</summary>
+		///<param name="image">The image to use.</param>
+		///<param name="geometry">The position of the pixel.</param>
+		///<param name="borderColor">The color of the border.</param>
+		///<exception cref="MagickException"/>
+		void InverseFloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor);
+		///==========================================================================================
+		///<summary>
 		/// Implements the inverse discrete Fourier transform (DFT) of the image as a magnitude phase.
 		///</summary>
 		///<param name="image">The image to use.</param>
@@ -2285,6 +2299,35 @@ namespace ImageMagick
 		///<param name="magnitude">Magnitude phase or real / imaginary image pair.</param>
 		///<exception cref="MagickException"/>
 		void InverseFourierTransform(MagickImage^ image, bool magnitude);
+		///==========================================================================================
+		///<summary>
+		/// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
+		/// level values on a channel by channel bases, as per level(). The given colors allows you to
+		/// specify different level ranges for each of the color channels separately.
+		///</summary>
+		///<param name="blackColor">The color to map black to/from</param>
+		///<param name="whiteColor">The color to map white to/from</param>
+		///<exception cref="MagickException"/>
+		void InverseLevelColors(MagickColor^ blackColor, MagickColor^ whiteColor);
+		///==========================================================================================
+		///<summary>
+		/// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
+		/// level values on a channel by channel bases, as per level(). The given colors allows you to
+		/// specify different level ranges for each of the color channels separately.
+		///</summary>
+		///<param name="blackColor">The color to map black to/from</param>
+		///<param name="whiteColor">The color to map white to/from</param>
+		///<param name="channels">The channel(s) to level.</param>
+		///<exception cref="MagickException"/>
+		void InverseLevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Changes any pixel that does not match the target with the color defined by fill.
+		///</summary>
+		///<param name="target">The color to replace.</param>
+		///<param name="fill">The color to replace opaque color with.</param>
+		///<exception cref="MagickException"/>
+		void InverseOpaque(MagickColor^ target, MagickColor^ fill);
 		///==========================================================================================
 		///<summary>
 		/// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -2335,29 +2378,6 @@ namespace ImageMagick
 		///<param name="whiteColor">The color to map white to/from</param>
 		///<exception cref="MagickException"/>
 		void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor);
-		///==========================================================================================
-		///<summary>
-		/// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
-		/// level values on a channel by channel bases, as per level(). The given colors allows you to
-		/// specify different level ranges for each of the color channels separately.
-		///</summary>
-		///<param name="blackColor">The color to map black to/from</param>
-		///<param name="whiteColor">The color to map white to/from</param>
-		///<param name="invert">If true map the colors (levelize), rather than from (level)</param>
-		///<exception cref="MagickException"/>
-		void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, bool invert);
-		///==========================================================================================
-		///<summary>
-		/// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
-		/// level values on a channel by channel bases, as per level(). The given colors allows you to
-		/// specify different level ranges for each of the color channels separately.
-		///</summary>
-		///<param name="blackColor">The color to map black to/from</param>
-		///<param name="whiteColor">The color to map white to/from</param>
-		///<param name="invert">If true map the colors (levelize), rather than from (level)</param>
-		///<param name="channels">The channel(s) to level.</param>
-		///<exception cref="MagickException"/>
-		void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, bool invert, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
@@ -2622,15 +2642,6 @@ namespace ImageMagick
 		///<param name="fill">The color to replace opaque color with.</param>
 		///<exception cref="MagickException"/>
 		void Opaque(MagickColor^ target, MagickColor^ fill);
-		///==========================================================================================
-		///<summary>
-		/// Changes any pixel that matches target with the color defined by fill.
-		///</summary>
-		///<param name="target">The color to replace.</param>
-		///<param name="fill">The color to replace opaque color with.</param>
-		///<param name="invert">If true is specified all colors that do not match target are replaced with fill</param>
-		///<exception cref="MagickException"/>
-		void Opaque(MagickColor^ target, MagickColor^ fill, bool invert);
 		///==========================================================================================
 		///<summary>
 		/// Perform a ordered dither based on a number of pre-defined dithering threshold maps, but over
