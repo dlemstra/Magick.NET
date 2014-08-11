@@ -20,9 +20,9 @@ namespace Magick
   public:
 
     enum MatchType {
-      AnyMatch,   // match any coder
-      TrueMatch,  // match coder if true
-      FalseMatch  // match coder if false
+      AnyMatch,  // match any coder
+      TrueMatch, // match coder if true
+      FalseMatch // match coder if false
     };
 
     // Default constructor
@@ -60,11 +60,6 @@ namespace Magick
 
     // Unregisters this coder
     bool unregister(void) const;
-
-    //
-    // Implemementation methods
-    //
-    CoderInfo(const MagickCore::MagickInfo *magickInfo_);
 
   private:
     std::string _name;

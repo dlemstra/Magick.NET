@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
 #elif Q16
 			Assert.AreEqual("DPC Modules OpenCL OpenMP", MagickNET.Features);
 #elif Q16HDRI
-			Assert.AreEqual("DPC HDRI Modules OpenCL OpenMP", MagickNET.Features);
+			Assert.AreEqual("DPC Modules HDRI OpenCL OpenMP", MagickNET.Features);
 #else
 #error Not implemented!
 #endif

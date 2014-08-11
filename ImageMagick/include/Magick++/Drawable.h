@@ -93,17 +93,17 @@ namespace Magick
 #endif // MagickDLLExplicitTemplate
 
   // Compare two Coordinate objects regardless of LHS/RHS
-  MagickPPExport int operator == ( const Coordinate& left_,
+  extern MagickPPExport int operator == ( const Coordinate& left_,
                                         const Coordinate& right_ );
-  MagickPPExport int operator != ( const Coordinate& left_,
+  extern MagickPPExport int operator != ( const Coordinate& left_,
                                         const Coordinate& right_ );
-  MagickPPExport int operator >  ( const Coordinate& left_,
+  extern MagickPPExport int operator >  ( const Coordinate& left_,
                                         const Coordinate& right_ );
-  MagickPPExport int operator <  ( const Coordinate& left_,
+  extern MagickPPExport int operator <  ( const Coordinate& left_,
                                         const Coordinate& right_ );
-  MagickPPExport int operator >= ( const Coordinate& left_,
+  extern MagickPPExport int operator >= ( const Coordinate& left_,
                                         const Coordinate& right_ );
-  MagickPPExport int operator <= ( const Coordinate& left_,
+  extern MagickPPExport int operator <= ( const Coordinate& left_,
                                         const Coordinate& right_ );
 
   //
@@ -161,17 +161,17 @@ namespace Magick
   };
 
   // Compare two Drawable objects regardless of LHS/RHS
-  MagickPPExport int operator == ( const Drawable& left_,
+  extern MagickPPExport int operator == ( const Drawable& left_,
                                         const Drawable& right_ );
-  MagickPPExport int operator != ( const Drawable& left_,
+  extern MagickPPExport int operator != ( const Drawable& left_,
                                         const Drawable& right_ );
-  MagickPPExport int operator >  ( const Drawable& left_,
+  extern MagickPPExport int operator >  ( const Drawable& left_,
                                         const Drawable& right_ );
-  MagickPPExport int operator <  ( const Drawable& left_,
+  extern MagickPPExport int operator <  ( const Drawable& left_,
                                         const Drawable& right_ );
-  MagickPPExport int operator >= ( const Drawable& left_,
+  extern MagickPPExport int operator >= ( const Drawable& left_,
                                         const Drawable& right_ );
-  MagickPPExport int operator <= ( const Drawable& left_,
+  extern MagickPPExport int operator <= ( const Drawable& left_,
                                         const Drawable& right_ );
 
   typedef std::list<Magick::Drawable> DrawableList;
@@ -241,17 +241,17 @@ private:
 };
 
 // Compare two VPath objects regardless of LHS/RHS
-MagickPPExport int operator == ( const VPath& left_,
+extern MagickPPExport int operator == ( const VPath& left_,
                                       const VPath& right_ );
-MagickPPExport int operator != ( const VPath& left_,
+extern MagickPPExport int operator != ( const VPath& left_,
                                       const VPath& right_ );
-MagickPPExport int operator >  ( const VPath& left_,
+extern MagickPPExport int operator >  ( const VPath& left_,
                                       const VPath& right_ );
-MagickPPExport int operator <  ( const VPath& left_,
+extern MagickPPExport int operator <  ( const VPath& left_,
                                       const VPath& right_ );
-MagickPPExport int operator >= ( const VPath& left_,
+extern MagickPPExport int operator >= ( const VPath& left_,
                                       const VPath& right_ );
-MagickPPExport int operator <= ( const VPath& left_,
+extern MagickPPExport int operator <= ( const VPath& left_,
                                       const VPath& right_ );
 
 typedef std::list<Magick::VPath> VPathList;
@@ -896,16 +896,16 @@ private:
   FillRule _fillRule;
 };
 
-// Specify drawing fill opacity
-class MagickPPExport DrawableFillOpacity : public DrawableBase
+// Specify drawing fill alpha
+class MagickPPExport DrawableFillAlpha : public DrawableBase
 {
 public:
-  DrawableFillOpacity ( double opacity_ )
-    : _opacity(opacity_)
+  DrawableFillAlpha ( double alpha_ )
+    : _alpha(alpha_)
     {
     }
 
-  /*virtual*/ ~DrawableFillOpacity ( void );
+  /*virtual*/ ~DrawableFillAlpha ( void );
 
   // Operator to invoke equivalent draw API call
   /*virtual*/ void operator()( MagickCore::DrawingWand *context_ ) const;
@@ -913,17 +913,17 @@ public:
   // Return polymorphic copy of object
   /*virtual*/ DrawableBase* copy() const;
 
-  void opacity( double opacity_ )
+  void alpha( double alpha_ )
     {
-      _opacity = opacity_;
+      _alpha = alpha_;
     }
-  double opacity( void ) const
+  double alpha( void ) const
     {
-      return _opacity;
+      return _alpha;
     }
 
 private:
-  double _opacity;
+  double _alpha;
 };
 
 // Specify text font
@@ -1811,16 +1811,16 @@ private:
   Color _color;
 };
 
-// Stroke opacity
-class MagickPPExport DrawableStrokeOpacity : public DrawableBase
+// Stroke alpha
+class MagickPPExport DrawableStrokeAlpha : public DrawableBase
 {
 public:
-  DrawableStrokeOpacity ( double opacity_ )
-    : _opacity(opacity_)
+  DrawableStrokeAlpha ( double alpha_ )
+    : _alpha(alpha_)
     {
     }
 
-  /*virtual*/ ~DrawableStrokeOpacity ( void );
+  /*virtual*/ ~DrawableStrokeAlpha ( void );
 
   // Operator to invoke equivalent draw API call
   /*virtual*/ void operator()( MagickCore::DrawingWand *context_ ) const;
@@ -1828,17 +1828,17 @@ public:
   // Return polymorphic copy of object
   /*virtual*/ DrawableBase* copy() const;
 
-  void opacity( double opacity_ )
+  void alpha( double alpha_ )
     {
-      _opacity = opacity_;
+      _alpha = alpha_;
     }
-  double opacity( void ) const
+  double alpha( void ) const
     {
-      return _opacity;
+      return _alpha;
     }
 
 private:
-  double _opacity;
+  double _alpha;
 };
 
 // Stroke width
@@ -2288,17 +2288,17 @@ private:
 };
 
 // Compare two PathArcArgs objects regardless of LHS/RHS
-MagickPPExport int operator == ( const PathArcArgs& left_,
+extern MagickPPExport int operator == ( const PathArcArgs& left_,
                                       const PathArcArgs& right_ );
-MagickPPExport int operator != ( const PathArcArgs& left_,
+extern MagickPPExport int operator != ( const PathArcArgs& left_,
                                       const PathArcArgs& right_ );
-MagickPPExport int operator >  ( const PathArcArgs& left_,
+extern MagickPPExport int operator >  ( const PathArcArgs& left_,
                                       const PathArcArgs& right_ );
-MagickPPExport int operator <  ( const PathArcArgs& left_,
+extern MagickPPExport int operator <  ( const PathArcArgs& left_,
                                       const PathArcArgs& right_ );
-MagickPPExport int operator >= ( const PathArcArgs& left_,
+extern MagickPPExport int operator >= ( const PathArcArgs& left_,
                                       const PathArcArgs& right_ );
-MagickPPExport int operator <= ( const PathArcArgs& left_,
+extern MagickPPExport int operator <= ( const PathArcArgs& left_,
                                       const PathArcArgs& right_ );
 
 typedef std::list<Magick::PathArcArgs> PathArcArgsList;
@@ -2462,17 +2462,17 @@ double _y;
 };
 
 // Compare two PathCurvetoArgs objects regardless of LHS/RHS
-MagickPPExport int operator == ( const PathCurvetoArgs& left_,
+extern MagickPPExport int operator == ( const PathCurvetoArgs& left_,
                                       const PathCurvetoArgs& right_ );
-MagickPPExport int operator != ( const PathCurvetoArgs& left_,
+extern MagickPPExport int operator != ( const PathCurvetoArgs& left_,
                                       const PathCurvetoArgs& right_ );
-MagickPPExport int operator >  ( const PathCurvetoArgs& left_,
+extern MagickPPExport int operator >  ( const PathCurvetoArgs& left_,
                                       const PathCurvetoArgs& right_ );
-MagickPPExport int operator <  ( const PathCurvetoArgs& left_,
+extern MagickPPExport int operator <  ( const PathCurvetoArgs& left_,
                                       const PathCurvetoArgs& right_ );
-MagickPPExport int operator >= ( const PathCurvetoArgs& left_,
+extern MagickPPExport int operator >= ( const PathCurvetoArgs& left_,
                                       const PathCurvetoArgs& right_ );
-MagickPPExport int operator <= ( const PathCurvetoArgs& left_,
+extern MagickPPExport int operator <= ( const PathCurvetoArgs& left_,
                                       const PathCurvetoArgs& right_ );
 
 typedef std::list<Magick::PathCurvetoArgs> PathCurveToArgsList;
@@ -2643,17 +2643,17 @@ private:
 };
 
 // Compare two PathQuadraticCurvetoArgs objects regardless of LHS/RHS
-MagickPPExport int operator == ( const PathQuadraticCurvetoArgs& left_,
+extern MagickPPExport int operator == ( const PathQuadraticCurvetoArgs& left_,
                                       const PathQuadraticCurvetoArgs& right_ );
-MagickPPExport int operator != ( const PathQuadraticCurvetoArgs& left_,
+extern MagickPPExport int operator != ( const PathQuadraticCurvetoArgs& left_,
                                       const PathQuadraticCurvetoArgs& right_);
-MagickPPExport int operator >  ( const PathQuadraticCurvetoArgs& left_,
+extern MagickPPExport int operator >  ( const PathQuadraticCurvetoArgs& left_,
                                       const PathQuadraticCurvetoArgs& right_);
-MagickPPExport int operator <  ( const PathQuadraticCurvetoArgs& left_,
+extern MagickPPExport int operator <  ( const PathQuadraticCurvetoArgs& left_,
                                       const PathQuadraticCurvetoArgs& right_);
-MagickPPExport int operator >= ( const PathQuadraticCurvetoArgs& left_,
+extern MagickPPExport int operator >= ( const PathQuadraticCurvetoArgs& left_,
                                       const PathQuadraticCurvetoArgs& right_ );
-MagickPPExport int operator <= ( const PathQuadraticCurvetoArgs& left_,
+extern MagickPPExport int operator <= ( const PathQuadraticCurvetoArgs& left_,
                                       const PathQuadraticCurvetoArgs& right_ );
 
 typedef std::list<Magick::PathQuadraticCurvetoArgs> PathQuadraticCurvetoArgsList;

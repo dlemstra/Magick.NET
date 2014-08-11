@@ -40,6 +40,8 @@ namespace ImageMagick
 		static Magick::Quantum Convert(unsigned short value);
 #endif
 		//===========================================================================================
+		static Magick::Quantum Scale(double value);
+		//===========================================================================================
 		static double Scale(Magick::Quantum value);
 		//===========================================================================================
 	public:

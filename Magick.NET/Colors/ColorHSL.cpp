@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "ColorHSL.h"
+#include "..\Quantum.h"
 
 namespace ImageMagick
 {
@@ -30,12 +31,12 @@ namespace ImageMagick
 	//==============================================================================================
 	void ColorHSL::UpdateValue()
 	{
-		Magick::Quantum red, green, blue;
+		double red, green, blue;
 		MagickCore::ConvertHSLToRGB(Hue, Saturation, Luminosity, &red, &green, &blue);
 
-		Value->R = red;
-		Value->G = green;
-		Value->B = blue;
+		Value->R = Quantum::Convert(red);
+		Value->G = Quantum::Convert(green);
+		Value->B = Quantum::Convert(blue);
 	}
 	//==============================================================================================
 	ColorHSL::ColorHSL(double hue, double saturation, double luminosity)

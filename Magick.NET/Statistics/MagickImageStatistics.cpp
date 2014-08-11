@@ -32,7 +32,7 @@ namespace ImageMagick
 
 			_Channels->Add(channel, gcnew ChannelStatistics(channelStatistics));
 		}*/
-		_Channels->Add(PixelChannel::Alpha, gcnew ChannelStatistics(statistics->opacity));
+		_Channels->Add(PixelChannel::Alpha, gcnew ChannelStatistics(statistics->alpha));
 		_Channels->Add(PixelChannel::Blue, gcnew ChannelStatistics(statistics->blue));
 		_Channels->Add(PixelChannel::Green, gcnew ChannelStatistics(statistics->green));
 		_Channels->Add(PixelChannel::Red, gcnew ChannelStatistics(statistics->red));

@@ -233,7 +233,7 @@ namespace Magick.NET.Tests
 			Assert.IsNotNull(same);
 			Assert.AreEqual(0, same.MeanErrorPerPixel);
 
-			double distortion = first.Compare(second, Metric.AbsoluteError);
+			double distortion = first.Compare(second, ErrorMetric.Absolute);
 			Assert.AreEqual(0, distortion);
 
 			first.Threshold(0.5);
@@ -241,11 +241,11 @@ namespace Magick.NET.Tests
 			Assert.IsNotNull(different);
 			Assert.AreNotEqual(0, different.MeanErrorPerPixel);
 
-			distortion = first.Compare(second, Metric.AbsoluteError);
+			distortion = first.Compare(second, ErrorMetric.Absolute);
 			Assert.AreNotEqual(0, distortion);
 
 			MagickImage difference = new MagickImage();
-			distortion = first.Compare(second, Metric.RootMeanSquaredError, difference);
+			distortion = first.Compare(second, ErrorMetric.RootMeanSquared, difference);
 			Assert.AreNotEqual(0, distortion);
 			Assert.AreNotEqual(first, difference);
 			Assert.AreNotEqual(second, difference);
@@ -339,7 +339,7 @@ namespace Magick.NET.Tests
 
 				Assert.AreEqual("FOO", image.FormatExpression("FOO"));
 				Assert.AreEqual(null, image.FormatExpression("%FOO"));
-				Assert.AreEqual("fd8c44fe1b88ad5e28e26bfd11da116a48bceca4be53cba317c93406e1a85f06", image.FormatExpression("%#"));
+				Assert.AreEqual("a48a7f2fdc26e9ccf75b0c85a254c958f004cc182d0ca8c3060c1df734645367", image.FormatExpression("%#"));
 			}
 
 			using (MagickImage image = new MagickImage(Files.InvitationTif))
@@ -514,10 +514,10 @@ namespace Magick.NET.Tests
 				image.Opaque(Color.Red, Color.Yellow);
 				Test_Pixel(image, 0, 0, Color.Yellow);
 
-				image.Opaque(Color.Yellow, Color.Red, true);
+				image.InverseOpaque(Color.Yellow, Color.Red);
 				Test_Pixel(image, 0, 0, Color.Yellow);
 
-				image.Opaque(Color.Red, Color.Red, true);
+				image.InverseOpaque(Color.Red, Color.Red);
 				Test_Pixel(image, 0, 0, Color.Red);
 			}
 		}
@@ -764,16 +764,16 @@ namespace Magick.NET.Tests
 					image.Dispose();
 				}
 
-				Assert.AreEqual(4, i);
+				Assert.AreEqual(3, i);
 
 				i = 0;
-				foreach (MagickImage image in rose.Separate(Channels.RGB))
+				foreach (MagickImage image in rose.Separate(Channels.Red | Channels.Green))
 				{
 					i++;
 					image.Dispose();
 				}
 
-				Assert.AreEqual(3, i);
+				Assert.AreEqual(2, i);
 			}
 		}
 		//===========================================================================================
@@ -836,7 +836,7 @@ namespace Magick.NET.Tests
 
 				using (MagickImage combined = images.AppendHorizontally())
 				{
-					using (MagickSearchResult searchResult = combined.SubImageSearch(new MagickImage(Color.Red, 0, 0), Metric.RootMeanSquaredError))
+					using (MagickSearchResult searchResult = combined.SubImageSearch(new MagickImage(Color.Red, 0, 0), ErrorMetric.RootMeanSquared))
 					{
 						Assert.IsNotNull(searchResult);
 						Assert.IsNotNull(searchResult.SimilarityImage);

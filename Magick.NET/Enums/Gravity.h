@@ -33,8 +33,7 @@ namespace ImageMagick
 		East = Magick::EastGravity,
 		Southwest = Magick::SouthWestGravity,
 		South = Magick::SouthGravity,
-		Southeast = Magick::SouthEastGravity,
-		Static = Magick::StaticGravity
+		Southeast = Magick::SouthEastGravity
 	};
 	//==============================================================================================
 }

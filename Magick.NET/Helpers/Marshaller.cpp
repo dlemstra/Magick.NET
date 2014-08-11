@@ -60,9 +60,9 @@ namespace ImageMagick
 			return MarshalStorageType<double>(values);
 		case StorageType::Float:
 			return MarshalStorageType<float>(values);
-		case StorageType::Integer:
-			return MarshalStorageType<int>(values);
 		case StorageType::Long:
+			return MarshalStorageType<int>(values);
+		case StorageType::LongLong:
 			return MarshalStorageType<long>(values);
 		case StorageType::Quantum:
 			return  MarshalStorageType<Magick::Quantum>(values);

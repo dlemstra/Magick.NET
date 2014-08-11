@@ -13,6 +13,7 @@
 //=================================================================================================
 #pragma once
 #include "..\Pixel.h"
+#include "..\..\Enums\PixelChannel.h"
 
 using namespace System::Collections::Generic;
 
@@ -29,7 +30,6 @@ namespace ImageMagick
 		//===========================================================================================
 		int _Channels;
 		int _Height;
-		Magick::IndexPacket* _Indexes;
 		Magick::Pixels* _View;
 		int _Width;
 		//===========================================================================================
@@ -83,14 +83,9 @@ namespace ImageMagick
 		//===========================================================================================
 		PixelBaseCollection(Magick::Image* image, int width, int height);
 		//===========================================================================================
-		property const Magick::PixelPacket* Pixels
+		property const Magick::Quantum* Pixels
 		{
-			virtual const Magick::PixelPacket* get() abstract;
-		}
-		//===========================================================================================
-		property Magick::IndexPacket* Indexes
-		{
-			Magick::IndexPacket* get();
+			virtual const Magick::Quantum* get() abstract;
 		}
 		//===========================================================================================
 		property Magick::Pixels* View
@@ -103,8 +98,6 @@ namespace ImageMagick
 		void CheckPixels();
 		//===========================================================================================
 		int GetIndex(int x, int y);
-		//===========================================================================================
-		void LoadIndexes();
 		//===========================================================================================
 	public:
 		//===========================================================================================
@@ -154,6 +147,12 @@ namespace ImageMagick
 		/// Returns an enumerator that can iterate through the collection.
 		///</summary>
 		virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
+		///==========================================================================================
+		///<summary>
+		/// Returns the index of the specified channel. Returns -1 if not found.
+		///</summary>
+		///<param name="channel">The channel to get the index of.</param>
+		int GetIndex(PixelChannel channel);
 		///==========================================================================================
 		///<summary>
 		/// Returns the pixel at the specified coordinate.

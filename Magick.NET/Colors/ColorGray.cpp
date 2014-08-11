@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "ColorGray.h"
+#include "..\Quantum.h"
 
 namespace ImageMagick
 {
@@ -20,12 +21,12 @@ namespace ImageMagick
 	ColorGray::ColorGray(MagickColor^ color)
 		: ColorBase(false, color)
 	{
-		_Shade = Magick::Color::scaleQuantumToDouble(color->R);
+		_Shade = Quantum::Scale(color->R);
 	}
 	//==============================================================================================
 	void ColorGray::UpdateValue()
 	{
-		Magick::Quantum gray = Magick::Color::scaleDoubleToQuantum(_Shade);
+		Magick::Quantum gray = Quantum::Scale(_Shade);
 		Value->R = gray;
 		Value->G = gray;
 		Value->B = gray;

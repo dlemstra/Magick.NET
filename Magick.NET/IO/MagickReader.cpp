@@ -29,9 +29,9 @@ namespace ImageMagick
 			return length * sizeof(double);
 		case  StorageType::Float:
 			return length * sizeof(float);
-		case StorageType::Integer:
-			return length * sizeof(int);
 		case StorageType::Long:
+			return length * sizeof(int);
+		case StorageType::LongLong:
 			return length * sizeof(long);
 		case StorageType::Quantum:
 			return length * sizeof(Magick::Quantum);

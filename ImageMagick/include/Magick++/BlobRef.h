@@ -26,11 +26,11 @@ namespace Magick
     // Destructor (actually destroys data)
     ~BlobRef(void);
 
-    void*           _data;      // Blob data
-    size_t          _length;    // Blob length
-    Blob::Allocator _allocator; // Memory allocation system in use
-    ::ssize_t       _refCount;  // Reference count
-    MutexLock       _mutexLock; // Mutex lock
+    void*           data;      // Blob data
+    size_t          length;    // Blob length
+    Blob::Allocator allocator; // Memory allocation system in use
+    ::ssize_t       refCount;  // Reference count
+    MutexLock       mutexLock; // Mutex lock
 
   private:
     // Copy constructor and assignment are not supported

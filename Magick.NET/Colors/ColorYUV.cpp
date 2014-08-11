@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "ColorYUV.h"
+#include "..\Quantum.h"
 
 namespace ImageMagick
 {
@@ -27,9 +28,9 @@ namespace ImageMagick
 	//==============================================================================================
 	void ColorYUV::UpdateValue()
 	{
-		Value->R = Magick::Color::scaleDoubleToQuantum(_Y + 1.13980 * _V);
-		Value->G = Magick::Color::scaleDoubleToQuantum(_Y - (0.39380 * _U) - (0.58050 * _V));
-		Value->B = Magick::Color::scaleDoubleToQuantum(_Y + 2.02790 * _U);
+		Value->R = Quantum::Scale(_Y + 1.13980 * _V);
+		Value->G = Quantum::Scale(_Y - (0.39380 * _U) - (0.58050 * _V));
+		Value->B = Quantum::Scale(_Y + 2.02790 * _U);
 	}
 	//==============================================================================================
 	ColorYUV::ColorYUV(double y, double u, double v)

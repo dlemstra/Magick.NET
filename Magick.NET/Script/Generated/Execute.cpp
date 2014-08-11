@@ -15,6 +15,7 @@
 #include "..\..\Helpers\XmlHelper.h"
 #include "..\MagickScript.h"
 #include "..\..\Drawables\DrawableAffine.h"
+#include "..\..\Drawables\DrawableAlpha.h"
 #include "..\..\Drawables\DrawableArc.h"
 #include "..\..\Drawables\DrawableBezier.h"
 #include "..\..\Drawables\DrawableCircle.h"
@@ -24,13 +25,12 @@
 #include "..\..\Drawables\DrawableDashArray.h"
 #include "..\..\Drawables\DrawableDashOffset.h"
 #include "..\..\Drawables\DrawableEllipse.h"
+#include "..\..\Drawables\DrawableFillAlpha.h"
 #include "..\..\Drawables\DrawableFillColor.h"
-#include "..\..\Drawables\DrawableFillOpacity.h"
 #include "..\..\Drawables\DrawableFillRule.h"
 #include "..\..\Drawables\DrawableFont.h"
 #include "..\..\Drawables\DrawableGravity.h"
 #include "..\..\Drawables\DrawableLine.h"
-#include "..\..\Drawables\DrawableMatte.h"
 #include "..\..\Drawables\DrawableMiterLimit.h"
 #include "..\..\Drawables\DrawablePath.h"
 #include "..\..\Drawables\DrawablePoint.h"
@@ -45,11 +45,11 @@
 #include "..\..\Drawables\DrawableScaling.h"
 #include "..\..\Drawables\DrawableSkewX.h"
 #include "..\..\Drawables\DrawableSkewY.h"
+#include "..\..\Drawables\DrawableStrokeAlpha.h"
 #include "..\..\Drawables\DrawableStrokeAntialias.h"
 #include "..\..\Drawables\DrawableStrokeColor.h"
 #include "..\..\Drawables\DrawableStrokeLineCap.h"
 #include "..\..\Drawables\DrawableStrokeLineJoin.h"
-#include "..\..\Drawables\DrawableStrokeOpacity.h"
 #include "..\..\Drawables\DrawableStrokeWidth.h"
 #include "..\..\Drawables\DrawableText.h"
 #include "..\..\Drawables\DrawableTextAntialias.h"
@@ -147,6 +147,14 @@ namespace ImageMagick
 						}
 						break;
 					}
+					case 'l':
+					{
+						if (element->Name->Length == 10)
+						{
+							ExecuteAlphaColor(element, image);
+							return;
+						}
+					}
 					case 'n':
 					{
 						switch(element->Name[2])
@@ -180,11 +188,6 @@ namespace ImageMagick
 							}
 						}
 						break;
-					}
-					case 'l':
-					{
-						ExecuteAlpha(element, image);
-						return;
 					}
 					case 'u':
 					{
@@ -950,11 +953,6 @@ namespace ImageMagick
 								ExecuteMask(element, image);
 								return;
 							}
-							case 't':
-							{
-								ExecuteMatteColor(element, image);
-								return;
-							}
 							case 'g':
 							{
 								ExecuteMagnify(image);
@@ -1513,23 +1511,6 @@ namespace ImageMagick
 						}
 						break;
 					}
-					case 'i':
-					{
-						switch(element->Name[2])
-						{
-							case 'l':
-							{
-								ExecuteTileName(element, image);
-								return;
-							}
-							case 'n':
-							{
-								ExecuteTint(element, image);
-								return;
-							}
-						}
-						break;
-					}
 					case 'h':
 					{
 						switch(element->Name[2])
@@ -1546,6 +1527,11 @@ namespace ImageMagick
 							}
 						}
 						break;
+					}
+					case 'i':
+					{
+						ExecuteTint(element, image);
+						return;
 					}
 					case 'r':
 					{
@@ -1742,6 +1728,10 @@ namespace ImageMagick
 	{
 		image->Adjoin = _Variables->GetValue<bool>(element, "value");
 	}
+	void MagickScript::ExecuteAlphaColor(XmlElement^ element, MagickImage^ image)
+	{
+		image->AlphaColor = _Variables->GetValue<MagickColor^>(element, "value");
+	}
 	void MagickScript::ExecuteAnimationDelay(XmlElement^ element, MagickImage^ image)
 	{
 		image->AnimationDelay = _Variables->GetValue<int>(element, "value");
@@ -1882,10 +1872,6 @@ namespace ImageMagick
 	{
 		image->Mask = CreateMagickImage(element);
 	}
-	void MagickScript::ExecuteMatteColor(XmlElement^ element, MagickImage^ image)
-	{
-		image->MatteColor = _Variables->GetValue<MagickColor^>(element, "value");
-	}
 	void MagickScript::ExecuteOrientation(XmlElement^ element, MagickImage^ image)
 	{
 		image->Orientation = _Variables->GetValue<OrientationType>(element, "value");
@@ -1965,10 +1951,6 @@ namespace ImageMagick
 	void MagickScript::ExecuteTextKerning(XmlElement^ element, MagickImage^ image)
 	{
 		image->TextKerning = _Variables->GetValue<double>(element, "value");
-	}
-	void MagickScript::ExecuteTileName(XmlElement^ element, MagickImage^ image)
-	{
-		image->TileName = _Variables->GetValue<String^>(element, "value");
 	}
 	void MagickScript::ExecuteVerbose(XmlElement^ element, MagickImage^ image)
 	{
@@ -2376,18 +2358,21 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = _Variables->GetValue<Channels>(attribute);
+			if (attribute->Name == "channels")
+				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
+			else if (attribute->Name == "method")
+				arguments["method"] = _Variables->GetValue<PixelInterpolateMethod>(attribute);
 		}
 		for each(XmlElement^ elem in element->SelectNodes("*"))
 		{
 			arguments[elem->Name] = CreateMagickImage(elem);
 		}
-		if (OnlyContains(arguments, "image"))
-			image->Clut((MagickImage^)arguments["image"]);
-		else if (OnlyContains(arguments, "image", "channels"))
-			image->Clut((MagickImage^)arguments["image"], (Channels)arguments["channels"]);
+		if (OnlyContains(arguments, "image", "method"))
+			image->Clut((MagickImage^)arguments["image"], (PixelInterpolateMethod)arguments["method"]);
+		else if (OnlyContains(arguments, "image", "method", "channels"))
+			image->Clut((MagickImage^)arguments["image"], (PixelInterpolateMethod)arguments["method"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'clut', allowed combinations are: [image] [image, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'clut', allowed combinations are: [image, method] [image, method, channels]");
 	}
 	void MagickScript::ExecuteColorAlpha(XmlElement^ element, MagickImage^ image)
 	{
@@ -2671,8 +2656,6 @@ namespace ImageMagick
 				arguments["color"] = _Variables->GetValue<MagickColor^>(attribute);
 			else if (attribute->Name == "geometry")
 				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
-			else if (attribute->Name == "paintMethod")
-				arguments["paintMethod"] = _Variables->GetValue<PaintMethod>(attribute);
 			else if (attribute->Name == "x")
 				arguments["x"] = _Variables->GetValue<int>(attribute);
 			else if (attribute->Name == "y")
@@ -2682,8 +2665,8 @@ namespace ImageMagick
 		{
 			arguments[elem->Name] = CreateMagickImage(elem);
 		}
-		if (OnlyContains(arguments, "alpha", "x", "y", "paintMethod"))
-			image->FloodFill((int)arguments["alpha"], (int)arguments["x"], (int)arguments["y"], (PaintMethod)arguments["paintMethod"]);
+		if (OnlyContains(arguments, "alpha", "x", "y"))
+			image->FloodFill((int)arguments["alpha"], (int)arguments["x"], (int)arguments["y"]);
 		else if (OnlyContains(arguments, "color", "geometry"))
 			image->FloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"]);
 		else if (OnlyContains(arguments, "color", "geometry", "borderColor"))
@@ -2701,7 +2684,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "image", "x", "y", "borderColor"))
 			image->FloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'floodFill', allowed combinations are: [alpha, x, y, paintMethod] [color, geometry] [color, geometry, borderColor] [color, x, y] [color, x, y, borderColor] [image, geometry] [image, geometry, borderColor] [image, x, y] [image, x, y, borderColor]");
+			throw gcnew ArgumentException("Invalid argument combination for 'floodFill', allowed combinations are: [alpha, x, y] [color, geometry] [color, geometry, borderColor] [color, x, y] [color, x, y, borderColor] [image, geometry] [image, geometry, borderColor] [image, x, y] [image, x, y, borderColor]");
 	}
 	void MagickScript::ExecuteFlop(MagickImage^ image)
 	{
@@ -2818,7 +2801,9 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			if (attribute->Name == "borderColor")
+			if (attribute->Name == "alpha")
+				arguments["alpha"] = _Variables->GetValue<int>(attribute);
+			else if (attribute->Name == "borderColor")
 				arguments["borderColor"] = _Variables->GetValue<MagickColor^>(attribute);
 			else if (attribute->Name == "color")
 				arguments["color"] = _Variables->GetValue<MagickColor^>(attribute);
@@ -2833,7 +2818,9 @@ namespace ImageMagick
 		{
 			arguments[elem->Name] = CreateMagickImage(elem);
 		}
-		if (OnlyContains(arguments, "color", "geometry"))
+		if (OnlyContains(arguments, "alpha", "x", "y"))
+			image->InverseFloodFill((int)arguments["alpha"], (int)arguments["x"], (int)arguments["y"]);
+		else if (OnlyContains(arguments, "color", "geometry"))
 			image->InverseFloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"]);
 		else if (OnlyContains(arguments, "color", "geometry", "borderColor"))
 			image->InverseFloodFill((MagickColor^)arguments["color"], (MagickGeometry^)arguments["geometry"], (MagickColor^)arguments["borderColor"]);
@@ -2850,7 +2837,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "image", "x", "y", "borderColor"))
 			image->InverseFloodFill((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (MagickColor^)arguments["borderColor"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'inverseFloodFill', allowed combinations are: [color, geometry] [color, geometry, borderColor] [color, x, y] [color, x, y, borderColor] [image, geometry] [image, geometry, borderColor] [image, x, y] [image, x, y, borderColor]");
+			throw gcnew ArgumentException("Invalid argument combination for 'inverseFloodFill', allowed combinations are: [alpha, x, y] [color, geometry] [color, geometry, borderColor] [color, x, y] [color, x, y, borderColor] [image, geometry] [image, geometry, borderColor] [image, x, y] [image, x, y, borderColor]");
 	}
 	void MagickScript::ExecuteInverseFourierTransform(XmlElement^ element, MagickImage^ image)
 	{
@@ -3119,7 +3106,8 @@ namespace ImageMagick
 	{
 		String^ caption_ = _Variables->GetValue<String^>(element, "caption");
 		double angle_ = _Variables->GetValue<double>(element, "angle");
-		image->Polaroid(caption_, angle_);
+		PixelInterpolateMethod method_ = _Variables->GetValue<PixelInterpolateMethod>(element, "method");
+		image->Polaroid(caption_, angle_, method_);
 	}
 	void MagickScript::ExecutePosterize(XmlElement^ element, MagickImage^ image)
 	{
@@ -3128,21 +3116,21 @@ namespace ImageMagick
 		{
 			if (attribute->Name == "channels")
 				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
-			else if (attribute->Name == "dither")
-				arguments["dither"] = _Variables->GetValue<bool>(attribute);
 			else if (attribute->Name == "levels")
 				arguments["levels"] = _Variables->GetValue<int>(attribute);
+			else if (attribute->Name == "method")
+				arguments["method"] = _Variables->GetValue<DitherMethod>(attribute);
 		}
 		if (OnlyContains(arguments, "levels"))
 			image->Posterize((int)arguments["levels"]);
 		else if (OnlyContains(arguments, "levels", "channels"))
 			image->Posterize((int)arguments["levels"], (Channels)arguments["channels"]);
-		else if (OnlyContains(arguments, "levels", "dither"))
-			image->Posterize((int)arguments["levels"], (bool)arguments["dither"]);
-		else if (OnlyContains(arguments, "levels", "dither", "channels"))
-			image->Posterize((int)arguments["levels"], (bool)arguments["dither"], (Channels)arguments["channels"]);
+		else if (OnlyContains(arguments, "levels", "method"))
+			image->Posterize((int)arguments["levels"], (DitherMethod)arguments["method"]);
+		else if (OnlyContains(arguments, "levels", "method", "channels"))
+			image->Posterize((int)arguments["levels"], (DitherMethod)arguments["method"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'posterize', allowed combinations are: [levels] [levels, channels] [levels, dither] [levels, dither, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'posterize', allowed combinations are: [levels] [levels, channels] [levels, method] [levels, method, channels]");
 	}
 	void MagickScript::ExecutePreserveColorType(MagickImage^ image)
 	{
@@ -4140,6 +4128,11 @@ namespace ImageMagick
 						ExecuteAffine(element, drawables);
 						return;
 					}
+					case 'l':
+					{
+						ExecuteAlpha(element, drawables);
+						return;
+					}
 					case 'r':
 					{
 						ExecuteArc(element, drawables);
@@ -4217,14 +4210,14 @@ namespace ImageMagick
 					{
 						switch(element->Name[4])
 						{
+							case 'A':
+							{
+								ExecuteFillAlpha(element, drawables);
+								return;
+							}
 							case 'C':
 							{
 								ExecuteFillColor(element, drawables);
-								return;
-							}
-							case 'O':
-							{
-								ExecuteFillOpacity(element, drawables);
 								return;
 							}
 							case 'R':
@@ -4255,20 +4248,8 @@ namespace ImageMagick
 			}
 			case 'm':
 			{
-				switch(element->Name[1])
-				{
-					case 'a':
-					{
-						ExecuteMatte(element, drawables);
-						return;
-					}
-					case 'i':
-					{
-						ExecuteMiterLimit(element, drawables);
-						return;
-					}
-				}
-				break;
+				ExecuteMiterLimit(element, drawables);
+				return;
 			}
 			case 'p':
 			{
@@ -4392,8 +4373,20 @@ namespace ImageMagick
 						{
 							case 'A':
 							{
-								ExecuteStrokeAntialias(element, drawables);
-								return;
+								switch(element->Name[7])
+								{
+									case 'l':
+									{
+										ExecuteStrokeAlpha(element, drawables);
+										return;
+									}
+									case 'n':
+									{
+										ExecuteStrokeAntialias(element, drawables);
+										return;
+									}
+								}
+								break;
 							}
 							case 'C':
 							{
@@ -4416,11 +4409,6 @@ namespace ImageMagick
 									}
 								}
 								break;
-							}
-							case 'O':
-							{
-								ExecuteStrokeOpacity(element, drawables);
-								return;
 							}
 							case 'W':
 							{
@@ -4524,6 +4512,13 @@ namespace ImageMagick
 		double translateY_ = _Variables->GetValue<double>(element, "translateY");
 		drawables->Add(gcnew DrawableAffine(scaleX_, scaleY_, shearX_, shearY_, translateX_, translateY_));
 	}
+	void MagickScript::ExecuteAlpha(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double x_ = _Variables->GetValue<double>(element, "x");
+		double y_ = _Variables->GetValue<double>(element, "y");
+		PaintMethod paintMethod_ = _Variables->GetValue<PaintMethod>(element, "paintMethod");
+		drawables->Add(gcnew DrawableAlpha(x_, y_, paintMethod_));
+	}
 	void MagickScript::ExecuteArc(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
 		double startX_ = _Variables->GetValue<double>(element, "startX");
@@ -4608,15 +4603,15 @@ namespace ImageMagick
 		double endDegrees_ = _Variables->GetValue<double>(element, "endDegrees");
 		drawables->Add(gcnew DrawableEllipse(originX_, originY_, radiusX_, radiusY_, startDegrees_, endDegrees_));
 	}
+	void MagickScript::ExecuteFillAlpha(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double alpha_ = _Variables->GetValue<double>(element, "alpha");
+		drawables->Add(gcnew DrawableFillAlpha(alpha_));
+	}
 	void MagickScript::ExecuteFillColor(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
 		MagickColor^ color_ = _Variables->GetValue<MagickColor^>(element, "color");
 		drawables->Add(gcnew DrawableFillColor(color_));
-	}
-	void MagickScript::ExecuteFillOpacity(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
-	{
-		double opacity_ = _Variables->GetValue<double>(element, "opacity");
-		drawables->Add(gcnew DrawableFillOpacity(opacity_));
 	}
 	void MagickScript::ExecuteFillRule(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
@@ -4656,13 +4651,6 @@ namespace ImageMagick
 		double endX_ = _Variables->GetValue<double>(element, "endX");
 		double endY_ = _Variables->GetValue<double>(element, "endY");
 		drawables->Add(gcnew DrawableLine(startX_, startY_, endX_, endY_));
-	}
-	void MagickScript::ExecuteMatte(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
-	{
-		double x_ = _Variables->GetValue<double>(element, "x");
-		double y_ = _Variables->GetValue<double>(element, "y");
-		PaintMethod paintMethod_ = _Variables->GetValue<PaintMethod>(element, "paintMethod");
-		drawables->Add(gcnew DrawableMatte(x_, y_, paintMethod_));
 	}
 	void MagickScript::ExecuteMiterLimit(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
@@ -4748,6 +4736,11 @@ namespace ImageMagick
 		double angle_ = _Variables->GetValue<double>(element, "angle");
 		drawables->Add(gcnew DrawableSkewY(angle_));
 	}
+	void MagickScript::ExecuteStrokeAlpha(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
+	{
+		double alpha_ = _Variables->GetValue<double>(element, "alpha");
+		drawables->Add(gcnew DrawableStrokeAlpha(alpha_));
+	}
 	void MagickScript::ExecuteStrokeAntialias(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{
 		bool isEnabled_ = _Variables->GetValue<bool>(element, "isEnabled");
@@ -4767,11 +4760,6 @@ namespace ImageMagick
 	{
 		LineJoin lineJoin_ = _Variables->GetValue<LineJoin>(element, "lineJoin");
 		drawables->Add(gcnew DrawableStrokeLineJoin(lineJoin_));
-	}
-	void MagickScript::ExecuteStrokeOpacity(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
-	{
-		double opacity_ = _Variables->GetValue<double>(element, "opacity");
-		drawables->Add(gcnew DrawableStrokeOpacity(opacity_));
 	}
 	void MagickScript::ExecuteStrokeWidth(XmlElement^ element, System::Collections::ObjectModel::Collection<Drawable^>^ drawables)
 	{

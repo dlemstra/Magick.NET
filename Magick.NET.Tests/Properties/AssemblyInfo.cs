@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 //=================================================================================================
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("6.0.0.0")]
+[assembly: AssemblyVersion("7.0.0.0")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
 //=================================================================================================

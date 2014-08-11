@@ -25,7 +25,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL,DWORD fdwReason,LPVOID lpReserved)
 	switch (fdwReason)
 	{ 
 	case DLL_PROCESS_ATTACH:
-		(void) MagickCore::ResourceComponentGenesis();
+		(void) MagickCore::MagickCoreGenesis((const char *)NULL,MagickCore::MagickFalse);
 		break;
 	default:
 		break;

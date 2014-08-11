@@ -50,6 +50,11 @@ namespace ImageMagick
 	}
 #endif
 	//==============================================================================================
+	Magick::Quantum Quantum::Scale(double value)
+	{
+		return (Magick::Quantum)value/Max;
+	}
+	//==============================================================================================
 	double Quantum::Scale(Magick::Quantum value)
 	{
 		return ((double) 1.0/(double) Max)*value;

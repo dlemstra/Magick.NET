@@ -282,9 +282,6 @@
     <ClInclude Include="Drawables\DrawableFillColor.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
-    <ClInclude Include="Drawables\DrawableFillOpacity.h">
-      <Filter>Header Files\Drawables</Filter>
-    </ClInclude>
     <ClInclude Include="Drawables\DrawableFillRule.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
@@ -295,9 +292,6 @@
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
     <ClInclude Include="Drawables\DrawableLine.h">
-      <Filter>Header Files\Drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawables\DrawableMatte.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
     <ClInclude Include="Drawables\DrawableMiterLimit.h">
@@ -379,9 +373,6 @@
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
     <ClInclude Include="Drawables\DrawableStrokeLineJoin.h">
-      <Filter>Header Files\Drawables</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawables\DrawableStrokeOpacity.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
     <ClInclude Include="Drawables\DrawableStrokeWidth.h">
@@ -729,9 +720,6 @@
     <ClInclude Include="Results\MagickSearchResult.h">
       <Filter>Header Files\Results</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\Metric.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="Arguments\Percentage.h">
       <Filter>Header Files\Arguments</Filter>
     </ClInclude>
@@ -752,6 +740,18 @@
     </ClInclude>
     <ClInclude Include="Enums\MontageMode.h">
       <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\DrawableFillAlpha.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\DrawableStrokeAlpha.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ErrorMetric.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\DrawableAlpha.h">
+      <Filter>Header Files\Drawables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -824,9 +824,6 @@
     <ClCompile Include="Drawables\DrawableFillColor.cpp">
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
-    <ClCompile Include="Drawables\DrawableFillOpacity.cpp">
-      <Filter>Source Files\Drawables</Filter>
-    </ClCompile>
     <ClCompile Include="Drawables\DrawableFillRule.cpp">
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
@@ -837,9 +834,6 @@
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
     <ClCompile Include="Drawables\DrawableLine.cpp">
-      <Filter>Source Files\Drawables</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawables\DrawableMatte.cpp">
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
     <ClCompile Include="Drawables\DrawableMiterLimit.cpp">
@@ -918,9 +912,6 @@
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
     <ClCompile Include="Drawables\DrawableStrokeLineJoin.cpp">
-      <Filter>Source Files\Drawables</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawables\DrawableStrokeOpacity.cpp">
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
     <ClCompile Include="Drawables\DrawableStrokeWidth.cpp">
@@ -1186,6 +1177,15 @@
     </ClCompile>
     <ClCompile Include="Arguments\SparseColorArg.cpp">
       <Filter>Source Files\Arguments</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\DrawableFillAlpha.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\DrawableStrokeAlpha.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\DrawableAlpha.cpp">
+      <Filter>Source Files\Drawables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

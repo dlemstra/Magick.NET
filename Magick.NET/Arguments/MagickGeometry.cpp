@@ -19,8 +19,8 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickGeometry::Initialize(Magick::Geometry geometry)
 	{
-		X =  (int)(geometry.xNegative() ? -geometry.xOff() : geometry.xOff());
-		Y =  (int)(geometry.yNegative() ? -geometry.yOff() : geometry.yOff());
+		X =  (int)geometry.xOff();
+		Y =  (int)geometry.yOff();
 		Width = (int)geometry.width();
 		Height = (int)geometry.height();
 		IsPercentage = geometry.percent();

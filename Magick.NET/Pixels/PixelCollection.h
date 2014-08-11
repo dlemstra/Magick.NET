@@ -25,13 +25,13 @@ namespace ImageMagick
 	{
 		//===========================================================================================
 	private:
-		const Magick::PixelPacket* _Pixels;
+		const Magick::Quantum* _Pixels;
 		//===========================================================================================
 	protected private:
 		//===========================================================================================
-		property const Magick::PixelPacket* Pixels
+		property const Magick::Quantum* Pixels
 		{
-			virtual const Magick::PixelPacket* get() override sealed
+			virtual const Magick::Quantum* get() override sealed
 			{
 				return _Pixels;
 			}

@@ -51,6 +51,18 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::FloodFill(int alpha, int x, int y, bool invert)
+	{
+		try
+		{
+			Value->floodFillAlpha(x, y, alpha, invert);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::FloodFill(MagickColor^ color, int x, int y, bool invert)
 	{
 		Throw::IfNull("color", color);
@@ -405,7 +417,7 @@ namespace ImageMagick
 
 		try
 		{
-			Value->randomThresholdChannel(*geometry, (Magick::ChannelType)channels);
+			Value->randomThresholdChannel((Magick::ChannelType)channels, *geometry);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -592,6 +604,18 @@ namespace ImageMagick
 	void MagickImage::Adjoin::set(bool value)
 	{
 		Value->adjoin(value);
+	}
+	//==============================================================================================
+	MagickColor^ MagickImage::AlphaColor::get()
+	{
+		return gcnew MagickColor(Value->alphaColor());
+	}
+	//==============================================================================================
+	void MagickImage::AlphaColor::set(MagickColor^ value)
+	{
+		const Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+		Value->alphaColor(*color);
+		delete color;
 	}
 	//==============================================================================================
 	int MagickImage::AnimationDelay::get()
@@ -868,9 +892,9 @@ namespace ImageMagick
 		Value->endian((Magick::EndianType)value);
 	}
 	//==============================================================================================
-	int MagickImage::FileSize::get()
+	long MagickImage::FileSize::get()
 	{
-		return Value->fileSize();
+		return (long)Value->fileSize();
 	}
 	//==============================================================================================
 	String^ MagickImage::FileName::get()
@@ -1004,17 +1028,17 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::GifDisposeMethod::set(ImageMagick::GifDisposeMethod value)
 	{
-		Value->gifDisposeMethod((int)value);
+		Value->gifDisposeMethod((Magick::DisposeType)value);
 	}
 	//==============================================================================================
 	bool MagickImage::HasAlpha::get()
 	{
-		return Value->matte();
+		return Value->alpha();
 	}
 	//==============================================================================================
 	void MagickImage::HasAlpha::set(bool value)
 	{
-		Value->matte(value);
+		Value->alpha(value);
 	}
 	//==============================================================================================
 	int MagickImage::Height::get()
@@ -1039,7 +1063,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Interpolate::set(PixelInterpolateMethod value)
 	{
-		Value->interpolate((Magick::InterpolatePixelMethod)value);
+		Value->interpolate((Magick::PixelInterpolateMethod)value);
 	}
 	//==============================================================================================
 	bool MagickImage::IsMonochrome::get()
@@ -1092,18 +1116,6 @@ namespace ImageMagick
 		{
 			Value->mask(*value->Value);
 		}
-	}
-	//==============================================================================================
-	MagickColor^ MagickImage::MatteColor::get()
-	{
-		return gcnew MagickColor(Value->matteColor());
-	}
-	//==============================================================================================
-	void MagickImage::MatteColor::set(MagickColor^ value)
-	{
-		const Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
-		Value->matteColor(*color);
-		delete color;
 	}
 	//==============================================================================================
 	OrientationType MagickImage::Orientation::get()
@@ -1389,17 +1401,6 @@ namespace ImageMagick
 		SetOption("kerning", value.ToString(CultureInfo::InvariantCulture));
 	}
 	//==============================================================================================
-	String^ MagickImage::TileName::get()
-	{
-		return Marshaller::Marshal(Value->tileName());
-	}
-	//==============================================================================================
-	void MagickImage::TileName::set(String^ value)
-	{
-		std::string tileName;
-		Value->tileName(Marshaller::Marshal(value, tileName));
-	}
-	//==============================================================================================
 	int MagickImage::TotalColors::get()
 	{
 		return Convert::ToInt32(Value->totalColors());
@@ -1645,7 +1646,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->alphaChannel((Magick::AlphaChannelType)option);
+			Value->alphaChannel((Magick::AlphaChannelOption)option);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2005,7 +2006,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->colorspaceType((Magick::ColorspaceType)value);
+			Value->colorSpaceType((Magick::ColorspaceType)value);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2180,13 +2181,13 @@ namespace ImageMagick
 		return gcnew MagickImage(*Value);
 	}
 	//==============================================================================================
-	void MagickImage::Clut(MagickImage^ image)
+	void MagickImage::Clut(MagickImage^ image, PixelInterpolateMethod method)
 	{
 		Throw::IfNull("image", image);
 
 		try
 		{
-			Value->clut(*image->Value);
+			Value->clut(*image->Value,(Magick::PixelInterpolateMethod)method);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2194,13 +2195,13 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Clut(MagickImage^ image, Channels channels)
+	void MagickImage::Clut(MagickImage^ image, PixelInterpolateMethod method, Channels channels)
 	{
 		Throw::IfNull("image", image);
 
 		try
 		{
-			Value->clutChannel((Magick::ChannelType)channels, *image->Value);
+			Value->clutChannel((Magick::ChannelType)channels, *image->Value,(Magick::PixelInterpolateMethod)method);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2316,12 +2317,12 @@ namespace ImageMagick
 		return gcnew MagickErrorInfo(Value);
 	}
 	//==============================================================================================
-	double MagickImage::Compare(MagickImage^ image, Metric metric)
+	double MagickImage::Compare(MagickImage^ image, ErrorMetric metric)
 	{
 		return Compare(image, metric, Channels::Composite);
 	}
 	//==============================================================================================
-	double MagickImage::Compare(MagickImage^ image, Metric metric, Channels channels)
+	double MagickImage::Compare(MagickImage^ image, ErrorMetric metric, Channels channels)
 	{
 		Throw::IfNull("image", image);
 
@@ -2336,12 +2337,12 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	double MagickImage::Compare(MagickImage^ image, Metric metric, MagickImage^ difference)
+	double MagickImage::Compare(MagickImage^ image, ErrorMetric metric, MagickImage^ difference)
 	{
 		return Compare(image, metric, difference, Channels::Composite);
 	}
 	//==============================================================================================
-	double MagickImage::Compare(MagickImage^ image, Metric metric, MagickImage^ difference, Channels channels)
+	double MagickImage::Compare(MagickImage^ image, ErrorMetric metric, MagickImage^ difference, Channels channels)
 	{
 		Throw::IfNull("image", image);
 		Throw::IfNull("difference", difference);
@@ -2390,7 +2391,7 @@ namespace ImageMagick
 		Throw::IfNull("image", image);
 
 		if (!String::IsNullOrEmpty(args))
-			image->SetArtifact("compose:args", args);
+			SetArtifact("compose:args", args);
 
 		try
 		{
@@ -2420,7 +2421,7 @@ namespace ImageMagick
 		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
 
 		if (!String::IsNullOrEmpty(args))
-			image->SetArtifact("compose:args", args);
+			SetArtifact("compose:args", args);
 
 		try
 		{
@@ -2451,7 +2452,7 @@ namespace ImageMagick
 		Throw::IfNull("image", image);
 
 		if (!String::IsNullOrEmpty(args))
-			image->SetArtifact("compose:args", args);
+			SetArtifact("compose:args", args);
 
 		try
 		{
@@ -3006,16 +3007,9 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::FloodFill(int alpha, int x, int y, PaintMethod paintMethod)
+	void MagickImage::FloodFill(int alpha, int x, int y)
 	{
-		try
-		{
-			Value->floodFillOpacity(x, y, alpha, (Magick::PaintMethod)paintMethod);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
+		FloodFill(alpha, x, y, false);
 	}
 	//==============================================================================================
 	void MagickImage::FloodFill(MagickColor^ color, int x, int y)
@@ -3446,7 +3440,11 @@ namespace ImageMagick
 			HandleException(exception);
 		}
 	}
-	
+	//==============================================================================================
+	void MagickImage::InverseFloodFill(int alpha, int x, int y)
+	{
+		FloodFill(alpha, x, y, true);
+	}
 	//==============================================================================================
 	void MagickImage::InverseFloodFill(MagickColor^ color, int x, int y)
 	{
@@ -3459,12 +3457,12 @@ namespace ImageMagick
 	}
 	//==============================================================================================
 	void MagickImage::InverseFloodFill(MagickColor^ color, MagickGeometry^ geometry)
-	{
+		{
 		FloodFill(color, geometry, true);
-	}
+		}
 	//==============================================================================================
 	void MagickImage::InverseFloodFill(MagickColor^ color, MagickGeometry^ geometry, MagickColor^ borderColor)
-	{
+		{
 		FloodFill(color, geometry, borderColor, true);
 	}
 	//==============================================================================================
@@ -3479,14 +3477,14 @@ namespace ImageMagick
 	}
 	//==============================================================================================
 	void MagickImage::InverseFloodFill(MagickImage^ image, MagickGeometry^ geometry)
-	{
+		{
 		FloodFill(image, geometry, true);
-	}
+		}
 	//==============================================================================================
 	void MagickImage::InverseFloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor)
-	{
+		{
 		FloodFill(image, geometry, borderColor, true);
-	}
+		}
 	//==============================================================================================
 	void MagickImage::InverseFourierTransform(MagickImage^ image)
 	{
@@ -4020,7 +4018,7 @@ namespace ImageMagick
 		return Read(stream, readSettings);
 	}
 	//==============================================================================================
-	void MagickImage::Polaroid(String^ caption, double angle)
+	void MagickImage::Polaroid(String^ caption, double angle, PixelInterpolateMethod method)
 	{
 		Throw::IfNull("caption", caption);
 
@@ -4029,7 +4027,7 @@ namespace ImageMagick
 			std::string caption_;
 			Marshaller::Marshal(caption, caption_);
 
-			Value->polaroid(caption_, angle);
+			Value->polaroid(caption_, angle, (Magick::PixelInterpolateMethod) method);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -4039,14 +4037,14 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Posterize(int levels)
 	{
-		Posterize(levels, false);
+		Posterize(levels, DitherMethod::No);
 	}
 	//==============================================================================================
-	void MagickImage::Posterize(int levels, bool dither)
+	void MagickImage::Posterize(int levels, DitherMethod method)
 	{
 		try
 		{
-			Value->posterize(levels, dither);
+			Value->posterize(levels, (Magick::DitherMethod)method);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -4054,11 +4052,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Posterize(int levels, bool dither, Channels channels)
+	void MagickImage::Posterize(int levels, DitherMethod method, Channels channels)
 	{
 		try
 		{
-			Value->posterizeChannel((Magick::ChannelType)channels, levels, dither);
+			Value->posterizeChannel((Magick::ChannelType)channels, levels, (Magick::DitherMethod)method);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -4068,7 +4066,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Posterize(int levels, Channels channels)
 	{
-		Posterize(levels, false, channels);
+		Posterize(levels, DitherMethod::No, channels);
 	}
 	//==============================================================================================
 	void MagickImage::PreserveColorType()
@@ -4814,9 +4812,9 @@ namespace ImageMagick
 		bool hasRed = ((int)channels & (int)Channels::Red) != 0;
 		bool hasGreen = ((int)channels & (int)Channels::Green) != 0;
 		bool hasBlue = ((int)channels & (int)Channels::Blue) != 0;
-		bool hasOpacity = ((int)channels & (int)Channels::Opacity) != 0;
+		bool hasAlpha = ((int)channels & (int)Channels::Alpha) != 0;
 
-		Throw::IfTrue("channels", !hasRed && !hasGreen && !hasBlue && !hasOpacity, "Invalid channels specified.");
+		Throw::IfTrue("channels", !hasRed && !hasGreen && !hasBlue && !hasAlpha, "Invalid channels specified.");
 
 		List<double>^ argsList = gcnew List<double>();
 
@@ -4833,8 +4831,8 @@ namespace ImageMagick
 				argsList->Add(Quantum::Scale(arg->Color->G));
 			if (hasBlue)
 				argsList->Add(Quantum::Scale(arg->Color->B));
-			if (hasOpacity)
-				argsList->Add(Quantum::Scale(arg->Color->Opacity));
+			if (hasAlpha)
+				argsList->Add(Quantum::Scale(arg->Color->A));
 		}
 
 		Throw::IfTrue("args", argsList->Count == 0, "Value cannot be empty");
@@ -4946,15 +4944,15 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickSearchResult^ MagickImage::SubImageSearch(MagickImage^ image)
 	{
-		return SubImageSearch(image, Metric::RootMeanSquaredError, -1);
+		return SubImageSearch(image, ErrorMetric::RootMeanSquared, -1);
 	}
 	//==============================================================================================
-	MagickSearchResult^ MagickImage::SubImageSearch(MagickImage^ image, Metric metric)
+	MagickSearchResult^ MagickImage::SubImageSearch(MagickImage^ image, ErrorMetric metric)
 	{
 		return SubImageSearch(image, metric, -1);
 	}
 	//==============================================================================================
-	MagickSearchResult^ MagickImage::SubImageSearch(MagickImage^ image, Metric metric, double similarityThreshold)
+	MagickSearchResult^ MagickImage::SubImageSearch(MagickImage^ image, ErrorMetric metric, double similarityThreshold)
 	{
 		Throw::IfNull("image", image);
 

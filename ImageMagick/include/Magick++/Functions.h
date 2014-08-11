@@ -26,5 +26,8 @@ namespace Magick
 
   // C library initialization routine
   MagickPPExport void InitializeMagick(const char *path_);
+
+  // C library initialization routine
+  MagickPPExport void TerminateMagick();
 }
 #endif // Magick_Functions_header

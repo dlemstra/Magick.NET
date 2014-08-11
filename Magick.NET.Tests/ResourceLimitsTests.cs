@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
 		{
 			Assert.AreEqual(ulong.MaxValue, ResourceLimits.Disk);
 			Assert.IsTrue(ResourceLimits.Memory > uint.MaxValue);
-			Assert.AreEqual(4U, ResourceLimits.Thread);
+			Assert.IsTrue(ResourceLimits.Thread > 1U);
 
 			ResourceLimits.Disk = 400U;
 			Assert.AreEqual(400U, ResourceLimits.Disk);

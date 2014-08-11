@@ -27,7 +27,6 @@ namespace ImageMagick
 		{
 			_Pixels = View->getConst(x, y, width, height);
 			CheckPixels();
-			LoadIndexes();
 		}
 		catch(Magick::Exception& exception)
 		{

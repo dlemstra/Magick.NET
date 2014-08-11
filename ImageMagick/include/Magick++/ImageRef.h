@@ -64,23 +64,4 @@ namespace Magick
 
 } // end of namespace Magick
 
-//
-// Inlines
-//
-
-inline ::ssize_t Magick::ImageRef::id(void) const
-{
-  return(_id);
-}
-
-inline MagickCore::Image *&Magick::ImageRef::image(void)
-{
-  return(_image);
-}
-
-inline Magick::Options *Magick::ImageRef::options(void)
-{
-  return(_options);
-}
-
 #endif // Magick_ImageRef_header

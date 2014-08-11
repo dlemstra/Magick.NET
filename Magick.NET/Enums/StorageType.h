@@ -27,8 +27,8 @@ namespace ImageMagick
 		Char = Magick::CharPixel,
 		Double = Magick::DoublePixel,
 		Float = Magick::FloatPixel,
-		Integer = Magick::IntegerPixel,
 		Long = Magick::LongPixel,
+		LongLong = Magick::LongLongPixel,
 		Quantum = Magick::QuantumPixel,
 		Short = Magick::ShortPixel
 	};

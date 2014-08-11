@@ -293,11 +293,11 @@
     <ClInclude Include="Drawables\DrawableDashOffset.h" />
     <ClInclude Include="Drawables\DrawableEllipse.h" />
     <ClInclude Include="Drawables\DrawableFillColor.h" />
-    <ClInclude Include="Drawables\DrawableFillOpacity.h" />
+    <ClInclude Include="Drawables\DrawableFillAlpha.h" />
     <ClInclude Include="Drawables\DrawableFillRule.h" />
     <ClInclude Include="Drawables\DrawableFont.h" />
     <ClInclude Include="Drawables\DrawableGravity.h" />
-    <ClInclude Include="Drawables\DrawableMatte.h" />
+    <ClInclude Include="Drawables\DrawableAlpha.h" />
     <ClInclude Include="Drawables\DrawableMiterLimit.h" />
     <ClInclude Include="Drawables\DrawablePath.h" />
     <ClInclude Include="Drawables\DrawablePoint.h" />
@@ -320,7 +320,7 @@
     <ClInclude Include="Drawables\DrawableStrokeColor.h" />
     <ClInclude Include="Drawables\DrawableStrokeLineCap.h" />
     <ClInclude Include="Drawables\DrawableStrokeLineJoin.h" />
-    <ClInclude Include="Drawables\DrawableStrokeOpacity.h" />
+    <ClInclude Include="Drawables\DrawableStrokeAlpha.h" />
     <ClInclude Include="Drawables\DrawableStrokeWidth.h" />
     <ClInclude Include="Drawables\DrawableText.h" />
     <ClInclude Include="Drawables\DrawableTextAntialias.h" />
@@ -369,7 +369,7 @@
     <ClInclude Include="Enums\GifDisposeMethod.h" />
     <ClInclude Include="Enums\Interlace.h" />
     <ClInclude Include="Enums\Kernel.h" />
-    <ClInclude Include="Enums\Metric.h" />
+    <ClInclude Include="Enums\ErrorMetric.h" />
     <ClInclude Include="Enums\MorphologyMethod.h" />
     <ClInclude Include="Enums\PixelChannel.h" />
     <ClInclude Include="Enums\PixelInterpolateMethod.h" />
@@ -484,11 +484,11 @@
     <ClCompile Include="Drawables\DrawableDashOffset.cpp" />
     <ClCompile Include="Drawables\DrawableEllipse.cpp" />
     <ClCompile Include="Drawables\DrawableFillColor.cpp" />
-    <ClCompile Include="Drawables\DrawableFillOpacity.cpp" />
+    <ClCompile Include="Drawables\DrawableFillAlpha.cpp" />
     <ClCompile Include="Drawables\DrawableFillRule.cpp" />
     <ClCompile Include="Drawables\DrawableFont.cpp" />
     <ClCompile Include="Drawables\DrawableGravity.cpp" />
-    <ClCompile Include="Drawables\DrawableMatte.cpp" />
+    <ClCompile Include="Drawables\DrawableAlpha.cpp" />
     <ClCompile Include="Drawables\DrawableMiterLimit.cpp" />
     <ClCompile Include="Drawables\DrawablePath.cpp" />
     <ClCompile Include="Drawables\DrawablePoint.cpp" />
@@ -511,7 +511,7 @@
     <ClCompile Include="Drawables\DrawableStrokeColor.cpp" />
     <ClCompile Include="Drawables\DrawableStrokeLineCap.cpp" />
     <ClCompile Include="Drawables\DrawableStrokeLineJoin.cpp" />
-    <ClCompile Include="Drawables\DrawableStrokeOpacity.cpp" />
+    <ClCompile Include="Drawables\DrawableStrokeAlpha.cpp" />
     <ClCompile Include="Drawables\DrawableStrokeWidth.cpp" />
     <ClCompile Include="Drawables\DrawableText.cpp" />
     <ClCompile Include="Drawables\DrawableTextAntialias.cpp" />

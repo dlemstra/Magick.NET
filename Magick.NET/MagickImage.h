@@ -28,6 +28,7 @@
 #include "Enums\CompressionMethod.h"
 #include "Enums\DistortMethod.h"
 #include "Enums\Endian.h"
+#include "Enums\ErrorMetric.h"
 #include "Enums\EvaluateOperator.h"
 #include "Enums\FillRule.h"
 #include "Enums\FilterType.h"
@@ -38,7 +39,6 @@
 #include "Enums\LineCap.h"
 #include "Enums\LineJoin.h"
 #include "Enums\MagickFormat.h"
-#include "Enums\Metric.h"
 #include "Enums\MorphologyMethod.h"
 #include "Enums\NoiseType.h"
 #include "Enums\OrientationType.h"
@@ -101,6 +101,8 @@ namespace ImageMagick
 		//===========================================================================================
 		template<class TImageProfile>
 		TImageProfile^ CreateProfile(String^ name);
+		//===========================================================================================
+		void FloodFill(int alpha, int x, int y, bool invert);
 		//===========================================================================================
 		void FloodFill(MagickColor^ color, int x, int y, bool invert);
 		//===========================================================================================
@@ -239,6 +241,15 @@ namespace ImageMagick
 		{
 			bool get();
 			void set(bool value);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Transparent color.
+		///</summary>
+		property MagickColor^ AlphaColor
+		{
+			MagickColor^ get();
+			void set(MagickColor^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -455,9 +466,9 @@ namespace ImageMagick
 		///<summary>
 		/// Image file size.
 		///</summary>
-		property int FileSize
+		property long FileSize
 		{
-			int get();
+			long get();
 		}
 		///==========================================================================================
 		///<summary>
@@ -618,15 +629,6 @@ namespace ImageMagick
 		{
 			MagickImage^ get();
 			void set(MagickImage^ value);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Transparent color.
-		///</summary>
-		property MagickColor^ MatteColor
-		{
-			MagickColor^ get();
-			void set(MagickColor^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -847,15 +849,6 @@ namespace ImageMagick
 		{
 			double get();
 			void set(double value);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Tile name.
-		///</summary>
-		property String^ TileName
-		{
-			String^ get();
-			void set(String^ value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -1377,16 +1370,18 @@ namespace ImageMagick
 		/// Apply a color lookup table (CLUT) to the image.
 		///</summary>
 		///<param name="image">The image to use.</param>
+		///<param name="method">Pixel interpolate method.</param>
 		///<exception cref="MagickException"/>
-		void Clut(MagickImage^ image);
+		void Clut(MagickImage^ image, PixelInterpolateMethod method);
 		///==========================================================================================
 		///<summary>
 		/// Apply a color lookup table (CLUT) to the image.
 		///</summary>
 		///<param name="image">The image to use.</param>
+		///<param name="method">Pixel interpolate method.</param>
 		///<param name="channels">The channel(s) to clut.</param>
 		///<exception cref="MagickException"/>
-		void Clut(MagickImage^ image, Channels channels);
+		void Clut(MagickImage^ image, PixelInterpolateMethod method, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Sets the alpha channel to the specified color.
@@ -1449,7 +1444,7 @@ namespace ImageMagick
 		///<param name="image">The other image to compare with this image.</param>
 		///<param name="metric">The metric to use.</param>
 		///<exception cref="MagickException"/>
-		double Compare(MagickImage^ image, Metric metric);
+		double Compare(MagickImage^ image, ErrorMetric metric);
 		///==========================================================================================
 		///<summary>
 		/// Returns the distortion based on the specified metric.
@@ -1458,7 +1453,7 @@ namespace ImageMagick
 		///<param name="metric">The metric to use.</param>
 		///<param name="channels">The channel(s) to compare.</param>
 		///<exception cref="MagickException"/>
-		double Compare(MagickImage^ image, Metric metric, Channels channels);
+		double Compare(MagickImage^ image, ErrorMetric metric, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Returns the distortion based on the specified metric.
@@ -1467,7 +1462,7 @@ namespace ImageMagick
 		///<param name="metric">The metric to use.</param>
 		///<param name="difference">The image that will contain the difference.</param>
 		///<exception cref="MagickException"/>
-		double Compare(MagickImage^ image, Metric metric, MagickImage^ difference);
+		double Compare(MagickImage^ image, ErrorMetric metric, MagickImage^ difference);
 		///==========================================================================================
 		///<summary>
 		/// Returns the distortion based on the specified metric.
@@ -1476,7 +1471,7 @@ namespace ImageMagick
 		///<param name="metric">The metric to use.</param>
 		///<param name="difference">The image that will contain the difference.</param>
 		///<exception cref="MagickException"/>
-		double Compare(MagickImage^ image, Metric metric, MagickImage^ difference, Channels channels);
+		double Compare(MagickImage^ image, ErrorMetric metric, MagickImage^ difference, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Compares the current instance with another image. Only the size of the image is compared.
@@ -1875,9 +1870,8 @@ namespace ImageMagick
 		///<param name="alpha">The alpha to use.</param>
 		///<param name="x">The X coordinate.</param>
 		///<param name="y">The Y coordinate.</param>
-		///<param name="paintMethod">The paint method to use.</param>
 		///<exception cref="MagickException"/>
-		void FloodFill(int alpha, int x, int y, PaintMethod paintMethod);
+		void FloodFill(int alpha, int x, int y);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
@@ -2203,6 +2197,16 @@ namespace ImageMagick
 		///<param name="factor">The extent of the implosion.</param>
 		///<exception cref="MagickException"/>
 		void Implode(double factor);
+		///==========================================================================================
+		///<summary>
+		/// Floodfill pixels not matching color (within fuzz factor) of target pixel(x,y) with
+		/// replacement alpha value using method.
+		///</summary>
+		///<param name="alpha">The alpha to use.</param>
+		///<param name="x">The X coordinate.</param>
+		///<param name="y">The Y coordinate.</param>
+		///<exception cref="MagickException"/>
+		void InverseFloodFill(int alpha, int x, int y);
 		///==========================================================================================
 		///<summary>
 		/// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -2705,8 +2709,9 @@ namespace ImageMagick
 		///</summary>
 		///<param name="caption">The caption to put on the image.</param>
 		///<param name="angle">The angle of image.</param>
+		///<param name="method">Pixel interpolate method.</param>
 		///<exception cref="MagickException"/>
-		void Polaroid(String^ caption, double angle);
+		void Polaroid(String^ caption, double angle, PixelInterpolateMethod method);
 		///==========================================================================================
 		///<summary>
 		/// Reduces the image to a limited number of colors for a "poster" effect.
@@ -2719,18 +2724,18 @@ namespace ImageMagick
 		/// Reduces the image to a limited number of colors for a "poster" effect.
 		///</summary>
 		///<param name="levels">Number of color levels allowed in each channel.</param>
-		///<param name="dither">Dither the image.</param>
+		///<param name="method">Dither method to use.</param>
 		///<exception cref="MagickException"/>
-		void Posterize(int levels, bool dither);
+		void Posterize(int levels, DitherMethod method);
 		///==========================================================================================
 		///<summary>
 		/// Reduces the image to a limited number of colors for a "poster" effect.
 		///</summary>
 		///<param name="levels">Number of color levels allowed in each channel.</param>
-		///<param name="dither">Dither the image.</param>
+		///<param name="method">Dither method to use.</param>
 		///<param name="channels">The channel(s) to posterize.</param>
 		///<exception cref="MagickException"/>
-		void Posterize(int levels, bool dither, Channels channels);
+		void Posterize(int levels, DitherMethod method, Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Reduces the image to a limited number of colors for a "poster" effect.
@@ -3375,7 +3380,7 @@ namespace ImageMagick
 		///<param name="image">The image to search for.</param>
 		///<param name="metric">The metric to use.</param>
 		///<exception cref="MagickException"/>
-		MagickSearchResult^ SubImageSearch(MagickImage^ image, Metric metric);
+		MagickSearchResult^ SubImageSearch(MagickImage^ image, ErrorMetric metric);
 		///==========================================================================================
 		///<summary>
 		/// Search for the specified image at EVERY possible location in this image. This is slow!
@@ -3386,7 +3391,7 @@ namespace ImageMagick
 		///<param name="metric">The metric to use.</param>
 		///<param name="similarityThreshold">Minimum distortion for (sub)image match.</param>
 		///<exception cref="MagickException"/>
-		MagickSearchResult^ SubImageSearch(MagickImage^ image, Metric metric, double similarityThreshold);
+		MagickSearchResult^ SubImageSearch(MagickImage^ image, ErrorMetric metric, double similarityThreshold);
 		///==========================================================================================
 		///<summary>
 		/// Channel a texture on image background.

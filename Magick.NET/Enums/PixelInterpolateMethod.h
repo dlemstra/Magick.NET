@@ -25,18 +25,16 @@ namespace ImageMagick
 	{
 		Undefined = Magick::UndefinedInterpolatePixel,
 		Average = Magick::AverageInterpolatePixel,
-		Bicubic = Magick::BicubicInterpolatePixel,
-		Bilinear = Magick::BilinearInterpolatePixel,
-		Filter = Magick::FilterInterpolatePixel,
-		Integer = Magick::IntegerInterpolatePixel,
-		Mesh = Magick::MeshInterpolatePixel,
-		NearestNeighbor = Magick::NearestNeighborInterpolatePixel,
-		Splinea = Magick::SplineInterpolatePixel,
 		Average9 = Magick::Average9InterpolatePixel,
 		Average16 = Magick::Average16InterpolatePixel,
-		Blend = Magick::BlendInterpolatePixel,
 		Background = Magick::BackgroundInterpolatePixel,
-		Catrom = Magick::CatromInterpolatePixel
+		Bilinear = Magick::BilinearInterpolatePixel,
+		Blend = Magick::BlendInterpolatePixel,
+		Catrom = Magick::CatromInterpolatePixel,
+		Integer = Magick::IntegerInterpolatePixel,
+		Mesh = Magick::MeshInterpolatePixel,
+		Nearest = Magick::NearestInterpolatePixel,
+		Spline = Magick::SplineInterpolatePixel
 	};
 	//==============================================================================================
 }

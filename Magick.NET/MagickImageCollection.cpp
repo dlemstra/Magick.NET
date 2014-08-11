@@ -208,7 +208,7 @@ namespace ImageMagick
 		{
 			CopyTo(images);
 
-			Magick::mergeImageLayers(image, images->begin(), images->end(), (Magick::ImageLayerMethod)method);
+			Magick::mergeImageLayers(image, images->begin(), images->end(), (Magick::LayerMethod)method);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -416,7 +416,7 @@ namespace ImageMagick
 
 			Magick::Image combinedImage;
 			Magick::combineImages(&combinedImage, images->begin(), images->end(),
-				(Magick::ChannelType)channels);
+				(Magick::ChannelType)channels, images->begin()->colorSpaceType());
 
 			return gcnew MagickImage(combinedImage);
 		}

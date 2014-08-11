@@ -38,9 +38,9 @@ namespace Magick.NET.Tests
 		private static void Test_PixelColor(PixelBaseCollection pixels, Color color)
 		{
 			var values = pixels.GetValue(0, 0);
-			Assert.AreEqual(4, values.Length);
+			Assert.AreEqual(3, values.Length);
 
-			MagickColor magickColor = new MagickColor(values[0], values[1], values[2], values[3]);
+			MagickColor magickColor = new MagickColor(values[0], values[1], values[2]);
 			ColorAssert.AreEqual(color, magickColor);
 		}
 		//===========================================================================================
@@ -61,7 +61,8 @@ namespace Magick.NET.Tests
 				{
 					Assert.AreEqual(5, pixels.Width);
 					Assert.AreEqual(10, pixels.Height);
-					Assert.AreEqual(5 * 10 * 4, pixels.GetValues().Length);
+					Assert.AreEqual(3, pixels.Channels);
+					Assert.AreEqual(5 * 10 * pixels.Channels, pixels.GetValues().Length);
 				}
 			}
 		}
@@ -100,12 +101,12 @@ namespace Magick.NET.Tests
 						pixels.Set((Pixel[])null);
 					});
 
+					Assert.AreEqual(3, pixels.Channels);
 					Test_Set(pixels, new QuantumType[] { });
 					Test_Set(pixels, new QuantumType[] { 0 });
 					Test_Set(pixels, new QuantumType[] { 0, 0 });
-					Test_Set(pixels, new QuantumType[] { 0, 0, 0 });
 
-					pixels.Set(new QuantumType[] { 0, 0, 0, 0 });
+					pixels.Set(new QuantumType[] { 0, 0, 0 });
 					Test_PixelColor(pixels, Color.Black);
 					pixels.Write();
 				}
@@ -117,11 +118,11 @@ namespace Magick.NET.Tests
 
 				using (WritablePixelCollection pixels = image.GetWritablePixels())
 				{
-					pixels.Set(new uint[] { 4294967295, 0, 0, 0 });
+					pixels.Set(new uint[] { 4294967295, 0, 0 });
 					Test_PixelColor(pixels, Color.Red);
-					pixels.Set(new ushort[] { 0, 0, 65535, 0 });
+					pixels.Set(new ushort[] { 0, 0, 65535 });
 					Test_PixelColor(pixels, Color.Blue);
-					pixels.Set(new byte[] { 0, 255, 0, 0 });
+					pixels.Set(new byte[] { 0, 255, 0 });
 					Test_PixelColor(pixels, Color.Lime);
 				}
 
@@ -131,7 +132,7 @@ namespace Magick.NET.Tests
 					{
 						for (int y = 0; y < pixels.Height; y++)
 						{
-							pixels.Set(x, y, new QuantumType[] { 0, 0, 0, 0 });
+							pixels.Set(x, y, new QuantumType[] { 0, 0, 0 });
 						}
 					}
 				}

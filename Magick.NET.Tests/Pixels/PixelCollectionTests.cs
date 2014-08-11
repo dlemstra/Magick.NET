@@ -48,9 +48,9 @@ namespace Magick.NET.Tests
 				using (PixelCollection pixels = image.GetReadOnlyPixels())
 				{
 					var values = pixels.GetValue(0, 0);
-					Assert.AreEqual(4, values.Length);
+					Assert.AreEqual(3, values.Length);
 
-					MagickColor color = new MagickColor(values[0], values[1], values[2], values[3]);
+					MagickColor color = new MagickColor(values[0], values[1], values[2]);
 					ColorAssert.AreEqual(Color.Red, color);
 				}
 			}

@@ -30,11 +30,10 @@ namespace ImageMagick
 		Deactivate = Magick::DeactivateAlphaChannel,
 		Extract = Magick::ExtractAlphaChannel,
 		Opaque = Magick::OpaqueAlphaChannel,
+		Remove = Magick::RemoveAlphaChannel,
 		Set = Magick::SetAlphaChannel,
 		Shape = Magick::ShapeAlphaChannel,
-		Transparent = Magick::TransparentAlphaChannel,
-		Flatten = Magick::FlattenAlphaChannel,
-		Remove = Magick::RemoveAlphaChannel
+		Transparent = Magick::TransparentAlphaChannel
 	};
 	//==============================================================================================
 }

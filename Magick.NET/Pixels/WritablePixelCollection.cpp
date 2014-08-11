@@ -25,23 +25,13 @@ namespace ImageMagick
 
 		int index = GetIndex(x, y);
 
-		Magick::PixelPacket *p = _Pixels + index;
-		SetPixel(p, value, 0);
+		Magick::Quantum *p = _Pixels + index;
 
-		if (Channels == 5)
-			Indexes[index] = Quantum::Convert(value[4]);
-	}
-	//==============================================================================================
-	template<typename TType>
-	int WritablePixelCollection::SetPixel(Magick::PixelPacket *pixel, array<TType>^ value, int index)
-	{
-		pixel->red = Quantum::Convert(value[index++]);
-		pixel->green = Quantum::Convert(value[index++]);
-		pixel->blue = Quantum::Convert(value[index++]);
-		if (Channels > 3)
-			pixel->opacity = Quantum::Convert(value[index++]);
-
-		return index;
+		long i = 0;
+		while (i < value->Length)
+		{
+			*(p++) = value[i++];
+		}
 	}
 	//==============================================================================================
 	template<typename TType>
@@ -50,22 +40,16 @@ namespace ImageMagick
 		Throw::IfNullOrEmpty("values", values);
 		Throw::IfFalse("values", values->Length % Channels == 0, "Values should have {0} channels.", Channels);
 
-		long i = 0;
-		int index = 0;
-		Magick::PixelPacket* p = _Pixels;
+		Magick::Quantum *p = _Pixels;
 
+		long i = 0;
 		while (i < values->Length)
 		{
-			i = SetPixel(p, values, i);
-
-			if (Channels == 5)
-				Indexes[index++] = Quantum::Convert((TType)values[i++]);
-
-			p++;
+			*(p++) = Quantum::Convert((TType)values[i++]);
 		}
 	}
 	//==============================================================================================
-	const Magick::PixelPacket* WritablePixelCollection::Pixels::get()
+	const Magick::Quantum* WritablePixelCollection::Pixels::get()
 	{
 		return _Pixels;
 	}
@@ -80,7 +64,6 @@ namespace ImageMagick
 		{
 			_Pixels = View->set(x, y, width, height);
 			CheckPixels();
-			LoadIndexes();
 		}
 		catch(Magick::Exception& exception)
 		{

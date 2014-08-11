@@ -48,32 +48,32 @@ $Q16HDRIBuilds = @(
 $configurations = @(
 	@{
 		Platform = "x86";
-		Options  = "/opencl";
+		Options  = "/opencl /noHdri";
 		Builds   = $Q8Builds;
 	}
 	@{
 		Platform = "x86";
-		Options  = "/opencl";
+		Options  = "/opencl /noHdri";
 		Builds   = $Q16Builds;
 	}
 	@{
 		Platform = "x86";
-		Options  = "/opencl /hdri";
+		Options  = "/opencl";
 		Builds   = $Q16HDRIBuilds;
 	}
 	@{
 		Platform = "x64";
-		Options  = "/opencl /x64";
+		Options  = "/opencl /x64 /noHdri";
 		Builds   = $Q8Builds;
 	}
 	@{
 		Platform = "x64";
-		Options  = "/opencl /x64";
+		Options  = "/opencl /x64 /noHdri";
 		Builds   = $Q16Builds;
 	}
 	@{
 		Platform = "x64";
-		Options  = "/opencl /x64 /hdri";
+		Options  = "/opencl /x64";
 		Builds   = $Q16HDRIBuilds;
 	}
 )
@@ -88,7 +88,7 @@ function AddCoders()
 #==================================================================================================
 function Build($platform, $builds)
 {
-	$configFile = FullPath "ImageMagick\Source\ImageMagick\magick\magick-baseconfig.h"
+	$configFile = FullPath "ImageMagick\Source\ImageMagick\MagickCore\magick-baseconfig.h"
 	$config = [IO.File]::ReadAllText($configFile, [System.Text.Encoding]::Default)
 	$config = $config.Replace("#define ProvideDllMain", "#undef ProvideDllMain")
 	$config = $config.Replace("#define MAGICKCORE_JBIG_DELEGATE", "#undef MAGICKCORE_JBIG_DELEGATE")
@@ -124,13 +124,13 @@ function Build($platform, $builds)
 		$newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"", "// #define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"")
 		[IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
 
-		Copy-Item $configFile "ImageMagick\$($build.Name)\include\magick"
+		Copy-Item $configFile "ImageMagick\$($build.Name)\include\MagickCore"
 		Copy-Item ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_*.lib "ImageMagick\lib\$($build.Framework)\$platform"
 
 		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_coders_.lib"   "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
-		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_magick_.lib"   "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
 		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_Magick++_.lib" "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
-		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_wand_.lib"     "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
+		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_MagickCore_.lib"   "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
+		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_MagickWand_.lib"     "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
 	}
 }
 #==================================================================================================
@@ -155,14 +155,14 @@ function BuildDevelopment()
 function CopyFiles($folder)
 {
 	Remove-Item ImageMagick\include -recurse
-	[void](New-Item -ItemType directory -Path ImageMagick\include\magick)
-	Copy-Item ImageMagick\Source\ImageMagick\magick\*.h ImageMagick\include\magick
-	Remove-Item ImageMagick\include\magick\magick-baseconfig.h
-	Copy-Item ImageMagick\Source\ImageMagick\Magick++\lib\Magick++.h ImageMagick\include
 	[void](New-Item -ItemType directory -Path ImageMagick\include\Magick++)
+	Copy-Item ImageMagick\Source\ImageMagick\Magick++\lib\Magick++.h ImageMagick\include
 	Copy-Item ImageMagick\Source\ImageMagick\Magick++\lib\Magick++\*.h ImageMagick\include\Magick++
-	[void](New-Item -ItemType directory -Path ImageMagick\include\wand)
-	Copy-Item ImageMagick\Source\ImageMagick\wand\*.h ImageMagick\include\wand
+	[void](New-Item -ItemType directory -Path ImageMagick\include\MagickCore)
+	Copy-Item ImageMagick\Source\ImageMagick\MagickCore\*.h ImageMagick\include\MagickCore
+	Remove-Item ImageMagick\include\MagickCore\magick-baseconfig.h
+	[void](New-Item -ItemType directory -Path ImageMagick\include\MagickWand)
+	Copy-Item ImageMagick\Source\ImageMagick\MagickWand\*.h ImageMagick\include\MagickWand
 
 	$xmlDirectory = FullPath "ImageMagick\Source\ImageMagick\VisualMagick\bin"
 	foreach ($xmlFile in [IO.Directory]::GetFiles($xmlDirectory, "*.xml"))

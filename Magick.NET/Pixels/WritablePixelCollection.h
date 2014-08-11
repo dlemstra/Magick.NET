@@ -30,21 +30,18 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		Magick::PixelPacket* _Pixels;
+		Magick::Quantum* _Pixels;
 		//===========================================================================================
 		void SetPixel(int x, int y, array<Magick::Quantum>^ value);
-		//===========================================================================================
-		template<typename TType>
-		int SetPixel(Magick::PixelPacket *pixel, array<TType>^ value, int index);
 		//===========================================================================================
 		template<typename TType>
 		void SetPixels(array<TType>^ values);
 		//===========================================================================================
 	protected private:
 		//===========================================================================================
-		property const Magick::PixelPacket* Pixels
+		property const Magick::Quantum* Pixels
 		{
-			virtual const Magick::PixelPacket* get() override sealed;
+			virtual const Magick::Quantum* get() override sealed;
 		}
 		//===========================================================================================
 	internal:

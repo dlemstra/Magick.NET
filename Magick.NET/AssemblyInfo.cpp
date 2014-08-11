@@ -61,7 +61,7 @@ using namespace System::Security::Permissions;
 //=================================================================================================
 [assembly: AssemblyConfiguration("Release")];
 [assembly: AssemblyCulture("")];
-[assembly: AssemblyVersion("6.0.0.0")];
+[assembly: AssemblyVersion("7.0.0.0")];
 [assembly: AssemblyFileVersion("6.8.9.601")]
 [assembly: ComVisible(false)];
 [assembly: CLSCompliant(true)];

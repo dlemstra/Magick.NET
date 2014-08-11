@@ -55,10 +55,10 @@ namespace ImageMagick
 		if (!x11color.isValid())
 			throw gcnew ArgumentException("Invalid color specified", "color");
 
-		R = x11color.redQuantum();
-		G = x11color.greenQuantum();
-		B = x11color.blueQuantum();
-		A = Quantum::Max - x11color.alphaQuantum();
+		R = x11color.quantumRed();
+		G = x11color.quantumGreen();
+		B = x11color.quantumBlue();
+		A = x11color.quantumAlpha();
 	}
 	//==============================================================================================
 	Magick::Quantum MagickColor::ParseHex(String^ color, int offset, int length)
@@ -161,15 +161,10 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickColor::MagickColor(Magick::Color color)
 	{
-		R = color.redQuantum();
-		G = color.greenQuantum();
-		B = color.blueQuantum();
-		A = Quantum::Max - color.alphaQuantum();
-	}
-	//==============================================================================================
-	Magick::Quantum MagickColor::Opacity::get()
-	{
-		return Quantum::Max - A;
+		R = color.quantumRed();
+		G = color.quantumGreen();
+		B = color.quantumBlue();
+		A = color.quantumAlpha();
 	}
 	//==============================================================================================
 	void MagickColor::Initialize(Color color)
@@ -179,7 +174,7 @@ namespace ImageMagick
 	//==============================================================================================
 	const Magick::Color* MagickColor::CreateColor()
 	{
-		return new Magick::Color(R, G, B, Opacity);
+		return new Magick::Color(R, G, B, A);
 	}
 	//==============================================================================================
 	MagickColor::MagickColor()

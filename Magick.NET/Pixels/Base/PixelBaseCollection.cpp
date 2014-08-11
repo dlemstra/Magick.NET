@@ -67,18 +67,13 @@ namespace ImageMagick
 	//==============================================================================================
 	array<Magick::Quantum>^ PixelBaseCollection::GetValueUnchecked(int x, int y)
 	{
-		array<Magick::Quantum>^ value = gcnew array<Magick::Quantum>(_Channels);
-
 		int index = GetIndex(x, y);
-		const Magick::PixelPacket* pixelPacket = Pixels + index;
 
-		value[0] = pixelPacket->red;
-		value[1] = pixelPacket->green;
-		value[2] = pixelPacket->blue;
-		value[3] = Quantum::Max - pixelPacket->opacity;
-
-		if (_Channels == 5)
-			value[4] = _Indexes[index];
+		array<Magick::Quantum>^ value = gcnew array<Magick::Quantum>(_Channels);
+		for (int i = 0; i < _Channels; i++)
+		{
+			value[i] = *(Pixels + index + i);
+		}
 
 		return value;
 	}
@@ -91,13 +86,9 @@ namespace ImageMagick
 		_View = new Magick::Pixels(*image);
 		_Width = width;
 		_Height = height;
+		_Channels = image->channels();
 	}
 	//==============================================================================================
-	Magick::IndexPacket* PixelBaseCollection::Indexes::get()
-	{
-		return _Indexes;
-	}
-	//===========================================================================================
 	Magick::Pixels* PixelBaseCollection::View::get()
 	{
 		return _View;
@@ -117,13 +108,7 @@ namespace ImageMagick
 	//==============================================================================================
 	int PixelBaseCollection::GetIndex(int x, int y)
 	{
-		return (y * _Width) + x;
-	}
-	//==============================================================================================
-	void PixelBaseCollection::LoadIndexes()
-	{
-		_Indexes = _View->indexes();
-		_Channels = _Indexes == NULL ? 4 : 5;
+		return ((y * _Width) + x) * _Channels;
 	}
 	//==============================================================================================
 	Pixel^ PixelBaseCollection::default::get(int x, int y)
@@ -156,6 +141,11 @@ namespace ImageMagick
 		return gcnew PixelBaseCollectionEnumerator(this);
 	}
 	//==============================================================================================
+	int PixelBaseCollection::GetIndex(PixelChannel channel)
+	{
+		return View->offset(( Magick::PixelChannel)channel);
+	}
+	//==============================================================================================
 	Pixel^ PixelBaseCollection::GetPixel(int x, int y)
 	{
 		CheckIndex(x, y);
@@ -172,28 +162,14 @@ namespace ImageMagick
 	//==============================================================================================
 	array<Magick::Quantum>^ PixelBaseCollection::GetValues()
 	{
-		long size = _Width * _Height * _Channels;
-
-		array<Magick::Quantum>^ result = gcnew array<Magick::Quantum>(size);
-
-		int index = 0;
-		long i = 0;
-		const Magick::PixelPacket* p = Pixels;
-
-		while (i < size)
+		long length = _Width * _Height * _Channels;
+		array<Magick::Quantum>^ value = gcnew array<Magick::Quantum>(length);
+		for(long i = 0; i < length; i+=_Channels)
 		{
-			result[i++] = p->red;
-			result[i++] = p->green;
-			result[i++] = p->blue;
-			result[i++] = p->opacity;
-
-			if (_Channels == 5)
-				result[i++] = _Indexes[index++];
-
-			p++;
+			value[i] = *(Pixels + i);
 		}
 
-		return result;
+		return value;
 	}
 	//==============================================================================================
 }
