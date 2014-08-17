@@ -1,6 +1,23 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-1. ImageMagick copyright:
+1. Magick.NET copyright:
+
+Copyright 2013-2014 Dirk Lemstra <https://magick.codeplex.com/>
+
+Licensed under the ImageMagick License (the "License"); you may not use this
+file except in compliance with the License. You may obtain a copy of the License
+at
+
+ http://www.imagemagick.org/script/license.php
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+2. ImageMagick copyright:
 
 Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization dedicated
 to making software imaging solutions freely available.
@@ -17,7 +34,7 @@ specific language governing permissions and limitations under the License.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-2. E. I. du Pont de Nemours and Company copyright:
+3. E. I. du Pont de Nemours and Company copyright:
 
 Copyright 1999 E. I. du Pont de Nemours and Company
 
@@ -46,7 +63,7 @@ the E. I. du Pont de Nemours and Company.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-3. OpenSSH copyright:
+4. OpenSSH copyright:
 
 Copyright (c) 2000 Markus Friedl.  All rights reserved.
 
@@ -73,7 +90,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-4. Xfig copyright:
+5. Xfig copyright:
 
 | FIG : Facility for Interactive Generation of figures
 | Copyright (c) 1985-1988 by Supoj Sutanthavibul
@@ -90,7 +107,7 @@ only requirement being that this copyright notice remain intact.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-5. ezXML copyright:
+6. ezXML copyright:
 
 Copyright 2004-2006 Aaron Voisine <aaron@voisine.org>
 
@@ -114,7 +131,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-6. GraphicsMagick copyright:
+7. GraphicsMagick copyright:
 
 Copyright (C) 2002 - 2009 GraphicsMagick Group
 
@@ -138,7 +155,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-6. Magick++ copyright:
+7. Magick++ copyright:
 
 Copyright 1999 - 2002 Bob Friesenhahn <bfriesen@simple.dallas.tx.us>
 
@@ -162,7 +179,7 @@ Magick++ or the use or other dealings in Magick++.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-7. Gsview copyright:
+8. Gsview copyright:
 
 Copyright (C) 2000-2002, Ghostgum Software Pty Ltd. All rights reserved.
 
@@ -182,11 +199,20 @@ copies or substantial portions of the Software.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-8. Libsquish copyright:
+9. Libsquish copyright:
 
-Copyright (c) 2006 Simon Brown                          si@sjbrown.co.uk
-Permission is hereby granted, free of charge, to any person obtaining a copy ofthis software and associated documentation files (the "Software"), to deal inthe Software without restriction, including without limitation the rights touse, copy, modify, merge, publish, distribute, sublicense, and/or sell copiesof the Software, and to  permit persons to whom the Software is furnished to doso, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in allcopies or substantial portions of the Software.
+Copyright (c) 2006 Simon Brown                          si@sjbrown.co.uk
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to  permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -197,7 +223,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-9. Libbzip2 copyright:
+10. Libbzip2 copyright:
 
 This program, "bzip2", the associated library "libbzip2", and all documentation,
 are copyright (C) 1996-2006 Julian R Seward.  All rights reserved.
@@ -236,7 +262,7 @@ bzip2/libbzip2 version 1.0.4 of 20 December 2006
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-10. Libffi copyright:
+11. Libffi copyright:
 
 libffi - Copyright (c) 1996-2012  Anthony Green, Red Hat, Inc and others.
 See source files for details.
@@ -261,7 +287,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-11. JasPer copyright:
+12. JasPer copyright:
 
 JasPer License Version 2.0
 
@@ -312,7 +338,7 @@ FITNESS FOR HIGH RISK ACTIVITIES.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-12. Libjpeg-turbo copyright:
+13. Libjpeg-turbo copyright:
 
 The authors make NO WARRANTY or representation, either express or implied,
 with respect to this software, its quality, accuracy, merchantability, or
@@ -370,7 +396,7 @@ We are required to state that
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-13. Little CMS copyright:
+14. Little CMS copyright:
 
 Little CMS
 Copyright (c) 1998-2011 Marti Maria Saguer
@@ -395,7 +421,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-14. Openjpeg copyright:
+15. Openjpeg copyright:
 
 /*
  * The copyright in this software is being made available under the 2-clauses 
@@ -439,7 +465,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-15. Pixman copyright:
+16. Pixman copyright:
 
 The following is the MIT license, agreed upon by most contributors.
 Copyright holders of new code should use this license statement where
@@ -486,7 +512,7 @@ possible. They may also add themselves to the list below.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-16. Libpng copyright:
+17. Libpng copyright:
 
 This copy of the libpng notices is provided for your convenience.  In case of
 any discrepancy between this copy and the notices in the file png.h that is
@@ -601,7 +627,7 @@ June 12, 2014
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-17. Libtiff copyright:
+18. Libtiff copyright:
 
 Copyright (c) 1988-1997 Sam Leffler
 Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -627,7 +653,7 @@ OF THIS SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-18. Freetype copyright:
+19. Freetype copyright:
 
 Copyright 2006-2014 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
@@ -640,7 +666,7 @@ and accept it fully.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-19. WebP copyright:
+20. WebP copyright:
 
 Copyright (c) 2010, Google Inc. All rights reserved.
 
@@ -674,7 +700,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-20. ZLib copyright:
+21. ZLib copyright:
 
  (C) 1995-2013 Jean-loup Gailly and Mark Adler
 
@@ -708,9 +734,8 @@ the FAQ for more information on the distribution of modified source versions.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-21. GNU LESSER GENERAL PUBLIC LICENSE (Used by Cairo, Croco, Glib, Librsvg,
+22. GNU LESSER GENERAL PUBLIC LICENSE (Used by Cairo, Croco, Glib, Librsvg,
 Lqr, Pango):
-
 
                   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 2.1, February 1999
