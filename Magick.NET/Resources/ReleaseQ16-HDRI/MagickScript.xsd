@@ -1863,7 +1863,6 @@
 						<xs:attribute name="borderColor" type="color" />
 						<xs:attribute name="color" type="color" />
 						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="invert" type="bool" />
 						<xs:attribute name="x" type="int" />
 						<xs:attribute name="y" type="int" />
 					</xs:complexType>
@@ -1928,6 +1927,7 @@
 						<xs:sequence>
 							<xs:element name="image" minOccurs="0" type="image" />
 						</xs:sequence>
+						<xs:attribute name="alpha" type="int" />
 						<xs:attribute name="borderColor" type="color" />
 						<xs:attribute name="color" type="color" />
 						<xs:attribute name="geometry" type="geometry" />
