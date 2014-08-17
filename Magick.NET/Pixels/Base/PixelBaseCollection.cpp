@@ -86,7 +86,7 @@ namespace ImageMagick
 		_View = new Magick::Pixels(*image);
 		_Width = width;
 		_Height = height;
-		_Channels = image->channels();
+		_Channels = (int)image->channels();
 	}
 	//==============================================================================================
 	Magick::Pixels* PixelBaseCollection::View::get()
@@ -143,7 +143,7 @@ namespace ImageMagick
 	//==============================================================================================
 	int PixelBaseCollection::GetIndex(PixelChannel channel)
 	{
-		return View->offset(( Magick::PixelChannel)channel);
+		return (int)View->offset((Magick::PixelChannel)channel);
 	}
 	//==============================================================================================
 	Pixel^ PixelBaseCollection::GetPixel(int x, int y)
