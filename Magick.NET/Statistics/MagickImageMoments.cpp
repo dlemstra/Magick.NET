@@ -24,11 +24,11 @@ namespace ImageMagick
 		for (int i = 0; i < values->Length; i++ )
 		{
 			PixelChannel channel = (PixelChannel)values->GetValue(i);
-			if(_Channels->ContainsKey(channel))
+			if (_Channels->ContainsKey(channel))
 				continue;
 
-			Magick::ChannelMoments magickMoments = moments->channel((MagickCore::ChannelType)channel);
-			if (magickMoments.channel() == Magick::UndefinedChannel)
+			Magick::ChannelMoments magickMoments = moments->channel((Magick::PixelChannel)channel);
+			if (!magickMoments.isValid())
 				continue;
 
 			_Channels->Add(channel,gcnew ChannelMoments(channel, magickMoments));

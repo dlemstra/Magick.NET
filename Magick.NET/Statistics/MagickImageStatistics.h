@@ -33,14 +33,14 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickImageStatistics(const Magick::Image::ImageStatistics* statistics);
+		MagickImageStatistics(const Magick::ImageStatistics* statistics);
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
 		/// Statistics for the all the channels.
 		///</summary>
-		//ChannelStatistics^ Composite();
+		ChannelStatistics^ Composite();
 		///==========================================================================================
 		///<summary>
 		/// Statistics for the specified channel.

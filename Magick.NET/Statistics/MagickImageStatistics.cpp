@@ -17,31 +17,26 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickImageStatistics::MagickImageStatistics(const Magick::Image::ImageStatistics* statistics)
+	MagickImageStatistics::MagickImageStatistics(const Magick::ImageStatistics* statistics)
 	{
 		_Channels = gcnew Dictionary<PixelChannel, ChannelStatistics^>();
-		/*for each (PixelChannel channel in Enum::GetValues(PixelChannel::typeid))
+		for each (PixelChannel channel in Enum::GetValues(PixelChannel::typeid))
 		{
 			if (_Channels->ContainsKey(channel))
 				continue;
 
-			Magick::ChannelStatistics channelStatistics = statistics->channel((Magick::ChannelType)channel);
-
+			Magick::ChannelStatistics channelStatistics = statistics->channel((Magick::PixelChannel)channel);
 			if (!channelStatistics.isValid())
 				continue;
 
 			_Channels->Add(channel, gcnew ChannelStatistics(channelStatistics));
-		}*/
-		_Channels->Add(PixelChannel::Alpha, gcnew ChannelStatistics(statistics->alpha));
-		_Channels->Add(PixelChannel::Blue, gcnew ChannelStatistics(statistics->blue));
-		_Channels->Add(PixelChannel::Green, gcnew ChannelStatistics(statistics->green));
-		_Channels->Add(PixelChannel::Red, gcnew ChannelStatistics(statistics->red));
+		}
 	}
 	//==============================================================================================
-	/*ChannelStatistics^ MagickImageStatistics::Composite()
+	ChannelStatistics^ MagickImageStatistics::Composite()
 	{
 		return _Channels[PixelChannel::Composite];
-	}*/
+	}
 	//==============================================================================================
 	ChannelStatistics^ MagickImageStatistics::GetChannel(PixelChannel channel)
 	{

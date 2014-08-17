@@ -24,32 +24,32 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		//int _Depth;
+		int _Depth;
 		double _Kurtosis;
 		double _Maximum;
 		double _Mean;
 		double _Minimum;
 		double _Skewness;
 		double _StandardDeviation;
-		//double _Sum;
-		//double _SumCubed;
-		//double _SumFourthPower;
-		//double _SumSquared;
+		double _Sum;
+		double _SumCubed;
+		double _SumFourthPower;
+		double _SumSquared;
 		double _Variance;
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		ChannelStatistics(const Magick::Image::ImageChannelStatistics channelStatistics);
+		ChannelStatistics(const Magick::ChannelStatistics channelStatistics);
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
 		/// Depth of the channel.
 		///</summary>
-		//property int Depth
-		//{
-		//	int get();
-		//}
+		property int Depth
+		{
+			int get();
+		}
 		///==========================================================================================
 		///<summary>
 		/// Maximum value observed.
@@ -102,34 +102,34 @@ namespace ImageMagick
 		///<summary>
 		/// Sum.
 		///</summary>
-		//property double Sum
-		//{
-		//	double get();
-		//}
+		property double Sum
+		{
+			double get();
+		}
 		///==========================================================================================
 		///<summary>
 		/// Sum cubed.
 		///</summary>
-		//property double SumCubed
-		//{
-		//	double get();
-		//}
+		property double SumCubed
+		{
+			double get();
+		}
 		///==========================================================================================
 		///<summary>
 		/// Sum fourth power.
 		///</summary>
-		//property double SumFourthPower
-		//{
-		//	double get();
-		//}
+		property double SumFourthPower
+		{
+			double get();
+		}
 		///==========================================================================================
 		///<summary>
 		/// Sum squared.
 		///</summary>
-		//property double SumSquared
-		//{
-		//	double get();
-		//}
+		property double SumSquared
+		{
+			double get();
+		}
 		///==========================================================================================
 		///<summary>
 		/// Variance.

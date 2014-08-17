@@ -4875,11 +4875,9 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImageStatistics^ MagickImage::Statistics()
 	{
-		Magick::Image::ImageStatistics statistics;
-
 		try
 		{
-			Value->statistics(&statistics);
+			Magick::ImageStatistics statistics = Value->statistics();
 
 			return gcnew MagickImageStatistics(&statistics);
 		}
