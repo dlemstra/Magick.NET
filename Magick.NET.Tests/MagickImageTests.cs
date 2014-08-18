@@ -572,9 +572,9 @@ namespace Magick.NET.Tests
 				IEnumerable<string> names = image.ProfileNames;
 				Assert.IsNotNull(names);
 				Assert.AreEqual(5, names.Count());
-				Assert.AreEqual("8bim,exif,icc,iptc,xmp", string.Join(",", from name in names
-																							  orderby name
-																							  select name));
+				Assert.AreEqual("8bim,exif,icc,iptc,xmp", string.Join(",", (from name in names
+																								orderby name
+																								select name).ToArray()));
 			}
 
 			using (MagickImage image = new MagickImage(Files.RedPNG))

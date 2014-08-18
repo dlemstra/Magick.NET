@@ -56,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Generated\ChannelMoments.cs" />
+    <Compile Include="Generated\DrawableAlpha.cs" />
+    <Compile Include="Generated\DrawableFillAlpha.cs" />
+    <Compile Include="Generated\DrawableStrokeAlpha.cs" />
     <Compile Include="Generated\Enums\ExifParts.cs" />
     <Compile Include="Generated\Enums\MontageMode.cs" />
     <Compile Include="Generated\Enums\PixelIntensityMethod.cs" />
@@ -84,12 +87,10 @@
     <Compile Include="Generated\DrawableDashOffset.cs" />
     <Compile Include="Generated\DrawableEllipse.cs" />
     <Compile Include="Generated\DrawableFillColor.cs" />
-    <Compile Include="Generated\DrawableFillOpacity.cs" />
     <Compile Include="Generated\DrawableFillRule.cs" />
     <Compile Include="Generated\DrawableFont.cs" />
     <Compile Include="Generated\DrawableGravity.cs" />
     <Compile Include="Generated\DrawableLine.cs" />
-    <Compile Include="Generated\DrawableMatte.cs" />
     <Compile Include="Generated\DrawableMiterLimit.cs" />
     <Compile Include="Generated\DrawablePath.cs" />
     <Compile Include="Generated\DrawablePoint.cs" />
@@ -112,7 +113,6 @@
     <Compile Include="Generated\DrawableStrokeColor.cs" />
     <Compile Include="Generated\DrawableStrokeLineCap.cs" />
     <Compile Include="Generated\DrawableStrokeLineJoin.cs" />
-    <Compile Include="Generated\DrawableStrokeOpacity.cs" />
     <Compile Include="Generated\DrawableStrokeWidth.cs" />
     <Compile Include="Generated\DrawableText.cs" />
     <Compile Include="Generated\DrawableTextAntialias.cs" />
@@ -152,7 +152,6 @@
     <Compile Include="Generated\Enums\LineJoin.cs" />
     <Compile Include="Generated\Enums\LogEvents.cs" />
     <Compile Include="Generated\Enums\MagickFormat.cs" />
-    <Compile Include="Generated\Enums\Metric.cs" />
     <Compile Include="Generated\Enums\MorphologyMethod.cs" />
     <Compile Include="Generated\Enums\NoiseType.cs" />
     <Compile Include="Generated\Enums\OrientationType.cs" />
@@ -309,6 +308,9 @@
     <EmbeddedResource Include="Resources\xml\thresholds.xml" />
     <EmbeddedResource Include="Resources\xml\type-ghostscript.xml" />
     <EmbeddedResource Include="Resources\xml\type.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Generated\Enums\ErrorMetric.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -77,7 +77,14 @@ function Build($builds)
 		if ($build.RunTests -eq $true)
 		{
 			$dll = "Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Name)\Magick.NET.Tests.dll"
-			VSTest.Console.exe $dll /Settings:Magick.NET.Tests\Magick.NET.Tests.testsettings
+			if ($build.Framework -eq "v2.0")
+			{
+				VSTest.Console.exe $dll 
+			}
+			else
+			{
+				VSTest.Console.exe $dll /Settings:Magick.NET.Tests\Magick.NET.Tests.testsettings
+			}
 			CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.PlatformName + " (" + $build.FrameworkName + ")")
 		}
 	}

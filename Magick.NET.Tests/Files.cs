@@ -18,7 +18,11 @@ namespace Magick.NET.Tests
 	public static class Files
 	{
 		//===========================================================================================
+#if NET20
+		private static string _Root = @"..\..\..\..\Magick.NET.Tests\";
+#else
 		private static string _Root = @"..\..\..\Magick.NET.Tests\";
+#endif
 		//===========================================================================================
 		public static string CollectionScript
 		{

@@ -280,11 +280,11 @@
     <ClInclude Include="..\Magick.NET\Drawables\DrawableDashOffset.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableEllipse.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableFillColor.h" />
-    <ClInclude Include="..\Magick.NET\Drawables\DrawableFillOpacity.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableFillAlpha.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableFillRule.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableFont.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableGravity.h" />
-    <ClInclude Include="..\Magick.NET\Drawables\DrawableMatte.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableAlpha.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableMiterLimit.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawablePath.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawablePoint.h" />
@@ -307,7 +307,7 @@
     <ClInclude Include="..\Magick.NET\Drawables\DrawableStrokeColor.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableStrokeLineCap.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableStrokeLineJoin.h" />
-    <ClInclude Include="..\Magick.NET\Drawables\DrawableStrokeOpacity.h" />
+    <ClInclude Include="..\Magick.NET\Drawables\DrawableStrokeAlpha.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableStrokeWidth.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableText.h" />
     <ClInclude Include="..\Magick.NET\Drawables\DrawableTextAntialias.h" />
@@ -356,7 +356,7 @@
     <ClInclude Include="..\Magick.NET\Enums\GifDisposeMethod.h" />
     <ClInclude Include="..\Magick.NET\Enums\Interlace.h" />
     <ClInclude Include="..\Magick.NET\Enums\Kernel.h" />
-    <ClInclude Include="..\Magick.NET\Enums\Metric.h" />
+    <ClInclude Include="..\Magick.NET\Enums\ErrorMetric.h" />
     <ClInclude Include="..\Magick.NET\Enums\MorphologyMethod.h" />
     <ClInclude Include="..\Magick.NET\Enums\PixelChannel.h" />
     <ClInclude Include="..\Magick.NET\Enums\PixelInterpolateMethod.h" />
@@ -471,11 +471,11 @@
     <ClCompile Include="..\Magick.NET\Drawables\DrawableDashOffset.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableEllipse.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableFillColor.cpp" />
-    <ClCompile Include="..\Magick.NET\Drawables\DrawableFillOpacity.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableFillAlpha.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableFillRule.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableFont.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableGravity.cpp" />
-    <ClCompile Include="..\Magick.NET\Drawables\DrawableMatte.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableAlpha.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableMiterLimit.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawablePath.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawablePoint.cpp" />
@@ -498,7 +498,7 @@
     <ClCompile Include="..\Magick.NET\Drawables\DrawableStrokeColor.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableStrokeLineCap.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableStrokeLineJoin.cpp" />
-    <ClCompile Include="..\Magick.NET\Drawables\DrawableStrokeOpacity.cpp" />
+    <ClCompile Include="..\Magick.NET\Drawables\DrawableStrokeAlpha.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableStrokeWidth.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableText.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableTextAntialias.cpp" />

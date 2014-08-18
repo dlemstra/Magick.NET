@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
 			}
 
 			if (missingFormats.Count > 0)
-				Assert.Fail("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats));
+				Assert.Fail("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats.ToArray()));
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

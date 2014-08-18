@@ -36,6 +36,7 @@ function CreateNet20ProjectFiles()
 	SelectNodes $xml "//msb:OutputPath" | Foreach {$_.InnerText = $_.InnerText.Replace("Magick.NET", "Magick.NET.net20")}
 	SelectNodes $xml "//msb:ProjectReference[@Include = '..\Magick.NET\Magick.NET.vcxproj']" | Foreach {$_.SetAttribute("Include", "..\Magick.NET.net20\Magick.NET.net20.vcxproj")}
 	SelectNodes $xml "//msb:Reference[@Include='PresentationCore' or @Include='WindowsBase']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
+	SelectNodes $xml "//msb:TargetFrameworkVersion" | Foreach {$_.InnerText = "v3.5"}
 	
 	$net20csproj = FullPath "Magick.NET.Tests\Magick.NET.Tests.net20.csproj"
 	Write-Host "Creating file: $net20csproj"
