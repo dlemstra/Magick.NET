@@ -189,6 +189,21 @@ namespace ImageMagick
 		MagickImage(Bitmap^ bitmap);
 		///==========================================================================================
 		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified file.
+		///</summary>
+		///<param name="file">The file to read the image from.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(FileInfo^ file);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified file.
+		///</summary>
+		///<param name="file">The file to read the image from.</param>
+		///<param name="readSettings">The settings to use when reading the image.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(FileInfo^ file, MagickReadSettings^ readSettings);
+		///==========================================================================================
+		///<summary>
 		/// Initializes a new instance of the MagickImage class using the specified width, height
 		/// and color.
 		///</summary>
