@@ -2915,6 +2915,12 @@ namespace ImageMagick
 		void RemoveProfile(String^ name);
 		///==========================================================================================
 		///<summary>
+		/// Resets the page property of this image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void RePage();
+		///==========================================================================================
+		///<summary>
 		/// Resize image in terms of its pixel size.
 		///</summary>
 		///<param name="resolutionX">The new X resolution.</param>
@@ -3451,6 +3457,23 @@ namespace ImageMagick
 		///<param name="percentageHeight">The percentage of the height.</param>
 		///<exception cref="MagickException"/>
 		void Thumbnail(Percentage percentageWidth, Percentage percentageHeight);
+		//==========================================================================================
+		///<summary>
+		/// Compose an image repeated across and down the image.
+		///</summary>
+		///<param name="image">The image to composite with this image.</param>
+		///<param name="compose">The algorithm to use.</param>
+		///<exception cref="MagickException"/>
+		void Tile(MagickImage^ image, CompositeOperator compose);
+		//==========================================================================================
+		///<summary>
+		/// Compose an image repeated across and down the image.
+		///</summary>
+		///<param name="image">The image to composite with this image.</param>
+		///<param name="compose">The algorithm to use.</param>
+		///<param name="args">The arguments for the algorithm (compose:args).</param>
+		///<exception cref="MagickException"/>
+		void Tile(MagickImage^ image, CompositeOperator compose, String^ args);
 		///==========================================================================================
 		///<summary>
 		/// Applies a color vector to each pixel in the image. The length of the vector is 0 for black

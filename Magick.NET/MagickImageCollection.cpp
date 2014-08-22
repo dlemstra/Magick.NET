@@ -852,7 +852,7 @@ namespace ImageMagick
 	{
 		for each(MagickImage^ image in _Images)
 		{
-			image->Page = gcnew MagickGeometry(0, 0);
+			image->RePage();
 		}
 	}
 	//==============================================================================================

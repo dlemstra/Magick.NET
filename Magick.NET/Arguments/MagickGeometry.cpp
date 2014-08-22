@@ -47,7 +47,7 @@ namespace ImageMagick
 	//==============================================================================================
 	const Magick::Geometry* MagickGeometry::CreateGeometry()
 	{
-		Magick::Geometry* result = new Magick::Geometry(Width, Height, Math::Abs(X), Math::Abs(Y), X < 0, Y < 0);
+		Magick::Geometry* result = new Magick::Geometry(Width, Height, X, Y);
 		result->percent(IsPercentage);
 		result->aspect(IgnoreAspectRatio);
 		result->less(Less);

@@ -507,7 +507,7 @@ namespace ImageMagick
 	{
 		Value->quantizeColors(settings->Colors);
 		Value->quantizeColorSpace((Magick::ColorspaceType)settings->ColorSpace);
-		if (settings->DitherMethod.HasValue)
+		if (settings->DitherMethod.HasValue && settings->DitherMethod.Value != DitherMethod::No)
 		{
 			Value->quantizeDither(true);
 			Value->quantizeDitherMethod((Magick::DitherMethod)settings->DitherMethod.Value);
@@ -3469,12 +3469,12 @@ namespace ImageMagick
 	}
 	//==============================================================================================
 	void MagickImage::InverseFloodFill(MagickColor^ color, MagickGeometry^ geometry)
-		{
+	{
 		FloodFill(color, geometry, true);
-		}
+	}
 	//==============================================================================================
 	void MagickImage::InverseFloodFill(MagickColor^ color, MagickGeometry^ geometry, MagickColor^ borderColor)
-		{
+	{
 		FloodFill(color, geometry, borderColor, true);
 	}
 	//==============================================================================================
@@ -3489,14 +3489,14 @@ namespace ImageMagick
 	}
 	//==============================================================================================
 	void MagickImage::InverseFloodFill(MagickImage^ image, MagickGeometry^ geometry)
-		{
+	{
 		FloodFill(image, geometry, true);
-		}
+	}
 	//==============================================================================================
 	void MagickImage::InverseFloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor)
-		{
+	{
 		FloodFill(image, geometry, borderColor, true);
-		}
+	}
 	//==============================================================================================
 	void MagickImage::InverseFourierTransform(MagickImage^ image)
 	{
@@ -3641,7 +3641,8 @@ namespace ImageMagick
 		try
 		{
 			Apply(settings);
-			Value->map(*image->Value, settings->DitherMethod.HasValue);
+			bool dither = settings->DitherMethod.HasValue && settings->DitherMethod.Value != DitherMethod::No;
+			Value->map(*image->Value, dither);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -4225,6 +4226,11 @@ namespace ImageMagick
 	{
 		Magick::Blob blob;
 		SetProfile(name, blob);
+	}
+	//==============================================================================================
+	void MagickImage::RePage()
+	{
+		Page = gcnew MagickGeometry(0, 0);
 	}
 	//==============================================================================================
 	void MagickImage::Resample(int resolutionX, int resolutionY)
@@ -5048,6 +5054,24 @@ namespace ImageMagick
 
 		MagickGeometry^ geometry = gcnew MagickGeometry(percentageWidth, percentageHeight);
 		Thumbnail(geometry);
+	}
+	//==============================================================================================
+	void MagickImage::Tile(MagickImage^ image, CompositeOperator compose)
+	{
+		Tile(image, compose, nullptr);
+	}
+	//==============================================================================================
+	void MagickImage::Tile(MagickImage^ image, CompositeOperator compose, String^ args)
+	{
+		Throw::IfNull("image", image);
+
+		for (int y=0; y < Height; y+= image->Height)
+		{
+			for (int x=0; x < Width; x += image->Width)
+			{
+				Composite(image, x, y, compose, args);
+			}
+		}
 	}
 	//==============================================================================================
 	void MagickImage::Tint(String^ opacity)

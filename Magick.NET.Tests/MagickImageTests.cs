@@ -299,9 +299,15 @@ namespace Magick.NET.Tests
 				Assert.AreEqual(100, image.Width);
 				Assert.AreEqual(33, image.Height);
 
+				image.BackgroundColor = MagickColor.Transparent;
 				image.Extent(100, 100, Gravity.Center);
 				Assert.AreEqual(100, image.Width);
 				Assert.AreEqual(100, image.Height);
+
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					Assert.IsTrue(pixels.GetPixel(0, 0).ToColor() == MagickColor.Transparent);
+				}
 			}
 		}
 		//===========================================================================================

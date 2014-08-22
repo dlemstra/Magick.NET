@@ -1131,6 +1131,11 @@ namespace ImageMagick
 								ExecuteRemoveProfile(element, image);
 								return;
 							}
+							case 'P':
+							{
+								ExecuteRePage(image);
+								return;
+							}
 						}
 						break;
 					}
@@ -1530,8 +1535,20 @@ namespace ImageMagick
 					}
 					case 'i':
 					{
-						ExecuteTint(element, image);
-						return;
+						switch(element->Name[2])
+						{
+							case 'l':
+							{
+								ExecuteTile(element, image);
+								return;
+							}
+							case 'n':
+							{
+								ExecuteTint(element, image);
+								return;
+							}
+						}
+						break;
 					}
 					case 'r':
 					{
@@ -3192,6 +3209,10 @@ namespace ImageMagick
 		String^ name_ = _Variables->GetValue<String^>(element, "name");
 		image->RemoveProfile(name_);
 	}
+	void MagickScript::ExecuteRePage(MagickImage^ image)
+	{
+		image->RePage();
+	}
 	void MagickScript::ExecuteResample(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -3648,6 +3669,27 @@ namespace ImageMagick
 			image->Thumbnail((int)arguments["width"], (int)arguments["height"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'thumbnail', allowed combinations are: [geometry] [percentage] [percentageWidth, percentageHeight] [width, height]");
+	}
+	void MagickScript::ExecuteTile(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			if (attribute->Name == "args")
+				arguments["args"] = _Variables->GetValue<String^>(attribute);
+			else if (attribute->Name == "compose")
+				arguments["compose"] = _Variables->GetValue<CompositeOperator>(attribute);
+		}
+		for each(XmlElement^ elem in element->SelectNodes("*"))
+		{
+			arguments[elem->Name] = CreateMagickImage(elem);
+		}
+		if (OnlyContains(arguments, "image", "compose"))
+			image->Tile((MagickImage^)arguments["image"], (CompositeOperator)arguments["compose"]);
+		else if (OnlyContains(arguments, "image", "compose", "args"))
+			image->Tile((MagickImage^)arguments["image"], (CompositeOperator)arguments["compose"], (String^)arguments["args"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'tile', allowed combinations are: [image, compose] [image, compose, args]");
 	}
 	void MagickScript::ExecuteTint(XmlElement^ element, MagickImage^ image)
 	{
