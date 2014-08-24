@@ -421,7 +421,31 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-15. Openjpeg copyright:
+15. Libxml copyright:
+
+Copyright (C) 1998-2012 Daniel Veillard.  All Rights Reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is fur-
+nished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FIT-
+NESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+16. Openjpeg copyright:
 
 /*
  * The copyright in this software is being made available under the 2-clauses 
@@ -465,7 +489,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-16. Pixman copyright:
+17. Pixman copyright:
 
 The following is the MIT license, agreed upon by most contributors.
 Copyright holders of new code should use this license statement where
@@ -512,7 +536,7 @@ possible. They may also add themselves to the list below.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-17. Libpng copyright:
+18. Libpng copyright:
 
 This copy of the libpng notices is provided for your convenience.  In case of
 any discrepancy between this copy and the notices in the file png.h that is
@@ -627,7 +651,7 @@ June 12, 2014
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-18. Libtiff copyright:
+19. Libtiff copyright:
 
 Copyright (c) 1988-1997 Sam Leffler
 Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -653,7 +677,7 @@ OF THIS SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-19. Freetype copyright:
+20. Freetype copyright:
 
 Copyright 2006-2014 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
@@ -666,7 +690,7 @@ and accept it fully.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-20. WebP copyright:
+21. WebP copyright:
 
 Copyright (c) 2010, Google Inc. All rights reserved.
 
@@ -700,7 +724,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-21. ZLib copyright:
+22. ZLib copyright:
 
  (C) 1995-2013 Jean-loup Gailly and Mark Adler
 
@@ -734,7 +758,7 @@ the FAQ for more information on the distribution of modified source versions.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-22. GNU LESSER GENERAL PUBLIC LICENSE (Used by Cairo, Croco, Glib, Librsvg,
+23. GNU LESSER GENERAL PUBLIC LICENSE (Used by Cairo, Croco, Glib, Librsvg,
 Lqr, Pango):
 
                   GNU LESSER GENERAL PUBLIC LICENSE
