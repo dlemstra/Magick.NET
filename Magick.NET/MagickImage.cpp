@@ -1085,7 +1085,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::IsMonochrome::set(bool value)
 	{
-		return Value->monochrome(value);
+		Value->monochrome(value);
 	}
 	//==============================================================================================
 	String^ MagickImage::Label::get()
