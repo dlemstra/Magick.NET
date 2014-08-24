@@ -3313,10 +3313,10 @@ namespace ImageMagick
 	//==============================================================================================
 	ColorProfile^ MagickImage::GetColorProfile()
 	{
-		ColorProfile^ result = CreateProfile<ColorProfile>("icm");
+		ColorProfile^ result = CreateProfile<ColorProfile>("icc");
 
 		if (result == nullptr)
-			result = CreateProfile<ColorProfile>("icc");
+			result = CreateProfile<ColorProfile>("icm");
 
 		return result;
 	}
