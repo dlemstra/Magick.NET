@@ -121,10 +121,10 @@ function Build($platform, $builds)
 
 		BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMTDLL.sln" $options
 
+		Copy-Item $configFile "ImageMagick\$($build.Name)\include\MagickCore"
 		$newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"", "// #define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"")
 		[IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
 
-		Copy-Item $configFile "ImageMagick\$($build.Name)\include\MagickCore"
 		Copy-Item ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_*.lib "ImageMagick\lib\$($build.Framework)\$platform"
 
 		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_coders_.lib"   "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
