@@ -82,15 +82,15 @@ namespace ImageMagick
 
 		for (int i=0; i < 3; i++)
 		{
-			int yy = ByteConverter::ToInt(data, _Index);
-			long y = (long) yy;
+			unsigned int yy = (unsigned int)ByteConverter::ToInt(data, _Index);
+			int y = (int) yy;
 			if (yy > 2147483647)
-				y = yy-4294967295U-1;
+				y = (int)yy-4294967295U-1;
 
-			int xx = ByteConverter::ToInt(data, _Index);
-			long x = (long) xx;
+			unsigned int xx = (unsigned int)ByteConverter::ToInt(data, _Index);
+			int x = (int) xx;
 			if (xx > 2147483647)
-				x = (long)xx-4294967295U-1;
+				x = (int)xx-4294967295U-1;
 
 			result[i].X = ((double)x*_Width/4096/4096);
 			result[i].Y = ((double)y*_Height/4096/4096);
