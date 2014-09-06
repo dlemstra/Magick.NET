@@ -17,9 +17,9 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	ChannelMoments::ChannelMoments(PixelChannel channel, const Magick::ChannelMoments channelMoments)
+	ChannelMoments::ChannelMoments(const Magick::ChannelMoments channelMoments)
 	{
-		_Channel = channel;
+		_Channel = (ImageMagick::PixelChannel)channelMoments.channel();
 		_Centroid = PointD(channelMoments.centroidX(), channelMoments.centroidY());
 		_EllipseAxis = PointD(channelMoments.ellipseAxisX(), channelMoments.ellipseAxisY());
 		_EllipseAngle = channelMoments.ellipseAngle();

@@ -70,8 +70,8 @@
 #include "Results\TypeMetric.h"
 #include "Settings\MagickReadSettings.h"
 #include "Settings\QuantizeSettings.h"
-#include "Statistics\MagickImageStatistics.h"
-#include "Statistics\MagickImageMoments.h"
+#include "Statistics\Statistics.h"
+#include "Statistics\Moments.h"
 
 using namespace System::Collections::Generic;
 using namespace System::Drawing::Imaging;
@@ -121,6 +121,8 @@ namespace ImageMagick
 		void FloodFill(MagickImage^ image, MagickGeometry^ geometry, MagickColor^ borderColor, bool invert);
 		//===========================================================================================
 		String^ FormatedFileSize();
+		//===========================================================================================
+		static MagickFormat GetCoderFormat(MagickFormat format);
 		//===========================================================================================
 		void HandleException(const Magick::Exception& exception);
 		//===========================================================================================
@@ -2484,7 +2486,7 @@ namespace ImageMagick
 		/// Returns the normalized moments of one or more image channels.
 		///</summary>
 		///<exception cref="MagickException"/>
-		MagickImageMoments^ Moments(); 
+		Moments^ Moments(); 
 		///==========================================================================================
 		///<summary>
 		/// Applies a kernel to the image according to the given mophology method.
@@ -3354,7 +3356,7 @@ namespace ImageMagick
 		/// Returns image statistics.
 		///</summary>
 		///<exception cref="MagickException"/>
-		MagickImageStatistics^ Statistics();
+		Statistics^ Statistics();
 		///==========================================================================================
 		///<summary>
 		/// Add a digital watermark to the image (based on second image)

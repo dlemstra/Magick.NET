@@ -12,16 +12,16 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "MagickImageMoments.h"
+#include "Moments.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickImageMoments::MagickImageMoments(const Magick::ImageMoments* moments)
+	Moments::Moments(const Magick::ImageMoments* moments)
 	{
 		_Channels = gcnew Dictionary<PixelChannel, ChannelMoments^>();
 		Array^ values = Enum::GetValues(PixelChannel::typeid);
-		for (int i = 0; i < values->Length; i++ )
+		for (int i = 0; i < values->Length; i++)
 		{
 			PixelChannel channel = (PixelChannel)values->GetValue(i);
 			if (_Channels->ContainsKey(channel))
@@ -31,16 +31,16 @@ namespace ImageMagick
 			if (!magickMoments.isValid())
 				continue;
 
-			_Channels->Add(channel,gcnew ChannelMoments(channel, magickMoments));
+			_Channels->Add(channel,gcnew ChannelMoments(magickMoments));
 		}
 	}
 	//==============================================================================================
-	ChannelMoments^ MagickImageMoments::Composite()
+	ChannelMoments^ Moments::Composite()
 	{
 		return GetChannel(PixelChannel::Composite);
 	}
 	//==============================================================================================
-	ChannelMoments^ MagickImageMoments::GetChannel(PixelChannel channel)
+	ChannelMoments^ Moments::GetChannel(PixelChannel channel)
 	{
 		ChannelMoments^ moments;
 		_Channels->TryGetValue(channel, moments);

@@ -259,6 +259,21 @@ namespace ImageMagick
 		return String::Format(CultureInfo::InvariantCulture, "{0:N2}{1}", fileSize, suffix);
 	}
 	//==============================================================================================
+	MagickFormat MagickImage::GetCoderFormat(MagickFormat format)
+	{
+		switch(format)
+		{
+		case MagickFormat::Jpg:
+		case MagickFormat::Pjpeg:
+			return MagickFormat::Jpeg;
+		case MagickFormat::Tif:
+		case MagickFormat::Tiff64:
+			return MagickFormat::Tiff;
+		default:
+			return format;
+		}
+	}
+	//==============================================================================================
 	void MagickImage::HandleException(const Magick::Exception& exception)
 	{
 		HandleException(MagickException::Create(exception));
@@ -744,7 +759,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage^ MagickImage::ClipMask::get()
 	{
-		Magick::Image clipMask = Value->clipMask();
+		Magick::Image clipMask = Value->mask();
 		if (!clipMask.isValid())
 			return nullptr;
 
@@ -756,12 +771,12 @@ namespace ImageMagick
 		if (value == nullptr)
 		{
 			Magick::Image* image = new Magick::Image();
-			Value->clipMask(*image);
+			Value->mask(*image);
 			delete image;
 		}
 		else
 		{
-			Value->clipMask(*value->Value);
+			Value->mask(*value->Value);
 		}
 	}
 	//==============================================================================================
@@ -3697,12 +3712,12 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickImageMoments^ MagickImage::Moments()
+	Moments^ MagickImage::Moments()
 	{
 		try
 		{
 			Magick::ImageMoments moments = Value->moments();
-			return gcnew MagickImageMoments(&moments);
+			return gcnew ImageMagick::Moments(&moments);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -4562,7 +4577,7 @@ namespace ImageMagick
 		Throw::IfNullOrEmpty("name", name);
 
 		std::string magick;
-		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, format), magick);
+		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, GetCoderFormat(format)), magick);
 		std::string optionName;
 		Marshaller::Marshal(name, optionName);
 
@@ -4582,7 +4597,7 @@ namespace ImageMagick
 		Throw::IfNull("value", value);
 
 		std::string magick;
-		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, format), magick);
+		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, GetCoderFormat(format)), magick);
 		std::string optionName;
 		Marshaller::Marshal(name, optionName);
 		std::string optionValue;
@@ -4891,13 +4906,12 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickImageStatistics^ MagickImage::Statistics()
+	Statistics^ MagickImage::Statistics()
 	{
 		try
 		{
 			Magick::ImageStatistics statistics = Value->statistics();
-
-			return gcnew MagickImageStatistics(&statistics);
+			return gcnew ImageMagick::Statistics(&statistics);
 		}
 		catch(Magick::Exception& exception)
 		{

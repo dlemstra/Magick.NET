@@ -27,8 +27,8 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		PointD _Centroid;
 		PixelChannel _Channel;
+		PointD _Centroid;
 		PointD _EllipseAxis;
 		double _EllipseAngle;
 		double _EllipseEccentricity;
@@ -37,7 +37,7 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		ChannelMoments(PixelChannel channel, const Magick::ChannelMoments channelMoments);
+		ChannelMoments(const Magick::ChannelMoments channelMoments);
 		//===========================================================================================
 	public:
 		///==========================================================================================

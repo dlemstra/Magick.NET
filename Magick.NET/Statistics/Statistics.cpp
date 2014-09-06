@@ -12,12 +12,12 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "MagickImageStatistics.h"
+#include "Statistics.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	MagickImageStatistics::MagickImageStatistics(const Magick::ImageStatistics* statistics)
+	Statistics::Statistics(const Magick::ImageStatistics* statistics)
 	{
 		_Channels = gcnew Dictionary<PixelChannel, ChannelStatistics^>();
 		for each (PixelChannel channel in Enum::GetValues(PixelChannel::typeid))
@@ -33,12 +33,12 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	ChannelStatistics^ MagickImageStatistics::Composite()
+	ChannelStatistics^ Statistics::Composite()
 	{
 		return _Channels[PixelChannel::Composite];
 	}
 	//==============================================================================================
-	ChannelStatistics^ MagickImageStatistics::GetChannel(PixelChannel channel)
+	ChannelStatistics^ Statistics::GetChannel(PixelChannel channel)
 	{
 		if (!_Channels->ContainsKey(channel))
 			return nullptr;
@@ -46,25 +46,25 @@ namespace ImageMagick
 		return _Channels[channel];
 	}
 	//==============================================================================================
-	bool MagickImageStatistics::operator == (MagickImageStatistics^ left, MagickImageStatistics^ right)
+	bool Statistics::operator == (Statistics^ left, Statistics^ right)
 	{
 		return Object::Equals(left, right);
 	}
 	//==============================================================================================
-	bool MagickImageStatistics::operator != (MagickImageStatistics^ left, MagickImageStatistics^ right)
+	bool Statistics::operator != (Statistics^ left, Statistics^ right)
 	{
 		return !Object::Equals(left, right);
 	}
 	//==============================================================================================
-	bool MagickImageStatistics::Equals(Object^ obj)
+	bool Statistics::Equals(Object^ obj)
 	{
 		if (obj == nullptr)
 			return false;
 
-		return Equals(dynamic_cast<MagickImageStatistics^>(obj));
+		return Equals(dynamic_cast<Statistics^>(obj));
 	}
 	//==============================================================================================
-	bool MagickImageStatistics::Equals(MagickImageStatistics^ other)
+	bool Statistics::Equals(Statistics^ other)
 	{
 		if (ReferenceEquals(other, nullptr))
 			return false;
@@ -87,7 +87,7 @@ namespace ImageMagick
 		return true;
 	}
 	//==============================================================================================
-	int MagickImageStatistics::GetHashCode()
+	int Statistics::GetHashCode()
 	{
 		int hashCode = _Channels->GetHashCode();
 

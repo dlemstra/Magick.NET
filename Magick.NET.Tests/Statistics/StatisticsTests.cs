@@ -20,24 +20,24 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public class MagickImageStatisticsTests
+	public class StatisticsTests
 	{
 		//===========================================================================================
-		private const string _Category = "MagickImageStatistics";
+		private const string _Category = "Statistics";
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_IEquatable()
 		{
 			MagickImage image = new MagickImage(Files.SnakewarePNG);
 
-			MagickImageStatistics first = image.Statistics();
+			Statistics first = image.Statistics();
 
 			Assert.IsFalse(first == null);
 			Assert.IsFalse(first.Equals(null));
 			Assert.IsTrue(first.Equals(first));
 			Assert.IsTrue(first.Equals((object)first));
 
-			MagickImageStatistics second = image.Statistics();
+			Statistics second = image.Statistics();
 
 			Assert.IsTrue(first == second);
 			Assert.IsTrue(first.Equals(second));
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
 		{
 			MagickImage image = new MagickImage(Files.SnakewarePNG);
 
-			MagickImageStatistics statistics = image.Statistics();
+			Statistics statistics = image.Statistics();
 
 			ChannelStatistics red = statistics.GetChannel(PixelChannel.Red);
 

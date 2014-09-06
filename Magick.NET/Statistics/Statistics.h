@@ -14,7 +14,7 @@
 #pragma once
 
 #include "..\Enums\PixelChannel.h"
-#include "ChannelMoments.h"
+#include "ChannelStatistics.h"
 
 using namespace System::Collections::Generic;
 
@@ -22,30 +22,52 @@ namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Encapsulation of the ImageMagick ImageMoments object.
+	/// Encapsulation of the ImageMagick ImageStatistics object.
 	///</summary>
-	public ref class MagickImageMoments sealed
+	public ref class Statistics : IEquatable<Statistics^>
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		Dictionary<PixelChannel, ChannelMoments^>^ _Channels;
+		Dictionary<PixelChannel, ChannelStatistics^>^ _Channels;
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickImageMoments(const Magick::ImageMoments* moments);
+		Statistics(const Magick::ImageStatistics* statistics);
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Moments for the all the channels.
+		/// Statistics for the all the channels.
 		///</summary>
-		ChannelMoments^ Composite();
+		ChannelStatistics^ Composite();
 		///==========================================================================================
 		///<summary>
-		/// Moments for the specified channel.
+		/// Statistics for the specified channel.
 		///</summary>
-		ChannelMoments^ GetChannel(PixelChannel channel);
+		ChannelStatistics^ GetChannel(PixelChannel channel);
+		//===========================================================================================
+		static bool operator == (Statistics^ left, Statistics^ right);
+		//===========================================================================================
+		static bool operator != (Statistics^ left, Statistics^ right);
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified object is equal to the current image statistics.
+		///</summary>
+		///<param name="obj">The object to compare this image statistics with.</param>
+		virtual bool Equals(Object^ obj) override;
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified image statistics is equal to the current image statistics.
+		///</summary>
+		///<param name="other">The image statistics to compare this image statistics with.</param>
+		virtual bool Equals(Statistics^ other);
+		///==========================================================================================
+		///<summary>
+		/// Servers as a hash of this type.
+		///</summary>
+		virtual int GetHashCode() override;
+		//===========================================================================================
 	};
 	//==============================================================================================
 }

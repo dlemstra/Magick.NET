@@ -19,6 +19,7 @@ namespace ImageMagick
 	//==============================================================================================
 	ChannelStatistics::ChannelStatistics(const Magick::ChannelStatistics channelStatistics)
 	{
+		_Channel = (ImageMagick::PixelChannel) channelStatistics.channel();
 		_Depth = (int)channelStatistics.depth();
 		_Kurtosis = channelStatistics.kurtosis();
 		_Maximum = channelStatistics.maxima();
@@ -31,6 +32,11 @@ namespace ImageMagick
 		_SumFourthPower = channelStatistics.sumFourthPower();
 		_SumSquared = channelStatistics.sumSquared();
 		_Variance = channelStatistics.variance();
+	}
+	//==============================================================================================
+	PixelChannel ChannelStatistics::Channel::get()
+	{
+		return _Channel;
 	}
 	//==============================================================================================
 	int ChannelStatistics::Depth::get()

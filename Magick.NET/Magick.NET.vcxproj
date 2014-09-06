@@ -426,8 +426,8 @@
     <ClInclude Include="Statistics\ChannelMoments.h" />
     <ClInclude Include="Statistics\ChannelStatistics.h" />
     <ClInclude Include="MagickFormatInfo.h" />
-    <ClInclude Include="Statistics\MagickImageMoments.h" />
-    <ClInclude Include="Statistics\MagickImageStatistics.h" />
+    <ClInclude Include="Statistics\Moments.h" />
+    <ClInclude Include="Statistics\Statistics.h" />
     <ClInclude Include="Results\MagickErrorInfo.h" />
     <ClInclude Include="Drawables\Coordinate.h" />
     <ClInclude Include="Enums\DistortMethod.h" />
@@ -604,8 +604,8 @@
     <ClCompile Include="Statistics\ChannelMoments.cpp" />
     <ClCompile Include="Statistics\ChannelStatistics.cpp" />
     <ClCompile Include="MagickFormatInfo.cpp" />
-    <ClCompile Include="Statistics\MagickImageMoments.cpp" />
-    <ClCompile Include="Statistics\MagickImageStatistics.cpp" />
+    <ClCompile Include="Statistics\Moments.cpp" />
+    <ClCompile Include="Statistics\Statistics.cpp" />
     <ClCompile Include="Results\MagickErrorInfo.cpp" />
     <ClCompile Include="Drawables\Coordinate.cpp" />
     <ClCompile Include="Drawables\DrawableArc.cpp" />

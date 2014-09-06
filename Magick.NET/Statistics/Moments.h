@@ -14,7 +14,7 @@
 #pragma once
 
 #include "..\Enums\PixelChannel.h"
-#include "ChannelStatistics.h"
+#include "ChannelMoments.h"
 
 using namespace System::Collections::Generic;
 
@@ -22,52 +22,30 @@ namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Encapsulation of the ImageMagick ImageStatistics object.
+	/// Encapsulation of the ImageMagick ImageMoments object.
 	///</summary>
-	public ref class MagickImageStatistics : IEquatable<MagickImageStatistics^>
+	public ref class Moments sealed
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		Dictionary<PixelChannel, ChannelStatistics^>^ _Channels;
+		Dictionary<PixelChannel, ChannelMoments^>^ _Channels;
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		MagickImageStatistics(const Magick::ImageStatistics* statistics);
+		Moments(const Magick::ImageMoments* moments);
 		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
-		/// Statistics for the all the channels.
+		/// Moments for the all the channels.
 		///</summary>
-		ChannelStatistics^ Composite();
+		ChannelMoments^ Composite();
 		///==========================================================================================
 		///<summary>
-		/// Statistics for the specified channel.
+		/// Moments for the specified channel.
 		///</summary>
-		ChannelStatistics^ GetChannel(PixelChannel channel);
-		//===========================================================================================
-		static bool operator == (MagickImageStatistics^ left, MagickImageStatistics^ right);
-		//===========================================================================================
-		static bool operator != (MagickImageStatistics^ left, MagickImageStatistics^ right);
-		///==========================================================================================
-		///<summary>
-		/// Determines whether the specified object is equal to the current image statistics.
-		///</summary>
-		///<param name="obj">The object to compare this image statistics with.</param>
-		virtual bool Equals(Object^ obj) override;
-		///==========================================================================================
-		///<summary>
-		/// Determines whether the specified image statistics is equal to the current image statistics.
-		///</summary>
-		///<param name="other">The image statistics to compare this image statistics with.</param>
-		virtual bool Equals(MagickImageStatistics^ other);
-		///==========================================================================================
-		///<summary>
-		/// Servers as a hash of this type.
-		///</summary>
-		virtual int GetHashCode() override;
-		//===========================================================================================
+		ChannelMoments^ GetChannel(PixelChannel channel);
 	};
 	//==============================================================================================
 }

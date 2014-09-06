@@ -546,9 +546,6 @@
     <ClInclude Include="IO\MagickWriter.h">
       <Filter>Header Files\IO</Filter>
     </ClInclude>
-    <ClInclude Include="Statistics\MagickImageStatistics.h">
-      <Filter>Header Files\Statistics</Filter>
-    </ClInclude>
     <ClInclude Include="Statistics\ChannelStatistics.h">
       <Filter>Header Files\Statistics</Filter>
     </ClInclude>
@@ -702,9 +699,6 @@
     <ClInclude Include="Statistics\ChannelMoments.h">
       <Filter>Header Files\Statistics</Filter>
     </ClInclude>
-    <ClInclude Include="Statistics\MagickImageMoments.h">
-      <Filter>Header Files\Statistics</Filter>
-    </ClInclude>
     <ClInclude Include="Profiles\Exif\ExifParts.h">
       <Filter>Header Files\Profiles\Exif</Filter>
     </ClInclude>
@@ -752,6 +746,12 @@
     </ClInclude>
     <ClInclude Include="Drawables\DrawableAlpha.h">
       <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\Statistics.h">
+      <Filter>Header Files\Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\Moments.h">
+      <Filter>Header Files\Statistics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1025,9 +1025,6 @@
     <ClCompile Include="IO\MagickWriter.cpp">
       <Filter>Source Files\IO</Filter>
     </ClCompile>
-    <ClCompile Include="Statistics\MagickImageStatistics.cpp">
-      <Filter>Source Files\Statistics</Filter>
-    </ClCompile>
     <ClCompile Include="MagickImageInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1148,9 +1145,6 @@
     <ClCompile Include="Statistics\ChannelMoments.cpp">
       <Filter>Source Files\Statistics</Filter>
     </ClCompile>
-    <ClCompile Include="Statistics\MagickImageMoments.cpp">
-      <Filter>Source Files\Statistics</Filter>
-    </ClCompile>
     <ClCompile Include="Profiles\Exif\ExifWriter.cpp">
       <Filter>Source Files\Profiles\Exif</Filter>
     </ClCompile>
@@ -1186,6 +1180,12 @@
     </ClCompile>
     <ClCompile Include="Drawables\DrawableAlpha.cpp">
       <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\Moments.cpp">
+      <Filter>Source Files\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\Statistics.cpp">
+      <Filter>Source Files\Statistics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

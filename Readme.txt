@@ -1,5 +1,9 @@
 Breaking changes.
 
+Magick.NET 7.0.0.0003:
+  - Renamed MagickImageMoments to Moments.
+  - Renamed MagickImageStatistics to Statistics.
+
 Magick.NET 6.8.9.601:
   - Changed arguments for the Map method of MagickImage.
   - QuantizeSettings uses Riemersma by default.
