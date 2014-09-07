@@ -56,15 +56,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Generated\ChannelMoments.cs" />
+    <Compile Include="Generated\ChannelPerceptualHash.cs" />
     <Compile Include="Generated\DrawableAlpha.cs" />
     <Compile Include="Generated\DrawableFillAlpha.cs" />
     <Compile Include="Generated\DrawableStrokeAlpha.cs" />
     <Compile Include="Generated\Enums\ExifParts.cs" />
     <Compile Include="Generated\Enums\MontageMode.cs" />
     <Compile Include="Generated\Enums\PixelIntensityMethod.cs" />
-    <Compile Include="Generated\MagickImageMoments.cs" />
+    <Compile Include="Generated\Moments.cs" />
+    <Compile Include="Generated\PerceptualHash.cs" />
     <Compile Include="Generated\PointD.cs" />
     <Compile Include="Generated\SparseColorArg.cs" />
+    <Compile Include="Generated\Statistics.cs" />
     <Compile Include="MagickAnyCPU.cs" />
     <Compile Include="AssemblyHelper.cs" />
     <Compile Include="EnumeratorWrapper.cs" />
@@ -232,7 +235,6 @@
     <Compile Include="Generated\MagickGeometry.cs" />
     <Compile Include="Generated\MagickImageCollection.cs" />
     <Compile Include="Generated\MagickImageInfo.cs" />
-    <Compile Include="Generated\MagickImageStatistics.cs" />
     <Compile Include="Generated\MagickNET.cs" />
     <Compile Include="Generated\MagickReadSettings.cs" />
     <Compile Include="Generated\MagickScript.cs" />

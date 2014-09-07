@@ -101,7 +101,8 @@
     <Compile Include="Script\MagickScriptTests.cs" />
     <Compile Include="Settings\MagickReadSettingsTests.cs" />
     <Compile Include="Settings\PixelStorageSettingsTests.cs" />
-    <Compile Include="Statistics\MagickImageStatisticsTests.cs" />
+    <Compile Include="Statistics\MomentsTests.cs" />
+    <Compile Include="Statistics\StatisticsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Magick.NET.net20\Magick.NET.net20.vcxproj">
