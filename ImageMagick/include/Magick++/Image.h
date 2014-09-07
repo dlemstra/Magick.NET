@@ -172,12 +172,6 @@ namespace Magick
     void classType(const ClassType class_);
     ClassType classType(void) const;
 
-    // Associate a clip mask with the image. The clip mask must be the
-    // same dimensions as the image. Pass an invalid image to unset an
-    // existing clip mask.
-    void clipMask(const Image &clipMask_);
-    Image clipMask(void) const;
-
     // Colors within this distance are considered equal
     void colorFuzz(const double fuzz_);
     double colorFuzz(void) const;
@@ -316,7 +310,7 @@ namespace Magick
     std::string magick(void) const;
 
     // Associate a mask with the image. The mask must be the same dimensions
-    // as the image. Pass an invalid image to unset an existing clip mask.
+    // as the image. Pass an invalid image to unset an existing mask.
     void mask(const Image &mask_);
     Image mask(void) const;
 
@@ -1076,6 +1070,9 @@ namespace Magick
     void perceptible(const double epsilon_);
     void perceptibleChannel(const ChannelType channel_,const double epsilon_);
 
+    // Returns the perceptual hash for this image.
+    Magick::ImagePerceptualHash perceptualHash();
+
     // Ping is similar to read except only enough of the image is read
     // to determine the image columns, rows, and filesize.  Access the
     // columns(), rows(), and fileSize() attributes after invoking
@@ -1296,6 +1293,7 @@ namespace Magick
     // Spread pixels randomly within image by specified ammount
     void spread(const size_t amount_=3);
 
+    // Returns the statistics for this image.
     Magick::ImageStatistics statistics();
 
     // Add a digital watermark to the image (based on second image)

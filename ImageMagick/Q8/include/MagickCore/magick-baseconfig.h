@@ -162,7 +162,7 @@
 // #define MAGICKCORE_LIBRARY_PATH  "c:\\ImageMagick\\"
 
 // Optional: Specify name of the library that contains the xml resource files
-// #define MAGICKCORE_LIBRARY_NAME "MyImageMagick.dll"
+#define MAGICKCORE_LIBRARY_NAME "Magick.NET-x64.dll"
 
 // Optional: Specify where operating system independent files are installed
 // #define MAGICKCORE_SHARE_PATH  "c:\\ImageMagick\\"
