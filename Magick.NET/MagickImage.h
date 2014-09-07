@@ -72,6 +72,7 @@
 #include "Settings\QuantizeSettings.h"
 #include "Statistics\Statistics.h"
 #include "Statistics\Moments.h"
+#include "Statistics\PerceptualHash.h"
 
 using namespace System::Collections::Generic;
 using namespace System::Drawing::Imaging;
@@ -2699,6 +2700,12 @@ namespace ImageMagick
 		///<param name="channels">The channel(s) to perceptible.</param>
 		///<exception cref="MagickException"/>
 		void Perceptible(double epsilon, Channels channels);
+		///==========================================================================================
+		///<summary>
+		/// Returns the perceptual hash of this image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		PerceptualHash^ PerceptualHash();
 		///==========================================================================================
 		///<summary>
 		/// Reads only metadata and not the pixel data.

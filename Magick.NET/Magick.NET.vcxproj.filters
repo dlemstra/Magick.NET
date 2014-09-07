@@ -753,6 +753,12 @@
     <ClInclude Include="Statistics\Moments.h">
       <Filter>Header Files\Statistics</Filter>
     </ClInclude>
+    <ClInclude Include="Statistics\ChannelPerceptualHash.h">
+      <Filter>Header Files\Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\PerceptualHash.h">
+      <Filter>Header Files\Statistics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1185,6 +1191,12 @@
       <Filter>Source Files\Statistics</Filter>
     </ClCompile>
     <ClCompile Include="Statistics\Statistics.cpp">
+      <Filter>Source Files\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\ChannelPerceptualHash.cpp">
+      <Filter>Source Files\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\PerceptualHash.cpp">
       <Filter>Source Files\Statistics</Filter>
     </ClCompile>
   </ItemGroup>

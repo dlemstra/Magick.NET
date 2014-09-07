@@ -4025,6 +4025,23 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	PerceptualHash^ MagickImage::PerceptualHash()
+	{
+		try
+		{
+			Magick::ImagePerceptualHash perceptualHash = Value->perceptualHash();
+			if (perceptualHash.isValid())
+				return gcnew ImageMagick::PerceptualHash(&perceptualHash);
+			else
+				return nullptr;
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+			return nullptr;
+		}
+	}
+	//==============================================================================================
 	MagickWarningException^ MagickImage::Ping(array<Byte>^ data)
 	{
 		MagickReadSettings^ readSettings = gcnew MagickReadSettings();

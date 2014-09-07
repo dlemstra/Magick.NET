@@ -424,9 +424,11 @@
     <ClInclude Include="Settings\PixelStorageSettings.h" />
     <ClInclude Include="Settings\QuantizeSettings.h" />
     <ClInclude Include="Statistics\ChannelMoments.h" />
+    <ClInclude Include="Statistics\ChannelPerceptualHash.h" />
     <ClInclude Include="Statistics\ChannelStatistics.h" />
     <ClInclude Include="MagickFormatInfo.h" />
     <ClInclude Include="Statistics\Moments.h" />
+    <ClInclude Include="Statistics\PerceptualHash.h" />
     <ClInclude Include="Statistics\Statistics.h" />
     <ClInclude Include="Results\MagickErrorInfo.h" />
     <ClInclude Include="Drawables\Coordinate.h" />
@@ -602,9 +604,11 @@
     <ClCompile Include="Settings\PixelStorageSettings.cpp" />
     <ClCompile Include="Settings\QuantizeSettings.cpp" />
     <ClCompile Include="Statistics\ChannelMoments.cpp" />
+    <ClCompile Include="Statistics\ChannelPerceptualHash.cpp" />
     <ClCompile Include="Statistics\ChannelStatistics.cpp" />
     <ClCompile Include="MagickFormatInfo.cpp" />
     <ClCompile Include="Statistics\Moments.cpp" />
+    <ClCompile Include="Statistics\PerceptualHash.cpp" />
     <ClCompile Include="Statistics\Statistics.cpp" />
     <ClCompile Include="Results\MagickErrorInfo.cpp" />
     <ClCompile Include="Drawables\Coordinate.cpp" />
