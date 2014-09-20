@@ -610,6 +610,11 @@ namespace Magick.NET.Tests
 				image.Read(Files.Missing);
 			});
 
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				image.Read("png:" + Files.Missing);
+			});
+
 			image.Read(File.ReadAllBytes(Files.SnakewarePNG));
 
 			using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
@@ -635,6 +640,8 @@ namespace Magick.NET.Tests
 
 			image.Read(Files.RoseSparkleGIF);
 			Assert.AreEqual("RöseSparkle.gif", Path.GetFileName(image.FileName));
+
+			image.Read("png:" + Files.SnakewarePNG);
 
 			image.Dispose();
 		}

@@ -40,17 +40,22 @@ namespace ImageMagick
 		if (fileName->Length > 248)
 			return;
 
+		String^ path = fileName;
+
 		int colonIndex = fileName->IndexOf(':');
-		if (colonIndex + 1 > fileName->Length)
+		if (colonIndex != -1)
 		{
-			if (fileName->IndexOf(':', colonIndex + 1) != -1)
+			if (colonIndex + 1 == fileName->Length)
 				return;
+
+			if (!fileName->Contains("\\"))
+				return;
+
+			if (fileName[colonIndex + 1] != '/' && fileName[colonIndex + 1] != '\\')
+				path = path->Substring(colonIndex + 1);
 		}
 
-		if (!fileName->Contains("\\"))
-			return;
-
-		String^ path = Path::GetFullPath(fileName);
+		path = Path::GetFullPath(path);
 		if (path->EndsWith("]", StringComparison::OrdinalIgnoreCase))
 		{
 			int endIndex = path->IndexOf("[", StringComparison::OrdinalIgnoreCase);
