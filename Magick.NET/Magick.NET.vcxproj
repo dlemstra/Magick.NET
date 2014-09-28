@@ -397,6 +397,7 @@
     <ClInclude Include="Exceptions\Base\MagickException.h" />
     <ClInclude Include="Exceptions\MagickWarningExceptions.h" />
     <ClInclude Include="Helpers\ByteConverter.h" />
+    <ClInclude Include="Profiles\8Bim\EightBimValue.h" />
     <ClInclude Include="Results\MagickSearchResult.h" />
     <ClInclude Include="Profiles\8Bim\ClipPathReader.h" />
     <ClInclude Include="Profiles\8Bim\EightBimProfile.h" />
@@ -565,6 +566,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Profiles\8Bim\EightBimValue.cpp" />
     <ClCompile Include="Results\MagickSearchResult.cpp" />
     <ClCompile Include="Profiles\8Bim\ClipPathReader.cpp" />
     <ClCompile Include="Profiles\8Bim\EightBimProfile.cpp" />

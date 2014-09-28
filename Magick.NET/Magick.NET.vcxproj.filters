@@ -759,6 +759,9 @@
     <ClInclude Include="Statistics\PerceptualHash.h">
       <Filter>Header Files\Statistics</Filter>
     </ClInclude>
+    <ClInclude Include="Profiles\8Bim\EightBimValue.h">
+      <Filter>Header Files\Profiles\8Bim</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1198,6 +1201,9 @@
     </ClCompile>
     <ClCompile Include="Statistics\PerceptualHash.cpp">
       <Filter>Source Files\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiles\8Bim\EightBimValue.cpp">
+      <Filter>Source Files\Profiles\8Bim</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

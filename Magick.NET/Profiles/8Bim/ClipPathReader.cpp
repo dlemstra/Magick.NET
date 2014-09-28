@@ -44,10 +44,6 @@ namespace ImageMagick
 		{
 			if ((_Last[1].X == _Last[2].X) && (_Last[1].Y == _Last[2].Y) && (point[0].X == point[1].X) && (point[0].Y == point[1].Y))
 				_Path->AppendFormat(CultureInfo::InvariantCulture, "L {0:0.###} {1:0.###}\n", point[1].X, point[1].Y);
-			else if ((_Last[1].X == _Last[2].X) && (_Last[1].Y == _Last[2].Y))
-				_Path->AppendFormat(CultureInfo::InvariantCulture, "Q {0:0.###} {1:0.###} {2:0.###} {3:0.###}\n", point[0].X, point[0].Y, point[1].X, point[1].Y);
-			else if ((point[0].X == point[1].X) && (point[0].Y == point[1].Y))
-				_Path->AppendFormat(CultureInfo::InvariantCulture, "S {0:0.###} {1:0.###} {2:0.###} {3:0.###}\n", _Last[2].X, _Last[2].Y, point[1].X, point[1].Y);
 			else
 				_Path->AppendFormat(CultureInfo::InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###}\n", _Last[2].X, _Last[2].Y, point[0].X, point[0].Y, point[1].X, point[1].Y);
 
@@ -68,10 +64,6 @@ namespace ImageMagick
 	{
 		if ((_Last[1].X == _Last[2].X) && (_Last[1].Y == _Last[2].Y) && (_First[0].X == _First[1].X) && (_First[0].Y == _First[1].Y))
 			_Path->AppendFormat(CultureInfo::InvariantCulture, "L {0:0.###} {1:0.###} Z\n", _First[1].X, _First[1].Y);
-		else if ((_Last[1].X == _Last[2].X) && (_Last[1].Y == _Last[2].Y))
-			_Path->AppendFormat(CultureInfo::InvariantCulture, "Q {0:0.###} {1:0.###} {2:0.###} {3:0.###} Z\n", _First[0].X, _First[0].Y, _First[1].X, _First[1].Y);
-		else if ((_First[0].X == _First[1].X) && (_First[0].Y == _First[1].Y))
-			_Path->AppendFormat(CultureInfo::InvariantCulture, "S {0:0.###} {1:0.###} {2:0.###} {3:0.###} Z\n", _Last[2].X, _Last[2].Y, _First[1].X, _First[1].Y);
 		else
 			_Path->AppendFormat(CultureInfo::InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###} Z\n", _Last[2].X, _Last[2].Y, _First[0].X, _First[0].Y, _First[1].X, _First[1].Y);
 	}

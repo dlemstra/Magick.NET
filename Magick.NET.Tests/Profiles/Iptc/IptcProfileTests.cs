@@ -28,12 +28,12 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private const string _Category = "IptcProfile";
 		//===========================================================================================
-		private static void TestProfile(IptcProfile profile)
+		private static void TestProfileValues(IptcProfile profile)
 		{
-			TestProfile(profile, 18);
+			TestProfileValues(profile, 18);
 		}
 		//===========================================================================================
-		private static void TestProfile(IptcProfile profile, int count)
+		private static void TestProfileValues(IptcProfile profile, int count)
 		{
 			Assert.IsNotNull(profile);
 
@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
 			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
 			{
 				IptcProfile profile = image.GetIptcProfile();
-				TestProfile(profile);
+				TestProfileValues(profile);
 
 				ExceptionAssert.Throws<ArgumentNullException>(delegate()
 				{
@@ -77,7 +77,7 @@ namespace Magick.NET.Tests
 				using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
 				{
 					IptcProfile profile = image.GetIptcProfile();
-					TestProfile(profile);
+					TestProfileValues(profile);
 
 					IptcValue value = profile.Values.FirstOrDefault(val => val.Tag == IptcTag.Title);
 					TestValue(value, "Communications");
@@ -107,7 +107,7 @@ namespace Magick.NET.Tests
 				using (MagickImage image = new MagickImage(memStream))
 				{
 					IptcProfile profile = image.GetIptcProfile();
-					TestProfile(profile, 19);
+					TestProfileValues(profile, 19);
 
 					IptcValue value = profile.Values.FirstOrDefault(val => val.Tag == IptcTag.Title);
 					TestValue(value, "Magick.NET Title");
@@ -137,7 +137,7 @@ namespace Magick.NET.Tests
 			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
 			{
 				IptcProfile profile = image.GetIptcProfile();
-				TestProfile(profile);
+				TestProfileValues(profile);
 
 				using (MagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
 				{
@@ -145,7 +145,7 @@ namespace Magick.NET.Tests
 					emptyImage.AddProfile(profile);
 
 					profile = emptyImage.GetIptcProfile();
-					TestProfile(profile);
+					TestProfileValues(profile);
 				}
 			}
 		}

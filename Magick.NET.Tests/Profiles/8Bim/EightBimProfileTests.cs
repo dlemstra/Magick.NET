@@ -27,6 +27,18 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private const string _Category = "EightBimProfile";
 		//===========================================================================================
+		private static void TestProfileValues(EightBimProfile profile)
+		{
+			Assert.IsNotNull(profile);
+
+			Assert.AreEqual(25, profile.Values.Count());
+
+			foreach (EightBimValue value in profile.Values)
+			{
+				Assert.IsNotNull(value.ToByteArray());
+			}
+		}
+		//===========================================================================================
 		private static void TestProfile(EightBimProfile profile)
 		{
 			Assert.IsNotNull(profile);
@@ -51,7 +63,6 @@ namespace Magick.NET.Tests
 			{
 				EightBimProfile profile = image.Get8BimProfile();
 				TestProfile(profile);
-				string test = System.Text.Encoding.Default.GetString(profile.ToByteArray());
 
 				using (MagickImage emptyImage = new MagickImage(Files.EightBimTIF))
 				{
@@ -61,6 +72,25 @@ namespace Magick.NET.Tests
 
 					profile = emptyImage.Get8BimProfile();
 					TestProfile(profile);
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Values()
+		{
+			using (MagickImage image = new MagickImage(Files.EightBimTIF))
+			{
+				EightBimProfile profile = image.Get8BimProfile();
+				TestProfileValues(profile);
+
+				using (MagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
+				{
+					Assert.IsNull(emptyImage.Get8BimProfile());
+					emptyImage.AddProfile(profile);
+
+					profile = emptyImage.Get8BimProfile();
+					TestProfileValues(profile);
 				}
 			}
 		}

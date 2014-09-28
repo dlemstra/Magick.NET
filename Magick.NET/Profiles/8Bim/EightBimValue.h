@@ -13,78 +13,69 @@
 //=================================================================================================
 #pragma once
 
-#include "..\ImageProfile.h"
-#include "EightBimValue.h"
-
-using namespace System::Collections::Generic;
-using namespace System::IO;
-using namespace System::Xml;
-using namespace System::Xml::XPath;
-
 namespace ImageMagick
 {
 	///=============================================================================================
 	/// <summary>
-	/// Class that can be used to access an 8bim profile.
+	/// A value of the 8bim profile.
 	/// </summary>
-	public ref class EightBimProfile sealed : ImageProfile
+	public ref class EightBimValue sealed : IEquatable<EightBimValue^>
 	{
 		//===========================================================================================
 	private:
 		//===========================================================================================
-		List<IXPathNavigable^>^ _ClipPaths;
-		int _Height;
-		List<EightBimValue^>^ _Values;
-		int _Width;
-		//===========================================================================================
-		XmlDocument^ CreateClipPath(int offset, int length);
-		//===========================================================================================
-		String^ GetClipPath(int offset, int length);
-		//===========================================================================================
-		void Initialize();
+		short _ID;
+		array<Byte>^ _Data;
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		EightBimProfile() {};
-		//===========================================================================================
-		virtual void Initialize(MagickImage^ image) override;
+		EightBimValue(short ID, array<Byte>^ data);
 		//===========================================================================================
 	public:
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the EightBimProfile class.
-		///</summary>
-		///<param name="data">The byte array to read the 8bim profile from.</param>
-		EightBimProfile(array<Byte>^ data) : ImageProfile("8bim", data) {};
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the EightBimProfile class.
-		///</summary>
-		///<param name="fileName">The fully qualified name of the 8bim profile file, or the relative
-		/// 8bim profile file name.</param>
-		EightBimProfile(String^ fileName) : ImageProfile("8bim", fileName) {};
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the EightBimProfile class.
-		///</summary>
-		///<param name="stream">The stream to read the 8bim profile from.</param>
-		EightBimProfile(Stream^ stream) : ImageProfile("8bim", stream) {};
-		///==========================================================================================
-		///<summary>
-		/// Returns the clipping paths this image contains.
-		///</summary>
-		property IEnumerable<IXPathNavigable^>^ ClippingPaths
+		//===========================================================================================
+		/// <summary>
+		/// The ID of the 8bim value
+		/// </summary>
+		property short ID
 		{
-			IEnumerable<IXPathNavigable^>^ get();
+			short get();
 		}
+		//===========================================================================================
+		static bool operator == (EightBimValue^ left, EightBimValue^ right);
+		//===========================================================================================
+		static bool operator != (EightBimValue^ left, EightBimValue^ right);
 		///==========================================================================================
 		///<summary>
-		/// Returns the values of this 8bim profile.
+		/// Determines whether the specified object is equal to the current 8bim value.
 		///</summary>
-		property IEnumerable<EightBimValue^>^ Values
-		{
-			IEnumerable<EightBimValue^>^ get();
-		}
+		///<param name="obj">The object to compare this 8bim value with.</param>
+		virtual bool Equals(Object^ obj) override;
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified exif value is equal to the current 8bim value.
+		///</summary>
+		///<param name="other">The exif value to compare this 8bim value with.</param>
+		virtual bool Equals(EightBimValue^ other);
+		///==========================================================================================
+		///<summary>
+		/// Servers as a hash of this type.
+		///</summary>
+		virtual int GetHashCode() override;
+		///==========================================================================================
+		///<summary>
+		/// Converts this instance to a byte array.
+		///</summary>
+		array<Byte>^ ToByteArray();
+		///==========================================================================================
+		///<summary>
+		/// Returns a string that represents the current value.
+		///</summary>
+		virtual String^ ToString() override;
+		///==========================================================================================
+		///<summary>
+		/// Returns a string that represents the current value with the specified encoding.
+		///</summary>
+		String^ ToString(System::Text::Encoding^ encoding);
 		//===========================================================================================
 	};
 	//==============================================================================================

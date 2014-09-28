@@ -427,6 +427,32 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	ExifDataType ExifValue::DataType::get()
+	{
+		return _DataType;
+	}
+	//==============================================================================================
+	bool ExifValue::IsArray::get()
+	{
+		return _IsArray;
+	}
+	//==============================================================================================
+	ExifTag ExifValue::Tag::get()
+	{
+		return _Tag;
+	}
+	//==============================================================================================
+	Object^ ExifValue::Value::get()
+	{
+		return _Value;
+	}
+	//==============================================================================================
+	void ExifValue::Value::set(Object^ value)
+	{
+		CheckValue(value);
+		_Value = value;
+	}
+	//==============================================================================================
 	bool ExifValue::operator == (ExifValue^ left, ExifValue^ right)
 	{
 		return Object::Equals(left, right);
@@ -457,32 +483,6 @@ namespace ImageMagick
 			_Tag == other->_Tag &&
 			_DataType == other->_DataType &&
 			Object::Equals(_Value, other->_Value);
-	}
-	//==============================================================================================
-	ExifDataType ExifValue::DataType::get()
-	{
-		return _DataType;
-	}
-	//==============================================================================================
-	bool ExifValue::IsArray::get()
-	{
-		return _IsArray;
-	}
-	//==============================================================================================
-	ExifTag ExifValue::Tag::get()
-	{
-		return _Tag;
-	}
-	//==============================================================================================
-	Object^ ExifValue::Value::get()
-	{
-		return _Value;
-	}
-	//==============================================================================================
-	void ExifValue::Value::set(Object^ value)
-	{
-		CheckValue(value);
-		_Value = value;
 	}
 	//==============================================================================================
 	int ExifValue::GetHashCode()

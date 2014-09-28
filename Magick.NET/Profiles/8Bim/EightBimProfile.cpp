@@ -39,8 +39,8 @@ namespace ImageMagick
 		XmlHelper::SetAttribute(path, "stroke", "#00000000");
 		XmlHelper::SetAttribute(path, "stroke-width", "0");
 		XmlHelper::SetAttribute(path, "stroke-antialiasing", "false");
-		String^ test = GetClipPath(offset, length);
-		XmlHelper::SetAttribute(path, "d",test);
+		String^ d = GetClipPath(offset, length);
+		XmlHelper::SetAttribute(path, "d", d);
 
 		return clipPath;
 	}
@@ -57,6 +57,7 @@ namespace ImageMagick
 			return;
 
 		_ClipPaths = gcnew List<IXPathNavigable^>();
+		_Values = gcnew List<EightBimValue^>();
 
 		int i = 0;
 		while (i < Data->Length)
@@ -86,8 +87,15 @@ namespace ImageMagick
 			if (i + length > Data->Length)
 				return;
 
-			if (id > 1999 && id < 2998)
-				_ClipPaths->Add(CreateClipPath(i, length));
+			if (length != 0)
+			{
+				if (id > 1999 && id < 2998)
+					_ClipPaths->Add(CreateClipPath(i, length));
+
+				array<Byte>^ data = gcnew array<Byte>(length);
+				Array::Copy(Data, i, data, 0, length);
+				_Values->Add(gcnew EightBimValue(id, data));
+			}
 
 			i += length;
 		}
@@ -104,6 +112,13 @@ namespace ImageMagick
 		Initialize();
 
 		return _ClipPaths;
+	}
+	//==============================================================================================
+	IEnumerable<EightBimValue^>^ EightBimProfile::Values::get()
+	{
+		Initialize();
+
+		return _Values;
 	}
 	//==============================================================================================
 }
