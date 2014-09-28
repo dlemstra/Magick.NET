@@ -2094,6 +2094,7 @@
 						<xs:attribute name="name" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="rePage" type="empty" />
 				<xs:element name="resample">
 					<xs:complexType>
 						<xs:attribute name="geometry" type="geometry" />
@@ -2311,6 +2312,15 @@
 						<xs:attribute name="percentageHeight" type="double" />
 						<xs:attribute name="percentageWidth" type="double" />
 						<xs:attribute name="width" type="int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="tile">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="image" type="image" />
+						</xs:sequence>
+						<xs:attribute name="args" type="xs:string" />
+						<xs:attribute name="compose" use="required" type="CompositeOperator" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="tint">

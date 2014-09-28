@@ -384,6 +384,7 @@
     <ClInclude Include="..\Magick.NET\Exceptions\Base\MagickException.h" />
     <ClInclude Include="..\Magick.NET\Exceptions\MagickWarningExceptions.h" />
     <ClInclude Include="..\Magick.NET\Helpers\ByteConverter.h" />
+    <ClInclude Include="..\Magick.NET\Profiles\8Bim\EightBimValue.h" />
     <ClInclude Include="..\Magick.NET\Results\MagickSearchResult.h" />
     <ClInclude Include="..\Magick.NET\Profiles\8Bim\ClipPathReader.h" />
     <ClInclude Include="..\Magick.NET\Profiles\8Bim\EightBimProfile.h" />
@@ -552,6 +553,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Magick.NET\Profiles\8Bim\EightBimValue.cpp" />
     <ClCompile Include="..\Magick.NET\Results\MagickSearchResult.cpp" />
     <ClCompile Include="..\Magick.NET\Profiles\8Bim\ClipPathReader.cpp" />
     <ClCompile Include="..\Magick.NET\Profiles\8Bim\EightBimProfile.cpp" />

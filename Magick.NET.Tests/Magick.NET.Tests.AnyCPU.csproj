@@ -81,6 +81,7 @@
     <Compile Include="Pixels\PixelTests.cs" />
     <Compile Include="Pixels\WritablePixelCollectionTests.cs" />
     <Compile Include="Profiles\8Bim\EightBimProfileTests.cs" />
+    <Compile Include="Profiles\8Bim\EightBimValueTests.cs" />
     <Compile Include="Profiles\Color\ColorProfileTests.cs" />
     <Compile Include="Colors\ColorRGBTests.cs">
       <SubType>Code</SubType>

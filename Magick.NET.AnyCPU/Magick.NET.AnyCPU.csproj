@@ -60,6 +60,7 @@
     <Compile Include="Generated\DrawableAlpha.cs" />
     <Compile Include="Generated\DrawableFillAlpha.cs" />
     <Compile Include="Generated\DrawableStrokeAlpha.cs" />
+    <Compile Include="Generated\EightBimValue.cs" />
     <Compile Include="Generated\Enums\ExifParts.cs" />
     <Compile Include="Generated\Enums\MontageMode.cs" />
     <Compile Include="Generated\Enums\PixelIntensityMethod.cs" />
