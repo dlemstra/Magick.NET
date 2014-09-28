@@ -89,10 +89,10 @@ namespace Magick.NET.Tests
 #error Not implemented!
 #endif
 
-			Assert.IsNotNull(statistics.GetChannel(PixelChannel.Green));
-			Assert.IsNotNull(statistics.GetChannel(PixelChannel.Blue));
 			Assert.IsNotNull(statistics.Composite());
 
+			Assert.IsNull(statistics.GetChannel(PixelChannel.Green));
+			Assert.IsNull(statistics.GetChannel(PixelChannel.Blue));
 			Assert.IsNull(statistics.GetChannel(PixelChannel.Alpha));
 			Assert.IsNull(statistics.GetChannel(PixelChannel.Black));
 		}

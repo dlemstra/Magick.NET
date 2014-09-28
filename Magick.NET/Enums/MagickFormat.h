@@ -108,6 +108,7 @@ namespace ImageMagick
 		Jpc,
 		Jpeg,
 		Jpg,
+		Jpm,
 		Jpt,
 		Json,
 		K,
