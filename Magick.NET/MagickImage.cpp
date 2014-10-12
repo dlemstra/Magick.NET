@@ -3547,6 +3547,23 @@ namespace ImageMagick
 		Opaque(target, fill, true);
 	}
 	//==============================================================================================
+	void MagickImage::Kuwahara()
+	{
+		Kuwahara(0.0, 1.0);
+	}
+	//==============================================================================================
+	void MagickImage::Kuwahara(double radius, double sigma)
+	{
+		try
+		{
+			Value->kuwahara(radius, sigma);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint)
 	{
 		Level(blackPoint, whitePoint, 1.0);
@@ -4852,7 +4869,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::SparseColor(SparseColorMethod method, IEnumerable<SparseColorArg^>^ args)
 	{
-		SparseColor(Channels::Default, method, args);
+		SparseColor(Channels::Composite, method, args);
 	}
 	//==============================================================================================
 	void MagickImage::SparseColor(Channels channels, SparseColorMethod method, IEnumerable<SparseColorArg^>^ args)

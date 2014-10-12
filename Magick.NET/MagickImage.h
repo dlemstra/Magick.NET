@@ -2352,6 +2352,20 @@ namespace ImageMagick
 		void InverseOpaque(MagickColor^ target, MagickColor^ fill);
 		///==========================================================================================
 		///<summary>
+		/// An edge preserving noise reduction filter.
+		///</summary>
+		///<exception cref="MagickException"/>
+		void Kuwahara();
+		///==========================================================================================
+		///<summary>
+		/// An edge preserving noise reduction filter.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+		///<exception cref="MagickException"/>
+		void Kuwahara(double radius, double sigma);
+		///==========================================================================================
+		///<summary>
 		/// Adjust the levels of the image by scaling the colors falling between specified white and
 		/// black points to the full available quantum range. Uses a midpoint of 1.0.
 		///</summary>

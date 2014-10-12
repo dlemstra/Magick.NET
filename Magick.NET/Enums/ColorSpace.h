@@ -29,6 +29,7 @@ namespace ImageMagick
 		Transparent = Magick::TransparentColorspace,
 		OHTA = Magick::OHTAColorspace,
 		Lab = Magick::LabColorspace,
+		XyY = Magick::xyYColorspace,
 		XYZ = Magick::XYZColorspace,
 		YCbCr = Magick::YCbCrColorspace,
 		YCC = Magick::YCCColorspace,

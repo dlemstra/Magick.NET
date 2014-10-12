@@ -25,9 +25,12 @@ namespace ImageMagick
 	{
 		Undefined = Magick::UndefinedAlphaChannel,
 		Activate = Magick::ActivateAlphaChannel,
+		Associate = Magick::AssociateAlphaChannel,
 		Background = Magick::BackgroundAlphaChannel,
 		Copy = Magick::CopyAlphaChannel,
 		Deactivate = Magick::DeactivateAlphaChannel,
+		Discrete = Magick::DiscreteAlphaChannel,
+		Disassociate = Magick::DisassociateAlphaChannel,
 		Extract = Magick::ExtractAlphaChannel,
 		Opaque = Magick::OpaqueAlphaChannel,
 		Remove = Magick::RemoveAlphaChannel,

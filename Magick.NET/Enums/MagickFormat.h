@@ -205,6 +205,8 @@ namespace ImageMagick
 		Sfw,
 		Sgi,
 		Shtml,
+		Six,
+		Sixel,
 		SparseColor,
 		Sr2,
 		Srf,

@@ -274,9 +274,12 @@ namespace Magick
   using MagickCore::AlphaChannelOption;
   using MagickCore::UndefinedAlphaChannel;
   using MagickCore::ActivateAlphaChannel;
+  using MagickCore::AssociateAlphaChannel;
   using MagickCore::BackgroundAlphaChannel;
   using MagickCore::CopyAlphaChannel;
   using MagickCore::DeactivateAlphaChannel;
+  using MagickCore::DiscreteAlphaChannel;
+  using MagickCore::DisassociateAlphaChannel;
   using MagickCore::ExtractAlphaChannel;
   using MagickCore::OpaqueAlphaChannel;
   using MagickCore::RemoveAlphaChannel;
@@ -342,6 +345,7 @@ namespace Magick
   using MagickCore::scRGBColorspace;
   using MagickCore::sRGBColorspace;
   using MagickCore::TransparentColorspace;
+  using MagickCore::xyYColorspace;
   using MagickCore::XYZColorspace;
   using MagickCore::YCbCrColorspace;
   using MagickCore::YCCColorspace;
