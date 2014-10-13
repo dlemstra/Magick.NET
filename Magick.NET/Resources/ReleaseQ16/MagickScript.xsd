@@ -47,9 +47,12 @@
 			<xs:simpleType>
 				<xs:restriction base="xs:NMTOKEN">
 					<xs:enumeration value="Activate" />
+					<xs:enumeration value="Associate" />
 					<xs:enumeration value="Background" />
 					<xs:enumeration value="Copy" />
 					<xs:enumeration value="Deactivate" />
+					<xs:enumeration value="Disassociate" />
+					<xs:enumeration value="Discrete" />
 					<xs:enumeration value="Extract" />
 					<xs:enumeration value="Opaque" />
 					<xs:enumeration value="Remove" />
@@ -133,6 +136,7 @@
 					<xs:enumeration value="scRGB" />
 					<xs:enumeration value="sRGB" />
 					<xs:enumeration value="Transparent" />
+					<xs:enumeration value="XyY" />
 					<xs:enumeration value="XYZ" />
 					<xs:enumeration value="YCbCr" />
 					<xs:enumeration value="YCC" />
@@ -803,6 +807,8 @@
 					<xs:enumeration value="Sfw" />
 					<xs:enumeration value="Sgi" />
 					<xs:enumeration value="Shtml" />
+					<xs:enumeration value="Six" />
+					<xs:enumeration value="Sixel" />
 					<xs:enumeration value="SparseColor" />
 					<xs:enumeration value="Sr2" />
 					<xs:enumeration value="Srf" />
@@ -1955,6 +1961,12 @@
 					<xs:complexType>
 						<xs:attribute name="fill" use="required" type="color" />
 						<xs:attribute name="target" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="kuwahara">
+					<xs:complexType>
+						<xs:attribute name="radius" type="double" />
+						<xs:attribute name="sigma" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="level">

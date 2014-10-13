@@ -1689,6 +1689,11 @@ namespace ImageMagick
 				}
 				break;
 			}
+			case 'k':
+			{
+				ExecuteKuwahara(element, image);
+				return;
+			}
 			case 'n':
 			{
 				switch(element->Name[1])
@@ -2898,6 +2903,20 @@ namespace ImageMagick
 		MagickColor^ target_ = _Variables->GetValue<MagickColor^>(element, "target");
 		MagickColor^ fill_ = _Variables->GetValue<MagickColor^>(element, "fill");
 		image->InverseOpaque(target_, fill_);
+	}
+	void MagickScript::ExecuteKuwahara(XmlElement^ element, MagickImage^ image)
+	{
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			arguments[attribute->Name] = _Variables->GetValue<double>(attribute);
+		}
+		if (arguments->Count == 0)
+			image->Kuwahara();
+		else if (OnlyContains(arguments, "radius", "sigma"))
+			image->Kuwahara((double)arguments["radius"], (double)arguments["sigma"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'kuwahara', allowed combinations are: [] [radius, sigma]");
 	}
 	void MagickScript::ExecuteLevel(XmlElement^ element, MagickImage^ image)
 	{

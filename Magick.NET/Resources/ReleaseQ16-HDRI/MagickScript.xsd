@@ -706,6 +706,7 @@
 					<xs:enumeration value="Jpc" />
 					<xs:enumeration value="Jpeg" />
 					<xs:enumeration value="Jpg" />
+					<xs:enumeration value="Jpm" />
 					<xs:enumeration value="Jpt" />
 					<xs:enumeration value="Json" />
 					<xs:enumeration value="K" />

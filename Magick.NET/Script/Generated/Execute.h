@@ -137,6 +137,7 @@ void ExecuteInverseFloodFill(XmlElement^ element, MagickImage^ image);
 void ExecuteInverseFourierTransform(XmlElement^ element, MagickImage^ image);
 void ExecuteInverseLevelColors(XmlElement^ element, MagickImage^ image);
 void ExecuteInverseOpaque(XmlElement^ element, MagickImage^ image);
+void ExecuteKuwahara(XmlElement^ element, MagickImage^ image);
 void ExecuteLevel(XmlElement^ element, MagickImage^ image);
 void ExecuteLevelColors(XmlElement^ element, MagickImage^ image);
 void ExecuteLinearStretch(XmlElement^ element, MagickImage^ image);
