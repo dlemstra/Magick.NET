@@ -339,6 +339,26 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_FontTypeMetrics()
+		{
+			using (MagickImage image = new MagickImage(MagickColor.Transparent, 100, 100))
+			{
+				image.Font = "Arial";
+				image.FontPointsize = 15;
+				TypeMetric typeMetric = image.FontTypeMetrics("Magick.NET");
+				Assert.IsNotNull(typeMetric);
+				Assert.AreEqual(17, typeMetric.TextHeight);
+				Assert.AreEqual(82.64, typeMetric.TextWidth, 0.01);
+
+				image.FontPointsize = 150;
+				typeMetric = image.FontTypeMetrics("Magick.NET");
+				Assert.IsNotNull(typeMetric);
+				Assert.AreEqual(168, typeMetric.TextHeight);
+				Assert.AreEqual(810.48, typeMetric.TextWidth, 0.01);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_FormatExpression()
 		{
 			using (MagickImage image = new MagickImage(Files.RedPNG))
