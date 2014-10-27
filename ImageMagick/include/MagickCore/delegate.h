@@ -32,10 +32,10 @@ typedef struct _DelegateInfo
     *decode,
     *encode,
     *commands;
-                                                                                
+
   ssize_t
     mode;
-                                                                                
+
   MagickBooleanType
     thread_support,
     spawn,
@@ -43,7 +43,7 @@ typedef struct _DelegateInfo
 
   SemaphoreInfo
     *semaphore;
-                                                                                
+
   size_t
     signature;
 } DelegateInfo;
@@ -59,6 +59,10 @@ extern MagickExport const char
 extern MagickExport const DelegateInfo
   *GetDelegateInfo(const char *,const char *,ExceptionInfo *exception),
   **GetDelegateInfoList(const char *,size_t *,ExceptionInfo *);
+
+extern MagickExport int
+  ExternalDelegateCommand(const MagickBooleanType,const MagickBooleanType,
+    const char *,char *,ExceptionInfo *);
 
 extern MagickExport ssize_t
   GetDelegateMode(const DelegateInfo *);
