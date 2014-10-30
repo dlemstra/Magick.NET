@@ -201,6 +201,7 @@ namespace ImageMagick
 			this->_ColorSpace == other->_ColorSpace &&
 			this->_Format == other->_Format &&
 			this->_Height  == other->_Height &&
+			this->_ResolutionUnits == other->_ResolutionUnits &&
 			this->_ResolutionX  == other->_ResolutionX &&
 			this->_ResolutionY  == other->_ResolutionY &&
 			this->_Width == other->_Width;
@@ -212,6 +213,7 @@ namespace ImageMagick
 			this->_ColorSpace.GetHashCode() ^
 			this->_Format.GetHashCode() ^
 			this->_Height.GetHashCode() ^
+			this->_ResolutionUnits.GetHashCode() ^
 			this->_ResolutionX.GetHashCode() ^
 			this->_ResolutionY.GetHashCode() ^
 			this->_Width.GetHashCode();
