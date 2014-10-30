@@ -189,6 +189,7 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(118, imageInfo.Height);
 			Assert.AreEqual(72, imageInfo.ResolutionX);
 			Assert.AreEqual(72, imageInfo.ResolutionY);
+			Assert.AreEqual(Resolution.PixelsPerInch, imageInfo.ResolutionUnits);
 		}
 		//===========================================================================================
 	}

@@ -35,6 +35,7 @@ namespace ImageMagick
 		String^ _FileName;
 		MagickFormat _Format;
 		int _Height;
+		Resolution _ResolutionUnits;
 		double _ResolutionX;
 		double _ResolutionY;
 		int _Width;
@@ -105,6 +106,14 @@ namespace ImageMagick
 		property int Height
 		{
 			int get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// Units of image resolution.
+		///</summary>
+		property Resolution ResolutionUnits
+		{
+			Resolution get();
 		}
 		///==========================================================================================
 		///<summary>

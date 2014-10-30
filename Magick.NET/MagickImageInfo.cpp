@@ -58,6 +58,7 @@ namespace ImageMagick
 			_Format = EnumHelper::Parse<MagickFormat>(Marshaller::Marshal(image->magick()), MagickFormat::Unknown);
 			_FileName = Marshaller::Marshal(image->baseFilename());
 			_Height = Convert::ToInt32(image->size().height());
+			_ResolutionUnits = (ImageMagick::Resolution)image->resolutionUnits();
 			_ResolutionX = image->xResolution();
 			_ResolutionY = image->yResolution();
 			_Width = Convert::ToInt32(image->size().width());
@@ -102,6 +103,11 @@ namespace ImageMagick
 	int MagickImageInfo::Height::get()
 	{
 		return _Height;
+	}
+	//==============================================================================================
+	Resolution MagickImageInfo::ResolutionUnits::get()
+	{
+		return _ResolutionUnits;
 	}
 	//==============================================================================================
 	double MagickImageInfo::ResolutionX::get()

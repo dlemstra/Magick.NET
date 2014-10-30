@@ -752,6 +752,17 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Resolution()
+		{
+			using (MagickImage image = new MagickImage(Files.EightBimTIF))
+			{
+				Assert.AreEqual(Resolution.PixelsPerInch, image.ResolutionUnits);
+				Assert.AreEqual(72, image.ResolutionX);
+				Assert.AreEqual(72, image.ResolutionY);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Separate()
 		{
 			using (MagickImage rose = new MagickImage("rose:"))

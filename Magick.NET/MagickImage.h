@@ -699,7 +699,7 @@ namespace ImageMagick
 		{
 			ImageMagick::RenderingIntent get();
 			void set(ImageMagick::RenderingIntent value);
-		} 
+		}
 		///==========================================================================================
 		///<summary>
 		/// Units of image resolution.
