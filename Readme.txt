@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 7.0.0.0007:
+  - Renamed MagickImage.GetOption to GetDefine.
+
 Magick.NET 7.0.0.0003:
   - Renamed MagickImageMoments to Moments.
   - Renamed MagickImageStatistics to Statistics.

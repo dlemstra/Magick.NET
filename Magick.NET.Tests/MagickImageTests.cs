@@ -270,6 +270,29 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Define()
+		{
+			using (MagickImage image = new MagickImage("logo:"))
+			{
+				string option = "optimize-coding";
+
+				image.SetDefine(MagickFormat.Jpg, option, true);
+				Assert.AreEqual("true", image.GetDefine(MagickFormat.Jpg, option));
+				Assert.AreEqual("true", image.GetDefine(MagickFormat.Jpeg, option));
+
+				image.RemoveDefine(MagickFormat.Jpeg, option);
+				Assert.AreEqual(null, image.GetDefine(MagickFormat.Jpg, option));
+
+				image.SetDefine(MagickFormat.Jpeg, option, "test");
+				Assert.AreEqual("test", image.GetDefine(MagickFormat.Jpg, option));
+				Assert.AreEqual("test", image.GetDefine(MagickFormat.Jpeg, option));
+
+				image.RemoveDefine(MagickFormat.Jpg, option);
+				Assert.AreEqual(null, image.GetDefine(MagickFormat.Jpeg, option));
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		[ExpectedException(typeof(ObjectDisposedException))]
 		public void Test_Dispose()
 		{

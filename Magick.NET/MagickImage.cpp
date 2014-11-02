@@ -3270,6 +3270,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	EightBimProfile^ MagickImage::Get8BimProfile()
+	{
+		return CreateProfile<EightBimProfile>("8bim");
+	}
+	//==============================================================================================
 	String^ MagickImage::GetArtifact(String^ name)
 	{
 		Throw::IfNullOrEmpty("name", name);
@@ -3306,12 +3311,22 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	String^ MagickImage::GetOption(MagickFormat format, String^ name)
+	ColorProfile^ MagickImage::GetColorProfile()
+	{
+		ColorProfile^ result = CreateProfile<ColorProfile>("icc");
+
+		if (result == nullptr)
+			result = CreateProfile<ColorProfile>("icm");
+
+		return result;
+	}
+	//==============================================================================================
+	String^ MagickImage::GetDefine(MagickFormat format, String^ name)
 	{
 		Throw::IfNullOrEmpty("name", name);
 
 		std::string magick;
-		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, format), magick);
+		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, GetCoderFormat(format)), magick);
 		std::string optionName;
 		Marshaller::Marshal(name, optionName);
 
@@ -3324,21 +3339,6 @@ namespace ImageMagick
 			HandleException(exception);
 			return nullptr;
 		}
-	}
-	//==============================================================================================
-	ColorProfile^ MagickImage::GetColorProfile()
-	{
-		ColorProfile^ result = CreateProfile<ColorProfile>("icc");
-
-		if (result == nullptr)
-			result = CreateProfile<ColorProfile>("icm");
-
-		return result;
-	}
-	//==============================================================================================
-	EightBimProfile^ MagickImage::Get8BimProfile()
-	{
-		return CreateProfile<EightBimProfile>("8bim");
 	}
 	//==============================================================================================
 	ExifProfile^ MagickImage::GetExifProfile()
@@ -4271,6 +4271,25 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::RemoveDefine(MagickFormat format, String^ name)
+	{
+		Throw::IfNullOrEmpty("name", name);
+
+		std::string magick;
+		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, GetCoderFormat(format)), magick);
+		std::string optionName;
+		Marshaller::Marshal(name, optionName);
+
+		try
+		{
+			Value->defineSet(magick, optionName, false);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::RemoveProfile(String^ name)
 	{
 		Magick::Blob blob;
@@ -4608,21 +4627,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::SetDefine(MagickFormat format, String^ name, bool flag)
 	{
-		Throw::IfNullOrEmpty("name", name);
-
-		std::string magick;
-		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, GetCoderFormat(format)), magick);
-		std::string optionName;
-		Marshaller::Marshal(name, optionName);
-
-		try
-		{
-			Value->defineSet(magick, optionName, flag);
-		}
-		catch(Magick::Exception& exception)
-		{
-			HandleException(exception);
-		}
+		SetDefine(format, name, flag ? "true" : "false");
 	}
 	//==============================================================================================
 	void MagickImage::SetDefine(MagickFormat format, String^ name, String^ value)

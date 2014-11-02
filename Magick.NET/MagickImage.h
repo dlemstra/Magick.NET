@@ -2088,6 +2088,12 @@ namespace ImageMagick
 		void GaussianBlur(double width, double sigma, Channels channels);
 		///==========================================================================================
 		///<summary>
+		/// Retrieve the 8bim profile from the image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		EightBimProfile^ Get8BimProfile();
+		///==========================================================================================
+		///<summary>
 		/// Returns the value of the artifact with the specified name.
 		///</summary>
 		///<param name="name">The name of the artifact.</param>
@@ -2106,10 +2112,11 @@ namespace ImageMagick
 		ColorProfile^ GetColorProfile();
 		///==========================================================================================
 		///<summary>
-		/// Retrieve the 8bim profile from the image.
+		/// Returns the value of a format-specific option.
 		///</summary>
-		///<exception cref="MagickException"/>
-		EightBimProfile^ Get8BimProfile();
+		///<param name="format">The format to get the option for.</param>
+		///<param name="name">The name of the option.</param>
+		String^ GetDefine(MagickFormat format, String^ name);
 		///==========================================================================================
 		///<summary>
 		/// Retrieve the exif profile from the image.
@@ -2127,13 +2134,6 @@ namespace ImageMagick
 		///</summary>
 		///<exception cref="MagickException"/>
 		IptcProfile^ GetIptcProfile();
-		///==========================================================================================
-		///<summary>
-		/// Gets a format-specific option.
-		///</summary>
-		///<param name="format">The format to get the option for.</param>
-		///<param name="name">The name of the option.</param>
-		String^ GetOption(MagickFormat format, String^ name);
 		///==========================================================================================
 		///<summary>
 		/// Retrieve a named profile from the image.
@@ -2929,6 +2929,13 @@ namespace ImageMagick
 		///<param name="order">The order to use.</param>
 		///<exception cref="MagickException"/>
 		void ReduceNoise(int order);
+		///==========================================================================================
+		///<summary>
+		/// Removes the define with the specified name.
+		///</summary>
+		///<param name="format">The format to set the option for.</param>
+		///<param name="name">The name of the option.</param>
+		void RemoveDefine(MagickFormat format, String^ name);
 		///==========================================================================================
 		///<summary>
 		/// Remove a named profile from the image.
