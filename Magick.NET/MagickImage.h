@@ -1120,7 +1120,8 @@ namespace ImageMagick
 		void AutoOrient();
 		///==========================================================================================
 		///<summary>
-		/// Calculates the bit depth (bits allocated to red/green/blue components).
+		/// Calculates the bit depth (bits allocated to red/green/blue components). Use the Depth
+		/// property to get the current value.
 		///</summary>
 		///<exception cref="MagickException"/>
 		int BitDepth();
