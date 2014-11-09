@@ -430,11 +430,23 @@ namespace ImageMagick
 							}
 							case 'n':
 							{
-								if (element->Name->Length == 15)
+								switch(element->Name[3])
 								{
-									ExecuteContrastStretch(element, image);
-									return;
+									case 'n':
+									{
+										ExecuteConnectedComponents(element, image);
+										return;
+									}
+									case 't':
+									{
+										if (element->Name->Length == 15)
+										{
+											ExecuteContrastStretch(element, image);
+											return;
+										}
+									}
 								}
+								break;
 							}
 						}
 						break;
@@ -1128,8 +1140,20 @@ namespace ImageMagick
 							}
 							case 'm':
 							{
-								ExecuteRemoveProfile(element, image);
-								return;
+								switch(element->Name[6])
+								{
+									case 'D':
+									{
+										ExecuteRemoveDefine(element, image);
+										return;
+									}
+									case 'P':
+									{
+										ExecuteRemoveProfile(element, image);
+										return;
+									}
+								}
+								break;
 							}
 							case 'P':
 							{
@@ -2473,6 +2497,11 @@ namespace ImageMagick
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [image, gravity] [image, gravity, compose] [image, gravity, compose, args] [image, offset] [image, offset, compose] [image, offset, compose, args] [image, x, y] [image, x, y, compose] [image, x, y, compose, args]");
 	}
+	void MagickScript::ExecuteConnectedComponents(XmlElement^ element, MagickImage^ image)
+	{
+		int connectivity_ = _Variables->GetValue<int>(element, "connectivity");
+		image->ConnectedComponents(connectivity_);
+	}
 	void MagickScript::ExecuteContrast(XmlElement^ element, MagickImage^ image)
 	{
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
@@ -3222,6 +3251,12 @@ namespace ImageMagick
 			image->ReduceNoise((int)arguments["order"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'reduceNoise', allowed combinations are: [] [order]");
+	}
+	void MagickScript::ExecuteRemoveDefine(XmlElement^ element, MagickImage^ image)
+	{
+		MagickFormat format_ = _Variables->GetValue<MagickFormat>(element, "format");
+		String^ name_ = _Variables->GetValue<String^>(element, "name");
+		image->RemoveDefine(format_, name_);
 	}
 	void MagickScript::ExecuteRemoveProfile(XmlElement^ element, MagickImage^ image)
 	{

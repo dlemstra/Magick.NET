@@ -698,6 +698,7 @@
 					<xs:enumeration value="Icb" />
 					<xs:enumeration value="Ico" />
 					<xs:enumeration value="Icon" />
+					<xs:enumeration value="Iiq" />
 					<xs:enumeration value="Info" />
 					<xs:enumeration value="Inline" />
 					<xs:enumeration value="Ipl" />
@@ -1779,6 +1780,11 @@
 						<xs:attribute name="y" type="int" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="connectedComponents">
+					<xs:complexType>
+						<xs:attribute name="connectivity" use="required" type="int" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="contrast">
 					<xs:complexType>
 						<xs:attribute name="enhance" type="bool" />
@@ -2100,6 +2106,12 @@
 				<xs:element name="reduceNoise">
 					<xs:complexType>
 						<xs:attribute name="order" type="int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="removeDefine">
+					<xs:complexType>
+						<xs:attribute name="format" use="required" type="MagickFormat" />
+						<xs:attribute name="name" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="removeProfile">
