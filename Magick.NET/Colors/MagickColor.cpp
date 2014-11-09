@@ -20,22 +20,35 @@ using namespace System::Globalization;
 namespace ImageMagick
 {
 	//==============================================================================================
+	void MagickColor::Initialize(Magick::Color color)
+	{
+		A = color.quantumAlpha();
+		B = color.quantumBlue();
+		G = color.quantumGreen();
+		K = color.quantumBlack();
+		R = color.quantumRed();
+		_PixelType = color.pixelType();
+	}
+	//==============================================================================================
 	void MagickColor::Initialize(unsigned char red, unsigned char green, unsigned char blue,
 		unsigned char alpha)
 	{
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
-		R = (Magick::Quantum)red;
-		G = (Magick::Quantum)green;
-		B = (Magick::Quantum)blue;
 		A = (Magick::Quantum)alpha;
+		B = (Magick::Quantum)blue;
+		G = (Magick::Quantum)green;
+		K = 0;
+		R = (Magick::Quantum)red;
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-		R = Quantum::Convert(red);
-		G = Quantum::Convert(green);
-		B = Quantum::Convert(blue);
 		A = Quantum::Convert(alpha);
+		B = Quantum::Convert(blue);
+		G = Quantum::Convert(green);
+		K = 0;
+		R = Quantum::Convert(red);
 #else
 #error Not implemented!
 #endif
+		_PixelType = Magick::Color::PixelType::RGBAPixel;
 	}
 	//==============================================================================================
 	void MagickColor::ParseColor(String^ color)
@@ -55,10 +68,7 @@ namespace ImageMagick
 		if (!x11color.isValid())
 			throw gcnew ArgumentException("Invalid color specified", "color");
 
-		R = x11color.quantumRed();
-		G = x11color.quantumGreen();
-		B = x11color.quantumBlue();
-		A = x11color.quantumAlpha();
+		Initialize(x11color);
 	}
 	//==============================================================================================
 	Magick::Quantum MagickColor::ParseHex(String^ color, int offset, int length)
@@ -151,20 +161,29 @@ namespace ImageMagick
 	}
 #endif
 	//==============================================================================================
+	MagickColor::MagickColor(Magick::Color::PixelType pixelType)
+	{
+		A = Quantum::Max;
+		B = 0;
+		G = 0;
+		K = 0;
+		R = 0;
+		_PixelType = pixelType;
+	}
+	//==============================================================================================
 	MagickColor::MagickColor(MagickColor^ color)
 	{
-		R = color->R;
-		G = color->G;
-		B = color->B;
 		A = color->A;
+		B = color->B;
+		G = color->G;
+		K = color->K;
+		R = color->R;
+		_PixelType = color->_PixelType;
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(Magick::Color color)
 	{
-		R = color.quantumRed();
-		G = color.quantumGreen();
-		B = color.quantumBlue();
-		A = color.quantumAlpha();
+		Initialize(color);
 	}
 	//==============================================================================================
 	void MagickColor::Initialize(Color color)
@@ -174,12 +193,20 @@ namespace ImageMagick
 	//==============================================================================================
 	const Magick::Color* MagickColor::CreateColor()
 	{
-		return new Magick::Color(R, G, B, A);
+		if (_PixelType == Magick::Color::CMYKPixel || _PixelType == Magick::Color::CMYKAPixel)
+			return new Magick::Color(R, G, B, K, A);
+		else
+			return new Magick::Color(R, G, B, A);
 	}
 	//==============================================================================================
 	MagickColor::MagickColor()
 	{
 		A = Quantum::Max;
+		B = 0;
+		G = 0;
+		K = 0;
+		R = 0;
+		_PixelType = Magick::Color::PixelType::RGBPixel;
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(Color color)
@@ -189,19 +216,34 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickColor::MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue)
 	{
-		R = red;
-		G = green;
-		B = blue;
 		A = Quantum::Max;
+		B = blue;
+		G = green;
+		K = 0;
+		R = red;
+		_PixelType = Magick::Color::PixelType::RGBPixel;
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue,
 		Magick::Quantum alpha)
 	{
-		R = red;
-		G = green;
-		B = blue;
 		A = alpha;
+		B = blue;
+		G = green;
+		K = 0;
+		R = red;
+		_PixelType = Magick::Color::PixelType::RGBAPixel;
+	}
+	//==============================================================================================
+	MagickColor::MagickColor(Magick::Quantum cyan, Magick::Quantum magenta, Magick::Quantum yellow,
+		Magick::Quantum key, Magick::Quantum alpha)
+	{
+		A = alpha;
+		B = yellow;
+		G = magenta;
+		K = key;
+		R = cyan;
+		_PixelType = Magick::Color::PixelType::CMYKAPixel;
 	}
 	//==============================================================================================
 	MagickColor::MagickColor(String^ color)
@@ -210,10 +252,12 @@ namespace ImageMagick
 
 		if (color->Equals("transparent", StringComparison::OrdinalIgnoreCase))
 		{
-			R = Quantum::Max;
-			G = Quantum::Max;
-			B = Quantum::Max;
 			A = 0;
+			B = Quantum::Max;
+			G = Quantum::Max;
+			K = Quantum::Max;
+			R = Quantum::Max;
+			_PixelType = Magick::Color::PixelType::RGBAPixel;
 			return;
 		}
 
@@ -226,6 +270,7 @@ namespace ImageMagick
 #else
 #error Not implemented!
 #endif
+			_PixelType = Magick::Color::PixelType::RGBAPixel;
 			return;
 		}
 
@@ -315,6 +360,12 @@ namespace ImageMagick
 		if (this->B > other->B)
 			return 1;
 
+		if(this->K < other->K)
+			return -1;
+
+		if(this->K > other->K)
+			return 1;
+
 		if(this->A < other->A)
 			return -1;
 
@@ -340,34 +391,46 @@ namespace ImageMagick
 		if (ReferenceEquals(this, other))
 			return true;
 
+		if ((_PixelType == Magick::Color::PixelType::CMYKPixel || _PixelType == Magick::Color::PixelType::CMYKAPixel))
+		{
+			if (other->_PixelType != Magick::Color::PixelType::CMYKPixel && other->_PixelType != Magick::Color::PixelType::CMYKAPixel)
+				return false;
+		}
+
 		return
 			A == other->A &&
-			G == other->G &&
 			B == other->B &&
+			G == other->G &&
+			K == other->K &&
 			R == other->R;
 	}
 	//==============================================================================================
 	int MagickColor::GetHashCode()
 	{
 		return
+			((int)_PixelType).GetHashCode() ^
 			A.GetHashCode() ^
-			G.GetHashCode() ^
 			B.GetHashCode() ^
+			G.GetHashCode() ^
+			K.GetHashCode() ^
 			R.GetHashCode();
 	}
 	//==============================================================================================
 	Color MagickColor::ToColor()
 	{
 		int alpha = MagickCore::ScaleQuantumToChar(A);
-		int red = MagickCore::ScaleQuantumToChar(R);
-		int green = MagickCore::ScaleQuantumToChar(G);
 		int blue = MagickCore::ScaleQuantumToChar(B);
+		int green = MagickCore::ScaleQuantumToChar(G);
+		int red = MagickCore::ScaleQuantumToChar(R);
 
 		return Color::FromArgb(alpha, red, green, blue);
 	}
 	//==============================================================================================
 	String^ MagickColor::ToString()
 	{
+		if (_PixelType == Magick::Color::CMYKPixel || _PixelType == Magick::Color::CMYKAPixel)
+			return String::Format(CultureInfo::InvariantCulture, "cmyka({0},{1},{2},{3},{4:0.0###})",
+			R, G, B, K, (double)A/Quantum::Max);
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
 		return String::Format(CultureInfo::InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}",
 			(char)R, (char)G, (char)B, (char)A);

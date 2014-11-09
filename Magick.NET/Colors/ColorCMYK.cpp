@@ -18,24 +18,44 @@ namespace ImageMagick
 {
 	//==============================================================================================
 	ColorCMYK::ColorCMYK(MagickColor^ color)
-		: ColorBase(true, color)
+		: ColorBase(Magick::Color::PixelType::CMYKAPixel)
 	{
+		Value->A = color->A;
+		Value->B = color->B;
+		Value->G = color->G;
+		Value->K = color->K;
+		Value->R = color->R;
 	}
 	//==============================================================================================
-	ColorCMYK::ColorCMYK(Magick::Quantum cyan, Magick::Quantum magenta, Magick::Quantum yellow, 
+	ColorCMYK::ColorCMYK(Magick::Quantum cyan, Magick::Quantum magenta, Magick::Quantum yellow,
 		Magick::Quantum key)
-		: ColorBase(true)
+		: ColorBase(Magick::Color::PixelType::CMYKPixel)
 	{
-		Value->R = cyan;
-		Value->G = magenta;
 		Value->B = yellow;
-		Value->A = key;
+		Value->G = magenta;
+		Value->K = key;
+		Value->R = cyan;
 	}
 	//==============================================================================================
-	ColorCMYK::ColorCMYK(Color color)
-		: ColorBase(true)
+	ColorCMYK::ColorCMYK(Magick::Quantum cyan, Magick::Quantum magenta, Magick::Quantum yellow,
+		Magick::Quantum key, Magick::Quantum alpha)
+		: ColorBase(Magick::Color::PixelType::CMYKAPixel)
 	{
-		Value->Initialize(color);
+		Value->A = alpha;
+		Value->B = yellow;
+		Value->G = magenta;
+		Value->K = key;
+		Value->R = cyan;
+	}
+	//==============================================================================================
+	Magick::Quantum ColorCMYK::A::get()
+	{
+		return Value->A;
+	}
+	//==============================================================================================
+	void ColorCMYK::A::set(Magick::Quantum value)
+	{
+		Value->A = value;
 	}
 	//==============================================================================================
 	Magick::Quantum ColorCMYK::C::get()
@@ -50,12 +70,12 @@ namespace ImageMagick
 	//==============================================================================================
 	Magick::Quantum ColorCMYK::K::get()
 	{
-		return Value->A;
+		return Value->K;
 	}
 	//==============================================================================================
 	void ColorCMYK::K::set(Magick::Quantum value)
 	{
-		Value->A = value;
+		Value->K = value;
 	}
 	//==============================================================================================
 	Magick::Quantum ColorCMYK::M::get()

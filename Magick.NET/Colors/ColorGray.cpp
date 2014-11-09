@@ -19,7 +19,7 @@ namespace ImageMagick
 {
 	//==============================================================================================
 	ColorGray::ColorGray(MagickColor^ color)
-		: ColorBase(false, color)
+		: ColorBase(Magick::Color::PixelType::RGBPixel)
 	{
 		_Shade = Quantum::Scale(color->R);
 	}
@@ -33,7 +33,7 @@ namespace ImageMagick
 	}
 	//==============================================================================================
 	ColorGray::ColorGray(double shade)
-		: ColorBase(false)
+		: ColorBase(Magick::Color::PixelType::RGBPixel)
 	{
 		Shade = shade;
 	}

@@ -41,10 +41,24 @@ namespace ImageMagick
 			Magick::Quantum key);
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the ColorCMYK class using the specified color.
+		/// Initializes a new instance of the ColorCMYK class.
 		///</summary>
-		///<param name="color">The color to use.</param>
-		ColorCMYK(Color color);
+		///<param name="cyan">Cyan component value of this color.</param>
+		///<param name="magenta">Magenta component value of this color.</param>
+		///<param name="yellow">Yellow component value of this color.</param>
+		///<param name="key">Key (black) component value of this color.</param>
+		///<param name="alpha">Key (black) component value of this color.</param>
+		QUANTUM_CLS_COMPLIANT ColorCMYK(Magick::Quantum cyan, Magick::Quantum magenta, Magick::Quantum yellow,
+			Magick::Quantum key, Magick::Quantum alpha);
+		///==========================================================================================
+		///<summary>
+		/// Alpha component value of this color.
+		///</summary>
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum A
+		{
+			Magick::Quantum get();
+			void set(Magick::Quantum value);
+		}
 		///==========================================================================================
 		///<summary>
 		/// Cyan component value of this color.

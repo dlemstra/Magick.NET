@@ -18,20 +18,23 @@ namespace ImageMagick
 {
 	//==============================================================================================
 	ColorRGB::ColorRGB(MagickColor^ color)
-		: ColorBase(false, color)
+		: ColorBase(Magick::Color::PixelType::RGBPixel)
 	{
+		Value->B = color->B;
+		Value->G = color->G;
+		Value->R = color->R;
 	}
 	//==============================================================================================
 	ColorRGB::ColorRGB(Magick::Quantum red, Magick::Quantum green, Magick::Quantum blue)
-		: ColorBase(false)
+		: ColorBase(Magick::Color::PixelType::RGBPixel)
 	{
-		Value->R = red;
-		Value->G = green;
 		Value->B = blue;
+		Value->G = green;
+		Value->R = red;
 	}
 	//==============================================================================================
 	ColorRGB::ColorRGB(Color color)
-		: ColorBase(false)
+		: ColorBase(Magick::Color::PixelType::RGBPixel)
 	{
 		Value->Initialize(color);
 	}

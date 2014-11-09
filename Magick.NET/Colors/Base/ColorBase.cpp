@@ -18,24 +18,9 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	ColorBase::ColorBase(bool hasAlpha)
+	ColorBase::ColorBase(Magick::Color::PixelType pixelType)
 	{
-		_Value = gcnew MagickColor();
-		_Value->A = Quantum::Max;
-
-		_HasAlpha = hasAlpha;
-	}
-	//==============================================================================================
-	ColorBase::ColorBase(bool hasAlpha, MagickColor^ color)
-	{
-		Throw::IfNull("color", color);
-
-		_Value = gcnew MagickColor(color);
-
-		if (!hasAlpha)
-			_Value->A = Quantum::Max;
-
-		_HasAlpha = hasAlpha;
+		_Value = gcnew MagickColor(pixelType);
 	}
 	//==============================================================================================
 	MagickColor^ColorBase::Value::get()
@@ -136,12 +121,7 @@ namespace ImageMagick
 	{	
 		UpdateValue();
 
-		MagickColor^ magickColor = gcnew MagickColor(_Value);
-
-		if (!_HasAlpha)
-			magickColor->A = Quantum::Max;
-
-		return magickColor;
+		return gcnew MagickColor(_Value);
 	}
 	//==============================================================================================
 }

@@ -19,7 +19,7 @@ namespace ImageMagick
 {
 	//==============================================================================================
 	ColorMono::ColorMono(MagickColor^ color)
-		: ColorBase(false, color)
+		: ColorBase(Magick::Color::PixelType::RGBPixel)
 	{
 		IsBlack = color->R == 0.0;
 	}
@@ -33,7 +33,7 @@ namespace ImageMagick
 	}
 	//==============================================================================================
 	ColorMono::ColorMono(bool isBlack)
-		: ColorBase(false)
+		: ColorBase(Magick::Color::PixelType::RGBPixel)
 	{
 		IsBlack = isBlack;
 	}

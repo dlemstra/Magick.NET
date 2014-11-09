@@ -26,6 +26,10 @@ namespace ImageMagick
 		//===========================================================================================
 	private:
 		//===========================================================================================
+		Magick::Color::PixelType _PixelType;
+		//===========================================================================================
+		void Initialize(Magick::Color color);
+		//===========================================================================================
 		void Initialize(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
 		//===========================================================================================
 		void ParseColor(String^ color);
@@ -39,6 +43,8 @@ namespace ImageMagick
 #endif
 		//===========================================================================================
 	internal:
+		//===========================================================================================
+		MagickColor(Magick::Color::PixelType pixelType);
 		//===========================================================================================
 		MagickColor(MagickColor^ color);
 		//===========================================================================================
@@ -80,6 +86,17 @@ namespace ImageMagick
 			Magick::Quantum alpha);
 		///==========================================================================================
 		///<summary>
+		/// Initializes a new instance of the MagickColor class.
+		///</summary>
+		///<param name="cyan">Cyan component value of this color.</param>
+		///<param name="magenta">Magenta component value of this color.</param>
+		///<param name="yellow">Yellow component value of this color.</param>
+		///<param name="black">Black component value of this color.</param>
+		///<param name="alpha">Alpha component value of this color.</param>
+		QUANTUM_CLS_COMPLIANT MagickColor(Magick::Quantum cyan, Magick::Quantum magenta, Magick::Quantum yellow,
+			Magick::Quantum black,Magick::Quantum alpha);
+		///==========================================================================================
+		///<summary>
 		/// Initializes a new instance of the MagickColor class using the specified RGBA hex string or
 		/// name of the color (http://www.imagemagick.org/script/color.php).
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
@@ -90,7 +107,7 @@ namespace ImageMagick
 #error Not implemented!
 #endif
 		///</summary>
-		///<param name="color">The RGBA hex string or name of the color.</param>
+		///<param name="color">The RGBA/CMYK hex string or name of the color.</param>
 		MagickColor(String^ color);
 		///==========================================================================================
 		///<summary>
@@ -107,6 +124,11 @@ namespace ImageMagick
 		/// Green component value of this color.
 		///</summary>
 		QUANTUM_CLS_COMPLIANT property Magick::Quantum G;
+		///==========================================================================================
+		///<summary>
+		/// Key (black) component value of this color.
+		///</summary>
+		QUANTUM_CLS_COMPLIANT property Magick::Quantum K;
 		///==========================================================================================
 		///<summary>
 		/// Red component value of this color.

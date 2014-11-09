@@ -165,6 +165,20 @@ namespace Magick.NET.Tests
 #else
 #error Not implemented!
 #endif
+
+#if Q8
+			color = new MagickColor(0, Quantum.Max, 0, 0, (System.Byte)(Quantum.Max / 3));
+#elif Q16
+			color = new MagickColor(0, Quantum.Max, 0, 0, (System.UInt16)(Quantum.Max / 3));
+#elif Q16HDRI
+			color = new MagickColor(0, Quantum.Max, 0, 0, (System.Single)(Quantum.Max / 3));
+#else
+#error Not implemented!
+#endif
+			Assert.AreEqual("cmyka(0," + Quantum.Max + ",0,0,0.3333)", color.ToString());
+
+			color = new MagickColor(0, Quantum.Max, 0, 0, Quantum.Max);
+			Assert.AreEqual("cmyka(0," + Quantum.Max + ",0,0,1.0)", color.ToString());
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

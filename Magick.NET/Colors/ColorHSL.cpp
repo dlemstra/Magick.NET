@@ -19,7 +19,7 @@ namespace ImageMagick
 {
 	//==============================================================================================
 	ColorHSL::ColorHSL(MagickColor^ color)
-		: ColorBase(false, color)
+		: ColorBase(Magick::Color::PixelType::RGBPixel)
 	{
 		double hue, luminosity, saturation;
 		MagickCore::ConvertRGBToHSL(color->R, color->G, color->B, &hue, &luminosity, &saturation);
@@ -40,7 +40,7 @@ namespace ImageMagick
 	}
 	//==============================================================================================
 	ColorHSL::ColorHSL(double hue, double saturation, double luminosity)
-		: ColorBase(false)
+		: ColorBase(Magick::Color::PixelType::RGBPixel)
 	{
 		Hue = hue;
 		Saturation = saturation;

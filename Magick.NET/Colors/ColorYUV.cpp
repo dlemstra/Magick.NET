@@ -19,7 +19,7 @@ namespace ImageMagick
 {
 	//==============================================================================================
 	ColorYUV::ColorYUV(MagickColor^ color)
-		: ColorBase(false, color)
+		: ColorBase(Magick::Color::PixelType::RGBPixel)
 	{
 		_Y = (0.29900 * color->R) + (0.58700 * color->G) + (0.11400 * color->B);
 		_U = (-0.14740 * color->R) - (0.28950 * color->G) + (0.43690 * color->B);
@@ -34,7 +34,7 @@ namespace ImageMagick
 	}
 	//==============================================================================================
 	ColorYUV::ColorYUV(double y, double u, double v)
-		: ColorBase(false)
+		: ColorBase(Magick::Color::PixelType::RGBPixel)
 	{
 		_Y = y;
 		_U = u;
