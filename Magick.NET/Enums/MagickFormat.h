@@ -96,6 +96,7 @@ namespace ImageMagick
 		Icb,
 		Ico,
 		Icon,
+		Iiq,
 		Info,
 		Inline,
 		Ipl,
