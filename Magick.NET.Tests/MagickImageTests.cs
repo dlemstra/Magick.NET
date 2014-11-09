@@ -113,9 +113,9 @@ namespace Magick.NET.Tests
 			using (MagickImage image = new MagickImage(Files.InvitationTif))
 			{
 				image.Clip("Pad A", false);
-				Assert.IsNotNull(image.ClipMask);
+				Assert.IsNotNull(image.Mask);
 
-				using (PixelCollection pixels = image.ClipMask.GetReadOnlyPixels())
+				using (PixelCollection pixels = image.Mask.GetReadOnlyPixels())
 				{
 					Pixel pixelA = pixels.GetPixel(0, 0);
 					Pixel pixelB = pixels.GetPixel(pixels.Width - 1, pixels.Height - 1);
