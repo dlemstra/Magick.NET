@@ -2491,11 +2491,25 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void  MagickImage::ConnectedComponents(int connectivity)
+	{
+		Throw::IfFalse("connectivity", connectivity == 4 || connectivity == 8, "Invalid connectivity, only 4 and 8 are supported.");
+
+		try
+		{
+			Value->connectedComponents(connectivity);
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::Contrast()
 	{
 		Contrast(true);
 	}
-	//===========================================================================================
+	//==============================================================================================
 	void MagickImage::Contrast(bool enhance)
 	{
 		try

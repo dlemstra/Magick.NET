@@ -1584,6 +1584,13 @@ namespace ImageMagick
 		void Composite(MagickImage^ image, Gravity gravity, CompositeOperator compose, String^ args);
 		//==========================================================================================
 		///<summary>
+		/// Determines the connected-components of the image
+		///</summary>
+		///<param name="connectivity">How many neighbors to visit, choose from 4 or 8.</param>
+		///<exception cref="MagickException"/>
+		void ConnectedComponents(int connectivity);
+		//==========================================================================================
+		///<summary>
 		/// Contrast image (enhance intensity differences in image)
 		///</summary>
 		///<exception cref="MagickException"/>
