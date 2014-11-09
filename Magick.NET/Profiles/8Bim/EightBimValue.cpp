@@ -74,7 +74,9 @@ namespace ImageMagick
 	//==============================================================================================
 	int EightBimValue::GetHashCode()
 	{
-		return _ID.GetHashCode() ^ _Data->GetHashCode();
+		return
+			_Data->GetHashCode() ^
+			_ID.GetHashCode();
 	}
 	//==============================================================================================
 	array<Byte>^ EightBimValue::ToByteArray()

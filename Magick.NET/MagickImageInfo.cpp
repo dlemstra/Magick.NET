@@ -198,25 +198,25 @@ namespace ImageMagick
 			return true;
 
 		return
-			this->_ColorSpace == other->_ColorSpace &&
-			this->_Format == other->_Format &&
-			this->_Height  == other->_Height &&
-			this->_ResolutionUnits == other->_ResolutionUnits &&
-			this->_ResolutionX  == other->_ResolutionX &&
-			this->_ResolutionY  == other->_ResolutionY &&
-			this->_Width == other->_Width;
+			_ColorSpace == other->_ColorSpace &&
+			_Format == other->_Format &&
+			_Height  == other->_Height &&
+			_ResolutionUnits == other->_ResolutionUnits &&
+			_ResolutionX  == other->_ResolutionX &&
+			_ResolutionY  == other->_ResolutionY &&
+			_Width == other->_Width;
 	}
 	//==============================================================================================
 	int MagickImageInfo::GetHashCode()
 	{
 		return
-			this->_ColorSpace.GetHashCode() ^
-			this->_Format.GetHashCode() ^
-			this->_Height.GetHashCode() ^
-			this->_ResolutionUnits.GetHashCode() ^
-			this->_ResolutionX.GetHashCode() ^
-			this->_ResolutionY.GetHashCode() ^
-			this->_Width.GetHashCode();
+			_ColorSpace.GetHashCode() ^
+			_Format.GetHashCode() ^
+			_Height.GetHashCode() ^
+			_ResolutionUnits.GetHashCode() ^
+			_ResolutionX.GetHashCode() ^
+			_ResolutionY.GetHashCode() ^
+			_Width.GetHashCode();
 	}
 	//==============================================================================================
 	void MagickImageInfo::Read(array<Byte>^ data)

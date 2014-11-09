@@ -53,7 +53,9 @@ namespace ImageMagick
 	//==============================================================================================
 	int Coordinate::GetHashCode()
 	{
-		return X.GetHashCode() ^ Y.GetHashCode();
+		return
+			X.GetHashCode() ^
+			Y.GetHashCode();
 	}
 	//==============================================================================================
 }

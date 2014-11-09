@@ -113,7 +113,9 @@ namespace ImageMagick
 	//==============================================================================================
 	int IptcValue::GetHashCode()
 	{
-		return _Tag.GetHashCode() ^ _Data->GetHashCode();
+		return
+			_Data->GetHashCode() ^
+			_Tag.GetHashCode();
 	}
 	//==============================================================================================
 	array<Byte>^ IptcValue::ToByteArray()

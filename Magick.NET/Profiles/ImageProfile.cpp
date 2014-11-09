@@ -118,7 +118,9 @@ namespace ImageMagick
 	//==============================================================================================
 	int ImageProfile::GetHashCode()
 	{
-		return _Name->GetHashCode() ^ _Data->GetHashCode();
+		return
+			_Data->GetHashCode() ^
+			_Name->GetHashCode();
 	}
 	//==============================================================================================
 	array<Byte>^ ImageProfile::ToByteArray()

@@ -66,12 +66,16 @@ namespace ImageMagick
 	//==============================================================================================
 	bool PointD::Equals(PointD other)
 	{
-		return X == other.X && Y == other.Y;
+		return
+			X == other.X &&
+			Y == other.Y;
 	}
 	//==============================================================================================
 	int PointD::GetHashCode()
 	{
-		return X.GetHashCode() ^ Y.GetHashCode();
+		return
+			X.GetHashCode() ^
+			Y.GetHashCode();
 	}
 	//==============================================================================================
 }
