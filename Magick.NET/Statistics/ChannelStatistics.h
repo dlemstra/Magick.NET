@@ -28,6 +28,7 @@ namespace ImageMagick
 		//===========================================================================================
 		PixelChannel _Channel;
 		int _Depth;
+		double _Entropy;
 		double _Kurtosis;
 		double _Maximum;
 		double _Mean;
@@ -60,6 +61,14 @@ namespace ImageMagick
 		property int Depth
 		{
 			int get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// Entropy.
+		///</summary>
+		property double Entropy
+		{
+			double get();
 		}
 		///==========================================================================================
 		///<summary>

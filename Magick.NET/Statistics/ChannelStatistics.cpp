@@ -21,6 +21,7 @@ namespace ImageMagick
 	{
 		_Channel = (ImageMagick::PixelChannel) channelStatistics.channel();
 		_Depth = (int)channelStatistics.depth();
+		_Entropy = channelStatistics.entropy();
 		_Kurtosis = channelStatistics.kurtosis();
 		_Maximum = channelStatistics.maxima();
 		_Mean = channelStatistics.mean();
@@ -42,6 +43,11 @@ namespace ImageMagick
 	int ChannelStatistics::Depth::get()
 	{
 		return _Depth;
+	}
+	//==============================================================================================
+	double ChannelStatistics::Entropy::get()
+	{
+		return _Entropy;
 	}
 	//==============================================================================================
 	double ChannelStatistics::Maximum::get()
@@ -127,6 +133,7 @@ namespace ImageMagick
 
 		return
 			_Depth.Equals(other->Depth) &&
+			_Entropy.Equals(other->_Entropy) &&
 			_Kurtosis.Equals(other->_Kurtosis) &&
 			_Maximum.Equals(other->_Maximum) &&
 			_Mean.Equals(other->_Mean) &&
@@ -143,10 +150,19 @@ namespace ImageMagick
 	int ChannelStatistics::GetHashCode()
 	{
 		return
-			_Depth.GetHashCode() ^ _Maximum.GetHashCode() ^ _Mean.GetHashCode() ^ _Minimum.GetHashCode() ^
-			_Kurtosis.GetHashCode() ^ _Skewness.GetHashCode() ^ _StandardDeviation.GetHashCode() ^
-			_Sum.GetHashCode() ^ _SumCubed.GetHashCode() ^ _SumFourthPower.GetHashCode() ^
-			_SumSquared.GetHashCode() ^ _Variance.GetHashCode();
+			_Depth.GetHashCode() ^
+			_Entropy.GetHashCode() ^
+			_Kurtosis.GetHashCode() ^
+			_Maximum.GetHashCode() ^
+			_Mean.GetHashCode() ^
+			_Minimum.GetHashCode() ^
+			_Skewness.GetHashCode() ^
+			_StandardDeviation.GetHashCode() ^
+			_Sum.GetHashCode() ^
+			_SumCubed.GetHashCode() ^
+			_SumFourthPower.GetHashCode() ^
+			_SumSquared.GetHashCode() ^
+			_Variance.GetHashCode();
 	}
 	//==============================================================================================
 }
