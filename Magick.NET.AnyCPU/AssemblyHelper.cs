@@ -26,6 +26,7 @@ namespace ImageMagick
 		//===========================================================================================
 		private static readonly Assembly _Assembly = LoadAssembly();
 		private static Exception _LoadException;
+		private static string _LoadError;
 		//===========================================================================================
 		private static Assembly Assembly
 		{
@@ -33,10 +34,12 @@ namespace ImageMagick
 			{
 				if (_Assembly == null)
 				{
+					_LoadError = "Failed to load embedded " + (Environment.Is64BitProcess ? "x64" : "x86") + " assembly: " + _LoadError;
+
 					if (_LoadException == null)
-						throw new InvalidOperationException("Failed to load embedded assembly.");
+						throw new InvalidOperationException(_LoadError);
 					else
-						throw new InvalidOperationException("Failed to load embedded assembly: " + _LoadException.Message, _LoadException);
+						throw new InvalidOperationException(_LoadError, _LoadException);
 				}
 
 				return _Assembly;
@@ -45,11 +48,16 @@ namespace ImageMagick
 		//===========================================================================================
 		private static string CreateCacheDirectory()
 		{
+			_LoadError = "unable to create cache directory";
+
 			AssemblyFileVersionAttribute version = (AssemblyFileVersionAttribute)typeof(AssemblyHelper).Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
 
 			string path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET." + version.Version);
 			if (!Directory.Exists(path))
+			{
+				_LoadError = "unable to create cache directory \"" + path + "\"";
 				Directory.CreateDirectory(path);
+			}
 
 			return path;
 		}
@@ -81,12 +89,7 @@ namespace ImageMagick
 
 				WriteXmlResources(cacheDirectory);
 
-				Assembly assembly = Assembly.LoadFile(tempFile);
-
-				Type magickNET = assembly.GetType("ImageMagick.MagickNET");
-				magickNET.CallMethod("Initialize", new Type[] { typeof(String) }, cacheDirectory);
-
-				return assembly;
+				return LoadAssembly(cacheDirectory, tempFile);
 			}
 			catch (Exception exception)
 			{
@@ -95,8 +98,24 @@ namespace ImageMagick
 			}
 		}
 		//===========================================================================================
+		private static Assembly LoadAssembly(string cacheDirectory, string tempFile)
+		{
+			_LoadError = "unable to load file \"" + tempFile + "\"";
+
+			Assembly assembly = Assembly.LoadFile(tempFile);
+
+			_LoadError = "unable to initialize Magick.NET";
+
+			Type magickNET = assembly.GetType("ImageMagick.MagickNET");
+			magickNET.CallMethod("Initialize", new Type[] { typeof(String) }, cacheDirectory);
+
+			return assembly;
+		}
+		//===========================================================================================
 		private static void WriteAssembly(string resourceName, string outputFile)
 		{
+			_LoadError = "unable to write assembly \"" + resourceName + "\" to \"" + outputFile + "\"";
+
 			using (Stream stream = typeof(MagickImage).Assembly.GetManifestResourceStream(resourceName))
 			{
 				using (GZipStream compressedStream = new GZipStream(stream, CompressionMode.Decompress, false))
@@ -111,6 +130,8 @@ namespace ImageMagick
 		//===========================================================================================
 		private static void WriteXmlResources(string cacheDirectory)
 		{
+			_LoadError = "unable to write xml resources to \"" + cacheDirectory + "\"";
+
 			string[] xmlFiles = 
 			{
 				"coder.xml", "colors.xml", "configure.xml", "delegates.xml", "english.xml", "locale.xml",
