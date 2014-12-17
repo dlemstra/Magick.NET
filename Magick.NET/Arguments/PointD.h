@@ -31,9 +31,25 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		PointD(double x, double y);
+		PointD(Magick::Point point);
+		//===========================================================================================
+		const Magick::Point* CreatePoint();
 		//===========================================================================================
 	public:
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the PointD struct using the specified x and y.
+		///</summary>
+		///<param name="xy">The x and y.</param>
+		PointD(double xy);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the PointD struct using the specified x and y.
+		///</summary>
+		///<param name="x">The x.</param>
+		///<param name="y">The y.</param>
+		//===========================================================================================
+		PointD(double x, double y);
 		///==========================================================================================
 		///<summary>
 		/// The x-coordinate of this Point.

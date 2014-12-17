@@ -18,9 +18,9 @@ namespace ImageMagick
 {
 
 	//==============================================================================================
-	void MagickImageCollection::AddFrom(std::list<Magick::Image>* images)
+	void MagickImageCollection::AddFrom(std::vector<Magick::Image>* images)
 	{
-		for (std::list<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
+		for (std::vector<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
 		{
 			Add(gcnew MagickImage(*iter));
 		}
@@ -31,7 +31,7 @@ namespace ImageMagick
 		if (Count == 0)
 			return nullptr;
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 
 		try
 		{
@@ -53,14 +53,15 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImageCollection::CopyFrom(std::list<Magick::Image>* images)
+	void MagickImageCollection::CopyFrom(std::vector<Magick::Image>* images)
 	{
 		Clear();
 		AddFrom(images);
 	}
 	//==============================================================================================
-	void MagickImageCollection::CopyTo(std::list<Magick::Image>* images)
+	void MagickImageCollection::CopyTo(std::vector<Magick::Image>* images)
 	{
+		images->reserve(_Images->Count);
 		for each(MagickImage^ image in _Images)
 		{
 			images->push_back(image->ReuseValue());
@@ -104,8 +105,8 @@ namespace ImageMagick
 		if (Count == 0)
 			return;
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
-		std::list<Magick::Image>* optimizedImages = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
+		std::vector<Magick::Image>* optimizedImages = new std::vector<Magick::Image>();
 
 		try
 		{
@@ -166,7 +167,7 @@ namespace ImageMagick
 		if (Count == 0)
 			return nullptr;
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 
 		try
 		{
@@ -188,11 +189,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	List<MagickImage^>^ MagickImageCollection::CreateList(std::list<Magick::Image>* images)
+	List<MagickImage^>^ MagickImageCollection::CreateList(std::vector<Magick::Image>* images)
 	{
 		List<MagickImage^>^ list = gcnew List<MagickImage^>();
 
-		for (std::list<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
+		for (std::vector<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
 		{
 			list->Add(gcnew MagickImage(*iter));
 		}
@@ -202,7 +203,7 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImageCollection::Merge(Magick::Image* image, LayerMethod method)
 	{
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 
 		try
 		{
@@ -324,7 +325,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::AddRange(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		HandleReadException(MagickReader::Read(images, data, readSettings));
 		AddFrom(images);
 
@@ -350,7 +351,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::AddRange(Stream^ stream, MagickReadSettings^ readSettings)
 	{
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		HandleReadException(MagickReader::Read(images, stream, readSettings));
 		AddFrom(images);
 
@@ -365,7 +366,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::AddRange(String^ fileName, MagickReadSettings^ readSettings)
 	{
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		HandleReadException(MagickReader::Read(images, fileName, readSettings));
 		AddFrom(images);
 
@@ -408,7 +409,7 @@ namespace ImageMagick
 		if (Count == 0)
 			nullptr;
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 
 		try
 		{
@@ -436,8 +437,8 @@ namespace ImageMagick
 		if (Count == 0)
 			return;
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
-		std::list<Magick::Image>* coalescedImages = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
+		std::vector<Magick::Image>* coalescedImages = new std::vector<Magick::Image>();
 
 		try
 		{
@@ -480,8 +481,8 @@ namespace ImageMagick
 		if (Count == 0)
 			return;
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
-		std::list<Magick::Image>* deconstructedImages = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
+		std::vector<Magick::Image>* deconstructedImages = new std::vector<Magick::Image>();
 
 		try
 		{
@@ -507,7 +508,7 @@ namespace ImageMagick
 		if (Count == 0)
 			return nullptr;
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 
 		try
 		{
@@ -535,7 +536,7 @@ namespace ImageMagick
 		if (Count == 0)
 			return nullptr;
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 
 		try
 		{
@@ -562,7 +563,7 @@ namespace ImageMagick
 		if (Count == 0)
 			return nullptr;
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 
 		try
 		{
@@ -626,7 +627,7 @@ namespace ImageMagick
 			image->Apply(settings);
 		}
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 
 		try
 		{
@@ -664,7 +665,7 @@ namespace ImageMagick
 
 		Throw::IfNull("settings", settings);
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		MagickImageCollection^ collection = gcnew MagickImageCollection();
 
 		try
@@ -697,8 +698,8 @@ namespace ImageMagick
 
 		Throw::IfTrue("frames", frames < 1, "Frames must be at least 1.");
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
-		std::list<Magick::Image>* morphedImages = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
+		std::vector<Magick::Image>* morphedImages = new std::vector<Magick::Image>();
 
 		MagickImageCollection^ result = gcnew MagickImageCollection();
 
@@ -788,7 +789,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		HandleReadException(MagickReader::Read(images, data, readSettings));
 		CopyFrom(images);
 
@@ -815,7 +816,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(String^ fileName, MagickReadSettings^ readSettings)
 	{
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		HandleReadException(MagickReader::Read(images, fileName, readSettings));
 		CopyFrom(images);
 
@@ -830,7 +831,7 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickWarningException^ MagickImageCollection::Read(Stream^ stream, MagickReadSettings^ readSettings)
 	{
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		HandleReadException(MagickReader::Read(images, stream, readSettings));
 		CopyFrom(images);
 
@@ -876,7 +877,7 @@ namespace ImageMagick
 		if (Count == 0)
 			return nullptr;
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		try
 		{
 			CopyTo(images);
@@ -935,7 +936,7 @@ namespace ImageMagick
 		if (Count == 0)
 			return;
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		try
 		{
 			CopyTo(images);
@@ -958,7 +959,7 @@ namespace ImageMagick
 		if (Count == 0)
 			return;
 
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		try
 		{
 			CopyTo(images);

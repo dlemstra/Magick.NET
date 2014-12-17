@@ -21,7 +21,7 @@ using namespace System::Globalization;
 namespace ImageMagick
 {
 	//==============================================================================================
-	void MagickFormatInfo::AddStealthCoder(std::list<Magick::CoderInfo>* coderList, std::string name)
+	void MagickFormatInfo::AddStealthCoder(std::vector<Magick::CoderInfo>* coderList, std::string name)
 	{
 		try
 		{
@@ -41,7 +41,7 @@ namespace ImageMagick
 	{
 		Collection<MagickFormatInfo^>^ result = gcnew Collection<MagickFormatInfo^>();
 
-		std::list<Magick::CoderInfo> coderList; 
+		std::vector<Magick::CoderInfo> coderList; 
 
 		try
 		{
@@ -55,7 +55,7 @@ namespace ImageMagick
 		AddStealthCoder(&coderList, "DIB");
 		AddStealthCoder(&coderList, "TIF");
 
-		std::list<Magick::CoderInfo>::const_iterator coder = coderList.begin(); 
+		std::vector<Magick::CoderInfo>::const_iterator coder = coderList.begin(); 
 		while(coder != coderList.end())
 		{
 			MagickFormatInfo^ formatInfo = gcnew MagickFormatInfo();

@@ -63,7 +63,7 @@ namespace Magick.NET.Tests
 			Assert.IsNotNull(red);
 #if Q8
 			Assert.AreEqual(7, red.Depth);
-			Assert.AreEqual(0.12, red.Entropy, 0.01);
+			Assert.AreEqual(0.98, red.Entropy, 0.01);
 			Assert.AreEqual(-1.89, red.Kurtosis, 0.01);
 			Assert.AreEqual(2, red.Maximum);
 			Assert.AreEqual(0.83, red.Mean, 0.01);
@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(1.67, red.SumSquared, 0.01);
 #elif Q16 || Q16HDRI
 			Assert.AreEqual(8, red.Depth);
-			Assert.AreEqual(0.06, red.Entropy, 0.01);
+			Assert.AreEqual(0.98, red.Entropy, 0.01);
 			Assert.AreEqual(-1.89, red.Kurtosis, 0.01);
 			Assert.AreEqual(514, red.Maximum);
 			Assert.AreEqual(215.79, red.Mean, 0.01);
@@ -92,8 +92,8 @@ namespace Magick.NET.Tests
 #endif
 
 			Assert.IsNotNull(statistics.Composite());
-			Assert.IsNotNull(statistics.GetChannel(PixelChannel.Alpha));
 
+			Assert.IsNull(statistics.GetChannel(PixelChannel.Alpha));
 			Assert.IsNull(statistics.GetChannel(PixelChannel.Green));
 			Assert.IsNull(statistics.GetChannel(PixelChannel.Blue));
 			Assert.IsNull(statistics.GetChannel(PixelChannel.Black));

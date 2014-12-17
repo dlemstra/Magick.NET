@@ -169,7 +169,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickException^ MagickReader::Read(std::list<Magick::Image>* imageList, array<Byte>^ bytes,
+	MagickException^ MagickReader::Read(std::vector<Magick::Image>* imageList, array<Byte>^ bytes,
 		MagickReadSettings^ readSettings)
 	{
 		Throw::IfNullOrEmpty("bytes", bytes);
@@ -215,13 +215,13 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickException^ MagickReader::Read(std::list<Magick::Image>* imageList, Stream^ stream,
+	MagickException^ MagickReader::Read(std::vector<Magick::Image>* imageList, Stream^ stream,
 		MagickReadSettings^ readSettings)
 	{
 		return Read(imageList, Read(stream), readSettings);
 	}	
 	//==============================================================================================
-	MagickException^ MagickReader::Read(std::list<Magick::Image>* imageList, String^ fileName,
+	MagickException^ MagickReader::Read(std::vector<Magick::Image>* imageList, String^ fileName,
 		MagickReadSettings^ readSettings)
 	{
 		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);

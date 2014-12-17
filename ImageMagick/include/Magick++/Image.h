@@ -208,8 +208,8 @@ namespace Magick
     bool debug(void) const;
 
     // Vertical and horizontal resolution in pixels of the image
-    void density(const Geometry &geomery_);
-    Geometry density(void) const;
+    void density(const Point &density_);
+    Point density(void) const;
 
     // Image depth (bits allocated to red/green/blue components)
     void depth(const size_t depth_);
@@ -824,7 +824,7 @@ namespace Magick
     void draw(const Drawable &drawable_);
 
     // Draw on image using a drawable list
-    void draw(const std::list<Magick::Drawable> &drawable_);
+    void draw(const std::vector<Magick::Drawable> &drawable_);
 
     // Edge image (hilight edges in image)
     void edge(const double radius_=0.0);
@@ -1193,7 +1193,7 @@ namespace Magick
     void reduceNoise(const double order_);
 
     // Resize image in terms of its pixel size.
-    void resample(const Geometry &geometry_);
+    void resample(const Point &density_);
 
     // Resize image to specified size.
     void resize(const Geometry &geometry_);

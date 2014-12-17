@@ -86,7 +86,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickException^ MagickWriter::Write(std::list<Magick::Image>* imageList, Magick::Blob* blob)
+	MagickException^ MagickWriter::Write(std::vector<Magick::Image>* imageList, Magick::Blob* blob)
 	{
 		try
 		{
@@ -99,7 +99,7 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickException^ MagickWriter::Write(std::list<Magick::Image>* imageList, Stream^ stream)
+	MagickException^ MagickWriter::Write(std::vector<Magick::Image>* imageList, Stream^ stream)
 	{
 		Throw::IfNull("stream", stream);
 
@@ -109,7 +109,7 @@ namespace ImageMagick
 		return exception;
 	}
 	//==============================================================================================
-	MagickException^ MagickWriter::Write(std::list<Magick::Image>* imageList, String^ fileName)
+	MagickException^ MagickWriter::Write(std::vector<Magick::Image>* imageList, String^ fileName)
 	{
 		Throw::IfNullOrEmpty("fileName", fileName);
 		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);

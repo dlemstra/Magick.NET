@@ -42,7 +42,7 @@ namespace ImageMagick
 		{
 			Throw::IfNull("coordinates", coordinates);
 
-			std::list<TMagickPathArgs> coordinateList;
+			std::vector<TMagickPathArgs> coordinateList;
 			IEnumerator<TPathArgs^>^ enumerator = coordinates->GetEnumerator();
 			while(enumerator->MoveNext())
 			{

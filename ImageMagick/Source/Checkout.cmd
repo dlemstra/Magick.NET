@@ -1,7 +1,7 @@
 @echo off
 
 set REPOS=https://subversion.imagemagick.org/subversion
-set REVISION=17004
+set REVISION=17315
 
 if exist ImageMagick goto update
 
@@ -12,6 +12,7 @@ svn checkout %REPOS%/cairo/trunk -r %REVISION% cairo
 svn checkout %REPOS%/croco/trunk -r %REVISION% croco
 svn checkout %REPOS%/ImageMagick/trunk/coders -r %REVISION% coders
 svn checkout %REPOS%/ImageMagick/trunk/config -r %REVISION% config
+svn checkout %REPOS%/exr/trunk -r %REVISION% exr
 svn checkout %REPOS%/ffi/trunk -r %REVISION% ffi
 svn checkout %REPOS%/ImageMagick/trunk/filters -r %REVISION% filters
 svn checkout %REPOS%/glib/trunk -r %REVISION% glib
@@ -42,6 +43,7 @@ svn update -r %REVISION% cairo
 svn update -r %REVISION% croco
 svn update -r %REVISION% coders
 svn update -r %REVISION% config
+svn update -r %REVISION% exr
 svn update -r %REVISION% ffi
 svn update -r %REVISION% filters
 svn update -r %REVISION% glib

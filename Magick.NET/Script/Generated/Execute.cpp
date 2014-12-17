@@ -1848,7 +1848,7 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteDensity(XmlElement^ element, MagickImage^ image)
 	{
-		image->Density = _Variables->GetValue<MagickGeometry^>(element, "value");
+		image->Density = _Variables->GetValue<PointD>(element, "value");
 	}
 	void MagickScript::ExecuteDepth(XmlElement^ element, MagickImage^ image)
 	{
@@ -3272,19 +3272,19 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			if (attribute->Name == "geometry")
-				arguments["geometry"] = _Variables->GetValue<MagickGeometry^>(attribute);
+			if (attribute->Name == "density")
+				arguments["density"] = _Variables->GetValue<PointD>(attribute);
 			else if (attribute->Name == "resolutionX")
-				arguments["resolutionX"] = _Variables->GetValue<int>(attribute);
+				arguments["resolutionX"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "resolutionY")
-				arguments["resolutionY"] = _Variables->GetValue<int>(attribute);
+				arguments["resolutionY"] = _Variables->GetValue<double>(attribute);
 		}
-		if (OnlyContains(arguments, "geometry"))
-			image->Resample((MagickGeometry^)arguments["geometry"]);
+		if (OnlyContains(arguments, "density"))
+			image->Resample((PointD)arguments["density"]);
 		else if (OnlyContains(arguments, "resolutionX", "resolutionY"))
-			image->Resample((int)arguments["resolutionX"], (int)arguments["resolutionY"]);
+			image->Resample((double)arguments["resolutionX"], (double)arguments["resolutionY"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'resample', allowed combinations are: [geometry] [resolutionX, resolutionY]");
+			throw gcnew ArgumentException("Invalid argument combination for 'resample', allowed combinations are: [density] [resolutionX, resolutionY]");
 	}
 	void MagickScript::ExecuteResize(XmlElement^ element, MagickImage^ image)
 	{

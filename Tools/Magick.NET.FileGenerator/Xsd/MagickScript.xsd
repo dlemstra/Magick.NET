@@ -127,6 +127,12 @@
 		<xs:annotation id="pixelStorageSettings"/>
 	</xs:complexType>
 	<!--=========================================================================================-->
+	<xs:simpleType name="pointd">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--=========================================================================================-->
 	<xs:complexType name="profile">
 		<xs:sequence>
 			<xs:choice>

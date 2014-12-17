@@ -21,7 +21,7 @@ namespace ImageMagick
 	{
 		Throw::IfNull("paths", paths);
 
-		std::list<Magick::VPath> pathList;
+		std::vector<Magick::VPath> pathList;
 		IEnumerator<PathBase^>^ enumerator = paths->GetEnumerator();
 		while(enumerator->MoveNext())
 		{

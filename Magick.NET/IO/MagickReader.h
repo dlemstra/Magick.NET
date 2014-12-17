@@ -50,13 +50,13 @@ namespace ImageMagick
 		static MagickException^ Read(Magick::Image* image, String^ fileName,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickException^ Read(std::list<Magick::Image>* imageList, array<Byte>^ bytes,
+		static MagickException^ Read(std::vector<Magick::Image>* imageList, array<Byte>^ bytes,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickException^ Read(std::list<Magick::Image>* imageList, Stream^ stream,
+		static MagickException^ Read(std::vector<Magick::Image>* imageList, Stream^ stream,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
-		static MagickException^ Read(std::list<Magick::Image>* imageList, String^ fileName,
+		static MagickException^ Read(std::vector<Magick::Image>* imageList, String^ fileName,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
 		static array<Byte>^ Read(Stream^ stream);

@@ -132,7 +132,7 @@ namespace Magick.NET.Tests
 						value.Value = "Magick.NET";
 					});
 
-					image.Density = new MagickGeometry(72);
+					image.Density = new PointD(72);
 
 					profile.SetValue(ExifTag.ReferenceBlackWhite, null);
 

@@ -1255,6 +1255,11 @@
 		<xs:attribute name="mapping" type="xs:string" />
 		<xs:attribute name="storageType" type="StorageType" />
 	</xs:complexType>
+	<xs:simpleType name="pointd">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="profile">
 		<xs:sequence>
 			<xs:choice>
@@ -1380,7 +1385,7 @@
 				</xs:element>
 				<xs:element name="density">
 					<xs:complexType>
-						<xs:attribute name="value" use="required" type="geometry" />
+						<xs:attribute name="value" use="required" type="pointd" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="depth">
@@ -2122,9 +2127,9 @@
 				<xs:element name="rePage" type="empty" />
 				<xs:element name="resample">
 					<xs:complexType>
-						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="resolutionX" type="int" />
-						<xs:attribute name="resolutionY" type="int" />
+						<xs:attribute name="density" type="pointd" />
+						<xs:attribute name="resolutionX" type="double" />
+						<xs:attribute name="resolutionY" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="resize">

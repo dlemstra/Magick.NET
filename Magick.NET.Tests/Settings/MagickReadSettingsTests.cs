@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
 
 				collection.Read(Files.RoseSparkleGIF, settings);
 
-				Assert.AreEqual(150, collection[0].Density.Width);
+				Assert.AreEqual(150, collection[0].Density.X);
 
 				settings = new MagickReadSettings();
 				settings.FrameIndex = 1;
@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
 
 				image.Read(Files.SnakewarePNG, settings);
 
-				Assert.AreEqual(300, image.Density.Width);
+				Assert.AreEqual(300, image.Density.X);
 
 				settings = null;
 				image.Read(Files.ImageMagickJPG, settings);

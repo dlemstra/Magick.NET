@@ -108,6 +108,9 @@
 // Define to use the Liquid Rescale library
 #define MAGICKCORE_LQR_DELEGATE
 
+// Define to use the OpenEXR library
+#define MAGICKCORE_OPENEXR_DELEGATE
+
 // Define to use the Pango/Cairo library
 #define MAGICKCORE_PANGOCAIRO_DELEGATE
 

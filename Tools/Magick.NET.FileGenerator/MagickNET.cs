@@ -79,6 +79,8 @@ namespace Magick.NET.FileGenerator
 					return "color";
 				case "MagickGeometry^":
 					return "geometry";
+				case "PointD":
+					return "pointd";
 				case "array<double>^":
 				case "Coordinate":
 				case "Drawable^":
@@ -370,6 +372,7 @@ namespace Magick.NET.FileGenerator
 				case "Nullable<DitherMethod>":
 				case "Nullable<MagickFormat>":
 				case "Percentage":
+				case "PointD":
 					return name;
 				case "Byte[]":
 				case "Color":

@@ -35,11 +35,11 @@ namespace ImageMagick
 		//===========================================================================================
 		static MagickException^ Write(Magick::Image* image, String^ fileName);
 		//===========================================================================================
-		static MagickException^ Write(std::list<Magick::Image>* imageList, Magick::Blob* blob);
+		static MagickException^ Write(std::vector<Magick::Image>* imageList, Magick::Blob* blob);
 		//===========================================================================================
-		static MagickException^ Write(std::list<Magick::Image>* imageList, Stream^ stream);
+		static MagickException^ Write(std::vector<Magick::Image>* imageList, Stream^ stream);
 		//===========================================================================================
-		static MagickException^ Write(std::list<Magick::Image>* imageList, String^ fileName);
+		static MagickException^ Write(std::vector<Magick::Image>* imageList, String^ fileName);
 		//===========================================================================================
 	};
 	//==============================================================================================

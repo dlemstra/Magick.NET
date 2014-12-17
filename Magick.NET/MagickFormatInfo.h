@@ -36,7 +36,7 @@ namespace ImageMagick
 		//===========================================================================================
 		MagickFormatInfo() {};
 		//===========================================================================================
-		static void AddStealthCoder(std::list<Magick::CoderInfo>* coderList, std::string name);
+		static void AddStealthCoder(std::vector<Magick::CoderInfo>* coderList, std::string name);
 		//===========================================================================================
 		static Collection<MagickFormatInfo^>^ LoadFormats();
 		//===========================================================================================

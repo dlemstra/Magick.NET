@@ -36,11 +36,11 @@ namespace ImageMagick
 			throw exception;
 	}
 	//==============================================================================================
-	IEnumerable<MagickImageInfo^>^ MagickImageInfo::Enumerate(std::list<Magick::Image>* images)
+	IEnumerable<MagickImageInfo^>^ MagickImageInfo::Enumerate(std::vector<Magick::Image>* images)
 	{
 		Collection<MagickImageInfo^>^ result = gcnew Collection<MagickImageInfo^>();
 
-		for (std::list<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
+		for (std::vector<Magick::Image>::iterator iter = images->begin(), end = images->end(); iter != end; ++iter)
 		{
 			MagickImageInfo^ info = gcnew MagickImageInfo();
 			info->Initialize(&*iter);
@@ -263,7 +263,7 @@ namespace ImageMagick
 	//==============================================================================================
 	IEnumerable<MagickImageInfo^>^ MagickImageInfo::ReadCollection(array<Byte>^ data)
 	{
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		try
 		{
 			HandleException(MagickReader::Read(images, data, CreateReadSettings()));
@@ -277,7 +277,7 @@ namespace ImageMagick
 	//==============================================================================================
 	IEnumerable<MagickImageInfo^>^ MagickImageInfo::ReadCollection(String^ fileName)
 	{
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		try
 		{
 			HandleException(MagickReader::Read(images, fileName, CreateReadSettings()));
@@ -291,7 +291,7 @@ namespace ImageMagick
 	//==============================================================================================
 	IEnumerable<MagickImageInfo^>^ MagickImageInfo::ReadCollection(Stream^ stream)
 	{
-		std::list<Magick::Image>* images = new std::list<Magick::Image>();
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
 		try
 		{
 			HandleException(MagickReader::Read(images, stream, CreateReadSettings()));

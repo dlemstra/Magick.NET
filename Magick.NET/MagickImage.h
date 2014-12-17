@@ -456,10 +456,10 @@ namespace ImageMagick
 		///<summary>
 		/// Vertical and horizontal resolution in pixels of the image.
 		///</summary>
-		property MagickGeometry^ Density
+		property PointD Density
 		{
-			MagickGeometry^ get();
-			void set(MagickGeometry^ value);
+			PointD get();
+			void set(PointD value);
 		}
 		///==========================================================================================
 		///<summary>
@@ -2965,14 +2965,14 @@ namespace ImageMagick
 		///<param name="resolutionX">The new X resolution.</param>
 		///<param name="resolutionY">The new Y resolution.</param>
 		///<exception cref="MagickException"/>
-		void Resample(int resolutionX, int resolutionY);
+		void Resample(double resolutionX, double resolutionY);
 		///==========================================================================================
 		///<summary>
 		/// Resize image in terms of its pixel size.
 		///</summary>
-		///<param name="geometry">The geometry to use.</param>
+		///<param name="density">The density to use.</param>
 		///<exception cref="MagickException"/>
-		void Resample(MagickGeometry^ geometry);
+		void Resample(PointD density);
 		///==========================================================================================
 		///<summary>
 		/// Resize image to specified size.

@@ -44,7 +44,7 @@ namespace ImageMagick
 		//===========================================================================================
 		static void HandleException(MagickException^ exception);
 		//===========================================================================================
-		static IEnumerable<MagickImageInfo^>^ Enumerate(std::list<Magick::Image>* images);
+		static IEnumerable<MagickImageInfo^>^ Enumerate(std::vector<Magick::Image>* images);
 		//===========================================================================================
 		MagickException^ Initialize(Magick::Image* image);
 		//===========================================================================================

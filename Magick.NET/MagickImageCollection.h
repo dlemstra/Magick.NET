@@ -45,13 +45,13 @@ namespace ImageMagick
 			Clear();
 		}
 		//===========================================================================================
-		void AddFrom(std::list<Magick::Image>* images);
+		void AddFrom(std::vector<Magick::Image>* images);
 		//===========================================================================================
 		MagickImage^ Append(bool vertically);
 		//===========================================================================================
-		void CopyFrom(std::list<Magick::Image>* images);
+		void CopyFrom(std::vector<Magick::Image>* images);
 		//===========================================================================================
-		void CopyTo(std::list<Magick::Image>* images);
+		void CopyTo(std::vector<Magick::Image>* images);
 		//===========================================================================================
 		void HandleException(const Magick::Exception& exception);
 		//===========================================================================================
@@ -69,7 +69,7 @@ namespace ImageMagick
 		//===========================================================================================
 	internal:
 		//===========================================================================================
-		static List<MagickImage^>^ CreateList(std::list<Magick::Image>* images);
+		static List<MagickImage^>^ CreateList(std::vector<Magick::Image>* images);
 		//===========================================================================================
 		void Merge(Magick::Image* image, LayerMethod method);
 		//===========================================================================================

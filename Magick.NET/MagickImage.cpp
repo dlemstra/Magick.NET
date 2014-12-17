@@ -881,19 +881,16 @@ namespace ImageMagick
 		Value->debug(value);
 	} 
 	//==============================================================================================
-	MagickGeometry^ MagickImage::Density::get()
+	PointD MagickImage::Density::get()
 	{
-		return gcnew MagickGeometry(Value->density());
+		return PointD(Value->density());
 	}
 	//==============================================================================================
-	void MagickImage::Density::set(MagickGeometry^ value)
+	void MagickImage::Density::set(PointD value)
 	{
-		if (value == nullptr)
-			return;
-
-		const Magick::Geometry* geometry = value->CreateGeometry();
-		Value->density(*geometry);
-		delete geometry;
+		const Magick::Point* density = value.CreatePoint();
+		Value->density(*density);
+		delete density;
 
 		if (ResolutionUnits == Resolution::Undefined)
 			ResolutionUnits = Resolution::PixelsPerInch;
@@ -1173,12 +1170,12 @@ namespace ImageMagick
 	{
 		List<String^>^ names = gcnew List<String^>();
 
-		std::list<std::string> *profileNames = new std::list<std::string>();
+		std::vector<std::string> *profileNames = new std::vector<std::string>();
 
 		try
 		{
 			Magick::profileNames(profileNames, Value);
-			for (std::list<std::string>::iterator iter = profileNames->begin(), end = profileNames->end(); iter != end; ++iter)
+			for (std::vector<std::string>::iterator iter = profileNames->begin(), end = profileNames->end(); iter != end; ++iter)
 			{
 				names->Add(Marshaller::Marshal(*iter));
 			}
@@ -2656,7 +2653,7 @@ namespace ImageMagick
 	{
 		Throw::IfNull("geometry", geometry);
 
-		std::list<Magick::Image> *images = new std::list<Magick::Image>();
+		std::vector<Magick::Image> *images = new std::vector<Magick::Image>();
 		const Magick::Geometry *cropGeometry = geometry->CreateGeometry();
 
 		try
@@ -2779,7 +2776,7 @@ namespace ImageMagick
 
 		try
 		{
-			std::list<Magick::Drawable> drawList;
+			std::vector<Magick::Drawable> drawList;
 			IEnumerator<Drawable^>^ enumerator = drawables->GetEnumerator();
 			while(enumerator->MoveNext())
 			{
@@ -4315,21 +4312,21 @@ namespace ImageMagick
 		Page = gcnew MagickGeometry(0, 0);
 	}
 	//==============================================================================================
-	void MagickImage::Resample(int resolutionX, int resolutionY)
+	void MagickImage::Resample(double resolutionX, double resolutionY)
 	{
-		MagickGeometry^ geometry = gcnew MagickGeometry(resolutionX, resolutionY);
-		Resize(geometry);
+		PointD density = PointD(resolutionX, resolutionY);
+		Resample(density);
 	}
 	//==============================================================================================
-	void MagickImage::Resample(MagickGeometry^ geometry)
+	void MagickImage::Resample(PointD density)
 	{
-		Throw::IfNull("geometry", geometry);
+		Throw::IfNull("density", density);
 
-		const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+		const Magick::Point* magickDensity = density.CreatePoint();
 
 		try
 		{
-			Value->resample(*magickGeometry);
+			Value->resample(*magickDensity);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -4337,7 +4334,7 @@ namespace ImageMagick
 		}
 		finally
 		{
-			delete magickGeometry;
+			delete magickDensity;
 		}
 	}
 	//==============================================================================================
@@ -4558,7 +4555,7 @@ namespace ImageMagick
 	//==============================================================================================
 	IEnumerable<MagickImage^>^ MagickImage::Separate(Channels channels)
 	{
-		std::list<Magick::Image> *images = new std::list<Magick::Image>();
+		std::vector<Magick::Image> *images = new std::vector<Magick::Image>();
 
 		try
 		{
