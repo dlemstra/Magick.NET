@@ -33,6 +33,8 @@ namespace ImageMagick
 		Disassociate = Magick::DisassociateAlphaChannel,
 		Extract = Magick::ExtractAlphaChannel,
 		Opaque = Magick::OpaqueAlphaChannel,
+		Off = Magick::OffAlphaChannel,
+		On = Magick::OnAlphaChannel,
 		Remove = Magick::RemoveAlphaChannel,
 		Set = Magick::SetAlphaChannel,
 		Shape = Magick::ShapeAlphaChannel,

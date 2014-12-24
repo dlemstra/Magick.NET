@@ -53,6 +53,8 @@
 					<xs:enumeration value="Disassociate" />
 					<xs:enumeration value="Discrete" />
 					<xs:enumeration value="Extract" />
+					<xs:enumeration value="Off" />
+					<xs:enumeration value="On" />
 					<xs:enumeration value="Opaque" />
 					<xs:enumeration value="Remove" />
 					<xs:enumeration value="Set" />
