@@ -381,17 +381,6 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Associate a clip mask with the image. The clip mask must be the same dimensions as the
-		/// image. Pass null to unset an existing clip mask.
-		///</summary>
-		[ObsoleteAttribute("Use the Mask property instead, this property will be removed in the next release.")]
-		property MagickImage^ ClipMask
-		{
-			MagickImage^ get();
-			void set(MagickImage^ value);
-		}
-		///==========================================================================================
-		///<summary>
 		/// Colors within this distance are considered equal.
 		///</summary>
 		property Percentage ColorFuzz

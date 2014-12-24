@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 7.0.0.0008:
+  - Removed ClipMask property, use Mask instead.
+
 Magick.NET 7.0.0.0007:
   - Renamed MagickImage.GetOption to GetDefine.
 

@@ -751,29 +751,6 @@ namespace ImageMagick
 		return Value->classType((Magick::ClassType)value);
 	}
 	//==============================================================================================
-	MagickImage^ MagickImage::ClipMask::get()
-	{
-		Magick::Image clipMask = Value->mask();
-		if (!clipMask.isValid())
-			return nullptr;
-
-		return gcnew MagickImage(clipMask);
-	}
-	//==============================================================================================
-	void MagickImage::ClipMask::set(MagickImage^ value)
-	{
-		if (value == nullptr)
-		{
-			Magick::Image* image = new Magick::Image();
-			Value->mask(*image);
-			delete image;
-		}
-		else
-		{
-			Value->mask(*value->Value);
-		}
-	}
-	//==============================================================================================
 	Percentage MagickImage::ColorFuzz::get()
 	{
 		return Percentage::FromQuantum(Value->colorFuzz());
