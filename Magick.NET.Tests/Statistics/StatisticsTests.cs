@@ -92,8 +92,8 @@ namespace Magick.NET.Tests
 #endif
 
 			Assert.IsNotNull(statistics.Composite());
+			Assert.IsNotNull(statistics.GetChannel(PixelChannel.Alpha));
 
-			Assert.IsNull(statistics.GetChannel(PixelChannel.Alpha));
 			Assert.IsNull(statistics.GetChannel(PixelChannel.Green));
 			Assert.IsNull(statistics.GetChannel(PixelChannel.Blue));
 			Assert.IsNull(statistics.GetChannel(PixelChannel.Black));

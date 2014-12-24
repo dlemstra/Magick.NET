@@ -257,7 +257,35 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_Composite()
+		public void Test_Composite_ChangeMask()
+		{
+			using (MagickImage background = new MagickImage("xc:red", 100, 100))
+			{
+				background.BackgroundColor = Color.White;
+				background.Extent(200, 100);
+
+				Drawable[] drawables = new Drawable[]
+				{
+					new DrawablePointSize(50),
+					new DrawableText(135, 70, "X")
+				};
+
+				using (MagickImage image = background.Clone())
+				{
+					image.Draw(drawables);
+					image.Composite(background, Gravity.Center, CompositeOperator.ChangeMask);
+
+					using (MagickImage result = new MagickImage(MagickColor.Transparent, 200, 100))
+					{
+						result.Draw(drawables);
+						Assert.AreEqual(0.073, result.Compare(image, ErrorMetric.RootMeanSquared), 0.001);
+					}
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Composite_Blur()
 		{
 			using (MagickImage image = new MagickImage("logo:"))
 			{
@@ -799,6 +827,26 @@ namespace Magick.NET.Tests
 				Assert.AreEqual(Resolution.PixelsPerInch, image.ResolutionUnits);
 				Assert.AreEqual(72, image.ResolutionX);
 				Assert.AreEqual(72, image.ResolutionY);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Scale()
+		{
+			using (MagickImage image = new MagickImage(Files.Circle))
+			{
+				MagickColor color = Color.FromArgb(159, 255, 255, 255);
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					ColorAssert.AreEqual(color, pixels.GetPixel(image.Width / 2, image.Height / 2).ToColor());
+				}
+
+				image.Scale((Percentage)400);
+
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					ColorAssert.AreEqual(color, pixels.GetPixel(image.Width / 2, image.Height / 2).ToColor());
+				}
 			}
 		}
 		//===========================================================================================
