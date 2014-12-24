@@ -233,6 +233,15 @@ namespace ImageMagick
 		/// Initializes a new instance of the MagickImage class using the specified filename
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<param name="width">The width.</param>
+		///<param name="height">The height.</param>
+		///<exception cref="MagickException"/>
+		MagickImage(String^ fileName, int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the MagickImage class using the specified filename
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
 		///<param name="readSettings">The settings to use when reading the image.</param>
 		///<exception cref="MagickException"/>
 		MagickImage(String^ fileName, MagickReadSettings^ readSettings);
@@ -2893,12 +2902,32 @@ namespace ImageMagick
 		MagickWarningException^ Read(FileInfo^ file, MagickReadSettings^ readSettings);
 		///==========================================================================================
 		///<summary>
+		/// Read single vector image frame.
+		///</summary>
+		///<param name="color">The color to fill the image with.</param>
+		///<param name="width">The width.</param>
+		///<param name="height">The height.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ Read(MagickColor^ color, int width, int height);
+		///==========================================================================================
+		///<summary>
 		/// Read single image frame.
 		///</summary>
 		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
 		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
 		///<exception cref="MagickException"/>
 		MagickWarningException^ Read(String^ fileName);
+		///==========================================================================================
+		///<summary>
+		/// Read single vector image frame.
+		///</summary>
+		///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+		///<param name="width">The width.</param>
+		///<param name="height">The height.</param>
+		///<returns>If a warning was raised while reading the image that warning will be returned.</returns>
+		///<exception cref="MagickException"/>
+		MagickWarningException^ Read(String^ fileName, int width, int height);
 		///==========================================================================================
 		///<summary>
 		/// Read single vector image frame.

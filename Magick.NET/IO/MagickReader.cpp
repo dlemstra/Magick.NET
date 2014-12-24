@@ -118,10 +118,58 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	MagickException^ MagickReader::Read(Magick::Image* image, MagickColor^ color, int width, int height)
+	{
+		Throw::IfNull("color", color);
+
+		const Magick::Geometry* geometry = new Magick::Geometry(width, height);
+		const Magick::Color* background = color->CreateColor();
+		try
+		{
+			image->read(*geometry, "xc:" + (std::string)*background);
+
+			return nullptr;
+		}
+		catch (Magick::Exception& exception)
+		{
+			return MagickException::Create(exception);
+		}
+		finally
+		{
+			delete geometry;
+			delete background;
+		}
+	}
+	//==============================================================================================
 	MagickException^ MagickReader::Read(Magick::Image* image, Stream^ stream,
 		MagickReadSettings^ readSettings)
 	{
 		return Read(image, Read(stream), readSettings);
+	}
+	//==============================================================================================
+	MagickException^ MagickReader::Read(Magick::Image* image, String^ fileName, int width, int height)
+	{
+		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
+		Throw::IfInvalidFileName(filePath);
+
+		const Magick::Geometry* geometry = new Magick::Geometry(width, height);
+		try
+		{
+			std::string imageSpec;
+			Marshaller::Marshal(filePath, imageSpec);
+
+			image->read(*geometry, imageSpec);
+
+			return nullptr;
+		}
+		catch (Magick::Exception& exception)
+		{
+			return MagickException::Create(exception);
+		}
+		finally
+		{
+			delete geometry;
+		}
 	}
 	//==============================================================================================
 	MagickException^ MagickReader::Read(Magick::Image* image, String^ fileName,

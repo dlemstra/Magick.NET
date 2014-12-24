@@ -44,11 +44,17 @@ namespace ImageMagick
 		static MagickException^ Read(Magick::Image* image, array<Byte>^ bytes,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
+		static MagickException^ Read(Magick::Image* image, MagickColor^ color,
+			int width, int height);
+		//===========================================================================================
 		static MagickException^ Read(Magick::Image* image, Stream^ stream,
 			MagickReadSettings^ readSettings);
 		//===========================================================================================
 		static MagickException^ Read(Magick::Image* image, String^ fileName,
 			MagickReadSettings^ readSettings);
+		//===========================================================================================
+		static MagickException^ Read(Magick::Image* image, String^ fileName,
+			int width, int height);
 		//===========================================================================================
 		static MagickException^ Read(std::vector<Magick::Image>* imageList, array<Byte>^ bytes,
 			MagickReadSettings^ readSettings);
