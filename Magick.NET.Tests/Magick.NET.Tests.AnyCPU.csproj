@@ -68,6 +68,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Coders\CodersTests.cs" />
+    <Compile Include="Coders\PsdTests.cs" />
     <Compile Include="ColorAssert.cs" />
     <Compile Include="Colors\Base\ColorBaseTests.cs">
       <SubType>Code</SubType>
