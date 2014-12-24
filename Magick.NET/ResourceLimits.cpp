@@ -27,6 +27,16 @@ namespace ImageMagick
 		Magick::ResourceLimits::disk(limit);
 	}
 	//==============================================================================================
+	Magick::MagickSizeType ResourceLimits::Height::get()
+	{
+		return Magick::ResourceLimits::height();
+	}
+	//==============================================================================================
+	void ResourceLimits::Height::set(Magick::MagickSizeType limit)
+	{
+		Magick::ResourceLimits::height(limit);
+	}
+	//==============================================================================================
 	Magick::MagickSizeType ResourceLimits::Memory::get()
 	{
 		return Magick::ResourceLimits::area();
@@ -46,6 +56,26 @@ namespace ImageMagick
 	void ResourceLimits::Thread::set(Magick::MagickSizeType limit)
 	{
 		Magick::ResourceLimits::thread(limit);
+	}
+	//==============================================================================================
+	Magick::MagickSizeType ResourceLimits::Throttle::get()
+	{
+		return Magick::ResourceLimits::throttle();
+	}
+	//==============================================================================================
+	void ResourceLimits::Throttle::set(Magick::MagickSizeType limit)
+	{
+		Magick::ResourceLimits::throttle(limit);
+	}
+	//==============================================================================================
+	Magick::MagickSizeType ResourceLimits::Width::get()
+	{
+		return Magick::ResourceLimits::width();
+	}
+	//==============================================================================================
+	void ResourceLimits::Width::set(Magick::MagickSizeType limit)
+	{
+		Magick::ResourceLimits::width(limit);
 	}
 	//==============================================================================================
 }

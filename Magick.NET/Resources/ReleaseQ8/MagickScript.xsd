@@ -677,6 +677,7 @@
 					<xs:enumeration value="Ept2" />
 					<xs:enumeration value="Ept3" />
 					<xs:enumeration value="Erf" />
+					<xs:enumeration value="Exr" />
 					<xs:enumeration value="Fax" />
 					<xs:enumeration value="Fits" />
 					<xs:enumeration value="Fractal" />
@@ -708,6 +709,7 @@
 					<xs:enumeration value="Jnx" />
 					<xs:enumeration value="Jp2" />
 					<xs:enumeration value="Jpc" />
+					<xs:enumeration value="Jpe" />
 					<xs:enumeration value="Jpeg" />
 					<xs:enumeration value="Jpg" />
 					<xs:enumeration value="Jpm" />
@@ -1341,7 +1343,6 @@
 						<xs:attribute name="value" use="required" type="ClassType" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="clipMask" type="image" />
 				<xs:element name="colorFuzz">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="double" />

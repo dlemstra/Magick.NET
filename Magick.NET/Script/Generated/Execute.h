@@ -22,7 +22,6 @@ void ExecuteBlackPointCompensation(XmlElement^ element, MagickImage^ image);
 void ExecuteBorderColor(XmlElement^ element, MagickImage^ image);
 void ExecuteBoxColor(XmlElement^ element, MagickImage^ image);
 void ExecuteClassType(XmlElement^ element, MagickImage^ image);
-void ExecuteClipMask(XmlElement^ element, MagickImage^ image);
 void ExecuteColorFuzz(XmlElement^ element, MagickImage^ image);
 void ExecuteColorMapSize(XmlElement^ element, MagickImage^ image);
 void ExecuteColorSpace(XmlElement^ element, MagickImage^ image);

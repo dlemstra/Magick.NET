@@ -36,6 +36,16 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// The maximum width of an image.
+		///</summary>
+		[CLSCompliantAttribute(false)]
+		static property Magick::MagickSizeType Height
+		{
+			Magick::MagickSizeType get();
+			void set(Magick::MagickSizeType limit);
+		}
+		///==========================================================================================
+		///<summary>
 		/// Pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
 		/// operations are to/from disk.
 		///</summary>
@@ -51,6 +61,26 @@ namespace ImageMagick
 		///</summary>
 		[CLSCompliantAttribute(false)]
 		static property Magick::MagickSizeType Thread
+		{
+			Magick::MagickSizeType get();
+			void set(Magick::MagickSizeType limit);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Periodically yield the CPU for at least the time specified in milliseconds.
+		///</summary>
+		[CLSCompliantAttribute(false)]
+		static property Magick::MagickSizeType Throttle
+		{
+			Magick::MagickSizeType get();
+			void set(Magick::MagickSizeType limit);
+		}
+		///==========================================================================================
+		///<summary>
+		/// The maximum width of an image.
+		///</summary>
+		[CLSCompliantAttribute(false)]
+		static property Magick::MagickSizeType Width
 		{
 			Magick::MagickSizeType get();
 			void set(Magick::MagickSizeType limit);

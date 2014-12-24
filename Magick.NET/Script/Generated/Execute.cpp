@@ -324,11 +324,8 @@ namespace ImageMagick
 							}
 							case 'i':
 							{
-								if (element->Name->Length == 8)
-								{
-									ExecuteClipMask(element, image);
-									return;
-								}
+								ExecuteClip(element, image);
+								return;
 							}
 							case 'u':
 							{
@@ -1809,10 +1806,6 @@ namespace ImageMagick
 	void MagickScript::ExecuteClassType(XmlElement^ element, MagickImage^ image)
 	{
 		image->ClassType = _Variables->GetValue<ClassType>(element, "value");
-	}
-	void MagickScript::ExecuteClipMask(XmlElement^ element, MagickImage^ image)
-	{
-		image->ClipMask = CreateMagickImage(element);
 	}
 	void MagickScript::ExecuteColorFuzz(XmlElement^ element, MagickImage^ image)
 	{
