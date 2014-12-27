@@ -1,7 +1,11 @@
 Breaking changes.
 
+Magick.NET 7.0.0.0009:
+  - Changed type of MagickReadSettings.Density from MagickGeometry to PointD.
+
 Magick.NET 7.0.0.0008:
-  - Removed ClipMask property, use Mask instead.
+  - Removed MagickImage.ClipMask property, use Mask instead.
+  - Changed type of MagickImage.Density and MagickImage.Resample from MagickGeometry/int to PointD/double.
 
 Magick.NET 7.0.0.0007:
   - Renamed MagickImage.GetOption to GetDefine.

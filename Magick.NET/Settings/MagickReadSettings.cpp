@@ -39,16 +39,16 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickReadSettings::ApplyDensity(MagickCore::ImageInfo *imageInfo)
 	{
-		if (Density == nullptr)
+		if (!Density.HasValue)
 			return;
 
 		if (imageInfo->density != (char*)NULL)
 			imageInfo->density=MagickCore::DestroyString(imageInfo->density);
 
-		const Magick::Geometry* geometry = Density->CreateGeometry();
-		std::string geometryStr = *geometry;
-		MagickCore::CloneString(&imageInfo->density, geometryStr.c_str());
-		delete geometry;
+		const Magick::Point* point = Density.Value.CreatePoint();
+		std::string pointStr = *point;
+		MagickCore::CloneString(&imageInfo->density, pointStr.c_str());
+		delete point;
 	}
 	//==============================================================================================
 	void MagickReadSettings::ApplyDimensions(MagickCore::ImageInfo *imageInfo)

@@ -13,7 +13,7 @@
 //=================================================================================================
 #pragma once
 
-#include "..\Arguments\MagickGeometry.h"
+#include "..\Arguments\PointD.h"
 #include "..\Enums\ColorSpace.h"
 #include "..\Enums\MagickFormat.h"
 #include "PixelStorageSettings.h"
@@ -73,7 +73,7 @@ namespace ImageMagick
 		///<summary>
 		/// Vertical and horizontal resolution in pixels.
 		///</summary>
-		property MagickGeometry^ Density;
+		property Nullable<PointD> Density;
 		///==========================================================================================
 		///<summary>
 		/// The format of the image.

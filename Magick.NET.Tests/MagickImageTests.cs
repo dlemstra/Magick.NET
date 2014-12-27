@@ -820,6 +820,20 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Resample()
+		{
+			using (MagickImage image = new MagickImage("xc:red", 100, 100))
+			{
+				image.Resample(new PointD(300));
+
+				Assert.AreEqual(300, image.ResolutionX);
+				Assert.AreEqual(300, image.ResolutionY);
+				Assert.AreNotEqual(100, image.Width);
+				Assert.AreNotEqual(100, image.Height);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Resolution()
 		{
 			using (MagickImage image = new MagickImage(Files.EightBimTIF))

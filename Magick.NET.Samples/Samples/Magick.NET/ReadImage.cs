@@ -126,7 +126,7 @@ namespace RootNamespace.Samples.MagickNET
 
 			// Read pdf with custom density.
 			MagickReadSettings settings = new MagickReadSettings();
-			settings.Density = new MagickGeometry(144, 144);
+			settings.Density = new PointD(144, 144);
 
 			using (MagickImageCollection collection = new MagickImageCollection(SampleFiles.SnakewarePdf, settings))
 			{
