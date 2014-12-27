@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -35,10 +36,17 @@ namespace Magick.NET.Tests
 			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
 			{
 				Assert.AreEqual(3, collection.Count);
+
 				collection.AddRange(Files.RoseSparkleGIF);
 				Assert.AreEqual(6, collection.Count);
+
 				collection.AddRange(collection);
 				Assert.AreEqual(12, collection.Count);
+				
+				List<MagickImage> images = new List<MagickImage>();
+				images.Add(new MagickImage("xc:red", 100, 100));
+				collection.AddRange(images);
+				Assert.AreEqual(13, collection.Count);
 			}
 		}
 		//===========================================================================================

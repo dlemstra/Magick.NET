@@ -333,6 +333,17 @@ namespace ImageMagick
 		return _ReadWarning;
 	}
 	//==============================================================================================
+	void MagickImageCollection::AddRange(IEnumerable<MagickImage^>^ images)
+	{
+		Throw::IfNull("images", images);
+
+		IEnumerator<MagickImage^>^ enumerator = images->GetEnumerator();
+		while(enumerator->MoveNext())
+		{
+			Add(enumerator->Current);
+		}
+	}
+	//==============================================================================================
 	void MagickImageCollection::AddRange(MagickImageCollection^ images)
 	{
 		Throw::IfNull("images", images);
