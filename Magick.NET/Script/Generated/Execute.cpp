@@ -5297,7 +5297,7 @@ namespace ImageMagick
 			return nullptr;
 		MagickReadSettings^ result = gcnew MagickReadSettings();
 		result->ColorSpace = _Variables->GetValue<Nullable<ColorSpace>>(element, "colorSpace");
-		result->Density = _Variables->GetValue<PointD>(element, "density");
+		result->Density = _Variables->GetValue<Nullable<PointD>>(element, "density");
 		result->Format = _Variables->GetValue<Nullable<MagickFormat>>(element, "format");
 		result->FrameCount = _Variables->GetValue<Nullable<Int32>>(element, "frameCount");
 		result->FrameIndex = _Variables->GetValue<Nullable<Int32>>(element, "frameIndex");

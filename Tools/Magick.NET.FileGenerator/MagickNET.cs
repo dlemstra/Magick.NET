@@ -369,6 +369,7 @@ namespace Magick.NET.FileGenerator
 				case "Coordinate":
 				case "Nullable<Int32>":
 				case "Nullable<ColorSpace>":
+				case "Nullable<PointD>":
 				case "Nullable<DitherMethod>":
 				case "Nullable<MagickFormat>":
 				case "Percentage":
@@ -379,6 +380,7 @@ namespace Magick.NET.FileGenerator
 				case "ColorMatrix":
 				case "ConvolveMatrix":
 				case "DrawableAffine":
+				case "IEnumerable<MagickImage>":
 				case "MagickImage[]":
 				case "MagickImageCollection":
 				case "Matrix":

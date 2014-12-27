@@ -1175,7 +1175,7 @@
 						</xs:element>
 					</xs:sequence>
 					<xs:attribute name="colorSpace" type="ColorSpace" />
-					<xs:attribute name="density" type="geometry" />
+					<xs:attribute name="density" type="pointd" />
 					<xs:attribute name="format" type="MagickFormat" />
 					<xs:attribute name="frameCount" type="int" />
 					<xs:attribute name="frameIndex" type="int" />

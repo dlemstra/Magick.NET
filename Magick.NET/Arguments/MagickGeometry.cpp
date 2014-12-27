@@ -102,7 +102,7 @@ namespace ImageMagick
 		Marshaller::Marshal(value, geometrySpec);
 
 		Magick::Geometry geometry = Magick::Geometry(geometrySpec);
-		Throw::IfFalse("geometry", geometry.isValid(), "Invalid geometry specified.");
+		Throw::IfFalse("value", geometry.isValid(), "Invalid geometry specified.");
 
 		Initialize(geometry);
 	}

@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "..\Arguments\MagickGeometry.h"
+#include "..\Arguments\PointD.h"
 #include "..\Colors\MagickColor.h"
 #include "EnumHelper.h"
 #include "MagickConverter.h"
@@ -40,6 +41,9 @@ namespace ImageMagick
 		if (type->IsEnum)
 			return (T)EnumHelper::Parse(type, value);
 
+		if (type == bool::typeid)
+			return (T)(value == "1" || value == "true");
+
 		if (type == MagickColor::typeid)
 			return (T)gcnew MagickColor(value);
 
@@ -49,8 +53,8 @@ namespace ImageMagick
 		if (type == Percentage::typeid)
 			return (T)gcnew Percentage((double)Convert::ChangeType(value, double::typeid, CultureInfo::InvariantCulture));
 
-		if (type == bool::typeid)
-			return (T)(value == "1" || value == "true");
+		if (type == PointD::typeid)
+			return (T)gcnew PointD(value);
 
 		return (T)Convert::ChangeType(value, type, CultureInfo::InvariantCulture);
 	}

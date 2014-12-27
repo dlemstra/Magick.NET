@@ -33,6 +33,8 @@ namespace ImageMagick
 		//===========================================================================================
 		PointD(Magick::Point point);
 		//===========================================================================================
+		void Initialize(Magick::Point point);
+		//===========================================================================================
 		const Magick::Point* CreatePoint();
 		//===========================================================================================
 	public:
@@ -48,8 +50,13 @@ namespace ImageMagick
 		///</summary>
 		///<param name="x">The x.</param>
 		///<param name="y">The y.</param>
-		//===========================================================================================
 		PointD(double x, double y);
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the PointD class using the specified string.
+		///</summary>
+		///<param name="value">PointD specifications in the form: &lt;x&gt;x&lt;y&gt; (where x, y are numbers)</param>
+		PointD(String^ value);
 		///==========================================================================================
 		///<summary>
 		/// The x-coordinate of this Point.

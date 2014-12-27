@@ -19,6 +19,11 @@ namespace ImageMagick
 	//==============================================================================================
 	PointD::PointD(Magick::Point point)
 	{
+		Initialize(point);
+	}
+	//==============================================================================================
+	void PointD::Initialize(Magick::Point point)
+	{
 		_X = point.x();
 		_Y = point.y();
 	}
@@ -38,6 +43,19 @@ namespace ImageMagick
 	{
 		_X = x;
 		_Y = y;
+	}
+	//==============================================================================================
+	PointD::PointD(String^ value)
+	{
+		Throw::IfNullOrEmpty("value", value);
+
+		std::string pointSpec;
+		Marshaller::Marshal(value, pointSpec);
+
+		Magick::Point point = Magick::Point(pointSpec);
+		Throw::IfFalse("value", point.isValid(), "Invalid point specified.");
+
+		Initialize(point);
 	}
 	//==============================================================================================
 	double PointD::X::get()
