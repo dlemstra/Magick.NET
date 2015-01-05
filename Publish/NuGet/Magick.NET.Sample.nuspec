@@ -11,7 +11,7 @@
 		<iconUrl>http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=26438&amp;itemId=581988</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>This package contains samples that demonstrate the use of the Magick.NET library.</description>
-		<copyright>Copyright 2014</copyright>
+		<copyright>Copyright 2014-2015 Dirk Lemstra</copyright>
 		<tags>ImageMagick, Magick.NET</tags>
 		<dependencies>
 			<dependency id="" version="" />
