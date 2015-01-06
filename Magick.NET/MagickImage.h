@@ -1007,9 +1007,19 @@ namespace ImageMagick
 		///</summary>
 		///<param name="width">The width of the pixel neighborhood.</param>
 		///<param name="height">The height of the pixel neighborhood.</param>
-		///<param name="offset">Constant to subtract from pixel neighborhood mean.</param>
+		///<param name="bias">Constant to subtract from pixel neighborhood mean.</param>
 		///<exception cref="MagickException"/>
-		void AdaptiveThreshold(int width, int height, int offset);
+		QUANTUM_CLS_COMPLIANT void AdaptiveThreshold(int width, int height, Magick::Quantum bias);
+		///==========================================================================================
+		///<summary>
+		/// Local adaptive threshold image.
+		/// http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm
+		///</summary>
+		///<param name="width">The width of the pixel neighborhood.</param>
+		///<param name="height">The height of the pixel neighborhood.</param>
+		///<param name="bias">Constant to subtract from pixel neighborhood mean.</param>
+		///<exception cref="MagickException"/>
+		void AdaptiveThreshold(int width, int height, Percentage bias);
 		///==========================================================================================
 		///<summary>
 		/// Add noise to image with the specified noise type.

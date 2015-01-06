@@ -46,7 +46,7 @@ namespace ImageMagick
 		return Percentage((value / (double)Quantum::Max) * 100);
 	}
 	//==============================================================================================
-	double Percentage::ToQuantum()
+	Magick::Quantum Percentage::ToQuantum()
 	{
 		return (double)Quantum::Max * (_Value / 100);
 	}

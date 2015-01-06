@@ -1567,16 +1567,21 @@ namespace ImageMagick
 		AdaptiveThreshold(width, height, 0);
 	}
 	//==============================================================================================
-	void MagickImage::AdaptiveThreshold(int width, int height, int offset)
+	void MagickImage::AdaptiveThreshold(int width, int height, Magick::Quantum bias)
 	{
 		try
 		{
-			Value->adaptiveThreshold(width, height, offset);
+			Value->adaptiveThreshold(width, height, bias);
 		}
 		catch(Magick::Exception& exception)
 		{
 			HandleException(exception);
 		}
+	}
+	//==============================================================================================
+	void MagickImage::AdaptiveThreshold(int width, int height, Percentage bias)
+	{
+		AdaptiveThreshold(width, height, bias.ToQuantum());
 	}
 	//==============================================================================================
 	void MagickImage::AddNoise(NoiseType noiseType)

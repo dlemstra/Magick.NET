@@ -2065,7 +2065,7 @@ namespace ImageMagick
 		if (OnlyContains(arguments, "width", "height"))
 			image->AdaptiveThreshold((int)arguments["width"], (int)arguments["height"]);
 		else if (OnlyContains(arguments, "width", "height", "offset"))
-			image->AdaptiveThreshold((int)arguments["width"], (int)arguments["height"], (int)arguments["offset"]);
+			image->AdaptiveThreshold((int)arguments["width"], (int)arguments["height"], (Magick::Quantum)arguments["offset"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'adaptiveThreshold', allowed combinations are: [width, height] [width, height, offset]");
 	}
