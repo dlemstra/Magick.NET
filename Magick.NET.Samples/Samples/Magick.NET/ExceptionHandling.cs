@@ -57,23 +57,6 @@ namespace RootNamespace.Samples.MagickNET
 
 		public static void ObtainWarningThatOccurredDuringRead()
 		{
-			// Read file that will raise a warning.
-			using (MagickImage image = new MagickImage(SampleFiles.FileWithWarningJpg))
-			{
-				// Check if warning was set and write to console
-				if (image.ReadWarning != null)
-					Console.WriteLine(image.ReadWarning.Message);
-			}
-
-			using (MagickImage image = new MagickImage())
-			{
-				// Read file that will raise a warning.
-				MagickWarningException warning = image.Read(SampleFiles.FileWithWarningJpg);
-				// Check if warning was returned and write to console
-				if (warning != null)
-					Console.WriteLine(warning.Message);
-			}
-
 			using (MagickImage image = new MagickImage())
 			{
 				// Attach event handler to warning event

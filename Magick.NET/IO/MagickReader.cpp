@@ -220,6 +220,7 @@ namespace ImageMagick
 	MagickException^ MagickReader::Read(std::vector<Magick::Image>* imageList, array<Byte>^ bytes,
 		MagickReadSettings^ readSettings)
 	{
+		Throw::IfNull("readSettings", readSettings);
 		Throw::IfNullOrEmpty("bytes", bytes);
 
 		MagickCore::ImageInfo *imageInfo = MagickCore::CloneImageInfo(NULL);
@@ -228,14 +229,11 @@ namespace ImageMagick
 
 		try
 		{
-			if (readSettings != nullptr)
-			{
-				Throw::IfFalse("readSettings", readSettings->PixelStorage == nullptr,
-					"PixelStorage is not supported for images with multiple frames/layers.");
+			Throw::IfTrue("readSettings", readSettings->PixelStorage != nullptr,
+				"PixelStorage is not supported for images with multiple frames/layers.");
 
-				if (!readSettings->Ping)
-					readSettings->Apply(imageInfo);
-			}
+			if (!readSettings->Ping)
+				readSettings->Apply(imageInfo);
 
 			data = Marshaller::Marshal(bytes);
 			MagickCore::Image *images;
@@ -246,7 +244,7 @@ namespace ImageMagick
 				images = MagickCore::BlobToImage(imageInfo, data, bytes->Length, exceptionInfo);
 
 			Magick::insertImages(imageList, images);
-			Magick::throwException(exceptionInfo);
+			Magick::throwException(exceptionInfo, readSettings->IgnoreWarnings);
 			MagickCore::DestroyExceptionInfo(exceptionInfo);
 
 			return nullptr;
@@ -272,6 +270,8 @@ namespace ImageMagick
 	MagickException^ MagickReader::Read(std::vector<Magick::Image>* imageList, String^ fileName,
 		MagickReadSettings^ readSettings)
 	{
+		Throw::IfNull("readSettings", readSettings);
+
 		String^ filePath = FileHelper::CheckForBaseDirectory(fileName);
 		Throw::IfInvalidFileName(filePath);
 
@@ -280,14 +280,11 @@ namespace ImageMagick
 
 		try
 		{
-			if (readSettings != nullptr)
-			{
-				Throw::IfFalse("readSettings", readSettings->PixelStorage == nullptr,
-					"PixelStorage is not supported for images with multiple frames/layers.");
+			Throw::IfTrue("readSettings", readSettings->PixelStorage != nullptr,
+				"PixelStorage is not supported for images with multiple frames/layers.");
 
-				if (!readSettings->Ping)
-					readSettings->Apply(imageInfo);
-			}
+			if (!readSettings->Ping)
+				readSettings->Apply(imageInfo);
 
 			std::string imageSpec;
 			Marshaller::Marshal(filePath, imageSpec);
@@ -300,7 +297,7 @@ namespace ImageMagick
 			else
 				images = MagickCore::ReadImage(imageInfo, exceptionInfo);
 			Magick::insertImages(imageList, images);
-			Magick::throwException(exceptionInfo);
+			Magick::throwException(exceptionInfo, readSettings->IgnoreWarnings);
 			MagickCore::DestroyExceptionInfo(exceptionInfo);
 
 			return nullptr;

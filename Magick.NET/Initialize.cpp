@@ -26,6 +26,8 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL,DWORD fdwReason,LPVOID lpReserved)
 	{ 
 	case DLL_PROCESS_ATTACH:
 		(void) MagickCore::MagickCoreGenesis((const char *)NULL,MagickCore::MagickFalse);
+		Magick::ResourceLimits::width(10000000);
+		Magick::ResourceLimits::height(10000000);
 		break;
 	default:
 		break;

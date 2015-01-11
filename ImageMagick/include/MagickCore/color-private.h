@@ -19,6 +19,7 @@
 #define _MAGICKCORE_COLOR_PRIVATE_H
 
 #include "MagickCore/image.h"
+#include "MagickCore/image-private.h"
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
@@ -31,6 +32,16 @@ extern MagickPrivate MagickBooleanType
 
 extern MagickPrivate void
   ColorComponentTerminus(void);
+
+static inline double GetFuzzyColorDistance(const Image *p,const Image *q)
+{
+  double
+    fuzz;
+
+  fuzz=(double) MagickMax(MagickMax(p->fuzz,q->fuzz),(MagickRealType)
+    MagickSQ1_2);
+  return(fuzz*fuzz);
+}
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

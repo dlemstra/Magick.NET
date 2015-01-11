@@ -1,6 +1,7 @@
 // This may look like C code, but it is really -*- C++ -*-
 //
 // Copyright Bob Friesenhahn, 2001, 2002
+// Copyright Dirk Lemstra 2013-2014
 //
 // CoderInfo Definition
 //
@@ -40,6 +41,12 @@ namespace Magick
     // Assignment operator
     CoderInfo& operator=(const CoderInfo &coder_);
 
+    // Format can read multi-threaded
+    bool canReadMultithreaded(void) const;
+
+    // Format can write multi-threaded
+    bool canWriteMultithreaded(void) const;
+
     // Format description
     std::string description(void) const;
 
@@ -62,12 +69,13 @@ namespace Magick
     bool unregister(void) const;
 
   private:
-    std::string _name;
-    std::string _description;
-    std::string _mimeType;
-    bool        _isReadable;
-    bool        _isWritable;
-    bool        _isMultiFrame;
+    std::string      _description;
+    bool             _isMultiFrame;
+    bool             _isReadable;
+    bool             _isWritable;
+    std::string      _mimeType;
+    std::string      _name;
+    MagickStatusType _threadSupport;
   };
 
 } // namespace Magick

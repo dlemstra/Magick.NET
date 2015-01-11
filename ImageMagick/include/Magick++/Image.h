@@ -1,6 +1,7 @@
 // This may look like C code, but it is really -*- C++ -*-
 //
 // Copyright Bob Friesenhahn, 1999, 2000, 2001, 2002, 2003
+// Copyright Dirk Lemstra 2013-2015
 //
 // Definition of Image, the representation of a single image in Magick++
 //
@@ -369,6 +370,10 @@ namespace Magick
     void quantizeTreeDepth(const size_t treeDepth_);
     size_t quantizeTreeDepth(void) const;
 
+    // Suppress all warning messages. Error messages are still reported.
+    void quiet(const bool quiet_);
+    bool quiet(void) const;
+
     // The type of rendering intent
     void renderingIntent(const RenderingIntent renderingIntent_);
     RenderingIntent renderingIntent(void) const;
@@ -539,9 +544,9 @@ namespace Magick
     // Local adaptive threshold image
     // http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm
     // Width x height define the size of the pixel neighborhood
-    // offset = constant to subtract from pixel neighborhood mean
-    void adaptiveThreshold(const size_t width,const size_t height,
-      const ::ssize_t offset=0);
+    // bias = constant to subtract from pixel neighborhood mean
+    void adaptiveThreshold(const size_t width_,const size_t height_,
+      const double bias_=0.0);
 
     // Add noise to image with specified noise type
     void addNoise(const NoiseType noiseType_);
@@ -1461,14 +1466,8 @@ namespace Magick
     // Prepare to update image (copy if reference > 1)
     void modifyImage(void);
 
-    // Register image with image registry or obtain registration id
-    ::ssize_t registerId(void);
-
     // Replace current image (reference counted)
     MagickCore::Image *replaceImage(MagickCore::Image *replacement_);
-
-    // Unregister image from image registry
-    void unregisterId(void);
 
   private:
 
@@ -1480,6 +1479,7 @@ namespace Magick
       const PixelInfo *target,const bool invert_);
 
     ImageRef *_imgRef;
+    bool     _quiet;
   };
 
 } // end of namespace Magick

@@ -46,23 +46,6 @@ Namespace RootNamespace.Samples.MagickNET
 		End Sub
 
 		Public Shared Sub ObtainWarningThatOccurredDuringRead()
-			' Read file that will raise a warning.
-			Using image As New MagickImage(SampleFiles.FileWithWarningJpg)
-				' Check if warning was set and write to console
-				If image.ReadWarning IsNot Nothing Then
-					Console.WriteLine(image.ReadWarning.Message)
-				End If
-			End Using
-
-			Using image As New MagickImage()
-				' Read file that will raise a warning.
-				Dim warning As MagickWarningException = image.Read(SampleFiles.FileWithWarningJpg)
-				' Check if warning was returned and write to console
-				If warning IsNot Nothing Then
-					Console.WriteLine(warning.Message)
-				End If
-			End Using
-
 			Using image As New MagickImage()
 				' Attach event handler to warning event
 				AddHandler image.Warning, AddressOf MagickImage_Warning

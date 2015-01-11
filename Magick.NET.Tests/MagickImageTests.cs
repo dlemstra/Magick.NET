@@ -39,6 +39,11 @@ namespace Magick.NET.Tests
 			Assert.Fail(arguments.Message);
 		}
 		//===========================================================================================
+		private static void ShouldRaiseWarning(object sender, WarningEventArgs arguments)
+		{
+			Assert.IsNotNull(arguments.Message);
+		}
+		//===========================================================================================
 		private static void Test_Clone(MagickImage first, MagickImage second)
 		{
 			Assert.AreEqual(first, second);
@@ -420,7 +425,11 @@ namespace Magick.NET.Tests
 				});
 
 				Assert.AreEqual("FOO", image.FormatExpression("FOO"));
+				Assert.AreEqual("OO", image.FormatExpression("%FOO"));
+				image.Warning += ShouldRaiseWarning;
 				Assert.AreEqual(null, image.FormatExpression("%FOO"));
+				image.Warning -= ShouldRaiseWarning;
+
 				Assert.AreEqual("a48a7f2fdc26e9ccf75b0c85a254c958f004cc182d0ca8c3060c1df734645367", image.FormatExpression("%#"));
 			}
 
@@ -732,34 +741,6 @@ namespace Magick.NET.Tests
 			{
 				image.Read("logo:");
 			});
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_ReadWarning()
-		{
-			using (MagickImage image = new MagickImage(Files.EightBimTIF))
-			{
-				Assert.IsNotNull(image.ReadWarning);
-			}
-
-			using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
-			{
-				Assert.IsNull(image.ReadWarning);
-			}
-
-			using (MagickImage image = new MagickImage())
-			{
-				MagickWarningException exception = image.Read(Files.EightBimTIF);
-				Assert.IsNotNull(exception);
-				Assert.IsNotNull(image.ReadWarning);
-			}
-
-			using (MagickImage image = new MagickImage())
-			{
-				MagickWarningException exception = image.Read(Files.ImageMagickJPG);
-				Assert.IsNull(exception);
-				Assert.IsNull(image.ReadWarning);
-			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -1080,16 +1061,14 @@ namespace Magick.NET.Tests
 			using (MagickImage image = new MagickImage())
 			{
 				image.Warning += warningDelegate;
-				MagickWarningException exception = image.Read(Files.EightBimTIF);
+				image.Read(Files.EightBimTIF);
 
-				Assert.IsNotNull(exception);
 				Assert.AreNotEqual(0, count);
 
 				int expectedCount = count;
 				image.Warning -= warningDelegate;
-				exception = image.Read(Files.EightBimTIF);
+				image.Read(Files.EightBimTIF);
 
-				Assert.IsNotNull(exception);
 				Assert.AreEqual(expectedCount, count);
 			}
 		}

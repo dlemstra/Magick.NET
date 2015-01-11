@@ -16,7 +16,6 @@
 
 namespace ImageMagick
 {
-
 	//==============================================================================================
 	void MagickImageCollection::AddFrom(std::vector<Magick::Image>* images)
 	{
@@ -52,6 +51,16 @@ namespace ImageMagick
 			delete images;
 		}
 	}
+	//===========================================================================================
+	MagickReadSettings^ MagickImageCollection::CheckSettings(MagickReadSettings^ readSettings)
+	{
+		if (readSettings == nullptr)
+			readSettings = gcnew MagickReadSettings();
+
+		readSettings->IgnoreWarnings = (_WarningEvent == nullptr);
+
+		return readSettings;
+	}
 	//==============================================================================================
 	void MagickImageCollection::CopyFrom(std::vector<Magick::Image>* images)
 	{
@@ -82,20 +91,6 @@ namespace ImageMagick
 		if (warning == nullptr)
 			throw exception;
 
-		if (_WarningEvent != nullptr)
-			_WarningEvent->Invoke(this, gcnew WarningEventArgs(warning));
-	}
-	//==============================================================================================
-	void MagickImageCollection::HandleReadException(MagickException^ exception)
-	{
-		if (exception == nullptr)
-			return;
-
-		MagickWarningException^ warning = dynamic_cast<MagickWarningException^>(exception);
-		if (warning == nullptr)
-			throw exception;
-
-		_ReadWarning = warning;
 		if (_WarningEvent != nullptr)
 			_WarningEvent->Invoke(this, gcnew WarningEventArgs(warning));
 	}
@@ -293,11 +288,6 @@ namespace ImageMagick
 		return false;
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::ReadWarning::get()
-	{
-		return _ReadWarning;
-	}
-	//==============================================================================================
 	void MagickImageCollection::Warning::add(EventHandler<WarningEventArgs^>^ handler)
 	{
 		_WarningEvent += handler;
@@ -318,19 +308,23 @@ namespace ImageMagick
 		Add(gcnew MagickImage(fileName));
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::AddRange(array<Byte>^ data)
+	void MagickImageCollection::AddRange(array<Byte>^ data)
 	{
-		return AddRange(data, nullptr);
+		AddRange(data, nullptr);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::AddRange(array<Byte>^ data, MagickReadSettings^ readSettings)
+	void MagickImageCollection::AddRange(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
 		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
-		HandleReadException(MagickReader::Read(images, data, readSettings));
-		AddFrom(images);
-
-		delete images;
-		return _ReadWarning;
+		try
+		{
+			HandleException(MagickReader::Read(images, data, CheckSettings(readSettings)));
+			AddFrom(images);
+		}
+		finally
+		{
+			delete images;
+		}
 	}
 	//==============================================================================================
 	void MagickImageCollection::AddRange(IEnumerable<MagickImage^>^ images)
@@ -355,34 +349,42 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::AddRange(Stream^ stream)
+	void MagickImageCollection::AddRange(Stream^ stream)
 	{
-		return AddRange(stream, nullptr);
+		AddRange(stream, nullptr);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::AddRange(Stream^ stream, MagickReadSettings^ readSettings)
+	void MagickImageCollection::AddRange(Stream^ stream, MagickReadSettings^ readSettings)
 	{
 		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
-		HandleReadException(MagickReader::Read(images, stream, readSettings));
-		AddFrom(images);
-
-		delete images;
-		return _ReadWarning;
+		try
+		{
+			HandleException(MagickReader::Read(images, stream, CheckSettings(readSettings)));
+			AddFrom(images);
+		}
+		finally
+		{
+			delete images;
+		}
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::AddRange(String^ fileName)
+	void MagickImageCollection::AddRange(String^ fileName)
 	{
-		return AddRange(fileName, nullptr);
+		AddRange(fileName, gcnew MagickReadSettings());
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::AddRange(String^ fileName, MagickReadSettings^ readSettings)
+	void MagickImageCollection::AddRange(String^ fileName, MagickReadSettings^ readSettings)
 	{
 		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
-		HandleReadException(MagickReader::Read(images, fileName, readSettings));
-		AddFrom(images);
-
-		delete images;
-		return _ReadWarning;
+		try
+		{
+			HandleException(MagickReader::Read(images, fileName, CheckSettings(readSettings)));
+			AddFrom(images);
+		}
+		finally
+		{
+			delete images;
+		}
 	}
 	//==============================================================================================
 	MagickImage^ MagickImageCollection::AppendHorizontally()
@@ -793,61 +795,73 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data)
+	void MagickImageCollection::Read(array<Byte>^ data)
 	{
-		return Read(data, nullptr);
+		Read(data, gcnew MagickReadSettings());
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(array<Byte>^ data, MagickReadSettings^ readSettings)
+	void MagickImageCollection::Read(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
 		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
-		HandleReadException(MagickReader::Read(images, data, readSettings));
-		CopyFrom(images);
-
-		delete images;
-		return _ReadWarning;
+		try
+		{
+			HandleException(MagickReader::Read(images, data, CheckSettings(readSettings)));
+			CopyFrom(images);
+		}
+		finally
+		{
+			delete images;
+		}
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(FileInfo^ file)
+	void MagickImageCollection::Read(FileInfo^ file)
 	{
 		Throw::IfNull("file", file);
-		return Read(file->FullName);
+		Read(file->FullName);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(FileInfo^ file, MagickReadSettings^ readSettings)
+	void MagickImageCollection::Read(FileInfo^ file, MagickReadSettings^ readSettings)
 	{
 		Throw::IfNull("file", file);
-		return Read(file->FullName, readSettings);
+		Read(file->FullName, readSettings);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(String^ fileName)
+	void MagickImageCollection::Read(String^ fileName)
 	{
-		return Read(fileName, nullptr);
+		Read(fileName, gcnew MagickReadSettings());
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(String^ fileName, MagickReadSettings^ readSettings)
-	{
-		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
-		HandleReadException(MagickReader::Read(images, fileName, readSettings));
-		CopyFrom(images);
-
-		delete images;
-		return _ReadWarning;
-	}
-	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(Stream^ stream)
-	{
-		return Read(stream, nullptr);
-	}
-	//==============================================================================================
-	MagickWarningException^ MagickImageCollection::Read(Stream^ stream, MagickReadSettings^ readSettings)
+	void MagickImageCollection::Read(String^ fileName, MagickReadSettings^ readSettings)
 	{
 		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
-		HandleReadException(MagickReader::Read(images, stream, readSettings));
-		CopyFrom(images);
-
-		delete images;
-		return _ReadWarning;
+		try
+		{
+			HandleException(MagickReader::Read(images, fileName, CheckSettings(readSettings)));
+			CopyFrom(images);
+		}
+		finally
+		{
+			delete images;
+		}
+	}
+	//==============================================================================================
+	void MagickImageCollection::Read(Stream^ stream)
+	{
+		Read(stream, gcnew MagickReadSettings());
+	}
+	//==============================================================================================
+	void MagickImageCollection::Read(Stream^ stream, MagickReadSettings^ readSettings)
+	{
+		std::vector<Magick::Image>* images = new std::vector<Magick::Image>();
+		try
+		{
+			HandleException(MagickReader::Read(images, stream, CheckSettings(readSettings)));
+			CopyFrom(images);
+		}
+		finally
+		{
+			delete images;
+		}
 	}
 	//==============================================================================================
 	bool MagickImageCollection::Remove(MagickImage^ item)

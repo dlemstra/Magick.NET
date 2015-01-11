@@ -22,6 +22,13 @@ using namespace System::Globalization;
 namespace ImageMagick
 {
 	//==============================================================================================
+	Magick::Image* MagickImage::CreateImage()
+	{
+		Magick::Image* image = new Magick::Image();
+		image->quiet(true);
+		return image;
+	}
+	//==============================================================================================
 	template<class TImageProfile>
 	TImageProfile^ MagickImage::CreateProfile(String^ name)
 	{
@@ -292,22 +299,6 @@ namespace ImageMagick
 			_WarningEvent->Invoke(this, gcnew WarningEventArgs(warning));
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::HandleReadException(MagickException^ exception)
-	{
-		if (exception == nullptr)
-			return nullptr;
-
-		MagickWarningException^ warning = dynamic_cast<MagickWarningException^>(exception);
-		if (warning == nullptr)
-			throw exception;
-
-		_ReadWarning = warning;
-		if (_WarningEvent != nullptr)
-			_WarningEvent->Invoke(this, gcnew WarningEventArgs(warning));
-
-		return warning;
-	}
-	//==============================================================================================
 	bool MagickImage::IsSupportedImageFormat(ImageFormat^ format)
 	{
 		return
@@ -541,42 +532,42 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage::MagickImage()
 	{
-		Value = new Magick::Image();
+		Value = CreateImage();
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(array<Byte>^ data)
 	{
-		Value = new Magick::Image();
+		Value = CreateImage();
 		this->Read(data);
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(array<Byte>^ data, MagickReadSettings^ readSettings)
 	{
-		Value = new Magick::Image();
+		Value = CreateImage();
 		this->Read(data, readSettings);
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(Bitmap^ bitmap)
 	{
-		Value = new Magick::Image();
+		Value = CreateImage();
 		this->Read(bitmap);
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(FileInfo^ file)
 	{
-		Value = new Magick::Image();
+		Value = CreateImage();
 		this->Read(file);
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(FileInfo^ file, MagickReadSettings^ readSettings)
 	{
-		Value = new Magick::Image();
+		Value = CreateImage();
 		this->Read(file, readSettings);
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(MagickColor^ color, int width, int height)
 	{
-		Value = new Magick::Image();
+		Value = CreateImage();
 		this->Read(color, width, height);
 	}
 	//==============================================================================================
@@ -589,31 +580,31 @@ namespace ImageMagick
 	//==============================================================================================
 	MagickImage::MagickImage(String^ fileName)
 	{
-		Value = new Magick::Image();
+		Value = CreateImage();
 		this->Read(fileName);
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(String^ fileName, int width, int height)
 	{
-		Value = new Magick::Image();
+		Value = CreateImage();
 		this->Read(fileName, width, height);
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(String^ fileName, MagickReadSettings^ readSettings)
 	{
-		Value = new Magick::Image();
+		Value = CreateImage();
 		this->Read(fileName, readSettings);
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(Stream^ stream)
 	{
-		Value = new Magick::Image();
+		Value = CreateImage();
 		this->Read(stream);
 	}
 	//==============================================================================================
 	MagickImage::MagickImage(Stream^ stream, MagickReadSettings^ readSettings)
 	{
-		Value = new Magick::Image();
+		Value = CreateImage();
 		this->Read(stream, readSettings);
 	}
 	//==============================================================================================
@@ -924,7 +915,7 @@ namespace ImageMagick
 	{
 		if (value == nullptr)
 		{
-			Magick::Image* image = new Magick::Image();
+			Magick::Image* image = CreateImage();
 			Value->fillPattern(*image);
 			delete image;
 		}
@@ -1103,7 +1094,7 @@ namespace ImageMagick
 	{
 		if (value == nullptr)
 		{
-			Magick::Image* image = new Magick::Image();
+			Magick::Image* image = CreateImage();
 			Value->mask(*image);
 			delete image;
 		}
@@ -1170,11 +1161,6 @@ namespace ImageMagick
 		quality = quality > 100 ? 100 : quality;
 
 		Value->quality(quality);
-	}
-	//==============================================================================================
-	MagickWarningException^ MagickImage::ReadWarning::get()
-	{
-		return _ReadWarning;
 	}
 	//==============================================================================================
 	RenderingIntent MagickImage::RenderingIntent::get()
@@ -1477,12 +1463,15 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::Warning::add(EventHandler<WarningEventArgs^>^ handler)
 	{
+		Value->quiet(false);
 		_WarningEvent += handler;
 	}
 	//==============================================================================================
 	void MagickImage::Warning::remove(EventHandler<WarningEventArgs^>^ handler)
 	{
 		_WarningEvent -= handler;
+		if (_WarningEvent == nullptr)
+			Value->quiet(true);
 	}
 	//==============================================================================================
 	void MagickImage::AdaptiveBlur()
@@ -4046,25 +4035,25 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Ping(array<Byte>^ data)
+	void MagickImage::Ping(array<Byte>^ data)
 	{
 		MagickReadSettings^ readSettings = gcnew MagickReadSettings();
 		readSettings->Ping = true;
-		return Read(data, readSettings);
+		Read(data, readSettings);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Ping(String^ fileName)
+	void MagickImage::Ping(String^ fileName)
 	{
 		MagickReadSettings^ readSettings = gcnew MagickReadSettings();
 		readSettings->Ping = true;
-		return Read(fileName, readSettings);
+		Read(fileName, readSettings);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Ping(Stream^ stream)
+	void MagickImage::Ping(Stream^ stream)
 	{
 		MagickReadSettings^ readSettings = gcnew MagickReadSettings();
 		readSettings->Ping = true;
-		return Read(stream, readSettings);
+		Read(stream, readSettings);
 	}
 	//==============================================================================================
 	void MagickImage::Polaroid(String^ caption, double angle, PixelInterpolateMethod method)
@@ -4145,16 +4134,6 @@ namespace ImageMagick
 		RaiseOrLower(size, true);
 	}
 	//==============================================================================================
-	void MagickImage::RandomThreshold(Magick::Quantum low, Magick::Quantum high)
-	{
-		RandomThreshold(low, high, false);
-	}
-	//==============================================================================================
-	void MagickImage::RandomThreshold(Magick::Quantum low, Magick::Quantum high, Channels channels)
-	{
-		RandomThreshold(low, high, channels, false);
-	}
-	//==============================================================================================
 	void MagickImage::RandomThreshold(Percentage percentageLow, Percentage percentageHigh)
 	{
 		Throw::IfNegative("percentageLow", percentageLow);
@@ -4171,17 +4150,27 @@ namespace ImageMagick
 		RandomThreshold((Magick::Quantum)percentageLow, (Magick::Quantum)percentageHigh, channels, true);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(array<Byte>^ data)
+	void MagickImage::RandomThreshold(Magick::Quantum low, Magick::Quantum high)
 	{
-		return Read(data, nullptr);
+		RandomThreshold(low, high, false);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(array<Byte>^ data, MagickReadSettings^ readSettings)
+	void MagickImage::RandomThreshold(Magick::Quantum low, Magick::Quantum high, Channels channels)
 	{
-		return HandleReadException(MagickReader::Read(Value, data, readSettings));
+		RandomThreshold(low, high, channels, false);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(Bitmap^ bitmap)
+	void MagickImage::Read(array<Byte>^ data)
+	{
+		Read(data, nullptr);
+	}
+	//==============================================================================================
+	void MagickImage::Read(array<Byte>^ data, MagickReadSettings^ readSettings)
+	{
+		HandleException(MagickReader::Read(Value, data, readSettings));
+	}
+	//==============================================================================================
+	void MagickImage::Read(Bitmap^ bitmap)
 	{
 		Throw::IfNull("bitmap", bitmap);
 
@@ -4194,7 +4183,7 @@ namespace ImageMagick
 				bitmap->Save(memStream, ImageFormat::Bmp);
 
 			memStream->Position = 0;
-			return Read(memStream);
+			Read(memStream);
 		}
 		finally
 		{
@@ -4202,46 +4191,46 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(MagickColor^ color, int width, int height)
+	void MagickImage::Read(MagickColor^ color, int width, int height)
 	{
-		return HandleReadException(MagickReader::Read(Value, color, width, height));
+		return HandleException(MagickReader::Read(Value, color, width, height));
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(FileInfo^ file)
+	void MagickImage::Read(FileInfo^ file)
 	{
 		Throw::IfNull("file", file);
-		return Read(file->FullName);
+		Read(file->FullName);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(FileInfo^ file, MagickReadSettings^ readSettings)
+	void MagickImage::Read(FileInfo^ file, MagickReadSettings^ readSettings)
 	{
 		Throw::IfNull("file", file);
-		return Read(file->FullName, readSettings);
+		Read(file->FullName, readSettings);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(String^ fileName)
+	void MagickImage::Read(String^ fileName)
 	{
-		return Read(fileName, nullptr);
+		Read(fileName, nullptr);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(String^ fileName, int width, int height)
+	void MagickImage::Read(String^ fileName, int width, int height)
 	{
-		return HandleReadException(MagickReader::Read(Value, fileName, width, height));
+		HandleException(MagickReader::Read(Value, fileName, width, height));
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(String^ fileName, MagickReadSettings^ readSettings)
+	void MagickImage::Read(String^ fileName, MagickReadSettings^ readSettings)
 	{
-		return HandleReadException(MagickReader::Read(Value, fileName, readSettings));
+		HandleException(MagickReader::Read(Value, fileName, readSettings));
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(Stream^ stream)
+	void MagickImage::Read(Stream^ stream)
 	{
-		return Read(stream, nullptr);
+		Read(stream, nullptr);
 	}
 	//==============================================================================================
-	MagickWarningException^ MagickImage::Read(Stream^ stream, MagickReadSettings^ readSettings)
+	void MagickImage::Read(Stream^ stream, MagickReadSettings^ readSettings)
 	{
-		return HandleReadException(MagickReader::Read(Value, stream, readSettings));
+		HandleException(MagickReader::Read(Value, stream, readSettings));
 	}
 	//==============================================================================================
 	void MagickImage::ReduceNoise()
