@@ -79,6 +79,16 @@ namespace ImageMagick
 		return result;
 	}
 	//==============================================================================================
+	bool MagickFormatInfo::CanReadMultithreaded::get()
+	{
+		return _CoderInfo->canReadMultithreaded();
+	}
+	//==============================================================================================
+	bool MagickFormatInfo::CanWriteMultithreaded::get()
+	{
+		return _CoderInfo->canWriteMultithreaded();
+	}
+	//==============================================================================================
 	String^ MagickFormatInfo::Description::get()
 	{
 		return _Description;

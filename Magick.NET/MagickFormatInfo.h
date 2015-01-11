@@ -47,6 +47,22 @@ namespace ImageMagick
 	public:
 		///==========================================================================================
 		///<summary>
+		/// The format can read multithreaded.
+		///</summary>
+		property bool CanReadMultithreaded
+		{
+			bool get();
+		}
+		///==========================================================================================
+		///<summary>
+		/// The format can write multithreaded.
+		///</summary>
+		property bool CanWriteMultithreaded
+		{
+			bool get();
+		}
+		///==========================================================================================
+		///<summary>
 		/// The description of the format.
 		///</summary>
 		property String^ Description

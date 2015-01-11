@@ -28,22 +28,27 @@ namespace Magick.NET.Tests
 		private const string _Category = "MagickNET";
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_GetFormatInfo()
+		public void Test_GetFormatInformation()
 		{
-			List<string> missingFormats = new List<string>();
+			MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Gradient);
+			Assert.AreEqual(MagickFormat.Gradient, formatInfo.Format);
+			Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
+			Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
+			Assert.AreEqual("Gradual linear passing from one shade to another", formatInfo.Description);
+			Assert.AreEqual(false, formatInfo.IsMultiFrame);
+			Assert.AreEqual(true, formatInfo.IsReadable);
+			Assert.AreEqual(false, formatInfo.IsWritable);
+			Assert.AreEqual(null, formatInfo.MimeType);
 
-			foreach (MagickFormat format in Enum.GetValues(typeof(MagickFormat)))
-			{
-				if (format == MagickFormat.Unknown)
-					continue;
-
-				MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
-				if (formatInfo == null)
-					missingFormats.Add(format.ToString());
-			}
-
-			if (missingFormats.Count > 0)
-				Assert.Fail("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats.ToArray()));
+			formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jp2);
+			Assert.AreEqual(MagickFormat.Jp2, formatInfo.Format);
+			Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
+			Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
+			Assert.AreEqual("JPEG-2000 File Format Syntax", formatInfo.Description);
+			Assert.AreEqual(false, formatInfo.IsMultiFrame);
+			Assert.AreEqual(true, formatInfo.IsReadable);
+			Assert.AreEqual(true, formatInfo.IsWritable);
+			Assert.AreEqual("image/jp2", formatInfo.MimeType);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -126,6 +131,26 @@ namespace Magick.NET.Tests
 				Assert.AreEqual(0, count);
 			}
 		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_MagickFormats()
+		{
+			List<string> missingFormats = new List<string>();
+
+			foreach (MagickFormat format in Enum.GetValues(typeof(MagickFormat)))
+			{
+				if (format == MagickFormat.Unknown)
+					continue;
+
+				MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
+				if (formatInfo == null)
+					missingFormats.Add(format.ToString());
+			}
+
+			if (missingFormats.Count > 0)
+				Assert.Fail("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats.ToArray()));
+		}
+
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_OpenCL()
