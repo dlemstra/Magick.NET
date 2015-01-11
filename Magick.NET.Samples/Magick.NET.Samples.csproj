@@ -39,6 +39,7 @@
     <Compile Include="Samples\Magick.NET\MagickScript.cs" />
     <Compile Include="Samples\Magick.NET\ReadImage.cs" />
     <Compile Include="Samples\Magick.NET\ReadRawImageFromCamera.cs" />
+    <Compile Include="Samples\Magick.NET\ResizeImage.cs" />
     <Compile Include="Samples\Magick.NET\UsingColors.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +54,7 @@
     <Content Include="Samples\Magick.NET\CommandLineOptionDefine.vb" />
     <Content Include="Samples\Magick.NET\ConvertImage.vb" />
     <Content Include="Samples\Magick.NET\ConvertPDF.vb" />
+    <Content Include="Samples\Magick.NET\ResizeImage.vb" />
     <Content Include="Samples\Magick.NET\UsingColors.vb" />
     <Content Include="Samples\Magick.NET\ReadRawImageFromCamera.vb" />
     <Content Include="Samples\Magick.NET\ReadImage.vb" />
