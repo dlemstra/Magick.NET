@@ -2365,6 +2365,11 @@ namespace ImageMagick
 		return left < right ? -1 : 1;
 	}
 	//==============================================================================================
+	void MagickImage::Composite(MagickImage^ image, CompositeOperator compose)
+	{
+		Composite(image, 0, 0, compose);
+	}
+	//==============================================================================================
 	void MagickImage::Composite(MagickImage^ image, int x, int y)
 	{
 		Composite(image, x, y, CompositeOperator::In);

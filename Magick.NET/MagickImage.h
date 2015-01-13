@@ -1499,6 +1499,14 @@ namespace ImageMagick
 		virtual int CompareTo(MagickImage^ other);
 		//==========================================================================================
 		///<summary>
+		/// Compose an image onto another using the specified algorithm.
+		///</summary>
+		///<param name="image">The image to composite with this image.</param>
+		///<param name="compose">The algorithm to use.</param>
+		///<exception cref="MagickException"/>
+		void Composite(MagickImage^ image, CompositeOperator compose);
+		//==========================================================================================
+		///<summary>
 		/// Compose an image onto another at specified offset using the 'In' operator.
 		///</summary>
 		///<param name="image">The image to composite with this image.</param>
