@@ -21,6 +21,16 @@ using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+	using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 #if !(NET20)
 using System.Windows.Media.Imaging;
 #endif
@@ -540,6 +550,22 @@ namespace Magick.NET.Tests
 			first = null;
 			Assert.IsTrue(first == null);
 			Assert.IsFalse(first != null);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Level()
+		{
+			using (MagickImage first = new MagickImage(Files.MagickNETIconPNG))
+			{
+				first.Level(50.0, 10.0);
+
+				using (MagickImage second = new MagickImage(Files.MagickNETIconPNG))
+				{
+					second.Level((QuantumType)(Quantum.Max * 0.5), (QuantumType)(Quantum.Max * 0.1));
+
+					Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+				}
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

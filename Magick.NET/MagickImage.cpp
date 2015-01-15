@@ -3550,9 +3550,19 @@ namespace ImageMagick
 		Level(blackPoint, whitePoint, 1.0);
 	}
 	//==============================================================================================
+	void MagickImage::Level(Percentage blackPoint, Percentage whitePoint)
+	{
+		Level(blackPoint.ToQuantum(), whitePoint.ToQuantum());
+	}
+	//==============================================================================================
 	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, Channels channels)
 	{
 		Level(blackPoint, whitePoint, 1.0, channels);
+	}
+	//==============================================================================================
+	void MagickImage::Level(Percentage blackPoint, Percentage whitePoint, Channels channels)
+	{
+		Level(blackPoint.ToQuantum(), whitePoint.ToQuantum(), channels);
 	}
 	//==============================================================================================
 	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint)
@@ -3567,6 +3577,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Level(Percentage blackPoint, Percentage whitePoint, double midpoint)
+	{
+		Level(blackPoint.ToQuantum(), whitePoint.ToQuantum(), midpoint);
+	}
+	//==============================================================================================
 	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, Channels channels)
 	{
 		try
@@ -3577,6 +3592,11 @@ namespace ImageMagick
 		{
 			HandleException(exception);
 		}
+	}
+	//==============================================================================================
+	void MagickImage::Level(Percentage blackPoint, Percentage whitePoint, double midpoint, Channels channels)
+	{
+		Level(blackPoint.ToQuantum(), whitePoint.ToQuantum(), midpoint, channels);
 	}
 	//==============================================================================================
 	void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor)
