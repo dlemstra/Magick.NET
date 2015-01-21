@@ -20,6 +20,11 @@ using namespace System::Text;
 namespace ImageMagick
 {
 	//==============================================================================================
+	int ExifReader::RemainingLength::get()
+	{
+		return _Data->Length - _Index;
+	}
+	//==============================================================================================
 	void ExifReader::AddValues(List<ExifValue^>^ values, unsigned int index)
 	{
 		_Index = _StartIndex + index;
@@ -132,6 +137,9 @@ namespace ImageMagick
 	//==============================================================================================
 	ExifValue^ ExifReader::CreateValue()
 	{
+		if (RemainingLength < 12)
+			return nullptr;
+
 		ExifTag tag = EnumHelper::Parse(GetUInt16(), ExifTag::Unknown);
 		ExifDataType dataType = EnumHelper::Parse(GetUInt16(), ExifDataType::Unknown);
 		Object^ value = nullptr;
@@ -148,6 +156,11 @@ namespace ImageMagick
 		{			
 			int oldIndex = _Index;
 			_Index = ToUInt32(data) + _StartIndex;
+			if (RemainingLength < size)
+			{
+				_Index = oldIndex;
+				return nullptr;
+			}
 			value = ConvertValue(dataType, GetBytes(size), numberOfComponents);
 			_Index = oldIndex;
 		}

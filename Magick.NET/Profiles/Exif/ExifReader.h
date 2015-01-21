@@ -39,6 +39,11 @@ namespace ImageMagick
 		unsigned int _ThumbnailLength;
 		unsigned int _ThumbnailOffset;
 		//===========================================================================================
+		property int RemainingLength
+		{
+			int get();
+		}
+		//===========================================================================================
 		void AddValues(List<ExifValue^>^ values, unsigned int index);
 		//===========================================================================================
 		Object^ ConvertValue(ExifDataType dataType, array<Byte>^ data, int numberOfComponents);
