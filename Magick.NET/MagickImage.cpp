@@ -3550,9 +3550,9 @@ namespace ImageMagick
 		Level(blackPoint, whitePoint, 1.0);
 	}
 	//==============================================================================================
-	void MagickImage::Level(Percentage blackPoint, Percentage whitePoint)
+	void MagickImage::Level(Percentage blackPointPercentage, Percentage whitePointPercentage)
 	{
-		Level(blackPoint.ToQuantum(), whitePoint.ToQuantum());
+		Level(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum());
 	}
 	//==============================================================================================
 	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, Channels channels)
@@ -3560,9 +3560,9 @@ namespace ImageMagick
 		Level(blackPoint, whitePoint, 1.0, channels);
 	}
 	//==============================================================================================
-	void MagickImage::Level(Percentage blackPoint, Percentage whitePoint, Channels channels)
+	void MagickImage::Level(Percentage blackPointPercentage, Percentage whitePointPercentage, Channels channels)
 	{
-		Level(blackPoint.ToQuantum(), whitePoint.ToQuantum(), channels);
+		Level(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), channels);
 	}
 	//==============================================================================================
 	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint)
@@ -3577,9 +3577,9 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Level(Percentage blackPoint, Percentage whitePoint, double midpoint)
+	void MagickImage::Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint)
 	{
-		Level(blackPoint.ToQuantum(), whitePoint.ToQuantum(), midpoint);
+		Level(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), midpoint);
 	}
 	//==============================================================================================
 	void MagickImage::Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, Channels channels)
@@ -3594,9 +3594,9 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Level(Percentage blackPoint, Percentage whitePoint, double midpoint, Channels channels)
+	void MagickImage::Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint, Channels channels)
 	{
-		Level(blackPoint.ToQuantum(), whitePoint.ToQuantum(), midpoint, channels);
+		Level(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), midpoint, channels);
 	}
 	//==============================================================================================
 	void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor)

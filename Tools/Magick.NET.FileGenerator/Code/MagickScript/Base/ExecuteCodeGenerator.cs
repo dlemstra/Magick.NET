@@ -1,5 +1,4 @@
-﻿using System;
-//=================================================================================================
+﻿//=================================================================================================
 // Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -12,6 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,22 +53,12 @@ namespace Magick.NET.FileGenerator
 
 			if (chars.Count() == 1 && names.Count() > 1)
 			{
+				WriteLengthCheck(writer, names, level);
 				WriteSwitch(writer, names, ++level);
 			}
 			else
 			{
-				string shortName = (from name in names
-										  where name.Length == level
-										  select name).FirstOrDefault();
-				if (shortName != null)
-				{
-					writer.Write("if (element->Name->Length == ");
-					writer.Write(level);
-					writer.WriteLine(")");
-					WriteStartColon(writer);
-					WriteExecute(writer, shortName);
-					WriteEndColon(writer);
-				}
+				WriteLengthCheck(writer, names, level);
 
 				if (chars.Count() > 1)
 				{
@@ -224,6 +214,22 @@ namespace Magick.NET.FileGenerator
 			writer.Write("void Execute");
 			writer.Write(property.Name);
 			writer.WriteLine("(XmlElement^ element, MagickImage^ image);");
+		}
+		//===========================================================================================
+		private void WriteLengthCheck(IndentedTextWriter writer, IEnumerable<string> names, int level)
+		{
+			string shortName = (from name in names
+									  where name.Length == level
+									  select name).FirstOrDefault();
+			if (shortName == null)
+				return;
+
+			writer.Write("if (element->Name->Length == ");
+			writer.Write(level);
+			writer.WriteLine(")");
+			WriteStartColon(writer);
+			WriteExecute(writer, shortName);
+			WriteEndColon(writer);
 		}
 		//===========================================================================================
 		protected virtual string[] CustomMethods

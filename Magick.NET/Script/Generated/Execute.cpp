@@ -149,6 +149,11 @@ namespace ImageMagick
 					}
 					case 'l':
 					{
+						if (element->Name->Length == 5)
+						{
+							ExecuteAlpha(element, image);
+							return;
+						}
 						if (element->Name->Length == 10)
 						{
 							ExecuteAlphaColor(element, image);
@@ -270,6 +275,11 @@ namespace ImageMagick
 						{
 							case 'r':
 							{
+								if (element->Name->Length == 6)
+								{
+									ExecuteBorder(element, image);
+									return;
+								}
 								if (element->Name->Length == 11)
 								{
 									ExecuteBorderColor(element, image);
@@ -355,6 +365,11 @@ namespace ImageMagick
 									}
 									case 'M':
 									{
+										if (element->Name->Length == 8)
+										{
+											ExecuteColorMap(element, image);
+											return;
+										}
 										if (element->Name->Length == 12)
 										{
 											ExecuteColorMapSize(element, image);
@@ -436,6 +451,11 @@ namespace ImageMagick
 									}
 									case 't':
 									{
+										if (element->Name->Length == 8)
+										{
+											ExecuteContrast(element, image);
+											return;
+										}
 										if (element->Name->Length == 15)
 										{
 											ExecuteContrastStretch(element, image);
@@ -742,6 +762,11 @@ namespace ImageMagick
 						{
 							case 'n':
 							{
+								if (element->Name->Length == 4)
+								{
+									ExecuteFont(element, image);
+									return;
+								}
 								if (element->Name->Length == 13)
 								{
 									ExecuteFontPointsize(element, image);
@@ -918,6 +943,11 @@ namespace ImageMagick
 					}
 					case 'e':
 					{
+						if (element->Name->Length == 5)
+						{
+							ExecuteLevel(element, image);
+							return;
+						}
 						if (element->Name->Length == 11)
 						{
 							ExecuteLevelColors(element, image);
@@ -1648,6 +1678,11 @@ namespace ImageMagick
 										{
 											case 'a':
 											{
+												if (element->Name->Length == 11)
+												{
+													ExecuteTransparent(element, image);
+													return;
+												}
 												if (element->Name->Length == 17)
 												{
 													ExecuteTransparentChroma(element, image);
@@ -2060,14 +2095,21 @@ namespace ImageMagick
 		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
 		for each(XmlAttribute^ attribute in element->Attributes)
 		{
-			arguments[attribute->Name] = _Variables->GetValue<int>(attribute);
+			if (attribute->Name == "bias")
+				arguments["bias"] = _Variables->GetValue<Percentage>(attribute);
+			else if (attribute->Name == "height")
+				arguments["height"] = _Variables->GetValue<int>(attribute);
+			else if (attribute->Name == "width")
+				arguments["width"] = _Variables->GetValue<int>(attribute);
 		}
 		if (OnlyContains(arguments, "width", "height"))
 			image->AdaptiveThreshold((int)arguments["width"], (int)arguments["height"]);
-		else if (OnlyContains(arguments, "width", "height", "offset"))
-			image->AdaptiveThreshold((int)arguments["width"], (int)arguments["height"], (Magick::Quantum)arguments["offset"]);
+		else if (OnlyContains(arguments, "width", "height", "bias"))
+			image->AdaptiveThreshold((int)arguments["width"], (int)arguments["height"], (Percentage)arguments["bias"]);
+		else if (OnlyContains(arguments, "width", "height", "bias"))
+			image->AdaptiveThreshold((int)arguments["width"], (int)arguments["height"], (Magick::Quantum)arguments["bias"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'adaptiveThreshold', allowed combinations are: [width, height] [width, height, offset]");
+			throw gcnew ArgumentException("Invalid argument combination for 'adaptiveThreshold', allowed combinations are: [width, height] [width, height, bias] [width, height, bias]");
 	}
 	void MagickScript::ExecuteAddNoise(XmlElement^ element, MagickImage^ image)
 	{
@@ -2469,7 +2511,9 @@ namespace ImageMagick
 		{
 			arguments[elem->Name] = CreateMagickImage(elem);
 		}
-		if (OnlyContains(arguments, "image", "gravity"))
+		if (OnlyContains(arguments, "image", "compose"))
+			image->Composite((MagickImage^)arguments["image"], (CompositeOperator)arguments["compose"]);
+		else if (OnlyContains(arguments, "image", "gravity"))
 			image->Composite((MagickImage^)arguments["image"], (Gravity)arguments["gravity"]);
 		else if (OnlyContains(arguments, "image", "gravity", "compose"))
 			image->Composite((MagickImage^)arguments["image"], (Gravity)arguments["gravity"], (CompositeOperator)arguments["compose"]);
@@ -2488,7 +2532,7 @@ namespace ImageMagick
 		else if (OnlyContains(arguments, "image", "x", "y", "compose", "args"))
 			image->Composite((MagickImage^)arguments["image"], (int)arguments["x"], (int)arguments["y"], (CompositeOperator)arguments["compose"], (String^)arguments["args"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [image, gravity] [image, gravity, compose] [image, gravity, compose, args] [image, offset] [image, offset, compose] [image, offset, compose, args] [image, x, y] [image, x, y, compose] [image, x, y, compose, args]");
+			throw gcnew ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [image, compose] [image, gravity] [image, gravity, compose] [image, gravity, compose, args] [image, offset] [image, offset, compose] [image, offset, compose, args] [image, x, y] [image, x, y, compose] [image, x, y, compose, args]");
 	}
 	void MagickScript::ExecuteConnectedComponents(XmlElement^ element, MagickImage^ image)
 	{
@@ -2947,12 +2991,16 @@ namespace ImageMagick
 		{
 			if (attribute->Name == "blackPoint")
 				arguments["blackPoint"] = _Variables->GetValue<Magick::Quantum>(attribute);
+			else if (attribute->Name == "blackPointPercentage")
+				arguments["blackPointPercentage"] = _Variables->GetValue<Percentage>(attribute);
 			else if (attribute->Name == "channels")
 				arguments["channels"] = _Variables->GetValue<Channels>(attribute);
 			else if (attribute->Name == "midpoint")
 				arguments["midpoint"] = _Variables->GetValue<double>(attribute);
 			else if (attribute->Name == "whitePoint")
 				arguments["whitePoint"] = _Variables->GetValue<Magick::Quantum>(attribute);
+			else if (attribute->Name == "whitePointPercentage")
+				arguments["whitePointPercentage"] = _Variables->GetValue<Percentage>(attribute);
 		}
 		if (OnlyContains(arguments, "blackPoint", "whitePoint"))
 			image->Level((Magick::Quantum)arguments["blackPoint"], (Magick::Quantum)arguments["whitePoint"]);
@@ -2962,8 +3010,16 @@ namespace ImageMagick
 			image->Level((Magick::Quantum)arguments["blackPoint"], (Magick::Quantum)arguments["whitePoint"], (double)arguments["midpoint"]);
 		else if (OnlyContains(arguments, "blackPoint", "whitePoint", "midpoint", "channels"))
 			image->Level((Magick::Quantum)arguments["blackPoint"], (Magick::Quantum)arguments["whitePoint"], (double)arguments["midpoint"], (Channels)arguments["channels"]);
+		else if (OnlyContains(arguments, "blackPointPercentage", "whitePointPercentage"))
+			image->Level((Percentage)arguments["blackPointPercentage"], (Percentage)arguments["whitePointPercentage"]);
+		else if (OnlyContains(arguments, "blackPointPercentage", "whitePointPercentage", "channels"))
+			image->Level((Percentage)arguments["blackPointPercentage"], (Percentage)arguments["whitePointPercentage"], (Channels)arguments["channels"]);
+		else if (OnlyContains(arguments, "blackPointPercentage", "whitePointPercentage", "midpoint"))
+			image->Level((Percentage)arguments["blackPointPercentage"], (Percentage)arguments["whitePointPercentage"], (double)arguments["midpoint"]);
+		else if (OnlyContains(arguments, "blackPointPercentage", "whitePointPercentage", "midpoint", "channels"))
+			image->Level((Percentage)arguments["blackPointPercentage"], (Percentage)arguments["whitePointPercentage"], (double)arguments["midpoint"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'level', allowed combinations are: [blackPoint, whitePoint] [blackPoint, whitePoint, channels] [blackPoint, whitePoint, midpoint] [blackPoint, whitePoint, midpoint, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'level', allowed combinations are: [blackPoint, whitePoint] [blackPoint, whitePoint, channels] [blackPoint, whitePoint, midpoint] [blackPoint, whitePoint, midpoint, channels] [blackPointPercentage, whitePointPercentage] [blackPointPercentage, whitePointPercentage, channels] [blackPointPercentage, whitePointPercentage, midpoint] [blackPointPercentage, whitePointPercentage, midpoint, channels]");
 	}
 	void MagickScript::ExecuteLevelColors(XmlElement^ element, MagickImage^ image)
 	{
@@ -4355,6 +4411,11 @@ namespace ImageMagick
 						{
 							case 'i':
 							{
+								if (element->Name->Length == 5)
+								{
+									ExecutePoint(element, drawables);
+									return;
+								}
 								if (element->Name->Length == 9)
 								{
 									ExecutePointSize(element, drawables);
