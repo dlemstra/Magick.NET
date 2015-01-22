@@ -85,6 +85,17 @@ namespace ImageMagick
 		return _Values;
 	}
 	//==============================================================================================
+	IptcValue^ IptcProfile::GetValue(IptcTag tag)
+	{
+		for each (IptcValue^ iptcValue in Values)
+		{
+			if (iptcValue->Tag == tag)
+				return iptcValue;
+		}
+
+		return nullptr;
+	}
+	//==============================================================================================
 	void IptcProfile::SetEncoding(Encoding^ encoding)
 	{
 		Throw::IfNull("encoding", encoding);

@@ -93,6 +93,38 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Infinity()
+		{
+			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+			{
+				ExifProfile profile = image.GetExifProfile();
+				profile.SetValue(ExifTag.ExposureBiasValue, double.PositiveInfinity);
+				image.AddProfile(profile);
+
+				profile = image.GetExifProfile();
+				ExifValue value = profile.GetValue(ExifTag.ExposureBiasValue);
+				Assert.IsNotNull(value);
+				Assert.IsTrue(double.PositiveInfinity.Equals(value.Value));
+
+				profile.SetValue(ExifTag.ExposureBiasValue, double.NegativeInfinity);
+				image.AddProfile(profile);
+
+				profile = image.GetExifProfile();
+				value = profile.GetValue(ExifTag.ExposureBiasValue);
+				Assert.IsNotNull(value);
+				Assert.IsTrue(double.NegativeInfinity.Equals(value.Value));
+
+				profile.SetValue(ExifTag.FlashEnergy, double.NegativeInfinity);
+				image.AddProfile(profile);
+
+				profile = image.GetExifProfile();
+				value = profile.GetValue(ExifTag.FlashEnergy);
+				Assert.IsNotNull(value);
+				Assert.IsTrue(double.PositiveInfinity.Equals(value.Value));
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_SetValue()
 		{
 			using (MemoryStream memStream = new MemoryStream())

@@ -118,7 +118,7 @@ namespace ImageMagick
 		//===========================================================================================
 		static int WriteRational(double value, array<Byte>^ destination, int offset);
 		//===========================================================================================
-		static int WriteURational(double value, array<Byte>^ destination, int offset);
+		static int WriteSignedRational(double value, array<Byte>^ destination, int offset);
 		//===========================================================================================
 		static int WriteValue(ExifDataType dataType, Object^ value, array<Byte>^ destination, int offset);
 		//===========================================================================================

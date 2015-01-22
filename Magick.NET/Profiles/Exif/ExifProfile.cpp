@@ -77,6 +77,17 @@ namespace ImageMagick
 		return gcnew MagickImage(data);
 	}
 	//==============================================================================================
+	ExifValue^ ExifProfile::GetValue(ExifTag tag)
+	{
+		for each (ExifValue^ exifValue in Values)
+		{
+			if (exifValue->Tag == tag)
+				return exifValue;
+		}
+
+		return nullptr;
+	}
+	//==============================================================================================
 	void ExifProfile::SetValue(ExifTag tag, Object^ value)
 	{
 		for each (ExifValue^ exifValue in Values)

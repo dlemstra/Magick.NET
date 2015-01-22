@@ -73,6 +73,12 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Returns the value with the specified tag.
+		///</summary>
+		///<param name="tag">The tag of the iptc value.</param>
+		IptcValue^ GetValue(IptcTag tag);
+		///==========================================================================================
+		///<summary>
 		/// Changes the encoding for all the values,
 		///</summary>
 		///<param name="encoding">The encoding to use when storing the bytes.</param>

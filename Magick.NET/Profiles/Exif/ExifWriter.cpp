@@ -142,57 +142,70 @@ namespace ImageMagick
 	//==============================================================================================
 	int ExifWriter::WriteRational(double value, array<Byte>^ destination, int offset)
 	{
-		int numerator = 1;
-		int denominator = 1;
+		unsigned int numerator = 1;
+		unsigned int denominator = 1;
 
-		double val = abs(value);
-		double df = numerator / denominator;
-
-		while (abs(df - val) > .000001)
+		if (double::IsPositiveInfinity(value))
+			denominator = 0;
+		else if (double::IsNegativeInfinity(value))
+			denominator = 0;
+		else
 		{
-			if (df < val)
-			{
-				numerator++;
-			}
-			else
-			{
-				denominator++;
-				numerator = (int)(val * denominator);
-			}
+			double val = abs(value);
+			double df = numerator / denominator;
 
-			df = numerator / (double)denominator;
+			while (abs(df - val) > .000001)
+			{
+				if (df < val)
+				{
+					numerator++;
+				}
+				else
+				{
+					denominator++;
+					numerator = (unsigned int)(val * denominator);
+				}
+
+				df = numerator / (double)denominator;
+			}
 		}
 
-		Write((numerator) * (value < 0 ? -1 : 1), destination, offset);
+		Write(numerator, destination, offset);
 		Write(denominator, destination, offset + 4);
 
 		return offset + 8;
 	}
 	//==============================================================================================
-	int ExifWriter::WriteURational(double value, array<Byte>^ destination, int offset)
+	int ExifWriter::WriteSignedRational(double value, array<Byte>^ destination, int offset)
 	{
-		unsigned int numerator = 1;
-		unsigned int denominator = 1;
+		int numerator = 1;
+		int denominator = 1;
 
-		double val = abs(value);
-		double df = numerator / denominator;
-
-		while (abs(df - val) > .000001)
+		if (double::IsPositiveInfinity(value))
+			denominator = 0;
+		else if (double::IsNegativeInfinity(value))
+			denominator = 0;
+		else
 		{
-			if (df < val)
+			double val = abs(value);
+			double df = numerator / denominator;
+			while (abs(df - val) > .000001)
 			{
-				numerator++;
-			}
-			else
-			{
-				denominator++;
-				numerator = (unsigned int)(val * denominator);
-			}
+				if (df < val)
+				{
+					numerator++;
+				}
+				else
+				{
+					denominator++;
+					numerator = (int)(val * denominator);
+				}
 
-			df = numerator / (double)denominator;
+				df = numerator / (double)denominator;
+			}
 		}
 
-		Write(numerator, destination, offset);
+		Write(numerator * (value < 0.0 ? -1 : 1), destination, offset);
 		Write(denominator, destination, offset + 4);
 
 		return offset + 8;
@@ -219,7 +232,7 @@ namespace ImageMagick
 		case ExifDataType::Long:
 			return Write((unsigned int)value, destination, offset);
 		case ExifDataType::Rational:
-			return WriteURational((double)value, destination, offset);
+			return WriteRational((double)value, destination, offset);
 		case ExifDataType::SignedByte:
 			destination[offset] = (SByte)value;
 			return offset + 1;
@@ -228,7 +241,7 @@ namespace ImageMagick
 		case ExifDataType::SignedShort:
 			return Write((short)value, destination, offset);
 		case ExifDataType::SignedRational:
-			return WriteRational((double)value, destination, offset);
+			return WriteSignedRational((double)value, destination, offset);
 		case ExifDataType::SingleFloat:
 			return Write((Single)value, destination, offset);
 		default:

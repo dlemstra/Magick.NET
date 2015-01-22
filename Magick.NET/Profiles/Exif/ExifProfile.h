@@ -93,6 +93,12 @@ namespace ImageMagick
 		MagickImage^ CreateThumbnail();
 		///==========================================================================================
 		///<summary>
+		/// Returns the value with the specified tag.
+		///</summary>
+		///<param name="tag">The tag of the exif value.</param>
+		ExifValue^ ExifProfile::GetValue(ExifTag tag);
+		///==========================================================================================
+		///<summary>
 		/// Sets the value of the specified tag.
 		///</summary>
 		///<param name="tag">The tag of the exif value.</param>
