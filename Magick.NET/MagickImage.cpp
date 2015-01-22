@@ -2481,7 +2481,7 @@ namespace ImageMagick
 	{
 		try
 		{
-			Value->contrast(enhance ? 0 : 1);
+			Value->contrast(enhance);
 		}
 		catch(Magick::Exception& exception)
 		{

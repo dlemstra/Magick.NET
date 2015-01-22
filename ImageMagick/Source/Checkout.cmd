@@ -1,7 +1,7 @@
 @echo off
 
 set REPOS=https://subversion.imagemagick.org/subversion
-set REVISION=17638
+set REVISION=17772
 
 if exist ImageMagick goto update
 
@@ -67,4 +67,12 @@ svn update -r %REVISION% webp
 svn update -r %REVISION% zlib
 
 :done
+rmdir /s /q VisualMagick\dcraw
+rmdir /s /q VisualMagick\demos
+rmdir /s /q VisualMagick\ImageMagickObject
+rmdir /s /q VisualMagick\IMDisplay
+rmdir /s /q VisualMagick\iptcutil
+rmdir /s /q VisualMagick\NtMagick
+rmdir /s /q VisualMagick\tests
+rmdir /s /q VisualMagick\utilities
 pause

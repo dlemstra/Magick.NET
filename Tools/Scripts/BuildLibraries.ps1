@@ -78,24 +78,13 @@ $configurations = @(
 	}
 )
 #==================================================================================================
-function AddCoders()
-{
-	$projectFile = FullPath "ImageMagick\Source\ImageMagick\VisualMagick\coders\CORE_coders_mtdll_lib.vcxproj"
-	$xml = [xml](get-content $projectFile)
-	SelectNodes $xml "//msb:AdditionalIncludeDirectories" | Foreach {$_.InnerText = "..\webp\src;" + $_.InnerText}
-	$xml.Save($projectFile)
-}
-#==================================================================================================
 function Build($platform, $builds)
 {
 	$configFile = FullPath "ImageMagick\Source\ImageMagick\MagickCore\magick-baseconfig.h"
 	$config = [IO.File]::ReadAllText($configFile, [System.Text.Encoding]::Default)
-	$config = $config.Replace("#define ProvideDllMain", "#undef ProvideDllMain")
-	$config = $config.Replace("#define MAGICKCORE_JBIG_DELEGATE", "#undef MAGICKCORE_JBIG_DELEGATE")
-	$config = $config.Replace("// #define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"")
+	$config = $config.Replace("//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"")
 
 	ModifyDebugInformationFormat
-	AddCoders
 
 	foreach ($build in $builds)
 	{
@@ -104,28 +93,25 @@ function Build($platform, $builds)
 
 		ModifyPlatformToolset $build
 
-		$options = "Configuration=Release,Platform="
+		$platformName = "Win32"
 		if ($platform -eq "x64")
 		{
-			$options = "$($options)x64";
-		}
-		else
-		{
-			$options = "$($options)Win32";
+			$platformName = "x64";
 		}
 
+		$options = "Configuration=Release,Platform=$($platformName)"
 		if ($build.Framework -eq "v2.0")
 		{
 			$options = "$($options),VCBuildAdditionalOptions=/arch:SSE";
 		}
 
-		BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMTDLL.sln" $options
+		BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMTD.sln" $options
 
 		Copy-Item $configFile "ImageMagick\$($build.Name)\include\MagickCore"
-		$newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"", "// #define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"")
+		$newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"", "//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"")
 		[IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
 
-		Copy-Item ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_*.lib "ImageMagick\lib\$($build.Framework)\$platform"
+		Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\StaticMTD-$($platformName)\CORE_RL_*.lib" "ImageMagick\lib\$($build.Framework)\$platform"
 
 		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_coders_.lib"   "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
 		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_Magick++_.lib" "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
@@ -178,7 +164,7 @@ function CopyFiles($folder)
 #==================================================================================================
 function CreateSolution($platform, $options)
 {
-	$solutionFile = FullPath "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMTDLL.sln"
+	$solutionFile = FullPath "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMTD.sln"
 
 	if (Test-Path $solutionFile)
 	{
@@ -195,12 +181,9 @@ function CreateSolution($platform, $options)
 		Write-Host "Options: $options."
 	}
 
-	Start-Process .\configure.exe -ArgumentList "/mtsd /noWizard $options" -wait
+	Start-Process .\configure.exe -ArgumentList "/smtd /noWizard /VS2012 $options" -wait
 
 	set-location $location
-
-	RemoveProjects $solutionFile
-	UpgradeSolution $solutionFile
 }
 #==================================================================================================
 function ModifyDebugInformationFormat($folder)
@@ -237,43 +220,6 @@ function PatchFiles()
 #  endif
 #endif", "#define LIBXML_STATIC")
 	[IO.File]::WriteAllText($xmlversionFile, $xmlversion, [System.Text.Encoding]::Default)
-}
-#==================================================================================================
-function RemoveProjects($solutionFile)
-{
-	Write-Host "Removing projects from solution."
-	$lines = [IO.File]::ReadAllLines($solutionFile, [System.Text.Encoding]::Default)
-	
-	for ($i=0; $i -le $lines.Length - 1; $i++)
-	{
-		if ($lines[$i].Contains("All") -eq $true)
-		{
-			$lines[$i] = ""
-			if ($lines[$i + 1].Contains("EndProject"))
-			{
-				$lines[$i + 1] = ""
-			}
-		}
-	}
-
-	[IO.File]::WriteAllText($solutionFile, [String]::Join([Environment]::NewLine, $lines), [System.Text.Encoding]::Default)
-}
-#==================================================================================================
-function UpgradeSolution($solutionFile)
-{
-	$folder = FullPath "ImageMagick\Source\ImageMagick\VisualMagick"
-	foreach ($projectFile in [IO.Directory]::GetFiles("$folder", "CORE_*.vcxproj", [IO.SearchOption]::AllDirectories))
-	{
-		Remove-Item "$projectFile"
-		Remove-Item "$projectFile.filters"
-	}
-
-	Write-Host "Upgrading solution."
-	devenv /upgrade $solutionFile
-	CheckExitCode "Upgrade failed."
-
-	Remove-Item "$folder\Backup" -recurse -force
-	Remove-Item "$folder\UpgradeLog.htm"
 }
 #==================================================================================================
 CheckFolder "ImageMagick\Source"

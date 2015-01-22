@@ -26,15 +26,15 @@ namespace ImageMagick
 		Undefined = Magick::UndefinedType,
 		Bilevel = Magick::BilevelType,
 		Grayscale = Magick::GrayscaleType,
-		GrayscaleMatte = Magick::GrayscaleMatteType,
+		GrayscaleMatte = Magick::GrayscaleAlphaType,
 		Palette = Magick::PaletteType,
-		PaletteMatte = Magick::PaletteMatteType,
+		PaletteMatte = Magick::PaletteAlphaType,
 		TrueColor = Magick::TrueColorType,
-		TrueColorMatte = Magick::TrueColorMatteType,
+		TrueColorMatte = Magick::TrueColorAlphaType,
 		ColorSeparation = Magick::ColorSeparationType,
-		ColorSeparationMatte = Magick::ColorSeparationMatteType,
+		ColorSeparationMatte = Magick::ColorSeparationAlphaType,
 		Optimize = Magick::OptimizeType,
-		PaletteBilevelMatte = Magick::PaletteBilevelMatteType
+		PaletteBilevelMatte = Magick::PaletteBilevelAlphaType
 	};
 	//==============================================================================================
 }

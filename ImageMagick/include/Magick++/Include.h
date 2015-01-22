@@ -624,15 +624,15 @@ namespace Magick
   using MagickCore::UndefinedType;
   using MagickCore::BilevelType;
   using MagickCore::GrayscaleType;
-  using MagickCore::GrayscaleMatteType;
+  using MagickCore::GrayscaleAlphaType;
   using MagickCore::PaletteType;
-  using MagickCore::PaletteMatteType;
+  using MagickCore::PaletteAlphaType;
   using MagickCore::TrueColorType;
-  using MagickCore::TrueColorMatteType;
+  using MagickCore::TrueColorAlphaType;
   using MagickCore::ColorSeparationType;
-  using MagickCore::ColorSeparationMatteType;
+  using MagickCore::ColorSeparationAlphaType;
   using MagickCore::OptimizeType;
-  using MagickCore::PaletteBilevelMatteType;
+  using MagickCore::PaletteBilevelAlphaType;
 
   // Interlace types
   using MagickCore::InterlaceType;
@@ -1242,6 +1242,7 @@ namespace Magick
   using MagickCore::GetCacheViewAuthenticMetacontent;
   using MagickCore::GetCacheViewAuthenticPixels;
   using MagickCore::GetCacheViewVirtualPixels;
+  using MagickCore::GetClientName;
   using MagickCore::GetColorTuple;
   using MagickCore::GetDrawInfo;
   using MagickCore::GetGeometry;
@@ -1377,7 +1378,6 @@ namespace Magick
   using MagickCore::SelectiveBlurImage;
   using MagickCore::SeparateImage;
   using MagickCore::SepiaToneImage;
-  using MagickCore::SetClientName;
   using MagickCore::SetGeometry;
   using MagickCore::SetImageAlpha;
   using MagickCore::SetImageArtifact;
