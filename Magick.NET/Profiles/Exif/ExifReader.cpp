@@ -283,7 +283,7 @@ namespace ImageMagick
 	//==============================================================================================
 	double ExifReader::ToRational(array<Byte>^ data)
 	{
-		if (!ValidateArray(data, 8))
+		if (!ValidateArray(data, 8, 4))
 			return double();
 
 		unsigned int numerator = BitConverter::ToUInt32(data, 0);
@@ -307,7 +307,7 @@ namespace ImageMagick
 	//==============================================================================================
 	double ExifReader::ToSignedRational(array<Byte>^ data)
 	{
-		if (!ValidateArray(data, 8))
+		if (!ValidateArray(data, 8, 4))
 			return double();
 
 		int numerator = BitConverter::ToInt32(data, 0);
@@ -326,15 +326,20 @@ namespace ImageMagick
 	//==============================================================================================
 	bool ExifReader::ValidateArray(array<Byte>^ data, int size)
 	{
+		return ValidateArray(data, size, size);
+	}
+	//==============================================================================================
+	bool ExifReader::ValidateArray(array<Byte>^ data, int size, int stepSize)
+	{
 		if (data == nullptr || data->Length < size)
 			return false;
 
 		if (_IsLittleEndian == BitConverter::IsLittleEndian)
 			return true;
 
-		for (int i=0; i < data->Length; i+=size)
+		for (int i=0; i < data->Length; i+=stepSize)
 		{
-			Array::Reverse(data, i, size);
+			Array::Reverse(data, i, stepSize);
 		}
 
 		return true;
