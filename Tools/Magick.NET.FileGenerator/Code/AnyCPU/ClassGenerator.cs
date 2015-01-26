@@ -78,6 +78,18 @@ namespace Magick.NET.FileGenerator
 			return false;
 		}
 		//===========================================================================================
+		private Type CheckNullable(Type pType)
+		{
+			if (pType.IsGenericType && pType.Name.StartsWith("Nullable", StringComparison.Ordinal))
+			{
+				Type genericArgument = pType.GetGenericArguments()[0];
+				if (genericArgument.IsValueType && _Types.Contains(genericArgument))
+					return genericArgument;
+			}
+
+			return pType;
+		}
+		//===========================================================================================
 		private void CopyDocumentation()
 		{
 			string folder = MagickNET.GetFolderName(MagickNET.Depth);
@@ -800,10 +812,12 @@ namespace Magick.NET.FileGenerator
 				if (property.GetCustomAttribute<CLSCompliantAttribute>() != null)
 					writer.WriteLine("[CLSCompliant(false)]");
 
+				Type propertyType = CheckNullable(property.PropertyType);
+
 				writer.Write("public ");
 				if (method.IsStatic)
 					writer.Write("static ");
-				WriteType(writer, property.PropertyType);
+				WriteType(writer, propertyType);
 				writer.Write(" ");
 				if (property.GetIndexParameters().Length > 0)
 				{
@@ -844,7 +858,7 @@ namespace Magick.NET.FileGenerator
 					}
 					else
 					{
-						if (method.ReturnType != typeof(void))
+						if (propertyType != typeof(void))
 							writer.Write("result = ");
 						if (method.IsStatic)
 							WriteTypeOf(writer, type);
@@ -854,7 +868,7 @@ namespace Magick.NET.FileGenerator
 						writer.Write(property.Name);
 						writer.WriteLine("\");");
 						WriteCatch(writer);
-						WriteReturn(writer, property.PropertyType);
+						WriteReturn(writer, propertyType);
 					}
 					WriteEndColon(writer);
 				}
@@ -1078,6 +1092,7 @@ namespace Magick.NET.FileGenerator
 			writer.WriteLine("using System.Reflection;");
 			writer.WriteLine("using System.Text;");
 			writer.WriteLine("using System.Windows.Media.Imaging;");
+			writer.WriteLine("using System.Xml;");
 			writer.WriteLine("using System.Xml.Linq;");
 			writer.WriteLine("using System.Xml.XPath;");
 			writer.WriteLine("using Fasterflect;");
@@ -1107,12 +1122,19 @@ namespace Magick.NET.FileGenerator
 						writer.Write("Types.");
 						WriteType(writer, genericArgument);
 					}
-					writer.Write(" }, value.Value)");
+
+					if (genericArgument.IsValueType && _Types.Contains(genericArgument))
+					{
+						writer.Write(" }, ");
+						WriteType(writer, genericArgument);
+						writer.Write(".GetInstance(");
+						writer.Write("value))");
+					}
+					else
+						writer.Write(" }, value.Value)");
 				}
 				else
-				{
 					throw new NotImplementedException();
-				}
 			}
 			else if (_Types.Contains(parameter.ParameterType))
 			{

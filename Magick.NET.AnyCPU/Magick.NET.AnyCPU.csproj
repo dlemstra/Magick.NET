@@ -69,6 +69,7 @@
     <Compile Include="Generated\PointD.cs" />
     <Compile Include="Generated\SparseColorArg.cs" />
     <Compile Include="Generated\Statistics.cs" />
+    <Compile Include="Generated\XmpProfile.cs" />
     <Compile Include="MagickAnyCPU.cs" />
     <Compile Include="AssemblyHelper.cs" />
     <Compile Include="EnumeratorWrapper.cs" />

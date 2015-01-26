@@ -99,6 +99,7 @@
     <Compile Include="Profiles\ImageProfileTests.cs" />
     <Compile Include="Profiles\Iptc\IptcProfileTests.cs" />
     <Compile Include="Profiles\Iptc\IptcValueTests.cs" />
+    <Compile Include="Profiles\Xmp\XmpProfileTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Files.cs" />
     <Compile Include="ResourceLimitsTests.cs" />
