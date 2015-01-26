@@ -42,10 +42,9 @@ namespace ImageMagick
 		if (bytes == nullptr || bytes->Length == 0)
 			return;
 
-		char* unmanagedValue = new char[bytes->Length];
+		unsigned char* unmanagedValue = new unsigned char[bytes->Length];
 		Marshal::Copy(bytes, 0, IntPtr(unmanagedValue), bytes->Length);
-		value->update(unmanagedValue, bytes->Length);
-		delete[] unmanagedValue;
+		value->updateNoCopy(unmanagedValue, bytes->Length);
 	}
 	//==============================================================================================
 	void* Marshaller::Marshal(array<Byte>^ values, StorageType storageType)
