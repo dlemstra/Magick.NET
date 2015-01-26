@@ -62,9 +62,10 @@
 #include "Pixels\WritablePixelCollection.h"
 #include "Profiles\ImageProfile.h"
 #include "Profiles\8Bim\EightBimProfile.h"
+#include "Profiles\Color\ColorProfile.h"
 #include "Profiles\Exif\ExifProfile.h"
 #include "Profiles\Iptc\IptcProfile.h"
-#include "Profiles\Color\ColorProfile.h"
+#include "Profiles\Xmp\XmpProfile.h"
 #include "Results\MagickErrorInfo.h"
 #include "Results\MagickSearchResult.h"
 #include "Results\TypeMetric.h"
@@ -2189,6 +2190,12 @@ namespace ImageMagick
 		///<param name="height">The height of the pixel area.</param>
 		///<exception cref="MagickException"/>
 		WritablePixelCollection^ GetWritablePixels(int x, int y, int width, int height);
+		///==========================================================================================
+		///<summary>
+		/// Retrieve the xmp profile from the image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		XmpProfile^ GetXmpProfile();
 		///==========================================================================================
 		///<summary>
 		/// Converts the colors in the image to gray.

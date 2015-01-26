@@ -762,6 +762,9 @@
     <ClInclude Include="Profiles\8Bim\EightBimValue.h">
       <Filter>Header Files\Profiles\8Bim</Filter>
     </ClInclude>
+    <ClInclude Include="Profiles\Xmp\XmpProfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1204,6 +1207,9 @@
     </ClCompile>
     <ClCompile Include="Profiles\8Bim\EightBimValue.cpp">
       <Filter>Source Files\Profiles\8Bim</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiles\Xmp\XmpProfile.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

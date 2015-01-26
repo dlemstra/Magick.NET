@@ -3367,6 +3367,11 @@ namespace ImageMagick
 		return gcnew WritablePixelCollection(Value, x, y, width, height);
 	}
 	//==============================================================================================
+	XmpProfile^ MagickImage::GetXmpProfile()
+	{
+		return CreateProfile<XmpProfile>("xmp");
+	}
+	//==============================================================================================
 	void MagickImage::Grayscale(PixelIntensityMethod method)
 	{
 		try
