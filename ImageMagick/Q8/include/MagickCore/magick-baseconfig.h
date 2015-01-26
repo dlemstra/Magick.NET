@@ -297,6 +297,11 @@ typedef long ssize_t;
 #endif
 
 /*
+  Define to 1 if you have the `mmap' function.
+*/
+#define MAGICKCORE_HAVE_MMAP 1
+
+/*
   Define to 1 if you have the `popen' function.
 */
 #define MAGICKCORE_HAVE_POPEN 1

@@ -1,7 +1,7 @@
 @echo off
 
 set REPOS=https://subversion.imagemagick.org/subversion
-set REVISION=17772
+set REVISION=17867
 
 if exist ImageMagick goto update
 
