@@ -79,6 +79,12 @@ namespace ImageMagick
 		IptcValue^ GetValue(IptcTag tag);
 		///==========================================================================================
 		///<summary>
+		/// Removes the value with the specified tag.
+		///</summary>
+		///<param name="tag">The tag of the iptc value.</param>
+		bool RemoveValue(IptcTag tag);
+		///==========================================================================================
+		///<summary>
 		/// Changes the encoding for all the values,
 		///</summary>
 		///<param name="encoding">The encoding to use when storing the bytes.</param>

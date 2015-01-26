@@ -96,6 +96,22 @@ namespace ImageMagick
 		return nullptr;
 	}
 	//==============================================================================================
+	bool IptcProfile::RemoveValue(IptcTag tag)
+	{
+		Initialize();
+
+		for (int i=0; i < _Values->Count; i++)
+		{
+			if (_Values[i]->Tag == tag)
+			{
+				_Values->RemoveAt(i);
+				return true;
+			}
+		}
+
+		return false;
+	}
+	//==============================================================================================
 	void IptcProfile::SetEncoding(Encoding^ encoding)
 	{
 		Throw::IfNull("encoding", encoding);

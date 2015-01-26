@@ -79,13 +79,13 @@ namespace Magick.NET.Tests
 					IptcProfile profile = image.GetIptcProfile();
 					TestProfileValues(profile);
 
-					IptcValue value = profile.Values.FirstOrDefault(val => val.Tag == IptcTag.Title);
+					IptcValue value = profile.GetValue(IptcTag.Title);
 					TestValue(value, "Communications");
 
 					profile.SetValue(IptcTag.Title, "Magick.NET Title");
 					TestValue(value, "Magick.NET Title");
 
-					value = profile.Values.FirstOrDefault(val => val.Tag == IptcTag.Title);
+					value = profile.GetValue(IptcTag.Title);
 					TestValue(value, "Magick.NET Title");
 
 					value = profile.Values.FirstOrDefault(val => val.Tag == IptcTag.ReferenceNumber);
@@ -93,7 +93,7 @@ namespace Magick.NET.Tests
 
 					profile.SetValue(IptcTag.ReferenceNumber, "Magick.NET ReferenceNumber");
 
-					value = profile.Values.FirstOrDefault(val => val.Tag == IptcTag.ReferenceNumber);
+					value = profile.GetValue(IptcTag.ReferenceNumber);
 					TestValue(value, "Magick.NET ReferenceNumber");
 
 					// Remove the 8bim profile so we can overwrite the iptc profile.
@@ -109,10 +109,10 @@ namespace Magick.NET.Tests
 					IptcProfile profile = image.GetIptcProfile();
 					TestProfileValues(profile, 19);
 
-					IptcValue value = profile.Values.FirstOrDefault(val => val.Tag == IptcTag.Title);
+					IptcValue value = profile.GetValue(IptcTag.Title);
 					TestValue(value, "Magick.NET Title");
 
-					value = profile.Values.FirstOrDefault(val => val.Tag == IptcTag.ReferenceNumber);
+					value = profile.GetValue(IptcTag.ReferenceNumber);
 					TestValue(value, "Magick.NET ReferenceNumber");
 
 					ExceptionAssert.Throws<ArgumentNullException>(delegate()
@@ -127,6 +127,10 @@ namespace Magick.NET.Tests
 					profile.SetValue(IptcTag.Caption, Encoding.UTF32, "Test");
 					Assert.AreEqual(Encoding.UTF32, value.Encoding);
 					Assert.AreEqual("Test", value.Value);
+
+					Assert.IsTrue(profile.RemoveValue(IptcTag.Caption));
+					Assert.IsFalse(profile.RemoveValue(IptcTag.Caption));
+					Assert.IsNull(profile.GetValue(IptcTag.Caption));
 				}
 			}
 		}

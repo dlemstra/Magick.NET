@@ -88,6 +88,22 @@ namespace ImageMagick
 		return nullptr;
 	}
 	//==============================================================================================
+	bool ExifProfile::RemoveValue(ExifTag tag)
+	{
+		Initialize();
+
+		for (int i=0; i < _Values->Count; i++)
+		{
+			if (_Values[i]->Tag == tag)
+			{
+				_Values->RemoveAt(i);
+				return true;
+			}
+		}
+
+		return false;
+	}
+	//==============================================================================================
 	void ExifProfile::SetValue(ExifTag tag, Object^ value)
 	{
 		for each (ExifValue^ exifValue in Values)

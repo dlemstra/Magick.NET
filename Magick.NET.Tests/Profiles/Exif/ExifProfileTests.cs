@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
 using ImageMagick;
@@ -66,6 +67,12 @@ namespace Magick.NET.Tests
 		{
 			Assert.IsNotNull(value);
 			Assert.AreEqual(expected, value.Value);
+		}
+		//===========================================================================================
+		private static void TestValue(ExifValue value, double[] expected)
+		{
+			Assert.IsNotNull(value);
+			CollectionAssert.AreEqual(expected, (ICollection)value.Value);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -138,6 +145,8 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_SetValue()
 		{
+			double[] latitude = new double[] { 12.3, 4.56, 789.0 };
+
 			using (MemoryStream memStream = new MemoryStream())
 			{
 				using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -145,7 +154,7 @@ namespace Magick.NET.Tests
 					ExifProfile profile = image.GetExifProfile();
 					profile.SetValue(ExifTag.Software, "Magick.NET");
 
-					ExifValue value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.Software);
+					ExifValue value = profile.GetValue(ExifTag.Software);
 					TestValue(value, "Magick.NET");
 
 					ExceptionAssert.Throws<ArgumentException>(delegate()
@@ -155,7 +164,7 @@ namespace Magick.NET.Tests
 
 					profile.SetValue(ExifTag.ShutterSpeedValue, 75.55);
 
-					value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.ShutterSpeedValue);
+					value = profile.GetValue(ExifTag.ShutterSpeedValue);
 					TestValue(value, 75.55);
 
 					ExceptionAssert.Throws<ArgumentException>(delegate()
@@ -165,7 +174,7 @@ namespace Magick.NET.Tests
 
 					profile.SetValue(ExifTag.XResolution, 150.0);
 
-					value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.XResolution);
+					value = profile.GetValue(ExifTag.XResolution);
 					TestValue(value, 150.0);
 
 					ExceptionAssert.Throws<ArgumentException>(delegate()
@@ -175,7 +184,21 @@ namespace Magick.NET.Tests
 
 					image.Density = new PointD(72);
 
+					value = profile.GetValue(ExifTag.XResolution);
+					TestValue(value, 150.0);
+
+					value = profile.GetValue(ExifTag.ReferenceBlackWhite);
+					Assert.IsNotNull(value);
+
 					profile.SetValue(ExifTag.ReferenceBlackWhite, null);
+
+					value = profile.GetValue(ExifTag.ReferenceBlackWhite);
+					TestValue(value, (string)null);
+
+					profile.SetValue(ExifTag.GPSLatitude, latitude);
+
+					value = profile.GetValue(ExifTag.GPSLatitude);
+					TestValue(value, latitude);
 
 					image.AddProfile(profile);
 
@@ -190,14 +213,20 @@ namespace Magick.NET.Tests
 					Assert.IsNotNull(profile);
 					Assert.AreEqual(43, profile.Values.Count());
 
-					ExifValue value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.Software);
+					ExifValue value = profile.GetValue(ExifTag.Software);
 					TestValue(value, "Magick.NET");
 
-					value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.ShutterSpeedValue);
+					value = profile.GetValue(ExifTag.ShutterSpeedValue);
 					TestValue(value, 75.55);
 
-					value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.XResolution);
+					value = profile.GetValue(ExifTag.XResolution);
 					TestValue(value, 72.0);
+
+					value = profile.GetValue(ExifTag.ReferenceBlackWhite);
+					Assert.IsNull(value);
+
+					value = profile.GetValue(ExifTag.GPSLatitude);
+					TestValue(value, latitude);
 
 					profile.Parts = ExifParts.ExifTags;
 
@@ -214,6 +243,13 @@ namespace Magick.NET.Tests
 
 					Assert.IsNotNull(profile);
 					Assert.AreEqual(24, profile.Values.Count());
+
+					Assert.IsNotNull(profile.GetValue(ExifTag.FNumber));
+					Assert.IsTrue(profile.RemoveValue(ExifTag.FNumber));
+					Assert.IsFalse(profile.RemoveValue(ExifTag.FNumber));
+					Assert.IsNull(profile.GetValue(ExifTag.FNumber));
+
+					Assert.AreEqual(23, profile.Values.Count());
 				}
 			}
 		}
