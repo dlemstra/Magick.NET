@@ -40,6 +40,8 @@ namespace ImageMagick
 		//===========================================================================================
 		void ApplyColorSpace(MagickCore::ImageInfo *imageInfo);
 		//===========================================================================================
+		void ApplyDefines(MagickCore::ImageInfo *imageInfo);
+		//===========================================================================================
 		void ApplyDensity(MagickCore::ImageInfo *imageInfo);
 		//===========================================================================================
 		void ApplyDimensions(MagickCore::ImageInfo *imageInfo);
@@ -48,7 +50,7 @@ namespace ImageMagick
 		//===========================================================================================
 		void ApplyFrame(MagickCore::ImageInfo *imageInfo);
 		//===========================================================================================
-		void ApplyDefines(MagickCore::ImageInfo *imageInfo);
+		void ApplyUseMonochrome(MagickCore::ImageInfo *imageInfo);
 		//===========================================================================================
 	internal:
 		//===========================================================================================
@@ -93,14 +95,19 @@ namespace ImageMagick
 		property Nullable<int> FrameCount;
 		///==========================================================================================
 		///<summary>
+		/// The height.
+		///</summary>
+		property Nullable<int> Height;
+		///==========================================================================================
+		///<summary>
 		/// The settings for pixel storage.
 		///</summary>
 		property PixelStorageSettings^ PixelStorage;
 		///==========================================================================================
 		///<summary>
-		/// The height.
+		/// Use monochrome reader.
 		///</summary>
-		property Nullable<int> Height;
+		property Nullable<bool> UseMonochrome;
 		///==========================================================================================
 		///<summary>
 		/// The width.

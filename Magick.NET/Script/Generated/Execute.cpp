@@ -919,11 +919,6 @@ namespace ImageMagick
 						}
 						break;
 					}
-					case 's':
-					{
-						ExecuteIsMonochrome(element, image);
-						return;
-					}
 					case 'm':
 					{
 						ExecuteImplode(element, image);
@@ -1933,10 +1928,6 @@ namespace ImageMagick
 	void MagickScript::ExecuteInterpolate(XmlElement^ element, MagickImage^ image)
 	{
 		image->Interpolate = _Variables->GetValue<PixelInterpolateMethod>(element, "value");
-	}
-	void MagickScript::ExecuteIsMonochrome(XmlElement^ element, MagickImage^ image)
-	{
-		image->IsMonochrome = _Variables->GetValue<bool>(element, "value");
 	}
 	void MagickScript::ExecuteLabel(XmlElement^ element, MagickImage^ image)
 	{
@@ -5364,6 +5355,7 @@ namespace ImageMagick
 		result->FrameIndex = _Variables->GetValue<Nullable<Int32>>(element, "frameIndex");
 		result->Height = _Variables->GetValue<Nullable<Int32>>(element, "height");
 		result->PixelStorage = CreatePixelStorageSettings(element["pixelStorage"]);
+		result->UseMonochrome = _Variables->GetValue<Nullable<bool>>(element, "useMonochrome");
 		result->Width = _Variables->GetValue<Nullable<Int32>>(element, "width");
 		XmlElement^ setDefine = (XmlElement^)element->SelectSingleNode("setDefine");
 		if (setDefine != nullptr)

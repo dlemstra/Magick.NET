@@ -47,15 +47,11 @@
 			<xs:simpleType>
 				<xs:restriction base="xs:NMTOKEN">
 					<xs:enumeration value="Activate" />
-					<xs:enumeration value="Associate" />
 					<xs:enumeration value="Background" />
 					<xs:enumeration value="Copy" />
 					<xs:enumeration value="Deactivate" />
-					<xs:enumeration value="Disassociate" />
-					<xs:enumeration value="Discrete" />
 					<xs:enumeration value="Extract" />
-					<xs:enumeration value="Off" />
-					<xs:enumeration value="On" />
+					<xs:enumeration value="Flatten" />
 					<xs:enumeration value="Opaque" />
 					<xs:enumeration value="Remove" />
 					<xs:enumeration value="Set" />
@@ -132,13 +128,14 @@
 					<xs:enumeration value="Log" />
 					<xs:enumeration value="Luv" />
 					<xs:enumeration value="OHTA" />
+					<xs:enumeration value="Rec601Luma" />
 					<xs:enumeration value="Rec601YCbCr" />
+					<xs:enumeration value="Rec709Luma" />
 					<xs:enumeration value="Rec709YCbCr" />
 					<xs:enumeration value="RGB" />
 					<xs:enumeration value="scRGB" />
 					<xs:enumeration value="sRGB" />
 					<xs:enumeration value="Transparent" />
-					<xs:enumeration value="XyY" />
 					<xs:enumeration value="XYZ" />
 					<xs:enumeration value="YCbCr" />
 					<xs:enumeration value="YCC" />
@@ -189,12 +186,12 @@
 					<xs:enumeration value="ColorDodge" />
 					<xs:enumeration value="Colorize" />
 					<xs:enumeration value="Copy" />
-					<xs:enumeration value="CopyAlpha" />
 					<xs:enumeration value="CopyBlack" />
 					<xs:enumeration value="CopyBlue" />
 					<xs:enumeration value="CopyCyan" />
 					<xs:enumeration value="CopyGreen" />
 					<xs:enumeration value="CopyMagenta" />
+					<xs:enumeration value="CopyOpacity" />
 					<xs:enumeration value="CopyRed" />
 					<xs:enumeration value="CopyYellow" />
 					<xs:enumeration value="Darken" />
@@ -523,6 +520,7 @@
 					<xs:enumeration value="South" />
 					<xs:enumeration value="Southeast" />
 					<xs:enumeration value="Southwest" />
+					<xs:enumeration value="Static" />
 					<xs:enumeration value="West" />
 				</xs:restriction>
 			</xs:simpleType>
@@ -639,6 +637,7 @@
 					<xs:enumeration value="B" />
 					<xs:enumeration value="Bgr" />
 					<xs:enumeration value="Bgra" />
+					<xs:enumeration value="Bie" />
 					<xs:enumeration value="Bmp" />
 					<xs:enumeration value="Bmp2" />
 					<xs:enumeration value="Bmp3" />
@@ -680,7 +679,6 @@
 					<xs:enumeration value="Ept2" />
 					<xs:enumeration value="Ept3" />
 					<xs:enumeration value="Erf" />
-					<xs:enumeration value="Exr" />
 					<xs:enumeration value="Fax" />
 					<xs:enumeration value="Fits" />
 					<xs:enumeration value="Fractal" />
@@ -701,22 +699,20 @@
 					<xs:enumeration value="Icb" />
 					<xs:enumeration value="Ico" />
 					<xs:enumeration value="Icon" />
-					<xs:enumeration value="Iiq" />
 					<xs:enumeration value="Info" />
 					<xs:enumeration value="Inline" />
 					<xs:enumeration value="Ipl" />
 					<xs:enumeration value="Isobrl" />
 					<xs:enumeration value="J2c" />
 					<xs:enumeration value="J2k" />
+					<xs:enumeration value="Jbg" />
+					<xs:enumeration value="Jbig" />
 					<xs:enumeration value="Jng" />
 					<xs:enumeration value="Jnx" />
 					<xs:enumeration value="Jp2" />
 					<xs:enumeration value="Jpc" />
-					<xs:enumeration value="Jpe" />
 					<xs:enumeration value="Jpeg" />
 					<xs:enumeration value="Jpg" />
-					<xs:enumeration value="Jpm" />
-					<xs:enumeration value="Jps" />
 					<xs:enumeration value="Jpt" />
 					<xs:enumeration value="Json" />
 					<xs:enumeration value="K" />
@@ -813,8 +809,6 @@
 					<xs:enumeration value="Sfw" />
 					<xs:enumeration value="Sgi" />
 					<xs:enumeration value="Shtml" />
-					<xs:enumeration value="Six" />
-					<xs:enumeration value="Sixel" />
 					<xs:enumeration value="SparseColor" />
 					<xs:enumeration value="Sr2" />
 					<xs:enumeration value="Srf" />
@@ -952,26 +946,6 @@
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
-	<xs:simpleType name="PixelIntensityMethod">
-		<xs:union>
-			<xs:simpleType>
-				<xs:restriction base="xs:NMTOKEN">
-					<xs:enumeration value="Average" />
-					<xs:enumeration value="Brightness" />
-					<xs:enumeration value="Lightness" />
-					<xs:enumeration value="MS" />
-					<xs:enumeration value="Rec601Luma" />
-					<xs:enumeration value="Rec601Luminance" />
-					<xs:enumeration value="Rec709LumaPixel" />
-					<xs:enumeration value="Rec709Luminance" />
-					<xs:enumeration value="RMS" />
-				</xs:restriction>
-			</xs:simpleType>
-			<xs:simpleType>
-				<xs:restriction base="var" />
-			</xs:simpleType>
-		</xs:union>
-	</xs:simpleType>
 	<xs:simpleType name="PixelInterpolateMethod">
 		<xs:union>
 			<xs:simpleType>
@@ -980,13 +954,15 @@
 					<xs:enumeration value="Average16" />
 					<xs:enumeration value="Average9" />
 					<xs:enumeration value="Background" />
+					<xs:enumeration value="Bicubic" />
 					<xs:enumeration value="Bilinear" />
 					<xs:enumeration value="Blend" />
 					<xs:enumeration value="Catrom" />
+					<xs:enumeration value="Filter" />
 					<xs:enumeration value="Integer" />
 					<xs:enumeration value="Mesh" />
-					<xs:enumeration value="Nearest" />
-					<xs:enumeration value="Spline" />
+					<xs:enumeration value="NearestNeighbor" />
+					<xs:enumeration value="Splinea" />
 				</xs:restriction>
 			</xs:simpleType>
 			<xs:simpleType>
@@ -1046,8 +1022,8 @@
 					<xs:enumeration value="Char" />
 					<xs:enumeration value="Double" />
 					<xs:enumeration value="Float" />
+					<xs:enumeration value="Integer" />
 					<xs:enumeration value="Long" />
-					<xs:enumeration value="LongLong" />
 					<xs:enumeration value="Quantum" />
 					<xs:enumeration value="Short" />
 				</xs:restriction>
@@ -1177,7 +1153,7 @@
 						</xs:element>
 					</xs:sequence>
 					<xs:attribute name="colorSpace" type="ColorSpace" />
-					<xs:attribute name="density" type="pointd" />
+					<xs:attribute name="density" type="geometry" />
 					<xs:attribute name="format" type="MagickFormat" />
 					<xs:attribute name="frameCount" type="int" />
 					<xs:attribute name="frameIndex" type="int" />
@@ -1260,11 +1236,6 @@
 		<xs:attribute name="mapping" type="xs:string" />
 		<xs:attribute name="storageType" type="StorageType" />
 	</xs:complexType>
-	<xs:simpleType name="pointd">
-		<xs:restriction base="xs:string">
-			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))" />
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:complexType name="profile">
 		<xs:sequence>
 			<xs:choice>
@@ -1300,11 +1271,6 @@
 				<xs:element name="adjoin">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="bool" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="alphaColor">
-					<xs:complexType>
-						<xs:attribute name="value" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="animationDelay">
@@ -1347,6 +1313,7 @@
 						<xs:attribute name="value" use="required" type="ClassType" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="clipMask" type="image" />
 				<xs:element name="colorFuzz">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="double" />
@@ -1389,7 +1356,7 @@
 				</xs:element>
 				<xs:element name="density">
 					<xs:complexType>
-						<xs:attribute name="value" use="required" type="pointd" />
+						<xs:attribute name="value" use="required" type="geometry" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="depth">
@@ -1469,6 +1436,11 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="mask" type="image" />
+				<xs:element name="matteColor">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="orientation">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="OrientationType" />
@@ -1561,6 +1533,11 @@
 						<xs:attribute name="value" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="tileName">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="verbose">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="bool" />
@@ -1593,8 +1570,8 @@
 				</xs:element>
 				<xs:element name="adaptiveThreshold">
 					<xs:complexType>
-						<xs:attribute name="bias" type="double" />
 						<xs:attribute name="height" use="required" type="int" />
+						<xs:attribute name="offset" type="int" />
 						<xs:attribute name="width" use="required" type="int" />
 					</xs:complexType>
 				</xs:element>
@@ -1753,7 +1730,6 @@
 							<xs:element name="image" type="image" />
 						</xs:sequence>
 						<xs:attribute name="channels" type="Channels" />
-						<xs:attribute name="method" use="required" type="PixelInterpolateMethod" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="colorAlpha">
@@ -1789,21 +1765,9 @@
 						<xs:attribute name="y" type="int" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="connectedComponents">
-					<xs:complexType>
-						<xs:attribute name="connectivity" use="required" type="int" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="contrast">
 					<xs:complexType>
 						<xs:attribute name="enhance" type="bool" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="contrastStretch">
-					<xs:complexType>
-						<xs:attribute name="blackPoint" use="required" type="double" />
-						<xs:attribute name="channels" type="Channels" />
-						<xs:attribute name="whitePoint" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="crop">
@@ -1885,6 +1849,7 @@
 						<xs:attribute name="borderColor" type="color" />
 						<xs:attribute name="color" type="color" />
 						<xs:attribute name="geometry" type="geometry" />
+						<xs:attribute name="paintMethod" type="PaintMethod" />
 						<xs:attribute name="x" type="int" />
 						<xs:attribute name="y" type="int" />
 					</xs:complexType>
@@ -1920,11 +1885,6 @@
 						<xs:attribute name="width" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="grayscale">
-					<xs:complexType>
-						<xs:attribute name="method" use="required" type="PixelIntensityMethod" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="haldClut">
 					<xs:complexType>
 						<xs:sequence>
@@ -1944,19 +1904,6 @@
 						<xs:attribute name="factor" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="inverseFloodFill">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="image" minOccurs="0" type="image" />
-						</xs:sequence>
-						<xs:attribute name="alpha" type="int" />
-						<xs:attribute name="borderColor" type="color" />
-						<xs:attribute name="color" type="color" />
-						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="x" type="int" />
-						<xs:attribute name="y" type="int" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="inverseFourierTransform">
 					<xs:complexType>
 						<xs:sequence>
@@ -1965,39 +1912,19 @@
 						<xs:attribute name="magnitude" type="bool" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="inverseLevelColors">
-					<xs:complexType>
-						<xs:attribute name="blackColor" use="required" type="color" />
-						<xs:attribute name="channels" type="Channels" />
-						<xs:attribute name="whiteColor" use="required" type="color" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="inverseOpaque">
-					<xs:complexType>
-						<xs:attribute name="fill" use="required" type="color" />
-						<xs:attribute name="target" use="required" type="color" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="kuwahara">
-					<xs:complexType>
-						<xs:attribute name="radius" type="double" />
-						<xs:attribute name="sigma" type="double" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="level">
 					<xs:complexType>
-						<xs:attribute name="blackPoint" type="quantum" />
-						<xs:attribute name="blackPointPercentage" type="double" />
+						<xs:attribute name="blackPoint" use="required" type="quantum" />
 						<xs:attribute name="channels" type="Channels" />
 						<xs:attribute name="midpoint" type="double" />
-						<xs:attribute name="whitePoint" type="quantum" />
-						<xs:attribute name="whitePointPercentage" type="double" />
+						<xs:attribute name="whitePoint" use="required" type="quantum" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="levelColors">
 					<xs:complexType>
 						<xs:attribute name="blackColor" use="required" type="color" />
 						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="invert" type="bool" />
 						<xs:attribute name="whiteColor" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
@@ -2018,6 +1945,14 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="magnify" type="empty" />
+				<xs:element name="map">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="image" type="image" />
+						</xs:sequence>
+						<xs:attribute name="dither" type="bool" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="medianFilter">
 					<xs:complexType>
 						<xs:attribute name="radius" type="double" />
@@ -2063,6 +1998,7 @@
 				<xs:element name="opaque">
 					<xs:complexType>
 						<xs:attribute name="fill" use="required" type="color" />
+						<xs:attribute name="invert" type="bool" />
 						<xs:attribute name="target" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
@@ -2082,14 +2018,13 @@
 					<xs:complexType>
 						<xs:attribute name="angle" use="required" type="double" />
 						<xs:attribute name="caption" use="required" type="xs:string" />
-						<xs:attribute name="method" use="required" type="PixelInterpolateMethod" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="posterize">
 					<xs:complexType>
 						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="dither" type="bool" />
 						<xs:attribute name="levels" use="required" type="int" />
-						<xs:attribute name="method" type="DitherMethod" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="preserveColorType" type="empty" />
@@ -2119,23 +2054,16 @@
 						<xs:attribute name="order" type="int" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="removeDefine">
-					<xs:complexType>
-						<xs:attribute name="format" use="required" type="MagickFormat" />
-						<xs:attribute name="name" use="required" type="xs:string" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="removeProfile">
 					<xs:complexType>
 						<xs:attribute name="name" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="rePage" type="empty" />
 				<xs:element name="resample">
 					<xs:complexType>
-						<xs:attribute name="density" type="pointd" />
-						<xs:attribute name="resolutionX" type="double" />
-						<xs:attribute name="resolutionY" type="double" />
+						<xs:attribute name="geometry" type="geometry" />
+						<xs:attribute name="resolutionX" type="int" />
+						<xs:attribute name="resolutionY" type="int" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="resize">
@@ -2303,11 +2231,6 @@
 						<xs:attribute name="method" use="required" type="SparseColorMethod" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="spread">
-					<xs:complexType>
-						<xs:attribute name="amount" type="int" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="stegano">
 					<xs:complexType>
 						<xs:sequence>
@@ -2348,15 +2271,6 @@
 						<xs:attribute name="percentageHeight" type="double" />
 						<xs:attribute name="percentageWidth" type="double" />
 						<xs:attribute name="width" type="int" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="tile">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="image" type="image" />
-						</xs:sequence>
-						<xs:attribute name="args" type="xs:string" />
-						<xs:attribute name="compose" use="required" type="CompositeOperator" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="tint">
@@ -2414,11 +2328,11 @@
 				<xs:element name="trim" type="empty" />
 				<xs:element name="unsharpmask">
 					<xs:complexType>
-						<xs:attribute name="amount" type="double" />
+						<xs:attribute name="amount" use="required" type="double" />
 						<xs:attribute name="channels" type="Channels" />
 						<xs:attribute name="radius" use="required" type="double" />
 						<xs:attribute name="sigma" use="required" type="double" />
-						<xs:attribute name="threshold" type="double" />
+						<xs:attribute name="threshold" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="vignette">
@@ -2474,20 +2388,12 @@
 						<xs:choice minOccurs="0" maxOccurs="unbounded">
 							<xs:element name="coalesce" type="empty" />
 							<xs:element name="deconstruct" type="empty" />
-							<xs:element name="map">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="settings" minOccurs="0" type="quantizeSettings" />
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
 							<xs:element name="optimize" type="empty" />
 							<xs:element name="optimizePlus" type="empty" />
-							<xs:element name="optimizeTransparency" type="empty" />
 							<xs:element name="quantize">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="settings" minOccurs="0" type="quantizeSettings" />
+										<xs:element name="settings" type="quantizeSettings" />
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
@@ -2566,13 +2472,6 @@
 						<xs:attribute name="translateY" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="alpha">
-					<xs:complexType>
-						<xs:attribute name="paintMethod" use="required" type="PaintMethod" />
-						<xs:attribute name="x" use="required" type="double" />
-						<xs:attribute name="y" use="required" type="double" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="arc">
 					<xs:complexType>
 						<xs:attribute name="endDegrees" use="required" type="double" />
@@ -2637,14 +2536,14 @@
 						<xs:attribute name="startDegrees" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="fillAlpha">
-					<xs:complexType>
-						<xs:attribute name="alpha" use="required" type="double" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="fillColor">
 					<xs:complexType>
 						<xs:attribute name="color" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="fillOpacity">
+					<xs:complexType>
+						<xs:attribute name="opacity" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="fillRule">
@@ -2671,6 +2570,13 @@
 						<xs:attribute name="endY" use="required" type="double" />
 						<xs:attribute name="startX" use="required" type="double" />
 						<xs:attribute name="startY" use="required" type="double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="matte">
+					<xs:complexType>
+						<xs:attribute name="paintMethod" use="required" type="PaintMethod" />
+						<xs:attribute name="x" use="required" type="double" />
+						<xs:attribute name="y" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="miterLimit">
@@ -2745,11 +2651,6 @@
 						<xs:attribute name="angle" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="strokeAlpha">
-					<xs:complexType>
-						<xs:attribute name="alpha" use="required" type="double" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="strokeAntialias">
 					<xs:complexType>
 						<xs:attribute name="isEnabled" use="required" type="bool" />
@@ -2768,6 +2669,11 @@
 				<xs:element name="strokeLineJoin">
 					<xs:complexType>
 						<xs:attribute name="lineJoin" use="required" type="LineJoin" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeOpacity">
+					<xs:complexType>
+						<xs:attribute name="opacity" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="strokeWidth">

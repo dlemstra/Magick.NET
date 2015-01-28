@@ -375,6 +375,8 @@ namespace Magick.NET.FileGenerator
 				case "Percentage":
 				case "PointD":
 					return name;
+				case "Nullable<Boolean>":
+					return "Nullable<bool>";
 				case "Byte[]":
 				case "Color":
 				case "ColorMatrix":

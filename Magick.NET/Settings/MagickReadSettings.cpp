@@ -37,6 +37,21 @@ namespace ImageMagick
 			imageInfo->colorspace = (Magick::ColorspaceType)ColorSpace.Value;
 	}
 	//==============================================================================================
+	void MagickReadSettings::ApplyDefines(MagickCore::ImageInfo *imageInfo)
+	{
+		if (_Defines->Count == 0)
+			return;
+
+		for each (String^ key in _Defines->Keys)
+		{
+			std::string option;
+			Marshaller::Marshal(key, option);
+			std::string value;
+			Marshaller::Marshal(_Defines[key], value);
+			(void) MagickCore::SetImageOption(imageInfo, option.c_str(), value.c_str());
+		}
+	}
+	//==============================================================================================
 	void MagickReadSettings::ApplyDensity(MagickCore::ImageInfo *imageInfo)
 	{
 		if (!Density.HasValue)
@@ -90,19 +105,10 @@ namespace ImageMagick
 		imageInfo->number_scenes = FrameCount.HasValue ? FrameCount.Value : 1;
 	}
 	//==============================================================================================
-	void MagickReadSettings::ApplyDefines(MagickCore::ImageInfo *imageInfo)
+	void MagickReadSettings::ApplyUseMonochrome(MagickCore::ImageInfo *imageInfo)
 	{
-		if (_Defines->Count == 0)
-			return;
-
-		for each (String^ key in _Defines->Keys)
-		{
-			std::string option;
-			Marshaller::Marshal(key, option);
-			std::string value;
-			Marshaller::Marshal(_Defines[key], value);
-			(void) MagickCore::SetImageOption(imageInfo, option.c_str(), value.c_str());
-		}
+		if (UseMonochrome.HasValue)
+			imageInfo->monochrome = UseMonochrome.Value ? Magick::MagickTrue : Magick::MagickFalse;
 	}
 	//==============================================================================================
 	void MagickReadSettings::Apply(Magick::Image* image)
@@ -116,11 +122,12 @@ namespace ImageMagick
 	void MagickReadSettings::Apply(MagickCore::ImageInfo *imageInfo)
 	{
 		ApplyColorSpace(imageInfo);
+		ApplyDefines(imageInfo);
 		ApplyDensity(imageInfo);
 		ApplyDimensions(imageInfo);
 		ApplyFormat(imageInfo);
 		ApplyFrame(imageInfo);
-		ApplyDefines(imageInfo);
+		ApplyUseMonochrome(imageInfo);
 	}
 	//==============================================================================================
 	MagickReadSettings::MagickReadSettings()

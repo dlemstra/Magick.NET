@@ -1052,16 +1052,6 @@ namespace ImageMagick
 		Value->interpolate((Magick::PixelInterpolateMethod)value);
 	}
 	//==============================================================================================
-	bool MagickImage::IsMonochrome::get()
-	{
-		return Value->monochrome();
-	}
-	//==============================================================================================
-	void MagickImage::IsMonochrome::set(bool value)
-	{
-		Value->monochrome(value);
-	}
-	//==============================================================================================
 	String^ MagickImage::Label::get()
 	{
 		std::string label = Value->label();

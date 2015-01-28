@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 7.0.0.0010:
+  - Removed MagickImage.IsMonochrome and added new UseMonochrome property to MagickReadSettings.
+
 Magick.NET 7.0.0.0009:
   - Changed type of MagickReadSettings.Density from MagickGeometry to PointD.
   - Removed ReadWarning property and the Read methods no longer return a WarningException. The only way to 

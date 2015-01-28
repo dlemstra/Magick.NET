@@ -1181,6 +1181,7 @@
 					<xs:attribute name="frameCount" type="int" />
 					<xs:attribute name="frameIndex" type="int" />
 					<xs:attribute name="height" type="int" />
+					<xs:attribute name="useMonochrome" type="bool" />
 					<xs:attribute name="width" type="int" />
 				</xs:complexType>
 			</xs:element>
@@ -1455,11 +1456,6 @@
 				<xs:element name="interpolate">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="PixelInterpolateMethod" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="isMonochrome">
-					<xs:complexType>
-						<xs:attribute name="value" use="required" type="bool" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="label">
