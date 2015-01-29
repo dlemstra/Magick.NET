@@ -58,6 +58,8 @@
 */
 #define MAGICKCORE_CIPHER_SUPPORT
 
+#define MAGICKCORE_HAVE_MMAP 1
+
 /*
   Specify size of PixelPacket color Quantums (8, 16, or 32).
   A value of 8 uses half the memory than 16 and typically runs 30% faster,
@@ -295,11 +297,6 @@ typedef long ssize_t;
 #if defined(_VISUALC_) && (_MSC_VER >= 1400)
 #define MAGICKCORE_HAVE_VSNPRINTF_L 1
 #endif
-
-/*
-  Define to 1 if you have the `mmap' function.
-*/
-#define MAGICKCORE_HAVE_MMAP 1
 
 /*
   Define to 1 if you have the `popen' function.
