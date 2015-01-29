@@ -123,6 +123,74 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Channels()
+		{
+			PixelChannel[] rgb = new PixelChannel[]
+			{
+				PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue
+			};
+
+			PixelChannel[] rgba = new PixelChannel[]
+			{
+				PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue, PixelChannel.Alpha
+			};
+
+			PixelChannel[] gray = new PixelChannel[]
+			{
+				PixelChannel.Gray
+			};
+
+			PixelChannel[] grayAlpha = new PixelChannel[]
+			{
+				PixelChannel.Gray, PixelChannel.Alpha
+			};
+
+			PixelChannel[] cmyk = new PixelChannel[]
+			{
+				PixelChannel.Cyan, PixelChannel.Magenta, PixelChannel.Yellow, PixelChannel.Black
+			};
+
+			PixelChannel[] cmyka = new PixelChannel[]
+			{
+				PixelChannel.Cyan, PixelChannel.Magenta, PixelChannel.Yellow, PixelChannel.Black, PixelChannel.Alpha
+			};
+
+			using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
+			{
+				CollectionAssert.AreEqual(rgba, image.Channels.ToArray());
+
+				image.Alpha(AlphaOption.Off);
+
+				CollectionAssert.AreEqual(rgb, image.Channels.ToArray());
+			}
+
+			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+			{
+				CollectionAssert.AreEqual(grayAlpha, image.Channels.ToArray());
+
+				using (MagickImage redChannel = image.Separate(Channels.Red).First())
+				{
+					CollectionAssert.AreEqual(gray, redChannel.Channels.ToArray());
+
+					redChannel.Alpha(AlphaOption.On);
+
+					CollectionAssert.AreEqual(grayAlpha, redChannel.Channels.ToArray());
+				}
+			}
+
+			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+			{
+				image.ColorSpace = ColorSpace.CMYK;
+
+				CollectionAssert.AreEqual(cmyka, image.Channels.ToArray());
+
+				image.Alpha(AlphaOption.Off);
+
+				CollectionAssert.AreEqual(cmyk, image.Channels.ToArray());
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Clip()
 		{
 			using (MagickImage image = new MagickImage(Files.InvitationTif))

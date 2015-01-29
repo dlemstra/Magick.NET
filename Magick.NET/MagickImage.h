@@ -369,6 +369,14 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Returns the channels of the image.
+		///</summary>
+		property IEnumerable<PixelChannel>^ Channels
+		{
+			IEnumerable<PixelChannel>^ get();
+		}
+		///==========================================================================================
+		///<summary>
 		/// Image class (DirectClass or PseudoClass)
 		/// NOTE: Setting a DirectClass image to PseudoClass will result in the loss of color information
 		/// if the number of colors in the image is greater than the maximum palette size (either 256 (Q8)
@@ -955,7 +963,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="channels">The channel(s) that should be sharpened.</param>
 		///<exception cref="MagickException"/>
-		void AdaptiveSharpen(Channels channels);
+		void AdaptiveSharpen(ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Adaptively sharpens the image by sharpening more intensely near image edges and less
@@ -973,7 +981,7 @@ namespace ImageMagick
 		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
 		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
 		///<param name="channels">The channel(s) that should be sharpened.</param>
-		void AdaptiveSharpen(double radius, double sigma, Channels channels);
+		void AdaptiveSharpen(double radius, double sigma, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Local adaptive threshold image.
@@ -1017,7 +1025,7 @@ namespace ImageMagick
 		///<param name="noiseType">The type of noise that should be added to the image.</param>
 		///<param name="channels">The channel(s) where the noise should be added.</param>
 		///<exception cref="MagickException"/>
-		void AddNoise(NoiseType noiseType, Channels channels);
+		void AddNoise(NoiseType noiseType, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Adds the specified profile to the image or overwrites it.
@@ -1088,7 +1096,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="channels">The channel(s) to set the gamma for.</param>
 		///<exception cref="MagickException"/>
-		void AutoGamma(Channels channels);
+		void AutoGamma(ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Adjusts the levels of a particular image channel by scaling the minimum and maximum values
@@ -1103,7 +1111,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="channels">The channel(s) to level.</param>
 		///<exception cref="MagickException"/>
-		void AutoLevel(Channels channels);
+		void AutoLevel(ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Adjusts an image so that its orientation is suitable for viewing.
@@ -1123,7 +1131,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="channels">The channel to get the depth for.</param>
 		///<exception cref="MagickException"/>
-		int BitDepth(Channels channels);
+		int BitDepth(ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Set the bit depth (bits allocated to red/green/blue components) of the specified channel.
@@ -1131,7 +1139,7 @@ namespace ImageMagick
 		///<param name="value">The depth.</param>
 		///<param name="channels">The channel to set the depth for.</param>
 		///<exception cref="MagickException"/>
-		void BitDepth(Channels channels, int value);
+		void BitDepth(ImageMagick::Channels channels, int value);
 		///==========================================================================================
 		///<summary>
 		/// Set the bit depth (bits allocated to red/green/blue components).
@@ -1155,7 +1163,7 @@ namespace ImageMagick
 		///<param name="threshold">The threshold to use.</param>
 		///<param name="channels">The channel(s) to make black.</param>
 		///<exception cref="MagickException"/>
-		void BlackThreshold(Percentage threshold, Channels channels);
+		void BlackThreshold(Percentage threshold, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Simulate a scene at nighttime in the moonlight.
@@ -1181,7 +1189,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="channels">The channel(s) that should be blurred.</param>
 		///<exception cref="MagickException"/>
-		void Blur(Channels channels);
+		void Blur(ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Blur image with specified blur factor.
@@ -1198,7 +1206,7 @@ namespace ImageMagick
 		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
 		///<param name="channels">The channel(s) that should be blurred.</param>
 		///<exception cref="MagickException"/>
-		void Blur(double radius, double sigma, Channels channels);
+		void Blur(double radius, double sigma, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Border image (add border to image).
@@ -1234,7 +1242,7 @@ namespace ImageMagick
 		///<param name="contrast">The contrast.</param>
 		///<param name="channels">The channel(s) that should be changed.</param>
 		///<exception cref="MagickException"/>
-		void BrightnessContrast(Percentage brightness, Percentage contrast, Channels channels);
+		void BrightnessContrast(Percentage brightness, Percentage contrast, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Uses a multi-stage algorithm to detect a wide range of edges in images.
@@ -1354,7 +1362,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="channels">The channel(s) to clamp.</param>
 		///<exception cref="MagickException"/>
-		void Clamp(Channels channels);
+		void Clamp(ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Sets the image clip mask based on any clipping path information if it exists.
@@ -1392,7 +1400,7 @@ namespace ImageMagick
 		///<param name="method">Pixel interpolate method.</param>
 		///<param name="channels">The channel(s) to clut.</param>
 		///<exception cref="MagickException"/>
-		void Clut(MagickImage^ image, PixelInterpolateMethod method, Channels channels);
+		void Clut(MagickImage^ image, PixelInterpolateMethod method, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Sets the alpha channel to the specified color.
@@ -1464,7 +1472,7 @@ namespace ImageMagick
 		///<param name="metric">The metric to use.</param>
 		///<param name="channels">The channel(s) to compare.</param>
 		///<exception cref="MagickException"/>
-		double Compare(MagickImage^ image, ErrorMetric metric, Channels channels);
+		double Compare(MagickImage^ image, ErrorMetric metric, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Returns the distortion based on the specified metric.
@@ -1482,7 +1490,7 @@ namespace ImageMagick
 		///<param name="metric">The metric to use.</param>
 		///<param name="difference">The image that will contain the difference.</param>
 		///<exception cref="MagickException"/>
-		double Compare(MagickImage^ image, ErrorMetric metric, MagickImage^ difference, Channels channels);
+		double Compare(MagickImage^ image, ErrorMetric metric, MagickImage^ difference, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Compares the current instance with another image. Only the size of the image is compared.
@@ -1623,7 +1631,7 @@ namespace ImageMagick
 		///<param name="whitePoint">The white point.</param>
 		///<param name="channels">The channel(s) to constrast stretch.</param>
 		///<exception cref="MagickException"/>
-		void ContrastStretch(Percentage blackPoint, Percentage whitePoint, Channels channels);
+		void ContrastStretch(Percentage blackPoint, Percentage whitePoint, ImageMagick::Channels channels);
 		//==========================================================================================
 		///<summary>
 		/// Convolve image. Applies a user-specified convolution to the image.
@@ -1803,7 +1811,7 @@ namespace ImageMagick
 		///<param name="evaluateOperator">The operator.</param>
 		///<param name="value">The value.</param>
 		///<exception cref="MagickException"/>
-		void Evaluate(Channels channels, EvaluateOperator evaluateOperator, double value);
+		void Evaluate(ImageMagick::Channels channels, EvaluateOperator evaluateOperator, double value);
 		///==========================================================================================
 		///<summary>
 		/// Apply an arithmetic or bitwise operator to the image pixel quantums.
@@ -1813,7 +1821,7 @@ namespace ImageMagick
 		///<param name="evaluateOperator">The operator.</param>
 		///<param name="value">The value.</param>
 		///<exception cref="MagickException"/>
-		void Evaluate(Channels channels, MagickGeometry^ geometry, EvaluateOperator evaluateOperator, double value);
+		void Evaluate(ImageMagick::Channels channels, MagickGeometry^ geometry, EvaluateOperator evaluateOperator, double value);
 		///==========================================================================================
 		///<summary>
 		/// Extend the image as defined by the width and height.
@@ -2054,7 +2062,7 @@ namespace ImageMagick
 		///<param name="expression">The expression to apply.</param>
 		///<param name="channels">The channel(s) to apply the expression to.</param>
 		///<exception cref="MagickException"/>
-		void Fx(String^ expression, Channels channels);
+		void Fx(String^ expression, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Gamma level of the image.
@@ -2093,7 +2101,7 @@ namespace ImageMagick
 		///<param name="sigma">The standard deviation of the gaussian bell curve.</param>
 		///<param name="channels">The channel(s) to blur.</param>
 		///<exception cref="MagickException"/>
-		void GaussianBlur(double width, double sigma, Channels channels);
+		void GaussianBlur(double width, double sigma, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Retrieve the 8bim profile from the image.
@@ -2355,7 +2363,7 @@ namespace ImageMagick
 		///<param name="whiteColor">The color to map white to/from</param>
 		///<param name="channels">The channel(s) to level.</param>
 		///<exception cref="MagickException"/>
-		void InverseLevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, Channels channels);
+		void InverseLevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Changes any pixel that does not match the target with the color defined by fill.
@@ -2405,7 +2413,7 @@ namespace ImageMagick
 		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
 		///<param name="channels">The channel(s) to level.</param>
 		///<exception cref="MagickException"/>
-		QUANTUM_CLS_COMPLIANT void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, Channels channels);
+		QUANTUM_CLS_COMPLIANT void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -2415,7 +2423,7 @@ namespace ImageMagick
 		///<param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
 		///<param name="channels">The channel(s) to level.</param>
 		///<exception cref="MagickException"/>
-		void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, Channels channels);
+		void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -2446,7 +2454,7 @@ namespace ImageMagick
 		///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
 		///<param name="channels">The channel(s) to level.</param>
 		///<exception cref="MagickException"/>
-		QUANTUM_CLS_COMPLIANT void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, Channels channels);
+		QUANTUM_CLS_COMPLIANT void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -2457,7 +2465,7 @@ namespace ImageMagick
 		///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
 		///<param name="channels">The channel(s) to level.</param>
 		///<exception cref="MagickException"/>
-		void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint, Channels channels);
+		void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
@@ -2478,7 +2486,7 @@ namespace ImageMagick
 		///<param name="whiteColor">The color to map white to/from</param>
 		///<param name="channels">The channel(s) to level.</param>
 		///<exception cref="MagickException"/>
-		void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, Channels channels);
+		void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Discards any pixels below the black point and above the white point and levels the remaining pixels.
@@ -2572,7 +2580,7 @@ namespace ImageMagick
 		///<param name="kernel">Built-in kernel.</param>
 		///<param name="channels">The channels to apply the kernel to.</param>
 		///<exception cref="MagickException"/>
-		void Morphology(MorphologyMethod method, Kernel kernel, Channels channels);
+		void Morphology(MorphologyMethod method, Kernel kernel, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Applies a kernel to the image according to the given mophology method.
@@ -2582,7 +2590,7 @@ namespace ImageMagick
 		///<param name="channels">The channels to apply the kernel to.</param>
 		///<param name="iterations">The number of iterations.</param>
 		///<exception cref="MagickException"/>
-		void Morphology(MorphologyMethod method, Kernel kernel, Channels channels, int iterations);
+		void Morphology(MorphologyMethod method, Kernel kernel, ImageMagick::Channels channels, int iterations);
 		///==========================================================================================
 		///<summary>
 		/// Applies a kernel to the image according to the given mophology method.
@@ -2610,7 +2618,7 @@ namespace ImageMagick
 		///<param name="arguments">Kernel arguments.</param>
 		///<param name="channels">The channels to apply the kernel to.</param>
 		///<exception cref="MagickException"/>
-		void Morphology(MorphologyMethod method, Kernel kernel, String^ arguments, Channels channels);
+		void Morphology(MorphologyMethod method, Kernel kernel, String^ arguments, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Applies a kernel to the image according to the given mophology method.
@@ -2621,7 +2629,7 @@ namespace ImageMagick
 		///<param name="channels">The channels to apply the kernel to.</param>
 		///<param name="iterations">The number of iterations.</param>
 		///<exception cref="MagickException"/>
-		void Morphology(MorphologyMethod method, Kernel kernel, String^ arguments, Channels channels, int iterations);
+		void Morphology(MorphologyMethod method, Kernel kernel, String^ arguments, ImageMagick::Channels channels, int iterations);
 		///==========================================================================================
 		///<summary>
 		/// Applies a kernel to the image according to the given mophology method.
@@ -2648,7 +2656,7 @@ namespace ImageMagick
 		///<param name="userKernel">User suplied kernel.</param>
 		///<param name="channels">The channels to apply the kernel to.</param>
 		///<exception cref="MagickException"/>
-		void Morphology(MorphologyMethod method, String^ userKernel, Channels channels);
+		void Morphology(MorphologyMethod method, String^ userKernel, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Applies a kernel to the image according to the given mophology method.
@@ -2658,7 +2666,7 @@ namespace ImageMagick
 		///<param name="channels">The channels to apply the kernel to.</param>
 		///<param name="iterations">The number of iterations.</param>
 		///<exception cref="MagickException"/>
-		void Morphology(MorphologyMethod method, String^ userKernel, Channels channels, int iterations);
+		void Morphology(MorphologyMethod method, String^ userKernel, ImageMagick::Channels channels, int iterations);
 		///==========================================================================================
 		///<summary>
 		/// Applies a kernel to the image according to the given mophology method.
@@ -2696,7 +2704,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="channels">The channel(s) that should be negated.</param>
 		///<exception cref="MagickException"/>
-		void Negate(Channels channels);
+		void Negate(ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Negate colors in image for the specified channel.
@@ -2704,7 +2712,7 @@ namespace ImageMagick
 		///<param name="channels">The channel(s) that should be negated.</param>
 		///<param name="onlyGrayscale">Use true to negate only the grayscale colors.</param>
 		///<exception cref="MagickException"/>
-		void Negate(Channels channels, bool onlyGrayscale);
+		void Negate(ImageMagick::Channels channels, bool onlyGrayscale);
 		///==========================================================================================
 		///<summary>
 		/// Normalize image (increase contrast by normalizing the pixel values to span the full range
@@ -2750,7 +2758,7 @@ namespace ImageMagick
 		///followed by zero or more numbers representing the number of color levels tho dither between.</param>
 		///<param name="channels">The channel(s) to dither.</param>
 		///<exception cref="MagickException"/>
-		void OrderedDither(String^ thresholdMap, Channels channels);
+		void OrderedDither(String^ thresholdMap, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Set each pixel whose value is less than epsilon to epsilon or -epsilon (whichever is closer)
@@ -2767,7 +2775,7 @@ namespace ImageMagick
 		///<param name="epsilon">The epsilon threshold.</param>
 		///<param name="channels">The channel(s) to perceptible.</param>
 		///<exception cref="MagickException"/>
-		void Perceptible(double epsilon, Channels channels);
+		void Perceptible(double epsilon, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Returns the perceptual hash of this image.
@@ -2827,7 +2835,7 @@ namespace ImageMagick
 		///<param name="method">Dither method to use.</param>
 		///<param name="channels">The channel(s) to posterize.</param>
 		///<exception cref="MagickException"/>
-		void Posterize(int levels, DitherMethod method, Channels channels);
+		void Posterize(int levels, DitherMethod method, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Reduces the image to a limited number of colors for a "poster" effect.
@@ -2835,7 +2843,7 @@ namespace ImageMagick
 		///<param name="levels">Number of color levels allowed in each channel.</param>
 		///<param name="channels">The channel(s) to posterize.</param>
 		///<exception cref="MagickException"/>
-		void Posterize(int levels, Channels channels);
+		void Posterize(int levels, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Sets an internal option to preserve the color type.
@@ -2874,7 +2882,7 @@ namespace ImageMagick
 		///<param name="percentageHigh">The low threshold.</param>
 		///<param name="channels">The channel(s) to use.</param>
 		///<exception cref="MagickException"/>
-		void RandomThreshold(Percentage percentageLow, Percentage percentageHigh, Channels channels);
+		void RandomThreshold(Percentage percentageLow, Percentage percentageHigh, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Changes the value of individual pixels based on the intensity of each pixel compared to a
@@ -2893,7 +2901,7 @@ namespace ImageMagick
 		///<param name="high">The low threshold.</param>
 		///<param name="channels">The channel(s) to use.</param>
 		///<exception cref="MagickException"/>
-		QUANTUM_CLS_COMPLIANT void RandomThreshold(Magick::Quantum low, Magick::Quantum high, Channels channels);
+		QUANTUM_CLS_COMPLIANT void RandomThreshold(Magick::Quantum low, Magick::Quantum high, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Read single image frame.
@@ -3086,7 +3094,7 @@ namespace ImageMagick
 		///<param name="angle">The angle to use.</param>
 		///<param name="channels">The channel(s) to use.</param>
 		///<exception cref="MagickException"/>
-		void RotationalBlur(double angle, Channels channels);
+		void RotationalBlur(double angle, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Resize image by using pixel sampling algorithm.
@@ -3189,7 +3197,7 @@ namespace ImageMagick
 		///<param name="threshold">Only pixels within this contrast threshold are included in the blur operation.</param>
 		///<param name="channels">The channel(s) to blur.</param>
 		///<exception cref="MagickException"/>
-		void SelectiveBlur(double radius, double sigma, double threshold, Channels channels);
+		void SelectiveBlur(double radius, double sigma, double threshold, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Separates the channels from the image and returns it as grayscale images.
@@ -3202,7 +3210,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="channels">The channel(s) to separates.</param>
 		///<exception cref="MagickException"/>
-		IEnumerable<MagickImage^>^ Separate(Channels channels);
+		IEnumerable<MagickImage^>^ Separate(ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Applies a special effect to the image, similar to the effect achieved in a photo darkroom
@@ -3329,7 +3337,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="channels">The channel(s) that should be sharpened.</param>
 		///<exception cref="MagickException"/>
-		void Sharpen(Channels channels);
+		void Sharpen(ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Sharpen pixels in image.
@@ -3345,7 +3353,7 @@ namespace ImageMagick
 		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
 		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
 		///<param name="channels">The channel(s) that should be sharpened.</param>
-		void Sharpen(double radius, double sigma, Channels channels);
+		void Sharpen(double radius, double sigma, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Shave pixels from image edges.
@@ -3429,7 +3437,7 @@ namespace ImageMagick
 		///<param name="method">The sparse color method to use.</param>
 		///<param name="args">The sparse color arguments.</param>
 		///<exception cref="MagickException"/>
-		void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<SparseColorArg^>^ args);
+		void SparseColor(ImageMagick::Channels channels, SparseColorMethod method, IEnumerable<SparseColorArg^>^ args);
 		///==========================================================================================
 		///<summary>
 		/// Spread pixels randomly within image.
@@ -3722,7 +3730,7 @@ namespace ImageMagick
 		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
 		///<param name="channels">The channel(s) that should be sharpened.</param>
 		///<exception cref="MagickException"/>
-		void Unsharpmask(double radius, double sigma, Channels channels);
+		void Unsharpmask(double radius, double sigma, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
@@ -3745,7 +3753,7 @@ namespace ImageMagick
 		///<param name="threshold">The threshold in pixels needed to apply the diffence amount.</param>
 		///<param name="channels">The channel(s) that should be sharpened.</param>
 		///<exception cref="MagickException"/>
-		void Unsharpmask(double radius, double sigma, double amount, double threshold, Channels channels);
+		void Unsharpmask(double radius, double sigma, double amount, double threshold, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Softens the edges of the image in vignette style.
@@ -3792,7 +3800,7 @@ namespace ImageMagick
 		///<param name="threshold">The threshold to use.</param>
 		///<param name="channels">The channel(s) to make black.</param>
 		///<exception cref="MagickException"/>
-		void WhiteThreshold(Percentage threshold, Channels channels);
+		void WhiteThreshold(Percentage threshold, ImageMagick::Channels channels);
 		///==========================================================================================
 		///<summary>
 		/// Writes the image to the specified file.
