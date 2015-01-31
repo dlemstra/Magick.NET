@@ -629,9 +629,15 @@ namespace Magick.NET.Tests
 
 				using (MagickImage second = new MagickImage(Files.MagickNETIconPNG))
 				{
+					Assert.AreNotEqual(first, second);
+					Assert.AreNotEqual(first.Signature, second.Signature);
+
 					second.Level((QuantumType)(Quantum.Max * 0.5), (QuantumType)(Quantum.Max * 0.1));
 
 					Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+
+					Assert.AreEqual(first, second);
+					Assert.AreEqual(first.Signature, second.Signature);
 				}
 			}
 		}

@@ -1201,6 +1201,19 @@ namespace ImageMagick
 		return Value->yResolution();
 	}
 	//==============================================================================================
+	String^ MagickImage::Signature::get()
+	{
+		try
+		{
+			return Marshaller::Marshal(Value->signature(true));
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+			return nullptr;
+		}
+	}
+	//==============================================================================================
 	bool MagickImage::StrokeAntiAlias::get()
 	{
 		return Value->strokeAntiAlias();
