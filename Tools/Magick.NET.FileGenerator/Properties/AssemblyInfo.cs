@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Magick.NET")]
 [assembly: AssemblyDescription("Magick.NET.FileGenerator")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright © Dirk Lemstra 2013")]
+[assembly: AssemblyCopyright("Copyright © 2013-2015 Dirk Lemstra")]
 [assembly: AssemblyTrademark("")]
 //=================================================================================================
 [assembly: AssemblyConfiguration("Release")]

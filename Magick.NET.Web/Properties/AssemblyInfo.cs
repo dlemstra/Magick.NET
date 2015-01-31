@@ -42,7 +42,7 @@ using System.Web;
 [assembly: AssemblyProduct("Magick.NET")]
 [assembly: AssemblyDescription("Magick.NET.Web")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright © Dirk Lemstra 2014")]
+[assembly: AssemblyCopyright("Copyright © 2013-2015 Dirk Lemstra")]
 [assembly: AssemblyTrademark("")]
 //=================================================================================================
 [assembly: AssemblyConfiguration("Release")]
