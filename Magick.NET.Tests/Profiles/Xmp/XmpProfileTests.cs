@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -43,6 +44,14 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(4, i);
 		}
 		//===========================================================================================
+#if !(NET20)
+		private static void TestXDocument(XDocument document)
+		{
+			Assert.IsNotNull(document);
+			Assert.AreEqual(5, document.Root.Elements().First().Elements().Count());
+		}
+#endif
+		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_CreateReader()
 		{
@@ -59,6 +68,70 @@ namespace Magick.NET.Tests
 				}
 			}
 		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_FromIXPathNavigable()
+		{
+			using (MagickImage image = new MagickImage(Files.InvitationTif))
+			{
+				XmpProfile profile = image.GetXmpProfile();
+				Assert.IsNotNull(profile);
+
+				IXPathNavigable doc = profile.ToIXPathNavigable();
+
+				ExceptionAssert.Throws<ArgumentNullException>(delegate()
+				{
+					XmpProfile.FromIXPathNavigable(null);
+				});
+
+				XmpProfile newProfile = XmpProfile.FromIXPathNavigable(doc);
+				image.AddProfile(newProfile);
+
+				doc = profile.ToIXPathNavigable();
+				TestIXPathNavigable(doc);
+
+				profile = image.GetXmpProfile();
+				Assert.IsNotNull(profile);
+
+				doc = profile.ToIXPathNavigable();
+				TestIXPathNavigable(doc);
+
+				Assert.AreEqual(profile, newProfile);
+			}
+		}
+		//===========================================================================================
+#if !(NET20)
+		[TestMethod, TestCategory(_Category)]
+		public void Test_FromXDocument()
+		{
+			using (MagickImage image = new MagickImage(Files.InvitationTif))
+			{
+				XmpProfile profile = image.GetXmpProfile();
+				Assert.IsNotNull(profile);
+
+				XDocument doc = profile.ToXDocument();
+
+				ExceptionAssert.Throws<ArgumentNullException>(delegate()
+				{
+					XmpProfile.FromXDocument(null);
+				});
+
+				XmpProfile newProfile = XmpProfile.FromXDocument(doc);
+				image.AddProfile(newProfile);
+
+				doc = profile.ToXDocument();
+				TestXDocument(doc);
+
+				profile = image.GetXmpProfile();
+				Assert.IsNotNull(profile);
+
+				doc = profile.ToXDocument();
+				TestXDocument(doc);
+
+				Assert.AreEqual(profile, newProfile);
+			}
+		}
+#endif
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_ToIXPathNavigable()
@@ -83,8 +156,7 @@ namespace Magick.NET.Tests
 				Assert.IsNotNull(profile);
 
 				XDocument document = profile.ToXDocument();
-				Assert.IsNotNull(document);
-				Assert.AreEqual(5, document.Root.Elements().First().Elements().Count());
+				TestXDocument(document);
 			}
 		}
 #endif

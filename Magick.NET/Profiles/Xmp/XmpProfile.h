@@ -47,6 +47,20 @@ namespace ImageMagick
 		///<summary>
 		/// Initializes a new instance of the XmpProfile class.
 		///</summary>
+		///<param name="document">A document containing the profile.</param>
+		XmpProfile(IXPathNavigable^ document);
+#if !(NET20)
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the XmpProfile class.
+		///</summary>
+		///<param name="document">A document containing the profile.</param>
+		XmpProfile(XDocument^ document);
+#endif
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the XmpProfile class.
+		///</summary>
 		///<param name="stream">A stream containing the profile.</param>
 		XmpProfile(Stream^ stream) : ImageProfile("xmp", stream) {};
 		///==========================================================================================
@@ -60,6 +74,20 @@ namespace ImageMagick
 		/// Creates a XmlReader that can be used to read the data of the profile.
 		///</summary>
 		XmlReader^ CreateReader();
+		///==========================================================================================
+		///<summary>
+		/// Creates an instance from the specified IXPathNavigable.
+		///</summary>
+		///<param name="document">A document containing the profile.</param>
+		static XmpProfile^ FromIXPathNavigable(IXPathNavigable^ document);
+#if !(NET20)
+		///==========================================================================================
+		///<summary>
+		/// Creates an instance from the specified IXPathNavigable.
+		///</summary>
+		///<param name="document">A document containing the profile.</param>
+		static XmpProfile^ FromXDocument(XDocument^ document);
+#endif
 		///==========================================================================================
 		///<summary>
 		/// Converts this instance to an IXPathNavigable.

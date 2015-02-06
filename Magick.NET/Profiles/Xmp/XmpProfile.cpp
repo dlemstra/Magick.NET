@@ -20,6 +20,66 @@ using namespace System::Threading;
 namespace ImageMagick
 {
 	//==============================================================================================
+	XmpProfile::XmpProfile(IXPathNavigable^ document)
+		: ImageProfile()
+	{
+		Throw::IfNull("document", document);
+
+		MemoryStream^ memStream = gcnew MemoryStream();
+		XmlWriter^ writer = XmlWriter::Create(memStream);
+		try
+		{
+			document->CreateNavigator()->WriteSubtree(writer);
+			writer->Flush();
+			Initialize("xmp", memStream->ToArray());
+		}
+		finally
+		{
+			delete writer;
+		}
+	}
+	//==============================================================================================
+#if !(NET20)
+	XmpProfile::XmpProfile(XDocument^ document)
+		: ImageProfile()
+	{
+		Throw::IfNull("document", document);
+
+		MemoryStream^ memStream = gcnew MemoryStream();
+		XmlWriter^ writer = XmlWriter::Create(memStream);
+		try
+		{
+			document->WriteTo(writer);
+			writer->Flush();
+			Initialize("xmp", memStream->ToArray());
+		}
+		finally
+		{
+			delete writer;
+		}
+	}
+#endif
+	//==============================================================================================
+	XmlReader^ XmpProfile::CreateReader()
+	{
+		MemoryStream^ memStream = gcnew MemoryStream(Data, 0, Data->Length);
+		XmlReaderSettings^ settings = gcnew XmlReaderSettings();
+		settings->CloseInput = true;
+		return XmlReader::Create(memStream, settings);
+	}
+	//==============================================================================================
+	XmpProfile^ XmpProfile::FromIXPathNavigable(IXPathNavigable^ document)
+	{
+		return gcnew XmpProfile(document);
+	}
+	//==============================================================================================
+#if !(NET20)
+	XmpProfile^ XmpProfile::FromXDocument(XDocument^ document)
+	{
+		return gcnew XmpProfile(document);
+	}
+#endif
+	//==============================================================================================
 	IXPathNavigable^ XmpProfile::ToIXPathNavigable()
 	{
 		XmlReader^ reader = CreateReader();
@@ -51,13 +111,5 @@ namespace ImageMagick
 		}
 	}
 #endif
-	//==============================================================================================
-	XmlReader^ XmpProfile::CreateReader()
-	{
-		MemoryStream^ memStream = gcnew MemoryStream(Data, 0, Data->Length);
-		XmlReaderSettings^ settings = gcnew XmlReaderSettings();
-		settings->CloseInput = true;
-		return XmlReader::Create(memStream, settings);
-	}
 	//==============================================================================================
 }
