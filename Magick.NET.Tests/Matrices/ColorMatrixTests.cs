@@ -42,6 +42,34 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_SetColumn()
+		{
+			ColorMatrix matrix = new ColorMatrix(2);
+
+			matrix.SetColumn(0, 2, 4);
+			Assert.AreEqual(2, matrix.GetValue(0, 0));
+			Assert.AreEqual(4, matrix.GetValue(0, 1));
+
+			matrix.SetColumn(1, 6, 8);
+			Assert.AreEqual(6, matrix.GetValue(1, 0));
+			Assert.AreEqual(8, matrix.GetValue(1, 1));
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_SetRow()
+		{
+			ColorMatrix matrix = new ColorMatrix(2);
+
+			matrix.SetRow(0, 2, 4);
+			Assert.AreEqual(2, matrix.GetValue(0, 0));
+			Assert.AreEqual(4, matrix.GetValue(1, 0));
+
+			matrix.SetRow(1, 6, 8);
+			Assert.AreEqual(6, matrix.GetValue(0, 1));
+			Assert.AreEqual(8, matrix.GetValue(1, 1));
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Value()
 		{
 			ColorMatrix matrix = new ColorMatrix(2);

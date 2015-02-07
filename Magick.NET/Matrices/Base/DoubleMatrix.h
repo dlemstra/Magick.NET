@@ -64,6 +64,20 @@ namespace ImageMagick
 		double GetValue(int x, int y);
 		///==========================================================================================
 		///<summary>
+		/// Set the column at the specified x position.
+		///</summary>
+		///<param name="x">The x position</param>
+		///<param name="values">The values</param>
+		void SetColumn(int x, ... array<double>^ values);
+		///==========================================================================================
+		///<summary>
+		/// Set the row at the specified y position.
+		///</summary>
+		///<param name="y">The y position</param>
+		///<param name="values">The values</param>
+		void SetRow(int y, ... array<double>^ values);
+		///==========================================================================================
+		///<summary>
 		/// Set the value at the specified x/y position.
 		///</summary>
 		///<param name="x">The x position</param>

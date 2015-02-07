@@ -65,10 +65,34 @@ namespace ImageMagick
 		return _Values[x, y];
 	}
 	//==============================================================================================
+	void DoubleMatrix::SetColumn(int x, ... array<double>^ values)
+	{
+		Throw::IfOutOfRange("x", x, _Order);
+		Throw::IfNull("values", values);
+		Throw::IfTrue("values", values->Length != _Order, "Invalid length");
+
+		for (int y=0; y < _Order; y++)
+		{
+			_Values[x, y] = values[y];
+		}
+	}
+	//==============================================================================================
+	void DoubleMatrix::SetRow(int y, ... array<double>^ values)
+	{
+		Throw::IfOutOfRange("y", y, _Order);
+		Throw::IfNull("values", values);
+		Throw::IfTrue("values", values->Length != _Order, "Invalid length");
+
+		for (int x=0; x < _Order; x++)
+		{
+			_Values[x, y] = values[x];
+		}
+	}
+	//==============================================================================================
 	void DoubleMatrix::SetValue(int x, int y, double value)
 	{
-		if (x < 0 || x >= _Order || y < 0 || y >= _Order)
-			return;
+		Throw::IfOutOfRange("x", x, _Order);
+		Throw::IfOutOfRange("y", y, _Order);
 
 		_Values[x, y] = value;
 	}
