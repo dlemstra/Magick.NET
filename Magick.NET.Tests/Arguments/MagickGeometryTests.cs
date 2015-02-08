@@ -63,6 +63,12 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(0, geometry.Height);
 			Assert.AreEqual(true, geometry.LimitPixels);
 
+			geometry = new MagickGeometry("50%x0>");
+			Assert.AreEqual(50, geometry.Width);
+			Assert.AreEqual(0, geometry.Height);
+			Assert.AreEqual(true, geometry.IsPercentage);
+			Assert.AreEqual(true, geometry.Greater);
+
 			geometry = new MagickGeometry(5, 10);
 			Assert.AreEqual(5, geometry.Width);
 			Assert.AreEqual(10, geometry.Height);
@@ -140,6 +146,19 @@ namespace Magick.NET.Tests
 
 			Assert.IsTrue(first != second);
 			Assert.IsFalse(first.Equals(second));
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_ToString()
+		{
+			MagickGeometry geometry = new MagickGeometry(10, 5);
+			Assert.AreEqual("10x5", geometry.ToString());
+
+			geometry = new MagickGeometry(-5, 5, 10, 5);
+			Assert.AreEqual("10x5-5+5", geometry.ToString());
+
+			geometry = new MagickGeometry(5, -5, 10, 5);
+			Assert.AreEqual("10x5+5-5", geometry.ToString());
 		}
 		//===========================================================================================
 	}

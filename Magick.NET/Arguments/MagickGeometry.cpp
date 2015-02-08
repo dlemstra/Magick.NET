@@ -19,8 +19,8 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickGeometry::Initialize(Magick::Geometry geometry)
 	{
-		X =  (int)geometry.xOff();
-		Y =  (int)geometry.yOff();
+		X = (int)geometry.xOff();
+		Y = (int)geometry.yOff();
 		Width = (int)geometry.width();
 		Height = (int)geometry.height();
 		IsPercentage = geometry.percent();
@@ -215,6 +215,20 @@ namespace ImageMagick
 			Greater.GetHashCode() ^
 			FillArea.GetHashCode() ^
 			LimitPixels.GetHashCode();
+	}
+	//==============================================================================================
+	String^ MagickGeometry::ToString()
+	{
+		const Magick::Geometry* geometry = MagickGeometry::CreateGeometry();
+		try
+		{
+			std::string str=*geometry;
+			return Marshaller::Marshal(str);
+		}
+		finally
+		{
+			delete geometry;
+		}
 	}
 	//==============================================================================================
 }
