@@ -14,6 +14,7 @@
 #pragma once
 
 #include "..\Arguments\PointD.h"
+#include "..\Defines\Base\IReadDefines.h"
 #include "..\Enums\ColorSpace.h"
 #include "..\Enums\MagickFormat.h"
 #include "PixelStorageSettings.h"
@@ -52,6 +53,10 @@ namespace ImageMagick
 		//===========================================================================================
 		void ApplyUseMonochrome(MagickCore::ImageInfo *imageInfo);
 		//===========================================================================================
+		static String^ GetDefineKey(MagickFormat format, String^ name);
+		//===========================================================================================
+		static void SetOption(MagickCore::ImageInfo *imageInfo, String^ key, String^ value);
+		//===========================================================================================
 	internal:
 		//===========================================================================================
 		bool IgnoreWarnings;
@@ -73,6 +78,11 @@ namespace ImageMagick
 		/// Color space.
 		///</summary>
 		property Nullable<ColorSpace> ColorSpace;
+		///==========================================================================================
+		///<summary>
+		/// Defines that should be set before the image is read.
+		///</summary>
+		property IReadDefines^ Defines;
 		///==========================================================================================
 		///<summary>
 		/// Vertical and horizontal resolution in pixels.

@@ -4689,6 +4689,16 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::SetDefines(IDefines^ defines)
+	{
+		Throw::IfNull("defines", defines);
+
+		for each (IDefine^ define in defines->Defines)
+		{
+			SetDefine(define->Format, define->Name, define->Value);
+		}
+	}
+	//==============================================================================================
 	void MagickImage::SetHighlightColor(MagickColor^ color)
 	{
 		Throw::IfNull("color", color);

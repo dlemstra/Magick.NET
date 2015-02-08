@@ -17,6 +17,7 @@
 #include "Arguments\SparseColorArg.h"
 #include "Base\MagickWrapper.h"
 #include "Colors\MagickColor.h"
+#include "Defines\Base\IDefines.h"
 #include "Drawables\DrawableAffine.h"
 #include "Drawables\Base\Drawable.h"
 #include "Enums\AlphaOption.h"
@@ -3261,18 +3262,24 @@ namespace ImageMagick
 		///<summary>
 		/// Sets a format-specific option.
 		///</summary>
-		///<param name="format">The format to set the option for.</param>
-		///<param name="name">The name of the option.</param>
-		///<param name="flag">The value of the option.</param>
+		///<param name="format">The format to set the define for.</param>
+		///<param name="name">The name of the define.</param>
+		///<param name="flag">The value of the define.</param>
 		void SetDefine(MagickFormat format, String^ name, bool flag);
 		///==========================================================================================
 		///<summary>
 		/// Sets a format-specific option.
 		///</summary>
-		///<param name="format">The format to set the option for.</param>
-		///<param name="name">The name of the option.</param>
-		///<param name="value">The value of the option.</param>
+		///<param name="format">The format to set the define for.</param>
+		///<param name="name">The name of the define.</param>
+		///<param name="value">The value of the define.</param>
 		void SetDefine(MagickFormat format, String^ name, String^ value);
+		///==========================================================================================
+		///<summary>
+		/// Sets format-specific options with the specified defines.
+		///</summary>
+		///<param name="defines">The defines to set.</param>
+		void SetDefines(IDefines^ defines);
 		///==========================================================================================
 		///<summary>
 		/// When comparing images, emphasize pixel differences with this color.

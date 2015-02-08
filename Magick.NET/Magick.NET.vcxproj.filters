@@ -765,6 +765,30 @@
     <ClInclude Include="Profiles\Xmp\XmpProfile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Defines\Base\IDefine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines\Base\IDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines\Base\IReadDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines\Base\MagickDefine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines\Base\DefineCreator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines\Tiff\TiffReadDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines\Tiff\TiffWriteDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines\Tiff\TiffAlpha.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1209,6 +1233,18 @@
       <Filter>Source Files\Profiles\8Bim</Filter>
     </ClCompile>
     <ClCompile Include="Profiles\Xmp\XmpProfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Defines\Base\DefineCreator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Defines\Base\MagickDefine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Defines\Tiff\TiffReadDefines.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Defines\Tiff\TiffWriteDefines.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

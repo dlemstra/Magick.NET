@@ -370,7 +370,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Composite_Blur()
 		{
-			using (MagickImage image = new MagickImage("logo:"))
+			using (MagickImage image = new MagickImage(Files.Logo))
 			{
 				using (MagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
 				{
@@ -383,7 +383,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Define()
 		{
-			using (MagickImage image = new MagickImage("logo:"))
+			using (MagickImage image = new MagickImage(Files.Logo))
 			{
 				string option = "optimize-coding";
 
@@ -858,7 +858,7 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ObjectDisposedException>(delegate()
 			{
-				image.Read("logo:");
+				image.Read(Files.Logo);
 			});
 		}
 		//===========================================================================================

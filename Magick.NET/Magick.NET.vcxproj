@@ -291,6 +291,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arguments\SparseColorArg.h" />
+    <ClInclude Include="Defines\Base\DefineCreator.h" />
+    <ClInclude Include="Defines\Base\IDefine.h" />
+    <ClInclude Include="Defines\Base\IDefines.h" />
+    <ClInclude Include="Defines\Base\IReadDefines.h" />
+    <ClInclude Include="Defines\Base\MagickDefine.h" />
+    <ClInclude Include="Defines\Tiff\TiffAlpha.h" />
+    <ClInclude Include="Defines\Tiff\TiffReadDefines.h" />
+    <ClInclude Include="Defines\Tiff\TiffWriteDefines.h" />
     <ClInclude Include="Enums\DitherMethod.h" />
     <ClInclude Include="Enums\MontageMode.h" />
     <ClInclude Include="Enums\PixelIntensityMethod.h" />
@@ -489,6 +497,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arguments\SparseColorArg.cpp" />
+    <ClCompile Include="Defines\Base\DefineCreator.cpp" />
+    <ClCompile Include="Defines\Base\MagickDefine.cpp" />
+    <ClCompile Include="Defines\Tiff\TiffReadDefines.cpp" />
+    <ClCompile Include="Defines\Tiff\TiffWriteDefines.cpp" />
     <ClCompile Include="Helpers\MagickConverter.cpp" />
     <ClCompile Include="Drawables\DrawableDashArray.cpp" />
     <ClCompile Include="Drawables\DrawableDashOffset.cpp" />

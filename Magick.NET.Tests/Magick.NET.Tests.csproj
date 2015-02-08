@@ -76,6 +76,8 @@
     </Compile>
     <Compile Include="Colors\ColorMonoTests.cs" />
     <Compile Include="Colors\ColorCMYKTests.cs" />
+    <Compile Include="Defines\Tiff\TiffReadDefinesTests.cs" />
+    <Compile Include="Defines\Tiff\TiffWriteDefinesTests.cs" />
     <Compile Include="MagickFormatInfoTests.cs" />
     <Compile Include="Matrices\ConvolveMatrixTests.cs" />
     <Compile Include="Matrices\ColorMatrixTests.cs" />

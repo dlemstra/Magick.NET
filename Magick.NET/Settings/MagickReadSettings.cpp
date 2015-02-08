@@ -13,6 +13,7 @@
 //=================================================================================================
 #include "Stdafx.h"
 #include "MagickReadSettings.h"
+#include "..\Defines\Base\IDefine.h"
 
 using namespace System::Globalization;
 
@@ -39,16 +40,17 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickReadSettings::ApplyDefines(MagickCore::ImageInfo *imageInfo)
 	{
-		if (_Defines->Count == 0)
-			return;
-
 		for each (String^ key in _Defines->Keys)
 		{
-			std::string option;
-			Marshaller::Marshal(key, option);
-			std::string value;
-			Marshaller::Marshal(_Defines[key], value);
-			(void) MagickCore::SetImageOption(imageInfo, option.c_str(), value.c_str());
+			SetOption(imageInfo, key, _Defines[key]);
+		}
+
+		if (Defines == nullptr)
+			return;
+
+		for each (IDefine^ define in Defines->Defines)
+		{
+			SetOption(imageInfo, GetDefineKey(define->Format, define->Name), define->Value);
 		}
 	}
 	//==============================================================================================
@@ -111,6 +113,20 @@ namespace ImageMagick
 			imageInfo->monochrome = UseMonochrome.Value ? Magick::MagickTrue : Magick::MagickFalse;
 	}
 	//==============================================================================================
+	String^ MagickReadSettings::GetDefineKey(MagickFormat format, String^ name)
+	{
+		return Enum::GetName(MagickFormat::typeid, format) + ":" + name;
+	}
+	//==============================================================================================
+	void MagickReadSettings::SetOption(MagickCore::ImageInfo *imageInfo, String^ key, String^ value)
+	{
+		std::string option;
+		Marshaller::Marshal(key, option);
+		std::string val;
+		Marshaller::Marshal(value, val);
+		(void) MagickCore::SetImageOption(imageInfo, option.c_str(), val.c_str());
+	}
+	//==============================================================================================
 	void MagickReadSettings::Apply(Magick::Image* image)
 	{
 		Throw::IfFalse("settings", (!FrameCount.HasValue || FrameCount.Value == 1) ,
@@ -141,7 +157,7 @@ namespace ImageMagick
 		Throw::IfNullOrEmpty("name", name);
 		Throw::IfNull("value", value);
 
-		_Defines[Enum::GetName(MagickFormat::typeid, format) + ":" + name] = value;
+		_Defines[GetDefineKey(format, name)] = value;
 	}
 	//==============================================================================================
 }
