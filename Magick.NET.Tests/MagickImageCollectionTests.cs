@@ -360,12 +360,12 @@ namespace Magick.NET.Tests
 		public void Test_Write()
 		{
 			long fileSize;
-			using (MagickImage image = new MagickImage("rose:"))
+			using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
 			{
 				fileSize = image.FileSize;
 			}
 
-			using (MagickImageCollection collection = new MagickImageCollection("rose:"))
+			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
 			{
 				using (MemoryStream memStream = new MemoryStream())
 				{

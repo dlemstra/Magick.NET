@@ -157,11 +157,11 @@ namespace Magick.NET.Tests
 
 			using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
 			{
-				CollectionAssert.AreEqual(rgba, image.Channels.ToArray());
-
-				image.Alpha(AlphaOption.Off);
-
 				CollectionAssert.AreEqual(rgb, image.Channels.ToArray());
+
+				image.Alpha(AlphaOption.On);
+
+				CollectionAssert.AreEqual(rgba, image.Channels.ToArray());
 			}
 
 			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
