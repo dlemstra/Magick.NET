@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
 
 				collection.AddRange(collection);
 				Assert.AreEqual(12, collection.Count);
-				
+
 				List<MagickImage> images = new List<MagickImage>();
 				images.Add(new MagickImage("xc:red", 100, 100));
 				collection.AddRange(images);
@@ -360,12 +360,12 @@ namespace Magick.NET.Tests
 		public void Test_Write()
 		{
 			long fileSize;
-			using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
+			using (MagickImage image = new MagickImage("rose:"))
 			{
 				fileSize = image.FileSize;
 			}
 
-			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+			using (MagickImageCollection collection = new MagickImageCollection("rose:"))
 			{
 				using (MemoryStream memStream = new MemoryStream())
 				{

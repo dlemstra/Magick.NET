@@ -154,11 +154,17 @@ namespace Magick.NET.Tests
 			MagickGeometry geometry = new MagickGeometry(10, 5);
 			Assert.AreEqual("10x5", geometry.ToString());
 
-			geometry = new MagickGeometry(-5, 5, 10, 5);
-			Assert.AreEqual("10x5-5+5", geometry.ToString());
+			geometry = new MagickGeometry(-5, 5, 10, 20);
+			Assert.AreEqual("10x20-5+5", geometry.ToString());
 
-			geometry = new MagickGeometry(5, -5, 10, 5);
-			Assert.AreEqual("10x5+5-5", geometry.ToString());
+			geometry = new MagickGeometry(5, -5, 10, 20);
+			Assert.AreEqual("10x20+5-5", geometry.ToString());
+
+			geometry = new MagickGeometry(geometry.ToString());
+			Assert.AreEqual(5, geometry.X);
+			Assert.AreEqual(-5, geometry.Y);
+			Assert.AreEqual(10, geometry.Width);
+			Assert.AreEqual(20, geometry.Height);
 		}
 		//===========================================================================================
 	}

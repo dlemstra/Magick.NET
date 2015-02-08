@@ -255,7 +255,7 @@ typedef long ssize_t;
 /*
   Define to support memory mapping files for improved performance
 */
-#define MAGICKCORE_HAVE_MMAP_FILEIO 1
+#define MAGICKCORE_HAVE_MMAP 1
 
 /*
   Define to 1 if you have the `raise' function.

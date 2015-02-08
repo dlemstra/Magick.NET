@@ -520,12 +520,29 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_FormatInfo()
 		{
-			MagickImage image = new MagickImage(Files.SnakewarePNG);
-			MagickFormatInfo info = image.FormatInfo;
+			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+			{
+				MagickFormatInfo info = image.FormatInfo;
 
-			Assert.IsNotNull(info);
-			Assert.AreEqual(MagickFormat.Png, info.Format);
-			Assert.AreEqual("image/png", info.MimeType);
+				Assert.IsNotNull(info);
+				Assert.AreEqual(MagickFormat.Png, info.Format);
+				Assert.AreEqual("image/png", info.MimeType);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Gamma()
+		{
+			MagickImage first = new MagickImage(Files.InvitationTif);
+			first.Gamma(2.0);
+
+			MagickImage second = new MagickImage(Files.InvitationTif);
+			second.Gamma(2.0, 1.0, 0.5);
+
+			Assert.AreNotEqual(first, second);
+
+			first.Dispose();
+			second.Dispose();
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -552,6 +569,8 @@ namespace Magick.NET.Tests
 				else
 					Assert.Fail("Invalid color: " + color.ToString());
 			}
+
+			image.Dispose();
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
