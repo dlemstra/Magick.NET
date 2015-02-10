@@ -22,7 +22,7 @@ namespace ImageMagick
 		if (defines == nullptr)
 			return;
 
-		if (IgnoreExifPoperties->Equals(true))
+		if (IgnoreExifPoperties.Equals(true))
 			defines->Add(CreateDefine("exif-properties", "false"));
 	}
 	//==============================================================================================

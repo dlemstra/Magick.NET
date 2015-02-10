@@ -22,17 +22,17 @@ namespace ImageMagick
 		if (defines == nullptr)
 			return;
 
-		if (Alpha->HasValue)
-			defines->Add(CreateDefine("alpha", Alpha->Value));
+		if (Alpha.HasValue)
+			defines->Add(CreateDefine("alpha", Alpha.Value));
 
-		if (Endian->HasValue && Endian->Value != ImageMagick::Endian::Undefined)
-			defines->Add(CreateDefine("endian", Endian->Value));
+		if (Endian.HasValue && Endian.Value != ImageMagick::Endian::Undefined)
+			defines->Add(CreateDefine("endian", Endian.Value));
 
-		if (FillOrder->HasValue && FillOrder->Value != ImageMagick::Endian::Undefined)
-			defines->Add(CreateDefine("fill-order", FillOrder->Value));
+		if (FillOrder.HasValue && FillOrder.Value != ImageMagick::Endian::Undefined)
+			defines->Add(CreateDefine("fill-order", FillOrder.Value));
 
-		if (RowsPerStrip->HasValue)
-			defines->Add(CreateDefine("rows-per-strip", RowsPerStrip->Value));
+		if (RowsPerStrip.HasValue)
+			defines->Add(CreateDefine("rows-per-strip", RowsPerStrip.Value));
 
 		if (TileGeometry != nullptr)
 			defines->Add(CreateDefine("tile-geometry", TileGeometry->ToString()));

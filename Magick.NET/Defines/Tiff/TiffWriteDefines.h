@@ -43,22 +43,22 @@ namespace ImageMagick
 		///<summary>
 		/// Specifies the tiff alpha (tiff:alpha).
 		///</summary>
-		property Nullable<TiffAlpha>^ Alpha;
+		property Nullable<TiffAlpha> Alpha;
 		///==========================================================================================
 		///<summary>
 		/// Specifies the endianness of the tiff file (tiff:endian).
 		///</summary>
-		property Nullable<ImageMagick::Endian>^ Endian;
+		property Nullable<ImageMagick::Endian> Endian;
 		///==========================================================================================
 		///<summary>
 		/// Specifies the endianness of the tiff file (tiff:fill-order).
 		///</summary>
-		property Nullable<ImageMagick::Endian>^ FillOrder;
+		property Nullable<ImageMagick::Endian> FillOrder;
 		///==========================================================================================
 		///<summary>
 		/// Specifies the rows per strip (tiff:rows-per-strip).
 		///</summary>
-		property Nullable<int>^ RowsPerStrip;
+		property Nullable<int> RowsPerStrip;
 		///==========================================================================================
 		///<summary>
 		/// Specifies the tile geometry (tiff:tile-geometry).

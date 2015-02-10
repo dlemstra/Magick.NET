@@ -39,7 +39,7 @@ namespace ImageMagick
 		///<summary>
 		/// Specifies if the exif profile should be ignored (tiff:exif-properties).
 		///</summary>
-		property Nullable<bool>^ IgnoreExifPoperties;
+		property Nullable<bool> IgnoreExifPoperties;
 		//===========================================================================================
 	};
 	//==============================================================================================
