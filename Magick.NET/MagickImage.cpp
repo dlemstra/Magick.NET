@@ -22,6 +22,18 @@ using namespace System::Globalization;
 namespace ImageMagick
 {
 	//==============================================================================================
+	PointD MagickImage::CalculateContrastStretch(Percentage blackPoint, Percentage whitePoint)
+	{
+		PointD contrast = PointD((double)blackPoint, (double)whitePoint);
+
+		double pixels = Width * Height;
+		contrast.X *= (pixels / 100.0);
+		contrast.Y *= (pixels / 100.0);
+		contrast.Y = pixels - contrast.Y;
+
+		return contrast;
+	}
+	//==============================================================================================
 	Magick::Image* MagickImage::CreateImage()
 	{
 		Magick::Image* image = new Magick::Image();
@@ -2510,6 +2522,11 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::ContrastStretch(Percentage blackPoint)
+	{
+		ContrastStretch(blackPoint, blackPoint);
+	}
+	//==============================================================================================
 	void MagickImage::ContrastStretch(Percentage blackPoint, Percentage whitePoint)
 	{
 		Throw::IfNegative("blackPoint", blackPoint);
@@ -2517,7 +2534,8 @@ namespace ImageMagick
 
 		try
 		{
-			Value->contrastStretch(blackPoint.ToQuantum(), whitePoint.ToQuantum());
+			PointD contrast = CalculateContrastStretch(blackPoint, whitePoint);
+			Value->contrastStretch(contrast.X, contrast.Y);
 		}
 		catch(Magick::Exception& exception)
 		{
@@ -2532,7 +2550,8 @@ namespace ImageMagick
 
 		try
 		{
-			Value->contrastStretchChannel((Magick::ChannelType)channels, blackPoint.ToQuantum(), whitePoint.ToQuantum());
+			PointD contrast = CalculateContrastStretch(blackPoint, whitePoint);
+			Value->contrastStretchChannel((Magick::ChannelType)channels, contrast.X, contrast.Y);
 		}
 		catch(Magick::Exception& exception)
 		{
