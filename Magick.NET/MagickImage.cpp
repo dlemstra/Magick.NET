@@ -3346,10 +3346,22 @@ namespace ImageMagick
 	{
 		Throw::IfNullOrEmpty("name", name);
 
+		String^ newMagick = Enum::GetName(MagickFormat::typeid, GetCoderFormat(format));
+		String^ newName = name;
+		if (format == MagickFormat::Unknown)
+		{
+			array<String^>^ info = name->Split(':');
+			if (info->Length == 2)
+			{
+				newMagick = info[0];
+				newName = info[1];
+			}
+		}
+
 		std::string magick;
-		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, GetCoderFormat(format)), magick);
+		Marshaller::Marshal(newMagick, magick);
 		std::string optionName;
-		Marshaller::Marshal(name, optionName);
+		Marshaller::Marshal(newName, optionName);
 
 		try
 		{
@@ -4691,10 +4703,22 @@ namespace ImageMagick
 		Throw::IfNullOrEmpty("name", name);
 		Throw::IfNull("value", value);
 
+		String^ newMagick = Enum::GetName(MagickFormat::typeid, GetCoderFormat(format));
+		String^ newName = name;
+		if (format == MagickFormat::Unknown)
+		{
+			array<String^>^ info = name->Split(':');
+			if (info->Length == 2)
+			{
+				newMagick = info[0];
+				newName = info[1];
+			}
+		}
+
 		std::string magick;
-		Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, GetCoderFormat(format)), magick);
+		Marshaller::Marshal(newMagick, magick);
 		std::string optionName;
-		Marshaller::Marshal(name, optionName);
+		Marshaller::Marshal(newName, optionName);
 		std::string optionValue;
 		Marshaller::Marshal(value, optionValue);
 

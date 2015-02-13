@@ -115,6 +115,9 @@ namespace ImageMagick
 	//==============================================================================================
 	String^ MagickReadSettings::GetDefineKey(MagickFormat format, String^ name)
 	{
+		if (format == MagickFormat::Unknown)
+			return name;
+
 		return Enum::GetName(MagickFormat::typeid, format) + ":" + name;
 	}
 	//==============================================================================================
