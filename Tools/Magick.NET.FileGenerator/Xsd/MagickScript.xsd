@@ -25,7 +25,7 @@
 	<!--=========================================================================================-->
 	<xs:annotation id="enums"/>
 	<!--=========================================================================================-->
-	<xs:annotation id="ColorProfile"/>
+	<xs:annotation id="colorProfile"/>
 	<!--=========================================================================================-->
 	<xs:complexType name="coordinate">
 		<xs:annotation id="coordinate"/>
@@ -36,6 +36,8 @@
 			<xs:element name="coordinate" minOccurs="3" maxOccurs="unbounded" type="coordinate"/>
 		</xs:sequence>
 	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:annotation id="defines"/>
 	<!--=========================================================================================-->
 	<xs:complexType name="doubleArray">
 		<xs:sequence>
@@ -66,6 +68,10 @@
 		</xs:restriction>
 	</xs:simpleType>
 	<!--=========================================================================================-->
+	<xs:complexType name="iDefines">
+		<xs:group ref="iDefines" />
+	</xs:complexType>
+	<!--=========================================================================================-->
 	<xs:complexType name="image">
 		<xs:sequence>
 			<xs:element name="settings" minOccurs="0">
@@ -81,6 +87,10 @@
 	<!--=========================================================================================-->
 	<xs:complexType name="imageProfile">
 		<xs:annotation id="imageProfile"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
+	<xs:complexType name="iReadDefines">
+		<xs:group ref="iReadDefines" />
 	</xs:complexType>
 	<!--=========================================================================================-->
 	<xs:complexType name="montageSettings">
@@ -212,6 +222,14 @@
 		</xs:sequence>
 	</xs:group>
 	<!--=========================================================================================-->
+	<xs:group name="iDefines">
+		<xs:sequence>
+			<xs:choice>
+				<xs:annotation id="iDefines"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<!--=========================================================================================-->
 	<xs:group name="drawables">
 		<xs:sequence>
 			<xs:choice>
@@ -231,6 +249,14 @@
 	<xs:group name="read">
 		<xs:sequence>
 			<xs:element name="read" type="image"/>
+		</xs:sequence>
+	</xs:group>
+	<!--=========================================================================================-->
+	<xs:group name="iReadDefines">
+		<xs:sequence>
+			<xs:choice>
+				<xs:annotation id="iReadDefines"/>
+			</xs:choice>
 		</xs:sequence>
 	</xs:group>
 	<!--=========================================================================================-->

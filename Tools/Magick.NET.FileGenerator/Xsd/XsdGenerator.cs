@@ -58,6 +58,12 @@ namespace Magick.NET.FileGenerator
 			AddParameterAttributes(element, parameters, requiredParameters);
 		}
 		//===========================================================================================
+		private void AddClass(XElement parent, string typeName)
+		{
+			AddClassElements(parent, _MagickNET.GetProperties(typeName), _MagickNET.GetMethods(typeName));
+			AddClassAttributes(parent, _MagickNET.GetProperties(typeName));
+		}
+		//===========================================================================================
 		private void AddEnumValues(Type enumType, XElement restriction)
 		{
 			foreach (string name in Enum.GetNames(enumType).OrderBy(n => n))
@@ -183,7 +189,7 @@ namespace Magick.NET.FileGenerator
 				complexType.Add(sequence);
 		}
 		//===========================================================================================
-		private void AddSettingsAttributes(XElement complexType, IEnumerable<PropertyInfo> properties)
+		private void AddClassAttributes(XElement complexType, IEnumerable<PropertyInfo> properties)
 		{
 			foreach (var property in from property in properties
 											 let typeName = _MagickNET.GetXsdAttributeType(property)
@@ -202,7 +208,7 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		private void AddSettingsElements(XElement complexType, IEnumerable<PropertyInfo> properties, IEnumerable<MethodInfo> methods)
+		private void AddClassElements(XElement complexType, IEnumerable<PropertyInfo> properties, IEnumerable<MethodInfo> methods)
 		{
 			XElement sequence = new XElement(_Namespace + "sequence");
 
@@ -363,7 +369,7 @@ namespace Magick.NET.FileGenerator
 					case "collection-results":
 						ReplaceCollectionResults(annotation);
 						break;
-					case "ColorProfile":
+					case "colorProfile":
 						ReplaceColorProfile(annotation);
 						break;
 					case "coordinate":
@@ -374,20 +380,29 @@ namespace Magick.NET.FileGenerator
 					case "sparseColorArg":
 						ReplaceWithType(annotation, annotationID);
 						break;
+					case "defines":
+						ReplaceDefines(annotation);
+						break;
 					case "drawables":
 						ReplaceDrawables(annotation);
 						break;
 					case "enums":
 						ReplaceEnums(annotation);
 						break;
+					case "iDefines":
+						ReplaceIDefines(annotation);
+						break;
 					case "image-actions":
 						ReplaceImageActions(annotation);
+						break;
+					case "iReadDefines":
+						ReplaceIReadDefines(annotation);
 						break;
 					case "magickReadSettings":
 					case "montageSettings":
 					case "pixelStorageSettings":
 					case "quantizeSettings":
-						ReplaceWithSettings(annotation, annotationID);
+						ReplaceWithClass(annotation, annotationID);
 						break;
 					case "paths":
 						ReplacePaths(annotation);
@@ -426,6 +441,21 @@ namespace Magick.NET.FileGenerator
 			}
 
 			annotation.ReplaceWith(CreateVarElement("ColorProfile", restriction));
+		}
+		//===========================================================================================
+		private void ReplaceDefines(XElement annotation)
+		{
+			List<XElement> types = new List<XElement>();
+
+			foreach (Type interfaceType in _MagickNET.GetInterfaceTypes("IDefines"))
+			{
+				XElement complexType = new XElement(_Namespace + "complexType",
+													new XAttribute("name", _MagickNET.GetXsdName(interfaceType)));
+				AddClass(complexType, interfaceType.Name);
+				types.Add(complexType);
+			}
+
+			annotation.ReplaceWith(types.ToArray());
 		}
 		//===========================================================================================
 		private void ReplaceEnums(XElement annotation)
@@ -480,6 +510,26 @@ namespace Magick.NET.FileGenerator
 			annotation.Remove();
 		}
 		//===========================================================================================
+		private void ReplaceIDefines(XElement annotation)
+		{
+			annotation.ReplaceWith(
+				from type in _MagickNET.GetInterfaceTypes("IDefines")
+				let name = _MagickNET.GetXsdName(type)
+				select new XElement(_Namespace + "element",
+					new XAttribute("name", name),
+					new XAttribute("type", name)));
+		}
+		//===========================================================================================
+		private void ReplaceIReadDefines(XElement annotation)
+		{
+			annotation.ReplaceWith(
+				from type in _MagickNET.GetInterfaceTypes("IReadDefines")
+				let name = _MagickNET.GetXsdName(type)
+				select new XElement(_Namespace + "element",
+					new XAttribute("name", name),
+					new XAttribute("type", name)));
+		}
+		//===========================================================================================
 		private void ReplacePaths(XElement annotation)
 		{
 			foreach (ConstructorInfo[] constructors in _MagickNET.GetPaths())
@@ -522,11 +572,9 @@ namespace Magick.NET.FileGenerator
 							new XAttribute("value", max)))));
 		}
 		//===========================================================================================
-		private void ReplaceWithSettings(XElement annotation, string typeName)
+		private void ReplaceWithClass(XElement annotation, string typeName)
 		{
-			AddSettingsElements(annotation.Parent, _MagickNET.GetProperties(typeName), _MagickNET.GetMethods(typeName));
-			AddSettingsAttributes(annotation.Parent, _MagickNET.GetProperties(typeName));
-
+			AddClass(annotation.Parent, typeName);
 			annotation.Remove();
 		}
 		//===========================================================================================

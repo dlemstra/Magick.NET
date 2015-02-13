@@ -84,6 +84,7 @@ namespace Magick.NET.FileGenerator
 				case "array<double>^":
 				case "Coordinate":
 				case "Drawable^":
+				case "IDefines^":
 				case "IEnumerable<Coordinate>^":
 				case "IEnumerable<Drawable^>^":
 				case "IEnumerable<PathArc^>^":
@@ -92,6 +93,7 @@ namespace Magick.NET.FileGenerator
 				case "IEnumerable<PathBase^>^":
 				case "IEnumerable<SparseColorArg^>^":
 				case "ImageProfile^":
+				case "IReadDefines^":
 				case "MagickImage^":
 				case "MontageSettings^":
 				case "PathArc^":
@@ -117,6 +119,8 @@ namespace Magick.NET.FileGenerator
 					return "coordinate";
 				case "Drawable^":
 					return "drawable";
+				case "IDefines^":
+					return "iDefines";
 				case "IEnumerable<Coordinate>^":
 					return "coordinates";
 				case "IEnumerable<Drawable^>^":
@@ -133,6 +137,8 @@ namespace Magick.NET.FileGenerator
 					return "sparseColorArgs";
 				case "ImageProfile^":
 					return "profile";
+				case "IReadDefines^":
+					return "iReadDefines";
 				case "MagickImage^":
 					return "image";
 				case "MontageSettings^":
@@ -328,7 +334,9 @@ namespace Magick.NET.FileGenerator
 			{
 				case "Encoding":
 				case "ColorProfile":
+				case "IDefines":
 				case "ImageProfile":
+				case "IReadDefines":
 				case "MagickColor":
 				case "MagickGeometry":
 				case "MagickImage":
@@ -369,9 +377,11 @@ namespace Magick.NET.FileGenerator
 				case "Coordinate":
 				case "Nullable<Int32>":
 				case "Nullable<ColorSpace>":
+				case "Nullable<Endian>":
 				case "Nullable<PointD>":
 				case "Nullable<DitherMethod>":
 				case "Nullable<MagickFormat>":
+				case "Nullable<TiffAlpha>":
 				case "Percentage":
 				case "PointD":
 					return name;
@@ -445,6 +455,15 @@ namespace Magick.NET.FileGenerator
 					 group method by method.Name into g
 					 orderby g.Key
 					 select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+		}
+		//===========================================================================================
+		public IEnumerable<Type> GetInterfaceTypes(string interfaceName)
+		{
+			return from type in _MagickNET.GetTypes()
+					 from interfaceType in type.GetInterfaces()
+					 where interfaceType.Name == interfaceName && !type.IsInterface && !type.IsAbstract
+					 orderby type.Name
+					 select type;
 		}
 		//===========================================================================================
 		internal IEnumerable<PropertyInfo> GetMagickImageProperties()

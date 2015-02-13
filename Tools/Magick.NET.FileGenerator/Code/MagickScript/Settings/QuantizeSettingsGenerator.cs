@@ -15,10 +15,10 @@
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal sealed class QuantizeSettingsGenerator : SettingsCodeGenerator
+	internal sealed class QuantizeSettingsGenerator : CreateObjectCodeGenerator
 	{
 		//===========================================================================================
-		protected override string ClassName
+		public override string ClassName
 		{
 			get
 			{

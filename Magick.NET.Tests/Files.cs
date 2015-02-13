@@ -40,6 +40,14 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		public static string DefinesScript
+		{
+			get
+			{
+				return _Root + @"Script\Defines.msl";
+			}
+		}
+		//===========================================================================================
 		public static string DistortScript
 		{
 			get

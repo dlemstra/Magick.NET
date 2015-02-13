@@ -19,7 +19,7 @@ using System.Reflection;
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal abstract class SettingsCodeGenerator : CodeGenerator
+	internal abstract class CreateObjectCodeGenerator : CodeGenerator
 	{
 		//===========================================================================================
 		private MethodBase[] Methods
@@ -123,9 +123,12 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		protected abstract string ClassName
+		protected virtual string ReturnType
 		{
-			get;
+			get
+			{
+				return ClassName;
+			}
 		}
 		//===========================================================================================
 		protected sealed override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
@@ -138,17 +141,19 @@ namespace Magick.NET.FileGenerator
 			throw new NotImplementedException();
 		}
 		//===========================================================================================
-		public void WriteCode(IndentedTextWriter writer)
+		public abstract string ClassName
 		{
-			writer.Write(ClassName);
+			get;
+		}
+		//===========================================================================================
+		public override void WriteCode(IndentedTextWriter writer)
+		{
+			writer.Write(ReturnType);
 			writer.Write("^ MagickScript::Create");
 			writer.Write(ClassName);
 			writer.WriteLine("(XmlElement^ element)");
 			WriteStartColon(writer);
-			writer.WriteLine("if (element == nullptr)");
-			writer.Indent++;
-			writer.WriteLine("return nullptr;");
-			writer.Indent--;
+			CheckNull(writer, "element");
 			writer.Write(ClassName);
 			writer.Write("^ result = gcnew ");
 			writer.Write(ClassName);
@@ -159,9 +164,9 @@ namespace Magick.NET.FileGenerator
 			WriteEndColon(writer);
 		}
 		//===========================================================================================
-		public void WriteHeader(IndentedTextWriter writer)
+		public override void WriteHeader(IndentedTextWriter writer)
 		{
-			writer.Write(ClassName);
+			writer.Write(ReturnType);
 			writer.Write("^ Create");
 			writer.Write(ClassName);
 			writer.WriteLine("(XmlElement^ element);");

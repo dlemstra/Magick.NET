@@ -80,6 +80,8 @@
 #include "..\..\Drawables\Paths\PathSmoothQuadraticCurvetoAbs.h"
 #include "..\..\Drawables\Paths\PathSmoothQuadraticCurvetoRel.h"
 #include "..\..\Drawables\Coordinate.h"
+#include "..\..\Defines\Tiff\TiffReadDefines.h"
+#include "..\..\Defines\Tiff\TiffWriteDefines.h"
 #pragma warning (disable: 4100)
 namespace ImageMagick
 {
@@ -1404,8 +1406,16 @@ namespace ImageMagick
 									}
 									case 'D':
 									{
-										ExecuteSetDefine(element, image);
-										return;
+										if (element->Name->Length == 9)
+										{
+											ExecuteSetDefine(element, image);
+											return;
+										}
+										if (element->Name->Length == 10)
+										{
+											ExecuteSetDefines(element, image);
+											return;
+										}
 									}
 									case 'H':
 									{
@@ -2556,12 +2566,14 @@ namespace ImageMagick
 			else if (attribute->Name == "whitePoint")
 				arguments["whitePoint"] = _Variables->GetValue<Percentage>(attribute);
 		}
-		if (OnlyContains(arguments, "blackPoint", "whitePoint"))
+		if (OnlyContains(arguments, "blackPoint"))
+			image->ContrastStretch((Percentage)arguments["blackPoint"]);
+		else if (OnlyContains(arguments, "blackPoint", "whitePoint"))
 			image->ContrastStretch((Percentage)arguments["blackPoint"], (Percentage)arguments["whitePoint"]);
 		else if (OnlyContains(arguments, "blackPoint", "whitePoint", "channels"))
 			image->ContrastStretch((Percentage)arguments["blackPoint"], (Percentage)arguments["whitePoint"], (Channels)arguments["channels"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'contrastStretch', allowed combinations are: [blackPoint, whitePoint] [blackPoint, whitePoint, channels]");
+			throw gcnew ArgumentException("Invalid argument combination for 'contrastStretch', allowed combinations are: [blackPoint] [blackPoint, whitePoint] [blackPoint, whitePoint, channels]");
 	}
 	void MagickScript::ExecuteCrop(XmlElement^ element, MagickImage^ image)
 	{
@@ -3532,6 +3544,11 @@ namespace ImageMagick
 			image->SetDefine((MagickFormat)arguments["format"], (String^)arguments["name"], (String^)arguments["value"]);
 		else
 			throw gcnew ArgumentException("Invalid argument combination for 'setDefine', allowed combinations are: [format, name, flag] [format, name, value]");
+	}
+	void MagickScript::ExecuteSetDefines(XmlElement^ element, MagickImage^ image)
+	{
+		IDefines^ defines_ = CreateIDefines(element["defines"]);
+		image->SetDefines(defines_);
 	}
 	void MagickScript::ExecuteSetHighlightColor(XmlElement^ element, MagickImage^ image)
 	{
@@ -5240,7 +5257,7 @@ namespace ImageMagick
 		double y_ = _Variables->GetValue<double>(element, "y");
 		return Coordinate(x_, y_);
 	}
-	Collection<Coordinate>^  MagickScript::CreateCoordinates(XmlElement^ element)
+	Collection<Coordinate>^ MagickScript::CreateCoordinates(XmlElement^ element)
 	{
 		Collection<Coordinate>^ collection = gcnew Collection<Coordinate>();
 		for each (XmlElement^ elem in element->SelectNodes("*"))
@@ -5282,7 +5299,7 @@ namespace ImageMagick
 		bool useSweep_ = _Variables->GetValue<bool>(element, "useSweep");
 		return gcnew PathArc(x_, y_, radiusX_, radiusY_, rotationX_, useLargeArc_, useSweep_);
 	}
-	Collection<PathArc^>^  MagickScript::CreatePathArcs(XmlElement^ element)
+	Collection<PathArc^>^ MagickScript::CreatePathArcs(XmlElement^ element)
 	{
 		Collection<PathArc^>^ collection = gcnew Collection<PathArc^>();
 		for each (XmlElement^ elem in element->SelectNodes("*"))
@@ -5301,7 +5318,7 @@ namespace ImageMagick
 		double y2_ = _Variables->GetValue<double>(element, "y2");
 		return gcnew PathCurveto(x_, y_, x1_, y1_, x2_, y2_);
 	}
-	Collection<PathCurveto^>^  MagickScript::CreatePathCurvetos(XmlElement^ element)
+	Collection<PathCurveto^>^ MagickScript::CreatePathCurvetos(XmlElement^ element)
 	{
 		Collection<PathCurveto^>^ collection = gcnew Collection<PathCurveto^>();
 		for each (XmlElement^ elem in element->SelectNodes("*"))
@@ -5318,7 +5335,7 @@ namespace ImageMagick
 		double y1_ = _Variables->GetValue<double>(element, "y1");
 		return gcnew PathQuadraticCurveto(x_, y_, x1_, y1_);
 	}
-	Collection<PathQuadraticCurveto^>^  MagickScript::CreatePathQuadraticCurvetos(XmlElement^ element)
+	Collection<PathQuadraticCurveto^>^ MagickScript::CreatePathQuadraticCurvetos(XmlElement^ element)
 	{
 		Collection<PathQuadraticCurveto^>^ collection = gcnew Collection<PathQuadraticCurveto^>();
 		for each (XmlElement^ elem in element->SelectNodes("*"))
@@ -5334,7 +5351,7 @@ namespace ImageMagick
 		MagickColor^ color_ = _Variables->GetValue<MagickColor^>(element, "color");
 		return gcnew SparseColorArg(x_, y_, color_);
 	}
-	Collection<SparseColorArg^>^  MagickScript::CreateSparseColorArgs(XmlElement^ element)
+	Collection<SparseColorArg^>^ MagickScript::CreateSparseColorArgs(XmlElement^ element)
 	{
 		Collection<SparseColorArg^>^ collection = gcnew Collection<SparseColorArg^>();
 		for each (XmlElement^ elem in element->SelectNodes("*"))
@@ -5349,6 +5366,7 @@ namespace ImageMagick
 			return nullptr;
 		MagickReadSettings^ result = gcnew MagickReadSettings();
 		result->ColorSpace = _Variables->GetValue<Nullable<ColorSpace>>(element, "colorSpace");
+		result->Defines = CreateIReadDefines(element["defines"]);
 		result->Density = _Variables->GetValue<Nullable<PointD>>(element, "density");
 		result->Format = _Variables->GetValue<Nullable<MagickFormat>>(element, "format");
 		result->FrameCount = _Variables->GetValue<Nullable<Int32>>(element, "frameCount");
@@ -5410,6 +5428,50 @@ namespace ImageMagick
 		result->DitherMethod = _Variables->GetValue<Nullable<DitherMethod>>(element, "ditherMethod");
 		result->MeasureErrors = _Variables->GetValue<bool>(element, "measureErrors");
 		result->TreeDepth = _Variables->GetValue<int>(element, "treeDepth");
+		return result;
+	}
+	IReadDefines^ MagickScript::CreateIReadDefines(XmlElement^ parent)
+	{
+		return dynamic_cast<IReadDefines^>(CreateIDefines(parent));
+	}
+	IDefines^ MagickScript::CreateIDefines(XmlElement^ parent)
+	{
+		if (parent == nullptr)
+			return nullptr;
+		XmlElement^ element = (XmlElement^)parent->FirstChild;
+		if (element == nullptr)
+			return nullptr;
+		switch(element->Name[4])
+		{
+			case 'R':
+			{
+				return CreateTiffReadDefines(element);
+			}
+			case 'W':
+			{
+				return CreateTiffWriteDefines(element);
+			}
+		}
+		throw gcnew NotImplementedException(element->Name);
+	}
+	IDefines^ MagickScript::CreateTiffReadDefines(XmlElement^ element)
+	{
+		if (element == nullptr)
+			return nullptr;
+		TiffReadDefines^ result = gcnew TiffReadDefines();
+		result->IgnoreExifPoperties = _Variables->GetValue<Nullable<bool>>(element, "ignoreExifPoperties");
+		return result;
+	}
+	IDefines^ MagickScript::CreateTiffWriteDefines(XmlElement^ element)
+	{
+		if (element == nullptr)
+			return nullptr;
+		TiffWriteDefines^ result = gcnew TiffWriteDefines();
+		result->Alpha = _Variables->GetValue<Nullable<TiffAlpha>>(element, "alpha");
+		result->Endian = _Variables->GetValue<Nullable<Endian>>(element, "endian");
+		result->FillOrder = _Variables->GetValue<Nullable<Endian>>(element, "fillOrder");
+		result->RowsPerStrip = _Variables->GetValue<Nullable<Int32>>(element, "rowsPerStrip");
+		result->TileGeometry = _Variables->GetValue<MagickGeometry^>(element, "tileGeometry");
 		return result;
 	}
 }

@@ -121,6 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Script\Collection.msl" />
+    <None Include="Script\Defines.msl">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Script\Distort.msl" />
     <None Include="Script\Draw.msl" />
     <None Include="Script\Events.msl" />

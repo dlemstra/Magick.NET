@@ -48,9 +48,13 @@
     <Compile Include="Code\AnyCPU\ParameterMode.cs" />
     <Compile Include="Code\AnyCPU\EnumGenerator.cs" />
     <Compile Include="Code\Base\FileGenerator.cs" />
-    <Compile Include="Code\MagickScript\Base\SettingsCodeGenerator.cs" />
+    <Compile Include="Code\MagickScript\Base\CreateObjectCodeGenerator.cs" />
+    <Compile Include="Code\MagickScript\Base\InterfaceGenerator.cs" />
+    <Compile Include="Code\MagickScript\Base\SwitchCodeGenerator.cs" />
     <Compile Include="Code\MagickScript\Constructors\ColorProfileGenerator.cs" />
     <Compile Include="Code\MagickScript\Constructors\SparseColorArgGenerator.cs" />
+    <Compile Include="Code\MagickScript\Base\InterfaceCodeGenerator.cs" />
+    <Compile Include="Code\MagickScript\Interface\IDefinesGenerator.cs" />
     <Compile Include="Code\MagickScript\Settings\MontageSettingsGenerator.cs" />
     <Compile Include="Code\MagickScript\Settings\QuantizeSettingsGenerator.cs" />
     <Compile Include="Code\MagickScript\Settings\PixelStorageSettingsGenerator.cs" />

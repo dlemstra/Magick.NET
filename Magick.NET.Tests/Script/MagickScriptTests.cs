@@ -45,6 +45,12 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		private void DefinesScriptRead(object sender, ScriptReadEventArgs arguments)
+		{
+			arguments.Image = new MagickImage(Files.InvitationTif, arguments.Settings);
+			Assert.IsNull(arguments.Image.GetAttribute("exif:PixelXDimension"));
+		}
+		//===========================================================================================
 		private void EventsScriptRead(object sender, ScriptReadEventArgs arguments)
 		{
 			Assert.AreEqual("read.id", arguments.Id);
@@ -111,6 +117,19 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(MagickFormat.Png, image.Format);
 			Assert.AreEqual(128, image.Width);
 			Assert.AreEqual(128, image.Height);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Execute_Defines()
+		{
+			MagickScript script = new MagickScript(Files.DefinesScript);
+			script.Read += DefinesScriptRead;
+
+			MagickImage image = script.Execute();
+
+			Assert.IsNotNull(image);
+			Assert.AreEqual(827, image.Width);
+			Assert.AreEqual(700, image.Height);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

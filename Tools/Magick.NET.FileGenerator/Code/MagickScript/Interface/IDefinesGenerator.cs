@@ -11,63 +11,49 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-using System;
 using System.CodeDom.Compiler;
-using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal sealed class ColorProfileGenerator : ConstructorCodeGenerator
+	internal sealed class IDefinesGenerator : InterfaceCodeGenerator
 	{
 		//===========================================================================================
 		protected override string ClassName
 		{
 			get
 			{
-				return "ColorProfile";
+				return "IDefines";
 			}
 		}
 		//===========================================================================================
-		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+		protected override void WriteIncludes(IndentedTextWriter writer, InterfaceGenerator generator)
 		{
-			throw new NotImplementedException();
+			string type = generator.ClassName.Replace("ReadDefines", "");
+			type = type.Replace("WriteDefines", "");
+
+			writer.Write(@"#include ""..\..\Defines\");
+			writer.Write(type);
+			writer.Write("\\");
+			writer.Write(generator.ClassName);
+			writer.WriteLine(@".h""");
 		}
 		//===========================================================================================
 		public override void WriteCode(IndentedTextWriter writer)
 		{
-			writer.Write(TypeName);
-			writer.Write(" MagickScript::Create");
-			writer.Write(ClassName);
-			writer.WriteLine("(XmlElement^ element)");
+			writer.WriteLine("IReadDefines^ MagickScript::CreateIReadDefines(XmlElement^ parent)");
 			WriteStartColon(writer);
-			foreach (string name in MagickNET.GetColorProfileNames())
-			{
-				writer.Write("if (element->GetAttribute(\"name\") == \"");
-				writer.Write(name);
-				writer.WriteLine("\")");
-				writer.Indent++;
-				writer.Write("return ColorProfile::");
-				writer.Write(name);
-				writer.WriteLine(";");
-				writer.Indent--;
-			}
-			writer.WriteLine("throw gcnew NotImplementedException(element->Name);");
+			writer.WriteLine("return dynamic_cast<IReadDefines^>(CreateIDefines(parent));");
 			WriteEndColon(writer);
+
+			base.WriteCode(writer);
 		}
 		//===========================================================================================
 		public override void WriteHeader(IndentedTextWriter writer)
 		{
-			writer.Write("static ");
-			writer.Write(TypeName);
-			writer.Write(" Create");
-			writer.Write(ClassName);
-			writer.WriteLine("(XmlElement^ element);");
-		}
-		//===========================================================================================
-		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			throw new NotImplementedException();
+			WriteHeader(writer, "IReadDefines");
+
+			base.WriteHeader(writer);
 		}
 		//===========================================================================================
 	}

@@ -1085,6 +1085,20 @@
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
+	<xs:simpleType name="TiffAlpha">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Associated" />
+					<xs:enumeration value="Unassociated" />
+					<xs:enumeration value="Unspecified" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="var" />
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
 	<xs:simpleType name="VirtualPixelMethod">
 		<xs:union>
 			<xs:simpleType>
@@ -1138,6 +1152,16 @@
 			<xs:element name="coordinate" minOccurs="3" maxOccurs="unbounded" type="coordinate" />
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="tiffReadDefines">
+		<xs:attribute name="ignoreExifPoperties" type="bool" />
+	</xs:complexType>
+	<xs:complexType name="tiffWriteDefines">
+		<xs:attribute name="alpha" type="TiffAlpha" />
+		<xs:attribute name="endian" type="Endian" />
+		<xs:attribute name="fillOrder" type="Endian" />
+		<xs:attribute name="rowsPerStrip" type="int" />
+		<xs:attribute name="tileGeometry" type="geometry" />
+	</xs:complexType>
 	<xs:complexType name="doubleArray">
 		<xs:sequence>
 			<xs:element name="value" type="xs:double" minOccurs="0" maxOccurs="unbounded" />
@@ -1162,11 +1186,15 @@
 			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))([+-]\d+[+-]\d+)?([\&gt;\&lt;\@\%^!]{1,2})?" />
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:complexType name="iDefines">
+		<xs:group ref="iDefines" />
+	</xs:complexType>
 	<xs:complexType name="image">
 		<xs:sequence>
 			<xs:element name="settings" minOccurs="0">
 				<xs:complexType>
 					<xs:sequence>
+						<xs:element name="defines" minOccurs="0" type="iReadDefines" />
 						<xs:element name="pixelStorage" minOccurs="0" type="pixelStorageSettings" />
 						<xs:element name="setDefine" minOccurs="0" maxOccurs="unbounded">
 							<xs:complexType>
@@ -1194,6 +1222,9 @@
 	<xs:complexType name="imageProfile">
 		<xs:attribute name="fileName" use="required" type="xs:string" />
 		<xs:attribute name="name" use="required" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="iReadDefines">
+		<xs:group ref="iReadDefines" />
 	</xs:complexType>
 	<xs:complexType name="montageSettings">
 		<xs:attribute name="backgroundColor" type="color" />
@@ -1799,7 +1830,7 @@
 					<xs:complexType>
 						<xs:attribute name="blackPoint" use="required" type="double" />
 						<xs:attribute name="channels" type="Channels" />
-						<xs:attribute name="whitePoint" use="required" type="double" />
+						<xs:attribute name="whitePoint" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="crop">
@@ -2226,6 +2257,13 @@
 						<xs:attribute name="value" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="setDefines">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="defines" type="iDefines" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="setHighlightColor">
 					<xs:complexType>
 						<xs:attribute name="color" use="required" type="color" />
@@ -2547,6 +2585,14 @@
 					<xs:group ref="actions" />
 				</xs:complexType>
 			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="iDefines">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="tiffReadDefines" type="tiffReadDefines" />
+				<xs:element name="tiffWriteDefines" type="tiffWriteDefines" />
+			</xs:choice>
 		</xs:sequence>
 	</xs:group>
 	<xs:group name="drawables">
@@ -2874,6 +2920,13 @@
 	<xs:group name="read">
 		<xs:sequence>
 			<xs:element name="read" type="image" />
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="iReadDefines">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="tiffReadDefines" type="tiffReadDefines" />
+			</xs:choice>
 		</xs:sequence>
 	</xs:group>
 	<xs:element name="msl">

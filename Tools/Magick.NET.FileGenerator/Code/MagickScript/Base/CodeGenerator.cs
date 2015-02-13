@@ -156,21 +156,6 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		protected void WriteHashtableParameters(IndentedTextWriter writer, ParameterInfo[] parameters)
-		{
-			for (int k = 0; k < parameters.Length; k++)
-			{
-				writer.Write("(");
-				writer.Write(_MagickNET.GetCppTypeName(parameters[k]));
-				writer.Write(")arguments[\"");
-				writer.Write(parameters[k].Name);
-				writer.Write("\"]");
-
-				if (k != parameters.Length - 1)
-					writer.Write(", ");
-			}
-		}
-		//===========================================================================================
 		private void WriteInvalidCombinations(IndentedTextWriter writer, MethodBase[] methods)
 		{
 			writer.WriteLine("else");
@@ -247,6 +232,31 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected abstract void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters);
 		//===========================================================================================
+		protected static void CheckNull(IndentedTextWriter writer, string name)
+		{
+			writer.Write("if (");
+			writer.Write(name);
+			writer.WriteLine(" == nullptr)");
+			writer.Indent++;
+			writer.WriteLine("return nullptr;");
+			writer.Indent--;
+		}
+		//===========================================================================================
+		protected void WriteHashtableParameters(IndentedTextWriter writer, ParameterInfo[] parameters)
+		{
+			for (int k = 0; k < parameters.Length; k++)
+			{
+				writer.Write("(");
+				writer.Write(_MagickNET.GetCppTypeName(parameters[k]));
+				writer.Write(")arguments[\"");
+				writer.Write(parameters[k].Name);
+				writer.Write("\"]");
+
+				if (k != parameters.Length - 1)
+					writer.Write(", ");
+			}
+		}
+		//===========================================================================================
 		protected static void WriteCreateMethod(IndentedTextWriter writer, string typeName)
 		{
 			switch (typeName)
@@ -259,6 +269,9 @@ namespace Magick.NET.FileGenerator
 					break;
 				case "PathArc^":
 					writer.Write("CreateArc");
+					break;
+				case "IDefines^":
+					writer.Write("CreateIDefines");
 					break;
 				case "IEnumerable<Coordinate>^":
 					writer.Write("CreateCoordinates");
@@ -280,6 +293,9 @@ namespace Magick.NET.FileGenerator
 					break;
 				case "ImageProfile^":
 					writer.Write("CreateProfile");
+					break;
+				case "IReadDefines^":
+					writer.Write("CreateIReadDefines");
 					break;
 				case "MagickImage^":
 					writer.Write("CreateMagickImage");
@@ -366,6 +382,8 @@ namespace Magick.NET.FileGenerator
 				case "ImageProfile^":
 					writer.Write("element");
 					break;
+				case "IDefines^":
+				case "IReadDefines^":
 				case "MontageSettings^":
 				case "PixelStorageSettings^":
 				case "QuantizeSettings^":
@@ -382,6 +400,14 @@ namespace Magick.NET.FileGenerator
 		{
 			writer.WriteLine("{");
 			writer.Indent++;
+		}
+		//===========================================================================================
+		public abstract void WriteCode(IndentedTextWriter writer);
+		//===========================================================================================
+		public abstract void WriteHeader(IndentedTextWriter writer);
+		//===========================================================================================
+		public virtual void WriteIncludes(IndentedTextWriter writer)
+		{
 		}
 		//===========================================================================================
 	}

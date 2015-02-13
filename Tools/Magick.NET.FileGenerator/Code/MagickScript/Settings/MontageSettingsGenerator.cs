@@ -15,10 +15,10 @@
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal sealed class MontageSettingsGenerator : SettingsCodeGenerator
+	internal sealed class MontageSettingsGenerator : CreateObjectCodeGenerator
 	{
 		//===========================================================================================
-		protected override string ClassName
+		public override string ClassName
 		{
 			get
 			{

@@ -1161,6 +1161,9 @@
 			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))([+-]\d+[+-]\d+)?([\&gt;\&lt;\@\%^!]{1,2})?" />
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:complexType name="iDefines">
+		<xs:group ref="iDefines" />
+	</xs:complexType>
 	<xs:complexType name="image">
 		<xs:sequence>
 			<xs:element name="settings" minOccurs="0">
@@ -1193,6 +1196,9 @@
 	<xs:complexType name="imageProfile">
 		<xs:attribute name="fileName" use="required" type="xs:string" />
 		<xs:attribute name="name" use="required" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="iReadDefines">
+		<xs:group ref="iReadDefines" />
 	</xs:complexType>
 	<xs:complexType name="montageSettings">
 		<xs:attribute name="backgroundColor" type="color" />
@@ -2548,6 +2554,11 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:group>
+	<xs:group name="iDefines">
+		<xs:sequence>
+			<xs:choice />
+		</xs:sequence>
+	</xs:group>
 	<xs:group name="drawables">
 		<xs:sequence>
 			<xs:choice>
@@ -2873,6 +2884,11 @@
 	<xs:group name="read">
 		<xs:sequence>
 			<xs:element name="read" type="image" />
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="iReadDefines">
+		<xs:sequence>
+			<xs:choice />
 		</xs:sequence>
 	</xs:group>
 	<xs:element name="msl">

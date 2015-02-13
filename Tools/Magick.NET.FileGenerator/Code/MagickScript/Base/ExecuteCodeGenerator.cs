@@ -20,7 +20,7 @@ using System.Reflection;
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal abstract class ExecuteCodeGenerator : CodeGenerator
+	internal abstract class ExecuteCodeGenerator : SwitchCodeGenerator
 	{
 		//===========================================================================================
 		private bool IsStatic(MethodBase[] methods)
@@ -44,92 +44,6 @@ namespace Magick.NET.FileGenerator
 			return IsStatic(memberInfo as MethodBase);
 		}
 		//===========================================================================================
-		private void WriteSwitch(IndentedTextWriter writer, IEnumerable<string> names, int level)
-		{
-			IEnumerable<char> chars = (from name in names
-												where name.Length > level
-												select name[level]).Distinct();
-
-
-			if (chars.Count() == 1 && names.Count() > 1)
-			{
-				WriteLengthCheck(writer, names, level);
-				WriteSwitch(writer, names, ++level);
-			}
-			else
-			{
-				WriteLengthCheck(writer, names, level);
-
-				if (chars.Count() > 1)
-				{
-					writer.Write("switch(element->Name[");
-					writer.Write(level);
-					writer.WriteLine("])");
-					WriteStartColon(writer);
-				}
-
-				foreach (char c in chars)
-				{
-					writer.Write("case '");
-					writer.Write(c);
-					writer.WriteLine("':");
-					WriteStartColon(writer);
-
-					IEnumerable<string> children = from name in names
-															 where name.Length > level && name[level] == c
-															 select name;
-
-					if (children.Count() == 1)
-						WriteExecute(writer, children.First());
-					else
-						WriteSwitch(writer, children, level + 1);
-
-					WriteEndColon(writer);
-				}
-
-				if (chars.Count() > 1)
-				{
-					WriteEndColon(writer);
-					if (level != 0)
-						writer.WriteLine("break;");
-				}
-			}
-		}
-		//===========================================================================================
-		private void WriteExecute(IndentedTextWriter writer, string name)
-		{
-			MemberInfo member = (from property in Properties
-										where MagickNET.GetXsdName(property).Equals(name, StringComparison.OrdinalIgnoreCase)
-										select property).FirstOrDefault();
-
-			if (member == null)
-				member = (from overloads in Methods
-							 let method = overloads[overloads.Length - 1]
-							 where MagickNET.GetXsdName(method).Equals(name, StringComparison.OrdinalIgnoreCase)
-							 select method).FirstOrDefault();
-
-
-			if (ReturnType != "void")
-				writer.Write("return ");
-			writer.Write("Execute");
-			if (member == null)
-			{
-				writer.Write(char.ToUpper(name[0]));
-				writer.Write(name.Substring(1));
-			}
-			else
-			{
-				writer.Write(MagickNET.GetName(member));
-			}
-			writer.Write("(");
-			if (member == null || !IsStatic(member))
-				writer.Write("element, ");
-			writer.Write(ExecuteArgument.Split(' ').Last());
-			writer.WriteLine(");");
-			if (ReturnType == "void")
-				writer.WriteLine("return;");
-		}
-		//===========================================================================================
 		private void WriteExecute(IndentedTextWriter writer)
 		{
 			writer.Write(ReturnType);
@@ -146,9 +60,7 @@ namespace Magick.NET.FileGenerator
 												  select MagickNET.GetXsdName(method[0])).Concat(
 												  CustomMethods);
 
-			WriteSwitch(writer, names, 0);
-
-			writer.WriteLine("throw gcnew NotImplementedException(element->Name);");
+			WriteSwitch(writer, names);
 			WriteEndColon(writer);
 		}
 		//===========================================================================================
@@ -216,22 +128,6 @@ namespace Magick.NET.FileGenerator
 			writer.WriteLine("(XmlElement^ element, MagickImage^ image);");
 		}
 		//===========================================================================================
-		private void WriteLengthCheck(IndentedTextWriter writer, IEnumerable<string> names, int level)
-		{
-			string shortName = (from name in names
-									  where name.Length == level
-									  select name).FirstOrDefault();
-			if (shortName == null)
-				return;
-
-			writer.Write("if (element->Name->Length == ");
-			writer.Write(level);
-			writer.WriteLine(")");
-			WriteStartColon(writer);
-			WriteExecute(writer, shortName);
-			WriteEndColon(writer);
-		}
-		//===========================================================================================
 		protected virtual string[] CustomMethods
 		{
 			get
@@ -274,6 +170,40 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
+		protected sealed override void WriteCase(IndentedTextWriter writer, string name)
+		{
+			MemberInfo member = (from property in Properties
+										where MagickNET.GetXsdName(property).Equals(name, StringComparison.OrdinalIgnoreCase)
+										select property).FirstOrDefault();
+
+			if (member == null)
+				member = (from overloads in Methods
+							 let method = overloads[overloads.Length - 1]
+							 where MagickNET.GetXsdName(method).Equals(name, StringComparison.OrdinalIgnoreCase)
+							 select method).FirstOrDefault();
+
+
+			if (ReturnType != "void")
+				writer.Write("return ");
+			writer.Write("Execute");
+			if (member == null)
+			{
+				writer.Write(char.ToUpper(name[0]));
+				writer.Write(name.Substring(1));
+			}
+			else
+			{
+				writer.Write(MagickNET.GetName(member));
+			}
+			writer.Write("(");
+			if (member == null || !IsStatic(member))
+				writer.Write("element, ");
+			writer.Write(ExecuteArgument.Split(' ').Last());
+			writer.WriteLine(");");
+			if (ReturnType == "void")
+				writer.WriteLine("return;");
+		}
+		//===========================================================================================
 		protected void WriteGetValue(IndentedTextWriter writer, PropertyInfo property)
 		{
 			string typeName = MagickNET.GetCppTypeName(property);
@@ -294,7 +224,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected abstract void WriteSet(IndentedTextWriter writer, PropertyInfo property);
 		//===========================================================================================
-		public void WriteExecuteMethods(IndentedTextWriter writer)
+		public override void WriteCode(IndentedTextWriter writer)
 		{
 			WriteExecute(writer);
 
@@ -309,7 +239,7 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		public void WriteHeader(IndentedTextWriter writer)
+		public override void WriteHeader(IndentedTextWriter writer)
 		{
 			WriteExecuteHeader(writer);
 
@@ -322,10 +252,6 @@ namespace Magick.NET.FileGenerator
 			{
 				WriteHeader(writer, overloads);
 			}
-		}
-		//===========================================================================================
-		public virtual void WriteIncludes(IndentedTextWriter writer)
-		{
 		}
 		//===========================================================================================
 	}

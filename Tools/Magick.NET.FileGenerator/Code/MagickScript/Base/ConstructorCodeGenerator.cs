@@ -55,7 +55,7 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		public virtual void WriteCode(IndentedTextWriter writer)
+		public override void WriteCode(IndentedTextWriter writer)
 		{
 			writer.Write(TypeName);
 			writer.Write(" MagickScript::Create");
@@ -70,7 +70,7 @@ namespace Magick.NET.FileGenerator
 
 			writer.Write("Collection<");
 			writer.Write(TypeName);
-			writer.Write(">^  MagickScript::Create");
+			writer.Write(">^ MagickScript::Create");
 			writer.Write(ClassName);
 			writer.WriteLine("s(XmlElement^ element)");
 			WriteStartColon(writer);
@@ -89,7 +89,7 @@ namespace Magick.NET.FileGenerator
 			WriteEndColon(writer);
 		}
 		//===========================================================================================
-		public virtual void WriteHeader(IndentedTextWriter writer)
+		public override void WriteHeader(IndentedTextWriter writer)
 		{
 			writer.Write(TypeName);
 			writer.Write(" Create");
@@ -104,10 +104,6 @@ namespace Magick.NET.FileGenerator
 			writer.Write(">^ Create");
 			writer.Write(ClassName);
 			writer.WriteLine("s(XmlElement^ element);");
-		}
-		//===========================================================================================
-		public virtual void WriteIncludes(IndentedTextWriter writer)
-		{
 		}
 		//===========================================================================================
 	}
