@@ -25,7 +25,7 @@ namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Class for defines that are used when an jpeg image is read.
+	/// Class for defines that are used when a jpeg image is read.
 	///</summary>
 	public ref class JpegReadDefines sealed : DefineCreator, IReadDefines
 	{

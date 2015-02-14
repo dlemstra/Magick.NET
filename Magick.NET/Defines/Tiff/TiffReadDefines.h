@@ -20,7 +20,7 @@ namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Class for defines that are used when an tiff image is read.
+	/// Class for defines that are used when a tiff image is read.
 	///</summary>
 	public ref class TiffReadDefines sealed : DefineCreator, IReadDefines
 	{

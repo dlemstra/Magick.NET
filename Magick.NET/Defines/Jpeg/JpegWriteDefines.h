@@ -23,7 +23,7 @@ namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Class for defines that are used when an jpeg image is written.
+	/// Class for defines that are used when a jpeg image is written.
 	///</summary>
 	public ref class JpegWriteDefines sealed : DefineCreator
 	{

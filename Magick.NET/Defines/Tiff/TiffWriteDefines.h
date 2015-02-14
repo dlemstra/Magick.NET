@@ -24,7 +24,7 @@ namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Class for defines that are used when an tiff image is written.
+	/// Class for defines that are used when a tiff image is written.
 	///</summary>
 	public ref class TiffWriteDefines sealed : DefineCreator
 	{
