@@ -12,30 +12,46 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "TiffWriteDefines.h"
+#include "JpegReadDefines.h"
+#include "..\..\Helpers\EnumHelper.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	void TiffWriteDefines::AddDefines(Collection<IDefine^>^ defines)
+	void JpegReadDefines::AddDefines(Collection<IDefine^>^ defines)
 	{
 		if (defines == nullptr)
 			return;
 
-		if (Alpha.HasValue)
-			defines->Add(CreateDefine("alpha", Alpha.Value));
+		if (BlockSmoothing.HasValue)
+			defines->Add(CreateDefine("block-smoothing", BlockSmoothing.Value));
 
-		if (Endian.HasValue && Endian.Value != ImageMagick::Endian::Undefined)
-			defines->Add(CreateDefine("endian", Endian.Value));
+		if (Colors.HasValue)
+			defines->Add(CreateDefine("colors", Colors.Value));
 
-		if (FillOrder.HasValue && FillOrder.Value != ImageMagick::Endian::Undefined)
-			defines->Add(CreateDefine("fill-order", FillOrder.Value));
+		if (DctMethod.HasValue)
+			defines->Add(CreateDefine("dct-method", DctMethod.Value));
 
-		if (RowsPerStrip.HasValue)
-			defines->Add(CreateDefine("rows-per-strip", RowsPerStrip.Value));
+		if (FancyUpsampling.HasValue)
+			defines->Add(CreateDefine("fancy-upsampling", FancyUpsampling.Value));
 
-		if (TileGeometry != nullptr)
-			defines->Add(CreateDefine("tile-geometry", TileGeometry));
+		if (Size != nullptr)
+			defines->Add(CreateDefine("size", Size));
+
+		if (SkipProfiles.HasValue)
+		{
+			String^ value = "";
+			for each(ProfileTypes profileType in EnumHelper::GetFlags(SkipProfiles.Value))
+			{
+				if (value->Length != 0)
+					value += ",";
+
+				value += Enum::GetName(ProfileTypes::typeid, profileType);
+			}
+
+			if (!String::IsNullOrEmpty(value))
+				defines->Add(gcnew MagickDefine(MagickFormat::Unknown, "profile:skip", value));
+		}
 	}
 	//==============================================================================================
 }

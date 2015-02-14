@@ -12,30 +12,45 @@
 // limitations under the License.
 //=================================================================================================
 #include "Stdafx.h"
-#include "TiffWriteDefines.h"
+#include "JpegWriteDefines.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	void TiffWriteDefines::AddDefines(Collection<IDefine^>^ defines)
+	void JpegWriteDefines::AddDefines(Collection<IDefine^>^ defines)
 	{
 		if (defines == nullptr)
 			return;
 
-		if (Alpha.HasValue)
-			defines->Add(CreateDefine("alpha", Alpha.Value));
+		if (DctMethod.HasValue)
+			defines->Add(CreateDefine("dct-method", DctMethod.Value));
 
-		if (Endian.HasValue && Endian.Value != ImageMagick::Endian::Undefined)
-			defines->Add(CreateDefine("endian", Endian.Value));
+		if (Extent.HasValue)
+			defines->Add(CreateDefine("extent", Extent.Value + "KB"));
 
-		if (FillOrder.HasValue && FillOrder.Value != ImageMagick::Endian::Undefined)
-			defines->Add(CreateDefine("fill-order", FillOrder.Value));
+		if (OptimizeCoding.HasValue)
+			defines->Add(CreateDefine("optimize-coding", OptimizeCoding.Value));
 
-		if (RowsPerStrip.HasValue)
-			defines->Add(CreateDefine("rows-per-strip", RowsPerStrip.Value));
+		if (Quality != nullptr)
+			defines->Add(CreateDefine("quality", Quality));
 
-		if (TileGeometry != nullptr)
-			defines->Add(CreateDefine("tile-geometry", TileGeometry));
+		if (!String::IsNullOrEmpty(QuantizationTables))
+			defines->Add(CreateDefine("q-table", QuantizationTables));
+
+		if (SamplingFactors != nullptr)
+		{
+			String^ value = "";
+			for each(MagickGeometry^ samplingFactor in SamplingFactors)
+			{
+				if (value->Length != 0)
+					value += ",";
+
+				value += samplingFactor->ToString();
+			}
+
+			if (!String::IsNullOrEmpty(value))
+				defines->Add(CreateDefine("sampling-factor", value));
+		}
 	}
 	//==============================================================================================
 }

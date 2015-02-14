@@ -789,6 +789,18 @@
     <ClInclude Include="Defines\Tiff\TiffAlpha.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Defines\Jpeg\JpegReadDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines\Jpeg\DctMethod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines\Base\ProfileTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines\Jpeg\JpegWriteDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1245,6 +1257,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Defines\Tiff\TiffWriteDefines.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Defines\Jpeg\JpegReadDefines.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Defines\Jpeg\JpegWriteDefines.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

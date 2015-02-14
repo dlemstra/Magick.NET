@@ -11,31 +11,26 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+#pragma once
+
 #include "Stdafx.h"
-#include "TiffWriteDefines.h"
 
 namespace ImageMagick
 {
 	//==============================================================================================
-	void TiffWriteDefines::AddDefines(Collection<IDefine^>^ defines)
+	namespace Defines
 	{
-		if (defines == nullptr)
-			return;
-
-		if (Alpha.HasValue)
-			defines->Add(CreateDefine("alpha", Alpha.Value));
-
-		if (Endian.HasValue && Endian.Value != ImageMagick::Endian::Undefined)
-			defines->Add(CreateDefine("endian", Endian.Value));
-
-		if (FillOrder.HasValue && FillOrder.Value != ImageMagick::Endian::Undefined)
-			defines->Add(CreateDefine("fill-order", FillOrder.Value));
-
-		if (RowsPerStrip.HasValue)
-			defines->Add(CreateDefine("rows-per-strip", RowsPerStrip.Value));
-
-		if (TileGeometry != nullptr)
-			defines->Add(CreateDefine("tile-geometry", TileGeometry));
+		///==========================================================================================
+		///<summary>
+		/// Specifies DCT method.
+		///</summary>
+		public enum class DctMethod
+		{
+			Fast,
+			Float,
+			Slow
+		};
+		//===========================================================================================
 	}
 	//==============================================================================================
 }

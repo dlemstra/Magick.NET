@@ -24,11 +24,9 @@ namespace ImageMagick
 		_Format = format;
 	}
 	//==============================================================================================
-	generic<typename TEnum>
-	where TEnum : value class, ValueType
-	MagickDefine^ DefineCreator::CreateDefine(String^ name, TEnum value)
+	MagickDefine^ DefineCreator::CreateDefine(String^ name, bool value)
 	{
-		return gcnew MagickDefine(_Format, name, Enum::GetName(TEnum::typeid, value));
+		return gcnew MagickDefine(_Format, name, value.ToString(CultureInfo::InvariantCulture));
 	}
 	//==============================================================================================
 	MagickDefine^ DefineCreator::CreateDefine(String^ name, int value)
@@ -36,9 +34,21 @@ namespace ImageMagick
 		return gcnew MagickDefine(_Format, name, value.ToString(CultureInfo::InvariantCulture));
 	}
 	//==============================================================================================
+	MagickDefine^ DefineCreator::CreateDefine(String^ name, MagickGeometry^ value)
+	{
+		return gcnew MagickDefine(_Format, name, value->ToString());
+	}
+	//==============================================================================================
 	MagickDefine^ DefineCreator::CreateDefine(String^ name, String^ value)
 	{
 		return gcnew MagickDefine(_Format, name, value);
+	}
+	//==============================================================================================
+	generic<typename TEnum>
+	where TEnum : value class, ValueType
+	MagickDefine^ DefineCreator::CreateDefine(String^ name, TEnum value)
+	{
+		return gcnew MagickDefine(_Format, name, Enum::GetName(TEnum::typeid, value));
 	}
 	//==============================================================================================
 	IEnumerable<IDefine^>^ DefineCreator::Defines::get()

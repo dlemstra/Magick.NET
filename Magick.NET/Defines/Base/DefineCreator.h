@@ -15,6 +15,7 @@
 
 #include "IDefines.h"
 #include "MagickDefine.h"
+#include "..\..\Arguments\MagickGeometry.h"
 
 using namespace System::Collections::Generic;
 using namespace System::Collections::ObjectModel;
@@ -36,13 +37,17 @@ namespace ImageMagick
 		//===========================================================================================
 		DefineCreator(MagickFormat format);
 		//===========================================================================================
-		generic<typename TEnum>
-		where TEnum : value class, ValueType
-		MagickDefine^ CreateDefine(String^ name, TEnum value);
+		MagickDefine^ CreateDefine(String^ name, bool value);
 		//===========================================================================================
 		MagickDefine^ CreateDefine(String^ name, int value);
 		//===========================================================================================
+		MagickDefine^ CreateDefine(String^ name, MagickGeometry^ value);
+		//===========================================================================================
 		MagickDefine^ CreateDefine(String^ name, String^ value);
+		//===========================================================================================
+		generic<typename TEnum>
+		where TEnum : value class, ValueType
+		MagickDefine^ CreateDefine(String^ name, TEnum value);
 		//===========================================================================================
 	protected:
 		//===========================================================================================
