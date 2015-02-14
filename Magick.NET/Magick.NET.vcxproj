@@ -297,6 +297,8 @@
     <ClInclude Include="Defines\Base\IDefines.h" />
     <ClInclude Include="Defines\Base\IReadDefines.h" />
     <ClInclude Include="Defines\Base\MagickDefine.h" />
+    <ClInclude Include="Defines\Dds\DdsCompression.h" />
+    <ClInclude Include="Defines\Dds\DdsWriteDefines.h" />
     <ClInclude Include="Defines\Jpeg\JpegReadDefines.h" />
     <ClInclude Include="Defines\Jpeg\DctMethod.h" />
     <ClInclude Include="Defines\Jpeg\JpegWriteDefines.h" />
@@ -503,6 +505,7 @@
     <ClCompile Include="Arguments\SparseColorArg.cpp" />
     <ClCompile Include="Defines\Base\DefineCreator.cpp" />
     <ClCompile Include="Defines\Base\MagickDefine.cpp" />
+    <ClCompile Include="Defines\Dds\DdsWriteDefines.cpp" />
     <ClCompile Include="Defines\Jpeg\JpegReadDefines.cpp" />
     <ClCompile Include="Defines\Jpeg\JpegWriteDefines.cpp" />
     <ClCompile Include="Defines\Tiff\TiffReadDefines.cpp" />

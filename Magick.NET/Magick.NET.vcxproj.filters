@@ -801,6 +801,12 @@
     <ClInclude Include="Defines\Jpeg\JpegWriteDefines.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Defines\Dds\DdsWriteDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines\Dds\DdsCompression.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1263,6 +1269,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Defines\Jpeg\JpegWriteDefines.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Defines\Dds\DdsWriteDefines.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
