@@ -19,7 +19,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Magick.NET.FileGenerator
+namespace Magick.NET.FileGenerator.AnyCPU
 {
 	//==============================================================================================
 	internal sealed class ClassGenerator : FileGenerator
@@ -1096,6 +1096,7 @@ namespace Magick.NET.FileGenerator
 			writer.WriteLine("using System.Xml.Linq;");
 			writer.WriteLine("using System.Xml.XPath;");
 			writer.WriteLine("using Fasterflect;");
+			writer.WriteLine("using ImageMagick.Defines;");
 			writer.WriteLine();
 		}
 		//===========================================================================================
@@ -1107,32 +1108,9 @@ namespace Magick.NET.FileGenerator
 				Type genericArgument = parameter.ParameterType.GetGenericArguments()[0];
 
 				if (parameter.ParameterType.Name.StartsWith("Nullable", StringComparison.Ordinal))
-				{
-					writer.Write("value == null ? Types.Nullable");
-					WriteType(writer, genericArgument);
-					writer.Write(".CreateInstance() : Types.Nullable");
-					WriteType(writer, genericArgument);
-					writer.Write(".CreateInstance(new Type[] { ");
-					if (genericArgument == typeof(int))
-					{
-						writer.Write("typeof(Int32)");
-					}
-					else
-					{
-						writer.Write("Types.");
-						WriteType(writer, genericArgument);
-					}
-
-					if (genericArgument.IsValueType && _Types.Contains(genericArgument))
-					{
-						writer.Write(" }, ");
-						WriteType(writer, genericArgument);
-						writer.Write(".GetInstance(");
-						writer.Write("value))");
-					}
-					else
-						writer.Write(" }, value.Value)");
-				}
+					WriteValueNullable(writer, genericArgument);
+				else if (parameter.ParameterType.Name.StartsWith("IEnumerable", StringComparison.Ordinal))
+					WriteValueIEnumerable(writer, genericArgument);
 				else
 					throw new NotImplementedException();
 			}
@@ -1148,13 +1126,47 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
+		private void WriteValueIEnumerable(IndentedTextWriter writer, Type type)
+		{
+			WriteType(writer, type);
+			writer.Write(".CastIEnumerable(value)");
+		}
+		//===========================================================================================
+		private void WriteValueNullable(IndentedTextWriter writer, Type type)
+		{
+			writer.Write("value == null ? Types.Nullable");
+			WriteType(writer, type);
+			writer.Write(".CreateInstance() : Types.Nullable");
+			WriteType(writer, type);
+			writer.Write(".CreateInstance(new Type[] { ");
+			if (type == typeof(Boolean))
+				writer.Write("typeof(Boolean)");
+			else if (type == typeof(int))
+				writer.Write("typeof(Int32)");
+			else
+			{
+				writer.Write("Types.");
+				WriteType(writer, type);
+			}
+
+			if (type.IsValueType && _Types.Contains(type))
+			{
+				writer.Write(" }, ");
+				WriteType(writer, type);
+				writer.Write(".GetInstance(");
+				writer.Write("value))");
+			}
+			else
+				writer.Write(" }, value.Value)");
+		}
+		//===========================================================================================
 		private void Generate(Type type)
 		{
 			using (IndentedTextWriter writer = CreateWriter(type.Name + ".cs"))
 			{
 				WriteHeader(writer);
 				WriteUsing(writer);
-				WriteStartNamespace(writer);
+				WriteStartNamespace(writer, type);
 				WriteClassStart(writer, type);
 				WriteHelperMethods(writer, type);
 				WriteConstructors(writer, type);

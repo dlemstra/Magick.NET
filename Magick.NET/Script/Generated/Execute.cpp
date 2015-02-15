@@ -80,6 +80,9 @@
 #include "..\..\Drawables\Paths\PathSmoothQuadraticCurvetoAbs.h"
 #include "..\..\Drawables\Paths\PathSmoothQuadraticCurvetoRel.h"
 #include "..\..\Drawables\Coordinate.h"
+#include "..\..\Defines\Dds\DdsWriteDefines.h"
+#include "..\..\Defines\Jpeg\JpegReadDefines.h"
+#include "..\..\Defines\Jpeg\JpegWriteDefines.h"
 #include "..\..\Defines\Tiff\TiffReadDefines.h"
 #include "..\..\Defines\Tiff\TiffWriteDefines.h"
 #pragma warning (disable: 4100)
@@ -5441,18 +5444,81 @@ namespace ImageMagick
 		XmlElement^ element = (XmlElement^)parent->FirstChild;
 		if (element == nullptr)
 			return nullptr;
-		switch(element->Name[4])
+		switch(element->Name[0])
 		{
-			case 'R':
+			case 'd':
 			{
-				return CreateTiffReadDefines(element);
+				return CreateDdsWriteDefines(element);
 			}
-			case 'W':
+			case 'j':
 			{
-				return CreateTiffWriteDefines(element);
+				switch(element->Name[4])
+				{
+					case 'R':
+					{
+						return CreateJpegReadDefines(element);
+					}
+					case 'W':
+					{
+						return CreateJpegWriteDefines(element);
+					}
+				}
+				break;
+			}
+			case 't':
+			{
+				switch(element->Name[4])
+				{
+					case 'R':
+					{
+						return CreateTiffReadDefines(element);
+					}
+					case 'W':
+					{
+						return CreateTiffWriteDefines(element);
+					}
+				}
+				break;
 			}
 		}
 		throw gcnew NotImplementedException(element->Name);
+	}
+	IDefines^ MagickScript::CreateDdsWriteDefines(XmlElement^ element)
+	{
+		if (element == nullptr)
+			return nullptr;
+		DdsWriteDefines^ result = gcnew DdsWriteDefines();
+		result->ClusterFit = _Variables->GetValue<Nullable<bool>>(element, "clusterFit");
+		result->Compression = _Variables->GetValue<Nullable<DdsCompression>>(element, "compression");
+		result->Mipmaps = _Variables->GetValue<Nullable<Int32>>(element, "mipmaps");
+		result->WeightByAlpha = _Variables->GetValue<Nullable<bool>>(element, "weightByAlpha");
+		return result;
+	}
+	IDefines^ MagickScript::CreateJpegReadDefines(XmlElement^ element)
+	{
+		if (element == nullptr)
+			return nullptr;
+		JpegReadDefines^ result = gcnew JpegReadDefines();
+		result->BlockSmoothing = _Variables->GetValue<Nullable<bool>>(element, "blockSmoothing");
+		result->Colors = _Variables->GetValue<Nullable<Int32>>(element, "colors");
+		result->DctMethod = _Variables->GetValue<Nullable<DctMethod>>(element, "dctMethod");
+		result->FancyUpsampling = _Variables->GetValue<Nullable<bool>>(element, "fancyUpsampling");
+		result->Size = _Variables->GetValue<MagickGeometry^>(element, "size");
+		result->SkipProfiles = _Variables->GetValue<Nullable<ProfileTypes>>(element, "skipProfiles");
+		return result;
+	}
+	IDefines^ MagickScript::CreateJpegWriteDefines(XmlElement^ element)
+	{
+		if (element == nullptr)
+			return nullptr;
+		JpegWriteDefines^ result = gcnew JpegWriteDefines();
+		result->DctMethod = _Variables->GetValue<Nullable<DctMethod>>(element, "dctMethod");
+		result->Extent = _Variables->GetValue<Nullable<Int32>>(element, "extent");
+		result->OptimizeCoding = _Variables->GetValue<Nullable<bool>>(element, "optimizeCoding");
+		result->Quality = _Variables->GetValue<MagickGeometry^>(element, "quality");
+		result->QuantizationTables = _Variables->GetValue<String^>(element, "quantizationTables");
+		result->SamplingFactors = CreateMagickGeometryCollection(element);
+		return result;
 	}
 	IDefines^ MagickScript::CreateTiffReadDefines(XmlElement^ element)
 	{
@@ -5473,6 +5539,15 @@ namespace ImageMagick
 		result->RowsPerStrip = _Variables->GetValue<Nullable<Int32>>(element, "rowsPerStrip");
 		result->TileGeometry = _Variables->GetValue<MagickGeometry^>(element, "tileGeometry");
 		return result;
+	}
+	Collection<MagickGeometry^>^ MagickScript::CreateMagickGeometryCollection(XmlElement^ element)
+	{
+		Collection<MagickGeometry^>^ collection = gcnew Collection<MagickGeometry^>();
+		for each (XmlElement^ elem in element->SelectNodes("*"))
+		{
+			collection->Add(_Variables->GetValue<MagickGeometry^>(elem, "value"));
+		}
+		return collection;
 	}
 }
 #pragma warning (default: 4100)

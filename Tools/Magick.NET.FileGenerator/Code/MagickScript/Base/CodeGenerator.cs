@@ -276,6 +276,9 @@ namespace Magick.NET.FileGenerator
 				case "IEnumerable<Coordinate>^":
 					writer.Write("CreateCoordinates");
 					break;
+				case "IEnumerable<MagickGeometry^>^":
+					writer.Write("CreateMagickGeometryCollection");
+					break;
 				case "IEnumerable<PathBase^>^":
 					writer.Write("CreatePaths");
 					break;
@@ -375,6 +378,7 @@ namespace Magick.NET.FileGenerator
 					break;
 				case "IEnumerable<Coordinate>^":
 				case "IEnumerable<Drawable^>^":
+				case "IEnumerable<MagickGeometry^>^":
 				case "IEnumerable<PathBase^>^":
 				case "IEnumerable<PathArc^>^":
 				case "IEnumerable<PathCurveto^>^":

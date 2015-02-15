@@ -51,6 +51,7 @@ namespace Magick.NET.FileGenerator
 			_CodeGenerators.Add(new QuantizeSettingsGenerator());
 
 			_CodeGenerators.Add(new IDefinesGenerator());
+			_CodeGenerators.Add(new CollectionGenerator());
 		}
 		//===========================================================================================
 		private void CreateCodeFile()

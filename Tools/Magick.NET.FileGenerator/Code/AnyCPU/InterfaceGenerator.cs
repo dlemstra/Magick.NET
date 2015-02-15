@@ -12,41 +12,33 @@
 // limitations under the License.
 //=================================================================================================
 using System;
+using System.Linq;
 using System.CodeDom.Compiler;
+using System.Reflection;
 
 namespace Magick.NET.FileGenerator.AnyCPU
 {
 	//==============================================================================================
-	internal sealed class EnumGenerator : FileGenerator
+	internal sealed class InterfaceGenerator : FileGenerator
 	{
 		//===========================================================================================
-		private EnumGenerator()
-			: base(@"Magick.NET.AnyCPU\Generated\Enums")
+		private InterfaceGenerator()
+			: base(@"Magick.NET.AnyCPU\Generated")
 		{
 		}
 		//===========================================================================================
 		private void CreateFiles()
 		{
-			foreach (Type type in MagickNET.Enums)
+			foreach (Type type in MagickNET.Interfaces)
 			{
 				using (IndentedTextWriter writer = CreateWriter(type.Name + ".cs"))
 				{
 					WriteHeader(writer);
 					WriteUsing(writer);
 					WriteStartNamespace(writer, type);
-					object[] attributes = type.GetCustomAttributes(false);
-					if (attributes.Length == 1 && attributes[0].GetType() == typeof(FlagsAttribute))
-						writer.WriteLine("[Flags]");
-
-					writer.WriteLine("public enum " + type.Name);
+					WriteInterfaceStart(writer, type);
 					WriteStartColon(writer);
-					foreach (string name in type.GetEnumNames())
-					{
-						writer.Write(name);
-						writer.Write(" = ");
-						writer.Write((int)Enum.Parse(type, name));
-						writer.WriteLine(",");
-					}
+					WriteProperties(writer, type);
 					WriteEndColon(writer);
 					WriteEndColon(writer);
 					Close(writer);
@@ -54,15 +46,55 @@ namespace Magick.NET.FileGenerator.AnyCPU
 			}
 		}
 		//===========================================================================================
+		private void WriteInterfaceStart(IndentedTextWriter writer, Type type)
+		{
+			bool writeColon = true;
+
+			writer.Write("public interface " + type.Name);
+			foreach (Type interfaceType in type.GetInterfaces())
+			{
+				if (writeColon)
+				{
+					writer.Write(": ");
+					writeColon = false;
+				}
+				else
+				{
+					writer.Write(", ");
+				}
+
+				WriteType(writer, interfaceType);
+			}
+			writer.WriteLine();
+		}
+		//===========================================================================================
+		private void WriteProperties(IndentedTextWriter writer, Type type)
+		{
+			foreach (PropertyInfo property in type.GetProperties().OrderBy(p => p.Name))
+			{
+				WriteType(writer, property.PropertyType);
+				writer.Write(" ");
+				writer.Write(property.Name);
+				writer.WriteLine();
+				WriteStartColon(writer);
+				if (property.GetMethod != null)
+					writer.WriteLine("get;");
+				if (property.SetMethod != null)
+					writer.WriteLine("set;");
+				WriteEndColon(writer);
+			}
+		}
+		//===========================================================================================
 		private void WriteUsing(IndentedTextWriter writer)
 		{
 			writer.WriteLine("using System;");
+			writer.WriteLine("using System.Collections.Generic;");
 			writer.WriteLine();
 		}
 		//===========================================================================================
 		public static void Generate()
 		{
-			EnumGenerator generator = new EnumGenerator();
+			InterfaceGenerator generator = new InterfaceGenerator();
 			generator.CreateFiles();
 		}
 		//===========================================================================================

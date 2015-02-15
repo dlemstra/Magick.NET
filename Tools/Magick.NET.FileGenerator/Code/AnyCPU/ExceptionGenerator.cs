@@ -15,7 +15,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Linq;
 
-namespace Magick.NET.FileGenerator
+namespace Magick.NET.FileGenerator.AnyCPU
 {
 	//==============================================================================================
 	internal sealed class ExceptionGenerator : FileGenerator

@@ -1,5 +1,4 @@
-﻿using System;
-//=================================================================================================
+﻿//=================================================================================================
 // Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -12,9 +11,10 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+using System;
 using System.IO;
 
-namespace Magick.NET.FileGenerator
+namespace Magick.NET.FileGenerator.AnyCPU
 {
 	//==============================================================================================
 	internal class AnyCPUGenerator : FileGenerator
@@ -55,6 +55,7 @@ namespace Magick.NET.FileGenerator
 			ClassGenerator.Generate();
 			ExceptionGenerator.Generate();
 			TypesGenerator.Generate();
+			InterfaceGenerator.Generate();
 		}
 		//===========================================================================================
 	}

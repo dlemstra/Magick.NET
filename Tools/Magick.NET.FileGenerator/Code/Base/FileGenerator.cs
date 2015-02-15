@@ -181,7 +181,15 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected static void WriteStartNamespace(IndentedTextWriter writer)
 		{
-			writer.WriteLine("namespace ImageMagick");
+			WriteStartNamespace(writer, null);
+		}
+		//===========================================================================================
+		protected static void WriteStartNamespace(IndentedTextWriter writer, Type type)
+		{
+			if (type == null)
+				writer.WriteLine("namespace ImageMagick");
+			else
+				writer.WriteLine("namespace " + type.Namespace);
 			WriteStartColon(writer);
 		}
 		//===========================================================================================

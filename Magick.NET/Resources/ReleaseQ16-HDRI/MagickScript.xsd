@@ -1162,6 +1162,15 @@
 			<xs:pattern value="((\d+x?\d*)|(\d*x\d+))([+-]\d+[+-]\d+)?([\&gt;\&lt;\@\%^!]{1,2})?" />
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:complexType name="geometries">
+		<xs:sequence>
+			<xs:element name="geometry" minOccurs="1">
+				<xs:complexType>
+					<xs:attribute name="value" type="geometry" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="iDefines">
 		<xs:group ref="iDefines" />
 	</xs:complexType>

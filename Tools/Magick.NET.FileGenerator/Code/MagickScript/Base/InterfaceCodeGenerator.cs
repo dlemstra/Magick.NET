@@ -48,7 +48,7 @@ namespace Magick.NET.FileGenerator
 			writer.WriteLine("XmlElement^ element = (XmlElement^)parent->FirstChild;");
 			CheckNull(writer, "element");
 			WriteSwitch(writer, from type in MagickNET.GetInterfaceTypes(className)
-									  select type.Name);
+									  select MagickNET.GetXsdName(type));
 			WriteEndColon(writer);
 		}
 		//===========================================================================================
@@ -60,7 +60,8 @@ namespace Magick.NET.FileGenerator
 		protected override void WriteCase(IndentedTextWriter writer, string name)
 		{
 			writer.Write("return Create");
-			writer.Write(name);
+			writer.Write(name[0].ToString().ToUpperInvariant());
+			writer.Write(name.Substring(1));
 			writer.WriteLine("(element);");
 		}
 		//===========================================================================================

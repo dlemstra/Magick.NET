@@ -87,6 +87,7 @@ namespace Magick.NET.FileGenerator
 				case "IDefines^":
 				case "IEnumerable<Coordinate>^":
 				case "IEnumerable<Drawable^>^":
+				case "IEnumerable<MagickGeometry^>^":
 				case "IEnumerable<PathArc^>^":
 				case "IEnumerable<PathCurveto^>^":
 				case "IEnumerable<PathQuadraticCurveto^>^":
@@ -125,6 +126,8 @@ namespace Magick.NET.FileGenerator
 					return "coordinates";
 				case "IEnumerable<Drawable^>^":
 					return "drawables";
+				case "IEnumerable<MagickGeometry^>^":
+					return "geometries";
 				case "IEnumerable<PathBase^>^":
 					return "paths";
 				case "IEnumerable<PathArc^>^":
@@ -282,6 +285,17 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
+		public IEnumerable<Type> Interfaces
+		{
+			get
+			{
+				return from type in _MagickNET.GetTypes()
+						 where type.IsInterface && type.IsPublic
+						 orderby type.Name
+						 select type;
+			}
+		}
+		//===========================================================================================
 		public IEnumerable<ConstructorInfo> GetConstructors(string typeName)
 		{
 			return from type in _MagickNET.GetTypes()
@@ -352,6 +366,8 @@ namespace Magick.NET.FileGenerator
 					return name + "^";
 				case "IEnumerable<Coordinate>":
 					return "IEnumerable<Coordinate>^";
+				case "IEnumerable<MagickGeometry>":
+					return "IEnumerable<MagickGeometry^>^";
 				case "IEnumerable<PathArc>":
 					return "IEnumerable<PathArc^>^";
 				case "IEnumerable<PathCurveto>":
@@ -375,12 +391,15 @@ namespace Magick.NET.FileGenerator
 				case "Double[]":
 					return "array<double>^";
 				case "Coordinate":
-				case "Nullable<Int32>":
+				case "Nullable<DctMethod>":
+				case "Nullable<DdsCompression>":
+				case "Nullable<DitherMethod>":
 				case "Nullable<ColorSpace>":
 				case "Nullable<Endian>":
-				case "Nullable<PointD>":
-				case "Nullable<DitherMethod>":
+				case "Nullable<Int32>":
 				case "Nullable<MagickFormat>":
+				case "Nullable<PointD>":
+				case "Nullable<ProfileTypes>":
 				case "Nullable<TiffAlpha>":
 				case "Percentage":
 				case "PointD":
@@ -525,6 +544,13 @@ namespace Magick.NET.FileGenerator
 				return type.BaseType.BaseType;
 
 			return type.BaseType;
+		}
+		//===========================================================================================
+		public Type GetTypeName(string typeName)
+		{
+			return (from type in _MagickNET.GetTypes()
+					  where type.Name == typeName
+					  select type).FirstOrDefault();
 		}
 		//===========================================================================================
 		public static string GetTypeName(Type type)

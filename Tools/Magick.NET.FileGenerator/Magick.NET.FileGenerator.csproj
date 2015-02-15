@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\AnyCPU\AnyCPUGenerator.cs" />
+    <Compile Include="Code\AnyCPU\InterfaceGenerator.cs" />
     <Compile Include="Code\AnyCPU\TypesGenerator.cs" />
     <Compile Include="Code\AnyCPU\ExceptionGenerator.cs" />
     <Compile Include="Code\AnyCPU\ClassGenerator.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Code\MagickScript\Base\InterfaceGenerator.cs" />
     <Compile Include="Code\MagickScript\Base\SwitchCodeGenerator.cs" />
     <Compile Include="Code\MagickScript\Constructors\ColorProfileGenerator.cs" />
+    <Compile Include="Code\MagickScript\Collection\CollectionGenerator.cs" />
     <Compile Include="Code\MagickScript\Constructors\SparseColorArgGenerator.cs" />
     <Compile Include="Code\MagickScript\Base\InterfaceCodeGenerator.cs" />
     <Compile Include="Code\MagickScript\Interface\IDefinesGenerator.cs" />

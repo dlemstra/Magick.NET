@@ -15,7 +15,7 @@ using System;
 using System.Linq;
 using System.CodeDom.Compiler;
 
-namespace Magick.NET.FileGenerator
+namespace Magick.NET.FileGenerator.AnyCPU
 {
 	//==============================================================================================
 	internal sealed class TypesGenerator : FileGenerator
@@ -97,6 +97,7 @@ namespace Magick.NET.FileGenerator
 					if (IsUsedAsNullable(_Types, type))
 						WriteNullable(writer, type);
 				}
+				WriteNullable(writer, typeof(Boolean));
 				WriteNullable(writer, typeof(int));
 				WriteEndColon(writer);
 				WriteEndColon(writer);
@@ -119,7 +120,9 @@ namespace Magick.NET.FileGenerator
 			WriteMember(writer, type, "Nullable");
 			WritePropertyStart(writer, type, "Nullable");
 			writer.Write("typeof(Nullable<>).MakeGenericType(");
-			if (type == typeof(int))
+			if (type == typeof(Boolean))
+				writer.Write("typeof(Boolean)");
+			else if (type == typeof(int))
 				writer.Write("typeof(Int32)");
 			else
 				WriteType(writer, type);

@@ -14,7 +14,7 @@
 
 using System;
 
-namespace Magick.NET.FileGenerator
+namespace Magick.NET.FileGenerator.AnyCPU
 {
 	//==============================================================================================
 	[Flags]

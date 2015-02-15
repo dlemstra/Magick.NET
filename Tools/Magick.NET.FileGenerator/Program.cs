@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 using System;
+using Magick.NET.FileGenerator.AnyCPU;
 
 namespace Magick.NET.FileGenerator
 {
