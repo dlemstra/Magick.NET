@@ -950,7 +950,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Scale()
 		{
-			using (MagickImage image = new MagickImage(Files.Circle))
+			using (MagickImage image = new MagickImage(Files.CirclePNG))
 			{
 				MagickColor color = Color.FromArgb(159, 255, 255, 255);
 				using (PixelCollection pixels = image.GetReadOnlyPixels())

@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
 		private static string _Root = @"..\..\..\Magick.NET.Tests\";
 #endif
 		//===========================================================================================
-		public static string Circle
+		public static string CirclePNG
 		{
 			get
 			{
