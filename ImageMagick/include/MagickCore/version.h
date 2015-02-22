@@ -27,7 +27,7 @@ extern "C" {
 */
 #define MagickPackageName "ImageMagick"
 #define MagickCopyright  "Copyright (C) 1999-2015 ImageMagick Studio LLC"
-#define MagickSVNRevision  "17953M"
+#define MagickSVNRevision  "18036"
 #define MagickLibVersion  0x700
 #define MagickLibVersionText  "7.0.0"
 #define MagickLibVersionNumber  1,0,0
@@ -48,8 +48,10 @@ extern "C" {
 #define MagickppLibAddendum  "-0"
 #define MagickppLibInterface  1
 #define MagickppLibMinInterface  1
-#define MagickReleaseDate  "2015-02-07"
+#define MagickReleaseDate  "2015-02-18"
 #define MagickChangeDate   "20120427"
+#define MagickAuthoritativeLicense  \
+  "http://www.imagemagick.org/script/license.php"
 #define MagickAuthoritativeURL  "http://www.imagemagick.org"
 #define MagickFeatures "DPC HDRI OpenMP"
 #define MagickDelegates "bzlib djvu mpeg fftw fpx fontconfig freetype jbig jng jpeg lcms lzma openexr pango png ps tiff webp x xml zlib"
@@ -82,6 +84,7 @@ extern MagickExport const char
   *GetMagickCopyright(void),
   *GetMagickDelegates(void),
   *GetMagickFeatures(void),
+  *GetMagickLicense(void),
   *GetMagickPackageName(void),
   *GetMagickQuantumDepth(size_t *),
   *GetMagickQuantumRange(size_t *),
