@@ -4366,7 +4366,14 @@ namespace ImageMagick
 	//==============================================================================================
 	void MagickImage::RePage()
 	{
-		Page = gcnew MagickGeometry(0, 0);
+		try
+		{
+			Value->repage();
+		}
+		catch(Magick::Exception& exception)
+		{
+			HandleException(exception);
+		}
 	}
 	//==============================================================================================
 	void MagickImage::Resample(double resolutionX, double resolutionY)
