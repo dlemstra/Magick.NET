@@ -68,7 +68,8 @@ namespace Magick.NET.Tests
 			{
 				image.Read(Files.ImageMagickJPG, settings);
 
-				Assert.AreEqual(100, image.TotalColors);
+				Assert.IsTrue(image.TotalColors <= 100);
+				Assert.AreEqual(100, image.TotalColors, 1);
 				Assert.AreEqual(62, image.Width);
 				Assert.AreEqual(59, image.Height);
 			}
