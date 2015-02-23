@@ -20,7 +20,7 @@ namespace ImageMagick
 	//==============================================================================================
 	int MagickReader::GetExpectedLength(MagickReadSettings^ readSettings)
 	{
-		int length = readSettings->Width.Value * readSettings->Width.Value * readSettings->PixelStorage->Mapping->Length;
+		int length = readSettings->Width.Value * readSettings->Height.Value * readSettings->PixelStorage->Mapping->Length;
 		switch (readSettings->PixelStorage->StorageType)
 		{
 		case StorageType::Char:

@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
 		{
 			MagickReadSettings settings = new MagickReadSettings();
 			settings.PixelStorage = new PixelStorageSettings(StorageType.Double, "RGBA");
-			settings.Width = 1;
+			settings.Width = 2;
 			settings.Height = 1;
 
 			return settings;
@@ -108,11 +108,15 @@ namespace Magick.NET.Tests
 						0, 0, 0, 0, 0, 0, 0, 0,
 						0, 0, 0, 0, 0, 0, 0, 0,
 						0, 0, 0, 0, 0, 0, 0, 0,
-						0, 0, 0, 0, 0, 0, 0xf0, 0x3f
+						0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+						0, 0, 0, 0, 0, 0, 0, 0,
+						0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+						0, 0, 0, 0, 0, 0, 0, 0,
+						0, 0, 0, 0, 0, 0, 0, 0,
 					};
 				image.Read(data, settings);
 
-				Assert.AreEqual(1, image.Width);
+				Assert.AreEqual(2, image.Width);
 				Assert.AreEqual(1, image.Height);
 
 				using (PixelCollection pixels = image.GetReadOnlyPixels())
@@ -123,6 +127,18 @@ namespace Magick.NET.Tests
 					Assert.AreEqual(0, pixel.GetChannel(1));
 					Assert.AreEqual(0, pixel.GetChannel(2));
 					Assert.AreEqual(Quantum.Max, pixel.GetChannel(3));
+
+					pixel = pixels.GetPixel(1, 0);
+					Assert.AreEqual(4, pixel.Channels);
+					Assert.AreEqual(0, pixel.GetChannel(0));
+					Assert.AreEqual(Quantum.Max, pixel.GetChannel(1));
+					Assert.AreEqual(0, pixel.GetChannel(2));
+					Assert.AreEqual(0, pixel.GetChannel(3));
+
+					ExceptionAssert.Throws<ArgumentException>(delegate()
+					{
+						pixels.GetPixel(0, 1);
+					});
 				}
 			}
 		}
