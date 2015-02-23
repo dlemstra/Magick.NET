@@ -31,11 +31,6 @@ namespace ImageMagick
 #endif
 	}
 	//==============================================================================================
-	Percentage::operator double(Percentage percentage)
-	{
-		return percentage._Value;
-	}
-	//==============================================================================================
 	Percentage::operator int(Percentage percentage)
 	{
 		return (int)percentage._Value;
@@ -79,6 +74,11 @@ namespace ImageMagick
 	Percentage::operator Percentage(int value)
 	{
 		return Percentage(value);
+	}
+	//==============================================================================================
+	Percentage::operator double(Percentage percentage)
+	{
+		return percentage._Value;
 	}
 	//==============================================================================================
 	bool Percentage::Equals(Object^ obj)

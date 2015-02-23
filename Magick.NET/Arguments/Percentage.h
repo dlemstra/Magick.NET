@@ -32,8 +32,6 @@ namespace ImageMagick
 		//===========================================================================================
 		static explicit operator Magick::Quantum(Percentage percentage);
 		//===========================================================================================
-		static explicit operator double(Percentage percentage);
-		//===========================================================================================
 		static explicit operator int(Percentage percentage);
 		//===========================================================================================
 		static Percentage FromQuantum(double value);
@@ -63,6 +61,8 @@ namespace ImageMagick
 		static operator Percentage(double value);
 		//===========================================================================================
 		static explicit operator Percentage(int value);
+		//===========================================================================================
+		static explicit operator double(Percentage percentage);
 		///==========================================================================================
 		///<summary>
 		/// Determines whether the specified object is equal to the current percentage.
