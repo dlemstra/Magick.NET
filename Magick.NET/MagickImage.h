@@ -2573,6 +2573,21 @@ namespace ImageMagick
 		void Minify();
 		///==========================================================================================
 		///<summary>
+		/// Modulate percent brightness of an image.
+		///</summary>
+		///<param name="brightness">The brightness percentage.</param>
+		///<exception cref="MagickException"/>
+		void Modulate(Percentage brightness);
+		///==========================================================================================
+		///<summary>
+		/// Modulate percent saturation and brightness of an image.
+		///</summary>
+		///<param name="brightness">The brightness percentage.</param>
+		///<param name="saturation">The saturation percentage.</param>
+		///<exception cref="MagickException"/>
+		void Modulate(Percentage brightness, Percentage saturation);
+		///==========================================================================================
+		///<summary>
 		/// Modulate percent hue, saturation, and brightness of an image.
 		///</summary>
 		///<param name="brightness">The brightness percentage.</param>

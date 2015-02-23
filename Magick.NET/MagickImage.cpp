@@ -3771,6 +3771,16 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
+	void MagickImage::Modulate(Percentage brightness)
+	{
+		Modulate(brightness, Percentage(100), Percentage(100));
+	}
+	//==============================================================================================
+	void MagickImage::Modulate(Percentage brightness, Percentage saturation)
+	{
+		Modulate(brightness, saturation, Percentage(100));
+	}
+	//==============================================================================================
 	void MagickImage::Modulate(Percentage brightness, Percentage saturation, Percentage hue)
 	{
 		Throw::IfNegative("brightness", brightness);
