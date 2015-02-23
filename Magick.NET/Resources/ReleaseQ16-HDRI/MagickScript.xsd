@@ -286,6 +286,34 @@
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
+	<xs:simpleType name="DctMethod">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Fast" />
+					<xs:enumeration value="Float" />
+					<xs:enumeration value="Slow" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="var" />
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="DdsCompression">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Dxt1" />
+					<xs:enumeration value="Dxt5" />
+					<xs:enumeration value="None" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="var" />
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
 	<xs:simpleType name="DistortMethod">
 		<xs:union>
 			<xs:simpleType>
@@ -994,6 +1022,20 @@
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
+	<xs:simpleType name="ProfileTypes">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="App" />
+					<xs:enumeration value="Icc" />
+					<xs:enumeration value="Iptc" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="var" />
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
 	<xs:simpleType name="RenderingIntent">
 		<xs:union>
 			<xs:simpleType>
@@ -1085,6 +1127,20 @@
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
+	<xs:simpleType name="TiffAlpha">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Associated" />
+					<xs:enumeration value="Unassociated" />
+					<xs:enumeration value="Unspecified" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="var" />
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
 	<xs:simpleType name="VirtualPixelMethod">
 		<xs:union>
 			<xs:simpleType>
@@ -1138,6 +1194,40 @@
 			<xs:element name="coordinate" minOccurs="3" maxOccurs="unbounded" type="coordinate" />
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="ddsWriteDefines">
+		<xs:attribute name="clusterFit" type="bool" />
+		<xs:attribute name="compression" type="DdsCompression" />
+		<xs:attribute name="mipmaps" type="int" />
+		<xs:attribute name="weightByAlpha" type="bool" />
+	</xs:complexType>
+	<xs:complexType name="jpegReadDefines">
+		<xs:attribute name="blockSmoothing" type="bool" />
+		<xs:attribute name="colors" type="int" />
+		<xs:attribute name="dctMethod" type="DctMethod" />
+		<xs:attribute name="fancyUpsampling" type="bool" />
+		<xs:attribute name="size" type="geometry" />
+		<xs:attribute name="skipProfiles" type="ProfileTypes" />
+	</xs:complexType>
+	<xs:complexType name="jpegWriteDefines">
+		<xs:sequence>
+			<xs:element name="samplingFactors" minOccurs="0" type="geometries" />
+		</xs:sequence>
+		<xs:attribute name="dctMethod" type="DctMethod" />
+		<xs:attribute name="extent" type="int" />
+		<xs:attribute name="optimizeCoding" type="bool" />
+		<xs:attribute name="quality" type="geometry" />
+		<xs:attribute name="quantizationTables" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="tiffReadDefines">
+		<xs:attribute name="ignoreExifPoperties" type="bool" />
+	</xs:complexType>
+	<xs:complexType name="tiffWriteDefines">
+		<xs:attribute name="alpha" type="TiffAlpha" />
+		<xs:attribute name="endian" type="Endian" />
+		<xs:attribute name="fillOrder" type="Endian" />
+		<xs:attribute name="rowsPerStrip" type="int" />
+		<xs:attribute name="tileGeometry" type="geometry" />
+	</xs:complexType>
 	<xs:complexType name="doubleArray">
 		<xs:sequence>
 			<xs:element name="value" type="xs:double" minOccurs="0" maxOccurs="unbounded" />
@@ -1179,6 +1269,7 @@
 			<xs:element name="settings" minOccurs="0">
 				<xs:complexType>
 					<xs:sequence>
+						<xs:element name="defines" minOccurs="0" type="iReadDefines" />
 						<xs:element name="pixelStorage" minOccurs="0" type="pixelStorageSettings" />
 						<xs:element name="setDefine" minOccurs="0" maxOccurs="unbounded">
 							<xs:complexType>
@@ -1194,6 +1285,7 @@
 					<xs:attribute name="frameCount" type="int" />
 					<xs:attribute name="frameIndex" type="int" />
 					<xs:attribute name="height" type="int" />
+					<xs:attribute name="useMonochrome" type="bool" />
 					<xs:attribute name="width" type="int" />
 				</xs:complexType>
 			</xs:element>
@@ -1471,11 +1563,6 @@
 				<xs:element name="interpolate">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="PixelInterpolateMethod" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="isMonochrome">
-					<xs:complexType>
-						<xs:attribute name="value" use="required" type="bool" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="label">
@@ -1818,7 +1905,7 @@
 					<xs:complexType>
 						<xs:attribute name="blackPoint" use="required" type="double" />
 						<xs:attribute name="channels" type="Channels" />
-						<xs:attribute name="whitePoint" use="required" type="double" />
+						<xs:attribute name="whitePoint" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="crop">
@@ -2245,6 +2332,13 @@
 						<xs:attribute name="value" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="setDefines">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="defines" type="iDefines" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="setHighlightColor">
 					<xs:complexType>
 						<xs:attribute name="color" use="required" type="color" />
@@ -2570,7 +2664,13 @@
 	</xs:group>
 	<xs:group name="iDefines">
 		<xs:sequence>
-			<xs:choice />
+			<xs:choice>
+				<xs:element name="ddsWriteDefines" type="ddsWriteDefines" />
+				<xs:element name="jpegReadDefines" type="jpegReadDefines" />
+				<xs:element name="jpegWriteDefines" type="jpegWriteDefines" />
+				<xs:element name="tiffReadDefines" type="tiffReadDefines" />
+				<xs:element name="tiffWriteDefines" type="tiffWriteDefines" />
+			</xs:choice>
 		</xs:sequence>
 	</xs:group>
 	<xs:group name="drawables">
@@ -2902,7 +3002,10 @@
 	</xs:group>
 	<xs:group name="iReadDefines">
 		<xs:sequence>
-			<xs:choice />
+			<xs:choice>
+				<xs:element name="jpegReadDefines" type="jpegReadDefines" />
+				<xs:element name="tiffReadDefines" type="tiffReadDefines" />
+			</xs:choice>
 		</xs:sequence>
 	</xs:group>
 	<xs:element name="msl">
