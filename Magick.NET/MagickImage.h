@@ -1742,7 +1742,7 @@ namespace ImageMagick
 		///<param name="method">The distortion method to use.</param>
 		///<param name="arguments">An array containing the arguments for the distortion.</param>
 		///<exception cref="MagickException"/>
-		void Distort(DistortMethod method, array<double>^ arguments);
+		void Distort(DistortMethod method, ... array<double>^ arguments);
 		///==========================================================================================
 		///<summary>
 		/// Distorts an image using various distortion methods, by mapping color lookups of the source
@@ -1750,10 +1750,10 @@ namespace ImageMagick
 		/// 'bestfit' is set to true.
 		///</summary>
 		///<param name="method">The distortion method to use.</param>
-		///<param name="arguments">An array containing the arguments for the distortion.</param>
 		///<param name="bestfit">Attempt to 'bestfit' the size of the resulting image.</param>
+		///<param name="arguments">An array containing the arguments for the distortion.</param>
 		///<exception cref="MagickException"/>
-		void Distort(DistortMethod method, array<double>^ arguments, bool bestfit);
+		void Distort(DistortMethod method, bool bestfit, ... array<double>^ arguments);
 		///==========================================================================================
 		///<summary>
 		/// Draw on image using one or more drawables.

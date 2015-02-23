@@ -2750,14 +2750,14 @@ namespace ImageMagick
 		}
 	}
 	//==============================================================================================
-	void MagickImage::Distort(DistortMethod method, array<double>^ arguments)
+	void MagickImage::Distort(DistortMethod method, ... array<double>^ arguments)
 	{
-		Distort(method, arguments, false);
+		Distort(method, false, arguments);
 	}
 	//==============================================================================================
-	void MagickImage::Distort(DistortMethod method, array<double>^ arguments, bool bestfit)
+	void MagickImage::Distort(DistortMethod method, bool bestfit, ... array<double>^ arguments)
 	{
-		Throw::IfNull("arguments", arguments);
+		Throw::IfNullOrEmpty("arguments", arguments);
 
 		double* distortArguments = Marshaller::Marshal(arguments);
 

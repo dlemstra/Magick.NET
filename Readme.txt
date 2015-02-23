@@ -2,6 +2,7 @@ Breaking changes.
 
 Magick.NET 7.0.0.0010:
   - Removed MagickImage.IsMonochrome and added new UseMonochrome property to MagickReadSettings.
+  - Reordered arguments for the Distort method.
 
 Magick.NET 7.0.0.0009:
   - Changed type of MagickReadSettings.Density from MagickGeometry to PointD.

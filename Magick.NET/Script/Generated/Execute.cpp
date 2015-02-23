@@ -2640,10 +2640,10 @@ namespace ImageMagick
 		}
 		if (OnlyContains(arguments, "method", "arguments"))
 			image->Distort((DistortMethod)arguments["method"], (array<double>^)arguments["arguments"]);
-		else if (OnlyContains(arguments, "method", "arguments", "bestfit"))
-			image->Distort((DistortMethod)arguments["method"], (array<double>^)arguments["arguments"], (bool)arguments["bestfit"]);
+		else if (OnlyContains(arguments, "method", "bestfit", "arguments"))
+			image->Distort((DistortMethod)arguments["method"], (bool)arguments["bestfit"], (array<double>^)arguments["arguments"]);
 		else
-			throw gcnew ArgumentException("Invalid argument combination for 'distort', allowed combinations are: [method, arguments] [method, arguments, bestfit]");
+			throw gcnew ArgumentException("Invalid argument combination for 'distort', allowed combinations are: [method, arguments] [method, bestfit, arguments]");
 	}
 	void MagickScript::ExecuteEdge(XmlElement^ element, MagickImage^ image)
 	{
