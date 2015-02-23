@@ -24,14 +24,24 @@ namespace ImageMagick
 	public ref class ColorMatrix sealed : DoubleMatrix
 	{
 		//===========================================================================================
+	private:
+		//===========================================================================================
+		static void CheckOrder(int order);
+		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
 		/// Creates a new ColorMatrix instance with the specified order of 1 to 6.
 		///</summary>
 		///<param name="order">The order (1 to 6).</param>
-		//===========================================================================================
 		ColorMatrix(int order);
+		///==========================================================================================
+		///<summary>
+		/// Creates a new ColorMatrix instance with the specified order of 1 to 6.
+		///</summary>
+		///<param name="order">The order (1 to 6).</param>
+		///<param name="values">The values to initialize the matrix with.</param>
+		ColorMatrix(int order, ... array<double>^ values);
 		//===========================================================================================
 	};
 	//==============================================================================================

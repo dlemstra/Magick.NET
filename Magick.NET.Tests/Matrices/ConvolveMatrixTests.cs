@@ -39,6 +39,17 @@ namespace Magick.NET.Tests
 			});
 
 			new ConvolveMatrix(1);
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				new ConvolveMatrix(2, 1.0);
+			});
+
+			ConvolveMatrix matrix = new ConvolveMatrix(2, 0.0, 1.0, 0.1, 1.1);
+			Assert.AreEqual(0.0, matrix.GetValue(0, 0));
+			Assert.AreEqual(1.0, matrix.GetValue(1, 0));
+			Assert.AreEqual(0.1, matrix.GetValue(0, 1));
+			Assert.AreEqual(1.1, matrix.GetValue(1, 1));
 		}
 		//===========================================================================================
 	}

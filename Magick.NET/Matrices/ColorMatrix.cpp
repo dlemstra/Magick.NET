@@ -17,11 +17,21 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	ColorMatrix::ColorMatrix(int order)
+	void ColorMatrix::CheckOrder(int order)
 	{
 		Throw::IfTrue("order", (order < 1) || (order > 6), "Invalid order specified, range 1-6.");
-
-		Initialize(order);
+	}
+	//==============================================================================================
+	ColorMatrix::ColorMatrix(int order)
+	{
+		CheckOrder(order);
+		Initialize(order, nullptr);
+	}
+	//==============================================================================================
+	ColorMatrix::ColorMatrix(int order, ... array<double>^ values)
+	{
+		CheckOrder(order);
+		Initialize(order, values);
 	}
 	//==============================================================================================
 }

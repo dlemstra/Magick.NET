@@ -17,12 +17,22 @@
 namespace ImageMagick
 {
 	//==============================================================================================
-	ConvolveMatrix::ConvolveMatrix(int order)
+	void ConvolveMatrix::CheckOrder(int order)
 	{
 		Throw::IfTrue("order", order < 1, "Invalid order specified, value has to be at least 1.");
 		Throw::IfTrue("order", order % 2 == 0, "Order must be an odd number.");
-
-		Initialize(order);
+	}
+	//==============================================================================================
+	ConvolveMatrix::ConvolveMatrix(int order)
+	{
+		CheckOrder(order);
+		Initialize(order, nullptr);
+	}
+	//==============================================================================================
+	ConvolveMatrix::ConvolveMatrix(int order, ... array<double>^ values)
+	{
+		CheckOrder(order);
+		Initialize(order, values);
 	}
 	//==============================================================================================
 }

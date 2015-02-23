@@ -17,14 +17,30 @@
 namespace ImageMagick
 {	
 	//==============================================================================================
+	void DoubleMatrix::Initialize(array<double>^ values)
+	{
+		Throw::IfFalse("values", (_Order * _Order) == values->Length, "Invalid number of values specified");
+
+		for (int x = 0; x < _Order; x++)
+		{
+			for (int y = 0; y < _Order; y++)
+			{
+				_Values[x, y] = values[(y * _Order) + x];
+			}
+		}
+	}
+	//==============================================================================================
 	DoubleMatrix::DoubleMatrix()
 	{
 	}
 	//==============================================================================================
-	void DoubleMatrix::Initialize(int order)
+	void DoubleMatrix::Initialize(int order, array<double>^ values)
 	{
 		_Values = gcnew array<double, 2>(order, order);
 		_Order = order;
+
+		if (values != nullptr)
+			Initialize(values);
 	}
 	//==============================================================================================
 	double* DoubleMatrix::CreateArray()

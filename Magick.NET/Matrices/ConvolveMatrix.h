@@ -24,6 +24,10 @@ namespace ImageMagick
 	public ref class ConvolveMatrix sealed : DoubleMatrix
 	{
 		//===========================================================================================
+	private:
+		//===========================================================================================
+		static void CheckOrder(int order);
+		//===========================================================================================
 	public:
 		///==========================================================================================
 		///<summary>
@@ -31,6 +35,13 @@ namespace ImageMagick
 		///</summary>
 		///<param name="order">The order.</param>
 		ConvolveMatrix(int order);
+		///==========================================================================================
+		///<summary>
+		/// Creates a new ConvolveMatrix instance with the specified order.
+		///</summary>
+		///<param name="order">The order.</param>
+		///<param name="values">The values to initialize the matrix with.</param>
+		ConvolveMatrix(int order, ... array<double>^ values);
 		//===========================================================================================
 	};
 	//==============================================================================================
