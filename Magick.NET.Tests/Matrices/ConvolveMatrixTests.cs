@@ -25,6 +25,19 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private const string _Category = "ConvolveMatrix";
 		//===========================================================================================
+		private static void Test_Values(ConvolveMatrix matrix)
+		{
+			Assert.AreEqual(0.0, matrix.GetValue(0, 0));
+			Assert.AreEqual(1.0, matrix.GetValue(1, 0));
+			Assert.AreEqual(2.0, matrix.GetValue(2, 0));
+			Assert.AreEqual(0.1, matrix.GetValue(0, 1));
+			Assert.AreEqual(1.1, matrix.GetValue(1, 1));
+			Assert.AreEqual(2.1, matrix.GetValue(2, 1));
+			Assert.AreEqual(0.2, matrix.GetValue(0, 2));
+			Assert.AreEqual(1.2, matrix.GetValue(1, 2));
+			Assert.AreEqual(2.2, matrix.GetValue(2, 2));
+		}
+		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Constructor()
 		{
@@ -45,11 +58,26 @@ namespace Magick.NET.Tests
 				new ConvolveMatrix(2, 1.0);
 			});
 
-			ConvolveMatrix matrix = new ConvolveMatrix(2, 0.0, 1.0, 0.1, 1.1);
-			Assert.AreEqual(0.0, matrix.GetValue(0, 0));
-			Assert.AreEqual(1.0, matrix.GetValue(1, 0));
-			Assert.AreEqual(0.1, matrix.GetValue(0, 1));
-			Assert.AreEqual(1.1, matrix.GetValue(1, 1));
+			ConvolveMatrix matrix = new ConvolveMatrix(3,
+				0.0, 1.0, 2.0,
+				0.1, 1.1, 2.1,
+				0.2, 1.2, 2.2);
+
+			Test_Values(matrix);
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				new ConvolveMatrix(2, null);
+			});
+
+			matrix = new ConvolveMatrix(3, new double[]
+			{
+				0.0, 1.0, 2.0,
+				0.1, 1.1, 2.1,
+				0.2, 1.2, 2.2
+			});
+
+			Test_Values(matrix);
 		}
 		//===========================================================================================
 	}
