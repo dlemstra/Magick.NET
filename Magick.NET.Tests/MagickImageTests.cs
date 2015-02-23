@@ -157,11 +157,11 @@ namespace Magick.NET.Tests
 
 			using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
 			{
-				CollectionAssert.AreEqual(rgb, image.Channels.ToArray());
-
-				image.Alpha(AlphaOption.On);
-
 				CollectionAssert.AreEqual(rgba, image.Channels.ToArray());
+
+				image.Alpha(AlphaOption.Off);
+
+				CollectionAssert.AreEqual(rgb, image.Channels.ToArray());
 			}
 
 			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -838,7 +838,7 @@ namespace Magick.NET.Tests
 
 			image.Read(Files.SnakewarePNG);
 
-			image.Read("rose:");
+			image.Read(Files.Rose);
 
 			image.Read(Files.RoseSparkleGIF);
 			Assert.AreEqual("RöseSparkle.gif", Path.GetFileName(image.FileName));
@@ -970,7 +970,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Separate()
 		{
-			using (MagickImage rose = new MagickImage("rose:"))
+			using (MagickImage rose = new MagickImage(Files.Rose))
 			{
 				int i = 0;
 				foreach (MagickImage image in rose.Separate())

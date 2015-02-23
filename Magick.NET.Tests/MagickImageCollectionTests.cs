@@ -107,7 +107,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Combine()
 		{
-			using (MagickImage rose = new MagickImage("rose:"))
+			using (MagickImage rose = new MagickImage(Files.Rose))
 			{
 				using (MagickImageCollection collection = new MagickImageCollection(rose.Separate(Channels.RGB)))
 				{
@@ -360,12 +360,12 @@ namespace Magick.NET.Tests
 		public void Test_Write()
 		{
 			long fileSize;
-			using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
+			using (MagickImage image = new MagickImage(Files.Rose))
 			{
 				fileSize = image.FileSize;
 			}
 
-			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+			using (MagickImageCollection collection = new MagickImageCollection(Files.Rose))
 			{
 				using (MemoryStream memStream = new MemoryStream())
 				{
