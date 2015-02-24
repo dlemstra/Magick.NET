@@ -35,6 +35,7 @@ namespace ImageMagick
 		B,
 		Bgr,
 		Bgra,
+		Bgro,
 		Bmp,
 		Bmp2,
 		Bmp3,
