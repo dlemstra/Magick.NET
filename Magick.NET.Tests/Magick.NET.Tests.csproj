@@ -81,6 +81,9 @@
     <Compile Include="Defines\Dds\DdsWriteDefinesTests.cs" />
     <Compile Include="Defines\Jpeg\JpegReadDefinesTests.cs" />
     <Compile Include="Defines\Jpeg\JpegWriteDefinesTests.cs" />
+    <Compile Include="Defines\Pdf\PdfReadDefinesTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Defines\Tiff\TiffReadDefinesTests.cs" />
     <Compile Include="Defines\Tiff\TiffWriteDefinesTests.cs" />
     <Compile Include="MagickFormatInfoTests.cs" />

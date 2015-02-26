@@ -135,7 +135,7 @@ namespace Magick.NET.Tests
 			{
 				get
 				{
-					return _Root + @"player.psd";
+					return _Root + @"Images\Coders\player.psd";
 				}
 			}
 			//========================================================================================
@@ -143,7 +143,7 @@ namespace Magick.NET.Tests
 			{
 				get
 				{
-					return _Root + @"CN Studios Logo.ai";
+					return _Root + @"Images\Coders\CN Studios Logo.ai";
 				}
 			}
 			//========================================================================================

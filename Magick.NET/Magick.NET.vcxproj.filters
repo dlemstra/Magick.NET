@@ -807,6 +807,9 @@
     <ClInclude Include="Defines\Dds\DdsCompression.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Defines\Pdf\PdfReadDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -1272,6 +1275,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Defines\Dds\DdsWriteDefines.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Defines\Pdf\PdfReadDefines.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

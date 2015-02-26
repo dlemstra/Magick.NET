@@ -302,6 +302,7 @@
     <ClInclude Include="Defines\Jpeg\JpegReadDefines.h" />
     <ClInclude Include="Defines\Jpeg\DctMethod.h" />
     <ClInclude Include="Defines\Jpeg\JpegWriteDefines.h" />
+    <ClInclude Include="Defines\Pdf\PdfReadDefines.h" />
     <ClInclude Include="Defines\Tiff\TiffAlpha.h" />
     <ClInclude Include="Defines\Tiff\TiffReadDefines.h" />
     <ClInclude Include="Defines\Tiff\TiffWriteDefines.h" />
@@ -508,6 +509,7 @@
     <ClCompile Include="Defines\Dds\DdsWriteDefines.cpp" />
     <ClCompile Include="Defines\Jpeg\JpegReadDefines.cpp" />
     <ClCompile Include="Defines\Jpeg\JpegWriteDefines.cpp" />
+    <ClCompile Include="Defines\Pdf\PdfReadDefines.cpp" />
     <ClCompile Include="Defines\Tiff\TiffReadDefines.cpp" />
     <ClCompile Include="Defines\Tiff\TiffWriteDefines.cpp" />
     <ClCompile Include="Helpers\MagickConverter.cpp" />
