@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Coders\CodersTests.cs" />
     <Compile Include="Coders\BgrTests.cs" />
+    <Compile Include="Coders\PdfTests.cs" />
     <Compile Include="Coders\PsdTests.cs" />
     <Compile Include="Coders\RgbTests.cs" />
     <Compile Include="ColorAssert.cs" />
