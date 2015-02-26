@@ -32,51 +32,11 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
-		public static string CollectionScript
-		{
-			get
-			{
-				return _Root + @"Script\Collection.msl";
-			}
-		}
-		//===========================================================================================
-		public static string DefinesScript
-		{
-			get
-			{
-				return _Root + @"Script\Defines.msl";
-			}
-		}
-		//===========================================================================================
-		public static string DistortScript
-		{
-			get
-			{
-				return _Root + @"Script\Distort.msl";
-			}
-		}
-		//===========================================================================================
-		public static string DrawScript
-		{
-			get
-			{
-				return _Root + @"Script\Draw.msl";
-			}
-		}
-		//===========================================================================================
 		public static string EightBimTIF
 		{
 			get
 			{
 				return _Root + @"Images\8Bim.tif";
-			}
-		}
-		//===========================================================================================
-		public static string EventsScript
-		{
-			get
-			{
-				return _Root + @"Script\Events.msl";
 			}
 		}
 		//===========================================================================================
@@ -93,22 +53,6 @@ namespace Magick.NET.Tests
 			get
 			{
 				return _Root + @"Images\ImageMagick.jpg";
-			}
-		}
-		//===========================================================================================
-		public static string ImageProfileScript
-		{
-			get
-			{
-				return _Root + @"Script\ImageProfile.msl";
-			}
-		}
-		//===========================================================================================
-		public static string InvalidScript
-		{
-			get
-			{
-				return _Root + @"Script\Invalid.msl";
 			}
 		}
 		//===========================================================================================
@@ -152,14 +96,6 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
-		public static string ResizeScript
-		{
-			get
-			{
-				return _Root + @"Script\Resize.msl";
-			}
-		}
-		//===========================================================================================
 		public static string Rose
 		{
 			get
@@ -184,19 +120,108 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
-		public static string VariablesScript
-		{
-			get
-			{
-				return _Root + @"Script\Variables.msl";
-			}
-		}
-		//===========================================================================================
 		public static string WireframeTIF
 		{
 			get
 			{
 				return _Root + @"Images\Wireframe.tif";
+			}
+		}
+		//===========================================================================================
+		public static class Coders
+		{
+			//========================================================================================
+			public static string PlayerPSD
+			{
+				get
+				{
+					return _Root + @"player.psd";
+				}
+			}
+			//========================================================================================
+			public static string CartoonNetworkStudiosLogoAI
+			{
+				get
+				{
+					return _Root + @"CN Studios Logo.ai";
+				}
+			}
+			//========================================================================================
+		}
+		//===========================================================================================
+		public static class Scripts
+		{
+			//========================================================================================
+			public static string Collection
+			{
+				get
+				{
+					return _Root + @"Script\Collection.msl";
+				}
+			}
+			//========================================================================================
+			public static string Draw
+			{
+				get
+				{
+					return _Root + @"Script\Draw.msl";
+				}
+			}
+			//========================================================================================
+			public static string Defines
+			{
+				get
+				{
+					return _Root + @"Script\Defines.msl";
+				}
+			}
+			//========================================================================================
+			public static string Distort
+			{
+				get
+				{
+					return _Root + @"Script\Distort.msl";
+				}
+			}
+			//===========================================================================================
+			public static string Events
+			{
+				get
+				{
+					return _Root + @"Script\Events.msl";
+				}
+			}
+			//===========================================================================================
+			public static string ImageProfile
+			{
+				get
+				{
+					return _Root + @"Script\ImageProfile.msl";
+				}
+			}
+			//===========================================================================================
+			public static string Invalid
+			{
+				get
+				{
+					return _Root + @"Script\Invalid.msl";
+				}
+			}
+			//===========================================================================================
+			public static string Resize
+			{
+				get
+				{
+					return _Root + @"Script\Resize.msl";
+				}
+			}
+			//===========================================================================================
+			public static string Variables
+			{
+				get
+				{
+					return _Root + @"Script\Variables.msl";
+				}
 			}
 		}
 		//===========================================================================================

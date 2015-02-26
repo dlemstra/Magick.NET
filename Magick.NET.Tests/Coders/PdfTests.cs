@@ -21,7 +21,7 @@ namespace Magick.NET.Tests.Coders
 {
 	//==============================================================================================
 	[TestClass]
-	public class PdfTests : CodersTests
+	public class PdfTests
 	{
 		//===========================================================================================
 		private const string _Category = "PdfTests";
@@ -29,7 +29,7 @@ namespace Magick.NET.Tests.Coders
 		[TestMethod, TestCategory(_Category)]
 		public void Test_AddProfile()
 		{
-			using (MagickImage image = LoadImage("CN Studios Logo.ai"))
+			using (MagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
 			{
 				Assert.AreEqual(765, image.Width);
 				Assert.AreEqual(361, image.Height);
