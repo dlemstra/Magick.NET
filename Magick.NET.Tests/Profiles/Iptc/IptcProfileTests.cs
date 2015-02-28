@@ -91,10 +91,10 @@ namespace Magick.NET.Tests
 					value = profile.Values.FirstOrDefault(val => val.Tag == IptcTag.ReferenceNumber);
 					Assert.IsNull(value);
 
-					profile.SetValue(IptcTag.ReferenceNumber, "Magick.NET ReferenceNumber");
+					profile.SetValue(IptcTag.ReferenceNumber, "Magick.NET ReferenceNümber");
 
 					value = profile.GetValue(IptcTag.ReferenceNumber);
-					TestValue(value, "Magick.NET ReferenceNumber");
+					TestValue(value, "Magick.NET ReferenceNümber");
 
 					// Remove the 8bim profile so we can overwrite the iptc profile.
 					image.RemoveProfile("8bim");
@@ -113,7 +113,7 @@ namespace Magick.NET.Tests
 					TestValue(value, "Magick.NET Title");
 
 					value = profile.GetValue(IptcTag.ReferenceNumber);
-					TestValue(value, "Magick.NET ReferenceNumber");
+					TestValue(value, "Magick.NET ReferenceNümber");
 
 					ExceptionAssert.Throws<ArgumentNullException>(delegate()
 					{
