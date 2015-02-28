@@ -51,7 +51,7 @@ namespace Magick.NET.Tests
 				WeightByAlpha = false,
 			};
 
-			using (MagickImage image = new MagickImage(Files.Logo))
+			using (MagickImage image = new MagickImage(Files.Builtin.Logo))
 			{
 				image.SetDefines(defines);
 
@@ -69,7 +69,7 @@ namespace Magick.NET.Tests
 				Compression = DdsCompression.None
 			};
 
-			using (MagickImage input = new MagickImage(Files.Logo))
+			using (MagickImage input = new MagickImage(Files.Builtin.Logo))
 			{
 				using (MagickImage output = WriteDds(input))
 				{

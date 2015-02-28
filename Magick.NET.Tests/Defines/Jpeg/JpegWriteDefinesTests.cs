@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
 				}
 			};
 
-			using (MagickImage image = new MagickImage(Files.Logo))
+			using (MagickImage image = new MagickImage(Files.Builtin.Logo))
 			{
 				image.SetDefines(defines);
 
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
 				Extent = 10
 			};
 
-			using (MagickImage image = new MagickImage(Files.Logo))
+			using (MagickImage image = new MagickImage(Files.Builtin.Logo))
 			{
 				using (MemoryStream memStream = new MemoryStream())
 				{

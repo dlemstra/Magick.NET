@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
 				Endian = Endian.MSB,
 			};
 
-			using (MagickImage input = new MagickImage(Files.Logo))
+			using (MagickImage input = new MagickImage(Files.Builtin.Logo))
 			{
 				input.SetDefines(defines);
 				input.Alpha(AlphaOption.Set);
@@ -72,7 +72,7 @@ namespace Magick.NET.Tests
 				TileGeometry = new MagickGeometry(100, 100)
 			};
 
-			using (MagickImage image = new MagickImage(Files.Logo))
+			using (MagickImage image = new MagickImage(Files.Builtin.Logo))
 			{
 				image.SetDefines(defines);
 

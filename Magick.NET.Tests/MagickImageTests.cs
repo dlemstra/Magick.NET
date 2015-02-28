@@ -370,7 +370,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Composite_Blur()
 		{
-			using (MagickImage image = new MagickImage(Files.Logo))
+			using (MagickImage image = new MagickImage(Files.Builtin.Logo))
 			{
 				using (MagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
 				{
@@ -383,7 +383,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Define()
 		{
-			using (MagickImage image = new MagickImage(Files.Logo))
+			using (MagickImage image = new MagickImage(Files.Builtin.Logo))
 			{
 				string option = "optimize-coding";
 
@@ -838,7 +838,7 @@ namespace Magick.NET.Tests
 
 			image.Read(Files.SnakewarePNG);
 
-			image.Read(Files.Rose);
+			image.Read(Files.Builtin.Rose);
 
 			image.Read(Files.RoseSparkleGIF);
 			Assert.AreEqual("RöseSparkle.gif", Path.GetFileName(image.FileName));
@@ -861,7 +861,7 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ObjectDisposedException>(delegate()
 			{
-				image.Read(Files.Logo);
+				image.Read(Files.Builtin.Logo);
 			});
 		}
 		//===========================================================================================
@@ -970,7 +970,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Separate()
 		{
-			using (MagickImage rose = new MagickImage(Files.Rose))
+			using (MagickImage rose = new MagickImage(Files.Builtin.Rose))
 			{
 				int i = 0;
 				foreach (MagickImage image in rose.Separate())
