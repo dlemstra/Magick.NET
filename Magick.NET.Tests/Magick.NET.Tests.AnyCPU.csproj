@@ -82,7 +82,9 @@
     <Compile Include="Defines\Dds\DdsWriteDefinesTests.cs" />
     <Compile Include="Defines\Jpeg\JpegReadDefinesTests.cs" />
     <Compile Include="Defines\Jpeg\JpegWriteDefinesTests.cs" />
-    <Compile Include="Defines\Pdf\PdfReadDefinesTests.cs" />
+    <Compile Include="Defines\Pdf\PdfReadDefinesTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Defines\Tiff\TiffReadDefinesTests.cs" />
     <Compile Include="Defines\Tiff\TiffWriteDefinesTests.cs" />
     <Compile Include="MagickFormatInfoTests.cs" />
@@ -128,6 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Script\Collection.msl" />
+    <None Include="Script\Defines.msl">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Script\Distort.msl" />
     <None Include="Script\Draw.msl" />
     <None Include="Script\Events.msl" />

@@ -278,6 +278,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Magick.NET\Arguments\SparseColorArg.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Base\ProfileTypes.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Base\DefineCreator.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Base\IDefine.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Base\IDefines.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Base\IReadDefines.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Base\MagickDefine.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Dds\DdsCompression.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Dds\DdsWriteDefines.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Jpeg\JpegReadDefines.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Jpeg\DctMethod.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Jpeg\JpegWriteDefines.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Pdf\PdfReadDefines.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Tiff\TiffAlpha.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Tiff\TiffReadDefines.h" />
+    <ClInclude Include="..\Magick.NET\Defines\Tiff\TiffWriteDefines.h" />
     <ClInclude Include="..\Magick.NET\Enums\DitherMethod.h" />
     <ClInclude Include="..\Magick.NET\Enums\MontageMode.h" />
     <ClInclude Include="..\Magick.NET\Enums\PixelIntensityMethod.h" />
@@ -476,6 +491,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Magick.NET\Arguments\SparseColorArg.cpp" />
+    <ClCompile Include="..\Magick.NET\Defines\Base\DefineCreator.cpp" />
+    <ClCompile Include="..\Magick.NET\Defines\Base\MagickDefine.cpp" />
+    <ClCompile Include="..\Magick.NET\Defines\Dds\DdsWriteDefines.cpp" />
+    <ClCompile Include="..\Magick.NET\Defines\Jpeg\JpegReadDefines.cpp" />
+    <ClCompile Include="..\Magick.NET\Defines\Jpeg\JpegWriteDefines.cpp" />
+    <ClCompile Include="..\Magick.NET\Defines\Pdf\PdfReadDefines.cpp" />
+    <ClCompile Include="..\Magick.NET\Defines\Tiff\TiffReadDefines.cpp" />
+    <ClCompile Include="..\Magick.NET\Defines\Tiff\TiffWriteDefines.cpp" />
     <ClCompile Include="..\Magick.NET\Helpers\MagickConverter.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableDashArray.cpp" />
     <ClCompile Include="..\Magick.NET\Drawables\DrawableDashOffset.cpp" />
