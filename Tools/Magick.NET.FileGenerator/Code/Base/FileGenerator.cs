@@ -112,6 +112,14 @@ namespace Magick.NET.FileGenerator
 					  select type).ToArray();
 		}
 		//===========================================================================================
+		protected bool IsInternalInterface(Type type)
+		{
+			if (!type.IsInterface)
+				return false;
+
+			return MagickNET.Interfaces.Contains(type);
+		}
+		//===========================================================================================
 		protected static bool IsUsedAsIEnumerable(Type[] types, Type type)
 		{
 			if ((from t in types

@@ -15,6 +15,7 @@ using System;
 using System.Linq;
 using System.CodeDom.Compiler;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace Magick.NET.FileGenerator.AnyCPU
 {
@@ -40,17 +41,88 @@ namespace Magick.NET.FileGenerator.AnyCPU
 					WriteStartColon(writer);
 					WriteProperties(writer, type);
 					WriteEndColon(writer);
+					WriteConverters(writer, type);
 					WriteEndColon(writer);
 					Close(writer);
 				}
 			}
 		}
 		//===========================================================================================
+		private void WriteConverters(IndentedTextWriter writer, Type type)
+		{
+			IEnumerable<Type> types = MagickNET.GetInterfaceTypes(type.Name);
+			if (types.Count() == 0)
+				return;
+
+			writer.Write("internal static class ");
+			writer.Write(type.Name);
+			writer.WriteLine("Converter");
+			WriteStartColon(writer);
+			writer.Write("public static object GetInstance(");
+			writer.Write(type.Name);
+			writer.WriteLine(" obj)");
+			WriteStartColon(writer);
+			WriteNullCheck(writer);
+			WriteConverterGetSwitch(writer, types);
+			WriteEndColon(writer);
+			writer.Write("public static object CreateInstance(");
+			writer.WriteLine("object obj)");
+			WriteStartColon(writer);
+			WriteConverterInstanceSwitch(writer, types);
+			WriteEndColon(writer);
+			WriteEndColon(writer);
+		}
+		//===========================================================================================
+		private void WriteConverterGetSwitch(IndentedTextWriter writer, IEnumerable<Type> types)
+		{
+			writer.WriteLine("switch (obj.GetType().FullName)");
+			WriteStartColon(writer);
+			foreach (Type type in types)
+			{
+				writer.Write("case \"");
+				writer.Write(type.FullName);
+				writer.WriteLine("\":");
+				writer.Indent++;
+				writer.Write("return ");
+				writer.Write(type.Name);
+				writer.WriteLine(".GetInstance((object)obj);");
+				writer.Indent--;
+			}
+			writer.WriteLine("default:");
+			writer.Indent++;
+			writer.WriteLine("throw new InvalidOperationException(\"Custom interface implementation is not supported in AnyCPU.\");");
+			writer.Indent--;
+			WriteEndColon(writer);
+		}
+		//===========================================================================================
+		private void WriteConverterInstanceSwitch(IndentedTextWriter writer, IEnumerable<Type> types)
+		{
+			writer.WriteLine("switch (obj.GetType().FullName)");
+			WriteStartColon(writer);
+			foreach (Type type in types)
+			{
+				writer.Write("case \"");
+				writer.Write(type.FullName);
+				writer.WriteLine("\":");
+				writer.Indent++;
+				writer.Write("return new ");
+				writer.Write(type.Name);
+				writer.WriteLine("(obj);");
+				writer.Indent--;
+			}
+			writer.WriteLine("default:");
+			writer.Indent++;
+			writer.WriteLine("throw new NotImplementedException();");
+			writer.Indent--;
+			WriteEndColon(writer);
+		}
+		//===========================================================================================
 		private void WriteInterfaceStart(IndentedTextWriter writer, Type type)
 		{
 			bool writeColon = true;
 
-			writer.Write("public interface " + type.Name);
+			writer.Write("public interface ");
+			writer.Write(type.Name);
 			foreach (Type interfaceType in type.GetInterfaces())
 			{
 				if (writeColon)
@@ -66,6 +138,14 @@ namespace Magick.NET.FileGenerator.AnyCPU
 				WriteType(writer, interfaceType);
 			}
 			writer.WriteLine();
+		}
+		//===========================================================================================
+		private static void WriteNullCheck(IndentedTextWriter writer)
+		{
+			writer.WriteLine("if (obj == null)");
+			writer.Indent++;
+			writer.WriteLine("return null;");
+			writer.Indent--;
 		}
 		//===========================================================================================
 		private void WriteProperties(IndentedTextWriter writer, Type type)

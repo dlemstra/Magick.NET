@@ -480,7 +480,7 @@ namespace Magick.NET.FileGenerator
 		{
 			return from type in _MagickNET.GetTypes()
 					 from interfaceType in type.GetInterfaces()
-					 where interfaceType.Name == interfaceName && !type.IsInterface && !type.IsAbstract
+					 where interfaceType.Name == interfaceName && type.IsPublic && !type.IsInterface && !type.IsAbstract
 					 orderby type.Name
 					 select type;
 		}

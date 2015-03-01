@@ -544,6 +544,19 @@ namespace Magick.NET.FileGenerator.AnyCPU
 			WriteEndColon(writer);
 		}
 		//===========================================================================================
+		private bool WriteIEnumerableParameter(IndentedTextWriter writer, ParameterInfo parameter)
+		{
+			Type type = GetIEnumerable(parameter);
+			if (type == null)
+				return false;
+
+			WriteType(writer, type);
+			writer.Write(".CastIEnumerable(");
+			writer.Write(parameter.Name);
+			writer.Write(")");
+			return true;
+		}
+		//===========================================================================================
 		private void WriteInheritance(IndentedTextWriter writer, Type type)
 		{
 			bool writeColon = true;
@@ -573,6 +586,18 @@ namespace Magick.NET.FileGenerator.AnyCPU
 
 				WriteType(writer, interfaceType);
 			}
+		}
+		//===========================================================================================
+		private bool WriteInterfaceParameter(IndentedTextWriter writer, ParameterInfo parameter)
+		{
+			if (!IsInternalInterface(parameter.ParameterType))
+				return false;
+
+			writer.Write(parameter.ParameterType.Name);
+			writer.Write("Converter.GetInstance(");
+			writer.Write(parameter.Name);
+			writer.Write(")");
+			return true;
 		}
 		//===========================================================================================
 		private void WriteMethods(IndentedTextWriter writer, Type type)
@@ -746,21 +771,19 @@ namespace Magick.NET.FileGenerator.AnyCPU
 				}
 				else
 				{
-					Type type = GetIEnumerable(parameters[i]);
-					if (type != null && mode.HasFlag(ParameterMode.Instance))
+					if (mode.HasFlag(ParameterMode.Instance))
 					{
-						WriteType(writer, type);
-						writer.Write(".CastIEnumerable(");
-						writer.Write(parameters[i].Name);
-						writer.Write(")");
-					}
-					else
-					{
-						if (!mode.HasFlag(ParameterMode.Type) && mode.HasFlag(ParameterMode.Name) && IsArray(parameters[i].ParameterType))
-							writer.Write("casted_");
+						if (WriteIEnumerableParameter(writer, parameters[i]))
+							continue;
 
-						writer.Write(parameters[i].Name);
+						if (WriteInterfaceParameter(writer, parameters[i]))
+							continue;
 					}
+
+					if (!mode.HasFlag(ParameterMode.Type) && mode.HasFlag(ParameterMode.Name) && IsArray(parameters[i].ParameterType))
+						writer.Write("casted_");
+
+					writer.Write(parameters[i].Name);
 				}
 			}
 		}
@@ -1015,6 +1038,12 @@ namespace Magick.NET.FileGenerator.AnyCPU
 				WriteType(writer, type);
 				writer.WriteLine(")ExceptionHelper.Create((Exception)result);");
 			}
+			else if (IsInternalInterface(type))
+			{
+				writer.Write("return (");
+				WriteType(writer, type);
+				writer.WriteLine(")IDefinesConverter.CreateInstance(result);");
+			}
 			else
 			{
 				writer.Write("return ");
@@ -1041,6 +1070,11 @@ namespace Magick.NET.FileGenerator.AnyCPU
 		private void WriteTypeOf(IndentedTextWriter writer, Type type)
 		{
 			if (type.IsEnum)
+			{
+				writer.Write("Types.");
+				writer.Write(type.Name);
+			}
+			else if (type.IsInterface && MagickNET.Interfaces.Contains(type))
 			{
 				writer.Write("Types.");
 				writer.Write(type.Name);
@@ -1119,6 +1153,11 @@ namespace Magick.NET.FileGenerator.AnyCPU
 				WriteType(writer, parameter.ParameterType);
 				writer.Write(".GetInstance(");
 				writer.Write("value)");
+			}
+			else if (IsInternalInterface(parameter.ParameterType))
+			{
+				writer.Write(parameter.ParameterType.Name);
+				writer.Write("Converter.GetInstance(value)");
 			}
 			else
 			{

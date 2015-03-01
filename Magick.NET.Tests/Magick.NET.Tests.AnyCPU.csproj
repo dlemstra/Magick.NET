@@ -68,14 +68,23 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Coders\CodersTests.cs" />
+    <Compile Include="Coders\BgrTests.cs" />
+    <Compile Include="Coders\PdfTests.cs" />
     <Compile Include="Coders\PsdTests.cs" />
+    <Compile Include="Coders\RgbTests.cs" />
+    <Compile Include="Coders\TiffTests.cs" />
     <Compile Include="ColorAssert.cs" />
     <Compile Include="Colors\Base\ColorBaseTests.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Colors\ColorMonoTests.cs" />
     <Compile Include="Colors\ColorCMYKTests.cs" />
+    <Compile Include="Defines\Dds\DdsWriteDefinesTests.cs" />
+    <Compile Include="Defines\Jpeg\JpegReadDefinesTests.cs" />
+    <Compile Include="Defines\Jpeg\JpegWriteDefinesTests.cs" />
+    <Compile Include="Defines\Pdf\PdfReadDefinesTests.cs" />
+    <Compile Include="Defines\Tiff\TiffReadDefinesTests.cs" />
+    <Compile Include="Defines\Tiff\TiffWriteDefinesTests.cs" />
     <Compile Include="MagickFormatInfoTests.cs" />
     <Compile Include="Matrices\ConvolveMatrixTests.cs" />
     <Compile Include="Matrices\ColorMatrixTests.cs" />

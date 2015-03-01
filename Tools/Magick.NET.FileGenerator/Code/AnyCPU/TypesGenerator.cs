@@ -26,7 +26,7 @@ namespace Magick.NET.FileGenerator.AnyCPU
 		private TypesGenerator()
 			: base(@"Magick.NET.AnyCPU\Generated")
 		{
-			_Types = GetTypes(true);
+			_Types = GetTypes(true).Union(MagickNET.Interfaces).ToArray();
 		}
 		//===========================================================================================
 		private static void WriteMember(IndentedTextWriter writer, Type type, string suffix)
@@ -86,7 +86,9 @@ namespace Magick.NET.FileGenerator.AnyCPU
 				{
 					WriteMember(writer, type, null);
 					WritePropertyStart(writer, type, null);
-					writer.Write("AssemblyHelper.GetType(\"ImageMagick.");
+					writer.Write("AssemblyHelper.GetType(\"");
+					writer.Write(type.Namespace);
+					writer.Write(".");
 					WriteType(writer, type);
 					writer.WriteLine("\");");
 					WritePropertyEnd(writer, type, null);

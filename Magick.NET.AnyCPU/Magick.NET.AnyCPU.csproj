@@ -76,6 +76,7 @@
     <Compile Include="Generated\JpegReadDefines.cs" />
     <Compile Include="Generated\JpegWriteDefines.cs" />
     <Compile Include="Generated\Moments.cs" />
+    <Compile Include="Generated\PdfReadDefines.cs" />
     <Compile Include="Generated\PerceptualHash.cs" />
     <Compile Include="Generated\PointD.cs" />
     <Compile Include="Generated\SparseColorArg.cs" />
