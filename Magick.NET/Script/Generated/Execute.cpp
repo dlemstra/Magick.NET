@@ -83,6 +83,7 @@
 #include "..\..\Defines\Dds\DdsWriteDefines.h"
 #include "..\..\Defines\Jpeg\JpegReadDefines.h"
 #include "..\..\Defines\Jpeg\JpegWriteDefines.h"
+#include "..\..\Defines\Pdf\PdfReadDefines.h"
 #include "..\..\Defines\Tiff\TiffReadDefines.h"
 #include "..\..\Defines\Tiff\TiffWriteDefines.h"
 #pragma warning (disable: 4100)
@@ -3086,10 +3087,19 @@ namespace ImageMagick
 	}
 	void MagickScript::ExecuteModulate(XmlElement^ element, MagickImage^ image)
 	{
-		Percentage brightness_ = _Variables->GetValue<Percentage>(element, "brightness");
-		Percentage saturation_ = _Variables->GetValue<Percentage>(element, "saturation");
-		Percentage hue_ = _Variables->GetValue<Percentage>(element, "hue");
-		image->Modulate(brightness_, saturation_, hue_);
+		System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();
+		for each(XmlAttribute^ attribute in element->Attributes)
+		{
+			arguments[attribute->Name] = _Variables->GetValue<Percentage>(attribute);
+		}
+		if (OnlyContains(arguments, "brightness"))
+			image->Modulate((Percentage)arguments["brightness"]);
+		else if (OnlyContains(arguments, "brightness", "saturation"))
+			image->Modulate((Percentage)arguments["brightness"], (Percentage)arguments["saturation"]);
+		else if (OnlyContains(arguments, "brightness", "saturation", "hue"))
+			image->Modulate((Percentage)arguments["brightness"], (Percentage)arguments["saturation"], (Percentage)arguments["hue"]);
+		else
+			throw gcnew ArgumentException("Invalid argument combination for 'modulate', allowed combinations are: [brightness] [brightness, saturation] [brightness, saturation, hue]");
 	}
 	void MagickScript::ExecuteMorphology(XmlElement^ element, MagickImage^ image)
 	{
@@ -5465,6 +5475,10 @@ namespace ImageMagick
 				}
 				break;
 			}
+			case 'p':
+			{
+				return CreatePdfReadDefines(element);
+			}
 			case 't':
 			{
 				switch(element->Name[4])
@@ -5518,6 +5532,16 @@ namespace ImageMagick
 		result->Quality = _Variables->GetValue<MagickGeometry^>(element, "quality");
 		result->QuantizationTables = _Variables->GetValue<String^>(element, "quantizationTables");
 		result->SamplingFactors = CreateMagickGeometryCollection(element);
+		return result;
+	}
+	IDefines^ MagickScript::CreatePdfReadDefines(XmlElement^ element)
+	{
+		if (element == nullptr)
+			return nullptr;
+		PdfReadDefines^ result = gcnew PdfReadDefines();
+		result->FitPage = _Variables->GetValue<MagickGeometry^>(element, "fitPage");
+		result->UseCropBox = _Variables->GetValue<Nullable<bool>>(element, "useCropBox");
+		result->UseTrimBox = _Variables->GetValue<Nullable<bool>>(element, "useTrimBox");
 		return result;
 	}
 	IDefines^ MagickScript::CreateTiffReadDefines(XmlElement^ element)

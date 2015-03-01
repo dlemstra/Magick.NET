@@ -667,6 +667,7 @@
 					<xs:enumeration value="B" />
 					<xs:enumeration value="Bgr" />
 					<xs:enumeration value="Bgra" />
+					<xs:enumeration value="Bgro" />
 					<xs:enumeration value="Bmp" />
 					<xs:enumeration value="Bmp2" />
 					<xs:enumeration value="Bmp3" />
@@ -1217,6 +1218,11 @@
 		<xs:attribute name="optimizeCoding" type="bool" />
 		<xs:attribute name="quality" type="geometry" />
 		<xs:attribute name="quantizationTables" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="pdfReadDefines">
+		<xs:attribute name="fitPage" type="geometry" />
+		<xs:attribute name="useCropBox" type="bool" />
+		<xs:attribute name="useTrimBox" type="bool" />
 	</xs:complexType>
 	<xs:complexType name="tiffReadDefines">
 		<xs:attribute name="ignoreExifPoperties" type="bool" />
@@ -2129,8 +2135,8 @@
 				<xs:element name="modulate">
 					<xs:complexType>
 						<xs:attribute name="brightness" use="required" type="double" />
-						<xs:attribute name="hue" use="required" type="double" />
-						<xs:attribute name="saturation" use="required" type="double" />
+						<xs:attribute name="hue" type="double" />
+						<xs:attribute name="saturation" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="morphology">
@@ -2668,6 +2674,7 @@
 				<xs:element name="ddsWriteDefines" type="ddsWriteDefines" />
 				<xs:element name="jpegReadDefines" type="jpegReadDefines" />
 				<xs:element name="jpegWriteDefines" type="jpegWriteDefines" />
+				<xs:element name="pdfReadDefines" type="pdfReadDefines" />
 				<xs:element name="tiffReadDefines" type="tiffReadDefines" />
 				<xs:element name="tiffWriteDefines" type="tiffWriteDefines" />
 			</xs:choice>
@@ -3004,6 +3011,7 @@
 		<xs:sequence>
 			<xs:choice>
 				<xs:element name="jpegReadDefines" type="jpegReadDefines" />
+				<xs:element name="pdfReadDefines" type="pdfReadDefines" />
 				<xs:element name="tiffReadDefines" type="tiffReadDefines" />
 			</xs:choice>
 		</xs:sequence>

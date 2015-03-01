@@ -327,6 +327,7 @@ IDefines^ CreateIDefines(XmlElement^ parent);
 IDefines^ CreateDdsWriteDefines(XmlElement^ element);
 IDefines^ CreateJpegReadDefines(XmlElement^ element);
 IDefines^ CreateJpegWriteDefines(XmlElement^ element);
+IDefines^ CreatePdfReadDefines(XmlElement^ element);
 IDefines^ CreateTiffReadDefines(XmlElement^ element);
 IDefines^ CreateTiffWriteDefines(XmlElement^ element);
 Collection<MagickGeometry^>^ CreateMagickGeometryCollection(XmlElement^ element);
