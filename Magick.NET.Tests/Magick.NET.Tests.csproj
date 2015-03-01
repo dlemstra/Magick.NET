@@ -72,6 +72,7 @@
     <Compile Include="Coders\PdfTests.cs" />
     <Compile Include="Coders\PsdTests.cs" />
     <Compile Include="Coders\RgbTests.cs" />
+    <Compile Include="Coders\TiffTests.cs" />
     <Compile Include="ColorAssert.cs" />
     <Compile Include="Colors\Base\ColorBaseTests.cs">
       <SubType>Code</SubType>
