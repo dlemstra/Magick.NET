@@ -9,7 +9,7 @@
   <configure name="NAME" value="ImageMagick"/>
   <configure name="LIB_VERSION" value="0x700"/>
   <configure name="LIB_VERSION_NUMBER" value="7,0,0,0"/>
-  <configure name="RELEASE_DATE" value="2013-10-01"/>
+  <configure name="RELEASE_DATE" value="2015-10-01"/>
   <configure name="VERSION" value="7.0.0"/>
   <configure name="CC" value="vs10"/>
   <configure name="HOST" value="Windows"/>
