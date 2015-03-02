@@ -67,8 +67,8 @@ namespace ImageMagick
 			result[i++] = 28;
 			result[i++] = 2;
 			result[i++] = (Byte)value->Tag;
-			result[i++] = (Byte)(value->Length & 0xFF00);
-			result[i++] = (Byte)(value->Length & 0x00FF);
+			result[i++] = (Byte)(value->Length >> 8);
+			result[i++] = (Byte)(value->Length);
 			if (value->Length > 0)
 			{
 				Buffer::BlockCopy(value->ToByteArray(), 0, result, i, value->Length);

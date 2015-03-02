@@ -74,6 +74,10 @@ namespace Magick.NET.Tests
 		{
 			using (MemoryStream memStream = new MemoryStream())
 			{
+				string credit = null;
+				for (int i = 0; i < 255; i++)
+					credit += i.ToString() + ".";
+
 				using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
 				{
 					IptcProfile profile = image.GetIptcProfile();
@@ -96,6 +100,11 @@ namespace Magick.NET.Tests
 					value = profile.GetValue(IptcTag.ReferenceNumber);
 					TestValue(value, "Magick.NET ReferenceNümber");
 
+					profile.SetValue(IptcTag.Credit, credit);
+
+					value = profile.GetValue(IptcTag.Credit);
+					TestValue(value, credit);
+
 					// Remove the 8bim profile so we can overwrite the iptc profile.
 					image.RemoveProfile("8bim");
 					image.AddProfile(profile);
@@ -114,6 +123,9 @@ namespace Magick.NET.Tests
 
 					value = profile.GetValue(IptcTag.ReferenceNumber);
 					TestValue(value, "Magick.NET ReferenceNümber");
+
+					value = profile.GetValue(IptcTag.Credit);
+					TestValue(value, credit);
 
 					ExceptionAssert.Throws<ArgumentNullException>(delegate()
 					{
