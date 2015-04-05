@@ -284,7 +284,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Arguments\MagickGeometry.h" />
     <ClInclude Include="Colors\MagickColor.h" />
     <ClInclude Include="Drawables\Drawable.h" />
     <ClInclude Include="Drawables\Drawables.h" />

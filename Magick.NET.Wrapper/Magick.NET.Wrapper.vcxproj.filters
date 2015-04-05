@@ -28,74 +28,17 @@
     <Filter Include="Source Files\Colors">
       <UniqueIdentifier>{31d10dab-89e0-453e-9034-e4b5f3cbcfd9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Matrices">
-      <UniqueIdentifier>{d1a60810-3feb-4d61-94ca-160556f53a4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Matrices">
-      <UniqueIdentifier>{52a595b9-571b-4707-a1db-380cca880873}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Drawables">
       <UniqueIdentifier>{9032eb29-193f-43f6-b939-aa891f5c89a9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Drawables\Paths">
-      <UniqueIdentifier>{aec40845-79e8-47bd-8e9f-a0e2aa95ce1d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Drawables">
       <UniqueIdentifier>{16922e3d-9fb6-447c-9b93-f1e6b7c93324}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Drawables\Paths">
-      <UniqueIdentifier>{94296fd4-d7f9-40ce-bda4-0c3a7aca0662}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Pixels">
       <UniqueIdentifier>{e69f5fc9-7174-4d7d-b5a1-099096577bb8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Pixels">
       <UniqueIdentifier>{76d21b26-d0ca-4ab3-bdb9-7e8aad917317}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Exceptions">
-      <UniqueIdentifier>{500c90db-88df-4b46-b2fb-aca6000069bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Exceptions">
-      <UniqueIdentifier>{48ae8406-88ef-4470-ad6f-665b9d12dfda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Base">
-      <UniqueIdentifier>{6bdbfb06-4722-4524-a73c-f002ccd7812e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Colors\Base">
-      <UniqueIdentifier>{fdab79b1-3c5e-4d1c-9cf2-6262b3954bb5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Drawables\Base">
-      <UniqueIdentifier>{a10eeda1-313e-4e66-ae93-a689cc75ae15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Drawables\Paths\Base">
-      <UniqueIdentifier>{67350219-4274-4813-aa99-fb9a5ca404e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Exceptions\Base">
-      <UniqueIdentifier>{6d1ea093-263f-473a-929e-60f456215fe9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Matrices\Base">
-      <UniqueIdentifier>{052e22fb-3141-430f-b5f2-b0fc6814e241}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Pixels\Base">
-      <UniqueIdentifier>{a4710343-5b97-46db-8ce3-cf8bbce7914b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Colors\Base">
-      <UniqueIdentifier>{55e2d74b-cb41-43c8-8021-4a86ba96de06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Exceptions\Base">
-      <UniqueIdentifier>{bc6ec9cc-a345-44d2-904b-1dd1ec9f9940}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Matrices\Base">
-      <UniqueIdentifier>{09505a19-a423-426f-894d-0aa48a703b69}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Drawables\Paths\Args">
-      <UniqueIdentifier>{dc081b12-adf0-47d8-ba39-2048c9ead0f8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Drawables\Paths\Args\Base">
-      <UniqueIdentifier>{35bd9d53-8d95-47ed-8c1a-368f8bbc5bbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Drawables\Paths\Args">
-      <UniqueIdentifier>{a3c2eb86-d271-49cc-aaee-68cd3400ba08}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Settings">
       <UniqueIdentifier>{b364b98f-cabc-4ba1-b0fb-d088b38ae0a4}</UniqueIdentifier>
@@ -112,61 +55,13 @@
     <Filter Include="Source Files\Statistics">
       <UniqueIdentifier>{d4997d82-508b-4a1d-a4f3-763d2721acc7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Script">
-      <UniqueIdentifier>{9d08df0c-8d45-45ec-aa6d-becc57d94618}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Script">
-      <UniqueIdentifier>{05ee0796-0a57-4cc1-bcc5-d11cc7d97920}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Script\Generated">
-      <UniqueIdentifier>{6b419c52-34df-4554-9136-8ecffa1c44b4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Script\Generated">
-      <UniqueIdentifier>{7dc78eed-32bb-4642-bb04-835c08fa6613}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Profiles">
-      <UniqueIdentifier>{7cbe75d1-9896-4d23-91a3-6669ee4714b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Profiles\Exif">
-      <UniqueIdentifier>{ce341e84-3629-4ec9-981b-f1fc1e652ab3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Profiles\Color">
-      <UniqueIdentifier>{618471d4-e4b1-459f-9a56-9275811ad491}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Profiles">
-      <UniqueIdentifier>{3947fe56-b317-4f4b-b313-70a5663f5d30}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Profiles\Exif">
-      <UniqueIdentifier>{5c848016-d796-4fe4-b037-5533aa15a9a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Profiles\Color">
-      <UniqueIdentifier>{532c493b-0cfb-46af-8843-7a37a8ea12f3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Settings">
       <UniqueIdentifier>{29a6b828-4e5c-4d31-9449-b8aaf35e6a36}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Profiles\Iptc">
-      <UniqueIdentifier>{a1d8fd90-a88b-432a-baf2-ac069003c3a2}</UniqueIdentifier>
+    <Filter Include="Header Files\Types">
+      <UniqueIdentifier>{cabdb7f0-94b9-4c15-9cd1-f7c7293716b2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Profiles\Iptc">
-      <UniqueIdentifier>{bc554ed0-c2cd-414b-a63c-12cb325f51a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Profiles\8Bim">
-      <UniqueIdentifier>{b68faca9-677f-4c58-a5dc-59a665e1e7be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Profiles\8Bim">
-      <UniqueIdentifier>{82b2a827-7fc2-4d9d-a1f7-f78fa3bae5b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Events">
-      <UniqueIdentifier>{62451a82-e6b8-4d27-baa4-a30ecaa7ff5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Events">
-      <UniqueIdentifier>{4b877b5f-f693-4866-8229-43765c48cfaf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Results">
-      <UniqueIdentifier>{e4d3fe17-d458-43d2-92b3-849f0f9abc81}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Results">
+    <Filter Include="Source Files\Types">
       <UniqueIdentifier>{2c6bdaa1-a2c4-43c0-831f-9decba916c06}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -177,37 +72,13 @@
     <ClInclude Include="MagickFormatInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers\EnumHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\Throw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\Marshaller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Quantum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MagickNET.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers\ExceptionHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Colors\MagickColor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MagickImage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IO\MagickReaderSettings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IO\MagickReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IO\MagickWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MagickImageInfo.h">
@@ -216,47 +87,68 @@
     <ClInclude Include="MagickImageCollection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\LayerMethod.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Settings\MontageSettings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Arguments\MagickGeometry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Types\MagickGeometry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceLimits.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Drawables\Drawables.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Drawables\Drawable.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Drawables</Filter>
     </ClInclude>
-    <ClInclude Include="Drawables\Paths.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\MatrixHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pixels\PixelBaseCollection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pixels\PixelCollection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pixels\WritablePixelCollection.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Drawables\Drawables.h">
+      <Filter>Header Files\Drawables</Filter>
     </ClInclude>
     <ClInclude Include="Statistics\ChannelPerceptualHash.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\EnumHelper.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\MagickColor.h">
+      <Filter>Header Files\Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\Paths.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\LayerMethod.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\ExceptionHelper.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\Marshaller.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\MatrixHelper.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\Throw.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\MagickReaderSettings.h">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\MagickReader.h">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="IO\MagickWriter.h">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixels\PixelBaseCollection.h">
+      <Filter>Header Files\Pixels</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixels\PixelCollection.h">
+      <Filter>Header Files\Pixels</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixels\WritablePixelCollection.h">
+      <Filter>Header Files\Pixels</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings\MontageSettings.h">
+      <Filter>Header Files\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\MagickGeometry.h">
+      <Filter>Header Files\Types</Filter>
     </ClInclude>
     <ClInclude Include="Types\MagickSearchResult.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -269,40 +161,16 @@
     <ClCompile Include="MagickFormatInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Helpers\EnumHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers\Throw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers\Marshaller.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Quantum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MagickNET.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Helpers\ExceptionHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Initialize.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Colors\MagickColor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MagickImage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IO\MagickReaderSettings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IO\MagickReader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IO\MagickWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MagickImageInfo.cpp">
@@ -311,44 +179,73 @@
     <ClCompile Include="MagickImageCollection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Settings\MontageSettings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Types\MagickGeometry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ResourceLimits.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawables\Drawables.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawables\Drawable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawables\Paths.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GlobalSuppressions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Colors\MagickColor.cpp">
+      <Filter>Source Files\Colors</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Drawables.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Drawable.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\Paths.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\ExceptionHelper.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\EnumHelper.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\Marshaller.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\Throw.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
     <ClCompile Include="Helpers\MatrixHelper.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\MagickReader.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\MagickReaderSettings.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\MagickWriter.cpp">
+      <Filter>Source Files\IO</Filter>
     </ClCompile>
     <ClCompile Include="Pixels\PixelBaseCollection.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Pixels</Filter>
     </ClCompile>
     <ClCompile Include="Pixels\PixelCollection.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Pixels</Filter>
     </ClCompile>
     <ClCompile Include="Pixels\WritablePixelCollection.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Pixels</Filter>
     </ClCompile>
-    <ClCompile Include="Statistics\ChannelPerceptualHash.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Settings\MontageSettings.cpp">
+      <Filter>Source Files\Settings</Filter>
     </ClCompile>
     <ClCompile Include="Types\MagickSearchResult.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Types</Filter>
     </ClCompile>
+    <ClCompile Include="Types\MagickGeometry.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\ChannelPerceptualHash.cpp">
+      <Filter>Source Files\Statistics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources\$(Configuration)\$(Platform)\Magick.NET.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
