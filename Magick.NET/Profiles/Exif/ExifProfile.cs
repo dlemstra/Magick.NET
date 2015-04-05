@@ -27,6 +27,7 @@ namespace ImageMagick
 	{
 		//===========================================================================================
 		private Collection<ExifValue> _Values;
+		private List<ExifTag> _InvalidTags;
 		private uint _ThumbnailOffset;
 		private uint _ThumbnailLength;
 		//===========================================================================================
@@ -45,6 +46,7 @@ namespace ImageMagick
 
 			ExifReader reader = new ExifReader();
 			_Values = reader.Read(Data);
+			_InvalidTags = new List<ExifTag>(reader.InvalidTags);
 			_ThumbnailOffset = reader.ThumbnailOffset;
 			_ThumbnailLength = reader.ThumbnailLength;
 		}
@@ -104,6 +106,17 @@ namespace ImageMagick
 		{
 			get;
 			set;
+		}
+		///==========================================================================================
+		///<summary>
+		/// Returns the tags that where found but contained an invalid value.
+		///</summary>
+		public IEnumerable<ExifTag> InvalidTags
+		{
+			get
+			{
+				return _InvalidTags;
+			}
 		}
 		///==========================================================================================
 		///<summary>

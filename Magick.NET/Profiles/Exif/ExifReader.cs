@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
@@ -26,6 +27,7 @@ namespace ImageMagick
 		private delegate TDataType ConverterMethod<TDataType>(Byte[] data);
 		//===========================================================================================
 		private Byte[] _Data;
+		private Collection<ExifTag> _InvalidTags = new Collection<ExifTag>();
 		private uint _Index;
 		private bool _IsLittleEndian;
 		private uint _ExifOffset;
@@ -36,6 +38,9 @@ namespace ImageMagick
 		{
 			get
 			{
+				if (_Index >= _Data.Length)
+					return 0;
+
 				return _Data.Length - (int)_Index;
 			}
 		}
@@ -174,6 +179,7 @@ namespace ImageMagick
 				_Index = ToLong(data) + _StartIndex;
 				if (RemainingLength < size)
 				{
+					_InvalidTags.Add(tag);
 					_Index = oldIndex;
 					return null;
 				}
@@ -409,6 +415,14 @@ namespace ImageMagick
 				AddValues(result, _GPSOffset);
 
 			return result;
+		}
+		//===========================================================================================
+		public IEnumerable<ExifTag> InvalidTags
+		{
+			get
+			{
+				return _InvalidTags;
+			}
 		}
 		//===========================================================================================
 	}
