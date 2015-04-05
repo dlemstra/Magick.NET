@@ -11,9 +11,11 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
@@ -23,7 +25,7 @@ namespace Magick.NET.FileGenerator
 	internal abstract class ExecuteCodeGenerator : SwitchCodeGenerator
 	{
 		//===========================================================================================
-		private bool IsStatic(MethodBase[] methods)
+		private static bool IsStatic(MethodBase[] methods)
 		{
 			if (methods.Length != 1)
 				return false;
@@ -31,7 +33,7 @@ namespace Magick.NET.FileGenerator
 			return IsStatic(methods[0]);
 		}
 		//===========================================================================================
-		private bool IsStatic(MethodBase method)
+		private static bool IsStatic(MethodBase method)
 		{
 			if (method == null)
 				return false;
@@ -39,25 +41,28 @@ namespace Magick.NET.FileGenerator
 			return method.GetParameters().Length == 0;
 		}
 		//===========================================================================================
-		private bool IsStatic(MemberInfo memberInfo)
+		private static bool IsStatic(MemberInfo memberInfo)
 		{
 			return IsStatic(memberInfo as MethodBase);
 		}
 		//===========================================================================================
 		private void WriteExecute(IndentedTextWriter writer)
 		{
+			writer.WriteLine("[SuppressMessage(\"Microsoft.Maintainability\", \"CA1502:AvoidExcessiveComplexity\")]");
+			writer.WriteLine("[SuppressMessage(\"Microsoft.Maintainability\", \"CA1505:AvoidUnmaintainableCode\")]");
+			writer.Write("private ");
 			writer.Write(ReturnType);
-			writer.Write(" MagickScript::Execute");
+			writer.Write(" Execute");
 			writer.Write(ExecuteName);
-			writer.Write("(XmlElement^ element, ");
+			writer.Write("(XmlElement element, ");
 			writer.Write(ExecuteArgument);
 			writer.WriteLine(")");
 			WriteStartColon(writer);
 
 			IEnumerable<string> names = (from property in Properties
-												  select MagickNET.GetXsdName(property)).Concat(
+												  select MagickTypes.GetXsdName(property)).Concat(
 												  from method in Methods
-												  select MagickNET.GetXsdName(method[0])).Concat(
+												  select MagickTypes.GetXsdName(method[0])).Concat(
 												  CustomMethods);
 
 			WriteSwitch(writer, names);
@@ -66,12 +71,16 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteExecute(IndentedTextWriter writer, MethodBase[] methods)
 		{
+			WriteSeparator(writer);
+			writer.Write("private ");
+			if (IsStatic(methods))
+				writer.Write("static ");
 			writer.Write(ReturnType);
-			writer.Write(" MagickScript::Execute");
-			writer.Write(MagickNET.GetName(methods[0]));
+			writer.Write(" Execute");
+			writer.Write(GetName(methods[0]));
 			writer.Write("(");
 			if (!IsStatic(methods))
-				writer.Write("XmlElement^ element, ");
+				writer.Write("XmlElement element, ");
 			writer.Write(ExecuteArgument);
 			writer.WriteLine(")");
 			WriteStartColon(writer);
@@ -83,9 +92,11 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteExecute(IndentedTextWriter writer, PropertyInfo property)
 		{
-			writer.Write("void MagickScript::Execute");
+			WriteSeparator(writer);
+			writer.Write("private ");
+			writer.Write("void Execute");
 			writer.Write(property.Name);
-			writer.Write("(XmlElement^ element, ");
+			writer.Write("(XmlElement element, ");
 			writer.Write(ExecuteArgument);
 			writer.WriteLine(")");
 			WriteStartColon(writer);
@@ -93,39 +104,6 @@ namespace Magick.NET.FileGenerator
 			WriteSet(writer, property);
 
 			WriteEndColon(writer);
-		}
-		//===========================================================================================
-		private void WriteExecuteHeader(IndentedTextWriter writer)
-		{
-			writer.Write(ReturnType);
-			writer.Write(" Execute");
-			writer.Write(ExecuteName);
-			writer.Write("(XmlElement^ element, ");
-			writer.Write(ExecuteArgument);
-			writer.WriteLine(");");
-		}
-		//===========================================================================================
-		private void WriteHeader(IndentedTextWriter writer, MethodBase[] methods)
-		{
-			bool isStatic = IsStatic(methods);
-			if (isStatic)
-				writer.Write("static ");
-
-			writer.Write(ReturnType);
-			writer.Write(" Execute");
-			writer.Write(MagickNET.GetName(methods[0]));
-			writer.Write("(");
-			if (!isStatic)
-				writer.Write("XmlElement^ element, ");
-			writer.Write(ExecuteArgument);
-			writer.WriteLine(");");
-		}
-		//===========================================================================================
-		private void WriteHeader(IndentedTextWriter writer, PropertyInfo property)
-		{
-			writer.Write("void Execute");
-			writer.Write(property.Name);
-			writer.WriteLine("(XmlElement^ element, MagickImage^ image);");
 		}
 		//===========================================================================================
 		protected virtual string[] CustomMethods
@@ -173,13 +151,13 @@ namespace Magick.NET.FileGenerator
 		protected sealed override void WriteCase(IndentedTextWriter writer, string name)
 		{
 			MemberInfo member = (from property in Properties
-										where MagickNET.GetXsdName(property).Equals(name, StringComparison.OrdinalIgnoreCase)
+										where MagickTypes.GetXsdName(property).Equals(name, StringComparison.OrdinalIgnoreCase)
 										select property).FirstOrDefault();
 
 			if (member == null)
 				member = (from overloads in Methods
 							 let method = overloads[overloads.Length - 1]
-							 where MagickNET.GetXsdName(method).Equals(name, StringComparison.OrdinalIgnoreCase)
+							 where MagickTypes.GetXsdName(method).Equals(name, StringComparison.OrdinalIgnoreCase)
 							 select method).FirstOrDefault();
 
 
@@ -188,12 +166,12 @@ namespace Magick.NET.FileGenerator
 			writer.Write("Execute");
 			if (member == null)
 			{
-				writer.Write(char.ToUpper(name[0]));
+				writer.Write(char.ToUpper(name[0], CultureInfo.InvariantCulture));
 				writer.Write(name.Substring(1));
 			}
 			else
 			{
-				writer.Write(MagickNET.GetName(member));
+				writer.Write(GetName(member));
 			}
 			writer.Write("(");
 			if (member == null || !IsStatic(member))
@@ -204,10 +182,25 @@ namespace Magick.NET.FileGenerator
 				writer.WriteLine("return;");
 		}
 		//===========================================================================================
+		protected override void WriteCode(IndentedTextWriter writer)
+		{
+			WriteExecute(writer);
+
+			foreach (PropertyInfo property in Properties)
+			{
+				WriteExecute(writer, property);
+			}
+
+			foreach (MethodBase[] methods in Methods)
+			{
+				WriteExecute(writer, methods);
+			}
+		}
+		//===========================================================================================
 		protected void WriteGetValue(IndentedTextWriter writer, PropertyInfo property)
 		{
-			string typeName = MagickNET.GetCppTypeName(property);
-			string xsdTypeName = MagickNET.GetXsdAttributeType(property);
+			string typeName = GetName(property);
+			string xsdTypeName = MagickTypes.GetXsdAttributeType(property);
 
 			if (xsdTypeName != null)
 			{
@@ -224,33 +217,11 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected abstract void WriteSet(IndentedTextWriter writer, PropertyInfo property);
 		//===========================================================================================
-		public override void WriteCode(IndentedTextWriter writer)
+		public override string Name
 		{
-			WriteExecute(writer);
-
-			foreach (PropertyInfo property in Properties)
+			get
 			{
-				WriteExecute(writer, property);
-			}
-
-			foreach (MethodBase[] methods in Methods)
-			{
-				WriteExecute(writer, methods);
-			}
-		}
-		//===========================================================================================
-		public override void WriteHeader(IndentedTextWriter writer)
-		{
-			WriteExecuteHeader(writer);
-
-			foreach (PropertyInfo property in Properties)
-			{
-				WriteHeader(writer, property);
-			}
-
-			foreach (MethodBase[] overloads in Methods)
-			{
-				WriteHeader(writer, overloads);
+				return ExecuteName;
 			}
 		}
 		//===========================================================================================

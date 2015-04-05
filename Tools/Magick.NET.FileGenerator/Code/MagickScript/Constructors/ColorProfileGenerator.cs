@@ -34,40 +34,36 @@ namespace Magick.NET.FileGenerator
 			throw new NotImplementedException();
 		}
 		//===========================================================================================
-		public override void WriteCode(IndentedTextWriter writer)
+		protected override void WriteCode(IndentedTextWriter writer)
 		{
+			writer.Write("private static ");
 			writer.Write(TypeName);
-			writer.Write(" MagickScript::Create");
+			writer.Write(" Create");
 			writer.Write(ClassName);
-			writer.WriteLine("(XmlElement^ element)");
+			writer.WriteLine("(XmlElement element)");
 			WriteStartColon(writer);
-			foreach (string name in MagickNET.GetColorProfileNames())
+			foreach (string name in Types.GetColorProfileNames())
 			{
-				writer.Write("if (element->GetAttribute(\"name\") == \"");
+				writer.Write("if (element.GetAttribute(\"name\") == \"");
 				writer.Write(name);
 				writer.WriteLine("\")");
 				writer.Indent++;
-				writer.Write("return ColorProfile::");
+				writer.Write("return ColorProfile.");
 				writer.Write(name);
 				writer.WriteLine(";");
 				writer.Indent--;
 			}
-			writer.WriteLine("throw gcnew NotImplementedException(element->Name);");
+			writer.WriteLine("throw new NotImplementedException(element.Name);");
 			WriteEndColon(writer);
-		}
-		//===========================================================================================
-		public override void WriteHeader(IndentedTextWriter writer)
-		{
-			writer.Write("static ");
-			writer.Write(TypeName);
-			writer.Write(" Create");
-			writer.Write(ClassName);
-			writer.WriteLine("(XmlElement^ element);");
 		}
 		//===========================================================================================
 		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
 			throw new NotImplementedException();
+		}
+		//===========================================================================================
+		public ColorProfileGenerator()
+		{
 		}
 		//===========================================================================================
 	}

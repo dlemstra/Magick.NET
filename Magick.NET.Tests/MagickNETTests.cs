@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
 				MagickNET.Initialize("Invalid");
 			});
 
-			string path = Path.GetDirectoryName(GetType().Assembly.Location) + @"..\..\..\..\..\Magick.NET\Resources\xml";
+			string path = Path.GetDirectoryName(GetType().Assembly.Location) + @"..\..\..\..\..\Magick.NET.Wrapper\Resources\xml";
 			foreach (string fileName in Directory.GetFiles(path, "*.xml"))
 			{
 				string tempFile = fileName + ".tmp";
@@ -170,7 +170,11 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Version()
 		{
+#if ANYCPU
+			StringAssert.Contains(MagickNET.Version, "AnyCPU");
+#else
 			StringAssert.Contains(MagickNET.Version, "x86");
+#endif
 
 #if NET20
 			StringAssert.Contains(MagickNET.Version, "net20");

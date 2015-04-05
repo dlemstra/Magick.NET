@@ -11,8 +11,8 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System;
-using Magick.NET.FileGenerator.AnyCPU;
 
 namespace Magick.NET.FileGenerator
 {
@@ -20,19 +20,9 @@ namespace Magick.NET.FileGenerator
 	internal class Program
 	{
 		//===========================================================================================
-		internal static void Main(string[] args)
+		internal static void Main()
 		{
-			bool generateMagickScript = (args.Length == 0);
-			bool generateAnyCPU = (args.Length == 0) || (args[0] == "--AnyCPU");
-
-			if (generateMagickScript)
-			{
-				XsdGenerator.Generate();
-				MagickScriptGenerator.Generate();
-			}
-
-			if (generateAnyCPU)
-				AnyCPUGenerator.Generate();
+			AppDomainHelper.Execute();
 		}
 	}
 	//==============================================================================================

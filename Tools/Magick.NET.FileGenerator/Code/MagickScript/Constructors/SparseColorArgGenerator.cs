@@ -31,14 +31,14 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			writer.Write("return gcnew SparseColorArg(");
+			writer.Write("return new SparseColorArg(");
 			WriteParameters(writer, parameters);
 			writer.WriteLine(");");
 		}
 		//===========================================================================================
 		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			writer.Write("return gcnew SparseColorArg(");
+			writer.Write("return new SparseColorArg(");
 			WriteHashtableParameters(writer, parameters);
 			writer.WriteLine(");");
 		}

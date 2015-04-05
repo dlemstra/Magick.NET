@@ -11,6 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System.CodeDom.Compiler;
 using System.Linq;
 using System.Reflection;
@@ -28,7 +29,7 @@ namespace Magick.NET.FileGenerator
 			get
 			{
 				if (_Constructors == null)
-					_Constructors = MagickNET.GetConstructors(ClassName).ToArray();
+					_Constructors = Types.GetConstructors(ClassName).ToArray();
 
 				return _Constructors;
 			}
@@ -38,7 +39,7 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return MagickNET.GetCppTypeName(Constructors[0]);
+				return GetName(Constructors[0]);
 			}
 		}
 		//===========================================================================================
@@ -55,12 +56,13 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		public override void WriteCode(IndentedTextWriter writer)
+		protected override void WriteCode(IndentedTextWriter writer)
 		{
+			writer.Write("private ");
 			writer.Write(TypeName);
-			writer.Write(" MagickScript::Create");
+			writer.Write(" Create");
 			writer.Write(ClassName);
-			writer.WriteLine("(XmlElement^ element)");
+			writer.WriteLine("(XmlElement element)");
 			WriteStartColon(writer);
 			WriteMethod(writer, Constructors);
 			WriteEndColon(writer);
@@ -68,42 +70,35 @@ namespace Magick.NET.FileGenerator
 			if (!WriteEnumerable)
 				return;
 
+			WriteSeparator(writer);
+			writer.Write("private ");
 			writer.Write("Collection<");
 			writer.Write(TypeName);
-			writer.Write(">^ MagickScript::Create");
+			writer.Write("> Create");
 			writer.Write(ClassName);
-			writer.WriteLine("s(XmlElement^ element)");
+			writer.WriteLine("s(XmlElement element)");
 			WriteStartColon(writer);
 			writer.Write("Collection<");
 			writer.Write(TypeName);
-			writer.Write(">^ collection = gcnew Collection<");
+			writer.Write("> collection = new Collection<");
 			writer.Write(TypeName);
 			writer.WriteLine(">();");
-			writer.WriteLine("for each (XmlElement^ elem in element->SelectNodes(\"*\"))");
+			writer.WriteLine("foreach (XmlElement elem in element.SelectNodes(\"*\"))");
 			WriteStartColon(writer);
-			writer.Write("collection->Add(Create");
-			writer.Write(TypeName.Replace("^", ""));
+			writer.Write("collection.Add(Create");
+			writer.Write(TypeName);
 			writer.WriteLine("(elem));");
 			WriteEndColon(writer);
 			writer.WriteLine("return collection;");
 			WriteEndColon(writer);
 		}
 		//===========================================================================================
-		public override void WriteHeader(IndentedTextWriter writer)
+		public override string Name
 		{
-			writer.Write(TypeName);
-			writer.Write(" Create");
-			writer.Write(ClassName);
-			writer.WriteLine("(XmlElement^ element);");
-
-			if (!WriteEnumerable)
-				return;
-
-			writer.Write("Collection<");
-			writer.Write(TypeName);
-			writer.Write(">^ Create");
-			writer.Write(ClassName);
-			writer.WriteLine("s(XmlElement^ element);");
+			get
+			{
+				return ClassName;
+			}
 		}
 		//===========================================================================================
 	}

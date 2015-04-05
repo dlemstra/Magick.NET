@@ -27,33 +27,14 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		protected override void WriteIncludes(IndentedTextWriter writer, InterfaceGenerator generator)
+		protected override void WriteCode(IndentedTextWriter writer)
 		{
-			string type = generator.ClassName.Replace("ReadDefines", "");
-			type = type.Replace("WriteDefines", "");
-
-			writer.Write(@"#include ""..\..\Defines\");
-			writer.Write(type);
-			writer.Write("\\");
-			writer.Write(generator.ClassName);
-			writer.WriteLine(@".h""");
-		}
-		//===========================================================================================
-		public override void WriteCode(IndentedTextWriter writer)
-		{
-			writer.WriteLine("IReadDefines^ MagickScript::CreateIReadDefines(XmlElement^ parent)");
+			writer.WriteLine("IReadDefines CreateIReadDefines(XmlElement parent)");
 			WriteStartColon(writer);
-			writer.WriteLine("return dynamic_cast<IReadDefines^>(CreateIDefines(parent));");
+			writer.WriteLine("return CreateIDefines(parent) as IReadDefines;");
 			WriteEndColon(writer);
 
 			base.WriteCode(writer);
-		}
-		//===========================================================================================
-		public override void WriteHeader(IndentedTextWriter writer)
-		{
-			WriteHeader(writer, "IReadDefines");
-
-			base.WriteHeader(writer);
 		}
 		//===========================================================================================
 	}

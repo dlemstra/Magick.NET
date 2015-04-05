@@ -16,12 +16,18 @@ using System.IO;
 
 namespace ImageMagick
 {
-	//==============================================================================================
+	///=============================================================================================
+	///<summary>
+	/// Class that can be used to initialize the AnyCPU version of Magick.NET.
+	///</summary>
 	public static class MagickAnyCPU
 	{
 		//===========================================================================================
 		private static string _CacheDirectory = Path.GetTempPath();
-		//===========================================================================================
+		///==========================================================================================
+		///<summary>
+		/// Sets the directory that will be used by Magick.NET to store the embedded assemblies.
+		///</summary>
 		public static string CacheDirectory
 		{
 			get
@@ -31,7 +37,7 @@ namespace ImageMagick
 			set
 			{
 				if (!Directory.Exists(value))
-					throw new InvalidOperationException("The specified direcory does not exist.");
+					throw new InvalidOperationException("The specified directory does not exist.");
 				_CacheDirectory = value;
 			}
 		}

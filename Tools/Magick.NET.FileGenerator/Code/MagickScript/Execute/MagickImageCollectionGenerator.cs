@@ -23,7 +23,7 @@ namespace Magick.NET.FileGenerator
 	internal sealed class MagickImageCollectionGenerator : ExecuteCodeGenerator
 	{
 		//===========================================================================================
-		private bool ReturnsImage(MethodBase method)
+		private static bool ReturnsImage(MethodBase method)
 		{
 			return ((MethodInfo)method).ReturnType.Name == "MagickImage";
 		}
@@ -32,7 +32,7 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return "MagickImageCollection^ collection";
+				return "MagickImageCollection collection";
 			}
 		}
 		//===========================================================================================
@@ -48,8 +48,8 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return MagickNET.GetGroupedMagickImageCollectionMethods().
-							Concat(MagickNET.GetGroupedMagickImageCollectionResultMethods());
+				return Types.GetGroupedMagickImageCollectionMethods().
+							Concat(Types.GetGroupedMagickImageCollectionResultMethods());
 			}
 		}
 		//===========================================================================================
@@ -57,7 +57,7 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return "MagickImage^";
+				return "MagickImage";
 			}
 		}
 		//===========================================================================================
@@ -66,14 +66,14 @@ namespace Magick.NET.FileGenerator
 			if (ReturnsImage(method))
 				writer.Write("return ");
 
-			writer.Write("collection->");
+			writer.Write("collection.");
 			writer.Write(method.Name);
 			writer.Write("(");
 			WriteParameters(writer, parameters);
 			writer.WriteLine(");");
 
 			if (!ReturnsImage(method))
-				writer.WriteLine("return nullptr;");
+				writer.WriteLine("return null;");
 		}
 		//===========================================================================================
 		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
@@ -85,7 +85,7 @@ namespace Magick.NET.FileGenerator
 			else
 				WriteStartColon(writer);
 
-			writer.Write("collection->");
+			writer.Write("collection.");
 			writer.Write(method.Name);
 			writer.Write("(");
 			WriteHashtableParameters(writer, parameters);
@@ -93,7 +93,7 @@ namespace Magick.NET.FileGenerator
 
 			if (!ReturnsImage(method))
 			{
-				writer.WriteLine("return nullptr;");
+				writer.WriteLine("return null;");
 				WriteEndColon(writer);
 			}
 		}
@@ -101,6 +101,14 @@ namespace Magick.NET.FileGenerator
 		protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)
 		{
 			throw new NotImplementedException();
+		}
+		//===========================================================================================
+		public override string Name
+		{
+			get
+			{
+				return "MagickImageCollection";
+			}
 		}
 	}
 	//==============================================================================================

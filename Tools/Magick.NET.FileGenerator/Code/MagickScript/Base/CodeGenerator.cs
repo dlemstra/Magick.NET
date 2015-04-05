@@ -11,6 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System;
 using System.CodeDom.Compiler;
 using System.Linq;
@@ -22,42 +23,52 @@ namespace Magick.NET.FileGenerator
 	internal abstract class CodeGenerator
 	{
 		//===========================================================================================
-		private MagickNET _MagickNET;
+		private static void CheckDuplicateParameterNames(MethodBase[] methods)
+		{
+			int count = (from method in methods
+							 let name = string.Join(",", from parameter in method.GetParameters()
+																  orderby parameter.Name
+																  select parameter.Name)
+							 select name).Distinct().Count();
+
+			if (count != methods.Length)
+				throw new InvalidOperationException("Duplicate names detected for: " + methods[0].Name);
+		}
 		//===========================================================================================
 		private void WriteAttributeForEach(IndentedTextWriter writer, ParameterInfo[] allParameters)
 		{
-			ParameterInfo[] parameters = allParameters.Where(p => _MagickNET.GetXsdAttributeType(p) != null).ToArray();
+			ParameterInfo[] parameters = allParameters.Where(p => MagickTypes.GetXsdAttributeType(p) != null).ToArray();
 			if (parameters.Length == 0)
 				return;
 
 			parameters = parameters.OrderBy(p => p.Name).ToArray();
 
-			writer.WriteLine("for each(XmlAttribute^ attribute in element->Attributes)");
+			writer.WriteLine("foreach (XmlAttribute attribute in element.Attributes)");
 			WriteStartColon(writer);
 
-			if (parameters.DistinctBy(p => _MagickNET.GetCppTypeName(p)).Count() == 1)
+			if (parameters.DistinctBy(p => GetName(p)).Count() == 1)
 			{
-				writer.Write("arguments[attribute->Name] = _Variables->GetValue<");
-				writer.Write(_MagickNET.GetCppTypeName(parameters[0]));
+				writer.Write("arguments[attribute.Name] = Variables.GetValue<");
+				writer.Write(GetName(parameters[0]));
 				writer.WriteLine(">(attribute);");
 			}
 			else
 			{
 				for (int i = 0; i < parameters.Length; i++)
 				{
-					string xsdName = _MagickNET.GetXsdName(parameters[i]);
+					string xsdName = MagickTypes.GetXsdName(parameters[i]);
 
 					if (i > 0)
 						writer.Write("else ");
 
-					writer.Write("if (attribute->Name == \"");
+					writer.Write("if (attribute.Name == \"");
 					writer.Write(xsdName);
 					writer.WriteLine("\")");
 					writer.Indent++;
 					writer.Write("arguments[\"");
 					writer.Write(xsdName);
 					writer.Write("\"] = ");
-					WriteGetAttributeValue(writer, _MagickNET.GetCppTypeName(parameters[i]), xsdName);
+					WriteGetAttributeValue(writer, GetName(parameters[i]));
 					writer.Indent--;
 				}
 			}
@@ -88,7 +99,7 @@ namespace Magick.NET.FileGenerator
 				}
 				else
 				{
-					writer.Write("arguments->Count == 0");
+					writer.Write("arguments.Count == 0");
 				}
 
 				writer.WriteLine(")");
@@ -100,36 +111,36 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteElementForEach(IndentedTextWriter writer, ParameterInfo[] allParameters)
 		{
-			ParameterInfo[] parameters = allParameters.Where(p => _MagickNET.GetXsdAttributeType(p) == null).ToArray();
+			ParameterInfo[] parameters = allParameters.Where(p => MagickTypes.GetXsdAttributeType(p) == null).ToArray();
 			if (parameters.Length == 0)
 				return;
 
-			writer.WriteLine("for each(XmlElement^ elem in element->SelectNodes(\"*\"))");
+			writer.WriteLine("foreach (XmlElement elem in element.SelectNodes(\"*\"))");
 			WriteStartColon(writer);
 
-			if (parameters.DistinctBy(p => _MagickNET.GetCppTypeName(p)).Count() == 1)
+			if (parameters.DistinctBy(p => GetName(p)).Count() == 1)
 			{
-				writer.Write("arguments[elem->Name] = ");
-				WriteCreateMethod(writer, _MagickNET.GetCppTypeName(parameters[0]));
+				writer.Write("arguments[elem.Name] = ");
+				WriteCreateMethod(writer, GetName(parameters[0]));
 				writer.WriteLine("(elem);");
 			}
 			else
 			{
 				for (int i = 0; i < parameters.Length; i++)
 				{
-					string xsdName = _MagickNET.GetXsdName(parameters[i]);
+					string xsdName = MagickTypes.GetXsdName(parameters[i]);
 
 					if (i > 0)
 						writer.Write("else ");
 
-					writer.Write("if (elem->Name == \"");
+					writer.Write("if (elem.Name == \"");
 					writer.Write(xsdName);
 					writer.WriteLine("\")");
 					writer.Indent++;
 					writer.Write("arguments[\"");
 					writer.Write(xsdName);
 					writer.Write("\"] = ");
-					WriteCreateMethod(writer, _MagickNET.GetCppTypeName(parameters[i]));
+					WriteCreateMethod(writer, GetName(parameters[i]));
 					writer.WriteLine("(elem);");
 					writer.Indent--;
 				}
@@ -140,8 +151,8 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteGetValue(IndentedTextWriter writer, ParameterInfo parameter)
 		{
-			string typeName = _MagickNET.GetCppTypeName(parameter);
-			string xsdTypeName = _MagickNET.GetXsdAttributeType(parameter);
+			string typeName = GetName(parameter);
+			string xsdTypeName = MagickTypes.GetXsdAttributeType(parameter);
 
 			if (xsdTypeName != null)
 			{
@@ -156,11 +167,28 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		private void WriteInvalidCombinations(IndentedTextWriter writer, MethodBase[] methods)
+		private static void WriteHeader(IndentedTextWriter writer)
+		{
+			writer.WriteLine("//=================================================================================================");
+			writer.WriteLine("// Copyright 2013-" + DateTime.Now.Year + " Dirk Lemstra <https://magick.codeplex.com/>");
+			writer.WriteLine("//");
+			writer.WriteLine("// Licensed under the ImageMagick License (the \"License\"); you may not use this file except in");
+			writer.WriteLine("// compliance with the License. You may obtain a copy of the License at");
+			writer.WriteLine("//");
+			writer.WriteLine("//   http://www.imagemagick.org/script/license.php");
+			writer.WriteLine("//");
+			writer.WriteLine("// Unless required by applicable law or agreed to in writing, software distributed under the");
+			writer.WriteLine("// License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either");
+			writer.WriteLine("// express or implied. See the License for the specific language governing permissions and");
+			writer.WriteLine("// limitations under the License.");
+			writer.WriteLine("//=================================================================================================");
+		}
+		//===========================================================================================
+		private static void WriteInvalidCombinations(IndentedTextWriter writer, MethodBase[] methods)
 		{
 			writer.WriteLine("else");
 			writer.Indent++;
-			writer.Write("throw gcnew ArgumentException(\"Invalid argument combination for '" + _MagickNET.GetXsdName(methods[0]) + "', allowed combinations are:");
+			writer.Write("throw new ArgumentException(\"Invalid argument combination for '" + MagickTypes.GetXsdName(methods[0]) + "', allowed combinations are:");
 			foreach (MethodBase method in methods)
 			{
 				writer.Write(" [");
@@ -181,7 +209,7 @@ namespace Magick.NET.FileGenerator
 		{
 			foreach (ParameterInfo parameter in parameters)
 			{
-				string typeName = MagickNET.GetCppTypeName(parameter);
+				string typeName = GetName(parameter);
 
 				writer.Write(typeName);
 				writer.Write(" ");
@@ -195,12 +223,43 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteMethod(IndentedTextWriter writer, MethodBase[] methods, ParameterInfo[] parameters)
 		{
-			writer.WriteLine("System::Collections::Hashtable^ arguments = gcnew System::Collections::Hashtable();");
+			CheckDuplicateParameterNames(methods);
+
+			writer.WriteLine("Hashtable arguments = new Hashtable();");
 
 			WriteAttributeForEach(writer, parameters);
 			WriteElementForEach(writer, parameters);
 			WriteCallIfElse(writer, methods);
 			WriteInvalidCombinations(writer, methods);
+		}
+		//===========================================================================================
+		private static void WriteStartNamespace(IndentedTextWriter writer)
+		{
+			writer.WriteLine("namespace ImageMagick");
+			WriteStartColon(writer);
+		}
+		//===========================================================================================
+		private static void WriteUsing(IndentedTextWriter writer)
+		{
+			writer.WriteLine("");
+			writer.WriteLine("using System;");
+			writer.WriteLine("using System.Collections;");
+			writer.WriteLine("using System.Collections.Generic;");
+			writer.WriteLine("using System.Collections.ObjectModel;");
+			writer.WriteLine("using System.Diagnostics.CodeAnalysis;");
+			writer.WriteLine("using System.Text;");
+			writer.WriteLine("using System.Xml;");
+			writer.WriteLine("");
+			writer.WriteLine("#if Q8");
+			writer.WriteLine("using QuantumType = System.Byte;");
+			writer.WriteLine("#elif Q16");
+			writer.WriteLine("using QuantumType = System.UInt16;");
+			writer.WriteLine("#elif Q16HDRI");
+			writer.WriteLine("using QuantumType = System.Single;");
+			writer.WriteLine("#else");
+			writer.WriteLine("#error Not implemented!");
+			writer.WriteLine("#endif");
+			writer.WriteLine("");
 		}
 		//===========================================================================================
 		protected static void WriteParameters(IndentedTextWriter writer, ParameterInfo[] parameters)
@@ -215,17 +274,36 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		protected CodeGenerator()
+		protected static void WriteSeparator(IndentedTextWriter writer)
 		{
-			_MagickNET = new MagickNET(QuantumDepth.Q16);
+			int length = 98 - (writer.Indent * 3);
+			writer.Write("//");
+			writer.WriteLine(new string('=', length));
 		}
 		//===========================================================================================
-		protected MagickNET MagickNET
+		protected CodeGenerator()
 		{
-			get
-			{
-				return _MagickNET;
-			}
+		}
+		//===========================================================================================
+		protected MagickTypes Types
+		{
+			get;
+			private set;
+		}
+		//===========================================================================================
+		protected static string GetName(MemberInfo member)
+		{
+			return MagickTypes.GetName(member);
+		}
+		//===========================================================================================
+		protected string GetName(ParameterInfo parameterInfo)
+		{
+			return Types.GetName(parameterInfo.ParameterType);
+		}
+		//===========================================================================================
+		protected string GetName(PropertyInfo propertyInfo)
+		{
+			return Types.GetName(propertyInfo.PropertyType);
 		}
 		//===========================================================================================
 		protected abstract void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters);
@@ -236,9 +314,9 @@ namespace Magick.NET.FileGenerator
 		{
 			writer.Write("if (");
 			writer.Write(name);
-			writer.WriteLine(" == nullptr)");
+			writer.WriteLine(" == null)");
 			writer.Indent++;
-			writer.WriteLine("return nullptr;");
+			writer.WriteLine("return null;");
 			writer.Indent--;
 		}
 		//===========================================================================================
@@ -247,7 +325,7 @@ namespace Magick.NET.FileGenerator
 			for (int k = 0; k < parameters.Length; k++)
 			{
 				writer.Write("(");
-				writer.Write(_MagickNET.GetCppTypeName(parameters[k]));
+				writer.Write(GetName(parameters[k]));
 				writer.Write(")arguments[\"");
 				writer.Write(parameters[k].Name);
 				writer.Write("\"]");
@@ -261,58 +339,58 @@ namespace Magick.NET.FileGenerator
 		{
 			switch (typeName)
 			{
-				case "array<double>^":
-					writer.Write("_Variables->GetDoubleArray");
+				case "Double[]":
+					writer.Write("Variables.GetDoubleArray");
 					break;
 				case "Coordinate":
 					writer.Write("CreateCoordinate");
 					break;
-				case "PathArc^":
+				case "PathArc":
 					writer.Write("CreateArc");
 					break;
-				case "IDefines^":
+				case "IDefines":
 					writer.Write("CreateIDefines");
 					break;
-				case "IEnumerable<Coordinate>^":
+				case "IEnumerable<Coordinate>":
 					writer.Write("CreateCoordinates");
 					break;
-				case "IEnumerable<MagickGeometry^>^":
+				case "IEnumerable<MagickGeometry>":
 					writer.Write("CreateMagickGeometryCollection");
 					break;
-				case "IEnumerable<PathBase^>^":
+				case "IEnumerable<IPath>":
 					writer.Write("CreatePaths");
 					break;
-				case "IEnumerable<PathArc^>^":
+				case "IEnumerable<PathArc>":
 					writer.Write("CreatePathArcs");
 					break;
-				case "IEnumerable<PathCurveto^>^":
+				case "IEnumerable<PathCurveto>":
 					writer.Write("CreatePathCurvetos");
 					break;
-				case "IEnumerable<PathQuadraticCurveto^>^":
+				case "IEnumerable<PathQuadraticCurveto>":
 					writer.Write("CreatePathQuadraticCurvetos");
 					break;
-				case "IEnumerable<SparseColorArg^>^":
+				case "IEnumerable<SparseColorArg>":
 					writer.Write("CreateSparseColorArgs");
 					break;
-				case "ImageProfile^":
+				case "ImageProfile":
 					writer.Write("CreateProfile");
 					break;
-				case "IReadDefines^":
+				case "IReadDefines":
 					writer.Write("CreateIReadDefines");
 					break;
-				case "MagickImage^":
+				case "MagickImage":
 					writer.Write("CreateMagickImage");
 					break;
-				case "MagickGeometry^":
+				case "MagickGeometry":
 					writer.Write("CreateMagickGeometry");
 					break;
-				case "MontageSettings^":
+				case "MontageSettings":
 					writer.Write("CreateMontageSettings");
 					break;
-				case "PixelStorageSettings^":
+				case "PixelStorageSettings":
 					writer.Write("CreatePixelStorageSettings");
 					break;
-				case "QuantizeSettings^":
+				case "QuantizeSettings":
 					writer.Write("CreateQuantizeSettings");
 					break;
 				default:
@@ -328,16 +406,16 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected static void WriteGetElementValue(IndentedTextWriter writer, string typeName, string attributeName)
 		{
-			writer.Write("_Variables->GetValue<");
+			writer.Write("Variables.GetValue<");
 			writer.Write(typeName);
 			writer.Write(">(element, \"");
 			writer.Write(attributeName);
 			writer.WriteLine("\");");
 		}
 		//===========================================================================================
-		protected static void WriteGetAttributeValue(IndentedTextWriter writer, string typeName, string attributeName)
+		protected static void WriteGetAttributeValue(IndentedTextWriter writer, string typeName)
 		{
-			writer.Write("_Variables->GetValue<");
+			writer.Write("Variables.GetValue<");
 			writer.Write(typeName);
 			writer.WriteLine(">(attribute);");
 		}
@@ -366,8 +444,8 @@ namespace Magick.NET.FileGenerator
 		{
 			switch (typeName)
 			{
-				case "array<double>^":
-				case "MagickImage^":
+				case "Double[]":
+				case "MagickImage":
 					writer.Write("element");
 					if (!string.IsNullOrEmpty(elementName))
 					{
@@ -376,21 +454,21 @@ namespace Magick.NET.FileGenerator
 						writer.Write("\"]");
 					}
 					break;
-				case "IEnumerable<Coordinate>^":
-				case "IEnumerable<Drawable^>^":
-				case "IEnumerable<MagickGeometry^>^":
-				case "IEnumerable<PathBase^>^":
-				case "IEnumerable<PathArc^>^":
-				case "IEnumerable<PathCurveto^>^":
-				case "IEnumerable<PathQuadraticCurveto^>^":
-				case "ImageProfile^":
+				case "IEnumerable<Coordinate>":
+				case "IEnumerable<Drawable>":
+				case "IEnumerable<MagickGeometry>":
+				case "IEnumerable<IPath>":
+				case "IEnumerable<PathArc>":
+				case "IEnumerable<PathCurveto>":
+				case "IEnumerable<PathQuadraticCurveto>":
+				case "ImageProfile":
 					writer.Write("element");
 					break;
-				case "IDefines^":
-				case "IReadDefines^":
-				case "MontageSettings^":
-				case "PixelStorageSettings^":
-				case "QuantizeSettings^":
+				case "IDefines":
+				case "IReadDefines":
+				case "MontageSettings":
+				case "PixelStorageSettings":
+				case "QuantizeSettings":
 					writer.Write("element[\"");
 					writer.Write(elementName);
 					writer.Write("\"]");
@@ -406,12 +484,35 @@ namespace Magick.NET.FileGenerator
 			writer.Indent++;
 		}
 		//===========================================================================================
-		public abstract void WriteCode(IndentedTextWriter writer);
-		//===========================================================================================
-		public abstract void WriteHeader(IndentedTextWriter writer);
-		//===========================================================================================
-		public virtual void WriteIncludes(IndentedTextWriter writer)
+		public abstract string Name
 		{
+			get;
+		}
+		//===========================================================================================
+		protected abstract void WriteCode(IndentedTextWriter writer);
+		//===========================================================================================
+		public void Write(IndentedTextWriter writer, MagickTypes types)
+		{
+			Types = types;
+
+			WriteHeader(writer);
+			WriteUsing(writer);
+			WriteStartNamespace(writer);
+			WriteSeparator(writer);
+			writer.WriteLine("public sealed partial class MagickScript");
+			WriteStartColon(writer);
+			WriteSeparator(writer);
+			WriteCode(writer);
+			WriteSeparator(writer);
+			WriteEndColon(writer);
+			WriteSeparator(writer);
+			WriteEndColon(writer);
+		}
+		//===========================================================================================
+		public void WriteCode(IndentedTextWriter writer, MagickTypes types)
+		{
+			Types = types;
+			WriteCode(writer);
 		}
 		//===========================================================================================
 	}

@@ -33,7 +33,7 @@ namespace Magick.NET.FileGenerator
 			if (shortName == null)
 				return;
 
-			writer.Write("if (element->Name->Length == ");
+			writer.Write("if (element.Name.Length == ");
 			writer.Write(level);
 			writer.WriteLine(")");
 			WriteStartColon(writer);
@@ -59,7 +59,7 @@ namespace Magick.NET.FileGenerator
 
 				if (chars.Count() > 1)
 				{
-					writer.Write("switch(element->Name[");
+					writer.Write("switch(element.Name[");
 					writer.Write(level);
 					writer.WriteLine("])");
 					WriteStartColon(writer);
@@ -85,11 +85,10 @@ namespace Magick.NET.FileGenerator
 				}
 
 				if (chars.Count() > 1)
-				{
 					WriteEndColon(writer);
-					if (writer.Indent != _StartIndent)
-						writer.WriteLine("break;");
-				}
+
+				if (writer.Indent != _StartIndent)
+					writer.WriteLine("break;");
 			}
 		}
 		//===========================================================================================
@@ -97,7 +96,7 @@ namespace Magick.NET.FileGenerator
 		{
 			_StartIndent = writer.Indent;
 			WriteSwitch(writer, names, 0);
-			writer.WriteLine("throw gcnew NotImplementedException(element->Name);");
+			writer.WriteLine("throw new NotImplementedException(element.Name);");
 		}
 		//===========================================================================================
 		protected abstract void WriteCase(IndentedTextWriter writer, string name);

@@ -1,0 +1,121 @@
+//=================================================================================================
+// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+//
+// Licensed under the ImageMagick License (the "License"); you may not use this file except in 
+// compliance with the License. You may obtain a copy of the License at
+//
+//   http://www.imagemagick.org/script/license.php
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the
+// License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied. See the License for the specific language governing permissions and
+// limitations under the License.
+//=================================================================================================
+
+using ImageMagick.Drawables.Paths;
+
+namespace ImageMagick
+{
+	///=============================================================================================
+	///<summary>
+	/// Encapsulation of the PathArc object.
+	///</summary>
+	public sealed class PathArc : IPathArc
+	{
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the PathArc class.
+		///</summary>
+		public PathArc()
+		{
+		}
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the PathArc class.
+		///</summary>
+		///<param name="x">The X offset from origin.</param>
+		///<param name="y">The Y offset from origin.</param>
+		///<param name="radiusX">The X radius.</param>
+		///<param name="radiusY">The Y radius.</param>
+		///<param name="rotationX">Indicates how the ellipse as a whole is rotated relative to the
+		/// current coordinate system.</param>
+		///<param name="useLargeArc">If true then draw the larger of the available arcs.</param>
+		///<param name="useSweep">If true then draw the arc matching a clock-wise rotation.</param>
+		public PathArc(double x, double y, double radiusX, double radiusY, double rotationX,
+			bool useLargeArc, bool useSweep)
+		{
+			X = x;
+			Y = y;
+			RadiusX = radiusX;
+			RadiusY = radiusY;
+			RotationX = rotationX;
+			UseLargeArc = useLargeArc;
+			UseSweep = useSweep;
+		}
+		///==========================================================================================
+		///<summary>
+		/// The X radius.
+		///</summary>
+		public double RadiusX
+		{
+			get;
+			set;
+		}
+		///==========================================================================================
+		///<summary>
+		/// The Y radius.
+		///</summary>
+		public double RadiusY
+		{
+			get;
+			set;
+		}
+		///==========================================================================================
+		///<summary>
+		/// Indicates how the ellipse as a whole is rotated relative to the current coordinate system.
+		///</summary>
+		public double RotationX
+		{
+			get;
+			set;
+		}
+		///==========================================================================================
+		///<summary>
+		/// If true then draw the larger of the available arcs.
+		///</summary>
+		public bool UseLargeArc
+		{
+			get;
+			set;
+		}
+		///==========================================================================================
+		///<summary>
+		/// If true then draw the arc matching a clock-wise rotation.
+		///</summary>
+		public bool UseSweep
+		{
+			get;
+			set;
+		}
+		///==========================================================================================
+		///<summary>
+		/// The X offset from origin.
+		///</summary>
+		public double X
+		{
+			get;
+			set;
+		}
+		///==========================================================================================
+		///<summary>
+		/// The Y offset from origin.
+		///</summary>
+		public double Y
+		{
+			get;
+			set;
+		}
+		//===========================================================================================
+	}
+	//==============================================================================================
+}

@@ -33,7 +33,7 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return "MagickImage^ image";
+				return "MagickImage image";
 			}
 		}
 		//===========================================================================================
@@ -49,7 +49,7 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return MagickNET.GetMagickImageProperties();
+				return Types.GetMagickImageProperties();
 			}
 		}
 		//===========================================================================================
@@ -57,13 +57,13 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return MagickNET.GetGroupedMagickImageMethods();
+				return Types.GetGroupedMagickImageMethods();
 			}
 		}
 		//===========================================================================================
 		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			writer.Write("image->");
+			writer.Write("image.");
 			writer.Write(method.Name);
 			writer.Write("(");
 			WriteParameters(writer, parameters);
@@ -72,7 +72,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			writer.Write("image->");
+			writer.Write("image.");
 			writer.Write(method.Name);
 			writer.Write("(");
 			WriteHashtableParameters(writer, parameters);
@@ -81,10 +81,18 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)
 		{
-			writer.Write("image->");
+			writer.Write("image.");
 			writer.Write(property.Name);
 			writer.Write(" = ");
 			WriteGetValue(writer, property);
+		}
+		//===========================================================================================
+		public override string Name
+		{
+			get
+			{
+				return "MagickImage";
+			}
 		}
 		//===========================================================================================
 	}

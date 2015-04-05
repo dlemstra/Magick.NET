@@ -11,15 +11,35 @@
 		<xs:union memberTypes="xs:boolean var"/>
 	</xs:simpleType>
 	<!--=========================================================================================-->
+	<xs:simpleType name="byte">
+		<xs:union memberTypes="xs:unsignedByte var" />
+	</xs:simpleType>
+	<!--=========================================================================================-->
 	<xs:simpleType name="double">
 		<xs:union memberTypes="xs:double var"/>
+	</xs:simpleType>
+	<!--=========================================================================================-->
+	<xs:simpleType name="float">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:float">
+					<xs:minInclusive value="0" />
+					<xs:maxInclusive value="65535" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="var" />
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<!--=========================================================================================-->
+	<xs:simpleType name="short">
+		<xs:union memberTypes="xs:unsignedShort var"/>
 	</xs:simpleType>
 	<!--=========================================================================================-->
 	<xs:simpleType name="int">
 		<xs:union memberTypes="xs:int var"/>
 	</xs:simpleType>
-	<!--=========================================================================================-->
-	<xs:annotation id="quantum"/>
 	<!--=========================================================================================-->
 	<xs:annotation id="color"/>
 	<!--=========================================================================================-->

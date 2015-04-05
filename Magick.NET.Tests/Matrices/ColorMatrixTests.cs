@@ -50,6 +50,26 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(1.0, matrix.GetValue(1, 0));
 			Assert.AreEqual(0.1, matrix.GetValue(0, 1));
 			Assert.AreEqual(1.1, matrix.GetValue(1, 1));
+
+			ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate()
+			{
+				matrix.GetValue(2, 1);
+			});
+
+			ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate()
+			{
+				matrix.GetValue(1, 2);
+			});
+
+			ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate()
+			{
+				matrix.GetValue(1, -1);
+			});
+
+			ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate()
+			{
+				matrix.GetValue(-1, 1);
+			});
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -88,8 +108,8 @@ namespace Magick.NET.Tests
 			matrix.SetValue(0, 0, 1.5);
 			Assert.AreEqual(1.5, matrix.GetValue(0, 0));
 
-			Assert.AreEqual(0.0, matrix.GetValue(3, 1));
-			Assert.AreEqual(0.0, matrix.GetValue(1, 3));
+			Assert.AreEqual(0.0, matrix.GetValue(0, 1));
+			Assert.AreEqual(0.0, matrix.GetValue(1, 0));
 		}
 		//===========================================================================================
 	}

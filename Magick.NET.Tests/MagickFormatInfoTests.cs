@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
 					Assert.IsNotNull(formatInfo);
 					Assert.IsTrue(formatInfo.Unregister());
 
-					ExceptionAssert.Throws<MagickErrorException>(delegate()
+					ExceptionAssert.Throws<MagickMissingDelegateErrorException>(delegate()
 					{
 						new MagickImage(memoryStream);
 					});

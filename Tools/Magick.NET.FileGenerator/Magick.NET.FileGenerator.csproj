@@ -30,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -41,46 +42,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\AnyCPU\AnyCPUGenerator.cs" />
-    <Compile Include="Code\AnyCPU\InterfaceGenerator.cs" />
-    <Compile Include="Code\AnyCPU\TypesGenerator.cs" />
-    <Compile Include="Code\AnyCPU\ExceptionGenerator.cs" />
-    <Compile Include="Code\AnyCPU\ClassGenerator.cs" />
-    <Compile Include="Code\AnyCPU\ParameterMode.cs" />
-    <Compile Include="Code\AnyCPU\EnumGenerator.cs" />
-    <Compile Include="Code\Base\FileGenerator.cs" />
-    <Compile Include="Code\MagickScript\Base\CreateObjectCodeGenerator.cs" />
-    <Compile Include="Code\MagickScript\Base\InterfaceGenerator.cs" />
-    <Compile Include="Code\MagickScript\Base\SwitchCodeGenerator.cs" />
-    <Compile Include="Code\MagickScript\Constructors\ColorProfileGenerator.cs" />
-    <Compile Include="Code\MagickScript\Collection\CollectionGenerator.cs" />
-    <Compile Include="Code\MagickScript\Constructors\SparseColorArgGenerator.cs" />
-    <Compile Include="Code\MagickScript\Base\InterfaceCodeGenerator.cs" />
-    <Compile Include="Code\MagickScript\Interface\IDefinesGenerator.cs" />
-    <Compile Include="Code\MagickScript\Settings\MontageSettingsGenerator.cs" />
-    <Compile Include="Code\MagickScript\Settings\QuantizeSettingsGenerator.cs" />
-    <Compile Include="Code\MagickScript\Settings\PixelStorageSettingsGenerator.cs" />
-    <Compile Include="Code\MagickScript\Constructors\ImageProfileGenerator.cs" />
-    <Compile Include="Code\MagickScript\Constructors\PathQuadraticCurvetoGenerator.cs" />
-    <Compile Include="Code\MagickScript\Constructors\PathCurvetoGeneraror.cs" />
-    <Compile Include="Code\MagickScript\Base\ConstructorCodeGenerator.cs" />
-    <Compile Include="Code\MagickScript\MagickScriptGenerator.cs" />
+    <Compile Include="AppDomainHelper.cs" />
+    <Compile Include="ApplicationProxy.cs" />
     <Compile Include="Code\MagickScript\Base\CodeGenerator.cs" />
-    <Compile Include="Code\MagickScript\Constructors\CoordinateGenerator.cs" />
-    <Compile Include="Code\MagickScript\Constructors\PathArcGenerator.cs" />
-    <Compile Include="Code\MagickScript\Execute\DrawableGenerator.cs" />
+    <Compile Include="Code\MagickScript\Base\ConstructorCodeGenerator.cs" />
+    <Compile Include="Code\MagickScript\Base\CreateObjectCodeGenerator.cs" />
+    <Compile Include="Code\MagickScript\Base\ExecuteCodeGenerator.cs" />
+    <Compile Include="Code\MagickScript\Base\InterfaceCodeGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\MagickScript\Base\InterfaceGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\MagickScript\Base\SwitchCodeGenerator.cs" />
+    <Compile Include="Code\MagickScript\Collection\CollectionGenerator.cs" />
+    <Compile Include="Code\MagickScript\Constructors\ColorProfileGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\MagickScript\Constructors\CoordinateGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\MagickScript\Constructors\ImageProfileGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\MagickScript\Constructors\PathArcGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\MagickScript\Constructors\PathCurvetoGeneraror.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\MagickScript\Constructors\PathQuadraticCurvetoGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\MagickScript\Constructors\SparseColorArgGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\MagickScript\Execute\DrawableGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Code\MagickScript\Execute\MagickImageCollectionGenerator.cs" />
     <Compile Include="Code\MagickScript\Execute\MagickImageGenerator.cs" />
-    <Compile Include="Code\MagickScript\Base\ExecuteCodeGenerator.cs" />
     <Compile Include="Code\MagickScript\Execute\PathsGenerator.cs" />
+    <Compile Include="Code\MagickScript\Interface\IDefinesGenerator.cs" />
+    <Compile Include="Code\MagickScript\MagickScriptGenerator.cs" />
     <Compile Include="Code\MagickScript\Settings\MagickReadSettingsGenerator.cs" />
+    <Compile Include="Code\MagickScript\Settings\MontageSettingsGenerator.cs" />
+    <Compile Include="Code\MagickScript\Settings\PixelStorageSettingsGenerator.cs" />
+    <Compile Include="Code\MagickScript\Settings\QuantizeSettingsGenerator.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
-    <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="MagickNET.cs" />
+    <Compile Include="MagickTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuantumDepth.cs" />
-    <Compile Include="Xsd\XsdGenerator.cs" />
+    <Compile Include="Xsd\XsdGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

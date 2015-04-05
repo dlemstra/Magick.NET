@@ -38,7 +38,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			writer.Write("return gcnew ");
+			writer.Write("return new ");
 			writer.Write(method.DeclaringType.Name);
 			writer.Write("(");
 			WriteParameters(writer, parameters);
@@ -47,7 +47,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			writer.Write("return gcnew ");
+			writer.Write("return new ");
 			writer.Write(method.DeclaringType.Name);
 			writer.Write("(");
 			WriteHashtableParameters(writer, parameters);

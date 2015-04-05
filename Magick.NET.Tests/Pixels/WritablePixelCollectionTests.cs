@@ -35,7 +35,16 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		private const string _Category = "WritablePixelCollection";
 		//===========================================================================================
-		private static void Test_PixelColor(PixelBaseCollection pixels, Color color)
+		private static void Test_PixelColor(PixelCollection pixels, Color color)
+		{
+			var values = pixels.GetValue(0, 0);
+			Assert.AreEqual(3, values.Length);
+
+			MagickColor magickColor = new MagickColor(values[0], values[1], values[2]);
+			ColorAssert.AreEqual(color, magickColor);
+		}
+		//===========================================================================================
+		private static void Test_PixelColor(WritablePixelCollection pixels, Color color)
 		{
 			var values = pixels.GetValue(0, 0);
 			Assert.AreEqual(3, values.Length);

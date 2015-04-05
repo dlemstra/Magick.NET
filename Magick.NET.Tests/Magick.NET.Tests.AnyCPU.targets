@@ -1,0 +1,10 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Target Name="AfterBuild">
+		<ItemGroup>
+			<WrapperFiles Include="$(OutputPath)\Magick.NET.Wrapper-x86.dll"/>
+			<WrapperFiles Include="$(OutputPath)\Magick.NET.Wrapper-x86.pdb"/>
+			<WrapperFiles Include="$(OutputPath)\Magick.NET.Wrapper-x86.xml"/>
+		</ItemGroup>
+		<Delete Files="@(WrapperFiles)"/>
+	</Target>
+</Project>

@@ -11,21 +11,11 @@
 	<xs:simpleType name="double">
 		<xs:union memberTypes="xs:double var" />
 	</xs:simpleType>
+	<xs:simpleType name="short">
+		<xs:union memberTypes="xs:unsignedShort var" />
+	</xs:simpleType>
 	<xs:simpleType name="int">
 		<xs:union memberTypes="xs:int var" />
-	</xs:simpleType>
-	<xs:simpleType name="quantum">
-		<xs:union>
-			<xs:simpleType>
-				<xs:restriction base="xs:unsignedShort">
-					<xs:minInclusive value="0" />
-					<xs:maxInclusive value="65535" />
-				</xs:restriction>
-			</xs:simpleType>
-			<xs:simpleType>
-				<xs:restriction base="var" />
-			</xs:simpleType>
-		</xs:union>
 	</xs:simpleType>
 	<xs:simpleType name="color">
 		<xs:union>
@@ -145,7 +135,7 @@
 					<xs:enumeration value="YDbDr" />
 					<xs:enumeration value="YIQ" />
 					<xs:enumeration value="YPbPr" />
-					<xs:enumeration value="YUV" />
+					<xs:enumeration value="YUVColor" />
 				</xs:restriction>
 			</xs:simpleType>
 			<xs:simpleType>
@@ -159,15 +149,15 @@
 				<xs:restriction base="xs:NMTOKEN">
 					<xs:enumeration value="Bilevel" />
 					<xs:enumeration value="ColorSeparation" />
-					<xs:enumeration value="ColorSeparationMatte" />
+					<xs:enumeration value="ColorSeparationAlpha" />
 					<xs:enumeration value="Grayscale" />
-					<xs:enumeration value="GrayscaleMatte" />
+					<xs:enumeration value="GrayscaleAlpha" />
 					<xs:enumeration value="Optimize" />
 					<xs:enumeration value="Palette" />
-					<xs:enumeration value="PaletteBilevelMatte" />
-					<xs:enumeration value="PaletteMatte" />
+					<xs:enumeration value="PaletteAlpha" />
+					<xs:enumeration value="PaletteBilevelAlpha" />
 					<xs:enumeration value="TrueColor" />
-					<xs:enumeration value="TrueColorMatte" />
+					<xs:enumeration value="TrueColorAlpha" />
 				</xs:restriction>
 			</xs:simpleType>
 			<xs:simpleType>
@@ -179,6 +169,7 @@
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Alpha" />
 					<xs:enumeration value="Atop" />
 					<xs:enumeration value="Blend" />
 					<xs:enumeration value="Blur" />
@@ -203,7 +194,7 @@
 					<xs:enumeration value="Displace" />
 					<xs:enumeration value="Dissolve" />
 					<xs:enumeration value="Distort" />
-					<xs:enumeration value="Divide" />
+					<xs:enumeration value="DivideDst" />
 					<xs:enumeration value="DivideSrc" />
 					<xs:enumeration value="Dst" />
 					<xs:enumeration value="DstAtop" />
@@ -215,6 +206,7 @@
 					<xs:enumeration value="HardMix" />
 					<xs:enumeration value="Hue" />
 					<xs:enumeration value="In" />
+					<xs:enumeration value="Intensity" />
 					<xs:enumeration value="Lighten" />
 					<xs:enumeration value="LightenIntensity" />
 					<xs:enumeration value="LinearBurn" />
@@ -225,10 +217,10 @@
 					<xs:enumeration value="MinusDst" />
 					<xs:enumeration value="MinusSrc" />
 					<xs:enumeration value="Modulate" />
-					<xs:enumeration value="Modulus" />
 					<xs:enumeration value="ModulusAdd" />
+					<xs:enumeration value="ModulusSubtract" />
 					<xs:enumeration value="Multiply" />
-					<xs:enumeration value="NoComposite" />
+					<xs:enumeration value="No" />
 					<xs:enumeration value="Out" />
 					<xs:enumeration value="Over" />
 					<xs:enumeration value="Overlay" />
@@ -264,7 +256,7 @@
 					<xs:enumeration value="DXT1" />
 					<xs:enumeration value="DXT3" />
 					<xs:enumeration value="DXT5" />
-					<xs:enumeration value="Faxo" />
+					<xs:enumeration value="Fax" />
 					<xs:enumeration value="Group4" />
 					<xs:enumeration value="JBIG1" />
 					<xs:enumeration value="JBIG2" />
@@ -323,7 +315,6 @@
 					<xs:enumeration value="Arc" />
 					<xs:enumeration value="Barrel" />
 					<xs:enumeration value="BarrelInverse" />
-					<xs:enumeration value="Bilinear" />
 					<xs:enumeration value="BilinearForward" />
 					<xs:enumeration value="BilinearReverse" />
 					<xs:enumeration value="Cylinder2Plane" />
@@ -396,7 +387,7 @@
 					<xs:enumeration value="Or" />
 					<xs:enumeration value="PoissonNoise" />
 					<xs:enumeration value="Pow" />
-					<xs:enumeration value="Right" />
+					<xs:enumeration value="RightShift" />
 					<xs:enumeration value="RootMeanSquare" />
 					<xs:enumeration value="Set" />
 					<xs:enumeration value="Sine" />
@@ -440,7 +431,7 @@
 					<xs:enumeration value="Cubic" />
 					<xs:enumeration value="Gaussian" />
 					<xs:enumeration value="Hamming" />
-					<xs:enumeration value="Hanning" />
+					<xs:enumeration value="Hann" />
 					<xs:enumeration value="Hermite" />
 					<xs:enumeration value="Jinc" />
 					<xs:enumeration value="Kaiser" />
@@ -460,7 +451,7 @@
 					<xs:enumeration value="SincFast" />
 					<xs:enumeration value="Spline" />
 					<xs:enumeration value="Triangle" />
-					<xs:enumeration value="Welsh" />
+					<xs:enumeration value="Welch" />
 				</xs:restriction>
 			</xs:simpleType>
 			<xs:simpleType>
@@ -566,7 +557,7 @@
 					<xs:enumeration value="Gif" />
 					<xs:enumeration value="Jpeg" />
 					<xs:enumeration value="Line" />
-					<xs:enumeration value="No" />
+					<xs:enumeration value="NoInterlace" />
 					<xs:enumeration value="Partition" />
 					<xs:enumeration value="Plane" />
 					<xs:enumeration value="Png" />
@@ -938,6 +929,7 @@
 					<xs:enumeration value="Laplacian" />
 					<xs:enumeration value="MultiplicativeGaussian" />
 					<xs:enumeration value="Poisson" />
+					<xs:enumeration value="Random" />
 					<xs:enumeration value="Uniform" />
 				</xs:restriction>
 			</xs:simpleType>
@@ -991,7 +983,7 @@
 					<xs:enumeration value="MS" />
 					<xs:enumeration value="Rec601Luma" />
 					<xs:enumeration value="Rec601Luminance" />
-					<xs:enumeration value="Rec709LumaPixel" />
+					<xs:enumeration value="Rec709Luma" />
 					<xs:enumeration value="Rec709Luminance" />
 					<xs:enumeration value="RMS" />
 				</xs:restriction>
@@ -1105,7 +1097,7 @@
 			<xs:simpleType>
 				<xs:restriction base="xs:NMTOKEN">
 					<xs:enumeration value="LineThrough" />
-					<xs:enumeration value="NoDecoration" />
+					<xs:enumeration value="None" />
 					<xs:enumeration value="Overline" />
 					<xs:enumeration value="Underline" />
 				</xs:restriction>
@@ -1701,7 +1693,8 @@
 				</xs:element>
 				<xs:element name="adaptiveThreshold">
 					<xs:complexType>
-						<xs:attribute name="bias" type="double" />
+						<xs:attribute name="bias" type="short" />
+						<xs:attribute name="biasPercentage" type="double" />
 						<xs:attribute name="height" use="required" type="int" />
 						<xs:attribute name="width" use="required" type="int" />
 					</xs:complexType>
@@ -1938,7 +1931,6 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="despeckle" type="empty" />
-				<xs:element name="determineColorType" type="empty" />
 				<xs:element name="distort">
 					<xs:complexType>
 						<xs:sequence>
@@ -2094,11 +2086,11 @@
 				</xs:element>
 				<xs:element name="level">
 					<xs:complexType>
-						<xs:attribute name="blackPoint" type="quantum" />
+						<xs:attribute name="blackPoint" type="short" />
 						<xs:attribute name="blackPointPercentage" type="double" />
 						<xs:attribute name="channels" type="Channels" />
 						<xs:attribute name="midpoint" type="double" />
-						<xs:attribute name="whitePoint" type="quantum" />
+						<xs:attribute name="whitePoint" type="short" />
 						<xs:attribute name="whitePointPercentage" type="double" />
 					</xs:complexType>
 				</xs:element>
@@ -2216,8 +2208,8 @@
 				<xs:element name="randomThreshold">
 					<xs:complexType>
 						<xs:attribute name="channels" type="Channels" />
-						<xs:attribute name="high" type="quantum" />
-						<xs:attribute name="low" type="quantum" />
+						<xs:attribute name="high" type="short" />
+						<xs:attribute name="low" type="short" />
 						<xs:attribute name="percentageHigh" type="double" />
 						<xs:attribute name="percentageLow" type="double" />
 					</xs:complexType>
@@ -2693,13 +2685,6 @@
 						<xs:attribute name="translateY" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="alpha">
-					<xs:complexType>
-						<xs:attribute name="paintMethod" use="required" type="PaintMethod" />
-						<xs:attribute name="x" use="required" type="double" />
-						<xs:attribute name="y" use="required" type="double" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="arc">
 					<xs:complexType>
 						<xs:attribute name="endDegrees" use="required" type="double" />
@@ -2764,14 +2749,14 @@
 						<xs:attribute name="startDegrees" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="fillAlpha">
-					<xs:complexType>
-						<xs:attribute name="alpha" use="required" type="double" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="fillColor">
 					<xs:complexType>
 						<xs:attribute name="color" use="required" type="color" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="fillOpacity">
+					<xs:complexType>
+						<xs:attribute name="opacity" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="fillRule">
@@ -2803,6 +2788,13 @@
 				<xs:element name="miterLimit">
 					<xs:complexType>
 						<xs:attribute name="miterlimit" use="required" type="int" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="opacity">
+					<xs:complexType>
+						<xs:attribute name="paintMethod" use="required" type="PaintMethod" />
+						<xs:attribute name="x" use="required" type="double" />
+						<xs:attribute name="y" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="path" type="paths" />
@@ -2872,11 +2864,6 @@
 						<xs:attribute name="angle" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="strokeAlpha">
-					<xs:complexType>
-						<xs:attribute name="alpha" use="required" type="double" />
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="strokeAntialias">
 					<xs:complexType>
 						<xs:attribute name="isEnabled" use="required" type="bool" />
@@ -2895,6 +2882,11 @@
 				<xs:element name="strokeLineJoin">
 					<xs:complexType>
 						<xs:attribute name="lineJoin" use="required" type="LineJoin" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="strokeOpacity">
+					<xs:complexType>
+						<xs:attribute name="opacity" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="strokeWidth">
@@ -2983,12 +2975,12 @@
 				<xs:element name="linetoRel" type="coordinates" />
 				<xs:element name="linetoVerticalAbs">
 					<xs:complexType>
-						<xs:attribute name="x" use="required" type="double" />
+						<xs:attribute name="y" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="linetoVerticalRel">
 					<xs:complexType>
-						<xs:attribute name="x" use="required" type="double" />
+						<xs:attribute name="y" use="required" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="movetoAbs" type="coordinates" />

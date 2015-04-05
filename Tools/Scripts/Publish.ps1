@@ -19,23 +19,23 @@ $imVersion = $args[0]
 $version = $args[1]
 #==================================================================================================
 $builds = @(
-		@{Name = "Magick.NET.net20"; Quantum = "Q8"; Platform = "Win32"; PlatformName = "x86"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $true}
-		@{Name = "Magick.NET.net20"; Quantum = "Q8"; Platform = "x64"; PlatformName = "x64"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $false}
-		@{Name = "Magick.NET.net20"; Quantum = "Q16"; Platform = "Win32"; PlatformName = "x86"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $true}
-		@{Name = "Magick.NET.net20"; Quantum = "Q16"; Platform = "x64"; PlatformName = "x64"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $false}
-		@{Name = "Magick.NET.net20"; Quantum = "Q16-HDRI"; Platform = "Win32"; PlatformName = "x86"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $true}
-		@{Name = "Magick.NET.net20"; Quantum = "Q16-HDRI"; Platform = "x64"; PlatformName = "x64"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $false}
-		@{Name = "Magick.NET"; Quantum = "Q8"; Platform = "Win32"; PlatformName = "x86"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
-		@{Name = "Magick.NET"; Quantum = "Q8"; Platform = "x64"; PlatformName = "x64"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $false}
-		@{Name = "Magick.NET"; Quantum = "Q16"; Platform = "Win32"; PlatformName = "x86"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
-		@{Name = "Magick.NET"; Quantum = "Q16"; Platform = "x64"; PlatformName = "x64"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $false}
-		@{Name = "Magick.NET"; Quantum = "Q16-HDRI"; Platform = "Win32"; PlatformName = "x86"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
-		@{Name = "Magick.NET"; Quantum = "Q16-HDRI"; Platform = "x64"; PlatformName = "x64"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $false}
+		@{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q8"; Platform = "x86"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $true}
+		@{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q8"; Platform = "x64"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $false}
+		@{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q16"; Platform = "x86"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $true}
+		@{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q16"; Platform = "x64"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $false}
+		@{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q16-HDRI"; Platform = "x86"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $true}
+		@{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q16-HDRI"; Platform = "x64"; Framework = "v2.0"; FrameworkName = "net20"; RunTests = $false}
+		@{Name = "Magick.NET"; Suffix=""; Quantum = "Q8"; Platform = "x86"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
+		@{Name = "Magick.NET"; Suffix=""; Quantum = "Q8"; Platform = "x64"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $false}
+		@{Name = "Magick.NET"; Suffix=""; Quantum = "Q16"; Platform = "x86"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
+		@{Name = "Magick.NET"; Suffix=""; Quantum = "Q16"; Platform = "x64"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $false}
+		@{Name = "Magick.NET"; Suffix=""; Quantum = "Q16-HDRI"; Platform = "x86"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
+		@{Name = "Magick.NET"; Suffix=""; Quantum = "Q16-HDRI"; Platform = "x64"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $false}
 	)
 $anyCPUbuilds = @(
-		@{Name = "Magick.NET.AnyCPU"; Quantum = "Q8"; Platform = "AnyCPU"; PlatformName = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
-		@{Name = "Magick.NET.AnyCPU"; Quantum = "Q16"; Platform = "AnyCPU"; PlatformName = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
-		@{Name = "Magick.NET.AnyCPU"; Quantum = "Q16-HDRI"; Platform = "AnyCPU"; PlatformName = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
+		@{Name = "Magick.NET.AnyCPU"; Suffix=""; Quantum = "Q8"; Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
+		@{Name = "Magick.NET.AnyCPU"; Suffix=""; Quantum = "Q16"; Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
+		@{Name = "Magick.NET.AnyCPU"; Suffix=""; Quantum = "Q16-HDRI"; Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
 	)
 #==================================================================================================
 function AddFileElement($xml, $src, $target)
@@ -76,7 +76,7 @@ function Build($builds)
 
 		if ($build.RunTests -eq $true)
 		{
-			$dll = "Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Name)\Magick.NET.Tests.dll"
+			$dll = "Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Tests.dll"
 			if ($build.Framework -eq "v2.0")
 			{
 				VSTest.Console.exe $dll 
@@ -85,7 +85,7 @@ function Build($builds)
 			{
 				VSTest.Console.exe $dll /Settings:Magick.NET.Tests\Magick.NET.Tests.testsettings
 			}
-			CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.PlatformName + " (" + $build.FrameworkName + ")")
+			CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform + " (" + $build.FrameworkName + ")")
 		}
 	}
 }
@@ -103,7 +103,7 @@ function CheckStrongName($builds)
 {
 	foreach ($build in $builds)
 	{
-		$path = FullPath "$($build.Name)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.PlatformName).dll"
+		$path = FullPath "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Platform).dll"
 		sn -Tp $path
 		CheckExitCode "$path does not represent a strongly named assembly"
 
@@ -112,19 +112,94 @@ function CheckStrongName($builds)
 			continue
 		}
 
-		$path = FullPath "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET.Web-$($build.PlatformName).dll"
+		$path = FullPath "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Platform).dll"
+		sn -Tp $path
 		CheckExitCode "$path does not represent a strongly named assembly"
 	}
+}
+#==================================================================================================
+function Cleanup()
+{
+	$folder = FullPath "Publish\Zip\Releases"
+	if (Test-Path $folder)
+	{
+		Remove-Item $folder -recurse
+	}
+
+	$folder = FullPath "Publish\Pdb"
+	if (Test-Path $folder)
+	{
+		Remove-Item $folder -recurse
+	}
+	[void](New-Item -ItemType directory -Path $folder)
 }
 #==================================================================================================
 function CopyPdbFiles($builds)
 {
 	foreach ($build in $builds)
 	{
-		$source = "$($build.Name)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.PlatformName).pdb"
-		$destination = "Publish\Pdb\$($build.Quantum)-$($build.FrameworkName).Magick.NET-$($build.PlatformName).pdb"
+		$source = "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Core.pdb"
+		$destination = "Publish\Pdb\$($build.Quantum)-$($build.FrameworkName).Magick.NET.Core.pdb"
 
 		Copy-Item $source $destination
+
+		$source = "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Platform).pdb"
+		$destination = "Publish\Pdb\$($build.Quantum)-$($build.FrameworkName).Magick.NET-$($build.Platform).pdb"
+
+		Copy-Item $source $destination
+
+		if ($build.Platform -ne "AnyCPU")
+		{
+			$source = "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Wrapper-$($build.Platform).pdb"
+			$destination = "Publish\Pdb\$($build.Quantum)-$($build.FrameworkName).Magick.NET.Wrapper-$($build.Platform).pdb"
+
+			Copy-Item $source $destination
+		}
+	}
+}
+#==================================================================================================
+function CopyZipFiles($builds)
+{
+	foreach ($build in $builds)
+	{
+		$dir = FullPath "Publish\Zip\Releases\Magick.NET-$($build.Quantum)-$($build.Platform)"
+		if (!(Test-Path $dir))
+		{
+			[void](New-Item $dir -type directory)
+		}
+
+		Copy-Item "Magick.NET\Resources\Release$($build.Quantum)\MagickScript.xsd" $dir
+
+		$dir = "$dir\$($build.FrameworkName)"
+		if (!(Test-Path $dir))
+		{
+			[void](New-Item $dir -type directory)
+		}
+
+		Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Core.dll" $dir
+		Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Core.xml" $dir
+		Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Platform).dll" $dir
+		Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Platform).xml" $dir
+
+		if ($build.Platform -ne "AnyCPU")
+		{
+			Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Wrapper-$($build.Platform).dll" $dir
+			Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Wrapper-$($build.Platform).xml" $dir
+		}
+
+		if ($build.Framework -ne "v4.0")
+		{
+			continue
+		}
+
+		$dir = FullPath "Publish\Zip\Releases\Magick.NET.Web-$($build.Quantum)-$($build.Platform)"
+		if (!(Test-Path $dir))
+		{
+			[void](New-Item $dir -type directory)
+		}
+
+		Copy-Item "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Platform).dll" $dir
+		Copy-Item "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Platform).xml" $dir
 	}
 }
 #==================================================================================================
@@ -170,17 +245,30 @@ function CreateNuGetPackages($builds)
 		$path = FullPath "Publish\NuGet\Magick.NET.nuspec"
 		$xml = [xml](Get-Content $path)
 		
-		$id = "Magick.NET-$($build.Quantum)-$($build.PlatformName)"
+		$id = "Magick.NET-$($build.Quantum)-$($build.Platform)"
 		$xml.package.metadata.releaseNotes = "Magick.NET linked with ImageMagick " + $imVersion
-		
+
 		if ($hasNet20 -eq $true)
 		{
-			AddFileElement $xml "..\..\Magick.NET.net20\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.PlatformName).dll" "lib\net20"
-			AddFileElement $xml "..\..\Magick.NET.net20\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.PlatformName).xml" "lib\net20"
+			AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET.Core.dll" "lib\net20"
+			AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET.Core.xml" "lib\net20"
+			AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET.Wrapper-$($build.Platform).dll" "lib\net20"
+			AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET.Wrapper-$($build.Platform).xml" "lib\net20"
+			AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Platform).dll" "lib\net20"
+			AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Platform).xml" "lib\net20"
 		}
-		AddFileElement $xml "..\..\$($build.Name)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.PlatformName).dll" "lib\net40-client"
-		AddFileElement $xml "..\..\$($build.Name)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.PlatformName).xml" "lib\net40-client"
-		
+
+		AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Core.dll" "lib\$($build.FrameworkName)"
+		AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Core.xml" "lib\$($build.FrameworkName)"
+		AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Platform).dll" "lib\$($build.FrameworkName)"
+		AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Platform).xml" "lib\$($build.FrameworkName)"
+
+		if ($build.Platform -ne "AnyCPU")
+		{
+			AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Wrapper-$($build.Platform).dll" "lib\$($build.FrameworkName)"
+			AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Wrapper-$($build.Platform).xml" "lib\$($build.FrameworkName)"
+		}
+
 		AddFileElement $xml ("Readme.txt") "Readme.txt"
 		
 		CreateNuGetPackage $id $xml
@@ -196,7 +284,7 @@ function CreateNuGetPackages($builds)
 		$xml.package.metadata.dependencies.dependency.id = $id
 		$xml.package.metadata.dependencies.dependency.version = $version
 		
-		$id = "Magick.NET-$($build.Quantum)-$($build.PlatformName).Sample"
+		$id = "Magick.NET-$($build.Quantum)-$($build.Platform).Sample"
 		$samples = FullPath "Magick.NET.Samples\Samples\Magick.NET"
 		$files = Get-ChildItem -File -Path $samples\* -Exclude *.cs,*.msl,*.vb -Recurse
 		$offset = $files[0].FullName.LastIndexOf("\Magick.NET.Samples\") + 20
@@ -231,64 +319,17 @@ function CreatePreProcessedFiles()
 	}
 }
 #==================================================================================================
-function CreateScriptZipFile($build)
-{
-	$dir = FullPath "Publish\Zip\$($build.Quantum)"
-	if (Test-Path $dir)
-	{
-		Remove-Item $dir -recurse
-	}
-
-	[void](New-Item $dir -type directory)
-	Copy-Item "Magick.NET\Resources\Release$($build.Quantum)\MagickScript.xsd" $dir
-
-	$zipFile = FullPath "Publish\Zip\MagickScript-$version-$($build.Quantum).zip"
-
-	Write-Host "Creating file: $zipFile"
-
-	[System.IO.Compression.ZipFile]::CreateFromDirectory($dir, $zipFile, $compressionLevel, $false)
-	Remove-Item $dir -recurse
-}
-#==================================================================================================
-function CreateWebZipFile($build)
-{
-	if ($build.Framework -ne "v4.0")
-	{
-		return
-	}
-
-	$dir = FullPath "Publish\Zip\$($build.PlatformName)"
-	if (Test-Path $dir)
-	{
-		Remove-Item $dir -recurse
-	}
-
-	[void](New-Item $dir -type directory)
-	Copy-Item "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.PlatformName)\Magick.NET.Web-$($build.PlatformName).dll" $dir
-
-	$zipFile = FullPath "Publish\Zip\Magick.NET.Web-$version-$($build.Quantum)-$($build.PlatformName)-net40.zip"
-
-	Write-Host "Creating file: $zipFile"
-
-	[System.IO.Compression.ZipFile]::CreateFromDirectory($dir, $zipFile, $compressionLevel, $false)
-	Remove-Item $dir -recurse
-}
-#==================================================================================================
 function CreateZipFiles($builds)
 {
 	foreach ($build in $builds)
 	{
-		$dir = FullPath "Publish\Zip\$($build.Quantum)-$($build.PlatformName)-$($build.FrameworkName)"
-		if (Test-Path $dir)
+		$dir = FullPath "Publish\Zip\Releases\Magick.NET-$($build.Quantum)-$($build.Platform)"
+		if (!(Test-Path $dir))
 		{
-			Remove-Item $dir -recurse
+			continue
 		}
 
-		[void](New-Item $dir -type directory)
-		Copy-Item "$($build.Name)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.PlatformName).dll" $dir
-		Copy-Item "$($build.Name)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.PlatformName).xml" $dir
-		
-		$zipFile = FullPath "Publish\Zip\Magick.NET-$version-$($build.Quantum)-$($build.PlatformName)-$($build.FrameworkName).zip"
+		$zipFile = FullPath "Publish\Zip\Magick.NET-$version-$($build.Quantum)-$($build.Platform).zip"
 		if (Test-Path $zipFile)
 		{
 			Remove-Item $zipFile
@@ -299,17 +340,37 @@ function CreateZipFiles($builds)
 		[System.IO.Compression.ZipFile]::CreateFromDirectory($dir, $zipFile, $compressionLevel, $false)
 		Remove-Item $dir -recurse
 
-		CreateWebZipFile $build
+		$dir = FullPath "Publish\Zip\Releases\Magick.NET.Web-$($build.Quantum)-$($build.Platform)"
+		if (!(Test-Path $dir))
+		{
+			continue
+		}
+
+		$zipFile = FullPath "Publish\Zip\Magick.NET.Web-$version-$($build.Quantum)-$($build.Platform).zip"
+		if (Test-Path $zipFile)
+		{
+			Remove-Item $zipFile
+		}
+
+		Write-Host "Creating file: $zipFile"
+
+		[System.IO.Compression.ZipFile]::CreateFromDirectory($dir, $zipFile, $compressionLevel, $false)
+		Remove-Item $dir -recurse
 	}
 }
 #==================================================================================================
-function Publish($builds)
+function PreparePublish($builds)
 {
 	Build $builds
 	CheckStrongName $builds
 	CopyPdbFiles $builds
-	CreateZipFiles $builds
+	CopyZipFiles $builds
+}
+#==================================================================================================
+function Publish($builds)
+{
 	CreateNuGetPackages $builds
+	CreateZipFiles $builds
 }
 #==================================================================================================
 function SetVersion($content, $startMatch, $endMatch, $version)
@@ -349,7 +410,13 @@ function UpdateResourceFiles($builds)
 {
 	foreach ($build in $builds)
 	{
-		$fileName = FullPath "$($build.Name)\Resources\Release$($build.Quantum)\$($build.Platform)\Magick.NET.rc"
+		$platform = $($build.Platform)
+		if ($platform -eq "x86")
+		{
+			$platform = "Win32"
+		}
+
+		$fileName = FullPath "Magick.NET.Wrapper$($build.Suffix)\Resources\Release$($build.Quantum)\$platform\Magick.NET.rc"
 
 		$content = [IO.File]::ReadAllText($fileName, [System.Text.Encoding]::Unicode)
 		$content = SetVersion $content "FILEVERSION " `r $version.Replace('.', ',')
@@ -362,17 +429,19 @@ function UpdateResourceFiles($builds)
 }
 #==================================================================================================
 CheckArchive
-UpdateAssemblyInfo "Magick.NET\AssemblyInfo.cpp"
-UpdateAssemblyInfo "Magick.NET.AnyCPU\Properties\AssemblyInfo.cs"
+Cleanup
+UpdateAssemblyInfo "Magick.NET.Wrapper\AssemblyInfo.cpp"
+UpdateAssemblyInfo "Magick.NET\Properties\AssemblyInfo.cs"
+UpdateAssemblyInfo "Magick.NET.Core\Properties\AssemblyInfo.cs"
 UpdateAssemblyInfo "Magick.NET.Web\Properties\AssemblyInfo.cs"
 CreateNet20ProjectFiles
 UpdateResourceFiles $builds
 CreatePreProcessedFiles
-Publish $builds
-CreateScriptZipFile $builds[0]
-CreateScriptZipFile $builds[2]
+PreparePublish $builds
 GzipAssemblies
-GenerateAnyCPUFiles
 CreateAnyCPUProjectFiles
+PreparePublish $anyCPUbuilds
+Publish $builds
 Publish $anyCPUbuilds
+Cleanup
 #==================================================================================================

@@ -21,16 +21,11 @@ namespace Magick.NET.FileGenerator
 	internal sealed class CollectionGenerator : CodeGenerator
 	{
 		//===========================================================================================
-		private Type[] _Types;
-		//===========================================================================================
-		private Type[] Types
+		private Type[] SupportedTypes
 		{
 			get
 			{
-				if (_Types == null)
-					_Types = new Type[] { MagickNET.GetTypeName("MagickGeometry") };
-
-				return _Types;
+				return new Type[] { Types.GetType("MagickGeometry") };
 			}
 		}
 		//===========================================================================================
@@ -39,30 +34,31 @@ namespace Magick.NET.FileGenerator
 			throw new NotImplementedException();
 		}
 		//===========================================================================================
-		public override void WriteCode(IndentedTextWriter writer)
+		protected override void WriteCode(IndentedTextWriter writer)
 		{
-			foreach (Type type in Types)
+			foreach (Type type in SupportedTypes)
 			{
-				string typeName = MagickNET.GetCppTypeName(type);
+				string typeName = GetName(type);
 
+				writer.Write("private ");
 				writer.Write("Collection<");
 				writer.Write(typeName);
 				writer.Write(">");
-				writer.Write("^ MagickScript::Create");
+				writer.Write(" Create");
 				writer.Write(type.Name);
 				writer.Write("Collection");
-				writer.Write("(XmlElement^ element)");
+				writer.Write("(XmlElement element)");
 				writer.WriteLine();
 				WriteStartColon(writer);
 				writer.Write("Collection<");
 				writer.Write(typeName);
-				writer.Write(">^ collection = gcnew ");
+				writer.Write("> collection = new ");
 				writer.Write("Collection<");
 				writer.Write(typeName);
 				writer.WriteLine(">();");
-				writer.WriteLine("for each (XmlElement^ elem in element->SelectNodes(\"*\"))");
+				writer.WriteLine("foreach (XmlElement elem in element.SelectNodes(\"*\"))");
 				WriteStartColon(writer);
-				writer.Write("collection->Add(_Variables->GetValue<");
+				writer.Write("collection.Add(Variables.GetValue<");
 				writer.Write(typeName);
 				writer.WriteLine(">(elem, \"value\"));");
 				WriteEndColon(writer);
@@ -71,26 +67,17 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		public override void WriteHeader(IndentedTextWriter writer)
-		{
-			foreach (Type type in Types)
-			{
-				string typeName = MagickNET.GetCppTypeName(type);
-
-				writer.Write("Collection<");
-				writer.Write(typeName);
-				writer.Write(">");
-				writer.Write("^ Create");
-				writer.Write(type.Name);
-				writer.Write("Collection");
-				writer.Write("(XmlElement^ element)");
-				writer.WriteLine(";");
-			}
-		}
-		//===========================================================================================
 		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
 			throw new NotImplementedException();
+		}
+		//===========================================================================================
+		public override string Name
+		{
+			get
+			{
+				return "Collection";
+			}
 		}
 		//===========================================================================================
 	}

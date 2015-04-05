@@ -22,6 +22,14 @@ namespace Magick.NET.Tests
 	public static class ExceptionAssert
 	{
 		//===========================================================================================
+		private static void Fail(string message, params object[] arguments)
+		{
+			if (arguments != null && arguments.Length > 0)
+				Assert.Fail(String.Format(CultureInfo.InvariantCulture, message, arguments));
+			else
+				Assert.Fail(message);
+		}
+		//===========================================================================================
 		public static void Throws<TException>(Action action)
 			 where TException : Exception
 		{
@@ -34,14 +42,13 @@ namespace Magick.NET.Tests
 			try
 			{
 				action();
-
-				if (arguments != null && arguments.Length > 0)
-					Assert.Fail(String.Format(CultureInfo.InvariantCulture, message, arguments));
-				else
-					Assert.Fail(message);
+				Fail(message, arguments);
 			}
-			catch (TException)
+			catch (TException exception)
 			{
+				Type type = exception.GetType();
+				if (type != typeof(TException))
+					Fail("Exception of type {0} was not thrown an exception of type {1} was thrown.", typeof(TException).Name, type.Name);
 			}
 			catch (Exception)
 			{

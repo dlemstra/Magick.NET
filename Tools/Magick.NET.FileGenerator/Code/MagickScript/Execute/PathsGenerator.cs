@@ -27,7 +27,7 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return "System::Collections::ObjectModel::Collection<PathBase^>^ paths";
+				return "Collection<IPath> paths";
 			}
 		}
 		//===========================================================================================
@@ -35,7 +35,7 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return "Path";
+				return "IPath";
 			}
 		}
 		//===========================================================================================
@@ -43,13 +43,13 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return MagickNET.GetPaths();
+				return Types.GetPaths();
 			}
 		}
 		//===========================================================================================
 		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			writer.Write("paths->Add(gcnew ");
+			writer.Write("paths.Add(new ");
 			writer.Write(method.DeclaringType.Name);
 			writer.Write("(");
 			WriteParameters(writer, parameters);
@@ -59,24 +59,11 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			writer.Write("paths->Add(gcnew ");
+			writer.Write("paths.Add(new ");
 			writer.Write(method.DeclaringType.Name);
 			writer.Write("(");
 			WriteHashtableParameters(writer, parameters);
 			writer.WriteLine("));");
-		}
-		//===========================================================================================
-		public override void WriteIncludes(IndentedTextWriter writer)
-		{
-			base.WriteIncludes(writer);
-
-			foreach (string pathBase in from constructor in Methods
-												 select constructor.First().DeclaringType.Name)
-			{
-				writer.Write(@"#include ""..\..\Drawables\Paths\");
-				writer.Write(pathBase);
-				writer.WriteLine(@".h""");
-			}
 		}
 		//===========================================================================================
 		protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)

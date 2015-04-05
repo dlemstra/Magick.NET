@@ -161,7 +161,6 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		[ExpectedException(typeof(ObjectDisposedException))]
 		public void Test_Dispose()
 		{
 			MagickImage image = new MagickImage(Color.Red, 10, 10);
@@ -171,7 +170,10 @@ namespace Magick.NET.Tests
 			collection.Dispose();
 
 			Assert.AreEqual(0, collection.Count);
-			image.Wave();
+			ExceptionAssert.Throws<ObjectDisposedException>(delegate()
+			{
+				image.Wave();
+			});
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]

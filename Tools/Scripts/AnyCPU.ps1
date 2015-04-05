@@ -19,6 +19,5 @@ function BuildMagickNET()
 #==================================================================================================
 BuildMagickNET
 GzipAssemblies
-GenerateAnyCPUFiles
 CreateAnyCPUProjectFiles
 #==================================================================================================

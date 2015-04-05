@@ -26,7 +26,7 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return MagickNET.GetMethods(ClassName).ToArray();
+				return Types.GetMethods(ClassName).ToArray();
 			}
 		}
 		//===========================================================================================
@@ -34,7 +34,7 @@ namespace Magick.NET.FileGenerator
 		{
 			get
 			{
-				return MagickNET.GetProperties(ClassName).ToArray();
+				return Types.GetProperties(ClassName).ToArray();
 			}
 		}
 		//===========================================================================================
@@ -42,30 +42,28 @@ namespace Magick.NET.FileGenerator
 		{
 			foreach (MethodBase method in Methods)
 			{
-				string xsdMethodName = MagickNET.GetXsdName(method);
+				string xsdMethodName = MagickTypes.GetXsdName(method);
 				ParameterInfo[] parameters = method.GetParameters();
 
-				writer.Write("XmlElement^ ");
+				writer.Write("XmlElement ");
 				writer.Write(xsdMethodName);
-				writer.Write(" = (XmlElement^)element->SelectSingleNode(\"");
+				writer.Write(" = (XmlElement)element.SelectSingleNode(\"");
 				writer.Write(xsdMethodName);
 				writer.WriteLine("\");");
 
 				writer.Write("if (");
 				writer.Write(xsdMethodName);
-				writer.WriteLine(" != nullptr)");
-				writer.WriteLine("{");
-
-				writer.Indent++;
+				writer.WriteLine(" != null)");
+				WriteStartColon(writer);
 
 				foreach (ParameterInfo parameter in parameters)
 				{
-					string typeName = MagickNET.GetCppTypeName(parameter);
+					string typeName = GetName(parameter);
 
 					writer.Write(typeName);
 					writer.Write(" ");
 					writer.Write(parameter.Name);
-					writer.Write("_ = XmlHelper::GetAttribute<");
+					writer.Write("_ = XmlHelper.GetAttribute<");
 					writer.Write(typeName);
 					writer.Write(">(");
 					writer.Write(xsdMethodName);
@@ -74,7 +72,7 @@ namespace Magick.NET.FileGenerator
 					writer.WriteLine("\");");
 				}
 
-				writer.Write("result->");
+				writer.Write("result.");
 				writer.Write(method.Name);
 				writer.Write("(");
 
@@ -88,26 +86,24 @@ namespace Magick.NET.FileGenerator
 				}
 
 				writer.WriteLine(");");
-				writer.Indent--;
-
-				writer.WriteLine("}");
+				WriteEndColon(writer);
 			}
 		}
 		//===========================================================================================
 		private void WriteGetValue(IndentedTextWriter writer, PropertyInfo property)
 		{
-			string typeName = MagickNET.GetCppTypeName(property);
-			string xsdTypeName = MagickNET.GetXsdAttributeType(property);
+			string typeName = GetName(property);
+			string xsdTypeName = MagickTypes.GetXsdAttributeType(property);
 
 			if (xsdTypeName != null)
 			{
-				WriteGetElementValue(writer, typeName, MagickNET.GetXsdName(property));
+				WriteGetElementValue(writer, typeName, MagickTypes.GetXsdName(property));
 			}
 			else
 			{
 				WriteCreateMethod(writer, typeName);
 				writer.Write("(");
-				WriteSelectElement(writer, typeName, MagickNET.GetXsdName(property));
+				WriteSelectElement(writer, typeName, MagickTypes.GetXsdName(property));
 				writer.WriteLine(");");
 			}
 		}
@@ -116,7 +112,7 @@ namespace Magick.NET.FileGenerator
 		{
 			foreach (PropertyInfo property in Properties)
 			{
-				writer.Write("result->");
+				writer.Write("result.");
 				writer.Write(property.Name);
 				writer.Write(" = ");
 				WriteGetValue(writer, property);
@@ -129,6 +125,25 @@ namespace Magick.NET.FileGenerator
 			{
 				return ClassName;
 			}
+		}
+		//===========================================================================================
+		protected override void WriteCode(IndentedTextWriter writer)
+		{
+			writer.Write("private ");
+			writer.Write(ReturnType);
+			writer.Write(" Create");
+			writer.Write(ClassName);
+			writer.WriteLine("(XmlElement element)");
+			WriteStartColon(writer);
+			CheckNull(writer, "element");
+			writer.Write(ClassName);
+			writer.Write(" result = new ");
+			writer.Write(ClassName);
+			writer.WriteLine("();");
+			WriteSetProperties(writer);
+			WriteCallMethods(writer);
+			writer.WriteLine("return result;");
+			WriteEndColon(writer);
 		}
 		//===========================================================================================
 		protected sealed override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
@@ -146,30 +161,12 @@ namespace Magick.NET.FileGenerator
 			get;
 		}
 		//===========================================================================================
-		public override void WriteCode(IndentedTextWriter writer)
+		public override string Name
 		{
-			writer.Write(ReturnType);
-			writer.Write("^ MagickScript::Create");
-			writer.Write(ClassName);
-			writer.WriteLine("(XmlElement^ element)");
-			WriteStartColon(writer);
-			CheckNull(writer, "element");
-			writer.Write(ClassName);
-			writer.Write("^ result = gcnew ");
-			writer.Write(ClassName);
-			writer.WriteLine("();");
-			WriteSetProperties(writer);
-			WriteCallMethods(writer);
-			writer.WriteLine("return result;");
-			WriteEndColon(writer);
-		}
-		//===========================================================================================
-		public override void WriteHeader(IndentedTextWriter writer)
-		{
-			writer.Write(ReturnType);
-			writer.Write("^ Create");
-			writer.Write(ClassName);
-			writer.WriteLine("(XmlElement^ element);");
+			get
+			{
+				return ClassName;
+			}
 		}
 		//===========================================================================================
 	}

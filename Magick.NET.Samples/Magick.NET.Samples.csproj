@@ -43,12 +43,15 @@
     <Compile Include="Samples\Magick.NET\UsingColors.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Magick.NET\Magick.NET.vcxproj">
-      <Project>{13c84dce-50bc-42a3-bcec-d3bffe3bc49e}</Project>
+    <ProjectReference Include="..\Magick.NET.Core\Magick.NET.Core.csproj">
+      <Project>{4e26f91d-80e6-406c-b0e3-8c5fa3f83e7d}</Project>
+      <Name>Magick.NET.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Magick.NET\Magick.NET.csproj">
+      <Project>{daae3844-6435-4912-8f69-9f7a9242b4ac}</Project>
       <Name>Magick.NET</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Samples\Magick.NET\CombiningImages.vb" />
     <Content Include="Samples\Magick.NET\CommandLineOptionDefine.vb" />

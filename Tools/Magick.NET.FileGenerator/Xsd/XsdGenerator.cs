@@ -11,6 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,20 +27,11 @@ namespace Magick.NET.FileGenerator
 	internal sealed class XsdGenerator
 	{
 		//===========================================================================================
-		private MagickNET _MagickNET;
 		private QuantumDepth _Depth;
 		private XDocument _Document;
+		private MagickTypes _Types;
 		private XNamespace _Namespace = "http://www.w3.org/2001/XMLSchema";
 		private XmlNamespaceManager _Namespaces;
-		//===========================================================================================
-		private XsdGenerator(QuantumDepth depth)
-		{
-			_Depth = depth;
-			_MagickNET = new MagickNET(depth);
-
-			_Namespaces = new XmlNamespaceManager(new NameTable());
-			_Namespaces.AddNamespace("xs", _Namespace.ToString());
-		}
 		//===========================================================================================
 		private void AddArguments(XElement element, IEnumerable<MethodBase> methods)
 		{
@@ -58,10 +50,70 @@ namespace Magick.NET.FileGenerator
 			AddParameterAttributes(element, parameters, requiredParameters);
 		}
 		//===========================================================================================
-		private void AddClass(XElement parent, string typeName)
+		private void AddClass(XElement parent, Type type)
 		{
-			AddClassElements(parent, _MagickNET.GetProperties(typeName), _MagickNET.GetMethods(typeName));
-			AddClassAttributes(parent, _MagickNET.GetProperties(typeName));
+			AddClassElements(parent, MagickTypes.GetProperties(type), MagickTypes.GetMethods(type));
+			AddClassAttributes(parent, MagickTypes.GetProperties(type));
+		}
+		//===========================================================================================
+		private void AddClassAttributes(XElement complexType, IEnumerable<PropertyInfo> properties)
+		{
+			foreach (var property in from property in properties
+											 let typeName = MagickTypes.GetXsdAttributeType(property)
+											 where typeName != null
+											 let name = MagickTypes.GetXsdName(property)
+											 orderby name
+											 select new
+											 {
+												 Name = name,
+												 TypeName = typeName
+											 })
+			{
+				complexType.Add(new XElement(_Namespace + "attribute",
+									new XAttribute("name", property.Name),
+									new XAttribute("type", property.TypeName)));
+			}
+		}
+		//===========================================================================================
+		private void AddClassElements(XElement complexType, IEnumerable<PropertyInfo> properties, IEnumerable<MethodInfo> methods)
+		{
+			XElement sequence = new XElement(_Namespace + "sequence");
+
+			foreach (var property in from property in properties
+											 let typeName = MagickTypes.GetXsdElementType(property)
+											 where typeName != null
+											 let name = MagickTypes.GetXsdName(property)
+											 orderby name
+											 select new
+											 {
+												 Name = name,
+												 TypeName = typeName
+											 })
+			{
+				XElement element = new XElement(_Namespace + "element",
+											new XAttribute("name", property.Name),
+											new XAttribute("minOccurs", "0"));
+
+				element.Add(new XAttribute("type", property.TypeName));
+
+				sequence.Add(element);
+			}
+
+			if (methods.Count() > 0)
+			{
+				foreach (MethodBase method in methods)
+				{
+					XElement element = new XElement(_Namespace + "element",
+												new XAttribute("name", MagickTypes.GetXsdName(methods.First())),
+												new XAttribute("minOccurs", "0"),
+												new XAttribute("maxOccurs", "unbounded"));
+					AddMethods(element, new MethodBase[] { method });
+					sequence.Add(element);
+				}
+			}
+
+			if (sequence.HasElements)
+				complexType.Add(sequence);
 		}
 		//===========================================================================================
 		private void AddEnumValues(Type enumType, XElement restriction)
@@ -76,17 +128,9 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		private void AddMagickImageMethods(XElement annotation)
-		{
-			foreach (MethodInfo[] overloads in _MagickNET.GetGroupedMagickImageMethods())
-			{
-				annotation.AddBeforeSelf(CreateElement(overloads));
-			}
-		}
-		//===========================================================================================
 		private void AddMagickImageCollectionMethods(XElement annotation)
 		{
-			foreach (MethodInfo[] overloads in _MagickNET.GetGroupedMagickImageCollectionMethods())
+			foreach (MethodInfo[] overloads in _Types.GetGroupedMagickImageCollectionMethods())
 			{
 				annotation.AddBeforeSelf(CreateElement(overloads));
 			}
@@ -94,7 +138,15 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void AddMagickImageCollectionResultMethods(XElement annotation)
 		{
-			foreach (MethodInfo[] overloads in _MagickNET.GetGroupedMagickImageCollectionResultMethods())
+			foreach (MethodInfo[] overloads in _Types.GetGroupedMagickImageCollectionResultMethods())
+			{
+				annotation.AddBeforeSelf(CreateElement(overloads));
+			}
+		}
+		//===========================================================================================
+		private void AddMagickImageMethods(XElement annotation)
+		{
+			foreach (MethodInfo[] overloads in _Types.GetGroupedMagickImageMethods())
 			{
 				annotation.AddBeforeSelf(CreateElement(overloads));
 			}
@@ -102,7 +154,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void AddMagickImageProperties(XElement annotation)
 		{
-			foreach (PropertyInfo property in _MagickNET.GetMagickImageProperties())
+			foreach (PropertyInfo property in _Types.GetMagickImageProperties())
 			{
 				annotation.AddBeforeSelf(CreateElement(property));
 			}
@@ -116,47 +168,20 @@ namespace Magick.NET.FileGenerator
 			if (parameters.Length == 0)
 			{
 				element.Add(new XAttribute("type", "empty"));
+				return;
 			}
-			else
+
+			if (methods.Count() == 1 && IsTypedElement(methods.First(), parameters))
 			{
-				if (methods.Count() == 1 && IsTypedElement(parameters))
-				{
-					element.Add(new XAttribute("type", _MagickNET.GetXsdName(parameters[0])));
-				}
-				else
-				{
-					XElement complexType = new XElement(_Namespace + "complexType");
-
-					AddArguments(complexType, methods);
-
-					element.Add(complexType);
-				}
+				element.Add(new XAttribute("type", MagickTypes.GetXsdElementType(parameters[0])));
+				return;
 			}
-		}
-		//===========================================================================================
-		private void AddParameterAttributes(XElement complexType, ParameterInfo[] parameters, string[] requiredParameters)
-		{
-			foreach (var parameter in from parameter in parameters
-											  let typeName = _MagickNET.GetXsdAttributeType(parameter)
-											  where typeName != null
-											  orderby parameter.Name
-											  select new
-											  {
-												  Name = parameter.Name,
-												  TypeName = typeName,
-												  IsRequired = requiredParameters.Contains(parameter.Name)
-											  })
-			{
-				XElement attribute = new XElement(_Namespace + "attribute",
-												new XAttribute("name", parameter.Name));
 
-				if (parameter.IsRequired)
-					attribute.Add(new XAttribute("use", "required"));
+			XElement complexType = new XElement(_Namespace + "complexType");
 
-				attribute.Add(new XAttribute("type", parameter.TypeName));
+			AddArguments(complexType, methods);
 
-				complexType.Add(attribute);
-			}
+			element.Add(complexType);
 		}
 		//===========================================================================================
 		private void AddParameterElements(XElement complexType, ParameterInfo[] parameters, string[] requiredParameters)
@@ -164,7 +189,7 @@ namespace Magick.NET.FileGenerator
 			XElement sequence = new XElement(_Namespace + "sequence");
 
 			foreach (var parameter in from parameter in parameters
-											  let typeName = _MagickNET.GetXsdElementType(parameter)
+											  let typeName = MagickTypes.GetXsdElementType(parameter)
 											  where typeName != null
 											  orderby parameter.Name
 											  select new
@@ -189,70 +214,35 @@ namespace Magick.NET.FileGenerator
 				complexType.Add(sequence);
 		}
 		//===========================================================================================
-		private void AddClassAttributes(XElement complexType, IEnumerable<PropertyInfo> properties)
+		private void AddParameterAttributes(XElement complexType, ParameterInfo[] parameters, string[] requiredParameters)
 		{
-			foreach (var property in from property in properties
-											 let typeName = _MagickNET.GetXsdAttributeType(property)
-											 where typeName != null
-											 let name = _MagickNET.GetXsdName(property)
-											 orderby name
-											 select new
-											 {
-												 Name = name,
-												 TypeName = typeName
-											 })
+			foreach (var parameter in from parameter in parameters
+											  let typeName = MagickTypes.GetXsdAttributeType(parameter)
+											  where typeName != null
+											  orderby parameter.Name
+											  select new
+											  {
+												  Name = parameter.Name,
+												  TypeName = typeName,
+												  IsRequired = requiredParameters.Contains(parameter.Name)
+											  })
 			{
-				complexType.Add(new XElement(_Namespace + "attribute",
-									new XAttribute("name", property.Name),
-									new XAttribute("type", property.TypeName)));
+				XElement attribute = new XElement(_Namespace + "attribute",
+												new XAttribute("name", parameter.Name));
+
+				if (parameter.IsRequired)
+					attribute.Add(new XAttribute("use", "required"));
+
+				attribute.Add(new XAttribute("type", parameter.TypeName));
+
+				complexType.Add(attribute);
 			}
 		}
 		//===========================================================================================
-		private void AddClassElements(XElement complexType, IEnumerable<PropertyInfo> properties, IEnumerable<MethodInfo> methods)
-		{
-			XElement sequence = new XElement(_Namespace + "sequence");
-
-			foreach (var property in from property in properties
-											 let typeName = _MagickNET.GetXsdElementType(property)
-											 where typeName != null
-											 let name = _MagickNET.GetXsdName(property)
-											 orderby name
-											 select new
-											 {
-												 Name = name,
-												 TypeName = typeName
-											 })
-			{
-				XElement element = new XElement(_Namespace + "element",
-											new XAttribute("name", property.Name),
-											new XAttribute("minOccurs", "0"));
-
-				element.Add(new XAttribute("type", property.TypeName));
-
-				sequence.Add(element);
-			}
-
-			if (methods.Count() > 0)
-			{
-				foreach (MethodBase method in methods)
-				{
-					XElement element = new XElement(_Namespace + "element",
-												new XAttribute("name", _MagickNET.GetXsdName(methods.First())),
-												new XAttribute("minOccurs", "0"),
-												new XAttribute("maxOccurs", "unbounded"));
-					AddMethods(element, new MethodBase[] { method });
-					sequence.Add(element);
-				}
-			}
-
-			if (sequence.HasElements)
-				complexType.Add(sequence);
-		}
-		//===========================================================================================
-		private object CreateElement(IEnumerable<MethodBase> methods)
+		private XElement CreateElement(IEnumerable<MethodBase> methods)
 		{
 			XElement element = new XElement(_Namespace + "element",
-										new XAttribute("name", _MagickNET.GetXsdName(methods.First())));
+										new XAttribute("name", MagickTypes.GetXsdName(methods.First())));
 
 			AddMethods(element, methods);
 			return element;
@@ -260,10 +250,9 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private XElement CreateElement(PropertyInfo property)
 		{
-			string name = _MagickNET.GetXsdName(property);
+			string name = MagickTypes.GetXsdName(property);
 
-
-			string attributeTypeName = _MagickNET.GetXsdAttributeType(property);
+			string attributeTypeName = MagickTypes.GetXsdAttributeType(property);
 
 			if (attributeTypeName != null)
 			{
@@ -281,7 +270,7 @@ namespace Magick.NET.FileGenerator
 			{
 				return new XElement(_Namespace + "element",
 					new XAttribute("name", name),
-					new XAttribute("type", _MagickNET.GetXsdElementType(property)));
+					new XAttribute("type", MagickTypes.GetXsdElementType(property)));
 			}
 		}
 		//===========================================================================================
@@ -305,13 +294,7 @@ namespace Magick.NET.FileGenerator
 									new XAttribute("base", "var")))));
 		}
 		//===========================================================================================
-		private static void Generate(QuantumDepth depth)
-		{
-			XsdGenerator generator = new XsdGenerator(depth);
-			generator.WriteDocument();
-		}
-		//===========================================================================================
-		private bool IsTypedElement(ParameterInfo[] parameters)
+		private static bool IsTypedElement(MethodBase method, ParameterInfo[] parameters)
 		{
 			if (parameters.Length > 1)
 				return false;
@@ -321,15 +304,19 @@ namespace Magick.NET.FileGenerator
 			if (parameter.ParameterType.IsGenericType && parameter.ParameterType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
 				return true;
 
-			if (parameter.Name == "profile")
+			if (method.DeclaringType.Name == "MagickImage" && method.Name == "AddProfile")
 				return true;
 
 			return false;
 		}
 		//===========================================================================================
-		private void RemoveComments()
+		private void LoadDocument()
 		{
 			_Document = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"\..\..\..\Xsd\MagickScript.xsd");
+		}
+		//===========================================================================================
+		private void RemoveComments()
+		{
 			_Document.DescendantNodes().OfType<XComment>().Remove();
 		}
 		//===========================================================================================
@@ -407,9 +394,6 @@ namespace Magick.NET.FileGenerator
 					case "paths":
 						ReplacePaths(annotation);
 						break;
-					case "quantum":
-						ReplaceQuantum(annotation);
-						break;
 					default:
 						throw new NotImplementedException(annotationID);
 				}
@@ -426,54 +410,6 @@ namespace Magick.NET.FileGenerator
 		private void ReplaceCollectionResults(XElement annotation)
 		{
 			AddMagickImageCollectionResultMethods(annotation);
-
-			annotation.Remove();
-		}
-		//===========================================================================================
-		private void ReplaceColorProfile(XElement annotation)
-		{
-			XElement restriction = new XElement(_Namespace + "restriction",
-											new XAttribute("base", "xs:NMTOKEN"));
-			foreach (string name in _MagickNET.GetColorProfileNames())
-			{
-				restriction.Add(new XElement(_Namespace + "enumeration",
-										new XAttribute("value", name)));
-			}
-
-			annotation.ReplaceWith(CreateVarElement("ColorProfile", restriction));
-		}
-		//===========================================================================================
-		private void ReplaceDefines(XElement annotation)
-		{
-			List<XElement> types = new List<XElement>();
-
-			foreach (Type interfaceType in _MagickNET.GetInterfaceTypes("IDefines"))
-			{
-				XElement complexType = new XElement(_Namespace + "complexType",
-													new XAttribute("name", _MagickNET.GetXsdName(interfaceType)));
-				AddClass(complexType, interfaceType.Name);
-				types.Add(complexType);
-			}
-
-			annotation.ReplaceWith(types.ToArray());
-		}
-		//===========================================================================================
-		private void ReplaceEnums(XElement annotation)
-		{
-			foreach (Type enumType in _MagickNET.Enums)
-			{
-				annotation.AddBeforeSelf(CreateEnumElement(enumType));
-			}
-
-			annotation.Remove();
-		}
-		//===========================================================================================
-		private void ReplaceDrawables(XElement annotation)
-		{
-			foreach (ConstructorInfo[] constructors in _MagickNET.GetDrawables())
-			{
-				annotation.AddBeforeSelf(CreateElement(constructors));
-			}
 
 			annotation.Remove();
 		}
@@ -502,6 +438,64 @@ namespace Magick.NET.FileGenerator
 			annotation.ReplaceWith(CreateVarElement("color", restriction));
 		}
 		//===========================================================================================
+		private void ReplaceColorProfile(XElement annotation)
+		{
+			XElement restriction = new XElement(_Namespace + "restriction",
+											new XAttribute("base", "xs:NMTOKEN"));
+			foreach (string name in _Types.GetColorProfileNames())
+			{
+				restriction.Add(new XElement(_Namespace + "enumeration",
+										new XAttribute("value", name)));
+			}
+
+			annotation.ReplaceWith(CreateVarElement("ColorProfile", restriction));
+		}
+		//===========================================================================================
+		private void ReplaceDefines(XElement annotation)
+		{
+			List<XElement> types = new List<XElement>();
+
+			foreach (Type interfaceType in _Types.GetInterfaceTypes("IDefines"))
+			{
+				XElement complexType = new XElement(_Namespace + "complexType",
+													new XAttribute("name", MagickTypes.GetXsdName(interfaceType)));
+				AddClass(complexType, interfaceType);
+				types.Add(complexType);
+			}
+
+			annotation.ReplaceWith(types.ToArray());
+		}
+		//===========================================================================================
+		private void ReplaceDrawables(XElement annotation)
+		{
+			foreach (ConstructorInfo[] constructors in _Types.GetDrawables())
+			{
+				annotation.AddBeforeSelf(CreateElement(constructors));
+			}
+
+			annotation.Remove();
+		}
+		//===========================================================================================
+		private void ReplaceEnums(XElement annotation)
+		{
+			foreach (Type enumType in _Types.GetEnums())
+			{
+				annotation.AddBeforeSelf(CreateEnumElement(enumType));
+			}
+
+			annotation.Remove();
+		}
+		//===========================================================================================
+		private void ReplaceIDefines(XElement annotation)
+		{
+			annotation.ReplaceWith(
+				from type in _Types.GetInterfaceTypes("IDefines")
+				let name = MagickTypes.GetXsdName(type)
+				select new XElement(_Namespace + "element",
+					new XAttribute("name", name),
+					new XAttribute("type", name)));
+		}
+		//===========================================================================================
 		private void ReplaceImageActions(XElement annotation)
 		{
 			AddMagickImageProperties(annotation);
@@ -510,21 +504,11 @@ namespace Magick.NET.FileGenerator
 			annotation.Remove();
 		}
 		//===========================================================================================
-		private void ReplaceIDefines(XElement annotation)
-		{
-			annotation.ReplaceWith(
-				from type in _MagickNET.GetInterfaceTypes("IDefines")
-				let name = _MagickNET.GetXsdName(type)
-				select new XElement(_Namespace + "element",
-					new XAttribute("name", name),
-					new XAttribute("type", name)));
-		}
-		//===========================================================================================
 		private void ReplaceIReadDefines(XElement annotation)
 		{
 			annotation.ReplaceWith(
-				from type in _MagickNET.GetInterfaceTypes("IReadDefines")
-				let name = _MagickNET.GetXsdName(type)
+				from type in _Types.GetInterfaceTypes("IReadDefines")
+				let name = MagickTypes.GetXsdName(type)
 				select new XElement(_Namespace + "element",
 					new XAttribute("name", name),
 					new XAttribute("type", name)));
@@ -532,7 +516,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void ReplacePaths(XElement annotation)
 		{
-			foreach (ConstructorInfo[] constructors in _MagickNET.GetPaths())
+			foreach (ConstructorInfo[] constructors in _Types.GetPaths())
 			{
 				annotation.AddBeforeSelf(CreateElement(constructors));
 			}
@@ -540,54 +524,15 @@ namespace Magick.NET.FileGenerator
 			annotation.Remove();
 		}
 		//===========================================================================================
-		private void ReplaceQuantum(XElement annotation)
-		{
-			string max;
-			string baseType;
-			switch (_Depth)
-			{
-				case QuantumDepth.Q8:
-					max = "255";
-					baseType = "xs:unsignedByte";
-					break;
-				case QuantumDepth.Q16:
-					max = "65535";
-					baseType = "xs:unsignedShort";
-					break;
-				case QuantumDepth.Q16HDRI:
-					max = "65535";
-					baseType = "xs:float";
-					break;
-				default:
-					throw new NotImplementedException();
-			}
-
-			annotation.ReplaceWith(
-				CreateVarElement("quantum",
-					new XElement(_Namespace + "restriction",
-						new XAttribute("base", baseType),
-						new XElement(_Namespace + "minInclusive",
-							new XAttribute("value", "0")),
-						new XElement(_Namespace + "maxInclusive",
-							new XAttribute("value", max)))));
-		}
-		//===========================================================================================
 		private void ReplaceWithClass(XElement annotation, string typeName)
 		{
-			AddClass(annotation.Parent, typeName);
-			annotation.Remove();
-		}
-		//===========================================================================================
-		private void ReplaceWithType(XElement annotation, string typeName)
-		{
-			AddArguments(annotation.Parent, _MagickNET.GetConstructors(typeName));
-
+			AddClass(annotation.Parent, _Types.GetType(typeName));
 			annotation.Remove();
 		}
 		//===========================================================================================
 		private void Write()
 		{
-			string folder = MagickNET.GetFolderName(_Depth);
+			string folder = MagickTypes.GetFolderName(_Depth);
 			string outputFile = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\Magick.NET\Resources\" + folder + @"\MagickScript.xsd");
 			Console.WriteLine("Creating: " + outputFile);
 
@@ -601,20 +546,29 @@ namespace Magick.NET.FileGenerator
 			}
 		}
 		//===========================================================================================
-		private void WriteDocument()
+		private void ReplaceWithType(XElement annotation, string typeName)
 		{
+			AddArguments(annotation.Parent, _Types.GetConstructors(typeName));
+
+			annotation.Remove();
+		}
+		//===========================================================================================
+		public XsdGenerator(QuantumDepth depth)
+		{
+			_Depth = depth;
+			_Types = new MagickTypes(depth);
+
+			_Namespaces = new XmlNamespaceManager(new NameTable());
+			_Namespaces.AddNamespace("xs", _Namespace.ToString());
+		}
+		//===========================================================================================
+		public void Generate()
+		{
+			LoadDocument();
 			RemoveComments();
 			ReplaceAnnotations();
 			RemoveUnusedSimpleTypes();
-
 			Write();
-		}
-		//===========================================================================================
-		public static void Generate()
-		{
-			Generate(QuantumDepth.Q8);
-			Generate(QuantumDepth.Q16);
-			Generate(QuantumDepth.Q16HDRI);
 		}
 		//===========================================================================================
 	}

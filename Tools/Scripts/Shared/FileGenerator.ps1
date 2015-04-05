@@ -10,9 +10,3 @@ function GenerateFiles()
 	ExecuteFile "Tools\Magick.NET.FileGenerator\bin\Release\Magick.NET.FileGenerator.exe"
 }
 #==================================================================================================
-function GenerateAnyCPUFiles()
-{
-	_BuildFileGenerator
-	ExecuteFile "Tools\Magick.NET.FileGenerator\bin\Release\Magick.NET.FileGenerator.exe --AnyCPU" 
-}
-#==================================================================================================

@@ -11,6 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System.CodeDom.Compiler;
 using System.Reflection;
 
@@ -30,7 +31,7 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			writer.Write("return ");
+			writer.Write("return new ");
 			writer.Write(method.DeclaringType.Name);
 			writer.Write("(");
 			WriteParameters(writer, parameters);
@@ -39,18 +40,11 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			writer.Write("return ");
+			writer.Write("return new ");
 			writer.Write(method.DeclaringType.Name);
 			writer.Write("(");
 			WriteHashtableParameters(writer, parameters);
 			writer.WriteLine(");");
-		}
-		//===========================================================================================
-		public override void WriteIncludes(IndentedTextWriter writer)
-		{
-			base.WriteIncludes(writer);
-
-			writer.WriteLine(@"#include ""..\..\Drawables\Coordinate.h""");
 		}
 		//===========================================================================================
 	}

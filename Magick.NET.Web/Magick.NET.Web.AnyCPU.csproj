@@ -16,21 +16,21 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\ReleaseQ8\AnyCPU\</OutputPath>
-    <DefineConstants>TRACE;Q8</DefineConstants>
+    <DefineConstants>ANYCPU;TRACE;Q8</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-AnyCPU</AssemblyName>
     <DocumentationFile>bin\ReleaseQ8\AnyCPU\Magick.NET.Web-AnyCPU.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|AnyCPU'">
     <OutputPath>bin\ReleaseQ16\AnyCPU\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS;Q16</DefineConstants>
+    <DefineConstants>ANYCPU;TRACE;CODE_ANALYSIS;Q16</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
@@ -39,10 +39,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|AnyCPU'">
     <OutputPath>bin\ReleaseQ16-HDRI\AnyCPU\</OutputPath>
-    <DefineConstants>TRACE;Q16HDRI</DefineConstants>
+    <DefineConstants>ANYCPU;TRACE;Q16HDRI</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
@@ -78,8 +78,12 @@
     <None Include="Magick.NET.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Magick.NET.AnyCPU\Magick.NET.AnyCPU.csproj">
-      <Project>{13c84dce-50bc-42a3-bcec-d3bffe3bc49e}</Project>
+    <ProjectReference Include="..\Magick.NET.Core\Magick.NET.Core.csproj">
+      <Project>{4e26f91d-80e6-406c-b0e3-8c5fa3f83e7d}</Project>
+      <Name>Magick.NET.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Magick.NET\Magick.NET.AnyCPU.csproj">
+      <Project>{daae3844-6435-4912-8f69-9f7a9242b4ac}</Project>
       <Name>Magick.NET</Name>
     </ProjectReference>
   </ItemGroup>

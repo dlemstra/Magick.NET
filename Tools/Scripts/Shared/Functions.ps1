@@ -34,6 +34,18 @@ function CheckFolder($folder)
 	Exit 1
 }
 #==================================================================================================
+function CreateChild($xml, $xpath, $name)
+{
+	[System.Xml.XmlNamespaceManager] $nsmgr = $xml.NameTable;
+	$nsmgr.AddNamespace("msb", "http://schemas.microsoft.com/developer/msbuild/2003");
+	
+	$parent = $xml.SelectSingleNode($xpath, $nsmgr)
+	$element = $xml.CreateElement($name, "http://schemas.microsoft.com/developer/msbuild/2003")
+	$parent.AppendChild($element)
+
+	return $element
+}
+#==================================================================================================
 function ExecuteFile($path)
 {
 	Invoke-Expression $path

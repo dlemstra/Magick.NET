@@ -18,6 +18,11 @@ function GzipAssembly($inFile,$outFile)
 	$byteCount = $input.Read($buffer, 0, $input.Length)
 	$input.Close()
  	
+	$folder = (Split-Path $outFile -Parent)
+	if (!(Test-Path $folder))
+	{
+		New-Item -ItemType directory -Path $folder
+	}
 	$output = New-Object System.IO.FileStream $outFile, ([IO.FileMode]::Create), ([IO.FileAccess]::Write), ([IO.FileShare]::None)
 	$gzipStream = New-Object System.IO.Compression.GzipStream $output, ([IO.Compression.CompressionMode]::Compress)
  	
@@ -29,11 +34,11 @@ function GzipAssembly($inFile,$outFile)
 #==================================================================================================
 function GzipAssemblies()
 {
-	GzipAssembly "Magick.NET\bin\ReleaseQ8\Win32\Magick.NET-x86.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ8\Magick.NET-x86.gz"
-	GzipAssembly "Magick.NET\bin\ReleaseQ8\x64\Magick.NET-x64.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ8\Magick.NET-x64.gz"
-	GzipAssembly "Magick.NET\bin\ReleaseQ16\Win32\Magick.NET-x86.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16\Magick.NET-x86.gz"
-	GzipAssembly "Magick.NET\bin\ReleaseQ16\x64\Magick.NET-x64.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16\Magick.NET-x64.gz"
-	GzipAssembly "Magick.NET\bin\ReleaseQ16-HDRI\Win32\Magick.NET-x86.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16-HDRI\Magick.NET-x86.gz"
-	GzipAssembly "Magick.NET\bin\ReleaseQ16-HDRI\x64\Magick.NET-x64.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16-HDRI\Magick.NET-x64.gz"
+	GzipAssembly "Magick.NET.Wrapper\bin\ReleaseQ8\Win32\Magick.NET.Wrapper-x86.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ8\Magick.NET.Wrapper-x86.gz"
+	GzipAssembly "Magick.NET.Wrapper\bin\ReleaseQ8\x64\Magick.NET.Wrapper-x64.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ8\Magick.NET.Wrapper-x64.gz"
+	GzipAssembly "Magick.NET.Wrapper\bin\ReleaseQ16\Win32\Magick.NET.Wrapper-x86.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16\Magick.NET.Wrapper-x86.gz"
+	GzipAssembly "Magick.NET.Wrapper\bin\ReleaseQ16\x64\Magick.NET.Wrapper-x64.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16\Magick.NET.Wrapper-x64.gz"
+	GzipAssembly "Magick.NET.Wrapper\bin\ReleaseQ16-HDRI\Win32\Magick.NET.Wrapper-x86.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16-HDRI\Magick.NET.Wrapper-x86.gz"
+	GzipAssembly "Magick.NET.Wrapper\bin\ReleaseQ16-HDRI\x64\Magick.NET.Wrapper-x64.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16-HDRI\Magick.NET.Wrapper-x64.gz"
 }
 #==================================================================================================

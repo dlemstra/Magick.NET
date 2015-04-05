@@ -11,105 +11,118 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Magick.NET.FileGenerator
 {
 	//==============================================================================================
-	internal sealed class MagickScriptGenerator : FileGenerator
+	internal sealed class MagickScriptGenerator
 	{
 		//===========================================================================================
-		private List<CodeGenerator> _CodeGenerators;
+		private string _OutputFolder;
+		private MagickTypes _Types;
 		//===========================================================================================
 		private MagickScriptGenerator()
-			: base(@"Magick.NET\Script\Generated")
 		{
-			InitializeCodeGenerators();
+			_OutputFolder = SetOutputFolder(@"Magick.NET\Script\Generated");
+			_Types = new MagickTypes(QuantumDepth.Q16HDRI);
 		}
 		//===========================================================================================
-		private void InitializeCodeGenerators()
+		private void Cleanup()
 		{
-			_CodeGenerators = new List<CodeGenerator>();
-
-			_CodeGenerators.Add(new MagickImageGenerator());
-			_CodeGenerators.Add(new MagickImageCollectionGenerator());
-			_CodeGenerators.Add(new DrawableGenerator());
-			_CodeGenerators.Add(new PathsGenerator());
-
-			_CodeGenerators.Add(new CoordinateGenerator());
-			_CodeGenerators.Add(new ColorProfileGenerator());
-			_CodeGenerators.Add(new ImageProfileGenerator());
-			_CodeGenerators.Add(new PathArcGenerator());
-			_CodeGenerators.Add(new PathCurvetoGenerator());
-			_CodeGenerators.Add(new PathQuadraticCurvetoGenerator());
-			_CodeGenerators.Add(new SparseColorArg());
-
-			_CodeGenerators.Add(new MagickReadSettingsGenerator());
-			_CodeGenerators.Add(new MontageSettingsGenerator());
-			_CodeGenerators.Add(new PixelStorageSettingsGenerator());
-			_CodeGenerators.Add(new QuantizeSettingsGenerator());
-
-			_CodeGenerators.Add(new IDefinesGenerator());
-			_CodeGenerators.Add(new CollectionGenerator());
-		}
-		//===========================================================================================
-		private void CreateCodeFile()
-		{
-			using (IndentedTextWriter writer = CreateWriter(@"Execute.cpp"))
+			foreach (string fileName in Directory.GetFiles(_OutputFolder))
 			{
-				WriteHeader(writer);
-				WriteIncludes(writer);
-				writer.WriteLine("#pragma warning (disable: 4100)");
-				WriteStartNamespace(writer);
-				WriteCode(writer);
-				WriteEndColon(writer);
-				writer.WriteLine("#pragma warning (default: 4100)");
-
+				File.Delete(fileName);
+			}
+		}
+		//===========================================================================================
+		private static void Close(IndentedTextWriter writer)
+		{
+			writer.InnerWriter.Dispose();
+		}
+		//===========================================================================================
+		private void CreateCodeFile(CodeGenerator generator)
+		{
+			using (IndentedTextWriter writer = CreateWriter(generator.Name + ".cs"))
+			{
+				generator.Write(writer, _Types);
 				Close(writer);
 			}
 		}
 		//===========================================================================================
-		private void CreateHeaderFile()
+		private IndentedTextWriter CreateWriter(string fileName)
 		{
-			using (IndentedTextWriter writer = CreateWriter(@"Execute.h"))
-			{
-				WriteHeader(writer);
+			string outputFile = Path.GetFullPath(_OutputFolder + @"\" + fileName);
+			Console.WriteLine("Creating: " + outputFile);
 
-				foreach (CodeGenerator codeGenerator in _CodeGenerators)
-				{
-					codeGenerator.WriteHeader(writer);
-				}
-
-				Close(writer);
-			}
+			FileStream output = File.Create(outputFile);
+			StreamWriter streamWriter = new StreamWriter(output);
+			IndentedTextWriter writer = new IndentedTextWriter(streamWriter, "\t");
+			return writer;
 		}
 		//===========================================================================================
-		private void WriteCode(IndentedTextWriter writer)
+		private static string SetOutputFolder(string outputFolder)
 		{
-			foreach (CodeGenerator codeGenerator in _CodeGenerators)
-			{
-				codeGenerator.WriteCode(writer);
-			}
+			string result = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\";
+			result += outputFolder;
+			if (result[result.Length - 1] != '\\')
+				result += "\\";
+
+			return result;
 		}
 		//===========================================================================================
-		private void WriteIncludes(IndentedTextWriter writer)
+		private void WriteCollection()
 		{
-			writer.WriteLine(@"#include ""Stdafx.h""");
-			writer.WriteLine(@"#include ""..\..\Helpers\XmlHelper.h""");
-			writer.WriteLine(@"#include ""..\MagickScript.h""");
-
-			foreach (CodeGenerator codeGenerator in _CodeGenerators)
-			{
-				codeGenerator.WriteIncludes(writer);
-			}
+			CreateCodeFile(new CollectionGenerator());
+		}
+		//===========================================================================================
+		private void WriteConstructors()
+		{
+			CreateCodeFile(new ColorProfileGenerator());
+			CreateCodeFile(new CoordinateGenerator());
+			CreateCodeFile(new ImageProfileGenerator());
+			CreateCodeFile(new PathArcGenerator());
+			CreateCodeFile(new PathCurvetoGenerator());
+			CreateCodeFile(new PathQuadraticCurvetoGenerator());
+			CreateCodeFile(new SparseColorArg());
+		}
+		//===========================================================================================
+		private void WriteExecute()
+		{
+			CreateCodeFile(new DrawableGenerator());
+			CreateCodeFile(new PathsGenerator());
+			CreateCodeFile(new MagickImageCollectionGenerator());
+			CreateCodeFile(new MagickImageGenerator());
+		}
+		//===========================================================================================
+		private void WriteInterfaces()
+		{
+			CreateCodeFile(new IDefinesGenerator());
+		}
+		//===========================================================================================
+		private void WriteSettings()
+		{
+			CreateCodeFile(new MagickReadSettingsGenerator());
+			CreateCodeFile(new MontageSettingsGenerator());
+			CreateCodeFile(new PixelStorageSettingsGenerator());
+			CreateCodeFile(new QuantizeSettingsGenerator());
 		}
 		//===========================================================================================
 		public static void Generate()
 		{
 			MagickScriptGenerator generator = new MagickScriptGenerator();
-			generator.CreateHeaderFile();
-			generator.CreateCodeFile();
+
+			generator.Cleanup();
+
+			generator.WriteCollection();
+			generator.WriteConstructors();
+			generator.WriteExecute();
+			generator.WriteInterfaces();
+			generator.WriteSettings();
 		}
 		//===========================================================================================
 	}

@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4E26F91D-80E6-406C-B0E3-8C5FA3F83E7D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ImageMagick</RootNamespace>
+    <AssemblyName>Magick.NET.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\AnyCPU</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\AnyCPU\Magick.NET.Core.xml</DocumentationFile>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Magick.NET.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IMagickColor.cs" />
+    <Compile Include="Defines\IDefine.cs" />
+    <Compile Include="Defines\IDefines.cs" />
+    <Compile Include="Defines\IReadDefines.cs" />
+    <Compile Include="Defines\MagickDefine.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Drawables\IDrawable.cs" />
+    <Compile Include="Drawables\IDrawableAffine.cs" />
+    <Compile Include="Drawables\IDrawableAlpha.cs" />
+    <Compile Include="Drawables\IDrawableArc.cs" />
+    <Compile Include="Drawables\IDrawableBezier.cs" />
+    <Compile Include="Drawables\IDrawableCircle.cs" />
+    <Compile Include="Drawables\IDrawableClipPath.cs" />
+    <Compile Include="Drawables\IDrawableColor.cs" />
+    <Compile Include="Drawables\IDrawableCompositeImage.cs" />
+    <Compile Include="Drawables\IDrawableDashArray.cs" />
+    <Compile Include="Drawables\IDrawableDashOffset.cs" />
+    <Compile Include="Drawables\IDrawableEllipse.cs" />
+    <Compile Include="Drawables\IDrawableFillOpacity.cs" />
+    <Compile Include="Drawables\IDrawableFillColor.cs" />
+    <Compile Include="Drawables\IDrawableFillRule.cs" />
+    <Compile Include="Drawables\IDrawableFont.cs" />
+    <Compile Include="Drawables\IDrawableGravity.cs" />
+    <Compile Include="Drawables\IDrawableLine.cs" />
+    <Compile Include="Drawables\IDrawableMiterLimit.cs" />
+    <Compile Include="Drawables\IDrawablePath.cs" />
+    <Compile Include="Drawables\IDrawablePoint.cs" />
+    <Compile Include="Drawables\IDrawablePointSize.cs" />
+    <Compile Include="Drawables\IDrawablePolygon.cs" />
+    <Compile Include="Drawables\IDrawablePolyline.cs" />
+    <Compile Include="Drawables\IDrawablePopClipPath.cs" />
+    <Compile Include="Drawables\IDrawablePopGraphicContext.cs" />
+    <Compile Include="Drawables\IDrawablePopPattern.cs" />
+    <Compile Include="Drawables\IDrawablePushClipPath.cs" />
+    <Compile Include="Drawables\IDrawablePushGraphicContext.cs" />
+    <Compile Include="Drawables\IDrawablePushPattern.cs" />
+    <Compile Include="Drawables\IDrawableRectangle.cs" />
+    <Compile Include="Drawables\IDrawableRotation.cs" />
+    <Compile Include="Drawables\IDrawableRoundRectangle.cs" />
+    <Compile Include="Drawables\IDrawableScaling.cs" />
+    <Compile Include="Drawables\IDrawableSkewX.cs" />
+    <Compile Include="Drawables\IDrawableSkewY.cs" />
+    <Compile Include="Drawables\IDrawableStrokeOpacity.cs" />
+    <Compile Include="Drawables\IDrawableStrokeAntialias.cs" />
+    <Compile Include="Drawables\IDrawableStrokeColor.cs" />
+    <Compile Include="Drawables\IDrawableStrokeLineCap.cs" />
+    <Compile Include="Drawables\IDrawableStrokeLineJoin.cs" />
+    <Compile Include="Drawables\IDrawableStrokeWidth.cs" />
+    <Compile Include="Drawables\IDrawableText.cs" />
+    <Compile Include="Drawables\IDrawableTextAntialias.cs" />
+    <Compile Include="Drawables\IDrawableTextDecoration.cs" />
+    <Compile Include="Drawables\IDrawableTextDirection.cs" />
+    <Compile Include="Drawables\IDrawableTextInterlineSpacing.cs" />
+    <Compile Include="Drawables\IDrawableTextInterwordSpacing.cs" />
+    <Compile Include="Drawables\IDrawableTextKerning.cs" />
+    <Compile Include="Drawables\IDrawableTextUnderColor.cs" />
+    <Compile Include="Drawables\IDrawableTranslation.cs" />
+    <Compile Include="Drawables\IDrawableViewbox.cs" />
+    <Compile Include="Drawables\Path\IPath.cs" />
+    <Compile Include="Drawables\Path\IPathArcAbs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Drawables\Path\IPathArcRel.cs" />
+    <Compile Include="Enums\AlphaOption.cs" />
+    <Compile Include="Enums\Channels.cs" />
+    <Compile Include="Enums\ClassType.cs" />
+    <Compile Include="Enums\ColorSpace.cs" />
+    <Compile Include="Enums\ColorType.cs" />
+    <Compile Include="Enums\CompositeOperator.cs" />
+    <Compile Include="Enums\CompressionMethod.cs" />
+    <Compile Include="Enums\DistortMethod.cs" />
+    <Compile Include="Enums\DitherMethod.cs" />
+    <Compile Include="Enums\Endian.cs" />
+    <Compile Include="Enums\ErrorMatrix.cs" />
+    <Compile Include="Enums\EvaluateOperator.cs" />
+    <Compile Include="Enums\FillRule.cs" />
+    <Compile Include="Enums\FilterType.cs" />
+    <Compile Include="Enums\FontStretch.cs" />
+    <Compile Include="Enums\FontStyleType.cs" />
+    <Compile Include="Enums\FontWeight.cs" />
+    <Compile Include="Enums\GifDisposeMethod.cs" />
+    <Compile Include="Enums\Gravity.cs" />
+    <Compile Include="Enums\Interlace.cs" />
+    <Compile Include="Enums\Kernel.cs" />
+    <Compile Include="Enums\LineCap.cs" />
+    <Compile Include="Enums\LineJoin.cs" />
+    <Compile Include="Enums\LogEvents.cs" />
+    <Compile Include="Enums\MagickFormat.cs" />
+    <Compile Include="Enums\MontageMode.cs" />
+    <Compile Include="Enums\MorphologyMethod.cs" />
+    <Compile Include="Enums\NoiseType.cs" />
+    <Compile Include="Enums\OrientationType.cs" />
+    <Compile Include="Enums\PaintMethod.cs" />
+    <Compile Include="Enums\PixelChannel.cs" />
+    <Compile Include="Enums\PixelIntensityMethod.cs" />
+    <Compile Include="Enums\PixelInterpolate.cs" />
+    <Compile Include="Enums\RenderingIntent.cs" />
+    <Compile Include="Enums\Resolution.cs" />
+    <Compile Include="Enums\SparseColorMethod.cs" />
+    <Compile Include="Enums\StorageType.cs" />
+    <Compile Include="Enums\TextDecoration.cs" />
+    <Compile Include="Enums\TextDirection.cs" />
+    <Compile Include="Enums\VirtualPixelMethod.cs" />
+    <Compile Include="Events\WarningEventArgs.cs" />
+    <Compile Include="Exceptions\Error\MagickTypeErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickStreamErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickResourceLimitErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickRegistryErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickOptionErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickModuleErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickMissingDelegateErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickImageErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickFileOpenErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickDrawErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickDelegateErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickCorruptImageErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickUndefinedErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickConfigureErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickCoderErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickCacheErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickBlobErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickErrorException.cs" />
+    <Compile Include="Exceptions\MagickException.cs" />
+    <Compile Include="Exceptions\Warning\MagickTypeWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickStreamWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickResourceLimitWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickRegistryWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickOptionWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickModuleWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickMissingDelegateWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickImageWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickFileOpenWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickDrawWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickDelegateWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickCorruptImageWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickUndefinedWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickConfigureWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickCoderWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickCacheWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickBlobWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickWarningException.cs" />
+    <Compile Include="Helpers\Throw.cs" />
+    <Compile Include="Helpers\ValidatedNotNull.cs" />
+    <Compile Include="IMagickImage.cs" />
+    <Compile Include="Matrices\ColorMatrix.cs" />
+    <Compile Include="Matrices\ConvolveMatrix.cs" />
+    <Compile Include="Matrices\DoubleMatrix.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\MagickReadSettings.cs" />
+    <Compile Include="Settings\PixelStorageSettings.cs" />
+    <Compile Include="Settings\QuantizeSettings.cs" />
+    <Compile Include="Statistics\ChannelMoments.cs" />
+    <Compile Include="Statistics\ChannelPerceptualHash.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Statistics\ChannelStatistics.cs" />
+    <Compile Include="Statistics\Moments.cs" />
+    <Compile Include="Statistics\Statistics.cs" />
+    <Compile Include="Types\Coordinate.cs" />
+    <Compile Include="Types\MagickErrorInfo.cs" />
+    <Compile Include="Types\PointD.cs" />
+    <Compile Include="ISparseColorArg.cs" />
+    <Compile Include="Types\Tuple.cs" />
+    <Compile Include="Types\TypeMetric.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Magick.NET.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawables\Path\Args\IPathArc.cs" />
+    <Compile Include="Drawables\Path\Args\IPathCurveto.cs" />
+    <Compile Include="Drawables\Path\Args\IPathQuadraticCurveto.cs" />
+    <Compile Include="Drawables\Path\IPathClosePath.cs" />
+    <Compile Include="Drawables\Path\IPathCurvetoAbs.cs" />
+    <Compile Include="Drawables\Path\IPathCurvetoRel.cs" />
+    <Compile Include="Drawables\Path\IPathLinetoAbs.cs" />
+    <Compile Include="Drawables\Path\IPathLinetoHorizontalAbs.cs" />
+    <Compile Include="Drawables\Path\IPathLinetoHorizontalRel.cs" />
+    <Compile Include="Drawables\Path\IPathLinetoRel.cs" />
+    <Compile Include="Drawables\Path\IPathLinetoVerticalAbs.cs" />
+    <Compile Include="Drawables\Path\IPathLinetoVerticalRel.cs" />
+    <Compile Include="Drawables\Path\IPathMovetoAbs.cs" />
+    <Compile Include="Drawables\Path\IPathMovetoRel.cs" />
+    <Compile Include="Drawables\Path\IPathQuadraticCurvetoAbs.cs" />
+    <Compile Include="Drawables\Path\IPathQuadraticCurvetoRel.cs" />
+    <Compile Include="Drawables\Path\IPathSmoothCurvetoAbs.cs" />
+    <Compile Include="Drawables\Path\IPathSmoothCurvetoRel.cs" />
+    <Compile Include="Drawables\Path\IPathSmoothQuadraticCurvetoAbs.cs" />
+    <Compile Include="Drawables\Path\IPathSmoothQuadraticCurvetoRel.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

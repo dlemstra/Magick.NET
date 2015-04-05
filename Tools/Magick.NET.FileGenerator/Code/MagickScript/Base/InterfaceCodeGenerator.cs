@@ -30,7 +30,7 @@ namespace Magick.NET.FileGenerator
 			get
 			{
 				if (_InterfaceGenerators == null)
-					_InterfaceGenerators = (from type in MagickNET.GetInterfaceTypes(ClassName)
+					_InterfaceGenerators = (from type in Types.GetInterfaceTypes(ClassName)
 													select new InterfaceGenerator(ClassName, type.Name)).ToArray();
 
 				return _InterfaceGenerators;
@@ -39,16 +39,18 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		private void WriteCode(IndentedTextWriter writer, string className)
 		{
+			WriteSeparator(writer);
+			writer.Write("private ");
 			writer.Write(className);
-			writer.Write("^ MagickScript::Create");
+			writer.Write(" Create");
 			writer.Write(className);
-			writer.WriteLine("(XmlElement^ parent)");
+			writer.WriteLine("(XmlElement parent)");
 			WriteStartColon(writer);
 			CheckNull(writer, "parent");
-			writer.WriteLine("XmlElement^ element = (XmlElement^)parent->FirstChild;");
+			writer.WriteLine("XmlElement element = (XmlElement)parent.FirstChild;");
 			CheckNull(writer, "element");
-			WriteSwitch(writer, from type in MagickNET.GetInterfaceTypes(className)
-									  select MagickNET.GetXsdName(type));
+			WriteSwitch(writer, from type in Types.GetInterfaceTypes(className)
+									  select MagickTypes.GetXsdName(type));
 			WriteEndColon(writer);
 		}
 		//===========================================================================================
@@ -70,51 +72,27 @@ namespace Magick.NET.FileGenerator
 			throw new NotImplementedException();
 		}
 		//===========================================================================================
-		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			throw new NotImplementedException();
-		}
-		//===========================================================================================
-		protected void WriteHeader(IndentedTextWriter writer, string className)
-		{
-			writer.Write(className);
-			writer.Write("^ Create");
-			writer.Write(className);
-			writer.WriteLine("(XmlElement^ parent);");
-		}
-		//===========================================================================================
-		protected virtual void WriteIncludes(IndentedTextWriter writer, InterfaceGenerator generator)
-		{
-			throw new NotImplementedException();
-		}
-		//===========================================================================================
-		public override void WriteCode(IndentedTextWriter writer)
+		protected override void WriteCode(IndentedTextWriter writer)
 		{
 			WriteCode(writer, ClassName);
 
 			foreach (InterfaceGenerator generator in InterfaceGenerators)
 			{
-				generator.WriteCode(writer);
+				WriteSeparator(writer);
+				generator.WriteCode(writer, Types);
 			}
 		}
 		//===========================================================================================
-		public override void WriteHeader(IndentedTextWriter writer)
+		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
 		{
-			WriteHeader(writer, ClassName);
-
-			foreach (InterfaceGenerator generator in InterfaceGenerators)
-			{
-				generator.WriteHeader(writer);
-			}
+			throw new NotImplementedException();
 		}
 		//===========================================================================================
-		public override void WriteIncludes(IndentedTextWriter writer)
+		public override string Name
 		{
-			base.WriteIncludes(writer);
-
-			foreach (InterfaceGenerator generator in InterfaceGenerators)
+			get
 			{
-				WriteIncludes(writer, generator);
+				return ClassName;
 			}
 		}
 		//===========================================================================================

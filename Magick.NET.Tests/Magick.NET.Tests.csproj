@@ -19,7 +19,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseQ16|x86' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ16\Magick.NET\</OutputPath>
+    <OutputPath>bin\ReleaseQ16\x86</OutputPath>
     <DefineConstants>TRACE;DEBUG;Q16</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -28,7 +28,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ8\Magick.NET\</OutputPath>
+    <OutputPath>bin\ReleaseQ8\x86</OutputPath>
     <DefineConstants>TRACE;DEBUG;Q8</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -37,7 +37,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ16-HDRI\Magick.NET\</OutputPath>
+    <OutputPath>bin\ReleaseQ16-HDRI\x86</OutputPath>
     <DefineConstants>TRACE;DEBUG;Q16HDRI</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -74,41 +74,36 @@
     <Compile Include="Coders\RgbTests.cs" />
     <Compile Include="Coders\TiffTests.cs" />
     <Compile Include="ColorAssert.cs" />
-    <Compile Include="Colors\Base\ColorBaseTests.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Colors\ColorMonoTests.cs" />
+    <Compile Include="Colors\Base\ColorBaseTests.cs" />
     <Compile Include="Colors\ColorCMYKTests.cs" />
+    <Compile Include="Colors\ColorMonoTests.cs" />
+    <Compile Include="Colors\ColorRGBTests.cs" />
+    <Compile Include="Colors\MagickColorTests.cs" />
     <Compile Include="Defines\Dds\DdsWriteDefinesTests.cs" />
     <Compile Include="Defines\Jpeg\JpegReadDefinesTests.cs" />
     <Compile Include="Defines\Jpeg\JpegWriteDefinesTests.cs" />
-    <Compile Include="Defines\Pdf\PdfReadDefinesTests.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Defines\Pdf\PdfReadDefinesTests.cs" />
     <Compile Include="Defines\Tiff\TiffReadDefinesTests.cs" />
     <Compile Include="Defines\Tiff\TiffWriteDefinesTests.cs" />
+    <Compile Include="Drawables\DrawableTests.cs" />
+    <Compile Include="ExceptionAssert.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MagickFormatInfoTests.cs" />
-    <Compile Include="Matrices\ConvolveMatrixTests.cs" />
+    <Compile Include="MagickImageCollectionTests.cs" />
+    <Compile Include="MagickImageInfoTests.cs" />
+    <Compile Include="MagickImageTests.cs" />
+    <Compile Include="MagickNETTests.cs" />
     <Compile Include="Matrices\ColorMatrixTests.cs" />
-    <Compile Include="Arguments\PercentageTests.cs" />
+    <Compile Include="Matrices\ConvolveMatrixTests.cs" />
     <Compile Include="Pixels\PixelCollectionTests.cs" />
     <Compile Include="Pixels\PixelTests.cs" />
     <Compile Include="Pixels\WritablePixelCollectionTests.cs" />
     <Compile Include="Profiles\8Bim\EightBimProfileTests.cs" />
     <Compile Include="Profiles\8Bim\EightBimValueTests.cs" />
     <Compile Include="Profiles\Color\ColorProfileTests.cs" />
-    <Compile Include="Colors\ColorRGBTests.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ExceptionAssert.cs" />
     <Compile Include="Profiles\Exif\ExifProfileTests.cs" />
     <Compile Include="Profiles\Exif\ExifValueTests.cs" />
-    <Compile Include="Colors\MagickColorTests.cs" />
-    <Compile Include="Arguments\MagickGeometryTests.cs" />
-    <Compile Include="MagickImageCollectionTests.cs" />
-    <Compile Include="MagickImageInfoTests.cs" />
-    <Compile Include="MagickImageTests.cs" />
-    <Compile Include="MagickNETTests.cs" />
     <Compile Include="Profiles\ImageProfileTests.cs" />
     <Compile Include="Profiles\Iptc\IptcProfileTests.cs" />
     <Compile Include="Profiles\Iptc\IptcValueTests.cs" />
@@ -117,30 +112,35 @@
     <Compile Include="Files.cs" />
     <Compile Include="ResourceLimitsTests.cs" />
     <Compile Include="Script\MagickScriptTests.cs" />
-    <Compile Include="Settings\MagickReadSettingsTests.cs" />
-    <Compile Include="Settings\PixelStorageSettingsTests.cs" />
     <Compile Include="Statistics\MomentsTests.cs" />
+    <Compile Include="Statistics\PerceptualHashTests.cs" />
     <Compile Include="Statistics\StatisticsTests.cs" />
+    <Compile Include="Types\MagickGeometryTests.cs" />
+    <Compile Include="Types\PercentageTests.cs" />
+    <Compile Include="Types\PointDTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Magick.NET\Magick.NET.vcxproj">
-      <Project>{13c84dce-50bc-42a3-bcec-d3bffe3bc49e}</Project>
+    <ProjectReference Include="..\Magick.NET.Core\Magick.NET.Core.csproj">
+      <Project>{4e26f91d-80e6-406c-b0e3-8c5fa3f83e7d}</Project>
+      <Name>Magick.NET.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Magick.NET\Magick.NET.csproj">
+      <Project>{daae3844-6435-4912-8f69-9f7a9242b4ac}</Project>
       <Name>Magick.NET</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Settings\" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Script\Collection.msl" />
-    <None Include="Script\Defines.msl">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Script\Defines.msl" />
     <None Include="Script\Distort.msl" />
     <None Include="Script\Draw.msl" />
     <None Include="Script\Events.msl" />
     <None Include="Script\ImageProfile.msl" />
     <None Include="Script\Invalid.msl" />
-    <None Include="Script\Resize.msl">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Script\Resize.msl" />
     <None Include="Script\Variables.msl" />
   </ItemGroup>
   <Choose>
