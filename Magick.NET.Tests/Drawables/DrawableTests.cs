@@ -79,7 +79,7 @@ namespace Magick.NET.Tests
 				image.Draw(new DrawableStrokeColor(Color.Purple));
 				image.Draw(new DrawableStrokeLineCap(LineCap.Square));
 				image.Draw(new DrawableStrokeLineJoin(LineJoin.Bevel));
-				//image.Draw(new DrawableStrokeOpacity(0.8));
+				image.Draw(new DrawableStrokeOpacity(0.8));
 				image.Draw(new DrawableStrokeWidth(4));
 				image.Draw(new DrawableText(0, 60, "test"));
 				image.Draw(new DrawableTextAntialias(true));

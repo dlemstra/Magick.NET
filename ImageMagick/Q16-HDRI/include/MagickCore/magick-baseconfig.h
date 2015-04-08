@@ -58,8 +58,6 @@
 */
 #define MAGICKCORE_CIPHER_SUPPORT
 
-#define MAGICKCORE_HAVE_MMAP 1
-
 /*
   Specify size of PixelPacket color Quantums (8, 16, or 32).
   A value of 8 uses half the memory than 16 and typically runs 30% faster,

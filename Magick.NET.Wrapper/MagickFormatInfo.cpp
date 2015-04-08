@@ -76,7 +76,7 @@ namespace ImageMagick
 				formatInfo->_Format = GetFormat(coder->name());
 				formatInfo->_Description = Marshaller::Marshal(coder->description());
 				formatInfo->_MimeType = Marshaller::Marshal(coder->mimeType());
-				formatInfo->_Module = GetFormat(coder->name());
+				formatInfo->_Module = GetFormat(coder->module());
 				formatInfo->_CoderInfo = new Magick::CoderInfo(*coder);
 
 				result->Add(formatInfo);

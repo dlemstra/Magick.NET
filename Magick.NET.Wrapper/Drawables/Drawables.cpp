@@ -285,9 +285,9 @@ namespace ImageMagick
 			return result;
 		}
 		//===========================================================================================
-		Magick::DrawableFillAlpha* Drawables::CreateDrawableFillOpacity(IDrawableFillOpacity^ drawableFillOpacity)
+		Magick::DrawableFillOpacity* Drawables::CreateDrawableFillOpacity(IDrawableFillOpacity^ drawableFillOpacity)
 		{
-			return new Magick::DrawableFillAlpha(drawableFillOpacity->Opacity);
+			return new Magick::DrawableFillOpacity(drawableFillOpacity->Opacity);
 		}
 		//===========================================================================================
 		Magick::DrawableFillRule* Drawables::CreateDrawableFillRule(IDrawableFillRule^ drawableFillRule)
@@ -319,9 +319,9 @@ namespace ImageMagick
 			return new Magick::DrawableMiterLimit(drawableMiterLimit->Miterlimit);
 		}
 		//===========================================================================================
-		Magick::DrawableMatte* Drawables::CreateDrawableOpacity(IDrawableOpacity^ drawableOpacity)
+		Magick::DrawableAlpha* Drawables::CreateDrawableOpacity(IDrawableOpacity^ drawableOpacity)
 		{
-			return new Magick::DrawableMatte(drawableOpacity->X, drawableOpacity->Y,
+			return new Magick::DrawableAlpha(drawableOpacity->X, drawableOpacity->Y,
 				(Magick::PaintMethod)drawableOpacity->PaintMethod);
 		}
 		//===========================================================================================
@@ -451,9 +451,9 @@ namespace ImageMagick
 			return new Magick::DrawableStrokeLineJoin((Magick::LineJoin) drawableStrokeLineJoin->LineJoin);
 		}
 		//===========================================================================================
-		Magick::DrawableStrokeAlpha* Drawables::CreateDrawableStrokeOpacity(IDrawableStrokeOpacity^ drawableStrokeOpacity)
+		Magick::DrawableStrokeOpacity* Drawables::CreateDrawableStrokeOpacity(IDrawableStrokeOpacity^ drawableStrokeOpacity)
 		{
-			return new Magick::DrawableStrokeAlpha(drawableStrokeOpacity->Opacity);
+			return new Magick::DrawableStrokeOpacity(drawableStrokeOpacity->Opacity);
 		}
 		//===========================================================================================
 		Magick::DrawableStrokeWidth* Drawables::CreateDrawableStrokeWidth(IDrawableStrokeWidth^ drawableStrokeWidth)

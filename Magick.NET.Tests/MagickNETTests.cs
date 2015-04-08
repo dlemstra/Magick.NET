@@ -163,7 +163,7 @@ namespace Magick.NET.Tests
 		{
 			foreach (MagickFormatInfo formatInfo in MagickNET.SupportedFormats)
 			{
-				Assert.AreNotEqual(MagickFormat.Unknown, formatInfo.Format, "Unknown format: " + formatInfo.Description);
+				Assert.AreNotEqual(MagickFormat.Unknown, formatInfo.Format, "Unknown format: " + formatInfo.Description + " (" + formatInfo.Module + ")");
 			}
 		}
 		//===========================================================================================

@@ -383,8 +383,6 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Define()
 		{
-			Assert.Inconclusive("Needs rebuild of ImageMagick");
-
 			using (MagickImage image = new MagickImage(Files.Builtin.Logo))
 			{
 				string option = "optimize-coding";

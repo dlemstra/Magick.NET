@@ -1081,6 +1081,7 @@ namespace Magick
   using MagickCore::AcquireVirtualCacheView;
   using MagickCore::AcquireImage;
   using MagickCore::AcquireKernelInfo;
+  using MagickCore::AcquireMagickInfo;
   using MagickCore::AcquireMagickMemory;
   using MagickCore::AcquireQuantumInfo;
   using MagickCore::AcquireString;
@@ -1155,6 +1156,7 @@ namespace Magick
   using MagickCore::DistortImage;
   using MagickCore::DrawAffine;
   using MagickCore::DrawAllocateWand;
+  using MagickCore::DrawAlpha;
   using MagickCore::DrawAnnotation;
   using MagickCore::DrawArc;
   using MagickCore::DrawBezier;
@@ -1165,7 +1167,6 @@ namespace Magick
   using MagickCore::DrawEllipse;
   using MagickCore::DrawImage;
   using MagickCore::DrawLine;
-  using MagickCore::DrawMatte;
   using MagickCore::DrawPathClose;
   using MagickCore::DrawPathCurveToAbsolute;
   using MagickCore::DrawPathCurveToQuadraticBezierAbsolute;
@@ -1205,7 +1206,7 @@ namespace Magick
   using MagickCore::DrawSetClipRule;
   using MagickCore::DrawSetClipUnits;
   using MagickCore::DrawSetFillColor;
-  using MagickCore::DrawSetFillAlpha;
+  using MagickCore::DrawSetFillOpacity;
   using MagickCore::DrawSetFillPatternURL;
   using MagickCore::DrawSetFillRule;
   using MagickCore::DrawSetFont;
@@ -1222,7 +1223,7 @@ namespace Magick
   using MagickCore::DrawSetStrokeLineCap;
   using MagickCore::DrawSetStrokeLineJoin;
   using MagickCore::DrawSetStrokeMiterLimit;
-  using MagickCore::DrawSetStrokeAlpha;
+  using MagickCore::DrawSetStrokeOpacity;
   using MagickCore::DrawSetStrokePatternURL;
   using MagickCore::DrawSetStrokeWidth;
   using MagickCore::DrawSetTextAntialias;
@@ -1395,7 +1396,6 @@ namespace Magick
   using MagickCore::SetImageRegistry;
   using MagickCore::SetImageType;
   using MagickCore::SetLogEventMask;
-  using MagickCore::SetMagickInfo;
   using MagickCore::SetMagickResourceLimit;
   using MagickCore::SetImageVirtualPixelMethod;
   using MagickCore::SetPixelChannel;

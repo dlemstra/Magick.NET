@@ -15,29 +15,32 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// The method of selecting the size of the initial canvas.
-	///</summary>
-	private enum class LayerMethod
+	namespace Wrapper
 	{
-		Undefined = Magick::UndefinedLayer,
-		Coalesce = Magick::CoalesceLayer,
-		CompareAny = Magick::CompareAnyLayer,
-		CompareClear = Magick::CompareClearLayer,
-		CompareOverlay = Magick::CompareOverlayLayer,
-		Dispose = Magick::DisposeLayer,
-		Optimize = Magick::OptimizeLayer,
-		OptimizeImage = Magick::OptimizeImageLayer,
-		OptimizePlus = Magick::OptimizePlusLayer,
-		OptimizeTrans = Magick::OptimizeTransLayer,
-		RemoveDups = Magick::RemoveDupsLayer,
-		RemoveZero = Magick::RemoveZeroLayer,
-		Composite = Magick::CompositeLayer,
-		Merge = Magick::MergeLayer,
-		Flatten = Magick::FlattenLayer,
-		Mosaic = Magick::MosaicLayer,
-		Trimbounds = Magick::TrimBoundsLayer
-	};
-	//==============================================================================================
+		///==========================================================================================
+		///<summary>
+		/// The method of selecting the size of the initial canvas.
+		///</summary>
+		private enum class LayerMethod
+		{
+			Undefined = Magick::UndefinedLayer,
+			Coalesce = Magick::CoalesceLayer,
+			CompareAny = Magick::CompareAnyLayer,
+			CompareClear = Magick::CompareClearLayer,
+			CompareOverlay = Magick::CompareOverlayLayer,
+			Dispose = Magick::DisposeLayer,
+			Optimize = Magick::OptimizeLayer,
+			OptimizeImage = Magick::OptimizeImageLayer,
+			OptimizePlus = Magick::OptimizePlusLayer,
+			OptimizeTrans = Magick::OptimizeTransLayer,
+			RemoveDups = Magick::RemoveDupsLayer,
+			RemoveZero = Magick::RemoveZeroLayer,
+			Composite = Magick::CompositeLayer,
+			Merge = Magick::MergeLayer,
+			Flatten = Magick::FlattenLayer,
+			Mosaic = Magick::MosaicLayer,
+			Trimbounds = Magick::TrimBoundsLayer
+		};
+		//===========================================================================================
+	}
 }

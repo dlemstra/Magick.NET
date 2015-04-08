@@ -111,7 +111,7 @@ function Build($platform, $builds)
 		$newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"", "//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"")
 		[IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
 
-		Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\StaticMTD-$($platformName)\CORE_RL_*.lib" "ImageMagick\lib\$($build.Framework)\$platform"
+		Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_*.lib" "ImageMagick\lib\$($build.Framework)\$platform"
 
 		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_coders_.lib"   "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
 		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_Magick++_.lib" "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
@@ -158,7 +158,7 @@ function CopyFiles($folder)
 			continue
 		}
 
-		Copy-Item $xmlFile Magick.NET\Resources\xml
+		Copy-Item $xmlFile Magick.NET.Wrapper\Resources\xml
 	}
 }
 #==================================================================================================

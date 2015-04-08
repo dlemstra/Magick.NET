@@ -348,6 +348,63 @@ private:
   MagickCore::AffineMatrix  _affine;
 };
 
+// Change pixel alpha value to transparent using PaintMethod
+class MagickPPExport DrawableAlpha : public DrawableBase
+{
+public:
+
+    DrawableAlpha(double x_, double y_,PaintMethod paintMethod_)
+      : _x(x_),
+        _y(y_),
+        _paintMethod(paintMethod_)
+    {
+    }
+
+    ~DrawableAlpha(void);
+
+    // Operator to invoke equivalent draw API call
+    void operator()(MagickCore::DrawingWand *context_) const;
+
+    // Return polymorphic copy of object
+    DrawableBase* copy() const;
+
+    void x(double x_)
+    {
+      _x=x_;
+    }
+
+    double x(void) const
+    {
+      return(_x);
+    }
+
+    void y(double y_)
+    {
+      _y=y_;
+    }
+
+    double y(void) const
+    {
+      return(_y);
+    }
+
+    void paintMethod(PaintMethod paintMethod_)
+    {
+      _paintMethod=paintMethod_;
+    }
+
+    PaintMethod paintMethod(void) const
+    {
+      return(_paintMethod);
+    }
+
+  private:
+
+    double _x;
+    double _y;
+    PaintMethod _paintMethod;
+};
+
 // Arc
 class MagickPPExport DrawableArc : public DrawableBase
 {
@@ -898,33 +955,35 @@ private:
 };
 
 // Specify drawing fill alpha
-class MagickPPExport DrawableFillAlpha : public DrawableBase
+class MagickPPExport DrawableFillOpacity : public DrawableBase
 {
 public:
-  DrawableFillAlpha ( double alpha_ )
-    : _alpha(alpha_)
-    {
-    }
 
-  /*virtual*/ ~DrawableFillAlpha ( void );
+  DrawableFillOpacity(double opacity_)
+    : _opacity(opacity_)
+  {
+  }
+
+  ~DrawableFillOpacity ( void );
 
   // Operator to invoke equivalent draw API call
-  /*virtual*/ void operator()( MagickCore::DrawingWand *context_ ) const;
+  void operator()(MagickCore::DrawingWand *context_) const;
 
   // Return polymorphic copy of object
-  /*virtual*/ DrawableBase* copy() const;
+  DrawableBase* copy() const;
 
-  void alpha( double alpha_ )
-    {
-      _alpha = alpha_;
-    }
-  double alpha( void ) const
-    {
-      return _alpha;
-    }
+  void opacity(double opacity_)
+  {
+    _opacity=opacity_;
+  }
+
+  double opacity(void) const
+  {
+    return(_opacity);
+  }
 
 private:
-  double _alpha;
+  double _opacity;
 };
 
 // Specify text font
@@ -1055,58 +1114,6 @@ private:
   double _startY;
   double _endX;
   double _endY;
-};
-
-// Change pixel matte value to transparent using PaintMethod
-class MagickPPExport DrawableMatte : public DrawableBase
-{
-public:
-  DrawableMatte ( double x_, double y_,
-                  PaintMethod paintMethod_ )
-    : _x(x_),
-      _y(y_),
-      _paintMethod(paintMethod_)
-    { }
-
-  /*virtual*/ ~DrawableMatte ( void );
-
-  // Operator to invoke equivalent draw API call
-  /*virtual*/ void operator()( MagickCore::DrawingWand *context_ ) const;
-
-  // Return polymorphic copy of object
-  /*virtual*/ DrawableBase* copy() const;
-
-  void x( double x_ )
-    {
-      _x = x_;
-    }
-  double x( void ) const
-    {
-      return _x;
-    }
-
-  void y( double y_ )
-    {
-      _y = y_;
-    }
-  double y( void ) const
-    {
-      return _y;
-    }
-
-  void paintMethod( PaintMethod paintMethod_ )
-    {
-      _paintMethod = paintMethod_;
-    }
-  PaintMethod paintMethod( void ) const
-    {
-      return _paintMethod;
-    }
-
-private:
-  double _x;
-  double _y;
-  PaintMethod _paintMethod;
 };
 
 // Drawable Path
@@ -1610,31 +1617,32 @@ private:
 class MagickPPExport DrawableDashArray : public DrawableBase
 {
 public:
-  DrawableDashArray( const double* dasharray_ );
-  DrawableDashArray( const size_t* dasharray_ ); // Deprecated
-  DrawableDashArray( const Magick::DrawableDashArray &original_ );
 
-  /*virtual*/ ~DrawableDashArray( void );
+    DrawableDashArray(const double* dasharray_);
 
-  // Operator to invoke equivalent draw API call
-  /*virtual*/ void operator()( MagickCore::DrawingWand *context_ ) const;
+    DrawableDashArray(const Magick::DrawableDashArray &original_);
 
-  // Return polymorphic copy of object
-  /*virtual*/ DrawableBase* copy() const;
+    ~DrawableDashArray(void);
 
-  void dasharray( const double* dasharray_ );
-  void dasharray( const size_t* dasharray_ ); // Deprecated
+    // Operator to invoke equivalent draw API call
+    void operator()(MagickCore::DrawingWand *context_) const;
 
-  const double* dasharray( void ) const
+    // Return polymorphic copy of object
+    DrawableBase* copy() const;
+
+    void dasharray(const double* dasharray_);
+
+    const double* dasharray(void) const
     {
       return _dasharray;
     }
 
-  DrawableDashArray& operator=(const Magick::DrawableDashArray &original_);
+    DrawableDashArray& operator=(const Magick::DrawableDashArray &original_);
 
 private:
-  size_t	_size;
-  double       *_dasharray;
+
+    size_t _size;
+    double *_dasharray;
 };
 
 // Stroke dashoffset
@@ -1812,34 +1820,36 @@ private:
   Color _color;
 };
 
-// Stroke alpha
-class MagickPPExport DrawableStrokeAlpha : public DrawableBase
+// Stroke opacity
+class MagickPPExport DrawableStrokeOpacity : public DrawableBase
 {
 public:
-  DrawableStrokeAlpha ( double alpha_ )
-    : _alpha(alpha_)
-    {
-    }
 
-  /*virtual*/ ~DrawableStrokeAlpha ( void );
+  DrawableStrokeOpacity(double opacity_)
+    : _opacity(opacity_)
+  {
+  }
+
+  ~DrawableStrokeOpacity(void);
 
   // Operator to invoke equivalent draw API call
-  /*virtual*/ void operator()( MagickCore::DrawingWand *context_ ) const;
+  void operator()(MagickCore::DrawingWand *context_) const;
 
   // Return polymorphic copy of object
-  /*virtual*/ DrawableBase* copy() const;
+  DrawableBase* copy() const;
 
-  void alpha( double alpha_ )
-    {
-      _alpha = alpha_;
-    }
-  double alpha( void ) const
-    {
-      return _alpha;
-    }
+  void opacity(double opacity_)
+  {
+    _opacity=opacity_;
+  }
+
+  double opacity(void) const
+  {
+    return(_opacity);
+  }
 
 private:
-  double _alpha;
+  double _opacity;
 };
 
 // Stroke width

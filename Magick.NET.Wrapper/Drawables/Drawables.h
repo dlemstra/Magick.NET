@@ -73,7 +73,7 @@ namespace ImageMagick
 			//========================================================================================
 			static Magick::DrawableFillColor* CreateDrawableFillColor(IDrawableFillColor^ drawableFillColor);
 			//===========================================================================================
-			static Magick::DrawableFillAlpha* CreateDrawableFillOpacity(IDrawableFillOpacity^ drawableFillOpacity);
+			static Magick::DrawableFillOpacity* CreateDrawableFillOpacity(IDrawableFillOpacity^ drawableFillOpacity);
 			//========================================================================================
 			static Magick::DrawableFillRule* CreateDrawableFillRule(IDrawableFillRule^ drawableFillRule);
 			//========================================================================================
@@ -85,7 +85,7 @@ namespace ImageMagick
 			//========================================================================================
 			static Magick::DrawableMiterLimit* CreateDrawableMiterLimit(IDrawableMiterLimit^ drawableMiterLimit);
 			//========================================================================================
-			static Magick::DrawableMatte* CreateDrawableOpacity(IDrawableOpacity^ drawableOpacity);
+			static Magick::DrawableAlpha* CreateDrawableOpacity(IDrawableOpacity^ drawableOpacity);
 			//========================================================================================
 			static Magick::DrawablePath* CreateDrawablePath(IDrawablePath^ drawablePath);
 			//========================================================================================
@@ -129,7 +129,7 @@ namespace ImageMagick
 			//========================================================================================
 			static Magick::DrawableStrokeLineJoin* CreateDrawableStrokeLineJoin(IDrawableStrokeLineJoin^ drawableStrokeLineJoin);
 			//========================================================================================
-			static Magick::DrawableStrokeAlpha* CreateDrawableStrokeOpacity(IDrawableStrokeOpacity^ drawableStrokeOpacity);
+			static Magick::DrawableStrokeOpacity* CreateDrawableStrokeOpacity(IDrawableStrokeOpacity^ drawableStrokeOpacity);
 			//========================================================================================
 			static Magick::DrawableStrokeWidth* CreateDrawableStrokeWidth(IDrawableStrokeWidth^ drawableStrokeWidth);
 			//========================================================================================
