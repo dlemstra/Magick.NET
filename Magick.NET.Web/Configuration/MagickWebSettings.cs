@@ -52,12 +52,21 @@ namespace ImageMagick.Web
 			}
 		}
 		//===========================================================================================
-		[ConfigurationProperty("showVersion", DefaultValue = true)]
+		[ConfigurationProperty("showVersion", DefaultValue = false)]
 		private bool _ShowVersion
 		{
 			get
 			{
 				return (bool)this["showVersion"];
+			}
+		}
+		//===========================================================================================
+		[ConfigurationProperty("useOpenCL", DefaultValue = false)]
+		private bool _UseOpenCL
+		{
+			get
+			{
+				return (bool)this["useOpenCL"];
 			}
 		}
 		//===========================================================================================
@@ -109,6 +118,17 @@ namespace ImageMagick.Web
 			get
 			{
 				return _Instance._ShowVersion;
+			}
+		}
+		///==========================================================================================
+		/// <summary>
+		/// Returns true if OpenCL acceleration should be used.
+		/// </summary>
+		public static bool UseOpenCL
+		{
+			get
+			{
+				return _Instance._UseOpenCL;
 			}
 		}
 		///========================================================================================== 

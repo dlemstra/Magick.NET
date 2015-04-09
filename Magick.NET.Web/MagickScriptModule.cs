@@ -97,6 +97,9 @@ namespace ImageMagick.Web
 				context.PostAuthorizeRequest += OnPostAuthorizeRequest;
 			else
 				context.PostMapRequestHandler += OnPostMapRequestHandler;
+
+			if (!MagickWebSettings.UseOpenCL)
+				MagickNET.UseOpenCL = false;
 		}
 		///==========================================================================================
 		/// <summary>
