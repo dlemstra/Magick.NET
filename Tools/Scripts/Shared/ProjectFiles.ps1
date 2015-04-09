@@ -55,6 +55,7 @@ function CreateAnyCPUProjectFiles()
 	SelectNodes $xml "//msb:OutputPath" | Foreach {$_.InnerText = $_.InnerText.Replace("x86", "AnyCPU")}
 	SelectNodes $xml "//msb:DocumentationFile" | Foreach {$_.InnerText = $_.InnerText.Replace("x86", "AnyCPU")}
 	SelectNodes $xml "//msb:AssemblyName" | Foreach {$_.InnerText = $_.InnerText.Replace("x86", "AnyCPU")}
+	SelectNodes $xml "//msb:PlatformTarget" | Foreach {$_.InnerText = "AnyCPU"}
 	SelectNodes $xml "//msb:ProjectReference[@Include = '..\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\Magick.NET\Magick.NET.AnyCPU.csproj")}
 	
 	$csproj = FullPath "Magick.NET.Web\Magick.NET.Web.AnyCPU.csproj"
