@@ -48,7 +48,7 @@ namespace ImageMagick
 		{
 			foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
 			{
-				if (value == enumValue.ToUInt32(CultureInfo.InvariantCulture))
+				if (value == enumValue.ToInt32(CultureInfo.InvariantCulture))
 					return enumValue;
 			}
 
