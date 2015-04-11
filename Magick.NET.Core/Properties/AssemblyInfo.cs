@@ -1,4 +1,4 @@
-﻿//=================================================================================================
+//=================================================================================================
 // Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -20,13 +20,13 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Magick.NET.Core")]
 [assembly: AssemblyDescription("Magick.NET.Core")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright © 2013-2015 Dirk Lemstra")]
+[assembly: AssemblyCopyright("Copyright � 2013-2015 Dirk Lemstra")]
 [assembly: AssemblyTrademark("")]
 //=================================================================================================
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("7.0.0.0")]
-[assembly: AssemblyFileVersion("7.0.0.0011")]
+[assembly: AssemblyFileVersion("7.0.0.0012")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 //=================================================================================================

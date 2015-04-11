@@ -92,7 +92,7 @@ function Build($builds)
 #==================================================================================================
 function CheckArchive()
 {
-	if ((Test-Path "Publish\Archive\$version"))
+	if ((Test-Path "..\Magick.NET.Archive\$version"))
 	{
 		Write-Error "$version has already been published"
 		Exit
@@ -120,11 +120,7 @@ function CheckStrongName($builds)
 #==================================================================================================
 function Cleanup()
 {
-	$folder = FullPath "Publish\Zip\Releases"
-	if (Test-Path $folder)
-	{
-		Remove-Item $folder -recurse
-	}
+	CleanupZipFolder
 
 	$folder = FullPath "Publish\Pdb"
 	if (Test-Path $folder)
@@ -132,6 +128,15 @@ function Cleanup()
 		Remove-Item $folder -recurse
 	}
 	[void](New-Item -ItemType directory -Path $folder)
+}
+#==================================================================================================
+function CleanupZipFolder()
+{
+	$folder = FullPath "Publish\Zip\Releases"
+	if (Test-Path $folder)
+	{
+		Remove-Item $folder -recurse
+	}
 }
 #==================================================================================================
 function CopyPdbFiles($builds)
@@ -192,7 +197,7 @@ function CopyZipFiles($builds)
 			continue
 		}
 
-		$dir = FullPath "Publish\Zip\Releases\Magick.NET.Web-$($build.Quantum)-$($build.Platform)"
+		$dir = FullPath "Publish\Zip\Releases\Magick.NET.Web-$($build.Quantum)-$($build.Platform)\$($build.FrameworkName)"
 		if (!(Test-Path $dir))
 		{
 			[void](New-Item $dir -type directory)
@@ -443,5 +448,5 @@ CreateAnyCPUProjectFiles
 PreparePublish $anyCPUbuilds
 Publish $builds
 Publish $anyCPUbuilds
-Cleanup
+CleanupZipFolder
 #==================================================================================================
