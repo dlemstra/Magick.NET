@@ -271,7 +271,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Magick.NET.Wrapper\Arguments\MagickGeometry.h" />
     <ClInclude Include="..\Magick.NET.Wrapper\Colors\MagickColor.h" />
     <ClInclude Include="..\Magick.NET.Wrapper\Drawables\Drawable.h" />
     <ClInclude Include="..\Magick.NET.Wrapper\Drawables\Drawables.h" />
