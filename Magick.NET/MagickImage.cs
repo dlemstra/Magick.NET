@@ -1475,8 +1475,8 @@ namespace ImageMagick
 			{
 				string name = value != null ? value.WebName : null;
 
-
 				_Instance.TextEncoding = name;
+
 				_Instance.SetOption("encoding", name);
 			}
 		}
@@ -1764,6 +1764,7 @@ namespace ImageMagick
 		public void AddProfile(ImageProfile profile)
 		{
 			Throw.IfNull("profile", profile);
+
 			_Instance.AddProfile(profile.Name, profile.ToByteArray());
 		}
 		///==========================================================================================
@@ -1775,6 +1776,7 @@ namespace ImageMagick
 		public void AffineTransform(DrawableAffine affineMatrix)
 		{
 			Throw.IfNull("affineMatrix", affineMatrix);
+
 			_Instance.AffineTransform(affineMatrix);
 		}
 		///==========================================================================================
@@ -1941,6 +1943,7 @@ namespace ImageMagick
 		public void BlackThreshold(Percentage threshold)
 		{
 			Throw.IfNegative("threshold", threshold);
+
 			_Instance.BlackThreshold(threshold.ToString());
 		}
 		///==========================================================================================
@@ -1954,6 +1957,7 @@ namespace ImageMagick
 		public void BlackThreshold(Percentage threshold, Channels channels)
 		{
 			Throw.IfNegative("threshold", threshold);
+
 			_Instance.BlackThreshold(threshold.ToString(), channels);
 		}
 		///==========================================================================================
@@ -2113,6 +2117,8 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void CDL(string fileName)
 		{
+			Throw.IfNull("fileName", fileName);
+
 			String filePath = FileHelper.CheckForBaseDirectory(fileName);
 			_Instance.CDL(filePath);
 		}
@@ -2167,6 +2173,7 @@ namespace ImageMagick
 		public void Chop(MagickGeometry geometry)
 		{
 			Throw.IfNull("geometry", geometry);
+
 			_Instance.Chop(MagickGeometry.GetInstance(geometry));
 		}
 		///==========================================================================================
@@ -2298,6 +2305,7 @@ namespace ImageMagick
 		public void Clut(MagickImage image, PixelInterpolateMethod method)
 		{
 			Throw.IfNull("image", image);
+
 			_Instance.Clut(GetInstance(image), method);
 		}
 		///==========================================================================================
@@ -2311,6 +2319,7 @@ namespace ImageMagick
 		public void Clut(MagickImage image, PixelInterpolateMethod method, Channels channels)
 		{
 			Throw.IfNull("image", image);
+
 			_Instance.Clut(GetInstance(image), method, channels);
 		}
 		///==========================================================================================
@@ -2322,6 +2331,7 @@ namespace ImageMagick
 		public void ColorAlpha(MagickColor color)
 		{
 			Throw.IfNull("color", color);
+
 			_Instance.ColorAlpha(MagickColor.GetInstance(color));
 		}
 		///==========================================================================================
@@ -2413,7 +2423,6 @@ namespace ImageMagick
 		public double Compare(MagickImage image, ErrorMetric metric)
 		{
 			return Compare(image, metric, ImageMagick.Channels.Composite);
-
 		}
 		///==========================================================================================
 		///<summary>
@@ -2456,7 +2465,6 @@ namespace ImageMagick
 			Throw.IfNull("difference", difference);
 
 			return _Instance.Compare(GetInstance(image), metric, GetInstance(difference), channels);
-
 		}
 		///==========================================================================================
 		///<summary>
@@ -3536,6 +3544,8 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public ImageProfile GetProfile(string name)
 		{
+			Throw.IfNullOrEmpty("name", name);
+
 			Byte[] data = _Instance.GetProfile(name);
 			if (data == null)
 				return null;
@@ -4143,7 +4153,7 @@ namespace ImageMagick
 			Throw.IfNegative("saturation", saturation);
 			Throw.IfNegative("hue", hue);
 
-			Modulate(brightness.ToDouble(), saturation.ToDouble(), hue.ToDouble());
+			_Instance.Modulate(brightness.ToDouble(), saturation.ToDouble(), hue.ToDouble());
 		}
 		///==========================================================================================
 		///<summary>
@@ -4691,6 +4701,7 @@ namespace ImageMagick
 		public void Read(FileInfo file)
 		{
 			Throw.IfNull("file", file);
+
 			Read(file.FullName);
 		}
 		///==========================================================================================
@@ -4703,6 +4714,7 @@ namespace ImageMagick
 		public void Read(FileInfo file, MagickReadSettings readSettings)
 		{
 			Throw.IfNull("file", file);
+
 			Read(file.FullName, readSettings);
 		}
 		///==========================================================================================
@@ -4814,6 +4826,8 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void RemoveProfile(string name)
 		{
+			Throw.IfNullOrEmpty("name", name);
+
 			_Instance.RemoveProfile(name);
 		}
 		///==========================================================================================
@@ -5768,7 +5782,7 @@ namespace ImageMagick
 		public override string ToString()
 		{
 			return string.Format(CultureInfo.InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}",
-			Format, Width, Height, Depth, ColorSpace, FormatedFileSize());
+				Format, Width, Height, Depth, ColorSpace, FormatedFileSize());
 		}
 		///==========================================================================================
 		///<summary>
@@ -6050,6 +6064,7 @@ namespace ImageMagick
 		public void Write(FileInfo file)
 		{
 			Throw.IfNull("file", file);
+
 			Write(file.FullName);
 			file.Refresh();
 		}

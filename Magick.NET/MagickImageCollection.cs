@@ -780,6 +780,7 @@ namespace ImageMagick
 		public void Read(FileInfo file, MagickReadSettings readSettings)
 		{
 			Throw.IfNull("file", file);
+
 			Read(file.FullName, readSettings);
 		}
 		///==========================================================================================
@@ -957,6 +958,7 @@ namespace ImageMagick
 		public void Write(FileInfo file)
 		{
 			Throw.IfNull("file", file);
+
 			Write(file.FullName);
 			file.Refresh();
 		}
@@ -969,6 +971,8 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void Write(Stream stream)
 		{
+			Throw.IfNull("stream", stream);
+
 			_Instance.Write(GetImageInstances(), stream);
 		}
 		///==========================================================================================
