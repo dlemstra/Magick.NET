@@ -125,7 +125,7 @@ namespace ImageMagick
 		Wand = 0x40000,
 		///==========================================================================================
 		/// <summary>
-		/// All
+		/// All log events except Trace.
 		/// </summary>
 		All = 0x7fffffff
 	}
