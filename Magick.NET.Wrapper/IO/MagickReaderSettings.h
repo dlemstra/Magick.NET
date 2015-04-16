@@ -20,7 +20,7 @@ namespace ImageMagick
 	namespace Wrapper
 	{
 		//===========================================================================================
-		public ref class MagickReaderSettings sealed
+		private ref class MagickReaderSettings sealed
 		{
 			//========================================================================================
 		private:
