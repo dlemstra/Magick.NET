@@ -287,7 +287,7 @@ namespace ImageMagick
 				std::string imageSpec;
 				Marshaller::Marshal(fileName, imageSpec);
 
-				MagickCore::CopyMagickString(imageInfo->filename, imageSpec.c_str(), MaxTextExtent - 1);
+				MagickCore::CopyMagickString(imageInfo->filename, imageSpec.c_str(), MagickPathExtent - 1);
 
 				MagickCore::Image* images;
 				if (readSettings != nullptr && readSettings->Ping)

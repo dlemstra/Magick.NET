@@ -102,8 +102,8 @@ extern "C" {
 #endif
 
 #define MagickSignature  0xabacadabUL
-#if !defined(MaxTextExtent)
-# define MaxTextExtent  8192  /* always >= 4096 */
+#if !defined(MagickPathExtent)
+# define MagickPathExtent  4096  /* always >= 4096 */
 #endif
 
 #if defined(MAGICKCORE_HAVE___ATTRIBUTE__)

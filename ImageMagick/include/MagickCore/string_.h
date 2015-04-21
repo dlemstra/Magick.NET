@@ -27,7 +27,7 @@ extern "C" {
 typedef struct _StringInfo
 {
   char
-    path[MaxTextExtent];
+    *path;
 
   unsigned char
     *datum;
@@ -79,7 +79,7 @@ extern MagickExport size_t
 
 extern MagickExport ssize_t
   FormatMagickSize(const MagickSizeType,const MagickBooleanType,const char *,
-    char *),
+    const size_t,char *),
   FormatMagickTime(const time_t,const size_t,char *);
 
 extern MagickExport StringInfo
