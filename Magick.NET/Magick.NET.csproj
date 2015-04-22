@@ -118,6 +118,7 @@
     <Compile Include="Defines\Jpeg\JpegReadDefines.cs" />
     <Compile Include="Defines\Jpeg\JpegWriteDefines.cs" />
     <Compile Include="Defines\Pdf\PdfReadDefines.cs" />
+    <Compile Include="Defines\Png\PngReadDefines.cs" />
     <Compile Include="Defines\ProfileTypes.cs" />
     <Compile Include="Defines\Tiff\TiffAlpha.cs" />
     <Compile Include="Defines\Tiff\TiffReadDefines.cs" />

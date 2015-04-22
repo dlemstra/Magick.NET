@@ -32,6 +32,14 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		public static string CorruptPNG
+		{
+			get
+			{
+				return _Root + @"Images\corrupt.png";
+			}
+		}
+		//===========================================================================================
 		public static string EightBimTIF
 		{
 			get
@@ -45,6 +53,14 @@ namespace Magick.NET.Tests
 			get
 			{
 				return _Root + @"Images\FujiFilmFinePixS1Pro.jpg";
+			}
+		}
+		//===========================================================================================
+		public static string FujiFilmFinePixS1ProPNG
+		{
+			get
+			{
+				return _Root + @"Images\FujiFilmFinePixS1Pro.png";
 			}
 		}
 		//===========================================================================================

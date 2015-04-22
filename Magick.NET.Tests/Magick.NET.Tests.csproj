@@ -83,6 +83,7 @@
     <Compile Include="Defines\Jpeg\JpegReadDefinesTests.cs" />
     <Compile Include="Defines\Jpeg\JpegWriteDefinesTests.cs" />
     <Compile Include="Defines\Pdf\PdfReadDefinesTests.cs" />
+    <Compile Include="Defines\Png\PngReadDefinesTests.cs" />
     <Compile Include="Defines\Tiff\TiffReadDefinesTests.cs" />
     <Compile Include="Defines\Tiff\TiffWriteDefinesTests.cs" />
     <Compile Include="Drawables\DrawableTests.cs" />
