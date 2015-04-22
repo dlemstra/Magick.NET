@@ -149,6 +149,8 @@ function CopyFiles($folder)
 	Remove-Item ImageMagick\include\MagickCore\magick-baseconfig.h
 	[void](New-Item -ItemType directory -Path ImageMagick\include\MagickWand)
 	Copy-Item ImageMagick\Source\ImageMagick\MagickWand\*.h ImageMagick\include\MagickWand
+	[void](New-Item -ItemType directory -Path ImageMagick\include\jpeg)
+	Copy-Item ImageMagick\Source\ImageMagick\jpeg\*.h ImageMagick\include\jpeg
 
 	$xmlDirectory = FullPath "ImageMagick\Source\ImageMagick\VisualMagick\bin"
 	foreach ($xmlFile in [IO.Directory]::GetFiles($xmlDirectory, "*.xml"))

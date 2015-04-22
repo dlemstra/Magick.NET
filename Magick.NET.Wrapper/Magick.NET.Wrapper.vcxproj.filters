@@ -150,6 +150,9 @@
     <ClInclude Include="Types\MagickSearchResult.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
+    <ClInclude Include="Optimizers\JpegOptimizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -241,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="Statistics\ChannelPerceptualHash.cpp">
       <Filter>Source Files\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="Optimizers\JpegOptimizer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

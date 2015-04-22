@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System.IO;
 namespace Magick.NET.Tests
 {
 	//==============================================================================================
@@ -117,6 +118,17 @@ namespace Magick.NET.Tests
 			get
 			{
 				return _Root + @"Images\Snakeware.png";
+			}
+		}
+		//===========================================================================================
+		public static string TemporaryImageMagickJPG
+		{
+			get
+			{
+				string fileName = Path.GetTempFileName();
+				File.Copy(ImageMagickJPG, fileName, true);
+
+				return fileName;
 			}
 		}
 		//===========================================================================================

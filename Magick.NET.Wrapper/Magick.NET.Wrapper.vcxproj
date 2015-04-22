@@ -302,6 +302,7 @@
     <ClInclude Include="MagickImageCollection.h" />
     <ClInclude Include="MagickImageInfo.h" />
     <ClInclude Include="MagickNET.h" />
+    <ClInclude Include="Optimizers\JpegOptimizer.h" />
     <ClInclude Include="Pixels\PixelBaseCollection.h" />
     <ClInclude Include="Pixels\PixelCollection.h" />
     <ClInclude Include="Pixels\WritablePixelCollection.h" />
@@ -338,6 +339,7 @@
     <ClCompile Include="MagickImageCollection.cpp" />
     <ClCompile Include="MagickImageInfo.cpp" />
     <ClCompile Include="MagickNET.cpp" />
+    <ClCompile Include="Optimizers\JpegOptimizer.cpp" />
     <ClCompile Include="Pixels\PixelBaseCollection.cpp" />
     <ClCompile Include="Pixels\PixelCollection.cpp" />
     <ClCompile Include="Pixels\WritablePixelCollection.cpp" />
