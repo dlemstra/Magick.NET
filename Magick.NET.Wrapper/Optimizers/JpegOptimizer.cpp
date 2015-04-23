@@ -15,6 +15,7 @@
 #include "JpegOptimizer.h"
 #include <jpeg/jpeglib.h>
 #include <jpeg/jerror.h>
+#include <setjmp.h>
 
 namespace ImageMagick
 {
@@ -327,6 +328,40 @@ namespace ImageMagick
 			return true;
 		}
 		//===========================================================================================
+		static int DoLosslessCompress(std::string input, std::string output, bool progressive)
+		{
+			ClientData
+				client_data;
+
+			struct jpeg_decompress_struct
+				decompress_info;
+
+			(void) MagickCore::ResetMagickMemory(&client_data, 0, sizeof(client_data));
+			(void) MagickCore::ResetMagickMemory(&decompress_info, 0, sizeof(decompress_info));
+
+			client_data.progressive = progressive;
+			client_data.inputFileName = input.c_str();
+			client_data.outputFileName = output.c_str();
+
+
+			if (!ReadCoefficients(&decompress_info, &client_data))
+			{
+				jpeg_destroy_decompress(&decompress_info);
+				return 1;
+			}
+
+			if (!WriteCoefficients(&decompress_info, &client_data))
+			{
+				jpeg_destroy_decompress(&decompress_info);
+				return 2;
+			}
+
+			jpeg_finish_decompress(&decompress_info);
+			jpeg_destroy_decompress(&decompress_info);
+
+			return 0;
+		}
+		//===========================================================================================
 #pragma warning(default: 4611)
 #pragma managed(pop)
 		//===========================================================================================
@@ -340,44 +375,24 @@ namespace ImageMagick
 		//===========================================================================================
 		void JpegOptimizer::LosslessCompress()
 		{
-			ClientData
-				client_data;
-
 			std::string
 				input,
 				output;
-
-			struct jpeg_decompress_struct
-				decompress_info;
-
-			(void) MagickCore::ResetMagickMemory(&client_data, 0, sizeof(client_data));
-			(void) MagickCore::ResetMagickMemory(&decompress_info, 0, sizeof(decompress_info));
 
 			Marshaller::Marshal(_File->FullName,input);
 
 			FileInfo^ outputFile = gcnew FileInfo(Path::GetTempFileName());
 			Marshaller::Marshal(outputFile->FullName,output);
 
-			client_data.progressive = Progressive;
-			client_data.inputFileName = input.c_str();
-			client_data.outputFileName = output.c_str();
-
 			try
 			{
-				if (!ReadCoefficients(&decompress_info, &client_data))
-				{
-					jpeg_destroy_decompress(&decompress_info);
+				int result = DoLosslessCompress(input, output, Progressive);
+
+				if (result == 1)
 					throw gcnew MagickCorruptImageErrorException("Unable to decompress the jpeg file.", nullptr);
-				}
 
-				if (!WriteCoefficients(&decompress_info, &client_data))
-				{
-					jpeg_destroy_decompress(&decompress_info);
+				if (result == 2)
 					throw gcnew MagickCorruptImageErrorException("Unable to compress the jpeg file.", nullptr);
-				}
-
-				jpeg_finish_decompress(&decompress_info);
-				jpeg_destroy_decompress(&decompress_info);
 
 				outputFile->Refresh();
 				if (outputFile->Length < _File->Length)
