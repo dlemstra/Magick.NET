@@ -293,6 +293,7 @@
     <ClInclude Include="..\Magick.NET.Wrapper\MagickImageCollection.h" />
     <ClInclude Include="..\Magick.NET.Wrapper\MagickImageInfo.h" />
     <ClInclude Include="..\Magick.NET.Wrapper\MagickNET.h" />
+    <ClInclude Include="..\Magick.NET.Wrapper\Optimizers\JpegOptimizer.h" />
     <ClInclude Include="..\Magick.NET.Wrapper\Pixels\PixelBaseCollection.h" />
     <ClInclude Include="..\Magick.NET.Wrapper\Pixels\PixelCollection.h" />
     <ClInclude Include="..\Magick.NET.Wrapper\Pixels\WritablePixelCollection.h" />
@@ -326,6 +327,7 @@
     <ClCompile Include="..\Magick.NET.Wrapper\MagickImageCollection.cpp" />
     <ClCompile Include="..\Magick.NET.Wrapper\MagickImageInfo.cpp" />
     <ClCompile Include="..\Magick.NET.Wrapper\MagickNET.cpp" />
+    <ClCompile Include="..\Magick.NET.Wrapper\Optimizers\JpegOptimizer.cpp" />
     <ClCompile Include="..\Magick.NET.Wrapper\Pixels\PixelBaseCollection.cpp" />
     <ClCompile Include="..\Magick.NET.Wrapper\Pixels\PixelCollection.cpp" />
     <ClCompile Include="..\Magick.NET.Wrapper\Pixels\WritablePixelCollection.cpp" />

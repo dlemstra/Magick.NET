@@ -81,6 +81,7 @@
     <Compile Include="Defines\Jpeg\JpegReadDefinesTests.cs" />
     <Compile Include="Defines\Jpeg\JpegWriteDefinesTests.cs" />
     <Compile Include="Defines\Pdf\PdfReadDefinesTests.cs" />
+    <Compile Include="Defines\Png\PngReadDefinesTests.cs" />
     <Compile Include="Defines\Tiff\TiffReadDefinesTests.cs" />
     <Compile Include="Defines\Tiff\TiffWriteDefinesTests.cs" />
     <Compile Include="Drawables\DrawableTests.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="MagickNETTests.cs" />
     <Compile Include="Matrices\ColorMatrixTests.cs" />
     <Compile Include="Matrices\ConvolveMatrixTests.cs" />
+    <Compile Include="Optimizers\JpegOptimizerTests.cs" />
     <Compile Include="Pixels\PixelCollectionTests.cs" />
     <Compile Include="Pixels\PixelTests.cs" />
     <Compile Include="Pixels\WritablePixelCollectionTests.cs" />

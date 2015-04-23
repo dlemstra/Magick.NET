@@ -54,7 +54,7 @@ using System.Web;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("7.0.0.0")]
-[assembly: AssemblyFileVersion("7.0.0.0012")]
+[assembly: AssemblyFileVersion("7.0.0.0013")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 //=================================================================================================
