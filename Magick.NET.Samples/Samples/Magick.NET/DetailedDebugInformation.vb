@@ -30,7 +30,7 @@ Namespace RootNamespace.Samples.MagickNET
 
 		Public Shared Sub ReadImage()
 			' Log all events
-			ImageMagick.MagickNET.SetLogEvents(LogEvents.All)
+			ImageMagick.MagickNET.SetLogEvents(LogEvents.All Or LogEvents.Trace)
 			' Set the log handler (all threads use the same handler)
 			AddHandler ImageMagick.MagickNET.Log, AddressOf MagickNET_Log
 
