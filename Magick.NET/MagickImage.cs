@@ -1615,6 +1615,16 @@ namespace ImageMagick
 		/// Adaptive-blur image with specified blur factor.
 		///</summary>
 		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+		///<exception cref="MagickException"/>
+		public void AdaptiveBlur(double radius)
+		{
+			AdaptiveBlur(radius, 1.0);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Adaptive-blur image with specified blur factor.
+		///</summary>
+		///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
 		///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
 		///<exception cref="MagickException"/>
 		public void AdaptiveBlur(double radius, double sigma)
