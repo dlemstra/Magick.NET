@@ -44,10 +44,13 @@ namespace ImageMagick
 		//===========================================================================================
 		MagickReaderSettings^ MagickImage::CheckSettings(MagickReadSettings^ readSettings)
 		{
-			if (readSettings == nullptr)
-				return nullptr;
+			MagickReadSettings^ newReadSettings = readSettings;
+			if (newReadSettings == nullptr)
+				newReadSettings = gcnew MagickReadSettings();
 
-			MagickReaderSettings^ settings = gcnew MagickReaderSettings(readSettings);
+			newReadSettings->FrameCount = 1;
+
+			MagickReaderSettings^ settings = gcnew MagickReaderSettings(newReadSettings);
 			settings->IgnoreWarnings = (_WarningEvent == nullptr);
 
 			return settings;
