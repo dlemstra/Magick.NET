@@ -64,6 +64,12 @@
     <Filter Include="Source Files\Types">
       <UniqueIdentifier>{2c6bdaa1-a2c4-43c0-831f-9decba916c06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Optimizers">
+      <UniqueIdentifier>{217d7dc2-809e-4eaf-b3f2-9aece423ec9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Optimizers">
+      <UniqueIdentifier>{83d063fd-0abd-4db9-947a-096a6cd1f1f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -151,7 +157,7 @@
       <Filter>Header Files\Types</Filter>
     </ClInclude>
     <ClInclude Include="Optimizers\JpegOptimizer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Optimizers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -246,7 +252,7 @@
       <Filter>Source Files\Statistics</Filter>
     </ClCompile>
     <ClCompile Include="Optimizers\JpegOptimizer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Optimizers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

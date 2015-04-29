@@ -132,6 +132,17 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		public static string TemporarySnakewarePNG
+		{
+			get
+			{
+				string fileName = Path.GetTempFileName();
+				File.Copy(SnakewarePNG, fileName, true);
+
+				return fileName;
+			}
+		}
+		//===========================================================================================
 		public static string WireframeTIF
 		{
 			get
