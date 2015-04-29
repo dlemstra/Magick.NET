@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Drawing;
 using System.IO;
 using ImageMagick;
@@ -26,6 +27,8 @@ namespace Magick.NET.Tests.Coders
 		//===========================================================================================
 		private const string _Category = "PdfTests";
 		//===========================================================================================
+		private delegate void ReadDelegate();
+		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_AddProfile()
 		{
@@ -34,6 +37,30 @@ namespace Magick.NET.Tests.Coders
 				Assert.AreEqual(765, image.Width);
 				Assert.AreEqual(361, image.Height);
 				Assert.AreEqual(MagickFormat.Ai, image.Format);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Multithreading()
+		{
+			ReadDelegate action = delegate()
+			{
+				using (MagickImage image = new MagickImage())
+				{
+					image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
+				}
+			};
+
+			IAsyncResult[] results = new IAsyncResult[3];
+
+			for (int i = 0; i < results.Length; ++i)
+			{
+				results[i] = action.BeginInvoke(null, null);
+			}
+
+			for (int i = 0; i < results.Length; ++i)
+			{
+				action.EndInvoke(results[i]);
 			}
 		}
 		//===========================================================================================

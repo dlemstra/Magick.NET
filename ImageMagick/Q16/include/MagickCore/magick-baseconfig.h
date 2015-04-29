@@ -179,7 +179,7 @@
 /*
   Optional: Specify name of the library that contains the xml resource files
 */
-#define MAGICKCORE_LIBRARY_NAME "Magick.NET-x64.dll"
+#define MAGICKCORE_LIBRARY_NAME "Magick.NET.Wrapper-x64.dll"
 
 /*
   Optional: Specify where operating system independent files are installed

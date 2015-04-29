@@ -82,7 +82,7 @@ function Build($platform, $builds)
 {
 	$configFile = FullPath "ImageMagick\Source\ImageMagick\MagickCore\magick-baseconfig.h"
 	$config = [IO.File]::ReadAllText($configFile, [System.Text.Encoding]::Default)
-	$config = $config.Replace("//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"")
+	$config = $config.Replace("//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET.Wrapper-" + $platform + ".dll`"")
 
 	ModifyDebugInformationFormat
 
