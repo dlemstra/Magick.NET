@@ -30,7 +30,7 @@ namespace Magick.NET.Tests.Coders
 		private delegate void ReadDelegate();
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_AddProfile()
+		public void Test_Format()
 		{
 			using (MagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
 			{

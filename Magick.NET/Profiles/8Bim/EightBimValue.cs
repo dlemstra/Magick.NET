@@ -76,7 +76,7 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Determines whether the specified exif value is equal to the current 8bim value.
+		/// Determines whether the specified 8bim value is equal to the current 8bim value.
 		///</summary>
 		///<param name="other">The exif value to compare this 8bim value with.</param>
 		public bool Equals(EightBimValue other)
@@ -109,7 +109,7 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Servers as a hash of this type.
+		/// Serves as a hash of this type.
 		///</summary>
 		public override int GetHashCode()
 		{

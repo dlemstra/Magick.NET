@@ -184,7 +184,7 @@ namespace ImageMagick
 		///<summary>
 		/// Determines whether the specified object is equal to the current pixel.
 		///</summary>
-		///<param name="obj">The object to compare this color with.</param>
+		///<param name="obj">The object to compare pixel color with.</param>
 		public override bool Equals(object obj)
 		{
 			if (ReferenceEquals(this, obj))
@@ -233,7 +233,7 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Servers as a hash of this type.
+		/// Serves as a hash of this type.
 		///</summary>
 		public override int GetHashCode()
 		{

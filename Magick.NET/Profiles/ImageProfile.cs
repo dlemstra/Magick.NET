@@ -148,7 +148,7 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Determines whether the specified image is equal to the current image profile.
+		/// Determines whether the specified image compare is equal to the current image profile.
 		///</summary>
 		///<param name="other">The image profile to compare this image profile with.</param>
 		public bool Equals(ImageProfile other)
@@ -183,7 +183,7 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Servers as a hash of this type.
+		/// Serves as a hash of this type.
 		///</summary>
 		public override int GetHashCode()
 		{

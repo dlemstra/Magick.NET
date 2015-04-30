@@ -98,10 +98,10 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		/// <summary>
-		/// Determines whether the specified ImageProfile instances are considered equal.
+		/// Determines whether the specified IptcValue instances are considered equal.
 		/// </summary>
-		/// <param name="left">The first ImageProfile to compare.</param>
-		/// <param name="right"> The second ImageProfile to compare.</param>
+		/// <param name="left">The first IptcValue to compare.</param>
+		/// <param name="right"> The second IptcValue to compare.</param>
 		/// <returns></returns>
 		public static bool operator ==(IptcValue left, IptcValue right)
 		{
@@ -111,8 +111,8 @@ namespace ImageMagick
 		/// <summary>
 		/// Determines whether the specified ImageProfile instances are not considered equal.
 		/// </summary>
-		/// <param name="left">The first ImageProfile to compare.</param>
-		/// <param name="right"> The second ImageProfile to compare.</param>
+		/// <param name="left">The first IptcValue to compare.</param>
+		/// <param name="right"> The second IptcValue to compare.</param>
 		/// <returns></returns>
 		public static bool operator !=(IptcValue left, IptcValue right)
 		{
@@ -165,7 +165,7 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Servers as a hash of this type.
+		/// Serves as a hash of this type.
 		///</summary>
 		public override int GetHashCode()
 		{

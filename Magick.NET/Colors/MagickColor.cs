@@ -507,7 +507,7 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Determines whether the specified geometry is equal to the current color.
+		/// Determines whether the specified color is equal to the current color.
 		///</summary>
 		///<param name="other">The color to compare this color with.</param>
 		public bool Equals(MagickColor other)
@@ -519,7 +519,7 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Servers as a hash of this type.
+		/// Serves as a hash of this type.
 		///</summary>
 		public override int GetHashCode()
 		{
