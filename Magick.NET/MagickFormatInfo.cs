@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Globalization;
 
 namespace ImageMagick
@@ -20,7 +21,7 @@ namespace ImageMagick
 	///<summary>
 	/// Class that contains information about an image format.
 	///</summary>
-	public sealed class MagickFormatInfo
+	public sealed class MagickFormatInfo : IEquatable<MagickFormatInfo>
 	{
 		//===========================================================================================
 		private Wrapper.MagickFormatInfo _Instance;
@@ -36,6 +37,28 @@ namespace ImageMagick
 				return null;
 
 			return new MagickFormatInfo(value);
+		}
+		///==========================================================================================
+		/// <summary>
+		/// Determines whether the specified MagickFormatInfo instances are considered equal.
+		/// </summary>
+		/// <param name="left">The first MagickFormatInfo to compare.</param>
+		/// <param name="right"> The second MagickFormatInfo to compare.</param>
+		/// <returns></returns>
+		public static bool operator ==(MagickFormatInfo left, MagickFormatInfo right)
+		{
+			return object.Equals(left, right);
+		}
+		///==========================================================================================
+		/// <summary>
+		/// Determines whether the specified MagickFormatInfo instances are not considered equal.
+		/// </summary>
+		/// <param name="left">The first MagickFormatInfo to compare.</param>
+		/// <param name="right"> The second MagickFormatInfo to compare.</param>
+		/// <returns></returns>
+		public static bool operator !=(MagickFormatInfo left, MagickFormatInfo right)
+		{
+			return !object.Equals(left, right);
 		}
 		///==========================================================================================
 		///<summary>
@@ -135,6 +158,47 @@ namespace ImageMagick
 			{
 				return _Instance.Module;
 			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Returns the format information of the specified format.
+		///</summary>
+		///<param name="format">The image format.</param>
+		public static MagickFormatInfo Create(MagickFormat format)
+		{
+			return MagickNET.GetFormatInformation(format);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified object is equal to the current MagickFormatInfo.
+		///</summary>
+		///<param name="obj">The object to compare this MagickFormatInfo with.</param>
+		public override bool Equals(object obj)
+		{
+			return Equals(obj as MagickFormatInfo);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Determines whether the specified MagickFormatInfo is equal to the current MagickFormatInfo.
+		///</summary>
+		///<param name="other">The MagickFormatInfo to compare this MagickFormatInfo with.</param>
+		public bool Equals(MagickFormatInfo other)
+		{
+			if (ReferenceEquals(other, null))
+				return false;
+
+			if (ReferenceEquals(this, other))
+				return true;
+
+			return Module == other.Module;
+		}
+		///==========================================================================================
+		///<summary>
+		/// Serves as a hash of this type.
+		///</summary>
+		public override int GetHashCode()
+		{
+			return Module.GetHashCode();
 		}
 		///==========================================================================================
 		///<summary>

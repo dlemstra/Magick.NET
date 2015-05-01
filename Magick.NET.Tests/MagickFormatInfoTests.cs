@@ -27,6 +27,17 @@ namespace Magick.NET.Tests
 		private const string _Category = "MagickFormatInfo";
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_IEquatable()
+		{
+			MagickFormatInfo first = MagickFormatInfo.Create(MagickFormat.Png);
+			MagickFormatInfo second = MagickNET.GetFormatInformation(Files.SnakewarePNG);
+
+			Assert.IsTrue(first == second);
+			Assert.IsTrue(first.Equals(second));
+			Assert.IsTrue(first.Equals((object)second));
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_MimeType()
 		{
 			MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jpg);
