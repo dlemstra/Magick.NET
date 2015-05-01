@@ -61,8 +61,15 @@ namespace ImageMagick
 			string tempFile = Path.Combine(cacheDirectory, name + ".dll");
 
 			WriteAssembly(tempFile);
+			WriteXmlResources(cacheDirectory);
 
-			return LoadAssembly(tempFile);
+			Assembly assembly = LoadAssembly(tempFile);
+
+			Type magickNET = assembly.GetType("ImageMagick.Wrapper.MagickNET");
+			MethodInfo methodInfo = magickNET.GetMethod("SetEnv");
+			methodInfo.Invoke(null, new object[] { "MAGICK_CONFIGURE_PATH", cacheDirectory });
+
+			return assembly;
 		}
 		//===========================================================================================
 		[SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods")]
@@ -86,6 +93,31 @@ namespace ImageMagick
 					using (FileStream fileStream = File.Open(tempFile, FileMode.CreateNew))
 					{
 						compressedStream.CopyTo(fileStream);
+					}
+				}
+			}
+		}
+		//===========================================================================================
+		private static void WriteXmlResources(string cacheDirectory)
+		{
+			string[] xmlFiles = 
+			{
+				"coder.xml", "colors.xml", "configure.xml", "delegates.xml", "english.xml", "locale.xml",
+				"log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml"
+			};
+
+			foreach (string xmlFile in xmlFiles)
+			{
+				string outputFile = Path.Combine(cacheDirectory, xmlFile);
+				if (File.Exists(outputFile))
+					continue;
+
+				string resourceName = "ImageMagick.Resources.Xml." + xmlFile;
+				using (Stream stream = typeof(MagickImage).Assembly.GetManifestResourceStream(resourceName))
+				{
+					using (FileStream fileStream = File.Open(outputFile, FileMode.CreateNew))
+					{
+						stream.CopyTo(fileStream);
 					}
 				}
 			}

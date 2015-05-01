@@ -20,6 +20,42 @@
 		<EmbeddedResource Include="..\Magick.NET.AnyCPU\Resources\ReleaseQ16-HDRI\Magick.NET.Wrapper-x64.gz" Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
 			<LogicalName>ImageMagick.Resources.Library.Magick.NET.Wrapper_x64.gz</LogicalName>
 		</EmbeddedResource>
+		<EmbeddedResource Include="..\Magick.NET.Wrapper\Resources\xml\coder.xml">
+			<LogicalName>ImageMagick.Resources.Xml.coder.xml</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Magick.NET.Wrapper\Resources\xml\colors.xml">
+			<LogicalName>ImageMagick.Resources.Xml.colors.xml</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Magick.NET.Wrapper\Resources\xml\configure.xml">
+			<LogicalName>ImageMagick.Resources.Xml.configure.xml</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Magick.NET.Wrapper\Resources\xml\delegates.xml">
+			<LogicalName>ImageMagick.Resources.Xml.delegates.xml</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Magick.NET.Wrapper\Resources\xml\english.xml">
+			<LogicalName>ImageMagick.Resources.Xml.english.xml</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Magick.NET.Wrapper\Resources\xml\locale.xml">
+			<LogicalName>ImageMagick.Resources.Xml.locale.xml</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Magick.NET.Wrapper\Resources\xml\log.xml">
+			<LogicalName>ImageMagick.Resources.Xml.log.xml</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Magick.NET.Wrapper\Resources\xml\magic.xml">
+			<LogicalName>ImageMagick.Resources.Xml.magic.xml</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Magick.NET.Wrapper\Resources\xml\policy.xml">
+			<LogicalName>ImageMagick.Resources.Xml.policy.xml</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Magick.NET.Wrapper\Resources\xml\thresholds.xml">
+			<LogicalName>ImageMagick.Resources.Xml.thresholds.xml</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Magick.NET.Wrapper\Resources\xml\type.xml">
+			<LogicalName>ImageMagick.Resources.Xml.type.xml</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Magick.NET.Wrapper\Resources\xml\type-ghostscript.xml">
+			<LogicalName>ImageMagick.Resources.Xml.type-ghostscript.xml</LogicalName>
+		</EmbeddedResource>
 	</ItemGroup>
 	<Target Name="AfterBuild">
 		<Exec Command="..\Tools\Programs\InjectModuleInitializer.exe /k:&quot;$(AssemblyOriginatorKeyFile)&quot; /m:ImageMagick.AssemblyHelper::Initialize &quot;$(TargetPath)&quot;" />
