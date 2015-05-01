@@ -23,6 +23,7 @@ namespace ImageMagick
 	{
 		//===========================================================================================
 #pragma managed(push, off)
+#pragma warning(disable: 4324)
 #pragma warning(disable: 4611)
 		//===========================================================================================
 #define MaxBufferExtent 16384
@@ -365,28 +366,20 @@ namespace ImageMagick
 #pragma warning(default: 4611)
 #pragma managed(pop)
 		//===========================================================================================
-		JpegOptimizer::JpegOptimizer(String^ fileName)
-		{
-			Throw::IfInvalidFileName(fileName);
-
-			_File = gcnew FileInfo(fileName);
-			Progressive = true;
-		}
-		//===========================================================================================
-		void JpegOptimizer::LosslessCompress()
+		void JpegOptimizer::LosslessCompress(FileInfo^ file, bool progressive)
 		{
 			std::string
 				input,
 				output;
 
-			Marshaller::Marshal(_File->FullName,input);
+			Marshaller::Marshal(file->FullName,input);
 
 			FileInfo^ outputFile = gcnew FileInfo(Path::GetTempFileName());
 			Marshaller::Marshal(outputFile->FullName,output);
 
 			try
 			{
-				int result = DoLosslessCompress(input, output, Progressive);
+				int result = DoLosslessCompress(input, output, progressive);
 
 				if (result == 1)
 					throw gcnew MagickCorruptImageErrorException("Unable to decompress the jpeg file.", nullptr);
@@ -394,15 +387,33 @@ namespace ImageMagick
 				if (result == 2)
 					throw gcnew MagickCorruptImageErrorException("Unable to compress the jpeg file.", nullptr);
 
+				if (result != 0)
+					return;
+
 				outputFile->Refresh();
-				if (outputFile->Length < _File->Length)
-					outputFile->CopyTo(_File->FullName, true);
+				if (outputFile->Length < file->Length)
+					outputFile->CopyTo(file->FullName, true);
 			}
 			finally
 			{
 				if (outputFile->Exists)
 					outputFile->Delete();
 			}
+
+			file->Refresh();
+		}
+		//===========================================================================================
+		JpegOptimizer::JpegOptimizer()
+		{
+			Progressive = true;
+			OptimalCompression = false;
+		}
+		//===========================================================================================
+		void JpegOptimizer::LosslessCompress(FileInfo^ file)
+		{
+			LosslessCompress(file, Progressive);
+			if (OptimalCompression)
+				LosslessCompress(file, !Progressive);
 		}
 		//===========================================================================================
 	}

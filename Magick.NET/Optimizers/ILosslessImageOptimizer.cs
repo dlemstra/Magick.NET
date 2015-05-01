@@ -12,40 +12,40 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
+using System.IO;
 
 namespace ImageMagick
 {
 	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the ImageMagick ErrorCorruptImage exception object.
-	///</summary>
-	[Serializable]
-	public sealed class MagickCorruptImageErrorException : MagickErrorException
+	/// <summary>
+	/// Interface for optimizers that support lossless compression.
+	/// </summary>
+	public interface ILosslessImageOptimizer
 	{
 		///==========================================================================================
 		/// <summary>
-		/// Initializes a new instance of the MagickCorruptImageErrorException class with a specified error
-		/// message and a reference to the inner exception that is the cause of this exception.
+		/// When set to true various compression types will be used to find the smallest file. This
+		/// process will take extra time because the file has to be written multiple times.
 		/// </summary>
-		/// <param name="message">The error message that explains the reason for the exception.</param>
-		public MagickCorruptImageErrorException(string message)
-			: base(message, null)
+		bool OptimalCompression
 		{
+			get;
+			set;
 		}
 		///==========================================================================================
 		/// <summary>
-		/// Initializes a new instance of the MagickCorruptImageErrorException class with a specified error
-		/// message and a reference to the inner exception that is the cause of this exception.
+		/// Performs lossless compression on speified the file. If the new file size is not smaller
+		/// the file won't be overwritten.
 		/// </summary>
-		/// <param name="message">The error message that explains the reason for the exception.</param>
-		/// <param name="innerException">The exception that is the cause of the current exception, or a
-		/// null reference if no inner exception is specified.</param>
-		public MagickCorruptImageErrorException(string message, MagickException innerException)
-			: base(message, innerException)
-		{
-		}
-		//===========================================================================================
+		/// <param name="file">The image file to optimize</param>
+		void LosslessCompress(FileInfo file);
+		///==========================================================================================
+		/// <summary>
+		/// Performs lossless compression on speified the file. If the new file size is not smaller
+		/// the file won't be overwritten.
+		/// </summary>
+		/// <param name="fileName">The image file to optimize</param>
+		void LosslessCompress(string fileName);
 	}
 	//==============================================================================================
 }

@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System.IO;
+
 namespace Magick.NET.Tests
 {
 	//==============================================================================================
@@ -118,28 +119,6 @@ namespace Magick.NET.Tests
 			get
 			{
 				return _Root + @"Images\Snakeware.png";
-			}
-		}
-		//===========================================================================================
-		public static string TemporaryImageMagickJPG
-		{
-			get
-			{
-				string fileName = Path.GetTempFileName();
-				File.Copy(ImageMagickJPG, fileName, true);
-
-				return fileName;
-			}
-		}
-		//===========================================================================================
-		public static string TemporarySnakewarePNG
-		{
-			get
-			{
-				string fileName = Path.GetTempFileName();
-				File.Copy(SnakewarePNG, fileName, true);
-
-				return fileName;
 			}
 		}
 		//===========================================================================================

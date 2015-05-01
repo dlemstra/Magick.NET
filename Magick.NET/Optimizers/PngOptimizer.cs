@@ -24,57 +24,22 @@ namespace ImageMagick
 	/// <summary>
 	/// Class that can be used to optimize png files.
 	/// </summary>
-	public sealed class PngOptimizer
+	public sealed class PngOptimizer : IImageOptimizer, ILosslessImageOptimizer
 	{
 		//===========================================================================================
-		private FileInfo _File;
-		//===========================================================================================
-		private IEnumerable<int> GetQualityList()
+		private static void CheckFormat(MagickImage image)
 		{
-			if (OptimizeCompression)
-				return new int[] { 91, 94, 95, 97 };
-			else
-				return new int[] { 90 };
+			MagickFormat format = image.FormatInfo.Module;
+			if (format != MagickFormat.Png)
+				throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
 		}
 		//===========================================================================================
-		private void Initialize(FileInfo file)
+		private void DoLosslessCompress(FileInfo file)
 		{
-			_File = file;
-			OptimizeCompression = false;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PngOptimizer class.
-		///</summary>
-		/// <param name="file">The png file to optimize</param>
-		public PngOptimizer(FileInfo file)
-		{
-			Throw.IfNull("file", file);
-
-			Initialize(file);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PngOptimizer class.
-		///</summary>
-		/// <param name="fileName">The png file to optimize</param>
-		public PngOptimizer(string fileName)
-		{
-			string filePath = FileHelper.CheckForBaseDirectory(fileName);
-
-			Throw.IfInvalidFileName(filePath);
-
-			Initialize(new FileInfo(filePath));
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Performs lossless compression on the file. If the new file size is not smaller the file
-		/// won't be overwritten.
-		/// </summary>
-		public void LosslessCompress()
-		{
-			using (MagickImage image = new MagickImage(_File))
+			using (MagickImage image = new MagickImage(file))
 			{
+				CheckFormat(image);
+
 				image.Strip();
 				image.SetDefine(MagickFormat.Png, "exclude-chunks", "all");
 				image.SetDefine(MagickFormat.Png, "include-chunks", "tRNS,gAMA");
@@ -94,16 +59,14 @@ namespace ImageMagick
 						image.Write(tempFile);
 						tempFile.Refresh();
 
-						if (bestFile == null)
-							bestFile = tempFile;
-						else if (bestFile.Length > tempFile.Length)
+						if (bestFile == null || bestFile.Length > tempFile.Length)
 							bestFile = tempFile;
 						else
-							bestFile.Delete();
+							tempFile.Delete();
 					}
 
-					if (bestFile.Length < _File.Length)
-						bestFile.CopyTo(_File.FullName, true);
+					if (bestFile.Length < file.Length)
+						bestFile.CopyTo(file.FullName, true);
 				}
 				finally
 				{
@@ -115,15 +78,67 @@ namespace ImageMagick
 				}
 			}
 		}
+		//===========================================================================================
+		private IEnumerable<int> GetQualityList()
+		{
+			if (OptimalCompression)
+				return new int[] { 91, 94, 95, 97 };
+			else
+				return new int[] { 90 };
+		}
+		///==========================================================================================
+		///<summary>
+		/// Initializes a new instance of the PngOptimizer class.
+		///</summary>
+		public PngOptimizer()
+		{
+		}
 		///==========================================================================================
 		/// <summary>
 		/// When set to true various compression types will be used to find the smallest file. This
-		/// process will take extra time because the PNG file has to be written multiple times.
+		/// process will take extra time because the file has to be written multiple times.
 		/// </summary>
-		public bool OptimizeCompression
+		public bool OptimalCompression
 		{
 			get;
 			set;
+		}
+		///==========================================================================================
+		/// <summary>
+		/// The format that the optimizer supports.
+		/// </summary>
+		public MagickFormatInfo Format
+		{
+			get
+			{
+				return MagickNET.GetFormatInformation(MagickFormat.Png);
+			}
+		}
+		///==========================================================================================
+		/// <summary>
+		/// Performs lossless compression on the file. If the new file size is not smaller the file
+		/// won't be overwritten.
+		/// </summary>
+		/// <param name="fileName">The png file to optimize</param>
+		public void LosslessCompress(string fileName)
+		{
+			string filePath = FileHelper.CheckForBaseDirectory(fileName);
+			Throw.IfInvalidFileName(filePath);
+
+			DoLosslessCompress(new FileInfo(filePath));
+		}
+		///==========================================================================================
+		/// <summary>
+		/// Performs lossless compression on the file. If the new file size is not smaller the file
+		/// won't be overwritten.
+		/// </summary>
+		/// <param name="file">The png file to optimize</param>
+		public void LosslessCompress(FileInfo file)
+		{
+			Throw.IfNull("file", file);
+
+			DoLosslessCompress(file);
+			file.Refresh();
 		}
 		//===========================================================================================
 	}

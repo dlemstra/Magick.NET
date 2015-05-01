@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,14 +21,30 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public class JpegOptimizerTests : IImageOptimizerTests
+	public class ImageOptimizerTests : IImageOptimizerTests
 	{
 		//===========================================================================================
-		private const string _Category = "JpegOptimizer";
+		private const string _Category = "ImageOptimizer";
+		//===========================================================================================
+		private void Test_LosslessCompressWithTempFile(string fileName)
+		{
+			string tempFile = Path.GetTempPath() + Guid.NewGuid().ToString();
+
+			try
+			{
+				File.Copy(fileName, tempFile);
+				Test_LosslessCompress(tempFile);
+			}
+			finally
+			{
+				if (File.Exists(tempFile))
+					File.Delete(tempFile);
+			}
+		}
 		//===========================================================================================
 		protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
 		{
-			return new JpegOptimizer();
+			return new ImageOptimizer();
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -39,12 +57,9 @@ namespace Magick.NET.Tests
 		public void Test_LosslessCompress()
 		{
 			Test_LosslessCompress(Files.ImageMagickJPG);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_LosslessCompress_InvalidFile()
-		{
-			Test_LosslessCompress_InvalidFile(Files.SnakewarePNG);
+			Test_LosslessCompress(Files.SnakewarePNG);
+			Test_LosslessCompressWithTempFile(Files.ImageMagickJPG);
+			Test_LosslessCompressWithTempFile(Files.SnakewarePNG);
 		}
 		//===========================================================================================
 	}

@@ -12,8 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,55 +19,32 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public class PngOptimizerTests
+	public class PngOptimizerTests : IImageOptimizerTests
 	{
 		//===========================================================================================
 		private const string _Category = "PngOptimizer";
 		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Constructor()
+		protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
 		{
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				new PngOptimizer((FileInfo)null);
-			});
-
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				new PngOptimizer((string)null);
-			});
-
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new PngOptimizer("");
-			});
-
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new PngOptimizer(Files.Missing);
-			});
+			return new PngOptimizer();
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_InvalidArguments()
+		{
+			Test_LosslessCompress_InvalidArguments();
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_LosslessCompress()
 		{
-			FileInfo tempFile = new FileInfo(Files.TemporarySnakewarePNG);
-			try
-			{
-				PngOptimizer optimizer = new PngOptimizer(tempFile);
-
-				long before = tempFile.Length;
-				optimizer.LosslessCompress();
-
-				tempFile.Refresh();
-				long after = tempFile.Length;
-				Assert.AreNotEqual(before, after);
-			}
-			finally
-			{
-				if (tempFile.Exists)
-					tempFile.Delete();
-			}
+			Test_LosslessCompress(Files.SnakewarePNG);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_LosslessCompress_InvalidFile()
+		{
+			Test_LosslessCompress_InvalidFile(Files.ImageMagickJPG);
 		}
 		//===========================================================================================
 	}

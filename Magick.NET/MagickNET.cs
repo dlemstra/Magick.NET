@@ -64,12 +64,49 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Returns the format information of the specified format based on the extension of the
+		/// file. If that fails the format will be determined by 'pinging' the file.
+		///</summary>
+		///<param name="file">The file to get the format for.</param>
+		public static MagickFormatInfo GetFormatInformation(FileInfo file)
+		{
+			Throw.IfNull("file", file);
+
+			MagickFormat? format = null;
+			string extension = file.Extension;
+
+			if (extension != null && extension.Length > 1)
+				format = (MagickFormat?)EnumHelper.Parse(typeof(MagickFormat), file.Extension.Substring(1));
+
+			if (format == null)
+			{
+				MagickImageInfo info = new MagickImageInfo(file);
+				format = info.Format;
+			}
+
+			return GetFormatInformation(format.Value);
+		}
+		///==========================================================================================
+		///<summary>
 		/// Returns the format information of the specified format.
 		///</summary>
 		///<param name="format">The image format.</param>
 		public static MagickFormatInfo GetFormatInformation(MagickFormat format)
 		{
 			return MagickFormatInfo.Create(Wrapper.MagickNET.GetFormatInformation(format));
+		}
+		///==========================================================================================
+		///<summary>
+		/// Returns the format information of the specified format based on the extension of the
+		/// file. If that fails the format will be determined by 'pinging' the file.
+		///</summary>
+		///<param name="fileName">The name of the file to get the format for.</param>
+		public static MagickFormatInfo GetFormatInformation(string fileName)
+		{
+			string filePath = FileHelper.CheckForBaseDirectory(fileName);
+			Throw.IfInvalidFileName(filePath);
+
+			return GetFormatInformation(new FileInfo(filePath));
 		}
 		///==========================================================================================
 		///<summary>
