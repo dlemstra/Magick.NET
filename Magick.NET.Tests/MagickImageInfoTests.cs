@@ -59,6 +59,11 @@ namespace Magick.NET.Tests
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
+				new MagickImageInfo((FileInfo)null);
+			});
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
 				new MagickImageInfo((Stream)null);
 			});
 
@@ -157,6 +162,11 @@ namespace Magick.NET.Tests
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()
 			{
 				imageInfo.Read((byte[])null);
+			});
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				imageInfo.Read((FileInfo)null);
 			});
 
 			ExceptionAssert.Throws<ArgumentNullException>(delegate()

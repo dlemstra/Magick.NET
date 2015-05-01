@@ -52,6 +52,17 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Initializes a new instance of the MagickImageInfo class using the specified filename.
+		///</summary>
+		///<param name="file">The file to read the image from.</param>
+		///<exception cref="MagickException"/>
+		public MagickImageInfo(FileInfo file)
+			: this()
+		{
+			Read(file);
+		}
+		///==========================================================================================
+		///<summary>
 		/// Initializes a new instance of the MagickImageInfo class using the specified stream.
 		///</summary>
 		///<param name="stream">The stream to read the image data from.</param>
@@ -292,7 +303,7 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Servers as a hash of this type.
+		/// Serves as a hash of this type.
 		///</summary>
 		public override int GetHashCode()
 		{
@@ -314,6 +325,18 @@ namespace ImageMagick
 		public void Read(Byte[] data)
 		{
 			_Instance.Read(data);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Read basic information about an image.
+		///</summary>
+		///<param name="file">The file to read the image from.</param>
+		///<exception cref="MagickException"/>
+		public void Read(FileInfo file)
+		{
+			Throw.IfNull("file", file);
+
+			_Instance.Read(file.FullName);
 		}
 		///==========================================================================================
 		///<summary>
