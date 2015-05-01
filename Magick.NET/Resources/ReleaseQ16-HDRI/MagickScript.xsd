@@ -763,6 +763,7 @@
 					<xs:enumeration value="Matte" />
 					<xs:enumeration value="Mef" />
 					<xs:enumeration value="Miff" />
+					<xs:enumeration value="Mkv" />
 					<xs:enumeration value="Mng" />
 					<xs:enumeration value="Mono" />
 					<xs:enumeration value="Mov" />
@@ -1030,8 +1031,11 @@
 			<xs:simpleType>
 				<xs:restriction base="xs:NMTOKEN">
 					<xs:enumeration value="App" />
+					<xs:enumeration value="EightBim" />
+					<xs:enumeration value="Exif" />
 					<xs:enumeration value="Icc" />
 					<xs:enumeration value="Iptc" />
+					<xs:enumeration value="Xmp" />
 				</xs:restriction>
 			</xs:simpleType>
 			<xs:simpleType>
@@ -1225,6 +1229,12 @@
 		<xs:attribute name="fitPage" type="geometry" />
 		<xs:attribute name="useCropBox" type="bool" />
 		<xs:attribute name="useTrimBox" type="bool" />
+	</xs:complexType>
+	<xs:complexType name="pngReadDefines">
+		<xs:attribute name="preserveCorruptImage" type="bool" />
+		<xs:attribute name="preserveiCCP" type="bool" />
+		<xs:attribute name="skipProfiles" type="ProfileTypes" />
+		<xs:attribute name="swapBytes" type="bool" />
 	</xs:complexType>
 	<xs:complexType name="tiffReadDefines">
 		<xs:attribute name="ignoreExifPoperties" type="bool" />
@@ -2677,6 +2687,7 @@
 				<xs:element name="jpegReadDefines" type="jpegReadDefines" />
 				<xs:element name="jpegWriteDefines" type="jpegWriteDefines" />
 				<xs:element name="pdfReadDefines" type="pdfReadDefines" />
+				<xs:element name="pngReadDefines" type="pngReadDefines" />
 				<xs:element name="tiffReadDefines" type="tiffReadDefines" />
 				<xs:element name="tiffWriteDefines" type="tiffWriteDefines" />
 			</xs:choice>
@@ -3014,6 +3025,7 @@
 			<xs:choice>
 				<xs:element name="jpegReadDefines" type="jpegReadDefines" />
 				<xs:element name="pdfReadDefines" type="pdfReadDefines" />
+				<xs:element name="pngReadDefines" type="pngReadDefines" />
 				<xs:element name="tiffReadDefines" type="tiffReadDefines" />
 			</xs:choice>
 		</xs:sequence>

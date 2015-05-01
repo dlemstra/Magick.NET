@@ -71,7 +71,18 @@ namespace ImageMagick
 				}
 				case 'p':
 				{
-					return CreatePdfReadDefines(element);
+					switch(element.Name[1])
+					{
+						case 'd':
+						{
+							return CreatePdfReadDefines(element);
+						}
+						case 'n':
+						{
+							return CreatePngReadDefines(element);
+						}
+					}
+					break;
 				}
 				case 't':
 				{
@@ -140,6 +151,18 @@ namespace ImageMagick
 			result.FitPage = Variables.GetValue<MagickGeometry>(element, "fitPage");
 			result.UseCropBox = Variables.GetValue<Nullable<Boolean>>(element, "useCropBox");
 			result.UseTrimBox = Variables.GetValue<Nullable<Boolean>>(element, "useTrimBox");
+			return result;
+		}
+		//============================================================================================
+		private IDefines CreatePngReadDefines(XmlElement element)
+		{
+			if (element == null)
+				return null;
+			PngReadDefines result = new PngReadDefines();
+			result.PreserveCorruptImage = Variables.GetValue<Boolean>(element, "preserveCorruptImage");
+			result.PreserveiCCP = Variables.GetValue<Boolean>(element, "preserveiCCP");
+			result.SkipProfiles = Variables.GetValue<Nullable<ImageMagick.Defines.ProfileTypes>>(element, "skipProfiles");
+			result.SwapBytes = Variables.GetValue<Boolean>(element, "swapBytes");
 			return result;
 		}
 		//============================================================================================

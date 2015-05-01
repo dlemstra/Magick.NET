@@ -343,9 +343,9 @@ namespace Magick.NET.FileGenerator
 		//===========================================================================================
 		public MagickTypes(QuantumDepth depth)
 		{
-			_Core = LoadAssembly(@"..\..\..\..\Magick.NET.Core\bin\Release\Magick.NET.Core.dll");
+			_Core = LoadAssembly(@"..\..\..\..\Magick.NET.Core\bin\Release\AnyCPU\Magick.NET.Core.dll");
 			LoadAssembly(@"..\..\..\..\Magick.NET.Wrapper\bin\" + GetFolderName(depth) + @"\Win32\Magick.NET.Wrapper-x86.dll");
-			_MagickNET = LoadAssembly(@"..\..\..\..\Magick.NET\bin\x86\" + GetFolderName(depth) + @"\Magick.NET-x86.dll");
+			_MagickNET = LoadAssembly(@"..\..\..\..\Magick.NET\bin\" + GetFolderName(depth) + @"\x86\Magick.NET-x86.dll");
 			_Depth = depth;
 		}
 		//===========================================================================================

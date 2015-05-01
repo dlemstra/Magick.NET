@@ -2058,10 +2058,12 @@ namespace ImageMagick
 			}
 			if (arguments.Count == 0)
 				image.AdaptiveBlur();
+			else if (OnlyContains(arguments, "radius"))
+				image.AdaptiveBlur((double)arguments["radius"]);
 			else if (OnlyContains(arguments, "radius", "sigma"))
 				image.AdaptiveBlur((double)arguments["radius"], (double)arguments["sigma"]);
 			else
-				throw new ArgumentException("Invalid argument combination for 'adaptiveBlur', allowed combinations are: [] [radius, sigma]");
+				throw new ArgumentException("Invalid argument combination for 'adaptiveBlur', allowed combinations are: [] [radius] [radius, sigma]");
 		}
 		//============================================================================================
 		private void ExecuteAdaptiveResize(XmlElement element, MagickImage image)
