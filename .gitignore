@@ -16,5 +16,6 @@ lib
 /ipch
 /Publish/Archive/*
 /Publish/NuGet/*.nupkg
+/Publish/Pdb/*
 /Publish/Zip/*
 /TestResults

@@ -189,7 +189,15 @@
     <Compile Include="MagickImageCollection.cs" />
     <Compile Include="MagickImageInfo.cs" />
     <Compile Include="MagickNET.cs" />
+    <Compile Include="Optimizers\IImageOptimizer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Optimizers\ILosslessImageOptimizer.cs" />
+    <Compile Include="Optimizers\ImageOptimizer.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Optimizers\JpegOptimizer.cs" />
+    <Compile Include="Optimizers\PngOptimizer.cs" />
     <Compile Include="Pixels\PixelCollection.cs">
       <SubType>Code</SubType>
     </Compile>
