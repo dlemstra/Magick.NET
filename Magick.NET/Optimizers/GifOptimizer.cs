@@ -18,19 +18,66 @@ namespace ImageMagick.ImageOptimizers
 {
 	///=============================================================================================
 	/// <summary>
-	/// Class that can be used to optimize jpeg files.
+	/// Class that can be used to optimize gif files.
 	/// </summary>
-	public sealed class JpegOptimizer : IImageOptimizer, ILosslessImageOptimizer
+	public sealed class GifOptimizer : IImageOptimizer, ILosslessImageOptimizer
 	{
 		//===========================================================================================
-		private Wrapper.JpegOptimizer _Instance;
+		private static void CheckFormat(MagickImage image)
+		{
+			MagickFormat format = image.FormatInfo.Module;
+			if (format != MagickFormat.Gif)
+				throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
+		}
+		//===========================================================================================
+		private static void DoLosslessCompress(FileInfo file)
+		{
+			using (MagickImageCollection images = new MagickImageCollection(file))
+			{
+				if (images.Count == 1)
+				{
+					DoLosslessCompress(file, images[0]);
+					return;
+				}
+			}
+		}
+		//===========================================================================================
+		private static void DoLosslessCompress(FileInfo file, MagickImage image)
+		{
+			CheckFormat(image);
+
+			image.Strip();
+
+			FileInfo tempFile = new FileInfo(Path.GetTempFileName());
+			try
+			{
+				image.Write(tempFile);
+
+				if (tempFile.Length < file.Length)
+					tempFile.CopyTo(file.FullName, true);
+			}
+			finally
+			{
+				if (tempFile.Exists)
+					tempFile.Delete();
+			}
+		}
 		///==========================================================================================
 		///<summary>
-		/// Initializes a new instance of the JpegOptimizer class.
+		/// Initializes a new instance of the GifOptimizer class.
 		///</summary>
-		public JpegOptimizer()
+		public GifOptimizer()
 		{
-			_Instance = new Wrapper.JpegOptimizer();
+		}
+		///==========================================================================================
+		/// <summary>
+		/// When set to true various compression types will be used to find the smallest file. This
+		/// process will take extra time because the file has to be written multiple times.
+		/// </summary>
+		public bool OptimalCompression
+		{
+			get;
+			set;
 		}
 		///==========================================================================================
 		/// <summary>
@@ -40,44 +87,13 @@ namespace ImageMagick.ImageOptimizers
 		{
 			get
 			{
-				return MagickNET.GetFormatInformation(MagickFormat.Jpeg);
+				return MagickNET.GetFormatInformation(MagickFormat.Gif);
 			}
 		}
 		///==========================================================================================
 		/// <summary>
-		/// When set to true various compression types will be used to find the smallest file. This
-		/// process will take extra time because the file has to be written multiple times.
-		/// </summary>
-		public bool OptimalCompression
-		{
-			get
-			{
-				return _Instance.OptimalCompression;
-			}
-			set
-			{
-				_Instance.OptimalCompression = value;
-			}
-		}
-		///==========================================================================================
-		/// <summary>
-		/// When set to true a progressive jpeg file will be created.
-		/// </summary>
-		public bool Progressive
-		{
-			get
-			{
-				return _Instance.Progressive;
-			}
-			set
-			{
-				_Instance.Progressive = value;
-			}
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Performs lossless compression on speified the file. If the new file size is not smaller
-		/// the file won't be overwritten.
+		/// Performs lossless compression on the file. If the new file size is not smaller the file
+		/// won't be overwritten.
 		/// </summary>
 		/// <param name="fileName">The png file to optimize</param>
 		public void LosslessCompress(string fileName)
@@ -85,19 +101,20 @@ namespace ImageMagick.ImageOptimizers
 			string filePath = FileHelper.CheckForBaseDirectory(fileName);
 			Throw.IfInvalidFileName(filePath);
 
-			_Instance.LosslessCompress(new FileInfo(filePath));
+			DoLosslessCompress(new FileInfo(filePath));
 		}
 		///==========================================================================================
 		/// <summary>
-		/// Performs lossless compression on speified the file. If the new file size is not smaller
-		/// the file won't be overwritten.
+		/// Performs lossless compression on the file. If the new file size is not smaller the file
+		/// won't be overwritten.
 		/// </summary>
 		/// <param name="file">The png file to optimize</param>
 		public void LosslessCompress(FileInfo file)
 		{
 			Throw.IfNull("file", file);
 
-			_Instance.LosslessCompress(file);
+			DoLosslessCompress(file);
+			file.Refresh();
 		}
 		//===========================================================================================
 	}

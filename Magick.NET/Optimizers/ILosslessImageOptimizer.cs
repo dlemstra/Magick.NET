@@ -14,7 +14,7 @@
 
 using System.IO;
 
-namespace ImageMagick
+namespace ImageMagick.ImageOptimizers
 {
 	///=============================================================================================
 	/// <summary>

@@ -50,6 +50,14 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		public static string FujiFilmFinePixS1ProGIF
+		{
+			get
+			{
+				return _Root + @"Images\FujiFilmFinePixS1Pro.gif";
+			}
+		}
+		//===========================================================================================
 		public static string FujiFilmFinePixS1ProJPG
 		{
 			get

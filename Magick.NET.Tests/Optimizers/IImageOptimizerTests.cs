@@ -15,6 +15,7 @@
 using System;
 using System.IO;
 using ImageMagick;
+using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
@@ -35,6 +36,11 @@ namespace Magick.NET.Tests
 		//===========================================================================================
 		protected void Test_LosslessCompress(string fileName)
 		{
+			Test_LosslessCompress(fileName, true);
+		}
+		//===========================================================================================
+		protected void Test_LosslessCompress(string fileName, bool resultIsSmaller)
+		{
 			FileInfo tempFile = CreateTemporaryFile(fileName);
 			try
 			{
@@ -46,7 +52,11 @@ namespace Magick.NET.Tests
 
 				tempFile.Refresh();
 				long after = tempFile.Length;
-				Assert.AreNotEqual(before, after);
+
+				if (resultIsSmaller)
+					Assert.IsTrue(before >= after, "{0} is not smaller than {1}", after, before);
+				else
+					Assert.AreEqual(before, after);
 			}
 			finally
 			{

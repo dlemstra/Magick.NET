@@ -15,6 +15,7 @@
 using System;
 using System.IO;
 using ImageMagick;
+using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
@@ -73,6 +74,7 @@ namespace Magick.NET.Tests
 				optimizer.IsSupported("");
 			});
 
+			Assert.IsTrue(optimizer.IsSupported(Files.FujiFilmFinePixS1ProGIF));
 			Assert.IsTrue(optimizer.IsSupported(Files.ImageMagickJPG));
 			Assert.IsTrue(optimizer.IsSupported(Files.SnakewarePNG));
 			Assert.IsTrue(optimizer.IsSupported(Files.Missing));
@@ -82,6 +84,7 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_LosslessCompress()
 		{
+			Test_LosslessCompress(Files.FujiFilmFinePixS1ProGIF);
 			Test_LosslessCompress(Files.ImageMagickJPG);
 			Test_LosslessCompress(Files.SnakewarePNG);
 			Test_LosslessCompressWithTempFile(Files.ImageMagickJPG);

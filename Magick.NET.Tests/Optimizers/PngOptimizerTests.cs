@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using ImageMagick;
+using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests

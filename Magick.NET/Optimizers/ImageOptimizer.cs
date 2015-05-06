@@ -14,6 +14,7 @@
 
 using System.Collections.ObjectModel;
 using System.IO;
+using ImageMagick.ImageOptimizers;
 
 namespace ImageMagick
 {
@@ -31,6 +32,7 @@ namespace ImageMagick
 			Collection<IImageOptimizer> optimizers = new Collection<IImageOptimizer>();
 			optimizers.Add(new JpegOptimizer());
 			optimizers.Add(new PngOptimizer());
+			optimizers.Add(new GifOptimizer());
 			return optimizers;
 		}
 		//===========================================================================================
@@ -62,7 +64,7 @@ namespace ImageMagick
 
 			foreach (IImageOptimizer optimizer in _Optimizers)
 			{
-				if (optimizer.Format.Format == info.Module)
+				if (optimizer.Format.Module == info.Module)
 					return optimizer as ILosslessImageOptimizer;
 			}
 

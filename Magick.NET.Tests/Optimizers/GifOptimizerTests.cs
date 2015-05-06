@@ -20,14 +20,14 @@ namespace Magick.NET.Tests
 {
 	//==============================================================================================
 	[TestClass]
-	public class JpegOptimizerTests : IImageOptimizerTests
+	public class GifOptimizerTests : IImageOptimizerTests
 	{
 		//===========================================================================================
-		private const string _Category = "JpegOptimizer";
+		private const string _Category = "GifOptimizer";
 		//===========================================================================================
 		protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
 		{
-			return new JpegOptimizer();
+			return new GifOptimizer();
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
@@ -39,13 +39,14 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_LosslessCompress()
 		{
-			Test_LosslessCompress(Files.ImageMagickJPG);
+			Test_LosslessCompress(Files.RoseSparkleGIF, false);
+			Test_LosslessCompress(Files.FujiFilmFinePixS1ProGIF);
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_LosslessCompress_InvalidFile()
 		{
-			Test_LosslessCompress_InvalidFile(Files.SnakewarePNG);
+			Test_LosslessCompress_InvalidFile(Files.InvitationTif);
 		}
 		//===========================================================================================
 	}
