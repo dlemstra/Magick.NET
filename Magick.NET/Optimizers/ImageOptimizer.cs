@@ -24,7 +24,7 @@ namespace ImageMagick
 	public sealed class ImageOptimizer : ILosslessImageOptimizer
 	{
 		//===========================================================================================
-		private static Collection<IImageOptimizer> _Optimizers = CreateImageOptimizers();
+		private Collection<IImageOptimizer> _Optimizers = CreateImageOptimizers();
 		//===========================================================================================
 		private static Collection<IImageOptimizer> CreateImageOptimizers()
 		{
@@ -44,19 +44,43 @@ namespace ImageMagick
 			optimizer.LosslessCompress(file);
 		}
 		//===========================================================================================
-		private static ILosslessImageOptimizer GetOptimizer(FileInfo file)
+		private static MagickFormatInfo GetFormatInformation(FileInfo file)
 		{
 			MagickFormatInfo info = MagickNET.GetFormatInformation(file);
+			if (info != null)
+				return info;
+
+			MagickImageInfo imageInfo = new MagickImageInfo(file);
+			return MagickNET.GetFormatInformation(imageInfo.Format);
+		}
+		//===========================================================================================
+		private ILosslessImageOptimizer GetOptimizer(FileInfo file)
+		{
+			MagickFormatInfo info = GetFormatInformation(file);
 			if (info == null)
 				return null;
 
 			foreach (IImageOptimizer optimizer in _Optimizers)
 			{
-				if (optimizer.Format == info)
+				if (optimizer.Format.Format == info.Module)
 					return optimizer as ILosslessImageOptimizer;
 			}
 
 			return null;
+		}
+		//===========================================================================================
+		private bool IsSupported(MagickFormatInfo formatInfo)
+		{
+			if (formatInfo == null)
+				return false;
+
+			foreach (IImageOptimizer optimizer in _Optimizers)
+			{
+				if (optimizer.Format.Format == formatInfo.Module)
+					return true;
+			}
+
+			return false;
 		}
 		///==========================================================================================
 		/// <summary>
@@ -67,6 +91,26 @@ namespace ImageMagick
 		{
 			get;
 			set;
+		}
+		///==========================================================================================
+		/// <summary>
+		/// Returns true if the supplied file name is supported based on the extension of the file.
+		/// </summary>
+		/// <param name="file">The file to check.</param>
+		/// <returns></returns>
+		public bool IsSupported(FileInfo file)
+		{
+			return IsSupported(MagickFormatInfo.Create(file));
+		}
+		///==========================================================================================
+		/// <summary>
+		/// Returns true if the supplied file name is supported based on the extension of the file.
+		/// </summary>
+		/// <param name="fileName">The name of the file to check.</param>
+		/// <returns></returns>
+		public bool IsSupported(string fileName)
+		{
+			return IsSupported(MagickFormatInfo.Create(fileName));
 		}
 		///==========================================================================================
 		/// <summary>

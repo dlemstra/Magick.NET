@@ -54,6 +54,32 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_IsSupported()
+		{
+			ImageOptimizer optimizer = new ImageOptimizer();
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				optimizer.IsSupported((FileInfo)null);
+			});
+
+			ExceptionAssert.Throws<ArgumentNullException>(delegate()
+			{
+				optimizer.IsSupported((string)null);
+			});
+
+			ExceptionAssert.Throws<ArgumentException>(delegate()
+			{
+				optimizer.IsSupported("");
+			});
+
+			Assert.IsTrue(optimizer.IsSupported(Files.ImageMagickJPG));
+			Assert.IsTrue(optimizer.IsSupported(Files.SnakewarePNG));
+			Assert.IsTrue(optimizer.IsSupported(Files.Missing));
+			Assert.IsFalse(optimizer.IsSupported(Files.InvitationTif));
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_LosslessCompress()
 		{
 			Test_LosslessCompress(Files.ImageMagickJPG);

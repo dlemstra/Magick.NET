@@ -14,6 +14,7 @@
 
 using System;
 using System.Globalization;
+using System.IO;
 
 namespace ImageMagick
 {
@@ -167,6 +168,29 @@ namespace ImageMagick
 		public static MagickFormatInfo Create(MagickFormat format)
 		{
 			return MagickNET.GetFormatInformation(format);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Returns the format information. The extension of the supplied file is used to determine
+		/// the format.
+		///</summary>
+		/// <param name="file">The file to check.</param>
+		public static MagickFormatInfo Create(FileInfo file)
+		{
+			return MagickNET.GetFormatInformation(file);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Returns the format information. The extension of the supplied file name is used to
+		/// determine the format.
+		///</summary>
+		/// <param name="fileName">The name of the file to check.</param>
+		public static MagickFormatInfo Create(string fileName)
+		{
+			string filePath = FileHelper.CheckForBaseDirectory(fileName);
+			Throw.IfNull("fileName", filePath);
+
+			return Create(new FileInfo(fileName));
 		}
 		///==========================================================================================
 		///<summary>
