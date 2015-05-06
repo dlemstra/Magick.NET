@@ -3788,7 +3788,7 @@ namespace ImageMagick
 					if (!magickStatistics.isValid())
 						continue;
 
-					ChannelStatistics^ channelStatistics = gcnew ChannelStatistics(channel, magickStatistics.depth(),
+					ChannelStatistics^ channelStatistics = gcnew ChannelStatistics(channel, (int)magickStatistics.depth(),
 						magickStatistics.entropy(), magickStatistics.kurtosis(), magickStatistics.maxima(),
 						magickStatistics.mean(), magickStatistics.minima(), magickStatistics.skewness(),
 						magickStatistics.standardDeviation(), magickStatistics.sum(), magickStatistics.sumCubed(),
