@@ -190,7 +190,7 @@ namespace ImageMagick
 			if (ReferenceEquals(this, other))
 				return true;
 
-			return Module == other.Module;
+			return Format == other.Format;
 		}
 		///==========================================================================================
 		///<summary>
