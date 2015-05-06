@@ -52,12 +52,34 @@ namespace ImageMagick.Web
 			}
 		}
 		//===========================================================================================
+		[ConfigurationProperty("optimizeImages", DefaultValue = true)]
+		private bool _OptimizeImages
+		{
+			get
+			{
+				return (bool)this["optimizeImages"];
+			}
+		}
+		//===========================================================================================
 		[ConfigurationProperty("showVersion", DefaultValue = false)]
 		private bool _ShowVersion
 		{
 			get
 			{
 				return (bool)this["showVersion"];
+			}
+		}
+		//===========================================================================================
+		[ConfigurationProperty("tempDirectory")]
+		private string _TempDirectory
+		{
+			get
+			{
+				return (string)this["tempDirectory"];
+			}
+			set
+			{
+				this["tempDirectory"] = value;
 			}
 		}
 		//===========================================================================================
@@ -97,6 +119,7 @@ namespace ImageMagick.Web
 				Directory.CreateDirectory(directory);
 
 			_CacheDirectory = directory;
+			_TempDirectory = Path.GetTempPath();
 		}
 		///==========================================================================================
 		/// <summary>
@@ -111,6 +134,17 @@ namespace ImageMagick.Web
 		}
 		///==========================================================================================
 		/// <summary>
+		/// Returns true if the images should be optimized.
+		/// </summary>
+		public static bool OptimizeImages
+		{
+			get
+			{
+				return _Instance._OptimizeImages;
+			}
+		}
+		///==========================================================================================
+		/// <summary>
 		/// Returns true if the version can be shown in the http headers.
 		/// </summary>
 		public static bool ShowVersion
@@ -118,6 +152,17 @@ namespace ImageMagick.Web
 			get
 			{
 				return _Instance._ShowVersion;
+			}
+		}
+		///==========================================================================================
+		/// <summary>
+		/// Returns the directory that will be used to store temporary files.
+		/// </summary>
+		public static string TempDirectory
+		{
+			get
+			{
+				return _Instance._TempDirectory;
 			}
 		}
 		///==========================================================================================

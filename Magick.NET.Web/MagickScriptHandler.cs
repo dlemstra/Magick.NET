@@ -33,6 +33,7 @@ namespace ImageMagick.Web
 	{
 		//===========================================================================================
 		private MagickFormatInfo _FormatInfo;
+		private static ImageOptimizer _ImageOptimizer = new ImageOptimizer();
 		private static readonly ReaderWriterLockSlim _Lock = new ReaderWriterLockSlim();
 		private IUrlResolver _UrlResolver;
 		private static readonly string _Version = GetVersion();
@@ -51,6 +52,14 @@ namespace ImageMagick.Web
 
 				return sb.ToString();
 			}
+		}
+		//===========================================================================================
+		private static bool CanOptimize(string fileName)
+		{
+			if (!MagickWebSettings.OptimizeImages)
+				return false;
+
+			return _ImageOptimizer.IsSupported(fileName);
 		}
 		//===========================================================================================
 		private bool CanUseCache(string cacheFileName)
@@ -72,6 +81,23 @@ namespace ImageMagick.Web
 			}
 		}
 		//===========================================================================================
+		private static void MoveFileLocked(string sourceFileName, string destinationFileName)
+		{
+			try
+			{
+				_Lock.EnterWriteLock();
+
+				if (File.Exists(destinationFileName))
+					File.Delete(destinationFileName);
+
+				File.Move(sourceFileName, destinationFileName);
+			}
+			finally
+			{
+				_Lock.ExitWriteLock();
+			}
+		}
+		//===========================================================================================
 		private string GetCacheFileName(IXPathNavigable xml)
 		{
 			string cacheDirectory = MagickWebSettings.CacheDirectory + CalculateMD5(xml.CreateNavigator().OuterXml) + "\\";
@@ -80,6 +106,45 @@ namespace ImageMagick.Web
 				Directory.CreateDirectory(cacheDirectory);
 
 			return cacheDirectory + CalculateMD5(_UrlResolver.FileName) + "." + _UrlResolver.Format;
+		}
+		//===========================================================================================
+		private string GetOptimizedFileName()
+		{
+			string fileName = _UrlResolver.FileName;
+			if (!CanOptimize(fileName))
+				return fileName;
+
+			string cacheDirectory = MagickWebSettings.CacheDirectory + "Optimized\\" + CalculateMD5(fileName) + "\\";
+
+			if (!Directory.Exists(cacheDirectory))
+				Directory.CreateDirectory(cacheDirectory);
+
+			string optimizedFileName = cacheDirectory + Path.GetFileName(fileName);
+
+			if (File.Exists(optimizedFileName) && File.GetLastWriteTime(fileName) < File.GetLastWriteTime(optimizedFileName))
+				return optimizedFileName;
+
+			string tempFile = GetTempFileName();
+			try
+			{
+				File.Copy(fileName, tempFile);
+
+				OptimizeFile(tempFile);
+
+				MoveFileLocked(tempFile, optimizedFileName);
+
+				return optimizedFileName;
+			}
+			finally
+			{
+				if (File.Exists(tempFile))
+					File.Delete(tempFile);
+			}
+		}
+		//===========================================================================================
+		private static string GetTempFileName()
+		{
+			return MagickWebSettings.TempDirectory + Guid.NewGuid();
 		}
 		//===========================================================================================
 		private static string GetVersion()
@@ -94,6 +159,11 @@ namespace ImageMagick.Web
 		private void OnScriptRead(object sender, ScriptReadEventArgs arguments)
 		{
 			arguments.Image = new MagickImage(_UrlResolver.FileName, arguments.Settings);
+		}
+		//===========================================================================================
+		private static void OptimizeFile(string fileName)
+		{
+			_ImageOptimizer.LosslessCompress(fileName);
 		}
 		//===========================================================================================
 		private static bool Write304(HttpContext content, DateTime fileDate)
@@ -145,7 +215,9 @@ namespace ImageMagick.Web
 		//===========================================================================================
 		private void WriteFile(HttpContext context)
 		{
-			WriteFile(context, _UrlResolver.FileName);
+			string fileName = GetOptimizedFileName();
+
+			WriteFile(context, fileName);
 		}
 		//===========================================================================================
 		private static void WriteFile(HttpContext context, string fileName)
@@ -193,23 +265,19 @@ namespace ImageMagick.Web
 		//===========================================================================================
 		private static void WriteToCache(MagickImage image, string cacheFileName)
 		{
-			string tempFile = Path.GetTempFileName();
+			string tempFile = GetTempFileName();
 
 			try
 			{
 				image.Write(tempFile);
 
-				_Lock.EnterWriteLock();
+				if (CanOptimize(cacheFileName))
+					OptimizeFile(tempFile);
 
-				if (File.Exists(cacheFileName))
-					File.Delete(cacheFileName);
-
-				File.Move(tempFile, cacheFileName);
+				MoveFileLocked(tempFile, cacheFileName);
 			}
 			finally
 			{
-				_Lock.ExitWriteLock();
-
 				if (File.Exists(tempFile))
 					File.Delete(tempFile);
 			}
