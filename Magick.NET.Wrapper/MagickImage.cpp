@@ -1540,9 +1540,12 @@ namespace ImageMagick
 		//===========================================================================================
 		void MagickImage::ColorAlpha(MagickColor^ color)
 		{
+			if (!HasAlpha)
+				return;
+
 			MagickImage^ canvas = gcnew MagickImage();
 			canvas->Read(color, Width, Height);
-			canvas->Composite(this, 0,0, CompositeOperator::DstOver);
+			canvas->Composite(this, 0,0, CompositeOperator::SrcOver);
 			ReplaceValue(canvas->ReuseValue());
 
 			delete canvas;

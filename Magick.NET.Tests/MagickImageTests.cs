@@ -224,6 +224,23 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_ColorAlpha()
+		{
+			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+			{
+				MagickColor purple = new MagickColor("purple");
+
+				image.ColorAlpha(purple);
+
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					ColorAssert.AreNotEqual(purple, pixels.GetPixel(45, 75).ToColor());
+					ColorAssert.AreEqual(purple, pixels.GetPixel(100, 60).ToColor());
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Constructor()
 		{
 			ExceptionAssert.Throws<ArgumentException>(delegate()
