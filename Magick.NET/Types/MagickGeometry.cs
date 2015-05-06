@@ -53,6 +53,14 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Initializes a new instance of the MagickGeometry class.
+		///</summary>
+		public MagickGeometry()
+		{
+			Initialize(0, 0, 0, 0, false);
+		}
+		///==========================================================================================
+		///<summary>
 		/// Initializes a new instance of the MagickGeometry class using the specified width and
 		/// height.
 		///</summary>
