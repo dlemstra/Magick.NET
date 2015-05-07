@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Drawing;
 using System.Linq;
 using ImageMagick;
@@ -63,6 +64,36 @@ namespace Magick.NET.Tests
 			{
 				PixelCollection pixels = image.GetReadOnlyPixels();
 				Assert.AreEqual(50, pixels.Count());
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_IndexOutOfRange()
+		{
+			using (MagickImage image = new MagickImage(Color.Red, 5, 10))
+			{
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					ExceptionAssert.Throws<ArgumentException>(delegate()
+					{
+						pixels.GetValue(5, 0);
+					});
+
+					ExceptionAssert.Throws<ArgumentException>(delegate()
+					{
+						pixels.GetValue(-1, 0);
+					});
+
+					ExceptionAssert.Throws<ArgumentException>(delegate()
+					{
+						pixels.GetValue(0, -1);
+					});
+
+					ExceptionAssert.Throws<ArgumentException>(delegate()
+					{
+						pixels.GetValue(0, 10);
+					});
+				}
 			}
 		}
 		//===========================================================================================

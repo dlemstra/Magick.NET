@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
 				long after = tempFile.Length;
 
 				if (resultIsSmaller)
-					Assert.IsTrue(before >= after, "{0} is not smaller than {1}", after, before);
+					Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
 				else
 					Assert.AreEqual(before, after);
 			}

@@ -38,6 +38,11 @@ namespace ImageMagick
 		//===========================================================================================
 		private Wrapper.PixelCollection _Instance;
 		//===========================================================================================
+		private void CheckIndex(int y)
+		{
+			Throw.IfFalse("y", y >= 0 && y < Height, "Invalid Y coordinate: {0}.", y);
+		}
+		//===========================================================================================
 		private void CheckIndex(int x, int y)
 		{
 			Throw.IfFalse("x", x >= 0 && x < Width, "Invalid X coordinate: {0}.", x);
@@ -160,6 +165,20 @@ namespace ImageMagick
 		public QuantumType[] GetValues()
 		{
 			return _Instance.GetValues();
+		}
+		///==========================================================================================
+		///<summary>
+		/// Returns the values of the pixels as an array.
+		///</summary>
+		///<param name="y">The Y coordinate.</param>
+#if Q16
+		[CLSCompliant(false)]
+#endif
+		public QuantumType[] GetValues(int y)
+		{
+			CheckIndex(y);
+
+			return _Instance.GetValues(y);
 		}
 		//===========================================================================================
 	}

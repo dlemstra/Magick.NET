@@ -50,6 +50,11 @@ namespace ImageMagick
 				throw gcnew InvalidOperationException("Image contains no pixel data.");
 		}
 		//===========================================================================================
+		int PixelBaseCollection::GetIndex(int y)
+		{
+			return y * _Width * _Channels;
+		}
+		//===========================================================================================
 		int PixelBaseCollection::GetIndex(int x, int y)
 		{
 			return ((y * _Width) + x) * _Channels;
@@ -95,6 +100,20 @@ namespace ImageMagick
 			for(long i = 0; i < length; i+=_Channels)
 			{
 				value[i] = *(Pixels + i);
+			}
+
+			return value;
+		}
+		//===========================================================================================
+		array<Magick::Quantum>^ PixelBaseCollection::GetValues(int y)
+		{
+			int index = GetIndex(y);
+
+			long length = _Width * _Channels;
+			array<Magick::Quantum>^ value = gcnew array<Magick::Quantum>(length);
+			for(long i = 0; i < length; i++)
+			{
+				value[i] = *(Pixels + index + i);
 			}
 
 			return value;
