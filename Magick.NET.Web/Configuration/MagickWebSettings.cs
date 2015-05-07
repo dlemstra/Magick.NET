@@ -39,6 +39,24 @@ namespace ImageMagick.Web
 			}
 		}
 		//===========================================================================================
+		[ConfigurationProperty("clientCache")]
+		private HttpClientCache _ClientCache
+		{
+			get
+			{
+				return (HttpClientCache)this["clientCache"];
+			}
+		}
+		//===========================================================================================
+		[ConfigurationProperty("enableGzip", DefaultValue = true)]
+		private bool _EnableGzip
+		{
+			get
+			{
+				return (bool)this["enableGzip"];
+			}
+		}
+		//===========================================================================================
 		[SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "magick")]
 		private static MagickWebSettings _Instance
 		{
@@ -130,6 +148,28 @@ namespace ImageMagick.Web
 			get
 			{
 				return _Instance._CacheDirectory;
+			}
+		}
+		///==========================================================================================
+		/// <summary>
+		/// Returns the client cache settings.
+		/// </summary>
+		public static HttpClientCache ClientCache
+		{
+			get
+			{
+				return _Instance._ClientCache;
+			}
+		}
+		///==========================================================================================
+		/// <summary>
+		/// Returns true if the gzip compression should be enabled.
+		/// </summary>
+		public static bool EnableGzip
+		{
+			get
+			{
+				return _Instance._EnableGzip;
 			}
 		}
 		///==========================================================================================

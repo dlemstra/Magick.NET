@@ -15,15 +15,17 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Web;
+using ImageMagick.Web.Handlers;
 
 namespace ImageMagick.Web
 {
 	///=============================================================================================
 	/// <summary>
-	/// Httpmodule that uses MagickScript to resize images.
+	/// Httpmodule that uses various handlers to resize/optimize/compress images.
 	/// </summary>
-	public sealed class MagickScriptModule : IHttpModule
+	public sealed class MagickModule : IHttpModule
 	{
 		//===========================================================================================
 		private static IEnumerable<IUrlResolver> _ScriptUrlResolvers
@@ -52,8 +54,23 @@ namespace ImageMagick.Web
 		//===========================================================================================
 		private static IHttpHandler CreateHttpHandler(IUrlResolver urlResolver)
 		{
-			MagickScriptHandler scriptHandler = new MagickScriptHandler(urlResolver);
-			return scriptHandler.IsValid ? scriptHandler : null;
+			if (string.IsNullOrEmpty(urlResolver.FileName) || !File.Exists(urlResolver.FileName))
+				return null;
+
+			MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(urlResolver.Format);
+			if (formatInfo == null || string.IsNullOrEmpty(formatInfo.MimeType))
+				return null;
+
+			if (urlResolver.Script != null)
+				return new MagickScriptHandler(urlResolver, formatInfo);
+
+			if (ImageOptimizerHandler.CanOptimize(formatInfo))
+				return new ImageOptimizerHandler(urlResolver, formatInfo);
+
+			if (GzipHandler.CanCompress(formatInfo))
+				return new GzipHandler(urlResolver, formatInfo);
+
+			return null;
 		}
 		//===========================================================================================
 		private void OnBeginRequest(object sender, EventArgs arguments)

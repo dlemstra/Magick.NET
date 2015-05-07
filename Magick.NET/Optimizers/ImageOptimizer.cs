@@ -70,20 +70,6 @@ namespace ImageMagick
 
 			return null;
 		}
-		//===========================================================================================
-		private bool IsSupported(MagickFormatInfo formatInfo)
-		{
-			if (formatInfo == null)
-				return false;
-
-			foreach (IImageOptimizer optimizer in _Optimizers)
-			{
-				if (optimizer.Format.Format == formatInfo.Module)
-					return true;
-			}
-
-			return false;
-		}
 		///==========================================================================================
 		/// <summary>
 		/// When set to true various compression types will be used to find the smallest file. This
@@ -103,6 +89,25 @@ namespace ImageMagick
 		public bool IsSupported(FileInfo file)
 		{
 			return IsSupported(MagickFormatInfo.Create(file));
+		}
+		///==========================================================================================
+		/// <summary>
+		/// Returns true if the supplied formation information is supported.
+		/// </summary>
+		/// <param name="formatInfo">The format information to check.</param>
+		/// <returns></returns>
+		public bool IsSupported(MagickFormatInfo formatInfo)
+		{
+			if (formatInfo == null)
+				return false;
+
+			foreach (IImageOptimizer optimizer in _Optimizers)
+			{
+				if (optimizer.Format.Format == formatInfo.Module)
+					return true;
+			}
+
+			return false;
 		}
 		///==========================================================================================
 		/// <summary>
