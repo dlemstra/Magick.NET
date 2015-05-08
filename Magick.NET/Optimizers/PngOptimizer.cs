@@ -32,7 +32,7 @@ namespace ImageMagick.ImageOptimizers
 				throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
 		}
 		//===========================================================================================
-		private bool IsAlphaOpaque(MagickImage image)
+		private static bool IsAlphaOpaque(MagickImage image)
 		{
 			using (PixelCollection pixels = image.GetReadOnlyPixels())
 			{
@@ -51,7 +51,7 @@ namespace ImageMagick.ImageOptimizers
 			return true;
 		}
 		//===========================================================================================
-		private void CheckTransparency(MagickImage image)
+		private static void CheckTransparency(MagickImage image)
 		{
 			if (!image.HasAlpha)
 				return;
