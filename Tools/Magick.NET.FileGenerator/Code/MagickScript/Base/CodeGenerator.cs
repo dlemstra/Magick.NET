@@ -345,6 +345,9 @@ namespace Magick.NET.FileGenerator
 				case "Coordinate":
 					writer.Write("CreateCoordinate");
 					break;
+				case "ColorProfile":
+					writer.Write("CreateColorProfile");
+					break;
 				case "PathArc":
 					writer.Write("CreateArc");
 					break;
@@ -394,7 +397,7 @@ namespace Magick.NET.FileGenerator
 					writer.Write("CreateQuantizeSettings");
 					break;
 				default:
-					throw new NotImplementedException(typeName);
+					throw new NotImplementedException("WriteCreateMethod: " + typeName);
 			}
 		}
 		//===========================================================================================
@@ -464,6 +467,7 @@ namespace Magick.NET.FileGenerator
 				case "ImageProfile":
 					writer.Write("element");
 					break;
+				case "ColorProfile":
 				case "IDefines":
 				case "IReadDefines":
 				case "MontageSettings":
@@ -474,7 +478,7 @@ namespace Magick.NET.FileGenerator
 					writer.Write("\"]");
 					break;
 				default:
-					throw new NotImplementedException(typeName);
+					throw new NotImplementedException("WriteSelectElement: " + typeName);
 			}
 		}
 		//===========================================================================================

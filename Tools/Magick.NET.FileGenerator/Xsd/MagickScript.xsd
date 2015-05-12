@@ -47,6 +47,10 @@
 	<!--=========================================================================================-->
 	<xs:annotation id="colorProfile"/>
 	<!--=========================================================================================-->
+	<xs:complexType name="colorProfile">
+		<xs:attribute name="name" type="ColorProfile"/>
+	</xs:complexType>
+	<!--=========================================================================================-->
 	<xs:complexType name="coordinate">
 		<xs:annotation id="coordinate"/>
 	</xs:complexType>
@@ -177,11 +181,7 @@
 		<xs:sequence>
 			<xs:choice>
 				<xs:element name="imageProfile" type="imageProfile"/>
-				<xs:element name="colorProfile">
-					<xs:complexType>
-						<xs:attribute name="name" type="ColorProfile"/>
-					</xs:complexType>
-				</xs:element>
+				<xs:element name="colorProfile" type="colorProfile"/>
 			</xs:choice>
 		</xs:sequence>
 	</xs:complexType>

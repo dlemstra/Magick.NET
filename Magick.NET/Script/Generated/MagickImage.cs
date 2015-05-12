@@ -1578,6 +1578,11 @@ namespace ImageMagick
 											}
 											switch(element.Name[9])
 											{
+												case 'C':
+												{
+													ExecuteTransformColorSpace(element, image);
+													return;
+												}
 												case 'O':
 												{
 													ExecuteTransformOrigin(element, image);
@@ -3986,6 +3991,13 @@ namespace ImageMagick
 				image.Transform((MagickGeometry)arguments["imageGeometry"], (MagickGeometry)arguments["cropGeometry"]);
 			else
 				throw new ArgumentException("Invalid argument combination for 'transform', allowed combinations are: [imageGeometry] [imageGeometry, cropGeometry]");
+		}
+		//============================================================================================
+		private void ExecuteTransformColorSpace(XmlElement element, MagickImage image)
+		{
+			ColorProfile source_ = CreateColorProfile(element["source"]);
+			ColorProfile target_ = CreateColorProfile(element["target"]);
+			image.TransformColorSpace(source_, target_);
 		}
 		//============================================================================================
 		private void ExecuteTransformOrigin(XmlElement element, MagickImage image)

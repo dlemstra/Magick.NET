@@ -105,6 +105,7 @@ namespace Magick.NET.FileGenerator
 				case "UInt16":
 					return "short";
 				case "Coordinate":
+				case "ColorProfile":
 				case "Double[]":
 				case "Drawable":
 				case "IDefines":
@@ -127,7 +128,7 @@ namespace Magick.NET.FileGenerator
 				case "QuantizeSettings":
 					return null;
 				default:
-					throw new NotImplementedException(typeName);
+					throw new NotImplementedException("GetXsdAttributeType: " + typeName);
 			}
 		}
 		//===========================================================================================
@@ -151,6 +152,7 @@ namespace Magick.NET.FileGenerator
 				case "Double[]":
 					return "doubleArray";
 				case "Coordinate":
+				case "ColorProfile":
 				case "Drawable":
 				case "IDefines":
 				case "IReadDefines":

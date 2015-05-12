@@ -5836,6 +5836,25 @@ namespace ImageMagick
 			_Instance.Transform(MagickGeometry.GetInstance(imageGeometry), MagickGeometry.GetInstance(cropGeometry));
 		}
 		///==========================================================================================
+		/// <summary>
+		///  Transforms the image from the colorspace of the source profile to the target profile. The
+		///  source profile will only be used if the image does not contain a color profile. Nothing
+		///  will happen if the source profile has a different colorspace then that of the image.
+		/// </summary>
+		/// <param name="source">The source color profile.</param>
+		/// <param name="target">The target color profile</param>
+		public void TransformColorSpace(ColorProfile source, ColorProfile target)
+		{
+			Throw.IfNull("source", source);
+			Throw.IfNull("target", target);
+
+			if (source.ColorSpace != ColorSpace)
+				return;
+
+			AddProfile(source, false);
+			AddProfile(target);
+		}
+		///==========================================================================================
 		///<summary>
 		/// Origin of coordinate system to use when annotating with text or drawing.
 		///</summary>

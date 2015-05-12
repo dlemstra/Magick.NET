@@ -105,7 +105,7 @@
 				<xs:restriction base="xs:NMTOKEN">
 					<xs:enumeration value="CMY" />
 					<xs:enumeration value="CMYK" />
-					<xs:enumeration value="GRAY" />
+					<xs:enumeration value="Gray" />
 					<xs:enumeration value="HCL" />
 					<xs:enumeration value="HCLp" />
 					<xs:enumeration value="HSB" />
@@ -134,7 +134,7 @@
 					<xs:enumeration value="YDbDr" />
 					<xs:enumeration value="YIQ" />
 					<xs:enumeration value="YPbPr" />
-					<xs:enumeration value="YUVColor" />
+					<xs:enumeration value="YUV" />
 				</xs:restriction>
 			</xs:simpleType>
 			<xs:simpleType>
@@ -1181,6 +1181,9 @@
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
+	<xs:complexType name="colorProfile">
+		<xs:attribute name="name" type="ColorProfile" />
+	</xs:complexType>
 	<xs:complexType name="coordinate">
 		<xs:attribute name="x" use="required" type="double" />
 		<xs:attribute name="y" use="required" type="double" />
@@ -1383,11 +1386,7 @@
 		<xs:sequence>
 			<xs:choice>
 				<xs:element name="imageProfile" type="imageProfile" />
-				<xs:element name="colorProfile">
-					<xs:complexType>
-						<xs:attribute name="name" type="ColorProfile" />
-					</xs:complexType>
-				</xs:element>
+				<xs:element name="colorProfile" type="colorProfile" />
 			</xs:choice>
 		</xs:sequence>
 	</xs:complexType>
@@ -2491,6 +2490,14 @@
 					<xs:complexType>
 						<xs:attribute name="cropGeometry" type="geometry" />
 						<xs:attribute name="imageGeometry" use="required" type="geometry" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="transformColorSpace">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="source" type="colorProfile" />
+							<xs:element name="target" type="colorProfile" />
+						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="transformOrigin">

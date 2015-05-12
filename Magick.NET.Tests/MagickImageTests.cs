@@ -1208,6 +1208,21 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_TransformColorSpace()
+		{
+			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+			{
+				Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
+
+				image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.USWebCoatedSWOP);
+				Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
+
+				image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
+				Assert.AreEqual(ColorSpace.CMYK, image.ColorSpace);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Warning()
 		{
 			int count = 0;

@@ -395,7 +395,7 @@ namespace Magick.NET.FileGenerator
 						ReplacePaths(annotation);
 						break;
 					default:
-						throw new NotImplementedException(annotationID);
+						throw new NotImplementedException("ReplaceAnnotations: " + annotationID);
 				}
 			}
 		}
