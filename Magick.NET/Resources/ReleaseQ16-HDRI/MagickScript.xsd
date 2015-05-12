@@ -1725,7 +1725,14 @@
 						<xs:attribute name="noiseType" use="required" type="NoiseType" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="addProfile" type="profile" />
+				<xs:element name="addProfile">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="profile" type="profile" />
+						</xs:sequence>
+						<xs:attribute name="overwriteExisting" type="bool" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="alpha">
 					<xs:complexType>
 						<xs:attribute name="option" use="required" type="AlphaOption" />

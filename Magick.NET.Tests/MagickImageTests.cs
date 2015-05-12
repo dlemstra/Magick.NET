@@ -81,6 +81,31 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Addprofile()
+		{
+			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+			{
+				ColorProfile profile = image.GetColorProfile();
+				Assert.IsNull(profile);
+
+				image.AddProfile(ColorProfile.SRGB);
+				profile = image.GetColorProfile();
+				Assert.IsNotNull(profile);
+				Assert.AreEqual(3144, profile.ToByteArray().Length);
+
+				image.AddProfile(ColorProfile.AppleRGB, false);
+				profile = image.GetColorProfile();
+				Assert.IsNotNull(profile);
+				Assert.AreEqual(3144, profile.ToByteArray().Length);
+
+				image.AddProfile(ColorProfile.AppleRGB);
+				profile = image.GetColorProfile();
+				Assert.IsNotNull(profile);
+				Assert.AreEqual(552, profile.ToByteArray().Length);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Artifact()
 		{
 			using (MagickImage image = new MagickImage(Files.SnakewarePNG))

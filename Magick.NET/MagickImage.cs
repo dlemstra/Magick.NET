@@ -1773,7 +1773,22 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void AddProfile(ImageProfile profile)
 		{
+			AddProfile(profile, true);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Adds the specified profile to the image or overwrites it when overWriteExisting is true.
+		///</summary>
+		///<param name="profile">The profile to add or overwrite.</param>
+		///<param name="overwriteExisting">When set to false an existing profile with the same name
+		/// won't be overwritten.</param>
+		///<exception cref="MagickException"/>
+		public void AddProfile(ImageProfile profile, bool overwriteExisting)
+		{
 			Throw.IfNull("profile", profile);
+
+			if (!overwriteExisting && _Instance.GetProfile(profile.Name) != null)
+				return;
 
 			_Instance.AddProfile(profile.Name, profile.ToByteArray());
 		}

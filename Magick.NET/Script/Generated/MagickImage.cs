@@ -2154,8 +2154,21 @@ namespace ImageMagick
 		//============================================================================================
 		private void ExecuteAddProfile(XmlElement element, MagickImage image)
 		{
-			ImageProfile profile_ = CreateProfile(element);
-			image.AddProfile(profile_);
+			Hashtable arguments = new Hashtable();
+			foreach (XmlAttribute attribute in element.Attributes)
+			{
+				arguments[attribute.Name] = Variables.GetValue<Boolean>(attribute);
+			}
+			foreach (XmlElement elem in element.SelectNodes("*"))
+			{
+				arguments[elem.Name] = CreateProfile(elem);
+			}
+			if (OnlyContains(arguments, "profile"))
+				image.AddProfile((ImageProfile)arguments["profile"]);
+			else if (OnlyContains(arguments, "profile", "overwriteExisting"))
+				image.AddProfile((ImageProfile)arguments["profile"], (Boolean)arguments["overwriteExisting"]);
+			else
+				throw new ArgumentException("Invalid argument combination for 'addProfile', allowed combinations are: [profile] [profile, overwriteExisting]");
 		}
 		//============================================================================================
 		private void ExecuteAlpha(XmlElement element, MagickImage image)
