@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text;
 
 namespace ImageMagick
 {
@@ -29,6 +30,47 @@ namespace ImageMagick
 		private static readonly object _SyncRoot = new object();
 		private static Dictionary<string, ColorProfile> _Profiles = new Dictionary<string, ColorProfile>();
 		//===========================================================================================
+		private static ColorSpace DetermineColorSpace(string colorSpace)
+		{
+			switch (colorSpace)
+			{
+				case "CMY":
+					return ColorSpace.CMY;
+				case "CMYK":
+					return ColorSpace.CMYK;
+				case "GRAY":
+					return ColorSpace.Gray;
+				case "HLS":
+					return ColorSpace.HSL;
+				case "HSV":
+					return ColorSpace.HSV;
+				case "Lab":
+					return ColorSpace.Lab;
+				case "Luv":
+					return ColorSpace.YUV;
+				case "RGB":
+					return ColorSpace.sRGB;
+				case "XYZ":
+					return ColorSpace.XYZ;
+				case "YCbr":
+					return ColorSpace.YCbCr;
+				case "Yxy":
+					return ColorSpace.XyY;
+				default:
+					throw new NotImplementedException(colorSpace);
+			}
+		}
+		//===========================================================================================
+		private void Initialize()
+		{
+			ColorSpace = ColorSpace.Undefined;
+			if (Data.Length < 20)
+				return;
+
+			string colorSpace = Encoding.ASCII.GetString(Data, 16, 4).TrimEnd();
+			ColorSpace = DetermineColorSpace(colorSpace);
+		}
+		//===========================================================================================
 		private static ColorProfile Load(string resourceName)
 		{
 			lock (_SyncRoot)
@@ -41,12 +83,14 @@ namespace ImageMagick
 					}
 				}
 			}
+
 			return _Profiles[resourceName];
 		}
 		//===========================================================================================
 		internal ColorProfile(string name, byte[] data)
 			: base(name, data)
 		{
+			Initialize();
 		}
 		///==========================================================================================
 		///<summary>
@@ -56,6 +100,7 @@ namespace ImageMagick
 		public ColorProfile(Byte[] data)
 			: base("icc", data)
 		{
+			Initialize();
 		}
 		///==========================================================================================
 		///<summary>
@@ -65,6 +110,7 @@ namespace ImageMagick
 		public ColorProfile(Stream stream)
 			: base("icc", stream)
 		{
+			Initialize();
 		}
 		///==========================================================================================
 		///<summary>
@@ -74,6 +120,15 @@ namespace ImageMagick
 		public ColorProfile(string fileName)
 			: base("icc", fileName)
 		{
+		}
+		///==========================================================================================
+		///<summary>
+		/// Color space of the profile.
+		///</summary>
+		public ColorSpace ColorSpace
+		{
+			get;
+			private set;
 		}
 		///==========================================================================================
 		///<summary>

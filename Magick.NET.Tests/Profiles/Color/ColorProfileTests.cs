@@ -38,6 +38,17 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_ColorSpace()
+		{
+			Assert.AreEqual(ColorSpace.sRGB, ColorProfile.AdobeRGB1998.ColorSpace);
+			Assert.AreEqual(ColorSpace.sRGB, ColorProfile.AppleRGB.ColorSpace);
+			Assert.AreEqual(ColorSpace.CMYK, ColorProfile.CoatedFOGRA39.ColorSpace);
+			Assert.AreEqual(ColorSpace.sRGB, ColorProfile.ColorMatchRGB.ColorSpace);
+			Assert.AreEqual(ColorSpace.sRGB, ColorProfile.SRGB.ColorSpace);
+			Assert.AreEqual(ColorSpace.CMYK, ColorProfile.USWebCoatedSWOP.ColorSpace);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_EmbeddedResources()
 		{
 			TestEmbeddedResource(ColorProfile.AdobeRGB1998);
