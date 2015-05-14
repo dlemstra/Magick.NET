@@ -25,15 +25,15 @@ namespace Magick.NET.FileGenerator
 	internal abstract class ExecuteCodeGenerator : SwitchCodeGenerator
 	{
 		//===========================================================================================
-		private static bool IsStatic(MethodBase[] methods)
+		private static bool HasParameters(MethodBase[] methods)
 		{
 			if (methods.Length != 1)
 				return false;
 
-			return IsStatic(methods[0]);
+			return HasParameters(methods[0]);
 		}
 		//===========================================================================================
-		private static bool IsStatic(MethodBase method)
+		private static bool HasParameters(MethodBase method)
 		{
 			if (method == null)
 				return false;
@@ -41,9 +41,36 @@ namespace Magick.NET.FileGenerator
 			return method.GetParameters().Length == 0;
 		}
 		//===========================================================================================
-		private static bool IsStatic(MemberInfo memberInfo)
+		private static bool HasParameters(MemberInfo memberInfo)
 		{
-			return IsStatic(memberInfo as MethodBase);
+			return HasParameters(memberInfo as MethodBase);
+		}
+		//===========================================================================================
+		private bool IsStatic(MethodBase[] methods)
+		{
+			if (methods == null)
+				return false;
+
+			if (methods.Length != 1)
+				return false;
+
+			ParameterInfo[] parameters = methods[0].GetParameters();
+
+			if (parameters.Length == 0)
+				return true;
+
+			foreach (ParameterInfo parameter in parameters)
+			{
+				string xsdTypeName = MagickTypes.GetXsdAttributeType(parameter);
+				if (xsdTypeName != null)
+					return false;
+
+				string typeName = GetName(parameter);
+				if (!HasStaticCreateMethod(typeName))
+					return false;
+			}
+
+			return true;
 		}
 		//===========================================================================================
 		private void WriteExecute(IndentedTextWriter writer)
@@ -79,7 +106,7 @@ namespace Magick.NET.FileGenerator
 			writer.Write(" Execute");
 			writer.Write(GetName(methods[0]));
 			writer.Write("(");
-			if (!IsStatic(methods))
+			if (!HasParameters(methods))
 				writer.Write("XmlElement element, ");
 			writer.Write(ExecuteArgument);
 			writer.WriteLine(")");
@@ -174,7 +201,7 @@ namespace Magick.NET.FileGenerator
 				writer.Write(GetName(member));
 			}
 			writer.Write("(");
-			if (member == null || !IsStatic(member))
+			if (member == null || !HasParameters(member))
 				writer.Write("element, ");
 			writer.Write(ExecuteArgument.Split(' ').Last());
 			writer.WriteLine(");");

@@ -320,6 +320,36 @@ namespace Magick.NET.FileGenerator
 			writer.Indent--;
 		}
 		//===========================================================================================
+		protected static bool HasStaticCreateMethod(string typeName)
+		{
+			switch (typeName)
+			{
+				case "Double[]":
+				case "Coordinate":
+				case "PathArc":
+				case "IDefines":
+				case "IEnumerable<Coordinate>":
+				case "IEnumerable<MagickGeometry>":
+				case "IEnumerable<IPath>":
+				case "IEnumerable<PathArc>":
+				case "IEnumerable<PathCurveto>":
+				case "IEnumerable<PathQuadraticCurveto>":
+				case "IEnumerable<SparseColorArg>":
+				case "ImageProfile":
+				case "IReadDefines":
+				case "MagickImage":
+				case "MagickGeometry":
+				case "MontageSettings":
+				case "PixelStorageSettings":
+				case "QuantizeSettings":
+					return false;
+				case "ColorProfile":
+					return true;
+				default:
+					throw new NotImplementedException("HasStaticCreateMethod: " + typeName);
+			}
+		}
+		//===========================================================================================
 		protected void WriteHashtableParameters(IndentedTextWriter writer, ParameterInfo[] parameters)
 		{
 			for (int k = 0; k < parameters.Length; k++)

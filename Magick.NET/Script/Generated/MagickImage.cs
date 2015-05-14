@@ -3993,7 +3993,7 @@ namespace ImageMagick
 				throw new ArgumentException("Invalid argument combination for 'transform', allowed combinations are: [imageGeometry] [imageGeometry, cropGeometry]");
 		}
 		//============================================================================================
-		private void ExecuteTransformColorSpace(XmlElement element, MagickImage image)
+		private static void ExecuteTransformColorSpace(XmlElement element, MagickImage image)
 		{
 			ColorProfile source_ = CreateColorProfile(element["source"]);
 			ColorProfile target_ = CreateColorProfile(element["target"]);
