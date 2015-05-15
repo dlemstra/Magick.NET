@@ -3762,6 +3762,24 @@ namespace ImageMagick
 				delete[] arguments;
 			}
 		}
+		//==============================================================================================
+		void MagickImage::Splice(MagickGeometry^ geometry)
+		{
+			const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
+			try
+			{
+				Value->splice(*magickGeometry);
+			}
+			catch(Magick::Exception& exception)
+			{
+				HandleException(exception);
+			}
+			finally
+			{
+				delete magickGeometry;
+			}
+		}
 		//===========================================================================================
 		void MagickImage::Spread(int amount)
 		{

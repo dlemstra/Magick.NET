@@ -5511,6 +5511,18 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Splice the background color into the image.
+		///</summary>
+		///<param name="geometry">The geometry to use.</param>
+		///<exception cref="MagickException"/>
+		public void Splice(MagickGeometry geometry)
+		{
+			Throw.IfNull("geometry", geometry);
+
+			_Instance.Splice(MagickGeometry.GetInstance(geometry));
+		}
+		///==========================================================================================
+		///<summary>
 		/// Spread pixels randomly within image.
 		///</summary>
 		///<exception cref="MagickException"/>

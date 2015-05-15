@@ -892,6 +892,8 @@ namespace ImageMagick
 			//========================================================================================
 			void SparseColor(ImageMagick::Channels channels, SparseColorMethod method, IEnumerable<Internal::ISparseColorArg^>^ args);
 			//========================================================================================
+			void Splice(MagickGeometry^ geometry);
+			//========================================================================================
 			void Spread(int amount);
 			//========================================================================================
 			Statistics^ Statistics();
