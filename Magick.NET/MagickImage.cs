@@ -2721,7 +2721,8 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Crop image (subregion of original image).
+		/// Crop image (subregion of original image). You should call RePage afterwards unless you
+		/// need the Page information.
 		///</summary>
 		///<param name="geometry">The subregion to crop.</param>
 		///<exception cref="MagickException"/>
@@ -2733,7 +2734,8 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Crop image (subregion of original image) using CropPosition.Center.
+		/// Crop image (subregion of original image) using CropPosition.Center. You should call
+		/// RePage afterwards unless you need the Page information.
 		///</summary>
 		///<param name="width">The width of the subregion.</param>
 		///<param name="height">The height of the subregion.</param>
@@ -2744,7 +2746,8 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Crop image (subregion of original image).
+		/// Crop image (subregion of original image). You should call RePage afterwards unless you
+		/// need the Page information.
 		///</summary>
 		///<param name="width">The width of the subregion.</param>
 		///<param name="height">The height of the subregion.</param>
