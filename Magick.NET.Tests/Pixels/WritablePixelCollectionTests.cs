@@ -190,7 +190,6 @@ namespace Magick.NET.Tests
 					foreach (Pixel pixel in pixels)
 					{
 						pixel.SetChannel(2, Quantum.Max);
-						pixels.Set(pixel);
 					}
 
 					pixels.Write();

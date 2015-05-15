@@ -33,6 +33,7 @@ namespace ImageMagick
 	public sealed class Pixel : IEquatable<Pixel>
 	{
 		//===========================================================================================
+		private Wrapper.WritablePixelCollection _Collection;
 		private int _X;
 		private int _Y;
 		//===========================================================================================
@@ -41,8 +42,9 @@ namespace ImageMagick
 			Throw.IfTrue("value", channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
 		}
 		//===========================================================================================
-		private Pixel()
+		private Pixel(Wrapper.WritablePixelCollection collection)
 		{
+			_Collection = collection;
 		}
 		//===========================================================================================
 		private void Initialize(int x, int y, QuantumType[] value)
@@ -52,15 +54,21 @@ namespace ImageMagick
 			Value = value;
 		}
 		//===========================================================================================
+		private void UpdateCollection()
+		{
+			if (_Collection != null)
+				_Collection.SetPixel(_X, _Y, Value);
+		}
+		//===========================================================================================
 		internal QuantumType[] Value
 		{
 			get;
 			private set;
 		}
 		//===========================================================================================
-		internal static Pixel Create(int x, int y, QuantumType[] value)
+		internal static Pixel Create(Wrapper.WritablePixelCollection collection, int x, int y, QuantumType[] value)
 		{
-			Pixel pixel = new Pixel();
+			Pixel pixel = new Pixel(collection);
 			pixel.Initialize(x, y, value);
 			return pixel;
 		}
@@ -132,13 +140,6 @@ namespace ImageMagick
 			{
 				return _X;
 			}
-			set
-			{
-				if (value < 0)
-					return;
-
-				_X = value;
-			}
 		}
 		///==========================================================================================
 		///<summary>
@@ -149,13 +150,6 @@ namespace ImageMagick
 			get
 			{
 				return _Y;
-			}
-			set
-			{
-				if (value < 0)
-					return;
-
-				_Y = value;
 			}
 		}
 		///==========================================================================================
@@ -241,6 +235,22 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Sets the values of this pixel.
+		///</summary>
+		///<param name="values">The values.</param>
+#if Q16
+		[CLSCompliant(false)]
+#endif
+		public void Set(QuantumType[] values)
+		{
+			if (values == null || values.Length != Value.Length)
+				return;
+
+			Array.Copy(values, 0, Value, 0, Value.Length);
+			UpdateCollection();
+		}
+		///==========================================================================================
+		///<summary>
 		/// Set the value of the specified channel.
 		///</summary>
 		///<param name="channel">The channel to set the value of.</param>
@@ -254,6 +264,7 @@ namespace ImageMagick
 				return;
 
 			Value[channel] = value;
+			UpdateCollection();
 		}
 		///==========================================================================================
 		///<summary>

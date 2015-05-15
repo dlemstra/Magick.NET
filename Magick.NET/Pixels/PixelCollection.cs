@@ -138,7 +138,7 @@ namespace ImageMagick
 		{
 			CheckIndex(x, y);
 
-			return Pixel.Create(x, y, _Instance.GetValue(x, y));
+			return Pixel.Create(null, x, y, _Instance.GetValue(x, y));
 		}
 		///==========================================================================================
 		///<summary>

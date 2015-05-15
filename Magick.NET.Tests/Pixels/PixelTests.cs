@@ -14,6 +14,15 @@
 
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+	using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
 
 namespace Magick.NET.Tests
 {
@@ -51,6 +60,27 @@ namespace Magick.NET.Tests
 			Assert.IsTrue(first == second);
 			Assert.IsTrue(first.Equals(second));
 			Assert.IsTrue(first.Equals((object)second));
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Set_SetChannel()
+		{
+			QuantumType half = (QuantumType)(Quantum.Max / 2.0);
+
+			Pixel first = new Pixel(0, 0, 3);
+			first.Set(new QuantumType[] { Quantum.Max, 0, half });
+
+			Assert.AreEqual(Quantum.Max, first.GetChannel(0));
+			Assert.AreEqual(0, first.GetChannel(1));
+			Assert.AreEqual(half, first.GetChannel(2));
+
+			first.SetChannel(0, 0);
+			first.SetChannel(1, half);
+			first.SetChannel(2, Quantum.Max);
+
+			Assert.AreEqual(0, first.GetChannel(0));
+			Assert.AreEqual(half, first.GetChannel(1));
+			Assert.AreEqual(Quantum.Max, first.GetChannel(2));
 		}
 		//===========================================================================================
 	}

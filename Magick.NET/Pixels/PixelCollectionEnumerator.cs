@@ -23,12 +23,14 @@ namespace ImageMagick
 	{
 		//===========================================================================================
 		private Wrapper.PixelBaseCollection _Collection;
+		private Wrapper.WritablePixelCollection _WritableCollection;
 		private int _X;
 		private int _Y;
 		//===========================================================================================
 		internal PixelCollectionEnumerator(Wrapper.PixelBaseCollection collection)
 		{
 			_Collection = collection;
+			_WritableCollection = collection as Wrapper.WritablePixelCollection;
 			Reset();
 		}
 		//===========================================================================================
@@ -47,7 +49,7 @@ namespace ImageMagick
 				if (_X == -1)
 					return null;
 
-				return Pixel.Create(_X, _Y, _Collection.GetValue(_X, _Y));
+				return Pixel.Create(_WritableCollection, _X, _Y, _Collection.GetValue(_X, _Y));
 			}
 		}
 		//===========================================================================================
