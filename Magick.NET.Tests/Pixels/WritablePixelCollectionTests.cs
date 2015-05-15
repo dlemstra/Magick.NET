@@ -14,6 +14,7 @@
 
 using System;
 using System.Drawing;
+using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 #if Q8
@@ -51,6 +52,25 @@ namespace Magick.NET.Tests
 
 			MagickColor magickColor = new MagickColor(values[0], values[1], values[2]);
 			ColorAssert.AreEqual(color, magickColor);
+		}
+		//===========================================================================================
+		private static void TestPixels(MagickImage image, MagickColor color)
+		{
+			using (MemoryStream memStream = new MemoryStream())
+			{
+				image.Format = MagickFormat.Png;
+				image.Write(memStream);
+				memStream.Position = 0;
+
+				using (MagickImage output = new MagickImage(memStream))
+				{
+					using (PixelCollection pixels = image.GetReadOnlyPixels())
+					{
+						for (int i = 0; i < 10; i++)
+							ColorAssert.AreEqual(color, pixels.GetPixel(i, 0).ToColor());
+					}
+				}
+			}
 		}
 		//===========================================================================================
 		private static void Test_Set(WritablePixelCollection pixels, QuantumType[] value)
@@ -145,6 +165,38 @@ namespace Magick.NET.Tests
 						}
 					}
 				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Write()
+		{
+			using (MagickImage image = new MagickImage(Color.Red, 10, 1))
+			{
+				using (WritablePixelCollection pixels = image.GetWritablePixels())
+				{
+					byte[] bytes = new byte[10 * pixels.Channels];
+					for (int i = 0; i < bytes.Length; i++)
+						bytes[i] = 0;
+
+					pixels.Set(bytes);
+					pixels.Write();
+				}
+
+				TestPixels(image, new MagickColor(0, 0, 0));
+
+				using (WritablePixelCollection pixels = image.GetWritablePixels())
+				{
+					foreach (Pixel pixel in pixels)
+					{
+						pixel.SetChannel(2, Quantum.Max);
+						pixels.Set(pixel);
+					}
+
+					pixels.Write();
+				}
+
+				TestPixels(image, Color.Blue);
 			}
 		}
 		//===========================================================================================
