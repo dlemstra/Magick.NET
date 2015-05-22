@@ -40,5 +40,22 @@ namespace RootNamespace.Samples.MagickNET
 				collection.Write(SampleFiles.OutputDirectory + "Snakeware.resized.gif");
 			}
 		}
+
+		public static void ResizeToFixedSize()
+		{
+			// Read from file
+			using (MagickImage image = new MagickImage(SampleFiles.SnakewarePng))
+			{
+				MagickGeometry size = new MagickGeometry(100, 100);
+				// This will resize the image to a fixed size without maintaining the aspect ratio.
+				// Normally an image will be resized to fit inside the specified size.
+				size.IgnoreAspectRatio = true;
+
+				image.Resize(size);
+
+				// Save the result
+				image.Write(SampleFiles.OutputDirectory + "Snakeware.100x100.png");
+			}
+		}
 	}
 }

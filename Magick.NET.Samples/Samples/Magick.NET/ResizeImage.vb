@@ -39,6 +39,22 @@ Namespace RootNamespace.Samples.MagickNET
 			End Using
 		End Sub
 
+		Public Shared Sub ResizeToFixedSize()
+			' Read from file
+			Using image As New MagickImage(SampleFiles.SnakewarePng)
+
+				Dim size = New MagickGeometry(100, 100)
+				' This will resize the image to a fixed size without maintaining the aspect ratio.
+				' Normally an image will be resized to fit inside the specified size.
+				size.IgnoreAspectRatio = True
+
+				image.Resize(size)
+
+				' Save the result
+				image.Write(SampleFiles.OutputDirectory + "Snakeware.100x100.png")
+			End Using
+		End Sub
+
 	End Class
 
 End Namespace
