@@ -2021,12 +2021,12 @@
 						<xs:attribute name="expression" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="gamma">
+				<xs:element name="gammaCorrect">
 					<xs:complexType>
-						<xs:attribute name="gammeBlue" type="double" />
-						<xs:attribute name="gammeGreen" type="double" />
-						<xs:attribute name="gammeRed" type="double" />
-						<xs:attribute name="value" type="double" />
+						<xs:attribute name="gamma" type="double" />
+						<xs:attribute name="gammaBlue" type="double" />
+						<xs:attribute name="gammaGreen" type="double" />
+						<xs:attribute name="gammaRed" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="gaussianBlur">
@@ -2424,6 +2424,11 @@
 						</xs:sequence>
 						<xs:attribute name="channels" type="Channels" />
 						<xs:attribute name="method" use="required" type="SparseColorMethod" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="splice">
+					<xs:complexType>
+						<xs:attribute name="geometry" use="required" type="geometry" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="spread">

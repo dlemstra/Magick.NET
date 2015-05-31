@@ -27,7 +27,7 @@ using QuantumType = System.Byte;
 #elif Q16
 using QuantumType = System.UInt16;
 #elif Q16HDRI
-	using QuantumType = System.Single;
+using QuantumType = System.Single;
 #else
 #error Not implemented!
 #endif
@@ -1059,6 +1059,18 @@ namespace ImageMagick
 			get
 			{
 				return MagickNET.GetFormatInformation(Format);
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Gamma level of the image.
+		///</summary>
+		///<exception cref="MagickException"/>
+		public double Gamma
+		{
+			get
+			{
+				return _Instance.Gamma;
 			}
 		}
 		///==========================================================================================
@@ -3409,34 +3421,25 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
-		/// Gamma level of the image.
+		/// Gamma correct image.
 		///</summary>
+		///<param name="gamma">The image gamma.</param>
 		///<exception cref="MagickException"/>
-		public double Gamma()
+		public void GammaCorrect(double gamma)
 		{
-			return _Instance.Gamma();
+			_Instance.GammaCorrect(gamma);
 		}
 		///==========================================================================================
 		///<summary>
 		/// Gamma correct image.
 		///</summary>
-		///<param name="value">The image gamma.</param>
+		///<param name="gammaRed">The image gamma for the red channel.</param>
+		///<param name="gammaGreen">The image gamma for the green channel.</param>
+		///<param name="gammaBlue">The image gamma for the blue channel.</param>
 		///<exception cref="MagickException"/>
-		public void Gamma(double value)
+		public void GammaCorrect(double gammaRed, double gammaGreen, double gammaBlue)
 		{
-			Gamma(value, value, value);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Gamma correct image.
-		///</summary>
-		///<param name="gammeRed">The image gamma for the red channel.</param>
-		///<param name="gammeGreen">The image gamma for the green channel.</param>
-		///<param name="gammeBlue">The image gamma for the blue channel.</param>
-		///<exception cref="MagickException"/>
-		public void Gamma(double gammeRed, double gammeGreen, double gammeBlue)
-		{
-			_Instance.Gamma(gammeRed, gammeGreen, gammeBlue);
+			_Instance.GammaCorrect(gammaRed, gammaGreen, gammaBlue);
 		}
 		///==========================================================================================
 		///<summary>

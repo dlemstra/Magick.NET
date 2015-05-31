@@ -301,6 +301,11 @@ namespace ImageMagick
 				void set(MagickFormat value);
 			}
 			//========================================================================================
+			property double Gamma
+			{
+				double get();
+			}
+			//========================================================================================
 			property GifDisposeMethod GifDisposeMethod
 			{
 				ImageMagick::GifDisposeMethod get();
@@ -487,7 +492,7 @@ namespace ImageMagick
 				int get();
 			}
 			//========================================================================================
-			property bool Verbose 
+			property bool Verbose
 			{
 				bool get();
 				void set(bool verbose);
@@ -696,9 +701,9 @@ namespace ImageMagick
 			//========================================================================================
 			void Fx(String^ expression, ImageMagick::Channels channels);
 			//========================================================================================
-			double Gamma();
+			void GammaCorrect(double gamma);
 			//========================================================================================
-			void Gamma(double gammeRed, double gammeGreen, double gammeBlue);
+			void GammaCorrect(double gammaRed, double gammaGreen, double gammaBlue);
 			//========================================================================================
 			void GaussianBlur(double width, double sigma);
 			//========================================================================================

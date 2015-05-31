@@ -764,7 +764,7 @@ namespace ImageMagick
 							{
 								case 'm':
 								{
-									ExecuteGamma(element, image);
+									ExecuteGammaCorrect(element, image);
 									return;
 								}
 								case 'u':
@@ -1456,6 +1456,11 @@ namespace ImageMagick
 								case 'a':
 								{
 									ExecuteSparseColor(element, image);
+									return;
+								}
+								case 'l':
+								{
+									ExecuteSplice(element, image);
 									return;
 								}
 								case 'r':
@@ -2913,19 +2918,19 @@ namespace ImageMagick
 				throw new ArgumentException("Invalid argument combination for 'fx', allowed combinations are: [expression] [expression, channels]");
 		}
 		//============================================================================================
-		private void ExecuteGamma(XmlElement element, MagickImage image)
+		private void ExecuteGammaCorrect(XmlElement element, MagickImage image)
 		{
 			Hashtable arguments = new Hashtable();
 			foreach (XmlAttribute attribute in element.Attributes)
 			{
 				arguments[attribute.Name] = Variables.GetValue<double>(attribute);
 			}
-			if (OnlyContains(arguments, "gammeRed", "gammeGreen", "gammeBlue"))
-				image.Gamma((double)arguments["gammeRed"], (double)arguments["gammeGreen"], (double)arguments["gammeBlue"]);
-			else if (OnlyContains(arguments, "value"))
-				image.Gamma((double)arguments["value"]);
+			if (OnlyContains(arguments, "gamma"))
+				image.GammaCorrect((double)arguments["gamma"]);
+			else if (OnlyContains(arguments, "gammaRed", "gammaGreen", "gammaBlue"))
+				image.GammaCorrect((double)arguments["gammaRed"], (double)arguments["gammaGreen"], (double)arguments["gammaBlue"]);
 			else
-				throw new ArgumentException("Invalid argument combination for 'gamma', allowed combinations are: [gammeRed, gammeGreen, gammeBlue] [value]");
+				throw new ArgumentException("Invalid argument combination for 'gammaCorrect', allowed combinations are: [gamma] [gammaRed, gammaGreen, gammaBlue]");
 		}
 		//============================================================================================
 		private void ExecuteGaussianBlur(XmlElement element, MagickImage image)
@@ -3868,6 +3873,12 @@ namespace ImageMagick
 				image.SparseColor((SparseColorMethod)arguments["method"], (IEnumerable<SparseColorArg>)arguments["args"]);
 			else
 				throw new ArgumentException("Invalid argument combination for 'sparseColor', allowed combinations are: [channels, method, args] [method, args]");
+		}
+		//============================================================================================
+		private void ExecuteSplice(XmlElement element, MagickImage image)
+		{
+			MagickGeometry geometry_ = Variables.GetValue<MagickGeometry>(element, "geometry");
+			image.Splice(geometry_);
 		}
 		//============================================================================================
 		private void ExecuteSpread(XmlElement element, MagickImage image)

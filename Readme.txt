@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 7.0.0.0015:
+  - MagickImage.Gamma 'getter' is now a property and Gamma has been renamed to GammaCorrect.
+
 Magick.NET 7.0.0.0010:
   - Removed MagickImage.IsMonochrome and added new UseMonochrome property to MagickReadSettings.
   - Reordered arguments for the Distort method.

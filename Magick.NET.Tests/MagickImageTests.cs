@@ -579,10 +579,10 @@ namespace Magick.NET.Tests
 		public void Test_Gamma()
 		{
 			MagickImage first = new MagickImage(Files.InvitationTif);
-			first.Gamma(2.0);
+			first.GammaCorrect(2.0);
 
 			MagickImage second = new MagickImage(Files.InvitationTif);
-			second.Gamma(2.0, 1.0, 0.5);
+			second.GammaCorrect(2.0, 1.0, 0.5);
 
 			Assert.AreNotEqual(first, second);
 

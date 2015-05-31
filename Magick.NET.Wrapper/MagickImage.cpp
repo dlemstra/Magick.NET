@@ -586,6 +586,11 @@ namespace ImageMagick
 			Value->magick(name);
 		}
 		//===========================================================================================
+		double MagickImage::Gamma::get()
+		{
+			return Value->gamma();
+		}
+		//===========================================================================================
 		GifDisposeMethod MagickImage::GifDisposeMethod::get()
 		{
 			return (ImageMagick::GifDisposeMethod)Value->gifDisposeMethod();
@@ -2377,20 +2382,19 @@ namespace ImageMagick
 			}
 		}
 		//===========================================================================================
-		double MagickImage::Gamma()
+		void MagickImage::GammaCorrect(double gamma)
 		{
 			try
 			{
-				return Value->gamma();
+				Value->gamma(gamma);
 			}
 			catch(Magick::Exception& exception)
 			{
 				HandleException(exception);
-				return -1;
 			}
 		}
 		//===========================================================================================
-		void MagickImage::Gamma(double gammaRed, double gammaGreen, double gammaBlue)
+		void MagickImage::GammaCorrect(double gammaRed, double gammaGreen, double gammaBlue)
 		{
 			try
 			{
