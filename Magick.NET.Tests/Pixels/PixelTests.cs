@@ -14,6 +14,7 @@
 
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Drawing;
 #if Q8
 using QuantumType = System.Byte;
 #elif Q16
@@ -81,6 +82,32 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(0, first.GetChannel(0));
 			Assert.AreEqual(half, first.GetChannel(1));
 			Assert.AreEqual(Quantum.Max, first.GetChannel(2));
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_ToColor()
+		{
+			QuantumType half = (QuantumType)(Quantum.Max / 2.0);
+
+			Pixel pixel = new Pixel(0, 0, 1);
+			pixel.Set(new QuantumType[] { Quantum.Max });
+			ColorAssert.AreEqual(Color.FromArgb(255, 255, 255), pixel.ToColor());
+
+			pixel = new Pixel(0, 0, 2);
+			pixel.Set(new QuantumType[] { Quantum.Max, 0 });
+			Assert.IsNull(pixel.ToColor());
+
+			pixel = new Pixel(0, 0, 3);
+			pixel.Set(new QuantumType[] { Quantum.Max, 0, half });
+			ColorAssert.AreEqual(Color.FromArgb(255, 0, 127), pixel.ToColor());
+
+			pixel = new Pixel(0, 0, 4);
+			pixel.Set(new QuantumType[] { 0, half, Quantum.Max, Quantum.Max });
+			ColorAssert.AreEqual(Color.FromArgb(255, 0, 127, 255), pixel.ToColor());
+
+			pixel = new Pixel(0, 0, 5);
+			pixel.Set(new QuantumType[] { Quantum.Max, 0, half, Quantum.Max, Quantum.Max });
+			Assert.IsNull(pixel.ToColor());
 		}
 		//===========================================================================================
 	}

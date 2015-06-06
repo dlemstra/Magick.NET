@@ -31,6 +31,12 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(expected.A, actual.A, "A is not equal");
 		}
 		//===========================================================================================
+		public static void AreEqual(Color expected, MagickColor actual)
+		{
+			Assert.IsNotNull(actual);
+			AreEqual(expected, (Color)actual);
+		}
+		//===========================================================================================
 		public static void AreNotEqual(Color notExpected, Color actual)
 		{
 			if (notExpected.R == actual.R && notExpected.G == actual.G &&

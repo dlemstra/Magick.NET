@@ -272,6 +272,9 @@ namespace ImageMagick
 		///</summary>
 		public MagickColor ToColor()
 		{
+			if (Value.Length == 1)
+				return new MagickColor(Value[0], Value[0], Value[0]);
+
 			if (Value.Length == 3)
 				return new MagickColor(Value[0], Value[1], Value[2]);
 
