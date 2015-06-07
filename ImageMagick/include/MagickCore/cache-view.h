@@ -81,8 +81,9 @@ extern MagickExport MagickBooleanType
   GetOneCacheViewVirtualPixelInfo(const CacheView *,const ssize_t,const ssize_t,
     PixelInfo *,ExceptionInfo *),
   SetCacheViewStorageClass(CacheView *,const ClassType,ExceptionInfo *),
-  SetCacheViewVirtualPixelMethod(CacheView *,const VirtualPixelMethod),
-  SyncCacheViewAuthenticPixels(CacheView *,ExceptionInfo *) magick_hot_spot;
+  SetCacheViewVirtualPixelMethod(CacheView *restrict,const VirtualPixelMethod),
+  SyncCacheViewAuthenticPixels(CacheView *restrict,ExceptionInfo *)
+    magick_hot_spot;
 
 extern MagickExport MagickSizeType
   GetCacheViewExtent(const CacheView *);

@@ -22,56 +22,32 @@
 extern "C" {
 #endif
 
+#define MagickStringify(macro_or_string)  MagickStringifyArg(macro_or_string)
+#define MagickStringifyArg(contents)  #contents
+
 /*
   Define declarations.
 */
 #define MagickPackageName "ImageMagick"
 #define MagickCopyright  "Copyright (C) 1999-2015 ImageMagick Studio LLC"
-#define MagickSVNRevision  "18399:18400"
 #define MagickLibVersion  0x700
 #define MagickLibVersionText  "7.0.0"
-#define MagickLibVersionNumber  1,0,0
+#define MagickLibVersionNumber  7,0,0,0
 #define MagickLibAddendum  "-0"
-#define MagickLibInterface  1
-#define MagickLibMinInterface  1
-#if defined(_WINDOWS)
-#  if defined(_WIN64)
-#    define MagickPlatform "x64"
-#  else
-#    define MagickPlatform "x86"
-#  endif
+#define MagickLibInterface  7
+#define MagickLibMinInterface  7
+#if defined(_WIN64)
+#  define MagickPlatform "x64"
 #else
-#define MagickPlatform  "x86_64"
+#  define MagickPlatform "x86"
 #endif
-#define MagickppLibVersionText  "7.0.0"
-#define MagickppLibVersionNumber  1:0:0
-#define MagickppLibAddendum  "-0"
-#define MagickppLibInterface  1
-#define MagickppLibMinInterface  1
-#define MagickReleaseDate  "2015-04-14"
-#define MagickChangeDate   "20120427"
+#define MagickReleaseDate  "2015-06-07"
 #define MagickAuthoritativeLicense  \
   "http://www.imagemagick.org/script/license.php"
 #define MagickAuthoritativeURL  "http://www.imagemagick.org"
-#define MagickFeatures "DPC HDRI OpenMP"
-#define MagickDelegates "bzlib djvu mpeg fftw fpx fontconfig freetype jbig jng jpeg lcms lzma openexr pango png ps tiff webp x xml zlib"
-#define MagickHomeURL  "file:///usr/local/share/doc/ImageMagick-7/index.html"
-#if (MAGICKCORE_QUANTUM_DEPTH == 8)
-#define MagickQuantumDepth  "Q8"
-#define MagickQuantumRange  "255"
-#elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-#define MagickQuantumDepth  "Q16"
-#define MagickQuantumRange  "65535"
-#elif (MAGICKCORE_QUANTUM_DEPTH == 32)
-#define MagickQuantumDepth  "Q32"
-#define MagickQuantumRange  "4294967295"
-#elif (MAGICKCORE_QUANTUM_DEPTH == 64)
-#define MagickQuantumDepth  "Q64"
-#define MagickQuantumRange  "65535"
-#else
-#define MagickQuantumDepth  "Q?"
-#define MagickQuantumRange  "?"
-#endif
+#define MagickHomeURL  ""
+#define MagickQuantumDepth "Q" MagickStringify(MAGICKCORE_QUANTUM_DEPTH)
+#define MagickQuantumRange MagickStringify(QuantumRange)
 #define MagickVersion  \
   MagickPackageName " " MagickLibVersionText MagickLibAddendum " " \
   MagickQuantumDepth " " MagickPlatform " " MagickReleaseDate " " \

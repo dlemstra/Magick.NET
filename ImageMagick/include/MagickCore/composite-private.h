@@ -32,8 +32,8 @@ extern "C" {
 /*
   ImageMagick Alpha Composite Inline Methods (special export)
 */
-static inline double MagickOver_(const double p,
-  const double alpha,const double q,const double beta)
+static inline double MagickOver_(const double p,const double alpha,
+  const double q,const double beta)
 {
   double
     Da,
@@ -41,7 +41,12 @@ static inline double MagickOver_(const double p,
 
   Sa=QuantumScale*alpha;
   Da=QuantumScale*beta;
-  return(Sa*p-Sa*Da*q+Da*q);
+  return(Sa*p+Da*q*(1.0-Sa));
+}
+
+static inline double RoundToUnity(const double value)
+{
+  return(value < 0.0 ? 0.0 : (value > 1.0) ? 1.0 : value);
 }
 
 static inline void CompositePixelOver(const Image *image,const PixelInfo *p,
@@ -59,8 +64,8 @@ static inline void CompositePixelOver(const Image *image,const PixelInfo *p,
     Compose pixel p over pixel q with the given alpha.
   */
   Sa=QuantumScale*alpha;
-  Da=QuantumScale*beta,
-  gamma=Sa*(-Da)+Sa+Da;
+  Da=QuantumScale*beta;
+  gamma=Sa+Da-Sa*Da;
   gamma=PerceptibleReciprocal(gamma);
   for (i=0; i < (ssize_t) GetPixelChannels(image); i++)
   {
@@ -74,11 +79,6 @@ static inline void CompositePixelOver(const Image *image,const PixelInfo *p,
     traits=GetPixelChannelTraits(image,channel);
     if (traits == UndefinedPixelTrait)
       continue;
-    if (fabs((double) (alpha-TransparentAlpha)) < MagickEpsilon)
-      {
-        composite[i]=q[i];
-        continue;
-      }
     switch (channel)
     {
       case RedPixelChannel:
@@ -107,7 +107,7 @@ static inline void CompositePixelOver(const Image *image,const PixelInfo *p,
       }
       case AlphaPixelChannel:
       {
-        composite[i]=ClampToQuantum(QuantumRange*(Sa*(-Da)+Sa+Da));
+        composite[i]=ClampToQuantum(QuantumRange*RoundToUnity(Sa+Da-Sa*Da));
         break;
       }
       default:
@@ -130,26 +130,16 @@ static inline void CompositePixelInfoOver(const PixelInfo *p,
   /*
     Compose pixel p over pixel q with the given opacities.
   */
-  if (fabs((double) (alpha-TransparentAlpha)) < MagickEpsilon)
-    {
-      *composite=(*p);
-      return;
-    }
   Sa=QuantumScale*alpha;
   Da=QuantumScale*beta,
-  gamma=Sa*(-Da)+Sa+Da;
-  composite->alpha=(double) QuantumRange*gamma;
+  gamma=Sa+Da-Sa*Da;
+  composite->alpha=(double) QuantumRange*RoundToUnity(gamma);
   gamma=PerceptibleReciprocal(gamma);
   composite->red=gamma*MagickOver_(p->red,alpha,q->red,beta);
   composite->green=gamma*MagickOver_(p->green,alpha,q->green,beta);
   composite->blue=gamma*MagickOver_(p->blue,alpha,q->blue,beta);
   if (q->colorspace == CMYKColorspace)
     composite->black=gamma*MagickOver_(p->black,alpha,q->black,beta);
-}
-
-static inline double RoundToUnity(const double value)
-{
-  return(value < 0.0 ? 0.0 : (value > 1.0) ? 1.0 : value);
 }
 
 static inline void CompositePixelInfoPlus(const PixelInfo *p,
@@ -166,7 +156,7 @@ static inline void CompositePixelInfoPlus(const PixelInfo *p,
   Sa=QuantumScale*alpha;
   Da=QuantumScale*beta;
   gamma=RoundToUnity(Sa+Da);  /* 'Plus' blending -- not 'Over' blending */
-  composite->alpha=(double) QuantumRange*gamma;
+  composite->alpha=(double) QuantumRange*RoundToUnity(gamma);
   gamma=PerceptibleReciprocal(gamma);
   composite->red=gamma*(Sa*p->red+Da*q->red);
   composite->green=gamma*(Sa*p->green+Da*q->green);

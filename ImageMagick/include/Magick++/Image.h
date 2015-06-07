@@ -297,6 +297,10 @@ namespace Magick
     void iptcProfile(const Blob &iptcProfile_);
     Blob iptcProfile(void) const;
 
+    // Returns true if none of the pixels in the image have an alpha value
+    // other than OpaqueAlpha (QuantumRange).
+    bool isOpaque(void) const;
+
     // Does object contain valid image?
     void isValid(const bool isValid_);
     bool isValid(void) const;
@@ -1307,6 +1311,9 @@ namespace Magick
 
     // Splice the background color into the image.
     void splice(const Geometry &geometry_);
+    void splice(const Geometry &geometry_,const Color &backgroundColor_);
+    void splice(const Geometry &geometry_,const Color &backgroundColor_,
+      const GravityType gravity_);
 
     // Spread pixels randomly within image by specified ammount
     void spread(const size_t amount_=3);

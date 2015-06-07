@@ -215,13 +215,15 @@
 /*
   Use Visual C++ C inline method extension to improve performance
 */
-#define inline __inline
+#define _magickcore_inline __inline
 
 /*
   Visual C++ does not define restrict by default.
 */
-#if !defined(restrict)
-  #define restrict
+#if (_MSC_VER >= 1400)
+#  define _magickcore_restrict __restrict
+#else
+#  define _magickcore_restrict
 #endif
 
 /*
@@ -343,6 +345,7 @@ typedef long ssize_t;
 #define MAGICKCORE_HAVE_SPAWNVP 1
 #define MAGICKCORE_STDC_HEADERS 1
 #define MAGICKCORE_HAVE_LOCALE_H 1
+#define MAGICKCORE_HAVE_LOCALE_T 1
 #define MAGICKCORE_HAVE_STRING_H 1
 #define MAGICKCORE_HAVE_J0 1
 #define MAGICKCORE_HAVE_J1 1

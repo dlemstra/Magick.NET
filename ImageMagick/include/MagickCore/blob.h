@@ -25,7 +25,7 @@
 extern "C" {
 #endif
 
-#define MagickMaxBufferExtent  (32*8192)
+#define MagickMaxBufferExtent  8192
 
 typedef enum
 {
@@ -97,7 +97,7 @@ extern MagickExport MagickSizeType
 
 extern MagickExport ssize_t
   ReadBlob(Image *,const size_t,void *),
-  WriteBlob(Image *,const size_t,const unsigned char *),
+  WriteBlob(Image *,const size_t,const void *),
   WriteBlobByte(Image *,const unsigned char),
   WriteBlobFloat(Image *,const float),
   WriteBlobLong(Image *,const unsigned int),

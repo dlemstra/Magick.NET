@@ -80,7 +80,7 @@ $configurations = @(
 #==================================================================================================
 function Build($platform, $builds)
 {
-	$configFile = FullPath "ImageMagick\Source\ImageMagick\MagickCore\magick-baseconfig.h"
+	$configFile = FullPath "ImageMagick\Source\ImageMagick\ImageMagick\MagickCore\magick-baseconfig.h"
 	$config = [IO.File]::ReadAllText($configFile, [System.Text.Encoding]::Default)
 	$config = $config.Replace("//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET.Wrapper-" + $platform + ".dll`"")
 
@@ -142,13 +142,13 @@ function CopyFiles($folder)
 {
 	Remove-Item ImageMagick\include -recurse
 	[void](New-Item -ItemType directory -Path ImageMagick\include\Magick++)
-	Copy-Item ImageMagick\Source\ImageMagick\Magick++\lib\Magick++.h ImageMagick\include
-	Copy-Item ImageMagick\Source\ImageMagick\Magick++\lib\Magick++\*.h ImageMagick\include\Magick++
+	Copy-Item ImageMagick\Source\ImageMagick\ImageMagick\Magick++\lib\Magick++.h ImageMagick\include
+	Copy-Item ImageMagick\Source\ImageMagick\ImageMagick\\Magick++\lib\Magick++\*.h ImageMagick\include\Magick++
 	[void](New-Item -ItemType directory -Path ImageMagick\include\MagickCore)
-	Copy-Item ImageMagick\Source\ImageMagick\MagickCore\*.h ImageMagick\include\MagickCore
+	Copy-Item ImageMagick\Source\ImageMagick\ImageMagick\MagickCore\*.h ImageMagick\include\MagickCore
 	Remove-Item ImageMagick\include\MagickCore\magick-baseconfig.h
 	[void](New-Item -ItemType directory -Path ImageMagick\include\MagickWand)
-	Copy-Item ImageMagick\Source\ImageMagick\MagickWand\*.h ImageMagick\include\MagickWand
+	Copy-Item ImageMagick\Source\ImageMagick\ImageMagick\MagickWand\*.h ImageMagick\include\MagickWand
 	[void](New-Item -ItemType directory -Path ImageMagick\include\jpeg)
 	Copy-Item ImageMagick\Source\ImageMagick\jpeg\*.h ImageMagick\include\jpeg
 

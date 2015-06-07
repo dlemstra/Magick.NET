@@ -1,7 +1,7 @@
 @echo off
 
 set REPOS=https://subversion.imagemagick.org/subversion
-set REVISION=18448
+set REVISION=18800
 
 if exist ImageMagick goto update
 
@@ -10,21 +10,16 @@ cd ImageMagick
 svn checkout %REPOS%/bzlib/trunk -r %REVISION% bzlib
 svn checkout %REPOS%/cairo/trunk -r %REVISION% cairo
 svn checkout %REPOS%/croco/trunk -r %REVISION% croco
-svn checkout %REPOS%/ImageMagick/trunk/coders -r %REVISION% coders
-svn checkout %REPOS%/ImageMagick/trunk/config -r %REVISION% config
 svn checkout %REPOS%/exr/trunk -r %REVISION% exr
 svn checkout %REPOS%/ffi/trunk -r %REVISION% ffi
-svn checkout %REPOS%/ImageMagick/trunk/filters -r %REVISION% filters
 svn checkout %REPOS%/glib/trunk -r %REVISION% glib
+svn checkout %REPOS%/ImageMagick/trunk -r %REVISION% ImageMagick
 svn checkout %REPOS%/jp2/trunk -r %REVISION% jp2
 svn checkout %REPOS%/jpeg-turbo/trunk -r %REVISION% jpeg
 svn checkout %REPOS%/lcms/trunk -r %REVISION% lcms
 svn checkout %REPOS%/libxml/trunk -r %REVISION% libxml
 svn checkout %REPOS%/librsvg/trunk -r %REVISION% librsvg
 svn checkout %REPOS%/lqr/trunk -r %REVISION% lqr
-svn checkout %REPOS%/ImageMagick/trunk/Magick++ -r %REVISION% Magick++
-svn checkout %REPOS%/ImageMagick/trunk/MagickCore -r %REVISION% MagickCore
-svn checkout %REPOS%/ImageMagick/trunk/MagickWand -r %REVISION% MagickWand
 svn checkout %REPOS%/openjpeg/trunk -r %REVISION% openjpeg
 svn checkout %REPOS%/pango/trunk -r %REVISION% pango
 svn checkout %REPOS%/pixman/trunk -r %REVISION% pixman
@@ -41,21 +36,16 @@ cd ImageMagick
 svn update -r %REVISION% bzlib
 svn update -r %REVISION% cairo
 svn update -r %REVISION% croco
-svn update -r %REVISION% coders
-svn update -r %REVISION% config
 svn update -r %REVISION% exr
 svn update -r %REVISION% ffi
-svn update -r %REVISION% filters
 svn update -r %REVISION% glib
+svn update -r %REVISION% ImageMagick
 svn update -r %REVISION% jp2
 svn update -r %REVISION% jpeg
 svn update -r %REVISION% lcms
 svn update -r %REVISION% libxml
 svn update -r %REVISION% librsvg
 svn update -r %REVISION% lqr
-svn update -r %REVISION% Magick++
-svn update -r %REVISION% MagickCore
-svn update -r %REVISION% MagickWand
 svn update -r %REVISION% openjpeg
 svn update -r %REVISION% pango
 svn update -r %REVISION% pixman
