@@ -1035,6 +1035,27 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Separate_Composite()
+		{
+			using (MagickImage logo = new MagickImage(Files.Builtin.Logo))
+			{
+				using (MagickImage blue = logo.Separate(Channels.Blue).First())
+				{
+					using (MagickImage green = logo.Separate(Channels.Green).First())
+					{
+						blue.Composite(green, CompositeOperator.Multiply);
+
+						using (PixelCollection pixels = green.GetReadOnlyPixels())
+						{
+							Pixel pixel = pixels.GetPixel(340, 260);
+							ColorAssert.AreEqual(Color.FromArgb(62, 62, 62), pixel.ToColor());
+						}
+					}
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_SparseColors()
 		{
 			MagickReadSettings settings = new MagickReadSettings();
