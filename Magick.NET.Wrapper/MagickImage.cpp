@@ -636,6 +636,11 @@ namespace ImageMagick
 			Value->interpolate((Magick::PixelInterpolateMethod)value);
 		}
 		//===========================================================================================
+		bool MagickImage::IsOpaque::get()
+		{
+			return Value->isOpaque();
+		}
+		//===========================================================================================
 		String^ MagickImage::Label::get()
 		{
 			std::string label = Value->label();

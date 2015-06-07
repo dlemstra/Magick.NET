@@ -1146,6 +1146,18 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Returns true if none of the pixels in the image have an alpha value other than
+		/// OpaqueAlpha (QuantumRange).
+		///</summary>
+		public bool IsOpaque
+		{
+			get
+			{
+				return _Instance.IsOpaque;
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// The label of the image.
 		///</summary>
 		public string Label

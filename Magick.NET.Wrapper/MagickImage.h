@@ -335,6 +335,11 @@ namespace ImageMagick
 				void set(PixelInterpolateMethod);
 			}
 			//========================================================================================
+			property bool IsOpaque
+			{
+				bool get();
+			}
+			//========================================================================================
 			property String^ Label
 			{
 				String^ get();

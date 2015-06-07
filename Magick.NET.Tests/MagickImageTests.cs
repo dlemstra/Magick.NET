@@ -685,6 +685,24 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_IsOpaque()
+		{
+			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+			{
+				Assert.IsFalse(image.IsOpaque);
+				image.ColorAlpha(Color.Purple);
+				Assert.IsTrue(image.IsOpaque);
+			}
+
+			using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+			{
+				Assert.IsTrue(image.IsOpaque);
+				image.Opaque(Color.White, MagickColor.Transparent);
+				Assert.IsFalse(image.IsOpaque);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Level()
 		{
 			using (MagickImage first = new MagickImage(Files.MagickNETIconPNG))
