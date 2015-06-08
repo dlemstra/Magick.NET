@@ -528,7 +528,7 @@ static inline MagickBooleanType IsPixelMonochrome(const Image *restrict image,
     red_green;
 
   red=(MagickRealType) pixel[image->channel_map[RedPixelChannel].offset];
-  if ((AbsolutePixelValue(red) >= MagickEpsilon) &&
+  if ((AbsolutePixelValue(red) >= MagickEpsilon) ||
       (AbsolutePixelValue(red-QuantumRange) >= MagickEpsilon))
     return(MagickFalse);
   red_green=(MagickRealType) pixel[image->channel_map[RedPixelChannel].offset]-
