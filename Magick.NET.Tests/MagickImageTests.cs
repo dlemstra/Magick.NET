@@ -576,6 +576,41 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Frame()
+		{
+			int frameSize = 100;
+
+			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+			{
+				int expectedWidth = frameSize + image.Width + frameSize;
+				int expectedHeight = frameSize + image.Height + frameSize;
+
+				image.Frame(frameSize, frameSize);
+				Assert.AreEqual(expectedWidth, image.Width);
+				Assert.AreEqual(expectedHeight, image.Height);
+			}
+
+			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+			{
+				int expectedWidth = frameSize + image.Width + frameSize;
+				int expectedHeight = frameSize + image.Height + frameSize;
+
+				image.Frame(frameSize, frameSize, 6, 6);
+				Assert.AreEqual(expectedWidth, image.Width);
+				Assert.AreEqual(expectedHeight, image.Height);
+			}
+
+			Assert.Inconclusive("Needs new build of ImageMagick.");
+			ExceptionAssert.Throws<MagickImageErrorException>(delegate()
+			{
+				using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+				{
+					image.Frame(6, 6, frameSize, frameSize);
+				}
+			});
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Gamma()
 		{
 			MagickImage first = new MagickImage(Files.InvitationTif);

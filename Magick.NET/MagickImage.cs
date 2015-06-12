@@ -3358,7 +3358,7 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void Frame()
 		{
-			Frame(new MagickGeometry(25, 25, 6, 6));
+			Frame(new MagickGeometry(6, 6, 25, 25));
 		}
 		///==========================================================================================
 		///<summary>
@@ -3381,7 +3381,7 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void Frame(int width, int height)
 		{
-			Frame(new MagickGeometry(width, height, 6, 6));
+			Frame(new MagickGeometry(6, 6, width, height));
 		}
 		///==========================================================================================
 		///<summary>
@@ -3394,7 +3394,7 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void Frame(int width, int height, int innerBevel, int outerBevel)
 		{
-			Frame(new MagickGeometry(width, height, innerBevel, outerBevel));
+			Frame(new MagickGeometry(innerBevel, outerBevel, width, height));
 		}
 		///==========================================================================================
 		///<summary>
