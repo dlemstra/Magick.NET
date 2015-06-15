@@ -73,6 +73,20 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Info()
+		{
+			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+			{
+				image.AddProfile(ColorProfile.USWebCoatedSWOP);
+
+				Assert.AreEqual("U.S. Web Coated (SWOP) v2", image.GetAttribute("icc:description"));
+				Assert.AreEqual("U.S. Web Coated (SWOP) v2", image.GetAttribute("icc:manufacturer"));
+				Assert.AreEqual("U.S. Web Coated (SWOP) v2", image.GetAttribute("icc:model"));
+				Assert.AreEqual("Copyright 2000 Adobe Systems, Inc.", image.GetAttribute("icc:copyright"));
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Remove()
 		{
 			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
