@@ -1109,6 +1109,31 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Shadow()
+		{
+			using (MagickImage image = new MagickImage())
+			{
+				image.BackgroundColor = MagickColor.Transparent;
+				image.FontPointsize = 60;
+				image.Read("label:Magick.NET");
+
+				int width = image.Width;
+				int height = image.Height;
+
+				image.Shadow(2, 2, 1, new ImageMagick.Percentage(50), Color.Red);
+
+				Assert.AreEqual(width + 4, image.Width);
+				Assert.AreEqual(height + 4, image.Height);
+
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					Pixel pixel = pixels.GetPixel(90, 9);
+					Assert.AreEqual(0, pixel.ToColor().A);
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_SparseColors()
 		{
 			MagickReadSettings settings = new MagickReadSettings();

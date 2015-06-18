@@ -3614,7 +3614,7 @@ namespace ImageMagick
 				MagickImage^ shadow = Clone();
 				shadow->Value->backgroundColor(*backgroundColor);
 				shadow->Value->shadow(alpha, sigma, x, y);
-				shadow->Value->backgroundColor(Magick::Color());
+				shadow->Value->backgroundColor(Value->backgroundColor());
 
 				magickImages->push_back(shadow->ReuseValue());
 				magickImages->push_back(this->ReuseValue());
