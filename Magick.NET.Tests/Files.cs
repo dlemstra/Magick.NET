@@ -161,19 +161,27 @@ namespace Magick.NET.Tests
 		public static class Coders
 		{
 			//========================================================================================
-			public static string PlayerPSD
-			{
-				get
-				{
-					return _Root + @"Images\Coders\player.psd";
-				}
-			}
-			//========================================================================================
 			public static string CartoonNetworkStudiosLogoAI
 			{
 				get
 				{
 					return _Root + @"Images\Coders\CN Studios Logo.ai";
+				}
+			}
+			//===========================================================================================
+			public static string PageTIF
+			{
+				get
+				{
+					return _Root + @"Images\Coders\Page.tif";
+				}
+			}
+			//========================================================================================
+			public static string PlayerPSD
+			{
+				get
+				{
+					return _Root + @"Images\Coders\player.psd";
 				}
 			}
 			//========================================================================================

@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -30,6 +32,39 @@ namespace Magick.NET.Tests.Coders
 			IptcValue value = profile.GetValue(tag);
 			Assert.IsNotNull(value);
 			Assert.AreEqual(expectedValue, value.Value);
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
+		public void Test_Image_ByteArray()
+		{
+			using (Image img = Image.FromFile(Files.Coders.PageTIF))
+			{
+				byte[] bytes = null;
+				using (MemoryStream memStream = new MemoryStream())
+				{
+					img.Save(memStream, ImageFormat.Tiff);
+					bytes = memStream.GetBuffer();
+				}
+
+				using (MagickImage image = new MagickImage(bytes))
+				{
+					image.CompressionMethod = CompressionMethod.Group4;
+
+					using (MemoryStream memStream = new MemoryStream())
+					{
+						image.Write(memStream);
+						memStream.Position = 0;
+
+						using (MagickImage before = new MagickImage(Files.Coders.PageTIF))
+						{
+							using (MagickImage after = new MagickImage(memStream))
+							{
+								Assert.AreEqual(0.0, before.Compare(after, ErrorMetric.RootMeanSquared));
+							}
+						}
+					}
+				}
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
