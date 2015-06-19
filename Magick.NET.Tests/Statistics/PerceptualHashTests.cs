@@ -206,11 +206,11 @@ namespace Magick.NET.Tests
 				{
 					PerceptualHash otherPhash = other.PerceptualHash();
 #if Q8
-					Assert.AreEqual(269.72, phash.SumSquaredDistance(otherPhash), 0.01);
+					Assert.AreEqual(248.53, phash.SumSquaredDistance(otherPhash), 0.01);
 #elif Q16
-					Assert.AreEqual(238.92, phash.SumSquaredDistance(otherPhash), 0.01);
+					Assert.AreEqual(199.53, phash.SumSquaredDistance(otherPhash), 0.01);
 #elif Q16HDRI
-					Assert.AreEqual(238.38, phash.SumSquaredDistance(otherPhash), 0.01);
+					Assert.AreEqual(183.73, phash.SumSquaredDistance(otherPhash), 0.01);
 #else
 #error Not implemented!
 #endif
