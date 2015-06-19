@@ -88,7 +88,11 @@ namespace Magick.NET.Tests
 		public void Test_ToColor()
 		{
 			QuantumType half = (QuantumType)(Quantum.Max / 2.0);
-
+#if Q16HDRI
+			int colorHalf = 128;
+#else
+			int colorHalf = 127;
+#endif
 			Pixel pixel = new Pixel(0, 0, 1);
 			pixel.Set(new QuantumType[] { Quantum.Max });
 			ColorAssert.AreEqual(Color.FromArgb(255, 255, 255), pixel.ToColor());
@@ -99,11 +103,11 @@ namespace Magick.NET.Tests
 
 			pixel = new Pixel(0, 0, 3);
 			pixel.Set(new QuantumType[] { Quantum.Max, 0, half });
-			ColorAssert.AreEqual(Color.FromArgb(255, 0, 127), pixel.ToColor());
+			ColorAssert.AreEqual(Color.FromArgb(255, 0, colorHalf), pixel.ToColor());
 
 			pixel = new Pixel(0, 0, 4);
 			pixel.Set(new QuantumType[] { 0, half, Quantum.Max, Quantum.Max });
-			ColorAssert.AreEqual(Color.FromArgb(255, 0, 127, 255), pixel.ToColor());
+			ColorAssert.AreEqual(Color.FromArgb(255, 0, colorHalf, 255), pixel.ToColor());
 
 			pixel = new Pixel(0, 0, 5);
 			pixel.Set(new QuantumType[] { Quantum.Max, 0, half, Quantum.Max, Quantum.Max });

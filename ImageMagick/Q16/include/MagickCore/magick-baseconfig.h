@@ -31,16 +31,6 @@
 */
 
 /*
-  Define to build a ImageMagick which uses registry settings or
-  hard-coded paths to locate installed components.  This supports
-  using the "setup.exe" style installer, or using hard-coded path
-  definitions (see below).  If you want to be able to simply copy
-  the built ImageMagick to any directory on any directory on any machine,
-  then do not use this setting.
-*/
-//#define MAGICKCORE_INSTALLED_SUPPORT
-
-/*
   When building ImageMagick using DLLs, include a DllMain()
   function which automatically invokes MagickCoreGenesis(NULL), and
   MagickCoreTerminus() so that the user doesn't need to. This is disabled
@@ -227,8 +217,20 @@
 #endif
 
 /*
-  Visual C++ does not define ssize_t by default.
+  Visual C++ does not define double_t, float_t, or ssize_t by default.
 */
+#if !defined(double_t)
+#define MAGICKCORE_HAVE_DOUBLE_T
+#if !defined(__MINGW32__) && !defined(__MINGW64__)
+typedef double double_t;
+#endif
+#endif
+#if !defined(float_t)
+#define MAGICKCORE_HAVE_FLOAT_T
+#if !defined(__MINGW32__) && !defined(__MINGW64__)
+typedef float float_t;
+#endif
+#endif
 #if !defined(ssize_t) && !defined(__MINGW32__) && !defined(__MINGW64__)
 #if defined(_WIN64) 
 typedef __int64 ssize_t;

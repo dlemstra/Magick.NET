@@ -600,8 +600,7 @@ namespace Magick.NET.Tests
 				Assert.AreEqual(expectedHeight, image.Height);
 			}
 
-			Assert.Inconclusive("Needs new build of ImageMagick.");
-			ExceptionAssert.Throws<MagickImageErrorException>(delegate()
+			ExceptionAssert.Throws<MagickOptionErrorException>(delegate()
 			{
 				using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
 				{
