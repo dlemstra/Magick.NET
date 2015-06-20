@@ -95,6 +95,7 @@
     <Compile Include="MagickNETTests.cs" />
     <Compile Include="Matrices\ColorMatrixTests.cs" />
     <Compile Include="Matrices\ConvolveMatrixTests.cs" />
+    <Compile Include="Optimizers\GifOptimizerTests.cs" />
     <Compile Include="Optimizers\ImageOptimizerTests.cs" />
     <Compile Include="Optimizers\IImageOptimizerTests.cs" />
     <Compile Include="Optimizers\PngOptimizerTests.cs" />

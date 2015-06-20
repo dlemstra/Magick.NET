@@ -1,4 +1,4 @@
 @echo off
 call "%vs110comntools%vsvars32.bat"
-powershell -ExecutionPolicy Unrestricted ..\Tools\Scripts\Publish.ps1 "7.0.0.0" "7.0.0.0014"
+powershell -ExecutionPolicy Unrestricted ..\Tools\Scripts\Publish.ps1 "7.0.0.0" "7.0.0.0015"
 pause
