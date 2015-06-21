@@ -111,8 +111,16 @@ function Build($platform, $builds)
 		$newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"", "//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"")
 		[IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
 
+		if (!(Test-Path "ImageMagick\lib\$($build.Framework)\$platform"))
+		{
+			[void](New-Item -ItemType directory -Path "ImageMagick\lib\$($build.Framework)\$platform")
+		}
 		Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_*.lib" "ImageMagick\lib\$($build.Framework)\$platform"
 
+		if (!(Test-Path "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform"))
+		{
+			[void](New-Item -ItemType directory -Path "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform")
+		}
 		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_coders_.lib"   "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
 		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_Magick++_.lib" "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
 		Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_MagickCore_.lib"   "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
