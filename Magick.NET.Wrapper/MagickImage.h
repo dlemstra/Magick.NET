@@ -522,7 +522,7 @@ namespace ImageMagick
 			//========================================================================================
 			void AdaptiveSharpen(double radius, double sigma, ImageMagick::Channels channels);
 			//========================================================================================
-			QUANTUM_CLS_COMPLIANT void AdaptiveThreshold(int width, int height, Magick::Quantum bias);
+			void AdaptiveThreshold(int width, int height, double bias);
 			//========================================================================================
 			void AddNoise(NoiseType noiseType);
 			//========================================================================================

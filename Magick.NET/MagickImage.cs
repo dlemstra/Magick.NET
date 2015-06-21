@@ -1746,12 +1746,9 @@ namespace ImageMagick
 		///</summary>
 		///<param name="width">The width of the pixel neighborhood.</param>
 		///<param name="height">The height of the pixel neighborhood.</param>
-		///<param name="bias">Constant to subtract from pixel neighborhood mean.</param>
+		///<param name="bias">Constant to subtract from pixel neighborhood mean (+/-)(0-QuantumRange).</param>
 		///<exception cref="MagickException"/>
-#if Q16
-		[CLSCompliant(false)]
-#endif
-		public void AdaptiveThreshold(int width, int height, QuantumType bias)
+		public void AdaptiveThreshold(int width, int height, double bias)
 		{
 			_Instance.AdaptiveThreshold(width, height, bias);
 		}
@@ -1766,7 +1763,7 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void AdaptiveThreshold(int width, int height, Percentage biasPercentage)
 		{
-			AdaptiveThreshold(width, height, biasPercentage.ToQuantum());
+			AdaptiveThreshold(width, height, (double)biasPercentage.ToQuantum());
 		}
 		///==========================================================================================
 		///<summary>

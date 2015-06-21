@@ -1035,7 +1035,7 @@ namespace ImageMagick
 			}
 		}
 		//===========================================================================================
-		void MagickImage::AdaptiveThreshold(int width, int height, Magick::Quantum bias)
+		void MagickImage::AdaptiveThreshold(int width, int height, double bias)
 		{
 			try
 			{
