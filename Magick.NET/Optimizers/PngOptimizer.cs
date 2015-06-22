@@ -32,31 +32,12 @@ namespace ImageMagick.ImageOptimizers
 				throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
 		}
 		//===========================================================================================
-		private static bool IsAlphaOpaque(MagickImage image)
-		{
-			using (PixelCollection pixels = image.GetReadOnlyPixels())
-			{
-				int alphaIndex = pixels.GetIndex(PixelChannel.Alpha);
-				for (int y = 0; y < image.Height; y++)
-				{
-					var values = pixels.GetValues(y);
-					for (int x = 0; x < image.Width; x++)
-					{
-						if (values[(x * pixels.Channels) + alphaIndex] != Quantum.Max)
-							return false;
-					}
-				}
-			}
-
-			return true;
-		}
-		//===========================================================================================
 		private static void CheckTransparency(MagickImage image)
 		{
 			if (!image.HasAlpha)
 				return;
 
-			if (IsAlphaOpaque(image))
+			if (image.IsOpaque)
 				image.HasAlpha = false;
 		}
 		//===========================================================================================
