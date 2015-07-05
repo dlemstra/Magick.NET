@@ -16,8 +16,13 @@ namespace RootNamespace.Samples.MagickNET
 {
 	public static class SampleFiles
 	{
-		private const string _FilesDirectory = @"$fullpath$Samples\Magick.NET\Files\";
-		private const string _ScriptsDirectory = @"$fullpath$Samples\Magick.NET\Scripts\";
+#if BUILDING_MAGICKNET
+		private const string _RootDirectory = @"..\..\Samples\Magick.NET\";
+#else
+		private const string _RootDirectory = @"$fullpath$Samples\Magick.NET\";
+#endif
+		private const string _FilesDirectory = _RootDirectory + @"Files\";
+		private const string _ScriptsDirectory = _RootDirectory + @"Scripts\";
 
 		public static string CorruptImageJpg
 		{
@@ -71,7 +76,7 @@ namespace RootNamespace.Samples.MagickNET
 		{
 			get
 			{
-				return @"$fullpath$Samples\Magick.NET\Output\";
+				return _RootDirectory + @"Output\";
 			}
 		}
 
