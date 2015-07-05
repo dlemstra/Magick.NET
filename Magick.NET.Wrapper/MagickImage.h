@@ -632,6 +632,8 @@ namespace ImageMagick
 			//========================================================================================
 			void Convolve(ConvolveMatrix^ convolveMatrix);
 			//========================================================================================
+			void CopyPixels(MagickImage^ source, MagickGeometry^ geometry, Coordinate offset);
+			//========================================================================================
 			void Crop(MagickGeometry^ geometry);
 			//========================================================================================
 			IEnumerable<MagickImage^>^ CropToTiles(MagickGeometry^ geometry);

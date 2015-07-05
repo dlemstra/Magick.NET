@@ -2343,6 +2343,42 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Creates a clone of the current image with the specified geometry.
+		///</summary>
+		///<param name="geometry">The area to clone.</param>
+		public MagickImage Clone(MagickGeometry geometry)
+		{
+			Throw.IfNull("geometry", geometry);
+
+			MagickImage clone = new MagickImage("null:", geometry.Width, geometry.Height);
+			clone._Instance.CopyPixels(_Instance, MagickGeometry.GetInstance(geometry), new Coordinate(0, 0));
+
+			return clone;
+		}
+		///==========================================================================================
+		///<summary>
+		/// Creates a clone of the current image.
+		///</summary>
+		///<param name="width">The width of the area to clone</param>
+		///<param name="height">The height of the area to clone</param>
+		public MagickImage Clone(int width, int height)
+		{
+			return Clone(new MagickGeometry(width, height));
+		}
+		///==========================================================================================
+		///<summary>
+		/// Creates a clone of the current image.
+		///</summary>
+		///<param name="x">The X offset from origin.</param>
+		///<param name="y">The Y offset from origin.</param>
+		///<param name="width">The width of the area to clone</param>
+		///<param name="height">The height of the area to clone</param>
+		public MagickImage Clone(int x, int y, int width, int height)
+		{
+			return Clone(new MagickGeometry(x, y, width, height));
+		}
+		///==========================================================================================
+		///<summary>
 		/// Apply a color lookup table (CLUT) to the image.
 		///</summary>
 		///<param name="image">The image to use.</param>
@@ -2739,6 +2775,19 @@ namespace ImageMagick
 			Throw.IfNull("convolveMatrix", convolveMatrix);
 
 			_Instance.Convolve(convolveMatrix);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Copies pixels from the source image as defined by the geometry the destination image at
+		/// the specified offset.
+		///</summary>
+		///<exception cref="MagickException"/>
+		public void CopyPixels(MagickImage source, MagickGeometry geometry, Coordinate offset)
+		{
+			Throw.IfNull("source", source);
+			Throw.IfNull("geometry", geometry);
+
+			_Instance.CopyPixels(MagickImage.GetInstance(source), MagickGeometry.GetInstance(geometry), offset);
 		}
 		///==========================================================================================
 		///<summary>

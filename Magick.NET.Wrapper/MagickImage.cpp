@@ -1522,7 +1522,7 @@ namespace ImageMagick
 		MagickImage^ MagickImage::Clone()
 		{
 			return gcnew MagickImage(*Value);
-		}//==============================================================================================
+		}
 		//===========================================================================================
 		void MagickImage::Clut(MagickImage^ image, PixelInterpolateMethod method)
 		{
@@ -1778,6 +1778,26 @@ namespace ImageMagick
 			finally
 			{
 				delete[] kernel;
+			}
+		}
+		//===========================================================================================
+		void MagickImage::CopyPixels(MagickImage^ source, MagickGeometry^ geometry, Coordinate offset)
+		{
+			const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
+			try
+			{
+				Magick::Offset magickOffset = Magick::Offset((ssize_t) offset.X,(ssize_t) offset.Y);
+
+				Value->copyPixels(*source->Value, *magickGeometry, magickOffset);
+			}
+			catch(Magick::Exception& exception)
+			{
+				HandleException(exception);
+			}
+			finally
+			{
+				delete magickGeometry;
 			}
 		}
 		//===========================================================================================

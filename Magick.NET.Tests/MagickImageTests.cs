@@ -249,6 +249,29 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Clone_Area()
+		{
+			MagickImage icon = new MagickImage(Files.MagickNETIconPNG);
+
+			MagickGeometry area = new MagickGeometry(64, 64, 64, 32);
+
+			MagickImage part = icon.Clone(area);
+			Assert.AreEqual(64, part.Width);
+			Assert.AreEqual(32, part.Height);
+
+			icon.Crop(64, 64, Gravity.Southeast);
+			icon.RePage();
+			Assert.AreEqual(64, icon.Width);
+			Assert.AreEqual(64, icon.Height);
+
+			icon.Crop(64, 32, Gravity.North);
+			Assert.AreEqual(64, icon.Width);
+			Assert.AreEqual(32, icon.Height);
+
+			Assert.AreEqual(0.0, icon.Compare(part, ErrorMetric.RootMeanSquared));
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_ColorAlpha()
 		{
 			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -423,6 +446,43 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_CopyPixels()
+		{
+			using (MagickImage source = new MagickImage(Color.White, 100, 100))
+			{
+				using (MagickImage destination = new MagickImage(Color.Black, 50, 50))
+				{
+					ExceptionAssert.Throws<MagickOptionErrorException>(delegate()
+					{
+						destination.CopyPixels(source, new MagickGeometry(51, 50), new Coordinate(0, 0));
+					});
+
+					ExceptionAssert.Throws<MagickOptionErrorException>(delegate()
+					{
+						destination.CopyPixels(source, new MagickGeometry(50, 51), new Coordinate(0, 0));
+					});
+
+					ExceptionAssert.Throws<MagickOptionErrorException>(delegate()
+					{
+						destination.CopyPixels(source, new MagickGeometry(50, 50), new Coordinate(1, 0));
+					});
+
+					ExceptionAssert.Throws<MagickOptionErrorException>(delegate()
+					{
+						destination.CopyPixels(source, new MagickGeometry(50, 50), new Coordinate(0, 1));
+					});
+
+					destination.CopyPixels(source, new MagickGeometry(25, 25), new Coordinate(25, 25));
+
+					Test_Pixel(destination, 0, 0, Color.Black);
+					Test_Pixel(destination, 24, 24, Color.Black);
+					Test_Pixel(destination, 25, 25, Color.White);
+					Test_Pixel(destination, 49, 49, Color.White);
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Define()
 		{
 			using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -483,10 +543,7 @@ namespace Magick.NET.Tests
 				Assert.AreEqual(100, image.Width);
 				Assert.AreEqual(100, image.Height);
 
-				using (PixelCollection pixels = image.GetReadOnlyPixels())
-				{
-					Assert.IsTrue(pixels.GetPixel(0, 0).ToColor() == MagickColor.Transparent);
-				}
+				Test_Pixel(image, 0, 0, MagickColor.Transparent);
 			}
 		}
 		//===========================================================================================
