@@ -123,6 +123,7 @@
     <Compile Include="Defines\Tiff\TiffAlpha.cs" />
     <Compile Include="Defines\Tiff\TiffReadDefines.cs" />
     <Compile Include="Defines\Tiff\TiffWriteDefines.cs" />
+    <Compile Include="Drawables\DrawableDensity.cs" />
     <Compile Include="Drawables\DrawableAffine.cs" />
     <Compile Include="Drawables\DrawableOpacity.cs" />
     <Compile Include="Drawables\DrawableArc.cs" />

@@ -69,6 +69,8 @@ namespace ImageMagick
 			//===========================================================================================
 			static Magick::DrawableDashOffset* CreateDrawableDashOffset(IDrawableDashOffset^ drawableDashOffset);
 			//===========================================================================================
+			static Magick::DrawableDensity* CreateDrawableDensity(IDrawableDensity^ drawableDensity);
+			//===========================================================================================
 			static Magick::DrawableEllipse* CreateDrawableEllipse(IDrawableEllipse^ drawableEllipse);
 			//========================================================================================
 			static Magick::DrawableFillColor* CreateDrawableFillColor(IDrawableFillColor^ drawableFillColor);

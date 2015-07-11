@@ -55,6 +55,9 @@ namespace ImageMagick
 			if (IDrawableDashOffset::typeid->IsAssignableFrom(interfaceType))
 				return CreateDrawableDashOffset((IDrawableDashOffset^)drawable);
 
+			if (IDrawableDensity::typeid->IsAssignableFrom(interfaceType))
+				return CreateDrawableDensity((IDrawableDensity^)drawable);
+
 			if (IDrawableEllipse::typeid->IsAssignableFrom(interfaceType))
 				return CreateDrawableEllipse((IDrawableEllipse^)drawable);
 
@@ -265,6 +268,12 @@ namespace ImageMagick
 		Magick::DrawableDashOffset* Drawables::CreateDrawableDashOffset(IDrawableDashOffset^ drawableDashOffset)
 		{
 			return new Magick::DrawableDashOffset(drawableDashOffset->Offset);
+		}
+		//===========================================================================================
+		Magick::DrawableDensity* Drawables::CreateDrawableDensity(IDrawableDensity^ drawableDensity)
+		{
+			Magick::Point density(drawableDensity->Density.X,drawableDensity->Density.Y);
+			return new Magick::DrawableDensity(density);
 		}
 		//===========================================================================================
 		Magick::DrawableEllipse* Drawables::CreateDrawableEllipse(IDrawableEllipse^ drawableEllipse)

@@ -86,6 +86,8 @@
     <Compile Include="Defines\Png\PngReadDefinesTests.cs" />
     <Compile Include="Defines\Tiff\TiffReadDefinesTests.cs" />
     <Compile Include="Defines\Tiff\TiffWriteDefinesTests.cs" />
+    <Compile Include="Drawables\DrawableDensityTests.cs" />
+    <Compile Include="Drawables\DrawablePathTests.cs" />
     <Compile Include="Drawables\DrawableTests.cs" />
     <Compile Include="ExceptionAssert.cs">
       <SubType>Code</SubType>
