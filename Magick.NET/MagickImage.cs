@@ -40,7 +40,7 @@ namespace ImageMagick
 {
 	///=============================================================================================
 	///<summary>
-	/// Base class for colors
+	/// Class that represents an ImageMagick image.
 	///</summary>
 	[SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
 	public sealed class MagickImage : IDisposable, IEquatable<MagickImage>, IComparable<MagickImage>
