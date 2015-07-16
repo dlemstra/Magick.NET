@@ -33,10 +33,14 @@ namespace ImageMagick
 		//===========================================================================================
 		private void Initialize()
 		{
+			Parts = ExifParts.All;
+			BestPrecision = false;
+		}
+		//===========================================================================================
+		private void InitializeValues()
+		{
 			if (_Values != null)
 				return;
-
-			Parts = ExifParts.All;
 
 			if (Data == null)
 			{
@@ -59,7 +63,7 @@ namespace ImageMagick
 			if (_Values == null || _Values.Count == 0)
 				Data = null;
 
-			ExifWriter writer = new ExifWriter(_Values, Parts);
+			ExifWriter writer = new ExifWriter(_Values, Parts, BestPrecision);
 			Data = writer.GetData();
 		}
 		///==========================================================================================
@@ -69,6 +73,7 @@ namespace ImageMagick
 		public ExifProfile()
 			: base("exif")
 		{
+			Initialize();
 		}
 		///==========================================================================================
 		///<summary>
@@ -78,6 +83,7 @@ namespace ImageMagick
 		public ExifProfile(Byte[] data)
 			: base("exif", data)
 		{
+			Initialize();
 		}
 		///==========================================================================================
 		///<summary>
@@ -88,6 +94,7 @@ namespace ImageMagick
 		public ExifProfile(string fileName)
 			: base("exif", fileName)
 		{
+			Initialize();
 		}
 		///==========================================================================================
 		///<summary>
@@ -97,6 +104,17 @@ namespace ImageMagick
 		public ExifProfile(Stream stream)
 			: base("exif", stream)
 		{
+			Initialize();
+		}
+		///==========================================================================================
+		///<summary>
+		/// Specifies if rationals should be stored with the best precision possible. This is disabled
+		/// by default, setting this to true will have an impact on the performance.
+		///</summary>
+		public bool BestPrecision
+		{
+			get;
+			set;
 		}
 		///==========================================================================================
 		///<summary>
@@ -126,7 +144,7 @@ namespace ImageMagick
 		{
 			get
 			{
-				Initialize();
+				InitializeValues();
 				return _Values;
 			}
 		}
@@ -136,7 +154,7 @@ namespace ImageMagick
 		///</summary>
 		public MagickImage CreateThumbnail()
 		{
-			Initialize();
+			InitializeValues();
 
 			if (_ThumbnailOffset == 0 || _ThumbnailLength == 0)
 				return null;
@@ -167,7 +185,7 @@ namespace ImageMagick
 		///<param name="tag">The tag of the exif value.</param>
 		public bool RemoveValue(ExifTag tag)
 		{
-			Initialize();
+			InitializeValues();
 
 			for (int i = 0; i < _Values.Count; i++)
 			{

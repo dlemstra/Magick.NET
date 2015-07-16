@@ -91,6 +91,7 @@ namespace ImageMagick
 		private const int _StartIndex = 6;
 		//===========================================================================================
 		private ExifParts _AllowedParts;
+		private bool _BestPrecision;
 		private Collection<ExifValue> _Values;
 		private Collection<int> _DataOffsets;
 		private Collection<int> _IfdIndexes;
@@ -159,7 +160,7 @@ namespace ImageMagick
 			return offset + source.Length;
 		}
 		//===========================================================================================
-		private static int WriteArray(ExifValue value, Byte[] destination, int offset)
+		private int WriteArray(ExifValue value, Byte[] destination, int offset)
 		{
 			if (value.DataType == ExifDataType.Ascii)
 				return WriteValue(ExifDataType.Ascii, value.Value, destination, offset);
@@ -219,7 +220,7 @@ namespace ImageMagick
 			return newOffset;
 		}
 		//===========================================================================================
-		private static int WriteRational(double value, Byte[] destination, int offset)
+		private int WriteRational(double value, Byte[] destination, int offset)
 		{
 			uint numerator = 1;
 			uint denominator = 1;
@@ -232,13 +233,12 @@ namespace ImageMagick
 			{
 				double val = Math.Abs(value);
 				double df = numerator / denominator;
+				double epsilon = _BestPrecision ? Double.Epsilon : .000001;
 
-				while (Math.Abs(df - val) > .000001)
+				while (Math.Abs(df - val) > epsilon)
 				{
 					if (df < val)
-					{
 						numerator++;
-					}
 					else
 					{
 						denominator++;
@@ -255,7 +255,7 @@ namespace ImageMagick
 			return offset + 8;
 		}
 		//===========================================================================================
-		private static int WriteSignedRational(double value, Byte[] destination, int offset)
+		private int WriteSignedRational(double value, Byte[] destination, int offset)
 		{
 			int numerator = 1;
 			int denominator = 1;
@@ -268,12 +268,12 @@ namespace ImageMagick
 			{
 				double val = Math.Abs(value);
 				double df = numerator / denominator;
-				while (Math.Abs(df - val) > .000001)
+				double epsilon = _BestPrecision ? Double.Epsilon : .000001;
+
+				while (Math.Abs(df - val) > epsilon)
 				{
 					if (df < val)
-					{
 						numerator++;
-					}
 					else
 					{
 						denominator++;
@@ -290,7 +290,7 @@ namespace ImageMagick
 			return offset + 8;
 		}
 		//===========================================================================================
-		private static int WriteValue(ExifDataType dataType, object value, Byte[] destination, int offset)
+		private int WriteValue(ExifDataType dataType, object value, Byte[] destination, int offset)
 		{
 			switch (dataType)
 			{
@@ -324,7 +324,7 @@ namespace ImageMagick
 			}
 		}
 		//===========================================================================================
-		private static int WriteValue(ExifValue value, Byte[] destination, int offset)
+		private int WriteValue(ExifValue value, Byte[] destination, int offset)
 		{
 			if (value.IsArray && value.DataType != ExifDataType.Ascii)
 				return WriteArray(value, destination, offset);
@@ -332,10 +332,11 @@ namespace ImageMagick
 				return WriteValue(value.DataType, value.Value, destination, offset);
 		}
 		//===========================================================================================
-		public ExifWriter(Collection<ExifValue> values, ExifParts allowedParts)
+		public ExifWriter(Collection<ExifValue> values, ExifParts allowedParts, bool bestPrecision)
 		{
 			_Values = values;
 			_AllowedParts = allowedParts;
+			_BestPrecision = bestPrecision;
 
 			_IfdIndexes = GetIndexes(ExifParts.IfdTags, _IfdTags);
 			_ExifIndexes = GetIndexes(ExifParts.ExifTags, _ExifTags);

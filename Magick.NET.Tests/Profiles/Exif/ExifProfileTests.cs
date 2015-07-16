@@ -111,6 +111,60 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Fraction()
+		{
+			using (MemoryStream memStream = new MemoryStream())
+			{
+				double exposureTime = 1.0 / 1600;
+
+				using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+				{
+					ExifProfile profile = image.GetExifProfile();
+
+					profile.SetValue(ExifTag.ExposureTime, exposureTime);
+					image.AddProfile(profile);
+
+					image.Write(memStream);
+				}
+
+				memStream.Position = 0;
+				using (MagickImage image = new MagickImage(memStream))
+				{
+					ExifProfile profile = image.GetExifProfile();
+
+					Assert.IsNotNull(profile);
+
+					ExifValue value = profile.GetValue(ExifTag.ExposureTime);
+					Assert.IsNotNull(value);
+					Assert.AreNotEqual(exposureTime, value.Value);
+				}
+
+				memStream.Position = 0;
+				using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+				{
+					ExifProfile profile = image.GetExifProfile();
+
+					profile.SetValue(ExifTag.ExposureTime, exposureTime);
+					profile.BestPrecision = true;
+					image.AddProfile(profile);
+
+					image.Write(memStream);
+				}
+
+				memStream.Position = 0;
+				using (MagickImage image = new MagickImage(memStream))
+				{
+					ExifProfile profile = image.GetExifProfile();
+
+					Assert.IsNotNull(profile);
+
+					ExifValue value = profile.GetValue(ExifTag.ExposureTime);
+					TestValue(value, exposureTime);
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Infinity()
 		{
 			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
