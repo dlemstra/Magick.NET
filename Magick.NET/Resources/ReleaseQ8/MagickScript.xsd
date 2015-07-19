@@ -1701,7 +1701,7 @@
 				</xs:element>
 				<xs:element name="adaptiveThreshold">
 					<xs:complexType>
-						<xs:attribute name="bias" type="byte" />
+						<xs:attribute name="bias" type="double" />
 						<xs:attribute name="biasPercentage" type="double" />
 						<xs:attribute name="height" use="required" type="int" />
 						<xs:attribute name="width" use="required" type="int" />
@@ -1920,6 +1920,15 @@
 						<xs:attribute name="blackPoint" use="required" type="double" />
 						<xs:attribute name="channels" type="Channels" />
 						<xs:attribute name="whitePoint" type="double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="copyPixels">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="offset" type="coordinate" />
+							<xs:element name="source" type="image" />
+						</xs:sequence>
+						<xs:attribute name="geometry" use="required" type="geometry" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="crop">
@@ -2766,6 +2775,12 @@
 				<xs:element name="dashOffset">
 					<xs:complexType>
 						<xs:attribute name="offset" use="required" type="double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="density">
+					<xs:complexType>
+						<xs:attribute name="density" type="double" />
+						<xs:attribute name="pointDensity" type="pointd" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="ellipse">

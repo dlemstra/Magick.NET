@@ -424,6 +424,11 @@ namespace ImageMagick
 									}
 									break;
 								}
+								case 'p':
+								{
+									ExecuteCopyPixels(element, image);
+									return;
+								}
 							}
 							break;
 						}
@@ -2126,7 +2131,7 @@ namespace ImageMagick
 			foreach (XmlAttribute attribute in element.Attributes)
 			{
 				if (attribute.Name == "bias")
-					arguments["bias"] = Variables.GetValue<QuantumType>(attribute);
+					arguments["bias"] = Variables.GetValue<double>(attribute);
 				else if (attribute.Name == "biasPercentage")
 					arguments["biasPercentage"] = Variables.GetValue<Percentage>(attribute);
 				else if (attribute.Name == "height")
@@ -2137,7 +2142,7 @@ namespace ImageMagick
 			if (OnlyContains(arguments, "width", "height"))
 				image.AdaptiveThreshold((Int32)arguments["width"], (Int32)arguments["height"]);
 			else if (OnlyContains(arguments, "width", "height", "bias"))
-				image.AdaptiveThreshold((Int32)arguments["width"], (Int32)arguments["height"], (QuantumType)arguments["bias"]);
+				image.AdaptiveThreshold((Int32)arguments["width"], (Int32)arguments["height"], (double)arguments["bias"]);
 			else if (OnlyContains(arguments, "width", "height", "biasPercentage"))
 				image.AdaptiveThreshold((Int32)arguments["width"], (Int32)arguments["height"], (Percentage)arguments["biasPercentage"]);
 			else
@@ -2652,6 +2657,14 @@ namespace ImageMagick
 				image.ContrastStretch((Percentage)arguments["blackPoint"], (Percentage)arguments["whitePoint"], (Channels)arguments["channels"]);
 			else
 				throw new ArgumentException("Invalid argument combination for 'contrastStretch', allowed combinations are: [blackPoint] [blackPoint, whitePoint] [blackPoint, whitePoint, channels]");
+		}
+		//============================================================================================
+		private void ExecuteCopyPixels(XmlElement element, MagickImage image)
+		{
+			MagickImage source_ = CreateMagickImage(element["source"]);
+			MagickGeometry geometry_ = Variables.GetValue<MagickGeometry>(element, "geometry");
+			Coordinate offset_ = CreateCoordinate(element["offset"]);
+			image.CopyPixels(source_, geometry_, offset_);
 		}
 		//============================================================================================
 		private void ExecuteCrop(XmlElement element, MagickImage image)

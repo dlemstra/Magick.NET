@@ -497,6 +497,7 @@ namespace Magick.NET.FileGenerator
 				case "ImageProfile":
 					writer.Write("element");
 					break;
+				case "Coordinate":
 				case "ColorProfile":
 				case "IDefines":
 				case "IReadDefines":

@@ -100,16 +100,28 @@ namespace ImageMagick
 				}
 				case 'd':
 				{
-					switch(element.Name[4])
+					switch(element.Name[1])
 					{
-						case 'A':
+						case 'a':
 						{
-							ExecuteDrawableDashArray(element, drawables);
-							return;
+							switch(element.Name[4])
+							{
+								case 'A':
+								{
+									ExecuteDrawableDashArray(element, drawables);
+									return;
+								}
+								case 'O':
+								{
+									ExecuteDrawableDashOffset(element, drawables);
+									return;
+								}
+							}
+							break;
 						}
-						case 'O':
+						case 'e':
 						{
-							ExecuteDrawableDashOffset(element, drawables);
+							ExecuteDrawableDensity(element, drawables);
 							return;
 						}
 					}
@@ -516,6 +528,24 @@ namespace ImageMagick
 		{
 			double offset_ = Variables.GetValue<double>(element, "offset");
 			drawables.Add(new DrawableDashOffset(offset_));
+		}
+		//============================================================================================
+		private void ExecuteDrawableDensity(XmlElement element, Collection<IDrawable> drawables)
+		{
+			Hashtable arguments = new Hashtable();
+			foreach (XmlAttribute attribute in element.Attributes)
+			{
+				if (attribute.Name == "density")
+					arguments["density"] = Variables.GetValue<double>(attribute);
+				else if (attribute.Name == "pointDensity")
+					arguments["pointDensity"] = Variables.GetValue<PointD>(attribute);
+			}
+			if (OnlyContains(arguments, "density"))
+				drawables.Add(new DrawableDensity((double)arguments["density"]));
+			else if (OnlyContains(arguments, "pointDensity"))
+				drawables.Add(new DrawableDensity((PointD)arguments["pointDensity"]));
+			else
+				throw new ArgumentException("Invalid argument combination for 'density', allowed combinations are: [density] [pointDensity]");
 		}
 		//============================================================================================
 		private void ExecuteDrawableEllipse(XmlElement element, Collection<IDrawable> drawables)

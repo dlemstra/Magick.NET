@@ -35,10 +35,10 @@ namespace ImageMagick
 		///<summary>
 		/// Creates a new DrawableDensity instance.
 		///</summary>
-		///<param name="density">The vertical and horizontal resolution.</param>
-		public DrawableDensity(PointD density)
+		///<param name="pointDensity">The vertical and horizontal resolution.</param>
+		public DrawableDensity(PointD pointDensity)
 		{
-			Density = density;
+			Density = pointDensity;
 		}
 		///==========================================================================================
 		///<summary>
