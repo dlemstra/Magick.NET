@@ -606,6 +606,28 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// The names of the artifacts.
+		///</summary>
+		public IEnumerable<string> ArtifactNames
+		{
+			get
+			{
+				return _Instance.ArtifactNames;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// The names of the attributes.
+		///</summary>
+		public IEnumerable<string> AttributeNames
+		{
+			get
+			{
+				return _Instance.AttributeNames;
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Background color of the image.
 		///</summary>
 		public MagickColor BackgroundColor

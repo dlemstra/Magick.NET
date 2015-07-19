@@ -122,6 +122,16 @@ namespace ImageMagick
 				void set(bool value);
 			}
 			//========================================================================================
+			property IEnumerable<String^>^ ArtifactNames
+			{
+				IEnumerable<String^>^ get();
+			}
+			//========================================================================================
+			property IEnumerable<String^>^ AttributeNames
+			{
+				IEnumerable<String^>^ get();
+			}
+			//========================================================================================
 			property MagickColor^ BackgroundColor
 			{
 				MagickColor^ get();

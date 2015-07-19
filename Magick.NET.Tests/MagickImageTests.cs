@@ -117,21 +117,40 @@ namespace Magick.NET.Tests
 
 				image.SetArtifact("test", "123");
 				Assert.AreEqual("123", image.GetArtifact("test"));
+
+				image.SetAttribute("foo", "bar");
+
+				IEnumerable<string> names = image.ArtifactNames;
+				Assert.AreEqual(1, names.Count());
+				Assert.AreEqual("test", string.Join(",", (from name in names
+																		orderby name
+																		select name).ToArray()));
 			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Attribute()
 		{
-			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+			using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
 			{
 				Assert.IsNull(image.GetAttribute("test"));
+
+				IEnumerable<string> names = image.AttributeNames;
+				Assert.AreEqual(4, names.Count());
 
 				image.SetAttribute("test", "");
 				Assert.AreEqual(null, image.GetAttribute("test"));
 
 				image.SetAttribute("test", "123");
 				Assert.AreEqual("123", image.GetAttribute("test"));
+
+				image.SetArtifact("foo", "bar");
+
+				names = image.AttributeNames;
+				Assert.AreEqual(5, names.Count());
+				Assert.AreEqual("date:create,date:modify,jpeg:colorspace,jpeg:sampling-factor,test", string.Join(",", (from name in names
+																																						 orderby name
+																																						 select name).ToArray()));
 			}
 		}
 		//===========================================================================================

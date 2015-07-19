@@ -225,6 +225,50 @@ namespace ImageMagick
 			Value->antiAlias(value);
 		}
 		//===========================================================================================
+		IEnumerable<String^>^ MagickImage::ArtifactNames::get()
+		{
+			Collection<String^>^ names = gcnew Collection<String^>();
+
+			std::vector<std::string> *artifactNames = new std::vector<std::string>();
+
+			try
+			{
+				Magick::artifactNames(artifactNames, Value);
+				for (std::vector<std::string>::iterator iter = artifactNames->begin(), end = artifactNames->end(); iter != end; ++iter)
+				{
+					names->Add(Marshaller::Marshal(*iter));
+				}
+
+				return names;
+			}
+			finally
+			{
+				delete artifactNames;
+			}
+		}
+		//===========================================================================================
+		IEnumerable<String^>^ MagickImage::AttributeNames::get()
+		{
+			Collection<String^>^ names = gcnew Collection<String^>();
+
+			std::vector<std::string> *attributeNames = new std::vector<std::string>();
+
+			try
+			{
+				Magick::attributeNames(attributeNames, Value);
+				for (std::vector<std::string>::iterator iter = attributeNames->begin(), end = attributeNames->end(); iter != end; ++iter)
+				{
+					names->Add(Marshaller::Marshal(*iter));
+				}
+
+				return names;
+			}
+			finally
+			{
+				delete attributeNames;
+			}
+		}
+		//===========================================================================================
 		MagickColor^ MagickImage::BackgroundColor::get()
 		{
 			return gcnew MagickColor(Value->backgroundColor());
@@ -709,7 +753,7 @@ namespace ImageMagick
 		//===========================================================================================
 		IEnumerable<String^>^ MagickImage::ProfileNames::get()
 		{
-			List<String^>^ names = gcnew List<String^>();
+			Collection<String^>^ names = gcnew Collection<String^>();
 
 			std::vector<std::string> *profileNames = new std::vector<std::string>();
 
