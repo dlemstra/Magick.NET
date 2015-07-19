@@ -1127,6 +1127,17 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Image contains a clipping path.
+		///</summary>
+		public bool HasClippingPath
+		{
+			get
+			{
+				return !string.IsNullOrEmpty(GetAttribute("8BIM:1999,2998:#1"));
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Height of the image.
 		///</summary>
 		public int Height

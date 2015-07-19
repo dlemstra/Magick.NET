@@ -701,6 +701,20 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_HasClippingPath()
+		{
+			using (MagickImage noPath = new MagickImage(Files.MagickNETIconPNG))
+			{
+				Assert.IsFalse(noPath.HasClippingPath);
+			}
+
+			using (MagickImage hasPath = new MagickImage(Files.InvitationTif))
+			{
+				Assert.IsTrue(hasPath.HasClippingPath);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Histogram()
 		{
 			MagickImage image = new MagickImage(Files.RedPNG);
