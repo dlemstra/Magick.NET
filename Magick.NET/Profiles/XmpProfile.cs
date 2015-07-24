@@ -29,13 +29,35 @@ namespace ImageMagick
 	///</summary>
 	public sealed class XmpProfile : ImageProfile
 	{
+		//===========================================================================================
+		private static byte[] CheckTrailingNULL(byte[] data)
+		{
+			Throw.IfNull("data", data);
+
+			int length = data.Length;
+
+			while (length > 2)
+			{
+				if (data[length - 1] != '\0')
+					break;
+
+				length--;
+			}
+
+			if (length == data.Length)
+				return data;
+
+			byte[] result = new byte[length];
+			Buffer.BlockCopy(data, 0, result, 0, length);
+			return result;
+		}
 		///==========================================================================================
 		///<summary>
 		/// Initializes a new instance of the XmpProfile class.
 		///</summary>
 		///<param name="data">A byte array containing the profile.</param>
 		public XmpProfile(Byte[] data)
-			: base("xmp", data)
+			: base("xmp", CheckTrailingNULL(data))
 		{
 		}
 		///==========================================================================================
