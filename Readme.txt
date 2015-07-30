@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 7.0.0.0017:
+  - Renamed the values of the FontWeight enumeration.
+
 Magick.NET 7.0.0.0015:
   - MagickImage.Gamma 'getter' is now a property and Gamma 'setter' has been renamed to GammaCorrect.
 

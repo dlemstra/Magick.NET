@@ -28,7 +28,7 @@ namespace ImageMagick
 		///</summary>
 		///<param name="family">The font family or the full path to the font file.</param>
 		public DrawableFont(string family)
-			: this(family, FontStyleType.Any, FontWeight.Weight400, FontStretch.Normal)
+			: this(family, FontStyleType.Any, FontWeight.Normal, FontStretch.Normal)
 		{
 		}
 		///==========================================================================================
