@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 
@@ -28,17 +29,17 @@ namespace ImageMagick
 	public sealed class EightBimProfile : ImageProfile
 	{
 		//===========================================================================================
-		private Collection<IXPathNavigable> _ClipPaths;
+		private Collection<ClipPath> _ClipPaths;
 		private int _Height;
 		private Collection<EightBimValue> _Values;
 		private int _Width;
 		//===========================================================================================
-		private XmlDocument CreateClipPath(int offset, int length)
+		private ClipPath CreateClipPath(string name, int offset, int length)
 		{
-			XmlDocument clipPath = new XmlDocument();
-			clipPath.CreateXmlDeclaration("1.0", "iso-8859-1", null);
+			XmlDocument doc = new XmlDocument();
+			doc.CreateXmlDeclaration("1.0", "iso-8859-1", null);
 
-			XmlElement svg = XmlHelper.CreateElement(clipPath, "svg");
+			XmlElement svg = XmlHelper.CreateElement(doc, "svg");
 			XmlHelper.SetAttribute(svg, "width", _Width);
 			XmlHelper.SetAttribute(svg, "height", _Height);
 
@@ -52,7 +53,7 @@ namespace ImageMagick
 			String d = GetClipPath(offset, length);
 			XmlHelper.SetAttribute(path, "d", d);
 
-			return clipPath;
+			return new ClipPath(name, doc);
 		}
 		//===========================================================================================
 		private string GetClipPath(int offset, int length)
@@ -66,7 +67,7 @@ namespace ImageMagick
 			if (_ClipPaths != null)
 				return;
 
-			_ClipPaths = new Collection<IXPathNavigable>();
+			_ClipPaths = new Collection<ClipPath>();
 			_Values = new Collection<EightBimValue>();
 
 			int i = 0;
@@ -85,10 +86,17 @@ namespace ImageMagick
 					return;
 
 				short id = ByteConverter.ToShort(Data, ref i);
+				bool isClipPath = (id > 1999 && id < 2998);
 
+				string name = null;
 				int length = (int)Data[i++];
 				if (length != 0)
+				{
+					if (isClipPath && i + length < Data.Length)
+						name = Encoding.ASCII.GetString(Data, i, length);
+
 					i += length;
+				}
 
 				if ((length & 0x01) == 0)
 					i++;
@@ -99,8 +107,8 @@ namespace ImageMagick
 
 				if (length != 0)
 				{
-					if (id > 1999 && id < 2998)
-						_ClipPaths.Add(CreateClipPath(i, length));
+					if (isClipPath)
+						_ClipPaths.Add(CreateClipPath(name, i, length));
 
 					Byte[] data = new Byte[length];
 					Array.Copy(Data, i, data, 0, length);
@@ -149,7 +157,7 @@ namespace ImageMagick
 		///<summary>
 		/// Returns the clipping paths this image contains.
 		///</summary>
-		public IEnumerable<IXPathNavigable> ClippingPaths
+		public IEnumerable<ClipPath> ClipPaths
 		{
 			get
 			{

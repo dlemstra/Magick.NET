@@ -211,6 +211,7 @@
     <Compile Include="Pixels\WritablePixelCollection.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Profiles\8Bim\ClipPath.cs" />
     <Compile Include="Profiles\8Bim\ClipPathReader.cs" />
     <Compile Include="Profiles\8Bim\EightBimProfile.cs" />
     <Compile Include="Profiles\8Bim\EightBimValue.cs" />

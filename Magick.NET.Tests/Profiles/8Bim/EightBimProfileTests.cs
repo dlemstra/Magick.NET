@@ -43,15 +43,17 @@ namespace Magick.NET.Tests
 		{
 			Assert.IsNotNull(profile);
 
-			Assert.AreEqual(2, profile.ClippingPaths.Count());
+			Assert.AreEqual(2, profile.ClipPaths.Count());
 
-			IXPathNavigable first = profile.ClippingPaths.First();
-			XDocument doc = XDocument.Load(first.CreateNavigator().ReadSubtree());
+			ClipPath first = profile.ClipPaths.First();
+			Assert.AreEqual("Path 1", first.Name);
+			XDocument doc = XDocument.Load(first.Path.CreateNavigator().ReadSubtree());
 
 			Assert.AreEqual(@"<svg width=""200"" height=""200""><g><path fill=""#00000000"" stroke=""#00000000"" stroke-width=""0"" stroke-antialiasing=""false"" d=""M 45 58&#xA;L 80 124&#xA;L 147 147&#xA;L 45 147&#xA;L 45 58 Z&#xA;"" /></g></svg>", doc.ToString(SaveOptions.DisableFormatting));
 
-			IXPathNavigable second = profile.ClippingPaths.Skip(1).First();
-			doc = XDocument.Load(second.CreateNavigator().ReadSubtree());
+			ClipPath second = profile.ClipPaths.Skip(1).First();
+			Assert.AreEqual("Path 2", second.Name);
+			doc = XDocument.Load(second.Path.CreateNavigator().ReadSubtree());
 
 			Assert.AreEqual(@"<svg width=""200"" height=""200""><g><path fill=""#00000000"" stroke=""#00000000"" stroke-width=""0"" stroke-antialiasing=""false"" d=""M 52 144&#xA;L 130 57&#xA;L 157 121&#xA;L 131 106&#xA;L 52 144 Z&#xA;"" /></g></svg>", doc.ToString(SaveOptions.DisableFormatting));
 		}
