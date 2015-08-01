@@ -604,6 +604,17 @@ namespace ImageMagick
 			Value->font(Marshaller::Marshal(value, font));
 		}
 		//===========================================================================================
+		String^ MagickImage::FontFamily::get()
+		{
+			return Marshaller::Marshal(Value->fontFamily());
+		}
+		//===========================================================================================
+		void MagickImage::FontFamily::set(String^ value)
+		{
+			std::string font;
+			Value->fontFamily(Marshaller::Marshal(value, font));
+		}
+		//===========================================================================================
 		double MagickImage::FontPointsize::get()
 		{
 			return Value->fontPointsize();
@@ -612,6 +623,26 @@ namespace ImageMagick
 		void MagickImage::FontPointsize::set(double value)
 		{
 			Value->fontPointsize(value);
+		}
+		//===========================================================================================
+		FontStyleType MagickImage::FontStyle::get()
+		{
+			return (FontStyleType)Value->fontStyle();
+		}
+		//===========================================================================================
+		void MagickImage::FontStyle::set(FontStyleType value)
+		{
+			Value->fontStyle((Magick::StyleType)value);
+		}
+		//===========================================================================================
+		FontWeight MagickImage::FontWeight::get()
+		{
+			return (ImageMagick::FontWeight)Value->fontWeight();
+		}
+		//===========================================================================================
+		void MagickImage::FontWeight::set(ImageMagick::FontWeight value)
+		{
+			Value->fontWeight((size_t) value);
 		}
 		//===========================================================================================
 		MagickFormat MagickImage::Format::get()
@@ -993,6 +1024,18 @@ namespace ImageMagick
 		void MagickImage::TextKerning::set(double value)
 		{
 			Value->textKerning(value);
+		}
+		//===========================================================================================
+		MagickColor^ MagickImage::TextUnderColor::get()
+		{
+			return gcnew MagickColor(Value->textUnderColor());
+		}
+		//===========================================================================================
+		void MagickImage::TextUnderColor::set(MagickColor^ value)
+		{
+			const Magick::Color* color = ReferenceEquals(value, nullptr) ? new Magick::Color() : value->CreateColor();
+			Value->textUnderColor(*color);
+			delete color;
 		}
 		//===========================================================================================
 		int MagickImage::TotalColors::get()

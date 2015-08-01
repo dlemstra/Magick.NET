@@ -299,10 +299,28 @@ namespace ImageMagick
 				void set(String^ value);
 			}
 			//========================================================================================
+			property String^ FontFamily
+			{
+				String^ get();
+				void set(String^ value);
+			}
+			//========================================================================================
 			property double FontPointsize
 			{
 				double get();
 				void set(double value);
+			}
+			//========================================================================================
+			property FontStyleType FontStyle
+			{
+				FontStyleType get();
+				void set(FontStyleType value);
+			}
+			//========================================================================================
+			property FontWeight FontWeight
+			{
+				ImageMagick::FontWeight get();
+				void set(ImageMagick::FontWeight value);
 			}
 			//========================================================================================
 			property MagickFormat Format
@@ -500,6 +518,12 @@ namespace ImageMagick
 			{
 				double get();
 				void set(double value);
+			}
+			//========================================================================================
+			property MagickColor^ TextUnderColor
+			{
+				MagickColor^ get();
+				void set(MagickColor^ value);
 			}
 			//========================================================================================
 			property int TotalColors

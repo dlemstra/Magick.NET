@@ -962,9 +962,6 @@ namespace ImageMagick
 			set
 			{
 				_Instance.FillColor = MagickColor.GetInstance(value);
-
-				string colorName = ReferenceEquals(value, null) ? null : value.ToString();
-				_Instance.SetOption("fill", colorName);
 			}
 		}
 		///==========================================================================================
@@ -1044,6 +1041,21 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Text family.
+		///</summary>
+		public string FontFamily
+		{
+			get
+			{
+				return _Instance.FontFamily;
+			}
+			set
+			{
+				_Instance.FontFamily = value;
+			}
+		}
+		///==========================================================================================
+		///<summary>
 		/// Font point size.
 		///</summary>
 		public double FontPointsize
@@ -1055,6 +1067,36 @@ namespace ImageMagick
 			set
 			{
 				_Instance.FontPointsize = value;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Font style.
+		///</summary>
+		public FontStyleType FontStyle
+		{
+			get
+			{
+				return _Instance.FontStyle;
+			}
+			set
+			{
+				_Instance.FontStyle = value;
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Font weight.
+		///</summary>
+		public FontWeight FontWeight
+		{
+			get
+			{
+				return _Instance.FontWeight;
+			}
+			set
+			{
+				_Instance.FontWeight = value;
 			}
 		}
 		///==========================================================================================
@@ -1368,9 +1410,6 @@ namespace ImageMagick
 			set
 			{
 				_Instance.StrokeColor = MagickColor.GetInstance(value);
-
-				string colorName = ReferenceEquals(value, null) ? null : value.ToString();
-				_Instance.SetOption("stroke", colorName);
 			}
 		}
 		///==========================================================================================
@@ -1485,8 +1524,6 @@ namespace ImageMagick
 			set
 			{
 				_Instance.StrokeWidth = value;
-
-				_Instance.SetOption("strokeWidth", value.ToString(CultureInfo.InvariantCulture));
 			}
 		}
 		///==========================================================================================
@@ -1502,8 +1539,6 @@ namespace ImageMagick
 			set
 			{
 				_Instance.TextDirection = value;
-
-				_Instance.SetOption("direction", value.ToString());
 			}
 		}
 		///==========================================================================================
@@ -1533,8 +1568,6 @@ namespace ImageMagick
 				string name = value != null ? value.WebName : null;
 
 				_Instance.TextEncoding = name;
-
-				_Instance.SetOption("encoding", name);
 			}
 		}
 		///==========================================================================================
@@ -1550,8 +1583,6 @@ namespace ImageMagick
 			set
 			{
 				_Instance.TextGravity = value;
-
-				_Instance.SetOption("gravity", value.ToString());
 			}
 		}
 		///==========================================================================================
@@ -1567,8 +1598,6 @@ namespace ImageMagick
 			set
 			{
 				_Instance.TextInterlineSpacing = value;
-
-				_Instance.SetOption("interline-spacing", value.ToString(CultureInfo.InvariantCulture));
 			}
 		}
 		///==========================================================================================
@@ -1584,8 +1613,6 @@ namespace ImageMagick
 			set
 			{
 				_Instance.TextInterwordSpacing = value;
-
-				_Instance.SetOption("interword-spacing", value.ToString(CultureInfo.InvariantCulture));
 			}
 		}
 		///==========================================================================================
@@ -1601,8 +1628,21 @@ namespace ImageMagick
 			set
 			{
 				_Instance.TextKerning = value;
-
-				_Instance.SetOption("kerning", value.ToString(CultureInfo.InvariantCulture));
+			}
+		}
+		///==========================================================================================
+		///<summary>
+		/// Text undercolor box.
+		///</summary>
+		public MagickColor TextUnderColor
+		{
+			get
+			{
+				return MagickColor.Create(_Instance.TextUnderColor);
+			}
+			set
+			{
+				_Instance.TextUnderColor = MagickColor.GetInstance(value);
 			}
 		}
 		///==========================================================================================
