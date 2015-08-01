@@ -16,7 +16,7 @@
 			<fillColor color="#00F"/>
 			<textAntialias isEnabled="1"/>
 			<textDecoration decoration="Underline"/>
-			<font family="Verdana" stretch="Normal" weight="Weight500" style="Italic"/>
+			<font family="Verdana" stretch="Normal" weight="Medium" style="Italic"/>
 			<text x="5" y="110" value="Magick.NET"/>
 		</draw>
 	</read>
