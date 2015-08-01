@@ -47,6 +47,7 @@
     <Compile Include="Samples\Magick.NET\ReadRawImageFromCamera.cs" />
     <Compile Include="Samples\Magick.NET\ResizeImage.cs" />
     <Compile Include="Samples\Magick.NET\UsingColors.cs" />
+    <Compile Include="Samples\Magick.NET\Watermark.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Magick.NET.Core\Magick.NET.Core.csproj">
@@ -81,6 +82,7 @@
     <Content Include="Samples\Magick.NET\Files\Snakeware.jpg" />
     <Content Include="Samples\Magick.NET\Files\Snakeware.png" />
     <Content Include="Samples\Magick.NET\Output\Readme.txt" />
+    <Content Include="Samples\Magick.NET\Watermark.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\Magick.NET\Files\Snakeware.eps" />
