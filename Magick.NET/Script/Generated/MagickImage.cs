@@ -726,10 +726,28 @@ namespace ImageMagick
 										ExecuteFont(element, image);
 										return;
 									}
-									if (element.Name.Length == 13)
+									switch(element.Name[4])
 									{
-										ExecuteFontPointsize(element, image);
-										return;
+										case 'F':
+										{
+											ExecuteFontFamily(element, image);
+											return;
+										}
+										case 'P':
+										{
+											ExecuteFontPointsize(element, image);
+											return;
+										}
+										case 'S':
+										{
+											ExecuteFontStyle(element, image);
+											return;
+										}
+										case 'W':
+										{
+											ExecuteFontWeight(element, image);
+											return;
+										}
 									}
 									break;
 								}
@@ -1529,6 +1547,11 @@ namespace ImageMagick
 									ExecuteTextKerning(element, image);
 									return;
 								}
+								case 'U':
+								{
+									ExecuteTextUnderColor(element, image);
+									return;
+								}
 								case 'u':
 								{
 									ExecuteTexture(element, image);
@@ -1914,9 +1937,24 @@ namespace ImageMagick
 			image.Font = Variables.GetValue<String>(element, "value");
 		}
 		//============================================================================================
+		private void ExecuteFontFamily(XmlElement element, MagickImage image)
+		{
+			image.FontFamily = Variables.GetValue<String>(element, "value");
+		}
+		//============================================================================================
 		private void ExecuteFontPointsize(XmlElement element, MagickImage image)
 		{
 			image.FontPointsize = Variables.GetValue<double>(element, "value");
+		}
+		//============================================================================================
+		private void ExecuteFontStyle(XmlElement element, MagickImage image)
+		{
+			image.FontStyle = Variables.GetValue<FontStyleType>(element, "value");
+		}
+		//============================================================================================
+		private void ExecuteFontWeight(XmlElement element, MagickImage image)
+		{
+			image.FontWeight = Variables.GetValue<FontWeight>(element, "value");
 		}
 		//============================================================================================
 		private void ExecuteFormat(XmlElement element, MagickImage image)
@@ -2052,6 +2090,11 @@ namespace ImageMagick
 		private void ExecuteTextKerning(XmlElement element, MagickImage image)
 		{
 			image.TextKerning = Variables.GetValue<double>(element, "value");
+		}
+		//============================================================================================
+		private void ExecuteTextUnderColor(XmlElement element, MagickImage image)
+		{
+			image.TextUnderColor = Variables.GetValue<MagickColor>(element, "value");
 		}
 		//============================================================================================
 		private void ExecuteVerbose(XmlElement element, MagickImage image)

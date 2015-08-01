@@ -498,15 +498,20 @@
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:NMTOKEN">
-					<xs:enumeration value="Weight100" />
-					<xs:enumeration value="Weight200" />
-					<xs:enumeration value="Weight300" />
-					<xs:enumeration value="Weight400" />
-					<xs:enumeration value="Weight500" />
-					<xs:enumeration value="Weight600" />
-					<xs:enumeration value="Weight700" />
-					<xs:enumeration value="Weight800" />
-					<xs:enumeration value="Weight900" />
+					<xs:enumeration value="Black" />
+					<xs:enumeration value="Bold" />
+					<xs:enumeration value="DemiBold" />
+					<xs:enumeration value="ExtraBold" />
+					<xs:enumeration value="ExtraLight" />
+					<xs:enumeration value="Heavy" />
+					<xs:enumeration value="Light" />
+					<xs:enumeration value="Medium" />
+					<xs:enumeration value="Normal" />
+					<xs:enumeration value="Regular" />
+					<xs:enumeration value="SemiBold" />
+					<xs:enumeration value="Thin" />
+					<xs:enumeration value="UltraBold" />
+					<xs:enumeration value="UltraLight" />
 				</xs:restriction>
 			</xs:simpleType>
 			<xs:simpleType>
@@ -1541,9 +1546,24 @@
 						<xs:attribute name="value" use="required" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="fontFamily">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="fontPointsize">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="fontStyle">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="FontStyleType" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="fontWeight">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="FontWeight" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="format">
@@ -1667,6 +1687,11 @@
 				<xs:element name="textKerning">
 					<xs:complexType>
 						<xs:attribute name="value" use="required" type="double" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="textUnderColor">
+					<xs:complexType>
+						<xs:attribute name="value" use="required" type="color" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="verbose">
