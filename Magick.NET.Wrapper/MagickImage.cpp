@@ -1940,7 +1940,7 @@ namespace ImageMagick
 		{
 			try
 			{
-				return (ImageMagick::ColorType)Value->determineType();
+				return (ImageMagick::ColorType)Value->identifyType();
 			}
 			catch(Magick::Exception& exception)
 			{

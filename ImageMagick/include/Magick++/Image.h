@@ -255,9 +255,21 @@ namespace Magick
     void font(const std::string &font_);
     std::string font(void) const;
 
+    // Font family
+    void fontFamily(const std::string &family_);
+    std::string fontFamily(void) const;
+
     // Font point size
     void fontPointsize(const double pointSize_);
     double fontPointsize(void) const;
+
+    // Font style
+    void fontStyle(const StyleType style_);
+    StyleType fontStyle(void) const;
+
+    // Font weight
+    void fontWeight(const size_t weight_);
+    size_t fontWeight(void) const;
 
     // Long image format description
     std::string format(void) const;
@@ -483,6 +495,10 @@ namespace Magick
     // Text inter-character kerning
     void textKerning(double kerning_);
     double textKerning(void) const;
+
+    // Text undercolor box
+    void textUnderColor(const Color &underColor_);
+    Color textUnderColor(void) const;
 
     // Number of colors in the image
     size_t totalColors(void) const;
@@ -821,10 +837,6 @@ namespace Magick
     // Despeckle image (reduce speckle noise)
     void despeckle(void);
 
-    // Determines the color type of the image. This method can be used to
-    // automaticly make the type GrayScale.
-    ImageType determineType(void) const;
-
     // Display image on screen
     void display(void);
 
@@ -977,6 +989,10 @@ namespace Magick
     // Identifies lines in the image.
     void houghLine(const size_t width_,const size_t height_,
       const size_t threshold_=40);
+
+    // Identifies the potential color type of the image. This method can be
+    // used to detect if the type can be changed to GrayScale.
+    ImageType identifyType(void) const;
 
     // Implode image (special effect)
     void implode(const double factor_);

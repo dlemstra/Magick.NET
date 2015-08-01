@@ -117,9 +117,21 @@ namespace Magick
     void font(const std::string &font_);
     std::string font(void) const;
 
+    // Font name
+    void fontFamily(const std::string &family_);
+    std::string fontFamily(void) const;
+
     // Font point size
     void fontPointsize(double pointSize_);
     double fontPointsize(void) const;
+
+    // Font style
+    void fontStyle(const StyleType style_);
+    StyleType fontStyle(void) const;
+
+    // Font weight
+    void fontWeight(const size_t weight_);
+    size_t fontWeight(void) const;
 
     std::string format(void) const;
 
@@ -264,6 +276,10 @@ namespace Magick
     void textKerning(double kerning_);
     double textKerning(void) const;
 
+    // Text undercolor box
+    void textUnderColor(const Color &underColor_);
+    Color textUnderColor(void) const;
+
     // Origin of coordinate system to use when annotating with text or drawing
     void transformOrigin(double tx_,double ty_);
 
@@ -314,6 +330,10 @@ namespace Magick
 
     // Assignment not supported
     Options& operator=(const Options&);
+
+    void setOption(const char *name,const Color &value_);
+
+    void setOption(const char *name,const double value_);
 
     MagickCore::ImageInfo    *_imageInfo;
     MagickCore::QuantizeInfo *_quantizeInfo;

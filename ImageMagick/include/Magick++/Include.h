@@ -384,7 +384,10 @@ namespace Magick
 
   // Command options
   using MagickCore::CommandOption;
+  using MagickCore::MagickDirectionOptions;
+  using MagickCore::MagickGravityOptions;
   using MagickCore::MagickKernelOptions;
+  using MagickCore::MagickStyleOptions;
 
   // Compliance types
   using MagickCore::ComplianceType;
@@ -967,6 +970,11 @@ namespace Magick
   using MagickCore::RGBQuantum;
   using MagickCore::RGBAQuantum;
   using MagickCore::CMYKQuantum;
+
+  // Pixel mask types
+  using MagickCore::UndefinedPixelMask;
+  using MagickCore::ReadPixelMask;
+  using MagickCore::WritePixelMask;
 
   // Rendering intents
   using MagickCore::RenderingIntent;
