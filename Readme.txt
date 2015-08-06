@@ -1,6 +1,9 @@
 Breaking changes.
 
 Magick.NET 7.0.0.0017:
+  - Changed implicit cast from double to Percentage to explicit.
+
+Magick.NET 7.0.0.0017:
   - Renamed the values of the FontWeight enumeration.
   - The type of the ClipPaths property of the EightBimProfile has been changed to ClipPath.
 

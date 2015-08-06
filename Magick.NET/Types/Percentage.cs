@@ -94,7 +94,7 @@ namespace ImageMagick
 		/// Converts the specified double to an instance of this type.
 		///</summary>
 		///<param name="value">The value (0% = 0, 100% = 100)</param>
-		public static implicit operator Percentage(double value)
+		public static explicit operator Percentage(double value)
 		{
 			return new Percentage(value);
 		}

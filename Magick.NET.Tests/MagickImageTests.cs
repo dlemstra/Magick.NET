@@ -161,7 +161,7 @@ namespace Magick.NET.Tests
 			{
 				Assert.AreEqual(8, image.BitDepth());
 
-				image.Threshold(0.5);
+				image.Threshold((Percentage)50);
 				Assert.AreEqual(1, image.BitDepth());
 			}
 		}
@@ -408,7 +408,7 @@ namespace Magick.NET.Tests
 			double distortion = first.Compare(second, ErrorMetric.Absolute);
 			Assert.AreEqual(0, distortion);
 
-			first.Threshold(0.5);
+			first.Threshold(new Percentage(50));
 			MagickErrorInfo different = first.Compare(second);
 			Assert.IsNotNull(different);
 			Assert.AreNotEqual(0, different.MeanErrorPerPixel);
@@ -831,7 +831,7 @@ namespace Magick.NET.Tests
 		{
 			using (MagickImage first = new MagickImage(Files.MagickNETIconPNG))
 			{
-				first.Level(50.0, 10.0);
+				first.Level(new Percentage(50.0), new Percentage(10.0));
 
 				using (MagickImage second = new MagickImage(Files.MagickNETIconPNG))
 				{
@@ -1060,7 +1060,7 @@ namespace Magick.NET.Tests
 				Assert.AreEqual(64, image.Height);
 
 				image.Read(Files.MagickNETIconPNG);
-				image.Resize(200);
+				image.Resize((Percentage)200);
 				Assert.AreEqual(256, image.Width);
 				Assert.AreEqual(256, image.Height);
 
@@ -1376,7 +1376,7 @@ namespace Magick.NET.Tests
 			{
 				using (MemoryStream memStream = new MemoryStream())
 				{
-					image.Threshold(80);
+					image.Threshold(new Percentage(80));
 					image.CompressionMethod = CompressionMethod.Group4;
 					image.Format = MagickFormat.Pdf;
 					image.Write(memStream);

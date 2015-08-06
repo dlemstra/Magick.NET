@@ -2213,7 +2213,7 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void CannyEdge()
 		{
-			CannyEdge(0.0, 1.0, 10, 30);
+			CannyEdge(0.0, 1.0, new Percentage(10), new Percentage(30));
 		}
 		///==========================================================================================
 		///<summary>
@@ -5439,7 +5439,7 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void Shadow()
 		{
-			Shadow(5, 5, 0.5, 0.8);
+			Shadow(5, 5, 0.5, new Percentage(80));
 		}
 		///==========================================================================================
 		///<summary>
@@ -5449,7 +5449,7 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void Shadow(MagickColor color)
 		{
-			Shadow(5, 5, 0.5, 0.8, color);
+			Shadow(5, 5, 0.5, new Percentage(80), color);
 		}
 		///==========================================================================================
 		///<summary>
