@@ -1,4 +1,4 @@
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+﻿* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 1. Magick.NET copyright:
 
@@ -19,7 +19,7 @@ specific language governing permissions and limitations under the License.
 
 2. ImageMagick copyright:
 
-Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization dedicated
+Copyright 1999-2015 ImageMagick Studio LLC, a non-profit organization dedicated
 to making software imaging solutions freely available.
 
 You may not use this file except in compliance with the License. You may obtain
@@ -155,7 +155,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-7. Magick++ copyright:
+8. Magick++ copyright:
 
 Copyright 1999 - 2002 Bob Friesenhahn <bfriesen@simple.dallas.tx.us>
 
@@ -179,7 +179,7 @@ Magick++ or the use or other dealings in Magick++.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-8. Gsview copyright:
+9. Gsview copyright:
 
 Copyright (C) 2000-2002, Ghostgum Software Pty Ltd. All rights reserved.
 
@@ -199,7 +199,7 @@ copies or substantial portions of the Software.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-9. Libsquish copyright:
+10. Libsquish copyright:
 
 Copyright (c) 2006 Simon Brown                          si@sjbrown.co.uk
 
@@ -223,7 +223,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-10. Libbzip2 copyright:
+11. Libbzip2 copyright:
 
 This program, "bzip2", the associated library "libbzip2", and all documentation,
 are copyright (C) 1996-2006 Julian R Seward.  All rights reserved.
@@ -262,7 +262,43 @@ bzip2/libbzip2 version 1.0.4 of 20 December 2006
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-11. Libffi copyright:
+12. OpenEXR copyright:
+
+Copyright (c) 2006, Industrial Light & Magic, a division of Lucasfilm
+Entertainment Company Ltd.  Portions contributed and copyright held by
+others as indicated.  All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above
+      copyright notice, this list of conditions and the following
+      disclaimer.
+
+    * Redistributions in binary form must reproduce the above
+      copyright notice, this list of conditions and the following
+      disclaimer in the documentation and/or other materials provided with
+      the distribution.
+
+    * Neither the name of Industrial Light & Magic nor the names of
+      any other contributors to this software may be used to endorse or
+      promote products derived from this software without specific prior
+      written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+13. Libffi copyright:
 
 libffi - Copyright (c) 1996-2012  Anthony Green, Red Hat, Inc and others.
 See source files for details.
@@ -287,7 +323,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-12. JasPer copyright:
+14. JasPer copyright:
 
 JasPer License Version 2.0
 
@@ -338,7 +374,7 @@ FITNESS FOR HIGH RISK ACTIVITIES.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-13. Libjpeg-turbo copyright:
+15. Libjpeg-turbo copyright:
 
 The authors make NO WARRANTY or representation, either express or implied,
 with respect to this software, its quality, accuracy, merchantability, or
@@ -396,7 +432,7 @@ We are required to state that
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-14. Little CMS copyright:
+16. Little CMS copyright:
 
 Little CMS
 Copyright (c) 1998-2011 Marti Maria Saguer
@@ -421,7 +457,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-15. Libxml copyright:
+17. Libxml copyright:
 
 Copyright (C) 1998-2012 Daniel Veillard.  All Rights Reserved.
 
@@ -445,7 +481,7 @@ THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-16. Openjpeg copyright:
+18. Openjpeg copyright:
 
 /*
  * The copyright in this software is being made available under the 2-clauses 
@@ -489,7 +525,7 @@ THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-17. Pixman copyright:
+19. Pixman copyright:
 
 The following is the MIT license, agreed upon by most contributors.
 Copyright holders of new code should use this license statement where
@@ -536,7 +572,7 @@ possible. They may also add themselves to the list below.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-18. Libpng copyright:
+20. Libpng copyright:
 
 This copy of the libpng notices is provided for your convenience.  In case of
 any discrepancy between this copy and the notices in the file png.h that is
@@ -549,8 +585,8 @@ this sentence.
 
 This code is released under the libpng license.
 
-libpng versions 1.2.6, August 15, 2004, through 1.6.12, June 12, 2014, are
-Copyright (c) 2004, 2006-2014 Glenn Randers-Pehrson, and are
+libpng versions 1.2.6, August 15, 2004, through 1.6.17, March 26, 2015, are
+Copyright (c) 2004, 2006-2015 Glenn Randers-Pehrson, and are
 distributed according to the same disclaimer and license as libpng-1.2.5
 with the following individual added to the list of Contributing Authors
 
@@ -647,11 +683,12 @@ certification mark of the Open Source Initiative.
 
 Glenn Randers-Pehrson
 glennrp at users.sourceforge.net
-June 12, 2014
+March 26, 2015
+
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-19. Libtiff copyright:
+21. Libtiff copyright:
 
 Copyright (c) 1988-1997 Sam Leffler
 Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -677,9 +714,9 @@ OF THIS SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-20. Freetype copyright:
+22. Freetype copyright:
 
-Copyright 2006-2014 by
+Copyright 2006-2015 by
 David Turner, Robert Wilhelm, and Werner Lemberg.
 
 This  file is  part of  the FreeType  project, and  may only  be used,
@@ -690,7 +727,7 @@ and accept it fully.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-21. WebP copyright:
+23. WebP copyright:
 
 Copyright (c) 2010, Google Inc. All rights reserved.
 
@@ -724,7 +761,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-22. ZLib copyright:
+24. ZLib copyright:
 
  (C) 1995-2013 Jean-loup Gailly and Mark Adler
 
@@ -758,8 +795,8 @@ the FAQ for more information on the distribution of modified source versions.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-23. GNU LESSER GENERAL PUBLIC LICENSE (Used by Cairo, Croco, Glib, Librsvg,
-Lqr, Pango):
+26. GNU LESSER GENERAL PUBLIC LICENSE (used by Cairo, Croco, Glib, Librsvg,
+    Lqr, Pango):
 
                   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 2.1, February 1999
