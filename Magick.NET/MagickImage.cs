@@ -2889,6 +2889,20 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Crop image (subregion of original image) using CropPosition.Center. You should call
+		/// RePage afterwards unless you need the Page information.
+		///</summary>
+		///<param name="x">The X offset from origin.</param>
+		///<param name="y">The Y offset from origin.</param>
+		///<param name="width">The width of the subregion.</param>
+		///<param name="height">The height of the subregion.</param>
+		///<exception cref="MagickException"/>
+		public void Crop(int x, int y, int width, int height)
+		{
+			Crop(new MagickGeometry(x, y, width, height));
+		}
+		///==========================================================================================
+		///<summary>
 		/// Crop image (subregion of original image). You should call RePage afterwards unless you
 		/// need the Page information.
 		///</summary>
@@ -2952,8 +2966,7 @@ namespace ImageMagick
 		///<param name="height">The height of the tile.</param>
 		public IEnumerable<MagickImage> CropToTiles(int width, int height)
 		{
-			MagickGeometry geometry = new MagickGeometry(width, height);
-			return CropToTiles(geometry);
+			return CropToTiles(new MagickGeometry(width, height));
 		}
 		///==========================================================================================
 		///<summary>
@@ -3204,8 +3217,20 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void Extent(int width, int height)
 		{
-			MagickGeometry geometry = new MagickGeometry(width, height);
-			Extent(geometry);
+			Extent(new MagickGeometry(width, height));
+		}
+		///==========================================================================================
+		///<summary>
+		/// Extend the image as defined by the width and height.
+		///</summary>
+		///<param name="x">The X offset from origin.</param>
+		///<param name="y">The Y offset from origin.</param>
+		///<param name="width">The width to extend the image to.</param>
+		///<param name="height">The height to extend the image to.</param>
+		///<exception cref="MagickException"/>
+		public void Extent(int x, int y, int width, int height)
+		{
+			Extent(new MagickGeometry(x, y, width, height));
 		}
 		///==========================================================================================
 		///<summary>
