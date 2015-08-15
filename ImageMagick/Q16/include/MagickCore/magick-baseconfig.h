@@ -49,6 +49,16 @@
 #define MAGICKCORE_CIPHER_SUPPORT
 
 /*
+  Define to build a ImageMagick which uses registry settings or
+  hard-coded paths to locate installed components.  This supports
+  using the "setup.exe" style installer, or using hard-coded path
+  definitions (see below).  If you want to be able to simply copy
+  the built ImageMagick to any directory on any directory on any machine,
+  then do not use this setting.
+*/
+//#define MAGICKCORE_INSTALLED_SUPPORT
+
+/*
   Specify size of PixelPacket color Quantums (8, 16, or 32).
   A value of 8 uses half the memory than 16 and typically runs 30% faster,
   but provides 256 times less color resolution than a value of 16.

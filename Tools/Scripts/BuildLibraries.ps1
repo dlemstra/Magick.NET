@@ -234,7 +234,6 @@ function PatchFiles()
 #==================================================================================================
 CheckFolder "ImageMagick\Source"
 PatchFiles
-CopyFiles
 if ($args[0] -eq "-development")
 {
 	BuildDevelopment
@@ -243,4 +242,5 @@ else
 {
 	BuildAll
 }
+CopyFiles
 #==================================================================================================
