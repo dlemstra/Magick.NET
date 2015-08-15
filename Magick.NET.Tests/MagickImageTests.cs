@@ -167,6 +167,17 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_Bitmap()
+		{
+			using (Bitmap bitmap = new Bitmap(400, 400, PixelFormat.Format24bppRgb))
+			{
+				using (MagickImage image = new MagickImage(bitmap))
+				{
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_Channels()
 		{
 			PixelChannel[] rgb = new PixelChannel[]
