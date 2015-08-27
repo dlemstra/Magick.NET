@@ -68,6 +68,16 @@ namespace Magick.NET.Tests.Coders
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_IgnoreTags()
+		{
+			using (MagickImage image = new MagickImage())
+			{
+				image.SetDefine(MagickFormat.Tiff, "ignore-tags", "32934");
+				image.Read(Files.Coders.IgnoreTagTIF);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_IptcProfile()
 		{
 			using (MagickImage input = new MagickImage(Files.MagickNETIconPNG))

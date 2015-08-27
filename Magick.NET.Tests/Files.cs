@@ -168,6 +168,14 @@ namespace Magick.NET.Tests
 					return _Root + @"Images\Coders\CN Studios Logo.ai";
 				}
 			}
+			//========================================================================================
+			public static string IgnoreTagTIF
+			{
+				get
+				{
+					return _Root + @"Images\Coders\IgnoreTag.tif";
+				}
+			}
 			//===========================================================================================
 			public static string PageTIF
 			{
