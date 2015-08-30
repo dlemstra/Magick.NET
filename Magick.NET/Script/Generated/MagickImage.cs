@@ -2723,6 +2723,10 @@ namespace ImageMagick
 					arguments["height"] = Variables.GetValue<Int32>(attribute);
 				else if (attribute.Name == "width")
 					arguments["width"] = Variables.GetValue<Int32>(attribute);
+				else if (attribute.Name == "x")
+					arguments["x"] = Variables.GetValue<Int32>(attribute);
+				else if (attribute.Name == "y")
+					arguments["y"] = Variables.GetValue<Int32>(attribute);
 			}
 			if (OnlyContains(arguments, "geometry"))
 				image.Crop((MagickGeometry)arguments["geometry"]);
@@ -2730,8 +2734,10 @@ namespace ImageMagick
 				image.Crop((Int32)arguments["width"], (Int32)arguments["height"]);
 			else if (OnlyContains(arguments, "width", "height", "gravity"))
 				image.Crop((Int32)arguments["width"], (Int32)arguments["height"], (Gravity)arguments["gravity"]);
+			else if (OnlyContains(arguments, "x", "y", "width", "height"))
+				image.Crop((Int32)arguments["x"], (Int32)arguments["y"], (Int32)arguments["width"], (Int32)arguments["height"]);
 			else
-				throw new ArgumentException("Invalid argument combination for 'crop', allowed combinations are: [geometry] [width, height] [width, height, gravity]");
+				throw new ArgumentException("Invalid argument combination for 'crop', allowed combinations are: [geometry] [width, height] [width, height, gravity] [x, y, width, height]");
 		}
 		//============================================================================================
 		private void ExecuteCycleColormap(XmlElement element, MagickImage image)
@@ -2853,6 +2859,10 @@ namespace ImageMagick
 					arguments["height"] = Variables.GetValue<Int32>(attribute);
 				else if (attribute.Name == "width")
 					arguments["width"] = Variables.GetValue<Int32>(attribute);
+				else if (attribute.Name == "x")
+					arguments["x"] = Variables.GetValue<Int32>(attribute);
+				else if (attribute.Name == "y")
+					arguments["y"] = Variables.GetValue<Int32>(attribute);
 			}
 			if (OnlyContains(arguments, "geometry"))
 				image.Extent((MagickGeometry)arguments["geometry"]);
@@ -2870,8 +2880,10 @@ namespace ImageMagick
 				image.Extent((Int32)arguments["width"], (Int32)arguments["height"], (Gravity)arguments["gravity"]);
 			else if (OnlyContains(arguments, "width", "height", "gravity", "backgroundColor"))
 				image.Extent((Int32)arguments["width"], (Int32)arguments["height"], (Gravity)arguments["gravity"], (MagickColor)arguments["backgroundColor"]);
+			else if (OnlyContains(arguments, "x", "y", "width", "height"))
+				image.Extent((Int32)arguments["x"], (Int32)arguments["y"], (Int32)arguments["width"], (Int32)arguments["height"]);
 			else
-				throw new ArgumentException("Invalid argument combination for 'extent', allowed combinations are: [geometry] [geometry, backgroundColor] [geometry, gravity] [geometry, gravity, backgroundColor] [width, height] [width, height, backgroundColor] [width, height, gravity] [width, height, gravity, backgroundColor]");
+				throw new ArgumentException("Invalid argument combination for 'extent', allowed combinations are: [geometry] [geometry, backgroundColor] [geometry, gravity] [geometry, gravity, backgroundColor] [width, height] [width, height, backgroundColor] [width, height, gravity] [width, height, gravity, backgroundColor] [x, y, width, height]");
 		}
 		//============================================================================================
 		private static void ExecuteFlip(MagickImage image)
