@@ -1,7 +1,7 @@
 Breaking changes.
 
-Magick.NET 7.0.0.0017:
-  - Changed implicit cast from double to Percentage to explicit.
+Magick.NET 7.0.0.0018:
+  - Cast from double to Percentage is no longer implicit.
 
 Magick.NET 7.0.0.0017:
   - Renamed the values of the FontWeight enumeration.
