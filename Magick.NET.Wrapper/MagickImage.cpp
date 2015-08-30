@@ -2110,7 +2110,7 @@ namespace ImageMagick
 		{
 			try
 			{
-				Value->quantumOperator((Magick::ChannelType)channels,
+				Value->evaluate((Magick::ChannelType)channels,
 					(Magick::MagickEvaluateOperator)evaluateOperator, value);
 			}
 			catch(Magick::Exception& exception)
@@ -2124,7 +2124,7 @@ namespace ImageMagick
 		{
 			try
 			{
-				Value->quantumOperator(geometry->X, geometry->Y, geometry->Width, geometry->Height,
+				Value->evaluate(geometry->X, geometry->Y, geometry->Width, geometry->Height,
 					(Magick::ChannelType)channels, (Magick::MagickEvaluateOperator)evaluateOperator,
 					value);
 			}

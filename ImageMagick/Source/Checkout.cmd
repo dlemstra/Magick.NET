@@ -1,7 +1,7 @@
 @echo off
 
 set REPOS=http://git.imagemagick.org/repos
-set DATE="2015-08-14"
+set DATE=2015-08-30 12:30
 
 set BASH="%PROGRAMFILES%\Git\bin\bash.exe"
 if exist %BASH% goto EXECUTE
@@ -14,5 +14,5 @@ echo %BASH%
 exit /b 1
 
 :EXECUTE
-%BASH% --login -i -c "./Checkout.sh %REPOS% %DATE%"
+%BASH% --login -i -c "./Checkout.sh %REPOS% \"%DATE%\""
 pause
