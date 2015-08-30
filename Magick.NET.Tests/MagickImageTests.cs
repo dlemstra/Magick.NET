@@ -81,7 +81,7 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
-		public void Test_Addprofile()
+		public void Test_AddProfile()
 		{
 			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
 			{
