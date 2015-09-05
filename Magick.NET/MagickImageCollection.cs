@@ -898,6 +898,31 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Converts this instance to a base64 string.
+		///</summary>
+		public string ToBase64()
+		{
+			Byte[] bytes = ToByteArray();
+			if (bytes == null)
+				return "";
+
+			return Convert.ToBase64String(bytes);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Converts this instance to a base64 string.
+		///</summary>
+		///<param name="format">The format to use.</param>
+		public string ToBase64(MagickFormat format)
+		{
+			Byte[] bytes = ToByteArray(format);
+			if (bytes == null)
+				return "";
+
+			return Convert.ToBase64String(bytes);
+		}
+		///==========================================================================================
+		///<summary>
 		/// Converts the images in this instance to a bitmap using ImageFormat.Tiff.
 		///</summary>
 		public Bitmap ToBitmap()

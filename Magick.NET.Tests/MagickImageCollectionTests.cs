@@ -316,6 +316,18 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_ToBase64()
+		{
+			using (MagickImageCollection collection = new MagickImageCollection())
+			{
+				Assert.AreEqual("", collection.ToBase64());
+
+				collection.Read(Files.Builtin.Logo);
+				Assert.AreEqual(1228800, collection.ToBase64(MagickFormat.Rgb).Length);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_ToBitmap()
 		{
 			using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
