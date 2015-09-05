@@ -151,6 +151,14 @@ namespace ImageMagick
 				X.GetHashCode() ^
 				Y.GetHashCode();
 		}
+		///==========================================================================================
+		///<summary>
+		/// Returns a string that represents the current PointD.
+		///</summary>
+		public override string ToString()
+		{
+			return string.Format(CultureInfo.InvariantCulture, "{0}x{1}", _X, _Y);
+		}
 		//===========================================================================================
 	};
 	//==============================================================================================

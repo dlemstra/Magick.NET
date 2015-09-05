@@ -70,9 +70,10 @@ namespace Magick.NET.Tests
 				new PointD("1.0xb");
 			});
 
-			point = new PointD("1.0x2.0");
+			point = new PointD("1.0x2.5");
 			Assert.AreEqual(1.0, point.X);
-			Assert.AreEqual(2.0, point.Y);
+			Assert.AreEqual(2.5, point.Y);
+			Assert.AreEqual("1x2.5", point.ToString());
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
