@@ -163,6 +163,26 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_BackgroundColor()
+		{
+			using (MagickImage image = new MagickImage("xc:red", 1, 1))
+			{
+				ColorAssert.AreEqual(new MagickColor("White"), image.BackgroundColor);
+			}
+
+			MagickColor red = new MagickColor("Red");
+
+			using (MagickImage image = new MagickImage(red, 1, 1))
+			{
+				ColorAssert.AreEqual(red, image.BackgroundColor);
+
+				image.Read(new MagickColor("Purple"), 1, 1);
+
+				ColorAssert.AreEqual(red, image.BackgroundColor);
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_BitDepth()
 		{
 			using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))

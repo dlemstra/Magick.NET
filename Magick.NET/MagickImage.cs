@@ -353,6 +353,7 @@ namespace ImageMagick
 			: this()
 		{
 			Read(color, width, height);
+			BackgroundColor = color;
 		}
 		///==========================================================================================
 		///<summary>
