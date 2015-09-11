@@ -64,6 +64,14 @@ namespace Magick.NET.Tests
 			Assert.AreEqual(first.Format, MagickFormat.Png);
 		}
 		//===========================================================================================
+		private static void Test_Clone_Area(MagickImage area, MagickImage part)
+		{
+			Assert.AreEqual(area.Width, part.Width);
+			Assert.AreEqual(area.Height, part.Height);
+
+			Assert.AreEqual(0.0, area.Compare(part, ErrorMetric.RootMeanSquared));
+		}
+		//===========================================================================================
 		private static void Test_Pixel(MagickImage image, int x, int y, MagickColor color)
 		{
 			using (PixelCollection collection = image.GetReadOnlyPixels())
@@ -269,36 +277,61 @@ namespace Magick.NET.Tests
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Clone()
 		{
-			MagickImage first = new MagickImage(Files.SnakewarePNG);
-			MagickImage second = first.Clone();
+			using (MagickImage first = new MagickImage(Files.SnakewarePNG))
+			{
+				using (MagickImage second = first.Clone())
+				{
+					Test_Clone(first, second);
+				}
 
-			Test_Clone(first, second);
-
-			second = new MagickImage(first);
-			Test_Clone(first, second);
+				using (MagickImage second = new MagickImage(first))
+				{
+					Test_Clone(first, second);
+				}
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
 		public void Test_Clone_Area()
 		{
-			MagickImage icon = new MagickImage(Files.MagickNETIconPNG);
+			using (MagickImage icon = new MagickImage(Files.MagickNETIconPNG))
+			{
+				using (MagickImage area = icon.Clone())
+				{
+					area.Crop(64, 64, Gravity.Southeast);
+					area.RePage();
+					Assert.AreEqual(64, area.Width);
+					Assert.AreEqual(64, area.Height);
 
-			MagickGeometry area = new MagickGeometry(64, 64, 64, 32);
+					area.Crop(64, 32, Gravity.North);
 
-			MagickImage part = icon.Clone(area);
-			Assert.AreEqual(64, part.Width);
-			Assert.AreEqual(32, part.Height);
+					Assert.AreEqual(64, area.Width);
+					Assert.AreEqual(32, area.Height);
 
-			icon.Crop(64, 64, Gravity.Southeast);
-			icon.RePage();
-			Assert.AreEqual(64, icon.Width);
-			Assert.AreEqual(64, icon.Height);
+					using (MagickImage part = icon.Clone(new MagickGeometry(64, 64, 64, 32)))
+					{
+						Test_Clone_Area(area, part);
+					}
 
-			icon.Crop(64, 32, Gravity.North);
-			Assert.AreEqual(64, icon.Width);
-			Assert.AreEqual(32, icon.Height);
+					using (MagickImage part = icon.Clone(64, 64, 64, 32))
+					{
+						Test_Clone_Area(area, part);
+					}
+				}
 
-			Assert.AreEqual(0.0, icon.Compare(part, ErrorMetric.RootMeanSquared));
+				using (MagickImage area = icon.Clone())
+				{
+					area.Crop(32, 64, Gravity.Northwest);
+
+					Assert.AreEqual(32, area.Width);
+					Assert.AreEqual(64, area.Height);
+
+					using (MagickImage part = icon.Clone(32, 64))
+					{
+						Test_Clone_Area(area, part);
+					}
+				}
+			}
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
