@@ -331,6 +331,19 @@ namespace Magick.NET.Tests
 						Test_Clone_Area(area, part);
 					}
 				}
+
+				using (MagickImage area = icon.Clone(4, 2))
+				{
+					Assert.AreEqual(4, area.Width);
+					Assert.AreEqual(2, area.Height);
+
+					ExceptionAssert.Throws<MagickMissingDelegateErrorException>(delegate()
+					{
+						area.ToByteArray();
+					});
+
+					Assert.AreEqual(64, area.ToByteArray(MagickFormat.Rgba).Length);
+				}
 			}
 		}
 		//===========================================================================================

@@ -2423,7 +2423,7 @@ namespace ImageMagick
 		{
 			Throw.IfNull("geometry", geometry);
 
-			MagickImage clone = new MagickImage("null:", geometry.Width, geometry.Height);
+			MagickImage clone = new MagickImage("xc:none", geometry.Width, geometry.Height);
 			clone._Instance.CopyPixels(_Instance, MagickGeometry.GetInstance(geometry), new Coordinate(0, 0));
 
 			return clone;
