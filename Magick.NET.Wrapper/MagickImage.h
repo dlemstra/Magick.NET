@@ -47,6 +47,8 @@ namespace ImageMagick
 			Magick::Image* _Value;
 			EventHandler<WarningEventArgs^>^ _WarningEvent;
 			//========================================================================================
+			MagickImage(const Magick::Image& image, const Magick::Geometry& geometry);
+			//========================================================================================
 			!MagickImage();
 			//========================================================================================
 			property Magick::Image* Value
@@ -629,6 +631,8 @@ namespace ImageMagick
 			void Clip(String^ pathName, bool inside);
 			//========================================================================================
 			MagickImage^ Clone();
+			//========================================================================================
+			MagickImage^ Clone(MagickGeometry^ geometry);
 			//========================================================================================
 			void Clut(MagickImage^ image, PixelInterpolateMethod method);
 			//========================================================================================

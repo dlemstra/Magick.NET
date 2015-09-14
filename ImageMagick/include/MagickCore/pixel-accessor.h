@@ -467,7 +467,8 @@ static inline MagickBooleanType IsPixelGray(const Image *restrict image,
 
   red_green=(MagickRealType) pixel[image->channel_map[RedPixelChannel].offset]-
     pixel[image->channel_map[GreenPixelChannel].offset];
-  green_blue=(MagickRealType) pixel[image->channel_map[GreenPixelChannel].offset]-
+  green_blue=(MagickRealType)
+    pixel[image->channel_map[GreenPixelChannel].offset]-
     pixel[image->channel_map[BluePixelChannel].offset];
   if ((AbsolutePixelValue(red_green) < MagickEpsilon) &&
       (AbsolutePixelValue(green_blue) < MagickEpsilon))
@@ -530,13 +531,13 @@ static inline MagickBooleanType IsPixelMonochrome(const Image *restrict image,
 }
 
 static inline MagickBooleanType IsPixelInfoGray(
-  const PixelInfo *restrict pixel_info)
+  const PixelInfo *restrict pixel)
 {
-  if ((pixel_info->colorspace != GRAYColorspace) &&
-      (pixel_info->colorspace != RGBColorspace))
+  if ((pixel->colorspace != GRAYColorspace) &&
+      (pixel->colorspace != RGBColorspace))
     return(MagickFalse);
-  if ((AbsolutePixelValue(pixel_info->red-pixel_info->green) < MagickEpsilon) &&
-      (AbsolutePixelValue(pixel_info->green-pixel_info->blue) < MagickEpsilon))
+  if ((AbsolutePixelValue(pixel->red-pixel->green) < MagickEpsilon) &&
+      (AbsolutePixelValue(pixel->green-pixel->blue) < MagickEpsilon))
     return(MagickTrue);
   return(MagickFalse);
 }

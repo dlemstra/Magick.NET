@@ -29,6 +29,11 @@ namespace ImageMagick
 	namespace Wrapper
 	{
 		//===========================================================================================
+		MagickImage::MagickImage(const Magick::Image& image, const Magick::Geometry &geometry)
+		{
+			_Value = new Magick::Image(image,geometry);
+		}
+		//===========================================================================================
 		MagickImage::!MagickImage()
 		{
 			DisposeValue();
@@ -1611,6 +1616,25 @@ namespace ImageMagick
 			return gcnew MagickImage(*Value);
 		}
 		//===========================================================================================
+		MagickImage^ MagickImage::Clone(MagickGeometry^ geometry)
+		{
+			const Magick::Geometry* magickGeometry = geometry->CreateGeometry();
+
+			try
+			{
+				return gcnew MagickImage(*Value,*magickGeometry);
+			}
+			catch(Magick::Exception& exception)
+			{
+				HandleException(exception);
+				return nullptr;
+			}
+			finally
+			{
+				delete magickGeometry;
+			}
+		}
+		//===========================================================================================
 		void MagickImage::Clut(MagickImage^ image, PixelInterpolateMethod method)
 		{
 			try
@@ -2124,9 +2148,8 @@ namespace ImageMagick
 		{
 			try
 			{
-				Value->evaluate(geometry->X, geometry->Y, geometry->Width, geometry->Height,
-					(Magick::ChannelType)channels, (Magick::MagickEvaluateOperator)evaluateOperator,
-					value);
+				Value->evaluate((Magick::ChannelType)channels, geometry->X, geometry->Y, geometry->Width,
+					geometry->Height, (Magick::MagickEvaluateOperator)evaluateOperator, value);
 			}
 			catch(Magick::Exception& exception)
 			{
