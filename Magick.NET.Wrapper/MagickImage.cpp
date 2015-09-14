@@ -2130,6 +2130,25 @@ namespace ImageMagick
 			return (Magick::operator == (*Value, *other->Value)) ? true : false;
 		}
 		//===========================================================================================
+		void MagickImage::Evaluate(ImageMagick::Channels channels, EvaluateFunction evaluateFunction, array<double>^ arguments)
+		{
+			double* evaluateArguments = Marshaller::Marshal(arguments);
+
+			try
+			{
+				Value->evaluate((Magick::ChannelType)channels,(Magick::MagickFunction)evaluateFunction,
+					arguments->Length, evaluateArguments);
+			}
+			catch(Magick::Exception& exception)
+			{
+				HandleException(exception);
+			}
+			finally
+			{
+				delete[] evaluateArguments;
+			}
+		}
+		//===========================================================================================
 		void MagickImage::Evaluate(ImageMagick::Channels channels, EvaluateOperator evaluateOperator, double value)
 		{
 			try

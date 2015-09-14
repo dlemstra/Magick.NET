@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawables\IDrawableDensity.cs" />
+    <Compile Include="Enums\EvaluateFunction.cs" />
     <Compile Include="IMagickColor.cs" />
     <Compile Include="Defines\IDefine.cs" />
     <Compile Include="Defines\IDefines.cs" />

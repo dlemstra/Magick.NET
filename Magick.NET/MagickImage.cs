@@ -3186,6 +3186,18 @@ namespace ImageMagick
 		/// Apply an arithmetic or bitwise operator to the image pixel quantums.
 		///</summary>
 		///<param name="channels">The channel(s) to apply the operator on.</param>
+		///<param name="evaluateFunction">The function.</param>
+		///<param name="arguments">The arguments for the function.</param>
+		///<exception cref="MagickException"/>
+		public void Evaluate(Channels channels, EvaluateFunction evaluateFunction, params double[] arguments)
+		{
+			_Instance.Evaluate(channels, evaluateFunction, arguments);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Apply an arithmetic or bitwise operator to the image pixel quantums.
+		///</summary>
+		///<param name="channels">The channel(s) to apply the operator on.</param>
 		///<param name="evaluateOperator">The operator.</param>
 		///<param name="value">The value.</param>
 		///<exception cref="MagickException"/>

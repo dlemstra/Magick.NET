@@ -702,6 +702,8 @@ namespace ImageMagick
 			//========================================================================================
 			virtual bool Equals(MagickImage^ other);
 			//========================================================================================
+			void Evaluate(ImageMagick::Channels channels, EvaluateFunction evaluateFunction, array<double>^ arguments);
+			//========================================================================================
 			void Evaluate(ImageMagick::Channels channels, EvaluateOperator evaluateOperator, double value);
 			//========================================================================================
 			void Evaluate(ImageMagick::Channels channels, MagickGeometry^ geometry, EvaluateOperator evaluateOperator, double value);
