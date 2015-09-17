@@ -97,7 +97,8 @@ namespace ImageMagick
 		{
 			long length = _Width * _Height * _Channels;
 			array<Magick::Quantum>^ value = gcnew array<Magick::Quantum>(length);
-			for(long i = 0; i < length; i+=_Channels)
+
+			for (long i = 0; i < length; i++)
 			{
 				value[i] = *(Pixels + i);
 			}
@@ -111,7 +112,7 @@ namespace ImageMagick
 
 			long length = _Width * _Channels;
 			array<Magick::Quantum>^ value = gcnew array<Magick::Quantum>(length);
-			for(long i = 0; i < length; i++)
+			for (long i = 0; i < length; i++)
 			{
 				value[i] = *(Pixels + index + i);
 			}

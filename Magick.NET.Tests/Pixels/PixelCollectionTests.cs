@@ -58,6 +58,22 @@ namespace Magick.NET.Tests
 		}
 		//===========================================================================================
 		[TestMethod, TestCategory(_Category)]
+		public void Test_GetValues()
+		{
+			using (MagickImage image = new MagickImage(Color.PowderBlue, 1, 1))
+			{
+				using (PixelCollection pixels = image.GetReadOnlyPixels())
+				{
+					var values = pixels.GetValues();
+					Assert.AreEqual(3, values.Length);
+
+					MagickColor color = new MagickColor(values[0], values[1], values[2]);
+					ColorAssert.AreEqual(Color.PowderBlue, color);
+				}
+			}
+		}
+		//===========================================================================================
+		[TestMethod, TestCategory(_Category)]
 		public void Test_IEnumerable()
 		{
 			using (MagickImage image = new MagickImage(Color.Red, 5, 10))
