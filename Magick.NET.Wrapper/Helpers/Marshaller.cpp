@@ -97,7 +97,7 @@ namespace ImageMagick
 			return data;
 		}
 		//===========================================================================================
-		array<double>^ Marshaller::Marshal(const double* values)
+		array<double>^ Marshaller::MarshalTerminated(const double* values)
 		{
 			if (values == NULL)
 				return nullptr;

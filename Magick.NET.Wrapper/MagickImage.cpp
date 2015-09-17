@@ -893,7 +893,7 @@ namespace ImageMagick
 			if (strokeDashArray == NULL)
 				return nullptr;
 
-			return Marshaller::Marshal(strokeDashArray);
+			return Marshaller::MarshalTerminated(strokeDashArray);
 		}
 		//===========================================================================================
 		void MagickImage::StrokeDashArray::set(array<double>^ value)

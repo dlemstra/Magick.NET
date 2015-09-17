@@ -37,7 +37,7 @@ namespace ImageMagick
 			//========================================================================================
 			static array<Byte>^ Marshal(Magick::Blob* value);
 			//========================================================================================
-			static array<double>^ Marshal(const double* values);
+			static array<double>^ MarshalTerminated(const double* values);
 			//========================================================================================
 			static String^ Marshal(const std::string& value);
 			//========================================================================================
