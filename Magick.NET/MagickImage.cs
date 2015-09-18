@@ -5635,7 +5635,7 @@ namespace ImageMagick
 		///<exception cref="MagickException"/>
 		public void Solarize()
 		{
-			Solarize(50.0);
+			Solarize(new Percentage(50.0));
 		}
 		///==========================================================================================
 		///<summary>
@@ -5647,6 +5647,17 @@ namespace ImageMagick
 		public void Solarize(double factor)
 		{
 			_Instance.Solarize(factor);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Solarize image (similar to effect seen when exposing a photographic film to light during
+		/// the development process)
+		///</summary>
+		///<param name="factor">The factor to use.</param>
+		///<exception cref="MagickException"/>
+		public void Solarize(Percentage factor)
+		{
+			_Instance.Solarize((double) factor.ToQuantum());
 		}
 		///==========================================================================================
 		///<summary>
