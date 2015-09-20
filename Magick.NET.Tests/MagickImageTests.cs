@@ -373,7 +373,13 @@ namespace Magick.NET.Tests
 						area.ToByteArray();
 					});
 
+#if Q8
+					Assert.AreEqual(32, area.ToByteArray(MagickFormat.Rgba).Length);
+#elif Q16 || Q16HDRI
 					Assert.AreEqual(64, area.ToByteArray(MagickFormat.Rgba).Length);
+#else
+#error Not implemented!
+#endif
 				}
 			}
 		}
