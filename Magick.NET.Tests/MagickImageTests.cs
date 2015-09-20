@@ -80,6 +80,17 @@ namespace Magick.NET.Tests
 			}
 		}
 		//===========================================================================================
+		private static void Test_Separate_Composite(MagickImage image, ColorSpace colorSpace, int value)
+		{
+			Assert.AreEqual(colorSpace, image.ColorSpace);
+
+			using (PixelCollection pixels = image.GetReadOnlyPixels())
+			{
+				Pixel pixel = pixels.GetPixel(340, 260);
+				ColorAssert.AreEqual(Color.FromArgb(value, value, value), pixel.ToColor());
+			}
+		}
+		//===========================================================================================
 		private static void Test_ToBitmap(MagickImage image, ImageFormat format)
 		{
 			using (Bitmap bmp = image.ToBitmap(format))
@@ -1260,15 +1271,15 @@ namespace Magick.NET.Tests
 			{
 				using (MagickImage blue = logo.Separate(Channels.Blue).First())
 				{
+					Test_Separate_Composite(blue, ColorSpace.Gray, 146);
+
 					using (MagickImage green = logo.Separate(Channels.Green).First())
 					{
+						Test_Separate_Composite(green, ColorSpace.Gray, 62);
+
 						blue.Composite(green, CompositeOperator.Multiply);
 
-						using (PixelCollection pixels = green.GetReadOnlyPixels())
-						{
-							Pixel pixel = pixels.GetPixel(340, 260);
-							ColorAssert.AreEqual(Color.FromArgb(62, 62, 62), pixel.ToColor());
-						}
+						Test_Separate_Composite(blue, ColorSpace.sRGB, 35);
 					}
 				}
 			}
