@@ -2829,6 +2829,8 @@ namespace ImageMagick
 			{
 				if (attribute.Name == "channels")
 					arguments["channels"] = Variables.GetValue<Channels>(attribute);
+				else if (attribute.Name == "evaluateFunction")
+					arguments["evaluateFunction"] = Variables.GetValue<EvaluateFunction>(attribute);
 				else if (attribute.Name == "evaluateOperator")
 					arguments["evaluateOperator"] = Variables.GetValue<EvaluateOperator>(attribute);
 				else if (attribute.Name == "geometry")
@@ -2836,12 +2838,18 @@ namespace ImageMagick
 				else if (attribute.Name == "value")
 					arguments["value"] = Variables.GetValue<double>(attribute);
 			}
-			if (OnlyContains(arguments, "channels", "evaluateOperator", "value"))
+			foreach (XmlElement elem in element.SelectNodes("*"))
+			{
+				arguments[elem.Name] = Variables.GetDoubleArray(elem);
+			}
+			if (OnlyContains(arguments, "channels", "evaluateFunction", "arguments"))
+				image.Evaluate((Channels)arguments["channels"], (EvaluateFunction)arguments["evaluateFunction"], (Double[])arguments["arguments"]);
+			else if (OnlyContains(arguments, "channels", "evaluateOperator", "value"))
 				image.Evaluate((Channels)arguments["channels"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
 			else if (OnlyContains(arguments, "channels", "geometry", "evaluateOperator", "value"))
 				image.Evaluate((Channels)arguments["channels"], (MagickGeometry)arguments["geometry"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
 			else
-				throw new ArgumentException("Invalid argument combination for 'evaluate', allowed combinations are: [channels, evaluateOperator, value] [channels, geometry, evaluateOperator, value]");
+				throw new ArgumentException("Invalid argument combination for 'evaluate', allowed combinations are: [channels, evaluateFunction, arguments] [channels, evaluateOperator, value] [channels, geometry, evaluateOperator, value]");
 		}
 		//============================================================================================
 		private void ExecuteExtent(XmlElement element, MagickImage image)
@@ -3911,14 +3919,19 @@ namespace ImageMagick
 			Hashtable arguments = new Hashtable();
 			foreach (XmlAttribute attribute in element.Attributes)
 			{
-				arguments[attribute.Name] = Variables.GetValue<double>(attribute);
+				if (attribute.Name == "factor")
+					arguments["factor"] = Variables.GetValue<double>(attribute);
+				else if (attribute.Name == "factorPercentage")
+					arguments["factorPercentage"] = Variables.GetValue<Percentage>(attribute);
 			}
 			if (arguments.Count == 0)
 				image.Solarize();
 			else if (OnlyContains(arguments, "factor"))
 				image.Solarize((double)arguments["factor"]);
+			else if (OnlyContains(arguments, "factorPercentage"))
+				image.Solarize((Percentage)arguments["factorPercentage"]);
 			else
-				throw new ArgumentException("Invalid argument combination for 'solarize', allowed combinations are: [] [factor]");
+				throw new ArgumentException("Invalid argument combination for 'solarize', allowed combinations are: [] [factor] [factorPercentage]");
 		}
 		//============================================================================================
 		private void ExecuteSparseColor(XmlElement element, MagickImage image)

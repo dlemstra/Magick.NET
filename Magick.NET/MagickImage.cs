@@ -5653,11 +5653,11 @@ namespace ImageMagick
 		/// Solarize image (similar to effect seen when exposing a photographic film to light during
 		/// the development process)
 		///</summary>
-		///<param name="factor">The factor to use.</param>
+		///<param name="factorPercentage">The factor to use.</param>
 		///<exception cref="MagickException"/>
-		public void Solarize(Percentage factor)
+		public void Solarize(Percentage factorPercentage)
 		{
-			_Instance.Solarize((double) factor.ToQuantum());
+			_Instance.Solarize((double) factorPercentage.ToQuantum());
 		}
 		///==========================================================================================
 		///<summary>

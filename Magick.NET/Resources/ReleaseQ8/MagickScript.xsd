@@ -361,6 +361,21 @@
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
+	<xs:simpleType name="EvaluateFunction">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="Arcsin" />
+					<xs:enumeration value="Arctan" />
+					<xs:enumeration value="Polynomial" />
+					<xs:enumeration value="Sinusoid" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="var" />
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
 	<xs:simpleType name="EvaluateOperator">
 		<xs:union>
 			<xs:simpleType>
@@ -2011,10 +2026,14 @@
 				<xs:element name="equalize" type="empty" />
 				<xs:element name="evaluate">
 					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="arguments" minOccurs="0" type="doubleArray" />
+						</xs:sequence>
 						<xs:attribute name="channels" use="required" type="Channels" />
-						<xs:attribute name="evaluateOperator" use="required" type="EvaluateOperator" />
+						<xs:attribute name="evaluateFunction" type="EvaluateFunction" />
+						<xs:attribute name="evaluateOperator" type="EvaluateOperator" />
 						<xs:attribute name="geometry" type="geometry" />
-						<xs:attribute name="value" use="required" type="double" />
+						<xs:attribute name="value" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="extent">
@@ -2452,6 +2471,7 @@
 				<xs:element name="solarize">
 					<xs:complexType>
 						<xs:attribute name="factor" type="double" />
+						<xs:attribute name="factorPercentage" type="double" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="sparseColor">
