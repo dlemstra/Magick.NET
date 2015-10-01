@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -30,6 +31,7 @@ namespace ImageMagick
 		private static readonly object _SyncRoot = new object();
 		private static Dictionary<string, ColorProfile> _Profiles = new Dictionary<string, ColorProfile>();
 		//===========================================================================================
+		[SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
 		private static ColorSpace DetermineColorSpace(string colorSpace)
 		{
 			switch (colorSpace)

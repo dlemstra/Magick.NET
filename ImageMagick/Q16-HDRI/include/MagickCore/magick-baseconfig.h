@@ -419,4 +419,5 @@ typedef long ssize_t;
 #pragma warning(disable: 4055)
 #pragma warning(disable: 4100)
 #pragma warning(disable: 4130)
+#pragma warning(disable: 4459)
 #endif

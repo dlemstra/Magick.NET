@@ -25,6 +25,7 @@ namespace ImageMagick
 		{
 			int length = bytes->Length / sizeof(TStorageType);
 			TStorageType* unmanagedValue = new TStorageType[length];
+#pragma warning(suppress: 6001)
 			Marshal::Copy(bytes, 0, IntPtr(unmanagedValue), bytes->Length);
 			return unmanagedValue;
 		}
@@ -35,6 +36,7 @@ namespace ImageMagick
 				return NULL;
 
 			unsigned char* unmanagedValue = new unsigned char[bytes->Length];
+#pragma warning(suppress: 6001)
 			Marshal::Copy(bytes, 0, IntPtr(unmanagedValue), bytes->Length);
 			return unmanagedValue;
 		}
@@ -45,6 +47,7 @@ namespace ImageMagick
 				return;
 
 			unsigned char* unmanagedValue = new unsigned char[bytes->Length];
+#pragma warning(suppress: 6001)
 			Marshal::Copy(bytes, 0, IntPtr(unmanagedValue), bytes->Length);
 			value->updateNoCopy(unmanagedValue, bytes->Length);
 		}
@@ -81,6 +84,7 @@ namespace ImageMagick
 				return NULL;
 
 			double* unmanagedValue = new double[values->Length];
+#pragma warning(suppress: 6001)
 			Marshal::Copy(values, 0, IntPtr(unmanagedValue), values->Length);
 			return unmanagedValue;
 		}
@@ -156,6 +160,7 @@ namespace ImageMagick
 			int length = zeroIndex == -1 ? values->Length + 1 : zeroIndex + 1;
 
 			double* unmanagedValue = new double[length];
+#pragma warning(suppress: 6001)
 			Marshal::Copy(values, 0, IntPtr(unmanagedValue), length - 1);
 			unmanagedValue[length - 1] = 0.0;
 

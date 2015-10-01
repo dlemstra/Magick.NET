@@ -35,6 +35,7 @@ namespace ImageMagick
 		/// <summary>
 		/// Ultra light (200)
 		/// </summary>
+		[SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "UltraLight")]
 		UltraLight = 200,
 		///==========================================================================================
 		/// <summary>

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2015
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Magick.NET.Wrapper.AnyCPU", "Magick.NET.AnyCPU\Magick.NET.Wrapper.AnyCPU.vcxproj", "{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.AnyCPU", "Magick.NET\Magick.NET.AnyCPU.csproj", "{DAAE3844-6435-4912-8F69-9F7A9242B4AC}"

@@ -14,7 +14,7 @@ $Q8Builds = @(
 		Name					= "Q8";
 		QuantumDepth		= "8";
 		Framework			= "v4.0";
-		PlatformToolset	= "v110"
+		PlatformToolset	= "v140"
 	}
 )
 $Q16Builds = @(
@@ -28,7 +28,7 @@ $Q16Builds = @(
 		Name					= "Q16";
 		QuantumDepth		= "16";
 		Framework			= "v4.0";
-		PlatformToolset	= "v110"
+		PlatformToolset	= "v140"
 	}
 )
 $Q16HDRIBuilds = @(
@@ -42,7 +42,7 @@ $Q16HDRIBuilds = @(
 		Name					= "Q16-HDRI";
 		QuantumDepth		= "16";
 		Framework			= "v4.0";
-		PlatformToolset	= "v110"
+		PlatformToolset	= "v140"
 	}
 )
 $configurations = @(
@@ -191,7 +191,7 @@ function CreateSolution($platform, $options)
 		Write-Host "Options: $options."
 	}
 
-	Start-Process .\configure.exe -ArgumentList "/smtd /noWizard /VS2012 $options" -wait
+	Start-Process .\configure.exe -ArgumentList "/smtd /noWizard /VS2015 $options" -wait
 
 	set-location $location
 }

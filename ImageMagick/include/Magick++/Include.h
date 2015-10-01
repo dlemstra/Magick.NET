@@ -69,6 +69,7 @@ namespace MagickCore
 //
 #    if defined(_VISUALC_)
 #      define MagickDLLExplicitTemplate
+#      pragma warning( disable: 4275 )
 #      pragma warning( disable: 4273 )  /* Disable the stupid dll linkage warnings */
 #      pragma warning( disable: 4251 )
 #    endif
@@ -1021,6 +1022,7 @@ namespace Magick
   using MagickCore::ShepardsColorInterpolate;
   using MagickCore::VoronoiColorInterpolate;
   using MagickCore::InverseColorInterpolate;
+  using MagickCore::ManhattanColorInterpolate;
 
   // Statistic type
   using MagickCore::StatisticType;
@@ -1344,6 +1346,7 @@ namespace Magick
   using MagickCore::KuwaharaImage;
   using MagickCore::LevelImage;
   using MagickCore::LevelImageColors;
+  using MagickCore::LevelizeImage;
   using MagickCore::LinearStretchImage;
   using MagickCore::LiquidRescaleImage;
   using MagickCore::LocaleCompare;
