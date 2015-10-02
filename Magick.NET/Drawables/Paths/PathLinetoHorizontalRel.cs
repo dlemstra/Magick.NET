@@ -20,7 +20,7 @@ namespace ImageMagick
 	///<summary>
 	/// Encapsulation of the PathLinetoHorizontalRel object.
 	///</summary>
-	public sealed class PathLinetoHorizontalRel  : IPathLinetoHorizontalRel
+	public sealed class PathLinetoHorizontalRel : IPathLinetoHorizontalRel
 	{
 		///==========================================================================================
 		///<summary>

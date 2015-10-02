@@ -20,7 +20,7 @@ namespace ImageMagick
 	///<summary>
 	/// Encapsulation of the PathLinetoVerticalAbs object.
 	///</summary>
-	public sealed class PathLinetoVerticalRel  : IPathLinetoVerticalRel
+	public sealed class PathLinetoVerticalRel : IPathLinetoVerticalRel
 	{
 		///==========================================================================================
 		///<summary>
