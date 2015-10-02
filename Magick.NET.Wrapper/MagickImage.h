@@ -786,6 +786,10 @@ namespace ImageMagick
 			//========================================================================================
 			QUANTUM_CLS_COMPLIANT void Level(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, ImageMagick::Channels channels);
 			//========================================================================================
+			QUANTUM_CLS_COMPLIANT void Levelize(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint);
+			//========================================================================================
+			QUANTUM_CLS_COMPLIANT void Levelize(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, ImageMagick::Channels channels);
+			//========================================================================================
 			void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, bool invert);
 			//========================================================================================
 			void LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, ImageMagick::Channels channels, bool invert);

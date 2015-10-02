@@ -4022,6 +4022,130 @@ namespace ImageMagick
 		}
 		///==========================================================================================
 		///<summary>
+		/// Applies the reversed level operation to just the specific channels specified. It compresses
+		/// the full range of color values, so that they lie between the given black and white points.
+		/// Gamma is applied before the values are mapped. Uses a midpoint of 1.0.
+		///</summary>
+		///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
+		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
+		///<exception cref="MagickException"/>
+#if Q16
+		[CLSCompliant(false)]
+#endif
+		public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint)
+		{
+			InverseLevel(blackPoint, whitePoint, 1.0);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Applies the reversed level operation to just the specific channels specified. It compresses
+		/// the full range of color values, so that they lie between the given black and white points.
+		/// Gamma is applied before the values are mapped. Uses a midpoint of 1.0.
+		///</summary>
+		///<param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
+		///<param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
+		///<exception cref="MagickException"/>
+		public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage)
+		{
+			InverseLevel(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum());
+		}
+		///==========================================================================================
+		///<summary>
+		/// Applies the reversed level operation to just the specific channels specified. It compresses
+		/// the full range of color values, so that they lie between the given black and white points.
+		/// Gamma is applied before the values are mapped. Uses a midpoint of 1.0.
+		///</summary>
+		///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
+		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
+		///<param name="channels">The channel(s) to level.</param>
+		///<exception cref="MagickException"/>
+#if Q16
+		[CLSCompliant(false)]
+#endif
+		public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, Channels channels)
+		{
+			InverseLevel(blackPoint, whitePoint, 1.0, channels);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Applies the reversed level operation to just the specific channels specified. It compresses
+		/// the full range of color values, so that they lie between the given black and white points.
+		/// Gamma is applied before the values are mapped. Uses a midpoint of 1.0.
+		///</summary>
+		///<param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
+		///<param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
+		///<param name="channels">The channel(s) to level.</param>
+		///<exception cref="MagickException"/>
+		public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, Channels channels)
+		{
+			InverseLevel(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), channels);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Applies the reversed level operation to just the specific channels specified. It compresses
+		/// the full range of color values, so that they lie between the given black and white points.
+		/// Gamma is applied before the values are mapped.
+		///</summary>
+		///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
+		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
+		///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+		///<exception cref="MagickException"/>
+#if Q16
+		[CLSCompliant(false)]
+#endif
+		public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double midpoint)
+		{
+			_Instance.Levelize(blackPoint, whitePoint, midpoint);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Applies the reversed level operation to just the specific channels specified. It compresses
+		/// the full range of color values, so that they lie between the given black and white points.
+		/// Gamma is applied before the values are mapped.
+		///</summary>
+		///<param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
+		///<param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
+		///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+		///<exception cref="MagickException"/>
+		public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint)
+		{
+			InverseLevel(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), midpoint);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Applies the reversed level operation to just the specific channels specified. It compresses
+		/// the full range of color values, so that they lie between the given black and white points.
+		/// Gamma is applied before the values are mapped.
+		///</summary>
+		///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
+		///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
+		///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+		///<param name="channels">The channel(s) to level.</param>
+		///<exception cref="MagickException"/>
+#if Q16
+		[CLSCompliant(false)]
+#endif
+		public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double midpoint, Channels channels)
+		{
+			_Instance.Levelize(blackPoint, whitePoint, midpoint, channels);
+		}
+		///==========================================================================================
+		///<summary>
+		/// Applies the reversed level operation to just the specific channels specified. It compresses
+		/// the full range of color values, so that they lie between the given black and white points.
+		/// Gamma is applied before the values are mapped.
+		///</summary>
+		///<param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
+		///<param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
+		///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+		///<param name="channels">The channel(s) to level.</param>
+		///<exception cref="MagickException"/>
+		public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint, Channels channels)
+		{
+			InverseLevel(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), midpoint, channels);
+		}
+		///==========================================================================================
+		///<summary>
 		/// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
 		/// level values on a channel by channel bases, as per level(). The given colors allows you to
 		/// specify different level ranges for each of the color channels separately.

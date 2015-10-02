@@ -2789,6 +2789,30 @@ namespace ImageMagick
 			}
 		}
 		//===========================================================================================
+		void MagickImage::Levelize(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint)
+		{
+			try
+			{
+				Value->levelize(blackPoint, whitePoint, midpoint);
+			}
+			catch(Magick::Exception& exception)
+			{
+				HandleException(exception);
+			}
+		}
+		//===========================================================================================
+		void MagickImage::Levelize(Magick::Quantum blackPoint, Magick::Quantum whitePoint, double midpoint, ImageMagick::Channels channels)
+		{
+			try
+			{
+				Value->levelizeChannel((Magick::ChannelType)channels, blackPoint, whitePoint, midpoint);
+			}
+			catch(Magick::Exception& exception)
+			{
+				HandleException(exception);
+			}
+		}
+		//===========================================================================================
 		void MagickImage::LevelColors(MagickColor^ blackColor, MagickColor^ whiteColor, bool invert)
 		{
 			const Magick::Color* black = blackColor->CreateColor();
