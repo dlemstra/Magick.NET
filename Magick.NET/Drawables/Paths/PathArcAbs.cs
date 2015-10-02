@@ -22,7 +22,7 @@ namespace ImageMagick
 	///<summary>
 	/// Encapsulation of the PathArcAbs object.
 	///</summary>
-	public sealed class PathArcAbs : DrawableCoordinates<IPathArc>, IPathArcRel
+	public sealed class PathArcAbs : DrawableCoordinates<IPathArc>, IPathArcAbs
 	{
 		///==========================================================================================
 		///<summary>
