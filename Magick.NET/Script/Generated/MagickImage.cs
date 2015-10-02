@@ -883,8 +883,17 @@ namespace ImageMagick
 										}
 										case 'L':
 										{
-											ExecuteInverseLevelColors(element, image);
-											return;
+											if (element.Name.Length == 12)
+											{
+												ExecuteInverseLevel(element, image);
+												return;
+											}
+											if (element.Name.Length == 18)
+											{
+												ExecuteInverseLevelColors(element, image);
+												return;
+											}
+											break;
 										}
 										case 'O':
 										{
@@ -3123,6 +3132,44 @@ namespace ImageMagick
 				image.InverseFourierTransform((MagickImage)arguments["image"], (Boolean)arguments["magnitude"]);
 			else
 				throw new ArgumentException("Invalid argument combination for 'inverseFourierTransform', allowed combinations are: [image] [image, magnitude]");
+		}
+		//============================================================================================
+		private void ExecuteInverseLevel(XmlElement element, MagickImage image)
+		{
+			Hashtable arguments = new Hashtable();
+			foreach (XmlAttribute attribute in element.Attributes)
+			{
+				if (attribute.Name == "blackPoint")
+					arguments["blackPoint"] = Variables.GetValue<QuantumType>(attribute);
+				else if (attribute.Name == "blackPointPercentage")
+					arguments["blackPointPercentage"] = Variables.GetValue<Percentage>(attribute);
+				else if (attribute.Name == "channels")
+					arguments["channels"] = Variables.GetValue<Channels>(attribute);
+				else if (attribute.Name == "midpoint")
+					arguments["midpoint"] = Variables.GetValue<double>(attribute);
+				else if (attribute.Name == "whitePoint")
+					arguments["whitePoint"] = Variables.GetValue<QuantumType>(attribute);
+				else if (attribute.Name == "whitePointPercentage")
+					arguments["whitePointPercentage"] = Variables.GetValue<Percentage>(attribute);
+			}
+			if (OnlyContains(arguments, "blackPoint", "whitePoint"))
+				image.InverseLevel((QuantumType)arguments["blackPoint"], (QuantumType)arguments["whitePoint"]);
+			else if (OnlyContains(arguments, "blackPoint", "whitePoint", "channels"))
+				image.InverseLevel((QuantumType)arguments["blackPoint"], (QuantumType)arguments["whitePoint"], (Channels)arguments["channels"]);
+			else if (OnlyContains(arguments, "blackPoint", "whitePoint", "midpoint"))
+				image.InverseLevel((QuantumType)arguments["blackPoint"], (QuantumType)arguments["whitePoint"], (double)arguments["midpoint"]);
+			else if (OnlyContains(arguments, "blackPoint", "whitePoint", "midpoint", "channels"))
+				image.InverseLevel((QuantumType)arguments["blackPoint"], (QuantumType)arguments["whitePoint"], (double)arguments["midpoint"], (Channels)arguments["channels"]);
+			else if (OnlyContains(arguments, "blackPointPercentage", "whitePointPercentage"))
+				image.InverseLevel((Percentage)arguments["blackPointPercentage"], (Percentage)arguments["whitePointPercentage"]);
+			else if (OnlyContains(arguments, "blackPointPercentage", "whitePointPercentage", "channels"))
+				image.InverseLevel((Percentage)arguments["blackPointPercentage"], (Percentage)arguments["whitePointPercentage"], (Channels)arguments["channels"]);
+			else if (OnlyContains(arguments, "blackPointPercentage", "whitePointPercentage", "midpoint"))
+				image.InverseLevel((Percentage)arguments["blackPointPercentage"], (Percentage)arguments["whitePointPercentage"], (double)arguments["midpoint"]);
+			else if (OnlyContains(arguments, "blackPointPercentage", "whitePointPercentage", "midpoint", "channels"))
+				image.InverseLevel((Percentage)arguments["blackPointPercentage"], (Percentage)arguments["whitePointPercentage"], (double)arguments["midpoint"], (Channels)arguments["channels"]);
+			else
+				throw new ArgumentException("Invalid argument combination for 'inverseLevel', allowed combinations are: [blackPoint, whitePoint] [blackPoint, whitePoint, channels] [blackPoint, whitePoint, midpoint] [blackPoint, whitePoint, midpoint, channels] [blackPointPercentage, whitePointPercentage] [blackPointPercentage, whitePointPercentage, channels] [blackPointPercentage, whitePointPercentage, midpoint] [blackPointPercentage, whitePointPercentage, midpoint, channels]");
 		}
 		//============================================================================================
 		private void ExecuteInverseLevelColors(XmlElement element, MagickImage image)

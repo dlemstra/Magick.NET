@@ -1,4 +1,4 @@
 @echo off
-call "%vs110comntools%vsvars32.bat"
+call "%vs140comntools%vsvars32.bat"
 powershell -ExecutionPolicy Unrestricted .\Scripts\GenerateFiles.ps1
 pause

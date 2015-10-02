@@ -2137,6 +2137,16 @@
 						<xs:attribute name="magnitude" type="bool" />
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="inverseLevel">
+					<xs:complexType>
+						<xs:attribute name="blackPoint" type="byte" />
+						<xs:attribute name="blackPointPercentage" type="double" />
+						<xs:attribute name="channels" type="Channels" />
+						<xs:attribute name="midpoint" type="double" />
+						<xs:attribute name="whitePoint" type="byte" />
+						<xs:attribute name="whitePointPercentage" type="double" />
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="inverseLevelColors">
 					<xs:complexType>
 						<xs:attribute name="blackColor" use="required" type="color" />
