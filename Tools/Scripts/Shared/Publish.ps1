@@ -1,4 +1,3 @@
-#==================================================================================================
 function AddFileElement($xml, $src, $target)
 {
   $files = $xml.package.files
@@ -21,7 +20,7 @@ function AddFileElement($xml, $src, $target)
 
   [void]$files.AppendChild($file)
 }
-#==================================================================================================
+
 function CheckStrongNames($builds)
 {
   foreach ($build in $builds)
@@ -40,7 +39,7 @@ function CheckStrongNames($builds)
     CheckExitCode "$path does not represent a strongly named assembly"
   }
 }
-#==================================================================================================
+
 function CreateNuGetPackage($id, $version, $build, $hasNet20)
 {
   $path = FullPath "Publish\NuGet\Magick.NET.nuspec"
@@ -75,7 +74,7 @@ function CreateNuGetPackage($id, $version, $build, $hasNet20)
 
   WriteNuGetPackage $id $version $xml
 }
-#==================================================================================================
+
 function HasNet20($builds)
 {
   foreach ($build in $builds)
@@ -88,7 +87,7 @@ function HasNet20($builds)
 
   return $false
 }
-#==================================================================================================
+
 function SetVersion($content, $startMatch, $endMatch, $version)
 {
   $start = $content.IndexOf($startMatch)
@@ -113,29 +112,33 @@ function SetVersion($content, $startMatch, $endMatch, $version)
   $newContent += $content.Substring($start)
   return $newContent
 }
-#==================================================================================================
-function UpdateAssemblyInfo($fileName)
+
+function UpdateAssemblyInfo($fileName, $version)
 {
   $path = FullPath $fileName
   $content = [IO.File]::ReadAllText($path, [System.Text.Encoding]::Default)
   $content = SetVersion $content "AssemblyFileVersion(`"" "`"" $version
   [IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::Default)
 }
-#==================================================================================================
-function UpdateAssemblyInfos
+
+function UpdateAssemblyInfos($version)
 {
-  UpdateAssemblyInfo "Magick.NET.Wrapper\AssemblyInfo.cpp"
-  UpdateAssemblyInfo "Magick.NET\Properties\AssemblyInfo.cs"
-  UpdateAssemblyInfo "Magick.NET.Core\Properties\AssemblyInfo.cs"
-  UpdateAssemblyInfo "Magick.NET.Web\Properties\AssemblyInfo.cs"
+  UpdateAssemblyInfo "Magick.NET.Wrapper\AssemblyInfo.cpp" $version
+  UpdateAssemblyInfo "Magick.NET\Properties\AssemblyInfo.cs" $version
+  UpdateAssemblyInfo "Magick.NET.Core\Properties\AssemblyInfo.cs" $version
+  UpdateAssemblyInfo "Magick.NET.Web\Properties\AssemblyInfo.cs" $version
 }
-#==================================================================================================
-function UpdateResourceFiles($builds)
+
+function UpdateResourceFiles($builds, $version)
 {
   foreach ($build in $builds)
   {
     $platform = $($build.Platform)
-    if ($platform -eq "x86")
+    if ($platform -eq "AnyCPU")
+    {
+      continue
+    }
+    elseif ($platform -eq "x86")
     {
       $platform = "Win32"
     }
@@ -151,7 +154,7 @@ function UpdateResourceFiles($builds)
     [IO.File]::WriteAllText($fileName, $content, [System.Text.Encoding]::Unicode)
   }
 }
-#==================================================================================================
+
 function WriteNuGetPackage($id, $version, $xml)
 {
   $xml.package.metadata.id = $id
@@ -172,4 +175,3 @@ function WriteNuGetPackage($id, $version, $xml)
 
   Remove-Item $nuspecFile
 }
-#==================================================================================================

@@ -1,18 +1,17 @@
-#==================================================================================================
 $scriptPath = Split-Path -parent $MyInvocation.MyCommand.Path
 . $scriptPath\Shared\Functions.ps1
 SetFolder $scriptPath
-#==================================================================================================
+
 . Tools\Scripts\Shared\Build.ps1
 . Tools\Scripts\Shared\Config.ps1
 . Tools\Scripts\Shared\FileGenerator.ps1
 . Tools\Scripts\Shared\GzipAssembly.ps1
 . Tools\Scripts\Shared\ProjectFiles.ps1
 . Tools\Scripts\Shared\Publish.ps1
-#==================================================================================================
+
 [void][Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem")
 $compressionLevel = [System.IO.Compression.CompressionLevel]::Optimal
-#==================================================================================================
+
 function BuildAll($builds)
 {
   foreach ($build in $builds)
@@ -27,7 +26,7 @@ function BuildAll($builds)
     }
   }
 }
-#==================================================================================================
+
 function CheckArchive()
 {
   if ((Test-Path "..\Magick.NET.Archive\$version"))
@@ -36,7 +35,7 @@ function CheckArchive()
     Exit
   }
 }
-#==================================================================================================
+
 function Cleanup()
 {
   CleanupZipFolder
@@ -48,7 +47,7 @@ function Cleanup()
   }
   [void](New-Item -ItemType directory -Path $folder)
 }
-#==================================================================================================
+
 function CleanupZipFolder()
 {
   $folder = FullPath "Publish\Zip\Releases"
@@ -57,7 +56,7 @@ function CleanupZipFolder()
     Remove-Item $folder -recurse
   }
 }
-#==================================================================================================
+
 function CopyPdbFiles($builds)
 {
   foreach ($build in $builds)
@@ -81,7 +80,7 @@ function CopyPdbFiles($builds)
     }
   }
 }
-#==================================================================================================
+
 function CopyZipFiles($builds)
 {
   foreach ($build in $builds)
@@ -126,7 +125,7 @@ function CopyZipFiles($builds)
     Copy-Item "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Platform).xml" $dir
   }
 }
-#==================================================================================================
+
 function CreateNuGetPackages($builds)
 {
   $hasNet20 = HasNet20($builds)
@@ -167,7 +166,7 @@ function CreateNuGetPackages($builds)
     WriteNuGetPackage $id $version $xml
   }
 }
-#==================================================================================================
+
 function CreatePreProcessedFiles()
 {
   $samples = FullPath "Magick.NET.Samples\Samples\Magick.NET"
@@ -186,7 +185,7 @@ function CreatePreProcessedFiles()
     Set-Content "$file.pp" $content
   }
 }
-#==================================================================================================
+
 function CreateZipFiles($builds)
 {
   foreach ($build in $builds)
@@ -226,7 +225,7 @@ function CreateZipFiles($builds)
     Remove-Item $dir -recurse
   }
 }
-#==================================================================================================
+
 function PreparePublish($builds)
 {
   BuildAll $builds
@@ -234,13 +233,13 @@ function PreparePublish($builds)
   CopyPdbFiles $builds
   CopyZipFiles $builds
 }
-#==================================================================================================
+
 function Publish($builds)
 {
   CreateNuGetPackages $builds
   CreateZipFiles $builds
 }
-#==================================================================================================
+
 if ($args.count -ne 2)
 {
   Write-Error "Invalid arguments"
@@ -248,12 +247,12 @@ if ($args.count -ne 2)
 }
 $imVersion = $args[0]
 $version = $args[1]
-#==================================================================================================
+
 CheckArchive
 Cleanup
-UpdateAssemblyInfos
+UpdateAssemblyInfos $version
 CreateNet20ProjectFiles
-UpdateResourceFiles $builds
+UpdateResourceFiles $builds $version
 CreatePreProcessedFiles
 PreparePublish $builds
 GzipAssemblies
@@ -262,4 +261,4 @@ PreparePublish $anyCPUbuilds
 Publish $builds
 Publish $anyCPUbuilds
 CleanupZipFolder
-#==================================================================================================
+

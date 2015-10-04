@@ -1,4 +1,3 @@
-#==================================================================================================
 $builds = @(
   @{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q8";       Platform = "x86"; Framework = "v2.0"; FrameworkName = "net20";        RunTests = $true}
   @{Name = "Magick.NET.net20"; Suffix = ".net20"; Quantum = "Q8";       Platform = "x64"; Framework = "v2.0"; FrameworkName = "net20";        RunTests = $false}
@@ -18,7 +17,7 @@ $anyCPUbuilds = @(
   @{Name = "Magick.NET.AnyCPU"; Suffix=""; Quantum = "Q16";      Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
   @{Name = "Magick.NET.AnyCPU"; Suffix=""; Quantum = "Q16-HDRI"; Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client"; RunTests = $true}
   )
-#==================================================================================================
+
 function GetBuilds($quantum, $platform)
 {
   if ($quantum -eq "Q8") 
@@ -68,4 +67,21 @@ function GetBuilds($quantum, $platform)
   }
   return $null
 }
-#==================================================================================================
+
+function GetDevVersion()
+{
+  $fileName = "C:\DevVersion.txt"
+  If (Test-Path $fileName)
+  {
+    return [IO.File]::ReadAllText($fileName, [System.Text.Encoding]::Default)
+  }
+  else
+  {
+    $utcNow = [System.DateTime]::Now.ToUniversalTime()
+    $build = [int]($utcNow.Date - (New-Object System.DateTime –ArgumentList 2000, 1, 1).Date).TotalDays
+    $revision = [int]($utcNow.TimeOfDay.TotalSeconds / 2)
+    $version = "1.0.$build.$revision"
+    [IO.File]::WriteAllText($fileName, $version, [System.Text.Encoding]::Default)
+    return $version
+  }
+}
