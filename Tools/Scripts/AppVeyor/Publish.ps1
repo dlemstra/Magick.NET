@@ -20,7 +20,6 @@ function Publish($builds, $version)
   appveyor PushArtifact $fileName
 }
 
-
 $quantum = $args[0]
 $platform = $args[1]
 
