@@ -33,6 +33,8 @@ using QuantumType = System.Single;
 
 #if !NET20
 using System.Windows.Media.Imaging;
+#else
+using System.Collections.ObjectModel;
 #endif
 
 namespace ImageMagick
