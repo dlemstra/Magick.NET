@@ -17,29 +17,26 @@ using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal sealed class ApplicationProxy : MarshalByRefObject
-	{
-		//===========================================================================================
-		private Assembly ResolveAssembly(object sender, ResolveEventArgs args)
-		{
-			return Assembly.ReflectionOnlyLoad(args.Name);
-		}
-		//===========================================================================================
-		public void GenerateXsd(QuantumDepth depth)
-		{
-			AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+  internal sealed class ApplicationProxy : MarshalByRefObject
+  {
+    private Assembly ResolveAssembly(object sender, ResolveEventArgs args)
+    {
+      return Assembly.ReflectionOnlyLoad(args.Name);
+    }
 
-			XsdGenerator generator = new XsdGenerator(depth);
-			generator.Generate();
-		}
-		//===========================================================================================
-		public void GenerateCode()
-		{
-			AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+    public void GenerateXsd(QuantumDepth depth)
+    {
+      AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
 
-			MagickScriptGenerator.Generate();
-		}
-	}
-	//==============================================================================================
+      XsdGenerator generator = new XsdGenerator(depth);
+      generator.Generate();
+    }
+
+    public void GenerateCode()
+    {
+      AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+
+      MagickScriptGenerator.Generate();
+    }
+  }
 }

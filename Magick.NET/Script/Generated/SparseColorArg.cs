@@ -32,28 +32,24 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-	//===============================================================================================
-	public sealed partial class MagickScript
-	{
-		//============================================================================================
-		private SparseColorArg CreateSparseColorArg(XmlElement element)
-		{
-			double x_ = Variables.GetValue<double>(element, "x");
-			double y_ = Variables.GetValue<double>(element, "y");
-			MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
-			return new SparseColorArg(x_, y_, color_);
-		}
-		//============================================================================================
-		private Collection<SparseColorArg> CreateSparseColorArgs(XmlElement element)
-		{
-			Collection<SparseColorArg> collection = new Collection<SparseColorArg>();
-			foreach (XmlElement elem in element.SelectNodes("*"))
-			{
-				collection.Add(CreateSparseColorArg(elem));
-			}
-			return collection;
-		}
-		//============================================================================================
-	}
-	//===============================================================================================
+  public sealed partial class MagickScript
+  {
+    private SparseColorArg CreateSparseColorArg(XmlElement element)
+    {
+      double x_ = Variables.GetValue<double>(element, "x");
+      double y_ = Variables.GetValue<double>(element, "y");
+      MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
+      return new SparseColorArg(x_, y_, color_);
+    }
+
+    private Collection<SparseColorArg> CreateSparseColorArgs(XmlElement element)
+    {
+      Collection<SparseColorArg> collection = new Collection<SparseColorArg>();
+      foreach (XmlElement elem in element.SelectNodes("*"))
+      {
+        collection.Add(CreateSparseColorArg(elem));
+      }
+      return collection;
+    }
+  }
 }

@@ -11,32 +11,29 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System.CodeDom.Compiler;
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal sealed class IDefinesGenerator : InterfaceCodeGenerator
-	{
-		//===========================================================================================
-		protected override string ClassName
-		{
-			get
-			{
-				return "IDefines";
-			}
-		}
-		//===========================================================================================
-		protected override void WriteCode(IndentedTextWriter writer)
-		{
-			writer.WriteLine("IReadDefines CreateIReadDefines(XmlElement parent)");
-			WriteStartColon(writer);
-			writer.WriteLine("return CreateIDefines(parent) as IReadDefines;");
-			WriteEndColon(writer);
+  internal sealed class IDefinesGenerator : InterfaceCodeGenerator
+  {
+    protected override string ClassName
+    {
+      get
+      {
+        return "IDefines";
+      }
+    }
 
-			base.WriteCode(writer);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    protected override void WriteCode(IndentedTextWriter writer)
+    {
+      writer.WriteLine("IReadDefines CreateIReadDefines(XmlElement parent)");
+      WriteStartColon(writer);
+      writer.WriteLine("return CreateIDefines(parent) as IReadDefines;");
+      WriteEndColon(writer);
+
+      base.WriteCode(writer);
+    }
+  }
 }

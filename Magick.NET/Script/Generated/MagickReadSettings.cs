@@ -32,36 +32,32 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-	//===============================================================================================
-	public sealed partial class MagickScript
-	{
-		//============================================================================================
-		private MagickReadSettings CreateMagickReadSettings(XmlElement element)
-		{
-			if (element == null)
-				return null;
-			MagickReadSettings result = new MagickReadSettings();
-			result.ColorSpace = Variables.GetValue<Nullable<ColorSpace>>(element, "colorSpace");
-			result.Defines = CreateIReadDefines(element["defines"]);
-			result.Density = Variables.GetValue<Nullable<PointD>>(element, "density");
-			result.Format = Variables.GetValue<Nullable<MagickFormat>>(element, "format");
-			result.FrameCount = Variables.GetValue<Nullable<Int32>>(element, "frameCount");
-			result.FrameIndex = Variables.GetValue<Nullable<Int32>>(element, "frameIndex");
-			result.Height = Variables.GetValue<Nullable<Int32>>(element, "height");
-			result.PixelStorage = CreatePixelStorageSettings(element["pixelStorage"]);
-			result.UseMonochrome = Variables.GetValue<Nullable<Boolean>>(element, "useMonochrome");
-			result.Width = Variables.GetValue<Nullable<Int32>>(element, "width");
-			XmlElement setDefine = (XmlElement)element.SelectSingleNode("setDefine");
-			if (setDefine != null)
-			{
-				MagickFormat format_ = XmlHelper.GetAttribute<MagickFormat>(setDefine, "format");
-				String name_ = XmlHelper.GetAttribute<String>(setDefine, "name");
-				String value_ = XmlHelper.GetAttribute<String>(setDefine, "value");
-				result.SetDefine(format_,name_,value_);
-			}
-			return result;
-		}
-		//============================================================================================
-	}
-	//===============================================================================================
+  public sealed partial class MagickScript
+  {
+    private MagickReadSettings CreateMagickReadSettings(XmlElement element)
+    {
+      if (element == null)
+        return null;
+      MagickReadSettings result = new MagickReadSettings();
+      result.ColorSpace = Variables.GetValue<Nullable<ColorSpace>>(element, "colorSpace");
+      result.Defines = CreateIReadDefines(element["defines"]);
+      result.Density = Variables.GetValue<Nullable<PointD>>(element, "density");
+      result.Format = Variables.GetValue<Nullable<MagickFormat>>(element, "format");
+      result.FrameCount = Variables.GetValue<Nullable<Int32>>(element, "frameCount");
+      result.FrameIndex = Variables.GetValue<Nullable<Int32>>(element, "frameIndex");
+      result.Height = Variables.GetValue<Nullable<Int32>>(element, "height");
+      result.PixelStorage = CreatePixelStorageSettings(element["pixelStorage"]);
+      result.UseMonochrome = Variables.GetValue<Nullable<Boolean>>(element, "useMonochrome");
+      result.Width = Variables.GetValue<Nullable<Int32>>(element, "width");
+      XmlElement setDefine = (XmlElement)element.SelectSingleNode("setDefine");
+      if (setDefine != null)
+      {
+        MagickFormat format_ = XmlHelper.GetAttribute<MagickFormat>(setDefine, "format");
+        String name_ = XmlHelper.GetAttribute<String>(setDefine, "name");
+        String value_ = XmlHelper.GetAttribute<String>(setDefine, "value");
+        result.SetDefine(format_,name_,value_);
+      }
+      return result;
+    }
+  }
 }

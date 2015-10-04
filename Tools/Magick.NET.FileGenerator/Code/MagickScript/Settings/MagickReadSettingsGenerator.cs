@@ -14,18 +14,14 @@
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal sealed class MagickReadSettingsGenerator : CreateObjectCodeGenerator
-	{
-		//===========================================================================================
-		public override string ClassName
-		{
-			get
-			{
-				return "MagickReadSettings";
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  internal sealed class MagickReadSettingsGenerator : CreateObjectCodeGenerator
+  {
+    public override string ClassName
+    {
+      get
+      {
+        return "MagickReadSettings";
+      }
+    }
+  }
 }

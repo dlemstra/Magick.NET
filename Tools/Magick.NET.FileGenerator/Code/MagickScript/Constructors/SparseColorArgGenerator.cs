@@ -12,37 +12,34 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System.CodeDom.Compiler;
 using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal sealed class SparseColorArg : ConstructorCodeGenerator
-	{
-		//===========================================================================================
-		protected override string ClassName
-		{
-			get
-			{
-				return "SparseColorArg";
-			}
-		}
-		//===========================================================================================
-		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			writer.Write("return new SparseColorArg(");
-			WriteParameters(writer, parameters);
-			writer.WriteLine(");");
-		}
-		//===========================================================================================
-		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			writer.Write("return new SparseColorArg(");
-			WriteHashtableParameters(writer, parameters);
-			writer.WriteLine(");");
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  internal sealed class SparseColorArg : ConstructorCodeGenerator
+  {
+    protected override string ClassName
+    {
+      get
+      {
+        return "SparseColorArg";
+      }
+    }
+
+    protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      writer.Write("return new SparseColorArg(");
+      WriteParameters(writer, parameters);
+      writer.WriteLine(");");
+    }
+
+    protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      writer.Write("return new SparseColorArg(");
+      WriteHashtableParameters(writer, parameters);
+      writer.WriteLine(");");
+    }
+  }
 }

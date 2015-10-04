@@ -32,20 +32,16 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-	//===============================================================================================
-	public sealed partial class MagickScript
-	{
-		//============================================================================================
-		private Collection<MagickGeometry> CreateMagickGeometryCollection(XmlElement element)
-		{
-			Collection<MagickGeometry> collection = new Collection<MagickGeometry>();
-			foreach (XmlElement elem in element.SelectNodes("*"))
-			{
-				collection.Add(Variables.GetValue<MagickGeometry>(elem, "value"));
-			}
-			return collection;
-		}
-		//============================================================================================
-	}
-	//===============================================================================================
+  public sealed partial class MagickScript
+  {
+    private Collection<MagickGeometry> CreateMagickGeometryCollection(XmlElement element)
+    {
+      Collection<MagickGeometry> collection = new Collection<MagickGeometry>();
+      foreach (XmlElement elem in element.SelectNodes("*"))
+      {
+        collection.Add(Variables.GetValue<MagickGeometry>(elem, "value"));
+      }
+      return collection;
+    }
+  }
 }

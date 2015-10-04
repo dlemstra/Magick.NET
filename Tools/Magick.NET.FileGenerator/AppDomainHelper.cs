@@ -17,56 +17,52 @@ using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	[Serializable]
-	internal static class AppDomainHelper
-	{
-		//===========================================================================================
-		private static AppDomain CreateDomain()
-		{
-			return AppDomain.CreateDomain("AppDomainHelper", null, new AppDomainSetup()
-			{
-				ApplicationName = "AppDomainHelper"
-			});
-		}
-		//===========================================================================================
-		private static ApplicationProxy CreateProxy(AppDomain domain)
-		{
-			Type activator = typeof(ApplicationProxy);
-			ApplicationProxy proxy = domain.CreateInstanceAndUnwrap(
-					  Assembly.GetAssembly(activator).FullName,
-					  activator.ToString()) as ApplicationProxy;
-			return proxy;
-		}
-		//===========================================================================================
-		private static void GenerateCode()
-		{
-			AppDomain domain = CreateDomain();
-			ApplicationProxy proxy = CreateProxy(domain);
+  [Serializable]
+  internal static class AppDomainHelper
+  {
+    private static AppDomain CreateDomain()
+    {
+      return AppDomain.CreateDomain("AppDomainHelper", null, new AppDomainSetup()
+      {
+        ApplicationName = "AppDomainHelper"
+      });
+    }
 
-			proxy.GenerateCode();
+    private static ApplicationProxy CreateProxy(AppDomain domain)
+    {
+      Type activator = typeof(ApplicationProxy);
+      ApplicationProxy proxy = domain.CreateInstanceAndUnwrap(
+            Assembly.GetAssembly(activator).FullName,
+            activator.ToString()) as ApplicationProxy;
+      return proxy;
+    }
 
-			AppDomain.Unload(domain);
-		}
-		//===========================================================================================
-		private static void GenerateXsd(QuantumDepth depth)
-		{
-			AppDomain domain = CreateDomain();
-			ApplicationProxy proxy = CreateProxy(domain);
+    private static void GenerateCode()
+    {
+      AppDomain domain = CreateDomain();
+      ApplicationProxy proxy = CreateProxy(domain);
 
-			proxy.GenerateXsd(depth);
+      proxy.GenerateCode();
 
-			AppDomain.Unload(domain);
-		}
-		//===========================================================================================
-		public static void Execute()
-		{
-			GenerateXsd(QuantumDepth.Q8);
-			GenerateXsd(QuantumDepth.Q16);
-			GenerateXsd(QuantumDepth.Q16HDRI);
-			GenerateCode();
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      AppDomain.Unload(domain);
+    }
+
+    private static void GenerateXsd(QuantumDepth depth)
+    {
+      AppDomain domain = CreateDomain();
+      ApplicationProxy proxy = CreateProxy(domain);
+
+      proxy.GenerateXsd(depth);
+
+      AppDomain.Unload(domain);
+    }
+
+    public static void Execute()
+    {
+      GenerateXsd(QuantumDepth.Q8);
+      GenerateXsd(QuantumDepth.Q16);
+      GenerateXsd(QuantumDepth.Q16HDRI);
+      GenerateCode();
+    }
+  }
 }

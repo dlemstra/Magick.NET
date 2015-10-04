@@ -11,41 +11,38 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System.CodeDom.Compiler;
 using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal sealed class PathCurvetoGenerator : ConstructorCodeGenerator
-	{
-		//===========================================================================================
-		protected override string ClassName
-		{
-			get
-			{
-				return "PathCurveto";
-			}
-		}
-		//===========================================================================================
-		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			writer.Write("return new ");
-			writer.Write(method.DeclaringType.Name);
-			writer.Write("(");
-			WriteParameters(writer, parameters);
-			writer.WriteLine(");");
-		}
-		//===========================================================================================
-		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			writer.Write("return new ");
-			writer.Write(method.DeclaringType.Name);
-			writer.Write("(");
-			WriteHashtableParameters(writer, parameters);
-			writer.WriteLine(");");
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  internal sealed class PathCurvetoGenerator : ConstructorCodeGenerator
+  {
+    protected override string ClassName
+    {
+      get
+      {
+        return "PathCurveto";
+      }
+    }
+
+    protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      writer.Write("return new ");
+      writer.Write(method.DeclaringType.Name);
+      writer.Write("(");
+      WriteParameters(writer, parameters);
+      writer.WriteLine(");");
+    }
+
+    protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      writer.Write("return new ");
+      writer.Write(method.DeclaringType.Name);
+      writer.Write("(");
+      WriteHashtableParameters(writer, parameters);
+      writer.WriteLine(");");
+    }
+  }
 }

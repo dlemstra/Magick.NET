@@ -32,23 +32,19 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-	//===============================================================================================
-	public sealed partial class MagickScript
-	{
-		//============================================================================================
-		private QuantizeSettings CreateQuantizeSettings(XmlElement element)
-		{
-			if (element == null)
-				return null;
-			QuantizeSettings result = new QuantizeSettings();
-			result.Colors = Variables.GetValue<Int32>(element, "colors");
-			result.ColorSpace = Variables.GetValue<ColorSpace>(element, "colorSpace");
-			result.DitherMethod = Variables.GetValue<Nullable<DitherMethod>>(element, "ditherMethod");
-			result.MeasureErrors = Variables.GetValue<Boolean>(element, "measureErrors");
-			result.TreeDepth = Variables.GetValue<Int32>(element, "treeDepth");
-			return result;
-		}
-		//============================================================================================
-	}
-	//===============================================================================================
+  public sealed partial class MagickScript
+  {
+    private QuantizeSettings CreateQuantizeSettings(XmlElement element)
+    {
+      if (element == null)
+        return null;
+      QuantizeSettings result = new QuantizeSettings();
+      result.Colors = Variables.GetValue<Int32>(element, "colors");
+      result.ColorSpace = Variables.GetValue<ColorSpace>(element, "colorSpace");
+      result.DitherMethod = Variables.GetValue<Nullable<DitherMethod>>(element, "ditherMethod");
+      result.MeasureErrors = Variables.GetValue<Boolean>(element, "measureErrors");
+      result.TreeDepth = Variables.GetValue<Int32>(element, "treeDepth");
+      return result;
+    }
+  }
 }

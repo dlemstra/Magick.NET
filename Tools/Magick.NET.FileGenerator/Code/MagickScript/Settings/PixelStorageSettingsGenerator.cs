@@ -14,18 +14,14 @@
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal sealed class PixelStorageSettingsGenerator : CreateObjectCodeGenerator
-	{
-		//===========================================================================================
-		public override string ClassName
-		{
-			get
-			{
-				return "PixelStorageSettings";
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  internal sealed class PixelStorageSettingsGenerator : CreateObjectCodeGenerator
+  {
+    public override string ClassName
+    {
+      get
+      {
+        return "PixelStorageSettings";
+      }
+    }
+  }
 }

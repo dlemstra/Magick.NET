@@ -11,65 +11,61 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal sealed class DrawableGenerator : ExecuteCodeGenerator
-	{
-		//===========================================================================================
-		protected override string ExecuteArgument
-		{
-			get
-			{
-				return "Collection<IDrawable> drawables";
-			}
-		}
-		//===========================================================================================
-		protected override string ExecuteName
-		{
-			get
-			{
-				return "IDrawable";
-			}
-		}
-		//===========================================================================================
-		protected override IEnumerable<MethodBase[]> Methods
-		{
-			get
-			{
-				return Types.GetDrawables();
-			}
-		}
-		//===========================================================================================
-		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			writer.Write("drawables.Add(new ");
-			writer.Write(method.DeclaringType.Name);
-			writer.Write("(");
-			WriteParameters(writer, parameters);
-			writer.WriteLine("));");
-		}
-		//===========================================================================================
-		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			writer.Write("drawables.Add(new ");
-			writer.Write(method.DeclaringType.Name);
-			writer.Write("(");
-			WriteHashtableParameters(writer, parameters);
-			writer.WriteLine("));");
-		}
-		//===========================================================================================
-		protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)
-		{
-			throw new NotImplementedException();
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  internal sealed class DrawableGenerator : ExecuteCodeGenerator
+  {
+    protected override string ExecuteArgument
+    {
+      get
+      {
+        return "Collection<IDrawable> drawables";
+      }
+    }
+
+    protected override string ExecuteName
+    {
+      get
+      {
+        return "IDrawable";
+      }
+    }
+
+    protected override IEnumerable<MethodBase[]> Methods
+    {
+      get
+      {
+        return Types.GetDrawables();
+      }
+    }
+
+    protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      writer.Write("drawables.Add(new ");
+      writer.Write(method.DeclaringType.Name);
+      writer.Write("(");
+      WriteParameters(writer, parameters);
+      writer.WriteLine("));");
+    }
+
+    protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      writer.Write("drawables.Add(new ");
+      writer.Write(method.DeclaringType.Name);
+      writer.Write("(");
+      WriteHashtableParameters(writer, parameters);
+      writer.WriteLine("));");
+    }
+
+    protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)
+    {
+      throw new NotImplementedException();
+    }
+  }
 }

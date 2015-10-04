@@ -11,6 +11,7 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -19,97 +20,94 @@ using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal sealed class MagickImageCollectionGenerator : ExecuteCodeGenerator
-	{
-		//===========================================================================================
-		private static bool ReturnsImage(MethodBase method)
-		{
-			return ((MethodInfo)method).ReturnType.Name == "MagickImage";
-		}
-		//===========================================================================================
-		protected override string ExecuteArgument
-		{
-			get
-			{
-				return "MagickImageCollection collection";
-			}
-		}
-		//===========================================================================================
-		protected override string ExecuteName
-		{
-			get
-			{
-				return "Collection";
-			}
-		}
-		//===========================================================================================
-		protected override IEnumerable<MethodBase[]> Methods
-		{
-			get
-			{
-				return Types.GetGroupedMagickImageCollectionMethods().
-							Concat(Types.GetGroupedMagickImageCollectionResultMethods());
-			}
-		}
-		//===========================================================================================
-		protected override string ReturnType
-		{
-			get
-			{
-				return "MagickImage";
-			}
-		}
-		//===========================================================================================
-		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			if (ReturnsImage(method))
-				writer.Write("return ");
+  internal sealed class MagickImageCollectionGenerator : ExecuteCodeGenerator
+  {
+    private static bool ReturnsImage(MethodBase method)
+    {
+      return ((MethodInfo)method).ReturnType.Name == "MagickImage";
+    }
 
-			writer.Write("collection.");
-			writer.Write(method.Name);
-			writer.Write("(");
-			WriteParameters(writer, parameters);
-			writer.WriteLine(");");
+    protected override string ExecuteArgument
+    {
+      get
+      {
+        return "MagickImageCollection collection";
+      }
+    }
 
-			if (!ReturnsImage(method))
-				writer.WriteLine("return null;");
-		}
-		//===========================================================================================
-		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			bool returnsImage = ReturnsImage(method);
+    protected override string ExecuteName
+    {
+      get
+      {
+        return "Collection";
+      }
+    }
 
-			if (returnsImage)
-				writer.Write("return ");
-			else
-				WriteStartColon(writer);
+    protected override IEnumerable<MethodBase[]> Methods
+    {
+      get
+      {
+        return Types.GetGroupedMagickImageCollectionMethods().
+              Concat(Types.GetGroupedMagickImageCollectionResultMethods());
+      }
+    }
 
-			writer.Write("collection.");
-			writer.Write(method.Name);
-			writer.Write("(");
-			WriteHashtableParameters(writer, parameters);
-			writer.WriteLine(");");
+    protected override string ReturnType
+    {
+      get
+      {
+        return "MagickImage";
+      }
+    }
 
-			if (!ReturnsImage(method))
-			{
-				writer.WriteLine("return null;");
-				WriteEndColon(writer);
-			}
-		}
-		//===========================================================================================
-		protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)
-		{
-			throw new NotImplementedException();
-		}
-		//===========================================================================================
-		public override string Name
-		{
-			get
-			{
-				return "MagickImageCollection";
-			}
-		}
-	}
-	//==============================================================================================
+    protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      if (ReturnsImage(method))
+        writer.Write("return ");
+
+      writer.Write("collection.");
+      writer.Write(method.Name);
+      writer.Write("(");
+      WriteParameters(writer, parameters);
+      writer.WriteLine(");");
+
+      if (!ReturnsImage(method))
+        writer.WriteLine("return null;");
+    }
+
+    protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      bool returnsImage = ReturnsImage(method);
+
+      if (returnsImage)
+        writer.Write("return ");
+      else
+        WriteStartColon(writer);
+
+      writer.Write("collection.");
+      writer.Write(method.Name);
+      writer.Write("(");
+      WriteHashtableParameters(writer, parameters);
+      writer.WriteLine(");");
+
+      if (!ReturnsImage(method))
+      {
+        writer.WriteLine("return null;");
+        WriteEndColon(writer);
+      }
+    }
+
+    protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)
+    {
+      throw new NotImplementedException();
+    }
+
+    public override string Name
+    {
+      get
+      {
+        return "MagickImageCollection";
+      }
+    }
+  }
 }

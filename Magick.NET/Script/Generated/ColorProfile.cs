@@ -32,27 +32,23 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-	//===============================================================================================
-	public sealed partial class MagickScript
-	{
-		//============================================================================================
-		private static ColorProfile CreateColorProfile(XmlElement element)
-		{
-			if (element.GetAttribute("name") == "AdobeRGB1998")
-				return ColorProfile.AdobeRGB1998;
-			if (element.GetAttribute("name") == "AppleRGB")
-				return ColorProfile.AppleRGB;
-			if (element.GetAttribute("name") == "CoatedFOGRA39")
-				return ColorProfile.CoatedFOGRA39;
-			if (element.GetAttribute("name") == "ColorMatchRGB")
-				return ColorProfile.ColorMatchRGB;
-			if (element.GetAttribute("name") == "SRGB")
-				return ColorProfile.SRGB;
-			if (element.GetAttribute("name") == "USWebCoatedSWOP")
-				return ColorProfile.USWebCoatedSWOP;
-			throw new NotImplementedException(element.Name);
-		}
-		//============================================================================================
-	}
-	//===============================================================================================
+  public sealed partial class MagickScript
+  {
+    private static ColorProfile CreateColorProfile(XmlElement element)
+    {
+      if (element.GetAttribute("name") == "AdobeRGB1998")
+        return ColorProfile.AdobeRGB1998;
+      if (element.GetAttribute("name") == "AppleRGB")
+        return ColorProfile.AppleRGB;
+      if (element.GetAttribute("name") == "CoatedFOGRA39")
+        return ColorProfile.CoatedFOGRA39;
+      if (element.GetAttribute("name") == "ColorMatchRGB")
+        return ColorProfile.ColorMatchRGB;
+      if (element.GetAttribute("name") == "SRGB")
+        return ColorProfile.SRGB;
+      if (element.GetAttribute("name") == "USWebCoatedSWOP")
+        return ColorProfile.USWebCoatedSWOP;
+      throw new NotImplementedException(element.Name);
+    }
+  }
 }

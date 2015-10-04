@@ -12,18 +12,13 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal class Program
-	{
-		//===========================================================================================
-		internal static void Main()
-		{
-			AppDomainHelper.Execute();
-		}
-	}
-	//==============================================================================================
+  internal class Program
+  {
+    internal static void Main()
+    {
+      AppDomainHelper.Execute();
+    }
+  }
 }

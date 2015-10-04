@@ -11,90 +11,90 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal sealed class MagickImageGenerator : ExecuteCodeGenerator
-	{
-		//===========================================================================================
-		protected override string[] CustomMethods
-		{
-			get
-			{
-				return new string[] { "clone", "draw", "write" };
-			}
-		}
-		//===========================================================================================
-		protected override string ExecuteArgument
-		{
-			get
-			{
-				return "MagickImage image";
-			}
-		}
-		//===========================================================================================
-		protected override string ExecuteName
-		{
-			get
-			{
-				return "Image";
-			}
-		}
-		//===========================================================================================
-		protected override IEnumerable<PropertyInfo> Properties
-		{
-			get
-			{
-				return Types.GetMagickImageProperties();
-			}
-		}
-		//===========================================================================================
-		protected override IEnumerable<MethodBase[]> Methods
-		{
-			get
-			{
-				return Types.GetGroupedMagickImageMethods();
-			}
-		}
-		//===========================================================================================
-		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			writer.Write("image.");
-			writer.Write(method.Name);
-			writer.Write("(");
-			WriteParameters(writer, parameters);
-			writer.WriteLine(");");
-		}
-		//===========================================================================================
-		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			writer.Write("image.");
-			writer.Write(method.Name);
-			writer.Write("(");
-			WriteHashtableParameters(writer, parameters);
-			writer.WriteLine(");");
-		}
-		//===========================================================================================
-		protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)
-		{
-			writer.Write("image.");
-			writer.Write(property.Name);
-			writer.Write(" = ");
-			WriteGetValue(writer, property);
-		}
-		//===========================================================================================
-		public override string Name
-		{
-			get
-			{
-				return "MagickImage";
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  internal sealed class MagickImageGenerator : ExecuteCodeGenerator
+  {
+
+    protected override string[] CustomMethods
+    {
+      get
+      {
+        return new string[] { "clone", "draw", "write" };
+      }
+    }
+
+    protected override string ExecuteArgument
+    {
+      get
+      {
+        return "MagickImage image";
+      }
+    }
+
+    protected override string ExecuteName
+    {
+      get
+      {
+        return "Image";
+      }
+    }
+
+    protected override IEnumerable<PropertyInfo> Properties
+    {
+      get
+      {
+        return Types.GetMagickImageProperties();
+      }
+    }
+
+    protected override IEnumerable<MethodBase[]> Methods
+    {
+      get
+      {
+        return Types.GetGroupedMagickImageMethods();
+      }
+    }
+
+    protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      writer.Write("image.");
+      writer.Write(method.Name);
+      writer.Write("(");
+      WriteParameters(writer, parameters);
+      writer.WriteLine(");");
+    }
+
+    protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      writer.Write("image.");
+      writer.Write(method.Name);
+      writer.Write("(");
+      WriteHashtableParameters(writer, parameters);
+      writer.WriteLine(");");
+    }
+
+    protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)
+    {
+      writer.Write("image.");
+      writer.Write(property.Name);
+      writer.Write(" = ");
+      WriteGetValue(writer, property);
+    }
+
+    public override string Name
+    {
+      get
+      {
+        return "MagickImage";
+      }
+    }
+
+  }
+  //==============================================================================================
 }

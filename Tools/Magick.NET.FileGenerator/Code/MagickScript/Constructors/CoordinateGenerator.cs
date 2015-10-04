@@ -17,36 +17,32 @@ using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal sealed class CoordinateGenerator : ConstructorCodeGenerator
-	{
-		//===========================================================================================
-		protected override string ClassName
-		{
-			get
-			{
-				return "Coordinate";
-			}
-		}
-		//===========================================================================================
-		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			writer.Write("return new ");
-			writer.Write(method.DeclaringType.Name);
-			writer.Write("(");
-			WriteParameters(writer, parameters);
-			writer.WriteLine(");");
-		}
-		//===========================================================================================
-		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			writer.Write("return new ");
-			writer.Write(method.DeclaringType.Name);
-			writer.Write("(");
-			WriteHashtableParameters(writer, parameters);
-			writer.WriteLine(");");
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  internal sealed class CoordinateGenerator : ConstructorCodeGenerator
+  {
+    protected override string ClassName
+    {
+      get
+      {
+        return "Coordinate";
+      }
+    }
+
+    protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      writer.Write("return new ");
+      writer.Write(method.DeclaringType.Name);
+      writer.Write("(");
+      WriteParameters(writer, parameters);
+      writer.WriteLine(");");
+    }
+
+    protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      writer.Write("return new ");
+      writer.Write(method.DeclaringType.Name);
+      writer.Write("(");
+      WriteHashtableParameters(writer, parameters);
+      writer.WriteLine(");");
+    }
+  }
 }

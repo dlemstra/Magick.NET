@@ -32,27 +32,23 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-	//===============================================================================================
-	public sealed partial class MagickScript
-	{
-		//============================================================================================
-		private Coordinate CreateCoordinate(XmlElement element)
-		{
-			double x_ = Variables.GetValue<double>(element, "x");
-			double y_ = Variables.GetValue<double>(element, "y");
-			return new Coordinate(x_, y_);
-		}
-		//============================================================================================
-		private Collection<Coordinate> CreateCoordinates(XmlElement element)
-		{
-			Collection<Coordinate> collection = new Collection<Coordinate>();
-			foreach (XmlElement elem in element.SelectNodes("*"))
-			{
-				collection.Add(CreateCoordinate(elem));
-			}
-			return collection;
-		}
-		//============================================================================================
-	}
-	//===============================================================================================
+  public sealed partial class MagickScript
+  {
+    private Coordinate CreateCoordinate(XmlElement element)
+    {
+      double x_ = Variables.GetValue<double>(element, "x");
+      double y_ = Variables.GetValue<double>(element, "y");
+      return new Coordinate(x_, y_);
+    }
+
+    private Collection<Coordinate> CreateCoordinates(XmlElement element)
+    {
+      Collection<Coordinate> collection = new Collection<Coordinate>();
+      foreach (XmlElement elem in element.SelectNodes("*"))
+      {
+        collection.Add(CreateCoordinate(elem));
+      }
+      return collection;
+    }
+  }
 }

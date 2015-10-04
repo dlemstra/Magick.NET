@@ -18,157 +18,153 @@ using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal abstract class CreateObjectCodeGenerator : CodeGenerator
-	{
-		//===========================================================================================
-		private MethodBase[] Methods
-		{
-			get
-			{
-				return Types.GetMethods(ClassName).ToArray();
-			}
-		}
-		//===========================================================================================
-		private PropertyInfo[] Properties
-		{
-			get
-			{
-				return Types.GetProperties(ClassName).ToArray();
-			}
-		}
-		//===========================================================================================
-		private void WriteCallMethods(IndentedTextWriter writer)
-		{
-			foreach (MethodBase method in Methods)
-			{
-				string xsdMethodName = MagickTypes.GetXsdName(method);
-				ParameterInfo[] parameters = method.GetParameters();
+  internal abstract class CreateObjectCodeGenerator : CodeGenerator
+  {
+    private MethodBase[] Methods
+    {
+      get
+      {
+        return Types.GetMethods(ClassName).ToArray();
+      }
+    }
 
-				writer.Write("XmlElement ");
-				writer.Write(xsdMethodName);
-				writer.Write(" = (XmlElement)element.SelectSingleNode(\"");
-				writer.Write(xsdMethodName);
-				writer.WriteLine("\");");
+    private PropertyInfo[] Properties
+    {
+      get
+      {
+        return Types.GetProperties(ClassName).ToArray();
+      }
+    }
 
-				writer.Write("if (");
-				writer.Write(xsdMethodName);
-				writer.WriteLine(" != null)");
-				WriteStartColon(writer);
+    private void WriteCallMethods(IndentedTextWriter writer)
+    {
+      foreach (MethodBase method in Methods)
+      {
+        string xsdMethodName = MagickTypes.GetXsdName(method);
+        ParameterInfo[] parameters = method.GetParameters();
 
-				foreach (ParameterInfo parameter in parameters)
-				{
-					string typeName = GetName(parameter);
+        writer.Write("XmlElement ");
+        writer.Write(xsdMethodName);
+        writer.Write(" = (XmlElement)element.SelectSingleNode(\"");
+        writer.Write(xsdMethodName);
+        writer.WriteLine("\");");
 
-					writer.Write(typeName);
-					writer.Write(" ");
-					writer.Write(parameter.Name);
-					writer.Write("_ = XmlHelper.GetAttribute<");
-					writer.Write(typeName);
-					writer.Write(">(");
-					writer.Write(xsdMethodName);
-					writer.Write(", \"");
-					writer.Write(parameter.Name);
-					writer.WriteLine("\");");
-				}
+        writer.Write("if (");
+        writer.Write(xsdMethodName);
+        writer.WriteLine(" != null)");
+        WriteStartColon(writer);
 
-				writer.Write("result.");
-				writer.Write(method.Name);
-				writer.Write("(");
+        foreach (ParameterInfo parameter in parameters)
+        {
+          string typeName = GetName(parameter);
 
-				for (int i = 0; i < parameters.Length; i++)
-				{
-					if (i > 0)
-						writer.Write(",");
+          writer.Write(typeName);
+          writer.Write(" ");
+          writer.Write(parameter.Name);
+          writer.Write("_ = XmlHelper.GetAttribute<");
+          writer.Write(typeName);
+          writer.Write(">(");
+          writer.Write(xsdMethodName);
+          writer.Write(", \"");
+          writer.Write(parameter.Name);
+          writer.WriteLine("\");");
+        }
 
-					writer.Write(parameters[i].Name);
-					writer.Write("_");
-				}
+        writer.Write("result.");
+        writer.Write(method.Name);
+        writer.Write("(");
 
-				writer.WriteLine(");");
-				WriteEndColon(writer);
-			}
-		}
-		//===========================================================================================
-		private void WriteGetValue(IndentedTextWriter writer, PropertyInfo property)
-		{
-			string typeName = GetName(property);
-			string xsdTypeName = MagickTypes.GetXsdAttributeType(property);
+        for (int i = 0; i < parameters.Length; i++)
+        {
+          if (i > 0)
+            writer.Write(",");
 
-			if (xsdTypeName != null)
-			{
-				WriteGetElementValue(writer, typeName, MagickTypes.GetXsdName(property));
-			}
-			else
-			{
-				WriteCreateMethod(writer, typeName);
-				writer.Write("(");
-				WriteSelectElement(writer, typeName, MagickTypes.GetXsdName(property));
-				writer.WriteLine(");");
-			}
-		}
-		//===========================================================================================
-		private void WriteSetProperties(IndentedTextWriter writer)
-		{
-			foreach (PropertyInfo property in Properties)
-			{
-				writer.Write("result.");
-				writer.Write(property.Name);
-				writer.Write(" = ");
-				WriteGetValue(writer, property);
-			}
-		}
-		//===========================================================================================
-		protected virtual string ReturnType
-		{
-			get
-			{
-				return ClassName;
-			}
-		}
-		//===========================================================================================
-		protected override void WriteCode(IndentedTextWriter writer)
-		{
-			writer.Write("private ");
-			writer.Write(ReturnType);
-			writer.Write(" Create");
-			writer.Write(ClassName);
-			writer.WriteLine("(XmlElement element)");
-			WriteStartColon(writer);
-			CheckNull(writer, "element");
-			writer.Write(ClassName);
-			writer.Write(" result = new ");
-			writer.Write(ClassName);
-			writer.WriteLine("();");
-			WriteSetProperties(writer);
-			WriteCallMethods(writer);
-			writer.WriteLine("return result;");
-			WriteEndColon(writer);
-		}
-		//===========================================================================================
-		protected sealed override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			throw new NotImplementedException();
-		}
-		//===========================================================================================
-		protected sealed override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			throw new NotImplementedException();
-		}
-		//===========================================================================================
-		public abstract string ClassName
-		{
-			get;
-		}
-		//===========================================================================================
-		public override string Name
-		{
-			get
-			{
-				return ClassName;
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+          writer.Write(parameters[i].Name);
+          writer.Write("_");
+        }
+
+        writer.WriteLine(");");
+        WriteEndColon(writer);
+      }
+    }
+
+    private void WriteGetValue(IndentedTextWriter writer, PropertyInfo property)
+    {
+      string typeName = GetName(property);
+      string xsdTypeName = MagickTypes.GetXsdAttributeType(property);
+
+      if (xsdTypeName != null)
+      {
+        WriteGetElementValue(writer, typeName, MagickTypes.GetXsdName(property));
+      }
+      else
+      {
+        WriteCreateMethod(writer, typeName);
+        writer.Write("(");
+        WriteSelectElement(writer, typeName, MagickTypes.GetXsdName(property));
+        writer.WriteLine(");");
+      }
+    }
+
+    private void WriteSetProperties(IndentedTextWriter writer)
+    {
+      foreach (PropertyInfo property in Properties)
+      {
+        writer.Write("result.");
+        writer.Write(property.Name);
+        writer.Write(" = ");
+        WriteGetValue(writer, property);
+      }
+    }
+
+    protected virtual string ReturnType
+    {
+      get
+      {
+        return ClassName;
+      }
+    }
+
+    protected override void WriteCode(IndentedTextWriter writer)
+    {
+      writer.Write("private ");
+      writer.Write(ReturnType);
+      writer.Write(" Create");
+      writer.Write(ClassName);
+      writer.WriteLine("(XmlElement element)");
+      WriteStartColon(writer);
+      CheckNull(writer, "element");
+      writer.Write(ClassName);
+      writer.Write(" result = new ");
+      writer.Write(ClassName);
+      writer.WriteLine("();");
+      WriteSetProperties(writer);
+      WriteCallMethods(writer);
+      writer.WriteLine("return result;");
+      WriteEndColon(writer);
+    }
+
+    protected sealed override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      throw new NotImplementedException();
+    }
+
+    protected sealed override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      throw new NotImplementedException();
+    }
+
+    public abstract string ClassName
+    {
+      get;
+    }
+
+    public override string Name
+    {
+      get
+      {
+        return ClassName;
+      }
+    }
+  }
 }

@@ -32,29 +32,25 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-	//===============================================================================================
-	public sealed partial class MagickScript
-	{
-		//============================================================================================
-		private PathQuadraticCurveto CreatePathQuadraticCurveto(XmlElement element)
-		{
-			double x1_ = Variables.GetValue<double>(element, "x1");
-			double y1_ = Variables.GetValue<double>(element, "y1");
-			double x_ = Variables.GetValue<double>(element, "x");
-			double y_ = Variables.GetValue<double>(element, "y");
-			return new PathQuadraticCurveto(x1_, y1_, x_, y_);
-		}
-		//============================================================================================
-		private Collection<PathQuadraticCurveto> CreatePathQuadraticCurvetos(XmlElement element)
-		{
-			Collection<PathQuadraticCurveto> collection = new Collection<PathQuadraticCurveto>();
-			foreach (XmlElement elem in element.SelectNodes("*"))
-			{
-				collection.Add(CreatePathQuadraticCurveto(elem));
-			}
-			return collection;
-		}
-		//============================================================================================
-	}
-	//===============================================================================================
+  public sealed partial class MagickScript
+  {
+    private PathQuadraticCurveto CreatePathQuadraticCurveto(XmlElement element)
+    {
+      double x1_ = Variables.GetValue<double>(element, "x1");
+      double y1_ = Variables.GetValue<double>(element, "y1");
+      double x_ = Variables.GetValue<double>(element, "x");
+      double y_ = Variables.GetValue<double>(element, "y");
+      return new PathQuadraticCurveto(x1_, y1_, x_, y_);
+    }
+
+    private Collection<PathQuadraticCurveto> CreatePathQuadraticCurvetos(XmlElement element)
+    {
+      Collection<PathQuadraticCurveto> collection = new Collection<PathQuadraticCurveto>();
+      foreach (XmlElement elem in element.SelectNodes("*"))
+      {
+        collection.Add(CreatePathQuadraticCurveto(elem));
+      }
+      return collection;
+    }
+  }
 }

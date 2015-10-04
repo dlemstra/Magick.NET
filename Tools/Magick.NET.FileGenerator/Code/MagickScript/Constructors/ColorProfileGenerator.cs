@@ -11,61 +11,58 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System;
 using System.CodeDom.Compiler;
 using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
-	//==============================================================================================
-	internal sealed class ColorProfileGenerator : ConstructorCodeGenerator
-	{
-		//===========================================================================================
-		protected override string ClassName
-		{
-			get
-			{
-				return "ColorProfile";
-			}
-		}
-		//===========================================================================================
-		protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			throw new NotImplementedException();
-		}
-		//===========================================================================================
-		protected override void WriteCode(IndentedTextWriter writer)
-		{
-			writer.Write("private static ");
-			writer.Write(TypeName);
-			writer.Write(" Create");
-			writer.Write(ClassName);
-			writer.WriteLine("(XmlElement element)");
-			WriteStartColon(writer);
-			foreach (string name in Types.GetColorProfileNames())
-			{
-				writer.Write("if (element.GetAttribute(\"name\") == \"");
-				writer.Write(name);
-				writer.WriteLine("\")");
-				writer.Indent++;
-				writer.Write("return ColorProfile.");
-				writer.Write(name);
-				writer.WriteLine(";");
-				writer.Indent--;
-			}
-			writer.WriteLine("throw new NotImplementedException(element.Name);");
-			WriteEndColon(writer);
-		}
-		//===========================================================================================
-		protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
-		{
-			throw new NotImplementedException();
-		}
-		//===========================================================================================
-		public ColorProfileGenerator()
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  internal sealed class ColorProfileGenerator : ConstructorCodeGenerator
+  {
+    protected override string ClassName
+    {
+      get
+      {
+        return "ColorProfile";
+      }
+    }
+
+    protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      throw new NotImplementedException();
+    }
+
+    protected override void WriteCode(IndentedTextWriter writer)
+    {
+      writer.Write("private static ");
+      writer.Write(TypeName);
+      writer.Write(" Create");
+      writer.Write(ClassName);
+      writer.WriteLine("(XmlElement element)");
+      WriteStartColon(writer);
+      foreach (string name in Types.GetColorProfileNames())
+      {
+        writer.Write("if (element.GetAttribute(\"name\") == \"");
+        writer.Write(name);
+        writer.WriteLine("\")");
+        writer.Indent++;
+        writer.Write("return ColorProfile.");
+        writer.Write(name);
+        writer.WriteLine(";");
+        writer.Indent--;
+      }
+      writer.WriteLine("throw new NotImplementedException(element.Name);");
+      WriteEndColon(writer);
+    }
+
+    protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    {
+      throw new NotImplementedException();
+    }
+
+    public ColorProfileGenerator()
+    {
+    }
+  }
 }
