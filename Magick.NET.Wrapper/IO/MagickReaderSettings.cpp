@@ -139,9 +139,6 @@ namespace ImageMagick
 
     void MagickReaderSettings::Apply(Magick::Image* image)
     {
-      Throw::IfFalse("settings", (!_Settings->FrameCount.HasValue || _Settings->FrameCount.Value == 1),
-        "The FrameCount can only be set to 1 when a MagickImage is being read.");
-
       Apply(image->imageInfo());
     }
 

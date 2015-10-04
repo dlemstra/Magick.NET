@@ -191,9 +191,6 @@
     <ClCompile Include="ResourceLimits.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GlobalSuppressions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Colors\MagickColor.cpp">
       <Filter>Source Files\Colors</Filter>
     </ClCompile>
@@ -253,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="Optimizers\JpegOptimizer.cpp">
       <Filter>Source Files\Optimizers</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalSuppressions.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

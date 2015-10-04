@@ -120,6 +120,8 @@
     <Compile Include="Files.cs" />
     <Compile Include="ResourceLimitsTests.cs" />
     <Compile Include="Script\MagickScriptTests.cs" />
+    <Compile Include="Settings\MagickReadSettingsTests.cs" />
+    <Compile Include="Settings\PixelStorageSettingsTests.cs" />
     <Compile Include="Statistics\MomentsTests.cs" />
     <Compile Include="Statistics\PerceptualHashTests.cs" />
     <Compile Include="Statistics\StatisticsTests.cs" />
@@ -137,9 +139,7 @@
       <Name>Magick.NET</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Settings\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Script\Collection.msl" />
     <None Include="Script\Defines.msl" />

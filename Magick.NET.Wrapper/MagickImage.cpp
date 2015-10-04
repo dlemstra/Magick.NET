@@ -48,6 +48,10 @@ namespace ImageMagick
 
     MagickReaderSettings^ MagickImage::CheckSettings(MagickReadSettings^ readSettings)
     {
+      if (readSettings != nullptr && readSettings->FrameCount.HasValue)
+        Throw::IfFalse("readSettings", readSettings->FrameCount.Value == 1,
+          "The FrameCount can only be set to 1 when a MagickImage is being read.");
+
       MagickReadSettings^ newReadSettings = readSettings;
       if (newReadSettings == nullptr)
         newReadSettings = gcnew MagickReadSettings();
