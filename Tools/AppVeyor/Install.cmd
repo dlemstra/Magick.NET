@@ -1,6 +1,6 @@
 @echo off
 
-choco install ghostscript.app -y -x86 -version 9.16
+if not exist "C:\Program Files (x86)\gs" choco install ghostscript.app -y -x86 -version 9.16
 
 set LIBDIR=C:\Magick.NET.libs
 if exist %LIBDIR% goto done

@@ -48,6 +48,8 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_FitPage()
     {
+      Ghostscript.Initialize();
+
       MagickReadSettings settings = new MagickReadSettings()
       {
         Defines = new PdfReadDefines()

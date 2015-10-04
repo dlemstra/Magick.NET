@@ -13,8 +13,6 @@
 //=================================================================================================
 
 using System;
-using System.Drawing;
-using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -26,6 +24,12 @@ namespace Magick.NET.Tests.Coders
     private const string _Category = "PdfTests";
 
     private delegate void ReadDelegate();
+
+    [TestInitialize]
+    public void Initialize()
+    {
+      Ghostscript.Initialize();
+    }
 
     [TestMethod, TestCategory(_Category)]
     public void Test_Format()

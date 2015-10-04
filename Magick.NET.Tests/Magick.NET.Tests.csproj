@@ -92,6 +92,7 @@
     <Compile Include="ExceptionAssert.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Ghostscript.cs" />
     <Compile Include="MagickFormatInfoTests.cs" />
     <Compile Include="MagickImageCollectionTests.cs" />
     <Compile Include="MagickImageInfoTests.cs" />
