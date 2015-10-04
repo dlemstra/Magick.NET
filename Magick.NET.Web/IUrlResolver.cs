@@ -17,43 +17,39 @@ using System.Xml.XPath;
 
 namespace ImageMagick.Web
 {
-	///=============================================================================================
-	/// <summary>
-	/// Defines an interface that is used to resolve a file and script from the specified request.
-	/// </summary>
-	public interface IUrlResolver
-	{
-		///==========================================================================================
-		/// <summary>
-		/// The name of the file.
-		/// </summary>
-		string FileName
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The format of the output image.
-		/// </summary>
-		MagickFormat Format
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The script to use.
-		/// </summary>
-		IXPathNavigable Script
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Returns true if the specified url could be resolved to a file name and script.
-		/// </summary>
-		/// <param name="url">The url to resolve.</param>
-		bool Resolve(Uri url);
-		//===========================================================================================
-	}
-	//============================================================================================== 
+  /// <summary>
+  /// Defines an interface that is used to resolve a file and script from the specified request.
+  /// </summary>
+  public interface IUrlResolver
+  {
+    /// <summary>
+    /// The name of the file.
+    /// </summary>
+    string FileName
+    {
+      get;
+    }
+
+    /// <summary>
+    /// The format of the output image.
+    /// </summary>
+    MagickFormat Format
+    {
+      get;
+    }
+
+    /// <summary>
+    /// The script to use.
+    /// </summary>
+    IXPathNavigable Script
+    {
+      get;
+    }
+
+    /// <summary>
+    /// Returns true if the specified url could be resolved to a file name and script.
+    /// </summary>
+    /// <param name="url">The url to resolve.</param>
+    bool Resolve(Uri url);
+  }
 }

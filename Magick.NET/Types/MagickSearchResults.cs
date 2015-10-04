@@ -16,64 +16,60 @@ using System;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Result for a sub image search operation.
-	///</summary>
-	public sealed class MagickSearchResult : IDisposable
-	{
-		//===========================================================================================
-		private Wrapper.MagickSearchResult _Instance;
-		//===========================================================================================
-		internal MagickSearchResult(Wrapper.MagickSearchResult instance)
-		{
-			_Instance = instance;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The offset for the best match.
-		///</summary>
-		public MagickGeometry BestMatch
-		{
-			get
-			{
-				return MagickGeometry.Create(_Instance.BestMatch);
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// A similarity image such that an exact match location is completely white and if none of
-		/// the pixels match, black, otherwise some gray level in-between.
-		///</summary>
-		public MagickImage SimilarityImage
-		{
-			get
-			{
-				return MagickImage.Create(_Instance.SimilarityImage);
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Similarity metric.
-		///</summary>
-		public double SimilarityMetric
-		{
-			get
-			{
-				return _Instance.SimilarityMetric;
-			}
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Disposes the MagickSearchResult instance.
-		/// </summary>
-		public void Dispose()
-		{
-			if (_Instance != null)
-				_Instance.Dispose();
-			_Instance = null;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Result for a sub image search operation.
+  ///</summary>
+  public sealed class MagickSearchResult : IDisposable
+  {
+    private Wrapper.MagickSearchResult _Instance;
+
+    internal MagickSearchResult(Wrapper.MagickSearchResult instance)
+    {
+      _Instance = instance;
+    }
+
+    ///<summary>
+    /// The offset for the best match.
+    ///</summary>
+    public MagickGeometry BestMatch
+    {
+      get
+      {
+        return MagickGeometry.Create(_Instance.BestMatch);
+      }
+    }
+
+    ///<summary>
+    /// A similarity image such that an exact match location is completely white and if none of
+    /// the pixels match, black, otherwise some gray level in-between.
+    ///</summary>
+    public MagickImage SimilarityImage
+    {
+      get
+      {
+        return MagickImage.Create(_Instance.SimilarityImage);
+      }
+    }
+
+    ///<summary>
+    /// Similarity metric.
+    ///</summary>
+    public double SimilarityMetric
+    {
+      get
+      {
+        return _Instance.SimilarityMetric;
+      }
+    }
+
+    /// <summary>
+    /// Disposes the MagickSearchResult instance.
+    /// </summary>
+    public void Dispose()
+    {
+      if (_Instance != null)
+        _Instance.Dispose();
+      _Instance = null;
+    }
+  }
 }

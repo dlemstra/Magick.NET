@@ -19,39 +19,37 @@ using namespace System::Globalization;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		MagickSearchResult::!MagickSearchResult()
-		{
-			if (_SimilarityImage == nullptr)
-				return;
+  namespace Wrapper
+  {
+    MagickSearchResult::!MagickSearchResult()
+    {
+      if (_SimilarityImage == nullptr)
+        return;
 
-			delete _SimilarityImage;
-			_SimilarityImage = nullptr;
-		}
-		//===========================================================================================
-		MagickSearchResult::MagickSearchResult(const Magick::Image& image, Magick::Geometry bestMatch, double similarityMetric)
-		{
-			_SimilarityImage = gcnew MagickImage(image);
-			_BestMatch = gcnew MagickGeometry(bestMatch);
-			_SimilarityMetric = similarityMetric;
-		}
-		//===========================================================================================
-		MagickGeometry^ MagickSearchResult::BestMatch::get()
-		{
-			return _BestMatch;
-		}
-		//===========================================================================================
-		MagickImage^ MagickSearchResult::SimilarityImage::get()
-		{
-			return _SimilarityImage;
-		}
-		//===========================================================================================
-		double MagickSearchResult::SimilarityMetric::get()
-		{
-			return _SimilarityMetric;
-		}
-		//===========================================================================================
-	}
+      delete _SimilarityImage;
+      _SimilarityImage = nullptr;
+    }
+
+    MagickSearchResult::MagickSearchResult(const Magick::Image& image, Magick::Geometry bestMatch, double similarityMetric)
+    {
+      _SimilarityImage = gcnew MagickImage(image);
+      _BestMatch = gcnew MagickGeometry(bestMatch);
+      _SimilarityMetric = similarityMetric;
+    }
+
+    MagickGeometry^ MagickSearchResult::BestMatch::get()
+    {
+      return _BestMatch;
+    }
+
+    MagickImage^ MagickSearchResult::SimilarityImage::get()
+    {
+      return _SimilarityImage;
+    }
+
+    double MagickSearchResult::SimilarityMetric::get()
+    {
+      return _SimilarityMetric;
+    }
+  }
 }

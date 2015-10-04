@@ -17,29 +17,29 @@ Imports ImageMagick
 
 Namespace RootNamespace.Samples.MagickNET
 
-	Public NotInheritable Class DetailedDebugInformationSamples
+  Public NotInheritable Class DetailedDebugInformationSamples
 
-		Private Shared Sub WriteLogMessage(message As String)
-			Console.WriteLine(message)
-		End Sub
+    Private Shared Sub WriteLogMessage(message As String)
+      Console.WriteLine(message)
+    End Sub
 
-		Public Shared Sub MagickNET_Log(sender As Object, arguments As LogEventArgs)
-			' Write log message
-			WriteLogMessage(arguments.Message)
-		End Sub
+    Public Shared Sub MagickNET_Log(sender As Object, arguments As LogEventArgs)
+      ' Write log message
+      WriteLogMessage(arguments.Message)
+    End Sub
 
-		Public Shared Sub ReadImage()
-			' Log all events
-			ImageMagick.MagickNET.SetLogEvents(LogEvents.All Or LogEvents.Trace)
-			' Set the log handler (all threads use the same handler)
-			AddHandler ImageMagick.MagickNET.Log, AddressOf MagickNET_Log
+    Public Shared Sub ReadImage()
+      ' Log all events
+      ImageMagick.MagickNET.SetLogEvents(LogEvents.All Or LogEvents.Trace)
+      ' Set the log handler (all threads use the same handler)
+      AddHandler ImageMagick.MagickNET.Log, AddressOf MagickNET_Log
 
-			Using image As New MagickImage()
-				' Reading the image will send all log events to the log handler
-				image.Read(SampleFiles.SnakewarePng)
-			End Using
-		End Sub
+      Using image As New MagickImage()
+        ' Reading the image will send all log events to the log handler
+        image.Read(SampleFiles.SnakewarePng)
+      End Using
+    End Sub
 
-	End Class
+  End Class
 
 End Namespace

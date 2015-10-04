@@ -16,37 +16,33 @@ using System;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class that contains data for the Write event.
-	///</summary>
-	public sealed class ScriptWriteEventArgs : EventArgs
-	{
-		//===========================================================================================
-		internal ScriptWriteEventArgs(string id, MagickImage image)
-		{
-			Id = id;
-			Image = image;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The ID of the image.
-		///</summary>
-		public string Id
-		{
-			get;
-			private set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The image that needs to be written.
-		///</summary>
-		public MagickImage Image
-		{
-			get;
-			private set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Class that contains data for the Write event.
+  ///</summary>
+  public sealed class ScriptWriteEventArgs : EventArgs
+  {
+    internal ScriptWriteEventArgs(string id, MagickImage image)
+    {
+      Id = id;
+      Image = image;
+    }
+
+    ///<summary>
+    /// The ID of the image.
+    ///</summary>
+    public string Id
+    {
+      get;
+      private set;
+    }
+
+    ///<summary>
+    /// The image that needs to be written.
+    ///</summary>
+    public MagickImage Image
+    {
+      get;
+      private set;
+    }
+  }
 }

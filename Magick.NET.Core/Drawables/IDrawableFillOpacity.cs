@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the IDrawableFillOpacity object.
-	///</summary>
-	public interface IDrawableFillOpacity : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The opacity.
-		///</summary>
-		double Opacity
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the IDrawableFillOpacity object.
+  ///</summary>
+  public interface IDrawableFillOpacity : IDrawable
+  {
+    ///<summary>
+    /// The opacity.
+    ///</summary>
+    double Opacity
+    {
+      get;
+    }
+  }
 }

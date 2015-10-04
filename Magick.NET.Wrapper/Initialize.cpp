@@ -17,20 +17,20 @@
 #include <windows.h>
 
 #pragma unmanaged
-BOOL WINAPI DllMain(HINSTANCE hinstDLL,DWORD fdwReason,LPVOID lpReserved)
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
 {
-	(void) hinstDLL;
-	(void) lpReserved;
+  (void)hinstDLL;
+  (void)lpReserved;
 
-	switch (fdwReason)
-	{ 
-	case DLL_PROCESS_ATTACH:
-		(void) MagickCore::MagickCoreGenesis((const char *)NULL,MagickCore::MagickFalse);
-		Magick::ResourceLimits::width(10000000);
-		Magick::ResourceLimits::height(10000000);
-		break;
-	default:
-		break;
-	}
-	return TRUE;  // Successful DLL_PROCESS_ATTACH.
+  switch (fdwReason)
+  {
+  case DLL_PROCESS_ATTACH:
+    (void)MagickCore::MagickCoreGenesis((const char *)NULL, MagickCore::MagickFalse);
+    Magick::ResourceLimits::width(10000000);
+    Magick::ResourceLimits::height(10000000);
+    break;
+  default:
+    break;
+  }
+  return TRUE;  // Successful DLL_PROCESS_ATTACH.
 }

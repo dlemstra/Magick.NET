@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableTextAntialias object.
-	///</summary>
-	public interface IDrawableTextAntialias : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// True if text antialiasing is enabled otherwise false.
-		///</summary>
-		bool IsEnabled
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableTextAntialias object.
+  ///</summary>
+  public interface IDrawableTextAntialias : IDrawable
+  {
+    ///<summary>
+    /// True if text antialiasing is enabled otherwise false.
+    ///</summary>
+    bool IsEnabled
+    {
+      get;
+    }
+  }
 }

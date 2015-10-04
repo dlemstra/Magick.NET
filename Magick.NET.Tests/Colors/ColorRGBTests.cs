@@ -18,53 +18,49 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class ColorRGBTests : ColorBaseTests<ColorRGB>
-	{
-		//===========================================================================================
-		private const string _Category = "ColorRGB";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IComparable()
-		{
-			ColorRGB first = new ColorRGB(Color.Red);
+  [TestClass]
+  public class ColorRGBTests : ColorBaseTests<ColorRGB>
+  {
+    private const string _Category = "ColorRGB";
 
-			Test_IComparable(first);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IComparable()
+    {
+      ColorRGB first = new ColorRGB(Color.Red);
 
-			ColorRGB second = new ColorRGB(Color.White);
+      Test_IComparable(first);
 
-			Test_IComparable_FirstLower(first, second);
+      ColorRGB second = new ColorRGB(Color.White);
 
-			second = new ColorRGB(Color.Green);
+      Test_IComparable_FirstLower(first, second);
 
-			Test_IComparable_FirstLower(second, first);
+      second = new ColorRGB(Color.Green);
 
-			second = new ColorRGB(Color.Blue);
+      Test_IComparable_FirstLower(second, first);
 
-			Test_IComparable_FirstLower(second, first);
+      second = new ColorRGB(Color.Blue);
 
-			second = new ColorRGB(Color.Red);
+      Test_IComparable_FirstLower(second, first);
 
-			Test_IComparable_Equal(first, second);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
-		{
-			ColorRGB first = new ColorRGB(Color.Red);
+      second = new ColorRGB(Color.Red);
 
-			Test_IEquatable_NullAndSelf(first);
+      Test_IComparable_Equal(first, second);
+    }
 
-			ColorRGB second = new ColorRGB(Quantum.Max, 0, 0);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IEquatable()
+    {
+      ColorRGB first = new ColorRGB(Color.Red);
 
-			Test_IEquatable_Equal(first, second);
+      Test_IEquatable_NullAndSelf(first);
 
-			second = new ColorRGB(Color.Green);
+      ColorRGB second = new ColorRGB(Quantum.Max, 0, 0);
 
-			Test_IEquatable_NotEqual(first, second);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      Test_IEquatable_Equal(first, second);
+
+      second = new ColorRGB(Color.Green);
+
+      Test_IEquatable_NotEqual(first, second);
+    }
+  }
 }

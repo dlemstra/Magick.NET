@@ -16,31 +16,27 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathLinetoVerticalAbs object.
-	///</summary>
-	public sealed class PathLinetoVerticalRel : IPathLinetoVerticalRel
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathLinetoVerticalRel class.
-		///</summary>
-		///<param name="y">The Y coordinate.</param>
-		public PathLinetoVerticalRel(double y)
-		{
-			Y = y;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The Y coordinate.
-		/// </summary>
-		public double Y
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathLinetoVerticalAbs object.
+  ///</summary>
+  public sealed class PathLinetoVerticalRel : IPathLinetoVerticalRel
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathLinetoVerticalRel class.
+    ///</summary>
+    ///<param name="y">The Y coordinate.</param>
+    public PathLinetoVerticalRel(double y)
+    {
+      Y = y;
+    }
+
+    /// <summary>
+    /// The Y coordinate.
+    /// </summary>
+    public double Y
+    {
+      get;
+      set;
+    }
+  }
 }

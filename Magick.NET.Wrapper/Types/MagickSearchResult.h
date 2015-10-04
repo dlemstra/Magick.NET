@@ -18,52 +18,49 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		ref class MagickImage;
-		///==========================================================================================
-		///<summary>
-		/// Result for a sub image search operation.
-		///</summary>
-		private ref class MagickSearchResult sealed
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			MagickGeometry^ _BestMatch;
-			MagickImage^ _SimilarityImage;
-			double _SimilarityMetric;
-			//========================================================================================
-			!MagickSearchResult();
-			//========================================================================================
-		internal:
-			//========================================================================================
-			MagickSearchResult(const Magick::Image& image, Magick::Geometry bestMatch, double similarityMetric);
-			//========================================================================================
-		public:
-			//========================================================================================
-			~MagickSearchResult()
-			{
-				this->!MagickSearchResult();
-			}
-			//========================================================================================
-			property MagickGeometry^ BestMatch
-			{
-				MagickGeometry^ get();
-			}
-			//========================================================================================
-			property MagickImage^ SimilarityImage
-			{
-				MagickImage^ get();
-			}
-			//========================================================================================
-			property double SimilarityMetric
-			{
-				double get();
-			}
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    ref class MagickImage;
+
+    ///<summary>
+    /// Result for a sub image search operation.
+    ///</summary>
+    private ref class MagickSearchResult sealed
+    {
+
+    private:
+
+      MagickGeometry^ _BestMatch;
+      MagickImage^ _SimilarityImage;
+      double _SimilarityMetric;
+
+      !MagickSearchResult();
+
+    internal:
+
+      MagickSearchResult(const Magick::Image& image, Magick::Geometry bestMatch, double similarityMetric);
+
+    public:
+
+      ~MagickSearchResult()
+      {
+        this->!MagickSearchResult();
+      }
+
+      property MagickGeometry^ BestMatch
+      {
+        MagickGeometry^ get();
+      }
+
+      property MagickImage^ SimilarityImage
+      {
+        MagickImage^ get();
+      }
+
+      property double SimilarityMetric
+      {
+        double get();
+      }
+    };
+  }
 }

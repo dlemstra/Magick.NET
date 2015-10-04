@@ -16,13 +16,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePushGraphicContext object.
-	///</summary>
-	[SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
-	public interface IDrawablePushGraphicContext : IDrawable
-	{
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePushGraphicContext object.
+  ///</summary>
+  [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
+  public interface IDrawablePushGraphicContext : IDrawable
+  {
+  }
 }

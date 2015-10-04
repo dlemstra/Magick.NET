@@ -1,9 +1,9 @@
 <msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
-	<read>
-		<addProfile>
-			<profile>
-				<colorProfile name="SRGB"/>
-			</profile>
-		</addProfile>
-	</read>
+  <read>
+    <addProfile>
+      <profile>
+        <colorProfile name="SRGB"/>
+      </profile>
+    </addProfile>
+  </read>
 </msl>

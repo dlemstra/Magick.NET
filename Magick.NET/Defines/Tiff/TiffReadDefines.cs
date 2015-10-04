@@ -17,42 +17,38 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class for defines that are used when a tiff image is read.
-	///</summary>
-	public sealed class TiffReadDefines : DefineCreator, IReadDefines
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the TiffReadDefines class.
-		///</summary>
-		public TiffReadDefines()
-			: base(MagickFormat.Tiff)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Specifies if the exif profile should be ignored (tiff:exif-properties).
-		///</summary>
-		public bool? IgnoreExifPoperties
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The defines that should be set as an define on an image
-		///</summary>
-		public override IEnumerable<IDefine> Defines
-		{
-			get
-			{
-				if (IgnoreExifPoperties.Equals(true))
-					yield return CreateDefine("exif-properties", "false");
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Class for defines that are used when a tiff image is read.
+  ///</summary>
+  public sealed class TiffReadDefines : DefineCreator, IReadDefines
+  {
+    ///<summary>
+    /// Initializes a new instance of the TiffReadDefines class.
+    ///</summary>
+    public TiffReadDefines()
+      : base(MagickFormat.Tiff)
+    {
+    }
+
+    ///<summary>
+    /// Specifies if the exif profile should be ignored (tiff:exif-properties).
+    ///</summary>
+    public bool? IgnoreExifPoperties
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The defines that should be set as an define on an image
+    ///</summary>
+    public override IEnumerable<IDefine> Defines
+    {
+      get
+      {
+        if (IgnoreExifPoperties.Equals(true))
+          yield return CreateDefine("exif-properties", "false");
+      }
+    }
+  }
 }

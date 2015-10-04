@@ -23,265 +23,261 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class MagickScriptsTests
-	{
-		//===========================================================================================
-		private const string _Category = "MagickScript";
-		//===========================================================================================
-		private void CollectionScriptRead(object sender, ScriptReadEventArgs arguments)
-		{
-			switch (arguments.Id)
-			{
-				case "icon":
-					arguments.Image = new MagickImage(Files.MagickNETIconPNG, arguments.Settings);
-					break;
-				case "snakeware":
-					arguments.Image = new MagickImage(Files.SnakewarePNG, arguments.Settings);
-					break;
-				default:
-					throw new NotImplementedException(arguments.Id);
-			}
-		}
-		//===========================================================================================
-		private void DefinesScriptRead(object sender, ScriptReadEventArgs arguments)
-		{
-			arguments.Image = new MagickImage(Files.InvitationTif, arguments.Settings);
-			Assert.IsNull(arguments.Image.GetAttribute("exif:PixelXDimension"));
-		}
-		//===========================================================================================
-		private void EventsScriptRead(object sender, ScriptReadEventArgs arguments)
-		{
-			Assert.AreEqual("read.id", arguments.Id);
-			arguments.Image = new MagickImage(Files.SnakewarePNG, arguments.Settings);
-		}
-		//===========================================================================================
-		private void EventsScriptWrite(object sender, ScriptWriteEventArgs arguments)
-		{
-			Assert.AreEqual("write.id", arguments.Id);
-			Assert.AreEqual(100, arguments.Image.ResolutionX);
-			Assert.AreEqual(100, arguments.Image.ResolutionY);
-		}
-		//===========================================================================================
-		private void ResizeScriptRead(object sender, ScriptReadEventArgs arguments)
-		{
-			arguments.Image = new MagickImage(Files.ImageMagickJPG, arguments.Settings);
-			Assert.AreEqual("64x64", arguments.Image.GetDefine(MagickFormat.Jpeg, "size"));
-		}
-		//===========================================================================================
-		private void Script_ReadNothing(object sender, ScriptReadEventArgs arguments)
-		{
-		}
-		//===========================================================================================
-		private static void TestScriptResizeResult(MagickImage result)
-		{
-			Assert.AreEqual("Magick.NET.Resize", result.Comment);
-			Assert.AreEqual(62, result.Width);
-			Assert.AreEqual(59, result.Height);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Constructor()
-		{
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				new MagickScript((string)null);
-			});
+  [TestClass]
+  public class MagickScriptsTests
+  {
+    private const string _Category = "MagickScript";
 
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				new MagickScript((Stream)null);
-			});
+    private void CollectionScriptRead(object sender, ScriptReadEventArgs arguments)
+    {
+      switch (arguments.Id)
+      {
+        case "icon":
+          arguments.Image = new MagickImage(Files.MagickNETIconPNG, arguments.Settings);
+          break;
+        case "snakeware":
+          arguments.Image = new MagickImage(Files.SnakewarePNG, arguments.Settings);
+          break;
+        default:
+          throw new NotImplementedException(arguments.Id);
+      }
+    }
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new MagickScript(Files.Missing);
-			});
+    private void DefinesScriptRead(object sender, ScriptReadEventArgs arguments)
+    {
+      arguments.Image = new MagickImage(Files.InvitationTif, arguments.Settings);
+      Assert.IsNull(arguments.Image.GetAttribute("exif:PixelXDimension"));
+    }
 
-			ExceptionAssert.Throws<XmlSchemaValidationException>(delegate()
-			{
-				new MagickScript(Files.Scripts.Invalid);
-			});
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Execute_Collection()
-		{
-			MagickScript script = new MagickScript(Files.Scripts.Collection);
-			script.Read += CollectionScriptRead;
+    private void EventsScriptRead(object sender, ScriptReadEventArgs arguments)
+    {
+      Assert.AreEqual("read.id", arguments.Id);
+      arguments.Image = new MagickImage(Files.SnakewarePNG, arguments.Settings);
+    }
 
-			MagickImage image = script.Execute();
+    private void EventsScriptWrite(object sender, ScriptWriteEventArgs arguments)
+    {
+      Assert.AreEqual("write.id", arguments.Id);
+      Assert.AreEqual(100, arguments.Image.ResolutionX);
+      Assert.AreEqual(100, arguments.Image.ResolutionY);
+    }
 
-			Assert.IsNotNull(image);
-			Assert.AreEqual(MagickFormat.Png, image.Format);
-			Assert.AreEqual(128, image.Width);
-			Assert.AreEqual(128, image.Height);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Execute_Defines()
-		{
-			MagickScript script = new MagickScript(Files.Scripts.Defines);
-			script.Read += DefinesScriptRead;
+    private void ResizeScriptRead(object sender, ScriptReadEventArgs arguments)
+    {
+      arguments.Image = new MagickImage(Files.ImageMagickJPG, arguments.Settings);
+      Assert.AreEqual("64x64", arguments.Image.GetDefine(MagickFormat.Jpeg, "size"));
+    }
 
-			MagickImage image = script.Execute();
+    private void Script_ReadNothing(object sender, ScriptReadEventArgs arguments)
+    {
+    }
 
-			Assert.IsNotNull(image);
-			Assert.AreEqual(827, image.Width);
-			Assert.AreEqual(700, image.Height);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Execute_Distort()
-		{
-			MagickScript script = new MagickScript(Files.Scripts.Distort);
-			MagickImage image = script.Execute();
+    private static void TestScriptResizeResult(MagickImage result)
+    {
+      Assert.AreEqual("Magick.NET.Resize", result.Comment);
+      Assert.AreEqual(62, result.Width);
+      Assert.AreEqual(59, result.Height);
+    }
 
-			Assert.IsNotNull(image);
-			Assert.AreEqual(500, image.Width);
-			Assert.AreEqual(500, image.Height);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Execute_Draw()
-		{
-			XmlDocument doc = new XmlDocument();
-			doc.Load(Files.Scripts.Draw);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Constructor()
+    {
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        new MagickScript((string)null);
+      });
 
-			MagickScript script = new MagickScript(doc);
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        new MagickScript((Stream)null);
+      });
 
-			using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
-			{
-				script.Execute(image);
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Execute_Events()
-		{
-			MagickScript script = new MagickScript(Files.Scripts.Events);
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new MagickScript(Files.Missing);
+      });
 
-			ExceptionAssert.Throws<InvalidOperationException>(delegate()
-			{
-				script.Execute();
-			});
+      ExceptionAssert.Throws<XmlSchemaValidationException>(delegate ()
+      {
+        new MagickScript(Files.Scripts.Invalid);
+      });
+    }
 
-			script.Read += Script_ReadNothing;
-			ExceptionAssert.Throws<InvalidOperationException>(delegate()
-			{
-				script.Execute();
-			});
-			script.Read -= Script_ReadNothing;
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Execute_Collection()
+    {
+      MagickScript script = new MagickScript(Files.Scripts.Collection);
+      script.Read += CollectionScriptRead;
 
-			ExceptionAssert.Throws<InvalidOperationException>(delegate()
-			{
-				script.Read += EventsScriptRead;
-				script.Read -= EventsScriptRead;
-				script.Execute();
-			});
+      MagickImage image = script.Execute();
 
-			script.Read += EventsScriptRead;
+      Assert.IsNotNull(image);
+      Assert.AreEqual(MagickFormat.Png, image.Format);
+      Assert.AreEqual(128, image.Width);
+      Assert.AreEqual(128, image.Height);
+    }
 
-			ExceptionAssert.Throws<InvalidOperationException>(delegate()
-			{
-				script.Execute();
-			});
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Execute_Defines()
+    {
+      MagickScript script = new MagickScript(Files.Scripts.Defines);
+      script.Read += DefinesScriptRead;
 
-			ExceptionAssert.Throws<InvalidOperationException>(delegate()
-			{
-				script.Write += EventsScriptWrite;
-				script.Write -= EventsScriptWrite;
-				script.Execute();
-			});
+      MagickImage image = script.Execute();
 
-			script.Write += EventsScriptWrite;
-			script.Execute();
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Execute_ImageProfile()
-		{
-			MagickScript script = new MagickScript(Files.Scripts.ImageProfile);
+      Assert.IsNotNull(image);
+      Assert.AreEqual(827, image.Width);
+      Assert.AreEqual(700, image.Height);
+    }
 
-			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
-			{
-				ColorProfile colorProfile = image.GetColorProfile();
-				Assert.IsNull(colorProfile);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Execute_Distort()
+    {
+      MagickScript script = new MagickScript(Files.Scripts.Distort);
+      MagickImage image = script.Execute();
 
-				script.Execute(image);
+      Assert.IsNotNull(image);
+      Assert.AreEqual(500, image.Width);
+      Assert.AreEqual(500, image.Height);
+    }
 
-				colorProfile = image.GetColorProfile();
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Execute_Draw()
+    {
+      XmlDocument doc = new XmlDocument();
+      doc.Load(Files.Scripts.Draw);
 
-				Assert.IsNotNull(colorProfile);
-				Assert.AreEqual(colorProfile.ToByteArray().Length, ColorProfile.SRGB.ToByteArray().Length);
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Execute_Resize()
-		{
-			MagickScript script = new MagickScript(Files.Scripts.Resize);
+      MagickScript script = new MagickScript(doc);
 
-			using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
-			{
-				script.Execute(image);
-				TestScriptResizeResult(image);
+      using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+      {
+        script.Execute(image);
+      }
+    }
 
-				script.Read += ResizeScriptRead;
-				using (MagickImage result = script.Execute())
-				{
-					TestScriptResizeResult(result);
-				}
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Execute_Variables()
-		{
-			MagickScript script = new MagickScript(Files.Scripts.Variables);
-			string[] names = script.Variables.Names.ToArray();
-			Assert.AreEqual(3, names.Length);
-			Assert.AreEqual("width", names[0]);
-			Assert.AreEqual("height", names[1]);
-			Assert.AreEqual("color", names[2]);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Execute_Events()
+    {
+      MagickScript script = new MagickScript(Files.Scripts.Events);
 
-			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
-			{
-				ExceptionAssert.Throws<ArgumentNullException>(delegate()
-				{
-					script.Execute(image);
-				});
+      ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+      {
+        script.Execute();
+      });
 
-				script.Variables["width"] = "test";
+      script.Read += Script_ReadNothing;
+      ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+      {
+        script.Execute();
+      });
+      script.Read -= Script_ReadNothing;
 
-				ExceptionAssert.Throws<FormatException>(delegate()
-				{
-					script.Execute(image);
-				});
+      ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+      {
+        script.Read += EventsScriptRead;
+        script.Read -= EventsScriptRead;
+        script.Execute();
+      });
 
-				script.Variables.Set("width", 100);
+      script.Read += EventsScriptRead;
 
-				ExceptionAssert.Throws<ArgumentNullException>(delegate()
-				{
-					script.Execute(image);
-				});
+      ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+      {
+        script.Execute();
+      });
 
-				script.Variables["height"] = "100";
-				Assert.AreEqual("100", script.Variables.Get("height"));
-				script.Variables["color"] = Color.Yellow;
+      ExceptionAssert.Throws<InvalidOperationException>(delegate ()
+      {
+        script.Write += EventsScriptWrite;
+        script.Write -= EventsScriptWrite;
+        script.Execute();
+      });
 
-				script.Execute(image);
+      script.Write += EventsScriptWrite;
+      script.Execute();
+    }
 
-				Assert.AreEqual(100, image.Width);
-				Assert.AreEqual(100, image.Height);
-				using (PixelCollection pixels = image.GetReadOnlyPixels())
-				{
-					ColorAssert.AreEqual(Color.Yellow, pixels.GetPixel(0, 0));
-				}
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Execute_ImageProfile()
+    {
+      MagickScript script = new MagickScript(Files.Scripts.ImageProfile);
+
+      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      {
+        ColorProfile colorProfile = image.GetColorProfile();
+        Assert.IsNull(colorProfile);
+
+        script.Execute(image);
+
+        colorProfile = image.GetColorProfile();
+
+        Assert.IsNotNull(colorProfile);
+        Assert.AreEqual(colorProfile.ToByteArray().Length, ColorProfile.SRGB.ToByteArray().Length);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Execute_Resize()
+    {
+      MagickScript script = new MagickScript(Files.Scripts.Resize);
+
+      using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+      {
+        script.Execute(image);
+        TestScriptResizeResult(image);
+
+        script.Read += ResizeScriptRead;
+        using (MagickImage result = script.Execute())
+        {
+          TestScriptResizeResult(result);
+        }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Execute_Variables()
+    {
+      MagickScript script = new MagickScript(Files.Scripts.Variables);
+      string[] names = script.Variables.Names.ToArray();
+      Assert.AreEqual(3, names.Length);
+      Assert.AreEqual("width", names[0]);
+      Assert.AreEqual("height", names[1]);
+      Assert.AreEqual("color", names[2]);
+
+      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      {
+        ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+        {
+          script.Execute(image);
+        });
+
+        script.Variables["width"] = "test";
+
+        ExceptionAssert.Throws<FormatException>(delegate ()
+        {
+          script.Execute(image);
+        });
+
+        script.Variables.Set("width", 100);
+
+        ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+        {
+          script.Execute(image);
+        });
+
+        script.Variables["height"] = "100";
+        Assert.AreEqual("100", script.Variables.Get("height"));
+        script.Variables["color"] = Color.Yellow;
+
+        script.Execute(image);
+
+        Assert.AreEqual(100, image.Width);
+        Assert.AreEqual(100, image.Height);
+        using (PixelCollection pixels = image.GetReadOnlyPixels())
+        {
+          ColorAssert.AreEqual(Color.Yellow, pixels.GetPixel(0, 0));
+        }
+      }
+    }
+  }
 }

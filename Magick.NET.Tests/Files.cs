@@ -16,257 +16,257 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	public static class Files
-	{
-		//===========================================================================================
-		private static string _Root = Path.GetFullPath(@"..\..\..\");
-		//===========================================================================================
-		public static string CirclePNG
-		{
-			get
-			{
-				return _Root + @"Images\Circle.png";
-			}
-		}
-		//===========================================================================================
-		public static string CorruptPNG
-		{
-			get
-			{
-				return _Root + @"Images\corrupt.png";
-			}
-		}
-		//===========================================================================================
-		public static string EightBimTIF
-		{
-			get
-			{
-				return _Root + @"Images\8Bim.tif";
-			}
-		}
-		//===========================================================================================
-		public static string FujiFilmFinePixS1ProGIF
-		{
-			get
-			{
-				return _Root + @"Images\FujiFilmFinePixS1Pro.gif";
-			}
-		}
-		//===========================================================================================
-		public static string FujiFilmFinePixS1ProJPG
-		{
-			get
-			{
-				return _Root + @"Images\FujiFilmFinePixS1Pro.jpg";
-			}
-		}
-		//===========================================================================================
-		public static string FujiFilmFinePixS1ProPNG
-		{
-			get
-			{
-				return _Root + @"Images\FujiFilmFinePixS1Pro.png";
-			}
-		}
-		//===========================================================================================
-		public static string ImageMagickJPG
-		{
-			get
-			{
-				return _Root + @"Images\ImageMagick.jpg";
-			}
-		}
-		//===========================================================================================
-		public static string InvitationTif
-		{
-			get
-			{
-				return _Root + @"Images\Invitation.tif";
-			}
-		}
-		//===========================================================================================
-		public static string MagickNETIconPNG
-		{
-			get
-			{
-				return _Root + @"Images\Magick.NET.icon.png";
-			}
-		}
-		//===========================================================================================
-		public static string Missing
-		{
-			get
-			{
-				return @"C:\Foo\Bar.png";
-			}
-		}
-		//===========================================================================================
-		public static string RedPNG
-		{
-			get
-			{
-				return _Root + @"Images\Red.png";
-			}
-		}
-		//===========================================================================================
-		public static string RoseSparkleGIF
-		{
-			get
-			{
-				return _Root + @"Images\RöseSparkle.gif";
-			}
-		}
-		//===========================================================================================
-		public static string SnakewarePNG
-		{
-			get
-			{
-				return _Root + @"Images\Snakeware.png";
-			}
-		}
-		//===========================================================================================
-		public static string WireframeTIF
-		{
-			get
-			{
-				return _Root + @"Images\Wireframe.tif";
-			}
-		}
-		//===========================================================================================
-		public static class Builtin
-		{
-			//========================================================================================
-			public static string Logo
-			{
-				get
-				{
-					return "logo:";
-				}
-			}
-			//========================================================================================
-			public static string Rose
-			{
-				get
-				{
-					return "rose:";
-				}
-			}
-		}
-		//===========================================================================================
-		public static class Coders
-		{
-			//========================================================================================
-			public static string CartoonNetworkStudiosLogoAI
-			{
-				get
-				{
-					return _Root + @"Images\Coders\CN Studios Logo.ai";
-				}
-			}
-			//========================================================================================
-			public static string IgnoreTagTIF
-			{
-				get
-				{
-					return _Root + @"Images\Coders\IgnoreTag.tif";
-				}
-			}
-			//===========================================================================================
-			public static string PageTIF
-			{
-				get
-				{
-					return _Root + @"Images\Coders\Page.tif";
-				}
-			}
-			//========================================================================================
-			public static string PlayerPSD
-			{
-				get
-				{
-					return _Root + @"Images\Coders\player.psd";
-				}
-			}
-			//========================================================================================
-		}
-		//===========================================================================================
-		public static class Scripts
-		{
-			//========================================================================================
-			public static string Collection
-			{
-				get
-				{
-					return _Root + @"Script\Collection.msl";
-				}
-			}
-			//========================================================================================
-			public static string Draw
-			{
-				get
-				{
-					return _Root + @"Script\Draw.msl";
-				}
-			}
-			//========================================================================================
-			public static string Defines
-			{
-				get
-				{
-					return _Root + @"Script\Defines.msl";
-				}
-			}
-			//========================================================================================
-			public static string Distort
-			{
-				get
-				{
-					return _Root + @"Script\Distort.msl";
-				}
-			}
-			//===========================================================================================
-			public static string Events
-			{
-				get
-				{
-					return _Root + @"Script\Events.msl";
-				}
-			}
-			//===========================================================================================
-			public static string ImageProfile
-			{
-				get
-				{
-					return _Root + @"Script\ImageProfile.msl";
-				}
-			}
-			//===========================================================================================
-			public static string Invalid
-			{
-				get
-				{
-					return _Root + @"Script\Invalid.msl";
-				}
-			}
-			//===========================================================================================
-			public static string Resize
-			{
-				get
-				{
-					return _Root + @"Script\Resize.msl";
-				}
-			}
-			//===========================================================================================
-			public static string Variables
-			{
-				get
-				{
-					return _Root + @"Script\Variables.msl";
-				}
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  public static class Files
+  {
+    private static string _Root = Path.GetFullPath(@"..\..\..\");
+
+    public static string CirclePNG
+    {
+      get
+      {
+        return _Root + @"Images\Circle.png";
+      }
+    }
+
+    public static string CorruptPNG
+    {
+      get
+      {
+        return _Root + @"Images\corrupt.png";
+      }
+    }
+
+    public static string EightBimTIF
+    {
+      get
+      {
+        return _Root + @"Images\8Bim.tif";
+      }
+    }
+
+    public static string FujiFilmFinePixS1ProGIF
+    {
+      get
+      {
+        return _Root + @"Images\FujiFilmFinePixS1Pro.gif";
+      }
+    }
+
+    public static string FujiFilmFinePixS1ProJPG
+    {
+      get
+      {
+        return _Root + @"Images\FujiFilmFinePixS1Pro.jpg";
+      }
+    }
+
+    public static string FujiFilmFinePixS1ProPNG
+    {
+      get
+      {
+        return _Root + @"Images\FujiFilmFinePixS1Pro.png";
+      }
+    }
+
+    public static string ImageMagickJPG
+    {
+      get
+      {
+        return _Root + @"Images\ImageMagick.jpg";
+      }
+    }
+
+    public static string InvitationTif
+    {
+      get
+      {
+        return _Root + @"Images\Invitation.tif";
+      }
+    }
+
+    public static string MagickNETIconPNG
+    {
+      get
+      {
+        return _Root + @"Images\Magick.NET.icon.png";
+      }
+    }
+
+    public static string Missing
+    {
+      get
+      {
+        return @"C:\Foo\Bar.png";
+      }
+    }
+
+    public static string RedPNG
+    {
+      get
+      {
+        return _Root + @"Images\Red.png";
+      }
+    }
+
+    public static string RoseSparkleGIF
+    {
+      get
+      {
+        return _Root + @"Images\RöseSparkle.gif";
+      }
+    }
+
+    public static string SnakewarePNG
+    {
+      get
+      {
+        return _Root + @"Images\Snakeware.png";
+      }
+    }
+
+    public static string WireframeTIF
+    {
+      get
+      {
+        return _Root + @"Images\Wireframe.tif";
+      }
+    }
+
+    public static class Builtin
+    {
+      public static string Logo
+      {
+        get
+        {
+          return "logo:";
+        }
+      }
+
+      public static string Rose
+      {
+        get
+        {
+          return "rose:";
+        }
+      }
+    }
+
+    public static class Coders
+    {
+      public static string CartoonNetworkStudiosLogoAI
+      {
+        get
+        {
+          return _Root + @"Images\Coders\CN Studios Logo.ai";
+        }
+      }
+
+      public static string GrimJp2
+      {
+        get
+        {
+          return _Root + @"Images\Coders\Grim.jp2";
+        }
+      }
+
+      public static string IgnoreTagTIF
+      {
+        get
+        {
+          return _Root + @"Images\Coders\IgnoreTag.tif";
+        }
+      }
+
+      public static string PageTIF
+      {
+        get
+        {
+          return _Root + @"Images\Coders\Page.tif";
+        }
+      }
+
+      public static string PlayerPSD
+      {
+        get
+        {
+          return _Root + @"Images\Coders\player.psd";
+        }
+      }
+    }
+
+    public static class Scripts
+    {
+      public static string Collection
+      {
+        get
+        {
+          return _Root + @"Script\Collection.msl";
+        }
+      }
+
+      public static string Draw
+      {
+        get
+        {
+          return _Root + @"Script\Draw.msl";
+        }
+      }
+
+      public static string Defines
+      {
+        get
+        {
+          return _Root + @"Script\Defines.msl";
+        }
+      }
+
+      public static string Distort
+      {
+        get
+        {
+          return _Root + @"Script\Distort.msl";
+        }
+      }
+
+      public static string Events
+      {
+        get
+        {
+          return _Root + @"Script\Events.msl";
+        }
+      }
+
+      public static string ImageProfile
+      {
+        get
+        {
+          return _Root + @"Script\ImageProfile.msl";
+        }
+      }
+
+      public static string Invalid
+      {
+        get
+        {
+          return _Root + @"Script\Invalid.msl";
+        }
+      }
+
+      public static string Resize
+      {
+        get
+        {
+          return _Root + @"Script\Resize.msl";
+        }
+      }
+
+      public static string Variables
+      {
+        get
+        {
+          return _Root + @"Script\Variables.msl";
+        }
+      }
+    }
+  }
 }

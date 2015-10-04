@@ -18,51 +18,47 @@ using System.Xml;
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	internal static class XmlHelper
-	{
-		//===========================================================================================
-		public static XmlElement CreateElement(XmlNode node, string name)
-		{
-			XmlDocument doc = node.GetType() == typeof(XmlDocument) ? (XmlDocument)node : node.OwnerDocument;
-			XmlElement element = doc.CreateElement(name);
-			node.AppendChild(element);
-			return element;
-		}
-		//===========================================================================================
-		public static T GetAttribute<T>(XmlElement element, string name)
-		{
-			if (element == null || !element.HasAttribute(name))
-				return default(T);
+  internal static class XmlHelper
+  {
+    public static XmlElement CreateElement(XmlNode node, string name)
+    {
+      XmlDocument doc = node.GetType() == typeof(XmlDocument) ? (XmlDocument)node : node.OwnerDocument;
+      XmlElement element = doc.CreateElement(name);
+      node.AppendChild(element);
+      return element;
+    }
 
-			return MagickConverter.Convert<T>(element.GetAttribute(name));
-		}
-		//==============================================================================================
-		public static T GetValue<T>(XmlAttribute attribute)
-		{
-			if (attribute == null)
-				return default(T);
+    public static T GetAttribute<T>(XmlElement element, string name)
+    {
+      if (element == null || !element.HasAttribute(name))
+        return default(T);
 
-			return MagickConverter.Convert<T>(attribute.Value);
-		}
-		//===========================================================================================
-		public static void SetAttribute<TType>(XmlElement element, string name, TType value)
-		{
-			if (element == null)
-				return;
+      return MagickConverter.Convert<T>(element.GetAttribute(name));
+    }
 
-			XmlAttribute attribute;
-			if (element.HasAttribute(name))
-				attribute = element.Attributes[name];
-			else
-				attribute = element.Attributes.Append(element.OwnerDocument.CreateAttribute(name));
+    public static T GetValue<T>(XmlAttribute attribute)
+    {
+      if (attribute == null)
+        return default(T);
 
-			if (typeof(TType) == typeof(string))
-				attribute.Value = (string)(object)value;
-			else
-				attribute.Value = (string)Convert.ChangeType(value, typeof(string), CultureInfo.InvariantCulture);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      return MagickConverter.Convert<T>(attribute.Value);
+    }
+
+    public static void SetAttribute<TType>(XmlElement element, string name, TType value)
+    {
+      if (element == null)
+        return;
+
+      XmlAttribute attribute;
+      if (element.HasAttribute(name))
+        attribute = element.Attributes[name];
+      else
+        attribute = element.Attributes.Append(element.OwnerDocument.CreateAttribute(name));
+
+      if (typeof(TType) == typeof(string))
+        attribute.Value = (string)(object)value;
+      else
+        attribute.Value = (string)Convert.ChangeType(value, typeof(string), CultureInfo.InvariantCulture);
+    }
+  }
 }

@@ -16,13 +16,11 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		double* MatrixHelper::CreateArray(DoubleMatrix^ matrix)
-		{
-			return Marshaller::Marshal(matrix->ToArray());
-		}
-		//==============================================================================================
-	}
+  namespace Wrapper
+  {
+    double* MatrixHelper::CreateArray(DoubleMatrix^ matrix)
+    {
+      return Marshaller::Marshal(matrix->ToArray());
+    }
+  }
 }

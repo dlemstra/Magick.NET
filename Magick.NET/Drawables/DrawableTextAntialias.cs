@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableTextAntialias object.
-	///</summary>
-	public sealed class DrawableTextAntialias : IDrawableTextAntialias
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableTextAntialias instance.
-		///</summary>
-		///<param name="isEnabled">True if text antialiasing is enabled otherwise false.</param>
-		public DrawableTextAntialias(bool isEnabled)
-		{
-			IsEnabled = isEnabled;
-		}
-		///==========================================================================================
-		///<summary>
-		/// True if text antialiasing is enabled otherwise false.
-		///</summary>
-		public bool IsEnabled
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableTextAntialias object.
+  ///</summary>
+  public sealed class DrawableTextAntialias : IDrawableTextAntialias
+  {
+    ///<summary>
+    /// Creates a new DrawableTextAntialias instance.
+    ///</summary>
+    ///<param name="isEnabled">True if text antialiasing is enabled otherwise false.</param>
+    public DrawableTextAntialias(bool isEnabled)
+    {
+      IsEnabled = isEnabled;
+    }
+
+    ///<summary>
+    /// True if text antialiasing is enabled otherwise false.
+    ///</summary>
+    public bool IsEnabled
+    {
+      get;
+      set;
+    }
+  }
 }

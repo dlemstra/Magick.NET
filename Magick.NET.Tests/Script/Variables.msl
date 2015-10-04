@@ -1,6 +1,6 @@
 ﻿<msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
-	<read>
-		<resize width="{$width}" height="{$height}"/>
-		<colorAlpha color="{$color}"/>
-	</read>
+  <read>
+    <resize width="{$width}" height="{$height}"/>
+    <colorAlpha color="{$color}"/>
+  </read>
 </msl>

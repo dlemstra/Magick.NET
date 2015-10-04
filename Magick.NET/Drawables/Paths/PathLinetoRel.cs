@@ -18,31 +18,27 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathLinetoRel object.
-	///</summary>
-	public sealed class PathLinetoRel : DrawableCoordinates<Coordinate>, IPathLinetoRel
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathLinetoRel class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathLinetoRel(params Coordinate[] coordinates)
-			: base(coordinates)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathLinetoRel class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathLinetoRel(IEnumerable<Coordinate> coordinates)
-			: base(coordinates)
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathLinetoRel object.
+  ///</summary>
+  public sealed class PathLinetoRel : DrawableCoordinates<Coordinate>, IPathLinetoRel
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathLinetoRel class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathLinetoRel(params Coordinate[] coordinates)
+      : base(coordinates)
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathLinetoRel class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathLinetoRel(IEnumerable<Coordinate> coordinates)
+      : base(coordinates)
+    {
+    }
+  }
 }

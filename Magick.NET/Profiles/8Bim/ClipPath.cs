@@ -12,42 +12,37 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.Xml.XPath;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	/// <summary>
-	/// A value of the exif profile.
-	/// </summary>
-	public sealed class ClipPath
-	{
-		//===========================================================================================
-		internal ClipPath(string name, IXPathNavigable path)
-		{
-			Name = name;
-			Path = path;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The name of the clipping path.
-		/// </summary>
-		public string Name
-		{
-			get;
-			private set;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The path of the clipping path.
-		/// </summary>
-		public IXPathNavigable Path
-		{
-			get;
-			private set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  /// <summary>
+  /// A value of the exif profile.
+  /// </summary>
+  public sealed class ClipPath
+  {
+    internal ClipPath(string name, IXPathNavigable path)
+    {
+      Name = name;
+      Path = path;
+    }
+
+    /// <summary>
+    /// The name of the clipping path.
+    /// </summary>
+    public string Name
+    {
+      get;
+      private set;
+    }
+
+    /// <summary>
+    /// The path of the clipping path.
+    /// </summary>
+    public IXPathNavigable Path
+    {
+      get;
+      private set;
+    }
+  }
 }

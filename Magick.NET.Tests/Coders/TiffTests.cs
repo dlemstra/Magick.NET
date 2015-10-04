@@ -20,94 +20,90 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests.Coders
 {
-	//==============================================================================================
-	[TestClass]
-	public class TiffTests
-	{
-		//===========================================================================================
-		private const string _Category = "TiffTests";
-		//===========================================================================================
-		private static void TestValue(IptcProfile profile, IptcTag tag, string expectedValue)
-		{
-			IptcValue value = profile.GetValue(tag);
-			Assert.IsNotNull(value);
-			Assert.AreEqual(expectedValue, value.Value);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Image_ByteArray()
-		{
-			using (Image img = Image.FromFile(Files.Coders.PageTIF))
-			{
-				byte[] bytes = null;
-				using (MemoryStream memStream = new MemoryStream())
-				{
-					img.Save(memStream, ImageFormat.Tiff);
-					bytes = memStream.GetBuffer();
-				}
+  [TestClass]
+  public class TiffTests
+  {
+    private const string _Category = "TiffTests";
 
-				using (MagickImage image = new MagickImage(bytes))
-				{
-					image.CompressionMethod = CompressionMethod.Group4;
+    private static void TestValue(IptcProfile profile, IptcTag tag, string expectedValue)
+    {
+      IptcValue value = profile.GetValue(tag);
+      Assert.IsNotNull(value);
+      Assert.AreEqual(expectedValue, value.Value);
+    }
 
-					using (MemoryStream memStream = new MemoryStream())
-					{
-						image.Write(memStream);
-						memStream.Position = 0;
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Image_ByteArray()
+    {
+      using (Image img = Image.FromFile(Files.Coders.PageTIF))
+      {
+        byte[] bytes = null;
+        using (MemoryStream memStream = new MemoryStream())
+        {
+          img.Save(memStream, ImageFormat.Tiff);
+          bytes = memStream.GetBuffer();
+        }
 
-						using (MagickImage before = new MagickImage(Files.Coders.PageTIF))
-						{
-							using (MagickImage after = new MagickImage(memStream))
-							{
-								Assert.AreEqual(0.0, before.Compare(after, ErrorMetric.RootMeanSquared));
-							}
-						}
-					}
-				}
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IgnoreTags()
-		{
-			using (MagickImage image = new MagickImage())
-			{
-				image.SetDefine(MagickFormat.Tiff, "ignore-tags", "32934");
-				image.Read(Files.Coders.IgnoreTagTIF);
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IptcProfile()
-		{
-			using (MagickImage input = new MagickImage(Files.MagickNETIconPNG))
-			{
-				IptcProfile profile = input.GetIptcProfile();
-				Assert.IsNull(profile);
+        using (MagickImage image = new MagickImage(bytes))
+        {
+          image.CompressionMethod = CompressionMethod.Group4;
 
-				profile = new IptcProfile();
-				profile.SetValue(IptcTag.Headline, "Magick.NET");
-				profile.SetValue(IptcTag.CopyrightNotice, "Copyright.NET");
+          using (MemoryStream memStream = new MemoryStream())
+          {
+            image.Write(memStream);
+            memStream.Position = 0;
 
-				input.AddProfile(profile);
+            using (MagickImage before = new MagickImage(Files.Coders.PageTIF))
+            {
+              using (MagickImage after = new MagickImage(memStream))
+              {
+                Assert.AreEqual(0.0, before.Compare(after, ErrorMetric.RootMeanSquared));
+              }
+            }
+          }
+        }
+      }
+    }
 
-				using (MemoryStream memStream = new MemoryStream())
-				{
-					input.Format = MagickFormat.Tiff;
-					input.Write(memStream);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IgnoreTags()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.SetDefine(MagickFormat.Tiff, "ignore-tags", "32934");
+        image.Read(Files.Coders.IgnoreTagTIF);
+      }
+    }
 
-					memStream.Position = 0;
-					using (MagickImage output = new MagickImage(memStream))
-					{
-						profile = output.GetIptcProfile();
-						Assert.IsNotNull(profile);
-						TestValue(profile, IptcTag.Headline, "Magick.NET");
-						TestValue(profile, IptcTag.CopyrightNotice, "Copyright.NET");
-					}
-				}
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IptcProfile()
+    {
+      using (MagickImage input = new MagickImage(Files.MagickNETIconPNG))
+      {
+        IptcProfile profile = input.GetIptcProfile();
+        Assert.IsNull(profile);
+
+        profile = new IptcProfile();
+        profile.SetValue(IptcTag.Headline, "Magick.NET");
+        profile.SetValue(IptcTag.CopyrightNotice, "Copyright.NET");
+
+        input.AddProfile(profile);
+
+        using (MemoryStream memStream = new MemoryStream())
+        {
+          input.Format = MagickFormat.Tiff;
+          input.Write(memStream);
+
+          memStream.Position = 0;
+          using (MagickImage output = new MagickImage(memStream))
+          {
+            profile = output.GetIptcProfile();
+            Assert.IsNotNull(profile);
+            TestValue(profile, IptcTag.Headline, "Magick.NET");
+            TestValue(profile, IptcTag.CopyrightNotice, "Copyright.NET");
+          }
+        }
+      }
+    }
+  }
 }

@@ -20,88 +20,82 @@ using namespace System::Collections::Generic;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class MagickImageInfo sealed
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			ColorSpace _ColorSpace;
-			String^ _FileName;
-			MagickFormat _Format;
-			int _Height;
-			Resolution _ResolutionUnits;
-			double _ResolutionX;
-			double _ResolutionY;
-			int _Width;
-			//========================================================================================
-			static MagickReaderSettings^ CreateReadSettings();
-			//========================================================================================
-			static IEnumerable<MagickImageInfo^>^ Enumerate(std::vector<Magick::Image>* images);
-			//========================================================================================
-			static void HandleException(MagickException^ exception);
-			//========================================================================================
-			MagickException^ Initialize(Magick::Image* image);
-			//========================================================================================
-		public:
-			//========================================================================================
-			MagickImageInfo() {};
-			//========================================================================================
-			property ColorSpace ColorSpace
-			{
-				ImageMagick::ColorSpace get();
-			}
-			//========================================================================================
-			property String^ FileName
-			{
-				String^ get();
-			}
-			//========================================================================================
-			property MagickFormat Format
-			{
-				MagickFormat get();
-			}
-			//========================================================================================
-			property int Height
-			{
-				int get();
-			}
-			//========================================================================================
-			property Resolution ResolutionUnits
-			{
-				Resolution get();
-			}
-			//========================================================================================
-			property double ResolutionX
-			{
-				double get();
-			}
-			//========================================================================================
-			property double ResolutionY
-			{
-				double get();
-			}
-			//========================================================================================
-			property int Width
-			{
-				int get();
-			}
-			//========================================================================================
-			void Read(array<Byte>^ data);
-			//========================================================================================
-			void Read(String^ fileName);
-			//========================================================================================
-			void Read(Stream^ stream);
-			//========================================================================================
-			static IEnumerable<MagickImageInfo^>^ ReadCollection(array<Byte>^ data);
-			//========================================================================================
-			static IEnumerable<MagickImageInfo^>^ ReadCollection(Stream^ stream);
-			//========================================================================================
-			static IEnumerable<MagickImageInfo^>^ ReadCollection(String^ fileName);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class MagickImageInfo sealed
+    {
+    private:
+      ColorSpace _ColorSpace;
+      String^ _FileName;
+      MagickFormat _Format;
+      int _Height;
+      Resolution _ResolutionUnits;
+      double _ResolutionX;
+      double _ResolutionY;
+      int _Width;
+
+      static MagickReaderSettings^ CreateReadSettings();
+
+      static IEnumerable<MagickImageInfo^>^ Enumerate(std::vector<Magick::Image>* images);
+
+      static void HandleException(MagickException^ exception);
+
+      MagickException^ Initialize(Magick::Image* image);
+
+    public:
+      MagickImageInfo() {};
+
+      property ColorSpace ColorSpace
+      {
+        ImageMagick::ColorSpace get();
+      }
+
+      property String^ FileName
+      {
+        String^ get();
+      }
+
+      property MagickFormat Format
+      {
+        MagickFormat get();
+      }
+
+      property int Height
+      {
+        int get();
+      }
+
+      property Resolution ResolutionUnits
+      {
+        Resolution get();
+      }
+
+      property double ResolutionX
+      {
+        double get();
+      }
+
+      property double ResolutionY
+      {
+        double get();
+      }
+
+      property int Width
+      {
+        int get();
+      }
+
+      void Read(array<Byte>^ data);
+
+      void Read(String^ fileName);
+
+      void Read(Stream^ stream);
+
+      static IEnumerable<MagickImageInfo^>^ ReadCollection(array<Byte>^ data);
+
+      static IEnumerable<MagickImageInfo^>^ ReadCollection(Stream^ stream);
+
+      static IEnumerable<MagickImageInfo^>^ ReadCollection(String^ fileName);
+    };
+  }
 }

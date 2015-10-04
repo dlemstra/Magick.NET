@@ -17,33 +17,29 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePolyline object.
-	///</summary>
-	public sealed class DrawablePolyline : DrawableCoordinates<Coordinate>, IDrawablePolyline
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePolyline instance.
-		///</summary>
-		///<param name="coordinates">The coordinates.</param>
-		public DrawablePolyline(params Coordinate[] coordinates)
-			: base(coordinates)
-		{
-			CheckCoordinateCount(3);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePolyline instance.
-		///</summary>
-		///<param name="coordinates">The coordinates.</param>
-		public DrawablePolyline(IEnumerable<Coordinate> coordinates)
-			: base(coordinates)
-		{
-			CheckCoordinateCount(3);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePolyline object.
+  ///</summary>
+  public sealed class DrawablePolyline : DrawableCoordinates<Coordinate>, IDrawablePolyline
+  {
+    ///<summary>
+    /// Creates a new DrawablePolyline instance.
+    ///</summary>
+    ///<param name="coordinates">The coordinates.</param>
+    public DrawablePolyline(params Coordinate[] coordinates)
+      : base(coordinates)
+    {
+      CheckCoordinateCount(3);
+    }
+
+    ///<summary>
+    /// Creates a new DrawablePolyline instance.
+    ///</summary>
+    ///<param name="coordinates">The coordinates.</param>
+    public DrawablePolyline(IEnumerable<Coordinate> coordinates)
+      : base(coordinates)
+    {
+      CheckCoordinateCount(3);
+    }
+  }
 }

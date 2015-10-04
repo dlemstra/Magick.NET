@@ -21,151 +21,147 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class IptcProfileTests
-	{
-		//===========================================================================================
-		private const string _Category = "IptcProfile";
-		//===========================================================================================
-		private static void TestProfileValues(IptcProfile profile)
-		{
-			TestProfileValues(profile, 18);
-		}
-		//===========================================================================================
-		private static void TestProfileValues(IptcProfile profile, int count)
-		{
-			Assert.IsNotNull(profile);
+  [TestClass]
+  public class IptcProfileTests
+  {
+    private const string _Category = "IptcProfile";
 
-			Assert.AreEqual(count, profile.Values.Count());
+    private static void TestProfileValues(IptcProfile profile)
+    {
+      TestProfileValues(profile, 18);
+    }
 
-			foreach (IptcValue value in profile.Values)
-			{
-				Assert.IsNotNull(value.Value);
-			}
-		}
-		//===========================================================================================
-		private static void TestValue(IptcValue value, string expected)
-		{
-			Assert.IsNotNull(value);
-			Assert.AreEqual(expected, value.Value);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_SetEncoding()
-		{
-			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-			{
-				IptcProfile profile = image.GetIptcProfile();
-				TestProfileValues(profile);
+    private static void TestProfileValues(IptcProfile profile, int count)
+    {
+      Assert.IsNotNull(profile);
 
-				ExceptionAssert.Throws<ArgumentNullException>(delegate()
-				{
-					profile.SetEncoding(null);
-				});
+      Assert.AreEqual(count, profile.Values.Count());
 
-				profile.SetEncoding(Encoding.UTF8);
-				Assert.AreEqual(Encoding.UTF8, profile.Values.First().Encoding);
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_SetValue()
-		{
-			using (MemoryStream memStream = new MemoryStream())
-			{
-				string credit = null;
-				for (int i = 0; i < 255; i++)
-					credit += i.ToString() + ".";
+      foreach (IptcValue value in profile.Values)
+      {
+        Assert.IsNotNull(value.Value);
+      }
+    }
 
-				using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-				{
-					IptcProfile profile = image.GetIptcProfile();
-					TestProfileValues(profile);
+    private static void TestValue(IptcValue value, string expected)
+    {
+      Assert.IsNotNull(value);
+      Assert.AreEqual(expected, value.Value);
+    }
 
-					IptcValue value = profile.GetValue(IptcTag.Title);
-					TestValue(value, "Communications");
+    [TestMethod, TestCategory(_Category)]
+    public void Test_SetEncoding()
+    {
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      {
+        IptcProfile profile = image.GetIptcProfile();
+        TestProfileValues(profile);
 
-					profile.SetValue(IptcTag.Title, "Magick.NET Title");
-					TestValue(value, "Magick.NET Title");
+        ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+        {
+          profile.SetEncoding(null);
+        });
 
-					value = profile.GetValue(IptcTag.Title);
-					TestValue(value, "Magick.NET Title");
+        profile.SetEncoding(Encoding.UTF8);
+        Assert.AreEqual(Encoding.UTF8, profile.Values.First().Encoding);
+      }
+    }
 
-					value = profile.Values.FirstOrDefault(val => val.Tag == IptcTag.ReferenceNumber);
-					Assert.IsNull(value);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_SetValue()
+    {
+      using (MemoryStream memStream = new MemoryStream())
+      {
+        string credit = null;
+        for (int i = 0; i < 255; i++)
+          credit += i.ToString() + ".";
 
-					profile.SetValue(IptcTag.ReferenceNumber, "Magick.NET ReferenceNümber");
+        using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+        {
+          IptcProfile profile = image.GetIptcProfile();
+          TestProfileValues(profile);
 
-					value = profile.GetValue(IptcTag.ReferenceNumber);
-					TestValue(value, "Magick.NET ReferenceNümber");
+          IptcValue value = profile.GetValue(IptcTag.Title);
+          TestValue(value, "Communications");
 
-					profile.SetValue(IptcTag.Credit, credit);
+          profile.SetValue(IptcTag.Title, "Magick.NET Title");
+          TestValue(value, "Magick.NET Title");
 
-					value = profile.GetValue(IptcTag.Credit);
-					TestValue(value, credit);
+          value = profile.GetValue(IptcTag.Title);
+          TestValue(value, "Magick.NET Title");
 
-					// Remove the 8bim profile so we can overwrite the iptc profile.
-					image.RemoveProfile("8bim");
-					image.AddProfile(profile);
+          value = profile.Values.FirstOrDefault(val => val.Tag == IptcTag.ReferenceNumber);
+          Assert.IsNull(value);
 
-					image.Write(memStream);
-					memStream.Position = 0;
-				}
+          profile.SetValue(IptcTag.ReferenceNumber, "Magick.NET ReferenceNümber");
 
-				using (MagickImage image = new MagickImage(memStream))
-				{
-					IptcProfile profile = image.GetIptcProfile();
-					TestProfileValues(profile, 19);
+          value = profile.GetValue(IptcTag.ReferenceNumber);
+          TestValue(value, "Magick.NET ReferenceNümber");
 
-					IptcValue value = profile.GetValue(IptcTag.Title);
-					TestValue(value, "Magick.NET Title");
+          profile.SetValue(IptcTag.Credit, credit);
 
-					value = profile.GetValue(IptcTag.ReferenceNumber);
-					TestValue(value, "Magick.NET ReferenceNümber");
+          value = profile.GetValue(IptcTag.Credit);
+          TestValue(value, credit);
 
-					value = profile.GetValue(IptcTag.Credit);
-					TestValue(value, credit);
+          // Remove the 8bim profile so we can overwrite the iptc profile.
+          image.RemoveProfile("8bim");
+          image.AddProfile(profile);
 
-					ExceptionAssert.Throws<ArgumentNullException>(delegate()
-					{
-						profile.SetValue(IptcTag.Caption, null, "Test");
-					});
+          image.Write(memStream);
+          memStream.Position = 0;
+        }
 
-					profile.SetValue(IptcTag.Caption, "Test");
-					value = profile.Values.ElementAt(1);
-					Assert.AreEqual("Test", value.Value);
+        using (MagickImage image = new MagickImage(memStream))
+        {
+          IptcProfile profile = image.GetIptcProfile();
+          TestProfileValues(profile, 19);
 
-					profile.SetValue(IptcTag.Caption, Encoding.UTF32, "Test");
-					Assert.AreEqual(Encoding.UTF32, value.Encoding);
-					Assert.AreEqual("Test", value.Value);
+          IptcValue value = profile.GetValue(IptcTag.Title);
+          TestValue(value, "Magick.NET Title");
 
-					Assert.IsTrue(profile.RemoveValue(IptcTag.Caption));
-					Assert.IsFalse(profile.RemoveValue(IptcTag.Caption));
-					Assert.IsNull(profile.GetValue(IptcTag.Caption));
-				}
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Values()
-		{
-			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-			{
-				IptcProfile profile = image.GetIptcProfile();
-				TestProfileValues(profile);
+          value = profile.GetValue(IptcTag.ReferenceNumber);
+          TestValue(value, "Magick.NET ReferenceNümber");
 
-				using (MagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
-				{
-					Assert.IsNull(emptyImage.GetIptcProfile());
-					emptyImage.AddProfile(profile);
+          value = profile.GetValue(IptcTag.Credit);
+          TestValue(value, credit);
 
-					profile = emptyImage.GetIptcProfile();
-					TestProfileValues(profile);
-				}
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+          ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+          {
+            profile.SetValue(IptcTag.Caption, null, "Test");
+          });
+
+          profile.SetValue(IptcTag.Caption, "Test");
+          value = profile.Values.ElementAt(1);
+          Assert.AreEqual("Test", value.Value);
+
+          profile.SetValue(IptcTag.Caption, Encoding.UTF32, "Test");
+          Assert.AreEqual(Encoding.UTF32, value.Encoding);
+          Assert.AreEqual("Test", value.Value);
+
+          Assert.IsTrue(profile.RemoveValue(IptcTag.Caption));
+          Assert.IsFalse(profile.RemoveValue(IptcTag.Caption));
+          Assert.IsNull(profile.GetValue(IptcTag.Caption));
+        }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Values()
+    {
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      {
+        IptcProfile profile = image.GetIptcProfile();
+        TestProfileValues(profile);
+
+        using (MagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
+        {
+          Assert.IsNull(emptyImage.GetIptcProfile());
+          emptyImage.AddProfile(profile);
+
+          profile = emptyImage.GetIptcProfile();
+          TestProfileValues(profile);
+        }
+      }
+    }
+  }
 }

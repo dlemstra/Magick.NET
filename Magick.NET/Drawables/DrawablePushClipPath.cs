@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePushClipPath object.
-	///</summary>
-	public sealed class DrawablePushClipPath : IDrawablePushClipPath
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePushClipPath instance.
-		///</summary>
-		///<param name="clipPath">The ID of the clip path.</param>
-		public DrawablePushClipPath(string clipPath)
-		{
-			ClipPath = clipPath;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The ID of the clip path.
-		/// </summary>
-		public string ClipPath
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePushClipPath object.
+  ///</summary>
+  public sealed class DrawablePushClipPath : IDrawablePushClipPath
+  {
+    ///<summary>
+    /// Creates a new DrawablePushClipPath instance.
+    ///</summary>
+    ///<param name="clipPath">The ID of the clip path.</param>
+    public DrawablePushClipPath(string clipPath)
+    {
+      ClipPath = clipPath;
+    }
+
+    /// <summary>
+    /// The ID of the clip path.
+    /// </summary>
+    public string ClipPath
+    {
+      get;
+      set;
+    }
+  }
 }

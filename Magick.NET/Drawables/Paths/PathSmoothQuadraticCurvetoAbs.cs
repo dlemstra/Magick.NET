@@ -18,31 +18,27 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathSmoothQuadraticCurvetoAbs object.
-	///</summary>
-	public sealed class PathSmoothQuadraticCurvetoAbs : DrawableCoordinates<Coordinate>, IPathSmoothQuadraticCurvetoAbs
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathSmoothQuadraticCurvetoAbs class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathSmoothQuadraticCurvetoAbs(params Coordinate[] coordinates)
-			: base(coordinates)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathSmoothQuadraticCurvetoAbs class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathSmoothQuadraticCurvetoAbs(IEnumerable<Coordinate> coordinates)
-			: base(coordinates)
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathSmoothQuadraticCurvetoAbs object.
+  ///</summary>
+  public sealed class PathSmoothQuadraticCurvetoAbs : DrawableCoordinates<Coordinate>, IPathSmoothQuadraticCurvetoAbs
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathSmoothQuadraticCurvetoAbs class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathSmoothQuadraticCurvetoAbs(params Coordinate[] coordinates)
+      : base(coordinates)
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathSmoothQuadraticCurvetoAbs class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathSmoothQuadraticCurvetoAbs(IEnumerable<Coordinate> coordinates)
+      : base(coordinates)
+    {
+    }
+  }
 }

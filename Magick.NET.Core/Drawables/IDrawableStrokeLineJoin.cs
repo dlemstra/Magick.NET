@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableStrokeLineJoin object.
-	///</summary>
-	public interface IDrawableStrokeLineJoin : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The line join.
-		///</summary>
-		LineJoin LineJoin
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableStrokeLineJoin object.
+  ///</summary>
+  public interface IDrawableStrokeLineJoin : IDrawable
+  {
+    ///<summary>
+    /// The line join.
+    ///</summary>
+    LineJoin LineJoin
+    {
+      get;
+    }
+  }
 }

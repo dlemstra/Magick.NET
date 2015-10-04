@@ -14,39 +14,36 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulates a color matrix in the order of 1 to 6 (1x1 through 6x6).
-	///</summary>
-	public sealed class ColorMatrix : DoubleMatrix
-	{
-		//===========================================================================================
-		private void CheckOrder()
-		{
-			Throw.IfTrue("order", (Order < 1) || (Order > 6), "Invalid order specified, range 1-6.");
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new ColorMatrix instance with the specified order of 1 to 6.
-		///</summary>
-		///<param name="order">The order (1 to 6).</param>
-		public ColorMatrix(int order)
-			: base(order, null)
-		{
-			CheckOrder();
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new ColorMatrix instance with the specified order of 1 to 6.
-		///</summary>
-		///<param name="order">The order (1 to 6).</param>
-		///<param name="values">The values to initialize the matrix with.</param>
-		public ColorMatrix(int order, params double[] values)
-			: base(order, values)
-		{
-			CheckOrder();
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulates a color matrix in the order of 1 to 6 (1x1 through 6x6).
+  ///</summary>
+  public sealed class ColorMatrix : DoubleMatrix
+  {
+
+    private void CheckOrder()
+    {
+      Throw.IfTrue("order", (Order < 1) || (Order > 6), "Invalid order specified, range 1-6.");
+    }
+
+    ///<summary>
+    /// Creates a new ColorMatrix instance with the specified order of 1 to 6.
+    ///</summary>
+    ///<param name="order">The order (1 to 6).</param>
+    public ColorMatrix(int order)
+      : base(order, null)
+    {
+      CheckOrder();
+    }
+
+    ///<summary>
+    /// Creates a new ColorMatrix instance with the specified order of 1 to 6.
+    ///</summary>
+    ///<param name="order">The order (1 to 6).</param>
+    ///<param name="values">The values to initialize the matrix with.</param>
+    public ColorMatrix(int order, params double[] values)
+      : base(order, values)
+    {
+      CheckOrder();
+    }
+  }
 }

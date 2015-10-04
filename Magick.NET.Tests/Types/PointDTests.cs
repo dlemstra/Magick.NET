@@ -18,75 +18,71 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class PointDTests
-	{
-		//===========================================================================================
-		private const string _Category = "PointD";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Constructor()
-		{
-			PointD point = new PointD();
-			Assert.AreEqual(0.0, point.X);
-			Assert.AreEqual(0.0, point.Y);
+  [TestClass]
+  public class PointDTests
+  {
+    private const string _Category = "PointD";
 
-			point = new PointD(5);
-			Assert.AreEqual(5.0, point.X);
-			Assert.AreEqual(5.0, point.Y);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Constructor()
+    {
+      PointD point = new PointD();
+      Assert.AreEqual(0.0, point.X);
+      Assert.AreEqual(0.0, point.Y);
 
-			point = new PointD(5, 10);
-			Assert.AreEqual(5.0, point.X);
-			Assert.AreEqual(10.0, point.Y);
+      point = new PointD(5);
+      Assert.AreEqual(5.0, point.X);
+      Assert.AreEqual(5.0, point.Y);
 
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				new PointD(null);
-			});
+      point = new PointD(5, 10);
+      Assert.AreEqual(5.0, point.X);
+      Assert.AreEqual(10.0, point.Y);
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new PointD("");
-			});
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        new PointD(null);
+      });
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new PointD("1.0x");
-			});
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new PointD("");
+      });
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new PointD("x1.0");
-			});
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new PointD("1.0x");
+      });
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new PointD("ax1.0");
-			});
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new PointD("x1.0");
+      });
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new PointD("1.0xb");
-			});
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new PointD("ax1.0");
+      });
 
-			point = new PointD("1.0x2.5");
-			Assert.AreEqual(1.0, point.X);
-			Assert.AreEqual(2.5, point.Y);
-			Assert.AreEqual("1x2.5", point.ToString());
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
-		{
-			PointD first = new PointD(50.0);
-			PointD second = new PointD(50);
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new PointD("1.0xb");
+      });
 
-			Assert.IsTrue(first == second);
-			Assert.IsTrue(first.Equals(second));
-			Assert.IsTrue(first.Equals((object)second));
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      point = new PointD("1.0x2.5");
+      Assert.AreEqual(1.0, point.X);
+      Assert.AreEqual(2.5, point.Y);
+      Assert.AreEqual("1x2.5", point.ToString());
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IEquatable()
+    {
+      PointD first = new PointD(50.0);
+      PointD second = new PointD(50);
+
+      Assert.IsTrue(first == second);
+      Assert.IsTrue(first.Equals(second));
+      Assert.IsTrue(first.Equals((object)second));
+    }
+  }
 }

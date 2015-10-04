@@ -17,50 +17,46 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	internal static class Throw
-	{
-		//===========================================================================================
-		private static string FormatMessage(string message, params object[] args)
-		{
-			if (args.Length == 0)
-				return message;
+  internal static class Throw
+  {
+    private static string FormatMessage(string message, params object[] args)
+    {
+      if (args.Length == 0)
+        return message;
 
-			return string.Format(CultureInfo.InvariantCulture, message, args);
-		}
-		//===========================================================================================
-		public static void IfFalse(string paramName, bool condition, string message, params object[] args)
-		{
-			if (!condition)
-				throw new ArgumentException(FormatMessage(message, args), paramName);
-		}
-		//===========================================================================================
-		public static void IfNull(string paramName, [ValidatedNotNull] object value)
-		{
-			if (value == null)
-				throw new ArgumentNullException(paramName);
-		}
-		//===========================================================================================
-		public static void IfNullOrEmpty(string paramName, [ValidatedNotNull] string value)
-		{
-			Throw.IfNull(paramName, value);
+      return string.Format(CultureInfo.InvariantCulture, message, args);
+    }
 
-			if (value.Length == 0)
-				throw new ArgumentException("Value cannot be empty", paramName);
-		}
-		//===========================================================================================
-		public static void IfOutOfRange(string paramName, int index, int length)
-		{
-			if (index < 0 || index >= length)
-				throw new ArgumentOutOfRangeException(paramName);
-		}
-		//===========================================================================================
-		public static void IfTrue(String paramName, bool condition, string message, params object[] args)
-		{
-			if (condition)
-				throw new ArgumentException(FormatMessage(message, args), paramName);
-		}
-		//===========================================================================================
-	};
-	//==============================================================================================
+    public static void IfFalse(string paramName, bool condition, string message, params object[] args)
+    {
+      if (!condition)
+        throw new ArgumentException(FormatMessage(message, args), paramName);
+    }
+
+    public static void IfNull(string paramName, [ValidatedNotNull] object value)
+    {
+      if (value == null)
+        throw new ArgumentNullException(paramName);
+    }
+
+    public static void IfNullOrEmpty(string paramName, [ValidatedNotNull] string value)
+    {
+      IfNull(paramName, value);
+
+      if (value.Length == 0)
+        throw new ArgumentException("Value cannot be empty", paramName);
+    }
+
+    public static void IfOutOfRange(string paramName, int index, int length)
+    {
+      if (index < 0 || index >= length)
+        throw new ArgumentOutOfRangeException(paramName);
+    }
+
+    public static void IfTrue(String paramName, bool condition, string message, params object[] args)
+    {
+      if (condition)
+        throw new ArgumentException(FormatMessage(message, args), paramName);
+    }
+  }
 }

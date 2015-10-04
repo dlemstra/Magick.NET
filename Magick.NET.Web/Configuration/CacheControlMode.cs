@@ -14,24 +14,20 @@
 
 namespace ImageMagick.Web
 {
-	///=============================================================================================
-	/// <summary>
-	/// Specifies the mode to use for client caching.
-	/// </summary>
-	public enum CacheControlMode
-	{
-		///==========================================================================================
-		/// <summary>
-		/// Does not add a Expires to the response.
-		/// </summary>
-		NoControl,
-		///==========================================================================================
-		/// <summary>
-		/// Adds a Cache-Control: max-age=&gt;nnn&lt; header to the response based on the value
-		/// specified in the CacheControlMaxAge property.
-		/// </summary>
-		UseMaxAge
-		//===========================================================================================
-	}
-	//==============================================================================================
+  /// <summary>
+  /// Specifies the mode to use for client caching.
+  /// </summary>
+  public enum CacheControlMode
+  {
+    /// <summary>
+    /// Does not add a Expires to the response.
+    /// </summary>
+    NoControl,
+
+    /// <summary>
+    /// Adds a Cache-Control: max-age=&gt;nnn&lt; header to the response based on the value
+    /// specified in the CacheControlMaxAge property.
+    /// </summary>
+    UseMaxAge
+  }
 }

@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableDensity object.
-	///</summary>
-	public interface IDrawableDensity : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The vertical and horizontal resolution.
-		///</summary>
-		PointD Density
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableDensity object.
+  ///</summary>
+  public interface IDrawableDensity : IDrawable
+  {
+    ///<summary>
+    /// The vertical and horizontal resolution.
+    ///</summary>
+    PointD Density
+    {
+      get;
+    }
+  }
 }

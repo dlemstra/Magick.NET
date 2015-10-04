@@ -17,27 +17,21 @@ using namespace System::IO;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class JpegOptimizer sealed
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			static void LosslessCompress(FileInfo^ file, bool progressive);
-			//========================================================================================
-		public:
-			//========================================================================================
-			JpegOptimizer();
-			//========================================================================================
-			void LosslessCompress(FileInfo^ file);
-			//========================================================================================
-			property bool OptimalCompression;
-			//========================================================================================
-			property bool Progressive;
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class JpegOptimizer sealed
+    {
+    private:
+      static void LosslessCompress(FileInfo^ file, bool progressive);
+
+    public:
+      JpegOptimizer();
+
+      void LosslessCompress(FileInfo^ file);
+
+      property bool OptimalCompression;
+
+      property bool Progressive;
+    };
+  }
 }

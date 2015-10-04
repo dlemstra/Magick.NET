@@ -17,46 +17,44 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		void ChannelPerceptualHash::Initialize(const Magick::ChannelPerceptualHash channelPerceptualHash)
-		{
-			Channel = (PixelChannel)channelPerceptualHash.channel();
-			SrgbHuPhash = gcnew array<double>(7);
-			HclpHuPhash = gcnew array<double>(7);
-			for (int i=0; i < 7; i++)
-			{
-				SrgbHuPhash[i] = channelPerceptualHash.srgbHuPhash(i);
-				HclpHuPhash[i] = channelPerceptualHash.hclpHuPhash(i);
-			}
-			std::string hash=channelPerceptualHash;
-			Hash=Marshaller::Marshal(hash);
-		}
-		//===========================================================================================
-		ChannelPerceptualHash::ChannelPerceptualHash(const Magick::ChannelPerceptualHash channelPerceptualHash)
-		{
-			Initialize(channelPerceptualHash);
-		}
-		//===========================================================================================
-		ChannelPerceptualHash::ChannelPerceptualHash(String^ hash)
-		{
-			try
-			{
-				std::string magickHash;
-				Marshaller::Marshal(hash, magickHash);
-				Magick::ChannelPerceptualHash channelPerceptualHash = Magick::ChannelPerceptualHash(
-					Magick::UndefinedPixelChannel, magickHash);
-				if (!channelPerceptualHash.isValid())
-					throw gcnew ArgumentException("Invalid hash specified", "hash");
+  namespace Wrapper
+  {
+    void ChannelPerceptualHash::Initialize(const Magick::ChannelPerceptualHash channelPerceptualHash)
+    {
+      Channel = (PixelChannel)channelPerceptualHash.channel();
+      SrgbHuPhash = gcnew array<double>(7);
+      HclpHuPhash = gcnew array<double>(7);
+      for (int i = 0; i < 7; i++)
+      {
+        SrgbHuPhash[i] = channelPerceptualHash.srgbHuPhash(i);
+        HclpHuPhash[i] = channelPerceptualHash.hclpHuPhash(i);
+      }
+      std::string hash = channelPerceptualHash;
+      Hash = Marshaller::Marshal(hash);
+    }
 
-				Initialize(channelPerceptualHash);
-			}
-			catch(Magick::Exception&)
-			{
-				throw gcnew ArgumentException("Invalid hash specified", "hash");
-			}
-		}
-		//===========================================================================================
-	}
+    ChannelPerceptualHash::ChannelPerceptualHash(const Magick::ChannelPerceptualHash channelPerceptualHash)
+    {
+      Initialize(channelPerceptualHash);
+    }
+
+    ChannelPerceptualHash::ChannelPerceptualHash(String^ hash)
+    {
+      try
+      {
+        std::string magickHash;
+        Marshaller::Marshal(hash, magickHash);
+        Magick::ChannelPerceptualHash channelPerceptualHash = Magick::ChannelPerceptualHash(
+          Magick::UndefinedPixelChannel, magickHash);
+        if (!channelPerceptualHash.isValid())
+          throw gcnew ArgumentException("Invalid hash specified", "hash");
+
+        Initialize(channelPerceptualHash);
+      }
+      catch (Magick::Exception&)
+      {
+        throw gcnew ArgumentException("Invalid hash specified", "hash");
+      }
+    }
+  }
 }

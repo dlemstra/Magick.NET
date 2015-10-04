@@ -17,43 +17,37 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//========================================================================================
-		private ref class Quantum abstract sealed
-		{
-			//========================================================================================
-		internal:
-			//========================================================================================
-			static Magick::Quantum Convert(double value);
-			//========================================================================================
-			static Magick::Quantum Convert(unsigned int value);
-			//========================================================================================
+  namespace Wrapper
+  {
+    private ref class Quantum abstract sealed
+    {
+    internal:
+      static Magick::Quantum Convert(double value);
+
+      static Magick::Quantum Convert(unsigned int value);
+
 #if (MAGICKCORE_QUANTUM_DEPTH != 16 || defined(MAGICKCORE_HDRI_SUPPORT))
-			static Magick::Quantum Convert(unsigned short value);
+      static Magick::Quantum Convert(unsigned short value);
 #endif
-			//========================================================================================
-		public:
-			//========================================================================================
-			static property int Depth
-			{
-				int get();
-			}
-			//========================================================================================
-			QUANTUM_CLS_COMPLIANT static property Magick::Quantum Max
-			{
-				Magick::Quantum get();
-			}
-			//========================================================================================
+
+    public:
+      static property int Depth
+      {
+        int get();
+      }
+
+      QUANTUM_CLS_COMPLIANT static property Magick::Quantum Max
+      {
+        Magick::Quantum get();
+      }
+
 #if (MAGICKCORE_QUANTUM_DEPTH > 8)
-			static Magick::Quantum Convert(Byte value);
+      static Magick::Quantum Convert(Byte value);
 #endif
-			//========================================================================================
-			static Magick::Quantum Convert(Magick::Quantum value);
-			//========================================================================================
-			static double Scale(Magick::Quantum value);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+
+      static Magick::Quantum Convert(Magick::Quantum value);
+
+      static double Scale(Magick::Quantum value);
+    };
+  }
 }

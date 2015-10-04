@@ -14,29 +14,25 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableScaling object.
-	///</summary>
-	public interface IDrawableScaling : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The X coordinate.
-		///</summary>
-		double X
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y coordinate.
-		///</summary>
-		double Y
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableScaling object.
+  ///</summary>
+  public interface IDrawableScaling : IDrawable
+  {
+    ///<summary>
+    /// The X coordinate.
+    ///</summary>
+    double X
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The Y coordinate.
+    ///</summary>
+    double Y
+    {
+      get;
+    }
+  }
 }

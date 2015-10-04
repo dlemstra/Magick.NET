@@ -18,20 +18,20 @@ using ImageMagick;
 
 namespace RootNamespace.Samples.MagickNET
 {
-	public static class LosslessCompressionSamples
-	{
-		public static void MakeGooglePageSpeedInsightsHappy()
-		{
-			FileInfo snakewareLogo = new FileInfo(SampleFiles.OutputDirectory + "OptimizeTest.jpg");
-			File.Copy(SampleFiles.SnakewareJpg, snakewareLogo.FullName, true);
+  public static class LosslessCompressionSamples
+  {
+    public static void MakeGooglePageSpeedInsightsHappy()
+    {
+      FileInfo snakewareLogo = new FileInfo(SampleFiles.OutputDirectory + "OptimizeTest.jpg");
+      File.Copy(SampleFiles.SnakewareJpg, snakewareLogo.FullName, true);
 
-			Console.WriteLine("Bytes before: " + snakewareLogo.Length);
+      Console.WriteLine("Bytes before: " + snakewareLogo.Length);
 
-			ImageOptimizer optimizer = new ImageOptimizer();
-			optimizer.LosslessCompress(snakewareLogo);
+      ImageOptimizer optimizer = new ImageOptimizer();
+      optimizer.LosslessCompress(snakewareLogo);
 
-			snakewareLogo.Refresh();
-			Console.WriteLine("Bytes after:  " + snakewareLogo.Length);
-		}
-	}
+      snakewareLogo.Refresh();
+      Console.WriteLine("Bytes after:  " + snakewareLogo.Length);
+    }
+  }
 }

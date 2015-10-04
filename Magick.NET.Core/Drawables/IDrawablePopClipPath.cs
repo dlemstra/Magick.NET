@@ -1,4 +1,3 @@
-//=================================================================================================
 // Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -16,13 +15,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePopClipPath object.
-	///</summary>
-	[SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
-	public interface IDrawablePopClipPath : IDrawable
-	{
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePopClipPath object.
+  ///</summary>
+  [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
+  public interface IDrawablePopClipPath : IDrawable
+  {
+  }
 }

@@ -21,111 +21,107 @@ using ImageMagick.Web.Handlers;
 
 namespace ImageMagick.Web
 {
-	///=============================================================================================
-	/// <summary>
-	/// Httpmodule that uses various handlers to resize/optimize/compress images.
-	/// </summary>
-	public sealed class MagickModule : IHttpModule
-	{
-		//===========================================================================================
-		private static IEnumerable<IUrlResolver> _ScriptUrlResolvers
-		{
-			get
-			{
-				foreach (UrlResolverSettings settings in MagickWebSettings.UrlResolvers)
-				{
-					yield return settings.CreateInstance();
-				}
-			}
-		}
-		//===========================================================================================
-		private static IHttpHandler HandleRequest(HttpContext context)
-		{
-			Uri url = (Uri)context.Items["MagickScriptModule.Url"];
+  /// <summary>
+  /// Httpmodule that uses various handlers to resize/optimize/compress images.
+  /// </summary>
+  public sealed class MagickModule : IHttpModule
+  {
+    private static IEnumerable<IUrlResolver> _ScriptUrlResolvers
+    {
+      get
+      {
+        foreach (UrlResolverSettings settings in MagickWebSettings.UrlResolvers)
+        {
+          yield return settings.CreateInstance();
+        }
+      }
+    }
 
-			foreach (IUrlResolver scriptUrlResolver in _ScriptUrlResolvers)
-			{
-				if (scriptUrlResolver.Resolve(url))
-					return CreateHttpHandler(scriptUrlResolver);
-			}
+    private static IHttpHandler HandleRequest(HttpContext context)
+    {
+      Uri url = (Uri)context.Items["MagickScriptModule.Url"];
 
-			return null;
-		}
-		//===========================================================================================
-		private static IHttpHandler CreateHttpHandler(IUrlResolver urlResolver)
-		{
-			if (string.IsNullOrEmpty(urlResolver.FileName) || !File.Exists(urlResolver.FileName))
-				return null;
+      foreach (IUrlResolver scriptUrlResolver in _ScriptUrlResolvers)
+      {
+        if (scriptUrlResolver.Resolve(url))
+          return CreateHttpHandler(scriptUrlResolver);
+      }
 
-			MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(urlResolver.Format);
-			if (formatInfo == null || string.IsNullOrEmpty(formatInfo.MimeType))
-				return null;
+      return null;
+    }
 
-			if (urlResolver.Script != null)
-				return new MagickScriptHandler(urlResolver, formatInfo);
+    private static IHttpHandler CreateHttpHandler(IUrlResolver urlResolver)
+    {
+      if (string.IsNullOrEmpty(urlResolver.FileName) || !File.Exists(urlResolver.FileName))
+        return null;
 
-			if (ImageOptimizerHandler.CanOptimize(formatInfo))
-				return new ImageOptimizerHandler(urlResolver, formatInfo);
+      MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(urlResolver.Format);
+      if (formatInfo == null || string.IsNullOrEmpty(formatInfo.MimeType))
+        return null;
 
-			if (GzipHandler.CanCompress(formatInfo))
-				return new GzipHandler(urlResolver, formatInfo);
+      if (urlResolver.Script != null)
+        return new MagickScriptHandler(urlResolver, formatInfo);
 
-			return null;
-		}
-		//===========================================================================================
-		private void OnBeginRequest(object sender, EventArgs arguments)
-		{
-			HttpContext context = ((HttpApplication)sender).Context;
-			context.Items["MagickScriptModule.Url"] = context.Request.Url;
-		}
-		//===========================================================================================
-		private void OnPostAuthorizeRequest(object sender, EventArgs arguments)
-		{
-			HttpContext context = ((HttpApplication)sender).Context;
-			IHttpHandler newHandler = HandleRequest(context);
-			if (newHandler != null)
-				context.RemapHandler(newHandler);
-		}
-		//===========================================================================================
-		private void OnPostMapRequestHandler(object sender, EventArgs arguments)
-		{
-			HttpContext context = ((HttpApplication)sender).Context;
-			IHttpHandler newHandler = HandleRequest(context);
-			if (newHandler != null)
-				context.Handler = newHandler;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Initializes the module and prepares it to handle requests.
-		/// </summary>
-		/// <param name="context">An HttpApplication that provides access to the methods, properties,
-		/// and events common to all application objects within an ASP.NET application</param>
-		public void Init(HttpApplication context)
-		{
-			if (context == null)
-				return;
+      if (ImageOptimizerHandler.CanOptimize(formatInfo))
+        return new ImageOptimizerHandler(urlResolver, formatInfo);
 
-			if (MagickWebSettings.UrlResolvers.Count == 0)
-				throw new ConfigurationErrorsException("Define at least one url resolver.");
+      if (GzipHandler.CanCompress(formatInfo))
+        return new GzipHandler(urlResolver, formatInfo);
 
-			context.BeginRequest += OnBeginRequest;
+      return null;
+    }
 
-			if (HttpRuntime.UsingIntegratedPipeline)
-				context.PostAuthorizeRequest += OnPostAuthorizeRequest;
-			else
-				context.PostMapRequestHandler += OnPostMapRequestHandler;
+    private void OnBeginRequest(object sender, EventArgs arguments)
+    {
+      HttpContext context = ((HttpApplication)sender).Context;
+      context.Items["MagickScriptModule.Url"] = context.Request.Url;
+    }
 
-			if (!MagickWebSettings.UseOpenCL)
-				MagickNET.UseOpenCL = false;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Disposes of the resources (other than memory) used by the module.
-		/// </summary>
-		public void Dispose()
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    private void OnPostAuthorizeRequest(object sender, EventArgs arguments)
+    {
+      HttpContext context = ((HttpApplication)sender).Context;
+      IHttpHandler newHandler = HandleRequest(context);
+      if (newHandler != null)
+        context.RemapHandler(newHandler);
+    }
+
+    private void OnPostMapRequestHandler(object sender, EventArgs arguments)
+    {
+      HttpContext context = ((HttpApplication)sender).Context;
+      IHttpHandler newHandler = HandleRequest(context);
+      if (newHandler != null)
+        context.Handler = newHandler;
+    }
+
+    /// <summary>
+    /// Initializes the module and prepares it to handle requests.
+    /// </summary>
+    /// <param name="context">An HttpApplication that provides access to the methods, properties,
+    /// and events common to all application objects within an ASP.NET application</param>
+    public void Init(HttpApplication context)
+    {
+      if (context == null)
+        return;
+
+      if (MagickWebSettings.UrlResolvers.Count == 0)
+        throw new ConfigurationErrorsException("Define at least one url resolver.");
+
+      context.BeginRequest += OnBeginRequest;
+
+      if (HttpRuntime.UsingIntegratedPipeline)
+        context.PostAuthorizeRequest += OnPostAuthorizeRequest;
+      else
+        context.PostMapRequestHandler += OnPostMapRequestHandler;
+
+      if (!MagickWebSettings.UseOpenCL)
+        MagickNET.UseOpenCL = false;
+    }
+
+    /// <summary>
+    /// Disposes of the resources (other than memory) used by the module.
+    /// </summary>
+    public void Dispose()
+    {
+    }
+  }
 }

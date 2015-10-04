@@ -18,31 +18,27 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathQuadraticCurvetoAbs object.
-	///</summary>
-	public sealed class PathQuadraticCurvetoAbs : DrawableCoordinates<IPathQuadraticCurveto>, IPathQuadraticCurvetoAbs
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathQuadraticCurvetoAbs class.
-		///</summary>
-		///<param name="pathQuadraticCurvetos">The coordinates to use.</param>
-		public PathQuadraticCurvetoAbs(params PathQuadraticCurveto[] pathQuadraticCurvetos)
-			: base(pathQuadraticCurvetos)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathQuadraticCurvetoAbs class.
-		///</summary>
-		///<param name="pathQuadraticCurvetos">The coordinates to use.</param>
-		public PathQuadraticCurvetoAbs(IEnumerable<PathQuadraticCurveto> pathQuadraticCurvetos)
-			: base(CastPathQuadraticCurveto(pathQuadraticCurvetos))
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathQuadraticCurvetoAbs object.
+  ///</summary>
+  public sealed class PathQuadraticCurvetoAbs : DrawableCoordinates<IPathQuadraticCurveto>, IPathQuadraticCurvetoAbs
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathQuadraticCurvetoAbs class.
+    ///</summary>
+    ///<param name="pathQuadraticCurvetos">The coordinates to use.</param>
+    public PathQuadraticCurvetoAbs(params PathQuadraticCurveto[] pathQuadraticCurvetos)
+      : base(pathQuadraticCurvetos)
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathQuadraticCurvetoAbs class.
+    ///</summary>
+    ///<param name="pathQuadraticCurvetos">The coordinates to use.</param>
+    public PathQuadraticCurvetoAbs(IEnumerable<PathQuadraticCurveto> pathQuadraticCurvetos)
+      : base(CastPathQuadraticCurveto(pathQuadraticCurvetos))
+    {
+    }
+  }
 }

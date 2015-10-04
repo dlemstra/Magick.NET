@@ -14,27 +14,24 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Specifies fill rule.
-	///</summary>
-	public enum FillRule
-	{
-		///==========================================================================================
-		/// <summary>
-		/// Undefined
-		/// </summary>
-		Undefined,
-		///==========================================================================================
-		/// <summary>
-		/// EvenOdd
-		/// </summary>
-		EvenOdd,
-		///==========================================================================================
-		/// <summary>
-		/// Nonzero
-		/// </summary>
-		Nonzero
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Specifies fill rule.
+  ///</summary>
+  public enum FillRule
+  {
+    /// <summary>
+    /// Undefined
+    /// </summary>
+    Undefined,
+
+    /// <summary>
+    /// EvenOdd
+    /// </summary>
+    EvenOdd,
+
+    /// <summary>
+    /// Nonzero
+    /// </summary>
+    Nonzero
+  }
 }

@@ -17,52 +17,48 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableTextUnderColor object.
-	///</summary>
-	public sealed class DrawableTextUnderColor : IDrawableTextUnderColor
-	{
-		//===========================================================================================
-		Internal.IMagickColor IDrawableTextUnderColor.Color
-		{
-			get
-			{
-				return MagickColor.GetInstance(Color);
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableTextUnderColor instance.
-		///</summary>
-		///<param name="color">The color to use.</param>
-		public DrawableTextUnderColor(Color color)
-		{
-			Throw.IfNull("color", color);
+  ///<summary>
+  /// Encapsulation of the DrawableTextUnderColor object.
+  ///</summary>
+  public sealed class DrawableTextUnderColor : IDrawableTextUnderColor
+  {
+    Internal.IMagickColor IDrawableTextUnderColor.Color
+    {
+      get
+      {
+        return MagickColor.GetInstance(Color);
+      }
+    }
 
-			Color = color;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableTextUnderColor instance.
-		///</summary>
-		///<param name="color">The color to use.</param>
-		public DrawableTextUnderColor(MagickColor color)
-		{
-			Throw.IfNull("color", color);
+    ///<summary>
+    /// Creates a new DrawableTextUnderColor instance.
+    ///</summary>
+    ///<param name="color">The color to use.</param>
+    public DrawableTextUnderColor(Color color)
+    {
+      Throw.IfNull("color", color);
 
-			Color = color;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The color to use.
-		///</summary>
-		public MagickColor Color
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      Color = color;
+    }
+
+    ///<summary>
+    /// Creates a new DrawableTextUnderColor instance.
+    ///</summary>
+    ///<param name="color">The color to use.</param>
+    public DrawableTextUnderColor(MagickColor color)
+    {
+      Throw.IfNull("color", color);
+
+      Color = color;
+    }
+
+    ///<summary>
+    /// The color to use.
+    ///</summary>
+    public MagickColor Color
+    {
+      get;
+      set;
+    }
+  }
 }

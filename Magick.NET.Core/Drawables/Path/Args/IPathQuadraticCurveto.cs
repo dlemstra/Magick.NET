@@ -14,45 +14,41 @@
 
 namespace ImageMagick.Drawables.Paths
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathQuadraticCurveto object.
-	///</summary>
-	public interface IPathQuadraticCurveto
-	{
-		///==========================================================================================
-		/// <summary>
-		/// X ordinate of the control point
-		/// </summary>
-		double X
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Y ordinate of the control point
-		/// </summary>
-		double Y
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// X ordinate of final point
-		/// </summary>
-		double X1
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Y ordinate of final point
-		/// </summary>
-		double Y1
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathQuadraticCurveto object.
+  ///</summary>
+  public interface IPathQuadraticCurveto
+  {
+    /// <summary>
+    /// X ordinate of the control point
+    /// </summary>
+    double X
+    {
+      get;
+    }
+
+    /// <summary>
+    /// Y ordinate of the control point
+    /// </summary>
+    double Y
+    {
+      get;
+    }
+
+    /// <summary>
+    /// X ordinate of final point
+    /// </summary>
+    double X1
+    {
+      get;
+    }
+
+    /// <summary>
+    /// Y ordinate of final point
+    /// </summary>
+    double Y1
+    {
+      get;
+    }
+  }
 }

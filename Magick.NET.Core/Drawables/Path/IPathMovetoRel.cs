@@ -16,21 +16,17 @@ using System.Collections.Generic;
 
 namespace ImageMagick.Drawables.Paths
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathMovetoRel object.
-	///</summary>
-	public interface IPathMovetoRel : IPath
-	{
-		///==========================================================================================
-		/// <summary>
-		/// The coordinates.
-		/// </summary>
-		IEnumerable<Coordinate> Coordinates
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathMovetoRel object.
+  ///</summary>
+  public interface IPathMovetoRel : IPath
+  {
+    /// <summary>
+    /// The coordinates.
+    /// </summary>
+    IEnumerable<Coordinate> Coordinates
+    {
+      get;
+    }
+  }
 }

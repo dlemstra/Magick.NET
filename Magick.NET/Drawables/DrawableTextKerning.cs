@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableTextKerning object.
-	///</summary>
-	public sealed class DrawableTextKerning : IDrawableTextKerning
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableTextKerning instance.
-		///</summary>
-		///<param name="kerning">Kerning to use.</param>
-		public DrawableTextKerning(double kerning)
-		{
-			Kerning = kerning;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Kerning to use.
-		///</summary>
-		public double Kerning
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableTextKerning object.
+  ///</summary>
+  public sealed class DrawableTextKerning : IDrawableTextKerning
+  {
+    ///<summary>
+    /// Creates a new DrawableTextKerning instance.
+    ///</summary>
+    ///<param name="kerning">Kerning to use.</param>
+    public DrawableTextKerning(double kerning)
+    {
+      Kerning = kerning;
+    }
+
+    ///<summary>
+    /// Kerning to use.
+    ///</summary>
+    public double Kerning
+    {
+      get;
+      set;
+    }
+  }
 }

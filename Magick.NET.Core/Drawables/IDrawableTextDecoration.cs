@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableTextDecoration object.
-	///</summary>
-	public interface IDrawableTextDecoration : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The text decoration
-		///</summary>
-		TextDecoration Decoration
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableTextDecoration object.
+  ///</summary>
+  public interface IDrawableTextDecoration : IDrawable
+  {
+    ///<summary>
+    /// The text decoration
+    ///</summary>
+    TextDecoration Decoration
+    {
+      get;
+    }
+  }
 }

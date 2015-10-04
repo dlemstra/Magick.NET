@@ -16,21 +16,17 @@ using System.Collections.Generic;
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePath object.
-	///</summary>
-	public interface IDrawablePath : IDrawable
-	{
-		///==========================================================================================
-		/// <summary>
-		/// >The paths to use.
-		/// </summary>
-		IEnumerable<IPath> Paths
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePath object.
+  ///</summary>
+  public interface IDrawablePath : IDrawable
+  {
+    /// <summary>
+    /// >The paths to use.
+    /// </summary>
+    IEnumerable<IPath> Paths
+    {
+      get;
+    }
+  }
 }

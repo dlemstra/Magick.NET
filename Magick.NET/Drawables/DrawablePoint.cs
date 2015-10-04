@@ -16,42 +16,38 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePoint object.
-	///</summary>
-	public sealed class DrawablePoint : IDrawablePoint
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePoint instance.
-		///</summary>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
-		public DrawablePoint(double x, double y)
-		{
-			X = x;
-			Y = y;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X coordinate.
-		///</summary>
-		public double X
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y coordinate.
-		///</summary>
-		public double Y
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePoint object.
+  ///</summary>
+  public sealed class DrawablePoint : IDrawablePoint
+  {
+    ///<summary>
+    /// Creates a new DrawablePoint instance.
+    ///</summary>
+    ///<param name="x">The X coordinate.</param>
+    ///<param name="y">The Y coordinate.</param>
+    public DrawablePoint(double x, double y)
+    {
+      X = x;
+      Y = y;
+    }
+
+    ///<summary>
+    /// The X coordinate.
+    ///</summary>
+    public double X
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The Y coordinate.
+    ///</summary>
+    public double Y
+    {
+      get;
+      set;
+    }
+  }
 }

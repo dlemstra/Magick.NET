@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableTextInterwordSpacing object.
-	///</summary>
-	public interface IDrawableTextInterwordSpacing : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// Spacing to use.
-		///</summary>
-		double Spacing
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableTextInterwordSpacing object.
+  ///</summary>
+  public interface IDrawableTextInterwordSpacing : IDrawable
+  {
+    ///<summary>
+    /// Spacing to use.
+    ///</summary>
+    double Spacing
+    {
+      get;
+    }
+  }
 }

@@ -12,91 +12,83 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.Collections;
-using System.IO;
-using System.Linq;
 using ImageMagick;
 using ImageMagick.Defines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class JpegReadDefinesTests
-	{
-		//===========================================================================================
-		private const string _Category = "JpegReadDefines";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_BlockSmoothing_DctMethod_FancyUpsampling()
-		{
-			MagickReadSettings settings = new MagickReadSettings()
-			{
-				Defines = new JpegReadDefines()
-				{
-					BlockSmoothing = true,
-					DctMethod = DctMethod.Slow,
-					FancyUpsampling = false
-				}
-			};
+  [TestClass]
+  public class JpegReadDefinesTests
+  {
+    private const string _Category = "JpegReadDefines";
 
-			using (MagickImage image = new MagickImage())
-			{
-				image.Read(Files.ImageMagickJPG, settings);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_BlockSmoothing_DctMethod_FancyUpsampling()
+    {
+      MagickReadSettings settings = new MagickReadSettings()
+      {
+        Defines = new JpegReadDefines()
+        {
+          BlockSmoothing = true,
+          DctMethod = DctMethod.Slow,
+          FancyUpsampling = false
+        }
+      };
 
-				Assert.AreEqual("True", image.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
-				Assert.AreEqual("Slow", image.GetDefine(MagickFormat.Jpeg, "dct-method"));
-				Assert.AreEqual("False", image.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Colors_Size()
-		{
-			MagickReadSettings settings = new MagickReadSettings()
-			{
-				Defines = new JpegReadDefines()
-				{
-					Colors = 100,
-					Size = new MagickGeometry(61, 59)
-				}
-			};
+      using (MagickImage image = new MagickImage())
+      {
+        image.Read(Files.ImageMagickJPG, settings);
 
-			using (MagickImage image = new MagickImage())
-			{
-				image.Read(Files.ImageMagickJPG, settings);
+        Assert.AreEqual("True", image.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
+        Assert.AreEqual("Slow", image.GetDefine(MagickFormat.Jpeg, "dct-method"));
+        Assert.AreEqual("False", image.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
+      }
+    }
 
-				Assert.IsTrue(image.TotalColors <= 100);
-				Assert.AreEqual(100, image.TotalColors, 1);
-				Assert.AreEqual(62, image.Width);
-				Assert.AreEqual(59, image.Height);
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_SkipProfiles()
-		{
-			MagickReadSettings settings = new MagickReadSettings()
-			{
-				Defines = new JpegReadDefines()
-				{
-					SkipProfiles = ProfileTypes.Iptc | ProfileTypes.Icc
-				}
-			};
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Colors_Size()
+    {
+      MagickReadSettings settings = new MagickReadSettings()
+      {
+        Defines = new JpegReadDefines()
+        {
+          Colors = 100,
+          Size = new MagickGeometry(61, 59)
+        }
+      };
 
-			using (MagickImage image = new MagickImage())
-			{
-				image.Read(Files.FujiFilmFinePixS1ProJPG);
-				Assert.IsNotNull(image.GetIptcProfile());
+      using (MagickImage image = new MagickImage())
+      {
+        image.Read(Files.ImageMagickJPG, settings);
 
-				image.Read(Files.FujiFilmFinePixS1ProJPG, settings);
-				Assert.IsNull(image.GetIptcProfile());
-				Assert.AreEqual("Icc,Iptc", image.GetDefine(MagickFormat.Unknown, "profile:skip"));
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+        Assert.IsTrue(image.TotalColors <= 100);
+        Assert.AreEqual(100, image.TotalColors, 1);
+        Assert.AreEqual(62, image.Width);
+        Assert.AreEqual(59, image.Height);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_SkipProfiles()
+    {
+      MagickReadSettings settings = new MagickReadSettings()
+      {
+        Defines = new JpegReadDefines()
+        {
+          SkipProfiles = ProfileTypes.Iptc | ProfileTypes.Icc
+        }
+      };
+
+      using (MagickImage image = new MagickImage())
+      {
+        image.Read(Files.FujiFilmFinePixS1ProJPG);
+        Assert.IsNotNull(image.GetIptcProfile());
+
+        image.Read(Files.FujiFilmFinePixS1ProJPG, settings);
+        Assert.IsNull(image.GetIptcProfile());
+        Assert.AreEqual("Icc,Iptc", image.GetDefine(MagickFormat.Unknown, "profile:skip"));
+      }
+    }
+  }
 }

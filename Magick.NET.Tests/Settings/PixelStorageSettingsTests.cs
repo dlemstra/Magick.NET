@@ -18,131 +18,127 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class PixelStorageSettingsTests
-	{
-		//===========================================================================================
-		private const string _Category = "PixelStorageSettings";
-		//===========================================================================================
-		private static MagickReadSettings CreateSettings()
-		{
-			MagickReadSettings settings = new MagickReadSettings();
-			settings.PixelStorage = new PixelStorageSettings(StorageType.Double, "RGBA");
-			settings.Width = 2;
-			settings.Height = 1;
+  [TestClass]
+  public class PixelStorageSettingsTests
+  {
+    private const string _Category = "PixelStorageSettings";
 
-			return settings;
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Collection_Exceptions()
-		{
-			using (MagickImageCollection collection = new MagickImageCollection())
-			{
-				MagickReadSettings settings = new MagickReadSettings();
-				settings.PixelStorage = new PixelStorageSettings();
+    private static MagickReadSettings CreateSettings()
+    {
+      MagickReadSettings settings = new MagickReadSettings();
+      settings.PixelStorage = new PixelStorageSettings(StorageType.Double, "RGBA");
+      settings.Width = 2;
+      settings.Height = 1;
 
-				ExceptionAssert.Throws<ArgumentException>(delegate()
-				{
-					collection.Read(Files.RoseSparkleGIF, settings);
-				});
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Image_Exceptions()
-		{
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				MagickReadSettings settings = CreateSettings();
-				settings.PixelStorage.StorageType = StorageType.Undefined;
-				new MagickImage(Files.SnakewarePNG, settings);
-			});
+      return settings;
+    }
 
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				MagickReadSettings settings = CreateSettings();
-				settings.PixelStorage.Mapping = null;
-				new MagickImage(Files.SnakewarePNG, settings);
-			});
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Collection_Exceptions()
+    {
+      using (MagickImageCollection collection = new MagickImageCollection())
+      {
+        MagickReadSettings settings = new MagickReadSettings();
+        settings.PixelStorage = new PixelStorageSettings();
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				MagickReadSettings settings = CreateSettings();
-				settings.PixelStorage.Mapping = "";
-				new MagickImage(Files.SnakewarePNG, settings);
-			});
+        ExceptionAssert.Throws<ArgumentException>(delegate ()
+        {
+          collection.Read(Files.RoseSparkleGIF, settings);
+        });
+      }
+    }
 
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				MagickReadSettings settings = CreateSettings();
-				settings.Width = null;
-				new MagickImage(Files.SnakewarePNG, settings);
-			});
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Image_Exceptions()
+    {
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        MagickReadSettings settings = CreateSettings();
+        settings.PixelStorage.StorageType = StorageType.Undefined;
+        new MagickImage(Files.SnakewarePNG, settings);
+      });
 
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				MagickReadSettings settings = CreateSettings();
-				settings.Height = null;
-				new MagickImage(Files.SnakewarePNG, settings);
-			});
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        MagickReadSettings settings = CreateSettings();
+        settings.PixelStorage.Mapping = null;
+        new MagickImage(Files.SnakewarePNG, settings);
+      });
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				MagickReadSettings settings = CreateSettings();
-				byte[] data = new byte[] { 0 };
-				new MagickImage(data, settings);
-			});
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Image_Read()
-		{
-			MagickReadSettings settings = CreateSettings();
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        MagickReadSettings settings = CreateSettings();
+        settings.PixelStorage.Mapping = "";
+        new MagickImage(Files.SnakewarePNG, settings);
+      });
 
-			using (MagickImage image = new MagickImage())
-			{
-				byte[] data = new byte[]
-					{ 
-						0, 0, 0, 0, 0, 0, 0, 0,
-						0, 0, 0, 0, 0, 0, 0, 0,
-						0, 0, 0, 0, 0, 0, 0, 0,
-						0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
-						0, 0, 0, 0, 0, 0, 0, 0,
-						0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
-						0, 0, 0, 0, 0, 0, 0, 0,
-						0, 0, 0, 0, 0, 0, 0, 0,
-					};
-				image.Read(data, settings);
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        MagickReadSettings settings = CreateSettings();
+        settings.Width = null;
+        new MagickImage(Files.SnakewarePNG, settings);
+      });
 
-				Assert.AreEqual(2, image.Width);
-				Assert.AreEqual(1, image.Height);
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        MagickReadSettings settings = CreateSettings();
+        settings.Height = null;
+        new MagickImage(Files.SnakewarePNG, settings);
+      });
 
-				using (PixelCollection pixels = image.GetReadOnlyPixels())
-				{
-					Pixel pixel = pixels.GetPixel(0, 0);
-					Assert.AreEqual(4, pixel.Channels);
-					Assert.AreEqual(0, pixel.GetChannel(0));
-					Assert.AreEqual(0, pixel.GetChannel(1));
-					Assert.AreEqual(0, pixel.GetChannel(2));
-					Assert.AreEqual(Quantum.Max, pixel.GetChannel(3));
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        MagickReadSettings settings = CreateSettings();
+        byte[] data = new byte[] { 0 };
+        new MagickImage(data, settings);
+      });
+    }
 
-					pixel = pixels.GetPixel(1, 0);
-					Assert.AreEqual(4, pixel.Channels);
-					Assert.AreEqual(0, pixel.GetChannel(0));
-					Assert.AreEqual(Quantum.Max, pixel.GetChannel(1));
-					Assert.AreEqual(0, pixel.GetChannel(2));
-					Assert.AreEqual(0, pixel.GetChannel(3));
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Image_Read()
+    {
+      MagickReadSettings settings = CreateSettings();
 
-					ExceptionAssert.Throws<ArgumentException>(delegate()
-					{
-						pixels.GetPixel(0, 1);
-					});
-				}
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      using (MagickImage image = new MagickImage())
+      {
+        byte[] data = new byte[]
+          {
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+          };
+        image.Read(data, settings);
+
+        Assert.AreEqual(2, image.Width);
+        Assert.AreEqual(1, image.Height);
+
+        using (PixelCollection pixels = image.GetReadOnlyPixels())
+        {
+          Pixel pixel = pixels.GetPixel(0, 0);
+          Assert.AreEqual(4, pixel.Channels);
+          Assert.AreEqual(0, pixel.GetChannel(0));
+          Assert.AreEqual(0, pixel.GetChannel(1));
+          Assert.AreEqual(0, pixel.GetChannel(2));
+          Assert.AreEqual(Quantum.Max, pixel.GetChannel(3));
+
+          pixel = pixels.GetPixel(1, 0);
+          Assert.AreEqual(4, pixel.Channels);
+          Assert.AreEqual(0, pixel.GetChannel(0));
+          Assert.AreEqual(Quantum.Max, pixel.GetChannel(1));
+          Assert.AreEqual(0, pixel.GetChannel(2));
+          Assert.AreEqual(0, pixel.GetChannel(3));
+
+          ExceptionAssert.Throws<ArgumentException>(delegate ()
+          {
+            pixels.GetPixel(0, 1);
+          });
+        }
+      }
+    }
+  }
 }

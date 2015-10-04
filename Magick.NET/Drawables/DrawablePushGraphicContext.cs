@@ -16,20 +16,16 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePushGraphicContext object.
-	///</summary>
-	public sealed class DrawablePushGraphicContext : IDrawablePushGraphicContext
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePushGraphicContext instance.
-		///</summary>
-		public DrawablePushGraphicContext()
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePushGraphicContext object.
+  ///</summary>
+  public sealed class DrawablePushGraphicContext : IDrawablePushGraphicContext
+  {
+    ///<summary>
+    /// Creates a new DrawablePushGraphicContext instance.
+    ///</summary>
+    public DrawablePushGraphicContext()
+    {
+    }
+  }
 }

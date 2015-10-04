@@ -14,21 +14,17 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePointSize object.
-	///</summary>
-	public interface IDrawablePointSize : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The point size.
-		///</summary>
-		double PointSize
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePointSize object.
+  ///</summary>
+  public interface IDrawablePointSize : IDrawable
+  {
+    ///<summary>
+    /// The point size.
+    ///</summary>
+    double PointSize
+    {
+      get;
+    }
+  }
 }

@@ -18,44 +18,40 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	public static class ExceptionAssert
-	{
-		//===========================================================================================
-		private static void Fail(string message, params object[] arguments)
-		{
-			if (arguments != null && arguments.Length > 0)
-				Assert.Fail(String.Format(CultureInfo.InvariantCulture, message, arguments));
-			else
-				Assert.Fail(message);
-		}
-		//===========================================================================================
-		public static void Throws<TException>(Action action)
-			 where TException : Exception
-		{
-			Throws<TException>(action, "Exception of type {0} was not thrown.", typeof(TException).Name);
-		}
-		//===========================================================================================
-		public static void Throws<TException>(Action action, string message, params object[] arguments)
-			 where TException : Exception
-		{
-			try
-			{
-				action();
-				Fail(message, arguments);
-			}
-			catch (TException exception)
-			{
-				Type type = exception.GetType();
-				if (type != typeof(TException))
-					Fail("Exception of type {0} was not thrown an exception of type {1} was thrown.", typeof(TException).Name, type.Name);
-			}
-			catch (Exception)
-			{
-				throw;
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  public static class ExceptionAssert
+  {
+    private static void Fail(string message, params object[] arguments)
+    {
+      if (arguments != null && arguments.Length > 0)
+        Assert.Fail(String.Format(CultureInfo.InvariantCulture, message, arguments));
+      else
+        Assert.Fail(message);
+    }
+
+    public static void Throws<TException>(Action action)
+       where TException : Exception
+    {
+      Throws<TException>(action, "Exception of type {0} was not thrown.", typeof(TException).Name);
+    }
+
+    public static void Throws<TException>(Action action, string message, params object[] arguments)
+       where TException : Exception
+    {
+      try
+      {
+        action();
+        Fail(message, arguments);
+      }
+      catch (TException exception)
+      {
+        Type type = exception.GetType();
+        if (type != typeof(TException))
+          Fail("Exception of type {0} was not thrown an exception of type {1} was thrown.", typeof(TException).Name, type.Name);
+      }
+      catch (Exception)
+      {
+        throw;
+      }
+    }
+  }
 }

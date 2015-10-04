@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables.Paths
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathLinetoVerticalAbs object.
-	///</summary>
-	public interface IPathLinetoVerticalAbs : IPath
-	{
-		///==========================================================================================
-		/// <summary>
-		/// The Y coordinate.
-		/// </summary>
-		double Y
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathLinetoVerticalAbs object.
+  ///</summary>
+  public interface IPathLinetoVerticalAbs : IPath
+  {
+    /// <summary>
+    /// The Y coordinate.
+    /// </summary>
+    double Y
+    {
+      get;
+    }
+  }
 }

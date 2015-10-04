@@ -18,31 +18,27 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathArcAbs object.
-	///</summary>
-	public sealed class PathArcAbs : DrawableCoordinates<IPathArc>, IPathArcAbs
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathArcAbs class.
-		///</summary>
-		///<param name="pathArcs">The coordinates to use.</param>
-		public PathArcAbs(params PathArc[] pathArcs)
-			: base(pathArcs)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathArcAbs class.
-		///</summary>
-		///<param name="pathArcs">The coordinates to use.</param>
-		public PathArcAbs(IEnumerable<PathArc> pathArcs)
-			: base(CastPathArc(pathArcs))
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathArcAbs object.
+  ///</summary>
+  public sealed class PathArcAbs : DrawableCoordinates<IPathArc>, IPathArcAbs
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathArcAbs class.
+    ///</summary>
+    ///<param name="pathArcs">The coordinates to use.</param>
+    public PathArcAbs(params PathArc[] pathArcs)
+      : base(pathArcs)
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathArcAbs class.
+    ///</summary>
+    ///<param name="pathArcs">The coordinates to use.</param>
+    public PathArcAbs(IEnumerable<PathArc> pathArcs)
+      : base(CastPathArc(pathArcs))
+    {
+    }
+  }
 }

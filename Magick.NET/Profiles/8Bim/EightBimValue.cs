@@ -17,136 +17,132 @@ using System.Text;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	/// <summary>
-	/// A value of the 8bim profile.
-	/// </summary>
-	public sealed class EightBimValue : IEquatable<EightBimValue>
-	{
-		//===========================================================================================
-		private Byte[] _Data;
-		//===========================================================================================
-		internal EightBimValue(short id, Byte[] data)
-		{
-			ID = id;
-			_Data = data;
-		}
-		//===========================================================================================
-		/// <summary>
-		/// The ID of the 8bim value
-		/// </summary>
-		public short ID
-		{
-			get;
-			private set;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Determines whether the specified EightBimValue instances are considered equal.
-		/// </summary>
-		/// <param name="left">The first EightBimValue to compare.</param>
-		/// <param name="right"> The second EightBimValue to compare.</param>
-		/// <returns></returns>
-		public static bool operator ==(EightBimValue left, EightBimValue right)
-		{
-			return object.Equals(left, right);
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Determines whether the specified EightBimValue instances are not considered equal.
-		/// </summary>
-		/// <param name="left">The first EightBimValue to compare.</param>
-		/// <param name="right"> The second EightBimValue to compare.</param>
-		/// <returns></returns>
-		public static bool operator !=(EightBimValue left, EightBimValue right)
-		{
-			return !object.Equals(left, right);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Determines whether the specified object is equal to the current 8bim value.
-		///</summary>
-		///<param name="obj">The object to compare this 8bim value with.</param>
-		public override bool Equals(object obj)
-		{
-			if (ReferenceEquals(this, obj))
-				return true;
+  /// <summary>
+  /// A value of the 8bim profile.
+  /// </summary>
+  public sealed class EightBimValue : IEquatable<EightBimValue>
+  {
+    private Byte[] _Data;
 
-			return Equals(obj as EightBimValue);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Determines whether the specified 8bim value is equal to the current 8bim value.
-		///</summary>
-		///<param name="other">The exif value to compare this 8bim value with.</param>
-		public bool Equals(EightBimValue other)
-		{
-			if (ReferenceEquals(other, null))
-				return false;
+    internal EightBimValue(short id, Byte[] data)
+    {
+      ID = id;
+      _Data = data;
+    }
 
-			if (ReferenceEquals(this, other))
-				return true;
+    /// <summary>
+    /// The ID of the 8bim value
+    /// </summary>
+    public short ID
+    {
+      get;
+      private set;
+    }
 
-			if (ID != other.ID)
-				return false;
+    /// <summary>
+    /// Determines whether the specified EightBimValue instances are considered equal.
+    /// </summary>
+    /// <param name="left">The first EightBimValue to compare.</param>
+    /// <param name="right"> The second EightBimValue to compare.</param>
+    /// <returns></returns>
+    public static bool operator ==(EightBimValue left, EightBimValue right)
+    {
+      return object.Equals(left, right);
+    }
 
-			if (ReferenceEquals(_Data, null))
-				return ReferenceEquals(other._Data, null);
+    /// <summary>
+    /// Determines whether the specified EightBimValue instances are not considered equal.
+    /// </summary>
+    /// <param name="left">The first EightBimValue to compare.</param>
+    /// <param name="right"> The second EightBimValue to compare.</param>
+    /// <returns></returns>
+    public static bool operator !=(EightBimValue left, EightBimValue right)
+    {
+      return !object.Equals(left, right);
+    }
 
-			if (ReferenceEquals(other._Data, null))
-				return false;
+    ///<summary>
+    /// Determines whether the specified object is equal to the current 8bim value.
+    ///</summary>
+    ///<param name="obj">The object to compare this 8bim value with.</param>
+    public override bool Equals(object obj)
+    {
+      if (ReferenceEquals(this, obj))
+        return true;
 
-			if (_Data.Length != other._Data.Length)
-				return false;
+      return Equals(obj as EightBimValue);
+    }
 
-			for (int i = 0; i < _Data.Length; i++)
-			{
-				if (_Data[i] != other._Data[i])
-					return false;
-			}
+    ///<summary>
+    /// Determines whether the specified 8bim value is equal to the current 8bim value.
+    ///</summary>
+    ///<param name="other">The exif value to compare this 8bim value with.</param>
+    public bool Equals(EightBimValue other)
+    {
+      if (ReferenceEquals(other, null))
+        return false;
 
-			return true;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Serves as a hash of this type.
-		///</summary>
-		public override int GetHashCode()
-		{
+      if (ReferenceEquals(this, other))
+        return true;
 
-			return
-				_Data.GetHashCode() ^
-				ID.GetHashCode();
-		}
-		///==========================================================================================
-		///<summary>
-		/// Converts this instance to a byte array.
-		///</summary>
-		public Byte[] ToByteArray()
-		{
-			Byte[] data = new Byte[_Data.Length];
-			Array.Copy(_Data, 0, data, 0, _Data.Length);
-			return data;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Returns a string that represents the current value.
-		///</summary>
-		public override string ToString()
-		{
-			return ToString(Encoding.UTF8);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Returns a string that represents the current value with the specified encoding.
-		///</summary>
-		public string ToString(Encoding encoding)
-		{
-			Throw.IfNull("encoding", encoding);
+      if (ID != other.ID)
+        return false;
 
-			return encoding.GetString(_Data);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      if (ReferenceEquals(_Data, null))
+        return ReferenceEquals(other._Data, null);
+
+      if (ReferenceEquals(other._Data, null))
+        return false;
+
+      if (_Data.Length != other._Data.Length)
+        return false;
+
+      for (int i = 0; i < _Data.Length; i++)
+      {
+        if (_Data[i] != other._Data[i])
+          return false;
+      }
+
+      return true;
+    }
+
+    ///<summary>
+    /// Serves as a hash of this type.
+    ///</summary>
+    public override int GetHashCode()
+    {
+
+      return
+        _Data.GetHashCode() ^
+        ID.GetHashCode();
+    }
+
+    ///<summary>
+    /// Converts this instance to a byte array.
+    ///</summary>
+    public Byte[] ToByteArray()
+    {
+      Byte[] data = new Byte[_Data.Length];
+      Array.Copy(_Data, 0, data, 0, _Data.Length);
+      return data;
+    }
+
+    ///<summary>
+    /// Returns a string that represents the current value.
+    ///</summary>
+    public override string ToString()
+    {
+      return ToString(Encoding.UTF8);
+    }
+
+    ///<summary>
+    /// Returns a string that represents the current value with the specified encoding.
+    ///</summary>
+    public string ToString(Encoding encoding)
+    {
+      Throw.IfNull("encoding", encoding);
+
+      return encoding.GetString(_Data);
+    }
+  }
 }

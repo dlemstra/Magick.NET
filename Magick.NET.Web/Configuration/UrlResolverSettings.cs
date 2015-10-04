@@ -20,57 +20,53 @@ using System.Reflection;
 
 namespace ImageMagick.Web
 {
-	///=============================================================================================
-	/// <summary>
-	/// Class that contains the settings for an url resolver.
-	/// </summary>
-	public class UrlResolverSettings : ConfigurationElement
-	{
-		//===========================================================================================
-		private delegate IUrlResolver IUrlResolverConstructor();
-		private IUrlResolverConstructor _Constructor;
-		//===========================================================================================
-		[ConfigurationProperty("type", IsRequired = true)]
-		internal string TypeName
-		{
-			get
-			{
-				return (string)this["type"];
-			}
-		}
-		//===========================================================================================
-		internal IUrlResolver CreateInstance()
-		{
-			return _Constructor();
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Called after deserialization.
-		/// </summary>
-		[SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IUrlResolver")]
-		protected override void PostDeserialize()
-		{
-			base.PostDeserialize();
+  /// <summary>
+  /// Class that contains the settings for an url resolver.
+  /// </summary>
+  public class UrlResolverSettings : ConfigurationElement
+  {
+    private delegate IUrlResolver IUrlResolverConstructor();
+    private IUrlResolverConstructor _Constructor;
 
-			UrlResolverType = Type.GetType(TypeName, true, true);
+    [ConfigurationProperty("type", IsRequired = true)]
+    internal string TypeName
+    {
+      get
+      {
+        return (string)this["type"];
+      }
+    }
 
-			if (!typeof(IUrlResolver).IsAssignableFrom(UrlResolverType))
-				throw new ConfigurationErrorsException("The type '" + TypeName + "' does not implement the interface IUrlResolver.");
+    internal IUrlResolver CreateInstance()
+    {
+      return _Constructor();
+    }
 
-			ConstructorInfo ctor = UrlResolverType.GetConstructor(new Type[] { });
-			NewExpression newExp = Expression.New(ctor);
-			_Constructor = (IUrlResolverConstructor)Expression.Lambda(typeof(IUrlResolverConstructor), newExp).Compile();
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Returns the type of the url resolver.
-		/// </summary>
-		public Type UrlResolverType
-		{
-			get;
-			private set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    /// <summary>
+    /// Called after deserialization.
+    /// </summary>
+    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IUrlResolver")]
+    protected override void PostDeserialize()
+    {
+      base.PostDeserialize();
+
+      UrlResolverType = Type.GetType(TypeName, true, true);
+
+      if (!typeof(IUrlResolver).IsAssignableFrom(UrlResolverType))
+        throw new ConfigurationErrorsException("The type '" + TypeName + "' does not implement the interface IUrlResolver.");
+
+      ConstructorInfo ctor = UrlResolverType.GetConstructor(new Type[] { });
+      NewExpression newExp = Expression.New(ctor);
+      _Constructor = (IUrlResolverConstructor)Expression.Lambda(typeof(IUrlResolverConstructor), newExp).Compile();
+    }
+
+    /// <summary>
+    /// Returns the type of the url resolver.
+    /// </summary>
+    public Type UrlResolverType
+    {
+      get;
+      private set;
+    }
+  }
 }

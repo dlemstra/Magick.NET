@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableStrokeAntialias object.
-	///</summary>
-	public interface IDrawableStrokeAntialias : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// True if stroke antialiasing is enabled otherwise false.
-		///</summary>
-		bool IsEnabled
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableStrokeAntialias object.
+  ///</summary>
+  public interface IDrawableStrokeAntialias : IDrawable
+  {
+    ///<summary>
+    /// True if stroke antialiasing is enabled otherwise false.
+    ///</summary>
+    bool IsEnabled
+    {
+      get;
+    }
+  }
 }

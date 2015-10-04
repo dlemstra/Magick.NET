@@ -15,16 +15,12 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class MatrixHelper abstract sealed
-		{
-		internal:
-			//========================================================================================
-			static double* CreateArray(DoubleMatrix^ matrix);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class MatrixHelper abstract sealed
+    {
+    internal:
+      static double* CreateArray(DoubleMatrix^ matrix);
+    };
+  }
 }

@@ -16,12 +16,11 @@ using System;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	/// <summary>
-	/// Attribute that tells Code Analysis that the parameter is checked within the method.
-	/// </summary>
-	[AttributeUsage(AttributeTargets.Parameter)]
-	public sealed class ValidatedNotNullAttribute : Attribute
-	{
-	}
+  /// <summary>
+  /// Attribute that tells Code Analysis that the parameter is checked within the method.
+  /// </summary>
+  [AttributeUsage(AttributeTargets.Parameter)]
+  public sealed class ValidatedNotNullAttribute : Attribute
+  {
+  }
 }

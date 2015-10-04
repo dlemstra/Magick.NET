@@ -16,20 +16,16 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePopClipPath object.
-	///</summary>
-	public sealed class DrawablePopClipPath : IDrawablePopClipPath
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePopClipPath instance.
-		///</summary>
-		public DrawablePopClipPath()
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePopClipPath object.
+  ///</summary>
+  public sealed class DrawablePopClipPath : IDrawablePopClipPath
+  {
+    ///<summary>
+    /// Creates a new DrawablePopClipPath instance.
+    ///</summary>
+    public DrawablePopClipPath()
+    {
+    }
+  }
 }

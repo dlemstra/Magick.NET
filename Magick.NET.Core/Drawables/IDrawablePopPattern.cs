@@ -16,13 +16,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePopPattern object.
-	///</summary>
-	[SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
-	public interface IDrawablePopPattern : IDrawable
-	{
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePopPattern object.
+  ///</summary>
+  [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
+  public interface IDrawablePopPattern : IDrawable
+  {
+  }
 }

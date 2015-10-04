@@ -17,50 +17,44 @@ using namespace System::Drawing;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class MagickGeometry sealed
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			void Initialize(Magick::Geometry geometry);
-			//========================================================================================
-		internal:
-			//========================================================================================
-			MagickGeometry(Magick::Geometry geometry);
-			//========================================================================================
-			const Magick::Geometry* CreateGeometry();
-			//========================================================================================
-		public:
-			//========================================================================================
-			MagickGeometry(int x, int y, int width, int height, bool isPercentage);
-			//========================================================================================
-			MagickGeometry(String^ value);
-			//========================================================================================
-			property bool FillArea;
-			//========================================================================================
-			property bool Greater;
-			//========================================================================================
-			property int Height;
-			//========================================================================================
-			property bool IgnoreAspectRatio;
-			//========================================================================================
-			property bool IsPercentage;
-			//========================================================================================
-			property bool Less;
-			//========================================================================================
-			property bool LimitPixels;
-			//========================================================================================
-			property int Width;
-			//========================================================================================
-			property int X;
-			//========================================================================================
-			property int Y;
-			//========================================================================================
-			virtual String^ ToString() override;
-			//========================================================================================
-		};
-	}
+  namespace Wrapper
+  {
+    private ref class MagickGeometry sealed
+    {
+    private:
+      void Initialize(Magick::Geometry geometry);
+
+    internal:
+      MagickGeometry(Magick::Geometry geometry);
+
+      const Magick::Geometry* CreateGeometry();
+
+    public:
+      MagickGeometry(int x, int y, int width, int height, bool isPercentage);
+
+      MagickGeometry(String^ value);
+
+      property bool FillArea;
+
+      property bool Greater;
+
+      property int Height;
+
+      property bool IgnoreAspectRatio;
+
+      property bool IsPercentage;
+
+      property bool Less;
+
+      property bool LimitPixels;
+
+      property int Width;
+
+      property int X;
+
+      property int Y;
+
+      virtual String^ ToString() override;
+    };
+  }
 }

@@ -18,156 +18,154 @@ using namespace System::Globalization;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		String^ MagickReaderSettings::Scenes::get()
-		{
-			if (!_Settings->FrameIndex.HasValue && !_Settings->FrameCount.HasValue)
-				return nullptr;
+  namespace Wrapper
+  {
+    String^ MagickReaderSettings::Scenes::get()
+    {
+      if (!_Settings->FrameIndex.HasValue && !_Settings->FrameCount.HasValue)
+        return nullptr;
 
-			if (_Settings->FrameIndex.HasValue && (!_Settings->FrameCount.HasValue || _Settings->FrameCount.Value == 1))
-				return _Settings->FrameIndex.Value.ToString(CultureInfo::InvariantCulture);
+      if (_Settings->FrameIndex.HasValue && (!_Settings->FrameCount.HasValue || _Settings->FrameCount.Value == 1))
+        return _Settings->FrameIndex.Value.ToString(CultureInfo::InvariantCulture);
 
-			int frame = _Settings->FrameIndex.HasValue ? _Settings->FrameIndex.Value : 0;
-			return String::Format(CultureInfo::InvariantCulture, "{0}-{1}", frame, frame + _Settings->FrameCount.Value);
-		}
-		//===========================================================================================
-		void MagickReaderSettings::ApplyColorSpace(MagickCore::ImageInfo *imageInfo)
-		{
-			if (_Settings->ColorSpace.HasValue)
-				imageInfo->colorspace = (Magick::ColorspaceType)_Settings->ColorSpace.Value;
-		}
-		//===========================================================================================
-		void MagickReaderSettings::ApplyDefines(MagickCore::ImageInfo *imageInfo)
-		{
-			for each (IDefine^ define in _Settings->AllDefines)
-			{
-				SetOption(imageInfo, GetDefineKey(define->Format, define->Name), define->Value);
-			}
-		}
-		//===========================================================================================
-		void MagickReaderSettings::ApplyDensity(MagickCore::ImageInfo *imageInfo)
-		{
-			if (!_Settings->Density.HasValue)
-				return;
+      int frame = _Settings->FrameIndex.HasValue ? _Settings->FrameIndex.Value : 0;
+      return String::Format(CultureInfo::InvariantCulture, "{0}-{1}", frame, frame + _Settings->FrameCount.Value);
+    }
 
-			if (imageInfo->density != (char*)NULL)
-				imageInfo->density=MagickCore::DestroyString(imageInfo->density);
+    void MagickReaderSettings::ApplyColorSpace(MagickCore::ImageInfo *imageInfo)
+    {
+      if (_Settings->ColorSpace.HasValue)
+        imageInfo->colorspace = (Magick::ColorspaceType)_Settings->ColorSpace.Value;
+    }
 
-			const Magick::Point* point = new Magick::Point(_Settings->Density.Value.X, _Settings->Density.Value.Y);
-			std::string pointStr = *point;
-			MagickCore::CloneString(&imageInfo->density, pointStr.c_str());
-			delete point;
-		}
-		//===========================================================================================
-		void MagickReaderSettings::ApplyDimensions(MagickCore::ImageInfo *imageInfo)
-		{
-			if (!_Settings->Width.HasValue || !_Settings->Height.HasValue)
-				return;
+    void MagickReaderSettings::ApplyDefines(MagickCore::ImageInfo *imageInfo)
+    {
+      for each (IDefine^ define in _Settings->AllDefines)
+      {
+        SetOption(imageInfo, GetDefineKey(define->Format, define->Name), define->Value);
+      }
+    }
 
-			if (imageInfo->size != (char*)NULL)
-				imageInfo->size=MagickCore::DestroyString(imageInfo->size);
+    void MagickReaderSettings::ApplyDensity(MagickCore::ImageInfo *imageInfo)
+    {
+      if (!_Settings->Density.HasValue)
+        return;
 
-			Magick::Geometry geometry = Magick::Geometry(_Settings->Width.Value, _Settings->Height.Value);
-			std::string geometryStr = geometry;
-			MagickCore::CloneString(&imageInfo->size, geometryStr.c_str());
-		}
-		//===========================================================================================
-		void MagickReaderSettings::ApplyFormat(MagickCore::ImageInfo *imageInfo)
-		{
-			if (!_Settings->Format.HasValue)
-				return;
+      if (imageInfo->density != (char*)NULL)
+        imageInfo->density = MagickCore::DestroyString(imageInfo->density);
 
-			std::string name;
-			Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, _Settings->Format.Value) + ":", name);
-			MagickCore::CopyMagickString(imageInfo->filename, name.c_str(), MagickPathExtent - 1);
-		}
-		//===========================================================================================
-		void MagickReaderSettings::ApplyFrame(MagickCore::ImageInfo *imageInfo)
-		{
-			if (!_Settings->FrameIndex.HasValue && !_Settings->FrameCount.HasValue)
-				return;
+      const Magick::Point* point = new Magick::Point(_Settings->Density.Value.X, _Settings->Density.Value.Y);
+      std::string pointStr = *point;
+      MagickCore::CloneString(&imageInfo->density, pointStr.c_str());
+      delete point;
+    }
 
-			if (imageInfo->scenes != (char*)NULL)
-				imageInfo->scenes=MagickCore::DestroyString(imageInfo->scenes);
+    void MagickReaderSettings::ApplyDimensions(MagickCore::ImageInfo *imageInfo)
+    {
+      if (!_Settings->Width.HasValue || !_Settings->Height.HasValue)
+        return;
 
-			std::string scenes;
-			Marshaller::Marshal(Scenes, scenes);
-			MagickCore::CloneString(&imageInfo->scenes, scenes.c_str());
+      if (imageInfo->size != (char*)NULL)
+        imageInfo->size = MagickCore::DestroyString(imageInfo->size);
 
-			imageInfo->scene = _Settings->FrameIndex.HasValue ? _Settings->FrameIndex.Value : 0;
-			imageInfo->number_scenes = _Settings->FrameCount.HasValue ? _Settings->FrameCount.Value : 1;
-		}
-		//===========================================================================================
-		void MagickReaderSettings::ApplyUseMonochrome(MagickCore::ImageInfo *imageInfo)
-		{
-			if (_Settings->UseMonochrome.HasValue)
-				imageInfo->monochrome = _Settings->UseMonochrome.Value ? Magick::MagickTrue : Magick::MagickFalse;
-		}
-		//===========================================================================================
-		String^ MagickReaderSettings::GetDefineKey(MagickFormat format, String^ name)
-		{
-			if (format == MagickFormat::Unknown)
-				return name;
+      Magick::Geometry geometry = Magick::Geometry(_Settings->Width.Value, _Settings->Height.Value);
+      std::string geometryStr = geometry;
+      MagickCore::CloneString(&imageInfo->size, geometryStr.c_str());
+    }
 
-			return Enum::GetName(MagickFormat::typeid, format) + ":" + name;
-		}
-		//===========================================================================================
-		void MagickReaderSettings::SetOption(MagickCore::ImageInfo *imageInfo, String^ key, String^ value)
-		{
-			std::string option;
-			Marshaller::Marshal(key, option);
-			std::string val;
-			Marshaller::Marshal(value, val);
-			(void) MagickCore::SetImageOption(imageInfo, option.c_str(), val.c_str());
-		}
-		//===========================================================================================
-		Nullable<int> MagickReaderSettings::Height::get()
-		{
-			return _Settings->Height;
-		}
-		//===========================================================================================
-		PixelStorageSettings^ MagickReaderSettings::PixelStorage::get()
-		{
-			return _Settings->PixelStorage;
-		}
-		//===========================================================================================
-		Nullable<int> MagickReaderSettings::Width::get()
-		{
-			return _Settings->Width;
-		}
-		//===========================================================================================
-		void MagickReaderSettings::Apply(Magick::Image* image)
-		{
-			Throw::IfFalse("settings", (!_Settings->FrameCount.HasValue || _Settings->FrameCount.Value == 1),
-				"The FrameCount can only be set to 1 when a MagickImage is being read.");
+    void MagickReaderSettings::ApplyFormat(MagickCore::ImageInfo *imageInfo)
+    {
+      if (!_Settings->Format.HasValue)
+        return;
 
-			Apply(image->imageInfo());
-		}
-		//===========================================================================================
-		void MagickReaderSettings::Apply(MagickCore::ImageInfo *imageInfo)
-		{
-			ApplyColorSpace(imageInfo);
-			ApplyDefines(imageInfo);
-			ApplyDensity(imageInfo);
-			ApplyDimensions(imageInfo);
-			ApplyFormat(imageInfo);
-			ApplyFrame(imageInfo);
-			ApplyUseMonochrome(imageInfo);
-		}
-		//===========================================================================================
-		MagickReaderSettings::MagickReaderSettings()
-		{
-			_Settings = gcnew MagickReadSettings();
-			IgnoreWarnings = true;
-		}
-		//===========================================================================================
-		MagickReaderSettings::MagickReaderSettings(MagickReadSettings^ settings)
-		{
-			_Settings = settings;
-			IgnoreWarnings = true;
-		}
-		//===========================================================================================
-	}
+      std::string name;
+      Marshaller::Marshal(Enum::GetName(MagickFormat::typeid, _Settings->Format.Value) + ":", name);
+      MagickCore::CopyMagickString(imageInfo->filename, name.c_str(), MagickPathExtent - 1);
+    }
+
+    void MagickReaderSettings::ApplyFrame(MagickCore::ImageInfo *imageInfo)
+    {
+      if (!_Settings->FrameIndex.HasValue && !_Settings->FrameCount.HasValue)
+        return;
+
+      if (imageInfo->scenes != (char*)NULL)
+        imageInfo->scenes = MagickCore::DestroyString(imageInfo->scenes);
+
+      std::string scenes;
+      Marshaller::Marshal(Scenes, scenes);
+      MagickCore::CloneString(&imageInfo->scenes, scenes.c_str());
+
+      imageInfo->scene = _Settings->FrameIndex.HasValue ? _Settings->FrameIndex.Value : 0;
+      imageInfo->number_scenes = _Settings->FrameCount.HasValue ? _Settings->FrameCount.Value : 1;
+    }
+
+    void MagickReaderSettings::ApplyUseMonochrome(MagickCore::ImageInfo *imageInfo)
+    {
+      if (_Settings->UseMonochrome.HasValue)
+        imageInfo->monochrome = _Settings->UseMonochrome.Value ? Magick::MagickTrue : Magick::MagickFalse;
+    }
+
+    String^ MagickReaderSettings::GetDefineKey(MagickFormat format, String^ name)
+    {
+      if (format == MagickFormat::Unknown)
+        return name;
+
+      return Enum::GetName(MagickFormat::typeid, format) + ":" + name;
+    }
+
+    void MagickReaderSettings::SetOption(MagickCore::ImageInfo *imageInfo, String^ key, String^ value)
+    {
+      std::string option;
+      Marshaller::Marshal(key, option);
+      std::string val;
+      Marshaller::Marshal(value, val);
+      (void)MagickCore::SetImageOption(imageInfo, option.c_str(), val.c_str());
+    }
+
+    Nullable<int> MagickReaderSettings::Height::get()
+    {
+      return _Settings->Height;
+    }
+
+    PixelStorageSettings^ MagickReaderSettings::PixelStorage::get()
+    {
+      return _Settings->PixelStorage;
+    }
+
+    Nullable<int> MagickReaderSettings::Width::get()
+    {
+      return _Settings->Width;
+    }
+
+    void MagickReaderSettings::Apply(Magick::Image* image)
+    {
+      Throw::IfFalse("settings", (!_Settings->FrameCount.HasValue || _Settings->FrameCount.Value == 1),
+        "The FrameCount can only be set to 1 when a MagickImage is being read.");
+
+      Apply(image->imageInfo());
+    }
+
+    void MagickReaderSettings::Apply(MagickCore::ImageInfo *imageInfo)
+    {
+      ApplyColorSpace(imageInfo);
+      ApplyDefines(imageInfo);
+      ApplyDensity(imageInfo);
+      ApplyDimensions(imageInfo);
+      ApplyFormat(imageInfo);
+      ApplyFrame(imageInfo);
+      ApplyUseMonochrome(imageInfo);
+    }
+
+    MagickReaderSettings::MagickReaderSettings()
+    {
+      _Settings = gcnew MagickReadSettings();
+      IgnoreWarnings = true;
+    }
+
+    MagickReaderSettings::MagickReaderSettings(MagickReadSettings^ settings)
+    {
+      _Settings = settings;
+      IgnoreWarnings = true;
+    }
+  }
 }

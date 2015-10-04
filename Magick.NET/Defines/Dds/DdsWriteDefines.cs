@@ -17,78 +17,74 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class for defines that are used when a dds image is written.
-	///</summary>
-	public sealed class DdsWriteDefines : DefineCreator
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the DdsWriteDefines class.
-		///</summary>
-		public DdsWriteDefines()
-			: base(MagickFormat.Dds)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Enables or disables cluser fit (dds:cluster-fit).
-		///</summary>
-		public bool? ClusterFit
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Specifies the compression that will be used (dds:compression).
-		///</summary>
-		public DdsCompression? Compression
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Specifies the number of mipmaps, zero will disable writing mipmaps (dds:mipmaps).
-		///</summary>
-		public int? Mipmaps
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Enables or disables weight by alpha when cluster fit is used (dds:weight-by-alpha).
-		///</summary>
-		public bool? WeightByAlpha
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The defines that should be set as an define on an image
-		///</summary>
-		public override IEnumerable<IDefine> Defines
-		{
-			get
-			{
-				if (ClusterFit.HasValue)
-					yield return CreateDefine("cluster-fit", ClusterFit.Value);
+  ///<summary>
+  /// Class for defines that are used when a dds image is written.
+  ///</summary>
+  public sealed class DdsWriteDefines : DefineCreator
+  {
+    ///<summary>
+    /// Initializes a new instance of the DdsWriteDefines class.
+    ///</summary>
+    public DdsWriteDefines()
+      : base(MagickFormat.Dds)
+    {
+    }
 
-				if (Compression.HasValue)
-					yield return CreateDefine("compression", Compression.Value);
+    ///<summary>
+    /// Enables or disables cluser fit (dds:cluster-fit).
+    ///</summary>
+    public bool? ClusterFit
+    {
+      get;
+      set;
+    }
 
-				if (Mipmaps.HasValue)
-					yield return CreateDefine("mipmaps", Mipmaps.Value);
+    ///<summary>
+    /// Specifies the compression that will be used (dds:compression).
+    ///</summary>
+    public DdsCompression? Compression
+    {
+      get;
+      set;
+    }
 
-				if (WeightByAlpha.HasValue)
-					yield return CreateDefine("weight-by-alpha", WeightByAlpha.Value);
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    ///<summary>
+    /// Specifies the number of mipmaps, zero will disable writing mipmaps (dds:mipmaps).
+    ///</summary>
+    public int? Mipmaps
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Enables or disables weight by alpha when cluster fit is used (dds:weight-by-alpha).
+    ///</summary>
+    public bool? WeightByAlpha
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The defines that should be set as an define on an image
+    ///</summary>
+    public override IEnumerable<IDefine> Defines
+    {
+      get
+      {
+        if (ClusterFit.HasValue)
+          yield return CreateDefine("cluster-fit", ClusterFit.Value);
+
+        if (Compression.HasValue)
+          yield return CreateDefine("compression", Compression.Value);
+
+        if (Mipmaps.HasValue)
+          yield return CreateDefine("mipmaps", Mipmaps.Value);
+
+        if (WeightByAlpha.HasValue)
+          yield return CreateDefine("weight-by-alpha", WeightByAlpha.Value);
+      }
+    }
+  }
 }

@@ -16,31 +16,27 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathLinetoHorizontalAbs object.
-	///</summary>
-	public sealed class PathLinetoHorizontalAbs : IPathLinetoHorizontalAbs
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathLinetoHorizontalAbs class.
-		///</summary>
-		///<param name="x">The X coordinate.</param>
-		public PathLinetoHorizontalAbs(double x)
-		{
-			X = x;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The X coordinate.
-		/// </summary>
-		public double X
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathLinetoHorizontalAbs object.
+  ///</summary>
+  public sealed class PathLinetoHorizontalAbs : IPathLinetoHorizontalAbs
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathLinetoHorizontalAbs class.
+    ///</summary>
+    ///<param name="x">The X coordinate.</param>
+    public PathLinetoHorizontalAbs(double x)
+    {
+      X = x;
+    }
+
+    /// <summary>
+    /// The X coordinate.
+    /// </summary>
+    public double X
+    {
+      get;
+      set;
+    }
+  }
 }

@@ -14,37 +14,33 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Interface for a define.
-	///</summary>
-	public interface IDefine
-	{
-		///==========================================================================================
-		///<summary>
-		/// The format to set the define for.
-		///</summary>
-		MagickFormat Format
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The name of the define.
-		///</summary>
-		string Name
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The value of the define.
-		///</summary>
-		string Value
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Interface for a define.
+  ///</summary>
+  public interface IDefine
+  {
+    ///<summary>
+    /// The format to set the define for.
+    ///</summary>
+    MagickFormat Format
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The name of the define.
+    ///</summary>
+    string Name
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The value of the define.
+    ///</summary>
+    string Value
+    {
+      get;
+    }
+  }
 }

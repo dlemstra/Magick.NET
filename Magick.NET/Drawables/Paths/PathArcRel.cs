@@ -18,31 +18,27 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathArcRel object.
-	///</summary>
-	public sealed class PathArcRel : DrawableCoordinates<IPathArc>, IPathArcRel
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathArcRel class.
-		///</summary>
-		///<param name="pathArcs">The coordinates to use.</param>
-		public PathArcRel(params PathArc[] pathArcs)
-			: base(pathArcs)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathArcRel class.
-		///</summary>
-		///<param name="pathArcs">The coordinates to use.</param>
-		public PathArcRel(IEnumerable<PathArc> pathArcs)
-			: base(CastPathArc(pathArcs))
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathArcRel object.
+  ///</summary>
+  public sealed class PathArcRel : DrawableCoordinates<IPathArc>, IPathArcRel
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathArcRel class.
+    ///</summary>
+    ///<param name="pathArcs">The coordinates to use.</param>
+    public PathArcRel(params PathArc[] pathArcs)
+      : base(pathArcs)
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathArcRel class.
+    ///</summary>
+    ///<param name="pathArcs">The coordinates to use.</param>
+    public PathArcRel(IEnumerable<PathArc> pathArcs)
+      : base(CastPathArc(pathArcs))
+    {
+    }
+  }
 }

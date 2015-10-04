@@ -14,78 +14,74 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the ImageMagick TypeMetric object.
-	///</summary>
-	public sealed class TypeMetric
-	{
-		///==========================================================================================
-		///<summary>
-		/// Ascent, the distance in pixels from the text baseline to the highest/upper grid coordinate
-		/// used to place an outline point.
-		///</summary>
-		public double Ascent
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Descent, the distance in pixels from the baseline to the lowest grid coordinate used to
-		/// place an outline point. Always a negative value.
-		///</summary>
-		public double Descent
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Maximum horizontal advance in pixels.
-		///</summary>
-		public double MaxHorizontalAdvance
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Text height in pixels.
-		///</summary>
-		public double TextHeight
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Text width in pixels.
-		///</summary>
-		public double TextWidth
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Underline position.
-		///</summary>
-		public double UnderlinePosition
-		{
-			get;
-			set;
-		} 
-		///==========================================================================================
-		///<summary>
-		/// Underline thickness.
-		///</summary>
-		public double UnderlineThickness
-		{
-			get;
-			set;
-		} 
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the ImageMagick TypeMetric object.
+  ///</summary>
+  public sealed class TypeMetric
+  {
+    ///<summary>
+    /// Ascent, the distance in pixels from the text baseline to the highest/upper grid coordinate
+    /// used to place an outline point.
+    ///</summary>
+    public double Ascent
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Descent, the distance in pixels from the baseline to the lowest grid coordinate used to
+    /// place an outline point. Always a negative value.
+    ///</summary>
+    public double Descent
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Maximum horizontal advance in pixels.
+    ///</summary>
+    public double MaxHorizontalAdvance
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Text height in pixels.
+    ///</summary>
+    public double TextHeight
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Text width in pixels.
+    ///</summary>
+    public double TextWidth
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Underline position.
+    ///</summary>
+    public double UnderlinePosition
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Underline thickness.
+    ///</summary>
+    public double UnderlineThickness
+    {
+      get;
+      set;
+    }
+  }
 }

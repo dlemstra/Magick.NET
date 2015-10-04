@@ -12,43 +12,36 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.Collections;
-using System.IO;
-using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class TiffReadDefinesTests
-	{
-		//===========================================================================================
-		private const string _Category = "TiffReadDefines";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IgnoreExifPoperties()
-		{
-			MagickReadSettings settings = new MagickReadSettings()
-			{
-				Defines = new TiffReadDefines()
-				{
-					IgnoreExifPoperties = true
-				}
-			};
+  [TestClass]
+  public class TiffReadDefinesTests
+  {
 
-			using (MagickImage image = new MagickImage())
-			{
-				image.Read(Files.InvitationTif);
-				Assert.IsNotNull(image.GetAttribute("exif:PixelXDimension"));
+    private const string _Category = "TiffReadDefines";
 
-				image.Read(Files.InvitationTif, settings);
-				Assert.IsNull(image.GetAttribute("exif:PixelXDimension"));
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IgnoreExifPoperties()
+    {
+      MagickReadSettings settings = new MagickReadSettings()
+      {
+        Defines = new TiffReadDefines()
+        {
+          IgnoreExifPoperties = true
+        }
+      };
+
+      using (MagickImage image = new MagickImage())
+      {
+        image.Read(Files.InvitationTif);
+        Assert.IsNotNull(image.GetAttribute("exif:PixelXDimension"));
+
+        image.Read(Files.InvitationTif, settings);
+        Assert.IsNull(image.GetAttribute("exif:PixelXDimension"));
+      }
+    }
+  }
 }

@@ -21,115 +21,111 @@ using System.Web;
 
 namespace ImageMagick.Web.Handlers
 {
-	///=============================================================================================
-	/// <summary>
-	/// IHttpHandler that can be used to compress files before they are written to the response.
-	/// </summary>
-	public class GzipHandler : MagickHandler
-	{
-		//===========================================================================================
-		private string GetCompressedFileName(HttpContext context)
-		{
-			string encoding = GetEncoding(context.Request);
-			if (string.IsNullOrEmpty(encoding))
-				return UrlResolver.FileName;
+  /// <summary>
+  /// IHttpHandler that can be used to compress files before they are written to the response.
+  /// </summary>
+  public class GzipHandler : MagickHandler
+  {
+    private string GetCompressedFileName(HttpContext context)
+    {
+      string encoding = GetEncoding(context.Request);
+      if (string.IsNullOrEmpty(encoding))
+        return UrlResolver.FileName;
 
-			string cacheFileName = GetCacheFileName("Compressed", encoding);
-			if (!CanUseCache(cacheFileName))
-				CreateCompressedFile(encoding, cacheFileName);
+      string cacheFileName = GetCacheFileName("Compressed", encoding);
+      if (!CanUseCache(cacheFileName))
+        CreateCompressedFile(encoding, cacheFileName);
 
-			context.Response.AppendHeader("Content-Encoding", encoding);
-			context.Response.AppendHeader("Vary", "Accept-Encoding");
+      context.Response.AppendHeader("Content-Encoding", encoding);
+      context.Response.AppendHeader("Vary", "Accept-Encoding");
 
-			return cacheFileName;
-		}
-		//===========================================================================================
-		[SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
-		private void CreateCompressedFile(string encoding, string cacheFileName)
-		{
-			string tempFile = GetTempFileName();
+      return cacheFileName;
+    }
 
-			try
-			{
-				using (FileStream fs = File.Create(tempFile))
-				{
-					using (Stream output = CreateCompressStream(fs, encoding))
-					{
-						using (FileStream input = File.OpenRead(UrlResolver.FileName))
-						{
-							byte[] buffer = new byte[81920];
-							int len;
+    [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
+    private void CreateCompressedFile(string encoding, string cacheFileName)
+    {
+      string tempFile = GetTempFileName();
 
-							while ((len = input.Read(buffer, 0, buffer.Length)) > 0)
-								output.Write(buffer, 0, len);
-						}
-					}
-				}
+      try
+      {
+        using (FileStream fs = File.Create(tempFile))
+        {
+          using (Stream output = CreateCompressStream(fs, encoding))
+          {
+            using (FileStream input = File.OpenRead(UrlResolver.FileName))
+            {
+              byte[] buffer = new byte[81920];
+              int len;
 
-				MoveToCache(tempFile, cacheFileName);
-			}
-			finally
-			{
-				if (File.Exists(tempFile))
-					File.Delete(tempFile);
-			}
-		}
-		//===========================================================================================
-		private static Stream CreateCompressStream(FileStream stream, string encoding)
-		{
-			if (encoding == "gzip")
-				return new GZipStream(stream, CompressionMode.Compress);
+              while ((len = input.Read(buffer, 0, buffer.Length)) > 0)
+                output.Write(buffer, 0, len);
+            }
+          }
+        }
 
-			if (encoding == "deflate")
-				return new DeflateStream(stream, CompressionMode.Compress);
+        MoveToCache(tempFile, cacheFileName);
+      }
+      finally
+      {
+        if (File.Exists(tempFile))
+          File.Delete(tempFile);
+      }
+    }
 
-			throw new NotImplementedException(encoding);
-		}
-		//===========================================================================================
-		private static string GetEncoding(HttpRequest request)
-		{
-			try
-			{
-				string encoding = request.Headers["Accept-Encoding"];
-				if (string.IsNullOrEmpty(encoding))
-					return null;
+    private static Stream CreateCompressStream(FileStream stream, string encoding)
+    {
+      if (encoding == "gzip")
+        return new GZipStream(stream, CompressionMode.Compress);
 
-				if (encoding.Contains("gzip"))
-					return "gzip";
+      if (encoding == "deflate")
+        return new DeflateStream(stream, CompressionMode.Compress);
 
-				if (encoding.Contains("deflate"))
-					return "deflate";
+      throw new NotImplementedException(encoding);
+    }
 
-				return null;
-			}
-			catch (ThreadAbortException)
-			{
-				return null;
-			}
-		}
-		//===========================================================================================
-		internal GzipHandler(IUrlResolver urlResolver, MagickFormatInfo formatInfo)
-			: base(urlResolver, formatInfo)
-		{
-		}
-		//===========================================================================================
-		internal static bool CanCompress(MagickFormatInfo formatInfo)
-		{
-			if (!MagickWebSettings.EnableGzip)
-				return false;
+    private static string GetEncoding(HttpRequest request)
+    {
+      try
+      {
+        string encoding = request.Headers["Accept-Encoding"];
+        if (string.IsNullOrEmpty(encoding))
+          return null;
 
-			return formatInfo.Format == MagickFormat.Svg;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Writes the file to the response.
-		/// </summary>
-		protected override void WriteFile(HttpContext context)
-		{
-			string fileName = GetCompressedFileName(context);
-			WriteFile(context, fileName);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+        if (encoding.Contains("gzip"))
+          return "gzip";
+
+        if (encoding.Contains("deflate"))
+          return "deflate";
+
+        return null;
+      }
+      catch (ThreadAbortException)
+      {
+        return null;
+      }
+    }
+
+    internal GzipHandler(IUrlResolver urlResolver, MagickFormatInfo formatInfo)
+      : base(urlResolver, formatInfo)
+    {
+    }
+
+    internal static bool CanCompress(MagickFormatInfo formatInfo)
+    {
+      if (!MagickWebSettings.EnableGzip)
+        return false;
+
+      return formatInfo.Format == MagickFormat.Svg;
+    }
+
+    /// <summary>
+    /// Writes the file to the response.
+    /// </summary>
+    protected override void WriteFile(HttpContext context)
+    {
+      string fileName = GetCompressedFileName(context);
+      WriteFile(context, fileName);
+    }
+  }
 }

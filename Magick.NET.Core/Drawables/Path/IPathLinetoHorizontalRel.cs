@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables.Paths
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathLinetoHorizontalRel object.
-	///</summary>
-	public interface IPathLinetoHorizontalRel : IPath
-	{
-		///==========================================================================================
-		/// <summary>
-		/// The X coordinate.
-		/// </summary>
-		double X
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathLinetoHorizontalRel object.
+  ///</summary>
+  public interface IPathLinetoHorizontalRel : IPath
+  {
+    /// <summary>
+    /// The X coordinate.
+    /// </summary>
+    double X
+    {
+      get;
+    }
+  }
 }

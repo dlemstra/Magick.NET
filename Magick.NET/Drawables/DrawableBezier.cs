@@ -17,33 +17,29 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableBezier object.
-	///</summary>
-	public sealed class DrawableBezier : DrawableCoordinates<Coordinate>, IDrawableBezier
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableBezier instance.
-		///</summary>
-		///<param name="coordinates">The coordinates.</param>
-		public DrawableBezier(params Coordinate[] coordinates)
-			: base(coordinates)
-		{
-			CheckCoordinateCount(3);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableBezier instance.
-		///</summary>
-		///<param name="coordinates">The coordinates.</param>
-		public DrawableBezier(IEnumerable<Coordinate> coordinates)
-			: base(coordinates)
-		{
-			CheckCoordinateCount(3);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableBezier object.
+  ///</summary>
+  public sealed class DrawableBezier : DrawableCoordinates<Coordinate>, IDrawableBezier
+  {
+    ///<summary>
+    /// Creates a new DrawableBezier instance.
+    ///</summary>
+    ///<param name="coordinates">The coordinates.</param>
+    public DrawableBezier(params Coordinate[] coordinates)
+      : base(coordinates)
+    {
+      CheckCoordinateCount(3);
+    }
+
+    ///<summary>
+    /// Creates a new DrawableBezier instance.
+    ///</summary>
+    ///<param name="coordinates">The coordinates.</param>
+    public DrawableBezier(IEnumerable<Coordinate> coordinates)
+      : base(coordinates)
+    {
+      CheckCoordinateCount(3);
+    }
+  }
 }

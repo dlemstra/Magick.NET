@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableMiterLimit object.
-	///</summary>
-	public sealed class DrawableMiterLimit : IDrawableMiterLimit
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableMiterLimit instance.
-		///</summary>
-		///<param name="miterlimit">The miter limit.</param>
-		public DrawableMiterLimit(int miterlimit)
-		{
-			Miterlimit = miterlimit;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The miter limit.
-		///</summary>
-		public int Miterlimit
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableMiterLimit object.
+  ///</summary>
+  public sealed class DrawableMiterLimit : IDrawableMiterLimit
+  {
+    ///<summary>
+    /// Creates a new DrawableMiterLimit instance.
+    ///</summary>
+    ///<param name="miterlimit">The miter limit.</param>
+    public DrawableMiterLimit(int miterlimit)
+    {
+      Miterlimit = miterlimit;
+    }
+
+    ///<summary>
+    /// The miter limit.
+    ///</summary>
+    public int Miterlimit
+    {
+      get;
+      set;
+    }
+  }
 }

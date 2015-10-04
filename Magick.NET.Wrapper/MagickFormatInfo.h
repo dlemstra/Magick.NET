@@ -18,82 +18,75 @@ using namespace System::Collections::ObjectModel;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class MagickFormatInfo sealed
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			String^ _Description;
-			MagickFormat _Format;
-			String^ _MimeType;
-			MagickFormat _Module;
-			Magick::CoderInfo* _CoderInfo;
-			//========================================================================================
-			MagickFormatInfo() {};
-			//========================================================================================
-			static void AddStealthCoder(std::vector<Magick::CoderInfo>* coderList, std::string name);
-			//========================================================================================
-			static MagickFormat GetFormat(std::string name);
-			//========================================================================================
-			static Collection<MagickFormatInfo^>^ LoadFormats();
-			//========================================================================================
-		internal:
-			//========================================================================================
-			static initonly Collection<MagickFormatInfo^>^ All = LoadFormats();
-			//========================================================================================
-		public:
-			//========================================================================================
-			property bool CanReadMultithreaded
-			{
-				bool get();
-			}
-			//========================================================================================
-			property bool CanWriteMultithreaded
-			{
-				bool get();
-			}
-			//========================================================================================
-			property String^ Description
-			{
-				String^ get();
-			}
-			//========================================================================================
-			property MagickFormat Format
-			{
-				MagickFormat get();
-			}
-			//========================================================================================
-			property bool IsMultiFrame
-			{
-				bool get();
-			}
-			//========================================================================================
-			property bool IsReadable
-			{
-				bool get();
-			}
-			//========================================================================================
-			property bool IsWritable
-			{
-				bool get();
-			}
-			//========================================================================================
-			property String^ MimeType
-			{
-				String^ get();
-			}
-			//========================================================================================
-			property MagickFormat Module
-			{
-				MagickFormat get();
-			}
-			//========================================================================================
-			bool Unregister(void);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class MagickFormatInfo sealed
+    {
+    private:
+      String^ _Description;
+      MagickFormat _Format;
+      String^ _MimeType;
+      MagickFormat _Module;
+      Magick::CoderInfo* _CoderInfo;
+
+      MagickFormatInfo() {};
+
+      static void AddStealthCoder(std::vector<Magick::CoderInfo>* coderList, std::string name);
+
+      static MagickFormat GetFormat(std::string name);
+
+      static Collection<MagickFormatInfo^>^ LoadFormats();
+
+    internal:
+      static initonly Collection<MagickFormatInfo^>^ All = LoadFormats();
+
+    public:
+      property bool CanReadMultithreaded
+      {
+        bool get();
+      }
+
+      property bool CanWriteMultithreaded
+      {
+        bool get();
+      }
+
+      property String^ Description
+      {
+        String^ get();
+      }
+
+      property MagickFormat Format
+      {
+        MagickFormat get();
+      }
+
+      property bool IsMultiFrame
+      {
+        bool get();
+      }
+
+      property bool IsReadable
+      {
+        bool get();
+      }
+
+      property bool IsWritable
+      {
+        bool get();
+      }
+
+      property String^ MimeType
+      {
+        String^ get();
+      }
+
+      property MagickFormat Module
+      {
+        MagickFormat get();
+      }
+
+      bool Unregister(void);
+    };
+  }
 }

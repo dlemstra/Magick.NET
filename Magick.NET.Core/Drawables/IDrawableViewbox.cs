@@ -14,45 +14,41 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableViewbox object.
-	///</summary>
-	public interface IDrawableViewbox : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The upper left X coordinate.
-		///</summary>
-		int LowerRightX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The upper left Y coordinate.
-		///</summary>
-		int LowerRightY
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The upper left X coordinate.
-		///</summary>
-		int UpperLeftX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The upper left Y coordinate.
-		///</summary>
-		int UpperLeftY
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableViewbox object.
+  ///</summary>
+  public interface IDrawableViewbox : IDrawable
+  {
+    ///<summary>
+    /// The upper left X coordinate.
+    ///</summary>
+    int LowerRightX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The upper left Y coordinate.
+    ///</summary>
+    int LowerRightY
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The upper left X coordinate.
+    ///</summary>
+    int UpperLeftX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The upper left Y coordinate.
+    ///</summary>
+    int UpperLeftY
+    {
+      get;
+    }
+  }
 }

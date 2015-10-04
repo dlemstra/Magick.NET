@@ -16,18 +16,16 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		Drawable::Drawable(Magick::DrawableBase* value)
-		{
-			_Value = value;
-		}
-		//===========================================================================================
-		Magick::DrawableBase* Drawable::Value::get()
-		{
-			return _Value;
-		}
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    Drawable::Drawable(Magick::DrawableBase* value)
+    {
+      _Value = value;
+    }
+
+    Magick::DrawableBase* Drawable::Value::get()
+    {
+      return _Value;
+    }
+  }
 }

@@ -14,42 +14,39 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Specifies the paint method.
-	///</summary>
-	public enum PaintMethod
-	{
-		///==========================================================================================
-		/// <summary>
-		/// Undefined
-		/// </summary>
-		Undefined,
-		///==========================================================================================
-		/// <summary>
-		/// Point
-		/// </summary>
-		Point,
-		///==========================================================================================
-		/// <summary>
-		/// Replace
-		/// </summary>
-		Replace,
-		///==========================================================================================
-		/// <summary>
-		/// Floodfill
-		/// </summary>
-		Floodfill,
-		///==========================================================================================
-		/// <summary>
-		/// FillToBorder
-		/// </summary>
-		FillToBorder,
-		///==========================================================================================
-		/// <summary>
-		/// Reset
-		/// </summary>
-		Reset
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Specifies the paint method.
+  ///</summary>
+  public enum PaintMethod
+  {
+    /// <summary>
+    /// Undefined
+    /// </summary>
+    Undefined,
+
+    /// <summary>
+    /// Point
+    /// </summary>
+    Point,
+
+    /// <summary>
+    /// Replace
+    /// </summary>
+    Replace,
+
+    /// <summary>
+    /// Floodfill
+    /// </summary>
+    Floodfill,
+
+    /// <summary>
+    /// FillToBorder
+    /// </summary>
+    FillToBorder,
+
+    /// <summary>
+    /// Reset
+    /// </summary>
+    Reset
+  }
 }

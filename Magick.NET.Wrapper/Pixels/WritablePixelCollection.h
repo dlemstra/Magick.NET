@@ -20,60 +20,52 @@ using namespace System::Collections::Generic;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class WritablePixelCollection sealed : PixelBaseCollection
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			Magick::Quantum* _Pixels;
-			//========================================================================================
-			template<typename T>
-			void SetPixels(array<T>^ values)
-			{
-				Magick::Quantum *p = _Pixels;
+  namespace Wrapper
+  {
+    private ref class WritablePixelCollection sealed : PixelBaseCollection
+    {
+    private:
+      Magick::Quantum* _Pixels;
 
-				long i = 0;
-				while (i < values->Length)
-				{
-					*(p++) = Quantum::Convert((T)values[i++]);
-				}
-			}
-			//========================================================================================
-		protected private:
-			//========================================================================================
-			property const Magick::Quantum* Pixels
-			{
-				virtual const Magick::Quantum* get() override sealed;
-			}
-			//========================================================================================
-		internal:
-			//========================================================================================
-			WritablePixelCollection(Magick::Image* image, int x, int y, int width, int height);
-			//========================================================================================
-		public:
-			//========================================================================================
-			void SetPixel(int x, int y, array<Magick::Quantum>^ value);
-			//========================================================================================
+      template<typename T>
+      void SetPixels(array<T>^ values)
+      {
+        Magick::Quantum *p = _Pixels;
+
+        long i = 0;
+        while (i < values->Length)
+        {
+          *(p++) = Quantum::Convert((T)values[i++]);
+        }
+      }
+
+    protected private:
+      property const Magick::Quantum* Pixels
+      {
+        virtual const Magick::Quantum* get() override sealed;
+      }
+
+    internal:
+      WritablePixelCollection(Magick::Image* image, int x, int y, int width, int height);
+
+    public:
+      void SetPixel(int x, int y, array<Magick::Quantum>^ value);
+
 #if (MAGICKCORE_QUANTUM_DEPTH > 8)
-			void Set(array<Byte>^ values);
+      void Set(array<Byte>^ values);
 #endif
-			//========================================================================================
-			void Set(array<double>^ values);
-			//========================================================================================
-			void Set(array<unsigned int>^ values);
-			//========================================================================================
-			void Set(array<Magick::Quantum>^ values);
-			//========================================================================================
+
+      void Set(array<double>^ values);
+
+      void Set(array<unsigned int>^ values);
+
+      void Set(array<Magick::Quantum>^ values);
+
 #if (MAGICKCORE_QUANTUM_DEPTH != 16 || defined(MAGICKCORE_HDRI_SUPPORT))
-			void Set(array<unsigned short>^ values);
+      void Set(array<unsigned short>^ values);
 #endif
-			//========================================================================================
-			void Write();
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+
+      void Write();
+    };
+  }
 }

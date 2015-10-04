@@ -17,37 +17,33 @@ using System.Configuration;
 
 namespace ImageMagick.Web
 {
-	///=============================================================================================
-	/// <summary>
-	/// Class that contains the client cache settings.
-	/// </summary>
-	public sealed class HttpClientCache : ConfigurationElement
-	{
-		///==========================================================================================
-		/// <summary>
-		/// Specifies the mode to use for client caching.
-		/// </summary>
-		[ConfigurationProperty("cacheControlMode", DefaultValue = CacheControlMode.UseMaxAge)]
-		public CacheControlMode CacheControlMode
-		{
-			get
-			{
-				return (CacheControlMode)this["cacheControlMode"];
-			}
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Specifies the HTTP 1.1 cache control maximum age value
-		/// </summary>
-		[ConfigurationProperty("cacheControlMaxAge", DefaultValue = "1.00:00:00")]
-		public TimeSpan CacheControlMaxAge
-		{
-			get
-			{
-				return (TimeSpan)this["cacheControlMaxAge"];
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  /// <summary>
+  /// Class that contains the client cache settings.
+  /// </summary>
+  public sealed class HttpClientCache : ConfigurationElement
+  {
+    /// <summary>
+    /// Specifies the mode to use for client caching.
+    /// </summary>
+    [ConfigurationProperty("cacheControlMode", DefaultValue = CacheControlMode.UseMaxAge)]
+    public CacheControlMode CacheControlMode
+    {
+      get
+      {
+        return (CacheControlMode)this["cacheControlMode"];
+      }
+    }
+
+    /// <summary>
+    /// Specifies the HTTP 1.1 cache control maximum age value
+    /// </summary>
+    [ConfigurationProperty("cacheControlMaxAge", DefaultValue = "1.00:00:00")]
+    public TimeSpan CacheControlMaxAge
+    {
+      get
+      {
+        return (TimeSpan)this["cacheControlMaxAge"];
+      }
+    }
+  }
 }

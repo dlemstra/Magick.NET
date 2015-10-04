@@ -16,13 +16,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick.Drawables.Paths
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathClosePath object.
-	///</summary>
-	[SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
-	public interface IPathClosePath : IPath
-	{
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathClosePath object.
+  ///</summary>
+  [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
+  public interface IPathClosePath : IPath
+  {
+  }
 }

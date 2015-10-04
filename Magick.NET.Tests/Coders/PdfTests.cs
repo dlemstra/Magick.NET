@@ -20,50 +20,46 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests.Coders
 {
-	//==============================================================================================
-	[TestClass]
-	public class PdfTests
-	{
-		//===========================================================================================
-		private const string _Category = "PdfTests";
-		//===========================================================================================
-		private delegate void ReadDelegate();
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Format()
-		{
-			using (MagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
-			{
-				Assert.AreEqual(765, image.Width);
-				Assert.AreEqual(361, image.Height);
-				Assert.AreEqual(MagickFormat.Ai, image.Format);
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Multithreading()
-		{
-			ReadDelegate action = delegate()
-			{
-				using (MagickImage image = new MagickImage())
-				{
-					image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
-				}
-			};
+  [TestClass]
+  public class PdfTests
+  {
+    private const string _Category = "PdfTests";
 
-			IAsyncResult[] results = new IAsyncResult[3];
+    private delegate void ReadDelegate();
 
-			for (int i = 0; i < results.Length; ++i)
-			{
-				results[i] = action.BeginInvoke(null, null);
-			}
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Format()
+    {
+      using (MagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
+      {
+        Assert.AreEqual(765, image.Width);
+        Assert.AreEqual(361, image.Height);
+        Assert.AreEqual(MagickFormat.Ai, image.Format);
+      }
+    }
 
-			for (int i = 0; i < results.Length; ++i)
-			{
-				action.EndInvoke(results[i]);
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Multithreading()
+    {
+      ReadDelegate action = delegate ()
+      {
+        using (MagickImage image = new MagickImage())
+        {
+          image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
+        }
+      };
+
+      IAsyncResult[] results = new IAsyncResult[3];
+
+      for (int i = 0; i < results.Length; ++i)
+      {
+        results[i] = action.BeginInvoke(null, null);
+      }
+
+      for (int i = 0; i < results.Length; ++i)
+      {
+        action.EndInvoke(results[i]);
+      }
+    }
+  }
 }

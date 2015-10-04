@@ -17,34 +17,30 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick.Web
 {
-	///=============================================================================================
-	/// <summary>
-	/// Class that contains the settings for the url resolvers.
-	/// </summary>
-	[ConfigurationCollection(typeof(UrlResolverSettings), AddItemName = "urlResolver")]
-	[SuppressMessage("Microsoft.Design", "CA1010:CollectionsShouldImplementGenericInterface")]
-	public class UrlResolverSettingsCollection : ConfigurationElementCollection
-	{
-		///==========================================================================================
-		/// <summary>
-		/// Initializes a new instance of the UrlResolverSettings class.
-		/// </summary>
-		/// <returns></returns>
-		protected override ConfigurationElement CreateNewElement()
-		{
-			return new UrlResolverSettings();
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Gets the element key for a specified UrlResolverSettings element.
-		/// </summary>
-		/// <param name="element">The UrlResolverSettings to return the key for.</param>
-		/// <returns></returns>
-		protected override object GetElementKey(ConfigurationElement element)
-		{
-			return ((UrlResolverSettings)element).TypeName;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  /// <summary>
+  /// Class that contains the settings for the url resolvers.
+  /// </summary>
+  [ConfigurationCollection(typeof(UrlResolverSettings), AddItemName = "urlResolver")]
+  [SuppressMessage("Microsoft.Design", "CA1010:CollectionsShouldImplementGenericInterface")]
+  public class UrlResolverSettingsCollection : ConfigurationElementCollection
+  {
+    /// <summary>
+    /// Initializes a new instance of the UrlResolverSettings class.
+    /// </summary>
+    /// <returns></returns>
+    protected override ConfigurationElement CreateNewElement()
+    {
+      return new UrlResolverSettings();
+    }
+
+    /// <summary>
+    /// Gets the element key for a specified UrlResolverSettings element.
+    /// </summary>
+    /// <param name="element">The UrlResolverSettings to return the key for.</param>
+    /// <returns></returns>
+    protected override object GetElementKey(ConfigurationElement element)
+    {
+      return ((UrlResolverSettings)element).TypeName;
+    }
+  }
 }

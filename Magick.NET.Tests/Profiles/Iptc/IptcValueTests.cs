@@ -20,89 +20,85 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class IptcValueTests
-	{
-		//===========================================================================================
-		private const string _Category = "IptcValue";
-		//===========================================================================================
-		private static IptcValue GetIptcValue()
-		{
-			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-			{
-				IptcProfile profile = image.GetIptcProfile();
-				return profile.Values.ElementAt(1);
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Encoding()
-		{
-			IptcValue value = GetIptcValue();
+  [TestClass]
+  public class IptcValueTests
+  {
+    private const string _Category = "IptcValue";
 
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				value.Encoding = null;
-			});
+    private static IptcValue GetIptcValue()
+    {
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      {
+        IptcProfile profile = image.GetIptcProfile();
+        return profile.Values.ElementAt(1);
+      }
+    }
 
-			Assert.AreEqual("Communications", value.Value);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Encoding()
+    {
+      IptcValue value = GetIptcValue();
 
-			value.Encoding = Encoding.UTF32;
-			Assert.AreNotEqual("Communications", value.Value);
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        value.Encoding = null;
+      });
 
-			value.Value = "Communications";
-			Assert.AreEqual("Communications", value.Value);
+      Assert.AreEqual("Communications", value.Value);
 
-			value.Encoding = Encoding.Default;
-			Assert.AreNotEqual("Communications", value.Value);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
-		{
-			IptcValue first = GetIptcValue();
-			IptcValue second = GetIptcValue();
+      value.Encoding = Encoding.UTF32;
+      Assert.AreNotEqual("Communications", value.Value);
 
-			Assert.IsTrue(first == second);
-			Assert.IsTrue(first.Equals(second));
-			Assert.IsTrue(first.Equals((object)second));
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Properties()
-		{
-			IptcValue value = GetIptcValue();
+      value.Value = "Communications";
+      Assert.AreEqual("Communications", value.Value);
 
-			Assert.AreEqual(IptcTag.Caption, value.Tag);
-			Assert.AreEqual("Communications", value.ToString());
-			Assert.AreEqual("Communications", value.Value);
-			Assert.AreEqual(14, value.ToByteArray().Length);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_ToString()
-		{
-			IptcValue value = GetIptcValue();
+      value.Encoding = Encoding.Default;
+      Assert.AreNotEqual("Communications", value.Value);
+    }
 
-			Assert.AreEqual("Communications", value.ToString());
-			Assert.AreEqual("Communications", value.ToString(Encoding.Default));
-			Assert.AreNotEqual("Communications", value.ToString(Encoding.UTF32));
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IEquatable()
+    {
+      IptcValue first = GetIptcValue();
+      IptcValue second = GetIptcValue();
 
-			value.Encoding = Encoding.UTF32;
-			value.Value = "Test";
-			Assert.AreEqual("Test", value.ToString());
-			Assert.AreEqual("Test", value.ToString(Encoding.UTF32));
-			Assert.AreNotEqual("Test", value.ToString(Encoding.Default));
+      Assert.IsTrue(first == second);
+      Assert.IsTrue(first.Equals(second));
+      Assert.IsTrue(first.Equals((object)second));
+    }
 
-			value.Value = "";
-			Assert.AreEqual("", value.ToString());
-			value.Value = "Test";
-			Assert.AreEqual("Test", value.ToString());
-			value.Value = null;
-			Assert.AreEqual("", value.ToString());
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Properties()
+    {
+      IptcValue value = GetIptcValue();
+
+      Assert.AreEqual(IptcTag.Caption, value.Tag);
+      Assert.AreEqual("Communications", value.ToString());
+      Assert.AreEqual("Communications", value.Value);
+      Assert.AreEqual(14, value.ToByteArray().Length);
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ToString()
+    {
+      IptcValue value = GetIptcValue();
+
+      Assert.AreEqual("Communications", value.ToString());
+      Assert.AreEqual("Communications", value.ToString(Encoding.Default));
+      Assert.AreNotEqual("Communications", value.ToString(Encoding.UTF32));
+
+      value.Encoding = Encoding.UTF32;
+      value.Value = "Test";
+      Assert.AreEqual("Test", value.ToString());
+      Assert.AreEqual("Test", value.ToString(Encoding.UTF32));
+      Assert.AreNotEqual("Test", value.ToString(Encoding.Default));
+
+      value.Value = "";
+      Assert.AreEqual("", value.ToString());
+      value.Value = "Test";
+      Assert.AreEqual("Test", value.ToString());
+      value.Value = null;
+      Assert.AreEqual("", value.ToString());
+    }
+  }
 }

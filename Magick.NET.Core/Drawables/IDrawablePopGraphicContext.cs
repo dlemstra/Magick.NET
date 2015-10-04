@@ -16,13 +16,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePopGraphicContext object.
-	///</summary>
-	[SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
-	public interface IDrawablePopGraphicContext : IDrawable
-	{
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePopGraphicContext object.
+  ///</summary>
+  [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
+  public interface IDrawablePopGraphicContext : IDrawable
+  {
+  }
 }

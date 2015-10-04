@@ -21,54 +21,47 @@ using namespace System::Runtime::InteropServices;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class MagickReader abstract sealed
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			static int GetExpectedLength(MagickReaderSettings^ settings);
-			//========================================================================================
-			static void ReadPixels(Magick::Image* image, MagickReaderSettings^ settings,
-				array<Byte>^ pixels);
-			//========================================================================================
-			static array<Byte>^ ReadUnchecked(String^ filePath);
-			//========================================================================================
-		internal:
-			//========================================================================================
-			static MagickException^ Read(Magick::Image* image, array<Byte>^ bytes,
-				MagickReaderSettings^ settings);
-			//========================================================================================
-			static MagickException^ Read(Magick::Image* image, MagickColor^ color,
-				int width, int height);
-			//========================================================================================
-			static MagickException^ Read(Magick::Image* image, Stream^ stream,
-				MagickReaderSettings^ readSettings);
-			//========================================================================================
-			static MagickException^ Read(Magick::Image* image, String^ fileName,
-				MagickReaderSettings^ readSettings);
-			//========================================================================================
-			static MagickException^ Read(Magick::Image* image, String^ fileName,
-				int width, int height);
-			//========================================================================================
-			static MagickException^ Read(std::vector<Magick::Image>* imageList, array<Byte>^ bytes,
-				MagickReaderSettings^ readSettings);
-			//========================================================================================
-			static MagickException^ Read(std::vector<Magick::Image>* imageList, Stream^ stream,
-				MagickReaderSettings^ readSettings);
-			//========================================================================================
-			static MagickException^ Read(std::vector<Magick::Image>* imageList, String^ fileName,
-				MagickReaderSettings^ readSettings);
-			//========================================================================================
-		public:
-			//========================================================================================
-			static array<Byte>^ Read(Stream^ stream);
-			//========================================================================================
-			static array<Byte>^ Read(String^ fileName);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class MagickReader abstract sealed
+    {
+    private:
+      static int GetExpectedLength(MagickReaderSettings^ settings);
+
+      static void ReadPixels(Magick::Image* image, MagickReaderSettings^ settings,
+        array<Byte>^ pixels);
+
+      static array<Byte>^ ReadUnchecked(String^ filePath);
+
+    internal:
+      static MagickException^ Read(Magick::Image* image, array<Byte>^ bytes,
+        MagickReaderSettings^ settings);
+
+      static MagickException^ Read(Magick::Image* image, MagickColor^ color,
+        int width, int height);
+
+      static MagickException^ Read(Magick::Image* image, Stream^ stream,
+        MagickReaderSettings^ readSettings);
+
+      static MagickException^ Read(Magick::Image* image, String^ fileName,
+        MagickReaderSettings^ readSettings);
+
+      static MagickException^ Read(Magick::Image* image, String^ fileName,
+        int width, int height);
+
+      static MagickException^ Read(std::vector<Magick::Image>* imageList, array<Byte>^ bytes,
+        MagickReaderSettings^ readSettings);
+
+      static MagickException^ Read(std::vector<Magick::Image>* imageList, Stream^ stream,
+        MagickReaderSettings^ readSettings);
+
+      static MagickException^ Read(std::vector<Magick::Image>* imageList, String^ fileName,
+        MagickReaderSettings^ readSettings);
+
+    public:
+      static array<Byte>^ Read(Stream^ stream);
+
+      static array<Byte>^ Read(String^ fileName);
+    };
+  }
 }

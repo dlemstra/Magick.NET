@@ -16,39 +16,35 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableFillOpacity object.
-	///</summary>
-	public sealed class DrawableFillOpacity: IDrawableFillOpacity
-	{
-		//===========================================================================================
-		double IDrawableFillOpacity.Opacity
-		{
-			get
-			{
-				return (double)Opacity / 100;
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableFillOpacity instance.
-		///</summary>
-		///<param name="opacity">The opacity.</param>
-		public DrawableFillOpacity(Percentage opacity)
-		{
-			Opacity = opacity;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The alpha.
-		///</summary>
-		public Percentage Opacity
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableFillOpacity object.
+  ///</summary>
+  public sealed class DrawableFillOpacity : IDrawableFillOpacity
+  {
+    double IDrawableFillOpacity.Opacity
+    {
+      get
+      {
+        return (double)Opacity / 100;
+      }
+    }
+
+    ///<summary>
+    /// Creates a new DrawableFillOpacity instance.
+    ///</summary>
+    ///<param name="opacity">The opacity.</param>
+    public DrawableFillOpacity(Percentage opacity)
+    {
+      Opacity = opacity;
+    }
+
+    ///<summary>
+    /// The alpha.
+    ///</summary>
+    public Percentage Opacity
+    {
+      get;
+      set;
+    }
+  }
 }

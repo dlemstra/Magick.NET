@@ -20,122 +20,120 @@ using namespace System::Globalization;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		void MagickFormatInfo::AddStealthCoder(std::vector<Magick::CoderInfo>* coderList, std::string name)
-		{
-			try
-			{
-				Magick::CoderInfo coderInfo(name);
-				coderList->push_back(coderInfo);
-			}
-			catch(Magick::ErrorModule)
-			{
-			}
-			catch(Magick::Exception& exception)
-			{
-				ExceptionHelper::Throw(exception);
-			}
-		}
-		//===========================================================================================
-		MagickFormat MagickFormatInfo::GetFormat(std::string name)
-		{
-			String^ format = Marshaller::Marshal(name);
+  namespace Wrapper
+  {
+    void MagickFormatInfo::AddStealthCoder(std::vector<Magick::CoderInfo>* coderList, std::string name)
+    {
+      try
+      {
+        Magick::CoderInfo coderInfo(name);
+        coderList->push_back(coderInfo);
+      }
+      catch (Magick::ErrorModule)
+      {
+      }
+      catch (Magick::Exception& exception)
+      {
+        ExceptionHelper::Throw(exception);
+      }
+    }
 
-			format = format->Replace("-", "");
-			if (format == "3FR")
-				format = "ThreeFr";
+    MagickFormat MagickFormatInfo::GetFormat(std::string name)
+    {
+      String^ format = Marshaller::Marshal(name);
 
-			return EnumHelper::Parse<MagickFormat>(format, MagickFormat::Unknown);
-		}
-		//===========================================================================================
-		Collection<MagickFormatInfo^>^ MagickFormatInfo::LoadFormats()
-		{
-			Collection<MagickFormatInfo^>^ result = gcnew Collection<MagickFormatInfo^>();
+      format = format->Replace("-", "");
+      if (format == "3FR")
+        format = "ThreeFr";
 
-			std::vector<Magick::CoderInfo> coderList; 
+      return EnumHelper::Parse<MagickFormat>(format, MagickFormat::Unknown);
+    }
 
-			try
-			{
-				coderInfoList(&coderList);
-			}
-			catch(Magick::Exception& exception)
-			{
-				ExceptionHelper::Throw(exception);
-			}
+    Collection<MagickFormatInfo^>^ MagickFormatInfo::LoadFormats()
+    {
+      Collection<MagickFormatInfo^>^ result = gcnew Collection<MagickFormatInfo^>();
 
-			AddStealthCoder(&coderList, "DIB");
-			AddStealthCoder(&coderList, "TIF");
+      std::vector<Magick::CoderInfo> coderList;
 
-			std::vector<Magick::CoderInfo>::const_iterator coder = coderList.begin(); 
-			while(coder != coderList.end())
-			{
-				MagickFormatInfo^ formatInfo = gcnew MagickFormatInfo();
+      try
+      {
+        coderInfoList(&coderList);
+      }
+      catch (Magick::Exception& exception)
+      {
+        ExceptionHelper::Throw(exception);
+      }
 
-				formatInfo->_Format = GetFormat(coder->name());
-				formatInfo->_Description = Marshaller::Marshal(coder->description());
-				formatInfo->_MimeType = Marshaller::Marshal(coder->mimeType());
-				formatInfo->_Module = GetFormat(coder->module());
-				formatInfo->_CoderInfo = new Magick::CoderInfo(*coder);
+      AddStealthCoder(&coderList, "DIB");
+      AddStealthCoder(&coderList, "TIF");
 
-				result->Add(formatInfo);
+      std::vector<Magick::CoderInfo>::const_iterator coder = coderList.begin();
+      while (coder != coderList.end())
+      {
+        MagickFormatInfo^ formatInfo = gcnew MagickFormatInfo();
 
-				coder++;
-			} 
+        formatInfo->_Format = GetFormat(coder->name());
+        formatInfo->_Description = Marshaller::Marshal(coder->description());
+        formatInfo->_MimeType = Marshaller::Marshal(coder->mimeType());
+        formatInfo->_Module = GetFormat(coder->module());
+        formatInfo->_CoderInfo = new Magick::CoderInfo(*coder);
 
-			return result;
-		}
-		//===========================================================================================
-		bool MagickFormatInfo::CanReadMultithreaded::get()
-		{
-			return _CoderInfo->canReadMultithreaded();
-		}
-		//===========================================================================================
-		bool MagickFormatInfo::CanWriteMultithreaded::get()
-		{
-			return _CoderInfo->canWriteMultithreaded();
-		}
-		//===========================================================================================
-		String^ MagickFormatInfo::Description::get()
-		{
-			return _Description;
-		}
-		//===========================================================================================
-		MagickFormat MagickFormatInfo::Format::get()
-		{
-			return _Format;
-		}
-		//===========================================================================================
-		bool MagickFormatInfo::IsMultiFrame::get()
-		{
-			return _CoderInfo->isMultiFrame();
-		}
-		//===========================================================================================
-		bool MagickFormatInfo::IsReadable::get()
-		{
-			return _CoderInfo->isReadable();
-		}
-		//===========================================================================================
-		bool MagickFormatInfo::IsWritable::get()
-		{
-			return _CoderInfo->isWritable();
-		}
-		//===========================================================================================
-		String^ MagickFormatInfo::MimeType::get()
-		{
-			return _MimeType;
-		}
-		//===========================================================================================
-		MagickFormat MagickFormatInfo::Module::get()
-		{
-			return _Module;
-		}
-		//===========================================================================================
-		bool MagickFormatInfo::Unregister()
-		{
-			return _CoderInfo->unregister();
-		}
-		//===========================================================================================
-	}
+        result->Add(formatInfo);
+
+        coder++;
+      }
+
+      return result;
+    }
+
+    bool MagickFormatInfo::CanReadMultithreaded::get()
+    {
+      return _CoderInfo->canReadMultithreaded();
+    }
+
+    bool MagickFormatInfo::CanWriteMultithreaded::get()
+    {
+      return _CoderInfo->canWriteMultithreaded();
+    }
+
+    String^ MagickFormatInfo::Description::get()
+    {
+      return _Description;
+    }
+
+    MagickFormat MagickFormatInfo::Format::get()
+    {
+      return _Format;
+    }
+
+    bool MagickFormatInfo::IsMultiFrame::get()
+    {
+      return _CoderInfo->isMultiFrame();
+    }
+
+    bool MagickFormatInfo::IsReadable::get()
+    {
+      return _CoderInfo->isReadable();
+    }
+
+    bool MagickFormatInfo::IsWritable::get()
+    {
+      return _CoderInfo->isWritable();
+    }
+
+    String^ MagickFormatInfo::MimeType::get()
+    {
+      return _MimeType;
+    }
+
+    MagickFormat MagickFormatInfo::Module::get()
+    {
+      return _Module;
+    }
+
+    bool MagickFormatInfo::Unregister()
+    {
+      return _CoderInfo->unregister();
+    }
+  }
 }

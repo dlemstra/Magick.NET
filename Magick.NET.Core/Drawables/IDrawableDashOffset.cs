@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableDashOffset object.
-	///</summary>
-	public interface IDrawableDashOffset: IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The dash offset.
-		///</summary>
-		double Offset
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableDashOffset object.
+  ///</summary>
+  public interface IDrawableDashOffset : IDrawable
+  {
+    ///<summary>
+    /// The dash offset.
+    ///</summary>
+    double Offset
+    {
+      get;
+    }
+  }
 }

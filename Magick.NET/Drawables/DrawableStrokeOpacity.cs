@@ -16,39 +16,35 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableStrokeOpacity object.
-	///</summary>
-	public sealed class DrawableStrokeOpacity : IDrawableStrokeOpacity
-	{
-		//===========================================================================================
-		double IDrawableStrokeOpacity.Opacity
-		{
-			get
-			{
-				return (double)Opacity / 100;
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableStrokeOpacity instance.
-		///</summary>
-		///<param name="opacity">The opacity.</param>
-		public DrawableStrokeOpacity(Percentage opacity)
-		{
-			Opacity = opacity;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The opacity.
-		///</summary>
-		public Percentage Opacity
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableStrokeOpacity object.
+  ///</summary>
+  public sealed class DrawableStrokeOpacity : IDrawableStrokeOpacity
+  {
+    double IDrawableStrokeOpacity.Opacity
+    {
+      get
+      {
+        return (double)Opacity / 100;
+      }
+    }
+
+    ///<summary>
+    /// Creates a new DrawableStrokeOpacity instance.
+    ///</summary>
+    ///<param name="opacity">The opacity.</param>
+    public DrawableStrokeOpacity(Percentage opacity)
+    {
+      Opacity = opacity;
+    }
+
+    ///<summary>
+    /// The opacity.
+    ///</summary>
+    public Percentage Opacity
+    {
+      get;
+      set;
+    }
+  }
 }

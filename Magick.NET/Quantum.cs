@@ -26,52 +26,49 @@ using QuantumType = System.UInt16;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class that can be used to acquire information about the Quantum.
-	///</summary>
-	public static class Quantum
-	{
-		//===========================================================================================
-		internal static QuantumType Scale(double value)
-		{
-			return (QuantumType)(value / Max);
-		}
-		//===========================================================================================
-		internal static double Scale(QuantumType value)
-		{
-			return ((double)1.0 / (double)Max) * value;
-		}
-		//===========================================================================================
-		internal static QuantumType Convert(Byte value)
-		{
-			return Wrapper.Quantum.Convert(value);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Returns the Quantum depth.
-		///</summary>
-		public static int Depth
-		{
-			get
-			{
-				return Wrapper.Quantum.Depth;
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Returns the maximum value of the quantum.
-		///</summary>
+  ///<summary>
+  /// Class that can be used to acquire information about the Quantum.
+  ///</summary>
+  public static class Quantum
+  {
+    internal static QuantumType Scale(double value)
+    {
+      return (QuantumType)(value / Max);
+    }
+
+    internal static double Scale(QuantumType value)
+    {
+      return ((double)1.0 / (double)Max) * value;
+    }
+
+    internal static QuantumType Convert(Byte value)
+    {
+      return Wrapper.Quantum.Convert(value);
+    }
+
+    ///<summary>
+    /// Returns the Quantum depth.
+    ///</summary>
+    public static int Depth
+    {
+      get
+      {
+        return Wrapper.Quantum.Depth;
+      }
+    }
+
+    ///<summary>
+    /// Returns the maximum value of the quantum.
+    ///</summary>
 #if Q16
-		[CLSCompliant(false)]
+    [CLSCompliant(false)]
 #endif
-		public static QuantumType Max
-		{
-			get
-			{
-				return Wrapper.Quantum.Max;
-			}
-		}
-		//===========================================================================================
-	}
+    public static QuantumType Max
+    {
+      get
+      {
+        return Wrapper.Quantum.Max;
+      }
+    }
+  }
 }

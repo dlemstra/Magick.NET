@@ -17,25 +17,23 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//==============================================================================================
-		PixelCollection::PixelCollection(Magick::Image* image, int x, int y, int width, int height)
-			: PixelBaseCollection(image, width, height)
-		{
-			Throw::IfTrue("width", x + width > (int)image->size().width(), "Invalid X coordinate specified: {0}.", x);
-			Throw::IfTrue("height", y + height > (int)image->size().height(), "Invalid Y coordinate specified: {0}.", y);
+  namespace Wrapper
+  {
+    PixelCollection::PixelCollection(Magick::Image* image, int x, int y, int width, int height)
+      : PixelBaseCollection(image, width, height)
+    {
+      Throw::IfTrue("width", x + width > (int)image->size().width(), "Invalid X coordinate specified: {0}.", x);
+      Throw::IfTrue("height", y + height > (int)image->size().height(), "Invalid Y coordinate specified: {0}.", y);
 
-			try
-			{
-				_Pixels = View->getConst(x, y, width, height);
-				CheckPixels();
-			}
-			catch(Magick::Exception& exception)
-			{
-				ExceptionHelper::Create(exception);
-			}
-		}
-		//===========================================================================================
-	}
+      try
+      {
+        _Pixels = View->getConst(x, y, width, height);
+        CheckPixels();
+      }
+      catch (Magick::Exception& exception)
+      {
+        ExceptionHelper::Create(exception);
+      }
+    }
+  }
 }

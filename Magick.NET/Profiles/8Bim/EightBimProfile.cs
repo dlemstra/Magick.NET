@@ -22,164 +22,160 @@ using System.Xml.XPath;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	/// <summary>
-	/// Class that can be used to access an 8bim profile.
-	/// </summary>
-	public sealed class EightBimProfile : ImageProfile
-	{
-		//===========================================================================================
-		private Collection<ClipPath> _ClipPaths;
-		private int _Height;
-		private Collection<EightBimValue> _Values;
-		private int _Width;
-		//===========================================================================================
-		private ClipPath CreateClipPath(string name, int offset, int length)
-		{
-			XmlDocument doc = new XmlDocument();
-			doc.CreateXmlDeclaration("1.0", "iso-8859-1", null);
+  /// <summary>
+  /// Class that can be used to access an 8bim profile.
+  /// </summary>
+  public sealed class EightBimProfile : ImageProfile
+  {
+    private Collection<ClipPath> _ClipPaths;
+    private int _Height;
+    private Collection<EightBimValue> _Values;
+    private int _Width;
 
-			XmlElement svg = XmlHelper.CreateElement(doc, "svg");
-			XmlHelper.SetAttribute(svg, "width", _Width);
-			XmlHelper.SetAttribute(svg, "height", _Height);
+    private ClipPath CreateClipPath(string name, int offset, int length)
+    {
+      XmlDocument doc = new XmlDocument();
+      doc.CreateXmlDeclaration("1.0", "iso-8859-1", null);
 
-			XmlElement g = XmlHelper.CreateElement(svg, "g");
+      XmlElement svg = XmlHelper.CreateElement(doc, "svg");
+      XmlHelper.SetAttribute(svg, "width", _Width);
+      XmlHelper.SetAttribute(svg, "height", _Height);
 
-			XmlElement path = XmlHelper.CreateElement(g, "path");
-			XmlHelper.SetAttribute(path, "fill", "#00000000");
-			XmlHelper.SetAttribute(path, "stroke", "#00000000");
-			XmlHelper.SetAttribute(path, "stroke-width", "0");
-			XmlHelper.SetAttribute(path, "stroke-antialiasing", "false");
-			String d = GetClipPath(offset, length);
-			XmlHelper.SetAttribute(path, "d", d);
+      XmlElement g = XmlHelper.CreateElement(svg, "g");
 
-			return new ClipPath(name, doc);
-		}
-		//===========================================================================================
-		private string GetClipPath(int offset, int length)
-		{
-			ClipPathReader reader = new ClipPathReader(_Width, _Height);
-			return reader.Read(Data, offset, length);
-		}
-		//===========================================================================================
-		private void Initialize()
-		{
-			if (_ClipPaths != null)
-				return;
+      XmlElement path = XmlHelper.CreateElement(g, "path");
+      XmlHelper.SetAttribute(path, "fill", "#00000000");
+      XmlHelper.SetAttribute(path, "stroke", "#00000000");
+      XmlHelper.SetAttribute(path, "stroke-width", "0");
+      XmlHelper.SetAttribute(path, "stroke-antialiasing", "false");
+      String d = GetClipPath(offset, length);
+      XmlHelper.SetAttribute(path, "d", d);
 
-			_ClipPaths = new Collection<ClipPath>();
-			_Values = new Collection<EightBimValue>();
+      return new ClipPath(name, doc);
+    }
 
-			int i = 0;
-			while (i < Data.Length)
-			{
-				if (Data[i++] != '8')
-					continue;
-				if (Data[i++] != 'B')
-					continue;
-				if (Data[i++] != 'I')
-					continue;
-				if (Data[i++] != 'M')
-					continue;
+    private string GetClipPath(int offset, int length)
+    {
+      ClipPathReader reader = new ClipPathReader(_Width, _Height);
+      return reader.Read(Data, offset, length);
+    }
 
-				if (i + 7 > Data.Length)
-					return;
+    private void Initialize()
+    {
+      if (_ClipPaths != null)
+        return;
 
-				short id = ByteConverter.ToShort(Data, ref i);
-				bool isClipPath = (id > 1999 && id < 2998);
+      _ClipPaths = new Collection<ClipPath>();
+      _Values = new Collection<EightBimValue>();
 
-				string name = null;
-				int length = (int)Data[i++];
-				if (length != 0)
-				{
-					if (isClipPath && i + length < Data.Length)
-						name = Encoding.ASCII.GetString(Data, i, length);
+      int i = 0;
+      while (i < Data.Length)
+      {
+        if (Data[i++] != '8')
+          continue;
+        if (Data[i++] != 'B')
+          continue;
+        if (Data[i++] != 'I')
+          continue;
+        if (Data[i++] != 'M')
+          continue;
 
-					i += length;
-				}
+        if (i + 7 > Data.Length)
+          return;
 
-				if ((length & 0x01) == 0)
-					i++;
+        short id = ByteConverter.ToShort(Data, ref i);
+        bool isClipPath = (id > 1999 && id < 2998);
 
-				length = ByteConverter.ToInt(Data, ref i);
-				if (i + length > Data.Length)
-					return;
+        string name = null;
+        int length = (int)Data[i++];
+        if (length != 0)
+        {
+          if (isClipPath && i + length < Data.Length)
+            name = Encoding.ASCII.GetString(Data, i, length);
 
-				if (length != 0)
-				{
-					if (isClipPath)
-						_ClipPaths.Add(CreateClipPath(name, i, length));
+          i += length;
+        }
 
-					Byte[] data = new Byte[length];
-					Array.Copy(Data, i, data, 0, length);
-					_Values.Add(new EightBimValue(id, data));
-				}
+        if ((length & 0x01) == 0)
+          i++;
 
-				i += length;
-			}
-		}
-		//===========================================================================================
-		internal EightBimProfile(MagickImage image, Byte[] data)
-			: base("8bim", data)
-		{
-			_Width = image.Width;
-			_Height = image.Height;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the EightBimProfile class.
-		///</summary>
-		///<param name="data">The byte array to read the 8bim profile from.</param>
-		public EightBimProfile(Byte[] data)
-			: base("8bim", data)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the EightBimProfile class.
-		///</summary>
-		///<param name="fileName">The fully qualified name of the 8bim profile file, or the relative
-		/// 8bim profile file name.</param>
-		public EightBimProfile(string fileName)
-			: base("8bim", fileName)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the EightBimProfile class.
-		///</summary>
-		///<param name="stream">The stream to read the 8bim profile from.</param>
-		public EightBimProfile(Stream stream)
-			: base("8bim", stream)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Returns the clipping paths this image contains.
-		///</summary>
-		public IEnumerable<ClipPath> ClipPaths
-		{
-			get
-			{
-				Initialize();
+        length = ByteConverter.ToInt(Data, ref i);
+        if (i + length > Data.Length)
+          return;
 
-				return _ClipPaths;
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Returns the values of this 8bim profile.
-		///</summary>
-		public IEnumerable<EightBimValue> Values
-		{
-			get
-			{
-				Initialize();
+        if (length != 0)
+        {
+          if (isClipPath)
+            _ClipPaths.Add(CreateClipPath(name, i, length));
 
-				return _Values;
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+          Byte[] data = new Byte[length];
+          Array.Copy(Data, i, data, 0, length);
+          _Values.Add(new EightBimValue(id, data));
+        }
+
+        i += length;
+      }
+    }
+
+    internal EightBimProfile(MagickImage image, Byte[] data)
+      : base("8bim", data)
+    {
+      _Width = image.Width;
+      _Height = image.Height;
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the EightBimProfile class.
+    ///</summary>
+    ///<param name="data">The byte array to read the 8bim profile from.</param>
+    public EightBimProfile(Byte[] data)
+      : base("8bim", data)
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the EightBimProfile class.
+    ///</summary>
+    ///<param name="fileName">The fully qualified name of the 8bim profile file, or the relative
+    /// 8bim profile file name.</param>
+    public EightBimProfile(string fileName)
+      : base("8bim", fileName)
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the EightBimProfile class.
+    ///</summary>
+    ///<param name="stream">The stream to read the 8bim profile from.</param>
+    public EightBimProfile(Stream stream)
+      : base("8bim", stream)
+    {
+    }
+
+    ///<summary>
+    /// Returns the clipping paths this image contains.
+    ///</summary>
+    public IEnumerable<ClipPath> ClipPaths
+    {
+      get
+      {
+        Initialize();
+
+        return _ClipPaths;
+      }
+    }
+
+    ///<summary>
+    /// Returns the values of this 8bim profile.
+    ///</summary>
+    public IEnumerable<EightBimValue> Values
+    {
+      get
+      {
+        Initialize();
+
+        return _Values;
+      }
+    }
+  }
 }

@@ -17,33 +17,26 @@ using namespace System::IO;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class MagickWriter abstract sealed
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			static void MagickWriter::WriteUnchecked(Magick::Blob* blob, Stream^ stream);
-			//========================================================================================
-		internal:
-			//========================================================================================
-			static MagickException^ Write(Magick::Image* image, Magick::Blob* blob);
-			//========================================================================================
-		public:
-			//========================================================================================
-			static MagickException^ Write(Magick::Image* image, Stream^ stream);
-			//========================================================================================
-			static MagickException^ Write(Magick::Image* image, String^ fileName);
-			//========================================================================================
-			static MagickException^ Write(std::vector<Magick::Image>* imageList, Magick::Blob* blob);
-			//========================================================================================
-			static MagickException^ Write(std::vector<Magick::Image>* imageList, Stream^ stream);
-			//========================================================================================
-			static MagickException^ Write(std::vector<Magick::Image>* imageList, String^ fileName);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class MagickWriter abstract sealed
+    {
+    private:
+      static void MagickWriter::WriteUnchecked(Magick::Blob* blob, Stream^ stream);
+
+    internal:
+      static MagickException^ Write(Magick::Image* image, Magick::Blob* blob);
+
+    public:
+      static MagickException^ Write(Magick::Image* image, Stream^ stream);
+
+      static MagickException^ Write(Magick::Image* image, String^ fileName);
+
+      static MagickException^ Write(std::vector<Magick::Image>* imageList, Magick::Blob* blob);
+
+      static MagickException^ Write(std::vector<Magick::Image>* imageList, Stream^ stream);
+
+      static MagickException^ Write(std::vector<Magick::Image>* imageList, String^ fileName);
+    };
+  }
 }

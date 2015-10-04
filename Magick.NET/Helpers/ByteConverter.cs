@@ -16,36 +16,32 @@ using System;
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	internal static class ByteConverter
-	{
-		//===========================================================================================
-		public static int ToInt(Byte[] data, ref int offset)
-		{
-			if (offset + 4 > data.Length)
-				return 0;
+  internal static class ByteConverter
+  {
+    public static int ToInt(Byte[] data, ref int offset)
+    {
+      if (offset + 4 > data.Length)
+        return 0;
 
-			int test = (int)BitConverter.ToUInt32(data, offset);
-			if (test == -1)
-				return 0;
+      int test = (int)BitConverter.ToUInt32(data, offset);
+      if (test == -1)
+        return 0;
 
-			int result = (int)(data[offset++] << 24);
-			result = (result | (int)(data[offset++] << 16));
-			result = (result | (int)(data[offset++] << 8));
-			result = (result | (int)(data[offset++]));
-			return (int)(result & 0xffffffff);
-		}
-		//===========================================================================================
-		public static short ToShort(Byte[] data, ref int offset)
-		{
-			if (offset + 2 > data.Length)
-				return 0;
+      int result = (int)(data[offset++] << 24);
+      result = (result | (int)(data[offset++] << 16));
+      result = (result | (int)(data[offset++] << 8));
+      result = (result | (int)(data[offset++]));
+      return (int)(result & 0xffffffff);
+    }
 
-			short result = (short)(data[offset++] << 8);
-			result = (short)(result | (short)data[offset++]);
-			return (short)(result & 0xffff);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    public static short ToShort(Byte[] data, ref int offset)
+    {
+      if (offset + 2 > data.Length)
+        return 0;
+
+      short result = (short)(data[offset++] << 8);
+      result = (short)(result | (short)data[offset++]);
+      return (short)(result & 0xffff);
+    }
+  }
 }

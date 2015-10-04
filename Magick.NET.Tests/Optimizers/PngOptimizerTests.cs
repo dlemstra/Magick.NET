@@ -20,68 +20,64 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class PngOptimizerTests : IImageOptimizerTests
-	{
-		//===========================================================================================
-		private const string _Category = "PngOptimizer";
-		//===========================================================================================
-		protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
-		{
-			return new PngOptimizer();
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_InvalidArguments()
-		{
-			Test_LosslessCompress_InvalidArguments();
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_LosslessCompress()
-		{
-			Test_LosslessCompress(Files.SnakewarePNG);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_LosslessCompress_InvalidFile()
-		{
-			Test_LosslessCompress_InvalidFile(Files.ImageMagickJPG);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_RemoveAlpha()
-		{
-			string tempFile = Path.GetTempPath() + Guid.NewGuid().ToString() + ".png";
-			try
-			{
-				using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
-				{
-					Assert.IsTrue(image.HasAlpha);
-					image.ColorAlpha(new MagickColor("yellow"));
-					image.HasAlpha = true;
-					image.Write(tempFile);
+  [TestClass]
+  public class PngOptimizerTests : IImageOptimizerTests
+  {
+    private const string _Category = "PngOptimizer";
 
-					image.Read(tempFile);
+    protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
+    {
+      return new PngOptimizer();
+    }
 
-					// TODO: Figure out why this does not fail in a single run but does when all tests are run.
-					//Assert.IsTrue(image.HasAlpha);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_InvalidArguments()
+    {
+      Test_LosslessCompress_InvalidArguments();
+    }
 
-					PngOptimizer optimizer = new PngOptimizer();
-					optimizer.LosslessCompress(tempFile);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_LosslessCompress()
+    {
+      Test_LosslessCompress(Files.SnakewarePNG);
+    }
 
-					image.Read(tempFile);
-					Assert.IsFalse(image.HasAlpha);
-				}
-			}
-			finally
-			{
-				if (File.Exists(tempFile))
-					File.Delete(tempFile);
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_LosslessCompress_InvalidFile()
+    {
+      Test_LosslessCompress_InvalidFile(Files.ImageMagickJPG);
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_RemoveAlpha()
+    {
+      string tempFile = Path.GetTempPath() + Guid.NewGuid().ToString() + ".png";
+      try
+      {
+        using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+        {
+          Assert.IsTrue(image.HasAlpha);
+          image.ColorAlpha(new MagickColor("yellow"));
+          image.HasAlpha = true;
+          image.Write(tempFile);
+
+          image.Read(tempFile);
+
+          // TODO: Figure out why this does not fail in a single run but does when all tests are run.
+          //Assert.IsTrue(image.HasAlpha);
+
+          PngOptimizer optimizer = new PngOptimizer();
+          optimizer.LosslessCompress(tempFile);
+
+          image.Read(tempFile);
+          Assert.IsFalse(image.HasAlpha);
+        }
+      }
+      finally
+      {
+        if (File.Exists(tempFile))
+          File.Delete(tempFile);
+      }
+    }
+  }
 }

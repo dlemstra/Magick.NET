@@ -12,72 +12,65 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.Collections;
 using System.IO;
-using System.Linq;
 using ImageMagick;
 using ImageMagick.Defines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class JpegWriteDefinesTests
-	{
-		//===========================================================================================
-		private const string _Category = "JpegWriteDefines";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_DctMethod_OptimizeCoding_Quality_QuantizationTables_SamplingFactors()
-		{
-			JpegWriteDefines defines = new JpegWriteDefines()
-			{
-				DctMethod = DctMethod.Fast,
-				OptimizeCoding = false,
-				Quality = new MagickGeometry(80, 80),
-				QuantizationTables = @"C:\path\to\file.xml",
-				SamplingFactors = new MagickGeometry[]
-				{
-					new MagickGeometry(5, 10),
-					new MagickGeometry(15, 20)
-				}
-			};
+  [TestClass]
+  public class JpegWriteDefinesTests
+  {
+    private const string _Category = "JpegWriteDefines";
 
-			using (MagickImage image = new MagickImage(Files.Builtin.Logo))
-			{
-				image.SetDefines(defines);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_DctMethod_OptimizeCoding_Quality_QuantizationTables_SamplingFactors()
+    {
+      JpegWriteDefines defines = new JpegWriteDefines()
+      {
+        DctMethod = DctMethod.Fast,
+        OptimizeCoding = false,
+        Quality = new MagickGeometry(80, 80),
+        QuantizationTables = @"C:\path\to\file.xml",
+        SamplingFactors = new MagickGeometry[]
+        {
+          new MagickGeometry(5, 10),
+          new MagickGeometry(15, 20)
+        }
+      };
 
-				Assert.AreEqual("Fast", image.GetDefine(MagickFormat.Jpeg, "dct-method"));
-				Assert.AreEqual("False", image.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
-				Assert.AreEqual("80x80", image.GetDefine(MagickFormat.Jpeg, "quality"));
-				Assert.AreEqual(@"C:\path\to\file.xml", image.GetDefine(MagickFormat.Jpeg, "q-table"));
-				Assert.AreEqual("5x10,15x20", image.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Extent()
-		{
-			JpegWriteDefines defines = new JpegWriteDefines()
-			{
-				Extent = 10
-			};
+      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      {
+        image.SetDefines(defines);
 
-			using (MagickImage image = new MagickImage(Files.Builtin.Logo))
-			{
-				using (MemoryStream memStream = new MemoryStream())
-				{
-					image.SetDefines(defines);
+        Assert.AreEqual("Fast", image.GetDefine(MagickFormat.Jpeg, "dct-method"));
+        Assert.AreEqual("False", image.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
+        Assert.AreEqual("80x80", image.GetDefine(MagickFormat.Jpeg, "quality"));
+        Assert.AreEqual(@"C:\path\to\file.xml", image.GetDefine(MagickFormat.Jpeg, "q-table"));
+        Assert.AreEqual("5x10,15x20", image.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
+      }
+    }
 
-					image.Format = MagickFormat.Jpeg;
-					image.Write(memStream);
-					Assert.IsTrue(memStream.Length < 10000);
-				}
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Extent()
+    {
+      JpegWriteDefines defines = new JpegWriteDefines()
+      {
+        Extent = 10
+      };
+
+      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      {
+        using (MemoryStream memStream = new MemoryStream())
+        {
+          image.SetDefines(defines);
+
+          image.Format = MagickFormat.Jpeg;
+          image.Write(memStream);
+          Assert.IsTrue(memStream.Length < 10000);
+        }
+      }
+    }
+  }
 }

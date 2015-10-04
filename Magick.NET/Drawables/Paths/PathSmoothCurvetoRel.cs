@@ -12,40 +12,35 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.Collections.Generic;
 using ImageMagick.Drawables;
 using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathSmoothCurvetoRel object.
-	///</summary>
-	public sealed class PathSmoothCurvetoRel : DrawableCoordinates<Coordinate>, IPathSmoothCurvetoRel
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathSmoothCurvetoRel class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathSmoothCurvetoRel(params Coordinate[] coordinates)
-			: base(coordinates)
-		{
-			CheckCoordinateCount(2);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathSmoothCurvetoRel class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathSmoothCurvetoRel(IEnumerable<Coordinate> coordinates)
-			: base(coordinates)
-		{
-			CheckCoordinateCount(2);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathSmoothCurvetoRel object.
+  ///</summary>
+  public sealed class PathSmoothCurvetoRel : DrawableCoordinates<Coordinate>, IPathSmoothCurvetoRel
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathSmoothCurvetoRel class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathSmoothCurvetoRel(params Coordinate[] coordinates)
+      : base(coordinates)
+    {
+      CheckCoordinateCount(2);
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathSmoothCurvetoRel class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathSmoothCurvetoRel(IEnumerable<Coordinate> coordinates)
+      : base(coordinates)
+    {
+      CheckCoordinateCount(2);
+    }
+  }
 }

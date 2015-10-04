@@ -17,31 +17,24 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class PixelCollection sealed : PixelBaseCollection
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			const Magick::Quantum* _Pixels;
-			//========================================================================================
-		protected private:
-			//========================================================================================
-			property const Magick::Quantum* Pixels
-			{
-				virtual const Magick::Quantum* get() override sealed
-				{
-					return _Pixels;
-				}
-			}
-			//========================================================================================
-		internal:
-			//========================================================================================
-			PixelCollection(Magick::Image* image, int x, int y, int width, int height);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class PixelCollection sealed : PixelBaseCollection
+    {
+    private:
+      const Magick::Quantum* _Pixels;
+
+    protected private:
+      property const Magick::Quantum* Pixels
+      {
+        virtual const Magick::Quantum* get() override sealed
+        {
+          return _Pixels;
+        }
+      }
+
+    internal:
+      PixelCollection(Magick::Image* image, int x, int y, int width, int height);
+    };
+  }
 }

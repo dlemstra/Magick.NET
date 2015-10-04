@@ -16,22 +16,18 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableDashArray object.
-	///</summary>
-	public interface IDrawableDashArray : IDrawable
-	{
-		///==========================================================================================
-		/// <summary>
-		/// An array containing the dash information.
-		/// </summary>
-		[SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
-		double[] Dash
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableDashArray object.
+  ///</summary>
+  public interface IDrawableDashArray : IDrawable
+  {
+    /// <summary>
+    /// An array containing the dash information.
+    /// </summary>
+    [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
+    double[] Dash
+    {
+      get;
+    }
+  }
 }

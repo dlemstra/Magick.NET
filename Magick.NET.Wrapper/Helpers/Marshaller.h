@@ -15,37 +15,32 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class Marshaller abstract sealed
-		{
-		private:
-			//========================================================================================
-			template <typename TStorageType>
-			static TStorageType* MarshalStorageType(array<Byte>^ bytes);
-			//========================================================================================
-		public:
-			//========================================================================================
-			static unsigned char* Marshal(array<Byte>^ bytes);
-			//========================================================================================
-			static void Marshal(array<Byte>^ bytes, Magick::Blob* value);
-			//========================================================================================
-			static void* Marshal(array<Byte>^ bytes, StorageType storageType);
-			//========================================================================================
-			static double* Marshal(array<double>^ values);
-			//========================================================================================
-			static array<Byte>^ Marshal(Magick::Blob* value);
-			//========================================================================================
-			static array<double>^ MarshalTerminated(const double* values);
-			//========================================================================================
-			static String^ Marshal(const std::string& value);
-			//========================================================================================
-			static std::string& Marshal(String^, std::string& value);
-			//========================================================================================
-			static double* MarshalAndTerminate(array<double>^ values);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class Marshaller abstract sealed
+    {
+    private:
+      template <typename TStorageType>
+      static TStorageType* MarshalStorageType(array<Byte>^ bytes);
+
+    public:
+      static unsigned char* Marshal(array<Byte>^ bytes);
+
+      static void Marshal(array<Byte>^ bytes, Magick::Blob* value);
+
+      static void* Marshal(array<Byte>^ bytes, StorageType storageType);
+
+      static double* Marshal(array<double>^ values);
+
+      static array<Byte>^ Marshal(Magick::Blob* value);
+
+      static array<double>^ MarshalTerminated(const double* values);
+
+      static String^ Marshal(const std::string& value);
+
+      static std::string& Marshal(String^, std::string& value);
+
+      static double* MarshalAndTerminate(array<double>^ values);
+    };
+  }
 }

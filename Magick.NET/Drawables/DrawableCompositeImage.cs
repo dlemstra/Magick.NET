@@ -16,143 +16,139 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableCompositeImage object.
-	///</summary>
-	public sealed class DrawableCompositeImage : IDrawableCompositeImage
-	{
-		//===========================================================================================
-		private MagickImage _Image;
-		//===========================================================================================
-		private DrawableCompositeImage([ValidatedNotNull] MagickImage image)
-		{
-			Throw.IfNull("image", image);
+  ///<summary>
+  /// Encapsulation of the DrawableCompositeImage object.
+  ///</summary>
+  public sealed class DrawableCompositeImage : IDrawableCompositeImage
+  {
+    private MagickImage _Image;
 
-			_Image = image;
-		}
-		//===========================================================================================
-		Internal.IMagickImage IDrawableCompositeImage.Image
-		{
-			get
-			{
-				return MagickImage.GetInstance(_Image);
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableCompositeImage instance.
-		///</summary>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
-		///<param name="image">The image to draw.</param>
-		public DrawableCompositeImage(double x, double y, MagickImage image)
-			: this(image)
-		{
-			X = x;
-			Y = y;
-			Width = image.Width;
-			Height = image.Height;
-			Compose = CompositeOperator.CopyAlpha;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableCompositeImage instance.
-		///</summary>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
-		///<param name="compose">The algorithm to use.</param>
-		///<param name="image">The image to draw.</param>
-		public DrawableCompositeImage(double x, double y, CompositeOperator compose, MagickImage image)
-			: this(image)
-		{
-			X = x;
-			Y = y;
-			Width = image.Width;
-			Height = image.Height;
-			Compose = compose;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableCompositeImage instance.
-		///</summary>
-		///<param name="offset">The offset from origin.</param>
-		///<param name="image">The image to draw.</param>
-		public DrawableCompositeImage(MagickGeometry offset, MagickImage image)
-			: this(image)
-		{
-			Throw.IfNull("offset", offset);
+    private DrawableCompositeImage([ValidatedNotNull] MagickImage image)
+    {
+      Throw.IfNull("image", image);
 
-			X = offset.X;
-			Y = offset.Y;
-			Width = offset.Width;
-			Height = offset.Height;
-			Compose = CompositeOperator.CopyAlpha;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableCompositeImage instance.
-		///</summary>
-		///<param name="offset">The offset from origin.</param>
-		///<param name="compose">The algorithm to use.</param>
-		///<param name="image">The image to draw.</param>
-		public DrawableCompositeImage(MagickGeometry offset, CompositeOperator compose, MagickImage image)
-			: this(image)
-		{
-			Throw.IfNull("offset", offset);
+      _Image = image;
+    }
 
-			X = offset.X;
-			Y = offset.Y;
-			Width = offset.Width;
-			Height = offset.Height;
-			Compose = compose;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The height to scale the image to.
-		///</summary>
-		public CompositeOperator Compose
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The height to scale the image to.
-		///</summary>
-		public double Height
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The width to scale the image to.
-		///</summary>
-		public double Width
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X coordinate.
-		///</summary>
-		public double X
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y coordinate.
-		///</summary>
-		public double Y
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    Internal.IMagickImage IDrawableCompositeImage.Image
+    {
+      get
+      {
+        return MagickImage.GetInstance(_Image);
+      }
+    }
+
+    ///<summary>
+    /// Creates a new DrawableCompositeImage instance.
+    ///</summary>
+    ///<param name="x">The X coordinate.</param>
+    ///<param name="y">The Y coordinate.</param>
+    ///<param name="image">The image to draw.</param>
+    public DrawableCompositeImage(double x, double y, MagickImage image)
+      : this(image)
+    {
+      X = x;
+      Y = y;
+      Width = image.Width;
+      Height = image.Height;
+      Compose = CompositeOperator.CopyAlpha;
+    }
+
+    ///<summary>
+    /// Creates a new DrawableCompositeImage instance.
+    ///</summary>
+    ///<param name="x">The X coordinate.</param>
+    ///<param name="y">The Y coordinate.</param>
+    ///<param name="compose">The algorithm to use.</param>
+    ///<param name="image">The image to draw.</param>
+    public DrawableCompositeImage(double x, double y, CompositeOperator compose, MagickImage image)
+      : this(image)
+    {
+      X = x;
+      Y = y;
+      Width = image.Width;
+      Height = image.Height;
+      Compose = compose;
+    }
+
+    ///<summary>
+    /// Creates a new DrawableCompositeImage instance.
+    ///</summary>
+    ///<param name="offset">The offset from origin.</param>
+    ///<param name="image">The image to draw.</param>
+    public DrawableCompositeImage(MagickGeometry offset, MagickImage image)
+      : this(image)
+    {
+      Throw.IfNull("offset", offset);
+
+      X = offset.X;
+      Y = offset.Y;
+      Width = offset.Width;
+      Height = offset.Height;
+      Compose = CompositeOperator.CopyAlpha;
+    }
+
+    ///<summary>
+    /// Creates a new DrawableCompositeImage instance.
+    ///</summary>
+    ///<param name="offset">The offset from origin.</param>
+    ///<param name="compose">The algorithm to use.</param>
+    ///<param name="image">The image to draw.</param>
+    public DrawableCompositeImage(MagickGeometry offset, CompositeOperator compose, MagickImage image)
+      : this(image)
+    {
+      Throw.IfNull("offset", offset);
+
+      X = offset.X;
+      Y = offset.Y;
+      Width = offset.Width;
+      Height = offset.Height;
+      Compose = compose;
+    }
+
+    ///<summary>
+    /// The height to scale the image to.
+    ///</summary>
+    public CompositeOperator Compose
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The height to scale the image to.
+    ///</summary>
+    public double Height
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The width to scale the image to.
+    ///</summary>
+    public double Width
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The X coordinate.
+    ///</summary>
+    public double X
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The Y coordinate.
+    ///</summary>
+    public double Y
+    {
+      get;
+      set;
+    }
+  }
 }

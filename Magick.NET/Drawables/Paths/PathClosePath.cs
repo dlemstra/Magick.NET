@@ -16,20 +16,16 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathClosePath object.
-	///</summary>
-	public sealed class PathClosePath : IPathClosePath
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathClosePath class.
-		///</summary>
-		public PathClosePath()
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathClosePath object.
+  ///</summary>
+  public sealed class PathClosePath : IPathClosePath
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathClosePath class.
+    ///</summary>
+    public PathClosePath()
+    {
+    }
+  }
 }

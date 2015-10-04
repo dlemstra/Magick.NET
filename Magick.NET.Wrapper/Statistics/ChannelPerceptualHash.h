@@ -15,33 +15,26 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class ChannelPerceptualHash sealed
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			void Initialize(const Magick::ChannelPerceptualHash channelPerceptualHash);
-			//========================================================================================
-		internal:
-			//========================================================================================
-			ChannelPerceptualHash(const Magick::ChannelPerceptualHash channelPerceptualHash);
-			//========================================================================================
-			ChannelPerceptualHash(String^ hash);
-			//========================================================================================
-		public:
-			//========================================================================================
-			property PixelChannel Channel;
-			//========================================================================================
-			property String^ Hash;
-			//========================================================================================
-			property array<double>^ HclpHuPhash;
-			//========================================================================================
-			property array<double>^ SrgbHuPhash;
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class ChannelPerceptualHash sealed
+    {
+    private:
+      void Initialize(const Magick::ChannelPerceptualHash channelPerceptualHash);
+
+    internal:
+      ChannelPerceptualHash(const Magick::ChannelPerceptualHash channelPerceptualHash);
+
+      ChannelPerceptualHash(String^ hash);
+
+    public:
+      property PixelChannel Channel;
+
+      property String^ Hash;
+
+      property array<double>^ HclpHuPhash;
+
+      property array<double>^ SrgbHuPhash;
+    };
+  }
 }

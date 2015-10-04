@@ -14,53 +14,49 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePushPattern object.
-	///</summary>
-	public interface IDrawablePushPattern : IDrawable
-	{
-		///==========================================================================================
-		/// <summary>
-		/// The ID of the pattern.
-		/// </summary>
-		string ID
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The height
-		/// </summary>
-		int Height
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The width
-		/// </summary>
-		int Width
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The X coordinate.
-		/// </summary>
-		int X
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The Y coordinate.
-		/// </summary>
-		int Y
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePushPattern object.
+  ///</summary>
+  public interface IDrawablePushPattern : IDrawable
+  {
+    /// <summary>
+    /// The ID of the pattern.
+    /// </summary>
+    string ID
+    {
+      get;
+    }
+
+    /// <summary>
+    /// The height
+    /// </summary>
+    int Height
+    {
+      get;
+    }
+
+    /// <summary>
+    /// The width
+    /// </summary>
+    int Width
+    {
+      get;
+    }
+
+    /// <summary>
+    /// The X coordinate.
+    /// </summary>
+    int X
+    {
+      get;
+    }
+
+    /// <summary>
+    /// The Y coordinate.
+    /// </summary>
+    int Y
+    {
+      get;
+    }
+  }
 }

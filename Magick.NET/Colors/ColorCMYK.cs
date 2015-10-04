@@ -26,159 +26,155 @@ using QuantumType = System.UInt16;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class that represents a CMYK color.
-	///</summary>
-	public sealed class ColorCMYK : ColorBase
-	{
-		//===========================================================================================
-		private ColorCMYK(MagickColor color)
-			: base(color)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the ColorCMYK class.
-		///</summary>
-		///<param name="cyan">Cyan component value of this color.</param>
-		///<param name="magenta">Magenta component value of this color.</param>
-		///<param name="yellow">Yellow component value of this color.</param>
-		///<param name="key">Key (black) component value of this color.</param>
-#if Q16
-		[CLSCompliant(false)]
-#endif
-		public ColorCMYK(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType key)
-			: base(new MagickColor(cyan, magenta, yellow, key, Quantum.Max))
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the ColorCMYK class.
-		///</summary>
-		///<param name="cyan">Cyan component value of this color.</param>
-		///<param name="magenta">Magenta component value of this color.</param>
-		///<param name="yellow">Yellow component value of this color.</param>
-		///<param name="key">Key (black) component value of this color.</param>
-		///<param name="alpha">Key (black) component value of this color.</param>
-#if Q16
-		[CLSCompliant(false)]
-#endif
-		public ColorCMYK(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType key, QuantumType alpha)
-			: base(new MagickColor(cyan, magenta, yellow, key, alpha))
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Alpha component value of this color.
-		///</summary>
-#if Q16
-		[CLSCompliant(false)]
-#endif
-		public QuantumType A
-		{
-			get
-			{
-				return Value.A;
-			}
-			set
-			{
-				Value.A = value;
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Cyan component value of this color.
-		///</summary>
-#if Q16
-		[CLSCompliant(false)]
-#endif
-		public QuantumType C
-		{
-			get
-			{
-				return Value.R;
-			}
-			set
-			{
-				Value.R = value;
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Key (black) component value of this color.
-		///</summary>
-#if Q16
-		[CLSCompliant(false)]
-#endif
-		public QuantumType K
-		{
-			get
-			{
-				return Value.K;
-			}
-			set
-			{
-				Value.K = value;
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Magenta component value of this color.
-		///</summary>
-#if Q16
-		[CLSCompliant(false)]
-#endif
-		public QuantumType M
-		{
-			get
-			{
-				return Value.G;
-			}
-			set
-			{
-				Value.G = value;
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Yellow component value of this color.
-		///</summary>
-#if Q16
-		[CLSCompliant(false)]
-#endif
-		public QuantumType Y
-		{
-			get
-			{
-				return Value.B;
-			}
-			set
-			{
-				Value.B = value;
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Converts the specified MagickColor to an instance of this type.
-		///</summary>
-		public static implicit operator ColorCMYK(MagickColor color)
-		{
-			return FromMagickColor(color);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Converts the specified MagickColor to an instance of this type.
-		///</summary>
-		public static ColorCMYK FromMagickColor(MagickColor color)
-		{
+  ///<summary>
+  /// Class that represents a CMYK color.
+  ///</summary>
+  public sealed class ColorCMYK : ColorBase
+  {
+    private ColorCMYK(MagickColor color)
+      : base(color)
+    {
+    }
 
-			if (color == null)
-				return null;
+    ///<summary>
+    /// Initializes a new instance of the ColorCMYK class.
+    ///</summary>
+    ///<param name="cyan">Cyan component value of this color.</param>
+    ///<param name="magenta">Magenta component value of this color.</param>
+    ///<param name="yellow">Yellow component value of this color.</param>
+    ///<param name="key">Key (black) component value of this color.</param>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public ColorCMYK(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType key)
+      : base(new MagickColor(cyan, magenta, yellow, key, Quantum.Max))
+    {
+    }
 
-			return new ColorCMYK(color);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    ///<summary>
+    /// Initializes a new instance of the ColorCMYK class.
+    ///</summary>
+    ///<param name="cyan">Cyan component value of this color.</param>
+    ///<param name="magenta">Magenta component value of this color.</param>
+    ///<param name="yellow">Yellow component value of this color.</param>
+    ///<param name="key">Key (black) component value of this color.</param>
+    ///<param name="alpha">Key (black) component value of this color.</param>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public ColorCMYK(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType key, QuantumType alpha)
+      : base(new MagickColor(cyan, magenta, yellow, key, alpha))
+    {
+    }
+
+    ///<summary>
+    /// Alpha component value of this color.
+    ///</summary>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public QuantumType A
+    {
+      get
+      {
+        return Value.A;
+      }
+      set
+      {
+        Value.A = value;
+      }
+    }
+
+    ///<summary>
+    /// Cyan component value of this color.
+    ///</summary>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public QuantumType C
+    {
+      get
+      {
+        return Value.R;
+      }
+      set
+      {
+        Value.R = value;
+      }
+    }
+
+    ///<summary>
+    /// Key (black) component value of this color.
+    ///</summary>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public QuantumType K
+    {
+      get
+      {
+        return Value.K;
+      }
+      set
+      {
+        Value.K = value;
+      }
+    }
+
+    ///<summary>
+    /// Magenta component value of this color.
+    ///</summary>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public QuantumType M
+    {
+      get
+      {
+        return Value.G;
+      }
+      set
+      {
+        Value.G = value;
+      }
+    }
+
+    ///<summary>
+    /// Yellow component value of this color.
+    ///</summary>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public QuantumType Y
+    {
+      get
+      {
+        return Value.B;
+      }
+      set
+      {
+        Value.B = value;
+      }
+    }
+
+    ///<summary>
+    /// Converts the specified MagickColor to an instance of this type.
+    ///</summary>
+    public static implicit operator ColorCMYK(MagickColor color)
+    {
+      return FromMagickColor(color);
+    }
+
+    ///<summary>
+    /// Converts the specified MagickColor to an instance of this type.
+    ///</summary>
+    public static ColorCMYK FromMagickColor(MagickColor color)
+    {
+
+      if (color == null)
+        return null;
+
+      return new ColorCMYK(color);
+    }
+  }
 }

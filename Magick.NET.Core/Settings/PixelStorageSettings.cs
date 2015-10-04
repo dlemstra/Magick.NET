@@ -14,49 +14,45 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class that contains setting for pixel storage.
-	///</summary>
-	public sealed class PixelStorageSettings 
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PixelStorageSettings class.
-		///</summary>
-		public PixelStorageSettings()
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PixelStorageSettings class.
-		///</summary>
-		///<param name="storageType">The pixel storage type</param>
-		///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
-		public PixelStorageSettings(StorageType storageType, string mapping)
-		{
-			Mapping = mapping;
-			StorageType = storageType;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The mapping of the pixels (e.g. RGB/RGBA/ARGB).
-		///</summary>
-		public string Mapping
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The pixel storage type.
-		///</summary>
-		public StorageType StorageType
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	};
-	//==============================================================================================
+  ///<summary>
+  /// Class that contains setting for pixel storage.
+  ///</summary>
+  public sealed class PixelStorageSettings
+  {
+    ///<summary>
+    /// Initializes a new instance of the PixelStorageSettings class.
+    ///</summary>
+    public PixelStorageSettings()
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PixelStorageSettings class.
+    ///</summary>
+    ///<param name="storageType">The pixel storage type</param>
+    ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    public PixelStorageSettings(StorageType storageType, string mapping)
+    {
+      Mapping = mapping;
+      StorageType = storageType;
+    }
+
+    ///<summary>
+    /// The mapping of the pixels (e.g. RGB/RGBA/ARGB).
+    ///</summary>
+    public string Mapping
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The pixel storage type.
+    ///</summary>
+    public StorageType StorageType
+    {
+      get;
+      set;
+    }
+  }
 }

@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableStrokeLineCap object.
-	///</summary>
-	public interface IDrawableStrokeLineCap : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The line cap.
-		///</summary>
-		LineCap LineCap
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableStrokeLineCap object.
+  ///</summary>
+  public interface IDrawableStrokeLineCap : IDrawable
+  {
+    ///<summary>
+    /// The line cap.
+    ///</summary>
+    LineCap LineCap
+    {
+      get;
+    }
+  }
 }

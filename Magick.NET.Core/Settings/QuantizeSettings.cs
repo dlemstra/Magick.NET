@@ -14,67 +14,63 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class that contains setting for quantize operations.
-	///</summary>
-	public sealed class QuantizeSettings
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the QuantizeSettings class.
-		///</summary>
-		public QuantizeSettings()
-		{
-			Colors = 1;
-			DitherMethod = ImageMagick.DitherMethod.Riemersma;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Maximum number of colors to quantize to.
-		///</summary>
-		public int Colors
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Colorspace to quantize in.
-		///</summary>
-		public ColorSpace ColorSpace
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Dither method to use.
-		///</summary>
-		public DitherMethod? DitherMethod
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Measure errors.
-		///</summary>
-		public bool MeasureErrors
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Quantization tree-depth.
-		///</summary>
-		public int TreeDepth
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Class that contains setting for quantize operations.
+  ///</summary>
+  public sealed class QuantizeSettings
+  {
+    ///<summary>
+    /// Initializes a new instance of the QuantizeSettings class.
+    ///</summary>
+    public QuantizeSettings()
+    {
+      Colors = 1;
+      DitherMethod = ImageMagick.DitherMethod.Riemersma;
+    }
+
+    ///<summary>
+    /// Maximum number of colors to quantize to.
+    ///</summary>
+    public int Colors
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Colorspace to quantize in.
+    ///</summary>
+    public ColorSpace ColorSpace
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Dither method to use.
+    ///</summary>
+    public DitherMethod? DitherMethod
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Measure errors.
+    ///</summary>
+    public bool MeasureErrors
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Quantization tree-depth.
+    ///</summary>
+    public int TreeDepth
+    {
+      get;
+      set;
+    }
+  }
 }

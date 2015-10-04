@@ -18,61 +18,54 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class MontageSettings sealed
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			void Initialize(const Magick::Montage &montage);
-			//========================================================================================
-		internal:
-			//========================================================================================
-			void Apply(Magick::MontageFramed *settings);
-			//========================================================================================
-		public:
-			//========================================================================================
-			MontageSettings();
-			//========================================================================================
-			MontageSettings(MontageMode mode);
-			//========================================================================================
-			property MagickColor^ BackgroundColor;
-			//========================================================================================
-			property MagickColor^ BorderColor;
-			//========================================================================================
-			property int BorderWidth;
-			//========================================================================================
-			property CompositeOperator Compose;
-			//========================================================================================
-			property MagickColor^ FillColor;
-			//========================================================================================
-			property String^ Font;
-			//========================================================================================
-			property int FontPointsize;
-			//========================================================================================
-			property MagickGeometry^ FrameGeometry;
-			//========================================================================================
-			property MagickGeometry^ Geometry;
-			//========================================================================================
-			property Gravity Gravity;
-			//========================================================================================
-			property String^ Label;
-			//========================================================================================
-			property bool Shadow;
-			//========================================================================================
-			property MagickColor^ StrokeColor;
-			//========================================================================================
-			property String^ TextureFileName;
-			//========================================================================================
-			property MagickGeometry^ TileGeometry;
-			//========================================================================================
-			property String^ Title;
-			//========================================================================================
-			property MagickColor^ TransparentColor;
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class MontageSettings sealed
+    {
+    private:
+      void Initialize(const Magick::Montage &montage);
+
+    internal:
+      void Apply(Magick::MontageFramed *settings);
+
+    public:
+      MontageSettings();
+
+      MontageSettings(MontageMode mode);
+
+      property MagickColor^ BackgroundColor;
+
+      property MagickColor^ BorderColor;
+
+      property int BorderWidth;
+
+      property CompositeOperator Compose;
+
+      property MagickColor^ FillColor;
+
+      property String^ Font;
+
+      property int FontPointsize;
+
+      property MagickGeometry^ FrameGeometry;
+
+      property MagickGeometry^ Geometry;
+
+      property Gravity Gravity;
+
+      property String^ Label;
+
+      property bool Shadow;
+
+      property MagickColor^ StrokeColor;
+
+      property String^ TextureFileName;
+
+      property MagickGeometry^ TileGeometry;
+
+      property String^ Title;
+
+      property MagickColor^ TransparentColor;
+    };
+  }
 }

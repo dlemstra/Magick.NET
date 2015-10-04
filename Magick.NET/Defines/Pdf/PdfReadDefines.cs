@@ -17,66 +17,62 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class for defines that are used when a pdf image is read.
-	///</summary>
-	public sealed class PdfReadDefines : DefineCreator, IReadDefines
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PdfReadDefines class.
-		///</summary>
-		public PdfReadDefines()
-			: base(MagickFormat.Pdf)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Scale the image the specified size
-		///</summary>
-		public MagickGeometry FitPage
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Force use of the crop box.
-		///</summary>
-		public bool? UseCropBox
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Force use of the trim box.
-		///</summary>
-		public bool? UseTrimBox
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The defines that should be set as an define on an image
-		///</summary>
-		public override IEnumerable<IDefine> Defines
-		{
-			get
-			{
-				if (FitPage != null)
-					yield return CreateDefine("fit-page", FitPage);
+  ///<summary>
+  /// Class for defines that are used when a pdf image is read.
+  ///</summary>
+  public sealed class PdfReadDefines : DefineCreator, IReadDefines
+  {
+    ///<summary>
+    /// Initializes a new instance of the PdfReadDefines class.
+    ///</summary>
+    public PdfReadDefines()
+      : base(MagickFormat.Pdf)
+    {
+    }
 
-				if (UseCropBox.HasValue)
-					yield return CreateDefine("use-cropbox", UseCropBox.Value);
+    ///<summary>
+    /// Scale the image the specified size
+    ///</summary>
+    public MagickGeometry FitPage
+    {
+      get;
+      set;
+    }
 
-				if (UseTrimBox.HasValue)
-					yield return CreateDefine("use-trimbox", UseTrimBox.Value);
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    ///<summary>
+    /// Force use of the crop box.
+    ///</summary>
+    public bool? UseCropBox
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Force use of the trim box.
+    ///</summary>
+    public bool? UseTrimBox
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The defines that should be set as an define on an image
+    ///</summary>
+    public override IEnumerable<IDefine> Defines
+    {
+      get
+      {
+        if (FitPage != null)
+          yield return CreateDefine("fit-page", FitPage);
+
+        if (UseCropBox.HasValue)
+          yield return CreateDefine("use-cropbox", UseCropBox.Value);
+
+        if (UseTrimBox.HasValue)
+          yield return CreateDefine("use-trimbox", UseTrimBox.Value);
+      }
+    }
+  }
 }

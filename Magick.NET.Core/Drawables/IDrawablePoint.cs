@@ -16,29 +16,25 @@ using System.Collections.Generic;
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePoint object.
-	///</summary>
-	public interface IDrawablePoint : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The X coordinate.
-		///</summary>
-		double X
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y coordinate.
-		///</summary>
-		double Y
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePoint object.
+  ///</summary>
+  public interface IDrawablePoint : IDrawable
+  {
+    ///<summary>
+    /// The X coordinate.
+    ///</summary>
+    double X
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The Y coordinate.
+    ///</summary>
+    double Y
+    {
+      get;
+    }
+  }
 }

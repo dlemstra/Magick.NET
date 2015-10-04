@@ -17,40 +17,36 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class PercentageTests
-	{
-		//===========================================================================================
-		private const string _Category = "Percentage";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Constructor()
-		{
-			Percentage percentage = new Percentage();
-			Assert.AreEqual("0%", percentage.ToString());
+  [TestClass]
+  public class PercentageTests
+  {
+    private const string _Category = "Percentage";
 
-			percentage = new Percentage(50);
-			Assert.AreEqual("50%", percentage.ToString());
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Constructor()
+    {
+      Percentage percentage = new Percentage();
+      Assert.AreEqual("0%", percentage.ToString());
 
-			percentage = new Percentage(200.0);
-			Assert.AreEqual("200%", percentage.ToString());
+      percentage = new Percentage(50);
+      Assert.AreEqual("50%", percentage.ToString());
 
-			percentage = new Percentage(-25);
-			Assert.AreEqual("-25%", percentage.ToString());
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
-		{
-			Percentage first = new Percentage(50.0);
-			Percentage second = new Percentage(50);
+      percentage = new Percentage(200.0);
+      Assert.AreEqual("200%", percentage.ToString());
 
-			Assert.IsTrue(first == second);
-			Assert.IsTrue(first.Equals(second));
-			Assert.IsTrue(first.Equals((object)second));
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      percentage = new Percentage(-25);
+      Assert.AreEqual("-25%", percentage.ToString());
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IEquatable()
+    {
+      Percentage first = new Percentage(50.0);
+      Percentage second = new Percentage(50);
+
+      Assert.IsTrue(first == second);
+      Assert.IsTrue(first.Equals(second));
+      Assert.IsTrue(first.Equals((object)second));
+    }
+  }
 }

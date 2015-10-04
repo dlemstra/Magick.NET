@@ -16,21 +16,17 @@ using System.Collections.Generic;
 
 namespace ImageMagick.Drawables.Paths
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathArcRel object.
-	///</summary>
-	public interface IPathArcRel : IPath
-	{
-		///==========================================================================================
-		/// <summary>
-		/// The coordinates.
-		/// </summary>
-		IEnumerable<IPathArc> Coordinates
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathArcRel object.
+  ///</summary>
+  public interface IPathArcRel : IPath
+  {
+    /// <summary>
+    /// The coordinates.
+    /// </summary>
+    IEnumerable<IPathArc> Coordinates
+    {
+      get;
+    }
+  }
 }

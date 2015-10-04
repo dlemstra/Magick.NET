@@ -16,21 +16,17 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Interface for an object that specifies defines for a MagickImage.
-	///</summary>
-	public interface IDefines
-	{
-		///==========================================================================================
-		///<summary>
-		/// The defines that should be set as an define on an image
-		///</summary>
-		IEnumerable<IDefine> Defines
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Interface for an object that specifies defines for a MagickImage.
+  ///</summary>
+  public interface IDefines
+  {
+    ///<summary>
+    /// The defines that should be set as an define on an image
+    ///</summary>
+    IEnumerable<IDefine> Defines
+    {
+      get;
+    }
+  }
 }

@@ -18,61 +18,57 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class ColorMonoTests : ColorBaseTests<ColorMono>
-	{
-		//===========================================================================================
-		private const string _Category = "ColorMono";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IComparable()
-		{
-			ColorMono first = new ColorMono(true);
+  [TestClass]
+  public class ColorMonoTests : ColorBaseTests<ColorMono>
+  {
+    private const string _Category = "ColorMono";
 
-			Test_IComparable(first);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IComparable()
+    {
+      ColorMono first = new ColorMono(true);
 
-			ColorMono second = new ColorMono(false);
+      Test_IComparable(first);
 
-			Test_IComparable_FirstLower(first, second);
+      ColorMono second = new ColorMono(false);
 
-			second = new ColorMono(true);
+      Test_IComparable_FirstLower(first, second);
 
-			Test_IComparable_Equal(first, second);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
-		{
-			ColorMono first = new ColorMono(true);
+      second = new ColorMono(true);
 
-			Test_IEquatable_NullAndSelf(first);
+      Test_IComparable_Equal(first, second);
+    }
 
-			ColorMono second = new ColorMono(true);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IEquatable()
+    {
+      ColorMono first = new ColorMono(true);
 
-			Test_IEquatable_Equal(first, second);
+      Test_IEquatable_NullAndSelf(first);
 
-			second = new ColorMono(false);
+      ColorMono second = new ColorMono(true);
 
-			Test_IEquatable_NotEqual(first, second);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Color()
-		{
-			ColorMono mono = new ColorMono(false);
+      Test_IEquatable_Equal(first, second);
 
-			MagickColor white = new MagickColor("#fff");
-			Assert.AreEqual(white, mono.ToMagickColor());
-			ColorAssert.AreEqual(Color.White, mono.ToMagickColor());
+      second = new ColorMono(false);
 
-			mono = new ColorMono(true);
+      Test_IEquatable_NotEqual(first, second);
+    }
 
-			MagickColor black = new MagickColor("#000");
-			Assert.AreEqual(black, mono.ToMagickColor());
-			ColorAssert.AreEqual(Color.Black, mono.ToMagickColor());
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Color()
+    {
+      ColorMono mono = new ColorMono(false);
+
+      MagickColor white = new MagickColor("#fff");
+      Assert.AreEqual(white, mono.ToMagickColor());
+      ColorAssert.AreEqual(Color.White, mono.ToMagickColor());
+
+      mono = new ColorMono(true);
+
+      MagickColor black = new MagickColor("#000");
+      Assert.AreEqual(black, mono.ToMagickColor());
+      ColorAssert.AreEqual(Color.Black, mono.ToMagickColor());
+    }
+  }
 }

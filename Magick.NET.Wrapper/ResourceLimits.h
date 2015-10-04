@@ -17,57 +17,52 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class ResourceLimits abstract sealed
-		{
-			//========================================================================================
-		public:
-			//========================================================================================
-			[CLSCompliantAttribute(false)]
-			static property Magick::MagickSizeType Disk
-			{
-				Magick::MagickSizeType get();
-				void set(Magick::MagickSizeType limit);
-			}
-			//========================================================================================
-			[CLSCompliantAttribute(false)]
-			static property Magick::MagickSizeType Height
-			{
-				Magick::MagickSizeType get();
-				void set(Magick::MagickSizeType limit);
-			}
-			//========================================================================================
-			[CLSCompliantAttribute(false)]
-			static property Magick::MagickSizeType Memory
-			{
-				Magick::MagickSizeType get();
-				void set(Magick::MagickSizeType limit);
-			}
-			//========================================================================================
-			[CLSCompliantAttribute(false)]
-			static property Magick::MagickSizeType Thread
-			{
-				Magick::MagickSizeType get();
-				void set(Magick::MagickSizeType limit);
-			}
-			//========================================================================================
-			[CLSCompliantAttribute(false)]
-			static property Magick::MagickSizeType Throttle
-			{
-				Magick::MagickSizeType get();
-				void set(Magick::MagickSizeType limit);
-			}
-			//========================================================================================
-			[CLSCompliantAttribute(false)]
-			static property Magick::MagickSizeType Width
-			{
-				Magick::MagickSizeType get();
-				void set(Magick::MagickSizeType limit);
-			}
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class ResourceLimits abstract sealed
+    {
+    public:
+      [CLSCompliantAttribute(false)]
+      static property Magick::MagickSizeType Disk
+      {
+        Magick::MagickSizeType get();
+        void set(Magick::MagickSizeType limit);
+      }
+
+      [CLSCompliantAttribute(false)]
+      static property Magick::MagickSizeType Height
+      {
+        Magick::MagickSizeType get();
+        void set(Magick::MagickSizeType limit);
+      }
+
+      [CLSCompliantAttribute(false)]
+      static property Magick::MagickSizeType Memory
+      {
+        Magick::MagickSizeType get();
+        void set(Magick::MagickSizeType limit);
+      }
+
+      [CLSCompliantAttribute(false)]
+      static property Magick::MagickSizeType Thread
+      {
+        Magick::MagickSizeType get();
+        void set(Magick::MagickSizeType limit);
+      }
+
+      [CLSCompliantAttribute(false)]
+      static property Magick::MagickSizeType Throttle
+      {
+        Magick::MagickSizeType get();
+        void set(Magick::MagickSizeType limit);
+      }
+
+      [CLSCompliantAttribute(false)]
+      static property Magick::MagickSizeType Width
+      {
+        Magick::MagickSizeType get();
+        void set(Magick::MagickSizeType limit);
+      }
+    };
+  }
 }

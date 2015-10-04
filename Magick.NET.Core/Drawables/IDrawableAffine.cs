@@ -14,62 +14,58 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulates a 3-by-3 affine matrix that represents a geometric transform.
-	///</summary>
-	public interface IDrawableAffine : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The X coordinate scaling element.
-		///</summary>
-		double ScaleX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y coordinate scaling element.
-		///</summary>
-		double ScaleY
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X coordinate shearing element.
-		///</summary>
-		double ShearX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y coordinate shearing element.
-		///</summary>
-		double ShearY
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X coordinate of the translation element.
-		///</summary>
-		double TranslateX
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y coordinate of the translation element.
-		///</summary>
-		double TranslateY
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulates a 3-by-3 affine matrix that represents a geometric transform.
+  ///</summary>
+  public interface IDrawableAffine : IDrawable
+  {
+    ///<summary>
+    /// The X coordinate scaling element.
+    ///</summary>
+    double ScaleX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The Y coordinate scaling element.
+    ///</summary>
+    double ScaleY
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The X coordinate shearing element.
+    ///</summary>
+    double ShearX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The Y coordinate shearing element.
+    ///</summary>
+    double ShearY
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The X coordinate of the translation element.
+    ///</summary>
+    double TranslateX
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The Y coordinate of the translation element.
+    ///</summary>
+    double TranslateY
+    {
+      get;
+    }
+  }
 }

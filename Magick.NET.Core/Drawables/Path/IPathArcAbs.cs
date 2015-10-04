@@ -16,21 +16,17 @@ using System.Collections.Generic;
 
 namespace ImageMagick.Drawables.Paths
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathArcAbs object (Elliptical Arc).
-	///</summary>
-	public interface IPathArcAbs : IPath
-	{
-		///==========================================================================================
-		/// <summary>
-		/// The coordinates.
-		/// </summary>
-		IEnumerable<IPathArc> Coordinates
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathArcAbs object (Elliptical Arc).
+  ///</summary>
+  public interface IPathArcAbs : IPath
+  {
+    /// <summary>
+    /// The coordinates.
+    /// </summary>
+    IEnumerable<IPathArc> Coordinates
+    {
+      get;
+    }
+  }
 }

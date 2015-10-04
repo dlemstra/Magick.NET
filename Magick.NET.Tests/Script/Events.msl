@@ -1,7 +1,7 @@
 <msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
-	<read id="read.id">
-		<settings colorSpace="RGB" density="300x300"/>
-		<density value="100"/>
-		<write id="write.id"/>
-	</read>
+  <read id="read.id">
+    <settings colorSpace="RGB" density="300x300"/>
+    <density value="100"/>
+    <write id="write.id"/>
+  </read>
 </msl>

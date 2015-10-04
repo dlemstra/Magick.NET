@@ -16,64 +16,60 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableLine object.
-	///</summary>
-	public sealed class DrawableLine : IDrawableLine
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableLine instance.
-		///</summary>
-		///<param name="startX">The starting X coordinate.</param>
-		///<param name="startY">The starting Y coordinate.</param>
-		///<param name="endX">The ending X coordinate.</param>
-		///<param name="endY">The ending Y coordinate.</param>
-		public DrawableLine(double startX, double startY, double endX, double endY)
-		{
-			StartX = startX;
-			StartY = startY;
-			EndX = endX;
-			EndY = endY;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The ending X coordinate.
-		///</summary>
-		public double EndX
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The ending Y coordinate.
-		///</summary>
-		public double EndY
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The starting X coordinate.
-		///</summary>
-		public double StartX
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The starting Y coordinate.
-		///</summary>
-		public double StartY
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableLine object.
+  ///</summary>
+  public sealed class DrawableLine : IDrawableLine
+  {
+    ///<summary>
+    /// Creates a new DrawableLine instance.
+    ///</summary>
+    ///<param name="startX">The starting X coordinate.</param>
+    ///<param name="startY">The starting Y coordinate.</param>
+    ///<param name="endX">The ending X coordinate.</param>
+    ///<param name="endY">The ending Y coordinate.</param>
+    public DrawableLine(double startX, double startY, double endX, double endY)
+    {
+      StartX = startX;
+      StartY = startY;
+      EndX = endX;
+      EndY = endY;
+    }
+
+    ///<summary>
+    /// The ending X coordinate.
+    ///</summary>
+    public double EndX
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The ending Y coordinate.
+    ///</summary>
+    public double EndY
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The starting X coordinate.
+    ///</summary>
+    public double StartX
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The starting Y coordinate.
+    ///</summary>
+    public double StartY
+    {
+      get;
+      set;
+    }
+  }
 }

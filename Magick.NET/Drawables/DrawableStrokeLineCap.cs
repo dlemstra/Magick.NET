@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableStrokeLineCap object.
-	///</summary>
-	public sealed class DrawableStrokeLineCap : IDrawableStrokeLineCap
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableStrokeLineCap instance.
-		///</summary>
-		///<param name="lineCap">The line cap.</param>
-		public DrawableStrokeLineCap(LineCap lineCap)
-		{
-			LineCap = lineCap;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The line cap.
-		///</summary>
-		public LineCap LineCap
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableStrokeLineCap object.
+  ///</summary>
+  public sealed class DrawableStrokeLineCap : IDrawableStrokeLineCap
+  {
+    ///<summary>
+    /// Creates a new DrawableStrokeLineCap instance.
+    ///</summary>
+    ///<param name="lineCap">The line cap.</param>
+    public DrawableStrokeLineCap(LineCap lineCap)
+    {
+      LineCap = lineCap;
+    }
+
+    ///<summary>
+    /// The line cap.
+    ///</summary>
+    public LineCap LineCap
+    {
+      get;
+      set;
+    }
+  }
 }

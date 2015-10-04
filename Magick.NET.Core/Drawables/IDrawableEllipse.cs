@@ -14,61 +14,58 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableEllipse object.
-	///</summary>
-	public interface IDrawableEllipse : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The ending degrees of rotation.
-		///</summary>
-		double EndDegrees
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The origin X coordinate.
-		///</summary>
-		double OriginX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The origin X coordinate.
-		///</summary>
-		double OriginY
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X radius.
-		///</summary>
-		double RadiusX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y radius.
-		///</summary>
-		double RadiusY
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The starting degrees of rotation.
-		///</summary>
-		double StartDegrees
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableEllipse object.
+  ///</summary>
+  public interface IDrawableEllipse : IDrawable
+  {
+
+    ///<summary>
+    /// The ending degrees of rotation.
+    ///</summary>
+    double EndDegrees
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The origin X coordinate.
+    ///</summary>
+    double OriginX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The origin X coordinate.
+    ///</summary>
+    double OriginY
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The X radius.
+    ///</summary>
+    double RadiusX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The Y radius.
+    ///</summary>
+    double RadiusY
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The starting degrees of rotation.
+    ///</summary>
+    double StartDegrees
+    {
+      get;
+    }
+  }
 }

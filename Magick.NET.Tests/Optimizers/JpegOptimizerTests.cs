@@ -18,36 +18,32 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class JpegOptimizerTests : IImageOptimizerTests
-	{
-		//===========================================================================================
-		private const string _Category = "JpegOptimizer";
-		//===========================================================================================
-		protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
-		{
-			return new JpegOptimizer();
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_InvalidArguments()
-		{
-			Test_LosslessCompress_InvalidArguments();
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_LosslessCompress()
-		{
-			Test_LosslessCompress(Files.ImageMagickJPG);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_LosslessCompress_InvalidFile()
-		{
-			Test_LosslessCompress_InvalidFile(Files.SnakewarePNG);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  [TestClass]
+  public class JpegOptimizerTests : IImageOptimizerTests
+  {
+    private const string _Category = "JpegOptimizer";
+
+    protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
+    {
+      return new JpegOptimizer();
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_InvalidArguments()
+    {
+      Test_LosslessCompress_InvalidArguments();
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_LosslessCompress()
+    {
+      Test_LosslessCompress(Files.ImageMagickJPG);
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_LosslessCompress_InvalidFile()
+    {
+      Test_LosslessCompress_InvalidFile(Files.SnakewarePNG);
+    }
+  }
 }

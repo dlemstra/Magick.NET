@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableFillRule object.
-	///</summary>
-	public interface IDrawableFillRule : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The rule to use when filling drawn objects.
-		///</summary>
-		FillRule FillRule
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableFillRule object.
+  ///</summary>
+  public interface IDrawableFillRule : IDrawable
+  {
+    ///<summary>
+    /// The rule to use when filling drawn objects.
+    ///</summary>
+    FillRule FillRule
+    {
+      get;
+    }
+  }
 }

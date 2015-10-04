@@ -16,20 +16,16 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePopPattern object.
-	///</summary>
-	public sealed class DrawablePopPattern : IDrawablePopPattern
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePopPattern instance.
-		///</summary>
-		public DrawablePopPattern()
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePopPattern object.
+  ///</summary>
+  public sealed class DrawablePopPattern : IDrawablePopPattern
+  {
+    ///<summary>
+    /// Creates a new DrawablePopPattern instance.
+    ///</summary>
+    public DrawablePopPattern()
+    {
+    }
+  }
 }

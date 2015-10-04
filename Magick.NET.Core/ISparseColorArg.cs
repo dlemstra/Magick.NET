@@ -14,37 +14,33 @@
 
 namespace ImageMagick.Internal
 {
-	///=============================================================================================
-	///<summary>
-	/// Represents an argument for the SparseColor method.
-	///</summary>
-	public interface ISparseColorArg
-	{
-		///==========================================================================================
-		///<summary>
-		/// The X position.
-		///</summary>
-		double X
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y position.
-		///</summary>
-		double Y
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The color.
-		///</summary>
-		IMagickColor Color
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Represents an argument for the SparseColor method.
+  ///</summary>
+  public interface ISparseColorArg
+  {
+    ///<summary>
+    /// The X position.
+    ///</summary>
+    double X
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The Y position.
+    ///</summary>
+    double Y
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The color.
+    ///</summary>
+    IMagickColor Color
+    {
+      get;
+    }
+  }
 }

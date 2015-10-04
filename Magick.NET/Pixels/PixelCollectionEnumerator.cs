@@ -18,67 +18,63 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	internal sealed class PixelCollectionEnumerator : IEnumerator<Pixel>
-	{
-		//===========================================================================================
-		private Wrapper.PixelBaseCollection _Collection;
-		private Wrapper.WritablePixelCollection _WritableCollection;
-		private int _X;
-		private int _Y;
-		//===========================================================================================
-		internal PixelCollectionEnumerator(Wrapper.PixelBaseCollection collection)
-		{
-			_Collection = collection;
-			_WritableCollection = collection as Wrapper.WritablePixelCollection;
-			Reset();
-		}
-		//===========================================================================================
-		object IEnumerator.Current
-		{
-			get
-			{
-				return Current;
-			}
-		}
-		//===========================================================================================
-		public Pixel Current
-		{
-			get
-			{
-				if (_X == -1)
-					return null;
+  internal sealed class PixelCollectionEnumerator : IEnumerator<Pixel>
+  {
+    private Wrapper.PixelBaseCollection _Collection;
+    private Wrapper.WritablePixelCollection _WritableCollection;
+    private int _X;
+    private int _Y;
 
-				return Pixel.Create(_WritableCollection, _X, _Y, _Collection.GetValue(_X, _Y));
-			}
-		}
-		//===========================================================================================
-		public void Dispose()
-		{
-		}
-		//===========================================================================================
-		public bool MoveNext()
-		{
-			if (++_X == _Collection.Width)
-			{
-				_X = 0;
-				_Y++;
-			}
+    internal PixelCollectionEnumerator(Wrapper.PixelBaseCollection collection)
+    {
+      _Collection = collection;
+      _WritableCollection = collection as Wrapper.WritablePixelCollection;
+      Reset();
+    }
 
-			if (_Y < _Collection.Height)
-				return true;
+    object IEnumerator.Current
+    {
+      get
+      {
+        return Current;
+      }
+    }
 
-			_X = _Collection.Width - 1;
-			_Y = _Collection.Height - 1;
-			return false;
-		}
-		//===========================================================================================
-		public void Reset()
-		{
-			_X = -1;
-			_Y = 0;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    public Pixel Current
+    {
+      get
+      {
+        if (_X == -1)
+          return null;
+
+        return Pixel.Create(_WritableCollection, _X, _Y, _Collection.GetValue(_X, _Y));
+      }
+    }
+
+    public void Dispose()
+    {
+    }
+
+    public bool MoveNext()
+    {
+      if (++_X == _Collection.Width)
+      {
+        _X = 0;
+        _Y++;
+      }
+
+      if (_Y < _Collection.Height)
+        return true;
+
+      _X = _Collection.Width - 1;
+      _Y = _Collection.Height - 1;
+      return false;
+    }
+
+    public void Reset()
+    {
+      _X = -1;
+      _Y = 0;
+    }
+  }
 }

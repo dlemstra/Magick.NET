@@ -17,69 +17,63 @@ using namespace System;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class MagickReaderSettings sealed
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			MagickReadSettings^ _Settings;
-			//========================================================================================
-			property String^ Scenes
-			{
-				String^ get();
-			}
-			//========================================================================================
-			void ApplyColorSpace(MagickCore::ImageInfo *imageInfo);
-			//========================================================================================
-			void ApplyDefines(MagickCore::ImageInfo *imageInfo);
-			//========================================================================================
-			void ApplyDensity(MagickCore::ImageInfo *imageInfo);
-			//========================================================================================
-			void ApplyDimensions(MagickCore::ImageInfo *imageInfo);
-			//========================================================================================
-			void ApplyFormat(MagickCore::ImageInfo *imageInfo);
-			//========================================================================================
-			void ApplyFrame(MagickCore::ImageInfo *imageInfo);
-			//========================================================================================
-			void ApplyUseMonochrome(MagickCore::ImageInfo *imageInfo);
-			//========================================================================================
-			static String^ GetDefineKey(MagickFormat format, String^ name);
-			//========================================================================================
-			static void SetOption(MagickCore::ImageInfo *imageInfo, String^ key, String^ value);
-			//========================================================================================
-		internal:
-			//========================================================================================
-			bool IgnoreWarnings;
-			//========================================================================================
-			property Nullable<int> Height
-			{
-				Nullable<int> get();
-			}
-			//========================================================================================
-			bool Ping;
-			//========================================================================================
-			property PixelStorageSettings^ PixelStorage
-			{
-				PixelStorageSettings^ get();
-			}
-			//========================================================================================
-			property Nullable<int> Width
-			{
-				Nullable<int> get();
-			}
-			//========================================================================================
-			void Apply(Magick::Image* image);
-			//========================================================================================
-			void Apply(MagickCore::ImageInfo *imageInfo);
-			//========================================================================================
-			MagickReaderSettings();
-			//========================================================================================
-			MagickReaderSettings(MagickReadSettings^ settings);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class MagickReaderSettings sealed
+    {
+    private:
+      MagickReadSettings^ _Settings;
+
+      property String^ Scenes
+      {
+        String^ get();
+      }
+
+      void ApplyColorSpace(MagickCore::ImageInfo *imageInfo);
+
+      void ApplyDefines(MagickCore::ImageInfo *imageInfo);
+
+      void ApplyDensity(MagickCore::ImageInfo *imageInfo);
+
+      void ApplyDimensions(MagickCore::ImageInfo *imageInfo);
+
+      void ApplyFormat(MagickCore::ImageInfo *imageInfo);
+
+      void ApplyFrame(MagickCore::ImageInfo *imageInfo);
+
+      void ApplyUseMonochrome(MagickCore::ImageInfo *imageInfo);
+
+      static String^ GetDefineKey(MagickFormat format, String^ name);
+
+      static void SetOption(MagickCore::ImageInfo *imageInfo, String^ key, String^ value);
+
+    internal:
+      bool IgnoreWarnings;
+
+      property Nullable<int> Height
+      {
+        Nullable<int> get();
+      }
+
+      bool Ping;
+
+      property PixelStorageSettings^ PixelStorage
+      {
+        PixelStorageSettings^ get();
+      }
+
+      property Nullable<int> Width
+      {
+        Nullable<int> get();
+      }
+
+      void Apply(Magick::Image* image);
+
+      void Apply(MagickCore::ImageInfo *imageInfo);
+
+      MagickReaderSettings();
+
+      MagickReaderSettings(MagickReadSettings^ settings);
+    };
+  }
 }

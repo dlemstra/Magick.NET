@@ -20,77 +20,73 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class ImageOptimizerTests : IImageOptimizerTests
-	{
-		//===========================================================================================
-		private const string _Category = "ImageOptimizer";
-		//===========================================================================================
-		private void Test_LosslessCompressWithTempFile(string fileName)
-		{
-			string tempFile = Path.GetTempPath() + Guid.NewGuid().ToString();
+  [TestClass]
+  public class ImageOptimizerTests : IImageOptimizerTests
+  {
+    private const string _Category = "ImageOptimizer";
 
-			try
-			{
-				File.Copy(fileName, tempFile);
-				Test_LosslessCompress(tempFile);
-			}
-			finally
-			{
-				if (File.Exists(tempFile))
-					File.Delete(tempFile);
-			}
-		}
-		//===========================================================================================
-		protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
-		{
-			return new ImageOptimizer();
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_InvalidArguments()
-		{
-			Test_LosslessCompress_InvalidArguments();
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IsSupported()
-		{
-			ImageOptimizer optimizer = new ImageOptimizer();
+    private void Test_LosslessCompressWithTempFile(string fileName)
+    {
+      string tempFile = Path.GetTempPath() + Guid.NewGuid().ToString();
 
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				optimizer.IsSupported((FileInfo)null);
-			});
+      try
+      {
+        File.Copy(fileName, tempFile);
+        Test_LosslessCompress(tempFile);
+      }
+      finally
+      {
+        if (File.Exists(tempFile))
+          File.Delete(tempFile);
+      }
+    }
 
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				optimizer.IsSupported((string)null);
-			});
+    protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
+    {
+      return new ImageOptimizer();
+    }
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				optimizer.IsSupported("");
-			});
+    [TestMethod, TestCategory(_Category)]
+    public void Test_InvalidArguments()
+    {
+      Test_LosslessCompress_InvalidArguments();
+    }
 
-			Assert.IsTrue(optimizer.IsSupported(Files.FujiFilmFinePixS1ProGIF));
-			Assert.IsTrue(optimizer.IsSupported(Files.ImageMagickJPG));
-			Assert.IsTrue(optimizer.IsSupported(Files.SnakewarePNG));
-			Assert.IsTrue(optimizer.IsSupported(Files.Missing));
-			Assert.IsFalse(optimizer.IsSupported(Files.InvitationTif));
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_LosslessCompress()
-		{
-			Test_LosslessCompress(Files.FujiFilmFinePixS1ProGIF);
-			Test_LosslessCompress(Files.ImageMagickJPG);
-			Test_LosslessCompress(Files.SnakewarePNG);
-			Test_LosslessCompressWithTempFile(Files.ImageMagickJPG);
-			Test_LosslessCompressWithTempFile(Files.SnakewarePNG);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IsSupported()
+    {
+      ImageOptimizer optimizer = new ImageOptimizer();
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        optimizer.IsSupported((FileInfo)null);
+      });
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        optimizer.IsSupported((string)null);
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        optimizer.IsSupported("");
+      });
+
+      Assert.IsTrue(optimizer.IsSupported(Files.FujiFilmFinePixS1ProGIF));
+      Assert.IsTrue(optimizer.IsSupported(Files.ImageMagickJPG));
+      Assert.IsTrue(optimizer.IsSupported(Files.SnakewarePNG));
+      Assert.IsTrue(optimizer.IsSupported(Files.Missing));
+      Assert.IsFalse(optimizer.IsSupported(Files.InvitationTif));
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_LosslessCompress()
+    {
+      Test_LosslessCompress(Files.FujiFilmFinePixS1ProGIF);
+      Test_LosslessCompress(Files.ImageMagickJPG);
+      Test_LosslessCompress(Files.SnakewarePNG);
+      Test_LosslessCompressWithTempFile(Files.ImageMagickJPG);
+      Test_LosslessCompressWithTempFile(Files.SnakewarePNG);
+    }
+  }
 }

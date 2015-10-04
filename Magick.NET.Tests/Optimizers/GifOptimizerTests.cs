@@ -18,37 +18,33 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class GifOptimizerTests : IImageOptimizerTests
-	{
-		//===========================================================================================
-		private const string _Category = "GifOptimizer";
-		//===========================================================================================
-		protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
-		{
-			return new GifOptimizer();
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_InvalidArguments()
-		{
-			Test_LosslessCompress_InvalidArguments();
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_LosslessCompress()
-		{
-			Test_LosslessCompress(Files.RoseSparkleGIF, false);
-			Test_LosslessCompress(Files.FujiFilmFinePixS1ProGIF);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_LosslessCompress_InvalidFile()
-		{
-			Test_LosslessCompress_InvalidFile(Files.InvitationTif);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  [TestClass]
+  public class GifOptimizerTests : IImageOptimizerTests
+  {
+    private const string _Category = "GifOptimizer";
+
+    protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
+    {
+      return new GifOptimizer();
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_InvalidArguments()
+    {
+      Test_LosslessCompress_InvalidArguments();
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_LosslessCompress()
+    {
+      Test_LosslessCompress(Files.RoseSparkleGIF, false);
+      Test_LosslessCompress(Files.FujiFilmFinePixS1ProGIF);
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_LosslessCompress_InvalidFile()
+    {
+      Test_LosslessCompress_InvalidFile(Files.InvitationTif);
+    }
+  }
 }

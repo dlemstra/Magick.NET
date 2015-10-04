@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableRotation object.
-	///</summary>
-	public sealed class DrawableRotation : IDrawableRotation
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableRotation instance.
-		///</summary>
-		///<param name="angle">The angle.</param>
-		public DrawableRotation(double angle)
-		{
-			Angle = angle;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The angle.
-		///</summary>
-		public double Angle
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableRotation object.
+  ///</summary>
+  public sealed class DrawableRotation : IDrawableRotation
+  {
+    ///<summary>
+    /// Creates a new DrawableRotation instance.
+    ///</summary>
+    ///<param name="angle">The angle.</param>
+    public DrawableRotation(double angle)
+    {
+      Angle = angle;
+    }
+
+    ///<summary>
+    /// The angle.
+    ///</summary>
+    public double Angle
+    {
+      get;
+      set;
+    }
+  }
 }

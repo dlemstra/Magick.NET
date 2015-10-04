@@ -18,70 +18,66 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class ColorCMYKTests : ColorBaseTests<ColorCMYK>
-	{
-		//===========================================================================================
-		private const string _Category = "ColorCMYK";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IComparable()
-		{
-			ColorCMYK first = new ColorCMYK(0, 0, 0, 0);
+  [TestClass]
+  public class ColorCMYKTests : ColorBaseTests<ColorCMYK>
+  {
+    private const string _Category = "ColorCMYK";
 
-			Test_IComparable(first);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IComparable()
+    {
+      ColorCMYK first = new ColorCMYK(0, 0, 0, 0);
 
-			ColorCMYK second = new ColorCMYK(Quantum.Max, 0, 0, 0);
+      Test_IComparable(first);
 
-			Test_IComparable_FirstLower(first, second);
+      ColorCMYK second = new ColorCMYK(Quantum.Max, 0, 0, 0);
 
-			second = new ColorCMYK(0, 0, 0, 0);
+      Test_IComparable_FirstLower(first, second);
 
-			Test_IComparable_Equal(first, second);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
-		{
-			ColorCMYK first = new ColorCMYK(0, Quantum.Max, 0, 0);
+      second = new ColorCMYK(0, 0, 0, 0);
 
-			Test_IEquatable_NullAndSelf(first);
+      Test_IComparable_Equal(first, second);
+    }
 
-			ColorCMYK second = new ColorCMYK(0, Quantum.Max, 0, 0);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IEquatable()
+    {
+      ColorCMYK first = new ColorCMYK(0, Quantum.Max, 0, 0);
 
-			Test_IEquatable_Equal(first, second);
+      Test_IEquatable_NullAndSelf(first);
 
-			second = new ColorCMYK(0, 0, Quantum.Max, 0);
+      ColorCMYK second = new ColorCMYK(0, Quantum.Max, 0, 0);
 
-			Test_IEquatable_NotEqual(first, second);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Color()
-		{
-			ColorCMYK first = new ColorCMYK(0, 0, 0, 0);
+      Test_IEquatable_Equal(first, second);
 
-			MagickColor second = new MagickColor("cmyk(0,0,0,0)");
-			Assert.AreEqual(second, first.ToMagickColor());
+      second = new ColorCMYK(0, 0, Quantum.Max, 0);
 
-			second = new MagickColor("#fff");
-			Assert.AreNotEqual(second, first.ToMagickColor());
+      Test_IEquatable_NotEqual(first, second);
+    }
 
-			second = new MagickColor("white");
-			Assert.AreNotEqual(second, first.ToMagickColor());
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Color()
+    {
+      ColorCMYK first = new ColorCMYK(0, 0, 0, 0);
 
-			first = new ColorCMYK(0, 0, Quantum.Max, 0);
+      MagickColor second = new MagickColor("cmyk(0,0,0,0)");
+      Assert.AreEqual(second, first.ToMagickColor());
 
-			second = new MagickColor("cmyk(0,0,100%,0)");
-			Assert.AreEqual(second, first.ToMagickColor());
+      second = new MagickColor("#fff");
+      Assert.AreNotEqual(second, first.ToMagickColor());
 
-			first = new ColorCMYK(0, 0, Quantum.Max, 0, 0);
+      second = new MagickColor("white");
+      Assert.AreNotEqual(second, first.ToMagickColor());
 
-			second = new MagickColor("cmyka(0,0,100%,0,0)");
-			Assert.AreEqual(second, first.ToMagickColor());
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      first = new ColorCMYK(0, 0, Quantum.Max, 0);
+
+      second = new MagickColor("cmyk(0,0,100%,0)");
+      Assert.AreEqual(second, first.ToMagickColor());
+
+      first = new ColorCMYK(0, 0, Quantum.Max, 0, 0);
+
+      second = new MagickColor("cmyka(0,0,100%,0,0)");
+      Assert.AreEqual(second, first.ToMagickColor());
+    }
+  }
 }

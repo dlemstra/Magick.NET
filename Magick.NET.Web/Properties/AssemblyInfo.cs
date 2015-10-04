@@ -15,9 +15,7 @@
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Web;
 
-//=================================================================================================
 #if Q8
 #if (_M_X64)
 [assembly: AssemblyTitle("Magick.NET.Web Q8 x64 net40-client")]
@@ -50,11 +48,10 @@ using System.Web;
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyCopyright("Copyright © 2013-2015 Dirk Lemstra")]
 [assembly: AssemblyTrademark("")]
-//=================================================================================================
+
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("7.0.0.0")]
 [assembly: AssemblyFileVersion("7.0.0.0019")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
-//=================================================================================================

@@ -20,99 +20,95 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public sealed class PixelCollectionTests
-	{
-		//===========================================================================================
-		private const string _Category = "PixelCollection";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Dimensions()
-		{
-			using (MagickImage image = new MagickImage(Color.Red, 5, 10))
-			{
-				using (PixelCollection pixels = image.GetReadOnlyPixels())
-				{
-					Assert.AreEqual(5, pixels.Width);
-					Assert.AreEqual(10, pixels.Height);
-					Assert.AreEqual(5 * 10 * pixels.Channels, pixels.GetValues().Length);
-				}
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_GetValue()
-		{
-			using (MagickImage image = new MagickImage(Color.Red, 5, 10))
-			{
-				using (PixelCollection pixels = image.GetReadOnlyPixels())
-				{
-					var values = pixels.GetValue(0, 0);
-					Assert.AreEqual(3, values.Length);
+  [TestClass]
+  public sealed class PixelCollectionTests
+  {
+    private const string _Category = "PixelCollection";
 
-					MagickColor color = new MagickColor(values[0], values[1], values[2]);
-					ColorAssert.AreEqual(Color.Red, color);
-				}
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_GetValues()
-		{
-			using (MagickImage image = new MagickImage(Color.PowderBlue, 1, 1))
-			{
-				using (PixelCollection pixels = image.GetReadOnlyPixels())
-				{
-					var values = pixels.GetValues();
-					Assert.AreEqual(3, values.Length);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Dimensions()
+    {
+      using (MagickImage image = new MagickImage(Color.Red, 5, 10))
+      {
+        using (PixelCollection pixels = image.GetReadOnlyPixels())
+        {
+          Assert.AreEqual(5, pixels.Width);
+          Assert.AreEqual(10, pixels.Height);
+          Assert.AreEqual(5 * 10 * pixels.Channels, pixels.GetValues().Length);
+        }
+      }
+    }
 
-					MagickColor color = new MagickColor(values[0], values[1], values[2]);
-					ColorAssert.AreEqual(Color.PowderBlue, color);
-				}
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEnumerable()
-		{
-			using (MagickImage image = new MagickImage(Color.Red, 5, 10))
-			{
-				PixelCollection pixels = image.GetReadOnlyPixels();
-				Assert.AreEqual(50, pixels.Count());
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IndexOutOfRange()
-		{
-			using (MagickImage image = new MagickImage(Color.Red, 5, 10))
-			{
-				using (PixelCollection pixels = image.GetReadOnlyPixels())
-				{
-					ExceptionAssert.Throws<ArgumentException>(delegate()
-					{
-						pixels.GetValue(5, 0);
-					});
+    [TestMethod, TestCategory(_Category)]
+    public void Test_GetValue()
+    {
+      using (MagickImage image = new MagickImage(Color.Red, 5, 10))
+      {
+        using (PixelCollection pixels = image.GetReadOnlyPixels())
+        {
+          var values = pixels.GetValue(0, 0);
+          Assert.AreEqual(3, values.Length);
 
-					ExceptionAssert.Throws<ArgumentException>(delegate()
-					{
-						pixels.GetValue(-1, 0);
-					});
+          MagickColor color = new MagickColor(values[0], values[1], values[2]);
+          ColorAssert.AreEqual(Color.Red, color);
+        }
+      }
+    }
 
-					ExceptionAssert.Throws<ArgumentException>(delegate()
-					{
-						pixels.GetValue(0, -1);
-					});
+    [TestMethod, TestCategory(_Category)]
+    public void Test_GetValues()
+    {
+      using (MagickImage image = new MagickImage(Color.PowderBlue, 1, 1))
+      {
+        using (PixelCollection pixels = image.GetReadOnlyPixels())
+        {
+          var values = pixels.GetValues();
+          Assert.AreEqual(3, values.Length);
 
-					ExceptionAssert.Throws<ArgumentException>(delegate()
-					{
-						pixels.GetValue(0, 10);
-					});
-				}
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+          MagickColor color = new MagickColor(values[0], values[1], values[2]);
+          ColorAssert.AreEqual(Color.PowderBlue, color);
+        }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IEnumerable()
+    {
+      using (MagickImage image = new MagickImage(Color.Red, 5, 10))
+      {
+        PixelCollection pixels = image.GetReadOnlyPixels();
+        Assert.AreEqual(50, pixels.Count());
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IndexOutOfRange()
+    {
+      using (MagickImage image = new MagickImage(Color.Red, 5, 10))
+      {
+        using (PixelCollection pixels = image.GetReadOnlyPixels())
+        {
+          ExceptionAssert.Throws<ArgumentException>(delegate ()
+          {
+            pixels.GetValue(5, 0);
+          });
+
+          ExceptionAssert.Throws<ArgumentException>(delegate ()
+          {
+            pixels.GetValue(-1, 0);
+          });
+
+          ExceptionAssert.Throws<ArgumentException>(delegate ()
+          {
+            pixels.GetValue(0, -1);
+          });
+
+          ExceptionAssert.Throws<ArgumentException>(delegate ()
+          {
+            pixels.GetValue(0, 10);
+          });
+        }
+      }
+    }
+  }
 }

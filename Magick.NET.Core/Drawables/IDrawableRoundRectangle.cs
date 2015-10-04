@@ -14,61 +14,57 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableRoundRectangle object.
-	///</summary>
-	public interface IDrawableRoundRectangle : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The center X coordinate.
-		///</summary>
-		double CenterX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The center Y coordinate.
-		///</summary>
-		double CenterY
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The corner height.
-		///</summary>
-		double CornerHeight
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The corner width.
-		///</summary>
-		double CornerWidth
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The height.
-		///</summary>
-		double Height
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The width.
-		///</summary>
-		double Width
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableRoundRectangle object.
+  ///</summary>
+  public interface IDrawableRoundRectangle : IDrawable
+  {
+    ///<summary>
+    /// The center X coordinate.
+    ///</summary>
+    double CenterX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The center Y coordinate.
+    ///</summary>
+    double CenterY
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The corner height.
+    ///</summary>
+    double CornerHeight
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The corner width.
+    ///</summary>
+    double CornerWidth
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The height.
+    ///</summary>
+    double Height
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The width.
+    ///</summary>
+    double Width
+    {
+      get;
+    }
+  }
 }

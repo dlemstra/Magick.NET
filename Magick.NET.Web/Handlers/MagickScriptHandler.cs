@@ -18,80 +18,77 @@ using System.Xml.XPath;
 
 namespace ImageMagick.Web.Handlers
 {
-	///=============================================================================================
-	/// <summary>
-	/// IHttpHandler that can be used to send a scripted image to the response.
-	/// </summary>
-	public class MagickScriptHandler : ImageOptimizerHandler
-	{
-		//===========================================================================================
-		private void CreateScriptedFile(IXPathNavigable xml, string cacheFileName)
-		{
-			MagickScript script = new MagickScript(xml);
-			script.Read += OnScriptRead;
+  /// <summary>
+  /// IHttpHandler that can be used to send a scripted image to the response.
+  /// </summary>
+  public class MagickScriptHandler : ImageOptimizerHandler
+  {
 
-			using (MagickImage image = script.Execute())
-			{
-				image.Format = UrlResolver.Format;
-				WriteToCache(image, cacheFileName);
-			}
-		}
-		//===========================================================================================
-		private string GetCacheFileName(IXPathNavigable xml)
-		{
-			return GetCacheFileName("MagickScript", xml.CreateNavigator().OuterXml);
-		}
-		//===========================================================================================
-		private string GetScriptedFileName()
-		{
-			IXPathNavigable xml = UrlResolver.Script;
+    private void CreateScriptedFile(IXPathNavigable xml, string cacheFileName)
+    {
+      MagickScript script = new MagickScript(xml);
+      script.Read += OnScriptRead;
 
-			string cacheFileName = GetCacheFileName(xml);
-			if (!CanUseCache(cacheFileName))
-				CreateScriptedFile(xml, cacheFileName);
+      using (MagickImage image = script.Execute())
+      {
+        image.Format = UrlResolver.Format;
+        WriteToCache(image, cacheFileName);
+      }
+    }
 
-			return cacheFileName;
-		}
-		//===========================================================================================
-		private void OnScriptRead(object sender, ScriptReadEventArgs arguments)
-		{
-			arguments.Image = new MagickImage(UrlResolver.FileName, arguments.Settings);
-		}
-		//===========================================================================================
-		private void WriteToCache(MagickImage image, string cacheFileName)
-		{
-			string tempFile = GetTempFileName();
+    private string GetCacheFileName(IXPathNavigable xml)
+    {
+      return GetCacheFileName("MagickScript", xml.CreateNavigator().OuterXml);
+    }
 
-			try
-			{
-				image.Write(tempFile);
+    private string GetScriptedFileName()
+    {
+      IXPathNavigable xml = UrlResolver.Script;
 
-				if (CanOptimize(FormatInfo))
-					OptimizeFile(tempFile);
+      string cacheFileName = GetCacheFileName(xml);
+      if (!CanUseCache(cacheFileName))
+        CreateScriptedFile(xml, cacheFileName);
 
-				MoveToCache(tempFile, cacheFileName);
-			}
-			finally
-			{
-				if (File.Exists(tempFile))
-					File.Delete(tempFile);
-			}
-		}
-		//===========================================================================================
-		internal MagickScriptHandler(IUrlResolver urlResolver, MagickFormatInfo formatInfo)
-			: base(urlResolver, formatInfo)
-		{
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Writes the file to the response.
-		/// </summary>
-		protected override void WriteFile(HttpContext context)
-		{
-			string fileName = GetScriptedFileName();
-			WriteFile(context, fileName);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      return cacheFileName;
+    }
+
+    private void OnScriptRead(object sender, ScriptReadEventArgs arguments)
+    {
+      arguments.Image = new MagickImage(UrlResolver.FileName, arguments.Settings);
+    }
+
+    private void WriteToCache(MagickImage image, string cacheFileName)
+    {
+      string tempFile = GetTempFileName();
+
+      try
+      {
+        image.Write(tempFile);
+
+        if (CanOptimize(FormatInfo))
+          OptimizeFile(tempFile);
+
+        MoveToCache(tempFile, cacheFileName);
+      }
+      finally
+      {
+        if (File.Exists(tempFile))
+          File.Delete(tempFile);
+      }
+    }
+
+    internal MagickScriptHandler(IUrlResolver urlResolver, MagickFormatInfo formatInfo)
+      : base(urlResolver, formatInfo)
+    {
+    }
+
+    /// <summary>
+    /// Writes the file to the response.
+    /// </summary>
+    protected override void WriteFile(HttpContext context)
+    {
+      string fileName = GetScriptedFileName();
+      WriteFile(context, fileName);
+    }
+  }
 }

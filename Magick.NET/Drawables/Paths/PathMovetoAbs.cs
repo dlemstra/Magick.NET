@@ -18,31 +18,27 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathMovetoAbs object.
-	///</summary>
-	public sealed class PathMovetoAbs : DrawableCoordinates<Coordinate>, IPathMovetoAbs
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathMovetoAbs class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathMovetoAbs(params Coordinate[] coordinates)
-			: base(coordinates)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathMovetoAbs class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathMovetoAbs(IEnumerable<Coordinate> coordinates)
-			: base(coordinates)
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathMovetoAbs object.
+  ///</summary>
+  public sealed class PathMovetoAbs : DrawableCoordinates<Coordinate>, IPathMovetoAbs
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathMovetoAbs class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathMovetoAbs(params Coordinate[] coordinates)
+      : base(coordinates)
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathMovetoAbs class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathMovetoAbs(IEnumerable<Coordinate> coordinates)
+      : base(coordinates)
+    {
+    }
+  }
 }

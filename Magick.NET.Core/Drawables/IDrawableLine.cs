@@ -14,45 +14,41 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableLine object.
-	///</summary>
-	public interface IDrawableLine : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The ending X coordinate.
-		///</summary>
-		double EndX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The ending Y coordinate.
-		///</summary>
-		double EndY
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The starting X coordinate.
-		///</summary>
-		double StartX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The starting Y coordinate.
-		///</summary>
-		double StartY
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableLine object.
+  ///</summary>
+  public interface IDrawableLine : IDrawable
+  {
+    ///<summary>
+    /// The ending X coordinate.
+    ///</summary>
+    double EndX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The ending Y coordinate.
+    ///</summary>
+    double EndY
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The starting X coordinate.
+    ///</summary>
+    double StartX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The starting Y coordinate.
+    ///</summary>
+    double StartY
+    {
+      get;
+    }
+  }
 }

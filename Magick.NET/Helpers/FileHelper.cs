@@ -16,21 +16,17 @@ using System;
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	internal static class FileHelper
-	{
-		//===========================================================================================
-		public static string CheckForBaseDirectory(string fileName)
-		{
-			if (string.IsNullOrEmpty(fileName))
-				return fileName;
+  internal static class FileHelper
+  {
+    public static string CheckForBaseDirectory(string fileName)
+    {
+      if (string.IsNullOrEmpty(fileName))
+        return fileName;
 
-			if (fileName.Length < 2 || fileName[0] != '~')
-				return fileName;
+      if (fileName.Length < 2 || fileName[0] != '~')
+        return fileName;
 
-			return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
+    }
+  }
 }

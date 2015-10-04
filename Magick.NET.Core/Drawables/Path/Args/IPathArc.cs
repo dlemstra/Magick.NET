@@ -14,69 +14,65 @@
 
 namespace ImageMagick.Drawables.Paths
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathArc object.
-	///</summary>
-	public interface IPathArc
-	{
-		///==========================================================================================
-		///<summary>
-		/// The X radius.
-		///</summary>
-		double RadiusX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y radius.
-		///</summary>
-		double RadiusY
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Indicates how the ellipse as a whole is rotated relative to the current coordinate system.
-		///</summary>
-		double RotationX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// If true then draw the larger of the available arcs.
-		///</summary>
-		bool UseLargeArc
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// If true then draw the arc matching a clock-wise rotation.
-		///</summary>
-		bool UseSweep
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X offset from origin.
-		///</summary>
-		double X
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y offset from origin.
-		///</summary>
-		double Y
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathArc object.
+  ///</summary>
+  public interface IPathArc
+  {
+    ///<summary>
+    /// The X radius.
+    ///</summary>
+    double RadiusX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The Y radius.
+    ///</summary>
+    double RadiusY
+    {
+      get;
+    }
+
+    ///<summary>
+    /// Indicates how the ellipse as a whole is rotated relative to the current coordinate system.
+    ///</summary>
+    double RotationX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// If true then draw the larger of the available arcs.
+    ///</summary>
+    bool UseLargeArc
+    {
+      get;
+    }
+
+    ///<summary>
+    /// If true then draw the arc matching a clock-wise rotation.
+    ///</summary>
+    bool UseSweep
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The X offset from origin.
+    ///</summary>
+    double X
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The Y offset from origin.
+    ///</summary>
+    double Y
+    {
+      get;
+    }
+  }
 }

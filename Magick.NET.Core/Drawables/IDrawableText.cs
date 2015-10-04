@@ -16,45 +16,41 @@ using System.Text;
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableCompositeImage object.
-	///</summary>
-	public interface IDrawableText : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The encoding of the text.
-		///</summary>
-		Encoding Encoding
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The text to draw.
-		///</summary>
-		string Text
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X coordinate.
-		///</summary>
-		double X
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y coordinate.
-		///</summary>
-		double Y
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableCompositeImage object.
+  ///</summary>
+  public interface IDrawableText : IDrawable
+  {
+    ///<summary>
+    /// The encoding of the text.
+    ///</summary>
+    Encoding Encoding
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The text to draw.
+    ///</summary>
+    string Text
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The X coordinate.
+    ///</summary>
+    double X
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The Y coordinate.
+    ///</summary>
+    double Y
+    {
+      get;
+    }
+  }
 }

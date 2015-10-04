@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableTextDirection object.
-	///</summary>
-	public sealed class DrawableTextDirection : IDrawableTextDirection
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableTextDirection instance.
-		///</summary>
-		///<param name="direction">Direction to use.</param>
-		public DrawableTextDirection(TextDirection direction)
-		{
-			Direction = direction;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Direction to use.
-		///</summary>
-		public TextDirection Direction
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableTextDirection object.
+  ///</summary>
+  public sealed class DrawableTextDirection : IDrawableTextDirection
+  {
+    ///<summary>
+    /// Creates a new DrawableTextDirection instance.
+    ///</summary>
+    ///<param name="direction">Direction to use.</param>
+    public DrawableTextDirection(TextDirection direction)
+    {
+      Direction = direction;
+    }
+
+    ///<summary>
+    /// Direction to use.
+    ///</summary>
+    public TextDirection Direction
+    {
+      get;
+      set;
+    }
+  }
 }

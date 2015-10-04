@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableMiterLimit object.
-	///</summary>
-	public interface IDrawableMiterLimit : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The miter limit.
-		///</summary>
-		int Miterlimit
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableMiterLimit object.
+  ///</summary>
+  public interface IDrawableMiterLimit : IDrawable
+  {
+    ///<summary>
+    /// The miter limit.
+    ///</summary>
+    int Miterlimit
+    {
+      get;
+    }
+  }
 }

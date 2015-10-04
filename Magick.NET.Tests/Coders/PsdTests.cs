@@ -18,29 +18,25 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests.Coders
 {
-	//==============================================================================================
-	[TestClass]
-	public class PSDTests
-	{
-		//===========================================================================================
-		private const string _Category = "PSDTests";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Colors()
-		{
-			using (MagickImage image = new MagickImage(Files.Coders.PlayerPSD))
-			{
-				using (PixelCollection pixels = image.GetReadOnlyPixels())
-				{
-					Pixel pixel = pixels.GetPixel(0, 0);
-					ColorAssert.AreEqual(MagickColor.Transparent, pixel.ToColor());
+  [TestClass]
+  public class PSDTests
+  {
+    private const string _Category = "PSDTests";
 
-					pixel = pixels.GetPixel(8, 6);
-					ColorAssert.AreEqual(Color.FromArgb(15, 43, 255), pixel.ToColor());
-				}
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Colors()
+    {
+      using (MagickImage image = new MagickImage(Files.Coders.PlayerPSD))
+      {
+        using (PixelCollection pixels = image.GetReadOnlyPixels())
+        {
+          Pixel pixel = pixels.GetPixel(0, 0);
+          ColorAssert.AreEqual(MagickColor.Transparent, pixel.ToColor());
+
+          pixel = pixels.GetPixel(8, 6);
+          ColorAssert.AreEqual(Color.FromArgb(15, 43, 255), pixel.ToColor());
+        }
+      }
+    }
+  }
 }

@@ -17,7 +17,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 
-//=================================================================================================
 #if (Q8)
 #if (WIN64 && NET20)
 [assembly: AssemblyTitle("Magick.NET Q8 x64 net20")]
@@ -63,7 +62,7 @@ using System.Security.Permissions;
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyCopyright("Copyright © 2013-2015 Dirk Lemstra")]
 [assembly: AssemblyTrademark("")]
-//=================================================================================================
+
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("7.0.0.0")]
@@ -73,4 +72,3 @@ using System.Security.Permissions;
 #if (NET20)
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
 #endif
-//=================================================================================================

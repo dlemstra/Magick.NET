@@ -17,114 +17,110 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class for defines that are used when a jpeg image is written.
-	///</summary>
-	public sealed class JpegWriteDefines : DefineCreator
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the JpegWriteDefines class.
-		///</summary>
-		public JpegWriteDefines()
-			: base(MagickFormat.Jpeg)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Specifies the dtc method that will be used (jpeg:dct-method).
-		///</summary>
-		public DctMethod? DctMethod
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Search for compression quality that does not exceed the specified extent in kilobytes. (jpeg:extent).
-		///</summary>
-		public int? Extent
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Enables or disables optimize coding (jpeg:optimize-coding).
-		///</summary>
-		public bool? OptimizeCoding
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Set quality scaling for luminance and chrominance separately (jpeg:quality).
-		///</summary>
-		public MagickGeometry Quality
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// File name that contains custom quantization tables (jpeg:q-table).
-		///</summary>
-		public string QuantizationTables
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Set jpeg sampling factor (jpeg:sampling-factor).
-		///</summary>
-		public IEnumerable<MagickGeometry> SamplingFactors
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The defines that should be set as an define on an image
-		///</summary>
-		public override IEnumerable<IDefine> Defines
-		{
-			get
-			{
-				if (DctMethod.HasValue)
-					yield return CreateDefine("dct-method", DctMethod.Value);
+  ///<summary>
+  /// Class for defines that are used when a jpeg image is written.
+  ///</summary>
+  public sealed class JpegWriteDefines : DefineCreator
+  {
+    ///<summary>
+    /// Initializes a new instance of the JpegWriteDefines class.
+    ///</summary>
+    public JpegWriteDefines()
+      : base(MagickFormat.Jpeg)
+    {
+    }
 
-				if (Extent.HasValue)
-					yield return CreateDefine("extent", Extent.Value + "KB");
+    ///<summary>
+    /// Specifies the dtc method that will be used (jpeg:dct-method).
+    ///</summary>
+    public DctMethod? DctMethod
+    {
+      get;
+      set;
+    }
 
-				if (OptimizeCoding.HasValue)
-					yield return CreateDefine("optimize-coding", OptimizeCoding.Value);
+    ///<summary>
+    /// Search for compression quality that does not exceed the specified extent in kilobytes. (jpeg:extent).
+    ///</summary>
+    public int? Extent
+    {
+      get;
+      set;
+    }
 
-				if (Quality != null)
-					yield return CreateDefine("quality", Quality);
+    ///<summary>
+    /// Enables or disables optimize coding (jpeg:optimize-coding).
+    ///</summary>
+    public bool? OptimizeCoding
+    {
+      get;
+      set;
+    }
 
-				if (!string.IsNullOrEmpty(QuantizationTables))
-					yield return CreateDefine("q-table", QuantizationTables);
+    ///<summary>
+    /// Set quality scaling for luminance and chrominance separately (jpeg:quality).
+    ///</summary>
+    public MagickGeometry Quality
+    {
+      get;
+      set;
+    }
 
-				if (SamplingFactors != null)
-				{
-					string value = "";
-					foreach (MagickGeometry samplingFactor in SamplingFactors)
-					{
-						if (value.Length != 0)
-							value += ",";
+    ///<summary>
+    /// File name that contains custom quantization tables (jpeg:q-table).
+    ///</summary>
+    public string QuantizationTables
+    {
+      get;
+      set;
+    }
 
-						value += samplingFactor.ToString();
-					}
+    ///<summary>
+    /// Set jpeg sampling factor (jpeg:sampling-factor).
+    ///</summary>
+    public IEnumerable<MagickGeometry> SamplingFactors
+    {
+      get;
+      set;
+    }
 
-					if (!string.IsNullOrEmpty(value))
-						yield return CreateDefine("sampling-factor", value);
-				}
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    ///<summary>
+    /// The defines that should be set as an define on an image
+    ///</summary>
+    public override IEnumerable<IDefine> Defines
+    {
+      get
+      {
+        if (DctMethod.HasValue)
+          yield return CreateDefine("dct-method", DctMethod.Value);
+
+        if (Extent.HasValue)
+          yield return CreateDefine("extent", Extent.Value + "KB");
+
+        if (OptimizeCoding.HasValue)
+          yield return CreateDefine("optimize-coding", OptimizeCoding.Value);
+
+        if (Quality != null)
+          yield return CreateDefine("quality", Quality);
+
+        if (!string.IsNullOrEmpty(QuantizationTables))
+          yield return CreateDefine("q-table", QuantizationTables);
+
+        if (SamplingFactors != null)
+        {
+          string value = "";
+          foreach (MagickGeometry samplingFactor in SamplingFactors)
+          {
+            if (value.Length != 0)
+              value += ",";
+
+            value += samplingFactor.ToString();
+          }
+
+          if (!string.IsNullOrEmpty(value))
+            yield return CreateDefine("sampling-factor", value);
+        }
+      }
+    }
+  }
 }

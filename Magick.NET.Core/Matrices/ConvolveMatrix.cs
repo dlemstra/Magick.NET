@@ -14,40 +14,36 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulates a convolution kernel.
-	///</summary>
-	public sealed class ConvolveMatrix : DoubleMatrix
-	{
-		//===========================================================================================
-		private void CheckOrder()
-		{
-			Throw.IfTrue("order", Order < 1, "Invalid order specified, value has to be at least 1.");
-			Throw.IfTrue("order", Order % 2 == 0, "Order must be an odd number.");
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new ConvolveMatrix instance with the specified order.
-		///</summary>
-		///<param name="order">The order.</param>
-		public ConvolveMatrix(int order)
-			: base(order, null)
-		{
-			CheckOrder();
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new ConvolveMatrix instance with the specified order.
-		///</summary>
-		///<param name="order">The order.</param>
-		///<param name="values">The values to initialize the matrix with.</param>
-		public ConvolveMatrix(int order, params double[] values)
-			: base(order, values)
-		{
-			CheckOrder();
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulates a convolution kernel.
+  ///</summary>
+  public sealed class ConvolveMatrix : DoubleMatrix
+  {
+    private void CheckOrder()
+    {
+      Throw.IfTrue("order", Order < 1, "Invalid order specified, value has to be at least 1.");
+      Throw.IfTrue("order", Order % 2 == 0, "Order must be an odd number.");
+    }
+
+    ///<summary>
+    /// Creates a new ConvolveMatrix instance with the specified order.
+    ///</summary>
+    ///<param name="order">The order.</param>
+    public ConvolveMatrix(int order)
+      : base(order, null)
+    {
+      CheckOrder();
+    }
+
+    ///<summary>
+    /// Creates a new ConvolveMatrix instance with the specified order.
+    ///</summary>
+    ///<param name="order">The order.</param>
+    ///<param name="values">The values to initialize the matrix with.</param>
+    public ConvolveMatrix(int order, params double[] values)
+      : base(order, values)
+    {
+      CheckOrder();
+    }
+  }
 }

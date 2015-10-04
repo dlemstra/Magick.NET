@@ -20,411 +20,407 @@ using System.Text;
 
 namespace ImageMagick
 {
-	//==============================================================================================
-	internal sealed class ExifReader
-	{
-		//===========================================================================================
-		private delegate TDataType ConverterMethod<TDataType>(Byte[] data);
-		//===========================================================================================
-		private Byte[] _Data;
-		private Collection<ExifTag> _InvalidTags = new Collection<ExifTag>();
-		private uint _Index;
-		private bool _IsLittleEndian;
-		private uint _ExifOffset;
-		private uint _GPSOffset;
-		private uint _StartIndex;
-		//===========================================================================================
-		private int RemainingLength
-		{
-			get
-			{
-				if (_Index >= _Data.Length)
-					return 0;
+  internal sealed class ExifReader
+  {
+    private delegate TDataType ConverterMethod<TDataType>(byte[] data);
 
-				return _Data.Length - (int)_Index;
-			}
-		}
-		//===========================================================================================
-		private void AddValues(Collection<ExifValue> values, uint index)
-		{
-			_Index = _StartIndex + index;
-			ushort count = GetShort();
+    private byte[] _Data;
+    private Collection<ExifTag> _InvalidTags = new Collection<ExifTag>();
+    private uint _Index;
+    private bool _IsLittleEndian;
+    private uint _ExifOffset;
+    private uint _GPSOffset;
+    private uint _StartIndex;
 
-			for (ushort i = 0; i < count; i++)
-			{
-				ExifValue value = CreateValue();
-				if (value == null)
-					continue;
+    private int RemainingLength
+    {
+      get
+      {
+        if (_Index >= _Data.Length)
+          return 0;
 
-				bool duplicate = false;
-				foreach (ExifValue val in values)
-				{
-					if (val.Tag == value.Tag)
-					{
-						duplicate = true;
-						break;
-					}
-				}
+        return _Data.Length - (int)_Index;
+      }
+    }
 
-				if (duplicate)
-					continue;
+    private void AddValues(Collection<ExifValue> values, uint index)
+    {
+      _Index = _StartIndex + index;
+      ushort count = GetShort();
 
-				if (value.Tag == ExifTag.SubIFDOffset)
-				{
-					if (value.DataType == ExifDataType.Long)
-						_ExifOffset = (uint)value.Value;
-				}
-				else if (value.Tag == ExifTag.GPSIFDOffset)
-				{
-					if (value.DataType == ExifDataType.Long)
-						_GPSOffset = (uint)value.Value;
-				}
-				else
-					values.Add(value);
-			}
-		}
-		//===========================================================================================
-		[SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-		private object ConvertValue(ExifDataType dataType, Byte[] data, uint numberOfComponents)
-		{
-			if (data == null || data.Length == 0)
-				return null;
+      for (ushort i = 0; i < count; i++)
+      {
+        ExifValue value = CreateValue();
+        if (value == null)
+          continue;
 
-			switch (dataType)
-			{
-				case ExifDataType.Unknown:
-					return null;
-				case ExifDataType.Ascii:
-					return ToString(data);
-				case ExifDataType.Byte:
-					if (numberOfComponents == 1)
-						return ToByte(data);
-					else
-						return data;
-				case ExifDataType.DoubleFloat:
-					if (numberOfComponents == 1)
-						return ToDouble(data);
-					else
-						return ToArray<double>(dataType, data, ToDouble);
-				case ExifDataType.Long:
-					if (numberOfComponents == 1)
-						return ToLong(data);
-					else
-						return ToArray<uint>(dataType, data, ToLong);
-				case ExifDataType.Rational:
-					if (numberOfComponents == 1)
-						return ToRational(data);
-					else
-						return ToArray<double>(dataType, data, ToRational);
-				case ExifDataType.Short:
-					if (numberOfComponents == 1)
-						return ToShort(data);
-					else
-						return ToArray<ushort>(dataType, data, ToShort);
-				case ExifDataType.SignedByte:
-					if (numberOfComponents == 1)
-						return ToSignedByte(data);
-					else
-						return ToArray<SByte>(dataType, data, ToSignedByte);
-				case ExifDataType.SignedLong:
-					if (numberOfComponents == 1)
-						return ToSignedLong(data);
-					else
-						return ToArray<int>(dataType, data, ToSignedLong);
-				case ExifDataType.SignedRational:
-					if (numberOfComponents == 1)
-						return ToSignedRational(data);
-					else
-						return ToArray<double>(dataType, data, ToSignedRational);
-				case ExifDataType.SignedShort:
-					if (numberOfComponents == 1)
-						return ToSignedShort(data);
-					else
-						return ToArray<short>(dataType, data, ToSignedShort);
-				case ExifDataType.SingleFloat:
-					if (numberOfComponents == 1)
-						return ToSingle(data);
-					else
-						return ToArray<float>(dataType, data, ToSingle);
-				case ExifDataType.Undefined:
-					if (numberOfComponents == 1)
-						return ToByte(data);
-					else
-						return data;
-				default:
-					throw new NotImplementedException();
-			}
-		}
-		//===========================================================================================
-		private ExifValue CreateValue()
-		{
-			if (RemainingLength < 12)
-				return null;
+        bool duplicate = false;
+        foreach (ExifValue val in values)
+        {
+          if (val.Tag == value.Tag)
+          {
+            duplicate = true;
+            break;
+          }
+        }
 
-			ExifTag tag = EnumHelper.Parse(GetShort(), ExifTag.Unknown);
-			ExifDataType dataType = EnumHelper.Parse(GetShort(), ExifDataType.Unknown);
-			object value = null;
+        if (duplicate)
+          continue;
 
-			if (dataType == ExifDataType.Unknown)
-				return new ExifValue(tag, dataType, value, false);
+        if (value.Tag == ExifTag.SubIFDOffset)
+        {
+          if (value.DataType == ExifDataType.Long)
+            _ExifOffset = (uint)value.Value;
+        }
+        else if (value.Tag == ExifTag.GPSIFDOffset)
+        {
+          if (value.DataType == ExifDataType.Long)
+            _GPSOffset = (uint)value.Value;
+        }
+        else
+          values.Add(value);
+      }
+    }
 
-			uint numberOfComponents = (uint)GetLong();
+    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+    private object ConvertValue(ExifDataType dataType, byte[] data, uint numberOfComponents)
+    {
+      if (data == null || data.Length == 0)
+        return null;
 
-			uint size = numberOfComponents * ExifValue.GetSize(dataType);
-			Byte[] data = GetBytes(4);
+      switch (dataType)
+      {
+        case ExifDataType.Unknown:
+          return null;
+        case ExifDataType.Ascii:
+          return ToString(data);
+        case ExifDataType.Byte:
+          if (numberOfComponents == 1)
+            return ToByte(data);
+          else
+            return data;
+        case ExifDataType.DoubleFloat:
+          if (numberOfComponents == 1)
+            return ToDouble(data);
+          else
+            return ToArray(dataType, data, ToDouble);
+        case ExifDataType.Long:
+          if (numberOfComponents == 1)
+            return ToLong(data);
+          else
+            return ToArray(dataType, data, ToLong);
+        case ExifDataType.Rational:
+          if (numberOfComponents == 1)
+            return ToRational(data);
+          else
+            return ToArray(dataType, data, ToRational);
+        case ExifDataType.Short:
+          if (numberOfComponents == 1)
+            return ToShort(data);
+          else
+            return ToArray(dataType, data, ToShort);
+        case ExifDataType.SignedByte:
+          if (numberOfComponents == 1)
+            return ToSignedByte(data);
+          else
+            return ToArray(dataType, data, ToSignedByte);
+        case ExifDataType.SignedLong:
+          if (numberOfComponents == 1)
+            return ToSignedLong(data);
+          else
+            return ToArray(dataType, data, ToSignedLong);
+        case ExifDataType.SignedRational:
+          if (numberOfComponents == 1)
+            return ToSignedRational(data);
+          else
+            return ToArray(dataType, data, ToSignedRational);
+        case ExifDataType.SignedShort:
+          if (numberOfComponents == 1)
+            return ToSignedShort(data);
+          else
+            return ToArray(dataType, data, ToSignedShort);
+        case ExifDataType.SingleFloat:
+          if (numberOfComponents == 1)
+            return ToSingle(data);
+          else
+            return ToArray(dataType, data, ToSingle);
+        case ExifDataType.Undefined:
+          if (numberOfComponents == 1)
+            return ToByte(data);
+          else
+            return data;
+        default:
+          throw new NotImplementedException();
+      }
+    }
 
-			if (size > 4)
-			{
-				uint oldIndex = _Index;
-				_Index = ToLong(data) + _StartIndex;
-				if (RemainingLength < size)
-				{
-					_InvalidTags.Add(tag);
-					_Index = oldIndex;
-					return null;
-				}
-				value = ConvertValue(dataType, GetBytes(size), numberOfComponents);
-				_Index = oldIndex;
-			}
-			else
-			{
-				value = ConvertValue(dataType, data, numberOfComponents);
-			}
+    private ExifValue CreateValue()
+    {
+      if (RemainingLength < 12)
+        return null;
 
-			bool isArray = value != null && numberOfComponents > 1;
-			return new ExifValue(tag, dataType, value, isArray);
-		}
-		//===========================================================================================
-		private Byte[] GetBytes(uint length)
-		{
-			if (_Index + length > (uint)_Data.Length)
-				return null;
+      ExifTag tag = EnumHelper.Parse(GetShort(), ExifTag.Unknown);
+      ExifDataType dataType = EnumHelper.Parse(GetShort(), ExifDataType.Unknown);
+      object value = null;
 
-			Byte[] data = new Byte[length];
-			Array.Copy(_Data, _Index, data, 0, length);
-			_Index += length;
+      if (dataType == ExifDataType.Unknown)
+        return new ExifValue(tag, dataType, value, false);
 
-			return data;
-		}
-		//===========================================================================================
-		private uint GetLong()
-		{
-			return ToLong(GetBytes(4));
-		}
-		//===========================================================================================
-		private ushort GetShort()
-		{
-			return ToShort(GetBytes(2));
-		}
-		//===========================================================================================
-		private string GetString(uint length)
-		{
-			return ToString(GetBytes(length));
-		}
-		//===========================================================================================
-		private void GetThumbnail(uint offset)
-		{
-			Collection<ExifValue> values = new Collection<ExifValue>();
-			AddValues(values, offset);
+      uint numberOfComponents = (uint)GetLong();
 
-			foreach (ExifValue value in values)
-			{
-				if (value.Tag == ExifTag.JPEGInterchangeFormat && (value.DataType == ExifDataType.Long))
-					ThumbnailOffset = (uint)value.Value + _StartIndex;
-				else if (value.Tag == ExifTag.JPEGInterchangeFormatLength && value.DataType == ExifDataType.Long)
-					ThumbnailLength = (uint)value.Value;
-			}
-		}
-		//===========================================================================================
-		private static TDataType[] ToArray<TDataType>(ExifDataType dataType, Byte[] data,
-			ConverterMethod<TDataType> converter)
-		{
-			int dataTypeSize = (int)ExifValue.GetSize(dataType);
-			int length = data.Length / dataTypeSize;
+      uint size = numberOfComponents * ExifValue.GetSize(dataType);
+      byte[] data = GetBytes(4);
 
-			TDataType[] result = new TDataType[length];
-			Byte[] buffer = new Byte[dataTypeSize];
+      if (size > 4)
+      {
+        uint oldIndex = _Index;
+        _Index = ToLong(data) + _StartIndex;
+        if (RemainingLength < size)
+        {
+          _InvalidTags.Add(tag);
+          _Index = oldIndex;
+          return null;
+        }
+        value = ConvertValue(dataType, GetBytes(size), numberOfComponents);
+        _Index = oldIndex;
+      }
+      else
+      {
+        value = ConvertValue(dataType, data, numberOfComponents);
+      }
 
-			for (int i = 0; i < length; i++)
-			{
-				Array.Copy(data, i * dataTypeSize, buffer, 0, dataTypeSize);
+      bool isArray = value != null && numberOfComponents > 1;
+      return new ExifValue(tag, dataType, value, isArray);
+    }
 
-				result.SetValue(converter(buffer), i);
-			}
+    private byte[] GetBytes(uint length)
+    {
+      if (_Index + length > (uint)_Data.Length)
+        return null;
 
-			return result;
-		}
-		//===========================================================================================
-		private static Byte ToByte(Byte[] data)
-		{
-			return data[0];
-		}
-		//===========================================================================================
-		private double ToDouble(Byte[] data)
-		{
-			if (!ValidateArray(data, 8))
-				return default(double);
+      byte[] data = new byte[length];
+      Array.Copy(_Data, _Index, data, 0, length);
+      _Index += length;
 
-			return BitConverter.ToDouble(data, 0);
-		}
-		//===========================================================================================
-		private uint ToLong(Byte[] data)
-		{
-			if (!ValidateArray(data, 4))
-				return default(uint);
+      return data;
+    }
 
-			return BitConverter.ToUInt32(data, 0);
-		}
-		//===========================================================================================
-		private ushort ToShort(Byte[] data)
-		{
+    private uint GetLong()
+    {
+      return ToLong(GetBytes(4));
+    }
 
-			if (!ValidateArray(data, 2))
-				return default(ushort);
+    private ushort GetShort()
+    {
+      return ToShort(GetBytes(2));
+    }
 
-			return BitConverter.ToUInt16(data, 0);
-		}
-		//===========================================================================================
-		private float ToSingle(Byte[] data)
-		{
-			if (!ValidateArray(data, 4))
-				return default(float);
+    private string GetString(uint length)
+    {
+      return ToString(GetBytes(length));
+    }
 
-			return BitConverter.ToSingle(data, 0);
-		}
-		//===========================================================================================
-		private static string ToString(Byte[] data)
-		{
-			string result = Encoding.UTF8.GetString(data, 0, data.Length);
-			int nullCharIndex = result.IndexOf('\0');
-			if (nullCharIndex != -1)
-				result = result.Substring(0, nullCharIndex);
+    private void GetThumbnail(uint offset)
+    {
+      Collection<ExifValue> values = new Collection<ExifValue>();
+      AddValues(values, offset);
 
-			return result;
-		}
-		//===========================================================================================
-		private double ToRational(Byte[] data)
-		{
-			if (!ValidateArray(data, 8, 4))
-				return default(double);
+      foreach (ExifValue value in values)
+      {
+        if (value.Tag == ExifTag.JPEGInterchangeFormat && (value.DataType == ExifDataType.Long))
+          ThumbnailOffset = (uint)value.Value + _StartIndex;
+        else if (value.Tag == ExifTag.JPEGInterchangeFormatLength && value.DataType == ExifDataType.Long)
+          ThumbnailLength = (uint)value.Value;
+      }
+    }
 
-			uint numerator = BitConverter.ToUInt32(data, 0);
-			uint denominator = BitConverter.ToUInt32(data, 4);
+    private static TDataType[] ToArray<TDataType>(ExifDataType dataType, Byte[] data,
+      ConverterMethod<TDataType> converter)
+    {
+      int dataTypeSize = (int)ExifValue.GetSize(dataType);
+      int length = data.Length / dataTypeSize;
 
-			return numerator / (double)denominator;
-		}
-		//===========================================================================================
-		private SByte ToSignedByte(Byte[] data)
-		{
-			return unchecked((SByte)data[0]);
-		}
-		//===========================================================================================
-		private int ToSignedLong(Byte[] data)
-		{
-			if (!ValidateArray(data, 4))
-				return default(int);
+      TDataType[] result = new TDataType[length];
+      byte[] buffer = new byte[dataTypeSize];
 
-			return BitConverter.ToInt32(data, 0);
-		}
-		//===========================================================================================
-		private double ToSignedRational(Byte[] data)
-		{
-			if (!ValidateArray(data, 8, 4))
-				return default(double);
+      for (int i = 0; i < length; i++)
+      {
+        Array.Copy(data, i * dataTypeSize, buffer, 0, dataTypeSize);
 
-			int numerator = BitConverter.ToInt32(data, 0);
-			int denominator = BitConverter.ToInt32(data, 4);
+        result.SetValue(converter(buffer), i);
+      }
 
-			return numerator / (double)denominator;
-		}
-		//===========================================================================================
-		private short ToSignedShort(Byte[] data)
-		{
-			if (!ValidateArray(data, 2))
-				return default(short);
+      return result;
+    }
 
-			return BitConverter.ToInt16(data, 0);
-		}
-		//===========================================================================================
-		private bool ValidateArray(Byte[] data, int size)
-		{
-			return ValidateArray(data, size, size);
-		}
-		//===========================================================================================
-		private bool ValidateArray(Byte[] data, int size, int stepSize)
-		{
-			if (data == null || data.Length < size)
-				return false;
+    private static byte ToByte(byte[] data)
+    {
+      return data[0];
+    }
 
-			if (_IsLittleEndian == BitConverter.IsLittleEndian)
-				return true;
+    private double ToDouble(byte[] data)
+    {
+      if (!ValidateArray(data, 8))
+        return default(double);
 
-			for (int i = 0; i < data.Length; i += stepSize)
-			{
-				Array.Reverse(data, i, stepSize);
-			}
+      return BitConverter.ToDouble(data, 0);
+    }
 
-			return true;
-		}
-		//===========================================================================================
-		public uint ThumbnailLength
-		{
-			get;
-			private set;
-		}
-		//===========================================================================================
-		public uint ThumbnailOffset
-		{
-			get;
-			private set;
-		}
-		//===========================================================================================
-		public Collection<ExifValue> Read(Byte[] data)
-		{
-			Collection<ExifValue> result = new Collection<ExifValue>();
+    private uint ToLong(byte[] data)
+    {
+      if (!ValidateArray(data, 4))
+        return default(uint);
 
-			_Data = data;
+      return BitConverter.ToUInt32(data, 0);
+    }
 
-			if (GetString(4) == "Exif")
-			{
-				if (GetShort() != 0)
-					return result;
+    private ushort ToShort(byte[] data)
+    {
 
-				_StartIndex = 6;
-			}
-			else
-			{
-				_Index = 0;
-			}
+      if (!ValidateArray(data, 2))
+        return default(ushort);
 
-			_IsLittleEndian = GetString(2) == "II";
+      return BitConverter.ToUInt16(data, 0);
+    }
 
-			if (GetShort() != 0x002A)
-				return result;
+    private float ToSingle(byte[] data)
+    {
+      if (!ValidateArray(data, 4))
+        return default(float);
 
-			uint ifdOffset = GetLong();
-			AddValues(result, ifdOffset);
+      return BitConverter.ToSingle(data, 0);
+    }
 
-			uint thumbnailOffset = GetLong();
-			GetThumbnail(thumbnailOffset);
+    private static string ToString(byte[] data)
+    {
+      string result = Encoding.UTF8.GetString(data, 0, data.Length);
+      int nullCharIndex = result.IndexOf('\0');
+      if (nullCharIndex != -1)
+        result = result.Substring(0, nullCharIndex);
 
-			if (_ExifOffset != 0)
-				AddValues(result, _ExifOffset);
+      return result;
+    }
 
-			if (_GPSOffset != 0)
-				AddValues(result, _GPSOffset);
+    private double ToRational(byte[] data)
+    {
+      if (!ValidateArray(data, 8, 4))
+        return default(double);
 
-			return result;
-		}
-		//===========================================================================================
-		public IEnumerable<ExifTag> InvalidTags
-		{
-			get
-			{
-				return _InvalidTags;
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      uint numerator = BitConverter.ToUInt32(data, 0);
+      uint denominator = BitConverter.ToUInt32(data, 4);
+
+      return numerator / (double)denominator;
+    }
+
+    private sbyte ToSignedByte(byte[] data)
+    {
+      return unchecked((sbyte)data[0]);
+    }
+
+    private int ToSignedLong(byte[] data)
+    {
+      if (!ValidateArray(data, 4))
+        return default(int);
+
+      return BitConverter.ToInt32(data, 0);
+    }
+
+    private double ToSignedRational(byte[] data)
+    {
+      if (!ValidateArray(data, 8, 4))
+        return default(double);
+
+      int numerator = BitConverter.ToInt32(data, 0);
+      int denominator = BitConverter.ToInt32(data, 4);
+
+      return numerator / (double)denominator;
+    }
+
+    private short ToSignedShort(byte[] data)
+    {
+      if (!ValidateArray(data, 2))
+        return default(short);
+
+      return BitConverter.ToInt16(data, 0);
+    }
+
+    private bool ValidateArray(byte[] data, int size)
+    {
+      return ValidateArray(data, size, size);
+    }
+
+    private bool ValidateArray(byte[] data, int size, int stepSize)
+    {
+      if (data == null || data.Length < size)
+        return false;
+
+      if (_IsLittleEndian == BitConverter.IsLittleEndian)
+        return true;
+
+      for (int i = 0; i < data.Length; i += stepSize)
+      {
+        Array.Reverse(data, i, stepSize);
+      }
+
+      return true;
+    }
+
+    public uint ThumbnailLength
+    {
+      get;
+      private set;
+    }
+
+    public uint ThumbnailOffset
+    {
+      get;
+      private set;
+    }
+
+    public Collection<ExifValue> Read(byte[] data)
+    {
+      Collection<ExifValue> result = new Collection<ExifValue>();
+
+      _Data = data;
+
+      if (GetString(4) == "Exif")
+      {
+        if (GetShort() != 0)
+          return result;
+
+        _StartIndex = 6;
+      }
+      else
+      {
+        _Index = 0;
+      }
+
+      _IsLittleEndian = GetString(2) == "II";
+
+      if (GetShort() != 0x002A)
+        return result;
+
+      uint ifdOffset = GetLong();
+      AddValues(result, ifdOffset);
+
+      uint thumbnailOffset = GetLong();
+      GetThumbnail(thumbnailOffset);
+
+      if (_ExifOffset != 0)
+        AddValues(result, _ExifOffset);
+
+      if (_GPSOffset != 0)
+        AddValues(result, _GPSOffset);
+
+      return result;
+    }
+
+    public IEnumerable<ExifTag> InvalidTags
+    {
+      get
+      {
+        return _InvalidTags;
+      }
+    }
+  }
 }

@@ -17,43 +17,43 @@ Imports ImageMagick
 
 Namespace RootNamespace.Samples.MagickNET
 
-	Public NotInheritable Class ExceptionHandlingSamples
+  Public NotInheritable Class ExceptionHandlingSamples
 
-		Private Shared Sub MagickImage_Warning(sender As Object, arguments As WarningEventArgs)
-			Console.WriteLine(arguments.Message)
-		End Sub
+    Private Shared Sub MagickImage_Warning(sender As Object, arguments As WarningEventArgs)
+      Console.WriteLine(arguments.Message)
+    End Sub
 
-		Public Shared Sub ExceptionHandling()
-			Try
-				' Read invalid jpg file
-				Using image As New MagickImage(SampleFiles.InvalidFileJpg)
-				End Using
-				' Catch any MagickException
-			Catch exception As MagickException
-				' Write excepion raised when reading the invalid jpg to the console
-				Console.WriteLine(exception.Message)
-			End Try
+    Public Shared Sub ExceptionHandling()
+      Try
+        ' Read invalid jpg file
+        Using image As New MagickImage(SampleFiles.InvalidFileJpg)
+        End Using
+        ' Catch any MagickException
+      Catch exception As MagickException
+        ' Write excepion raised when reading the invalid jpg to the console
+        Console.WriteLine(exception.Message)
+      End Try
 
-			Try
-				' Read corrupt jpg file
-				Using image As New MagickImage(SampleFiles.CorruptImageJpg)
-				End Using
-				' Catch only MagickCorruptImageErrorException
-			Catch exception As MagickCorruptImageErrorException
-				' Write excepion raised when reading the corrupt jpg to the console
-				Console.WriteLine(exception.Message)
-			End Try
-		End Sub
+      Try
+        ' Read corrupt jpg file
+        Using image As New MagickImage(SampleFiles.CorruptImageJpg)
+        End Using
+        ' Catch only MagickCorruptImageErrorException
+      Catch exception As MagickCorruptImageErrorException
+        ' Write excepion raised when reading the corrupt jpg to the console
+        Console.WriteLine(exception.Message)
+      End Try
+    End Sub
 
-		Public Shared Sub ObtainWarningThatOccurredDuringRead()
-			Using image As New MagickImage()
-				' Attach event handler to warning event
-				AddHandler image.Warning, AddressOf MagickImage_Warning
-				' Read file that will raise a warning.
-				image.Read(SampleFiles.FileWithWarningJpg)
-			End Using
-		End Sub
+    Public Shared Sub ObtainWarningThatOccurredDuringRead()
+      Using image As New MagickImage()
+        ' Attach event handler to warning event
+        AddHandler image.Warning, AddressOf MagickImage_Warning
+        ' Read file that will raise a warning.
+        image.Read(SampleFiles.FileWithWarningJpg)
+      End Using
+    End Sub
 
-	End Class
+  End Class
 
 End Namespace

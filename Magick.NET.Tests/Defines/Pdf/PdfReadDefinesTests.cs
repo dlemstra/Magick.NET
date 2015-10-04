@@ -22,51 +22,47 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class PdfReadDefinesTests
-	{
-		//===========================================================================================
-		private const string _Category = "PdfReadDefinesTests";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_UseCropBox_UseTrimBox()
-		{
-			PdfReadDefines defines = new PdfReadDefines()
-			{
-				UseCropBox = true,
-				UseTrimBox = false
-			};
+  [TestClass]
+  public class PdfReadDefinesTests
+  {
+    private const string _Category = "PdfReadDefinesTests";
 
-			using (MagickImage image = new MagickImage())
-			{
-				image.SetDefines(defines);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_UseCropBox_UseTrimBox()
+    {
+      PdfReadDefines defines = new PdfReadDefines()
+      {
+        UseCropBox = true,
+        UseTrimBox = false
+      };
 
-				Assert.AreEqual("True", image.GetDefine(MagickFormat.Pdf, "use-cropbox"));
-				Assert.AreEqual("False", image.GetDefine(MagickFormat.Pdf, "use-trimbox"));
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_FitPage()
-		{
-			MagickReadSettings settings = new MagickReadSettings()
-			{
-				Defines = new PdfReadDefines()
-				{
-					FitPage = new MagickGeometry(50, 40)
-				}
-			};
+      using (MagickImage image = new MagickImage())
+      {
+        image.SetDefines(defines);
 
-			using (MagickImage image = new MagickImage())
-			{
-				image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+        Assert.AreEqual("True", image.GetDefine(MagickFormat.Pdf, "use-cropbox"));
+        Assert.AreEqual("False", image.GetDefine(MagickFormat.Pdf, "use-trimbox"));
+      }
+    }
 
-				Assert.IsTrue(image.Width <= 50);
-				Assert.IsTrue(image.Height <= 40);
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_FitPage()
+    {
+      MagickReadSettings settings = new MagickReadSettings()
+      {
+        Defines = new PdfReadDefines()
+        {
+          FitPage = new MagickGeometry(50, 40)
+        }
+      };
+
+      using (MagickImage image = new MagickImage())
+      {
+        image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+
+        Assert.IsTrue(image.Width <= 50);
+        Assert.IsTrue(image.Height <= 40);
+      }
+    }
+  }
 }

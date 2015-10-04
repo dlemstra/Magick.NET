@@ -16,62 +16,60 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		Magick::Quantum Quantum::Convert(double value)
-		{
-			return MagickCore::ClampToQuantum((Magick::Quantum)value);
-		}
-		//===========================================================================================
-		Magick::Quantum Quantum::Convert(unsigned int value)
-		{
-			return MagickCore::ClampToQuantum((Magick::Quantum)value);
-		}
-		//===========================================================================================
+  namespace Wrapper
+  {
+    Magick::Quantum Quantum::Convert(double value)
+    {
+      return MagickCore::ClampToQuantum((Magick::Quantum)value);
+    }
+
+    Magick::Quantum Quantum::Convert(unsigned int value)
+    {
+      return MagickCore::ClampToQuantum((Magick::Quantum)value);
+    }
+
 #if (MAGICKCORE_QUANTUM_DEPTH != 16 || defined(MAGICKCORE_HDRI_SUPPORT))
-		Magick::Quantum Quantum::Convert(unsigned short value)
-		{
-			return MagickCore::ClampToQuantum((Magick::Quantum)value);
-		}
+    Magick::Quantum Quantum::Convert(unsigned short value)
+    {
+      return MagickCore::ClampToQuantum((Magick::Quantum)value);
+    }
 #endif
-		//===========================================================================================
+
 #if (MAGICKCORE_QUANTUM_DEPTH > 8)
-		Magick::Quantum Quantum::Convert(Byte value)
-		{
+    Magick::Quantum Quantum::Convert(Byte value)
+    {
 #if (MAGICKCORE_QUANTUM_DEPTH == 16)
-			return (Magick::Quantum) (257UL * value);
+      return (Magick::Quantum) (257UL * value);
 #else
 #error Not implemented!
 #endif
-		}
+    }
 #endif
-		//===========================================================================================
-		int Quantum::Depth::get()
-		{
-			return MAGICKCORE_QUANTUM_DEPTH;
-		}
-		//===========================================================================================
-		Magick::Quantum Quantum::Max::get()
-		{
+
+    int Quantum::Depth::get()
+    {
+      return MAGICKCORE_QUANTUM_DEPTH;
+    }
+
+    Magick::Quantum Quantum::Max::get()
+    {
 #if (MAGICKCORE_QUANTUM_DEPTH == 8)
-			return (Magick::Quantum) 255;
+      return (Magick::Quantum) 255;
 #elif (MAGICKCORE_QUANTUM_DEPTH == 16)
-			return (Magick::Quantum) 65535;
+      return (Magick::Quantum) 65535;
 #else
 #error Not implemented!
 #endif
-		}
-		//===========================================================================================
-		Magick::Quantum Quantum::Convert(Magick::Quantum value)
-		{
-			return MagickCore::ClampToQuantum(value);
-		}
-		//===========================================================================================
-		double Quantum::Scale(Magick::Quantum value)
-		{
-			return ((double)1.0 / (double)Max) * value;
-		}
-		//===========================================================================================
-	}
+    }
+
+    Magick::Quantum Quantum::Convert(Magick::Quantum value)
+    {
+      return MagickCore::ClampToQuantum(value);
+    }
+
+    double Quantum::Scale(Magick::Quantum value)
+    {
+      return ((double)1.0 / (double)Max) * value;
+    }
+  }
 }

@@ -12,119 +12,111 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.Collections;
-using System.IO;
-using System.Linq;
 using ImageMagick;
 using ImageMagick.Defines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class PngReadDefinesTests
-	{
-		//===========================================================================================
-		private const string _Category = "PngReadDefines";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_PreserveiCCP_SwapBytes()
-		{
-			PngReadDefines defines = new PngReadDefines()
-			{
-				PreserveiCCP = true,
-				SwapBytes = false
-			};
+  [TestClass]
+  public class PngReadDefinesTests
+  {
+    private const string _Category = "PngReadDefines";
 
-			using (MagickImage image = new MagickImage())
-			{
-				image.SetDefines(defines);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_PreserveiCCP_SwapBytes()
+    {
+      PngReadDefines defines = new PngReadDefines()
+      {
+        PreserveiCCP = true,
+        SwapBytes = false
+      };
 
-				Assert.AreEqual("True", image.GetDefine(MagickFormat.Png, "preserve-iCCP"));
-				Assert.AreEqual(null, image.GetDefine(MagickFormat.Png, "swap-bytes"));
-			}
+      using (MagickImage image = new MagickImage())
+      {
+        image.SetDefines(defines);
 
-			defines = new PngReadDefines()
-			{
-				PreserveiCCP = false,
-				SwapBytes = true
-			};
+        Assert.AreEqual("True", image.GetDefine(MagickFormat.Png, "preserve-iCCP"));
+        Assert.AreEqual(null, image.GetDefine(MagickFormat.Png, "swap-bytes"));
+      }
 
-			using (MagickImage image = new MagickImage())
-			{
-				image.SetDefines(defines);
+      defines = new PngReadDefines()
+      {
+        PreserveiCCP = false,
+        SwapBytes = true
+      };
 
-				Assert.AreEqual(null, image.GetDefine(MagickFormat.Png, "preserve-iCCP"));
-				Assert.AreEqual("True", image.GetDefine(MagickFormat.Png, "swap-bytes"));
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_PreserveCorruptImage()
-		{
-			MagickReadSettings settings = new MagickReadSettings()
-			{
-				Defines = new PngReadDefines()
-				{
-					PreserveCorruptImage = false
-				}
-			};
+      using (MagickImage image = new MagickImage())
+      {
+        image.SetDefines(defines);
 
-			MagickImage image = new MagickImage();
+        Assert.AreEqual(null, image.GetDefine(MagickFormat.Png, "preserve-iCCP"));
+        Assert.AreEqual("True", image.GetDefine(MagickFormat.Png, "swap-bytes"));
+      }
+    }
 
-			try
-			{
-				image.Read(Files.CorruptPNG, settings);
-			}
-			catch (MagickCoderErrorException)
-			{
-				Assert.AreEqual(0, image.Width);
-				Assert.AreEqual(0, image.Height);
-			}
+    [TestMethod, TestCategory(_Category)]
+    public void Test_PreserveCorruptImage()
+    {
+      MagickReadSettings settings = new MagickReadSettings()
+      {
+        Defines = new PngReadDefines()
+        {
+          PreserveCorruptImage = false
+        }
+      };
 
-			((PngReadDefines)settings.Defines).PreserveCorruptImage = true;
+      MagickImage image = new MagickImage();
 
-			try
-			{
-				image.Read(Files.CorruptPNG, settings);
-			}
-			catch (MagickCoderErrorException)
-			{
-				Assert.AreEqual(1920, image.Width);
-				Assert.AreEqual(1440, image.Height);
-			}
-			finally
-			{
-				image.Dispose();
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_SkipProfiles()
-		{
-			MagickReadSettings settings = new MagickReadSettings()
-			{
-				Defines = new PngReadDefines()
-				{
-					SkipProfiles = ProfileTypes.Xmp | ProfileTypes.Exif
-				}
-			};
+      try
+      {
+        image.Read(Files.CorruptPNG, settings);
+      }
+      catch (MagickCoderErrorException)
+      {
+        Assert.AreEqual(0, image.Width);
+        Assert.AreEqual(0, image.Height);
+      }
 
-			using (MagickImage image = new MagickImage())
-			{
-				image.Read(Files.FujiFilmFinePixS1ProPNG);
-				Assert.IsNotNull(image.GetExifProfile());
-				Assert.IsNotNull(image.GetXmpProfile());
+      ((PngReadDefines)settings.Defines).PreserveCorruptImage = true;
 
-				image.Read(Files.FujiFilmFinePixS1ProPNG, settings);
-				Assert.IsNull(image.GetExifProfile());
-				Assert.IsNull(image.GetXmpProfile());
-				Assert.AreEqual("Exif,Xmp", image.GetDefine(MagickFormat.Unknown, "profile:skip"));
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      try
+      {
+        image.Read(Files.CorruptPNG, settings);
+      }
+      catch (MagickCoderErrorException)
+      {
+        Assert.AreEqual(1920, image.Width);
+        Assert.AreEqual(1440, image.Height);
+      }
+      finally
+      {
+        image.Dispose();
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_SkipProfiles()
+    {
+      MagickReadSettings settings = new MagickReadSettings()
+      {
+        Defines = new PngReadDefines()
+        {
+          SkipProfiles = ProfileTypes.Xmp | ProfileTypes.Exif
+        }
+      };
+
+      using (MagickImage image = new MagickImage())
+      {
+        image.Read(Files.FujiFilmFinePixS1ProPNG);
+        Assert.IsNotNull(image.GetExifProfile());
+        Assert.IsNotNull(image.GetXmpProfile());
+
+        image.Read(Files.FujiFilmFinePixS1ProPNG, settings);
+        Assert.IsNull(image.GetExifProfile());
+        Assert.IsNull(image.GetXmpProfile());
+        Assert.AreEqual("Exif,Xmp", image.GetDefine(MagickFormat.Unknown, "profile:skip"));
+      }
+    }
+  }
 }

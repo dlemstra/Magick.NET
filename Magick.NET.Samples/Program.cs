@@ -16,11 +16,11 @@ using System;
 
 namespace RootNamespace.Samples.MagickNET
 {
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			Console.Read();
-		}
-	}
+  class Program
+  {
+    static void Main(string[] args)
+    {
+      Console.Read();
+    }
+  }
 }

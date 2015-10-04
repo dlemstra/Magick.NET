@@ -12,67 +12,62 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.IO;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class MagickFormatInfoTests
-	{
-		//===========================================================================================
-		private const string _Category = "MagickFormatInfo";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
-		{
-			MagickFormatInfo first = MagickFormatInfo.Create(MagickFormat.Png);
-			MagickFormatInfo second = MagickNET.GetFormatInformation(Files.SnakewarePNG);
+  [TestClass]
+  public class MagickFormatInfoTests
+  {
+    private const string _Category = "MagickFormatInfo";
 
-			Assert.IsTrue(first == second);
-			Assert.IsTrue(first.Equals(second));
-			Assert.IsTrue(first.Equals((object)second));
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_MimeType()
-		{
-			MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jpg);
-			Assert.IsNotNull(formatInfo);
-			Assert.AreEqual("image/jpeg", formatInfo.MimeType);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IEquatable()
+    {
+      MagickFormatInfo first = MagickFormatInfo.Create(MagickFormat.Png);
+      MagickFormatInfo second = MagickNET.GetFormatInformation(Files.SnakewarePNG);
 
-			formatInfo = MagickNET.GetFormatInformation(MagickFormat.Png);
-			Assert.IsNotNull(formatInfo);
-			Assert.AreEqual("image/png", formatInfo.MimeType);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Unregister()
-		{
-			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
-			{
-				using (MemoryStream memoryStream = new MemoryStream())
-				{
-					image.Resize(256, 256);
-					image.Format = MagickFormat.Ico;
-					image.Write(memoryStream);
-					memoryStream.Position = 0;
+      Assert.IsTrue(first == second);
+      Assert.IsTrue(first.Equals(second));
+      Assert.IsTrue(first.Equals((object)second));
+    }
 
-					MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Ico);
-					Assert.IsNotNull(formatInfo);
-					Assert.IsTrue(formatInfo.Unregister());
+    [TestMethod, TestCategory(_Category)]
+    public void Test_MimeType()
+    {
+      MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jpg);
+      Assert.IsNotNull(formatInfo);
+      Assert.AreEqual("image/jpeg", formatInfo.MimeType);
 
-					ExceptionAssert.Throws<MagickMissingDelegateErrorException>(delegate()
-					{
-						new MagickImage(memoryStream);
-					});
-				}
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      formatInfo = MagickNET.GetFormatInformation(MagickFormat.Png);
+      Assert.IsNotNull(formatInfo);
+      Assert.AreEqual("image/png", formatInfo.MimeType);
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Unregister()
+    {
+      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      {
+        using (MemoryStream memoryStream = new MemoryStream())
+        {
+          image.Resize(256, 256);
+          image.Format = MagickFormat.Ico;
+          image.Write(memoryStream);
+          memoryStream.Position = 0;
+
+          MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Ico);
+          Assert.IsNotNull(formatInfo);
+          Assert.IsTrue(formatInfo.Unregister());
+
+          ExceptionAssert.Throws<MagickMissingDelegateErrorException>(delegate ()
+          {
+            new MagickImage(memoryStream);
+          });
+        }
+      }
+    }
+  }
 }

@@ -17,117 +17,113 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public sealed class ColorProfileTests
-	{
-		//===========================================================================================
-		private const string _Category = "ColorProfile";
-		//===========================================================================================
-		private static void TestEmbeddedResource(ColorProfile profile)
-		{
-			Assert.IsNotNull(profile);
-			Assert.AreEqual("icc", profile.Name);
-		}
-		//===========================================================================================
-		private static void TestProfile(ColorProfile profile, string name)
-		{
-			Assert.IsNotNull(profile);
-			Assert.AreEqual(name, profile.Name);
-			Assert.AreEqual(3144, profile.ToByteArray().Length);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_ColorSpace()
-		{
-			Assert.AreEqual(ColorSpace.sRGB, ColorProfile.AdobeRGB1998.ColorSpace);
-			Assert.AreEqual(ColorSpace.sRGB, ColorProfile.AppleRGB.ColorSpace);
-			Assert.AreEqual(ColorSpace.CMYK, ColorProfile.CoatedFOGRA39.ColorSpace);
-			Assert.AreEqual(ColorSpace.sRGB, ColorProfile.ColorMatchRGB.ColorSpace);
-			Assert.AreEqual(ColorSpace.sRGB, ColorProfile.SRGB.ColorSpace);
-			Assert.AreEqual(ColorSpace.CMYK, ColorProfile.USWebCoatedSWOP.ColorSpace);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_EmbeddedResources()
-		{
-			TestEmbeddedResource(ColorProfile.AdobeRGB1998);
-			TestEmbeddedResource(ColorProfile.AppleRGB);
-			TestEmbeddedResource(ColorProfile.CoatedFOGRA39);
-			TestEmbeddedResource(ColorProfile.ColorMatchRGB);
-			TestEmbeddedResource(ColorProfile.SRGB);
-			TestEmbeddedResource(ColorProfile.USWebCoatedSWOP);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_ICM()
-		{
-			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
-			{
-				ColorProfile profile = image.GetColorProfile();
-				Assert.IsNull(profile);
+  [TestClass]
+  public sealed class ColorProfileTests
+  {
+    private const string _Category = "ColorProfile";
 
-				image.AddProfile(new ImageProfile("icm", ColorProfile.SRGB.ToByteArray()));
-				TestProfile(image.GetColorProfile(), "icm");
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Info()
-		{
-			using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
-			{
-				image.AddProfile(ColorProfile.USWebCoatedSWOP);
+    private static void TestEmbeddedResource(ColorProfile profile)
+    {
+      Assert.IsNotNull(profile);
+      Assert.AreEqual("icc", profile.Name);
+    }
 
-				Assert.AreEqual("U.S. Web Coated (SWOP) v2", image.GetAttribute("icc:description"));
-				Assert.AreEqual("U.S. Web Coated (SWOP) v2", image.GetAttribute("icc:manufacturer"));
-				Assert.AreEqual("U.S. Web Coated (SWOP) v2", image.GetAttribute("icc:model"));
-				Assert.AreEqual("Copyright 2000 Adobe Systems, Inc.", image.GetAttribute("icc:copyright"));
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Remove()
-		{
-			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
-			{
-				ColorProfile profile = image.GetColorProfile();
-				Assert.IsNull(profile);
+    private static void TestProfile(ColorProfile profile, string name)
+    {
+      Assert.IsNotNull(profile);
+      Assert.AreEqual(name, profile.Name);
+      Assert.AreEqual(3144, profile.ToByteArray().Length);
+    }
 
-				image.AddProfile(ColorProfile.SRGB);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ColorSpace()
+    {
+      Assert.AreEqual(ColorSpace.sRGB, ColorProfile.AdobeRGB1998.ColorSpace);
+      Assert.AreEqual(ColorSpace.sRGB, ColorProfile.AppleRGB.ColorSpace);
+      Assert.AreEqual(ColorSpace.CMYK, ColorProfile.CoatedFOGRA39.ColorSpace);
+      Assert.AreEqual(ColorSpace.sRGB, ColorProfile.ColorMatchRGB.ColorSpace);
+      Assert.AreEqual(ColorSpace.sRGB, ColorProfile.SRGB.ColorSpace);
+      Assert.AreEqual(ColorSpace.CMYK, ColorProfile.USWebCoatedSWOP.ColorSpace);
+    }
 
-				Assert.IsNull(image.GetProfile("icm"));
+    [TestMethod, TestCategory(_Category)]
+    public void Test_EmbeddedResources()
+    {
+      TestEmbeddedResource(ColorProfile.AdobeRGB1998);
+      TestEmbeddedResource(ColorProfile.AppleRGB);
+      TestEmbeddedResource(ColorProfile.CoatedFOGRA39);
+      TestEmbeddedResource(ColorProfile.ColorMatchRGB);
+      TestEmbeddedResource(ColorProfile.SRGB);
+      TestEmbeddedResource(ColorProfile.USWebCoatedSWOP);
+    }
 
-				profile = image.GetColorProfile();
-				Assert.IsNotNull(profile);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ICM()
+    {
+      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      {
+        ColorProfile profile = image.GetColorProfile();
+        Assert.IsNull(profile);
 
-				image.RemoveProfile(profile.Name);
+        image.AddProfile(new ImageProfile("icm", ColorProfile.SRGB.ToByteArray()));
+        TestProfile(image.GetColorProfile(), "icm");
+      }
+    }
 
-				profile = image.GetColorProfile();
-				Assert.IsNull(profile);
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_WithImage()
-		{
-			using (MagickImage image = new MagickImage())
-			{
-				image.AddProfile(ColorProfile.USWebCoatedSWOP);
-				ExceptionAssert.Throws<MagickCacheErrorException>(delegate()
-				{
-					image.ColorSpace = ColorSpace.CMYK;
-				});
-				image.Read(Files.SnakewarePNG);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Info()
+    {
+      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      {
+        image.AddProfile(ColorProfile.USWebCoatedSWOP);
 
-				ColorProfile profile = image.GetColorProfile();
-				Assert.IsNull(profile);
+        Assert.AreEqual("U.S. Web Coated (SWOP) v2", image.GetAttribute("icc:description"));
+        Assert.AreEqual("U.S. Web Coated (SWOP) v2", image.GetAttribute("icc:manufacturer"));
+        Assert.AreEqual("U.S. Web Coated (SWOP) v2", image.GetAttribute("icc:model"));
+        Assert.AreEqual("Copyright 2000 Adobe Systems, Inc.", image.GetAttribute("icc:copyright"));
+      }
+    }
 
-				image.AddProfile(ColorProfile.SRGB);
-				TestProfile(image.GetColorProfile(), "icc");
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Remove()
+    {
+      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      {
+        ColorProfile profile = image.GetColorProfile();
+        Assert.IsNull(profile);
+
+        image.AddProfile(ColorProfile.SRGB);
+
+        Assert.IsNull(image.GetProfile("icm"));
+
+        profile = image.GetColorProfile();
+        Assert.IsNotNull(profile);
+
+        image.RemoveProfile(profile.Name);
+
+        profile = image.GetColorProfile();
+        Assert.IsNull(profile);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_WithImage()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.AddProfile(ColorProfile.USWebCoatedSWOP);
+        ExceptionAssert.Throws<MagickCacheErrorException>(delegate ()
+        {
+          image.ColorSpace = ColorSpace.CMYK;
+        });
+        image.Read(Files.SnakewarePNG);
+
+        ColorProfile profile = image.GetColorProfile();
+        Assert.IsNull(profile);
+
+        image.AddProfile(ColorProfile.SRGB);
+        TestProfile(image.GetColorProfile(), "icc");
+      }
+    }
+  }
 }

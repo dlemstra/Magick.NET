@@ -16,42 +16,38 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the ImageMagick ImageMoments object.
-	///</summary>
-	public sealed class Moments
-	{
-		//===========================================================================================
-		private Dictionary<PixelChannel, ChannelMoments> _Channels;
-		///==========================================================================================
-		/// <summary>
-		/// Initializes a new instance of the Moments class using the specified channels.
-		/// </summary>
-		/// <param name="channels">The channels of the moments.</param>
-		public Moments(Dictionary<PixelChannel, ChannelMoments> channels)
-		{
-			_Channels = channels;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Moments for the all the channels.
-		///</summary>
-		public ChannelMoments Composite()
-		{
-			return GetChannel(PixelChannel.Composite);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Moments for the specified channel.
-		///</summary>
-		public ChannelMoments GetChannel(PixelChannel channel)
-		{
-			ChannelMoments moments;
-			_Channels.TryGetValue(channel, out moments);
-			return moments;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the ImageMagick ImageMoments object.
+  ///</summary>
+  public sealed class Moments
+  {
+    private Dictionary<PixelChannel, ChannelMoments> _Channels;
+
+    /// <summary>
+    /// Initializes a new instance of the Moments class using the specified channels.
+    /// </summary>
+    /// <param name="channels">The channels of the moments.</param>
+    public Moments(Dictionary<PixelChannel, ChannelMoments> channels)
+    {
+      _Channels = channels;
+    }
+
+    ///<summary>
+    /// Moments for the all the channels.
+    ///</summary>
+    public ChannelMoments Composite()
+    {
+      return GetChannel(PixelChannel.Composite);
+    }
+
+    ///<summary>
+    /// Moments for the specified channel.
+    ///</summary>
+    public ChannelMoments GetChannel(PixelChannel channel)
+    {
+      ChannelMoments moments;
+      _Channels.TryGetValue(channel, out moments);
+      return moments;
+    }
+  }
 }

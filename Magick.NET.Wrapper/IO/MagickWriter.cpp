@@ -19,114 +19,112 @@ using namespace System::Runtime::InteropServices;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		void MagickWriter::WriteUnchecked(Magick::Blob* blob, Stream^ stream)
-		{
-			int length = (int)blob->length();
-			if (length == 0)
-				return;
+  namespace Wrapper
+  {
+    void MagickWriter::WriteUnchecked(Magick::Blob* blob, Stream^ stream)
+    {
+      int length = (int)blob->length();
+      if (length == 0)
+        return;
 
-			int bufferSize = Math::Min(length, 8192);
-			array<Byte>^ buffer = gcnew array<Byte>(bufferSize);
+      int bufferSize = Math::Min(length, 8192);
+      array<Byte>^ buffer = gcnew array<Byte>(bufferSize);
 
-			int offset = 0;
-			IntPtr ptr = IntPtr((void*)blob->data());
-			while(offset < length)
-			{
-				int count = (offset + bufferSize > length) ? length - offset : bufferSize;
+      int offset = 0;
+      IntPtr ptr = IntPtr((void*)blob->data());
+      while (offset < length)
+      {
+        int count = (offset + bufferSize > length) ? length - offset : bufferSize;
 
-				Marshal::Copy(ptr, buffer, 0, count);
+        Marshal::Copy(ptr, buffer, 0, count);
 
-				stream->Write(buffer, 0, count);
+        stream->Write(buffer, 0, count);
 
-				offset += bufferSize;
-				ptr = IntPtr(ptr.ToInt64() + count);
-			}
-		}
-		//===========================================================================================
-		MagickException^ MagickWriter::Write(Magick::Image* image, Magick::Blob* blob)
-		{
-			try
-			{
-				image->write(blob);
-				return nullptr;
-			}
-			catch (Magick::Exception& exception)
-			{
-				return ExceptionHelper::Create(exception);
-			}
-		}
-		//===========================================================================================
-		MagickException^ MagickWriter::Write(Magick::Image* image, String^ fileName)
-		{
-			Throw::IfNullOrEmpty("fileName", fileName);
+        offset += bufferSize;
+        ptr = IntPtr(ptr.ToInt64() + count);
+      }
+    }
 
-			std::string imageSpec;
-			Marshaller::Marshal(fileName, imageSpec);
+    MagickException^ MagickWriter::Write(Magick::Image* image, Magick::Blob* blob)
+    {
+      try
+      {
+        image->write(blob);
+        return nullptr;
+      }
+      catch (Magick::Exception& exception)
+      {
+        return ExceptionHelper::Create(exception);
+      }
+    }
 
-			try
-			{
-				image->write(imageSpec);
-				return nullptr;
-			}
-			catch (Magick::Exception& exception)
-			{
-				return ExceptionHelper::Create(exception);
-			}
-		}
-		//===========================================================================================
-		MagickException^ MagickWriter::Write(Magick::Image* image, Stream^ stream)
-		{
-			Throw::IfNull("stream", stream);
+    MagickException^ MagickWriter::Write(Magick::Image* image, String^ fileName)
+    {
+      Throw::IfNullOrEmpty("fileName", fileName);
 
-			Magick::Blob blob;
-			MagickException^ exception = Write(image, &blob);
-			WriteUnchecked(&blob, stream);
-			return exception;
-		}
-		//===========================================================================================
-		MagickException^ MagickWriter::Write(std::vector<Magick::Image>* imageList, Magick::Blob* blob)
-		{
-			try
-			{
-				Magick::writeImages(imageList->begin(), imageList->end(), blob, true);
-				return nullptr;
-			}
-			catch (Magick::Exception& exception)
-			{
-				return ExceptionHelper::Create(exception);
-			}
-		}
-		//===========================================================================================
-		MagickException^ MagickWriter::Write(std::vector<Magick::Image>* imageList, Stream^ stream)
-		{
-			Throw::IfNull("stream", stream);
+      std::string imageSpec;
+      Marshaller::Marshal(fileName, imageSpec);
 
-			Magick::Blob blob;
-			MagickException^ exception = Write(imageList, &blob);
-			WriteUnchecked(&blob, stream);
-			return exception;
-		}
-		//===========================================================================================
-		MagickException^ MagickWriter::Write(std::vector<Magick::Image>* imageList, String^ fileName)
-		{
-			Throw::IfNullOrEmpty("fileName", fileName);
+      try
+      {
+        image->write(imageSpec);
+        return nullptr;
+      }
+      catch (Magick::Exception& exception)
+      {
+        return ExceptionHelper::Create(exception);
+      }
+    }
 
-			std::string imageSpec;
-			Marshaller::Marshal(fileName, imageSpec);
+    MagickException^ MagickWriter::Write(Magick::Image* image, Stream^ stream)
+    {
+      Throw::IfNull("stream", stream);
 
-			try
-			{
-				Magick::writeImages(imageList->begin(), imageList->end(), imageSpec, true);
-				return nullptr;
-			}
-			catch (Magick::Exception& exception)
-			{
-				return ExceptionHelper::Create(exception);
-			}
-		}
-		//===========================================================================================
-	}
+      Magick::Blob blob;
+      MagickException^ exception = Write(image, &blob);
+      WriteUnchecked(&blob, stream);
+      return exception;
+    }
+
+    MagickException^ MagickWriter::Write(std::vector<Magick::Image>* imageList, Magick::Blob* blob)
+    {
+      try
+      {
+        Magick::writeImages(imageList->begin(), imageList->end(), blob, true);
+        return nullptr;
+      }
+      catch (Magick::Exception& exception)
+      {
+        return ExceptionHelper::Create(exception);
+      }
+    }
+
+    MagickException^ MagickWriter::Write(std::vector<Magick::Image>* imageList, Stream^ stream)
+    {
+      Throw::IfNull("stream", stream);
+
+      Magick::Blob blob;
+      MagickException^ exception = Write(imageList, &blob);
+      WriteUnchecked(&blob, stream);
+      return exception;
+    }
+
+    MagickException^ MagickWriter::Write(std::vector<Magick::Image>* imageList, String^ fileName)
+    {
+      Throw::IfNullOrEmpty("fileName", fileName);
+
+      std::string imageSpec;
+      Marshaller::Marshal(fileName, imageSpec);
+
+      try
+      {
+        Magick::writeImages(imageList->begin(), imageList->end(), imageSpec, true);
+        return nullptr;
+      }
+      catch (Magick::Exception& exception)
+      {
+        return ExceptionHelper::Create(exception);
+      }
+    }
+  }
 }

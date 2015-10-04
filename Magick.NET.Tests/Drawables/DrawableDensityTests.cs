@@ -19,45 +19,41 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class DrawableDensityTests
-	{
-		//===========================================================================================
-		private const string _Category = "DrawableDensityTests";
-		//===========================================================================================
-		private MagickImage CreateImage(int? density)
-		{
-			MagickImage image = new MagickImage(Color.Purple, 500, 500);
-			DrawablePointSize pointSize = new DrawablePointSize(20);
-			DrawableText text = new DrawableText(250, 250, "Magick.NET");
+  [TestClass]
+  public class DrawableDensityTests
+  {
+    private const string _Category = "DrawableDensityTests";
 
-			if (!density.HasValue)
-				image.Draw(pointSize, text);
-			else
-				image.Draw(pointSize, new DrawableDensity(density.Value), text);
+    private MagickImage CreateImage(int? density)
+    {
+      MagickImage image = new MagickImage(Color.Purple, 500, 500);
+      DrawablePointSize pointSize = new DrawablePointSize(20);
+      DrawableText text = new DrawableText(250, 250, "Magick.NET");
 
-			image.Trim();
+      if (!density.HasValue)
+        image.Draw(pointSize, text);
+      else
+        image.Draw(pointSize, new DrawableDensity(density.Value), text);
 
-			return image;
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_ImageSize()
-		{
-			using (MagickImage image = CreateImage(null))
-			{
-				Assert.AreEqual(107, image.Width);
-				Assert.AreEqual(19, image.Height);
-			}
+      image.Trim();
 
-			using (MagickImage image = CreateImage(97))
-			{
-				Assert.AreEqual(146, image.Width);
-				Assert.AreEqual(24, image.Height);
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      return image;
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ImageSize()
+    {
+      using (MagickImage image = CreateImage(null))
+      {
+        Assert.AreEqual(107, image.Width);
+        Assert.AreEqual(19, image.Height);
+      }
+
+      using (MagickImage image = CreateImage(97))
+      {
+        Assert.AreEqual(146, image.Width);
+        Assert.AreEqual(24, image.Height);
+      }
+    }
+  }
 }

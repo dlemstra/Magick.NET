@@ -22,145 +22,141 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public sealed class XmpProfileTests
-	{
-		//===========================================================================================
-		private const string _Category = "XmpProfile";
-		//===========================================================================================
-		private static void TestIXPathNavigable(IXPathNavigable document)
-		{
-			Assert.IsNotNull(document);
+  [TestClass]
+  public sealed class XmpProfileTests
+  {
+    private const string _Category = "XmpProfile";
 
-			XPathNavigator navigator = document.CreateNavigator();
-			navigator.MoveToRoot();
-			Assert.IsTrue(navigator.MoveToChild(XPathNodeType.Element));
-			Assert.IsTrue(navigator.MoveToChild(XPathNodeType.Element));
-			Assert.IsTrue(navigator.MoveToChild(XPathNodeType.Element));
-			int i = 0;
-			while (navigator.MoveToNext(XPathNodeType.Element))
-				i++;
-			Assert.AreEqual(4, i);
-		}
-		//===========================================================================================
+    private static void TestIXPathNavigable(IXPathNavigable document)
+    {
+      Assert.IsNotNull(document);
+
+      XPathNavigator navigator = document.CreateNavigator();
+      navigator.MoveToRoot();
+      Assert.IsTrue(navigator.MoveToChild(XPathNodeType.Element));
+      Assert.IsTrue(navigator.MoveToChild(XPathNodeType.Element));
+      Assert.IsTrue(navigator.MoveToChild(XPathNodeType.Element));
+      int i = 0;
+      while (navigator.MoveToNext(XPathNodeType.Element))
+        i++;
+      Assert.AreEqual(4, i);
+    }
+
 #if !(NET20)
-		private static void TestXDocument(XDocument document)
-		{
-			Assert.IsNotNull(document);
-			Assert.AreEqual(5, document.Root.Elements().First().Elements().Count());
-		}
+    private static void TestXDocument(XDocument document)
+    {
+      Assert.IsNotNull(document);
+      Assert.AreEqual(5, document.Root.Elements().First().Elements().Count());
+    }
 #endif
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_CreateReader()
-		{
-			using (MagickImage image = new MagickImage(Files.InvitationTif))
-			{
-				XmpProfile profile = image.GetXmpProfile();
-				Assert.IsNotNull(profile);
 
-				using (XmlReader reader = profile.CreateReader())
-				{
-					XmlDocument doc = new XmlDocument();
-					doc.Load(reader);
-					TestIXPathNavigable(doc);
-				}
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_FromIXPathNavigable()
-		{
-			using (MagickImage image = new MagickImage(Files.InvitationTif))
-			{
-				XmpProfile profile = image.GetXmpProfile();
-				Assert.IsNotNull(profile);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_CreateReader()
+    {
+      using (MagickImage image = new MagickImage(Files.InvitationTif))
+      {
+        XmpProfile profile = image.GetXmpProfile();
+        Assert.IsNotNull(profile);
 
-				IXPathNavigable doc = profile.ToIXPathNavigable();
+        using (XmlReader reader = profile.CreateReader())
+        {
+          XmlDocument doc = new XmlDocument();
+          doc.Load(reader);
+          TestIXPathNavigable(doc);
+        }
+      }
+    }
 
-				ExceptionAssert.Throws<ArgumentNullException>(delegate()
-				{
-					XmpProfile.FromIXPathNavigable(null);
-				});
+    [TestMethod, TestCategory(_Category)]
+    public void Test_FromIXPathNavigable()
+    {
+      using (MagickImage image = new MagickImage(Files.InvitationTif))
+      {
+        XmpProfile profile = image.GetXmpProfile();
+        Assert.IsNotNull(profile);
 
-				XmpProfile newProfile = XmpProfile.FromIXPathNavigable(doc);
-				image.AddProfile(newProfile);
+        IXPathNavigable doc = profile.ToIXPathNavigable();
 
-				doc = profile.ToIXPathNavigable();
-				TestIXPathNavigable(doc);
+        ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+        {
+          XmpProfile.FromIXPathNavigable(null);
+        });
 
-				profile = image.GetXmpProfile();
-				Assert.IsNotNull(profile);
+        XmpProfile newProfile = XmpProfile.FromIXPathNavigable(doc);
+        image.AddProfile(newProfile);
 
-				doc = profile.ToIXPathNavigable();
-				TestIXPathNavigable(doc);
+        doc = profile.ToIXPathNavigable();
+        TestIXPathNavigable(doc);
 
-				Assert.AreEqual(profile, newProfile);
-			}
-		}
-		//===========================================================================================
+        profile = image.GetXmpProfile();
+        Assert.IsNotNull(profile);
+
+        doc = profile.ToIXPathNavigable();
+        TestIXPathNavigable(doc);
+
+        Assert.AreEqual(profile, newProfile);
+      }
+    }
+
 #if !(NET20)
-		[TestMethod, TestCategory(_Category)]
-		public void Test_FromXDocument()
-		{
-			using (MagickImage image = new MagickImage(Files.InvitationTif))
-			{
-				XmpProfile profile = image.GetXmpProfile();
-				Assert.IsNotNull(profile);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_FromXDocument()
+    {
+      using (MagickImage image = new MagickImage(Files.InvitationTif))
+      {
+        XmpProfile profile = image.GetXmpProfile();
+        Assert.IsNotNull(profile);
 
-				XDocument doc = profile.ToXDocument();
+        XDocument doc = profile.ToXDocument();
 
-				ExceptionAssert.Throws<ArgumentNullException>(delegate()
-				{
-					XmpProfile.FromXDocument(null);
-				});
+        ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+        {
+          XmpProfile.FromXDocument(null);
+        });
 
-				XmpProfile newProfile = XmpProfile.FromXDocument(doc);
-				image.AddProfile(newProfile);
+        XmpProfile newProfile = XmpProfile.FromXDocument(doc);
+        image.AddProfile(newProfile);
 
-				doc = profile.ToXDocument();
-				TestXDocument(doc);
+        doc = profile.ToXDocument();
+        TestXDocument(doc);
 
-				profile = image.GetXmpProfile();
-				Assert.IsNotNull(profile);
+        profile = image.GetXmpProfile();
+        Assert.IsNotNull(profile);
 
-				doc = profile.ToXDocument();
-				TestXDocument(doc);
+        doc = profile.ToXDocument();
+        TestXDocument(doc);
 
-				Assert.AreEqual(profile, newProfile);
-			}
-		}
+        Assert.AreEqual(profile, newProfile);
+      }
+    }
 #endif
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_ToIXPathNavigable()
-		{
-			using (MagickImage image = new MagickImage(Files.InvitationTif))
-			{
-				XmpProfile profile = image.GetXmpProfile();
-				Assert.IsNotNull(profile);
 
-				IXPathNavigable doc = profile.ToIXPathNavigable();
-				TestIXPathNavigable(doc);
-			}
-		}
-		//===========================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ToIXPathNavigable()
+    {
+      using (MagickImage image = new MagickImage(Files.InvitationTif))
+      {
+        XmpProfile profile = image.GetXmpProfile();
+        Assert.IsNotNull(profile);
+
+        IXPathNavigable doc = profile.ToIXPathNavigable();
+        TestIXPathNavigable(doc);
+      }
+    }
+
 #if !(NET20)
-		[TestMethod, TestCategory(_Category)]
-		public void Test_ToXDocument()
-		{
-			using (MagickImage image = new MagickImage(Files.InvitationTif))
-			{
-				XmpProfile profile = image.GetXmpProfile();
-				Assert.IsNotNull(profile);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ToXDocument()
+    {
+      using (MagickImage image = new MagickImage(Files.InvitationTif))
+      {
+        XmpProfile profile = image.GetXmpProfile();
+        Assert.IsNotNull(profile);
 
-				XDocument document = profile.ToXDocument();
-				TestXDocument(document);
-			}
-		}
+        XDocument document = profile.ToXDocument();
+        TestXDocument(document);
+      }
+    }
 #endif
-		//===========================================================================================
-	}
-	//==============================================================================================
+  }
 }

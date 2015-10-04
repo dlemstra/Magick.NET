@@ -21,54 +21,48 @@ using namespace System::Runtime::InteropServices;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		[UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]
-		private delegate void MagickLogFuncDelegate(const Magick::LogEventType type, const char* text);
-		//===========================================================================================
-		private delegate void MagickLogDelegate(LogEvents type, String^ text);
-		//===========================================================================================
-		private ref class MagickNET abstract sealed
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			static MagickLogFuncDelegate^ _InternalLogDelegate;
-			static MagickLogDelegate^ _ExternalLogDelegate;
-			static Nullable<bool> _UseOpenCL;
-			//========================================================================================
-			static void OnLog(const Magick::LogEventType type, const char* text);
-			//========================================================================================
-			static bool SetUseOpenCL(bool value);
-			//========================================================================================
-		public:
-			//========================================================================================
-			static property String^ Features
-			{
-				String^ get();
-			}
-			//========================================================================================
-			static property IEnumerable<MagickFormatInfo^>^ SupportedFormats
-			{
-				IEnumerable<MagickFormatInfo^>^ get();
-			}
-			//========================================================================================
-			static property bool UseOpenCL
-			{
-				bool get();
-				void set(bool value);
-			}
-			//========================================================================================
-			static MagickFormatInfo^ GetFormatInformation(MagickFormat format);
-			//========================================================================================
-			static void SetEnv(String^ name, String^ value);
-			//========================================================================================
-			static void SetLogDelegate(MagickLogDelegate^ logDelegate);
-			//========================================================================================
-			static void SetLogEvents(String^ events);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]
+    private delegate void MagickLogFuncDelegate(const Magick::LogEventType type, const char* text);
+
+    private delegate void MagickLogDelegate(LogEvents type, String^ text);
+
+    private ref class MagickNET abstract sealed
+    {
+    private:
+      static MagickLogFuncDelegate^ _InternalLogDelegate;
+      static MagickLogDelegate^ _ExternalLogDelegate;
+      static Nullable<bool> _UseOpenCL;
+
+      static void OnLog(const Magick::LogEventType type, const char* text);
+
+      static bool SetUseOpenCL(bool value);
+
+    public:
+      static property String^ Features
+      {
+        String^ get();
+      }
+
+      static property IEnumerable<MagickFormatInfo^>^ SupportedFormats
+      {
+        IEnumerable<MagickFormatInfo^>^ get();
+      }
+
+      static property bool UseOpenCL
+      {
+        bool get();
+        void set(bool value);
+      }
+
+      static MagickFormatInfo^ GetFormatInformation(MagickFormat format);
+
+      static void SetEnv(String^ name, String^ value);
+
+      static void SetLogDelegate(MagickLogDelegate^ logDelegate);
+
+      static void SetLogEvents(String^ events);
+    };
+  }
 }

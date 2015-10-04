@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableTextKerning object.
-	///</summary>
-	public interface IDrawableTextKerning : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// Kerning to use.
-		///</summary>
-		double Kerning
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableTextKerning object.
+  ///</summary>
+  public interface IDrawableTextKerning : IDrawable
+  {
+    ///<summary>
+    /// Kerning to use.
+    ///</summary>
+    double Kerning
+    {
+      get;
+    }
+  }
 }

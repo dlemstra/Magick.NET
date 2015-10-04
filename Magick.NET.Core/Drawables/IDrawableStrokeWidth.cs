@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableStrokeWidth object.
-	///</summary>
-	public interface IDrawableStrokeWidth : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The width.
-		///</summary>
-		double Width
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableStrokeWidth object.
+  ///</summary>
+  public interface IDrawableStrokeWidth : IDrawable
+  {
+    ///<summary>
+    /// The width.
+    ///</summary>
+    double Width
+    {
+      get;
+    }
+  }
 }

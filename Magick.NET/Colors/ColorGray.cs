@@ -26,82 +26,78 @@ using QuantumType = System.UInt16;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class that represents a gray color.
-	///</summary>
-	public sealed class ColorGray : ColorBase
-	{
-		//===========================================================================================
-		private double _Shade;
-		//===========================================================================================
-		private ColorGray(MagickColor color)
-			: base(color)
-		{
-			_Shade = Quantum.Scale(color.R);
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Updates the color value in an inherited class.
-		/// </summary>
-		protected override void UpdateValue()
-		{
-			QuantumType gray = Quantum.Scale(Shade);
-			Value.R = gray;
-			Value.G = gray;
-			Value.B = gray;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the ColorGray class.
-		///</summary>
-		///<param name="shade">Value between 0.0 - 1.0.</param>
-		public ColorGray(double shade)
-			: base(new MagickColor(0, 0, 0))
-		{
-			Throw.IfTrue("shade", shade < 0.0 || shade > 1.0, "Invalid shade specified");
+  ///<summary>
+  /// Class that represents a gray color.
+  ///</summary>
+  public sealed class ColorGray : ColorBase
+  {
+    private double _Shade;
 
-			Shade = shade;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The shade of this color (value between 0.0 - 1.0).
-		///</summary>
-		public double Shade
-		{
-			get
-			{
-				return _Shade;
-			}
-			set
-			{
-				if (value < 0.0 || value > 1.0)
-					return;
+    private ColorGray(MagickColor color)
+      : base(color)
+    {
+      _Shade = Quantum.Scale(color.R);
+    }
 
-				_Shade = value;
-			}
-		}
+    /// <summary>
+    /// Updates the color value in an inherited class.
+    /// </summary>
+    protected override void UpdateValue()
+    {
+      QuantumType gray = Quantum.Scale(Shade);
+      Value.R = gray;
+      Value.G = gray;
+      Value.B = gray;
+    }
 
-		///==========================================================================================
-		///<summary>
-		/// Converts the specified MagickColor to an instance of this type.
-		///</summary>
-		public static implicit operator ColorGray(MagickColor color)
-		{
-			return FromMagickColor(color);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Converts the specified MagickColor to an instance of this type.
-		///</summary>
-		public static ColorGray FromMagickColor(MagickColor color)
-		{
-			if (color == null)
-				return null;
+    ///<summary>
+    /// Initializes a new instance of the ColorGray class.
+    ///</summary>
+    ///<param name="shade">Value between 0.0 - 1.0.</param>
+    public ColorGray(double shade)
+      : base(new MagickColor(0, 0, 0))
+    {
+      Throw.IfTrue("shade", shade < 0.0 || shade > 1.0, "Invalid shade specified");
 
-			return new ColorGray(color);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      Shade = shade;
+    }
+
+    ///<summary>
+    /// The shade of this color (value between 0.0 - 1.0).
+    ///</summary>
+    public double Shade
+    {
+      get
+      {
+        return _Shade;
+      }
+      set
+      {
+        if (value < 0.0 || value > 1.0)
+          return;
+
+        _Shade = value;
+      }
+    }
+
+
+    ///<summary>
+    /// Converts the specified MagickColor to an instance of this type.
+    ///</summary>
+    public static implicit operator ColorGray(MagickColor color)
+    {
+      return FromMagickColor(color);
+    }
+
+    ///<summary>
+    /// Converts the specified MagickColor to an instance of this type.
+    ///</summary>
+    public static ColorGray FromMagickColor(MagickColor color)
+    {
+      if (color == null)
+        return null;
+
+      return new ColorGray(color);
+    }
+  }
 }

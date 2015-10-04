@@ -12,49 +12,43 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.Linq;
-using System.Text;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class EightBimValueTests
-	{
-		//===========================================================================================
-		private const string _Category = "EightBimValue";
-		//===========================================================================================
-		private static EightBimValue Get8BimValue()
-		{
-			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-			{
-				EightBimProfile profile = image.Get8BimProfile();
-				return profile.Values.First();
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
-		{
-			EightBimValue first = Get8BimValue();
-			EightBimValue second = Get8BimValue();
+  [TestClass]
+  public class EightBimValueTests
+  {
+    private const string _Category = "EightBimValue";
 
-			Assert.IsTrue(first == second);
-			Assert.IsTrue(first.Equals(second));
-			Assert.IsTrue(first.Equals((object)second));
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_ToByteArray()
-		{
-			EightBimValue value = Get8BimValue();
-			byte[] bytes = value.ToByteArray();
-			Assert.AreEqual(273, bytes.Length);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    private static EightBimValue Get8BimValue()
+    {
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      {
+        EightBimProfile profile = image.Get8BimProfile();
+        return profile.Values.First();
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IEquatable()
+    {
+      EightBimValue first = Get8BimValue();
+      EightBimValue second = Get8BimValue();
+
+      Assert.IsTrue(first == second);
+      Assert.IsTrue(first.Equals(second));
+      Assert.IsTrue(first.Equals((object)second));
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ToByteArray()
+    {
+      EightBimValue value = Get8BimValue();
+      byte[] bytes = value.ToByteArray();
+      Assert.AreEqual(273, bytes.Length);
+    }
+  }
 }

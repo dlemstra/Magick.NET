@@ -14,45 +14,41 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableRectangle object.
-	///</summary>
-	public interface IDrawableRectangle : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The upper left X coordinate.
-		///</summary>
-		double LowerRightX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The upper left Y coordinate.
-		///</summary>
-		double LowerRightY
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The upper left X coordinate.
-		///</summary>
-		double UpperLeftX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The upper left Y coordinate.
-		///</summary>
-		double UpperLeftY
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableRectangle object.
+  ///</summary>
+  public interface IDrawableRectangle : IDrawable
+  {
+    ///<summary>
+    /// The upper left X coordinate.
+    ///</summary>
+    double LowerRightX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The upper left Y coordinate.
+    ///</summary>
+    double LowerRightY
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The upper left X coordinate.
+    ///</summary>
+    double UpperLeftX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The upper left Y coordinate.
+    ///</summary>
+    double UpperLeftY
+    {
+      get;
+    }
+  }
 }

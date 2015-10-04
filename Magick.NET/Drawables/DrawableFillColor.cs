@@ -17,48 +17,44 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableColor object.
-	///</summary>
-	public sealed class DrawableFillColor : IDrawableFillColor
-	{
-		//===========================================================================================
-		Internal.IMagickColor IDrawableFillColor.Color
-		{
-			get
-			{
-				return MagickColor.GetInstance(Color);
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableFillColor instance.
-		///</summary>
-		///<param name="color">The color to use.</param>
-		public DrawableFillColor(Color color)
-			: this(new MagickColor(color))
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableFillColor instance.
-		///</summary>
-		///<param name="color">The color to use.</param>
-		public DrawableFillColor(MagickColor color)
-		{
-			Color = color;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The color to use.
-		///</summary>
-		public MagickColor Color
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableColor object.
+  ///</summary>
+  public sealed class DrawableFillColor : IDrawableFillColor
+  {
+    Internal.IMagickColor IDrawableFillColor.Color
+    {
+      get
+      {
+        return MagickColor.GetInstance(Color);
+      }
+    }
+
+    ///<summary>
+    /// Creates a new DrawableFillColor instance.
+    ///</summary>
+    ///<param name="color">The color to use.</param>
+    public DrawableFillColor(Color color)
+      : this(new MagickColor(color))
+    {
+    }
+
+    ///<summary>
+    /// Creates a new DrawableFillColor instance.
+    ///</summary>
+    ///<param name="color">The color to use.</param>
+    public DrawableFillColor(MagickColor color)
+    {
+      Color = color;
+    }
+
+    ///<summary>
+    /// The color to use.
+    ///</summary>
+    public MagickColor Color
+    {
+      get;
+      set;
+    }
+  }
 }

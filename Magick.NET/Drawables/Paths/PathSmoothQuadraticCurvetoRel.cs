@@ -18,31 +18,27 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathSmoothQuadraticCurvetoRel object.
-	///</summary>
-	public sealed class PathSmoothQuadraticCurvetoRel : DrawableCoordinates<Coordinate>, IPathSmoothQuadraticCurvetoRel
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathSmoothQuadraticCurvetoRel class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathSmoothQuadraticCurvetoRel(params Coordinate[] coordinates)
-			: base(coordinates)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathSmoothQuadraticCurvetoRel class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathSmoothQuadraticCurvetoRel(IEnumerable<Coordinate> coordinates)
-			: base(coordinates)
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathSmoothQuadraticCurvetoRel object.
+  ///</summary>
+  public sealed class PathSmoothQuadraticCurvetoRel : DrawableCoordinates<Coordinate>, IPathSmoothQuadraticCurvetoRel
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathSmoothQuadraticCurvetoRel class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathSmoothQuadraticCurvetoRel(params Coordinate[] coordinates)
+      : base(coordinates)
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathSmoothQuadraticCurvetoRel class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathSmoothQuadraticCurvetoRel(IEnumerable<Coordinate> coordinates)
+      : base(coordinates)
+    {
+    }
+  }
 }

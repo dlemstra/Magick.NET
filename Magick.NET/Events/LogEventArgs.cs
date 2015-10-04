@@ -16,37 +16,33 @@ using System;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// EventArgs for Log events.
-	///</summary>
-	public sealed class LogEventArgs : EventArgs
-	{
-		//===========================================================================================
-		internal LogEventArgs(LogEvents eventType, string message)
-		{
-			EventType = eventType;
-			Message = message;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Type of the log message.
-		///</summary>
-		public LogEvents EventType
-		{
-			get;
-			private set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Type of the log message.
-		///</summary>
-		public string Message
-		{
-			get;
-			private set;
-		}
-		//===========================================================================================
-	};
-	//==============================================================================================
+  ///<summary>
+  /// EventArgs for Log events.
+  ///</summary>
+  public sealed class LogEventArgs : EventArgs
+  {
+    internal LogEventArgs(LogEvents eventType, string message)
+    {
+      EventType = eventType;
+      Message = message;
+    }
+
+    ///<summary>
+    /// Type of the log message.
+    ///</summary>
+    public LogEvents EventType
+    {
+      get;
+      private set;
+    }
+
+    ///<summary>
+    /// Type of the log message.
+    ///</summary>
+    public string Message
+    {
+      get;
+      private set;
+    }
+  }
 }

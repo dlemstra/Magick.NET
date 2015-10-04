@@ -19,33 +19,29 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathSmoothCurvetoAbs object.
-	///</summary>
-	public sealed class PathSmoothCurvetoAbs : DrawableCoordinates<Coordinate>, IPathSmoothCurvetoAbs
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathSmoothCurvetoAbs class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathSmoothCurvetoAbs(params Coordinate[] coordinates)
-			: base(coordinates)
-		{
-			CheckCoordinateCount(2);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathSmoothCurvetoAbs class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathSmoothCurvetoAbs(IEnumerable<Coordinate> coordinates)
-			: base(coordinates)
-		{
-			CheckCoordinateCount(2);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathSmoothCurvetoAbs object.
+  ///</summary>
+  public sealed class PathSmoothCurvetoAbs : DrawableCoordinates<Coordinate>, IPathSmoothCurvetoAbs
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathSmoothCurvetoAbs class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathSmoothCurvetoAbs(params Coordinate[] coordinates)
+      : base(coordinates)
+    {
+      CheckCoordinateCount(2);
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathSmoothCurvetoAbs class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathSmoothCurvetoAbs(IEnumerable<Coordinate> coordinates)
+      : base(coordinates)
+    {
+      CheckCoordinateCount(2);
+    }
+  }
 }

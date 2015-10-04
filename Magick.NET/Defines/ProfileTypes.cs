@@ -16,43 +16,40 @@ using System;
 
 namespace ImageMagick.Defines
 {
-	///=============================================================================================
-	///<summary>
-	/// Specifies profile types
-	///</summary>
-	[Flags]
-	public enum ProfileTypes
-	{
-		///==========================================================================================
-		/// <summary>
-		/// App profile
-		/// </summary>
-		App = 0,
-		///==========================================================================================
-		/// <summary>
-		/// 8bim profile
-		/// </summary>
-		EightBim = 1,
-		///==========================================================================================
-		/// <summary>
-		/// Exif profile
-		/// </summary>
-		Exif = 2,
-		///==========================================================================================
-		/// <summary>
-		/// Icc profile
-		/// </summary>
-		Icc = 4,
-		///==========================================================================================
-		/// <summary>
-		/// Iptc profile
-		/// </summary>
-		Iptc = 8,
-		///==========================================================================================
-		/// <summary>
-		/// Iptc profile
-		/// </summary>
-		Xmp = 16,
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Specifies profile types
+  ///</summary>
+  [Flags]
+  public enum ProfileTypes
+  {
+    /// <summary>
+    /// App profile
+    /// </summary>
+    App = 0,
+
+    /// <summary>
+    /// 8bim profile
+    /// </summary>
+    EightBim = 1,
+
+    /// <summary>
+    /// Exif profile
+    /// </summary>
+    Exif = 2,
+
+    /// <summary>
+    /// Icc profile
+    /// </summary>
+    Icc = 4,
+
+    /// <summary>
+    /// Iptc profile
+    /// </summary>
+    Iptc = 8,
+
+    /// <summary>
+    /// Iptc profile
+    /// </summary>
+    Xmp = 16,
+  }
 }

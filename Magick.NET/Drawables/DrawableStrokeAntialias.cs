@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableStrokeAntialias object.
-	///</summary>
-	public sealed class DrawableStrokeAntialias : IDrawableStrokeAntialias
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableStrokeAntialias instance.
-		///</summary>
-		///<param name="isEnabled">True if stroke antialiasing is enabled otherwise false.</param>
-		public DrawableStrokeAntialias(bool isEnabled)
-		{
-			IsEnabled = isEnabled;
-		}
-		///==========================================================================================
-		///<summary>
-		/// True if stroke antialiasing is enabled otherwise false.
-		///</summary>
-		public bool IsEnabled
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableStrokeAntialias object.
+  ///</summary>
+  public sealed class DrawableStrokeAntialias : IDrawableStrokeAntialias
+  {
+    ///<summary>
+    /// Creates a new DrawableStrokeAntialias instance.
+    ///</summary>
+    ///<param name="isEnabled">True if stroke antialiasing is enabled otherwise false.</param>
+    public DrawableStrokeAntialias(bool isEnabled)
+    {
+      IsEnabled = isEnabled;
+    }
+
+    ///<summary>
+    /// True if stroke antialiasing is enabled otherwise false.
+    ///</summary>
+    public bool IsEnabled
+    {
+      get;
+      set;
+    }
+  }
 }

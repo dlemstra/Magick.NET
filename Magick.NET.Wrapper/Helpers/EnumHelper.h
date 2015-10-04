@@ -17,23 +17,17 @@ using namespace System::Collections::Generic;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class EnumHelper abstract sealed
-		{
-			//========================================================================================
-		public:
-			//========================================================================================
-			generic<typename TEnum>
-			where TEnum: value class, ValueType
-			static IEnumerable<TEnum>^ GetFlags(TEnum value);
-			//========================================================================================
-			generic<typename TEnum>
-			where TEnum : value class, ValueType
-			static TEnum Parse(String^ value, TEnum defaultValue);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class EnumHelper abstract sealed
+    {
+    public:
+
+      generic<typename TEnum> where TEnum : value class, ValueType
+        static IEnumerable<TEnum>^ GetFlags(TEnum value);
+
+      generic<typename TEnum> where TEnum : value class, ValueType
+        static TEnum Parse(String^ value, TEnum defaultValue);
+    };
+  }
 }

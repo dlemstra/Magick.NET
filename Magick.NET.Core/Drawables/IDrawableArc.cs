@@ -14,61 +14,57 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableArc object.
-	///</summary>
-	public interface IDrawableArc: IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The ending degrees of rotation.
-		///</summary>
-		double EndDegrees
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The ending X coordinate of the bounding rectangle.
-		///</summary>
-		double EndX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The ending Y coordinate of the bounding rectangle.
-		///</summary>
-		double EndY
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The starting degrees of rotation.
-		///</summary>
-		double StartDegrees
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The starting X coordinate of the bounding rectangle.
-		///</summary>
-		double StartX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The starting Y coordinate of the bounding rectangle.
-		///</summary>
-		double StartY
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableArc object.
+  ///</summary>
+  public interface IDrawableArc : IDrawable
+  {
+    ///<summary>
+    /// The ending degrees of rotation.
+    ///</summary>
+    double EndDegrees
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The ending X coordinate of the bounding rectangle.
+    ///</summary>
+    double EndX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The ending Y coordinate of the bounding rectangle.
+    ///</summary>
+    double EndY
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The starting degrees of rotation.
+    ///</summary>
+    double StartDegrees
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The starting X coordinate of the bounding rectangle.
+    ///</summary>
+    double StartX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The starting Y coordinate of the bounding rectangle.
+    ///</summary>
+    double StartY
+    {
+      get;
+    }
+  }
 }

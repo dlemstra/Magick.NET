@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableDashOffset object.
-	///</summary>
-	public sealed class DrawableDashOffset : IDrawableDashOffset
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableDashOffset instance.
-		///</summary>
-		///<param name="offset">The dash offset.</param>
-		public DrawableDashOffset(double offset)
-		{
-			Offset = offset;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The dash offset.
-		///</summary>
-		public double Offset
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableDashOffset object.
+  ///</summary>
+  public sealed class DrawableDashOffset : IDrawableDashOffset
+  {
+    ///<summary>
+    /// Creates a new DrawableDashOffset instance.
+    ///</summary>
+    ///<param name="offset">The dash offset.</param>
+    public DrawableDashOffset(double offset)
+    {
+      Offset = offset;
+    }
+
+    ///<summary>
+    /// The dash offset.
+    ///</summary>
+    public double Offset
+    {
+      get;
+      set;
+    }
+  }
 }

@@ -16,42 +16,38 @@ using System;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Arguments for the Warning event.
-	///</summary>
-	public sealed class WarningEventArgs : EventArgs
-	{
-		///==========================================================================================
-		/// <summary>
-		/// Initializes a new instance of the WarningEventArgs class.
-		/// </summary>
-		/// <param name="exception">The MagickWarningException that was thrown.</param>
-		public WarningEventArgs(MagickWarningException exception)
-		{
-			Exception = exception;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The message of the exception
-		/// </summary>
-		public string Message
-		{
-			get
-			{
-				return Exception.Message;
-			}
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The MagickWarningException that was thrown
-		/// </summary>
-		public MagickWarningException Exception
-		{
-			get;
-			private set;
-		}
-		//===========================================================================================
-	};
-	//==============================================================================================
+  ///<summary>
+  /// Arguments for the Warning event.
+  ///</summary>
+  public sealed class WarningEventArgs : EventArgs
+  {
+    /// <summary>
+    /// Initializes a new instance of the WarningEventArgs class.
+    /// </summary>
+    /// <param name="exception">The MagickWarningException that was thrown.</param>
+    public WarningEventArgs(MagickWarningException exception)
+    {
+      Exception = exception;
+    }
+
+    /// <summary>
+    /// The message of the exception
+    /// </summary>
+    public string Message
+    {
+      get
+      {
+        return Exception.Message;
+      }
+    }
+
+    /// <summary>
+    /// The MagickWarningException that was thrown
+    /// </summary>
+    public MagickWarningException Exception
+    {
+      get;
+      private set;
+    }
+  }
 }

@@ -18,31 +18,27 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathMovetoRel object.
-	///</summary>
-	public sealed class PathMovetoRel : DrawableCoordinates<Coordinate>, IPathMovetoRel
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathMovetoRel class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathMovetoRel(params Coordinate[] coordinates)
-			: base(coordinates)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathMovetoRel class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathMovetoRel(IEnumerable<Coordinate> coordinates)
-			: base(coordinates)
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathMovetoRel object.
+  ///</summary>
+  public sealed class PathMovetoRel : DrawableCoordinates<Coordinate>, IPathMovetoRel
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathMovetoRel class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathMovetoRel(params Coordinate[] coordinates)
+      : base(coordinates)
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathMovetoRel class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathMovetoRel(IEnumerable<Coordinate> coordinates)
+      : base(coordinates)
+    {
+    }
+  }
 }

@@ -16,40 +16,36 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableDensity object.
-	///</summary>
-	public sealed class DrawableDensity : IDrawableDensity
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableDensity instance.
-		///</summary>
-		///<param name="density">The vertical and horizontal resolution.</param>
-		public DrawableDensity(double density)
-		{
-			Density = new PointD(density);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableDensity instance.
-		///</summary>
-		///<param name="pointDensity">The vertical and horizontal resolution.</param>
-		public DrawableDensity(PointD pointDensity)
-		{
-			Density = pointDensity;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The vertical and horizontal resolution.
-		///</summary>
-		public PointD Density
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableDensity object.
+  ///</summary>
+  public sealed class DrawableDensity : IDrawableDensity
+  {
+    ///<summary>
+    /// Creates a new DrawableDensity instance.
+    ///</summary>
+    ///<param name="density">The vertical and horizontal resolution.</param>
+    public DrawableDensity(double density)
+    {
+      Density = new PointD(density);
+    }
+
+    ///<summary>
+    /// Creates a new DrawableDensity instance.
+    ///</summary>
+    ///<param name="pointDensity">The vertical and horizontal resolution.</param>
+    public DrawableDensity(PointD pointDensity)
+    {
+      Density = pointDensity;
+    }
+
+    ///<summary>
+    /// The vertical and horizontal resolution.
+    ///</summary>
+    public PointD Density
+    {
+      get;
+      set;
+    }
+  }
 }

@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableFillRule object.
-	///</summary>
-	public sealed class DrawableFillRule : IDrawableFillRule
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableFillRule instance.
-		///</summary>
-		///<param name="fillRule">The rule to use when filling drawn objects.</param>
-		public DrawableFillRule(FillRule fillRule)
-		{
-			FillRule = fillRule;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The rule to use when filling drawn objects.
-		///</summary>
-		public FillRule FillRule
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableFillRule object.
+  ///</summary>
+  public sealed class DrawableFillRule : IDrawableFillRule
+  {
+    ///<summary>
+    /// Creates a new DrawableFillRule instance.
+    ///</summary>
+    ///<param name="fillRule">The rule to use when filling drawn objects.</param>
+    public DrawableFillRule(FillRule fillRule)
+    {
+      FillRule = fillRule;
+    }
+
+    ///<summary>
+    /// The rule to use when filling drawn objects.
+    ///</summary>
+    public FillRule FillRule
+    {
+      get;
+      set;
+    }
+  }
 }

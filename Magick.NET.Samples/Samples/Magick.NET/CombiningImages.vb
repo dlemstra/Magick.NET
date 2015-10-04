@@ -16,50 +16,50 @@ Imports ImageMagick
 
 Namespace RootNamespace.Samples.MagickNET
 
-	Public NotInheritable Class CombiningImagesSamples
+  Public NotInheritable Class CombiningImagesSamples
 
-		Public Shared Sub MergeMultipleImages()
-			Using images As New MagickImageCollection()
-				' Add the first image
-				Dim first As New MagickImage(SampleFiles.SnakewarePng)
-				images.Add(first)
+    Public Shared Sub MergeMultipleImages()
+      Using images As New MagickImageCollection()
+        ' Add the first image
+        Dim first As New MagickImage(SampleFiles.SnakewarePng)
+        images.Add(first)
 
-				' Add the second image
-				Dim second As New MagickImage(SampleFiles.SnakewarePng)
-				images.Add(second)
+        ' Add the second image
+        Dim second As New MagickImage(SampleFiles.SnakewarePng)
+        images.Add(second)
 
-				' Create a mosaic from both images
-				Using result As MagickImage = images.Mosaic()
-					' Save the result
-					result.Write(SampleFiles.OutputDirectory + "Mosaic.png")
-				End Using
-			End Using
-		End Sub
+        ' Create a mosaic from both images
+        Using result As MagickImage = images.Mosaic()
+          ' Save the result
+          result.Write(SampleFiles.OutputDirectory + "Mosaic.png")
+        End Using
+      End Using
+    End Sub
 
-		Public Shared Sub CreateAnimatedGif()
-			Using collection As New MagickImageCollection()
-				' Add first image and set the animation delay to 100ms
-				collection.Add("Snakeware.png")
-				collection(0).AnimationDelay = 100
+    Public Shared Sub CreateAnimatedGif()
+      Using collection As New MagickImageCollection()
+        ' Add first image and set the animation delay to 100ms
+        collection.Add("Snakeware.png")
+        collection(0).AnimationDelay = 100
 
-				' Add second image, set the animation delay to 100ms and flip the image
-				collection.Add("Snakeware.png")
-				collection(1).AnimationDelay = 100
-				collection(1).Flip()
+        ' Add second image, set the animation delay to 100ms and flip the image
+        collection.Add("Snakeware.png")
+        collection(1).AnimationDelay = 100
+        collection(1).Flip()
 
-				' Optionally reduce colors
-				Dim settings As New QuantizeSettings()
-				settings.Colors = 256
-				collection.Quantize(settings)
+        ' Optionally reduce colors
+        Dim settings As New QuantizeSettings()
+        settings.Colors = 256
+        collection.Quantize(settings)
 
-				' Optionally optimize the images (images should have the same size).
-				collection.Optimize()
+        ' Optionally optimize the images (images should have the same size).
+        collection.Optimize()
 
-				' Save gif
-				collection.Write(SampleFiles.OutputDirectory + "Snakeware.Animated.gif")
-			End Using
-		End Sub
+        ' Save gif
+        collection.Write(SampleFiles.OutputDirectory + "Snakeware.Animated.gif")
+      End Using
+    End Sub
 
-	End Class
+  End Class
 
 End Namespace

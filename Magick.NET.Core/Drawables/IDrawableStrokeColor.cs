@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableStrokeColor object.
-	///</summary>
-	public interface IDrawableStrokeColor : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The color to use.
-		///</summary>
-		Internal.IMagickColor Color
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableStrokeColor object.
+  ///</summary>
+  public interface IDrawableStrokeColor : IDrawable
+  {
+    ///<summary>
+    /// The color to use.
+    ///</summary>
+    Internal.IMagickColor Color
+    {
+      get;
+    }
+  }
 }

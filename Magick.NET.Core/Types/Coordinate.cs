@@ -16,115 +16,111 @@ using System;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the Coordinate object.
-	///</summary>
-	public struct Coordinate : IEquatable<Coordinate>
-	{
-		//===========================================================================================
-		private double _X;
-		private double _Y;
-		///==========================================================================================
-		///<summary>
-		/// Creates a new Coordinate instance.
-		///</summary>
-		///<param name="x">The X position of the coordinate.</param>
-		///<param name="y">The Y position of the coordinate.</param>
-		public Coordinate(double x, double y)
-		{
-			_X = x;
-			_Y = y;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X position of the coordinate.
-		///</summary>
-		public double X
-		{
-			get
-			{
-				return _X;
-			}
-			set
-			{
-				_X = value;
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y position of the coordinate.
-		///</summary>
-		public double Y
-		{
-			get
-			{
-				return _Y;
-			}
-			set
-			{
-				_Y = value;
-			}
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Determines whether the specified Coordinate instances are considered equal.
-		/// </summary>
-		/// <param name="left">The first Coordinate to compare.</param>
-		/// <param name="right"> The second Coordinate to compare.</param>
-		/// <returns></returns>
-		public static bool operator ==(Coordinate left, Coordinate right)
-		{
-			return object.Equals(left, right);
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Determines whether the specified Coordinate instances are not considered equal.
-		/// </summary>
-		/// <param name="left">The first Coordinate to compare.</param>
-		/// <param name="right"> The second Coordinate to compare.</param>
-		/// <returns></returns>
-		public static bool operator !=(Coordinate left, Coordinate right)
-		{
-			return !object.Equals(left, right);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Determines whether the specified object is equal to the current coordinate.
-		///</summary>
-		///<param name="obj">The object to compare this coordinate with.</param>
-		public override bool Equals(object obj)
-		{
-			if (obj == null)
-				return false;
+  ///<summary>
+  /// Encapsulation of the Coordinate object.
+  ///</summary>
+  public struct Coordinate : IEquatable<Coordinate>
+  {
+    private double _X;
+    private double _Y;
 
-			if (obj.GetType() == typeof(Coordinate))
-				return Equals((Coordinate)obj);
+    ///<summary>
+    /// Creates a new Coordinate instance.
+    ///</summary>
+    ///<param name="x">The X position of the coordinate.</param>
+    ///<param name="y">The Y position of the coordinate.</param>
+    public Coordinate(double x, double y)
+    {
+      _X = x;
+      _Y = y;
+    }
 
-			return false;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Determines whether the specified coordinate is equal to the current coordinate.
-		///</summary>
-		///<param name="other">The coordinate to compare this coordinate with.</param>
-		public bool Equals(Coordinate other)
-		{
-			return
-				X.Equals(other.X) &&
-				Y.Equals(other.Y);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Serves as a hash of this type.
-		///</summary>
-		public override int GetHashCode()
-		{
-			return
-				X.GetHashCode() ^
-				Y.GetHashCode();
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    ///<summary>
+    /// The X position of the coordinate.
+    ///</summary>
+    public double X
+    {
+      get
+      {
+        return _X;
+      }
+      set
+      {
+        _X = value;
+      }
+    }
+
+    ///<summary>
+    /// The Y position of the coordinate.
+    ///</summary>
+    public double Y
+    {
+      get
+      {
+        return _Y;
+      }
+      set
+      {
+        _Y = value;
+      }
+    }
+
+    /// <summary>
+    /// Determines whether the specified Coordinate instances are considered equal.
+    /// </summary>
+    /// <param name="left">The first Coordinate to compare.</param>
+    /// <param name="right"> The second Coordinate to compare.</param>
+    /// <returns></returns>
+    public static bool operator ==(Coordinate left, Coordinate right)
+    {
+      return Equals(left, right);
+    }
+
+    /// <summary>
+    /// Determines whether the specified Coordinate instances are not considered equal.
+    /// </summary>
+    /// <param name="left">The first Coordinate to compare.</param>
+    /// <param name="right"> The second Coordinate to compare.</param>
+    /// <returns></returns>
+    public static bool operator !=(Coordinate left, Coordinate right)
+    {
+      return !Equals(left, right);
+    }
+
+    ///<summary>
+    /// Determines whether the specified object is equal to the current coordinate.
+    ///</summary>
+    ///<param name="obj">The object to compare this coordinate with.</param>
+    public override bool Equals(object obj)
+    {
+      if (obj == null)
+        return false;
+
+      if (obj.GetType() == typeof(Coordinate))
+        return Equals((Coordinate)obj);
+
+      return false;
+    }
+
+    ///<summary>
+    /// Determines whether the specified coordinate is equal to the current coordinate.
+    ///</summary>
+    ///<param name="other">The coordinate to compare this coordinate with.</param>
+    public bool Equals(Coordinate other)
+    {
+      return
+        X.Equals(other.X) &&
+        Y.Equals(other.Y);
+    }
+
+    ///<summary>
+    /// Serves as a hash of this type.
+    ///</summary>
+    public override int GetHashCode()
+    {
+      return
+        X.GetHashCode() ^
+        Y.GetHashCode();
+    }
+  }
 }

@@ -18,103 +18,101 @@ using namespace System::Globalization;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		String^ Throw::FormatMessage(String^ message, ... array<Object^>^ args)
-		{
-			if (args->Length == 0)
-				return message;
+  namespace Wrapper
+  {
+    String^ Throw::FormatMessage(String^ message, ... array<Object^>^ args)
+    {
+      if (args->Length == 0)
+        return message;
 
-			return String::Format(CultureInfo::InvariantCulture, message, args);
-		}
-		//===========================================================================================
-		void Throw::IfFalse(String^ paramName, bool condition, String^ message, ... array<Object^>^ args)
-		{
-			if (!condition)
-				throw gcnew ArgumentException(FormatMessage(message, args), paramName);
-		}
-		//===========================================================================================
-		void Throw::IfInvalidFileName(String^ fileName)
-		{
-			Throw::IfNullOrEmpty("fileName", fileName);
+      return String::Format(CultureInfo::InvariantCulture, message, args);
+    }
 
-			if (fileName->Length > 248)
-				return;
+    void Throw::IfFalse(String^ paramName, bool condition, String^ message, ... array<Object^>^ args)
+    {
+      if (!condition)
+        throw gcnew ArgumentException(FormatMessage(message, args), paramName);
+    }
 
-			String^ path = fileName;
+    void Throw::IfInvalidFileName(String^ fileName)
+    {
+      Throw::IfNullOrEmpty("fileName", fileName);
 
-			int colonIndex = fileName->IndexOf(':');
-			if (colonIndex != -1)
-			{
-				if (colonIndex + 1 == fileName->Length)
-					return;
+      if (fileName->Length > 248)
+        return;
 
-				if (!fileName->Contains("\\"))
-					return;
+      String^ path = fileName;
 
-				if (fileName[colonIndex + 1] != '/' && fileName[colonIndex + 1] != '\\')
-					path = path->Substring(colonIndex + 1);
-			}
+      int colonIndex = fileName->IndexOf(':');
+      if (colonIndex != -1)
+      {
+        if (colonIndex + 1 == fileName->Length)
+          return;
 
-			path = Path::GetFullPath(path);
-			if (path->EndsWith("]", StringComparison::OrdinalIgnoreCase))
-			{
-				int endIndex = path->IndexOf("[", StringComparison::OrdinalIgnoreCase);
-				if (endIndex != -1)
-					path = path->Substring(0, endIndex);
-			}
+        if (!fileName->Contains("\\"))
+          return;
 
-			Throw::IfFalse("fileName", File::Exists(path), "Unable to find file: {0}", path);
-		}
-		//===========================================================================================
-		void Throw::IfNull(String^ paramName, Object^ value)
-		{
-			if (value == nullptr)
-				throw gcnew ArgumentNullException(paramName);
-		}
-		//===========================================================================================
-		void Throw::IfNull(String^ paramName, Object^ value, String^ message, ... array<Object^>^ args)
-		{
-			if (value == nullptr)
-				throw gcnew ArgumentNullException(paramName, FormatMessage(message, args));
-		}
-		//===========================================================================================
-		void Throw::IfNullOrEmpty(String^ paramName, Array^ value)
-		{
-			Throw::IfNull(paramName, value);
+        if (fileName[colonIndex + 1] != '/' && fileName[colonIndex + 1] != '\\')
+          path = path->Substring(colonIndex + 1);
+      }
 
-			if (value->Length == 0)
-				throw gcnew ArgumentException("Value cannot be empty", paramName);
-		}
-		//===========================================================================================
-		void Throw::IfNullOrEmpty(String^ paramName, String^ value)
-		{
-			Throw::IfNull(paramName, value);
+      path = Path::GetFullPath(path);
+      if (path->EndsWith("]", StringComparison::OrdinalIgnoreCase))
+      {
+        int endIndex = path->IndexOf("[", StringComparison::OrdinalIgnoreCase);
+        if (endIndex != -1)
+          path = path->Substring(0, endIndex);
+      }
 
-			if (value->Length == 0)
-				throw gcnew ArgumentException("Value cannot be empty", paramName);
-		}
-		//===========================================================================================
-		void Throw::IfNullOrEmpty(String^ paramName, String^ value, String^ message, ... array<Object^>^ args)
-		{
-			Throw::IfNull(paramName, value, message, args);
+      Throw::IfFalse("fileName", File::Exists(path), "Unable to find file: {0}", path);
+    }
 
-			if (value->Length == 0)
-				throw gcnew ArgumentException(FormatMessage(message, args), paramName);
-		}
-		//===========================================================================================
-		void Throw::IfOutOfRange(String^ paramName, int index, int length)
-		{
-			if (index < 0 || index >= length)
-				throw gcnew ArgumentOutOfRangeException(paramName);
-		}
-		//===========================================================================================
-		void Throw::IfTrue(String^ paramName, bool condition, String^ message, ... array<Object^>^ args)
-		{
-			if (condition)
-				throw gcnew ArgumentException(FormatMessage(message, args), paramName);
-		}
-		//===========================================================================================
-	}
+    void Throw::IfNull(String^ paramName, Object^ value)
+    {
+      if (value == nullptr)
+        throw gcnew ArgumentNullException(paramName);
+    }
+
+    void Throw::IfNull(String^ paramName, Object^ value, String^ message, ... array<Object^>^ args)
+    {
+      if (value == nullptr)
+        throw gcnew ArgumentNullException(paramName, FormatMessage(message, args));
+    }
+
+    void Throw::IfNullOrEmpty(String^ paramName, Array^ value)
+    {
+      Throw::IfNull(paramName, value);
+
+      if (value->Length == 0)
+        throw gcnew ArgumentException("Value cannot be empty", paramName);
+    }
+
+    void Throw::IfNullOrEmpty(String^ paramName, String^ value)
+    {
+      Throw::IfNull(paramName, value);
+
+      if (value->Length == 0)
+        throw gcnew ArgumentException("Value cannot be empty", paramName);
+    }
+
+    void Throw::IfNullOrEmpty(String^ paramName, String^ value, String^ message, ... array<Object^>^ args)
+    {
+      Throw::IfNull(paramName, value, message, args);
+
+      if (value->Length == 0)
+        throw gcnew ArgumentException(FormatMessage(message, args), paramName);
+    }
+
+    void Throw::IfOutOfRange(String^ paramName, int index, int length)
+    {
+      if (index < 0 || index >= length)
+        throw gcnew ArgumentOutOfRangeException(paramName);
+    }
+
+    void Throw::IfTrue(String^ paramName, bool condition, String^ message, ... array<Object^>^ args)
+    {
+      if (condition)
+        throw gcnew ArgumentException(FormatMessage(message, args), paramName);
+    }
+  }
 }

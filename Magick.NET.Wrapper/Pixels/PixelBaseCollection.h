@@ -15,72 +15,65 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class PixelBaseCollection abstract
-		{
-			//========================================================================================
-		private:
-			//========================================================================================
-			int _Channels;
-			int _Height;
-			Magick::Pixels* _View;
-			int _Width;
-			//========================================================================================
-			!PixelBaseCollection();
-			//========================================================================================
-		protected private:
-			//========================================================================================
-			PixelBaseCollection(Magick::Image* image, int width, int height);
-			//========================================================================================
-			property const Magick::Quantum* Pixels
-			{
-				virtual const Magick::Quantum* get() abstract;
-			}
-			//========================================================================================
-			property Magick::Pixels* View
-			{
-				Magick::Pixels* get();
-			}
-			//========================================================================================
-			void CheckPixels();
-			//========================================================================================
-			int GetIndex(int y);
-			//========================================================================================
-			int GetIndex(int x, int y);
-			//========================================================================================
-		public:
-			//========================================================================================
-			~PixelBaseCollection()
-			{
-				this->!PixelBaseCollection();
-			}
-			//========================================================================================
-			property int Channels
-			{
-				int get();
-			}
-			//========================================================================================
-			property int Height
-			{
-				int get();
-			}
-			//========================================================================================
-			property int Width
-			{
-				int get();
-			}
-			//========================================================================================
-			int GetIndex(PixelChannel channel);
-			//========================================================================================
-			QUANTUM_CLS_COMPLIANT array<Magick::Quantum>^ GetValue(int x, int y);
-			//========================================================================================
-			QUANTUM_CLS_COMPLIANT array<Magick::Quantum>^ GetValues();
-			//========================================================================================
-			QUANTUM_CLS_COMPLIANT array<Magick::Quantum>^ GetValues(int y);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class PixelBaseCollection abstract
+    {
+    private:
+      int _Channels;
+      int _Height;
+      Magick::Pixels* _View;
+      int _Width;
+
+      !PixelBaseCollection();
+
+    protected private:
+      PixelBaseCollection(Magick::Image* image, int width, int height);
+
+      property const Magick::Quantum* Pixels
+      {
+        virtual const Magick::Quantum* get() abstract;
+      }
+
+      property Magick::Pixels* View
+      {
+        Magick::Pixels* get();
+      }
+
+      void CheckPixels();
+
+      int GetIndex(int y);
+
+      int GetIndex(int x, int y);
+
+    public:
+      ~PixelBaseCollection()
+      {
+        this->!PixelBaseCollection();
+      }
+
+      property int Channels
+      {
+        int get();
+      }
+
+      property int Height
+      {
+        int get();
+      }
+
+      property int Width
+      {
+        int get();
+      }
+
+      int GetIndex(PixelChannel channel);
+
+      QUANTUM_CLS_COMPLIANT array<Magick::Quantum>^ GetValue(int x, int y);
+
+      QUANTUM_CLS_COMPLIANT array<Magick::Quantum>^ GetValues();
+
+      QUANTUM_CLS_COMPLIANT array<Magick::Quantum>^ GetValues(int y);
+    };
+  }
 }

@@ -16,75 +16,71 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePushPattern object.
-	///</summary>
-	public sealed class DrawablePushPattern : IDrawablePushPattern
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePushPattern instance.
-		///</summary>
-		///<param name="id">The ID of the pattern.</param>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
-		///<param name="width">The width.</param>
-		///<param name="height">The height.</param>
-		public DrawablePushPattern(string id, int x, int y, int width, int height)
-		{
-			ID = id;
-			X = x;
-			Y = y;
-			Width = width;
-			Height = height;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The ID of the pattern.
-		/// </summary>
-		public string ID
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The height
-		/// </summary>
-		public int Height
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The width
-		/// </summary>
-		public int Width
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The X coordinate.
-		/// </summary>
-		public int X
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The Y coordinate.
-		/// </summary>
-		public int Y
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePushPattern object.
+  ///</summary>
+  public sealed class DrawablePushPattern : IDrawablePushPattern
+  {
+    ///<summary>
+    /// Creates a new DrawablePushPattern instance.
+    ///</summary>
+    ///<param name="id">The ID of the pattern.</param>
+    ///<param name="x">The X coordinate.</param>
+    ///<param name="y">The Y coordinate.</param>
+    ///<param name="width">The width.</param>
+    ///<param name="height">The height.</param>
+    public DrawablePushPattern(string id, int x, int y, int width, int height)
+    {
+      ID = id;
+      X = x;
+      Y = y;
+      Width = width;
+      Height = height;
+    }
+
+    /// <summary>
+    /// The ID of the pattern.
+    /// </summary>
+    public string ID
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// The height
+    /// </summary>
+    public int Height
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// The width
+    /// </summary>
+    public int Width
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// The X coordinate.
+    /// </summary>
+    public int X
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// The Y coordinate.
+    /// </summary>
+    public int Y
+    {
+      get;
+      set;
+    }
+  }
 }

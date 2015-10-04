@@ -16,90 +16,86 @@ using System.IO;
 
 namespace ImageMagick.ImageOptimizers
 {
-	///=============================================================================================
-	/// <summary>
-	/// Class that can be used to optimize jpeg files.
-	/// </summary>
-	public sealed class JpegOptimizer : IImageOptimizer, ILosslessImageOptimizer
-	{
-		//===========================================================================================
-		private Wrapper.JpegOptimizer _Instance;
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the JpegOptimizer class.
-		///</summary>
-		public JpegOptimizer()
-		{
-			_Instance = new Wrapper.JpegOptimizer();
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The format that the optimizer supports.
-		/// </summary>
-		public MagickFormatInfo Format
-		{
-			get
-			{
-				return MagickNET.GetFormatInformation(MagickFormat.Jpeg);
-			}
-		}
-		///==========================================================================================
-		/// <summary>
-		/// When set to true various compression types will be used to find the smallest file. This
-		/// process will take extra time because the file has to be written multiple times.
-		/// </summary>
-		public bool OptimalCompression
-		{
-			get
-			{
-				return _Instance.OptimalCompression;
-			}
-			set
-			{
-				_Instance.OptimalCompression = value;
-			}
-		}
-		///==========================================================================================
-		/// <summary>
-		/// When set to true a progressive jpeg file will be created.
-		/// </summary>
-		public bool Progressive
-		{
-			get
-			{
-				return _Instance.Progressive;
-			}
-			set
-			{
-				_Instance.Progressive = value;
-			}
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Performs lossless compression on speified the file. If the new file size is not smaller
-		/// the file won't be overwritten.
-		/// </summary>
-		/// <param name="fileName">The png file to optimize</param>
-		public void LosslessCompress(string fileName)
-		{
-			string filePath = FileHelper.CheckForBaseDirectory(fileName);
-			Throw.IfInvalidFileName(filePath);
+  /// <summary>
+  /// Class that can be used to optimize jpeg files.
+  /// </summary>
+  public sealed class JpegOptimizer : IImageOptimizer, ILosslessImageOptimizer
+  {
+    private Wrapper.JpegOptimizer _Instance;
 
-			_Instance.LosslessCompress(new FileInfo(filePath));
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Performs lossless compression on speified the file. If the new file size is not smaller
-		/// the file won't be overwritten.
-		/// </summary>
-		/// <param name="file">The png file to optimize</param>
-		public void LosslessCompress(FileInfo file)
-		{
-			Throw.IfNull("file", file);
+    ///<summary>
+    /// Initializes a new instance of the JpegOptimizer class.
+    ///</summary>
+    public JpegOptimizer()
+    {
+      _Instance = new Wrapper.JpegOptimizer();
+    }
 
-			_Instance.LosslessCompress(file);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    /// <summary>
+    /// The format that the optimizer supports.
+    /// </summary>
+    public MagickFormatInfo Format
+    {
+      get
+      {
+        return MagickNET.GetFormatInformation(MagickFormat.Jpeg);
+      }
+    }
+
+    /// <summary>
+    /// When set to true various compression types will be used to find the smallest file. This
+    /// process will take extra time because the file has to be written multiple times.
+    /// </summary>
+    public bool OptimalCompression
+    {
+      get
+      {
+        return _Instance.OptimalCompression;
+      }
+      set
+      {
+        _Instance.OptimalCompression = value;
+      }
+    }
+
+    /// <summary>
+    /// When set to true a progressive jpeg file will be created.
+    /// </summary>
+    public bool Progressive
+    {
+      get
+      {
+        return _Instance.Progressive;
+      }
+      set
+      {
+        _Instance.Progressive = value;
+      }
+    }
+
+    /// <summary>
+    /// Performs lossless compression on speified the file. If the new file size is not smaller
+    /// the file won't be overwritten.
+    /// </summary>
+    /// <param name="fileName">The png file to optimize</param>
+    public void LosslessCompress(string fileName)
+    {
+      string filePath = FileHelper.CheckForBaseDirectory(fileName);
+      Throw.IfInvalidFileName(filePath);
+
+      _Instance.LosslessCompress(new FileInfo(filePath));
+    }
+
+    /// <summary>
+    /// Performs lossless compression on speified the file. If the new file size is not smaller
+    /// the file won't be overwritten.
+    /// </summary>
+    /// <param name="file">The png file to optimize</param>
+    public void LosslessCompress(FileInfo file)
+    {
+      Throw.IfNull("file", file);
+
+      _Instance.LosslessCompress(file);
+    }
+  }
 }

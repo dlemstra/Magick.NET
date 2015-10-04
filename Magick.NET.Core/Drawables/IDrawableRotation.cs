@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableRotation object.
-	///</summary>
-	public interface IDrawableRotation : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The angle.
-		///</summary>
-		double Angle
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableRotation object.
+  ///</summary>
+  public interface IDrawableRotation : IDrawable
+  {
+    ///<summary>
+    /// The angle.
+    ///</summary>
+    double Angle
+    {
+      get;
+    }
+  }
 }

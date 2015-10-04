@@ -21,107 +21,105 @@ using namespace System::Security;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		void MagickNET::OnLog(const Magick::LogEventType type, const char* text)
-		{
-			if (text == NULL)
-				return;
+  namespace Wrapper
+  {
+    void MagickNET::OnLog(const Magick::LogEventType type, const char* text)
+    {
+      if (text == NULL)
+        return;
 
-			if (_ExternalLogDelegate == nullptr)
-				return;
+      if (_ExternalLogDelegate == nullptr)
+        return;
 
-			std::string message=std::string(text);
-			_ExternalLogDelegate((LogEvents)type, Marshaller::Marshal(message));
-		}
-		//===========================================================================================
-		bool MagickNET::SetUseOpenCL(bool value)
-		{
-			try
-			{
-				if (value)
-					return Magick::EnableOpenCL();
-				else
-					Magick::DisableOpenCL();
-			}
-			catch(Magick::Exception &exception)
-			{
-				ExceptionHelper::Throw(exception);
-			}
+      std::string message = std::string(text);
+      _ExternalLogDelegate((LogEvents)type, Marshaller::Marshal(message));
+    }
 
-			return false;
-		}
-		//===========================================================================================
-		String^ MagickNET::Features::get()
-		{
-			std::string features = std::string(MagickCore::GetMagickFeatures());
+    bool MagickNET::SetUseOpenCL(bool value)
+    {
+      try
+      {
+        if (value)
+          return Magick::EnableOpenCL();
+        else
+          Magick::DisableOpenCL();
+      }
+      catch (Magick::Exception &exception)
+      {
+        ExceptionHelper::Throw(exception);
+      }
 
-			return Marshaller::Marshal(features);
-		}
-		//===========================================================================================
-		IEnumerable<MagickFormatInfo^>^ MagickNET::SupportedFormats::get()
-		{
-			return MagickFormatInfo::All;
-		}
-		//===========================================================================================
-		bool MagickNET::UseOpenCL::get()
-		{
-			if (!_UseOpenCL.HasValue)
-				_UseOpenCL = SetUseOpenCL(true);
+      return false;
+    }
 
-			return _UseOpenCL.Value;
-		}
-		//===========================================================================================
-		void MagickNET::UseOpenCL::set(bool value)
-		{
-			_UseOpenCL = SetUseOpenCL(value);
-		}
-		//===========================================================================================
-		MagickFormatInfo^ MagickNET::GetFormatInformation(MagickFormat format)
-		{
-			if (format == MagickFormat::Unknown)
-				return nullptr;
+    String^ MagickNET::Features::get()
+    {
+      std::string features = std::string(MagickCore::GetMagickFeatures());
 
-			for each (MagickFormatInfo^ formatInfo in SupportedFormats)
-			{
-				if (formatInfo->Format == format)
-					return formatInfo;
-			}
+      return Marshaller::Marshal(features);
+    }
 
-			return nullptr;
-		}
-		//===========================================================================================
-		void MagickNET::SetEnv(String^ name, String^ value)
-		{
-			std::string envName;
-			std::string envValue;
+    IEnumerable<MagickFormatInfo^>^ MagickNET::SupportedFormats::get()
+    {
+      return MagickFormatInfo::All;
+    }
 
-			_putenv_s(Marshaller::Marshal(name, envName).c_str(), Marshaller::Marshal(value, envValue).c_str());
-		}
-		//===========================================================================================
-		void MagickNET::SetLogDelegate(MagickLogDelegate^ logDelegate)
-		{
-			_ExternalLogDelegate = logDelegate;
+    bool MagickNET::UseOpenCL::get()
+    {
+      if (!_UseOpenCL.HasValue)
+        _UseOpenCL = SetUseOpenCL(true);
 
-			if (logDelegate == nullptr && _InternalLogDelegate != nullptr)
-			{
-				MagickCore::SetLogMethod((MagickCore::MagickLogMethod)NULL);
-				_InternalLogDelegate = nullptr;
-			}
-			else if (logDelegate != nullptr && _InternalLogDelegate == nullptr)
-			{
-				_InternalLogDelegate = gcnew MagickLogFuncDelegate(&OnLog);
-				MagickCore::SetLogMethod((MagickCore::MagickLogMethod)Marshal::GetFunctionPointerForDelegate(_InternalLogDelegate).ToPointer());
-			}
-		}
-		//===========================================================================================
-		void MagickNET::SetLogEvents(String^ events)
-		{
-			std::string logEvents;
-			Marshaller::Marshal(events, logEvents);
-			MagickCore::SetLogEventMask(logEvents.c_str());
-		}
-	}
-	//==============================================================================================
+      return _UseOpenCL.Value;
+    }
+
+    void MagickNET::UseOpenCL::set(bool value)
+    {
+      _UseOpenCL = SetUseOpenCL(value);
+    }
+
+    MagickFormatInfo^ MagickNET::GetFormatInformation(MagickFormat format)
+    {
+      if (format == MagickFormat::Unknown)
+        return nullptr;
+
+      for each (MagickFormatInfo^ formatInfo in SupportedFormats)
+      {
+        if (formatInfo->Format == format)
+          return formatInfo;
+      }
+
+      return nullptr;
+    }
+
+    void MagickNET::SetEnv(String^ name, String^ value)
+    {
+      std::string envName;
+      std::string envValue;
+
+      _putenv_s(Marshaller::Marshal(name, envName).c_str(), Marshaller::Marshal(value, envValue).c_str());
+    }
+
+    void MagickNET::SetLogDelegate(MagickLogDelegate^ logDelegate)
+    {
+      _ExternalLogDelegate = logDelegate;
+
+      if (logDelegate == nullptr && _InternalLogDelegate != nullptr)
+      {
+        MagickCore::SetLogMethod((MagickCore::MagickLogMethod)NULL);
+        _InternalLogDelegate = nullptr;
+      }
+      else if (logDelegate != nullptr && _InternalLogDelegate == nullptr)
+      {
+        _InternalLogDelegate = gcnew MagickLogFuncDelegate(&OnLog);
+        MagickCore::SetLogMethod((MagickCore::MagickLogMethod)Marshal::GetFunctionPointerForDelegate(_InternalLogDelegate).ToPointer());
+      }
+    }
+
+    void MagickNET::SetLogEvents(String^ events)
+    {
+      std::string logEvents;
+      Marshaller::Marshal(events, logEvents);
+      MagickCore::SetLogEventMask(logEvents.c_str());
+    }
+  }
 }

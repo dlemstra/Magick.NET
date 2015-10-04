@@ -14,20 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePushClipPath object.
-	///</summary>
-	public interface IDrawablePushClipPath : IDrawable
-	{
-		///==========================================================================================
-		/// <summary>
-		/// The ID of the clip path.
-		/// </summary>
-		string ClipPath
-		{
-			get;
-		}
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePushClipPath object.
+  ///</summary>
+  public interface IDrawablePushClipPath : IDrawable
+  {
+    /// <summary>
+    /// The ID of the clip path.
+    /// </summary>
+    string ClipPath
+    {
+      get;
+    }
+  }
 }

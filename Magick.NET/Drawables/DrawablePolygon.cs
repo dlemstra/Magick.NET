@@ -17,33 +17,29 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePolygon object.
-	///</summary>
-	public sealed class DrawablePolygon : DrawableCoordinates<Coordinate>, IDrawablePolygon
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePolygon instance.
-		///</summary>
-		///<param name="coordinates">The coordinates.</param>
-		public DrawablePolygon(params Coordinate[] coordinates)
-			: base(coordinates)
-		{
-			CheckCoordinateCount(3);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePolygon instance.
-		///</summary>
-		///<param name="coordinates">The coordinates.</param>
-		public DrawablePolygon(IEnumerable<Coordinate> coordinates)
-			: base(coordinates)
-		{
-			CheckCoordinateCount(3);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePolygon object.
+  ///</summary>
+  public sealed class DrawablePolygon : DrawableCoordinates<Coordinate>, IDrawablePolygon
+  {
+    ///<summary>
+    /// Creates a new DrawablePolygon instance.
+    ///</summary>
+    ///<param name="coordinates">The coordinates.</param>
+    public DrawablePolygon(params Coordinate[] coordinates)
+      : base(coordinates)
+    {
+      CheckCoordinateCount(3);
+    }
+
+    ///<summary>
+    /// Creates a new DrawablePolygon instance.
+    ///</summary>
+    ///<param name="coordinates">The coordinates.</param>
+    public DrawablePolygon(IEnumerable<Coordinate> coordinates)
+      : base(coordinates)
+    {
+      CheckCoordinateCount(3);
+    }
+  }
 }

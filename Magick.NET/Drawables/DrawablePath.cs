@@ -17,43 +17,40 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePath object.
-	///</summary>
-	public sealed class DrawablePath : IDrawablePath
-	{
-		//===========================================================================================
-		private List<IPath> _Paths;
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePath instance.
-		///</summary>
-		///<param name="paths">The paths to use.</param>
-		public DrawablePath(params IPath[] paths)
-		{
-			_Paths = new List<IPath>(paths);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePath instance.
-		///</summary>
-		///<param name="paths">The paths to use.</param>
-		public DrawablePath(IEnumerable<IPath> paths)
-		{
-			_Paths = new List<IPath>(paths);
-		}
-		///==========================================================================================
-		/// <summary>
-		/// >The paths to use.
-		/// </summary>
-		public IEnumerable<IPath> Paths
-		{
-			get
-			{
-				return _Paths;
-			}
-		}
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePath object.
+  ///</summary>
+  public sealed class DrawablePath : IDrawablePath
+  {
+    private List<IPath> _Paths;
+
+    ///<summary>
+    /// Creates a new DrawablePath instance.
+    ///</summary>
+    ///<param name="paths">The paths to use.</param>
+    public DrawablePath(params IPath[] paths)
+    {
+      _Paths = new List<IPath>(paths);
+    }
+
+    ///<summary>
+    /// Creates a new DrawablePath instance.
+    ///</summary>
+    ///<param name="paths">The paths to use.</param>
+    public DrawablePath(IEnumerable<IPath> paths)
+    {
+      _Paths = new List<IPath>(paths);
+    }
+
+    /// <summary>
+    /// >The paths to use.
+    /// </summary>
+    public IEnumerable<IPath> Paths
+    {
+      get
+      {
+        return _Paths;
+      }
+    }
+  }
 }

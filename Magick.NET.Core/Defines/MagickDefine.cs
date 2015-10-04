@@ -12,54 +12,48 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Collections.Generic;
-
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class that implements IDefine
-	///</summary>
-	public sealed class MagickDefine : IDefine
-	{
-		///==========================================================================================
-		/// <summary>
-		/// Initializes a new instance of the MagickDefine class.
-		/// </summary>
-		public MagickDefine(MagickFormat format, string name, string value)
-		{
-			Format = format;
-			Name = name;
-			Value = value;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The format to set the define for.
-		///</summary>
-		public MagickFormat Format
-		{
-			get;
-			private set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The name of the define.
-		///</summary>
-		public string Name
-		{
-			get;
-			private set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The value of the define.
-		///</summary>
-		public string Value
-		{
-			get;
-			private set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Class that implements IDefine
+  ///</summary>
+  public sealed class MagickDefine : IDefine
+  {
+    /// <summary>
+    /// Initializes a new instance of the MagickDefine class.
+    /// </summary>
+    public MagickDefine(MagickFormat format, string name, string value)
+    {
+      Format = format;
+      Name = name;
+      Value = value;
+    }
+
+    ///<summary>
+    /// The format to set the define for.
+    ///</summary>
+    public MagickFormat Format
+    {
+      get;
+      private set;
+    }
+
+    ///<summary>
+    /// The name of the define.
+    ///</summary>
+    public string Name
+    {
+      get;
+      private set;
+    }
+
+    ///<summary>
+    /// The value of the define.
+    ///</summary>
+    public string Value
+    {
+      get;
+      private set;
+    }
+  }
 }

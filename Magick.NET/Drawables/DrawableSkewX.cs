@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableSkewX object.
-	///</summary>
-	public sealed class DrawableSkewX : IDrawableSkewX
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableSkewX instance.
-		///</summary>
-		///<param name="angle">The angle.</param>
-		public DrawableSkewX(double angle)
-		{
-			Angle = angle;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The angle.
-		///</summary>
-		public double Angle
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableSkewX object.
+  ///</summary>
+  public sealed class DrawableSkewX : IDrawableSkewX
+  {
+    ///<summary>
+    /// Creates a new DrawableSkewX instance.
+    ///</summary>
+    ///<param name="angle">The angle.</param>
+    public DrawableSkewX(double angle)
+    {
+      Angle = angle;
+    }
+
+    ///<summary>
+    /// The angle.
+    ///</summary>
+    public double Angle
+    {
+      get;
+      set;
+    }
+  }
 }

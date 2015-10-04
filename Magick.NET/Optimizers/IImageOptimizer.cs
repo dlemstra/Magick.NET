@@ -14,21 +14,17 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	/// <summary>
-	/// Interface for classes that can optimize an image.
-	/// </summary>
-	public interface IImageOptimizer
-	{
-		///==========================================================================================
-		/// <summary>
-		/// The format that the optimizer supports.
-		/// </summary>
-		MagickFormatInfo Format
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  /// <summary>
+  /// Interface for classes that can optimize an image.
+  /// </summary>
+  public interface IImageOptimizer
+  {
+    /// <summary>
+    /// The format that the optimizer supports.
+    /// </summary>
+    MagickFormatInfo Format
+    {
+      get;
+    }
+  }
 }

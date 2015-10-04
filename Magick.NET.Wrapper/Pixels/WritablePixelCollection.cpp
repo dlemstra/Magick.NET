@@ -17,75 +17,73 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		const Magick::Quantum* WritablePixelCollection::Pixels::get()
-		{
-			return _Pixels;
-		}
-		//===========================================================================================
-		WritablePixelCollection::WritablePixelCollection(Magick::Image* image, int x, int y, int width, int height)
-			: PixelBaseCollection(image, width, height)
-		{
-			Throw::IfTrue("width", x + width > (int)image->size().width(), "Invalid X coordinate specified: {0}.", x);
-			Throw::IfTrue("height", y + height > (int)image->size().height(), "Invalid Y coordinate specified: {0}.", y);
+  namespace Wrapper
+  {
+    const Magick::Quantum* WritablePixelCollection::Pixels::get()
+    {
+      return _Pixels;
+    }
 
-			try
-			{
-				_Pixels = View->set(x, y, width, height);
-				CheckPixels();
-			}
-			catch(Magick::Exception& exception)
-			{
-				ExceptionHelper::Create(exception);
-			}
-		}
-		//===========================================================================================
-		void WritablePixelCollection::SetPixel(int x, int y, array<Magick::Quantum>^ value)
-		{
-			Magick::Quantum *p = _Pixels + GetIndex(x, y);
+    WritablePixelCollection::WritablePixelCollection(Magick::Image* image, int x, int y, int width, int height)
+      : PixelBaseCollection(image, width, height)
+    {
+      Throw::IfTrue("width", x + width > (int)image->size().width(), "Invalid X coordinate specified: {0}.", x);
+      Throw::IfTrue("height", y + height > (int)image->size().height(), "Invalid Y coordinate specified: {0}.", y);
 
-			long i = 0;
-			while (i < value->Length)
-			{
-				*(p++) = value[i++];
-			}
-		}
-		//===========================================================================================
+      try
+      {
+        _Pixels = View->set(x, y, width, height);
+        CheckPixels();
+      }
+      catch (Magick::Exception& exception)
+      {
+        ExceptionHelper::Create(exception);
+      }
+    }
+
+    void WritablePixelCollection::SetPixel(int x, int y, array<Magick::Quantum>^ value)
+    {
+      Magick::Quantum *p = _Pixels + GetIndex(x, y);
+
+      long i = 0;
+      while (i < value->Length)
+      {
+        *(p++) = value[i++];
+      }
+    }
+
 #if (MAGICKCORE_QUANTUM_DEPTH > 8)
-		void WritablePixelCollection::Set(array<Byte>^ values)
-		{
-			SetPixels(values);
-		}
+    void WritablePixelCollection::Set(array<Byte>^ values)
+    {
+      SetPixels(values);
+    }
 #endif
-		//===========================================================================================
-		void WritablePixelCollection::Set(array<double>^ values)
-		{
-			SetPixels(values);
-		}
-		//===========================================================================================
-		void WritablePixelCollection::Set(array<unsigned int>^ values)
-		{
-			SetPixels(values);
-		}
-		//===========================================================================================
-		void WritablePixelCollection::Set(array<Magick::Quantum>^ values)
-		{
-			SetPixels(values);
-		}
-		//===========================================================================================
+
+    void WritablePixelCollection::Set(array<double>^ values)
+    {
+      SetPixels(values);
+    }
+
+    void WritablePixelCollection::Set(array<unsigned int>^ values)
+    {
+      SetPixels(values);
+    }
+
+    void WritablePixelCollection::Set(array<Magick::Quantum>^ values)
+    {
+      SetPixels(values);
+    }
+
 #if (MAGICKCORE_QUANTUM_DEPTH != 16 || defined(MAGICKCORE_HDRI_SUPPORT))
-		void WritablePixelCollection::Set(array<unsigned short>^ values)
-		{
-			SetPixels(values);
-		}
+    void WritablePixelCollection::Set(array<unsigned short>^ values)
+    {
+      SetPixels(values);
+    }
 #endif
-		//===========================================================================================
-		void WritablePixelCollection::Write()
-		{
-			View->sync();
-		}
-		//===========================================================================================
-	}
+
+    void WritablePixelCollection::Write()
+    {
+      View->sync();
+    }
+  }
 }

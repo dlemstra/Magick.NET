@@ -16,21 +16,17 @@ using System.Collections.Generic;
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePolygon object.
-	///</summary>
-	public interface IDrawablePolygon : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The coordinates.
-		///</summary>
-		IEnumerable<Coordinate> Coordinates
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePolygon object.
+  ///</summary>
+  public interface IDrawablePolygon : IDrawable
+  {
+    ///<summary>
+    /// The coordinates.
+    ///</summary>
+    IEnumerable<Coordinate> Coordinates
+    {
+      get;
+    }
+  }
 }

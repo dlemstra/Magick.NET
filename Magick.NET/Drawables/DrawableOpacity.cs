@@ -16,53 +16,49 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableOpacity object.
-	///</summary>
-	public sealed class DrawableOpacity : IDrawableOpacity
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableOpacity instance.
-		///</summary>
-		///<param name="x">The X coordinate.</param>
-		///<param name="y">The Y coordinate.</param>
-		///<param name="paintMethod">The paint method to use.</param>
-		public DrawableOpacity(double x, double y, PaintMethod paintMethod)
-		{
-			X = x;
-			Y = y;
-			PaintMethod = paintMethod;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The PaintMethod to use.
-		///</summary>
-		public PaintMethod PaintMethod
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X coordinate.
-		///</summary>
-		public double X
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y coordinate.
-		///</summary>
-		public double Y
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableOpacity object.
+  ///</summary>
+  public sealed class DrawableOpacity : IDrawableOpacity
+  {
+    ///<summary>
+    /// Creates a new DrawableOpacity instance.
+    ///</summary>
+    ///<param name="x">The X coordinate.</param>
+    ///<param name="y">The Y coordinate.</param>
+    ///<param name="paintMethod">The paint method to use.</param>
+    public DrawableOpacity(double x, double y, PaintMethod paintMethod)
+    {
+      X = x;
+      Y = y;
+      PaintMethod = paintMethod;
+    }
+
+    ///<summary>
+    /// The PaintMethod to use.
+    ///</summary>
+    public PaintMethod PaintMethod
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The X coordinate.
+    ///</summary>
+    public double X
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The Y coordinate.
+    ///</summary>
+    public double Y
+    {
+      get;
+      set;
+    }
+  }
 }

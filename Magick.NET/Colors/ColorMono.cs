@@ -26,67 +26,63 @@ using QuantumType = System.UInt16;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class that represents a monochrome color.
-	///</summary>
-	public sealed class ColorMono : ColorBase
-	{
-		//===========================================================================================
-		private ColorMono(MagickColor color)
-			: base(color)
-		{
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Updates the color value in an inherited class.
-		/// </summary>
-		protected override void UpdateValue()
-		{
-			QuantumType color = (IsBlack ? (QuantumType)0.0 : Quantum.Max);
-			Value.R = color;
-			Value.G = color;
-			Value.B = color;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the ColorMono class.
-		///</summary>
-		///<param name="isBlack">Specifies if the color is black or white.</param>
-		public ColorMono(bool isBlack)
-			: base(new MagickColor(0, 0, 0))
-		{
-			IsBlack = isBlack;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Specifies if the color is black or white.
-		///</summary>
-		public bool IsBlack
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Converts the specified MagickColor to an instance of this type.
-		///</summary>
-		public static implicit operator ColorMono(MagickColor color)
-		{
-			return FromMagickColor(color);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Converts the specified MagickColor to an instance of this type.
-		///</summary>
-		public static ColorMono FromMagickColor(MagickColor color)
-		{
-			if (color == null)
-				return null;
+  ///<summary>
+  /// Class that represents a monochrome color.
+  ///</summary>
+  public sealed class ColorMono : ColorBase
+  {
+    private ColorMono(MagickColor color)
+      : base(color)
+    {
+    }
 
-			return new ColorMono(color);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    /// <summary>
+    /// Updates the color value in an inherited class.
+    /// </summary>
+    protected override void UpdateValue()
+    {
+      QuantumType color = (IsBlack ? (QuantumType)0.0 : Quantum.Max);
+      Value.R = color;
+      Value.G = color;
+      Value.B = color;
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the ColorMono class.
+    ///</summary>
+    ///<param name="isBlack">Specifies if the color is black or white.</param>
+    public ColorMono(bool isBlack)
+      : base(new MagickColor(0, 0, 0))
+    {
+      IsBlack = isBlack;
+    }
+
+    ///<summary>
+    /// Specifies if the color is black or white.
+    ///</summary>
+    public bool IsBlack
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Converts the specified MagickColor to an instance of this type.
+    ///</summary>
+    public static implicit operator ColorMono(MagickColor color)
+    {
+      return FromMagickColor(color);
+    }
+
+    ///<summary>
+    /// Converts the specified MagickColor to an instance of this type.
+    ///</summary>
+    public static ColorMono FromMagickColor(MagickColor color)
+    {
+      if (color == null)
+        return null;
+
+      return new ColorMono(color);
+    }
+  }
 }

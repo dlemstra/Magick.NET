@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableTextInterlineSpacing object.
-	///</summary>
-	public sealed class DrawableTextInterlineSpacing : IDrawableTextInterlineSpacing
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableTextInterlineSpacing instance.
-		///</summary>
-		///<param name="spacing">Spacing to use.</param>
-		public DrawableTextInterlineSpacing(double spacing)
-		{
-			Spacing = spacing;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Spacing to use.
-		///</summary>
-		public double Spacing
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableTextInterlineSpacing object.
+  ///</summary>
+  public sealed class DrawableTextInterlineSpacing : IDrawableTextInterlineSpacing
+  {
+    ///<summary>
+    /// Creates a new DrawableTextInterlineSpacing instance.
+    ///</summary>
+    ///<param name="spacing">Spacing to use.</param>
+    public DrawableTextInterlineSpacing(double spacing)
+    {
+      Spacing = spacing;
+    }
+
+    ///<summary>
+    /// Spacing to use.
+    ///</summary>
+    public double Spacing
+    {
+      get;
+      set;
+    }
+  }
 }

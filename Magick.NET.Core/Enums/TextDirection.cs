@@ -14,27 +14,24 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Specified the direction for text.
-	///</summary>
-	public enum TextDirection
-	{
-		///==========================================================================================
-		/// <summary>
-		/// Undefined
-		/// </summary>
-		Undefined,
-		///==========================================================================================
-		/// <summary>
-		/// RightToLeft
-		/// </summary>
-		RightToLeft,
-		///==========================================================================================
-		/// <summary>
-		/// LeftToRight
-		/// </summary>
-		LeftToRight
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Specified the direction for text.
+  ///</summary>
+  public enum TextDirection
+  {
+    /// <summary>
+    /// Undefined
+    /// </summary>
+    Undefined,
+
+    /// <summary>
+    /// RightToLeft
+    /// </summary>
+    RightToLeft,
+
+    /// <summary>
+    /// LeftToRight
+    /// </summary>
+    LeftToRight
+  }
 }

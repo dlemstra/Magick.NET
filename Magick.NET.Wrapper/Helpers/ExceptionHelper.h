@@ -15,22 +15,18 @@
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		private ref class ExceptionHelper abstract sealed
-		{
-		internal:
-			//========================================================================================
-			static MagickException^ Create(const Magick::Exception& exception);
-			//========================================================================================
-			static MagickErrorException^ CreateError(const Magick::Error& exception);
-			//========================================================================================
-			static MagickWarningException^ CreateWarning(const Magick::Warning& exception);
-			//========================================================================================
-			static void Throw(const Magick::Exception& exception);
-			//========================================================================================
-		};
-		//===========================================================================================
-	}
+  namespace Wrapper
+  {
+    private ref class ExceptionHelper abstract sealed
+    {
+    internal:
+      static MagickException^ Create(const Magick::Exception& exception);
+
+      static MagickErrorException^ CreateError(const Magick::Error& exception);
+
+      static MagickWarningException^ CreateWarning(const Magick::Warning& exception);
+
+      static void Throw(const Magick::Exception& exception);
+    };
+  }
 }

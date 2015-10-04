@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableSkewX object.
-	///</summary>
-	public interface IDrawableSkewX : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The angle.
-		///</summary>
-		double Angle
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableSkewX object.
+  ///</summary>
+  public interface IDrawableSkewX : IDrawable
+  {
+    ///<summary>
+    /// The angle.
+    ///</summary>
+    double Angle
+    {
+      get;
+    }
+  }
 }

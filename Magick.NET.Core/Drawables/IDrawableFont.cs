@@ -14,45 +14,41 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableFont object.
-	///</summary>
-	public interface IDrawableFont : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The font family or the full path to the font file.
-		///</summary>
-		string Family
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The style of the font,
-		/// </summary>
-		FontStyleType Style
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The weight of the font,
-		/// </summary>
-		FontWeight Weight
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// FontStretch
-		/// </summary>
-		FontStretch Stretch
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableFont object.
+  ///</summary>
+  public interface IDrawableFont : IDrawable
+  {
+    ///<summary>
+    /// The font family or the full path to the font file.
+    ///</summary>
+    string Family
+    {
+      get;
+    }
+
+    /// <summary>
+    /// The style of the font,
+    /// </summary>
+    FontStyleType Style
+    {
+      get;
+    }
+
+    /// <summary>
+    /// The weight of the font,
+    /// </summary>
+    FontWeight Weight
+    {
+      get;
+    }
+
+    /// <summary>
+    /// FontStretch
+    /// </summary>
+    FontStretch Stretch
+    {
+      get;
+    }
+  }
 }

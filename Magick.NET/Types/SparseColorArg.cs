@@ -16,63 +16,59 @@ using ImageMagick.Internal;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Represents an argument for the SparseColor method.
-	///</summary>
-	public sealed class SparseColorArg : ISparseColorArg
-	{
-		//===========================================================================================
-		IMagickColor ISparseColorArg.Color
-		{
-			get
-			{
-				return MagickColor.GetInstance(Color);
-			}
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Initializes a new instance of the SparseColorArg class.
-		/// </summary>
-		/// <param name="x">The X position.</param>
-		/// <param name="y">The Y position.</param>
-		/// <param name="color">The color.</param>
-		public SparseColorArg(double x, double y, MagickColor color)
-		{
-			Throw.IfNull("color", color);
+  ///<summary>
+  /// Represents an argument for the SparseColor method.
+  ///</summary>
+  public sealed class SparseColorArg : ISparseColorArg
+  {
+    IMagickColor ISparseColorArg.Color
+    {
+      get
+      {
+        return MagickColor.GetInstance(Color);
+      }
+    }
 
-			X = x;
-			Y = y;
-			Color = color;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X position.
-		///</summary>
-		public double X
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y position.
-		///</summary>
-		public double Y
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The color.
-		///</summary>
-		public MagickColor Color
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    /// <summary>
+    /// Initializes a new instance of the SparseColorArg class.
+    /// </summary>
+    /// <param name="x">The X position.</param>
+    /// <param name="y">The Y position.</param>
+    /// <param name="color">The color.</param>
+    public SparseColorArg(double x, double y, MagickColor color)
+    {
+      Throw.IfNull("color", color);
+
+      X = x;
+      Y = y;
+      Color = color;
+    }
+
+    ///<summary>
+    /// The X position.
+    ///</summary>
+    public double X
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The Y position.
+    ///</summary>
+    public double Y
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The color.
+    ///</summary>
+    public MagickColor Color
+    {
+      get;
+      set;
+    }
+  }
 }

@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableStrokeLineJoin object.
-	///</summary>
-	public sealed class DrawableStrokeLineJoin : IDrawableStrokeLineJoin
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableStrokeLineJoin instance.
-		///</summary>
-		///<param name="lineJoin">The line join.</param>
-		public DrawableStrokeLineJoin(LineJoin lineJoin)
-		{
-			LineJoin = lineJoin;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The line join.
-		///</summary>
-		public LineJoin LineJoin
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableStrokeLineJoin object.
+  ///</summary>
+  public sealed class DrawableStrokeLineJoin : IDrawableStrokeLineJoin
+  {
+    ///<summary>
+    /// Creates a new DrawableStrokeLineJoin instance.
+    ///</summary>
+    ///<param name="lineJoin">The line join.</param>
+    public DrawableStrokeLineJoin(LineJoin lineJoin)
+    {
+      LineJoin = lineJoin;
+    }
+
+    ///<summary>
+    /// The line join.
+    ///</summary>
+    public LineJoin LineJoin
+    {
+      get;
+      set;
+    }
+  }
 }

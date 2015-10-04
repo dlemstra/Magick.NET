@@ -16,95 +16,91 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the ImageMagick ImagePerceptualHash object.
-	///</summary>
-	public sealed class PerceptualHash
-	{
-		//===========================================================================================
-		private Dictionary<PixelChannel, ChannelPerceptualHash> _Channels;
-		//===========================================================================================
-		private PerceptualHash()
-		{
-			_Channels = new Dictionary<PixelChannel, ChannelPerceptualHash>();
-		}
-		//===========================================================================================
-		private static ChannelPerceptualHash CreateChannelHash(Wrapper.ChannelPerceptualHash channelHash)
-		{
-			return new ChannelPerceptualHash(channelHash.Channel, channelHash.SrgbHuPhash,
-				channelHash.HclpHuPhash, channelHash.Hash);
-		}
-		//===========================================================================================
-		internal PerceptualHash(IEnumerable<Wrapper.ChannelPerceptualHash> channelHashes)
-			: this()
-		{
-			Dictionary<PixelChannel, ChannelPerceptualHash> channels = new Dictionary<PixelChannel, ChannelPerceptualHash>();
-			foreach (Wrapper.ChannelPerceptualHash channelHash in channelHashes)
-			{
-				_Channels[channelHash.Channel] = CreateChannelHash(channelHash);
-			}
-		}
-		//===========================================================================================
-		internal bool Isvalid
-		{
-			get
-			{
-				return _Channels.ContainsKey(PixelChannel.Red) &&
-					_Channels.ContainsKey(PixelChannel.Green) &&
-					_Channels.ContainsKey(PixelChannel.Blue);
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PerceptualHash class with the specified hash.
-		///</summary>
-		public PerceptualHash(string perceptualHash)
-			: this()
-		{
-			Throw.IfNullOrEmpty("perceptualHash", perceptualHash);
-			Throw.IfFalse("perceptualHash", perceptualHash.Length == 210, "Invalid hash size.");
+  ///<summary>
+  /// Encapsulation of the ImageMagick ImagePerceptualHash object.
+  ///</summary>
+  public sealed class PerceptualHash
+  {
+    private Dictionary<PixelChannel, ChannelPerceptualHash> _Channels;
 
-			_Channels[PixelChannel.Red] = CreateChannelHash(new Wrapper.ChannelPerceptualHash(perceptualHash.Substring(0, 70)));
-			_Channels[PixelChannel.Green] = CreateChannelHash(new Wrapper.ChannelPerceptualHash(perceptualHash.Substring(70, 70)));
-			_Channels[PixelChannel.Blue] = CreateChannelHash(new Wrapper.ChannelPerceptualHash(perceptualHash.Substring(140, 70)));
-		}
-		///==========================================================================================
-		///<summary>
-		/// Perceptual hash for the specified channel.
-		///</summary>
-		public ChannelPerceptualHash GetChannel(PixelChannel channel)
-		{
-			ChannelPerceptualHash perceptualHash;
-			_Channels.TryGetValue(channel, out perceptualHash);
-			return perceptualHash;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Returns the sum squared difference between this hash and the other hash.
-		///</summary>
-		///<param name="other">The PerceptualHash to get the distance of.</param>
-		public double SumSquaredDistance(PerceptualHash other)
-		{
-			Throw.IfNull("other", other);
+    private PerceptualHash()
+    {
+      _Channels = new Dictionary<PixelChannel, ChannelPerceptualHash>();
+    }
 
-			return
-				_Channels[PixelChannel.Red].SumSquaredDistance(other._Channels[PixelChannel.Red]) +
-				_Channels[PixelChannel.Green].SumSquaredDistance(other._Channels[PixelChannel.Green]) +
-				_Channels[PixelChannel.Blue].SumSquaredDistance(other._Channels[PixelChannel.Blue]);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Returns a string representation of this hash.
-		///</summary>
-		public override string ToString()
-		{
-			return
-				_Channels[PixelChannel.Red].ToString() +
-				_Channels[PixelChannel.Green].ToString() +
-				_Channels[PixelChannel.Blue].ToString();
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    private static ChannelPerceptualHash CreateChannelHash(Wrapper.ChannelPerceptualHash channelHash)
+    {
+      return new ChannelPerceptualHash(channelHash.Channel, channelHash.SrgbHuPhash,
+        channelHash.HclpHuPhash, channelHash.Hash);
+    }
+
+    internal PerceptualHash(IEnumerable<Wrapper.ChannelPerceptualHash> channelHashes)
+      : this()
+    {
+      Dictionary<PixelChannel, ChannelPerceptualHash> channels = new Dictionary<PixelChannel, ChannelPerceptualHash>();
+      foreach (Wrapper.ChannelPerceptualHash channelHash in channelHashes)
+      {
+        _Channels[channelHash.Channel] = CreateChannelHash(channelHash);
+      }
+    }
+
+    internal bool Isvalid
+    {
+      get
+      {
+        return _Channels.ContainsKey(PixelChannel.Red) &&
+          _Channels.ContainsKey(PixelChannel.Green) &&
+          _Channels.ContainsKey(PixelChannel.Blue);
+      }
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PerceptualHash class with the specified hash.
+    ///</summary>
+    public PerceptualHash(string perceptualHash)
+      : this()
+    {
+      Throw.IfNullOrEmpty("perceptualHash", perceptualHash);
+      Throw.IfFalse("perceptualHash", perceptualHash.Length == 210, "Invalid hash size.");
+
+      _Channels[PixelChannel.Red] = CreateChannelHash(new Wrapper.ChannelPerceptualHash(perceptualHash.Substring(0, 70)));
+      _Channels[PixelChannel.Green] = CreateChannelHash(new Wrapper.ChannelPerceptualHash(perceptualHash.Substring(70, 70)));
+      _Channels[PixelChannel.Blue] = CreateChannelHash(new Wrapper.ChannelPerceptualHash(perceptualHash.Substring(140, 70)));
+    }
+
+    ///<summary>
+    /// Perceptual hash for the specified channel.
+    ///</summary>
+    public ChannelPerceptualHash GetChannel(PixelChannel channel)
+    {
+      ChannelPerceptualHash perceptualHash;
+      _Channels.TryGetValue(channel, out perceptualHash);
+      return perceptualHash;
+    }
+
+    ///<summary>
+    /// Returns the sum squared difference between this hash and the other hash.
+    ///</summary>
+    ///<param name="other">The PerceptualHash to get the distance of.</param>
+    public double SumSquaredDistance(PerceptualHash other)
+    {
+      Throw.IfNull("other", other);
+
+      return
+        _Channels[PixelChannel.Red].SumSquaredDistance(other._Channels[PixelChannel.Red]) +
+        _Channels[PixelChannel.Green].SumSquaredDistance(other._Channels[PixelChannel.Green]) +
+        _Channels[PixelChannel.Blue].SumSquaredDistance(other._Channels[PixelChannel.Blue]);
+    }
+
+    ///<summary>
+    /// Returns a string representation of this hash.
+    ///</summary>
+    public override string ToString()
+    {
+      return
+        _Channels[PixelChannel.Red].ToString() +
+        _Channels[PixelChannel.Green].ToString() +
+        _Channels[PixelChannel.Blue].ToString();
+    }
+  }
 }

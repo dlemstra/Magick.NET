@@ -16,13 +16,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Marker interface for drawables
-	///</summary>
-	[SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
-	public interface IDrawable
-	{
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Marker interface for drawables
+  ///</summary>
+  [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
+  public interface IDrawable
+  {
+  }
 }

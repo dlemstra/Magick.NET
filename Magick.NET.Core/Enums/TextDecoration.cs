@@ -14,37 +14,34 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Specified the type of decarion for text.
-	///</summary>
-	public enum TextDecoration
-	{
-		///==========================================================================================
-		/// <summary>
-		/// Undefined
-		/// </summary>
-		Undefined,
-		///==========================================================================================
-		/// <summary>
-		/// NoDecoration
-		/// </summary>
-		None,
-		///==========================================================================================
-		/// <summary>
-		/// Underline
-		/// </summary>
-		Underline,
-		///==========================================================================================
-		/// <summary>
-		/// Overline
-		/// </summary>
-		Overline,
-		///==========================================================================================
-		/// <summary>
-		/// LineThrough
-		/// </summary>
-		LineThrough,
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Specified the type of decarion for text.
+  ///</summary>
+  public enum TextDecoration
+  {
+    /// <summary>
+    /// Undefined
+    /// </summary>
+    Undefined,
+
+    /// <summary>
+    /// NoDecoration
+    /// </summary>
+    None,
+
+    /// <summary>
+    /// Underline
+    /// </summary>
+    Underline,
+
+    /// <summary>
+    /// Overline
+    /// </summary>
+    Overline,
+
+    /// <summary>
+    /// LineThrough
+    /// </summary>
+    LineThrough,
+  }
 }

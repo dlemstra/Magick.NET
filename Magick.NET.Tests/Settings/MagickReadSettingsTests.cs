@@ -18,113 +18,109 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class MagickReadSettingsTests
-	{
-		//===========================================================================================
-		private const string _Category = "MagickReadSettings";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Collection_Read()
-		{
-			using (MagickImageCollection collection = new MagickImageCollection())
-			{
-				MagickReadSettings settings = new MagickReadSettings();
-				settings.Density = new PointD(150, 150);
+  [TestClass]
+  public class MagickReadSettingsTests
+  {
+    private const string _Category = "MagickReadSettings";
 
-				collection.Read(Files.RoseSparkleGIF, settings);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Collection_Read()
+    {
+      using (MagickImageCollection collection = new MagickImageCollection())
+      {
+        MagickReadSettings settings = new MagickReadSettings();
+        settings.Density = new PointD(150, 150);
 
-				Assert.AreEqual(150, collection[0].Density.X);
+        collection.Read(Files.RoseSparkleGIF, settings);
 
-				settings = new MagickReadSettings();
-				settings.FrameIndex = 1;
+        Assert.AreEqual(150, collection[0].Density.X);
 
-				collection.Read(Files.RoseSparkleGIF, settings);
+        settings = new MagickReadSettings();
+        settings.FrameIndex = 1;
 
-				Assert.AreEqual(1, collection.Count);
+        collection.Read(Files.RoseSparkleGIF, settings);
 
-				settings = new MagickReadSettings();
-				settings.FrameIndex = 1;
-				settings.FrameCount = 2;
+        Assert.AreEqual(1, collection.Count);
 
-				collection.Read(Files.RoseSparkleGIF, settings);
+        settings = new MagickReadSettings();
+        settings.FrameIndex = 1;
+        settings.FrameCount = 2;
 
-				Assert.AreEqual(2, collection.Count);
+        collection.Read(Files.RoseSparkleGIF, settings);
 
-				settings = null;
-				collection.Read(Files.RoseSparkleGIF, settings);
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Image_Exceptions()
-		{
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				MagickReadSettings settings = new MagickReadSettings();
-				settings.FrameCount = 2;
-				new MagickImage(Files.RoseSparkleGIF, settings);
-			});
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Image_Read()
-		{
-			using (MagickImage image = new MagickImage())
-			{
-				MagickReadSettings settings = new MagickReadSettings();
-				settings.Density = new PointD(300);
+        Assert.AreEqual(2, collection.Count);
 
-				image.Read(Files.SnakewarePNG, settings);
+        settings = null;
+        collection.Read(Files.RoseSparkleGIF, settings);
+      }
+    }
 
-				Assert.AreEqual(300, image.Density.X);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Image_Exceptions()
+    {
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        MagickReadSettings settings = new MagickReadSettings();
+        settings.FrameCount = 2;
+        new MagickImage(Files.RoseSparkleGIF, settings);
+      });
+    }
 
-				settings = null;
-				image.Read(Files.ImageMagickJPG, settings);
-			}
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Image_Read()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        MagickReadSettings settings = new MagickReadSettings();
+        settings.Density = new PointD(300);
 
-			using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
-			{
-				MagickImage imageA = new MagickImage();
-				MagickImage imageB = new MagickImage();
+        image.Read(Files.SnakewarePNG, settings);
 
-				MagickReadSettings settings = new MagickReadSettings();
+        Assert.AreEqual(300, image.Density.X);
 
-				imageA.Read(Files.RoseSparkleGIF, settings);
-				Assert.AreEqual(image, imageA);
+        settings = null;
+        image.Read(Files.ImageMagickJPG, settings);
+      }
 
-				settings = new MagickReadSettings();
-				settings.FrameIndex = 1;
+      using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
+      {
+        MagickImage imageA = new MagickImage();
+        MagickImage imageB = new MagickImage();
 
-				imageA.Read(Files.RoseSparkleGIF, settings);
-				Assert.AreNotEqual(image, imageA);
+        MagickReadSettings settings = new MagickReadSettings();
 
-				imageB.Read(Files.RoseSparkleGIF + "[1]");
-				Assert.AreEqual(imageA, imageB);
+        imageA.Read(Files.RoseSparkleGIF, settings);
+        Assert.AreEqual(image, imageA);
 
-				settings = new MagickReadSettings();
-				settings.FrameIndex = 2;
+        settings = new MagickReadSettings();
+        settings.FrameIndex = 1;
 
-				imageA.Read(Files.RoseSparkleGIF, settings);
-				Assert.AreNotEqual(image, imageA);
+        imageA.Read(Files.RoseSparkleGIF, settings);
+        Assert.AreNotEqual(image, imageA);
 
-				imageB.Read(Files.RoseSparkleGIF + "[2]");
-				Assert.AreEqual(imageA, imageB);
+        imageB.Read(Files.RoseSparkleGIF + "[1]");
+        Assert.AreEqual(imageA, imageB);
 
-				ExceptionAssert.Throws<MagickOptionErrorException>(delegate()
-				{
-					settings = new MagickReadSettings();
-					settings.FrameIndex = 3;
+        settings = new MagickReadSettings();
+        settings.FrameIndex = 2;
 
-					imageA.Read(Files.RoseSparkleGIF, settings);
-				});
+        imageA.Read(Files.RoseSparkleGIF, settings);
+        Assert.AreNotEqual(image, imageA);
 
-				imageA.Dispose();
-				imageB.Dispose();
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+        imageB.Read(Files.RoseSparkleGIF + "[2]");
+        Assert.AreEqual(imageA, imageB);
+
+        ExceptionAssert.Throws<MagickOptionErrorException>(delegate ()
+        {
+          settings = new MagickReadSettings();
+          settings.FrameIndex = 3;
+
+          imageA.Read(Files.RoseSparkleGIF, settings);
+        });
+
+        imageA.Dispose();
+        imageB.Dispose();
+      }
+    }
+  }
 }

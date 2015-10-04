@@ -14,37 +14,33 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableOpacity object.
-	///</summary>
-	public interface IDrawableOpacity : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The PaintMethod to use.
-		///</summary>
-		PaintMethod PaintMethod
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X coordinate.
-		///</summary>
-		double X
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y coordinate.
-		///</summary>
-		double Y
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableOpacity object.
+  ///</summary>
+  public interface IDrawableOpacity : IDrawable
+  {
+    ///<summary>
+    /// The PaintMethod to use.
+    ///</summary>
+    PaintMethod PaintMethod
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The X coordinate.
+    ///</summary>
+    double X
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The Y coordinate.
+    ///</summary>
+    double Y
+    {
+      get;
+    }
+  }
 }

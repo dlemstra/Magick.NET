@@ -26,96 +26,92 @@ using QuantumType = System.UInt16;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class that represents a HSL color.
-	///</summary>
-	public sealed class ColorHSL : ColorBase
-	{
-		//===========================================================================================
-		private ColorHSL(MagickColor color)
-			: base(color)
-		{
-			Tuple<double, double, double> value = Wrapper.MagickColor.ConvertRGBToHSL(MagickColor.GetInstance(color));
+  ///<summary>
+  /// Class that represents a HSL color.
+  ///</summary>
+  public sealed class ColorHSL : ColorBase
+  {
+    private ColorHSL(MagickColor color)
+      : base(color)
+    {
+      Tuple<double, double, double> value = Wrapper.MagickColor.ConvertRGBToHSL(MagickColor.GetInstance(color));
 
-			Hue = value.Item1;
-			Saturation = value.Item3;
-			Luminosity = value.Item2;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Updates the color value in an inherited class.
-		/// </summary>
-		protected override void UpdateValue()
-		{
-			Tuple<double, double, double> value = new Tuple<double, double, double>(Hue, Saturation, Luminosity);
+      Hue = value.Item1;
+      Saturation = value.Item3;
+      Luminosity = value.Item2;
+    }
 
-			Wrapper.MagickColor color = Wrapper.MagickColor.ConvertHSLToRGB(value);
-			Value.R = color.R;
-			Value.G = color.G;
-			Value.B = color.B;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the ColorHSL class.
-		///</summary>
-		///<param name="hue">Hue component value of this color.</param>
-		///<param name="saturation">Saturation component value of this color.</param>
-		///<param name="luminosity">Luminosity component value of this color.</param>
-		public ColorHSL(double hue, double saturation, double luminosity)
-			: base(new MagickColor(0, 0, 0))
-		{
-			Hue = hue;
-			Saturation = saturation;
-			Luminosity = luminosity;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Hue component value of this color.
-		///</summary>
-		public double Hue
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Luminosity component value of this color.
-		///</summary>
-		public double Luminosity
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Saturation component value of this color.
-		///</summary>
-		public double Saturation
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// Converts the specified MagickColor to an instance of this type.
-		///</summary>
-		public static implicit operator ColorHSL(MagickColor color)
-		{
-			return FromMagickColor(color);
-		}
-		///==========================================================================================
-		///<summary>
-		/// Converts the specified MagickColor to an instance of this type.
-		///</summary>
-		public static ColorHSL FromMagickColor(MagickColor color)
-		{
-			if (color == null)
-				return null;
+    /// <summary>
+    /// Updates the color value in an inherited class.
+    /// </summary>
+    protected override void UpdateValue()
+    {
+      Tuple<double, double, double> value = new Tuple<double, double, double>(Hue, Saturation, Luminosity);
 
-			return new ColorHSL(color);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      Wrapper.MagickColor color = Wrapper.MagickColor.ConvertHSLToRGB(value);
+      Value.R = color.R;
+      Value.G = color.G;
+      Value.B = color.B;
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the ColorHSL class.
+    ///</summary>
+    ///<param name="hue">Hue component value of this color.</param>
+    ///<param name="saturation">Saturation component value of this color.</param>
+    ///<param name="luminosity">Luminosity component value of this color.</param>
+    public ColorHSL(double hue, double saturation, double luminosity)
+      : base(new MagickColor(0, 0, 0))
+    {
+      Hue = hue;
+      Saturation = saturation;
+      Luminosity = luminosity;
+    }
+
+    ///<summary>
+    /// Hue component value of this color.
+    ///</summary>
+    public double Hue
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Luminosity component value of this color.
+    ///</summary>
+    public double Luminosity
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Saturation component value of this color.
+    ///</summary>
+    public double Saturation
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Converts the specified MagickColor to an instance of this type.
+    ///</summary>
+    public static implicit operator ColorHSL(MagickColor color)
+    {
+      return FromMagickColor(color);
+    }
+
+    ///<summary>
+    /// Converts the specified MagickColor to an instance of this type.
+    ///</summary>
+    public static ColorHSL FromMagickColor(MagickColor color)
+    {
+      if (color == null)
+        return null;
+
+      return new ColorHSL(color);
+    }
+  }
 }

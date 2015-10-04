@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableGravity object.
-	///</summary>
-	public sealed class DrawableGravity : IDrawableGravity
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableGravity instance.
-		///</summary>
-		///<param name="gravity">The gravity.</param>
-		public DrawableGravity(Gravity gravity)
-		{
-			Gravity = gravity;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The gravity.
-		///</summary>
-		public Gravity Gravity
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableGravity object.
+  ///</summary>
+  public sealed class DrawableGravity : IDrawableGravity
+  {
+    ///<summary>
+    /// Creates a new DrawableGravity instance.
+    ///</summary>
+    ///<param name="gravity">The gravity.</param>
+    public DrawableGravity(Gravity gravity)
+    {
+      Gravity = gravity;
+    }
+
+    ///<summary>
+    /// The gravity.
+    ///</summary>
+    public Gravity Gravity
+    {
+      get;
+      set;
+    }
+  }
 }

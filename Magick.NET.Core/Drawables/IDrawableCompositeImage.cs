@@ -14,61 +14,57 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableCompositeImage object.
-	///</summary>
-	public interface IDrawableCompositeImage : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// Composition operator to be used when composition is implicitly used (such as for image flattening).
-		///</summary>
-		CompositeOperator Compose
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The height to scale the image to.
-		///</summary>
-		double Height
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// For internal use only.
-		/// </summary>
-		Internal.IMagickImage Image
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The width to scale the image to.
-		///</summary>
-		double Width
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The X coordinate.
-		///</summary>
-		double X
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The Y coordinate.
-		///</summary>
-		double Y
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableCompositeImage object.
+  ///</summary>
+  public interface IDrawableCompositeImage : IDrawable
+  {
+    ///<summary>
+    /// Composition operator to be used when composition is implicitly used (such as for image flattening).
+    ///</summary>
+    CompositeOperator Compose
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The height to scale the image to.
+    ///</summary>
+    double Height
+    {
+      get;
+    }
+
+    /// <summary>
+    /// For internal use only.
+    /// </summary>
+    Internal.IMagickImage Image
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The width to scale the image to.
+    ///</summary>
+    double Width
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The X coordinate.
+    ///</summary>
+    double X
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The Y coordinate.
+    ///</summary>
+    double Y
+    {
+      get;
+    }
+  }
 }

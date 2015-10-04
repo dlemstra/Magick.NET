@@ -18,46 +18,42 @@ using namespace System::Collections::ObjectModel;
 
 namespace ImageMagick
 {
-	namespace Wrapper
-	{
-		//===========================================================================================
-		generic<typename TEnum>
-		where TEnum: value class, ValueType
-		IEnumerable<TEnum>^ EnumHelper::GetFlags(TEnum value)
-		{
-			Collection<TEnum>^ flags = gcnew Collection<TEnum>();
+  namespace Wrapper
+  {
+    generic<typename TEnum> where TEnum: value class, ValueType
+      IEnumerable<TEnum>^ EnumHelper::GetFlags(TEnum value)
+    {
+      Collection<TEnum>^ flags = gcnew Collection<TEnum>();
 
-			for each (TEnum enumValue in Enum::GetValues(TEnum::typeid))
-			{
-				if (((int)value & (int)enumValue) != 0)
-					flags->Add(enumValue);
-			}
+      for each (TEnum enumValue in Enum::GetValues(TEnum::typeid))
+      {
+        if (((int)value & (int)enumValue) != 0)
+          flags->Add(enumValue);
+      }
 
-			return flags;
-		}
-		//===========================================================================================
-		generic<typename TEnum>
-		where TEnum : value class, ValueType
-		TEnum EnumHelper::Parse(String^ value, TEnum defaultValue)
-		{
+      return flags;
+    }
+
+    generic<typename TEnum> where TEnum : value class, ValueType
+      TEnum EnumHelper::Parse(String^ value, TEnum defaultValue)
+    {
 #if (NET20)
-			Type^ type = TEnum::typeid;
+      Type^ type = TEnum::typeid;
 
-			for each (String^ name in Enum::GetNames(type))
-			{
-				if (name->Equals(value, StringComparison::OrdinalIgnoreCase))
-					return (TEnum)Enum::Parse(type, name);
-			}
+      for each (String^ name in Enum::GetNames(type))
+      {
+        if (name->Equals(value, StringComparison::OrdinalIgnoreCase))
+          return (TEnum)Enum::Parse(type, name);
+      }
 
-			return defaultValue;
+      return defaultValue;
 #else
-			TEnum result;
-			if (!Enum::TryParse<TEnum>(value, true, result))
-				return defaultValue;
+      TEnum result;
+      if (!Enum::TryParse<TEnum>(value, true, result))
+        return defaultValue;
 
-			return result;
+      return result;
 #endif
-		}
-		//===========================================================================================
-	}
+    }
+  }
 }

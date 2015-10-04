@@ -18,31 +18,26 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathCurvetoRel object.
-	///</summary>
-	public sealed class PathCurvetoRel : DrawableCoordinates<IPathCurveto>, IPathCurvetoRel
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathCurvetoRel class.
-		///</summary>
-		///<param name="pathCurvetos">The coordinates to use.</param>
-		public PathCurvetoRel(params PathCurveto[] pathCurvetos)
-			: base(pathCurvetos)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathCurvetoRel class.
-		///</summary>
-		///<param name="pathCurvetos">The coordinates to use.</param>
-		public PathCurvetoRel(IEnumerable<PathCurveto> pathCurvetos)
-			: base(CastPathCurveto(pathCurvetos))
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathCurvetoRel object.
+  ///</summary>
+  public sealed class PathCurvetoRel : DrawableCoordinates<IPathCurveto>, IPathCurvetoRel
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathCurvetoRel class.
+    ///</summary>
+    ///<param name="pathCurvetos">The coordinates to use.</param>
+    public PathCurvetoRel(params PathCurveto[] pathCurvetos)
+      : base(pathCurvetos)
+    {
+    }
+    ///<summary>
+    /// Initializes a new instance of the PathCurvetoRel class.
+    ///</summary>
+    ///<param name="pathCurvetos">The coordinates to use.</param>
+    public PathCurvetoRel(IEnumerable<PathCurveto> pathCurvetos)
+      : base(CastPathCurveto(pathCurvetos))
+    {
+    }
+  }
 }

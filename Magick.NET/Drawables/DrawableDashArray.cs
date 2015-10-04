@@ -16,35 +16,31 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableDashArray object.
-	///</summary>
-	public sealed class DrawableDashArray : IDrawableDashArray
-	{
-		//===========================================================================================
-		private double[] _Dash;
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableDashArray instance.
-		///</summary>
-		///<param name="dash">An array containing the dash information.</param>
-		public DrawableDashArray(double[] dash)
-		{
-			_Dash = dash;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// An array containing the dash information.
-		/// </summary>
-		public double[] Dash
-		{
-			get
-			{
-				return _Dash;
-			}
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableDashArray object.
+  ///</summary>
+  public sealed class DrawableDashArray : IDrawableDashArray
+  {
+    private double[] _Dash;
+
+    ///<summary>
+    /// Creates a new DrawableDashArray instance.
+    ///</summary>
+    ///<param name="dash">An array containing the dash information.</param>
+    public DrawableDashArray(double[] dash)
+    {
+      _Dash = dash;
+    }
+
+    /// <summary>
+    /// An array containing the dash information.
+    /// </summary>
+    public double[] Dash
+    {
+      get
+      {
+        return _Dash;
+      }
+    }
+  }
 }

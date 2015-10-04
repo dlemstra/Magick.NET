@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableStrokeWidth object.
-	///</summary>
-	public sealed class DrawableStrokeWidth : IDrawableStrokeWidth
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableStrokeWidth instance.
-		///</summary>
-		///<param name="width">The width.</param>
-		public DrawableStrokeWidth(double width)
-		{
-			Width = width;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The width.
-		///</summary>
-		public double Width
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableStrokeWidth object.
+  ///</summary>
+  public sealed class DrawableStrokeWidth : IDrawableStrokeWidth
+  {
+    ///<summary>
+    /// Creates a new DrawableStrokeWidth instance.
+    ///</summary>
+    ///<param name="width">The width.</param>
+    public DrawableStrokeWidth(double width)
+    {
+      Width = width;
+    }
+
+    ///<summary>
+    /// The width.
+    ///</summary>
+    public double Width
+    {
+      get;
+      set;
+    }
+  }
 }

@@ -16,73 +16,69 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableFont object.
-	///</summary>
-	public sealed class DrawableFont : IDrawableFont
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableFont instance.
-		///</summary>
-		///<param name="family">The font family or the full path to the font file.</param>
-		public DrawableFont(string family)
-			: this(family, FontStyleType.Any, FontWeight.Normal, FontStretch.Normal)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableFont instance.
-		///</summary>
-		///<param name="family">The font family or the full path to the font file.</param>
-		///<param name="style">The style of the font.</param>
-		///<param name="weight">The weight of the font.</param>
-		///<param name="stretch">The font stretching type.</param>
-		public DrawableFont(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
-		{
-			Family = family;
-			Style = style;
-			Weight = weight;
-			Stretch = stretch;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The font family or the full path to the font file.
-		///</summary>
-		public string Family
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The style of the font,
-		/// </summary>
-		public FontStyleType Style
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The weight of the font,
-		/// </summary>
-		public FontWeight Weight
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// FontStretch
-		/// </summary>
-		public FontStretch Stretch
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableFont object.
+  ///</summary>
+  public sealed class DrawableFont : IDrawableFont
+  {
+    ///<summary>
+    /// Creates a new DrawableFont instance.
+    ///</summary>
+    ///<param name="family">The font family or the full path to the font file.</param>
+    public DrawableFont(string family)
+      : this(family, FontStyleType.Any, FontWeight.Normal, FontStretch.Normal)
+    {
+    }
+
+    ///<summary>
+    /// Creates a new DrawableFont instance.
+    ///</summary>
+    ///<param name="family">The font family or the full path to the font file.</param>
+    ///<param name="style">The style of the font.</param>
+    ///<param name="weight">The weight of the font.</param>
+    ///<param name="stretch">The font stretching type.</param>
+    public DrawableFont(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
+    {
+      Family = family;
+      Style = style;
+      Weight = weight;
+      Stretch = stretch;
+    }
+
+    ///<summary>
+    /// The font family or the full path to the font file.
+    ///</summary>
+    public string Family
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// The style of the font,
+    /// </summary>
+    public FontStyleType Style
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// The weight of the font,
+    /// </summary>
+    public FontWeight Weight
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// FontStretch
+    /// </summary>
+    public FontStretch Stretch
+    {
+      get;
+      set;
+    }
+  }
 }

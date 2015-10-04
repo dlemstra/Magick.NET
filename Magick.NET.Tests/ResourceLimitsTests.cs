@@ -12,54 +12,49 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Diagnostics;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class ResourceLimitsTests
-	{
-		//===========================================================================================
-		private const string _Category = "ResourceLimits";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Values()
-		{
-			Assert.AreEqual(ulong.MaxValue, ResourceLimits.Disk);
-			Assert.IsTrue(ResourceLimits.Memory > int.MaxValue);
-			Assert.AreEqual(10000000U, ResourceLimits.Height);
-			Assert.IsTrue(ResourceLimits.Thread > 1U);
-			Assert.AreEqual(0U, ResourceLimits.Throttle);
-			Assert.AreEqual(10000000U, ResourceLimits.Width);
+  [TestClass]
+  public class ResourceLimitsTests
+  {
+    private const string _Category = "ResourceLimits";
 
-			ResourceLimits.Disk = 400U;
-			Assert.AreEqual(400U, ResourceLimits.Disk);
-			ResourceLimits.Disk = ulong.MaxValue;
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Values()
+    {
+      Assert.AreEqual(ulong.MaxValue, ResourceLimits.Disk);
+      Assert.IsTrue(ResourceLimits.Memory > int.MaxValue);
+      Assert.AreEqual(10000000U, ResourceLimits.Height);
+      Assert.IsTrue(ResourceLimits.Thread > 1U);
+      Assert.AreEqual(0U, ResourceLimits.Throttle);
+      Assert.AreEqual(10000000U, ResourceLimits.Width);
 
-			ResourceLimits.Height = 1000U;
-			Assert.AreEqual(1000U, ResourceLimits.Height);
-			ResourceLimits.Height = 10000000U;
+      ResourceLimits.Disk = 400U;
+      Assert.AreEqual(400U, ResourceLimits.Disk);
+      ResourceLimits.Disk = ulong.MaxValue;
 
-			ResourceLimits.Memory = 858U;
-			Assert.AreEqual(858U, ResourceLimits.Memory);
-			ResourceLimits.Memory = 8585838592U;
+      ResourceLimits.Height = 1000U;
+      Assert.AreEqual(1000U, ResourceLimits.Height);
+      ResourceLimits.Height = 10000000U;
 
-			ResourceLimits.Thread = 1U;
-			Assert.AreEqual(1U, ResourceLimits.Thread);
-			ResourceLimits.Thread = 4U;
+      ResourceLimits.Memory = 858U;
+      Assert.AreEqual(858U, ResourceLimits.Memory);
+      ResourceLimits.Memory = 8585838592U;
 
-			ResourceLimits.Throttle = 2U;
-			Assert.AreEqual(2U, ResourceLimits.Throttle);
-			ResourceLimits.Throttle = 0U;
+      ResourceLimits.Thread = 1U;
+      Assert.AreEqual(1U, ResourceLimits.Thread);
+      ResourceLimits.Thread = 4U;
 
-			ResourceLimits.Width = 100U;
-			Assert.AreEqual(100U, ResourceLimits.Width);
-			ResourceLimits.Width = 10000000U;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      ResourceLimits.Throttle = 2U;
+      Assert.AreEqual(2U, ResourceLimits.Throttle);
+      ResourceLimits.Throttle = 0U;
+
+      ResourceLimits.Width = 100U;
+      Assert.AreEqual(100U, ResourceLimits.Width);
+      ResourceLimits.Width = 10000000U;
+    }
+  }
 }

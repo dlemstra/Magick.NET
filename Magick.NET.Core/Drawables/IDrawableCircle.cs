@@ -14,45 +14,41 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableCircle object.
-	///</summary>
-	public interface IDrawableCircle : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The origin X coordinate.
-		///</summary>
-		double OriginX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The origin X coordinate.
-		///</summary>
-		double OriginY
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The perimeter X coordinate.
-		///</summary>
-		double PerimeterX
-		{
-			get;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The perimeter X coordinate.
-		///</summary>
-		double PerimeterY
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableCircle object.
+  ///</summary>
+  public interface IDrawableCircle : IDrawable
+  {
+    ///<summary>
+    /// The origin X coordinate.
+    ///</summary>
+    double OriginX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The origin X coordinate.
+    ///</summary>
+    double OriginY
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The perimeter X coordinate.
+    ///</summary>
+    double PerimeterX
+    {
+      get;
+    }
+
+    ///<summary>
+    /// The perimeter X coordinate.
+    ///</summary>
+    double PerimeterY
+    {
+      get;
+    }
+  }
 }

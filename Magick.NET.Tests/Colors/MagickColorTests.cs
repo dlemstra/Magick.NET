@@ -19,182 +19,178 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class MagickColorTests
-	{
-		//===========================================================================================
-		private const string _Category = "MagickColor";
-		//===========================================================================================
-		private void TestColor(string hexValue, float red, float green, float blue, bool isTransparent)
-		{
-			TestColor(hexValue, red, green, blue, isTransparent, 0.01);
-		}
-		//===========================================================================================
-		private void TestColor(string hexValue, float red, float green, float blue, bool isTransparent, double delta)
-		{
-			MagickColor color = new MagickColor(hexValue);
+  [TestClass]
+  public class MagickColorTests
+  {
+    private const string _Category = "MagickColor";
 
-			Assert.AreEqual(red, color.R, delta);
-			Assert.AreEqual(green, color.G, delta);
-			Assert.AreEqual(blue, color.B, delta);
+    private void TestColor(string hexValue, float red, float green, float blue, bool isTransparent)
+    {
+      TestColor(hexValue, red, green, blue, isTransparent, 0.01);
+    }
 
-			if (isTransparent)
-				ColorAssert.IsTransparent(color.A);
-			else
-				ColorAssert.IsNotTransparent(color.A);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Constructor()
-		{
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				new MagickColor(null);
-			});
+    private void TestColor(string hexValue, float red, float green, float blue, bool isTransparent, double delta)
+    {
+      MagickColor color = new MagickColor(hexValue);
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new MagickColor("FFFFFF");
-			});
+      Assert.AreEqual(red, color.R, delta);
+      Assert.AreEqual(green, color.G, delta);
+      Assert.AreEqual(blue, color.B, delta);
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new MagickColor("#FFFFF");
-			});
+      if (isTransparent)
+        ColorAssert.IsTransparent(color.A);
+      else
+        ColorAssert.IsNotTransparent(color.A);
+    }
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new MagickColor("#GGFFF");
-			});
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Constructor()
+    {
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        new MagickColor(null);
+      });
 
-			TestColor("#F00", Quantum.Max, 0, 0, false);
-			TestColor("#0F00", 0, Quantum.Max, 0, true);
-			TestColor("#0000FF", 0, 0, Quantum.Max, false);
-			TestColor("#FF00FF00", Quantum.Max, 0, Quantum.Max, true);
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new MagickColor("FFFFFF");
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new MagickColor("#FFFFF");
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new MagickColor("#GGFFF");
+      });
+
+      TestColor("#F00", Quantum.Max, 0, 0, false);
+      TestColor("#0F00", 0, Quantum.Max, 0, true);
+      TestColor("#0000FF", 0, 0, Quantum.Max, false);
+      TestColor("#FF00FF00", Quantum.Max, 0, Quantum.Max, true);
 
 #if Q8
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				new MagickColor("#FFFF0000FFFF");
-			});
+      ExceptionAssert.Throws<ArgumentException>(delegate()
+      {
+        new MagickColor("#FFFF0000FFFF");
+      });
 #elif Q16 || Q16HDRI
-			TestColor("#0000FFFF0000", 0, Quantum.Max, 0, false);
-			TestColor("#FFFF000000000000", Quantum.Max, 0, 0, true);
+      TestColor("#0000FFFF0000", 0, Quantum.Max, 0, false);
+      TestColor("#FFFF000000000000", Quantum.Max, 0, 0, true);
 #else
 #error Not implemented!
 #endif
 
-			float half = (float)Quantum.Max * 0.5f;
-			TestColor("gray(50%) ", half, half, half, false, 1);
-			TestColor("rgba(100%, 0%, 0%, 0.0)", Quantum.Max, 0, 0, true);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IComparable()
-		{
-			MagickColor first = new MagickColor(Color.White);
+      float half = Quantum.Max * 0.5f;
+      TestColor("gray(50%) ", half, half, half, false, 1);
+      TestColor("rgba(100%, 0%, 0%, 0.0)", Quantum.Max, 0, 0, true);
+    }
 
-			Assert.AreEqual(0, first.CompareTo(first));
-			Assert.AreEqual(1, first.CompareTo(null));
-			Assert.IsFalse(first < null);
-			Assert.IsFalse(first <= null);
-			Assert.IsTrue(first > null);
-			Assert.IsTrue(first >= null);
-			Assert.IsTrue(null < first);
-			Assert.IsTrue(null <= first);
-			Assert.IsFalse(null > first);
-			Assert.IsFalse(null >= first);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IComparable()
+    {
+      MagickColor first = new MagickColor(Color.White);
 
-			MagickColor second = new MagickColor(Color.Black);
+      Assert.AreEqual(0, first.CompareTo(first));
+      Assert.AreEqual(1, first.CompareTo(null));
+      Assert.IsFalse(first < null);
+      Assert.IsFalse(first <= null);
+      Assert.IsTrue(first > null);
+      Assert.IsTrue(first >= null);
+      Assert.IsTrue(null < first);
+      Assert.IsTrue(null <= first);
+      Assert.IsFalse(null > first);
+      Assert.IsFalse(null >= first);
 
-			Assert.AreEqual(1, first.CompareTo(second));
-			Assert.IsFalse(first < second);
-			Assert.IsFalse(first <= second);
-			Assert.IsTrue(first > second);
-			Assert.IsTrue(first >= second);
+      MagickColor second = new MagickColor(Color.Black);
 
-			second = new MagickColor(Color.White);
+      Assert.AreEqual(1, first.CompareTo(second));
+      Assert.IsFalse(first < second);
+      Assert.IsFalse(first <= second);
+      Assert.IsTrue(first > second);
+      Assert.IsTrue(first >= second);
 
-			Assert.AreEqual(0, first.CompareTo(second));
-			Assert.IsFalse(first < second);
-			Assert.IsTrue(first <= second);
-			Assert.IsFalse(first > second);
-			Assert.IsTrue(first >= second);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
-		{
-			MagickColor first = new MagickColor(Color.Red);
+      second = new MagickColor(Color.White);
 
-			Assert.IsFalse(first == null);
-			Assert.IsFalse(first.Equals(null));
-			Assert.IsTrue(first.Equals(first));
-			Assert.IsTrue(first.Equals((object)first));
+      Assert.AreEqual(0, first.CompareTo(second));
+      Assert.IsFalse(first < second);
+      Assert.IsTrue(first <= second);
+      Assert.IsFalse(first > second);
+      Assert.IsTrue(first >= second);
+    }
 
-			MagickColor second = new MagickColor(Quantum.Max, 0, 0);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IEquatable()
+    {
+      MagickColor first = new MagickColor(Color.Red);
 
-			Assert.IsTrue(first == second);
-			Assert.IsTrue(first.Equals(second));
-			Assert.IsTrue(first.Equals((object)second));
+      Assert.IsFalse(first == null);
+      Assert.IsFalse(first.Equals(null));
+      Assert.IsTrue(first.Equals(first));
+      Assert.IsTrue(first.Equals((object)first));
 
-			second = new MagickColor(Color.Green);
+      MagickColor second = new MagickColor(Quantum.Max, 0, 0);
 
-			Assert.IsTrue(first != second);
-			Assert.IsFalse(first.Equals(second));
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_ToColor()
-		{
-			MagickColor color = new MagickColor(Color.Red);
-			Assert.AreEqual(Quantum.Max, color.A);
+      Assert.IsTrue(first == second);
+      Assert.IsTrue(first.Equals(second));
+      Assert.IsTrue(first.Equals((object)second));
 
-			ColorAssert.AreEqual(Color.Red, color);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_ToString()
-		{
-			MagickColor color = new MagickColor(Color.Red);
+      second = new MagickColor(Color.Green);
+
+      Assert.IsTrue(first != second);
+      Assert.IsFalse(first.Equals(second));
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ToColor()
+    {
+      MagickColor color = new MagickColor(Color.Red);
+      Assert.AreEqual(Quantum.Max, color.A);
+
+      ColorAssert.AreEqual(Color.Red, color);
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ToString()
+    {
+      MagickColor color = new MagickColor(Color.Red);
 #if Q8
-			Assert.AreEqual("#FF0000FF", color.ToString());
+      Assert.AreEqual("#FF0000FF", color.ToString());
 #elif Q16 || Q16HDRI
-			Assert.AreEqual("#FFFF00000000FFFF", color.ToString());
+      Assert.AreEqual("#FFFF00000000FFFF", color.ToString());
 #else
 #error Not implemented!
 #endif
 
 #if Q8
-			color = new MagickColor(0, Quantum.Max, 0, 0, (System.Byte)(Quantum.Max / 3));
+      color = new MagickColor(0, Quantum.Max, 0, 0, (System.Byte)(Quantum.Max / 3));
 #elif Q16
-			color = new MagickColor(0, Quantum.Max, 0, 0, (System.UInt16)(Quantum.Max / 3));
+      color = new MagickColor(0, Quantum.Max, 0, 0, (System.UInt16)(Quantum.Max / 3));
 #elif Q16HDRI
-			color = new MagickColor(0, Quantum.Max, 0, 0, (System.Single)(Quantum.Max / 3));
+      color = new MagickColor(0, Quantum.Max, 0, 0, (System.Single)(Quantum.Max / 3));
 #else
 #error Not implemented!
 #endif
-			Assert.AreEqual("cmyka(0," + Quantum.Max + ",0,0,0.3333)", color.ToString());
+      Assert.AreEqual("cmyka(0," + Quantum.Max + ",0,0,0.3333)", color.ToString());
 
-			color = new MagickColor(0, Quantum.Max, 0, 0, Quantum.Max);
-			Assert.AreEqual("cmyka(0," + Quantum.Max + ",0,0,1.0)", color.ToString());
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Transparent()
-		{
-			MagickColor transparent = MagickColor.Transparent;
+      color = new MagickColor(0, Quantum.Max, 0, 0, Quantum.Max);
+      Assert.AreEqual("cmyka(0," + Quantum.Max + ",0,0,1.0)", color.ToString());
+    }
 
-			ColorAssert.IsTransparent(transparent.A);
-			ColorAssert.AreEqual(Color.Transparent, transparent);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Transparent()
+    {
+      MagickColor transparent = MagickColor.Transparent;
 
-			transparent = new MagickColor("transparent");
+      ColorAssert.IsTransparent(transparent.A);
+      ColorAssert.AreEqual(Color.Transparent, transparent);
 
-			ColorAssert.IsTransparent(transparent.A);
-			ColorAssert.AreEqual(Color.Transparent, transparent);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      transparent = new MagickColor("transparent");
+
+      ColorAssert.IsTransparent(transparent.A);
+      ColorAssert.AreEqual(Color.Transparent, transparent);
+    }
+  }
 }

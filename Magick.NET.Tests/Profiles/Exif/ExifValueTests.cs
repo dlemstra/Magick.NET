@@ -18,47 +18,43 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class ExifValueTests
-	{
-		//===========================================================================================
-		private const string _Category = "ExifValue";
-		//===========================================================================================
-		private static ExifValue GetExifValue()
-		{
-			using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-			{
-				ExifProfile profile = image.GetExifProfile();
-				Assert.IsNotNull(profile);
+  [TestClass]
+  public class ExifValueTests
+  {
+    private const string _Category = "ExifValue";
 
-				return profile.Values.First();
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
-		{
-			ExifValue first = GetExifValue();
-			ExifValue second = GetExifValue();
+    private static ExifValue GetExifValue()
+    {
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      {
+        ExifProfile profile = image.GetExifProfile();
+        Assert.IsNotNull(profile);
 
-			Assert.IsTrue(first == second);
-			Assert.IsTrue(first.Equals(second));
-			Assert.IsTrue(first.Equals((object)second));
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Properties()
-		{
-			ExifValue value = GetExifValue();
+        return profile.Values.First();
+      }
+    }
 
-			Assert.AreEqual(ExifDataType.Ascii, value.DataType);
-			Assert.AreEqual(ExifTag.ImageDescription, value.Tag);
-			Assert.AreEqual(false, value.IsArray);
-			Assert.AreEqual("Communications", value.ToString());
-			Assert.AreEqual("Communications", value.Value);
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IEquatable()
+    {
+      ExifValue first = GetExifValue();
+      ExifValue second = GetExifValue();
+
+      Assert.IsTrue(first == second);
+      Assert.IsTrue(first.Equals(second));
+      Assert.IsTrue(first.Equals((object)second));
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Properties()
+    {
+      ExifValue value = GetExifValue();
+
+      Assert.AreEqual(ExifDataType.Ascii, value.DataType);
+      Assert.AreEqual(ExifTag.ImageDescription, value.Tag);
+      Assert.AreEqual(false, value.IsArray);
+      Assert.AreEqual("Communications", value.ToString());
+      Assert.AreEqual("Communications", value.Value);
+    }
+  }
 }

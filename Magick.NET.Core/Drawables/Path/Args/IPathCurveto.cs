@@ -14,61 +14,57 @@
 
 namespace ImageMagick.Drawables.Paths
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathCurveto object.
-	///</summary>
-	public interface IPathCurveto
-	{
-		///==========================================================================================
-		/// <summary>
-		/// X ordinate of the end of the curve
-		/// </summary>
-		double X
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Y ordinate of the end of the curve
-		/// </summary>
-		double Y
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// X ordinate of control point for curve beginning
-		/// </summary>
-		double X1
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Y ordinate of control point for curve beginning
-		/// </summary>
-		double Y1
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// X ordinate of control point for curve ending
-		/// </summary>
-		double X2
-		{
-			get;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Y ordinate of control point for curve ending
-		/// </summary>
-		double Y2
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathCurveto object.
+  ///</summary>
+  public interface IPathCurveto
+  {
+    /// <summary>
+    /// X ordinate of the end of the curve
+    /// </summary>
+    double X
+    {
+      get;
+    }
+
+    /// <summary>
+    /// Y ordinate of the end of the curve
+    /// </summary>
+    double Y
+    {
+      get;
+    }
+
+    /// <summary>
+    /// X ordinate of control point for curve beginning
+    /// </summary>
+    double X1
+    {
+      get;
+    }
+
+    /// <summary>
+    /// Y ordinate of control point for curve beginning
+    /// </summary>
+    double Y1
+    {
+      get;
+    }
+
+    /// <summary>
+    /// X ordinate of control point for curve ending
+    /// </summary>
+    double X2
+    {
+      get;
+    }
+
+    /// <summary>
+    /// Y ordinate of control point for curve ending
+    /// </summary>
+    double Y2
+    {
+      get;
+    }
+  }
 }

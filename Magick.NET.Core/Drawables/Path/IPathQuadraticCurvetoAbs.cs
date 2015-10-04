@@ -16,21 +16,17 @@ using System.Collections.Generic;
 
 namespace ImageMagick.Drawables.Paths
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathQuadraticCurvetoAbs object.
-	///</summary>
-	public interface IPathQuadraticCurvetoAbs : IPath
-	{
-		///==========================================================================================
-		/// <summary>
-		/// The coordinates.
-		/// </summary>
-		IEnumerable<IPathQuadraticCurveto> Coordinates
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathQuadraticCurvetoAbs object.
+  ///</summary>
+  public interface IPathQuadraticCurvetoAbs : IPath
+  {
+    /// <summary>
+    /// The coordinates.
+    /// </summary>
+    IEnumerable<IPathQuadraticCurveto> Coordinates
+    {
+      get;
+    }
+  }
 }

@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableGravity object.
-	///</summary>
-	public interface IDrawableGravity : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// The gravity.
-		///</summary>
-		Gravity Gravity
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableGravity object.
+  ///</summary>
+  public interface IDrawableGravity : IDrawable
+  {
+    ///<summary>
+    /// The gravity.
+    ///</summary>
+    Gravity Gravity
+    {
+      get;
+    }
+  }
 }

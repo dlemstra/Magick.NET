@@ -1,23 +1,23 @@
 <msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
-	<read>
-		<draw>
-			<fillColor color="#f00"/>
-			<circle originX="0" originY="0" perimeterX="50" perimeterY="50"/>
-			<!-- comment that should be ignored-->
-			<fillColor color="#800080"/>
-			<path>
-				<!-- comment that should be ignored-->
-				<curvetoAbs>
-					<!-- comment that should be ignored-->
-					<coordinate x="0" y="0" x1="20" y1="90" x2="128" y2="123"/>
-				</curvetoAbs>
-			</path>
-			<fillColor color="Transparent"/>
-			<fillColor color="#00F"/>
-			<textAntialias isEnabled="1"/>
-			<textDecoration decoration="Underline"/>
-			<font family="Verdana" stretch="Normal" weight="Medium" style="Italic"/>
-			<text x="5" y="110" value="Magick.NET"/>
-		</draw>
-	</read>
+  <read>
+    <draw>
+      <fillColor color="#f00"/>
+      <circle originX="0" originY="0" perimeterX="50" perimeterY="50"/>
+      <!-- comment that should be ignored-->
+      <fillColor color="#800080"/>
+      <path>
+        <!-- comment that should be ignored-->
+        <curvetoAbs>
+          <!-- comment that should be ignored-->
+          <coordinate x="0" y="0" x1="20" y1="90" x2="128" y2="123"/>
+        </curvetoAbs>
+      </path>
+      <fillColor color="Transparent"/>
+      <fillColor color="#00F"/>
+      <textAntialias isEnabled="1"/>
+      <textDecoration decoration="Underline"/>
+      <font family="Verdana" stretch="Normal" weight="Medium" style="Italic"/>
+      <text x="5" y="110" value="Magick.NET"/>
+    </draw>
+  </read>
 </msl>

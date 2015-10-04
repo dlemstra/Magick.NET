@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableTextDecoration object.
-	///</summary>
-	public sealed class DrawableTextDecoration : IDrawableTextDecoration
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableTextDecoration instance.
-		///</summary>
-		///<param name="decoration">The text decoration.</param>
-		public DrawableTextDecoration(TextDecoration decoration)
-		{
-			Decoration = decoration;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The text decoration
-		///</summary>
-		public TextDecoration Decoration
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableTextDecoration object.
+  ///</summary>
+  public sealed class DrawableTextDecoration : IDrawableTextDecoration
+  {
+    ///<summary>
+    /// Creates a new DrawableTextDecoration instance.
+    ///</summary>
+    ///<param name="decoration">The text decoration.</param>
+    public DrawableTextDecoration(TextDecoration decoration)
+    {
+      Decoration = decoration;
+    }
+
+    ///<summary>
+    /// The text decoration
+    ///</summary>
+    public TextDecoration Decoration
+    {
+      get;
+      set;
+    }
+  }
 }

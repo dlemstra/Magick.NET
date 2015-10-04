@@ -20,195 +20,191 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public class MagickNETTests
-	{
-		//===========================================================================================
-		private const string _Category = "MagickNET";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_GetFormatInformation()
-		{
-			MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Gradient);
-			Assert.AreEqual(MagickFormat.Gradient, formatInfo.Format);
-			Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
-			Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
-			Assert.AreEqual("Gradual linear passing from one shade to another", formatInfo.Description);
-			Assert.AreEqual(false, formatInfo.IsMultiFrame);
-			Assert.AreEqual(true, formatInfo.IsReadable);
-			Assert.AreEqual(false, formatInfo.IsWritable);
-			Assert.AreEqual(null, formatInfo.MimeType);
+  [TestClass]
+  public class MagickNETTests
+  {
+    private const string _Category = "MagickNET";
 
-			formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jp2);
-			Assert.AreEqual(MagickFormat.Jp2, formatInfo.Format);
-			Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
-			Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
-			Assert.AreEqual("JPEG-2000 File Format Syntax", formatInfo.Description);
-			Assert.AreEqual(false, formatInfo.IsMultiFrame);
-			Assert.AreEqual(true, formatInfo.IsReadable);
-			Assert.AreEqual(true, formatInfo.IsWritable);
-			Assert.AreEqual("image/jp2", formatInfo.MimeType);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Features()
-		{
+    [TestMethod, TestCategory(_Category)]
+    public void Test_GetFormatInformation()
+    {
+      MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Gradient);
+      Assert.AreEqual(MagickFormat.Gradient, formatInfo.Format);
+      Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
+      Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
+      Assert.AreEqual("Gradual linear passing from one shade to another", formatInfo.Description);
+      Assert.AreEqual(false, formatInfo.IsMultiFrame);
+      Assert.AreEqual(true, formatInfo.IsReadable);
+      Assert.AreEqual(false, formatInfo.IsWritable);
+      Assert.AreEqual(null, formatInfo.MimeType);
+
+      formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jp2);
+      Assert.AreEqual(MagickFormat.Jp2, formatInfo.Format);
+      Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
+      Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
+      Assert.AreEqual("JPEG-2000 File Format Syntax", formatInfo.Description);
+      Assert.AreEqual(false, formatInfo.IsMultiFrame);
+      Assert.AreEqual(true, formatInfo.IsReadable);
+      Assert.AreEqual(true, formatInfo.IsWritable);
+      Assert.AreEqual("image/jp2", formatInfo.MimeType);
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Features()
+    {
 #if Q8
-			Assert.AreEqual("Cipher DPC Modules OpenCL OpenMP ", MagickNET.Features);
+      Assert.AreEqual("Cipher DPC Modules OpenCL OpenMP ", MagickNET.Features);
 #elif Q16
-			Assert.AreEqual("Cipher DPC Modules OpenCL OpenMP ", MagickNET.Features);
+      Assert.AreEqual("Cipher DPC Modules OpenCL OpenMP ", MagickNET.Features);
 #elif Q16HDRI
-			Assert.AreEqual("Cipher DPC HDRI Modules OpenCL OpenMP ", MagickNET.Features);
+      Assert.AreEqual("Cipher DPC HDRI Modules OpenCL OpenMP ", MagickNET.Features);
 #else
 #error Not implemented!
 #endif
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Initialize()
-		{
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				MagickNET.Initialize(null);
-			});
+    }
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				MagickNET.Initialize("Invalid");
-			});
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Initialize()
+    {
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        MagickNET.Initialize(null);
+      });
 
-			string path = Path.GetDirectoryName(GetType().Assembly.Location) + @"..\..\..\..\..\Magick.NET.Wrapper\Resources\xml";
-			foreach (string fileName in Directory.GetFiles(path, "*.xml"))
-			{
-				string tempFile = fileName + ".tmp";
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        MagickNET.Initialize("Invalid");
+      });
 
-				if (File.Exists(tempFile))
-					File.Delete(tempFile);
+      string path = Path.GetDirectoryName(GetType().Assembly.Location) + @"..\..\..\..\..\Magick.NET.Wrapper\Resources\xml";
+      foreach (string fileName in Directory.GetFiles(path, "*.xml"))
+      {
+        string tempFile = fileName + ".tmp";
 
-				File.Move(fileName, tempFile);
+        if (File.Exists(tempFile))
+          File.Delete(tempFile);
 
-				ExceptionAssert.Throws<ArgumentException>(delegate()
-				{
-					MagickNET.Initialize(path);
-				}, "MagickNET._ImageMagickFiles does not contain: " + Path.GetFileName(fileName));
+        File.Move(fileName, tempFile);
 
-				File.Move(tempFile, fileName);
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Log()
-		{
-			using (MagickImage image = new MagickImage(Files.SnakewarePNG))
-			{
-				int count = 0;
-				EventHandler<LogEventArgs> logDelegate = delegate(object sender, LogEventArgs arguments)
-				{
-					Assert.IsNull(sender);
-					Assert.IsNotNull(arguments);
-					Assert.AreNotEqual(LogEvents.None, arguments.EventType);
-					Assert.IsNotNull(arguments.Message);
-					Assert.AreNotEqual(0, arguments.Message.Length);
+        ExceptionAssert.Throws<ArgumentException>(delegate ()
+        {
+          MagickNET.Initialize(path);
+        }, "MagickNET._ImageMagickFiles does not contain: " + Path.GetFileName(fileName));
 
-					count++;
-				};
+        File.Move(tempFile, fileName);
+      }
+    }
 
-				MagickNET.Log += logDelegate;
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Log()
+    {
+      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      {
+        int count = 0;
+        EventHandler<LogEventArgs> logDelegate = delegate (object sender, LogEventArgs arguments)
+        {
+          Assert.IsNull(sender);
+          Assert.IsNotNull(arguments);
+          Assert.AreNotEqual(LogEvents.None, arguments.EventType);
+          Assert.IsNotNull(arguments.Message);
+          Assert.AreNotEqual(0, arguments.Message.Length);
 
-				image.Flip();
-				Assert.AreEqual(0, count);
+          count++;
+        };
 
-				MagickNET.SetLogEvents(LogEvents.All);
+        MagickNET.Log += logDelegate;
 
-				image.Flip();
-				Assert.AreNotEqual(0, count);
+        image.Flip();
+        Assert.AreEqual(0, count);
 
-				MagickNET.Log -= logDelegate;
-				count = 0;
+        MagickNET.SetLogEvents(LogEvents.All);
 
-				image.Flip();
-				Assert.AreEqual(0, count);
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_MagickFormats()
-		{
-			List<string> missingFormats = new List<string>();
+        image.Flip();
+        Assert.AreNotEqual(0, count);
 
-			foreach (MagickFormat format in Enum.GetValues(typeof(MagickFormat)))
-			{
-				if (format == MagickFormat.Unknown)
-					continue;
+        MagickNET.Log -= logDelegate;
+        count = 0;
 
-				MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
-				if (formatInfo == null)
-					missingFormats.Add(format.ToString());
-			}
+        image.Flip();
+        Assert.AreEqual(0, count);
+      }
+    }
 
-			if (missingFormats.Count > 0)
-				Assert.Fail("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats.ToArray()));
-		}
+    [TestMethod, TestCategory(_Category)]
+    public void Test_MagickFormats()
+    {
+      List<string> missingFormats = new List<string>();
 
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_OpenCL()
-		{
-			Assert.AreEqual(MagickNET.UseOpenCL, true);
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_SupportedFormats()
-		{
-			foreach (MagickFormatInfo formatInfo in MagickNET.SupportedFormats)
-			{
-				Assert.AreNotEqual(MagickFormat.Unknown, formatInfo.Format, "Unknown format: " + formatInfo.Description + " (" + formatInfo.Module + ")");
-			}
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Version()
-		{
+      foreach (MagickFormat format in Enum.GetValues(typeof(MagickFormat)))
+      {
+        if (format == MagickFormat.Unknown)
+          continue;
+
+        MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
+        if (formatInfo == null)
+          missingFormats.Add(format.ToString());
+      }
+
+      if (missingFormats.Count > 0)
+        Assert.Fail("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats.ToArray()));
+    }
+
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_OpenCL()
+    {
+      Assert.AreEqual(MagickNET.UseOpenCL, true);
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_SupportedFormats()
+    {
+      foreach (MagickFormatInfo formatInfo in MagickNET.SupportedFormats)
+      {
+        Assert.AreNotEqual(MagickFormat.Unknown, formatInfo.Format, "Unknown format: " + formatInfo.Description + " (" + formatInfo.Module + ")");
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Version()
+    {
 #if ANYCPU
-			StringAssert.Contains(MagickNET.Version, "AnyCPU");
+      StringAssert.Contains(MagickNET.Version, "AnyCPU");
 #else
-			StringAssert.Contains(MagickNET.Version, "x86");
+      StringAssert.Contains(MagickNET.Version, "x86");
 #endif
 
 #if NET20
-			StringAssert.Contains(MagickNET.Version, "net20");
+      StringAssert.Contains(MagickNET.Version, "net20");
 #else
-			StringAssert.Contains(MagickNET.Version, "net40-client");
+      StringAssert.Contains(MagickNET.Version, "net40-client");
 #endif
 
 #if Q8
-			StringAssert.Contains(MagickNET.Version, "Q8");
+      StringAssert.Contains(MagickNET.Version, "Q8");
 #elif Q16
-			StringAssert.Contains(MagickNET.Version, "Q16");
+      StringAssert.Contains(MagickNET.Version, "Q16");
 #elif Q16HDRI
-			StringAssert.Contains(MagickNET.Version, "Q16-HDRI");
+      StringAssert.Contains(MagickNET.Version, "Q16-HDRI");
 #else
 #error Not implemented!
 #endif
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_SetTempDirectory()
-		{
-			ExceptionAssert.Throws<ArgumentNullException>(delegate()
-			{
-				MagickNET.SetTempDirectory(null);
-			});
+    }
 
-			ExceptionAssert.Throws<ArgumentException>(delegate()
-			{
-				MagickNET.SetTempDirectory("Invalid");
-			});
+    [TestMethod, TestCategory(_Category)]
+    public void Test_SetTempDirectory()
+    {
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        MagickNET.SetTempDirectory(null);
+      });
 
-			MagickNET.SetTempDirectory(Path.GetTempPath());
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        MagickNET.SetTempDirectory("Invalid");
+      });
+
+      MagickNET.SetTempDirectory(Path.GetTempPath());
+    }
+  }
 }

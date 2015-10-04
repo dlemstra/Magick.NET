@@ -16,13 +16,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Marker interface for paths
-	///</summary>
-	[SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
-	public interface IPath
-	{
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Marker interface for paths
+  ///</summary>
+  [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
+  public interface IPath
+  {
+  }
 }

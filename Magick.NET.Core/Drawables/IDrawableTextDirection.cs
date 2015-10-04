@@ -14,21 +14,17 @@
 
 namespace ImageMagick.Drawables
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableTextDirection object.
-	///</summary>
-	public interface IDrawableTextDirection : IDrawable
-	{
-		///==========================================================================================
-		///<summary>
-		/// Direction to use.
-		///</summary>
-		TextDirection Direction
-		{
-			get;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableTextDirection object.
+  ///</summary>
+  public interface IDrawableTextDirection : IDrawable
+  {
+    ///<summary>
+    /// Direction to use.
+    ///</summary>
+    TextDirection Direction
+    {
+      get;
+    }
+  }
 }

@@ -16,31 +16,27 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawablePointSize object.
-	///</summary>
-	public sealed class DrawablePointSize : IDrawablePointSize
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawablePointSize instance.
-		///</summary>
-		///<param name="pointSize">The point size.</param>
-		public DrawablePointSize(double pointSize)
-		{
-			PointSize = pointSize;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The point size.
-		///</summary>
-		public double PointSize
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawablePointSize object.
+  ///</summary>
+  public sealed class DrawablePointSize : IDrawablePointSize
+  {
+    ///<summary>
+    /// Creates a new DrawablePointSize instance.
+    ///</summary>
+    ///<param name="pointSize">The point size.</param>
+    public DrawablePointSize(double pointSize)
+    {
+      PointSize = pointSize;
+    }
+
+    ///<summary>
+    /// The point size.
+    ///</summary>
+    public double PointSize
+    {
+      get;
+      set;
+    }
+  }
 }

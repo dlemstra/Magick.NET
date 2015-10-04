@@ -17,31 +17,31 @@ using ImageMagick;
 
 namespace RootNamespace.Samples.MagickNET
 {
-	public static class DetailedDebugInformationSamples
-	{
-		private static void WriteLogMessage(string message)
-		{
-			Console.WriteLine(message);
-		}
+  public static class DetailedDebugInformationSamples
+  {
+    private static void WriteLogMessage(string message)
+    {
+      Console.WriteLine(message);
+    }
 
-		public static void MagickNET_Log(object sender, LogEventArgs arguments)
-		{
-			// Write log message
-			WriteLogMessage(arguments.Message);
-		}
+    public static void MagickNET_Log(object sender, LogEventArgs arguments)
+    {
+      // Write log message
+      WriteLogMessage(arguments.Message);
+    }
 
-		public static void ReadImage()
-		{
-			// Log all events
-			ImageMagick.MagickNET.SetLogEvents(LogEvents.All | LogEvents.Trace);
-			// Set the log handler (all threads use the same handler)
-			ImageMagick.MagickNET.Log += MagickNET_Log;
+    public static void ReadImage()
+    {
+      // Log all events
+      ImageMagick.MagickNET.SetLogEvents(LogEvents.All | LogEvents.Trace);
+      // Set the log handler (all threads use the same handler)
+      ImageMagick.MagickNET.Log += MagickNET_Log;
 
-			using (MagickImage image = new MagickImage())
-			{
-				// Reading the image will send all log events to the log handler
-				image.Read(SampleFiles.SnakewarePng);
-			}
-		}
-	}
+      using (MagickImage image = new MagickImage())
+      {
+        // Reading the image will send all log events to the log handler
+        image.Read(SampleFiles.SnakewarePng);
+      }
+    }
+  }
 }

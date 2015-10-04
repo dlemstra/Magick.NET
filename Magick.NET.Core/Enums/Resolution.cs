@@ -14,27 +14,24 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Units of image resolution.
-	///</summary>
-	public enum Resolution
-	{
-		///==========================================================================================
-		/// <summary>
-		/// Undefied
-		/// </summary>
-		Undefined,
-		///==========================================================================================
-		/// <summary>
-		/// Pixels per inch
-		/// </summary>
-		PixelsPerInch,
-		///==========================================================================================
-		/// <summary>
-		/// Pixels per centimeter
-		/// </summary>
-		PixelsPerCentimeter
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Units of image resolution.
+  ///</summary>
+  public enum Resolution
+  {
+    /// <summary>
+    /// Undefied
+    /// </summary>
+    Undefined,
+
+    /// <summary>
+    /// Pixels per inch
+    /// </summary>
+    PixelsPerInch,
+
+    /// <summary>
+    /// Pixels per centimeter
+    /// </summary>
+    PixelsPerCentimeter
+  }
 }

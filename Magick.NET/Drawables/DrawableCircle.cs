@@ -16,64 +16,60 @@ using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the DrawableCircle object.
-	///</summary>
-	public sealed class DrawableCircle : IDrawableCircle
-	{
-		///==========================================================================================
-		///<summary>
-		/// Creates a new DrawableCircle instance.
-		///</summary>
-		///<param name="originX">The origin X coordinate.</param>
-		///<param name="originY">The origin Y coordinate.</param>
-		///<param name="perimeterX">The perimeter X coordinate.</param>
-		///<param name="perimeterY">The perimeter Y coordinate.</param>
-		public DrawableCircle(double originX, double originY, double perimeterX, double perimeterY)
-		{
-			OriginX = originX;
-			OriginY = originY;
-			PerimeterX = perimeterX;
-			PerimeterY = perimeterY;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The origin X coordinate.
-		///</summary>
-		public double OriginX
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The origin X coordinate.
-		///</summary>
-		public double OriginY
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The perimeter X coordinate.
-		///</summary>
-		public double PerimeterX
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The perimeter X coordinate.
-		///</summary>
-		public double PerimeterY
-		{
-			get;
-			set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the DrawableCircle object.
+  ///</summary>
+  public sealed class DrawableCircle : IDrawableCircle
+  {
+    ///<summary>
+    /// Creates a new DrawableCircle instance.
+    ///</summary>
+    ///<param name="originX">The origin X coordinate.</param>
+    ///<param name="originY">The origin Y coordinate.</param>
+    ///<param name="perimeterX">The perimeter X coordinate.</param>
+    ///<param name="perimeterY">The perimeter Y coordinate.</param>
+    public DrawableCircle(double originX, double originY, double perimeterX, double perimeterY)
+    {
+      OriginX = originX;
+      OriginY = originY;
+      PerimeterX = perimeterX;
+      PerimeterY = perimeterY;
+    }
+
+    ///<summary>
+    /// The origin X coordinate.
+    ///</summary>
+    public double OriginX
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The origin X coordinate.
+    ///</summary>
+    public double OriginY
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The perimeter X coordinate.
+    ///</summary>
+    public double PerimeterX
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The perimeter X coordinate.
+    ///</summary>
+    public double PerimeterY
+    {
+      get;
+      set;
+    }
+  }
 }

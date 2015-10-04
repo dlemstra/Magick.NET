@@ -16,107 +16,103 @@ using System.IO;
 
 namespace ImageMagick.ImageOptimizers
 {
-	///=============================================================================================
-	/// <summary>
-	/// Class that can be used to optimize gif files.
-	/// </summary>
-	public sealed class GifOptimizer : IImageOptimizer, ILosslessImageOptimizer
-	{
-		//===========================================================================================
-		private static void CheckFormat(MagickImage image)
-		{
-			MagickFormat format = image.FormatInfo.Module;
-			if (format != MagickFormat.Gif)
-				throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
-		}
-		//===========================================================================================
-		private static void DoLosslessCompress(FileInfo file)
-		{
-			using (MagickImageCollection images = new MagickImageCollection(file))
-			{
-				if (images.Count == 1)
-				{
-					DoLosslessCompress(file, images[0]);
-					return;
-				}
-			}
-		}
-		//===========================================================================================
-		private static void DoLosslessCompress(FileInfo file, MagickImage image)
-		{
-			CheckFormat(image);
+  /// <summary>
+  /// Class that can be used to optimize gif files.
+  /// </summary>
+  public sealed class GifOptimizer : IImageOptimizer, ILosslessImageOptimizer
+  {
+    private static void CheckFormat(MagickImage image)
+    {
+      MagickFormat format = image.FormatInfo.Module;
+      if (format != MagickFormat.Gif)
+        throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
+    }
 
-			image.Strip();
+    private static void DoLosslessCompress(FileInfo file)
+    {
+      using (MagickImageCollection images = new MagickImageCollection(file))
+      {
+        if (images.Count == 1)
+        {
+          DoLosslessCompress(file, images[0]);
+          return;
+        }
+      }
+    }
 
-			FileInfo tempFile = new FileInfo(Path.GetTempFileName());
-			try
-			{
-				image.Write(tempFile);
+    private static void DoLosslessCompress(FileInfo file, MagickImage image)
+    {
+      CheckFormat(image);
 
-				if (tempFile.Length < file.Length)
-					tempFile.CopyTo(file.FullName, true);
-			}
-			finally
-			{
-				if (tempFile.Exists)
-					tempFile.Delete();
-			}
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the GifOptimizer class.
-		///</summary>
-		public GifOptimizer()
-		{
-		}
-		///==========================================================================================
-		/// <summary>
-		/// When set to true various compression types will be used to find the smallest file. This
-		/// process will take extra time because the file has to be written multiple times.
-		/// </summary>
-		public bool OptimalCompression
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		/// <summary>
-		/// The format that the optimizer supports.
-		/// </summary>
-		public MagickFormatInfo Format
-		{
-			get
-			{
-				return MagickNET.GetFormatInformation(MagickFormat.Gif);
-			}
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Performs lossless compression on the file. If the new file size is not smaller the file
-		/// won't be overwritten.
-		/// </summary>
-		/// <param name="fileName">The png file to optimize</param>
-		public void LosslessCompress(string fileName)
-		{
-			string filePath = FileHelper.CheckForBaseDirectory(fileName);
-			Throw.IfInvalidFileName(filePath);
+      image.Strip();
 
-			DoLosslessCompress(new FileInfo(filePath));
-		}
-		///==========================================================================================
-		/// <summary>
-		/// Performs lossless compression on the file. If the new file size is not smaller the file
-		/// won't be overwritten.
-		/// </summary>
-		/// <param name="file">The png file to optimize</param>
-		public void LosslessCompress(FileInfo file)
-		{
-			Throw.IfNull("file", file);
+      FileInfo tempFile = new FileInfo(Path.GetTempFileName());
+      try
+      {
+        image.Write(tempFile);
 
-			DoLosslessCompress(file);
-			file.Refresh();
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+        if (tempFile.Length < file.Length)
+          tempFile.CopyTo(file.FullName, true);
+      }
+      finally
+      {
+        if (tempFile.Exists)
+          tempFile.Delete();
+      }
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the GifOptimizer class.
+    ///</summary>
+    public GifOptimizer()
+    {
+    }
+
+    /// <summary>
+    /// When set to true various compression types will be used to find the smallest file. This
+    /// process will take extra time because the file has to be written multiple times.
+    /// </summary>
+    public bool OptimalCompression
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// The format that the optimizer supports.
+    /// </summary>
+    public MagickFormatInfo Format
+    {
+      get
+      {
+        return MagickNET.GetFormatInformation(MagickFormat.Gif);
+      }
+    }
+
+    /// <summary>
+    /// Performs lossless compression on the file. If the new file size is not smaller the file
+    /// won't be overwritten.
+    /// </summary>
+    /// <param name="fileName">The png file to optimize</param>
+    public void LosslessCompress(string fileName)
+    {
+      string filePath = FileHelper.CheckForBaseDirectory(fileName);
+      Throw.IfInvalidFileName(filePath);
+
+      DoLosslessCompress(new FileInfo(filePath));
+    }
+
+    /// <summary>
+    /// Performs lossless compression on the file. If the new file size is not smaller the file
+    /// won't be overwritten.
+    /// </summary>
+    /// <param name="file">The png file to optimize</param>
+    public void LosslessCompress(FileInfo file)
+    {
+      Throw.IfNull("file", file);
+
+      DoLosslessCompress(file);
+      file.Refresh();
+    }
+  }
 }

@@ -18,31 +18,27 @@ using ImageMagick.Drawables.Paths;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Encapsulation of the PathLinetoAbs object.
-	///</summary>
-	public sealed class PathLinetoAbs : DrawableCoordinates<Coordinate>, IPathLinetoAbs
-	{
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathLinetoAbs class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathLinetoAbs(params Coordinate[] coordinates)
-			: base(coordinates)
-		{
-		}
-		///==========================================================================================
-		///<summary>
-		/// Initializes a new instance of the PathLinetoAbs class.
-		///</summary>
-		///<param name="coordinates">The coordinates to use.</param>
-		public PathLinetoAbs(IEnumerable<Coordinate> coordinates)
-			: base(coordinates)
-		{
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Encapsulation of the PathLinetoAbs object.
+  ///</summary>
+  public sealed class PathLinetoAbs : DrawableCoordinates<Coordinate>, IPathLinetoAbs
+  {
+    ///<summary>
+    /// Initializes a new instance of the PathLinetoAbs class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathLinetoAbs(params Coordinate[] coordinates)
+      : base(coordinates)
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathLinetoAbs class.
+    ///</summary>
+    ///<param name="coordinates">The coordinates to use.</param>
+    public PathLinetoAbs(IEnumerable<Coordinate> coordinates)
+      : base(coordinates)
+    {
+    }
+  }
 }

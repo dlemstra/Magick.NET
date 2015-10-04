@@ -16,17 +16,15 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-//=================================================================================================
 [assembly: AssemblyProduct("Magick.NET.Core")]
 [assembly: AssemblyDescription("Magick.NET.Core")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyCopyright("Copyright © 2013-2015 Dirk Lemstra")]
 [assembly: AssemblyTrademark("")]
-//=================================================================================================
+
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("7.0.0.0")]
 [assembly: AssemblyFileVersion("7.0.0.0019")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
-//=================================================================================================

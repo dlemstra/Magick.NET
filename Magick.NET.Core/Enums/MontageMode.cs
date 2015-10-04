@@ -14,32 +14,29 @@
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Specifies the montage modes.
-	///</summary>
-	public enum MontageMode
-	{
-		///==========================================================================================
-		/// <summary>
-		/// Undefined
-		/// </summary>
-		Undefined,
-		///==========================================================================================
-		/// <summary>
-		/// Frame
-		/// </summary>
-		Frame,
-		///==========================================================================================
-		/// <summary>
-		/// Unframe
-		/// </summary>
-		Unframe,
-		///==========================================================================================
-		/// <summary>
-		/// Concatenate
-		/// </summary>
-		Concatenate
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Specifies the montage modes.
+  ///</summary>
+  public enum MontageMode
+  {
+    /// <summary>
+    /// Undefined
+    /// </summary>
+    Undefined,
+
+    /// <summary>
+    /// Frame
+    /// </summary>
+    Frame,
+
+    /// <summary>
+    /// Unframe
+    /// </summary>
+    Unframe,
+
+    /// <summary>
+    /// Concatenate
+    /// </summary>
+    Concatenate
+  }
 }

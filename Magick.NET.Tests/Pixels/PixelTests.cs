@@ -27,93 +27,89 @@ using QuantumType = System.UInt16;
 
 namespace Magick.NET.Tests
 {
-	//==============================================================================================
-	[TestClass]
-	public sealed class PixelTests
-	{
-		//===========================================================================================
-		private const string _Category = "Pixel";
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_IEquatable()
-		{
-			Pixel first = new Pixel(0, 0, 3);
-			first.SetChannel(0, 100);
-			first.SetChannel(1, 100);
-			first.SetChannel(2, 100);
+  [TestClass]
+  public sealed class PixelTests
+  {
+    private const string _Category = "Pixel";
 
-			Assert.IsFalse(first == null);
-			Assert.IsFalse(first.Equals(null));
-			Assert.IsTrue(first.Equals(first));
-			Assert.IsTrue(first.Equals((object)first));
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IEquatable()
+    {
+      Pixel first = new Pixel(0, 0, 3);
+      first.SetChannel(0, 100);
+      first.SetChannel(1, 100);
+      first.SetChannel(2, 100);
 
-			Pixel second = new Pixel(10, 10, 3);
-			second.SetChannel(0, 100);
-			second.SetChannel(1, 0);
-			second.SetChannel(2, 100);
+      Assert.IsFalse(first == null);
+      Assert.IsFalse(first.Equals(null));
+      Assert.IsTrue(first.Equals(first));
+      Assert.IsTrue(first.Equals((object)first));
 
-			Assert.IsTrue(first != second);
-			Assert.IsTrue(!first.Equals(second));
-			Assert.IsTrue(!first.Equals((object)second));
+      Pixel second = new Pixel(10, 10, 3);
+      second.SetChannel(0, 100);
+      second.SetChannel(1, 0);
+      second.SetChannel(2, 100);
 
-			second.SetChannel(1, 100);
+      Assert.IsTrue(first != second);
+      Assert.IsTrue(!first.Equals(second));
+      Assert.IsTrue(!first.Equals((object)second));
 
-			Assert.IsTrue(first == second);
-			Assert.IsTrue(first.Equals(second));
-			Assert.IsTrue(first.Equals((object)second));
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_Set_SetChannel()
-		{
-			QuantumType half = (QuantumType)(Quantum.Max / 2.0);
+      second.SetChannel(1, 100);
 
-			Pixel first = new Pixel(0, 0, 3);
-			first.Set(new QuantumType[] { Quantum.Max, 0, half });
+      Assert.IsTrue(first == second);
+      Assert.IsTrue(first.Equals(second));
+      Assert.IsTrue(first.Equals((object)second));
+    }
 
-			Assert.AreEqual(Quantum.Max, first.GetChannel(0));
-			Assert.AreEqual(0, first.GetChannel(1));
-			Assert.AreEqual(half, first.GetChannel(2));
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Set_SetChannel()
+    {
+      QuantumType half = (QuantumType)(Quantum.Max / 2.0);
 
-			first.SetChannel(0, 0);
-			first.SetChannel(1, half);
-			first.SetChannel(2, Quantum.Max);
+      Pixel first = new Pixel(0, 0, 3);
+      first.Set(new QuantumType[] { Quantum.Max, 0, half });
 
-			Assert.AreEqual(0, first.GetChannel(0));
-			Assert.AreEqual(half, first.GetChannel(1));
-			Assert.AreEqual(Quantum.Max, first.GetChannel(2));
-		}
-		//===========================================================================================
-		[TestMethod, TestCategory(_Category)]
-		public void Test_ToColor()
-		{
-			QuantumType half = (QuantumType)(Quantum.Max / 2.0);
+      Assert.AreEqual(Quantum.Max, first.GetChannel(0));
+      Assert.AreEqual(0, first.GetChannel(1));
+      Assert.AreEqual(half, first.GetChannel(2));
+
+      first.SetChannel(0, 0);
+      first.SetChannel(1, half);
+      first.SetChannel(2, Quantum.Max);
+
+      Assert.AreEqual(0, first.GetChannel(0));
+      Assert.AreEqual(half, first.GetChannel(1));
+      Assert.AreEqual(Quantum.Max, first.GetChannel(2));
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ToColor()
+    {
+      QuantumType half = (QuantumType)(Quantum.Max / 2.0);
 #if Q16HDRI
-			int colorHalf = 128;
+      int colorHalf = 128;
 #else
-			int colorHalf = 127;
+      int colorHalf = 127;
 #endif
-			Pixel pixel = new Pixel(0, 0, 1);
-			pixel.Set(new QuantumType[] { Quantum.Max });
-			ColorAssert.AreEqual(Color.FromArgb(255, 255, 255), pixel.ToColor());
+      Pixel pixel = new Pixel(0, 0, 1);
+      pixel.Set(new QuantumType[] { Quantum.Max });
+      ColorAssert.AreEqual(Color.FromArgb(255, 255, 255), pixel.ToColor());
 
-			pixel = new Pixel(0, 0, 2);
-			pixel.Set(new QuantumType[] { Quantum.Max, 0 });
-			Assert.IsNull(pixel.ToColor());
+      pixel = new Pixel(0, 0, 2);
+      pixel.Set(new QuantumType[] { Quantum.Max, 0 });
+      Assert.IsNull(pixel.ToColor());
 
-			pixel = new Pixel(0, 0, 3);
-			pixel.Set(new QuantumType[] { Quantum.Max, 0, half });
-			ColorAssert.AreEqual(Color.FromArgb(255, 0, colorHalf), pixel.ToColor());
+      pixel = new Pixel(0, 0, 3);
+      pixel.Set(new QuantumType[] { Quantum.Max, 0, half });
+      ColorAssert.AreEqual(Color.FromArgb(255, 0, colorHalf), pixel.ToColor());
 
-			pixel = new Pixel(0, 0, 4);
-			pixel.Set(new QuantumType[] { 0, half, Quantum.Max, Quantum.Max });
-			ColorAssert.AreEqual(Color.FromArgb(255, 0, colorHalf, 255), pixel.ToColor());
+      pixel = new Pixel(0, 0, 4);
+      pixel.Set(new QuantumType[] { 0, half, Quantum.Max, Quantum.Max });
+      ColorAssert.AreEqual(Color.FromArgb(255, 0, colorHalf, 255), pixel.ToColor());
 
-			pixel = new Pixel(0, 0, 5);
-			pixel.Set(new QuantumType[] { Quantum.Max, 0, half, Quantum.Max, Quantum.Max });
-			Assert.IsNull(pixel.ToColor());
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+      pixel = new Pixel(0, 0, 5);
+      pixel.Set(new QuantumType[] { Quantum.Max, 0, half, Quantum.Max, Quantum.Max });
+      Assert.IsNull(pixel.ToColor());
+    }
+  }
 }

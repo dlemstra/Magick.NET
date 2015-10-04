@@ -15,27 +15,24 @@
 
 namespace ImageMagick.Defines
 {
-	///=============================================================================================
-	///<summary>
-	/// Specifies dds compression methods
-	///</summary>
-	public enum DdsCompression
-	{
-		///==========================================================================================
-		/// <summary>
-		/// None
-		/// </summary>
-		None,
-		///==========================================================================================
-		/// <summary>
-		/// Dxt1
-		/// </summary>
-		Dxt1,
-		///==========================================================================================
-		/// <summary>
-		/// Dxt5
-		/// </summary>
-		Dxt5
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Specifies dds compression methods
+  ///</summary>
+  public enum DdsCompression
+  {
+    /// <summary>
+    /// None
+    /// </summary>
+    None,
+
+    /// <summary>
+    /// Dxt1
+    /// </summary>
+    Dxt1,
+
+    /// <summary>
+    /// Dxt5
+    /// </summary>
+    Dxt5
+  }
 }

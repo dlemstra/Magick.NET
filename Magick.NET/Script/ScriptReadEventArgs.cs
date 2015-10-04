@@ -16,46 +16,42 @@ using System;
 
 namespace ImageMagick
 {
-	///=============================================================================================
-	///<summary>
-	/// Class that contains data for the Read event.
-	///</summary>
-	public sealed class ScriptReadEventArgs : EventArgs
-	{
-		//===========================================================================================
-		internal ScriptReadEventArgs(string id, MagickReadSettings settings)
-		{
-			Id = id;
-			Settings = settings;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The ID of the image.
-		///</summary>
-		public string Id
-		{
-			get;
-			private set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The image that was read.
-		///</summary>
-		public MagickImage Image
-		{
-			get;
-			set;
-		}
-		///==========================================================================================
-		///<summary>
-		/// The read settings for the image.
-		///</summary>
-		public MagickReadSettings Settings
-		{
-			get;
-			private set;
-		}
-		//===========================================================================================
-	}
-	//==============================================================================================
+  ///<summary>
+  /// Class that contains data for the Read event.
+  ///</summary>
+  public sealed class ScriptReadEventArgs : EventArgs
+  {
+    internal ScriptReadEventArgs(string id, MagickReadSettings settings)
+    {
+      Id = id;
+      Settings = settings;
+    }
+
+    ///<summary>
+    /// The ID of the image.
+    ///</summary>
+    public string Id
+    {
+      get;
+      private set;
+    }
+
+    ///<summary>
+    /// The image that was read.
+    ///</summary>
+    public MagickImage Image
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// The read settings for the image.
+    ///</summary>
+    public MagickReadSettings Settings
+    {
+      get;
+      private set;
+    }
+  }
 }
