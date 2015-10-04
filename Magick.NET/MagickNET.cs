@@ -35,6 +35,7 @@ namespace ImageMagick
 		};
 		//===========================================================================================
 		private static EventHandler<LogEventArgs> _Log;
+		private static LogEvents _LogEvents = LogEvents.None;
 		//===========================================================================================
 		private static string CheckDirectory(string path)
 		{
@@ -61,6 +62,23 @@ namespace ImageMagick
 				return;
 
 			_Log(null, new LogEventArgs(type, text));
+		}
+		//===========================================================================================
+		private static void SetLogEvents()
+		{
+			string eventFlags = null;
+
+			if (EnumHelper.HasFlag(_LogEvents, LogEvents.All))
+			{
+				if (EnumHelper.HasFlag(_LogEvents, LogEvents.Trace))
+					eventFlags = "All,Trace";
+				else
+					eventFlags = "All";
+			}
+			else
+				eventFlags = EnumHelper.ConvertFlags(_LogEvents);
+
+			Wrapper.MagickNET.SetLogEvents(eventFlags);
 		}
 		///==========================================================================================
 		///<summary>
@@ -162,7 +180,7 @@ namespace ImageMagick
 		{
 			Wrapper.MagickNET.SetEnv("MAGICK_OPENCL_CACHE_DIR", CheckDirectory(path));
 		}
-		///=======================================================================================
+		///==========================================================================================
 		///<summary>
 		/// Set the events that will be written to the log. The log will be written to the Log event
 		/// and the debug window in VisualStudio. To change the log settings you must use a custom
@@ -171,19 +189,10 @@ namespace ImageMagick
 		///<param name="events">The events that will be logged.</param>
 		public static void SetLogEvents(LogEvents events)
 		{
-			string eventFlags = null;
+			_LogEvents = events;
 
-			if (EnumHelper.HasFlag(events, LogEvents.All))
-			{
-				if (EnumHelper.HasFlag(events, LogEvents.Trace))
-					eventFlags = "All,Trace";
-				else
-					eventFlags = "All";
-			}
-			else
-				eventFlags = EnumHelper.ConvertFlags(events);
-
-			Wrapper.MagickNET.SetLogEvents(eventFlags);
+			if (_Log != null)
+				SetLogEvents();
 		}
 		///==========================================================================================
 		///<summary>
@@ -194,7 +203,10 @@ namespace ImageMagick
 			add
 			{
 				if (_Log == null)
+				{
 					Wrapper.MagickNET.SetLogDelegate(OnLog);
+					SetLogEvents();
+				}
 
 				_Log += value;
 			}
@@ -203,7 +215,10 @@ namespace ImageMagick
 				_Log -= value;
 
 				if (_Log == null)
+				{
 					Wrapper.MagickNET.SetLogDelegate(null);
+					Wrapper.MagickNET.SetLogEvents("None");
+				}
 			}
 		}
 		///==========================================================================================
