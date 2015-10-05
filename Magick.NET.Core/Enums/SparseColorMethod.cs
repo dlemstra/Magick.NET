@@ -52,6 +52,11 @@ namespace ImageMagick
     /// <summary>
     /// Inverse
     /// </summary>
-    Inverse = 19
+    Inverse = 19,
+
+    /// <summary>
+    /// Manhattan
+    /// </summary>
+    Manhattan = 20
   }
 }
