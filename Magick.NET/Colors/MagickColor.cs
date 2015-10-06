@@ -517,6 +517,19 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Determines whether the specified geometry is fuzzy equal to the current color.
+    ///</summary>
+    ///<param name="other">The color to compare this color with.</param>
+    /// <param name="fuzz">The fuzz factor.</param>
+    public bool FuzzyEquals(MagickColor other, Percentage fuzz)
+    {
+      if (ReferenceEquals(other, null))
+        return false;
+
+      return _Instance.FuzzyEquals(other._Instance, fuzz.ToQuantum());
+    }
+
+    ///<summary>
     /// Serves as a hash of this type.
     ///</summary>
     public override int GetHashCode()

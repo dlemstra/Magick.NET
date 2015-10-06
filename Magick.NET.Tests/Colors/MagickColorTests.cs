@@ -17,6 +17,16 @@ using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+	using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests
 {
   [TestClass]
@@ -86,6 +96,23 @@ namespace Magick.NET.Tests
       float half = Quantum.Max * 0.5f;
       TestColor("gray(50%) ", half, half, half, false, 1);
       TestColor("rgba(100%, 0%, 0%, 0.0)", Quantum.Max, 0, 0, true);
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_FuzzyEquals()
+    {
+      MagickColor first = new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
+      MagickColor second = new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
+
+      Assert.IsTrue(first.FuzzyEquals(second, (Percentage)0));
+
+      QuantumType half = (QuantumType)(Quantum.Max / 2.0);
+      second = new MagickColor(Quantum.Max, half, Quantum.Max);
+
+      Assert.IsFalse(first.FuzzyEquals(second, (Percentage)0));
+      Assert.IsFalse(first.FuzzyEquals(second, (Percentage)10));
+      Assert.IsFalse(first.FuzzyEquals(second, (Percentage)20));
+      Assert.IsTrue(first.FuzzyEquals(second, (Percentage)30));
     }
 
     [TestMethod, TestCategory(_Category)]

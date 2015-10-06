@@ -196,6 +196,22 @@ namespace ImageMagick
         R == other->R;
     }
 
+    bool MagickColor::FuzzyEquals(MagickColor^ other, Magick::Quantum fuzz)
+    {
+      if (ReferenceEquals(other, nullptr))
+        return false;
+
+      if (ReferenceEquals(this, other))
+        return true;
+
+      const Magick::Color* thisColor = CreateColor();
+      const Magick::Color* otherColor = other->CreateColor();
+      bool equals = thisColor->isFuzzyEquivalent(*otherColor, fuzz);
+      delete thisColor;
+      delete otherColor;
+      return equals;
+    }
+
     int MagickColor::GetHashCode()
     {
       return

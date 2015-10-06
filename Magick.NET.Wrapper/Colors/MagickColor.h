@@ -70,6 +70,8 @@ namespace ImageMagick
 
       virtual bool Equals(MagickColor^ other);
 
+      QUANTUM_CLS_COMPLIANT bool FuzzyEquals(MagickColor^ other, Magick::Quantum fuzz);
+
       virtual int GetHashCode() override;
 
       Color ToColor();
