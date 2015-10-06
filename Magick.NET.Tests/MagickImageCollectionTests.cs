@@ -207,6 +207,27 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_Montage()
+    {
+      using (MagickImageCollection images = new MagickImageCollection())
+      {
+        for (int i = 0; i < 9; i++)
+          images.Add(Files.Builtin.Logo);
+
+        MontageSettings ms = new MontageSettings();
+        ms.Geometry = new MagickGeometry(string.Format("{0}x{1}", 200, 200));
+        ms.TileGeometry = new MagickGeometry(string.Format("{0}x", 2));
+
+        using (MagickImage montageResult = images.Montage(ms))
+        {
+          Assert.IsNotNull(montageResult);
+          Assert.AreEqual(400, montageResult.Width);
+          Assert.AreEqual(1000, montageResult.Height);
+        }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_Morph()
     {
       using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
