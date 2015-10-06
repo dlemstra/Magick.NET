@@ -1087,6 +1087,7 @@
           <xs:enumeration value="Barycentric" />
           <xs:enumeration value="Bilinear" />
           <xs:enumeration value="Inverse" />
+          <xs:enumeration value="Manhattan" />
           <xs:enumeration value="Polynomial" />
           <xs:enumeration value="Shepards" />
           <xs:enumeration value="Voronoi" />

@@ -66,6 +66,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Coders\Jp2Tests.cs" />
     <Compile Include="Coders\BgrTests.cs" />
     <Compile Include="Coders\PdfTests.cs" />
     <Compile Include="Coders\PsdTests.cs" />
