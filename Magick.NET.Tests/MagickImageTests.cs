@@ -70,11 +70,19 @@ namespace Magick.NET.Tests
       Assert.AreEqual(0.0, area.Compare(part, ErrorMetric.RootMeanSquared));
     }
 
-    private static void Test_Pixel(MagickImage image, int x, int y, MagickColor color)
+    private static void Test_Pixel_Equal(MagickImage image, int x, int y, MagickColor color)
     {
       using (PixelCollection collection = image.GetReadOnlyPixels())
       {
         ColorAssert.AreEqual(color, collection.GetPixel(x, y));
+      }
+    }
+
+    private static void Test_Pixel_NotEqual(MagickImage image, int x, int y, MagickColor color)
+    {
+      using (PixelCollection collection = image.GetReadOnlyPixels())
+      {
+        ColorAssert.AreNotEqual(color, collection.GetPixel(x, y));
       }
     }
 
@@ -585,10 +593,10 @@ namespace Magick.NET.Tests
 
           destination.CopyPixels(source, new MagickGeometry(25, 25), new Coordinate(25, 25));
 
-          Test_Pixel(destination, 0, 0, Color.Black);
-          Test_Pixel(destination, 24, 24, Color.Black);
-          Test_Pixel(destination, 25, 25, Color.White);
-          Test_Pixel(destination, 49, 49, Color.White);
+          Test_Pixel_Equal(destination, 0, 0, Color.Black);
+          Test_Pixel_Equal(destination, 24, 24, Color.Black);
+          Test_Pixel_Equal(destination, 25, 25, Color.White);
+          Test_Pixel_Equal(destination, 49, 49, Color.White);
         }
       }
     }
@@ -635,7 +643,7 @@ namespace Magick.NET.Tests
       {
         MagickColor yellow = Color.Yellow;
         image.Draw(new DrawableFillColor(yellow), new DrawableRectangle(0, 0, 10, 10));
-        Test_Pixel(image, 5, 5, yellow);
+        Test_Pixel_Equal(image, 5, 5, yellow);
       }
     }
 
@@ -654,7 +662,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(100, image.Width);
         Assert.AreEqual(100, image.Height);
 
-        Test_Pixel(image, 0, 0, MagickColor.Transparent);
+        Test_Pixel_Equal(image, 0, 0, MagickColor.Transparent);
       }
     }
 
@@ -959,16 +967,16 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Color.Red, 10, 10))
       {
-        Test_Pixel(image, 0, 0, Color.Red);
+        Test_Pixel_Equal(image, 0, 0, Color.Red);
 
         image.Opaque(Color.Red, Color.Yellow);
-        Test_Pixel(image, 0, 0, Color.Yellow);
+        Test_Pixel_Equal(image, 0, 0, Color.Yellow);
 
         image.InverseOpaque(Color.Yellow, Color.Red);
-        Test_Pixel(image, 0, 0, Color.Yellow);
+        Test_Pixel_Equal(image, 0, 0, Color.Yellow);
 
         image.InverseOpaque(Color.Red, Color.Red);
-        Test_Pixel(image, 0, 0, Color.Red);
+        Test_Pixel_Equal(image, 0, 0, Color.Red);
       }
     }
 
@@ -1126,12 +1134,12 @@ namespace Magick.NET.Tests
       image.Read(red, 50, 50);
       Assert.AreEqual(50, image.Width);
       Assert.AreEqual(50, image.Height);
-      Test_Pixel(image, 10, 10, red);
+      Test_Pixel_Equal(image, 10, 10, red);
 
       image.Read("xc:red", 50, 50);
       Assert.AreEqual(50, image.Width);
       Assert.AreEqual(50, image.Height);
-      Test_Pixel(image, 5, 5, red);
+      Test_Pixel_Equal(image, 5, 5, red);
 
       image.Dispose();
 
@@ -1483,6 +1491,34 @@ namespace Magick.NET.Tests
         image.Thumbnail(100, 100);
         Assert.AreEqual(100, image.Width);
         Assert.AreEqual(23, image.Height);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Transparent()
+    {
+      MagickColor red = new MagickColor("red");
+      MagickColor transparentRed = new MagickColor("red");
+      transparentRed.A = 0;
+
+      using (MagickImage image = new MagickImage(Files.RedPNG))
+      {
+        Test_Pixel_Equal(image, 0, 0, red);
+
+        image.Transparent(red);
+
+        Test_Pixel_Equal(image, 0, 0, transparentRed);
+        Test_Pixel_NotEqual(image, image.Width - 1, 0, transparentRed);
+      }
+
+      using (MagickImage image = new MagickImage(Files.RedPNG))
+      {
+        Test_Pixel_Equal(image, 0, 0, red);
+
+        image.InverseTransparent(red);
+
+        Test_Pixel_NotEqual(image, 0, 0, transparentRed);
+        Test_Pixel_Equal(image, image.Width - 1, 0, transparentRed);
       }
     }
 

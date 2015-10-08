@@ -54,6 +54,11 @@ namespace Magick.NET.Tests
       AreEqual(expected.ToColor(), actual.ToColor());
     }
 
+    public static void AreNotEqual(Color expected, Pixel actual)
+    {
+      AreNotEqual(expected, actual.ToColor());
+    }
+
     public static void AreNotEqual(Pixel expected, Pixel actual)
     {
       Assert.IsNotNull(expected);

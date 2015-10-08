@@ -4290,13 +4290,13 @@ namespace ImageMagick
       Value->transformSkewY(skewY);
     }
 
-    void MagickImage::Transparent(MagickColor^ color)
+    void MagickImage::Transparent(MagickColor^ color, bool invert)
     {
       const Magick::Color* transparentColor = color->CreateColor();
 
       try
       {
-        Value->transparent(*transparentColor);
+        Value->transparent(*transparentColor, invert);
       }
       catch (Magick::Exception& exception)
       {

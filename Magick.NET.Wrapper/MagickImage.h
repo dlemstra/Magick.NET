@@ -991,7 +991,7 @@ namespace ImageMagick
 
       void TransformSkewY(double skewY);
 
-      void Transparent(MagickColor^ color);
+      void Transparent(MagickColor^ color, bool invert);
 
       void TransparentChroma(MagickColor^ colorLow, MagickColor^ colorHigh);
 

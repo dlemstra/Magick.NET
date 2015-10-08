@@ -4183,6 +4183,18 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Add alpha channel to image, setting pixels that don't match the specified color to transparent.
+    ///</summary>
+    ///<param name="color">The color that should not be made transparent.</param>
+    ///<exception cref="MagickException"/>
+    public void InverseTransparent(MagickColor color)
+    {
+      Throw.IfNull("color", color);
+
+      _Instance.Transparent(MagickColor.GetInstance(color), true);
+    }
+
+    ///<summary>
     /// An edge preserving noise reduction filter.
     ///</summary>
     ///<exception cref="MagickException"/>
@@ -6259,7 +6271,7 @@ namespace ImageMagick
     {
       Throw.IfNull("color", color);
 
-      _Instance.Transparent(MagickColor.GetInstance(color));
+      _Instance.Transparent(MagickColor.GetInstance(color), false);
     }
 
     ///<summary>
