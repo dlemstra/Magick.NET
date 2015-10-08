@@ -21,7 +21,6 @@ using System.IO;
 
 namespace ImageMagick
 {
-
   ///<summary>
   /// Represents the collection of images.
   ///</summary>
