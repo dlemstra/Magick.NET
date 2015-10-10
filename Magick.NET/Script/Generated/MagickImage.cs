@@ -898,6 +898,11 @@ namespace ImageMagick
                       ExecuteInverseOpaque(element, image);
                       return;
                     }
+                    case 'T':
+                    {
+                      ExecuteInverseTransparent(element, image);
+                      return;
+                    }
                   }
                   break;
                 }
@@ -2842,6 +2847,8 @@ namespace ImageMagick
           arguments["evaluateOperator"] = Variables.GetValue<EvaluateOperator>(attribute);
         else if (attribute.Name == "geometry")
           arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
+        else if (attribute.Name == "percentage")
+          arguments["percentage"] = Variables.GetValue<Percentage>(attribute);
         else if (attribute.Name == "value")
           arguments["value"] = Variables.GetValue<double>(attribute);
       }
@@ -2851,12 +2858,16 @@ namespace ImageMagick
       }
       if (OnlyContains(arguments, "channels", "evaluateFunction", "arguments"))
         image.Evaluate((Channels)arguments["channels"], (EvaluateFunction)arguments["evaluateFunction"], (Double[])arguments["arguments"]);
+      else if (OnlyContains(arguments, "channels", "evaluateOperator", "percentage"))
+        image.Evaluate((Channels)arguments["channels"], (EvaluateOperator)arguments["evaluateOperator"], (Percentage)arguments["percentage"]);
       else if (OnlyContains(arguments, "channels", "evaluateOperator", "value"))
         image.Evaluate((Channels)arguments["channels"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
+      else if (OnlyContains(arguments, "channels", "geometry", "evaluateOperator", "percentage"))
+        image.Evaluate((Channels)arguments["channels"], (MagickGeometry)arguments["geometry"], (EvaluateOperator)arguments["evaluateOperator"], (Percentage)arguments["percentage"]);
       else if (OnlyContains(arguments, "channels", "geometry", "evaluateOperator", "value"))
         image.Evaluate((Channels)arguments["channels"], (MagickGeometry)arguments["geometry"], (EvaluateOperator)arguments["evaluateOperator"], (double)arguments["value"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'evaluate', allowed combinations are: [channels, evaluateFunction, arguments] [channels, evaluateOperator, value] [channels, geometry, evaluateOperator, value]");
+        throw new ArgumentException("Invalid argument combination for 'evaluate', allowed combinations are: [channels, evaluateFunction, arguments] [channels, evaluateOperator, percentage] [channels, evaluateOperator, value] [channels, geometry, evaluateOperator, percentage] [channels, geometry, evaluateOperator, value]");
     }
 
     private void ExecuteExtent(XmlElement element, MagickImage image)
@@ -3195,6 +3206,12 @@ namespace ImageMagick
       MagickColor target_ = Variables.GetValue<MagickColor>(element, "target");
       MagickColor fill_ = Variables.GetValue<MagickColor>(element, "fill");
       image.InverseOpaque(target_, fill_);
+    }
+
+    private void ExecuteInverseTransparent(XmlElement element, MagickImage image)
+    {
+      MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
+      image.InverseTransparent(color_);
     }
 
     private void ExecuteKuwahara(XmlElement element, MagickImage image)

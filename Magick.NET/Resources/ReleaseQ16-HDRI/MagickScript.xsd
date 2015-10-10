@@ -2045,6 +2045,7 @@
             <xs:attribute name="evaluateFunction" type="EvaluateFunction" />
             <xs:attribute name="evaluateOperator" type="EvaluateOperator" />
             <xs:attribute name="geometry" type="geometry" />
+            <xs:attribute name="percentage" type="double" />
             <xs:attribute name="value" type="double" />
           </xs:complexType>
         </xs:element>
@@ -2170,6 +2171,11 @@
           <xs:complexType>
             <xs:attribute name="fill" use="required" type="color" />
             <xs:attribute name="target" use="required" type="color" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inverseTransparent">
+          <xs:complexType>
+            <xs:attribute name="color" use="required" type="color" />
           </xs:complexType>
         </xs:element>
         <xs:element name="kuwahara">
