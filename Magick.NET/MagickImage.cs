@@ -3209,6 +3209,18 @@ namespace ImageMagick
     /// Apply an arithmetic or bitwise operator to the image pixel quantums.
     ///</summary>
     ///<param name="channels">The channel(s) to apply the operator on.</param>
+    ///<param name="evaluateOperator">The operator.</param>
+    ///<param name="percentage">The value.</param>
+    ///<exception cref="MagickException"/>
+    public void Evaluate(Channels channels, EvaluateOperator evaluateOperator, Percentage percentage)
+    {
+      Evaluate(channels, evaluateOperator, percentage.ToQuantum());
+    }
+
+    ///<summary>
+    /// Apply an arithmetic or bitwise operator to the image pixel quantums.
+    ///</summary>
+    ///<param name="channels">The channel(s) to apply the operator on.</param>
     ///<param name="geometry">The geometry to use.</param>
     ///<param name="evaluateOperator">The operator.</param>
     ///<param name="value">The value.</param>
@@ -3219,6 +3231,19 @@ namespace ImageMagick
       Throw.IfTrue("geometry", geometry.IsPercentage, "Percentage is not supported.");
 
       _Instance.Evaluate(channels, MagickGeometry.GetInstance(geometry), evaluateOperator, value);
+    }
+
+    ///<summary>
+    /// Apply an arithmetic or bitwise operator to the image pixel quantums.
+    ///</summary>
+    ///<param name="channels">The channel(s) to apply the operator on.</param>
+    ///<param name="geometry">The geometry to use.</param>
+    ///<param name="evaluateOperator">The operator.</param>
+    ///<param name="percentage">The value.</param>
+    ///<exception cref="MagickException"/>
+    public void Evaluate(Channels channels, MagickGeometry geometry, EvaluateOperator evaluateOperator, Percentage percentage)
+    {
+      Evaluate(channels, geometry, evaluateOperator, percentage.ToQuantum());
     }
 
     ///<summary>
