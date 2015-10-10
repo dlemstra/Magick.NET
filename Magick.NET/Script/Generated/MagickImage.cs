@@ -2649,6 +2649,8 @@ namespace ImageMagick
       }
       if (OnlyContains(arguments, "image", "compose"))
         image.Composite((MagickImage)arguments["image"], (CompositeOperator)arguments["compose"]);
+      else if (OnlyContains(arguments, "image", "compose", "args"))
+        image.Composite((MagickImage)arguments["image"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
       else if (OnlyContains(arguments, "image", "gravity"))
         image.Composite((MagickImage)arguments["image"], (Gravity)arguments["gravity"]);
       else if (OnlyContains(arguments, "image", "gravity", "compose"))
@@ -2668,7 +2670,7 @@ namespace ImageMagick
       else if (OnlyContains(arguments, "image", "x", "y", "compose", "args"))
         image.Composite((MagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [image, compose] [image, gravity] [image, gravity, compose] [image, gravity, compose, args] [image, offset] [image, offset, compose] [image, offset, compose, args] [image, x, y] [image, x, y, compose] [image, x, y, compose, args]");
+        throw new ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [image, compose] [image, compose, args] [image, gravity] [image, gravity, compose] [image, gravity, compose, args] [image, offset] [image, offset, compose] [image, offset, compose, args] [image, x, y] [image, x, y, compose] [image, x, y, compose, args]");
     }
 
     private void ExecuteConnectedComponents(XmlElement element, MagickImage image)

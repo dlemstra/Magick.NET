@@ -2634,6 +2634,18 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Compose an image onto another at specified offset using the specified algorithm.
+    ///</summary>
+    ///<param name="image">The image to composite with this image.</param>
+    ///<param name="compose">The algorithm to use.</param>
+    ///<param name="args">The arguments for the algorithm (compose:args).</param>
+    ///<exception cref="MagickException"/>
+    public void Composite(MagickImage image, CompositeOperator compose, string args)
+    {
+      Composite(image, 0, 0, compose, args);
+    }
+
+    ///<summary>
     /// Compose an image onto another at specified offset using the 'In' operator.
     ///</summary>
     ///<param name="image">The image to composite with this image.</param>
@@ -2642,7 +2654,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Composite(MagickImage image, int x, int y)
     {
-      Composite(image, x, y, ImageMagick.CompositeOperator.In);
+      Composite(image, x, y, CompositeOperator.In);
     }
 
     ///<summary>
@@ -2685,7 +2697,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Composite(MagickImage image, MagickGeometry offset)
     {
-      Composite(image, offset, ImageMagick.CompositeOperator.In);
+      Composite(image, offset, CompositeOperator.In);
     }
 
     ///<summary>
