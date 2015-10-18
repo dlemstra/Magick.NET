@@ -10,7 +10,7 @@
     <projectUrl>https://magick.codeplex.com/documentation</projectUrl>
     <iconUrl>http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=752622e7b2e069b698a47df994dd4aaaf1d8aebe&amp;itemId=Magick.NET.Tests%2fImages%2fMagick.NET.icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>This package contains a httpmodule that uses various handlers to resize/optimize/compress images.</description>
+    <description>This package contains a httpmodule that uses various handlers to script/optimize/compress images.</description>
     <copyright>Copyright 2014-2015 Dirk Lemstra</copyright>
     <tags>ImageMagick, Magick.NET</tags>
     <dependencies>
