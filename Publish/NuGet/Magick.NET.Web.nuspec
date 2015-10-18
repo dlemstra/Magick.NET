@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata minClientVersion="2.5">
+    <id/>
+    <version/>
+    <title/>
+    <authors>Dirk Lemstra</authors>
+    <owners>Dirk Lemstra</owners>
+    <licenseUrl>https://magick.codeplex.com/license</licenseUrl>
+    <projectUrl>https://magick.codeplex.com/documentation</projectUrl>
+    <iconUrl>http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=752622e7b2e069b698a47df994dd4aaaf1d8aebe&amp;itemId=Magick.NET.Tests%2fImages%2fMagick.NET.icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This package contains a httpmodule that uses various handlers to resize/optimize/compress images.</description>
+    <copyright>Copyright 2014-2015 Dirk Lemstra</copyright>
+    <tags>ImageMagick, Magick.NET</tags>
+    <dependencies>
+      <dependency id="" version="" />
+    </dependencies>
+  </metadata>
+</package>

@@ -21,7 +21,8 @@ function BuildAll($builds)
     if ($build.RunTests -eq $true)
     {
       $dll = "Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Tests.dll"
-      VSTest.Console.exe $dll
+      # vstest.console.exe keeps crashing, so we need to use mstest.exe instead
+      mstest.exe /testcontainer:$dll
       CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform + " (" + $build.FrameworkName + ")")
     }
   }
@@ -85,15 +86,16 @@ function CopyZipFiles($builds)
 {
   foreach ($build in $builds)
   {
-    $dir = FullPath "Publish\Zip\Releases\Magick.NET-$($build.Quantum)-$($build.Platform)"
-    if (!(Test-Path $dir))
+    $rootDir = FullPath "Publish\Zip\Releases\Magick.NET-$($build.Quantum)-$($build.Platform)"
+    if (!(Test-Path $rootDir))
     {
-      [void](New-Item $dir -type directory)
+      [void](New-Item $rootDir -type directory)
     }
 
-    Copy-Item "Magick.NET\Resources\Release$($build.Quantum)\MagickScript.xsd" $dir
+    Copy-Item "Magick.NET\Resources\Release$($build.Quantum)\MagickScript.xsd" $rootDir
 
-    $dir = "$dir\$($build.FrameworkName)"
+
+    $dir = "$rootDir\$($build.FrameworkName)\Magick.NET"
     if (!(Test-Path $dir))
     {
       [void](New-Item $dir -type directory)
@@ -115,7 +117,7 @@ function CopyZipFiles($builds)
       continue
     }
 
-    $dir = FullPath "Publish\Zip\Releases\Magick.NET.Web-$($build.Quantum)-$($build.Platform)\$($build.FrameworkName)"
+    $dir = "$rootDir\$($build.FrameworkName)\Magick.NET.Web"
     if (!(Test-Path $dir))
     {
       [void](New-Item $dir -type directory)
@@ -140,31 +142,34 @@ function CreateNuGetPackages($builds)
     $id = "Magick.NET-$($build.Quantum)-$($build.Platform)"
     CreateNuGetPackage $id $version $build $hasNet20
 
-    if ($build.Quantum -ne "Q16")
+    if ($build.Quantum -eq "Q16")
     {
-      continue
+      CreateNuGetPackageWithSamples $build $id
     }
-
-    $path = FullPath "Publish\NuGet\Magick.NET.Sample.nuspec"
-    $xml = [xml](Get-Content $path)
-
-    $xml.package.metadata.dependencies.dependency.id = $id
-    $xml.package.metadata.dependencies.dependency.version = $version
-
-    $id = "Magick.NET-$($build.Quantum)-$($build.Platform).Sample"
-    $samples = FullPath "Magick.NET.Samples\Samples\Magick.NET"
-    $files = Get-ChildItem -File -Path $samples\* -Exclude *.cs,*.msl,*.vb -Recurse
-    $offset = $files[0].FullName.LastIndexOf("\Magick.NET.Samples\") + 20
-    foreach($file in $files)
-    {
-      AddFileElement $xml $file "Content\$($file.FullName.SubString($offset))"
-    }
-
-    $file = FullPath "Publish\NuGet\Sample.Install.ps1"
-    AddFileElement $xml $file "Tools\Install.ps1"
-
-    WriteNuGetPackage $id $version $xml
   }
+}
+
+function CreateNuGetPackageWithSamples($build, $id)
+{
+  $path = FullPath "Publish\NuGet\Magick.NET.Sample.nuspec"
+  $xml = [xml](Get-Content $path)
+
+  $xml.package.metadata.dependencies.dependency.id = $id
+  $xml.package.metadata.dependencies.dependency.version = $version
+
+  $id = "Magick.NET-$($build.Quantum)-$($build.Platform).Sample"
+  $samples = FullPath "Magick.NET.Samples\Samples\Magick.NET"
+  $files = Get-ChildItem -File -Path $samples\* -Exclude *.cs,*.msl,*.vb -Recurse
+  $offset = $files[0].FullName.LastIndexOf("\Magick.NET.Samples\") + 20
+  foreach($file in $files)
+  {
+    AddFileElement $xml $file "Content\$($file.FullName.SubString($offset))"
+  }
+
+  $file = FullPath "Publish\NuGet\Sample.Install.ps1"
+  AddFileElement $xml $file "Tools\Install.ps1"
+
+  WriteNuGetPackage $id $version $xml
 }
 
 function CreatePreProcessedFiles()
@@ -197,23 +202,6 @@ function CreateZipFiles($builds)
     }
 
     $zipFile = FullPath "Publish\Zip\Magick.NET-$version-$($build.Quantum)-$($build.Platform).zip"
-    if (Test-Path $zipFile)
-    {
-      Remove-Item $zipFile
-    }
-
-    Write-Host "Creating file: $zipFile"
-
-    [System.IO.Compression.ZipFile]::CreateFromDirectory($dir, $zipFile, $compressionLevel, $false)
-    Remove-Item $dir -recurse
-
-    $dir = FullPath "Publish\Zip\Releases\Magick.NET.Web-$($build.Quantum)-$($build.Platform)"
-    if (!(Test-Path $dir))
-    {
-      continue
-    }
-
-    $zipFile = FullPath "Publish\Zip\Magick.NET.Web-$version-$($build.Quantum)-$($build.Platform).zip"
     if (Test-Path $zipFile)
     {
       Remove-Item $zipFile

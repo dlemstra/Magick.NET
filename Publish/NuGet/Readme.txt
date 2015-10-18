@@ -1,6 +1,6 @@
 Please visit https://magick.codeplex.com/documentation for information on how to use Magick.NET.
 
-Make sure you install the Visual C++ Redistributable for Visual Studio 2012 (.NET 4.0) or 2008 (.NET 2.0)
+Make sure you install the Visual C++ Redistributable for Visual Studio 2015 (.NET 4.0) or 2008 (.NET 2.0)
 in your production environment.
 
 For a list of changes visit: https://magick.codeplex.com/SourceControl/list/changesets. Be sure to

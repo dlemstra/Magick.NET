@@ -70,9 +70,20 @@ function CreateNuGetPackage($id, $version, $build, $hasNet20)
     AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Wrapper-$($build.Platform).xml" "lib\$($build.FrameworkName)"
   }
 
-  AddFileElement $xml ("Readme.txt") "Readme.txt"
+  AddFileElement $xml "Readme.txt" "Readme.txt"
 
   WriteNuGetPackage $id $version $xml
+
+  $webId = $id + ".Web"
+  $path = FullPath "Publish\NuGet\Magick.NET.Web.nuspec"
+  $xml = [xml](Get-Content $path)
+
+  AddFileElement $xml "..\..\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Platform).dll" "lib\$($build.FrameworkName)"
+  AddFileElement $xml "..\..\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Platform).xml" "lib\$($build.FrameworkName)"
+
+  AddFileElement $xml "Readme.Web.txt" "Readme.txt"
+
+  WriteNuGetPackage $webId $version $xml
 }
 
 function HasNet20($builds)

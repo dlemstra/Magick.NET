@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
         MagickNET.Initialize("Invalid");
       });
 
-      string path = Path.GetDirectoryName(GetType().Assembly.Location) + @"..\..\..\..\..\Magick.NET.Wrapper\Resources\xml";
+      string path = Files.Root + @"..\Magick.NET.Wrapper\Resources\xml";
       foreach (string fileName in Directory.GetFiles(path, "*.xml"))
       {
         string tempFile = fileName + ".tmp";

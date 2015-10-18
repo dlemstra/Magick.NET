@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 7.0.0.0020:
+  - The .NET 4.0 build now requires the Visual C++ Redistributable for Visual Studio 2015.
+
 Magick.NET 7.0.0.0018:
   - Cast from double to Percentage is no longer implicit.
 

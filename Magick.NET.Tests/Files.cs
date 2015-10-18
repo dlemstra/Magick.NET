@@ -18,7 +18,17 @@ namespace Magick.NET.Tests
 {
   public static class Files
   {
-    private static string _Root = Path.GetFullPath(@"..\..\..\");
+    private static readonly string _Root = GetRoot();
+
+    private static string GetRoot()
+    {
+      string directory = Path.GetFullPath(@"..\..\..\");
+      if (Directory.Exists(directory + "Images"))
+        return directory;
+
+      /* for mstest.exe */
+      return Path.GetFullPath(@"..\..\..\Magick.NET.Tests\");
+    }
 
     public static string CirclePNG
     {
@@ -116,7 +126,15 @@ namespace Magick.NET.Tests
       }
     }
 
-    public static string SnakewarePNG
+    public static string Root
+    {
+      get
+      {
+        return _Root;
+      }
+    }
+
+      public static string SnakewarePNG
     {
       get
       {
