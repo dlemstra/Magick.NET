@@ -39,7 +39,7 @@ namespace ImageMagick.Web
 
     private static IHttpHandler HandleRequest(HttpContext context)
     {
-      Uri url = (Uri)context.Items["MagickScriptModule.Url"];
+      Uri url = (Uri)context.Items["ImageMagick.Web.MagickModule.Url"];
 
       foreach (IUrlResolver scriptUrlResolver in _ScriptUrlResolvers)
       {
@@ -74,7 +74,7 @@ namespace ImageMagick.Web
     private void OnBeginRequest(object sender, EventArgs arguments)
     {
       HttpContext context = ((HttpApplication)sender).Context;
-      context.Items["MagickScriptModule.Url"] = context.Request.Url;
+      context.Items["ImageMagick.Web.MagickModule.Url"] = context.Request.Url;
     }
 
     private void OnPostAuthorizeRequest(object sender, EventArgs arguments)
