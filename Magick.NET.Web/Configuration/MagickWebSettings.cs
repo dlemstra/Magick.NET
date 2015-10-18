@@ -117,6 +117,30 @@ namespace ImageMagick.Web
       }
     }
 
+    private static string GetDirectory(string directory)
+    {
+      string result = directory;
+
+      if (result[0] == '~')
+        result = Path.GetFullPath(HostingEnvironment.MapPath("~") + result.Substring(1));
+
+      if (result[result.Length - 1] != '\\')
+        result += "\\";
+
+      if (!Directory.Exists(result))
+        Directory.CreateDirectory(result);
+
+      return result;
+    }
+
+    private static string GetTempDirectory(string tempDirectory)
+    {
+      if (string.IsNullOrEmpty(tempDirectory))
+        return Path.GetTempPath();
+
+      return GetDirectory(tempDirectory);
+    }
+
     /// <summary>
     /// Called after deserialization.
     /// </summary>
@@ -124,18 +148,8 @@ namespace ImageMagick.Web
     {
       base.PostDeserialize();
 
-      string directory = _CacheDirectory;
-      if (directory[0] == '~')
-        directory = Path.GetFullPath(HostingEnvironment.MapPath("~") + directory.Substring(1));
-
-      if (directory[directory.Length - 1] != '\\')
-        directory += "\\";
-
-      if (!Directory.Exists(directory))
-        Directory.CreateDirectory(directory);
-
-      _CacheDirectory = directory;
-      _TempDirectory = Path.GetTempPath();
+      _CacheDirectory = GetDirectory(_CacheDirectory);
+      _TempDirectory = GetTempDirectory(_TempDirectory);
     }
 
     /// <summary>
