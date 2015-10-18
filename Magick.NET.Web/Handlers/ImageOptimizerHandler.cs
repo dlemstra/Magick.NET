@@ -22,7 +22,6 @@ namespace ImageMagick.Web.Handlers
   /// </summary>
   public class ImageOptimizerHandler : MagickHandler
   {
-
     private static ImageOptimizer _ImageOptimizer = new ImageOptimizer();
 
     private void CreateOptimizedFile(string cacheFileName)
