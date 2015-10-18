@@ -20,7 +20,7 @@ namespace ImageMagick.Web
   public enum CacheControlMode
   {
     /// <summary>
-    /// Does not add a Expires to the response.
+    /// Does not add a max-age to the response.
     /// </summary>
     NoControl,
 
