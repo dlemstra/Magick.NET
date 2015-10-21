@@ -38,7 +38,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// The maximum width of an image.
+    /// The maximum height of an image.
     ///</summary>
     [CLSCompliant(false)]
     public static ulong Height

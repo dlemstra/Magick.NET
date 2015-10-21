@@ -77,6 +77,15 @@ namespace ImageMagick.Web
       }
     }
 
+    [ConfigurationProperty("resourcelimits")]
+    private ResourceLimitsSettings _ResourceLimits
+    {
+      get
+      {
+        return (ResourceLimitsSettings)this["resourcelimits"];
+      }
+    }
+
     [ConfigurationProperty("showVersion", DefaultValue = false)]
     private bool _ShowVersion
     {
@@ -193,6 +202,17 @@ namespace ImageMagick.Web
       get
       {
         return _Instance._OptimizeImages;
+      }
+    }
+
+    /// <summary>
+    /// Returns settings for the resource limits
+    /// </summary>
+    public static ResourceLimitsSettings ResourceLimits
+    {
+      get
+      {
+        return _Instance._ResourceLimits;
       }
     }
 

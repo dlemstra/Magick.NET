@@ -103,6 +103,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ResourceLimitsSettings.cs" />
     <Compile Include="Configuration\CacheControlMode.cs" />
     <Compile Include="Configuration\HttpClientCache.cs" />
     <Compile Include="Configuration\MagickWebSettings.cs" />

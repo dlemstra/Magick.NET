@@ -71,6 +71,21 @@ namespace ImageMagick.Web
       return null;
     }
 
+    private void InitOpenCL()
+    {
+      if (!MagickWebSettings.UseOpenCL)
+        MagickNET.UseOpenCL = false;
+    }
+
+    private void InitResourceLimits()
+    {
+      if (MagickWebSettings.ResourceLimits.Width != null)
+        ResourceLimits.Width = (ulong)MagickWebSettings.ResourceLimits.Width.Value;
+
+      if (MagickWebSettings.ResourceLimits.Height != null)
+        ResourceLimits.Height = (ulong)MagickWebSettings.ResourceLimits.Height.Value;
+    }
+
     private void OnBeginRequest(object sender, EventArgs arguments)
     {
       HttpContext context = ((HttpApplication)sender).Context;
@@ -113,8 +128,8 @@ namespace ImageMagick.Web
       else
         context.PostMapRequestHandler += OnPostMapRequestHandler;
 
-      if (!MagickWebSettings.UseOpenCL)
-        MagickNET.UseOpenCL = false;
+      InitOpenCL();
+      InitResourceLimits();
     }
 
     /// <summary>
