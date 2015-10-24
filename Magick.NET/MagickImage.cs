@@ -289,7 +289,7 @@ namespace ImageMagick
     ///</summary>
     ///<param name="data">The byte array to read the image data from.</param>
     ///<exception cref="MagickException"/>
-    public MagickImage(Byte[] data)
+    public MagickImage(byte[] data)
       : this()
     {
       Read(data);
@@ -4846,9 +4846,21 @@ namespace ImageMagick
     ///</summary>
     ///<param name="data">The byte array to read the information from.</param>
     ///<exception cref="MagickException"/>
-    public void Ping(Byte[] data)
+    public void Ping(byte[] data)
     {
       _Instance.Ping(data);
+    }
+
+    ///<summary>
+    /// Reads only metadata and not the pixel data.
+    ///</summary>
+    ///<param name="file">The file to read the image from.</param>
+    ///<exception cref="MagickException"/>
+    public void Ping(FileInfo file)
+    {
+      Throw.IfNull("file", file);
+
+      Read(file.FullName);
     }
 
     ///<summary>
@@ -5039,7 +5051,7 @@ namespace ImageMagick
     ///<param name="data">The byte array to read the image data from.</param>
     ///<param name="readSettings">The settings to use when reading the image.</param>
     ///<exception cref="MagickException"/>
-    public void Read(Byte[] data, MagickReadSettings readSettings)
+    public void Read(byte[] data, MagickReadSettings readSettings)
     {
       _Instance.Read(data, readSettings);
     }
