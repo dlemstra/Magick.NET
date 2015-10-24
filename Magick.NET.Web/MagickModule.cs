@@ -71,13 +71,13 @@ namespace ImageMagick.Web
       return null;
     }
 
-    private void InitOpenCL()
+    private static void InitOpenCL()
     {
       if (!MagickWebSettings.UseOpenCL)
         MagickNET.UseOpenCL = false;
     }
 
-    private void InitResourceLimits()
+    private static void InitResourceLimits()
     {
       if (MagickWebSettings.ResourceLimits.Width != null)
         ResourceLimits.Width = (ulong)MagickWebSettings.ResourceLimits.Width.Value;
