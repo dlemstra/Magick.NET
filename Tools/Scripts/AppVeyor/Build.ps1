@@ -6,6 +6,7 @@ SetFolder $scriptPath
 . Tools\Scripts\Shared\Build.ps1
 . Tools\Scripts\Shared\Config.ps1
 . Tools\Scripts\Shared\GzipAssembly.ps1
+. Tools\Scripts\Shared\Publish.ps1
 
 function FixStrongNameForNet20()
 {
