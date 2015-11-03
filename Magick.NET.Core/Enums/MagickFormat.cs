@@ -420,6 +420,11 @@ namespace ImageMagick
     Isobrl,
 
     ///<summary>
+    /// ISO/TR 11548-1 format 6dot
+    ///</summary>
+    Isobrl6,
+
+    ///<summary>
     /// JPEG-2000 Code Stream Syntax
     ///</summary>
     J2c,
@@ -1063,6 +1068,11 @@ namespace ImageMagick
     /// Unicode Text format
     ///</summary>
     Ubrl,
+
+    ///<summary>
+    /// Unicode Text format 6dot
+    ///</summary>
+    Ubrl6,
 
     ///<summary>
     /// X-Motif UIL table
