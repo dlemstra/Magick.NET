@@ -48,8 +48,8 @@ namespace Magick.NET.Tests
       Assert.AreEqual(1U, ResourceLimits.Thread);
       ResourceLimits.Thread = 4U;
 
-      ResourceLimits.Throttle = 2U;
-      Assert.AreEqual(2U, ResourceLimits.Throttle);
+      ResourceLimits.Throttle = 1U;
+      Assert.AreEqual(1U, ResourceLimits.Throttle);
       ResourceLimits.Throttle = 0U;
 
       ResourceLimits.Width = 100U;
