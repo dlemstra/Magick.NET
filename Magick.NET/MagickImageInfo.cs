@@ -172,6 +172,17 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Compression method of the image.
+    ///</summary>
+    public CompressionMethod CompressionMethod
+    {
+      get
+      {
+        return _Instance.CompressionMethod;
+      }
+    }
+
+    ///<summary>
     /// Original file name of the image (only available if read from disk).
     ///</summary>
     public string FileName
@@ -292,6 +303,7 @@ namespace ImageMagick
 
       return
         ColorSpace == other.ColorSpace &&
+        CompressionMethod == other.CompressionMethod &&
         Format == other.Format &&
         Height == other.Height &&
         ResolutionUnits == other.ResolutionUnits &&
@@ -307,6 +319,7 @@ namespace ImageMagick
     {
       return
         ColorSpace.GetHashCode() ^
+        CompressionMethod.GetHashCode() ^
         Format.GetHashCode() ^
         Height.GetHashCode() ^
         ResolutionUnits.GetHashCode() ^

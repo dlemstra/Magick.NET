@@ -59,6 +59,7 @@ namespace ImageMagick
       try
       {
         _ColorSpace = (ImageMagick::ColorSpace)image->colorSpace();
+        _CompressionMethod = (ImageMagick::CompressionMethod)image->compressType();
         _Format = EnumHelper::Parse<MagickFormat>(Marshaller::Marshal(image->magick()), MagickFormat::Unknown);
         _FileName = Marshaller::Marshal(image->baseFilename());
         _Height = Convert::ToInt32(image->size().height());
@@ -77,6 +78,11 @@ namespace ImageMagick
     ColorSpace MagickImageInfo::ColorSpace::get()
     {
       return _ColorSpace;
+    }
+
+    CompressionMethod MagickImageInfo::CompressionMethod::get()
+    {
+      return _CompressionMethod;
     }
 
     String^ MagickImageInfo::FileName::get()

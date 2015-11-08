@@ -26,6 +26,7 @@ namespace ImageMagick
     {
     private:
       ColorSpace _ColorSpace;
+      CompressionMethod _CompressionMethod;
       String^ _FileName;
       MagickFormat _Format;
       int _Height;
@@ -48,6 +49,11 @@ namespace ImageMagick
       property ColorSpace ColorSpace
       {
         ImageMagick::ColorSpace get();
+      }
+
+      property CompressionMethod CompressionMethod
+      {
+        ImageMagick::CompressionMethod get();
       }
 
       property String^ FileName

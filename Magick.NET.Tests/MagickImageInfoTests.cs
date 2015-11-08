@@ -193,6 +193,7 @@ namespace Magick.NET.Tests
       imageInfo.Read(Files.ImageMagickJPG);
 
       Assert.AreEqual(ColorSpace.sRGB, imageInfo.ColorSpace);
+      Assert.AreEqual(CompressionMethod.JPEG, imageInfo.CompressionMethod);
       Assert.AreEqual(MagickFormat.Jpeg, imageInfo.Format);
       Assert.AreEqual(123, imageInfo.Width);
       Assert.AreEqual(118, imageInfo.Height);
