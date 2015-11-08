@@ -113,12 +113,6 @@ namespace ImageMagick
         void set(int value);
       }
 
-      property bool AntiAlias
-      {
-        bool get();
-        void set(bool value);
-      }
-
       property IEnumerable<String^>^ ArtifactNames
       {
         IEnumerable<String^>^ get();
@@ -479,6 +473,12 @@ namespace ImageMagick
       {
         double get();
         void set(double value);
+      }
+
+      property bool TextAntiAlias
+      {
+        bool get();
+        void set(bool value);
       }
 
       property TextDirection TextDirection

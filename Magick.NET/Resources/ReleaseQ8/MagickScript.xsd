@@ -745,6 +745,7 @@
           <xs:enumeration value="Inline" />
           <xs:enumeration value="Ipl" />
           <xs:enumeration value="Isobrl" />
+          <xs:enumeration value="Isobrl6" />
           <xs:enumeration value="J2c" />
           <xs:enumeration value="J2k" />
           <xs:enumeration value="Jng" />
@@ -875,6 +876,7 @@
           <xs:enumeration value="Ttf" />
           <xs:enumeration value="Txt" />
           <xs:enumeration value="Ubrl" />
+          <xs:enumeration value="Ubrl6" />
           <xs:enumeration value="Uil" />
           <xs:enumeration value="Unknown" />
           <xs:enumeration value="Uyvy" />
@@ -1451,11 +1453,6 @@
             <xs:attribute name="value" use="required" type="int" />
           </xs:complexType>
         </xs:element>
-        <xs:element name="antiAlias">
-          <xs:complexType>
-            <xs:attribute name="value" use="required" type="bool" />
-          </xs:complexType>
-        </xs:element>
         <xs:element name="backgroundColor">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="color" />
@@ -1673,6 +1670,11 @@
         <xs:element name="strokeWidth">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="double" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="textAntiAlias">
+          <xs:complexType>
+            <xs:attribute name="value" use="required" type="bool" />
           </xs:complexType>
         </xs:element>
         <xs:element name="textDirection">

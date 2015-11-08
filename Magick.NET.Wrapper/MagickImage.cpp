@@ -223,16 +223,6 @@ namespace ImageMagick
       Value->animationIterations(value);
     }
 
-    bool MagickImage::AntiAlias::get()
-    {
-      return Value->antiAlias();
-    }
-
-    void MagickImage::AntiAlias::set(bool value)
-    {
-      Value->antiAlias(value);
-    }
-
     IEnumerable<String^>^ MagickImage::ArtifactNames::get()
     {
       Collection<String^>^ names = gcnew Collection<String^>();
@@ -971,6 +961,16 @@ namespace ImageMagick
     void MagickImage::StrokeWidth::set(double value)
     {
       Value->strokeWidth(value);
+    }
+
+    bool MagickImage::TextAntiAlias::get()
+    {
+      return Value->textAntiAlias();
+    }
+
+    void MagickImage::TextAntiAlias::set(bool value)
+    {
+      Value->textAntiAlias(value);
     }
 
     TextDirection MagickImage::TextDirection::get()

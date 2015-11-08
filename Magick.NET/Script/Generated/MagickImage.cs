@@ -135,11 +135,6 @@ namespace ImageMagick
                   }
                   break;
                 }
-                case 't':
-                {
-                  ExecuteAntiAlias(element, image);
-                  return;
-                }
                 case 'n':
                 {
                   ExecuteAnnotate(element, image);
@@ -1522,6 +1517,11 @@ namespace ImageMagick
             {
               switch(element.Name[4])
               {
+                case 'A':
+                {
+                  ExecuteTextAntiAlias(element, image);
+                  return;
+                }
                 case 'D':
                 {
                   ExecuteTextDirection(element, image);
@@ -1834,11 +1834,6 @@ namespace ImageMagick
       image.AnimationIterations = Variables.GetValue<Int32>(element, "value");
     }
 
-    private void ExecuteAntiAlias(XmlElement element, MagickImage image)
-    {
-      image.AntiAlias = Variables.GetValue<Boolean>(element, "value");
-    }
-
     private void ExecuteBackgroundColor(XmlElement element, MagickImage image)
     {
       image.BackgroundColor = Variables.GetValue<MagickColor>(element, "value");
@@ -2072,6 +2067,11 @@ namespace ImageMagick
     private void ExecuteStrokeWidth(XmlElement element, MagickImage image)
     {
       image.StrokeWidth = Variables.GetValue<double>(element, "value");
+    }
+
+    private void ExecuteTextAntiAlias(XmlElement element, MagickImage image)
+    {
+      image.TextAntiAlias = Variables.GetValue<Boolean>(element, "value");
     }
 
     private void ExecuteTextDirection(XmlElement element, MagickImage image)

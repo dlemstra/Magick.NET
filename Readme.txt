@@ -1,5 +1,8 @@
 Breaking changes.
 
+Magick.NET 7.0.0.0022:
+  - Renamed MagickImage.AntiAlias to TextAntiAlias.
+
 Magick.NET 7.0.0.0020:
   - The .NET 4.0 build now requires the Visual C++ Redistributable for Visual Studio 2015.
 

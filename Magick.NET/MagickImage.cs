@@ -591,21 +591,6 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Anti-alias Postscript and TrueType fonts (default true).
-    ///</summary>
-    public bool AntiAlias
-    {
-      get
-      {
-        return _Instance.AntiAlias;
-      }
-      set
-      {
-        _Instance.AntiAlias = value;
-      }
-    }
-
-    ///<summary>
     /// The names of the artifacts.
     ///</summary>
     public IEnumerable<string> ArtifactNames
@@ -1524,6 +1509,21 @@ namespace ImageMagick
       set
       {
         _Instance.StrokeWidth = value;
+      }
+    }
+
+    ///<summary>
+    /// Anti-alias Postscript and TrueType fonts (default true).
+    ///</summary>
+    public bool TextAntiAlias
+    {
+      get
+      {
+        return _Instance.TextAntiAlias;
+      }
+      set
+      {
+        _Instance.TextAntiAlias = value;
       }
     }
 
