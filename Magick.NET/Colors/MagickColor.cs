@@ -240,7 +240,7 @@ namespace ImageMagick
       if (color[0] == '#')
       {
 #if Q8
-				ParseQ8HexColor(color);
+        ParseQ8HexColor(color);
 #elif Q16 || Q16HDRI
         ParseQ16HexColor(color);
 #else
@@ -361,7 +361,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator ==(MagickColor left, MagickColor right)
     {
-      return object.Equals(left, right);
+      return Equals(left, right);
     }
 
     /// <summary>
@@ -372,7 +372,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator !=(MagickColor left, MagickColor right)
     {
-      return !object.Equals(left, right);
+      return !Equals(left, right);
     }
 
     /// <summary>
