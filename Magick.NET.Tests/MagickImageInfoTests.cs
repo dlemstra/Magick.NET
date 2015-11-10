@@ -195,11 +195,12 @@ namespace Magick.NET.Tests
       Assert.AreEqual(ColorSpace.sRGB, imageInfo.ColorSpace);
       Assert.AreEqual(CompressionMethod.JPEG, imageInfo.CompressionMethod);
       Assert.AreEqual(MagickFormat.Jpeg, imageInfo.Format);
-      Assert.AreEqual(123, imageInfo.Width);
       Assert.AreEqual(118, imageInfo.Height);
+      Assert.AreEqual(Interlace.NoInterlace, imageInfo.Interlace);
       Assert.AreEqual(72, imageInfo.ResolutionX);
       Assert.AreEqual(72, imageInfo.ResolutionY);
       Assert.AreEqual(Resolution.PixelsPerInch, imageInfo.ResolutionUnits);
+      Assert.AreEqual(123, imageInfo.Width);
     }
   }
 }

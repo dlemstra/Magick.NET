@@ -30,6 +30,7 @@ namespace ImageMagick
       String^ _FileName;
       MagickFormat _Format;
       int _Height;
+      Interlace _Interlace;
       Resolution _ResolutionUnits;
       double _ResolutionX;
       double _ResolutionY;
@@ -69,6 +70,11 @@ namespace ImageMagick
       property int Height
       {
         int get();
+      }
+
+      property Interlace Interlace
+      {
+        ImageMagick::Interlace get();
       }
 
       property Resolution ResolutionUnits

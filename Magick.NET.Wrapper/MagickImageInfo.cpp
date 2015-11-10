@@ -63,6 +63,7 @@ namespace ImageMagick
         _Format = EnumHelper::Parse<MagickFormat>(Marshaller::Marshal(image->magick()), MagickFormat::Unknown);
         _FileName = Marshaller::Marshal(image->baseFilename());
         _Height = Convert::ToInt32(image->size().height());
+        _Interlace = (ImageMagick::Interlace)image->interlaceType();
         _ResolutionUnits = (ImageMagick::Resolution)image->resolutionUnits();
         _ResolutionX = image->xResolution();
         _ResolutionY = image->yResolution();
@@ -98,6 +99,11 @@ namespace ImageMagick
     int MagickImageInfo::Height::get()
     {
       return _Height;
+    }
+
+    Interlace MagickImageInfo::Interlace::get()
+    {
+      return _Interlace;
     }
 
     Resolution MagickImageInfo::ResolutionUnits::get()

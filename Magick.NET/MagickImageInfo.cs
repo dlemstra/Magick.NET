@@ -216,6 +216,17 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Type of interlacing.
+    ///</summary>
+    public Interlace Interlace
+    {
+      get
+      {
+        return _Instance.Interlace;
+      }
+    }
+
+    ///<summary>
     /// Units of image resolution.
     ///</summary>
     public Resolution ResolutionUnits
@@ -306,6 +317,7 @@ namespace ImageMagick
         CompressionMethod == other.CompressionMethod &&
         Format == other.Format &&
         Height == other.Height &&
+        Interlace == other.Interlace &&
         ResolutionUnits == other.ResolutionUnits &&
         ResolutionX == other.ResolutionX &&
         ResolutionY == other.ResolutionY &&
@@ -322,6 +334,7 @@ namespace ImageMagick
         CompressionMethod.GetHashCode() ^
         Format.GetHashCode() ^
         Height.GetHashCode() ^
+        Interlace.GetHashCode() ^
         ResolutionUnits.GetHashCode() ^
         ResolutionX.GetHashCode() ^
         ResolutionY.GetHashCode() ^
