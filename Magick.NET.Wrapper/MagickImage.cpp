@@ -2886,6 +2886,18 @@ namespace ImageMagick
       }
     }
 
+    void MagickImage::LocalContrast(double radius, double strength)
+    {
+      try
+      {
+        Value->localContrast(radius, strength);
+      }
+      catch (Magick::Exception& exception)
+      {
+        HandleException(exception);
+      }
+    }
+
     void MagickImage::Magnify()
     {
       try

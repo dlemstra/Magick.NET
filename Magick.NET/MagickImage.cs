@@ -4421,6 +4421,17 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Local contrast enhancement.
+    ///</summary>
+    ///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    ///<param name="strength">The strength of the blur mask.</param>
+    ///<exception cref="MagickException"/>
+    public void LocalContrast(double radius, Percentage strength)
+    {
+      _Instance.LocalContrast(radius, strength.ToDouble());
+    }
+
+    ///<summary>
     /// Lower image (lighten or darken the edges of an image to give a 3-D lowered effect).
     ///</summary>
     ///<param name="size">The size of the edges.</param>

@@ -793,6 +793,8 @@ namespace ImageMagick
 
       void LiquidRescale(MagickGeometry^ geometry);
 
+      void LocalContrast(double radius, double strength);
+
       void Magnify();
 
       MagickErrorInfo^ Map(MagickImage^ image, QuantizeSettings^ settings);
