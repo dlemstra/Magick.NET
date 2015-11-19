@@ -206,5 +206,27 @@ namespace Magick.NET.Tests
 
       MagickNET.SetTempDirectory(Path.GetTempPath());
     }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_RandomSeed()
+    {
+      using (MagickImage first = new MagickImage("plasma:red", 10, 10))
+      {
+        using (MagickImage second = new MagickImage("plasma:red", 10, 10))
+        {
+          Assert.AreNotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+        }
+      }
+
+      MagickNET.SetRandomSeed(1337);
+
+      using (MagickImage first = new MagickImage("plasma:red", 10, 10))
+      {
+        using (MagickImage second = new MagickImage("plasma:red", 10, 10))
+        {
+          Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+        }
+      }
+    }
   }
 }

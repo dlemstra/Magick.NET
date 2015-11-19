@@ -175,6 +175,15 @@ namespace ImageMagick
       Wrapper.MagickNET.SetEnv("MAGICK_OPENCL_CACHE_DIR", CheckDirectory(path));
     }
 
+    /// <summary>
+    /// Sets the pseudo-random number generator secret key.
+    /// </summary>
+    /// <param name="seed">The secret key.</param>
+    public static void SetRandomSeed(int seed)
+    {
+      Wrapper.MagickNET.SetRandomSeed(seed);
+    }
+
     ///<summary>
     /// Set the events that will be written to the log. The log will be written to the Log event
     /// and the debug window in VisualStudio. To change the log settings you must use a custom

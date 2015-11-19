@@ -121,5 +121,10 @@ namespace ImageMagick
       Marshaller::Marshal(events, logEvents);
       MagickCore::SetLogEventMask(logEvents.c_str());
     }
+
+    void MagickNET::SetRandomSeed(int seed)
+    {
+      Magick::SetRandomSeed(seed);
+    }
   }
 }

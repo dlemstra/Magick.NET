@@ -63,6 +63,8 @@ namespace ImageMagick
       static void SetLogDelegate(MagickLogDelegate^ logDelegate);
 
       static void SetLogEvents(String^ events);
+
+      static void SetRandomSeed(int seed);
     };
   }
 }
