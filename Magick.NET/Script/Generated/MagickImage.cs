@@ -954,8 +954,20 @@ namespace ImageMagick
             }
             case 'o':
             {
-              ExecuteLower(element, image);
-              return;
+              switch(element.Name[2])
+              {
+                case 'c':
+                {
+                  ExecuteLocalContrast(element, image);
+                  return;
+                }
+                case 'w':
+                {
+                  ExecuteLower(element, image);
+                  return;
+                }
+              }
+              break;
             }
           }
           break;
@@ -3300,6 +3312,13 @@ namespace ImageMagick
     {
       MagickGeometry geometry_ = Variables.GetValue<MagickGeometry>(element, "geometry");
       image.LiquidRescale(geometry_);
+    }
+
+    private void ExecuteLocalContrast(XmlElement element, MagickImage image)
+    {
+      double radius_ = Variables.GetValue<double>(element, "radius");
+      Percentage strength_ = Variables.GetValue<Percentage>(element, "strength");
+      image.LocalContrast(radius_, strength_);
     }
 
     private void ExecuteLower(XmlElement element, MagickImage image)

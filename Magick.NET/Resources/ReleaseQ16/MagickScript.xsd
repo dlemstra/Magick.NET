@@ -2204,6 +2204,12 @@
             <xs:attribute name="geometry" use="required" type="geometry" />
           </xs:complexType>
         </xs:element>
+        <xs:element name="localContrast">
+          <xs:complexType>
+            <xs:attribute name="radius" use="required" type="double" />
+            <xs:attribute name="strength" use="required" type="double" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="lower">
           <xs:complexType>
             <xs:attribute name="size" use="required" type="int" />
