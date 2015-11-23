@@ -52,6 +52,34 @@ namespace Magick.NET.Tests
       Assert.IsNotNull(arguments.Message);
     }
 
+    private static void Test_Clip(bool inside, QuantumType value)
+    {
+      using (MagickImage image = new MagickImage(Files.InvitationTif))
+      {
+        image.Alpha(AlphaOption.Transparent);
+        image.Clip("Pad A", inside);
+        image.Alpha(AlphaOption.Opaque);
+
+        using (MagickImage mask = image.Mask)
+        {
+          Assert.IsNotNull(mask);
+          Assert.AreEqual(false, mask.HasAlpha);
+
+          using (PixelCollection pixels = mask.GetReadOnlyPixels())
+          {
+            var pixelA = pixels.GetPixel(0, 0).ToColor();
+            var pixelB = pixels.GetPixel(pixels.Width - 1, pixels.Height - 1).ToColor();
+
+            Assert.AreEqual(pixelA, pixelB);
+            Assert.AreEqual(value, pixelA.R);
+            Assert.AreEqual(value, pixelA.G);
+            Assert.AreEqual(value, pixelA.B);
+            Assert.AreEqual(Quantum.Max, pixelA.A);
+          }
+        }
+      }
+    }
+
     private static void Test_Clone(MagickImage first, MagickImage second)
     {
       Assert.AreEqual(first, second);
@@ -293,22 +321,8 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Clip()
     {
-      using (MagickImage image = new MagickImage(Files.InvitationTif))
-      {
-        image.Clip("Pad A", false);
-        Assert.IsNotNull(image.Mask);
-
-        using (PixelCollection pixels = image.Mask.GetReadOnlyPixels())
-        {
-          Pixel pixelA = pixels.GetPixel(0, 0);
-          Pixel pixelB = pixels.GetPixel(pixels.Width - 1, pixels.Height - 1);
-          for (int i = 0; i < 3; i++)
-          {
-            Assert.AreEqual(0, pixelA.GetChannel(i));
-            Assert.AreEqual(0, pixelB.GetChannel(i));
-          }
-        }
-      }
+      Test_Clip(false, Quantum.Max);
+      Test_Clip(true, 0);
     }
 
     [TestMethod, TestCategory(_Category)]
