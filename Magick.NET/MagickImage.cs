@@ -46,6 +46,7 @@ namespace ImageMagick
   public sealed class MagickImage : IDisposable, IEquatable<MagickImage>, IComparable<MagickImage>
   {
     private Wrapper.MagickImage _Instance;
+    private EventHandler<ProgressEventArgs> _Progress;
     private EventHandler<WarningEventArgs> _WarningEvent;
 
     private MagickImage(Wrapper.MagickImage instance)
@@ -203,6 +204,16 @@ namespace ImageMagick
 
       _Instance.LevelColors(MagickColor.GetInstance(blackColor), MagickColor.GetInstance(whiteColor),
         channels, inverse);
+    }
+
+    private bool OnProgress(string origin, int offset, int extent)
+    {
+      if (_Progress == null)
+        return true;
+
+      ProgressEventArgs eventArgs = new ProgressEventArgs(origin, offset, extent);
+      _Progress(this, eventArgs);
+      return eventArgs.Cancel ? false : true;
     }
 
     private void OnWarning(object sender, WarningEventArgs arguments)
@@ -510,6 +521,31 @@ namespace ImageMagick
       Throw.IfNull("image", image);
 
       return image.ToByteArray();
+    }
+
+    ///<summary>
+    /// Event that will be raised when progress is reported by this image.
+    ///</summary>
+    public event EventHandler<ProgressEventArgs> Progress
+    {
+      add
+      {
+        if (_Progress == null)
+        {
+          _Instance.SetProgressDelegate(OnProgress);
+        }
+
+        _Progress += value;
+      }
+      remove
+      {
+        _Progress -= value;
+
+        if (_Progress == null)
+        {
+          _Instance.SetProgressDelegate(null);
+        }
+      }
     }
 
     ///<summary>
@@ -1660,7 +1696,6 @@ namespace ImageMagick
     ///<summary>
     /// Turn verbose output on/off.
     ///</summary>
-
     public bool Verbose
     {
       get

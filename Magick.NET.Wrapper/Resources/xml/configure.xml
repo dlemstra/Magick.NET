@@ -15,6 +15,6 @@
   <configure name="HOST" value="Windows"/>
   <configure name="DELEGATES" value="bzlib freetype jpeg jp2 lcms png tiff x11 xml wmf zlib"/>
   <configure name="FEATURES" value="OpenMP"/>
-  <configure name="COPYRIGHT" value="Copyright (C) 1999-2015 ImageMagick Studio LLC"/>
+  <configure name="COPYRIGHT" value="Copyright (C) 1999-2016 ImageMagick Studio LLC"/>
   <configure name="WEBSITE" value="http://www.imagemagick.org"/>
 </configuremap>

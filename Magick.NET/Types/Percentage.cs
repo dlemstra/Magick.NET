@@ -32,7 +32,7 @@ namespace ImageMagick
   ///<summary>
   /// Represents a percentage value.
   ///</summary>
-  public struct Percentage : IEquatable<Percentage>
+  public struct Percentage : IEquatable<Percentage>, IComparable<Percentage>
   {
     private double _Value;
 
@@ -63,7 +63,7 @@ namespace ImageMagick
     ///<param name="value">The value (0% = 0, 100% = 100)</param>
     public Percentage(int value)
     {
-      _Value = (double)value;
+      _Value = value;
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator ==(Percentage left, Percentage right)
     {
-      return object.Equals(left, right);
+      return Equals(left, right);
     }
 
     /// <summary>
@@ -85,7 +85,63 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator !=(Percentage left, Percentage right)
     {
-      return !object.Equals(left, right);
+      return !Equals(left, right);
+    }
+
+    /// <summary>
+    /// Determines whether the first Percentage is more than the second Percentage.
+    /// </summary>
+    /// <param name="left">The first Percentage to compare.</param>
+    /// <param name="right"> The second Percentage to compare.</param>
+    /// <returns></returns>
+    public static bool operator >(Percentage left, Percentage right)
+    {
+      if (ReferenceEquals(left, null))
+        return ReferenceEquals(right, null);
+
+      return left.CompareTo(right) == 1;
+    }
+
+    /// <summary>
+    /// Determines whether the first Percentage is less than the second Percentage.
+    /// </summary>
+    /// <param name="left">The first Percentage to compare.</param>
+    /// <param name="right"> The second Percentage to compare.</param>
+    /// <returns></returns>
+    public static bool operator <(Percentage left, Percentage right)
+    {
+      if (ReferenceEquals(left, null))
+        return !ReferenceEquals(right, null);
+
+      return left.CompareTo(right) == -1;
+    }
+
+    /// <summary>
+    /// Determines whether the first Percentage is less than or equal to the second Percentage.
+    /// </summary>
+    /// <param name="left">The first Percentage to compare.</param>
+    /// <param name="right"> The second Percentage to compare.</param>
+    /// <returns></returns>
+    public static bool operator >=(Percentage left, Percentage right)
+    {
+      if (ReferenceEquals(left, null))
+        return ReferenceEquals(right, null);
+
+      return left.CompareTo(right) >= 0;
+    }
+
+    /// <summary>
+    /// Determines whether the first Percentage is less than or equal to the second Percentage.
+    /// </summary>
+    /// <param name="left">The first Percentage to compare.</param>
+    /// <param name="right"> The second Percentage to compare.</param>
+    /// <returns></returns>
+    public static bool operator <=(Percentage left, Percentage right)
+    {
+      if (ReferenceEquals(left, null))
+        return !ReferenceEquals(right, null);
+
+      return left.CompareTo(right) <= 0;
     }
 
     ///<summary>
@@ -124,6 +180,15 @@ namespace ImageMagick
     public static explicit operator int (Percentage percentage)
     {
       return percentage.ToInt32();
+    }
+
+    ///<summary>
+    /// Compares the current instance with another object of the same type.
+    ///</summary>
+    ///<param name="other">The object to compare this percentage with.</param>
+    public int CompareTo(Percentage other)
+    {
+      return _Value.CompareTo(other._Value);
     }
 
     ///<summary>

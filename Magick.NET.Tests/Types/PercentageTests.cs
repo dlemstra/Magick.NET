@@ -39,6 +39,41 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_IComparable()
+    {
+      Percentage first = new Percentage(100);
+
+      Assert.AreEqual(0, first.CompareTo(first));
+
+      Percentage second = new Percentage(100);
+
+      Assert.AreEqual(0, first.CompareTo(second));
+      Assert.IsTrue(first == second);
+      Assert.IsFalse(first < second);
+      Assert.IsTrue(first <= second);
+      Assert.IsFalse(first > second);
+      Assert.IsTrue(first >= second);
+
+      second = new Percentage(101);
+
+      Assert.AreEqual(-1, first.CompareTo(second));
+      Assert.IsFalse(first == second);
+      Assert.IsTrue(first < second);
+      Assert.IsTrue(first <= second);
+      Assert.IsFalse(first > second);
+      Assert.IsFalse(first >= second);
+
+      second = new Percentage(50);
+
+      Assert.AreEqual(1, first.CompareTo(second));
+      Assert.IsFalse(first == second);
+      Assert.IsFalse(first < second);
+      Assert.IsFalse(first <= second);
+      Assert.IsTrue(first > second);
+      Assert.IsTrue(first >= second);
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_IEquatable()
     {
       Percentage first = new Percentage(50.0);

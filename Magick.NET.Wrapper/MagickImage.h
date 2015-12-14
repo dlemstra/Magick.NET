@@ -25,6 +25,7 @@
 using namespace System::Collections::Generic;
 using namespace System::Drawing::Imaging;
 using namespace System::IO;
+using namespace System::Runtime::InteropServices;
 using namespace System::Text;
 using namespace ImageMagick::Drawables;
 
@@ -38,10 +39,17 @@ namespace ImageMagick
 {
   namespace Wrapper
   {
+    [UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]
+    private delegate bool MagickProgressFuncDelegate(const char*, MagickCore::MagickOffsetType, MagickCore::MagickSizeType, void*);
+
+    private delegate bool MagickProgressDelegate(String^ origin, int offset, int extent);
+
     private ref class MagickImage sealed : Internal::IMagickImage
     {
     private:
       Magick::Image* _Value;
+      MagickProgressFuncDelegate^ _InternalProgressDelegate;
+      MagickProgressDelegate^ _ExternalProgressDelegate;
       EventHandler<WarningEventArgs^>^ _WarningEvent;
 
       MagickImage(const Magick::Image& image, const Magick::Geometry& geometry);
@@ -64,6 +72,8 @@ namespace ImageMagick
       void HandleException(const Magick::Exception& exception);
 
       void HandleException(MagickException^ exception);
+
+      bool OnProgress(const char* origin, MagickCore::MagickOffsetType offset, MagickCore::MagickSizeType extent, void *userData);
 
       void ReplaceValue(const Magick::Image& value);
 
@@ -922,6 +932,8 @@ namespace ImageMagick
       void SetOption(String^ name, String^ value);
 
       void SetLowlightColor(MagickColor^ color);
+
+      void SetProgressDelegate(MagickProgressDelegate^ progressDelegate);
 
       void Shade(double azimuth, double elevation, bool colorShading);
 

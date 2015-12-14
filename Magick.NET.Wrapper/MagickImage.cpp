@@ -103,6 +103,16 @@ namespace ImageMagick
         _WarningEvent->Invoke(this, gcnew WarningEventArgs(warning));
     }
 
+    bool MagickImage::OnProgress(const char* origin, MagickCore::MagickOffsetType offset, MagickCore::MagickSizeType extent, void *userData)
+    {
+      if (_ExternalProgressDelegate == nullptr)
+        return true;
+
+      std::string message = std::string(origin);
+
+      return _ExternalProgressDelegate(Marshaller::Marshal(message), (int)offset, (int)extent);
+    }
+
     void MagickImage::ReplaceValue(const Magick::Image& value)
     {
       DisposeValue();
@@ -1744,7 +1754,7 @@ namespace ImageMagick
 
       try
       {
-        if (Value->compare(*(image->Value)))
+        if (Value->setColorMetric(*(image->Value)))
           return gcnew MagickErrorInfo();
       }
       catch (Magick::Exception& exception)
@@ -3757,8 +3767,8 @@ namespace ImageMagick
 
     void MagickImage::SetLowlightColor(MagickColor^ color)
     {
-      \
-        const Magick::Color* lowlightColor = color->CreateColor();
+      const Magick::Color* lowlightColor = color->CreateColor();
+
       try
       {
         Value->lowlightColor(*lowlightColor);
@@ -3766,6 +3776,22 @@ namespace ImageMagick
       finally
       {
         delete lowlightColor;
+      }
+    }
+
+    void MagickImage::SetProgressDelegate(MagickProgressDelegate^ progressDelegate)
+    {
+      _ExternalProgressDelegate = progressDelegate;
+
+      if (progressDelegate == nullptr && _ExternalProgressDelegate != nullptr)
+      {
+        MagickCore::SetImageProgressMonitor(Value->image(), (MagickCore::MagickProgressMonitor)NULL, (void*)NULL);
+        _InternalProgressDelegate = nullptr;
+      }
+      else if (progressDelegate != nullptr && _InternalProgressDelegate == nullptr)
+      {
+        _InternalProgressDelegate = gcnew MagickProgressFuncDelegate(this, &MagickImage::OnProgress);
+        MagickCore::SetImageProgressMonitor(Value->image(), (MagickCore::MagickProgressMonitor)Marshal::GetFunctionPointerForDelegate(_InternalProgressDelegate).ToPointer(), (void*)NULL);
       }
     }
 

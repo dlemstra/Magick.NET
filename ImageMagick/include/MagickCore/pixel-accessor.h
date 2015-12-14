@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2015 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2016 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
 
   You may not use this file except in compliance with the License.
@@ -265,6 +265,12 @@ static inline Quantum GetPixelL(const Image *magick_restrict image,
   const Quantum *magick_restrict pixel)
 {
   return(pixel[image->channel_map[LPixelChannel].offset]);
+}
+
+static inline ssize_t GetPixelLabel(const Image *magick_restrict image,
+  const Quantum *magick_restrict pixel)
+{
+  return((ssize_t) pixel[image->channel_map[LabelPixelChannel].offset]);
 }
 
 static inline MagickRealType GetPixelLuma(const Image *magick_restrict image,

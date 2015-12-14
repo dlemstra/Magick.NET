@@ -12,15 +12,46 @@
 // limitations under the License.
 //=================================================================================================
 
-using ImageMagick;
+using System;
 
-namespace Magick.NET.Tests
+namespace ImageMagick
 {
-  internal sealed class Ghostscript
+  ///<summary>
+  /// EventArgs for Progress events.
+  ///</summary>
+  public sealed class ProgressEventArgs : EventArgs
   {
-    public static void Initialize()
+    internal ProgressEventArgs(string origin, int offset, int extent)
     {
-      MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs9.18\bin");
+      Origin = origin;
+      Progress = new Percentage(((offset + 1) / (double)extent) * 100);
+    }
+
+    ///<summary>
+    /// The originator of this event.
+    ///</summary>
+    public string Origin
+    {
+      get;
+      private set;
+    }
+
+    ///<summary>
+    /// Progress percentage.
+    ///</summary>
+    public Percentage Progress
+    {
+      get;
+      private set;
+    }
+
+    ///<summary>
+    /// When set to true the current operation will be canceled.
+    ///</summary>
+    public bool Cancel
+    {
+      get;
+      set;
     }
   }
 }
