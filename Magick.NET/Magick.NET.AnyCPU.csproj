@@ -143,6 +143,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Events\LogEventArgs.cs" />
+    <Compile Include="Events\ProgressEventArgs.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\ByteConverter.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
