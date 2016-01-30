@@ -46,7 +46,7 @@ build_script:
   - Build.cmd %im_quantum% %im_platform%
 
 test_script:
-  - Test.cmd
+  - Test.cmd %im_platform%
 
 after_test:
   - Publish.cmd %im_quantum% %im_platform%
