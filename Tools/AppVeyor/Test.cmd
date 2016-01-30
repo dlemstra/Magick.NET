@@ -1,5 +1,5 @@
 @echo off
-call "%vs120comntools%vsvars32.bat"
+call "%vs140comntools%vsvars32.bat"
 
 for /r ..\..\Magick.NET.Tests\bin %%a in (*.dll) do (
   if "%%~nxa"=="Magick.NET.Tests.dll" (
