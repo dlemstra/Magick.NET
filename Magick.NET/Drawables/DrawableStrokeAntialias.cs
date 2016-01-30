@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,15 +12,24 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableStrokeAntialias object.
+  /// Controls whether stroked outlines are antialiased. Stroked outlines are antialiased by default.
+  /// When antialiasing is disabled stroked pixels are thresholded to determine if the stroke color
+  /// or underlying canvas color should be used.
   ///</summary>
-  public sealed class DrawableStrokeAntialias : IDrawableStrokeAntialias
+  public sealed class DrawableStrokeAntialias : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.StrokeAntialias(IsEnabled);
+    }
+
     ///<summary>
     /// Creates a new DrawableStrokeAntialias instance.
     ///</summary>

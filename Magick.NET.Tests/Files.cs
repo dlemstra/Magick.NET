@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System.IO;
+using ImageMagick;
 
 namespace Magick.NET.Tests
 {
@@ -43,6 +44,14 @@ namespace Magick.NET.Tests
       get
       {
         return _Root + @"Images\corrupt.png";
+      }
+    }
+
+    public static string ConnectedComponentsPNG
+    {
+      get
+      {
+        return _Root + @"Images\ConnectedComponents.png";
       }
     }
 
@@ -134,7 +143,7 @@ namespace Magick.NET.Tests
       }
     }
 
-      public static string SnakewarePNG
+    public static string SnakewarePNG
     {
       get
       {
@@ -165,6 +174,14 @@ namespace Magick.NET.Tests
         get
         {
           return "rose:";
+        }
+      }
+
+      public static string Wizard
+      {
+        get
+        {
+          return "wizard:";
         }
       }
     }
@@ -208,6 +225,17 @@ namespace Magick.NET.Tests
         get
         {
           return _Root + @"Images\Coders\player.psd";
+        }
+      }
+    }
+
+    public static class Patterns
+    {
+      public static string Checkerboard
+      {
+        get
+        {
+          return "pattern:checkerboard";
         }
       }
     }

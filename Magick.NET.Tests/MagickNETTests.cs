@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -26,38 +26,14 @@ namespace Magick.NET.Tests
     private const string _Category = "MagickNET";
 
     [TestMethod, TestCategory(_Category)]
-    public void Test_GetFormatInformation()
-    {
-      MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Gradient);
-      Assert.AreEqual(MagickFormat.Gradient, formatInfo.Format);
-      Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
-      Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
-      Assert.AreEqual("Gradual linear passing from one shade to another", formatInfo.Description);
-      Assert.AreEqual(false, formatInfo.IsMultiFrame);
-      Assert.AreEqual(true, formatInfo.IsReadable);
-      Assert.AreEqual(false, formatInfo.IsWritable);
-      Assert.AreEqual(null, formatInfo.MimeType);
-
-      formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jp2);
-      Assert.AreEqual(MagickFormat.Jp2, formatInfo.Format);
-      Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
-      Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
-      Assert.AreEqual("JPEG-2000 File Format Syntax", formatInfo.Description);
-      Assert.AreEqual(false, formatInfo.IsMultiFrame);
-      Assert.AreEqual(true, formatInfo.IsReadable);
-      Assert.AreEqual(true, formatInfo.IsWritable);
-      Assert.AreEqual("image/jp2", formatInfo.MimeType);
-    }
-
-    [TestMethod, TestCategory(_Category)]
     public void Test_Features()
     {
 #if Q8
-      Assert.AreEqual("Cipher DPC Modules OpenCL OpenMP ", MagickNET.Features);
+      Assert.AreEqual("Cipher DPC OpenCL ", MagickNET.Features);
 #elif Q16
-      Assert.AreEqual("Cipher DPC Modules OpenCL OpenMP ", MagickNET.Features);
+      Assert.AreEqual("Cipher DPC OpenCL ", MagickNET.Features);
 #elif Q16HDRI
-      Assert.AreEqual("Cipher DPC HDRI Modules OpenCL OpenMP ", MagickNET.Features);
+      Assert.AreEqual("Cipher DPC HDRI OpenCL ", MagickNET.Features);
 #else
 #error Not implemented!
 #endif
@@ -76,7 +52,7 @@ namespace Magick.NET.Tests
         MagickNET.Initialize("Invalid");
       });
 
-      string path = Files.Root + @"..\Magick.NET.Wrapper\Resources\xml";
+      string path = Files.Root + @"..\Magick.NET.Native\Resources\xml";
       foreach (string fileName in Directory.GetFiles(path, "*.xml"))
       {
         string tempFile = fileName + ".tmp";
@@ -149,11 +125,38 @@ namespace Magick.NET.Tests
         Assert.Fail("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats.ToArray()));
     }
 
-
     [TestMethod, TestCategory(_Category)]
     public void Test_OpenCL()
     {
       Assert.AreEqual(MagickNET.UseOpenCL, true);
+
+      MagickNET.UseOpenCL = false;
+      Assert.AreEqual(MagickNET.UseOpenCL, false);
+
+      MagickNET.UseOpenCL = true;
+      Assert.AreEqual(MagickNET.UseOpenCL, true);
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_RandomSeed()
+    {
+      using (MagickImage first = new MagickImage("plasma:red", 10, 10))
+      {
+        using (MagickImage second = new MagickImage("plasma:red", 10, 10))
+        {
+          Assert.AreNotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+        }
+      }
+
+      MagickNET.SetRandomSeed(1337);
+
+      using (MagickImage first = new MagickImage("plasma:red", 10, 10))
+      {
+        using (MagickImage second = new MagickImage("plasma:red", 10, 10))
+        {
+          Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+        }
+      }
     }
 
     [TestMethod, TestCategory(_Category)]
@@ -170,6 +173,8 @@ namespace Magick.NET.Tests
     {
 #if ANYCPU
       StringAssert.Contains(MagickNET.Version, "AnyCPU");
+#elif WIN64
+      StringAssert.Contains(MagickNET.Version, "x64");
 #else
       StringAssert.Contains(MagickNET.Version, "x86");
 #endif
@@ -205,28 +210,6 @@ namespace Magick.NET.Tests
       });
 
       MagickNET.SetTempDirectory(Path.GetTempPath());
-    }
-
-    [TestMethod, TestCategory(_Category)]
-    public void Test_RandomSeed()
-    {
-      using (MagickImage first = new MagickImage("plasma:red", 10, 10))
-      {
-        using (MagickImage second = new MagickImage("plasma:red", 10, 10))
-        {
-          Assert.AreNotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-        }
-      }
-
-      MagickNET.SetRandomSeed(1337);
-
-      using (MagickImage first = new MagickImage("plasma:red", 10, 10))
-      {
-        using (MagickImage second = new MagickImage("plasma:red", 10, 10))
-        {
-          Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-        }
-      }
     }
   }
 }

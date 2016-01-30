@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -44,7 +44,7 @@ namespace ImageMagick
 
       MagickImage image = null;
 
-      MagickReadSettings settings = CreateMagickReadSettings((XmlElement)element.SelectSingleNode("settings"));
+      MagickReadSettings settings = CreateMagickReadSettings((XmlElement)element.SelectSingleNode("readSettings"));
 
       string fileName = element.GetAttribute("fileName");
       if (!string.IsNullOrEmpty(fileName))
@@ -131,7 +131,7 @@ namespace ImageMagick
 
     private void Execute(XmlElement element, MagickImage image)
     {
-      foreach (XmlElement elem in element.SelectNodes("*[name() != 'settings']"))
+      foreach (XmlElement elem in element.SelectNodes("*[name() != 'readSettings']"))
       {
         ExecuteImage(elem, image);
       }
@@ -184,6 +184,14 @@ namespace ImageMagick
       }
 
       image.Draw(drawables);
+    }
+
+    private void ExecuteMagickSettings(XmlElement element, MagickImage image)
+    {
+      foreach (XmlElement elem in element.SelectNodes("*"))
+      {
+        ExecuteMagickSettings(elem, image.Settings);
+      }
     }
 
     private void ExecuteWrite(XmlElement element, MagickImage image)

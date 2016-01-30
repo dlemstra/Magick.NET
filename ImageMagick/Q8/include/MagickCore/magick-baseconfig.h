@@ -39,11 +39,6 @@
 //#define ProvideDllMain
 
 /*
-  Exclude deprecated methods in MagickCore API
-*/
-#define MAGICKCORE_EXCLUDE_DEPRECATED
-
-/*
   Permit enciphering and deciphering image pixels.
 */
 #define MAGICKCORE_CIPHER_SUPPORT
@@ -75,6 +70,11 @@
 */
 #define MAGICKCORE__OPENCL
 #define MAGICKCORE_HAVE_CL_CL_H
+
+/*
+    Exclude deprecated methods in MagickCore API
+*/
+#define MAGICKCORE_EXCLUDE_DEPRECATED
 
 /*
   Define to use the bzip2 compression library
@@ -179,7 +179,7 @@
 /*
   Optional: Specify name of the library that contains the xml resource files
 */
-#define MAGICKCORE_LIBRARY_NAME "Magick.NET.Wrapper-x64.dll"
+#define MAGICKCORE_LIBRARY_NAME "Magick.NET-Q8-x64.Native.dll"
 
 /*
   Optional: Specify where operating system independent files are installed

@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -21,11 +21,11 @@ namespace ImageMagick
   ///</summary>
   public sealed class MagickSearchResult : IDisposable
   {
-    private Wrapper.MagickSearchResult _Instance;
-
-    internal MagickSearchResult(Wrapper.MagickSearchResult instance)
+    internal MagickSearchResult(MagickImage image, MagickGeometry bestMatch, double similarityMetric)
     {
-      _Instance = instance;
+      SimilarityImage = image;
+      BestMatch = bestMatch;
+      SimilarityMetric = similarityMetric;
     }
 
     ///<summary>
@@ -33,10 +33,8 @@ namespace ImageMagick
     ///</summary>
     public MagickGeometry BestMatch
     {
-      get
-      {
-        return MagickGeometry.Create(_Instance.BestMatch);
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -45,10 +43,8 @@ namespace ImageMagick
     ///</summary>
     public MagickImage SimilarityImage
     {
-      get
-      {
-        return MagickImage.Create(_Instance.SimilarityImage);
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -56,10 +52,8 @@ namespace ImageMagick
     ///</summary>
     public double SimilarityMetric
     {
-      get
-      {
-        return _Instance.SimilarityMetric;
-      }
+      get;
+      set;
     }
 
     /// <summary>
@@ -67,9 +61,9 @@ namespace ImageMagick
     /// </summary>
     public void Dispose()
     {
-      if (_Instance != null)
-        _Instance.Dispose();
-      _Instance = null;
+      if (SimilarityImage != null)
+        SimilarityImage.Dispose();
+      SimilarityImage = null;
     }
   }
 }

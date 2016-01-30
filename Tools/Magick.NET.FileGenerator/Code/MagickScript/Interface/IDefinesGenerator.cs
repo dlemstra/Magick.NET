@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -11,8 +11,6 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
-
-using System.CodeDom.Compiler;
 
 namespace Magick.NET.FileGenerator
 {
@@ -26,14 +24,14 @@ namespace Magick.NET.FileGenerator
       }
     }
 
-    protected override void WriteCode(IndentedTextWriter writer)
+    protected override void WriteCode()
     {
-      writer.WriteLine("IReadDefines CreateIReadDefines(XmlElement parent)");
-      WriteStartColon(writer);
-      writer.WriteLine("return CreateIDefines(parent) as IReadDefines;");
-      WriteEndColon(writer);
+      WriteLine("IReadDefines CreateIReadDefines(XmlElement parent)");
+      WriteStartColon();
+      WriteLine("return CreateIDefines(parent) as IReadDefines;");
+      WriteEndColon();
 
-      base.WriteCode(writer);
+      base.WriteCode();
     }
   }
 }

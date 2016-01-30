@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -18,10 +18,19 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableViewbox object.
+  /// Sets the overall canvas size to be recorded with the drawing vector data. Usually this will
+  /// be specified using the same size as the canvas image. When the vector data is saved to SVG
+  /// or MVG formats, the viewbox is use to specify the size of the canvas image that a viewer
+  /// will render the vector data on.
   ///</summary>
-  public sealed class DrawableViewbox : IDrawableViewbox
+  public sealed class DrawableViewbox : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Viewbox(UpperLeftX, UpperLeftY, LowerRightX, LowerRightY);
+    }
+
     ///<summary>
     /// Creates a new DrawableViewbox instance.
     ///</summary>
@@ -29,7 +38,7 @@ namespace ImageMagick
     ///<param name="upperLeftY">The upper left Y coordinate.</param>
     ///<param name="lowerRightX">The lower right X coordinate.</param>
     ///<param name="lowerRightY">The lower right Y coordinate.</param>
-    public DrawableViewbox(int upperLeftX, int upperLeftY, int lowerRightX, int lowerRightY)
+    public DrawableViewbox(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY)
     {
       UpperLeftX = upperLeftX;
       UpperLeftY = upperLeftY;
@@ -43,8 +52,6 @@ namespace ImageMagick
     ///<param name="rectangle">The rectangle to use.</param>
     public DrawableViewbox(Rectangle rectangle)
     {
-      Throw.IfNull("rectangle", rectangle);
-
       UpperLeftX = rectangle.X;
       UpperLeftY = rectangle.Y;
       LowerRightX = rectangle.Right;
@@ -54,7 +61,7 @@ namespace ImageMagick
     ///<summary>
     /// The upper left X coordinate.
     ///</summary>
-    public int LowerRightX
+    public double LowerRightX
     {
       get;
       set;
@@ -63,7 +70,7 @@ namespace ImageMagick
     ///<summary>
     /// The upper left Y coordinate.
     ///</summary>
-    public int LowerRightY
+    public double LowerRightY
     {
       get;
       set;
@@ -72,7 +79,7 @@ namespace ImageMagick
     ///<summary>
     /// The upper left X coordinate.
     ///</summary>
-    public int UpperLeftX
+    public double UpperLeftX
     {
       get;
       set;
@@ -81,7 +88,7 @@ namespace ImageMagick
     ///<summary>
     /// The upper left Y coordinate.
     ///</summary>
-    public int UpperLeftY
+    public double UpperLeftY
     {
       get;
       set;

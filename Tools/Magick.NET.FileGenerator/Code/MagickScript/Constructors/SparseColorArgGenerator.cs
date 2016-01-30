@@ -1,6 +1,5 @@
-﻿using System;
-//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+﻿//=================================================================================================
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -13,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.CodeDom.Compiler;
 using System.Reflection;
 
 namespace Magick.NET.FileGenerator
@@ -28,18 +26,18 @@ namespace Magick.NET.FileGenerator
       }
     }
 
-    protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
     {
-      writer.Write("return new SparseColorArg(");
-      WriteParameters(writer, parameters);
-      writer.WriteLine(");");
+      Write("return new SparseColorArg(");
+      WriteParameters(parameters);
+      WriteLine(");");
     }
 
-    protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
     {
-      writer.Write("return new SparseColorArg(");
-      WriteHashtableParameters(writer, parameters);
-      writer.WriteLine(");");
+      Write("return new SparseColorArg(");
+      WriteHashtableParameters(parameters);
+      WriteLine(");");
     }
   }
 }

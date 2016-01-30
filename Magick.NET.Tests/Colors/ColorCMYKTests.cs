@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -56,7 +55,7 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
-    public void Test_Color()
+    public void Test_ColorCMYK()
     {
       ColorCMYK first = new ColorCMYK(0, 0, 0, 0);
 

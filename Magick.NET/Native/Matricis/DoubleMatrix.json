@@ -1,0 +1,17 @@
+﻿{
+  "dynamic": 2,
+  "constructor":
+  {
+    "arguments":
+    [
+      {
+        "name": "values",
+        "type": "double[]"
+      },
+      {
+        "name": "order",
+        "type": "size_t"
+      }
+    ]
+  }
+}

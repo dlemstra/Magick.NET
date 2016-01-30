@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -117,7 +117,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(2, image.Width);
         Assert.AreEqual(1, image.Height);
 
-        using (PixelCollection pixels = image.GetReadOnlyPixels())
+        using (PixelCollection pixels = image.GetPixels())
         {
           Pixel pixel = pixels.GetPixel(0, 0);
           Assert.AreEqual(4, pixel.Channels);

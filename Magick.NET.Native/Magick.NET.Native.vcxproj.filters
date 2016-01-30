@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources\$(Configuration)\$(Platform)\Magick.NET.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Initialize.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stdafx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceLimits.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Quantum.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings\MagickSettings.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MagickImage.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\MagickColor.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\MagickGeometry.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\MagickMemory.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Exceptions\MagickExceptionHelper.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MagickFormatInfo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MagickNET.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pixels\PixelCollection.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MagickImageCollection.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\MagickRectangle.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings\QuantizeSettings.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings\MontageSettings.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\StringInfo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Optimizers\JpegOptimizer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings\DrawingSettings.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\DrawingWand.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\ConnectedComponent.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Matricis\DoubleMatrix.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\ChannelPerceptualHash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\ChannelMoments.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\Moments.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\PointInfoCollection.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\PointInfo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\PerceptualHash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\Statistics.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics\ChannelStatistics.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\TypeMetric.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\OffsetInfo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Colors\MagickColorCollection.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Types\PrimaryInfo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Quantum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceLimits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings\MagickSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MagickImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\MagickColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\MagickGeometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\MagickExceptionHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\MagickMemory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MagickNET.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixels\PixelCollection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MagickImageCollection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\MagickRectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings\QuantizeSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings\MontageSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\StringInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Optimizers\JpegOptimizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings\DrawingSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\DrawingWand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\ConnectedComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Matricis\DoubleMatrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\ChannelPerceptualHash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\ChannelMoments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\Moments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\PointInfoCollection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\PointInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\PerceptualHash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\Statistics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics\ChannelStatistics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\TypeMetric.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\OffsetInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors\MagickColorCollection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\PrimaryInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MagickFormatInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

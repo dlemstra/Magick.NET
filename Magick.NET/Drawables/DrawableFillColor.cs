@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -18,16 +18,14 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableColor object.
+  /// Sets the fill color to be used for drawing filled objects.
   ///</summary>
-  public sealed class DrawableFillColor : IDrawableFillColor
+  public sealed class DrawableFillColor : IDrawable
   {
-    Internal.IMagickColor IDrawableFillColor.Color
+    void IDrawable.Draw(IDrawingWand wand)
     {
-      get
-      {
-        return MagickColor.GetInstance(Color);
-      }
+      if (wand != null)
+        wand.FillColor(Color);
     }
 
     ///<summary>
@@ -35,8 +33,8 @@ namespace ImageMagick
     ///</summary>
     ///<param name="color">The color to use.</param>
     public DrawableFillColor(Color color)
-      : this(new MagickColor(color))
     {
+      Color = color;
     }
 
     ///<summary>
@@ -45,6 +43,8 @@ namespace ImageMagick
     ///<param name="color">The color to use.</param>
     public DrawableFillColor(MagickColor color)
     {
+      Throw.IfNull("color", color);
+
       Color = color;
     }
 

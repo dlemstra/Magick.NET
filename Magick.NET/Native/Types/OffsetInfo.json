@@ -1,0 +1,27 @@
+﻿{
+  "dynamic": 2,
+  "access": "internal",
+  "methods":
+  [
+    {
+      "name": "SetX",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "SetY",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "size_t"
+        }
+      ]
+    }
+  ]
+}

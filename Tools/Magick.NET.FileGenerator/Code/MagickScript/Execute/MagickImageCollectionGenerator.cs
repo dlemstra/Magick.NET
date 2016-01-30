@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 //=================================================================================================
 
 using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -60,44 +59,44 @@ namespace Magick.NET.FileGenerator
       }
     }
 
-    protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
     {
       if (ReturnsImage(method))
-        writer.Write("return ");
+        Write("return ");
 
-      writer.Write("collection.");
-      writer.Write(method.Name);
-      writer.Write("(");
-      WriteParameters(writer, parameters);
-      writer.WriteLine(");");
+      Write("collection.");
+      Write(method.Name);
+      Write("(");
+      WriteParameters(parameters);
+      WriteLine(");");
 
       if (!ReturnsImage(method))
-        writer.WriteLine("return null;");
+        WriteLine("return null;");
     }
 
-    protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
     {
       bool returnsImage = ReturnsImage(method);
 
       if (returnsImage)
-        writer.Write("return ");
+        Write("return ");
       else
-        WriteStartColon(writer);
+        WriteStartColon();
 
-      writer.Write("collection.");
-      writer.Write(method.Name);
-      writer.Write("(");
-      WriteHashtableParameters(writer, parameters);
-      writer.WriteLine(");");
+      Write("collection.");
+      Write(method.Name);
+      Write("(");
+      WriteHashtableParameters( parameters);
+      WriteLine(");");
 
       if (!ReturnsImage(method))
       {
-        writer.WriteLine("return null;");
-        WriteEndColon(writer);
+        WriteLine("return null;");
+        WriteEndColon();
       }
     }
 
-    protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)
+    protected override void WriteSet(PropertyInfo property)
     {
       throw new NotImplementedException();
     }

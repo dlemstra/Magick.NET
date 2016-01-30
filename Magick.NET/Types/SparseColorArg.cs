@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,23 +12,13 @@
 // limitations under the License.
 //=================================================================================================
 
-using ImageMagick.Internal;
-
 namespace ImageMagick
 {
   ///<summary>
   /// Represents an argument for the SparseColor method.
   ///</summary>
-  public sealed class SparseColorArg : ISparseColorArg
+  public sealed class SparseColorArg
   {
-    IMagickColor ISparseColorArg.Color
-    {
-      get
-      {
-        return MagickColor.GetInstance(Color);
-      }
-    }
-
     /// <summary>
     /// Initializes a new instance of the SparseColorArg class.
     /// </summary>

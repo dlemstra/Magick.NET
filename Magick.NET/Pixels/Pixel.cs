@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -29,33 +29,25 @@ namespace ImageMagick
   ///<summary>
   /// Class that can be used to access an individual pixel of an image.
   ///</summary>
-  public sealed class Pixel : IEquatable<Pixel>
+  public sealed class Pixel //: IEquatable<Pixel>
   {
-    private Wrapper.WritablePixelCollection _Collection;
-    private int _X;
-    private int _Y;
+    private PixelCollection _Collection;
 
-    private static void CheckChannels(int channels)
-    {
-      Throw.IfTrue("value", channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
-    }
-
-    private Pixel(Wrapper.WritablePixelCollection collection)
+    private Pixel(PixelCollection collection)
     {
       _Collection = collection;
     }
 
     private void Initialize(int x, int y, QuantumType[] value)
     {
-      _X = x;
-      _Y = y;
+      X = x;
+      Y = y;
       Value = value;
     }
 
-    private void UpdateCollection()
+    private static void CheckChannels(int channels)
     {
-      if (_Collection != null)
-        _Collection.SetPixel(_X, _Y, Value);
+      Throw.IfTrue("value", channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
     }
 
     internal QuantumType[] Value
@@ -64,11 +56,17 @@ namespace ImageMagick
       private set;
     }
 
-    internal static Pixel Create(Wrapper.WritablePixelCollection collection, int x, int y, QuantumType[] value)
+    internal static Pixel Create(PixelCollection collection, int x, int y, QuantumType[] value)
     {
       Pixel pixel = new Pixel(collection);
       pixel.Initialize(x, y, value);
       return pixel;
+    }
+
+    private void UpdateCollection()
+    {
+      if (_Collection != null)
+        _Collection.SetPixelUnchecked(X, Y, Value);
     }
 
     ///<summary>
@@ -98,6 +96,28 @@ namespace ImageMagick
     {
       CheckChannels(channels);
       Initialize(x, y, new QuantumType[channels]);
+    }
+
+    /// <summary>
+    /// Determines whether the specified Pixel instances are considered equal.
+    /// </summary>
+    /// <param name="left">The first Pixel to compare.</param>
+    /// <param name="right"> The second Pixel to compare.</param>
+    /// <returns></returns>
+    public static bool operator ==(Pixel left, Pixel right)
+    {
+      return Equals(left, right);
+    }
+
+    /// <summary>
+    /// Determines whether the specified Pixel instances are considered equal.
+    /// </summary>
+    /// <param name="left">The first Pixel to compare.</param>
+    /// <param name="right"> The second Pixel to compare.</param>
+    /// <returns></returns>
+    public static bool operator !=(Pixel left, Pixel right)
+    {
+      return !Equals(left, right);
     }
 
     ///<summary>
@@ -134,10 +154,8 @@ namespace ImageMagick
     ///</summary>
     public int X
     {
-      get
-      {
-        return _X;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -145,32 +163,8 @@ namespace ImageMagick
     ///</summary>
     public int Y
     {
-      get
-      {
-        return _Y;
-      }
-    }
-
-    /// <summary>
-    /// Determines whether the specified Pixel instances are considered equal.
-    /// </summary>
-    /// <param name="left">The first Pixel to compare.</param>
-    /// <param name="right"> The second Pixel to compare.</param>
-    /// <returns></returns>
-    public static bool operator ==(Pixel left, Pixel right)
-    {
-      return object.Equals(left, right);
-    }
-
-    /// <summary>
-    /// Determines whether the specified Pixel instances are considered equal.
-    /// </summary>
-    /// <param name="left">The first Pixel to compare.</param>
-    /// <param name="right"> The second Pixel to compare.</param>
-    /// <returns></returns>
-    public static bool operator !=(Pixel left, Pixel right)
-    {
-      return !object.Equals(left, right);
+      get;
+      private set;
     }
 
     ///<summary>
@@ -273,10 +267,13 @@ namespace ImageMagick
       if (Value.Length == 1)
         return new MagickColor(Value[0], Value[0], Value[0]);
 
+      if (Value.Length == 2)
+        return new MagickColor(Value[0], Value[0], Value[0], Value[1]);
+
       if (Value.Length == 3)
         return new MagickColor(Value[0], Value[1], Value[2]);
 
-      if (Value.Length == 4)
+      if (Value.Length >= 4)
         return new MagickColor(Value[0], Value[1], Value[2], Value[3]);
 
       return null;

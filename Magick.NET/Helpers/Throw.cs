@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -36,7 +36,7 @@ namespace ImageMagick
 
     public static void IfInvalidFileName(string fileName)
     {
-      Throw.IfNullOrEmpty("fileName", fileName);
+      IfNullOrEmpty("fileName", fileName);
 
       if (fileName.Length > 248)
         return;
@@ -69,7 +69,7 @@ namespace ImageMagick
 
     public static void IfNull(string paramName, object value)
     {
-      if (object.ReferenceEquals(value, null))
+      if (ReferenceEquals(value, null))
         throw new ArgumentNullException(paramName);
     }
 
@@ -87,7 +87,15 @@ namespace ImageMagick
         throw new ArgumentException("Value cannot be empty", paramName);
     }
 
-    public static void IfNullOrEmpty(string paramName, Array value)
+    public static void IfNullOrEmpty(string paramName, string value, string message, params object[] args)
+    {
+      IfNull(paramName, value, message, args);
+
+      if (value.Length == 0)
+        throw new ArgumentException(FormatMessage(message, args), paramName);
+    }
+
+    public static void IfNullOrEmpty(string paramName, [ValidatedNotNull] Array value)
     {
       IfNull(paramName, value);
 

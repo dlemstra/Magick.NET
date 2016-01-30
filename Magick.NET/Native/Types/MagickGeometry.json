@@ -1,0 +1,40 @@
+﻿{
+  "dynamic": 1,
+  "properties":
+  [
+    {
+      "name": "X",
+      "type": "double",
+      "readonly": true
+    },
+    {
+      "name": "Y",
+      "type": "double",
+      "readonly": true
+    },
+    {
+      "name": "Width",
+      "type": "double",
+      "readonly": true
+    },
+    {
+      "name": "Height",
+      "type": "double",
+      "readonly": true
+    }
+  ],
+  "methods":
+  [
+    {
+      "name": "Initialize",
+      "type": "GeometryFlags",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

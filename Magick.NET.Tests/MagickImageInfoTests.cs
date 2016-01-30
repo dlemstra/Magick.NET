@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using ImageMagick;
@@ -25,10 +24,9 @@ namespace Magick.NET.Tests
   [TestClass]
   public class MagickImageInfoTests
   {
-
     private const string _Category = "MagickImageInfo";
 
-    private MagickImageInfo CreateMagickImageInfo(Color color, int width, int height)
+    private MagickImageInfo CreateMagickImageInfo(MagickColor color, int width, int height)
     {
       using (MemoryStream memStream = new MemoryStream())
       {
@@ -95,7 +93,7 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_IComparable()
     {
-      MagickImageInfo first = CreateMagickImageInfo(Color.Red, 10, 5);
+      MagickImageInfo first = CreateMagickImageInfo(MagickColors.Red, 10, 5);
 
       Assert.AreEqual(0, first.CompareTo(first));
       Assert.AreEqual(1, first.CompareTo(null));
@@ -108,7 +106,7 @@ namespace Magick.NET.Tests
       Assert.IsFalse(null > first);
       Assert.IsFalse(null >= first);
 
-      MagickImageInfo second = CreateMagickImageInfo(Color.Green, 5, 5);
+      MagickImageInfo second = CreateMagickImageInfo(MagickColors.Green, 5, 5);
 
       Assert.AreEqual(1, first.CompareTo(second));
       Assert.IsFalse(first < second);
@@ -116,7 +114,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first > second);
       Assert.IsTrue(first >= second);
 
-      second = CreateMagickImageInfo(Color.Red, 5, 10);
+      second = CreateMagickImageInfo(MagickColors.Red, 5, 10);
 
       Assert.AreEqual(0, first.CompareTo(second));
       Assert.IsFalse(first == second);
@@ -129,20 +127,20 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_IEquatable()
     {
-      MagickImageInfo first = CreateMagickImageInfo(Color.Red, 10, 10);
+      MagickImageInfo first = CreateMagickImageInfo(MagickColors.Red, 10, 10);
 
       Assert.IsFalse(first == null);
       Assert.IsFalse(first.Equals(null));
       Assert.IsTrue(first.Equals(first));
       Assert.IsTrue(first.Equals((object)first));
 
-      MagickImageInfo second = CreateMagickImageInfo(Color.Red, 10, 10);
+      MagickImageInfo second = CreateMagickImageInfo(MagickColors.Red, 10, 10);
 
       Assert.IsTrue(first == second);
       Assert.IsTrue(first.Equals(second));
       Assert.IsTrue(first.Equals((object)second));
 
-      second = CreateMagickImageInfo(Color.Green, 10, 10);
+      second = CreateMagickImageInfo(MagickColors.Green, 10, 10);
 
       Assert.IsTrue(first == second);
       Assert.IsTrue(first.Equals(second));

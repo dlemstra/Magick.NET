@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -49,6 +49,11 @@ namespace ImageMagick
               ExecuteDrawableAffine(element, drawables);
               return;
             }
+            case 'l':
+            {
+              ExecuteDrawableAlpha(element, drawables);
+              return;
+            }
             case 'r':
             {
               ExecuteDrawableArc(element, drawables);
@@ -59,8 +64,20 @@ namespace ImageMagick
         }
         case 'b':
         {
-          ExecuteDrawableBezier(element, drawables);
-          return;
+          switch(element.Name[1])
+          {
+            case 'e':
+            {
+              ExecuteDrawableBezier(element, drawables);
+              return;
+            }
+            case 'o':
+            {
+              ExecuteDrawableBorderColor(element, drawables);
+              return;
+            }
+          }
+          break;
         }
         case 'c':
         {
@@ -73,8 +90,25 @@ namespace ImageMagick
             }
             case 'l':
             {
-              ExecuteDrawableClipPath(element, drawables);
-              return;
+              switch(element.Name[4])
+              {
+                case 'P':
+                {
+                  ExecuteDrawableClipPath(element, drawables);
+                  return;
+                }
+                case 'R':
+                {
+                  ExecuteDrawableClipRule(element, drawables);
+                  return;
+                }
+                case 'U':
+                {
+                  ExecuteDrawableClipUnits(element, drawables);
+                  return;
+                }
+              }
+              break;
             }
             case 'o':
             {
@@ -87,7 +121,7 @@ namespace ImageMagick
                 }
                 case 'm':
                 {
-                  ExecuteDrawableCompositeImage(element, drawables);
+                  ExecuteDrawableComposite(element, drawables);
                   return;
                 }
               }
@@ -98,32 +132,8 @@ namespace ImageMagick
         }
         case 'd':
         {
-          switch(element.Name[1])
-          {
-            case 'a':
-            {
-              switch(element.Name[4])
-              {
-                case 'A':
-                {
-                  ExecuteDrawableDashArray(element, drawables);
-                  return;
-                }
-                case 'O':
-                {
-                  ExecuteDrawableDashOffset(element, drawables);
-                  return;
-                }
-              }
-              break;
-            }
-            case 'e':
-            {
-              ExecuteDrawableDensity(element, drawables);
-              return;
-            }
-          }
-          break;
+          ExecuteDrawableDensity(element, drawables);
+          return;
         }
         case 'e':
         {
@@ -148,6 +158,11 @@ namespace ImageMagick
                   ExecuteDrawableFillOpacity(element, drawables);
                   return;
                 }
+                case 'P':
+                {
+                  ExecuteDrawableFillPatternUrl(element, drawables);
+                  return;
+                }
                 case 'R':
                 {
                   ExecuteDrawableFillRule(element, drawables);
@@ -158,8 +173,17 @@ namespace ImageMagick
             }
             case 'o':
             {
-              ExecuteDrawableFont(element, drawables);
-              return;
+              if (element.Name.Length == 4)
+              {
+                ExecuteDrawableFont(element, drawables);
+                return;
+              }
+              if (element.Name.Length == 13)
+              {
+                ExecuteDrawableFontPointSize(element, drawables);
+                return;
+              }
+              break;
             }
           }
           break;
@@ -172,16 +196,6 @@ namespace ImageMagick
         case 'l':
         {
           ExecuteDrawableLine(element, drawables);
-          return;
-        }
-        case 'm':
-        {
-          ExecuteDrawableMiterLimit(element, drawables);
-          return;
-        }
-        case 'o':
-        {
-          ExecuteDrawableOpacity(element, drawables);
           return;
         }
         case 'p':
@@ -199,17 +213,8 @@ namespace ImageMagick
               {
                 case 'i':
                 {
-                  if (element.Name.Length == 5)
-                  {
-                    ExecuteDrawablePoint(element, drawables);
-                    return;
-                  }
-                  if (element.Name.Length == 9)
-                  {
-                    ExecuteDrawablePointSize(element, drawables);
-                    return;
-                  }
-                  break;
+                  ExecuteDrawablePoint(element, drawables);
+                  return;
                 }
                 case 'l':
                 {
@@ -320,6 +325,23 @@ namespace ImageMagick
                   ExecuteDrawableStrokeColor(element, drawables);
                   return;
                 }
+                case 'D':
+                {
+                  switch(element.Name[10])
+                  {
+                    case 'A':
+                    {
+                      ExecuteDrawableStrokeDashArray(element, drawables);
+                      return;
+                    }
+                    case 'O':
+                    {
+                      ExecuteDrawableStrokeDashOffset(element, drawables);
+                      return;
+                    }
+                  }
+                  break;
+                }
                 case 'L':
                 {
                   switch(element.Name[10])
@@ -337,9 +359,19 @@ namespace ImageMagick
                   }
                   break;
                 }
+                case 'M':
+                {
+                  ExecuteDrawableStrokeMiterLimit(element, drawables);
+                  return;
+                }
                 case 'O':
                 {
                   ExecuteDrawableStrokeOpacity(element, drawables);
+                  return;
+                }
+                case 'P':
+                {
+                  ExecuteDrawableStrokePatternUrl(element, drawables);
                   return;
                 }
                 case 'W':
@@ -368,8 +400,20 @@ namespace ImageMagick
               {
                 case 'A':
                 {
-                  ExecuteDrawableTextAntialias(element, drawables);
-                  return;
+                  switch(element.Name[5])
+                  {
+                    case 'l':
+                    {
+                      ExecuteDrawableTextAlignment(element, drawables);
+                      return;
+                    }
+                    case 'n':
+                    {
+                      ExecuteDrawableTextAntialias(element, drawables);
+                      return;
+                    }
+                  }
+                  break;
                 }
                 case 'D':
                 {
@@ -387,6 +431,11 @@ namespace ImageMagick
                     }
                   }
                   break;
+                }
+                case 'E':
+                {
+                  ExecuteDrawableTextEncoding(element, drawables);
+                  return;
                 }
                 case 'I':
                 {
@@ -434,7 +483,6 @@ namespace ImageMagick
       }
       throw new NotImplementedException(element.Name);
     }
-
     private void ExecuteDrawableAffine(XmlElement element, Collection<IDrawable> drawables)
     {
       double scaleX_ = Variables.GetValue<double>(element, "scaleX");
@@ -445,7 +493,13 @@ namespace ImageMagick
       double translateY_ = Variables.GetValue<double>(element, "translateY");
       drawables.Add(new DrawableAffine(scaleX_, scaleY_, shearX_, shearY_, translateX_, translateY_));
     }
-
+    private void ExecuteDrawableAlpha(XmlElement element, Collection<IDrawable> drawables)
+    {
+      double x_ = Variables.GetValue<double>(element, "x");
+      double y_ = Variables.GetValue<double>(element, "y");
+      PaintMethod paintMethod_ = Variables.GetValue<PaintMethod>(element, "paintMethod");
+      drawables.Add(new DrawableAlpha(x_, y_, paintMethod_));
+    }
     private void ExecuteDrawableArc(XmlElement element, Collection<IDrawable> drawables)
     {
       double startX_ = Variables.GetValue<double>(element, "startX");
@@ -456,13 +510,16 @@ namespace ImageMagick
       double endDegrees_ = Variables.GetValue<double>(element, "endDegrees");
       drawables.Add(new DrawableArc(startX_, startY_, endX_, endY_, startDegrees_, endDegrees_));
     }
-
     private void ExecuteDrawableBezier(XmlElement element, Collection<IDrawable> drawables)
     {
-      IEnumerable<Coordinate> coordinates_ = CreateCoordinates(element);
+      IEnumerable<PointD> coordinates_ = CreatePointDs(element);
       drawables.Add(new DrawableBezier(coordinates_));
     }
-
+    private void ExecuteDrawableBorderColor(XmlElement element, Collection<IDrawable> drawables)
+    {
+      MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
+      drawables.Add(new DrawableBorderColor(color_));
+    }
     private void ExecuteDrawableCircle(XmlElement element, Collection<IDrawable> drawables)
     {
       double originX_ = Variables.GetValue<double>(element, "originX");
@@ -471,13 +528,21 @@ namespace ImageMagick
       double perimeterY_ = Variables.GetValue<double>(element, "perimeterY");
       drawables.Add(new DrawableCircle(originX_, originY_, perimeterX_, perimeterY_));
     }
-
     private void ExecuteDrawableClipPath(XmlElement element, Collection<IDrawable> drawables)
     {
       String clipPath_ = Variables.GetValue<String>(element, "clipPath");
       drawables.Add(new DrawableClipPath(clipPath_));
     }
-
+    private void ExecuteDrawableClipRule(XmlElement element, Collection<IDrawable> drawables)
+    {
+      FillRule fillRule_ = Variables.GetValue<FillRule>(element, "fillRule");
+      drawables.Add(new DrawableClipRule(fillRule_));
+    }
+    private void ExecuteDrawableClipUnits(XmlElement element, Collection<IDrawable> drawables)
+    {
+      ClipPathUnit units_ = Variables.GetValue<ClipPathUnit>(element, "units");
+      drawables.Add(new DrawableClipUnits(units_));
+    }
     private void ExecuteDrawableColor(XmlElement element, Collection<IDrawable> drawables)
     {
       double x_ = Variables.GetValue<double>(element, "x");
@@ -485,8 +550,7 @@ namespace ImageMagick
       PaintMethod paintMethod_ = Variables.GetValue<PaintMethod>(element, "paintMethod");
       drawables.Add(new DrawableColor(x_, y_, paintMethod_));
     }
-
-    private void ExecuteDrawableCompositeImage(XmlElement element, Collection<IDrawable> drawables)
+    private void ExecuteDrawableComposite(XmlElement element, Collection<IDrawable> drawables)
     {
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
@@ -505,29 +569,16 @@ namespace ImageMagick
         arguments[elem.Name] = CreateMagickImage(elem);
       }
       if (OnlyContains(arguments, "offset", "compose", "image"))
-        drawables.Add(new DrawableCompositeImage((MagickGeometry)arguments["offset"], (CompositeOperator)arguments["compose"], (MagickImage)arguments["image"]));
+        drawables.Add(new DrawableComposite((MagickGeometry)arguments["offset"], (CompositeOperator)arguments["compose"], (MagickImage)arguments["image"]));
       else if (OnlyContains(arguments, "offset", "image"))
-        drawables.Add(new DrawableCompositeImage((MagickGeometry)arguments["offset"], (MagickImage)arguments["image"]));
+        drawables.Add(new DrawableComposite((MagickGeometry)arguments["offset"], (MagickImage)arguments["image"]));
       else if (OnlyContains(arguments, "x", "y", "compose", "image"))
-        drawables.Add(new DrawableCompositeImage((double)arguments["x"], (double)arguments["y"], (CompositeOperator)arguments["compose"], (MagickImage)arguments["image"]));
+        drawables.Add(new DrawableComposite((double)arguments["x"], (double)arguments["y"], (CompositeOperator)arguments["compose"], (MagickImage)arguments["image"]));
       else if (OnlyContains(arguments, "x", "y", "image"))
-        drawables.Add(new DrawableCompositeImage((double)arguments["x"], (double)arguments["y"], (MagickImage)arguments["image"]));
+        drawables.Add(new DrawableComposite((double)arguments["x"], (double)arguments["y"], (MagickImage)arguments["image"]));
       else
-        throw new ArgumentException("Invalid argument combination for 'compositeImage', allowed combinations are: [offset, compose, image] [offset, image] [x, y, compose, image] [x, y, image]");
+        throw new ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [offset, compose, image] [offset, image] [x, y, compose, image] [x, y, image]");
     }
-
-    private void ExecuteDrawableDashArray(XmlElement element, Collection<IDrawable> drawables)
-    {
-      Double[] dash_ = Variables.GetDoubleArray(element["dash"]);
-      drawables.Add(new DrawableDashArray(dash_));
-    }
-
-    private void ExecuteDrawableDashOffset(XmlElement element, Collection<IDrawable> drawables)
-    {
-      double offset_ = Variables.GetValue<double>(element, "offset");
-      drawables.Add(new DrawableDashOffset(offset_));
-    }
-
     private void ExecuteDrawableDensity(XmlElement element, Collection<IDrawable> drawables)
     {
       Hashtable arguments = new Hashtable();
@@ -545,7 +596,6 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'density', allowed combinations are: [density] [pointDensity]");
     }
-
     private void ExecuteDrawableEllipse(XmlElement element, Collection<IDrawable> drawables)
     {
       double originX_ = Variables.GetValue<double>(element, "originX");
@@ -556,25 +606,26 @@ namespace ImageMagick
       double endDegrees_ = Variables.GetValue<double>(element, "endDegrees");
       drawables.Add(new DrawableEllipse(originX_, originY_, radiusX_, radiusY_, startDegrees_, endDegrees_));
     }
-
     private void ExecuteDrawableFillColor(XmlElement element, Collection<IDrawable> drawables)
     {
       MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
       drawables.Add(new DrawableFillColor(color_));
     }
-
     private void ExecuteDrawableFillOpacity(XmlElement element, Collection<IDrawable> drawables)
     {
       Percentage opacity_ = Variables.GetValue<Percentage>(element, "opacity");
       drawables.Add(new DrawableFillOpacity(opacity_));
     }
-
+    private void ExecuteDrawableFillPatternUrl(XmlElement element, Collection<IDrawable> drawables)
+    {
+      String url_ = Variables.GetValue<String>(element, "url");
+      drawables.Add(new DrawableFillPatternUrl(url_));
+    }
     private void ExecuteDrawableFillRule(XmlElement element, Collection<IDrawable> drawables)
     {
       FillRule fillRule_ = Variables.GetValue<FillRule>(element, "fillRule");
       drawables.Add(new DrawableFillRule(fillRule_));
     }
-
     private void ExecuteDrawableFont(XmlElement element, Collection<IDrawable> drawables)
     {
       Hashtable arguments = new Hashtable();
@@ -596,13 +647,16 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'font', allowed combinations are: [family] [family, style, weight, stretch]");
     }
-
+    private void ExecuteDrawableFontPointSize(XmlElement element, Collection<IDrawable> drawables)
+    {
+      double pointSize_ = Variables.GetValue<double>(element, "pointSize");
+      drawables.Add(new DrawableFontPointSize(pointSize_));
+    }
     private void ExecuteDrawableGravity(XmlElement element, Collection<IDrawable> drawables)
     {
       Gravity gravity_ = Variables.GetValue<Gravity>(element, "gravity");
       drawables.Add(new DrawableGravity(gravity_));
     }
-
     private void ExecuteDrawableLine(XmlElement element, Collection<IDrawable> drawables)
     {
       double startX_ = Variables.GetValue<double>(element, "startX");
@@ -611,68 +665,41 @@ namespace ImageMagick
       double endY_ = Variables.GetValue<double>(element, "endY");
       drawables.Add(new DrawableLine(startX_, startY_, endX_, endY_));
     }
-
-    private void ExecuteDrawableMiterLimit(XmlElement element, Collection<IDrawable> drawables)
-    {
-      Int32 miterlimit_ = Variables.GetValue<Int32>(element, "miterlimit");
-      drawables.Add(new DrawableMiterLimit(miterlimit_));
-    }
-
-    private void ExecuteDrawableOpacity(XmlElement element, Collection<IDrawable> drawables)
-    {
-      double x_ = Variables.GetValue<double>(element, "x");
-      double y_ = Variables.GetValue<double>(element, "y");
-      PaintMethod paintMethod_ = Variables.GetValue<PaintMethod>(element, "paintMethod");
-      drawables.Add(new DrawableOpacity(x_, y_, paintMethod_));
-    }
-
     private void ExecuteDrawablePath(XmlElement element, Collection<IDrawable> drawables)
     {
       IEnumerable<IPath> paths_ = CreatePaths(element);
       drawables.Add(new DrawablePath(paths_));
     }
-
     private void ExecuteDrawablePoint(XmlElement element, Collection<IDrawable> drawables)
     {
       double x_ = Variables.GetValue<double>(element, "x");
       double y_ = Variables.GetValue<double>(element, "y");
       drawables.Add(new DrawablePoint(x_, y_));
     }
-
-    private void ExecuteDrawablePointSize(XmlElement element, Collection<IDrawable> drawables)
-    {
-      double pointSize_ = Variables.GetValue<double>(element, "pointSize");
-      drawables.Add(new DrawablePointSize(pointSize_));
-    }
-
     private void ExecuteDrawablePolygon(XmlElement element, Collection<IDrawable> drawables)
     {
-      IEnumerable<Coordinate> coordinates_ = CreateCoordinates(element);
+      IEnumerable<PointD> coordinates_ = CreatePointDs(element);
       drawables.Add(new DrawablePolygon(coordinates_));
     }
-
     private void ExecuteDrawablePolyline(XmlElement element, Collection<IDrawable> drawables)
     {
-      IEnumerable<Coordinate> coordinates_ = CreateCoordinates(element);
+      IEnumerable<PointD> coordinates_ = CreatePointDs(element);
       drawables.Add(new DrawablePolyline(coordinates_));
     }
-
     private void ExecuteDrawablePushClipPath(XmlElement element, Collection<IDrawable> drawables)
     {
       String clipPath_ = Variables.GetValue<String>(element, "clipPath");
       drawables.Add(new DrawablePushClipPath(clipPath_));
     }
-
     private void ExecuteDrawablePushPattern(XmlElement element, Collection<IDrawable> drawables)
     {
       String id_ = Variables.GetValue<String>(element, "id");
-      Int32 x_ = Variables.GetValue<Int32>(element, "x");
-      Int32 y_ = Variables.GetValue<Int32>(element, "y");
-      Int32 width_ = Variables.GetValue<Int32>(element, "width");
-      Int32 height_ = Variables.GetValue<Int32>(element, "height");
+      double x_ = Variables.GetValue<double>(element, "x");
+      double y_ = Variables.GetValue<double>(element, "y");
+      double width_ = Variables.GetValue<double>(element, "width");
+      double height_ = Variables.GetValue<double>(element, "height");
       drawables.Add(new DrawablePushPattern(id_, x_, y_, width_, height_));
     }
-
     private void ExecuteDrawableRectangle(XmlElement element, Collection<IDrawable> drawables)
     {
       double upperLeftX_ = Variables.GetValue<double>(element, "upperLeftX");
@@ -681,13 +708,11 @@ namespace ImageMagick
       double lowerRightY_ = Variables.GetValue<double>(element, "lowerRightY");
       drawables.Add(new DrawableRectangle(upperLeftX_, upperLeftY_, lowerRightX_, lowerRightY_));
     }
-
     private void ExecuteDrawableRotation(XmlElement element, Collection<IDrawable> drawables)
     {
       double angle_ = Variables.GetValue<double>(element, "angle");
       drawables.Add(new DrawableRotation(angle_));
     }
-
     private void ExecuteDrawableRoundRectangle(XmlElement element, Collection<IDrawable> drawables)
     {
       double centerX_ = Variables.GetValue<double>(element, "centerX");
@@ -698,139 +723,136 @@ namespace ImageMagick
       double cornerHeight_ = Variables.GetValue<double>(element, "cornerHeight");
       drawables.Add(new DrawableRoundRectangle(centerX_, centerY_, width_, height_, cornerWidth_, cornerHeight_));
     }
-
     private void ExecuteDrawableScaling(XmlElement element, Collection<IDrawable> drawables)
     {
       double x_ = Variables.GetValue<double>(element, "x");
       double y_ = Variables.GetValue<double>(element, "y");
       drawables.Add(new DrawableScaling(x_, y_));
     }
-
     private void ExecuteDrawableSkewX(XmlElement element, Collection<IDrawable> drawables)
     {
       double angle_ = Variables.GetValue<double>(element, "angle");
       drawables.Add(new DrawableSkewX(angle_));
     }
-
     private void ExecuteDrawableSkewY(XmlElement element, Collection<IDrawable> drawables)
     {
       double angle_ = Variables.GetValue<double>(element, "angle");
       drawables.Add(new DrawableSkewY(angle_));
     }
-
     private void ExecuteDrawableStrokeAntialias(XmlElement element, Collection<IDrawable> drawables)
     {
       Boolean isEnabled_ = Variables.GetValue<Boolean>(element, "isEnabled");
       drawables.Add(new DrawableStrokeAntialias(isEnabled_));
     }
-
     private void ExecuteDrawableStrokeColor(XmlElement element, Collection<IDrawable> drawables)
     {
       MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
       drawables.Add(new DrawableStrokeColor(color_));
     }
-
+    private void ExecuteDrawableStrokeDashArray(XmlElement element, Collection<IDrawable> drawables)
+    {
+      Double[] dash_ = Variables.GetDoubleArray(element["dash"]);
+      drawables.Add(new DrawableStrokeDashArray(dash_));
+    }
+    private void ExecuteDrawableStrokeDashOffset(XmlElement element, Collection<IDrawable> drawables)
+    {
+      double offset_ = Variables.GetValue<double>(element, "offset");
+      drawables.Add(new DrawableStrokeDashOffset(offset_));
+    }
     private void ExecuteDrawableStrokeLineCap(XmlElement element, Collection<IDrawable> drawables)
     {
       LineCap lineCap_ = Variables.GetValue<LineCap>(element, "lineCap");
       drawables.Add(new DrawableStrokeLineCap(lineCap_));
     }
-
     private void ExecuteDrawableStrokeLineJoin(XmlElement element, Collection<IDrawable> drawables)
     {
       LineJoin lineJoin_ = Variables.GetValue<LineJoin>(element, "lineJoin");
       drawables.Add(new DrawableStrokeLineJoin(lineJoin_));
     }
-
+    private void ExecuteDrawableStrokeMiterLimit(XmlElement element, Collection<IDrawable> drawables)
+    {
+      Int32 miterlimit_ = Variables.GetValue<Int32>(element, "miterlimit");
+      drawables.Add(new DrawableStrokeMiterLimit(miterlimit_));
+    }
     private void ExecuteDrawableStrokeOpacity(XmlElement element, Collection<IDrawable> drawables)
     {
       Percentage opacity_ = Variables.GetValue<Percentage>(element, "opacity");
       drawables.Add(new DrawableStrokeOpacity(opacity_));
     }
-
+    private void ExecuteDrawableStrokePatternUrl(XmlElement element, Collection<IDrawable> drawables)
+    {
+      String url_ = Variables.GetValue<String>(element, "url");
+      drawables.Add(new DrawableStrokePatternUrl(url_));
+    }
     private void ExecuteDrawableStrokeWidth(XmlElement element, Collection<IDrawable> drawables)
     {
       double width_ = Variables.GetValue<double>(element, "width");
       drawables.Add(new DrawableStrokeWidth(width_));
     }
-
     private void ExecuteDrawableText(XmlElement element, Collection<IDrawable> drawables)
     {
-      Hashtable arguments = new Hashtable();
-      foreach (XmlAttribute attribute in element.Attributes)
-      {
-        if (attribute.Name == "encoding")
-          arguments["encoding"] = Variables.GetValue<Encoding>(attribute);
-        else if (attribute.Name == "value")
-          arguments["value"] = Variables.GetValue<String>(attribute);
-        else if (attribute.Name == "x")
-          arguments["x"] = Variables.GetValue<double>(attribute);
-        else if (attribute.Name == "y")
-          arguments["y"] = Variables.GetValue<double>(attribute);
-      }
-      if (OnlyContains(arguments, "x", "y", "value"))
-        drawables.Add(new DrawableText((double)arguments["x"], (double)arguments["y"], (String)arguments["value"]));
-      else if (OnlyContains(arguments, "x", "y", "value", "encoding"))
-        drawables.Add(new DrawableText((double)arguments["x"], (double)arguments["y"], (String)arguments["value"], (Encoding)arguments["encoding"]));
-      else
-        throw new ArgumentException("Invalid argument combination for 'text', allowed combinations are: [x, y, value] [x, y, value, encoding]");
+      double x_ = Variables.GetValue<double>(element, "x");
+      double y_ = Variables.GetValue<double>(element, "y");
+      String value_ = Variables.GetValue<String>(element, "value");
+      drawables.Add(new DrawableText(x_, y_, value_));
     }
-
+    private void ExecuteDrawableTextAlignment(XmlElement element, Collection<IDrawable> drawables)
+    {
+      TextAlignment alignment_ = Variables.GetValue<TextAlignment>(element, "alignment");
+      drawables.Add(new DrawableTextAlignment(alignment_));
+    }
     private void ExecuteDrawableTextAntialias(XmlElement element, Collection<IDrawable> drawables)
     {
       Boolean isEnabled_ = Variables.GetValue<Boolean>(element, "isEnabled");
       drawables.Add(new DrawableTextAntialias(isEnabled_));
     }
-
     private void ExecuteDrawableTextDecoration(XmlElement element, Collection<IDrawable> drawables)
     {
       TextDecoration decoration_ = Variables.GetValue<TextDecoration>(element, "decoration");
       drawables.Add(new DrawableTextDecoration(decoration_));
     }
-
     private void ExecuteDrawableTextDirection(XmlElement element, Collection<IDrawable> drawables)
     {
       TextDirection direction_ = Variables.GetValue<TextDirection>(element, "direction");
       drawables.Add(new DrawableTextDirection(direction_));
     }
-
+    private void ExecuteDrawableTextEncoding(XmlElement element, Collection<IDrawable> drawables)
+    {
+      Encoding encoding_ = Variables.GetValue<Encoding>(element, "encoding");
+      drawables.Add(new DrawableTextEncoding(encoding_));
+    }
     private void ExecuteDrawableTextInterlineSpacing(XmlElement element, Collection<IDrawable> drawables)
     {
       double spacing_ = Variables.GetValue<double>(element, "spacing");
       drawables.Add(new DrawableTextInterlineSpacing(spacing_));
     }
-
     private void ExecuteDrawableTextInterwordSpacing(XmlElement element, Collection<IDrawable> drawables)
     {
       double spacing_ = Variables.GetValue<double>(element, "spacing");
       drawables.Add(new DrawableTextInterwordSpacing(spacing_));
     }
-
     private void ExecuteDrawableTextKerning(XmlElement element, Collection<IDrawable> drawables)
     {
       double kerning_ = Variables.GetValue<double>(element, "kerning");
       drawables.Add(new DrawableTextKerning(kerning_));
     }
-
     private void ExecuteDrawableTextUnderColor(XmlElement element, Collection<IDrawable> drawables)
     {
       MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
       drawables.Add(new DrawableTextUnderColor(color_));
     }
-
     private void ExecuteDrawableTranslation(XmlElement element, Collection<IDrawable> drawables)
     {
       double x_ = Variables.GetValue<double>(element, "x");
       double y_ = Variables.GetValue<double>(element, "y");
       drawables.Add(new DrawableTranslation(x_, y_));
     }
-
     private void ExecuteDrawableViewbox(XmlElement element, Collection<IDrawable> drawables)
     {
-      Int32 upperLeftX_ = Variables.GetValue<Int32>(element, "upperLeftX");
-      Int32 upperLeftY_ = Variables.GetValue<Int32>(element, "upperLeftY");
-      Int32 lowerRightX_ = Variables.GetValue<Int32>(element, "lowerRightX");
-      Int32 lowerRightY_ = Variables.GetValue<Int32>(element, "lowerRightY");
+      double upperLeftX_ = Variables.GetValue<double>(element, "upperLeftX");
+      double upperLeftY_ = Variables.GetValue<double>(element, "upperLeftY");
+      double lowerRightX_ = Variables.GetValue<double>(element, "lowerRightX");
+      double lowerRightY_ = Variables.GetValue<double>(element, "lowerRightY");
       drawables.Add(new DrawableViewbox(upperLeftX_, upperLeftY_, lowerRightX_, lowerRightY_));
     }
   }

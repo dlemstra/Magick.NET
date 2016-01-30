@@ -1,0 +1,87 @@
+﻿{
+  "static": true,
+  "delegates":
+  [
+    {
+      "name": "Log",
+      "arguments":
+      [
+        {
+          "name": "type",
+          "type": "LogEvents"
+        },
+        {
+          "name": "value",
+          "type": "IntPtr"
+        }
+      ]
+    }
+  ],
+  "properties":
+  [
+    {
+      "name": "Features",
+      "type": "string",
+      "readonly": true
+    }
+  ],
+  "methods":
+  [
+    {
+      "name": "SetEnv",
+      "arguments":
+      [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SetLogDelegate",
+      "arguments":
+      [
+        {
+          "name": "method",
+          "type": "LogDelegate"
+        }
+      ]
+    },
+    {
+      "name": "SetLogEvents",
+      "arguments":
+      [
+        {
+          "name": "events",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SetRandomSeed",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "long"
+        }
+      ]
+    },
+    {
+      "name": "SetUseOpenCL",
+      "type": "bool",
+      "throws": true,
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "bool"
+        }
+      ]
+    }
+  ]
+}

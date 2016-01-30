@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,10 +17,17 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableTranslation object.
+  /// Applies a translation to the current coordinate system which moves the coordinate system
+  /// origin to the specified coordinate.
   ///</summary>
-  public sealed class DrawableTranslation : IDrawableTranslation
+  public sealed class DrawableTranslation : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Translation(X, Y);
+    }
+
     ///<summary>
     /// Creates a new DrawableTranslation instance.
     ///</summary>

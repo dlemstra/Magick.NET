@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 //=================================================================================================
 
 using System;
-using System.CodeDom.Compiler;
 using System.IO;
 
 namespace Magick.NET.FileGenerator
@@ -38,29 +37,12 @@ namespace Magick.NET.FileGenerator
       }
     }
 
-    private static void Close(IndentedTextWriter writer)
+    private void CreateCodeFile(ScriptCodeGenerator generator)
     {
-      writer.InnerWriter.Dispose();
-    }
-
-    private void CreateCodeFile(CodeGenerator generator)
-    {
-      using (IndentedTextWriter writer = CreateWriter(generator.Name + ".cs"))
-      {
-        generator.Write(writer, _Types);
-        Close(writer);
-      }
-    }
-
-    private IndentedTextWriter CreateWriter(string fileName)
-    {
-      string outputFile = Path.GetFullPath(_OutputFolder + @"\" + fileName);
-      Console.WriteLine("Creating: " + outputFile);
-
-      FileStream output = File.Create(outputFile);
-      StreamWriter streamWriter = new StreamWriter(output);
-      IndentedTextWriter writer = new IndentedTextWriter(streamWriter, "  ");
-      return writer;
+      string outputFile = Path.GetFullPath(_OutputFolder + @"\" + generator.Name + ".cs");
+      generator.CreateWriter(outputFile);
+      generator.Write(_Types);
+      generator.CloseWriter();
     }
 
     private static string SetOutputFolder(string outputFolder)
@@ -81,11 +63,10 @@ namespace Magick.NET.FileGenerator
     private void WriteConstructors()
     {
       CreateCodeFile(new ColorProfileGenerator());
-      CreateCodeFile(new CoordinateGenerator());
       CreateCodeFile(new ImageProfileGenerator());
       CreateCodeFile(new PathArcGenerator());
-      CreateCodeFile(new PathCurvetoGenerator());
-      CreateCodeFile(new PathQuadraticCurvetoGenerator());
+      CreateCodeFile(new PointDGenerator());
+      CreateCodeFile(new PrimaryInfoGenerator());
       CreateCodeFile(new SparseColorArg());
     }
 
@@ -95,6 +76,7 @@ namespace Magick.NET.FileGenerator
       CreateCodeFile(new PathsGenerator());
       CreateCodeFile(new MagickImageCollectionGenerator());
       CreateCodeFile(new MagickImageGenerator());
+      CreateCodeFile(new MagickSettingsGenerator());
     }
 
     private void WriteInterfaces()
@@ -105,6 +87,7 @@ namespace Magick.NET.FileGenerator
     private void WriteSettings()
     {
       CreateCodeFile(new MagickReadSettingsGenerator());
+      CreateCodeFile(new MagickSettingsGenerator());
       CreateCodeFile(new MontageSettingsGenerator());
       CreateCodeFile(new PixelStorageSettingsGenerator());
       CreateCodeFile(new QuantizeSettingsGenerator());

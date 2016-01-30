@@ -1,0 +1,189 @@
+﻿{
+  "nativeConstructor": true,
+  "properties":
+  [
+    {
+      "name": "Adjoin",
+      "type": "bool"
+    },
+    {
+      "name": "AlphaColor",
+      "type": "MagickColor"
+    },
+    {
+      "name": "BackgroundColor",
+      "type": "MagickColor"
+    },
+    {
+      "name": "BorderColor",
+      "type": "MagickColor"
+    },
+    {
+      "name": "ColorSpace",
+      "type": "ColorSpace"
+    },
+    {
+      "name": "ColorType",
+      "type": "ColorType"
+    },
+    {
+      "name": "CompressionMethod",
+      "type": "CompressionMethod"
+    },
+    {
+      "name": "Debug",
+      "type": "bool"
+    },
+    {
+      "name": "Density",
+      "type": "string"
+    },
+    {
+      "name": "Endian",
+      "type": "Endian"
+    },
+    {
+      "name": "FileName",
+      "type": "string"
+    },
+    {
+      "name": "Format",
+      "type": "string"
+    },
+    {
+      "name": "Font",
+      "type": "string"
+    },
+    {
+      "name": "FontPointsize",
+      "type": "double"
+    },
+    {
+      "name": "Page",
+      "type": "string"
+    },
+    {
+      "name": "Ping",
+      "type": "bool"
+    },
+    {
+      "name": "Verbose",
+      "type": "bool"
+    }
+  ],
+  "methods":
+  [
+    {
+      "name": "Clone",
+      "type": "Instance",
+      "instance": true,
+      "throws": true
+    },
+    {
+      "name": "GetOption",
+      "type": "string",
+      "arguments":
+      [
+        {
+          "name": "key",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "RemoveOption",
+      "type": "string",
+      "arguments":
+      [
+        {
+          "name": "key",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SetColorFuzz",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "double"
+        }
+      ]
+    },
+    {
+      "name": "SetMonochrome",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "SetNumberScenes",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "SetOption",
+      "arguments":
+      [
+        {
+          "name": "key",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SetQuality",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "SetScenes",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SetScene",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "SetSize",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

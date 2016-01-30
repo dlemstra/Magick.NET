@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,10 +17,17 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawablePushClipPath object.
+  /// Starts a clip path definition which is comprized of any number of drawing commands and
+  /// terminated by a DrawablePopClipPath.
   ///</summary>
-  public sealed class DrawablePushClipPath : IDrawablePushClipPath
+  public sealed class DrawablePushClipPath : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PushClipPath(ClipPath);
+    }
+
     ///<summary>
     /// Creates a new DrawablePushClipPath instance.
     ///</summary>

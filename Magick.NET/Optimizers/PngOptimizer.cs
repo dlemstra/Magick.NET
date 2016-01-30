@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -27,7 +27,7 @@ namespace ImageMagick.ImageOptimizers
     {
       MagickFormat format = image.FormatInfo.Module;
       if (format != MagickFormat.Png)
-        throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
+        throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString(), null);
     }
 
     private static void CheckTransparency(MagickImage image)

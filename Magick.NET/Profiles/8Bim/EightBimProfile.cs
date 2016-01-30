@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -48,7 +48,7 @@ namespace ImageMagick
       XmlHelper.SetAttribute(path, "stroke", "#00000000");
       XmlHelper.SetAttribute(path, "stroke-width", "0");
       XmlHelper.SetAttribute(path, "stroke-antialiasing", "false");
-      String d = GetClipPath(offset, length);
+      string d = GetClipPath(offset, length);
       XmlHelper.SetAttribute(path, "d", d);
 
       return new ClipPath(name, doc);
@@ -87,7 +87,7 @@ namespace ImageMagick
         bool isClipPath = (id > 1999 && id < 2998);
 
         string name = null;
-        int length = (int)Data[i++];
+        int length = Data[i++];
         if (length != 0)
         {
           if (isClipPath && i + length < Data.Length)
@@ -108,7 +108,7 @@ namespace ImageMagick
           if (isClipPath)
             _ClipPaths.Add(CreateClipPath(name, i, length));
 
-          Byte[] data = new Byte[length];
+          byte[] data = new byte[length];
           Array.Copy(Data, i, data, 0, length);
           _Values.Add(new EightBimValue(id, data));
         }
@@ -117,7 +117,7 @@ namespace ImageMagick
       }
     }
 
-    internal EightBimProfile(MagickImage image, Byte[] data)
+    internal EightBimProfile(MagickImage image, byte[] data)
       : base("8bim", data)
     {
       _Width = image.Width;
@@ -128,7 +128,7 @@ namespace ImageMagick
     /// Initializes a new instance of the EightBimProfile class.
     ///</summary>
     ///<param name="data">The byte array to read the 8bim profile from.</param>
-    public EightBimProfile(Byte[] data)
+    public EightBimProfile(byte[] data)
       : base("8bim", data)
     {
     }

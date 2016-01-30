@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -19,8 +19,14 @@ namespace ImageMagick
   ///<summary>
   /// Encapsulation of the DrawableDensity object.
   ///</summary>
-  public sealed class DrawableDensity : IDrawableDensity
+  public sealed class DrawableDensity : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Density(Density);
+    }
+
     ///<summary>
     /// Creates a new DrawableDensity instance.
     ///</summary>

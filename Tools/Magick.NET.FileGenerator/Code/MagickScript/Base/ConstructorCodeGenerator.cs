@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -18,7 +18,7 @@ using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
-  internal abstract class ConstructorCodeGenerator : CodeGenerator
+  internal abstract class ConstructorCodeGenerator : ScriptCodeGenerator
   {
     private ConstructorInfo[] _Constructors;
 
@@ -54,41 +54,40 @@ namespace Magick.NET.FileGenerator
       }
     }
 
-    protected override void WriteCode(IndentedTextWriter writer)
+    protected override void WriteCode()
     {
-      writer.Write("private ");
-      writer.Write(TypeName);
-      writer.Write(" Create");
-      writer.Write(ClassName);
-      writer.WriteLine("(XmlElement element)");
-      WriteStartColon(writer);
-      WriteMethod(writer, Constructors);
-      WriteEndColon(writer);
+      Write("private ");
+      Write(TypeName);
+      Write(" Create");
+      Write(ClassName);
+      WriteLine("(XmlElement element)");
+      WriteStartColon();
+      WriteMethod(Constructors);
+      WriteEndColon();
 
       if (!WriteEnumerable)
         return;
 
-      WriteSeparator(writer);
-      writer.Write("private ");
-      writer.Write("Collection<");
-      writer.Write(TypeName);
-      writer.Write("> Create");
-      writer.Write(ClassName);
-      writer.WriteLine("s(XmlElement element)");
-      WriteStartColon(writer);
-      writer.Write("Collection<");
-      writer.Write(TypeName);
-      writer.Write("> collection = new Collection<");
-      writer.Write(TypeName);
-      writer.WriteLine(">();");
-      writer.WriteLine("foreach (XmlElement elem in element.SelectNodes(\"*\"))");
-      WriteStartColon(writer);
-      writer.Write("collection.Add(Create");
-      writer.Write(TypeName);
-      writer.WriteLine("(elem));");
-      WriteEndColon(writer);
-      writer.WriteLine("return collection;");
-      WriteEndColon(writer);
+      Write("private ");
+      Write("Collection<");
+      Write(TypeName);
+      Write("> Create");
+      Write(ClassName);
+      WriteLine("s(XmlElement element)");
+      WriteStartColon();
+      Write("Collection<");
+      Write(TypeName);
+      Write("> collection = new Collection<");
+      Write(TypeName);
+      WriteLine(">();");
+      WriteLine("foreach (XmlElement elem in element.SelectNodes(\"*\"))");
+      WriteStartColon();
+      Write("collection.Add(Create");
+      Write(TypeName);
+      WriteLine("(elem));");
+      WriteEndColon();
+      WriteLine("return collection;");
+      WriteEndColon();
     }
 
     public override string Name

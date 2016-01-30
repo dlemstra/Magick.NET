@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -20,35 +20,35 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
   [TestClass]
-  public class DrawablePathTestss
+  public class DrawablePathTests
   {
     private const string _Category = "DrawablePathTests";
 
     [TestMethod, TestCategory(_Category)]
     public void Test_DrawablePaths()
     {
-      using (MagickImage image = new MagickImage(MagickColor.Transparent, 100, 100))
+      using (MagickImage image = new MagickImage(MagickColors.Transparent, 100, 100))
       {
         List<IPath> paths = new List<IPath>();
         paths.Add(new PathArcAbs(new PathArc(50, 50, 20, 20, 45, true, false)));
         paths.Add(new PathArcRel(new PathArc(10, 10, 5, 5, 40, false, true)));
-        paths.Add(new PathClosePath());
-        paths.Add(new PathCurvetoAbs(new PathCurveto(80, 80, 10, 10, 60, 60)));
-        paths.Add(new PathCurvetoRel(new PathCurveto(30, 30, 60, 60, 90, 90)));
-        paths.Add(new PathLinetoAbs(new Coordinate(70, 70)));
-        paths.Add(new PathLinetoHorizontalAbs(20));
-        paths.Add(new PathLinetoHorizontalRel(90));
-        paths.Add(new PathLinetoRel(new Coordinate(0, 0)));
-        paths.Add(new PathLinetoVerticalAbs(70));
-        paths.Add(new PathLinetoVerticalRel(30));
-        paths.Add(new PathMovetoAbs(new Coordinate(50, 50)));
-        paths.Add(new PathMovetoRel(new Coordinate(20, 20)));
-        paths.Add(new PathQuadraticCurvetoAbs(new PathQuadraticCurveto(70, 70, 30, 30)));
-        paths.Add(new PathQuadraticCurvetoRel(new PathQuadraticCurveto(10, 10, 40, 40)));
-        paths.Add(new PathSmoothCurvetoAbs(new Coordinate(0, 0), new Coordinate(30, 30)));
-        paths.Add(new PathSmoothCurvetoRel(new Coordinate(60, 60), new Coordinate(10, 10)));
-        paths.Add(new PathSmoothQuadraticCurvetoAbs(new Coordinate(50, 50)));
-        paths.Add(new PathSmoothQuadraticCurvetoRel(new Coordinate(80, 80)));
+        paths.Add(new PathClose());
+        paths.Add(new PathCurveToAbs(80, 80, 10, 10, 60, 60));
+        paths.Add(new PathCurveToRel(30, 30, 60, 60, 90, 90));
+        paths.Add(new PathLineToAbs(new PointD(70, 70)));
+        paths.Add(new PathLineToHorizontalAbs(20));
+        paths.Add(new PathLineToHorizontalRel(90));
+        paths.Add(new PathLineToRel(new PointD(0, 0)));
+        paths.Add(new PathLineToVerticalAbs(70));
+        paths.Add(new PathLineToVerticalRel(30));
+        paths.Add(new PathMoveToAbs(new PointD(50, 50)));
+        paths.Add(new PathMoveToRel(new PointD(20, 20)));
+        paths.Add(new PathQuadraticCurveToAbs(70, 70, 30, 30));
+        paths.Add(new PathQuadraticCurveToRel(10, 10, 40, 40));
+        paths.Add(new PathSmoothCurveToAbs(new PointD(0, 0), new PointD(30, 30)));
+        paths.Add(new PathSmoothCurveToRel(new PointD(60, 60), new PointD(10, 10)));
+        paths.Add(new PathSmoothQuadraticCurveToAbs(50, 50));
+        paths.Add(new PathSmoothQuadraticCurveToRel(80, 80));
 
         image.Draw(new DrawablePath(paths));
       }
@@ -79,7 +79,52 @@ namespace Magick.NET.Tests
 
       ExceptionAssert.Throws<ArgumentException>(delegate ()
       {
-        new PathSmoothCurvetoAbs(new Coordinate[] { new Coordinate(0, 0) });
+        new PathArcRel();
+      });
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        new PathArcRel(null);
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new PathArcRel(new PathArc[] { });
+      });
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        new PathArcRel(new PathArc[] { null });
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new PathLineToAbs();
+      });
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        new PathLineToAbs(null);
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new PathLineToAbs(new PointD[] { });
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new PathLineToRel();
+      });
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        new PathLineToRel(null);
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new PathLineToRel(new PointD[] { });
       });
     }
   }

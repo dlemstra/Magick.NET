@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,10 +17,16 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableLine object.
+  /// Draws a line on the image using the current stroke color, stroke alpha, and stroke width.
   ///</summary>
-  public sealed class DrawableLine : IDrawableLine
+  public sealed class DrawableLine : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Line(StartX, StartY, EndX, EndY);
+    }
+
     ///<summary>
     /// Creates a new DrawableLine instance.
     ///</summary>

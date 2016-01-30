@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -13,6 +13,9 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 
@@ -21,21 +24,111 @@ namespace ImageMagick
   ///<summary>
   /// Class that contains information about an image format.
   ///</summary>
-  public sealed class MagickFormatInfo : IEquatable<MagickFormatInfo>
+  public sealed partial class MagickFormatInfo : IEquatable<MagickFormatInfo>
   {
-    private Wrapper.MagickFormatInfo _Instance;
+    private static readonly Dictionary<MagickFormat, MagickFormatInfo> _All = LoadFormats();
 
-    private MagickFormatInfo(Wrapper.MagickFormatInfo instance)
+    private MagickFormatInfo()
     {
-      _Instance = instance;
     }
 
-    internal static MagickFormatInfo Create(Wrapper.MagickFormatInfo value)
+    private static MagickFormatInfo Create(NativeMagickFormatInfo instance)
     {
-      if (value == null)
-        return null;
+      MagickFormatInfo formatInfo = new MagickFormatInfo();
+      formatInfo.Format = GetFormat(instance.Format);
+      formatInfo.Description = instance.Description;
+      formatInfo.CanReadMultithreaded = instance.CanReadMultithreaded;
+      formatInfo.CanWriteMultithreaded = instance.CanWriteMultithreaded;
+      formatInfo.IsMultiFrame = instance.IsMultiFrame;
+      formatInfo.IsReadable = instance.IsReadable;
+      formatInfo.IsWritable = instance.IsWritable;
+      formatInfo.MimeType = instance.MimeType;
+      formatInfo.Module = GetFormat(instance.Module);
 
-      return new MagickFormatInfo(value);
+      return formatInfo;
+    }
+
+    private static MagickFormatInfo Create(NativeMagickFormatInfo instance, string name)
+    {
+      instance.GetInfoByName(name);
+      return Create(instance);
+    }
+
+    private static MagickFormat GetFormat(string format)
+    {
+      format = format.Replace("-", "");
+      if (format == "3FR")
+        format = "ThreeFr";
+
+      return EnumHelper.Parse(format, MagickFormat.Unknown);
+    }
+
+    private static Dictionary<MagickFormat, MagickFormatInfo> LoadFormats()
+    {
+      Dictionary<MagickFormat, MagickFormatInfo> result = new Dictionary<MagickFormat, MagickFormatInfo>();
+
+      IntPtr list = IntPtr.Zero;
+      UIntPtr length = (UIntPtr)0;
+      MagickFormatInfo formatInfo;
+      NativeMagickFormatInfo instance = new NativeMagickFormatInfo();
+
+      try
+      {
+        list = instance.CreateList(out length);
+
+        IntPtr ptr = list;
+        for (int i = 0; i < (int)length; i++)
+        {
+          instance.GetInfo(list, i);
+
+          formatInfo = Create(instance);
+          result[formatInfo.Format] = formatInfo;
+
+          ptr = new IntPtr(ptr.ToInt64() + i);
+        }
+
+        /* stealth coders */
+
+        formatInfo = Create(instance, "DIB");
+        result[formatInfo.Format] = formatInfo;
+
+        formatInfo = Create(instance, "TIF");
+        result[formatInfo.Format] = formatInfo;
+
+      }
+      finally
+      {
+        if (list != IntPtr.Zero)
+          NativeMagickFormatInfo.DisposeList(list, (int)length);
+      }
+
+      return result;
+    }
+
+    internal static IEnumerable<MagickFormatInfo> All
+    {
+      get
+      {
+        return _All.Values;
+      }
+    }
+
+    internal static MagickFormat GetFormat(ImageFormat format)
+    {
+      if (format == ImageFormat.Bmp)
+        return MagickFormat.Bmp;
+      else if (format == ImageFormat.Gif)
+        return MagickFormat.Gif;
+      else if (format == ImageFormat.Icon)
+        return MagickFormat.Icon;
+      else if (format == ImageFormat.Jpeg)
+        return MagickFormat.Jpeg;
+      else if (format == ImageFormat.Png)
+        return MagickFormat.Png;
+      else if (format == ImageFormat.Tiff)
+        return MagickFormat.Tiff;
+      else
+        throw new NotSupportedException("Unsupported image format: " + format.ToString());
     }
 
     /// <summary>
@@ -65,10 +158,8 @@ namespace ImageMagick
     ///</summary>
     public bool CanReadMultithreaded
     {
-      get
-      {
-        return _Instance.CanReadMultithreaded;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -76,10 +167,8 @@ namespace ImageMagick
     ///</summary>
     public bool CanWriteMultithreaded
     {
-      get
-      {
-        return _Instance.CanWriteMultithreaded;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -87,10 +176,8 @@ namespace ImageMagick
     ///</summary>
     public string Description
     {
-      get
-      {
-        return _Instance.Description;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -98,10 +185,8 @@ namespace ImageMagick
     ///</summary>
     public MagickFormat Format
     {
-      get
-      {
-        return _Instance.Format;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -109,10 +194,8 @@ namespace ImageMagick
     ///</summary>
     public bool IsMultiFrame
     {
-      get
-      {
-        return _Instance.IsMultiFrame;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -120,10 +203,8 @@ namespace ImageMagick
     ///</summary>
     public bool IsReadable
     {
-      get
-      {
-        return _Instance.IsReadable;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -131,10 +212,8 @@ namespace ImageMagick
     ///</summary>
     public bool IsWritable
     {
-      get
-      {
-        return _Instance.IsWritable;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -142,10 +221,8 @@ namespace ImageMagick
     ///</summary>
     public string MimeType
     {
-      get
-      {
-        return _Instance.MimeType;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -153,19 +230,8 @@ namespace ImageMagick
     ///</summary>
     public MagickFormat Module
     {
-      get
-      {
-        return _Instance.Module;
-      }
-    }
-
-    ///<summary>
-    /// Returns the format information of the specified format.
-    ///</summary>
-    ///<param name="format">The image format.</param>
-    public static MagickFormatInfo Create(MagickFormat format)
-    {
-      return MagickNET.GetFormatInformation(format);
+      get;
+      private set;
     }
 
     ///<summary>
@@ -175,7 +241,28 @@ namespace ImageMagick
     /// <param name="file">The file to check.</param>
     public static MagickFormatInfo Create(FileInfo file)
     {
-      return MagickNET.GetFormatInformation(file);
+      Throw.IfNull("file", file);
+
+      MagickFormat? format = null;
+      if (file.Extension != null && file.Extension.Length > 1)
+        format = EnumHelper.Parse<MagickFormat>(file.Extension.Substring(1));
+
+      if (format == null)
+        return null;
+
+      return Create(format.Value);
+    }
+
+    ///<summary>
+    /// Returns the format information of the specified format.
+    ///</summary>
+    ///<param name="format">The image format.</param>
+    public static MagickFormatInfo Create(MagickFormat format)
+    {
+      if (!_All.ContainsKey(format))
+        return null;
+
+      return _All[format];
     }
 
     ///<summary>
@@ -188,7 +275,7 @@ namespace ImageMagick
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
       Throw.IfNull("fileName", filePath);
 
-      return Create(new FileInfo(fileName));
+      return Create(new FileInfo(filePath));
     }
 
     ///<summary>
@@ -237,7 +324,7 @@ namespace ImageMagick
     ///</summary>
     public bool Unregister()
     {
-      return _Instance.Unregister();
+      return NativeMagickFormatInfo.Unregister(EnumHelper.GetName(Format));
     }
   }
 }

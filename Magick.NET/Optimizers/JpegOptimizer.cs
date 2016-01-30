@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -19,16 +19,44 @@ namespace ImageMagick.ImageOptimizers
   /// <summary>
   /// Class that can be used to optimize jpeg files.
   /// </summary>
-  public sealed class JpegOptimizer : IImageOptimizer, ILosslessImageOptimizer
+  public sealed partial class JpegOptimizer : IImageOptimizer, ILosslessImageOptimizer
   {
-    private Wrapper.JpegOptimizer _Instance;
+    private static void LosslessCompress(FileInfo file, bool progressive)
+    {
+      FileInfo output = new FileInfo(Path.GetTempFileName());
+
+      try
+      {
+        int result = NativeJpegOptimizer.Optimize(file.FullName, output.FullName, progressive);
+
+        if (result == 1)
+          throw new MagickCorruptImageErrorException("Unable to decompress the jpeg file.", null);
+
+        if (result == 2)
+          throw new MagickCorruptImageErrorException("Unable to compress the jpeg file.", null);
+
+        if (result != 0)
+          return;
+
+        output.Refresh();
+        if (output.Length < file.Length)
+          output.CopyTo(file.FullName, true);
+
+        file.Refresh();
+      }
+      finally
+      {
+        if (output.Exists)
+          output.Delete();
+      }
+    }
 
     ///<summary>
     /// Initializes a new instance of the JpegOptimizer class.
     ///</summary>
     public JpegOptimizer()
     {
-      _Instance = new Wrapper.JpegOptimizer();
+      Progressive = true;
     }
 
     /// <summary>
@@ -48,14 +76,8 @@ namespace ImageMagick.ImageOptimizers
     /// </summary>
     public bool OptimalCompression
     {
-      get
-      {
-        return _Instance.OptimalCompression;
-      }
-      set
-      {
-        _Instance.OptimalCompression = value;
-      }
+      get;
+      set;
     }
 
     /// <summary>
@@ -63,14 +85,8 @@ namespace ImageMagick.ImageOptimizers
     /// </summary>
     public bool Progressive
     {
-      get
-      {
-        return _Instance.Progressive;
-      }
-      set
-      {
-        _Instance.Progressive = value;
-      }
+      get;
+      set;
     }
 
     /// <summary>
@@ -83,7 +99,7 @@ namespace ImageMagick.ImageOptimizers
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
       Throw.IfInvalidFileName(filePath);
 
-      _Instance.LosslessCompress(new FileInfo(filePath));
+      LosslessCompress(new FileInfo(fileName));
     }
 
     /// <summary>
@@ -95,7 +111,9 @@ namespace ImageMagick.ImageOptimizers
     {
       Throw.IfNull("file", file);
 
-      _Instance.LosslessCompress(file);
+      LosslessCompress(file, Progressive);
+      if (OptimalCompression)
+        LosslessCompress(file, !Progressive);
     }
   }
 }

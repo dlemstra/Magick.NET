@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 
 namespace ImageMagick
@@ -35,6 +34,12 @@ namespace ImageMagick
       return string.Join(",", flags.ToArray());
     }
 
+    public static string GetName<TEnum>(TEnum value)
+      where TEnum : struct, IConvertible
+    {
+      return Enum.GetName(typeof(TEnum), value);
+    }
+
     public static bool HasFlag<TEnum>(TEnum value, TEnum flag)
       where TEnum : struct, IConvertible
     {
@@ -51,6 +56,33 @@ namespace ImageMagick
       }
 
       return defaultValue;
+    }
+
+    public static TEnum Parse<TEnum>(string value, TEnum defaultValue)
+      where TEnum : struct, IConvertible
+    {
+      if (string.IsNullOrEmpty(value))
+        return defaultValue;
+
+      foreach (string name in Enum.GetNames(typeof(TEnum)))
+      {
+        if (name.Equals(value, StringComparison.OrdinalIgnoreCase))
+          return (TEnum)Enum.Parse(typeof(TEnum), name);
+      }
+
+      return defaultValue;
+    }
+
+    public static TEnum? Parse<TEnum>(string value)
+      where TEnum : struct, IConvertible
+    {
+      foreach (string name in Enum.GetNames(typeof(TEnum)))
+      {
+        if (name.Equals(value, StringComparison.OrdinalIgnoreCase))
+          return (TEnum?)Enum.Parse(typeof(TEnum), name);
+      }
+
+      return null;
     }
 
     public static object Parse(Type enumType, string value)

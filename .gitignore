@@ -1,9 +1,10 @@
 ﻿
 *.aps
-*.opensdf
+*.opendb
 *.sdf
 *.suo
 *.user
+.vs
 bin
 obj
 lib

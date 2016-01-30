@@ -1,3 +1,16 @@
+#==================================================================================================
+# Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
+#
+# Licensed under the ImageMagick License (the "License"); you may not use this file except in 
+# compliance with the License. You may obtain a copy of the License at
+#
+#   http://www.imagemagick.org/script/license.php
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the
+# License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+# express or implied. See the License for the specific language governing permissions and
+# limitations under the License.
+#==================================================================================================
 $scriptPath = Split-Path -parent $MyInvocation.MyCommand.Path
 . $scriptPath\Shared\Functions.ps1
 SetFolder $scriptPath
@@ -18,11 +31,17 @@ function BuildAll($builds)
   {
     Build $build
 
-    if ($build.RunTests -eq $true)
+    # .NET 2.0 x64 build stop suddenly but passes when run separately
+    if (($build.Framework -eq "v4.0") -or ($build.Platform -eq "x86"))
     {
+      $platform = ""
+      if ($($build.Platform) -ne "AnyCPU")
+      {
+        $platform = "/Platform:$($build.Platform)"
+      }
+
       $dll = "Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Tests.dll"
-      # vstest.console.exe keeps crashing, so we need to use mstest.exe instead
-      mstest.exe /testcontainer:$dll
+      vstest.console.exe /inIsolation $platform $dll
       CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform + " (" + $build.FrameworkName + ")")
     }
   }
@@ -62,22 +81,20 @@ function CopyPdbFiles($builds)
 {
   foreach ($build in $builds)
   {
-    $source = "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Core.pdb"
-    $destination = "Publish\Pdb\$($build.Quantum)-$($build.FrameworkName).Magick.NET.Core.pdb"
-
-    Copy-Item $source $destination
-
-    $source = "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Platform).pdb"
-    $destination = "Publish\Pdb\$($build.Quantum)-$($build.FrameworkName).Magick.NET-$($build.Platform).pdb"
+    $source = "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).pdb"
+    $destination = "Publish\Pdb\$($build.Quantum)-$($build.FrameworkName).Magick.NET-$($build.Quantum)-$($build.Platform).pdb"
 
     Copy-Item $source $destination
 
     if ($build.Platform -ne "AnyCPU")
     {
-      $source = "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Wrapper-$($build.Platform).pdb"
-      $destination = "Publish\Pdb\$($build.Quantum)-$($build.FrameworkName).Magick.NET.Wrapper-$($build.Platform).pdb"
+      $source = "Magick.NET.Native$($build.Suffix)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
+      if (Test-Path $source)
+      {
+        $destination = "Publish\Pdb\$($build.Quantum)-$($build.FrameworkName).Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
 
-      Copy-Item $source $destination
+        Copy-Item $source $destination
+      }
     }
   }
 }
@@ -86,12 +103,20 @@ function CopyZipFiles($builds)
 {
   foreach ($build in $builds)
   {
+    $platform = $($build.Platform)
+    if ($platform -eq "x86")
+    {
+      $platform = "Win32"
+    }
+
     $rootDir = FullPath "Publish\Zip\Releases\Magick.NET-$($build.Quantum)-$($build.Platform)"
     if (!(Test-Path $rootDir))
     {
       [void](New-Item $rootDir -type directory)
     }
 
+    Copy-Item "Copyright.txt" $rootDir
+    Copy-Item "Publish\Readme.txt" $rootDir
     Copy-Item "Magick.NET\Resources\Release$($build.Quantum)\MagickScript.xsd" $rootDir
 
 
@@ -101,15 +126,12 @@ function CopyZipFiles($builds)
       [void](New-Item $dir -type directory)
     }
 
-    Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Core.dll" $dir
-    Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Core.xml" $dir
-    Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Platform).dll" $dir
-    Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Platform).xml" $dir
+    Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).dll" $dir
+    Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).xml" $dir
 
     if ($build.Platform -ne "AnyCPU")
     {
-      Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Wrapper-$($build.Platform).dll" $dir
-      Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Wrapper-$($build.Platform).xml" $dir
+      Copy-Item "Magick.NET.Native$($build.Suffix)\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" $dir
     }
 
     if ($build.Framework -ne "v4.0")
@@ -123,8 +145,8 @@ function CopyZipFiles($builds)
       [void](New-Item $dir -type directory)
     }
 
-    Copy-Item "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Platform).dll" $dir
-    Copy-Item "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Platform).xml" $dir
+    Copy-Item "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).dll" $dir
+    Copy-Item "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).xml" $dir
   }
 }
 
@@ -225,7 +247,7 @@ function PreparePublish($builds)
 function Publish($builds)
 {
   CreateNuGetPackages $builds
-  CreateZipFiles $builds
+#  CreateZipFiles $builds
 }
 
 if ($args.count -ne 2)

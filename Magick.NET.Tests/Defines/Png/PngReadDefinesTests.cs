@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -52,46 +52,6 @@ namespace Magick.NET.Tests
 
         Assert.AreEqual(null, image.GetDefine(MagickFormat.Png, "preserve-iCCP"));
         Assert.AreEqual("True", image.GetDefine(MagickFormat.Png, "swap-bytes"));
-      }
-    }
-
-    [TestMethod, TestCategory(_Category)]
-    public void Test_PreserveCorruptImage()
-    {
-      MagickReadSettings settings = new MagickReadSettings()
-      {
-        Defines = new PngReadDefines()
-        {
-          PreserveCorruptImage = false
-        }
-      };
-
-      MagickImage image = new MagickImage();
-
-      try
-      {
-        image.Read(Files.CorruptPNG, settings);
-      }
-      catch (MagickCoderErrorException)
-      {
-        Assert.AreEqual(0, image.Width);
-        Assert.AreEqual(0, image.Height);
-      }
-
-      ((PngReadDefines)settings.Defines).PreserveCorruptImage = true;
-
-      try
-      {
-        image.Read(Files.CorruptPNG, settings);
-      }
-      catch (MagickCoderErrorException)
-      {
-        Assert.AreEqual(1920, image.Width);
-        Assert.AreEqual(1440, image.Height);
-      }
-      finally
-      {
-        image.Dispose();
       }
     }
 

@@ -1,0 +1,82 @@
+﻿{
+  "dynamic": 1,
+  "instance": false,
+  "methods":
+  [
+    {
+      "name": "DisposeList",
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "list",
+          "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "GetHeight",
+      "type": "size_t",
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "instance",
+          "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "GetInstance",
+      "type": "Instance",
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "list",
+          "type": "Instance"
+        },
+        {
+          "name": "index",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "GetWidth",
+      "type": "size_t",
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "instance",
+          "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "GetX",
+      "type": "ssize_t",
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "instance",
+          "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "GetY",
+      "type": "ssize_t",
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "instance",
+          "type": "Instance"
+        }
+      ]
+    }
+  ]
+}

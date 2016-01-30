@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,10 +17,18 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawablePushGraphicContext object.
+  /// Clones the current drawing wand to create a new drawing wand. The original drawing wand(s)
+  /// may be returned to by invoking DrawablePopGraphicContext. The drawing wands are stored on a
+  /// drawing wand stack. For every Pop there must have already been an equivalent Push.
   ///</summary>
-  public sealed class DrawablePushGraphicContext : IDrawablePushGraphicContext
+  public sealed class DrawablePushGraphicContext : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PushGraphicContext();
+    }
+
     ///<summary>
     /// Creates a new DrawablePushGraphicContext instance.
     ///</summary>

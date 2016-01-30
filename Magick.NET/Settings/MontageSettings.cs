@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,37 +12,50 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
+using System.Diagnostics.CodeAnalysis;
+
 namespace ImageMagick
 {
   ///<summary>
   /// Class that contains setting for the montage operation.
   ///</summary>
-  public sealed class MontageSettings
+  public sealed partial class MontageSettings
   {
-    private Wrapper.MontageSettings _Instance;
-
-    internal static Wrapper.MontageSettings GetInstance(MontageSettings value)
+    private static string Convert(MagickGeometry geometry)
     {
-      if (value == null)
+      if (geometry == null)
         return null;
 
-      return value._Instance;
+      return geometry.ToString();
+    }
+
+    private INativeInstance CreateNativeInstance()
+    {
+      NativeMontageSettings instance = new NativeMontageSettings();
+      instance.SetBackgroundColor(BackgroundColor);
+      instance.SetBorderColor(BorderColor);
+      instance.SetBorderWidth(BorderWidth);
+      instance.SetFillColor(FillColor);
+      instance.SetFont(Font);
+      instance.SetFontPointsize(FontPointsize);
+      instance.SetFrameGeometry(Convert(FrameGeometry));
+      instance.SetGeometry(Geometry.ToString());
+      instance.SetGravity(Gravity);
+      instance.SetShadow(Shadow);
+      instance.SetStrokeColor(StrokeColor);
+      instance.SetTextureFileName(TextureFileName);
+      instance.SetTileGeometry(Convert(TileGeometry));
+      instance.SetTitle(Title);
+
+      return instance;
     }
 
     ///<summary>
-    /// Initializes a new instance of the MagickReadSettings class.
+    /// Initializes a new instance of the MontageSettings class.
     ///</summary>
     public MontageSettings()
     {
-      _Instance = new Wrapper.MontageSettings();
-    }
-
-    ///<summary>
-    /// Initializes a new instance of the MagickReadSettings class.
-    ///</summary>
-    public MontageSettings(MontageMode mode)
-    {
-      _Instance = new Wrapper.MontageSettings(mode);
     }
 
     ///<summary>
@@ -50,14 +63,8 @@ namespace ImageMagick
     ///</summary>
     public MagickColor BackgroundColor
     {
-      get
-      {
-        return MagickColor.Create(_Instance.BackgroundColor);
-      }
-      set
-      {
-        _Instance.BackgroundColor = MagickColor.GetInstance(value);
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -65,14 +72,8 @@ namespace ImageMagick
     ///</summary>
     public MagickColor BorderColor
     {
-      get
-      {
-        return MagickColor.Create(_Instance.BorderColor);
-      }
-      set
-      {
-        _Instance.BorderColor = MagickColor.GetInstance(value);
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -80,29 +81,8 @@ namespace ImageMagick
     ///</summary>
     public int BorderWidth
     {
-      get
-      {
-        return _Instance.BorderWidth;
-      }
-      set
-      {
-        _Instance.BorderWidth = value;
-      }
-    }
-
-    ///<summary>
-    /// Composition algorithm to use (e.g. ReplaceCompositeOp)
-    ///</summary>
-    public CompositeOperator Compose
-    {
-      get
-      {
-        return _Instance.Compose;
-      }
-      set
-      {
-        _Instance.Compose = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -110,14 +90,8 @@ namespace ImageMagick
     ///</summary>
     public MagickColor FillColor
     {
-      get
-      {
-        return MagickColor.Create(_Instance.FillColor);
-      }
-      set
-      {
-        _Instance.FillColor = MagickColor.GetInstance(value);
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -125,15 +99,8 @@ namespace ImageMagick
     ///</summary>
     public string Font
     {
-
-      get
-      {
-        return _Instance.Font;
-      }
-      set
-      {
-        _Instance.Font = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -141,14 +108,8 @@ namespace ImageMagick
     ///</summary>
     public int FontPointsize
     {
-      get
-      {
-        return _Instance.FontPointsize;
-      }
-      set
-      {
-        _Instance.FontPointsize = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -156,14 +117,8 @@ namespace ImageMagick
     ///</summary>
     public MagickGeometry FrameGeometry
     {
-      get
-      {
-        return MagickGeometry.Create(_Instance.FrameGeometry);
-      }
-      set
-      {
-        _Instance.FrameGeometry = MagickGeometry.GetInstance(value);
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -171,14 +126,8 @@ namespace ImageMagick
     ///</summary>
     public MagickGeometry Geometry
     {
-      get
-      {
-        return MagickGeometry.Create(_Instance.Geometry);
-      }
-      set
-      {
-        _Instance.Geometry = MagickGeometry.GetInstance(value);
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -186,14 +135,8 @@ namespace ImageMagick
     ///</summary>
     public Gravity Gravity
     {
-      get
-      {
-        return _Instance.Gravity;
-      }
-      set
-      {
-        _Instance.Gravity = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -201,14 +144,8 @@ namespace ImageMagick
     ///</summary>
     public string Label
     {
-      get
-      {
-        return _Instance.Label;
-      }
-      set
-      {
-        _Instance.Label = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -216,14 +153,8 @@ namespace ImageMagick
     ///</summary>
     public bool Shadow
     {
-      get
-      {
-        return _Instance.Shadow;
-      }
-      set
-      {
-        _Instance.Shadow = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -231,14 +162,8 @@ namespace ImageMagick
     ///</summary>
     public MagickColor StrokeColor
     {
-      get
-      {
-        return MagickColor.Create(_Instance.StrokeColor);
-      }
-      set
-      {
-        _Instance.StrokeColor = MagickColor.GetInstance(value);
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -246,14 +171,8 @@ namespace ImageMagick
     ///</summary>
     public string TextureFileName
     {
-      get
-      {
-        return _Instance.TextureFileName;
-      }
-      set
-      {
-        _Instance.TextureFileName = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -261,15 +180,8 @@ namespace ImageMagick
     ///</summary>
     public MagickGeometry TileGeometry
     {
-
-      get
-      {
-        return MagickGeometry.Create(_Instance.TileGeometry);
-      }
-      set
-      {
-        _Instance.TileGeometry = MagickGeometry.GetInstance(value);
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -277,14 +189,8 @@ namespace ImageMagick
     ///</summary>
     public string Title
     {
-      get
-      {
-        return _Instance.Title;
-      }
-      set
-      {
-        _Instance.Title = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -292,14 +198,8 @@ namespace ImageMagick
     ///</summary>
     public MagickColor TransparentColor
     {
-      get
-      {
-        return MagickColor.Create(_Instance.TransparentColor);
-      }
-      set
-      {
-        _Instance.TransparentColor = MagickColor.GetInstance(value);
-      }
+      get;
+      set;
     }
   }
 }

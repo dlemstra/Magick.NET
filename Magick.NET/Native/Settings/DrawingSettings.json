@@ -1,0 +1,212 @@
+﻿{
+  "access": "internal",
+  "properties":
+  [
+    {
+      "name": "BorderColor",
+      "type": "MagickColor"
+    },
+    {
+      "name": "FillColor",
+      "type": "MagickColor"
+    },
+    {
+      "name": "FillPattern",
+      "type": "MagickImage",
+      "throws": true
+    },
+    {
+      "name": "FillRule",
+      "type": "FillRule"
+    },
+    {
+      "name": "Font",
+      "type": "string"
+    },
+    {
+      "name": "FontFamily",
+      "type": "string"
+    },
+    {
+      "name": "FontPointsize",
+      "type": "double"
+    },
+    {
+      "name": "FontStyle",
+      "type": "FontStyleType"
+    },
+    {
+      "name": "FontWeight",
+      "type": "FontWeight"
+    },
+    {
+      "name": "StrokeAntiAlias",
+      "type": "bool"
+    },
+    {
+      "name": "StrokeColor",
+      "type": "MagickColor"
+    },
+    {
+      "name": "StrokeDashOffset",
+      "type": "double"
+    },
+    {
+      "name": "StrokeLineCap",
+      "type": "LineCap"
+    },
+    {
+      "name": "StrokeLineJoin",
+      "type": "LineJoin"
+    },
+    {
+      "name": "StrokeMiterLimit",
+      "type": "size_t"
+    },
+    {
+      "name": "StrokePattern",
+      "type": "MagickImage",
+      "throws": true
+    },
+    {
+      "name": "StrokeWidth",
+      "type": "double"
+    },
+    {
+      "name": "TextAntiAlias",
+      "type": "bool"
+    },
+    {
+      "name": "TextDirection",
+      "type": "TextDirection"
+    },
+    {
+      "name": "TextEncoding",
+      "type": "string"
+    },
+    {
+      "name": "TextGravity",
+      "type": "Gravity"
+    },
+    {
+      "name": "TextInterlineSpacing",
+      "type": "double"
+    },
+    {
+      "name": "TextInterwordSpacing",
+      "type": "double"
+    },
+    {
+      "name": "TextKerning",
+      "type": "double"
+    },
+    {
+      "name": "TextUnderColor",
+      "type": "MagickColor"
+    }
+  ],
+  "methods":
+  [
+    {
+      "name": "GetStrokeDashArray",
+      "type": "Instance",
+      "cleanup":
+      {
+        "name": "MagickMemory.Relinquish"
+      },
+      "arguments":
+      [
+        {
+          "name": "length",
+          "type": "size_t",
+          "out": true
+        }
+      ]
+    },
+    {
+      "name": "ResetTransform"
+    },
+    {
+      "name": "SetStrokeDashArray",
+      "arguments":
+      [
+        {
+          "name": "dash",
+          "type": "double[]"
+        },
+        {
+          "name": "length",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "SetText",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SetTransformOrigin",
+      "arguments":
+      [
+        {
+          "name": "x",
+          "type": "double"
+        },
+        {
+          "name": "y",
+          "type": "double"
+        }
+      ]
+    },
+    {
+      "name": "SetTransformRotation",
+      "arguments":
+      [
+        {
+          "name": "angle",
+          "type": "double"
+        }
+      ]
+    },
+    {
+      "name": "SetTransformScale",
+      "arguments":
+      [
+        {
+          "name": "x",
+          "type": "double"
+        },
+        {
+          "name": "y",
+          "type": "double"
+        }
+      ]
+    },
+    {
+      "name": "SetTransformSkewX",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "double"
+        }
+      ]
+    },
+    {
+      "name": "SetTransformSkewY",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "double"
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -27,7 +27,6 @@ namespace Magick.NET.FileGenerator
       "Add", "AddRange", "Clear", "Dispose", "Draw", "Insert", "Ping", "Read", "RemoveAt", "Write"
     };
 
-    private Assembly _Core;
     private QuantumDepth _Depth;
     private Assembly _MagickNET;
 
@@ -57,6 +56,20 @@ namespace Magick.NET.FileGenerator
              where constructors.Length > 0
              orderby type.Name
              select constructors;
+    }
+
+    private string GetQuantumName(QuantumDepth depth)
+    {
+      switch (depth)
+      {
+        case QuantumDepth.Q8:
+        case QuantumDepth.Q16:
+          return depth.ToString();
+        case QuantumDepth.Q16HDRI:
+          return "Q16-HDRI";
+        default:
+          throw new NotImplementedException();
+      }
     }
 
     private static string GetXsdAttributeType(Type type)
@@ -102,26 +115,23 @@ namespace Magick.NET.FileGenerator
           return "float";
         case "UInt16":
           return "short";
-        case "Coordinate":
         case "ColorProfile":
         case "Double[]":
         case "Drawable":
         case "IDefines":
-        case "IEnumerable<Coordinate>":
         case "IEnumerable<Drawable>":
         case "IEnumerable<IPath>":
         case "IEnumerable<MagickGeometry>":
         case "IEnumerable<PathArc>":
-        case "IEnumerable<PathCurveto>":
-        case "IEnumerable<PathQuadraticCurveto>":
+        case "IEnumerable<PointD>":
         case "IEnumerable<SparseColorArg>":
         case "ImageProfile":
         case "IReadDefines":
         case "MagickImage":
+        case "MagickSettings":
         case "MontageSettings":
         case "PathArc":
-        case "PathCurveto":
-        case "PathQuadraticCurveto":
+        case "PrimaryInfo":
         case "PixelStorageSettings":
         case "QuantizeSettings":
           return null;
@@ -149,20 +159,17 @@ namespace Magick.NET.FileGenerator
       {
         case "Double[]":
           return "doubleArray";
-        case "Coordinate":
         case "ColorProfile":
         case "Drawable":
         case "IDefines":
         case "IReadDefines":
+        case "MagickSettings":
         case "MontageSettings":
         case "PathArc":
-        case "PathCurveto":
-        case "PathQuadraticCurveto":
+        case "PrimaryInfo":
         case "PixelStorageSettings":
         case "QuantizeSettings":
           return char.ToLowerInvariant(typeName[0]) + typeName.Substring(1);
-        case "IEnumerable<Coordinate>":
-          return "coordinates";
         case "IEnumerable<Drawable>":
           return "drawables";
         case "IEnumerable<MagickGeometry>":
@@ -171,10 +178,8 @@ namespace Magick.NET.FileGenerator
           return "paths";
         case "IEnumerable<PathArc>":
           return "pathArcs";
-        case "IEnumerable<PathCurveto>":
-          return "pathCurvetos";
-        case "IEnumerable<PathQuadraticCurveto>":
-          return "pathQuadraticCurvetos";
+        case "IEnumerable<PointD>":
+          return "points";
         case "IEnumerable<SparseColorArg>":
           return "sparseColorArgs";
         case "ImageProfile":
@@ -188,7 +193,7 @@ namespace Magick.NET.FileGenerator
 
     private IEnumerable<Type> GetTypes()
     {
-      return _MagickNET.GetTypes().Concat(_Core.GetTypes());
+      return _MagickNET.GetTypes();
     }
 
     private static bool HasSupportedResult(MethodInfo method)
@@ -267,7 +272,6 @@ namespace Magick.NET.FileGenerator
         case "Boolean":
         case "Encoding":
         case "ColorProfile":
-        case "Coordinate":
         case "Double":
         case "Double[]":
         case "IDefines":
@@ -279,13 +283,13 @@ namespace Magick.NET.FileGenerator
         case "MagickGeometry":
         case "MagickImage":
         case "MagickReadSettings":
+        case "MagickSettings":
         case "MontageSettings":
         case "PathArc":
-        case "PathCurveto":
-        case "PathQuadraticCurveto":
         case "Percentage":
         case "PixelStorageSettings":
         case "PointD":
+        case "PrimaryInfo":
         case "QuantizeSettings":
         case "Single":
         case "SparseColorArg":
@@ -293,9 +297,8 @@ namespace Magick.NET.FileGenerator
         case "UInt16":
           return true;
         case "Byte[]":
-        case "Coordinate[]":
         case "Color":
-        case "ColorMatrix":
+        case "MagickColorMatrix":
         case "ConvolveMatrix":
         case "DrawableAffine":
         case "IEnumerable<MagickImage>":
@@ -303,8 +306,7 @@ namespace Magick.NET.FileGenerator
         case "MagickImage[]":
         case "MagickImageCollection":
         case "PathArc[]":
-        case "PathCurveto[]":
-        case "PathQuadraticCurveto[]":
+        case "PointD[]":
         case "Matrix":
         case "Rectangle":
         case "Stream":
@@ -343,9 +345,9 @@ namespace Magick.NET.FileGenerator
 
     public MagickTypes(QuantumDepth depth)
     {
-      _Core = LoadAssembly(@"..\..\..\..\Magick.NET.Core\bin\Release\AnyCPU\Magick.NET.Core.dll");
-      LoadAssembly(@"..\..\..\..\Magick.NET.Wrapper\bin\" + GetFolderName(depth) + @"\Win32\Magick.NET.Wrapper-x86.dll");
-      _MagickNET = LoadAssembly(@"..\..\..\..\Magick.NET\bin\" + GetFolderName(depth) + @"\x86\Magick.NET-x86.dll");
+      string folderName = GetFolderName(depth);
+      string quantumName = GetQuantumName(depth);
+      _MagickNET = LoadAssembly(@"..\..\..\..\Magick.NET\bin\" + folderName + @"\x86\Magick.NET-" + quantumName + @"-x86.dll");
       _Depth = depth;
     }
 
@@ -442,9 +444,25 @@ namespace Magick.NET.FileGenerator
              select g.OrderBy(m => m.GetParameters().Count()).ToArray();
     }
 
+    public IEnumerable<MethodInfo[]> GetGroupedMagickSettingsMethods()
+    {
+      return from type in _MagickNET.GetTypes()
+             where type.Name == "MagickSettings"
+             from method in type.GetMethods()
+             where IsSupported(method)
+             group method by method.Name into g
+             orderby g.Key
+             select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+    }
+
     public IEnumerable<PropertyInfo> GetMagickImageProperties()
     {
       return GetProperties(GetType("MagickImage"));
+    }
+
+    public IEnumerable<PropertyInfo> GetMagickSettingsProperties()
+    {
+      return GetProperties(GetType("MagickSettings"));
     }
 
     public IEnumerable<MethodInfo> GetMethods(string typeName)

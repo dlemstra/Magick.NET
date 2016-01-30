@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,6 +17,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 [assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "ImageMagick.AssemblyHelper.#Initialize()")]
 
@@ -24,12 +25,10 @@ namespace ImageMagick
 {
   internal static class AssemblyHelper
   {
-    private static Assembly AssemblyResolve(object sender, ResolveEventArgs args)
+    private static class NativeMethods
     {
-      if (args.Name.StartsWith("Magick.NET.Wrapper", StringComparison.Ordinal))
-        return LoadAssembly();
-
-      return null;
+      [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+      public static extern bool SetDllDirectory(string lpPathName);
     }
 
     private static string CreateCacheDirectory()
@@ -43,37 +42,31 @@ namespace ImageMagick
       return path;
     }
 
-    [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-    private static Assembly LoadAssembly()
+    private static void ExtractLibrary()
     {
 #if Q8
-			string name = "Magick.NET-Q8.Wrapper-" + (Environment.Is64BitProcess ? "x64" : "x86");
+      string name = "Magick.NET-Q8-" + (Environment.Is64BitProcess ? "x64" : "x86");
 #elif Q16
-      string name = "Magick.NET-Q16.Wrapper-" + (Environment.Is64BitProcess ? "x64" : "x86");
+      string name = "Magick.NET-Q16-" + (Environment.Is64BitProcess ? "x64" : "x86");
 #elif Q16HDRI
-			string name = "Magick.NET-Q16.Wrapper-HDRI-" + (Environment.Is64BitProcess ? "x64" : "x86");
+      string name = "Magick.NET-Q16-HDRI-" + (Environment.Is64BitProcess ? "x64" : "x86");
 #else
 #error Not implemented!
 #endif
       string cacheDirectory = CreateCacheDirectory();
-      string tempFile = Path.Combine(cacheDirectory, name + ".dll");
+      string tempFile = Path.Combine(cacheDirectory, name + ".Native.dll");
 
       WriteAssembly(tempFile);
       WriteXmlResources(cacheDirectory);
 
-      Assembly assembly = LoadAssembly(tempFile);
+      NativeMethods.SetDllDirectory(cacheDirectory);
 
-      Type magickNET = assembly.GetType("ImageMagick.Wrapper.MagickNET");
-      MethodInfo methodInfo = magickNET.GetMethod("SetEnv");
-      methodInfo.Invoke(null, new object[] { "MAGICK_CONFIGURE_PATH", cacheDirectory });
-
-      return assembly;
+      MagickNET.Initialize(cacheDirectory);
     }
 
-    [SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods")]
-    private static Assembly LoadAssembly(string tempFile)
+    private static void NativeLibrary_Initialize(object sender, EventArgs e)
     {
-      return Assembly.LoadFile(tempFile);
+      ExtractLibrary();
     }
 
     [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
@@ -82,7 +75,7 @@ namespace ImageMagick
       if (File.Exists(tempFile))
         return;
 
-      string resourceName = "ImageMagick.Resources.Library.Magick.NET.Wrapper_" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gz";
+      string resourceName = "ImageMagick.Resources.Library.Magick.NET.Native_" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gz";
 
       using (Stream stream = typeof(AssemblyHelper).Assembly.GetManifestResourceStream(resourceName))
       {
@@ -123,7 +116,7 @@ namespace ImageMagick
 
     public static void Initialize()
     {
-      AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolve;
+      NativeLibrary.Initialize += NativeLibrary_Initialize;
     }
   }
 }

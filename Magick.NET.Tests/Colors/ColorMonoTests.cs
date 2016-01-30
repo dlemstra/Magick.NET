@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -56,19 +55,19 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
-    public void Test_Color()
+    public void Test_ColorMono()
     {
       ColorMono mono = new ColorMono(false);
 
       MagickColor white = new MagickColor("#fff");
       Assert.AreEqual(white, mono.ToMagickColor());
-      ColorAssert.AreEqual(Color.White, mono.ToMagickColor());
+      ColorAssert.AreEqual(MagickColors.White, mono.ToMagickColor());
 
       mono = new ColorMono(true);
 
       MagickColor black = new MagickColor("#000");
       Assert.AreEqual(black, mono.ToMagickColor());
-      ColorAssert.AreEqual(Color.Black, mono.ToMagickColor());
+      ColorAssert.AreEqual(MagickColors.Black, mono.ToMagickColor());
     }
   }
 }

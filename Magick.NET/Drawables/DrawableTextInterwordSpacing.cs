@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,10 +17,16 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableTextInterwordSpacing object.
+  /// Sets the spacing between words in text.
   ///</summary>
-  public sealed class DrawableTextInterwordSpacing : IDrawableTextInterwordSpacing
+  public sealed class DrawableTextInterwordSpacing : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.TextInterwordSpacing(Spacing);
+    }
+
     ///<summary>
     /// Creates a new DrawableTextInterwordSpacing instance.
     ///</summary>

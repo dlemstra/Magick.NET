@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
     {
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
       {
-        new MagickGeometry((string)null);
+        new MagickGeometry(null);
       });
 
       ExceptionAssert.Throws<ArgumentException>(delegate ()
@@ -37,37 +37,51 @@ namespace Magick.NET.Tests
       });
 
       MagickGeometry geometry = new MagickGeometry("5x10!");
+      Assert.AreEqual(0, geometry.X);
+      Assert.AreEqual(0, geometry.Y);
       Assert.AreEqual(5, geometry.Width);
       Assert.AreEqual(10, geometry.Height);
       Assert.AreEqual(true, geometry.IgnoreAspectRatio);
 
-      geometry = new MagickGeometry("10x5<");
+      geometry = new MagickGeometry("10x5+2+1<");
+      Assert.AreEqual(2, geometry.X);
+      Assert.AreEqual(1, geometry.Y);
       Assert.AreEqual(10, geometry.Width);
       Assert.AreEqual(5, geometry.Height);
       Assert.AreEqual(true, geometry.Less);
 
       geometry = new MagickGeometry("5x10>");
+      Assert.AreEqual(0, geometry.X);
+      Assert.AreEqual(0, geometry.Y);
       Assert.AreEqual(5, geometry.Width);
       Assert.AreEqual(10, geometry.Height);
       Assert.AreEqual(true, geometry.Greater);
 
-      geometry = new MagickGeometry("10x10^");
+      geometry = new MagickGeometry("10x15^");
+      Assert.AreEqual(0, geometry.X);
+      Assert.AreEqual(0, geometry.Y);
       Assert.AreEqual(10, geometry.Width);
-      Assert.AreEqual(10, geometry.Height);
+      Assert.AreEqual(15, geometry.Height);
       Assert.AreEqual(true, geometry.FillArea);
 
       geometry = new MagickGeometry("10@");
+      Assert.AreEqual(0, geometry.X);
+      Assert.AreEqual(0, geometry.Y);
       Assert.AreEqual(10, geometry.Width);
       Assert.AreEqual(0, geometry.Height);
       Assert.AreEqual(true, geometry.LimitPixels);
 
       geometry = new MagickGeometry("50%x0>");
+      Assert.AreEqual(0, geometry.X);
+      Assert.AreEqual(0, geometry.Y);
       Assert.AreEqual(50, geometry.Width);
       Assert.AreEqual(0, geometry.Height);
       Assert.AreEqual(true, geometry.IsPercentage);
       Assert.AreEqual(true, geometry.Greater);
 
       geometry = new MagickGeometry(5, 10);
+      Assert.AreEqual(0, geometry.X);
+      Assert.AreEqual(0, geometry.Y);
       Assert.AreEqual(5, geometry.Width);
       Assert.AreEqual(10, geometry.Height);
 
@@ -78,6 +92,8 @@ namespace Magick.NET.Tests
       Assert.AreEqual(20, geometry.Height);
 
       geometry = new MagickGeometry(new Percentage(50.0), new Percentage(10.0));
+      Assert.AreEqual(0, geometry.X);
+      Assert.AreEqual(0, geometry.Y);
       Assert.AreEqual(50, geometry.Width);
       Assert.AreEqual(10, geometry.Height);
       Assert.AreEqual(true, geometry.IsPercentage);

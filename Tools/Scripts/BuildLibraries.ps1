@@ -1,8 +1,20 @@
 #==================================================================================================
+# Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
+#
+# Licensed under the ImageMagick License (the "License"); you may not use this file except in 
+# compliance with the License. You may obtain a copy of the License at
+#
+#   http://www.imagemagick.org/script/license.php
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the
+# License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+# express or implied. See the License for the specific language governing permissions and
+# limitations under the License.
+#==================================================================================================
 $scriptPath = Split-Path -parent $MyInvocation.MyCommand.Path
 . $scriptPath\Shared\Functions.ps1
 SetFolder $scriptPath
-#==================================================================================================
+
 $Q8Builds = @(
   @{Name = "Q8"; QuantumDepth = "8"; Framework = "v2.0"; PlatformToolset = "v90"}
   @{Name = "Q8"; QuantumDepth = "8"; Framework = "v4.0"; PlatformToolset = "v140"}
@@ -23,18 +35,18 @@ $configurations = @(
   @{Platform = "x86"; Options = "/opencl";              Builds = $Q16HDRIBuilds}
   @{Platform = "x64"; Options = "/opencl /x64";         Builds = $Q16HDRIBuilds}
 )
-#==================================================================================================
+
 function Build($platform, $builds)
 {
   $configFile = FullPath "ImageMagick\Source\ImageMagick\ImageMagick\MagickCore\magick-baseconfig.h"
   $config = [IO.File]::ReadAllText($configFile, [System.Text.Encoding]::Default)
-  $config = $config.Replace("//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET.Wrapper-" + $platform + ".dll`"")
 
   ModifyDebugInformationFormat
 
   foreach ($build in $builds)
   {
     $newConfig = $config.Replace("#define MAGICKCORE_QUANTUM_DEPTH 16", "#define MAGICKCORE_QUANTUM_DEPTH " + $build.QuantumDepth)
+    $newConfig = $newConfig.Replace("//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"", "#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $build.Name + "-" + $platform + ".Native.dll`"")
     [IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
 
     ModifyPlatformToolset $build
@@ -51,7 +63,7 @@ function Build($platform, $builds)
       $options = "$($options),VCBuildAdditionalOptions=/arch:SSE";
     }
 
-    BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMTD.sln" $options
+    BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMT.sln" $options
 
     Copy-Item $configFile "ImageMagick\$($build.Name)\include\MagickCore"
     $newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"", "//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"")
@@ -61,6 +73,7 @@ function Build($platform, $builds)
     {
       [void](New-Item -ItemType directory -Path "ImageMagick\lib\$($build.Framework)\$platform")
     }
+    Remove-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_Magick++_.lib"
     Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_*.lib" "ImageMagick\lib\$($build.Framework)\$platform"
 
     if (!(Test-Path "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform"))
@@ -68,12 +81,11 @@ function Build($platform, $builds)
       [void](New-Item -ItemType directory -Path "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform")
     }
     Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_coders_.lib"     "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
-    Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_Magick++_.lib"   "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
     Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_MagickCore_.lib" "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
     Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_MagickWand_.lib" "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
   }
 }
-#==================================================================================================
+
 function BuildAll()
 {
   foreach ($config in $configurations)
@@ -82,22 +94,32 @@ function BuildAll()
     Build $config.Platform $config.Builds
   }
 }
-#==================================================================================================
-function BuildDevelopment()
+
+function BuildDevelopment($config, $build)
+{
+  CreateSolution $config.Platform $config.Options
+  Build $config.Platform $build
+}
+
+function BuildDevelopmentQ8()
+{
+  $config = $configurations[0]
+  $build = @($config.Builds[1]);
+
+  BuildDevelopment $config $build
+}
+
+function BuildDevelopmentQ16()
 {
   $config = $configurations[2]
   $build = @($config.Builds[1]);
 
-  CreateSolution $config.Platform $config.Options
-  Build $config.Platform $build
+  BuildDevelopment $config $build
 }
-#==================================================================================================
+
 function CopyFiles($folder)
 {
   Remove-Item ImageMagick\include -recurse
-  [void](New-Item -ItemType directory -Path ImageMagick\include\Magick++)
-  Copy-Item ImageMagick\Source\ImageMagick\ImageMagick\Magick++\lib\Magick++.h ImageMagick\include
-  Copy-Item ImageMagick\Source\ImageMagick\ImageMagick\\Magick++\lib\Magick++\*.h ImageMagick\include\Magick++
   [void](New-Item -ItemType directory -Path ImageMagick\include\MagickCore)
   Copy-Item ImageMagick\Source\ImageMagick\ImageMagick\MagickCore\*.h ImageMagick\include\MagickCore
   Remove-Item ImageMagick\include\MagickCore\magick-baseconfig.h
@@ -114,13 +136,13 @@ function CopyFiles($folder)
       continue
     }
 
-    Copy-Item $xmlFile Magick.NET.Wrapper\Resources\xml
+    Copy-Item $xmlFile Magick.NET.Native\Resources\xml
   }
 }
-#==================================================================================================
+
 function CreateSolution($platform, $options)
 {
-  $solutionFile = FullPath "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMTD.sln"
+  $solutionFile = FullPath "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMT.sln"
 
   if (Test-Path $solutionFile)
   {
@@ -137,11 +159,11 @@ function CreateSolution($platform, $options)
     Write-Host "Options: $options."
   }
 
-  Start-Process .\configure.exe -ArgumentList "/smtd /noWizard /VS2015 $options" -wait
+  Start-Process .\configure.exe -ArgumentList "/smt /noWizard /noOpenMP /VS2015 $options" -wait
 
   set-location $location
 }
-#==================================================================================================
+
 function ModifyDebugInformationFormat($folder)
 {
   $folder = FullPath "ImageMagick\Source\ImageMagick"
@@ -152,7 +174,7 @@ function ModifyDebugInformationFormat($folder)
     $xml.Save($projectFile)
   }
 }
-#==================================================================================================
+
 function ModifyPlatformToolset($build)
 {
   $folder = FullPath "ImageMagick\Source\ImageMagick"
@@ -163,7 +185,7 @@ function ModifyPlatformToolset($build)
     $xml.Save($projectFile)
   }
 }
-#==================================================================================================
+
 function PatchFiles()
 {
   # Fix static linking of libxml
@@ -177,16 +199,19 @@ function PatchFiles()
 #endif", "#define LIBXML_STATIC")
   [IO.File]::WriteAllText($xmlversionFile, $xmlversion, [System.Text.Encoding]::Default)
 }
-#==================================================================================================
+
 CheckFolder "ImageMagick\Source"
 PatchFiles
-if ($args[0] -eq "-development")
+if ($args[0] -eq "-devQ8")
 {
-  BuildDevelopment
+  BuildDevelopmentQ8
+}
+elseif ($args[0] -eq "-devQ16")
+{
+  BuildDevelopmentQ16
 }
 else
 {
   BuildAll
 }
 CopyFiles
-#==================================================================================================

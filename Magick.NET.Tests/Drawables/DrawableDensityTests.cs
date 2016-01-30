@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 //=================================================================================================
 
 using System;
-using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -26,8 +25,8 @@ namespace Magick.NET.Tests
 
     private MagickImage CreateImage(int? density)
     {
-      MagickImage image = new MagickImage(Color.Purple, 500, 500);
-      DrawablePointSize pointSize = new DrawablePointSize(20);
+      MagickImage image = new MagickImage(MagickColors.Purple, 500, 500);
+      DrawableFontPointSize pointSize = new DrawableFontPointSize(20);
       DrawableText text = new DrawableText(250, 250, "Magick.NET");
 
       if (!density.HasValue)

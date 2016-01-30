@@ -1,0 +1,344 @@
+﻿{
+  "dynamic": 1,
+  "instance": false,
+  "methods":
+  [
+    {
+      "name": "Append",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        },
+        {
+          "name": "stack",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "Coalesce",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        }
+      ]
+    },
+    {
+      "name": "Combine",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        },
+        {
+          "name": "channels",
+          "type": "Channels"
+        }
+      ]
+    },
+    {
+      "name": "Deconstruct",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        }
+      ]
+    },
+    {
+      "name": "Dispose",
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "Evaluate",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        },
+        {
+          "name": "evaluateOperator",
+          "type": "EvaluateOperator"
+        }
+      ]
+    },
+    {
+      "name": "Flatten",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        }
+      ]
+    },
+    {
+      "name": "Map",
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        },
+        {
+          "name": "settings",
+          "type": "QuantizeSettings"
+        },
+        {
+          "name": "remapImage",
+          "type": "MagickImage"
+        }
+      ]
+    },
+    {
+      "name": "Merge",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        },
+        {
+          "name": "method",
+          "type": "LayerMethod"
+        }
+      ]
+    },
+    {
+      "name": "Montage",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        },
+        {
+          "name": "settings",
+          "type": "MontageSettings"
+        }
+      ]
+    },
+    {
+      "name": "Morph",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        },
+        {
+          "name": "frames",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "Optimize",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        }
+      ]
+    },
+    {
+      "name": "OptimizePlus",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        }
+      ]
+    },
+    {
+      "name": "OptimizeTransparency",
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        }
+      ]
+    },
+    {
+      "name": "Quantize",
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        },
+        {
+          "name": "settings",
+          "type": "QuantizeSettings"
+        }
+      ]
+    },
+    {
+      "name": "ReadBlob",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "settings",
+          "type": "MagickSettings"
+        },
+        {
+          "name": "data",
+          "type": "byte[]"
+        },
+        {
+          "name": "length",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "ReadFile",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "settings",
+          "type": "MagickSettings"
+        }
+      ]
+    },
+    {
+      "name": "Smush",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        },
+        {
+          "name": "offset",
+          "type": "ssize_t"
+        },
+        {
+          "name": "stack",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "WriteBlob",
+      "type": "Instance",
+      "static": true,
+      "throws": true,
+      "cleanup":
+      {
+        "name": "MagickMemory.Relinquish"
+      },
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        },
+        {
+          "name": "settings",
+          "type": "MagickSettings"
+        },
+        {
+          "name": "length",
+          "type": "size_t",
+          "out": true
+        }
+      ]
+    },
+    {
+      "name": "WriteFile",
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        },
+        {
+          "name": "settings",
+          "type": "MagickSettings"
+        }
+      ]
+    }
+  ]
+}

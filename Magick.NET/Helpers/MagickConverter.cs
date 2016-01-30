@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -53,7 +53,7 @@ namespace ImageMagick
           return (T)(object)new Percentage((double)value);
       }
 
-      return (T)(object)System.Convert.ChangeType(value, typeof(T), CultureInfo.InvariantCulture);
+      return (T)System.Convert.ChangeType(value, typeof(T), CultureInfo.InvariantCulture);
     }
 
     public static T Convert<T>(string value)

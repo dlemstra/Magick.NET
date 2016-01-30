@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -15,6 +15,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -24,23 +25,90 @@ namespace ImageMagick
   ///<summary>
   /// Represents the collection of images.
   ///</summary>
-  public sealed class MagickImageCollection : IDisposable, IList<MagickImage>
+  public sealed partial class MagickImageCollection : IDisposable, IList<MagickImage>
   {
     private List<MagickImage> _Images;
-    private Wrapper.MagickImageCollection _Instance;
-    private EventHandler<WarningEventArgs> _WarningEvent;
+    private EventHandler<WarningEventArgs> _Warning;
+    private NativeMagickImageCollection _NativeInstance;
 
-    private IEnumerable<Wrapper.MagickImage> GetImageInstances()
+    private void AddImages(byte[] data, MagickReadSettings readSettings, bool ping)
     {
-      foreach (MagickImage image in _Images)
+      Throw.IfNullOrEmpty("data", data);
+
+      CheckReadSettings(readSettings);
+
+      using (MagickSettings settings = new MagickSettings())
       {
-        yield return MagickImage.GetInstance(image);
+        settings.Apply(readSettings);
+        settings.Ping = ping;
+
+        IntPtr result = _NativeInstance.ReadBlob(settings, data, data.Length);
+        AddImages(result, settings);
       }
     }
 
-    private void SetFormat(ImageFormat format)
+    private void AddImages(string fileName, MagickReadSettings readSettings, bool ping)
     {
-      SetFormat(MagickImage.GetFormat(format));
+      string filePath = FileHelper.CheckForBaseDirectory(fileName);
+      Throw.IfInvalidFileName(filePath);
+
+      CheckReadSettings(readSettings);
+
+      using (MagickSettings settings = new MagickSettings())
+      {
+        settings.Apply(readSettings);
+        settings.FileName = filePath;
+        settings.Ping = ping;
+
+        IntPtr result = _NativeInstance.ReadFile(settings);
+        AddImages(result, settings);
+      }
+    }
+
+    private void AddImages(IntPtr result, MagickSettings settings)
+    {
+      foreach (MagickImage image in MagickImage.CreateList(result, settings))
+      {
+        _Images.Add(image);
+      }
+    }
+
+    private void AttachImages()
+    {
+      for (int i = 0; i < _Images.Count - 1; i++)
+      {
+        _Images[i].SetNext(_Images[i + 1]);
+      }
+    }
+
+    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "PixelStorage")]
+    private static void CheckReadSettings(MagickReadSettings readSettings)
+    {
+      if (readSettings != null)
+        Throw.IfTrue("readSettings", readSettings.PixelStorage != null, "PixelStorage is not supported for images with multiple frames/layers.");
+    }
+
+    private void DetachImages()
+    {
+      for (int i = _Images.Count - 2; i > 0; i--)
+      {
+        _Images[i].SetNext(null);
+      }
+    }
+
+    private void Dispose(bool disposing)
+    {
+      if (_NativeInstance != null)
+        _NativeInstance.Warning -= OnWarning;
+
+      if (disposing)
+        Clear();
+    }
+
+    private void OnWarning(object sender, WarningEventArgs arguments)
+    {
+      if (_Warning != null)
+        _Warning(this, arguments);
     }
 
     private void SetFormat(MagickFormat format)
@@ -51,10 +119,21 @@ namespace ImageMagick
       }
     }
 
-    private void OnWarning(object sender, WarningEventArgs arguments)
+    private void SetFormat(ImageFormat format)
     {
-      if (_WarningEvent != null)
-        _WarningEvent(this, arguments);
+      SetFormat(MagickFormatInfo.GetFormat(format));
+    }
+
+    private void ThrowIfEmpty()
+    {
+      if (_Images.Count == 0)
+        throw new InvalidOperationException("Operation requires at least one image.");
+    }
+
+    private void ThrowIfCountLowerThan(int count)
+    {
+      if (_Images.Count < count)
+        throw new InvalidOperationException("Operation requires at least " + count + " images.");
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -67,7 +146,7 @@ namespace ImageMagick
     /// </summary>
     ~MagickImageCollection()
     {
-      Clear();
+      Dispose(false);
     }
 
     ///<summary>
@@ -75,8 +154,9 @@ namespace ImageMagick
     ///</summary>
     public MagickImageCollection()
     {
-      _Instance = new Wrapper.MagickImageCollection();
       _Images = new List<MagickImage>();
+      _NativeInstance = new NativeMagickImageCollection();
+      _NativeInstance.Warning += OnWarning;
     }
 
     ///<summary>
@@ -103,22 +183,6 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Initializes a new instance of the MagickImage class using the specified images.
-    ///</summary>
-    ///<param name="images">The images to add to the collection.</param>
-    ///<exception cref="MagickException"/>
-    public MagickImageCollection(IEnumerable<MagickImage> images)
-      : this()
-    {
-      Throw.IfNull("images", images);
-
-      foreach (MagickImage image in images)
-      {
-        Add(image);
-      }
-    }
-
-    ///<summary>
     /// Initializes a new instance of the MagickImage class using the specified file.
     ///</summary>
     ///<param name="file">The file to read the image from.</param>
@@ -142,6 +206,22 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Initializes a new instance of the MagickImage class using the specified images.
+    ///</summary>
+    ///<param name="images">The images to add to the collection.</param>
+    ///<exception cref="MagickException"/>
+    public MagickImageCollection(IEnumerable<MagickImage> images)
+      : this()
+    {
+      Throw.IfNull("images", images);
+
+      foreach (MagickImage image in images)
+      {
+        Add(image);
+      }
+    }
+
+    ///<summary>
     /// Initializes a new instance of the MagickImageCollection class using the specified stream.
     ///</summary>
     ///<param name="stream">The stream to read the image data from.</param>
@@ -149,7 +229,7 @@ namespace ImageMagick
     public MagickImageCollection(Stream stream)
       : this()
     {
-      Read(stream);
+      AddRange(stream);
     }
 
     ///<summary>
@@ -161,7 +241,7 @@ namespace ImageMagick
     public MagickImageCollection(Stream stream, MagickReadSettings readSettings)
       : this()
     {
-      Read(stream, readSettings);
+      AddRange(stream, readSettings);
     }
 
     ///<summary>
@@ -172,7 +252,7 @@ namespace ImageMagick
     public MagickImageCollection(string fileName)
       : this()
     {
-      Read(fileName);
+      AddRange(fileName);
     }
 
     ///<summary>
@@ -184,7 +264,7 @@ namespace ImageMagick
     public MagickImageCollection(string fileName, MagickReadSettings readSettings)
       : this()
     {
-      Read(fileName, readSettings);
+      AddRange(fileName, readSettings);
     }
 
     ///<summary>
@@ -204,13 +284,11 @@ namespace ImageMagick
     {
       add
       {
-        _Instance.Warning += OnWarning;
-        _WarningEvent += value;
+        _Warning += value;
       }
       remove
       {
-        _Instance.Warning -= OnWarning;
-        _WarningEvent -= value;
+        _Warning -= value;
       }
     }
 
@@ -288,10 +366,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AddRange(byte[] data, MagickReadSettings readSettings)
     {
-      foreach (Wrapper.MagickImage image in _Instance.Read(data, readSettings))
-      {
-        _Images.Add(MagickImage.Create(image));
-      }
+      AddImages(data, readSettings, false);
     }
 
     ///<summary>
@@ -343,10 +418,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AddRange(string fileName, MagickReadSettings readSettings)
     {
-      foreach (Wrapper.MagickImage image in _Instance.Read(fileName, readSettings))
-      {
-        _Images.Add(MagickImage.Create(image));
-      }
+      AddImages(fileName, readSettings, false);
     }
 
     ///<summary>
@@ -367,10 +439,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AddRange(Stream stream, MagickReadSettings readSettings)
     {
-      foreach (Wrapper.MagickImage image in _Instance.Read(stream, readSettings))
-      {
-        _Images.Add(MagickImage.Create(image));
-      }
+      AddRange(StreamHelper.ToByteArray(stream), readSettings);
     }
 
     ///<summary>
@@ -379,8 +448,18 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickImage AppendHorizontally()
     {
-      Wrapper.MagickImage image = _Instance.Append(GetImageInstances(), false);
-      return MagickImage.Create(image);
+      ThrowIfEmpty();
+
+      try
+      {
+        AttachImages();
+        IntPtr image = _NativeInstance.Append(_Images[0], false);
+        return MagickImage.Create(image, _Images[0].Settings);
+      }
+      finally
+      {
+        DetachImages();
+      }
     }
 
     ///<summary>
@@ -389,8 +468,18 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickImage AppendVertically()
     {
-      Wrapper.MagickImage image = _Instance.Append(GetImageInstances(), true);
-      return MagickImage.Create(image);
+      ThrowIfEmpty();
+
+      try
+      {
+        AttachImages();
+        IntPtr image = _NativeInstance.Append(_Images[0], true);
+        return MagickImage.Create(image, _Images[0].Settings);
+      }
+      finally
+      {
+        DetachImages();
+      }
     }
 
     ///<summary>
@@ -400,22 +489,25 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Coalesce()
     {
-      List<Wrapper.MagickImage> images = new List<Wrapper.MagickImage>(_Instance.Coalesce(GetImageInstances()));
+      ThrowIfEmpty();
 
-      Clear();
-      foreach (Wrapper.MagickImage image in images)
+      using (MagickSettings settings = _Images[0].Settings.Clone())
       {
-        _Images.Add(MagickImage.Create(image));
-      }
-    }
+        IntPtr images;
+        try
+        {
+          AttachImages();
+          images = _NativeInstance.Coalesce(_Images[0]);
+        }
+        finally
+        {
+          DetachImages();
+        }
 
-    ///<summary>
-    /// Determines whether the collection contains the specified image.
-    ///</summary>
-    ///<param name="item">The image to check.</param>
-    public bool Contains(MagickImage item)
-    {
-      return _Images.Contains(item);
+        Clear();
+        foreach (MagickImage image in MagickImage.CreateList(images, settings))
+          Add(image);
+      }
     }
 
     ///<summary>
@@ -430,6 +522,18 @@ namespace ImageMagick
       }
 
       _Images.Clear();
+    }
+
+    ///<summary>
+    /// Creates a clone of the current image collection.
+    ///</summary>
+    public MagickImageCollection Clone()
+    {
+      MagickImageCollection result = new MagickImageCollection();
+      foreach (MagickImage image in this)
+        result.Add(image.Clone());
+
+      return result;
     }
 
     ///<summary>
@@ -450,8 +554,27 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickImage Combine(Channels channels)
     {
-      Wrapper.MagickImage image = _Instance.Combine(GetImageInstances(), channels);
-      return MagickImage.Create(image);
+      ThrowIfEmpty();
+
+      try
+      {
+        AttachImages();
+        IntPtr image = _NativeInstance.Combine(_Images[0], channels);
+        return MagickImage.Create(image, _Images[0].Settings);
+      }
+      finally
+      {
+        DetachImages();
+      }
+    }
+
+    ///<summary>
+    /// Determines whether the collection contains the specified image.
+    ///</summary>
+    ///<param name="item">The image to check.</param>
+    public bool Contains(MagickImage item)
+    {
+      return _Images.Contains(item);
     }
 
     ///<summary>
@@ -461,7 +584,7 @@ namespace ImageMagick
     ///<param name="arrayIndex">The zero-based index in 'destination' at which copying begins.</param>
     public void CopyTo(MagickImage[] array, int arrayIndex)
     {
-      if (Count == 0)
+      if (_Images.Count == 0)
         return;
 
       Throw.IfNull("array", array);
@@ -483,12 +606,24 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Deconstruct()
     {
-      List<Wrapper.MagickImage> images = new List<Wrapper.MagickImage>(_Instance.Deconstruct(GetImageInstances()));
+      ThrowIfEmpty();
 
-      Clear();
-      foreach (Wrapper.MagickImage image in images)
+      using (MagickSettings settings = _Images[0].Settings.Clone())
       {
-        _Images.Add(MagickImage.Create(image));
+        IntPtr images;
+        try
+        {
+          AttachImages();
+          images = _NativeInstance.Deconstruct(_Images[0]);
+        }
+        finally
+        {
+          DetachImages();
+        }
+
+        Clear();
+        foreach (MagickImage image in MagickImage.CreateList(images, settings))
+          Add(image);
       }
     }
 
@@ -497,7 +632,7 @@ namespace ImageMagick
     /// </summary>
     public void Dispose()
     {
-      Clear();
+      Dispose(true);
       GC.SuppressFinalize(this);
     }
 
@@ -509,8 +644,18 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickImage Evaluate(EvaluateOperator evaluateOperator)
     {
-      Wrapper.MagickImage image = _Instance.Evaluate(GetImageInstances(), evaluateOperator);
-      return MagickImage.Create(image);
+      ThrowIfEmpty();
+
+      try
+      {
+        AttachImages();
+        IntPtr image = _NativeInstance.Evaluate(_Images[0], evaluateOperator);
+        return MagickImage.Create(image, _Images[0].Settings);
+      }
+      finally
+      {
+        DetachImages();
+      }
     }
 
     ///<summary>
@@ -520,19 +665,18 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickImage Flatten()
     {
-      Wrapper.MagickImage image = _Instance.Flatten(GetImageInstances());
-      return MagickImage.Create(image);
-    }
+      ThrowIfEmpty();
 
-    ///<summary>
-    /// Applies a mathematical expression to the images.
-    ///</summary>
-    ///<param name="expression">The expression to apply.</param>
-    ///<exception cref="MagickException"/>
-    public MagickImage Fx(string expression)
-    {
-      Wrapper.MagickImage image = _Instance.Fx(GetImageInstances(), expression);
-      return MagickImage.Create(image);
+      try
+      {
+        AttachImages();
+        IntPtr image = _NativeInstance.Flatten(_Images[0]);
+        return MagickImage.Create(image, _Images[0].Settings);
+      }
+      finally
+      {
+        DetachImages();
+      }
     }
 
     /// <summary>
@@ -574,27 +718,36 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Remap image colors.
+    /// Remap image colors with closest color from reference image.
     ///</summary>
+    ///<param name="image">The image to use.</param>
     ///<exception cref="MagickException"/>
-    public void Map()
+    public void Map(MagickImage image)
     {
-      Map(new QuantizeSettings());
+      Map(image, new QuantizeSettings());
     }
 
     ///<summary>
-    /// Remap image colors.
+    /// Remap image colors with closest color from reference image.
     ///</summary>
+    ///<param name="image">The image to use.</param>
     ///<param name="settings">Quantize settings.</param>
     ///<exception cref="MagickException"/>
-    public void Map(QuantizeSettings settings)
+    public void Map(MagickImage image, QuantizeSettings settings)
     {
-      List<Wrapper.MagickImage> images = new List<Wrapper.MagickImage>(_Instance.Map(GetImageInstances(), settings));
+      ThrowIfEmpty();
 
-      Clear();
-      foreach (Wrapper.MagickImage image in images)
+      Throw.IfNull("image", image);
+      Throw.IfNull("settings", settings);
+
+      try
       {
-        _Images.Add(MagickImage.Create(image));
+        AttachImages();
+        _NativeInstance.Map(_Images[0], settings, image);
+      }
+      finally
+      {
+        DetachImages();
       }
     }
 
@@ -605,26 +758,18 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickImage Merge()
     {
-      Wrapper.MagickImage image = _Instance.Merge(GetImageInstances());
-      return MagickImage.Create(image);
-    }
+      ThrowIfEmpty();
 
-    ///<summary>
-    /// The Morph method requires a minimum of two images. The first image is transformed into
-    /// the second by a number of intervening images as specified by frames.
-    ///</summary>
-    ///<param name="frames">The number of in-between images to generate.</param>
-    ///<exception cref="MagickException"/>
-    public MagickImageCollection Morph(int frames)
-    {
-      MagickImageCollection collection = new MagickImageCollection();
-
-      foreach (Wrapper.MagickImage image in _Instance.Morph(GetImageInstances(), frames))
+      try
       {
-        collection.Add(MagickImage.Create(image));
+        AttachImages();
+        IntPtr image = _NativeInstance.Merge(_Images[0], LayerMethod.Merge);
+        return MagickImage.Create(image, _Images[0].Settings);
       }
-
-      return collection;
+      finally
+      {
+        DetachImages();
+      }
     }
 
     ///<summary>
@@ -634,8 +779,65 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickImage Montage(MontageSettings settings)
     {
-      Wrapper.MagickImage image = _Instance.Montage(GetImageInstances(), MontageSettings.GetInstance(settings));
-      return MagickImage.Create(image);
+      ThrowIfEmpty();
+
+      Throw.IfNull("settings", settings);
+
+      IntPtr images;
+      try
+      {
+        AttachImages();
+        if (!string.IsNullOrEmpty(settings.Label))
+          _Images[0].Label = settings.Label;
+        images = _NativeInstance.Montage(_Images[0], settings);
+      }
+      finally
+      {
+        DetachImages();
+      }
+
+      using (MagickImageCollection collection = new MagickImageCollection())
+      {
+        collection.AddRange(MagickImage.CreateList(images, _Images[0].Settings));
+        if (settings.TransparentColor != null)
+        {
+          foreach (MagickImage image in collection)
+          {
+            image.Transparent(settings.TransparentColor);
+          }
+        }
+
+        return collection.Merge();
+      }
+    }
+
+    ///<summary>
+    /// The Morph method requires a minimum of two images. The first image is transformed into
+    /// the second by a number of intervening images as specified by frames.
+    ///</summary>
+    ///<param name="frames">The number of in-between images to generate.</param>
+    ///<exception cref="MagickException"/>
+    public void Morph(int frames)
+    {
+      ThrowIfCountLowerThan(2);
+
+      using (MagickSettings settings = _Images[0].Settings.Clone())
+      {
+        IntPtr images;
+        try
+        {
+          AttachImages();
+          images = _NativeInstance.Morph(_Images[0], frames);
+        }
+        finally
+        {
+          DetachImages();
+        }
+
+        Clear();
+        foreach (MagickImage image in MagickImage.CreateList(images, settings))
+          Add(image);
+      }
     }
 
     ///<summary>
@@ -644,8 +846,18 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickImage Mosaic()
     {
-      Wrapper.MagickImage image = _Instance.Mosaic(GetImageInstances());
-      return MagickImage.Create(image);
+      ThrowIfEmpty();
+
+      try
+      {
+        AttachImages();
+        IntPtr image = _NativeInstance.Merge(_Images[0], LayerMethod.Mosaic);
+        return MagickImage.Create(image, _Images[0].Settings);
+      }
+      finally
+      {
+        DetachImages();
+      }
     }
 
     ///<summary>
@@ -656,12 +868,24 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Optimize()
     {
-      List<Wrapper.MagickImage> images = new List<Wrapper.MagickImage>(_Instance.Optimize(GetImageInstances()));
+      ThrowIfEmpty();
 
-      Clear();
-      foreach (Wrapper.MagickImage image in images)
+      using (MagickSettings settings = _Images[0].Settings.Clone())
       {
-        _Images.Add(MagickImage.Create(image));
+        IntPtr images;
+        try
+        {
+          AttachImages();
+          images = _NativeInstance.Optimize(_Images[0]);
+        }
+        finally
+        {
+          DetachImages();
+        }
+
+        Clear();
+        foreach (MagickImage image in MagickImage.CreateList(images, settings))
+          Add(image);
       }
     }
 
@@ -672,12 +896,24 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void OptimizePlus()
     {
-      List<Wrapper.MagickImage> images = new List<Wrapper.MagickImage>(_Instance.OptimizePlus(GetImageInstances()));
+      ThrowIfEmpty();
 
-      Clear();
-      foreach (Wrapper.MagickImage image in images)
+      using (MagickSettings settings = _Images[0].Settings.Clone())
       {
-        _Images.Add(MagickImage.Create(image));
+        IntPtr images;
+        try
+        {
+          AttachImages();
+          images = _NativeInstance.OptimizePlus(_Images[0]);
+        }
+        finally
+        {
+          DetachImages();
+        }
+
+        Clear();
+        foreach (MagickImage image in MagickImage.CreateList(images, settings))
+          Add(image);
       }
     }
 
@@ -688,13 +924,61 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void OptimizeTransparency()
     {
-      List<Wrapper.MagickImage> images = new List<Wrapper.MagickImage>(_Instance.OptimizeTransparency(GetImageInstances()));
+      ThrowIfEmpty();
 
-      Clear();
-      foreach (Wrapper.MagickImage image in images)
+      try
       {
-        _Images.Add(MagickImage.Create(image));
+        AttachImages();
+        _NativeInstance.OptimizeTransparency(_Images[0]);
       }
+      finally
+      {
+        DetachImages();
+      }
+    }
+
+    ///<summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    ///</summary>
+    ///<param name="data">The byte array to read the image data from.</param>
+    ///<exception cref="MagickException"/>
+    public void Ping(byte[] data)
+    {
+      Clear();
+      AddImages(data, null, true);
+    }
+
+    ///<summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    ///</summary>
+    ///<param name="file">The file to read the frames from.</param>
+    ///<exception cref="MagickException"/>
+    public void Ping(FileInfo file)
+    {
+      Throw.IfNull("file", file);
+
+      Ping(file.FullName);
+    }
+
+    ///<summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    ///</summary>
+    ///<param name="stream">The stream to read the image data from.</param>
+    ///<exception cref="MagickException"/>
+    public void Ping(Stream stream)
+    {
+      Ping(StreamHelper.ToByteArray(stream));
+    }
+
+    ///<summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    ///</summary>
+    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    ///<exception cref="MagickException"/>
+    public void Ping(string fileName)
+    {
+      Clear();
+      AddImages(fileName, null, true);
     }
 
     ///<summary>
@@ -713,22 +997,49 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickErrorInfo Quantize(QuantizeSettings settings)
     {
-      if (Count == 0)
-        return null;
+      ThrowIfEmpty();
 
       Throw.IfNull("settings", settings);
 
-      using (MagickImage colorMap = AppendHorizontally())
+      try
       {
-        MagickErrorInfo result = colorMap.Quantize(settings);
-
-        foreach (MagickImage image in _Images)
-        {
-          image.Map(colorMap);
-        }
-
-        return result;
+        AttachImages();
+        _NativeInstance.Quantize(_Images[0], settings);
       }
+      finally
+      {
+        DetachImages();
+      }
+
+      if (settings.MeasureErrors)
+        return MagickImage.CreateErrorInfo(_Images[0]);
+      else
+        return null;
+    }
+
+    ///<summary>
+    /// Read all image frames.
+    ///</summary>
+    ///<param name="file">The file to read the frames from.</param>
+    ///<exception cref="MagickException"/>
+    public void Read(FileInfo file)
+    {
+      Throw.IfNull("file", file);
+
+      Read(file.FullName);
+    }
+
+    ///<summary>
+    /// Read all image frames.
+    ///</summary>
+    ///<param name="file">The file to read the frames from.</param>
+    ///<param name="readSettings">The settings to use when reading the image.</param>
+    ///<exception cref="MagickException"/>
+    public void Read(FileInfo file, MagickReadSettings readSettings)
+    {
+      Throw.IfNull("file", file);
+
+      Read(file.FullName, readSettings);
     }
 
     ///<summary>
@@ -750,35 +1061,7 @@ namespace ImageMagick
     public void Read(byte[] data, MagickReadSettings readSettings)
     {
       Clear();
-
-      foreach (Wrapper.MagickImage image in _Instance.Read(data, readSettings))
-      {
-        _Images.Add(MagickImage.Create(image));
-      }
-    }
-
-    ///<summary>
-    /// Read all image frames.
-    ///</summary>
-    ///<param name="file">The file to read the frames from.</param>
-    ///<exception cref="MagickException"/>
-    public void Read(FileInfo file)
-    {
-      Throw.IfNull("file", file);
-      Read(file.FullName);
-    }
-
-    ///<summary>
-    /// Read all image frames.
-    ///</summary>
-    ///<param name="file">The file to read the frames from.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
-    public void Read(FileInfo file, MagickReadSettings readSettings)
-    {
-      Throw.IfNull("file", file);
-
-      Read(file.FullName, readSettings);
+      AddImages(data, readSettings, false);
     }
 
     ///<summary>
@@ -799,12 +1082,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(Stream stream, MagickReadSettings readSettings)
     {
-      Clear();
-
-      foreach (Wrapper.MagickImage image in _Instance.Read(stream, readSettings))
-      {
-        _Images.Add(MagickImage.Create(image));
-      }
+      Read(StreamHelper.ToByteArray(stream), readSettings);
     }
 
     ///<summary>
@@ -826,12 +1104,7 @@ namespace ImageMagick
     public void Read(string fileName, MagickReadSettings readSettings)
     {
       Clear();
-
-      string filePath = FileHelper.CheckForBaseDirectory(fileName);
-      foreach (Wrapper.MagickImage image in _Instance.Read(filePath, readSettings))
-      {
-        _Images.Add(MagickImage.Create(image));
-      }
+      AddImages(fileName, readSettings, false);
     }
 
     ///<summary>
@@ -879,8 +1152,18 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickImage SmushHorizontal(int offset)
     {
-      Wrapper.MagickImage image = _Instance.Smush(GetImageInstances(), offset, false);
-      return MagickImage.Create(image);
+      ThrowIfEmpty();
+
+      try
+      {
+        AttachImages();
+        IntPtr image = _NativeInstance.Smush(_Images[0], offset, false);
+        return MagickImage.Create(image, _Images[0].Settings);
+      }
+      finally
+      {
+        DetachImages();
+      }
     }
 
     ///<summary>
@@ -890,8 +1173,40 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickImage SmushVertical(int offset)
     {
-      Wrapper.MagickImage image = _Instance.Smush(GetImageInstances(), offset, true);
-      return MagickImage.Create(image);
+      ThrowIfEmpty();
+
+      try
+      {
+        AttachImages();
+        IntPtr image = _NativeInstance.Smush(_Images[0], offset, true);
+        return MagickImage.Create(image, _Images[0].Settings);
+      }
+      finally
+      {
+        DetachImages();
+      }
+    }
+
+    ///<summary>
+    /// Converts this instance to a byte array.
+    ///</summary>
+    public byte[] ToByteArray()
+    {
+      using (MemoryStream memStream = new MemoryStream())
+      {
+        Write(memStream);
+        return memStream.ToArray();
+      }
+    }
+
+    ///<summary>
+    /// Converts this instance to a byte array.
+    ///</summary>
+    ///<param name="format">The format to use.</param>
+    public byte[] ToByteArray(MagickFormat format)
+    {
+      SetFormat(format);
+      return ToByteArray();
     }
 
     ///<summary>
@@ -938,26 +1253,8 @@ namespace ImageMagick
       MemoryStream memStream = new MemoryStream();
       Write(memStream);
       memStream.Position = 0;
-      // Do not dispose the memStream, the bitmap owns it.
+      /* Do not dispose the memStream, the bitmap owns it. */
       return new Bitmap(memStream);
-    }
-
-    ///<summary>
-    /// Converts this instance to a byte array.
-    ///</summary>
-    public byte[] ToByteArray()
-    {
-      return _Instance.ToByteArray(GetImageInstances());
-    }
-
-    ///<summary>
-    /// Converts this instance to a byte array.
-    ///</summary>
-    ///<param name="format">The format to use.</param>
-    public Byte[] ToByteArray(MagickFormat format)
-    {
-      SetFormat(format);
-      return ToByteArray();
     }
 
     ///<summary>
@@ -965,10 +1262,19 @@ namespace ImageMagick
     /// This is useful for combining Photoshop layers into a single image.
     ///</summary>
     ///<exception cref="MagickException"/>
-    public MagickImage TrimBounds()
+    public void TrimBounds()
     {
-      Wrapper.MagickImage image = _Instance.TrimBounds(GetImageInstances());
-      return MagickImage.Create(image);
+      ThrowIfEmpty();
+
+      try
+      {
+        AttachImages();
+        _NativeInstance.Merge(_Images[0], LayerMethod.Trimbounds);
+      }
+      finally
+      {
+        DetachImages();
+      }
     }
 
     ///<summary>
@@ -995,7 +1301,24 @@ namespace ImageMagick
     {
       Throw.IfNull("stream", stream);
 
-      _Instance.Write(GetImageInstances(), stream);
+      if (_Images.Count == 0)
+        return;
+
+      MagickSettings settings = _Images[0].Settings;
+      settings.FileName = null;
+
+      try
+      {
+        AttachImages();
+
+        UIntPtr length;
+        IntPtr data = _NativeInstance.WriteBlob(_Images[0], settings, out length);
+        MagickMemory.WriteBytes(data, length, stream);
+      }
+      finally
+      {
+        DetachImages();
+      }
     }
 
     ///<summary>
@@ -1019,7 +1342,22 @@ namespace ImageMagick
     public void Write(string fileName)
     {
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
-      _Instance.Write(GetImageInstances(), filePath);
+
+      if (_Images.Count == 0)
+        return;
+
+      MagickSettings settings = _Images[0].Settings;
+      settings.FileName = fileName;
+
+      try
+      {
+        AttachImages();
+        _NativeInstance.WriteFile(_Images[0], settings);
+      }
+      finally
+      {
+        DetachImages();
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -31,29 +31,92 @@ namespace ImageMagick
   ///<summary>
   /// Class that can be used to access the individual pixels of an image.
   ///</summary>
-  public sealed class PixelCollection : IDisposable, IEnumerable<Pixel>
+  public sealed partial class PixelCollection : IEnumerable<Pixel>
   {
-    private Wrapper.PixelCollection _Instance;
+    private MagickImage _Image;
 
-    private void CheckIndex(int y)
+#if NET20
+    private delegate TResult Func<T, TResult>(T arg);
+#endif
+
+    private static QuantumType[] CastArray<T>(T[] values, Func<T, QuantumType> convertMethod)
     {
-      Throw.IfFalse("y", y >= 0 && y < Height, "Invalid Y coordinate: {0}.", y);
+      QuantumType[] result = new QuantumType[values.Length];
+      for (int i = 0; i < values.Length; i++)
+        result[i] = convertMethod(values[i]);
+
+      return result;
+    }
+
+    private void CheckArea(int x, int y, int width, int height)
+    {
+      CheckIndex(x, y);
+      Throw.IfTrue("width", x + width > _Image.Width, "Invalid width: {0}.", width);
+      Throw.IfTrue("height", y + height > _Image.Height, "Invalid height: {0}.", width);
     }
 
     private void CheckIndex(int x, int y)
     {
-      Throw.IfFalse("x", x >= 0 && x < Width, "Invalid X coordinate: {0}.", x);
-      Throw.IfFalse("y", y >= 0 && y < Height, "Invalid Y coordinate: {0}.", y);
+      Throw.IfFalse("x", x >= 0 && x < _Image.Width, "Invalid X coordinate: {0}.", x);
+      Throw.IfFalse("y", y >= 0 && y < _Image.Height, "Invalid Y coordinate: {0}.", y);
     }
 
-    internal PixelCollection(Wrapper.PixelCollection instance)
+    private void CheckValues<T>(T[] values)
     {
-      _Instance = instance;
+      CheckValues(0, 0, values);
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    private void CheckValues<T>(int x, int y, T[] values)
     {
-      return GetEnumerator();
+      CheckValues(x, y, _Image.Width, _Image.Height, values);
+    }
+
+    private void CheckValues<T>(int x, int y, int width, int height, T[] values)
+    {
+      CheckIndex(x, y);
+      Throw.IfNullOrEmpty("values", values);
+      Throw.IfFalse("values", values.Length % Channels == 0, "Values should have {0} channels.", Channels);
+
+      int length = values.Length;
+      int max = width * height * Channels;
+      Throw.IfTrue("values", length > max, "Too many values specified.");
+
+      length = (x * y * Channels) + length;
+      max = _Image.Width * _Image.Height * Channels;
+      Throw.IfTrue("values", length > max, "Too many values specified.");
+    }
+
+    private QuantumType[] GetAreaUnchecked(int x, int y, int width, int height)
+    {
+      IntPtr pixels = _NativeInstance.GetArea(x, y, width, height);
+      if (pixels == IntPtr.Zero)
+        throw new InvalidOperationException("Image contains no pixel data.");
+
+      int length = width * height * _Image.ChannelCount;
+      return QuantumConverter.ToArray(pixels, length);
+    }
+
+    private void SetAreaUnchecked(int x, int y, int width, int height, QuantumType[] values)
+    {
+      _NativeInstance.SetArea(x, y, width, height, values, values.Length);
+    }
+
+    private void SetPixel(int x, int y, QuantumType[] value)
+    {
+      CheckIndex(x, y);
+
+      SetAreaUnchecked(x, y, 1, 1, value);
+    }
+
+    internal void SetPixelUnchecked(int x, int y, QuantumType[] value)
+    {
+      SetAreaUnchecked(x, y, 1, 1, value);
+    }
+
+    internal PixelCollection(MagickImage image)
+    {
+      _Image = image;
+      _NativeInstance = new NativePixelCollection(image);
     }
 
     ///<summary>
@@ -74,29 +137,7 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Channels;
-      }
-    }
-
-    ///<summary>
-    /// Returns the height.
-    ///</summary>
-    public int Height
-    {
-      get
-      {
-        return _Instance.Height;
-      }
-    }
-
-    ///<summary>
-    /// Returns the width.
-    ///</summary>
-    public int Width
-    {
-      get
-      {
-        return _Instance.Width;
+        return _Image.ChannelCount;
       }
     }
 
@@ -105,7 +146,43 @@ namespace ImageMagick
     /// </summary>
     public void Dispose()
     {
-      _Instance.Dispose();
+      _NativeInstance.Dispose();
+    }
+
+    ///<summary>
+    /// Returns the pixel at the specified coordinates.
+    ///</summary>
+    ///<param name="x">The X coordinate of the area.</param>
+    ///<param name="y">The Y coordinate of the area.</param>
+    ///<param name="width">The width of the area.</param>
+    ///<param name="height">The height of the area.</param>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public QuantumType[] GetArea(int x, int y, int width, int height)
+    {
+      CheckArea(x, y, width, height);
+
+      return GetAreaUnchecked(x, y, width, height);
+    }
+
+    ///<summary>
+    /// Returns the pixel of the specified area
+    ///</summary>
+    ///<param name="geometry">The geometry of the area.</param>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public QuantumType[] GetArea(MagickGeometry geometry)
+    {
+      Throw.IfNull("geometry", geometry);
+
+      return GetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height);
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
     }
 
     /// <summary>
@@ -114,7 +191,7 @@ namespace ImageMagick
     /// <returns></returns>
     public IEnumerator<Pixel> GetEnumerator()
     {
-      return new PixelCollectionEnumerator(_Instance);
+      return new PixelCollectionEnumerator(this, _Image.Width, _Image.Height);
     }
 
     ///<summary>
@@ -123,7 +200,7 @@ namespace ImageMagick
     ///<param name="channel">The channel to get the index of.</param>
     public int GetIndex(PixelChannel channel)
     {
-      return _Instance.GetIndex(channel);
+      return _Image.ChannelOffset(channel);
     }
 
     ///<summary>
@@ -135,7 +212,7 @@ namespace ImageMagick
     {
       CheckIndex(x, y);
 
-      return Pixel.Create(null, x, y, _Instance.GetValue(x, y));
+      return Pixel.Create(this, x, y, GetAreaUnchecked(x, y, 1, 1));
     }
 
     ///<summary>
@@ -150,7 +227,7 @@ namespace ImageMagick
     {
       CheckIndex(x, y);
 
-      return _Instance.GetValue(x, y);
+      return GetAreaUnchecked(x, y, 1, 1);
     }
 
     ///<summary>
@@ -161,21 +238,260 @@ namespace ImageMagick
 #endif
     public QuantumType[] GetValues()
     {
-      return _Instance.GetValues();
+      return GetAreaUnchecked(0, 0, _Image.Width, _Image.Height);
     }
+
+    ///<summary>
+    /// Changes the value of the specified pixel.
+    ///</summary>
+    ///<param name="pixel">The pixel to set.</param>
+    public void Set(Pixel pixel)
+    {
+      Throw.IfNull("pixel", pixel);
+
+      SetPixel(pixel.X, pixel.Y, pixel.Value);
+    }
+
+    ///<summary>
+    /// Changes the value of the specified pixels.
+    ///</summary>
+    ///<param name="pixels">The pixels to set.</param>
+    public void Set(IEnumerable<Pixel> pixels)
+    {
+      Throw.IfNull("pixels", pixels);
+
+      IEnumerator<Pixel> enumerator = pixels.GetEnumerator();
+
+      while (enumerator.MoveNext())
+      {
+        Set(enumerator.Current);
+      }
+    }
+
+    ///<summary>
+    /// Changes the value of the specified pixel.
+    ///</summary>
+    ///<param name="x">The X coordinate of the pixel.</param>
+    ///<param name="y">The Y coordinate of the pixel.</param>
+    ///<param name="value">The value of the pixel.</param>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public void Set(int x, int y, QuantumType[] value)
+    {
+      Throw.IfNullOrEmpty("value", value);
+
+      SetPixel(x, y, value);
+    }
+
+#if !Q8
+    ///<summary>
+    /// Changes the values of the specified pixels.
+    ///</summary>
+    ///<param name="values">The values of the pixels.</param>
+    public void Set(byte[] values)
+    {
+      CheckValues(values);
+
+      QuantumType[] castedValues = CastArray(values, Quantum.Convert);
+      SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, castedValues);
+    }
+#endif
+
+    ///<summary>
+    /// Changes the values of the specified pixels.
+    ///</summary>
+    ///<param name="values">The values of the pixels.</param>
+    public void Set(double[] values)
+    {
+      CheckValues(values);
+
+      QuantumType[] castedValues = CastArray(values, Quantum.Convert);
+      SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, castedValues);
+    }
+
+    ///<summary>
+    /// Changes the values of the specified pixels.
+    ///</summary>
+    ///<param name="values">The values of the pixels.</param>
+    [CLSCompliant(false)]
+    public void Set(uint[] values)
+    {
+      CheckValues(values);
+
+      QuantumType[] castedValues = CastArray(values, Quantum.Convert);
+      SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, castedValues);
+    }
+
+    ///<summary>
+    /// Changes the values of the specified pixels.
+    ///</summary>
+    ///<param name="values">The values of the pixels.</param>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public void Set(QuantumType[] values)
+    {
+      CheckValues(values);
+
+      SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, values);
+    }
+
+#if !Q16
+    ///==========================================================================================
+    ///<summary>
+    /// Changes the values of the specified pixels.
+    ///</summary>
+    ///<param name="values">The values of the pixels.</param>
+    [CLSCompliant(false)]
+    public void Set(ushort[] values)
+    {
+      CheckValues(values);
+
+      QuantumType[] castedValues = CastArray(values, Quantum.Convert);
+      SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, castedValues);
+    }
+#endif
+
+#if !Q8
+    ///<summary>
+    /// Changes the values of the specified pixels.
+    ///</summary>
+    ///<param name="x">The X coordinate of the area.</param>
+    ///<param name="y">The Y coordinate of the area.</param>
+    ///<param name="width">The width of the area.</param>
+    ///<param name="height">The height of the area.</param>
+    ///<param name="values">The values of the pixels.</param>
+    public void SetArea(int x, int y, int width, int height, byte[] values)
+    {
+      CheckValues(x, y, width, height, values);
+
+      QuantumType[] castedValues = CastArray(values, Quantum.Convert);
+      SetAreaUnchecked(x, y, width, height, castedValues);
+    }
+#endif
+
+    ///<summary>
+    /// Changes the values of the specified pixels.
+    ///</summary>
+    ///<param name="x">The X coordinate of the area.</param>
+    ///<param name="y">The Y coordinate of the area.</param>
+    ///<param name="width">The width of the area.</param>
+    ///<param name="height">The height of the area.</param>
+    ///<param name="values">The values of the pixels.</param>
+    public void SetArea(int x, int y, int width, int height, double[] values)
+    {
+      CheckValues(x, y, width, height, values);
+
+      QuantumType[] castedValues = CastArray(values, Quantum.Convert);
+      SetAreaUnchecked(x, y, width, height, castedValues);
+    }
+
+    ///<summary>
+    /// Changes the values of the specified pixels.
+    ///</summary>
+    ///<param name="x">The X coordinate of the area.</param>
+    ///<param name="y">The Y coordinate of the area.</param>
+    ///<param name="width">The width of the area.</param>
+    ///<param name="height">The height of the area.</param>
+    ///<param name="values">The values of the pixels.</param>
+    [CLSCompliant(false)]
+    public void SetArea(int x, int y, int width, int height, uint[] values)
+    {
+      CheckValues(x, y, width, height, values);
+
+      QuantumType[] castedValues = CastArray(values, Quantum.Convert);
+      SetAreaUnchecked(x, y, width, height, castedValues);
+    }
+
+    ///<summary>
+    /// Changes the values of the specified pixels.
+    ///</summary>
+    ///<param name="x">The X coordinate of the area.</param>
+    ///<param name="y">The Y coordinate of the area.</param>
+    ///<param name="width">The width of the area.</param>
+    ///<param name="height">The height of the area.</param>
+    ///<param name="values">The values of the pixels.</param>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public void SetArea(int x, int y, int width, int height, QuantumType[] values)
+    {
+      CheckValues(x, y, width, height, values);
+
+      SetAreaUnchecked(x, y, width, height, values);
+    }
+
+#if !Q16
+    ///==========================================================================================
+    ///<summary>
+    /// Changes the values of the specified pixels.
+    ///</summary>
+    ///<param name="x">The X coordinate of the area.</param>
+    ///<param name="y">The Y coordinate of the area.</param>
+    ///<param name="width">The width of the area.</param>
+    ///<param name="height">The height of the area.</param>
+    ///<param name="values">The values of the pixels.</param>
+    [CLSCompliant(false)]
+    public void SetArea(int x, int y, int width, int height, ushort[] values)
+    {
+      CheckValues(x, y, width, height, values);
+
+      QuantumType[] castedValues = CastArray(values, Quantum.Convert);
+      SetAreaUnchecked(x, y, width, height, castedValues);
+    }
+#endif
 
     ///<summary>
     /// Returns the values of the pixels as an array.
     ///</summary>
-    ///<param name="y">The Y coordinate.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
-    public QuantumType[] GetValues(int y)
+    public QuantumType[] ToArray()
     {
-      CheckIndex(y);
+      return GetValues();
+    }
 
-      return _Instance.GetValues(y);
+    /// <summary>
+    /// Returns the values of the pixels as an array.
+    /// </summary>
+    ///<param name="x">The X coordinate of the area.</param>
+    ///<param name="y">The Y coordinate of the area.</param>
+    ///<param name="width">The width of the area.</param>
+    ///<param name="height">The height of the area.</param>
+    ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    public byte[] ToByteArray(int x, int y, int width, int height, string mapping)
+    {
+      Throw.IfNullOrEmpty("mapping", mapping);
+
+      CheckArea(x, y, width, height);
+      IntPtr nativeResult = _NativeInstance.ToByteArray(x, y, width, height, mapping);
+      byte[] result = ByteConverter.ToArray(nativeResult, width * height * mapping.Length);
+      MagickMemory.Relinquish(nativeResult);
+      return result;
+    }
+
+    /// <summary>
+    /// Returns the values of the pixels as an array.
+    /// </summary>
+    ///<param name="geometry">The geometry of the area.</param>
+    ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    public byte[] ToByteArray(MagickGeometry geometry, string mapping)
+    {
+      Throw.IfNull("geometry", geometry);
+
+      return ToByteArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping);
+    }
+
+    /// <summary>
+    /// Returns the values of the pixels as an array.
+    /// </summary>
+    ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    /// <returns></returns>
+    public byte[] ToByteArray(string mapping)
+    {
+      return ToByteArray(0, 0, _Image.Width, _Image.Height, mapping);
     }
   }
 }

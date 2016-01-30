@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -25,6 +25,13 @@ namespace Magick.NET.Tests.Coders
 
     private delegate void ReadDelegate();
 
+    private static void Test_Image(MagickImage image)
+    {
+      Assert.AreEqual(765, image.Width);
+      Assert.AreEqual(361, image.Height);
+      Assert.AreEqual(MagickFormat.Ai, image.Format);
+    }
+
     [TestInitialize]
     public void Initialize()
     {
@@ -36,9 +43,7 @@ namespace Magick.NET.Tests.Coders
     {
       using (MagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
       {
-        Assert.AreEqual(765, image.Width);
-        Assert.AreEqual(361, image.Height);
-        Assert.AreEqual(MagickFormat.Ai, image.Format);
+        Test_Image(image);
       }
     }
 
@@ -50,6 +55,7 @@ namespace Magick.NET.Tests.Coders
         using (MagickImage image = new MagickImage())
         {
           image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
+          Test_Image(image);
         }
       };
 

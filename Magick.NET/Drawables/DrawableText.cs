@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,16 +12,20 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Text;
 using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableCompositeImage object.
+  /// Draws text on the image.
   ///</summary>
-  public sealed class DrawableText : IDrawableText
+  public sealed class DrawableText : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Text(X, Y, Value);
+    }
 
     ///<summary>
     /// Creates a new DrawableText instance.
@@ -30,38 +34,18 @@ namespace ImageMagick
     ///<param name="y">The Y coordinate.</param>
     ///<param name="value">The text to draw.</param>
     public DrawableText(double x, double y, string value)
-      : this(x, y, value, null)
     {
-    }
+      Throw.IfNullOrEmpty("value", value);
 
-    ///<summary>
-    /// Creates a new DrawableText instance.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
-    ///<param name="value">The text to draw.</param>
-    ///<param name="encoding">The encoding of the text.</param>
-    public DrawableText(double x, double y, string value, Encoding encoding)
-    {
       X = x;
       Y = y;
-      Text = value;
-      Encoding = encoding;
-    }
-
-    ///<summary>
-    /// The encoding of the text.
-    ///</summary>
-    public Encoding Encoding
-    {
-      get;
-      set;
+      Value = value;
     }
 
     ///<summary>
     /// The text to draw.
     ///</summary>
-    public string Text
+    public string Value
     {
       get;
       set;

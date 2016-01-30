@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -18,28 +18,45 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableBezier object.
+  /// Draws a bezier curve through a set of points on the image.
   ///</summary>
-  public sealed class DrawableBezier : DrawableCoordinates<Coordinate>, IDrawableBezier
+  public sealed class DrawableBezier : IDrawable
   {
-    ///<summary>
-    /// Creates a new DrawableBezier instance.
-    ///</summary>
-    ///<param name="coordinates">The coordinates.</param>
-    public DrawableBezier(params Coordinate[] coordinates)
-      : base(coordinates)
+    PointDCoordinates _Coordinates;
+
+    void IDrawable.Draw(IDrawingWand wand)
     {
-      CheckCoordinateCount(3);
+      if (wand != null)
+        wand.Bezier(_Coordinates.ToList());
     }
 
     ///<summary>
     /// Creates a new DrawableBezier instance.
     ///</summary>
     ///<param name="coordinates">The coordinates.</param>
-    public DrawableBezier(IEnumerable<Coordinate> coordinates)
-      : base(coordinates)
+    public DrawableBezier(params PointD[] coordinates)
     {
-      CheckCoordinateCount(3);
+      _Coordinates = new PointDCoordinates(coordinates, 3);
+    }
+
+    ///<summary>
+    /// Creates a new DrawableBezier instance.
+    ///</summary>
+    ///<param name="coordinates">The coordinates.</param>
+    public DrawableBezier(IEnumerable<PointD> coordinates)
+    {
+      _Coordinates = new PointDCoordinates(coordinates, 3);
+    }
+
+    /// <summary>
+    /// The coordinates.
+    /// </summary>
+    public IEnumerable<PointD> Coordinates
+    {
+      get
+      {
+        return _Coordinates.ToList();
+      }
     }
   }
 }

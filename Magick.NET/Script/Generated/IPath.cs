@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -63,12 +63,12 @@ namespace ImageMagick
           {
             case 'A':
             {
-              ExecutePathCurvetoAbs(element, paths);
+              ExecutePathCurveToAbs(element, paths);
               return;
             }
             case 'R':
             {
-              ExecutePathCurvetoRel(element, paths);
+              ExecutePathCurveToRel(element, paths);
               return;
             }
           }
@@ -80,7 +80,7 @@ namespace ImageMagick
           {
             case 'A':
             {
-              ExecutePathLinetoAbs(element, paths);
+              ExecutePathLineToAbs(element, paths);
               return;
             }
             case 'H':
@@ -89,12 +89,12 @@ namespace ImageMagick
               {
                 case 'A':
                 {
-                  ExecutePathLinetoHorizontalAbs(element, paths);
+                  ExecutePathLineToHorizontalAbs(element, paths);
                   return;
                 }
                 case 'R':
                 {
-                  ExecutePathLinetoHorizontalRel(element, paths);
+                  ExecutePathLineToHorizontalRel(element, paths);
                   return;
                 }
               }
@@ -102,7 +102,7 @@ namespace ImageMagick
             }
             case 'R':
             {
-              ExecutePathLinetoRel(element, paths);
+              ExecutePathLineToRel(element, paths);
               return;
             }
             case 'V':
@@ -111,12 +111,12 @@ namespace ImageMagick
               {
                 case 'A':
                 {
-                  ExecutePathLinetoVerticalAbs(element, paths);
+                  ExecutePathLineToVerticalAbs(element, paths);
                   return;
                 }
                 case 'R':
                 {
-                  ExecutePathLinetoVerticalRel(element, paths);
+                  ExecutePathLineToVerticalRel(element, paths);
                   return;
                 }
               }
@@ -131,12 +131,12 @@ namespace ImageMagick
           {
             case 'A':
             {
-              ExecutePathMovetoAbs(element, paths);
+              ExecutePathMoveToAbs(element, paths);
               return;
             }
             case 'R':
             {
-              ExecutePathMovetoRel(element, paths);
+              ExecutePathMoveToRel(element, paths);
               return;
             }
           }
@@ -148,12 +148,12 @@ namespace ImageMagick
           {
             case 'A':
             {
-              ExecutePathQuadraticCurvetoAbs(element, paths);
+              ExecutePathQuadraticCurveToAbs(element, paths);
               return;
             }
             case 'R':
             {
-              ExecutePathQuadraticCurvetoRel(element, paths);
+              ExecutePathQuadraticCurveToRel(element, paths);
               return;
             }
           }
@@ -169,12 +169,12 @@ namespace ImageMagick
               {
                 case 'A':
                 {
-                  ExecutePathSmoothCurvetoAbs(element, paths);
+                  ExecutePathSmoothCurveToAbs(element, paths);
                   return;
                 }
                 case 'R':
                 {
-                  ExecutePathSmoothCurvetoRel(element, paths);
+                  ExecutePathSmoothCurveToRel(element, paths);
                   return;
                 }
               }
@@ -186,12 +186,12 @@ namespace ImageMagick
               {
                 case 'A':
                 {
-                  ExecutePathSmoothQuadraticCurvetoAbs(element, paths);
+                  ExecutePathSmoothQuadraticCurveToAbs(element, paths);
                   return;
                 }
                 case 'R':
                 {
-                  ExecutePathSmoothQuadraticCurvetoRel(element, paths);
+                  ExecutePathSmoothQuadraticCurveToRel(element, paths);
                   return;
                 }
               }
@@ -203,113 +203,255 @@ namespace ImageMagick
       }
       throw new NotImplementedException(element.Name);
     }
-
     private void ExecutePathArcAbs(XmlElement element, Collection<IPath> paths)
     {
       IEnumerable<PathArc> pathArcs_ = CreatePathArcs(element);
       paths.Add(new PathArcAbs(pathArcs_));
     }
-
     private void ExecutePathArcRel(XmlElement element, Collection<IPath> paths)
     {
       IEnumerable<PathArc> pathArcs_ = CreatePathArcs(element);
       paths.Add(new PathArcRel(pathArcs_));
     }
-
-    private void ExecutePathCurvetoAbs(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathCurveToAbs(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<PathCurveto> pathCurvetos_ = CreatePathCurvetos(element);
-      paths.Add(new PathCurvetoAbs(pathCurvetos_));
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "controlPointEnd")
+          arguments["controlPointEnd"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "controlPointStart")
+          arguments["controlPointStart"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "end")
+          arguments["end"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "x")
+          arguments["x"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "x1")
+          arguments["x1"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "x2")
+          arguments["x2"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y")
+          arguments["y"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y1")
+          arguments["y1"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y2")
+          arguments["y2"] = Variables.GetValue<double>(attribute);
+      }
+      if (OnlyContains(arguments, "controlPointStart", "controlPointEnd", "end"))
+        paths.Add(new PathCurveToAbs((PointD)arguments["controlPointStart"], (PointD)arguments["controlPointEnd"], (PointD)arguments["end"]));
+      else if (OnlyContains(arguments, "x1", "y1", "x2", "y2", "x", "y"))
+        paths.Add(new PathCurveToAbs((double)arguments["x1"], (double)arguments["y1"], (double)arguments["x2"], (double)arguments["y2"], (double)arguments["x"], (double)arguments["y"]));
+      else
+        throw new ArgumentException("Invalid argument combination for 'curveToAbs', allowed combinations are: [controlPointStart, controlPointEnd, end] [x1, y1, x2, y2, x, y]");
     }
-
-    private void ExecutePathCurvetoRel(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathCurveToRel(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<PathCurveto> pathCurvetos_ = CreatePathCurvetos(element);
-      paths.Add(new PathCurvetoRel(pathCurvetos_));
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "controlPointEnd")
+          arguments["controlPointEnd"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "controlPointStart")
+          arguments["controlPointStart"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "end")
+          arguments["end"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "x")
+          arguments["x"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "x1")
+          arguments["x1"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "x2")
+          arguments["x2"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y")
+          arguments["y"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y1")
+          arguments["y1"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y2")
+          arguments["y2"] = Variables.GetValue<double>(attribute);
+      }
+      if (OnlyContains(arguments, "controlPointStart", "controlPointEnd", "end"))
+        paths.Add(new PathCurveToRel((PointD)arguments["controlPointStart"], (PointD)arguments["controlPointEnd"], (PointD)arguments["end"]));
+      else if (OnlyContains(arguments, "x1", "y1", "x2", "y2", "x", "y"))
+        paths.Add(new PathCurveToRel((double)arguments["x1"], (double)arguments["y1"], (double)arguments["x2"], (double)arguments["y2"], (double)arguments["x"], (double)arguments["y"]));
+      else
+        throw new ArgumentException("Invalid argument combination for 'curveToRel', allowed combinations are: [controlPointStart, controlPointEnd, end] [x1, y1, x2, y2, x, y]");
     }
-
-    private void ExecutePathLinetoAbs(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathLineToAbs(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<Coordinate> coordinates_ = CreateCoordinates(element);
-      paths.Add(new PathLinetoAbs(coordinates_));
+      IEnumerable<PointD> coordinates_ = CreatePointDs(element);
+      paths.Add(new PathLineToAbs(coordinates_));
     }
-
-    private void ExecutePathLinetoHorizontalAbs(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathLineToHorizontalAbs(XmlElement element, Collection<IPath> paths)
     {
       double x_ = Variables.GetValue<double>(element, "x");
-      paths.Add(new PathLinetoHorizontalAbs(x_));
+      paths.Add(new PathLineToHorizontalAbs(x_));
     }
-
-    private void ExecutePathLinetoHorizontalRel(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathLineToHorizontalRel(XmlElement element, Collection<IPath> paths)
     {
       double x_ = Variables.GetValue<double>(element, "x");
-      paths.Add(new PathLinetoHorizontalRel(x_));
+      paths.Add(new PathLineToHorizontalRel(x_));
     }
-
-    private void ExecutePathLinetoRel(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathLineToRel(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<Coordinate> coordinates_ = CreateCoordinates(element);
-      paths.Add(new PathLinetoRel(coordinates_));
+      IEnumerable<PointD> coordinates_ = CreatePointDs(element);
+      paths.Add(new PathLineToRel(coordinates_));
     }
-
-    private void ExecutePathLinetoVerticalAbs(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathLineToVerticalAbs(XmlElement element, Collection<IPath> paths)
     {
       double y_ = Variables.GetValue<double>(element, "y");
-      paths.Add(new PathLinetoVerticalAbs(y_));
+      paths.Add(new PathLineToVerticalAbs(y_));
     }
-
-    private void ExecutePathLinetoVerticalRel(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathLineToVerticalRel(XmlElement element, Collection<IPath> paths)
     {
       double y_ = Variables.GetValue<double>(element, "y");
-      paths.Add(new PathLinetoVerticalRel(y_));
+      paths.Add(new PathLineToVerticalRel(y_));
     }
-
-    private void ExecutePathMovetoAbs(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathMoveToAbs(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<Coordinate> coordinates_ = CreateCoordinates(element);
-      paths.Add(new PathMovetoAbs(coordinates_));
+      PointD coordinate_ = Variables.GetValue<PointD>(element, "coordinate");
+      paths.Add(new PathMoveToAbs(coordinate_));
     }
-
-    private void ExecutePathMovetoRel(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathMoveToRel(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<Coordinate> coordinates_ = CreateCoordinates(element);
-      paths.Add(new PathMovetoRel(coordinates_));
+      PointD coordinate_ = Variables.GetValue<PointD>(element, "coordinate");
+      paths.Add(new PathMoveToRel(coordinate_));
     }
-
-    private void ExecutePathQuadraticCurvetoAbs(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathQuadraticCurveToAbs(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<PathQuadraticCurveto> pathQuadraticCurvetos_ = CreatePathQuadraticCurvetos(element);
-      paths.Add(new PathQuadraticCurvetoAbs(pathQuadraticCurvetos_));
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "controlPoint")
+          arguments["controlPoint"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "end")
+          arguments["end"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "x")
+          arguments["x"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "x1")
+          arguments["x1"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y")
+          arguments["y"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y1")
+          arguments["y1"] = Variables.GetValue<double>(attribute);
+      }
+      if (OnlyContains(arguments, "controlPoint", "end"))
+        paths.Add(new PathQuadraticCurveToAbs((PointD)arguments["controlPoint"], (PointD)arguments["end"]));
+      else if (OnlyContains(arguments, "x1", "y1", "x", "y"))
+        paths.Add(new PathQuadraticCurveToAbs((double)arguments["x1"], (double)arguments["y1"], (double)arguments["x"], (double)arguments["y"]));
+      else
+        throw new ArgumentException("Invalid argument combination for 'quadraticCurveToAbs', allowed combinations are: [controlPoint, end] [x1, y1, x, y]");
     }
-
-    private void ExecutePathQuadraticCurvetoRel(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathQuadraticCurveToRel(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<PathQuadraticCurveto> pathQuadraticCurvetos_ = CreatePathQuadraticCurvetos(element);
-      paths.Add(new PathQuadraticCurvetoRel(pathQuadraticCurvetos_));
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "controlPoint")
+          arguments["controlPoint"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "end")
+          arguments["end"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "x")
+          arguments["x"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "x1")
+          arguments["x1"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y")
+          arguments["y"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y1")
+          arguments["y1"] = Variables.GetValue<double>(attribute);
+      }
+      if (OnlyContains(arguments, "controlPoint", "end"))
+        paths.Add(new PathQuadraticCurveToRel((PointD)arguments["controlPoint"], (PointD)arguments["end"]));
+      else if (OnlyContains(arguments, "x1", "y1", "x", "y"))
+        paths.Add(new PathQuadraticCurveToRel((double)arguments["x1"], (double)arguments["y1"], (double)arguments["x"], (double)arguments["y"]));
+      else
+        throw new ArgumentException("Invalid argument combination for 'quadraticCurveToRel', allowed combinations are: [controlPoint, end] [x1, y1, x, y]");
     }
-
-    private void ExecutePathSmoothCurvetoAbs(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathSmoothCurveToAbs(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<Coordinate> coordinates_ = CreateCoordinates(element);
-      paths.Add(new PathSmoothCurvetoAbs(coordinates_));
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "controlPoint")
+          arguments["controlPoint"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "end")
+          arguments["end"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "x")
+          arguments["x"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "x2")
+          arguments["x2"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y")
+          arguments["y"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y2")
+          arguments["y2"] = Variables.GetValue<double>(attribute);
+      }
+      if (OnlyContains(arguments, "controlPoint", "end"))
+        paths.Add(new PathSmoothCurveToAbs((PointD)arguments["controlPoint"], (PointD)arguments["end"]));
+      else if (OnlyContains(arguments, "x2", "y2", "x", "y"))
+        paths.Add(new PathSmoothCurveToAbs((double)arguments["x2"], (double)arguments["y2"], (double)arguments["x"], (double)arguments["y"]));
+      else
+        throw new ArgumentException("Invalid argument combination for 'smoothCurveToAbs', allowed combinations are: [controlPoint, end] [x2, y2, x, y]");
     }
-
-    private void ExecutePathSmoothCurvetoRel(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathSmoothCurveToRel(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<Coordinate> coordinates_ = CreateCoordinates(element);
-      paths.Add(new PathSmoothCurvetoRel(coordinates_));
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "controlPoint")
+          arguments["controlPoint"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "end")
+          arguments["end"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "x")
+          arguments["x"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "x2")
+          arguments["x2"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y")
+          arguments["y"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y2")
+          arguments["y2"] = Variables.GetValue<double>(attribute);
+      }
+      if (OnlyContains(arguments, "controlPoint", "end"))
+        paths.Add(new PathSmoothCurveToRel((PointD)arguments["controlPoint"], (PointD)arguments["end"]));
+      else if (OnlyContains(arguments, "x2", "y2", "x", "y"))
+        paths.Add(new PathSmoothCurveToRel((double)arguments["x2"], (double)arguments["y2"], (double)arguments["x"], (double)arguments["y"]));
+      else
+        throw new ArgumentException("Invalid argument combination for 'smoothCurveToRel', allowed combinations are: [controlPoint, end] [x2, y2, x, y]");
     }
-
-    private void ExecutePathSmoothQuadraticCurvetoAbs(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathSmoothQuadraticCurveToAbs(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<Coordinate> coordinates_ = CreateCoordinates(element);
-      paths.Add(new PathSmoothQuadraticCurvetoAbs(coordinates_));
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "end")
+          arguments["end"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "x")
+          arguments["x"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y")
+          arguments["y"] = Variables.GetValue<double>(attribute);
+      }
+      if (OnlyContains(arguments, "end"))
+        paths.Add(new PathSmoothQuadraticCurveToAbs((PointD)arguments["end"]));
+      else if (OnlyContains(arguments, "x", "y"))
+        paths.Add(new PathSmoothQuadraticCurveToAbs((double)arguments["x"], (double)arguments["y"]));
+      else
+        throw new ArgumentException("Invalid argument combination for 'smoothQuadraticCurveToAbs', allowed combinations are: [end] [x, y]");
     }
-
-    private void ExecutePathSmoothQuadraticCurvetoRel(XmlElement element, Collection<IPath> paths)
+    private void ExecutePathSmoothQuadraticCurveToRel(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<Coordinate> coordinates_ = CreateCoordinates(element);
-      paths.Add(new PathSmoothQuadraticCurvetoRel(coordinates_));
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "end")
+          arguments["end"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "x")
+          arguments["x"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y")
+          arguments["y"] = Variables.GetValue<double>(attribute);
+      }
+      if (OnlyContains(arguments, "end"))
+        paths.Add(new PathSmoothQuadraticCurveToRel((PointD)arguments["end"]));
+      else if (OnlyContains(arguments, "x", "y"))
+        paths.Add(new PathSmoothQuadraticCurveToRel((double)arguments["x"], (double)arguments["y"]));
+      else
+        throw new ArgumentException("Invalid argument combination for 'smoothQuadraticCurveToRel', allowed combinations are: [end] [x, y]");
     }
   }
 }

@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,17 +12,17 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.CodeDom.Compiler;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Magick.NET.FileGenerator
 {
-  internal abstract class SwitchCodeGenerator : CodeGenerator
+  internal abstract class SwitchCodeGenerator : ScriptCodeGenerator
   {
     private int _StartIndent;
 
-    private void WriteLengthCheck(IndentedTextWriter writer, IEnumerable<string> names, int level)
+    private void WriteLengthCheck(IEnumerable<string> names, int level)
     {
       string shortName = (from name in names
                           where name.Length == level
@@ -30,15 +30,15 @@ namespace Magick.NET.FileGenerator
       if (shortName == null)
         return;
 
-      writer.Write("if (element.Name.Length == ");
-      writer.Write(level);
-      writer.WriteLine(")");
-      WriteStartColon(writer);
-      WriteCase(writer, shortName);
-      WriteEndColon(writer);
+      Write("if (element.Name.Length == ");
+      Write(level);
+      WriteLine(")");
+      WriteStartColon();
+      WriteCase(shortName);
+      WriteEndColon();
     }
 
-    private void WriteSwitch(IndentedTextWriter writer, IEnumerable<string> names, int level)
+    private void WriteSwitch(IEnumerable<string> names, int level)
     {
       IEnumerable<char> chars = (from name in names
                                  where name.Length > level
@@ -47,55 +47,82 @@ namespace Magick.NET.FileGenerator
 
       if (chars.Count() == 1 && names.Count() > 1)
       {
-        WriteLengthCheck(writer, names, level);
-        WriteSwitch(writer, names, ++level);
+        WriteLengthCheck(names, level);
+        WriteSwitch(names, ++level);
       }
       else
       {
-        WriteLengthCheck(writer, names, level);
+        WriteLengthCheck(names, level);
 
         if (chars.Count() > 1)
         {
-          writer.Write("switch(element.Name[");
-          writer.Write(level);
-          writer.WriteLine("])");
-          WriteStartColon(writer);
+          Write("switch(element.Name[");
+          Write(level);
+          WriteLine("])");
+          WriteStartColon();
         }
 
         foreach (char c in chars)
         {
-          writer.Write("case '");
-          writer.Write(c);
-          writer.WriteLine("':");
-          WriteStartColon(writer);
+          Write("case '");
+          Write(c);
+          WriteLine("':");
+          WriteStartColon();
 
           IEnumerable<string> children = from name in names
                                          where name.Length > level && name[level] == c
                                          select name;
 
           if (children.Count() == 1)
-            WriteCase(writer, children.First());
+            WriteCase(children.First());
           else
-            WriteSwitch(writer, children, level + 1);
+            WriteSwitch(children, level + 1);
 
-          WriteEndColon(writer);
+          WriteEndColon();
         }
 
         if (chars.Count() > 1)
-          WriteEndColon(writer);
+          WriteEndColon();
 
-        if (writer.Indent != _StartIndent)
-          writer.WriteLine("break;");
+        if (Indent != _StartIndent)
+          WriteLine("break;");
       }
     }
 
-    protected void WriteSwitch(IndentedTextWriter writer, IEnumerable<string> names)
+    protected static bool HasStaticCreateMethod(string typeName)
     {
-      _StartIndent = writer.Indent;
-      WriteSwitch(writer, names, 0);
-      writer.WriteLine("throw new NotImplementedException(element.Name);");
+      switch (typeName)
+      {
+        case "Double[]":
+        case "PathArc":
+        case "IDefines":
+        case "IEnumerable<MagickGeometry>":
+        case "IEnumerable<IPath>":
+        case "IEnumerable<PathArc>":
+        case "IEnumerable<PointD>":
+        case "IEnumerable<SparseColorArg>":
+        case "ImageProfile":
+        case "IReadDefines":
+        case "MagickImage":
+        case "MagickGeometry":
+        case "MontageSettings":
+        case "PixelStorageSettings":
+        case "QuantizeSettings":
+          return false;
+        case "ColorProfile":
+          return true;
+        default:
+          throw new NotImplementedException("HasStaticCreateMethod: " + typeName);
+      }
     }
 
-    protected abstract void WriteCase(IndentedTextWriter writer, string name);
+    protected void WriteSwitch(IEnumerable<string> names)
+    {
+      _StartIndent = Indent;
+      WriteSwitch(names, 0);
+      WriteLine("throw new NotImplementedException(element.Name);");
+    }
+
+    protected abstract void WriteCase(string name);
   }
 }

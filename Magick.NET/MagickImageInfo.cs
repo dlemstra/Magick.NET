@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -23,19 +23,11 @@ namespace ImageMagick
   ///</summary>
   public sealed class MagickImageInfo : IEquatable<MagickImageInfo>, IComparable<MagickImageInfo>
   {
-    private Wrapper.MagickImageInfo _Instance;
-
-    private MagickImageInfo(Wrapper.MagickImageInfo instance)
-    {
-      _Instance = instance;
-    }
-
     ///<summary>
     /// Initializes a new instance of the MagickImageInfo class.
     ///</summary>
     public MagickImageInfo()
     {
-      _Instance = new Wrapper.MagickImageInfo();
     }
 
     ///<summary>
@@ -43,7 +35,7 @@ namespace ImageMagick
     ///</summary>
     ///<param name="data">The byte array to read the information from.</param>
     ///<exception cref="MagickException"/>
-    public MagickImageInfo(Byte[] data)
+    public MagickImageInfo(byte[] data)
       : this()
     {
       Read(data);
@@ -90,7 +82,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator ==(MagickImageInfo left, MagickImageInfo right)
     {
-      return object.Equals(left, right);
+      return Equals(left, right);
     }
 
     /// <summary>
@@ -101,7 +93,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator !=(MagickImageInfo left, MagickImageInfo right)
     {
-      return !object.Equals(left, right);
+      return !Equals(left, right);
     }
 
     /// <summary>
@@ -165,10 +157,8 @@ namespace ImageMagick
     ///</summary>
     public ColorSpace ColorSpace
     {
-      get
-      {
-        return _Instance.ColorSpace;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -176,10 +166,8 @@ namespace ImageMagick
     ///</summary>
     public CompressionMethod CompressionMethod
     {
-      get
-      {
-        return _Instance.CompressionMethod;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -187,10 +175,7 @@ namespace ImageMagick
     ///</summary>
     public string FileName
     {
-      get
-      {
-        return _Instance.FileName;
-      }
+      get;
     }
 
     ///<summary>
@@ -198,10 +183,8 @@ namespace ImageMagick
     ///</summary>
     public MagickFormat Format
     {
-      get
-      {
-        return _Instance.Format;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -209,10 +192,8 @@ namespace ImageMagick
     ///</summary>
     public int Height
     {
-      get
-      {
-        return _Instance.Height;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -220,10 +201,8 @@ namespace ImageMagick
     ///</summary>
     public Interlace Interlace
     {
-      get
-      {
-        return _Instance.Interlace;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -231,10 +210,8 @@ namespace ImageMagick
     ///</summary>
     public Resolution ResolutionUnits
     {
-      get
-      {
-        return _Instance.ResolutionUnits;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -242,10 +219,8 @@ namespace ImageMagick
     ///</summary>
     public double ResolutionX
     {
-      get
-      {
-        return _Instance.ResolutionX;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -253,10 +228,8 @@ namespace ImageMagick
     ///</summary>
     public double ResolutionY
     {
-      get
-      {
-        return _Instance.ResolutionY;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -264,10 +237,8 @@ namespace ImageMagick
     ///</summary>
     public int Width
     {
-      get
-      {
-        return _Instance.Width;
-      }
+      get;
+      private set;
     }
 
     ///<summary>
@@ -341,6 +312,19 @@ namespace ImageMagick
         Width.GetHashCode();
     }
 
+    private void Initialize(MagickImage image)
+    {
+      ColorSpace = image.ColorSpace;
+      CompressionMethod = image.CompressionMethod;
+      Format = image.Format;
+      Height = image.Height;
+      Interlace = image.Interlace;
+      ResolutionUnits = image.ResolutionUnits;
+      ResolutionX = image.ResolutionX;
+      ResolutionY = image.ResolutionY;
+      Width = image.Width;
+    }
+
     ///<summary>
     /// Read basic information about an image.
     ///</summary>
@@ -348,7 +332,11 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(byte[] data)
     {
-      _Instance.Read(data);
+      using (MagickImage image = new MagickImage())
+      {
+        image.Ping(data);
+        Initialize(image);
+      }
     }
 
     ///<summary>
@@ -358,9 +346,11 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(FileInfo file)
     {
-      Throw.IfNull("file", file);
-
-      _Instance.Read(file.FullName);
+      using (MagickImage image = new MagickImage())
+      {
+        image.Ping(file);
+        Initialize(image);
+      }
     }
 
     ///<summary>
@@ -370,7 +360,11 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(Stream stream)
     {
-      _Instance.Read(stream);
+      using (MagickImage image = new MagickImage())
+      {
+        image.Ping(stream);
+        Initialize(image);
+      }
     }
 
     ///<summary>
@@ -380,8 +374,11 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(string fileName)
     {
-      string filePath = FileHelper.CheckForBaseDirectory(fileName);
-      _Instance.Read(filePath);
+      using (MagickImage image = new MagickImage())
+      {
+        image.Ping(fileName);
+        Initialize(image);
+      }
     }
 
     ///<summary>
@@ -391,9 +388,15 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public static IEnumerable<MagickImageInfo> ReadCollection(byte[] data)
     {
-      foreach (Wrapper.MagickImageInfo info in Wrapper.MagickImageInfo.ReadCollection(data))
+      using (MagickImageCollection images = new MagickImageCollection())
       {
-        yield return new MagickImageInfo(info);
+        images.Ping(data);
+        foreach (MagickImage image in images)
+        {
+          MagickImageInfo info = new MagickImageInfo();
+          info.Initialize(image);
+          yield return info;
+        }
       }
     }
 
@@ -404,11 +407,15 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public static IEnumerable<MagickImageInfo> ReadCollection(string fileName)
     {
-      string filePath = FileHelper.CheckForBaseDirectory(fileName);
-
-      foreach (Wrapper.MagickImageInfo info in Wrapper.MagickImageInfo.ReadCollection(filePath))
+      using (MagickImageCollection images = new MagickImageCollection())
       {
-        yield return new MagickImageInfo(info);
+        images.Ping(fileName);
+        foreach (MagickImage image in images)
+        {
+          MagickImageInfo info = new MagickImageInfo();
+          info.Initialize(image);
+          yield return info;
+        }
       }
     }
 
@@ -419,9 +426,15 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public static IEnumerable<MagickImageInfo> ReadCollection(Stream stream)
     {
-      foreach (Wrapper.MagickImageInfo info in Wrapper.MagickImageInfo.ReadCollection(stream))
+      using (MagickImageCollection images = new MagickImageCollection())
       {
-        yield return new MagickImageInfo(info);
+        images.Ping(stream);
+        foreach (MagickImage image in images)
+        {
+          MagickImageInfo info = new MagickImageInfo();
+          info.Initialize(image);
+          yield return info;
+        }
       }
     }
   }

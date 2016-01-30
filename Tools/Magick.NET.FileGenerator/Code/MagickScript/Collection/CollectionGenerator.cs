@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -13,12 +13,11 @@
 //=================================================================================================
 
 using System;
-using System.CodeDom.Compiler;
 using System.Reflection;
 
 namespace Magick.NET.FileGenerator
 {
-  internal sealed class CollectionGenerator : CodeGenerator
+  internal sealed class CollectionGenerator : ScriptCodeGenerator
   {
     private Type[] SupportedTypes
     {
@@ -28,45 +27,45 @@ namespace Magick.NET.FileGenerator
       }
     }
 
-    protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
     {
       throw new NotImplementedException();
     }
 
-    protected override void WriteCode(IndentedTextWriter writer)
+    protected override void WriteCode()
     {
       foreach (Type type in SupportedTypes)
       {
         string typeName = GetName(type);
 
-        writer.Write("private ");
-        writer.Write("Collection<");
-        writer.Write(typeName);
-        writer.Write(">");
-        writer.Write(" Create");
-        writer.Write(type.Name);
-        writer.Write("Collection");
-        writer.Write("(XmlElement element)");
-        writer.WriteLine();
-        WriteStartColon(writer);
-        writer.Write("Collection<");
-        writer.Write(typeName);
-        writer.Write("> collection = new ");
-        writer.Write("Collection<");
-        writer.Write(typeName);
-        writer.WriteLine(">();");
-        writer.WriteLine("foreach (XmlElement elem in element.SelectNodes(\"*\"))");
-        WriteStartColon(writer);
-        writer.Write("collection.Add(Variables.GetValue<");
-        writer.Write(typeName);
-        writer.WriteLine(">(elem, \"value\"));");
-        WriteEndColon(writer);
-        writer.WriteLine("return collection;");
-        WriteEndColon(writer);
+        Write("private ");
+        Write("Collection<");
+        Write(typeName);
+        Write(">");
+        Write(" Create");
+        Write(type.Name);
+        Write("Collection");
+        Write("(XmlElement element)");
+        WriteLine();
+        WriteStartColon();
+        Write("Collection<");
+        Write(typeName);
+        Write("> collection = new ");
+        Write("Collection<");
+        Write(typeName);
+        WriteLine(">();");
+        WriteLine("foreach (XmlElement elem in element.SelectNodes(\"*\"))");
+        WriteStartColon();
+        Write("collection.Add(Variables.GetValue<");
+        Write(typeName);
+        WriteLine(">(elem, \"value\"));");
+        WriteEndColon();
+        WriteLine("return collection;");
+        WriteEndColon();
       }
     }
 
-    protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
     {
       throw new NotImplementedException();
     }

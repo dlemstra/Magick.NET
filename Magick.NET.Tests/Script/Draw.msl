@@ -7,10 +7,7 @@
       <fillColor color="#800080"/>
       <path>
         <!-- comment that should be ignored-->
-        <curvetoAbs>
-          <!-- comment that should be ignored-->
-          <coordinate x="0" y="0" x1="20" y1="90" x2="128" y2="123"/>
-        </curvetoAbs>
+        <curveToAbs controlPointStart="0x0" controlPointEnd="20x90" end="128x123"/>
       </path>
       <fillColor color="Transparent"/>
       <fillColor color="#00F"/>

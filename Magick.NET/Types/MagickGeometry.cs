@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Drawing;
 
 namespace ImageMagick
@@ -19,34 +20,68 @@ namespace ImageMagick
   ///<summary>
   /// Encapsulation of the ImageMagick geometry object.
   ///</summary>
-  public sealed class MagickGeometry
+  public sealed partial class MagickGeometry
   {
-    internal Wrapper.MagickGeometry _Instance;
+    private MagickGeometry(NativeMagickGeometry instance)
+    {
+      Initialize(instance);
+    }
+
+    private NativeMagickGeometry CreateNativeInstance()
+    {
+      NativeMagickGeometry instance = new NativeMagickGeometry();
+      instance.Initialize(ToString());
+
+      return instance;
+    }
 
     private void Initialize(int x, int y, int width, int height, bool isPercentage)
     {
-      _Instance = new Wrapper.MagickGeometry(x, y, width, height, isPercentage);
+      X = x;
+      Y = y;
+      Width = width;
+      Height = height;
+      IsPercentage = isPercentage;
     }
 
-    private MagickGeometry(Wrapper.MagickGeometry instance)
+    private void Initialize(NativeMagickGeometry instance)
     {
-      _Instance = instance;
+      X = (int)instance.X;
+      Y = (int)instance.Y;
+      Width = (int)instance.Width;
+      Height = (int)instance.Height;
     }
 
-    internal static MagickGeometry Create(Wrapper.MagickGeometry value)
+    private void Initialize(NativeMagickGeometry instance, GeometryFlags flags)
     {
-      if (value == null)
+      Throw.IfTrue("value", flags == GeometryFlags.NoValue, "Invalid geometry specified.");
+
+      Initialize(instance);
+
+      IsPercentage = EnumHelper.HasFlag(flags, GeometryFlags.PercentValue);
+      IgnoreAspectRatio = EnumHelper.HasFlag(flags, GeometryFlags.IgnoreAspectRatio);
+      FillArea = EnumHelper.HasFlag(flags, GeometryFlags.FillArea);
+      Greater = EnumHelper.HasFlag(flags, GeometryFlags.Greater);
+      Less = EnumHelper.HasFlag(flags, GeometryFlags.Less);
+      LimitPixels = EnumHelper.HasFlag(flags, GeometryFlags.LimitPixels);
+    }
+
+    internal static MagickGeometry FromRectangle(MagickRectangle rectangle)
+    {
+      if (rectangle == null)
         return null;
 
-      return new MagickGeometry(value);
+      return new MagickGeometry(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
     }
 
-    internal static Wrapper.MagickGeometry GetInstance(MagickGeometry value)
+    internal static MagickGeometry FromString(string value)
     {
-      if (value == null)
-        return null;
+      return value == null ? null : new MagickGeometry(value);
+    }
 
-      return value._Instance;
+    internal static string ToString(MagickGeometry value)
+    {
+      return value == null ? null : value.ToString();
     }
 
     ///<summary>
@@ -139,7 +174,11 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("value", value);
 
-      _Instance = new Wrapper.MagickGeometry(value);
+      using (NativeMagickGeometry instance = new NativeMagickGeometry())
+      {
+        GeometryFlags flags = instance.Initialize(value);
+        Initialize(instance, flags);
+      }
     }
 
     /// <summary>
@@ -150,7 +189,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator ==(MagickGeometry left, MagickGeometry right)
     {
-      return object.Equals(left, right);
+      return Equals(left, right);
     }
 
     /// <summary>
@@ -161,7 +200,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator !=(MagickGeometry left, MagickGeometry right)
     {
-      return !object.Equals(left, right);
+      return !Equals(left, right);
     }
 
     /// <summary>
@@ -244,14 +283,8 @@ namespace ImageMagick
     ///</summary>
     public bool FillArea
     {
-      get
-      {
-        return _Instance.FillArea;
-      }
-      set
-      {
-        _Instance.FillArea = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -259,14 +292,8 @@ namespace ImageMagick
     ///</summary>
     public bool Greater
     {
-      get
-      {
-        return _Instance.Greater;
-      }
-      set
-      {
-        _Instance.Greater = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -274,14 +301,8 @@ namespace ImageMagick
     ///</summary>
     public int Height
     {
-      get
-      {
-        return _Instance.Height;
-      }
-      set
-      {
-        _Instance.Height = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -289,14 +310,8 @@ namespace ImageMagick
     ///</summary>
     public bool IgnoreAspectRatio
     {
-      get
-      {
-        return _Instance.IgnoreAspectRatio;
-      }
-      set
-      {
-        _Instance.IgnoreAspectRatio = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -304,14 +319,8 @@ namespace ImageMagick
     ///</summary>
     public bool IsPercentage
     {
-      get
-      {
-        return _Instance.IsPercentage;
-      }
-      set
-      {
-        _Instance.IsPercentage = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -319,14 +328,8 @@ namespace ImageMagick
     ///</summary>
     public bool Less
     {
-      get
-      {
-        return _Instance.Less;
-      }
-      set
-      {
-        _Instance.Less = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -334,14 +337,8 @@ namespace ImageMagick
     ///</summary>
     public bool LimitPixels
     {
-      get
-      {
-        return _Instance.LimitPixels;
-      }
-      set
-      {
-        _Instance.LimitPixels = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -349,14 +346,8 @@ namespace ImageMagick
     ///</summary>
     public int Width
     {
-      get
-      {
-        return _Instance.Width;
-      }
-      set
-      {
-        _Instance.Width = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -364,14 +355,8 @@ namespace ImageMagick
     ///</summary>
     public int X
     {
-      get
-      {
-        return _Instance.X;
-      }
-      set
-      {
-        _Instance.X = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -379,14 +364,8 @@ namespace ImageMagick
     ///</summary>
     public int Y
     {
-      get
-      {
-        return _Instance.Y;
-      }
-      set
-      {
-        _Instance.Y = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -468,7 +447,46 @@ namespace ImageMagick
     ///</summary>
     public override string ToString()
     {
-      return _Instance.ToString();
+      string result = null;
+
+      if (Width > 0)
+        result += Width;
+
+      if (Height > 0)
+        result += "x" + Height;
+
+      if (X != 0 || Y != 0)
+      {
+        if (X >= 0)
+          result += '+';
+
+        result += X;
+
+        if (Y >= 0)
+          result += '+';
+
+        result += Y;
+      }
+
+      if (IsPercentage)
+        result += '%';
+
+      if (IgnoreAspectRatio)
+        result += '!';
+
+      if (Greater)
+        result += '>';
+
+      if (Less)
+        result += '<';
+
+      if (FillArea)
+        result += '^';
+
+      if (LimitPixels)
+        result += '@';
+
+      return result;
     }
   }
 }

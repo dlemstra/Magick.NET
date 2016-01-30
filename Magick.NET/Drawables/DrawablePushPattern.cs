@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,10 +17,19 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawablePushPattern object.
+  /// indicates that subsequent commands up to a DrawablePopPattern command comprise the definition
+  /// of a named pattern. The pattern space is assigned top left corner coordinates, a width and
+  /// height, and becomes its own drawing space. Anything which can be drawn may be used in a
+  /// pattern definition. Named patterns may be used as stroke or brush definitions.
   ///</summary>
-  public sealed class DrawablePushPattern : IDrawablePushPattern
+  public sealed class DrawablePushPattern : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PushPattern(ID, X, Y, Width, Height);
+    }
+
     ///<summary>
     /// Creates a new DrawablePushPattern instance.
     ///</summary>
@@ -29,7 +38,7 @@ namespace ImageMagick
     ///<param name="y">The Y coordinate.</param>
     ///<param name="width">The width.</param>
     ///<param name="height">The height.</param>
-    public DrawablePushPattern(string id, int x, int y, int width, int height)
+    public DrawablePushPattern(string id, double x, double y, double width, double height)
     {
       ID = id;
       X = x;
@@ -50,7 +59,7 @@ namespace ImageMagick
     /// <summary>
     /// The height
     /// </summary>
-    public int Height
+    public double Height
     {
       get;
       set;
@@ -59,7 +68,7 @@ namespace ImageMagick
     /// <summary>
     /// The width
     /// </summary>
-    public int Width
+    public double Width
     {
       get;
       set;
@@ -68,7 +77,7 @@ namespace ImageMagick
     /// <summary>
     /// The X coordinate.
     /// </summary>
-    public int X
+    public double X
     {
       get;
       set;
@@ -77,7 +86,7 @@ namespace ImageMagick
     /// <summary>
     /// The Y coordinate.
     /// </summary>
-    public int Y
+    public double Y
     {
       get;
       set;

@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -38,12 +38,12 @@ namespace ImageMagick
 
     internal static Percentage FromQuantum(double value)
     {
-      return new Percentage((value / (double)Quantum.Max) * 100);
+      return new Percentage((value / Quantum.Max) * 100);
     }
 
     internal QuantumType ToQuantum()
     {
-      return (QuantumType)((double)Quantum.Max * (_Value / 100));
+      return (QuantumType)(Quantum.Max * (_Value / 100));
     }
 
     ///<summary>
@@ -144,6 +144,28 @@ namespace ImageMagick
       return left.CompareTo(right) <= 0;
     }
 
+    /// <summary>
+    /// Multiplies the value by the percentage.
+    /// </summary>
+    /// <param name="value"> The value to use.</param>
+    /// <param name="percentage">The Percentage to use.</param>
+    /// <returns></returns>
+    public static double operator *(double value, Percentage percentage)
+    {
+      return percentage.Multiply(value);
+    }
+
+    /// <summary>
+    /// Multiplies the value by the percentage.
+    /// </summary>
+    /// <param name="value"> The value to use.</param>
+    /// <param name="percentage">The Percentage to use.</param>
+    /// <returns></returns>
+    public static int operator *(int value, Percentage percentage)
+    {
+      return percentage.Multiply(value);
+    }
+
     ///<summary>
     /// Converts the specified double to an instance of this type.
     ///</summary>
@@ -167,7 +189,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="percentage">The percentage to convert</param>
     /// <returns></returns>
-    public static explicit operator double (Percentage percentage)
+    public static explicit operator double(Percentage percentage)
     {
       return percentage.ToDouble();
     }
@@ -177,7 +199,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="percentage">The percentage to convert</param>
     /// <returns></returns>
-    public static explicit operator int (Percentage percentage)
+    public static explicit operator int(Percentage percentage)
     {
       return percentage.ToInt32();
     }
@@ -228,6 +250,22 @@ namespace ImageMagick
     public override int GetHashCode()
     {
       return _Value.GetHashCode();
+    }
+
+    /// <summary>
+    /// Multiplies the value by the percentage.
+    /// </summary>
+    public double Multiply(double value)
+    {
+      return (value * _Value) / 100.0;
+    }
+
+    /// <summary>
+    /// Multiplies the value by the percentage.
+    /// </summary>
+    public int Multiply(int value)
+    {
+      return (int)((value * _Value) / 100.0);
     }
 
     ///<summary>

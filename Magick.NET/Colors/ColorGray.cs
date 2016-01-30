@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -36,7 +36,7 @@ namespace ImageMagick
     private ColorGray(MagickColor color)
       : base(color)
     {
-      _Shade = Quantum.Scale(color.R);
+      _Shade = Quantum.ScaleToQuantum(color.R);
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ namespace ImageMagick
     /// </summary>
     protected override void UpdateValue()
     {
-      QuantumType gray = Quantum.Scale(Shade);
+      QuantumType gray = Quantum.ScaleToQuantum(Shade);
       Value.R = gray;
       Value.G = gray;
       Value.B = gray;

@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -11,8 +11,8 @@
 // express or implied. See the License for the specific language governing permissions and
 // limitations under the License.
 //=================================================================================================
+
 using System;
-using System.CodeDom.Compiler;
 using System.Linq;
 using System.Reflection;
 
@@ -28,27 +28,26 @@ namespace Magick.NET.FileGenerator
       {
         if (_InterfaceGenerators == null)
           _InterfaceGenerators = (from type in Types.GetInterfaceTypes(ClassName)
-                                  select new InterfaceGenerator(ClassName, type.Name)).ToArray();
+                                  select new InterfaceGenerator(this, ClassName, type.Name)).ToArray();
 
         return _InterfaceGenerators;
       }
     }
 
-    private void WriteCode(IndentedTextWriter writer, string className)
+    private void WriteCode(string className)
     {
-      WriteSeparator(writer);
-      writer.Write("private ");
-      writer.Write(className);
-      writer.Write(" Create");
-      writer.Write(className);
-      writer.WriteLine("(XmlElement parent)");
-      WriteStartColon(writer);
-      CheckNull(writer, "parent");
-      writer.WriteLine("XmlElement element = (XmlElement)parent.FirstChild;");
-      CheckNull(writer, "element");
-      WriteSwitch(writer, from type in Types.GetInterfaceTypes(className)
-                          select MagickTypes.GetXsdName(type));
-      WriteEndColon(writer);
+      Write("private ");
+      Write(className);
+      Write(" Create");
+      Write(className);
+      WriteLine("(XmlElement parent)");
+      WriteStartColon();
+      WriteCheckNull("parent");
+      WriteLine("XmlElement element = (XmlElement)parent.FirstChild;");
+      WriteCheckNull("element");
+      WriteSwitch(from type in Types.GetInterfaceTypes(className)
+                  select MagickTypes.GetXsdName(type));
+      WriteEndColon();
     }
 
     protected abstract string ClassName
@@ -56,31 +55,30 @@ namespace Magick.NET.FileGenerator
       get;
     }
 
-    protected override void WriteCase(IndentedTextWriter writer, string name)
+    protected override void WriteCase(string name)
     {
-      writer.Write("return Create");
-      writer.Write(name[0].ToString().ToUpperInvariant());
-      writer.Write(name.Substring(1));
-      writer.WriteLine("(element);");
+      Write("return Create");
+      Write(name[0].ToString().ToUpperInvariant());
+      Write(name.Substring(1));
+      WriteLine("(element);");
     }
 
-    protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
     {
       throw new NotImplementedException();
     }
 
-    protected override void WriteCode(IndentedTextWriter writer)
+    protected override void WriteCode()
     {
-      WriteCode(writer, ClassName);
+      WriteCode(ClassName);
 
       foreach (InterfaceGenerator generator in InterfaceGenerators)
       {
-        WriteSeparator(writer);
-        generator.WriteCode(writer, Types);
+        generator.WriteCode(Types);
       }
     }
 
-    protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
     {
       throw new NotImplementedException();
     }

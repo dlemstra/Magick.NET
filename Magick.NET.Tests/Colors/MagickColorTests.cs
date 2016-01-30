@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -34,11 +34,6 @@ namespace Magick.NET.Tests
   {
     private const string _Category = "MagickColor";
 
-    private void TestColor(string hexValue, float red, float green, float blue, bool isTransparent)
-    {
-      TestColor(hexValue, red, green, blue, isTransparent, 0.01);
-    }
-
     private void TestColor(string hexValue, float red, float green, float blue, bool isTransparent, double delta)
     {
       MagickColor color = new MagickColor(hexValue);
@@ -51,6 +46,44 @@ namespace Magick.NET.Tests
         ColorAssert.IsTransparent(color.A);
       else
         ColorAssert.IsNotTransparent(color.A);
+    }
+
+    private void TestColor(string hexValue, float red, float green, float blue, bool isTransparent)
+    {
+      TestColor(hexValue, red, green, blue, isTransparent, 0.01);
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IComparable()
+    {
+      MagickColor first = new MagickColor(MagickColors.White);
+
+      Assert.AreEqual(0, first.CompareTo(first));
+      Assert.AreEqual(1, first.CompareTo(null));
+      Assert.IsFalse(first < null);
+      Assert.IsFalse(first <= null);
+      Assert.IsTrue(first > null);
+      Assert.IsTrue(first >= null);
+      Assert.IsTrue(null < first);
+      Assert.IsTrue(null <= first);
+      Assert.IsFalse(null > first);
+      Assert.IsFalse(null >= first);
+
+      MagickColor second = new MagickColor(MagickColors.Black);
+
+      Assert.AreEqual(1, first.CompareTo(second));
+      Assert.IsFalse(first < second);
+      Assert.IsFalse(first <= second);
+      Assert.IsTrue(first > second);
+      Assert.IsTrue(first >= second);
+
+      second = new MagickColor(MagickColors.White);
+
+      Assert.AreEqual(0, first.CompareTo(second));
+      Assert.IsFalse(first < second);
+      Assert.IsTrue(first <= second);
+      Assert.IsFalse(first > second);
+      Assert.IsTrue(first >= second);
     }
 
     [TestMethod, TestCategory(_Category)]
@@ -76,6 +109,7 @@ namespace Magick.NET.Tests
         new MagickColor("#GGFFF");
       });
 
+      TestColor("#FF", Quantum.Max, Quantum.Max, Quantum.Max, false);
       TestColor("#F00", Quantum.Max, 0, 0, false);
       TestColor("#0F00", 0, Quantum.Max, 0, true);
       TestColor("#0000FF", 0, 0, Quantum.Max, false);
@@ -116,42 +150,9 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
-    public void Test_IComparable()
-    {
-      MagickColor first = new MagickColor(Color.White);
-
-      Assert.AreEqual(0, first.CompareTo(first));
-      Assert.AreEqual(1, first.CompareTo(null));
-      Assert.IsFalse(first < null);
-      Assert.IsFalse(first <= null);
-      Assert.IsTrue(first > null);
-      Assert.IsTrue(first >= null);
-      Assert.IsTrue(null < first);
-      Assert.IsTrue(null <= first);
-      Assert.IsFalse(null > first);
-      Assert.IsFalse(null >= first);
-
-      MagickColor second = new MagickColor(Color.Black);
-
-      Assert.AreEqual(1, first.CompareTo(second));
-      Assert.IsFalse(first < second);
-      Assert.IsFalse(first <= second);
-      Assert.IsTrue(first > second);
-      Assert.IsTrue(first >= second);
-
-      second = new MagickColor(Color.White);
-
-      Assert.AreEqual(0, first.CompareTo(second));
-      Assert.IsFalse(first < second);
-      Assert.IsTrue(first <= second);
-      Assert.IsFalse(first > second);
-      Assert.IsTrue(first >= second);
-    }
-
-    [TestMethod, TestCategory(_Category)]
     public void Test_IEquatable()
     {
-      MagickColor first = new MagickColor(Color.Red);
+      MagickColor first = new MagickColor(MagickColors.Red);
 
       Assert.IsFalse(first == null);
       Assert.IsFalse(first.Equals(null));
@@ -164,7 +165,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first.Equals(second));
       Assert.IsTrue(first.Equals((object)second));
 
-      second = new MagickColor(Color.Green);
+      second = new MagickColor(MagickColors.Green);
 
       Assert.IsTrue(first != second);
       Assert.IsFalse(first.Equals(second));
@@ -173,16 +174,16 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_ToColor()
     {
-      MagickColor color = new MagickColor(Color.Red);
+      MagickColor color = new MagickColor(MagickColors.Red);
       Assert.AreEqual(Quantum.Max, color.A);
 
-      ColorAssert.AreEqual(Color.Red, color);
+      ColorAssert.AreEqual(MagickColors.Red, color);
     }
 
     [TestMethod, TestCategory(_Category)]
     public void Test_ToString()
     {
-      MagickColor color = new MagickColor(Color.Red);
+      MagickColor color = new MagickColor(MagickColors.Red);
 #if Q8
       Assert.AreEqual("#FF0000FF", color.ToString());
 #elif Q16 || Q16HDRI
@@ -209,7 +210,7 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Transparent()
     {
-      MagickColor transparent = MagickColor.Transparent;
+      MagickColor transparent = MagickColors.Transparent;
 
       ColorAssert.IsTransparent(transparent.A);
       ColorAssert.AreEqual(Color.Transparent, transparent);

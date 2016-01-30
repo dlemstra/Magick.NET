@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -35,15 +35,63 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
-    public void Test_MimeType()
+    public void Test_Properties()
     {
-      MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jpg);
+      MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Gradient);
+      Assert.AreEqual(MagickFormat.Gradient, formatInfo.Format);
+      Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
+      Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
+      Assert.AreEqual("Gradual linear passing from one shade to another", formatInfo.Description);
+      Assert.AreEqual(false, formatInfo.IsMultiFrame);
+      Assert.AreEqual(true, formatInfo.IsReadable);
+      Assert.AreEqual(false, formatInfo.IsWritable);
+      Assert.AreEqual(null, formatInfo.MimeType);
+
+      formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jp2);
+      Assert.AreEqual(MagickFormat.Jp2, formatInfo.Format);
+      Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
+      Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
+      Assert.AreEqual("JPEG-2000 File Format Syntax", formatInfo.Description);
+      Assert.AreEqual(false, formatInfo.IsMultiFrame);
+      Assert.AreEqual(true, formatInfo.IsReadable);
+      Assert.AreEqual(true, formatInfo.IsWritable);
+      Assert.AreEqual("image/jp2", formatInfo.MimeType);
+
+      formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jpg);
       Assert.IsNotNull(formatInfo);
+      Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
+      Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
+      Assert.AreEqual("Joint Photographic Experts Group JFIF format", formatInfo.Description);
+      Assert.AreEqual(MagickFormat.Jpg, formatInfo.Format);
+      Assert.AreEqual(false, formatInfo.IsMultiFrame);
+      Assert.AreEqual(true, formatInfo.IsReadable);
+      Assert.AreEqual(true, formatInfo.IsWritable);
       Assert.AreEqual("image/jpeg", formatInfo.MimeType);
+      Assert.AreEqual(MagickFormat.Jpeg, formatInfo.Module);
 
       formatInfo = MagickNET.GetFormatInformation(MagickFormat.Png);
       Assert.IsNotNull(formatInfo);
+      Assert.AreEqual(true, formatInfo.CanReadMultithreaded);
+      Assert.AreEqual(true, formatInfo.CanWriteMultithreaded);
+      Assert.AreEqual("Portable Network Graphics", formatInfo.Description);
+      Assert.AreEqual(MagickFormat.Png, formatInfo.Format);
+      Assert.AreEqual(false, formatInfo.IsMultiFrame);
+      Assert.AreEqual(true, formatInfo.IsReadable);
+      Assert.AreEqual(true, formatInfo.IsWritable);
       Assert.AreEqual("image/png", formatInfo.MimeType);
+      Assert.AreEqual(MagickFormat.Png, formatInfo.Module);
+
+      formatInfo = MagickNET.GetFormatInformation(MagickFormat.Xps);
+      Assert.IsNotNull(formatInfo);
+      Assert.AreEqual(false, formatInfo.CanReadMultithreaded);
+      Assert.AreEqual(false, formatInfo.CanWriteMultithreaded);
+      Assert.AreEqual("Microsoft XML Paper Specification", formatInfo.Description);
+      Assert.AreEqual(MagickFormat.Xps, formatInfo.Format);
+      Assert.AreEqual(false, formatInfo.IsMultiFrame);
+      Assert.AreEqual(true, formatInfo.IsReadable);
+      Assert.AreEqual(false, formatInfo.IsWritable);
+      Assert.IsNull(formatInfo.MimeType);
+      Assert.AreEqual(MagickFormat.Xps, formatInfo.Module);
     }
 
     [TestMethod, TestCategory(_Category)]

@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,10 +17,16 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableArc object.
+  /// Draws an arc falling within a specified bounding rectangle on the image.
   ///</summary>
-  public sealed class DrawableArc : IDrawableArc
+  public sealed class DrawableArc : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Arc(StartX, StartY, EndX, EndY, StartDegrees, EndDegrees);
+    }
+
     ///<summary>
     /// Creates a new DrawableArc instance.
     ///</summary>
@@ -30,8 +36,7 @@ namespace ImageMagick
     ///<param name="endY">The ending Y coordinate of the bounding rectangle.</param>
     ///<param name="startDegrees">The starting degrees of rotation.</param>
     ///<param name="endDegrees">The ending degrees of rotation.</param>
-    public DrawableArc(double startX, double startY, double endX, double endY, double startDegrees,
-      double endDegrees)
+    public DrawableArc(double startX, double startY, double endX, double endY, double startDegrees, double endDegrees)
     {
       StartX = startX;
       StartY = startY;

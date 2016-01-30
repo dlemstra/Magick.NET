@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,14 +12,18 @@
 // limitations under the License.
 //=================================================================================================
 
-using ImageMagick.Drawables.Paths;
-
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the PathArc object.
+  /// Draws an elliptical arc from the current point to(X, Y). The size and orientation of the
+  /// ellipse are defined by two radii(RadiusX, RadiusY) and a RotationX, which indicates how the
+  /// ellipse as a whole is rotated relative to the current coordinate system. The center of the
+  /// ellipse is calculated automagically to satisfy the constraints imposed by the other
+  /// parameters. UseLargeArc and UseSweep contribute to the automatic calculations and help
+  /// determine how the arc is drawn. If UseLargeArc is true then draw the larger of the
+  /// available arcs. If UseSweep is true, then draw the arc matching a clock-wise rotation.
   ///</summary>
-  public sealed class PathArc : IPathArc
+  public sealed class PathArc
   {
     ///<summary>
     /// Initializes a new instance of the PathArc class.
@@ -39,8 +43,7 @@ namespace ImageMagick
     /// current coordinate system.</param>
     ///<param name="useLargeArc">If true then draw the larger of the available arcs.</param>
     ///<param name="useSweep">If true then draw the arc matching a clock-wise rotation.</param>
-    public PathArc(double x, double y, double radiusX, double radiusY, double rotationX,
-      bool useLargeArc, bool useSweep)
+    public PathArc(double x, double y, double radiusX, double radiusY, double rotationX, bool useLargeArc, bool useSweep)
     {
       X = x;
       Y = y;

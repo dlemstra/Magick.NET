@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -42,16 +42,6 @@ namespace ImageMagick
       set;
     }
 
-    /// <summary>
-    /// By default, the PNG reader will discard a corrupt image. With this option you will be able
-    /// to access the corrupt image after an exception has be thrown.
-    /// </summary>
-    public bool PreserveCorruptImage
-    {
-      get;
-      set;
-    }
-
     ///<summary>
     /// Specifies the profile that should be skipped when the image is read (profile:skip).
     ///</summary>
@@ -79,9 +69,6 @@ namespace ImageMagick
     {
       get
       {
-        if (PreserveCorruptImage)
-          yield return CreateDefine("preserve-corrupt-image", PreserveCorruptImage);
-
         if (PreserveiCCP)
           yield return CreateDefine("preserve-iCCP", PreserveiCCP);
 

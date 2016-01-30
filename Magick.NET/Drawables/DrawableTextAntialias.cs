@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,10 +17,16 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableTextAntialias object.
+  /// Controls whether text is antialiased. Text is antialiased by default.
   ///</summary>
-  public sealed class DrawableTextAntialias : IDrawableTextAntialias
+  public sealed class DrawableTextAntialias : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.TextAntialias(IsEnabled);
+    }
+
     ///<summary>
     /// Creates a new DrawableTextAntialias instance.
     ///</summary>

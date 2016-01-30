@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -16,19 +16,38 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+	using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick
 {
   internal sealed class PixelCollectionEnumerator : IEnumerator<Pixel>
   {
-    private Wrapper.PixelBaseCollection _Collection;
-    private Wrapper.WritablePixelCollection _WritableCollection;
+    private QuantumType[] _Row;
+    private PixelCollection _Collection;
+    private int _Height;
     private int _X;
     private int _Y;
+    private int _Width;
 
-    internal PixelCollectionEnumerator(Wrapper.PixelBaseCollection collection)
+    private void SetRow()
+    {
+      if (_Y < _Height)
+        _Row = _Collection.GetArea(0, _Y, _Width, 1);
+    }
+
+    public PixelCollectionEnumerator(PixelCollection collection, int width, int height)
     {
       _Collection = collection;
-      _WritableCollection = collection as Wrapper.WritablePixelCollection;
+      _Width = width;
+      _Height = height;
       Reset();
     }
 
@@ -47,7 +66,10 @@ namespace ImageMagick
         if (_X == -1)
           return null;
 
-        return Pixel.Create(_WritableCollection, _X, _Y, _Collection.GetValue(_X, _Y));
+        QuantumType[] pixel = new QuantumType[_Collection.Channels];
+        Buffer.BlockCopy(_Row, _X * _Collection.Channels, pixel, 0, _Collection.Channels);
+
+        return Pixel.Create(_Collection, _X, _Y, pixel);
       }
     }
 
@@ -57,17 +79,18 @@ namespace ImageMagick
 
     public bool MoveNext()
     {
-      if (++_X == _Collection.Width)
+      if (++_X == _Width)
       {
         _X = 0;
         _Y++;
+        SetRow();
       }
 
-      if (_Y < _Collection.Height)
+      if (_Y < _Height)
         return true;
 
-      _X = _Collection.Width - 1;
-      _Y = _Collection.Height - 1;
+      _X = _Width - 1;
+      _Y = _Height - 1;
       return false;
     }
 
@@ -75,6 +98,7 @@ namespace ImageMagick
     {
       _X = -1;
       _Y = 0;
+      SetRow();
     }
   }
 }

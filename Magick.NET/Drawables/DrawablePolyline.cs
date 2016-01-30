@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -18,28 +18,35 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawablePolyline object.
+  /// Draws a polyline using the current stroke, stroke width, and fill color or texture, using the
+  /// specified array of coordinates.
   ///</summary>
-  public sealed class DrawablePolyline : DrawableCoordinates<Coordinate>, IDrawablePolyline
+  public sealed class DrawablePolyline : IDrawable
   {
-    ///<summary>
-    /// Creates a new DrawablePolyline instance.
-    ///</summary>
-    ///<param name="coordinates">The coordinates.</param>
-    public DrawablePolyline(params Coordinate[] coordinates)
-      : base(coordinates)
+    PointDCoordinates _Coordinates;
+
+    void IDrawable.Draw(IDrawingWand wand)
     {
-      CheckCoordinateCount(3);
+      if (wand != null)
+        wand.Polyline(_Coordinates.ToList());
     }
 
     ///<summary>
     /// Creates a new DrawablePolyline instance.
     ///</summary>
     ///<param name="coordinates">The coordinates.</param>
-    public DrawablePolyline(IEnumerable<Coordinate> coordinates)
-      : base(coordinates)
+    public DrawablePolyline(params PointD[] coordinates)
     {
-      CheckCoordinateCount(3);
+      _Coordinates = new PointDCoordinates(coordinates, 3);
+    }
+
+    ///<summary>
+    /// Creates a new DrawablePolyline instance.
+    ///</summary>
+    ///<param name="coordinates">The coordinates.</param>
+    public DrawablePolyline(IEnumerable<PointD> coordinates)
+    {
+      _Coordinates = new PointDCoordinates(coordinates, 3);
     }
   }
 }

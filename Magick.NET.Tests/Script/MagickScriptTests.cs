@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 //=================================================================================================
 
 using System;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -239,10 +238,11 @@ namespace Magick.NET.Tests
     {
       MagickScript script = new MagickScript(Files.Scripts.Variables);
       string[] names = script.Variables.Names.ToArray();
-      Assert.AreEqual(3, names.Length);
+      Assert.AreEqual(4, names.Length);
       Assert.AreEqual("width", names[0]);
       Assert.AreEqual("height", names[1]);
       Assert.AreEqual("color", names[2]);
+      Assert.AreEqual("fillColor", names[3]);
 
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
@@ -267,16 +267,17 @@ namespace Magick.NET.Tests
 
         script.Variables["height"] = "100";
         Assert.AreEqual("100", script.Variables.Get("height"));
-        script.Variables["color"] = Color.Yellow;
+        script.Variables["color"] = MagickColors.Yellow;
+        script.Variables["fillColor"] = MagickColors.Red;
 
         script.Execute(image);
 
         Assert.AreEqual(100, image.Width);
         Assert.AreEqual(100, image.Height);
-        using (PixelCollection pixels = image.GetReadOnlyPixels())
-        {
-          ColorAssert.AreEqual(Color.Yellow, pixels.GetPixel(0, 0));
-        }
+        ColorAssert.AreEqual(MagickColors.Yellow, image, 0, 0);
+
+        ColorAssert.AreEqual(MagickColors.Yellow, image.Settings.StrokeColor);
+        ColorAssert.AreEqual(MagickColors.Red, image.Settings.FillColor);
       }
     }
   }

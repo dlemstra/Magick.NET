@@ -1,0 +1,47 @@
+﻿{
+  "dynamic": 1,
+  "const": true,
+  "nativeConstructor": true,
+  "properties":
+  [
+    {
+      "name": "Centroid",
+      "type": "PointInfo",
+      "readonly": true
+    },
+    {
+      "name": "EllipseAngle",
+      "type": "double",
+      "readonly": true
+    },
+    {
+      "name": "EllipseAxis",
+      "type": "PointInfo",
+      "readonly": true
+    },
+    {
+      "name": "EllipseEccentricity",
+      "type": "double",
+      "readonly": true
+    },
+    {
+      "name": "EllipseIntensity",
+      "type": "double",
+      "readonly": true
+    }
+  ],
+  "methods":
+  [
+    {
+      "name": "GetHuInvariants",
+      "type": "double",
+      "arguments":
+      [
+        {
+          "name": "index",
+          "type": "size_t"
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,16 +17,25 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableClipPath object.
+  /// Associates a named clipping path with the image. Only the areas drawn on by the clipping path
+  /// will be modified as ssize_t as it remains in effect.
   ///</summary>
-  public sealed class DrawableClipPath : IDrawableClipPath
+  public sealed class DrawableClipPath : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.ClipPath(ClipPath);
+    }
+
     ///<summary>
     /// Creates a new DrawableClipPath instance.
     ///</summary>
     ///<param name="clipPath">The ID of the clip path.</param>
     public DrawableClipPath(string clipPath)
     {
+      Throw.IfNullOrEmpty("clipPath", clipPath);
+
       ClipPath = clipPath;
     }
 

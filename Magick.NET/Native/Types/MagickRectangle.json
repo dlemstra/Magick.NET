@@ -1,0 +1,23 @@
+﻿{
+  "access": "internal",
+  "dynamic": 3,
+  "properties":
+  [
+    {
+      "name": "X",
+      "type": "ssize_t"
+    },
+    {
+      "name": "Y",
+      "type": "ssize_t"
+    },
+    {
+      "name": "Width",
+      "type": "size_t"
+    },
+    {
+      "name": "Height",
+      "type": "size_t"
+    }
+  ]
+}

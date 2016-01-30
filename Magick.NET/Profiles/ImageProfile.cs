@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -83,7 +83,7 @@ namespace ImageMagick
       Throw.IfNullOrEmpty("name", name);
 
       Name = name;
-      Data = Wrapper.MagickReader.Read(stream);
+      Data = StreamHelper.ToByteArray(stream);
     }
 
     ///<summary>
@@ -98,7 +98,7 @@ namespace ImageMagick
       Name = name;
 
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
-      Data = Wrapper.MagickReader.Read(filePath);
+      Data = File.ReadAllBytes(filePath);
     }
 
     ///<summary>
@@ -118,7 +118,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator ==(ImageProfile left, ImageProfile right)
     {
-      return object.Equals(left, right);
+      return Equals(left, right);
     }
 
     /// <summary>
@@ -129,7 +129,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator !=(ImageProfile left, ImageProfile right)
     {
-      return !object.Equals(left, right);
+      return !Equals(left, right);
     }
 
     ///<summary>
@@ -193,8 +193,7 @@ namespace ImageMagick
     ///<summary>
     /// Converts this instance to a byte array.
     ///</summary>
-
-    public Byte[] ToByteArray()
+    public byte[] ToByteArray()
     {
       UpdateData();
       return Copy(Data);

@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="ReleaseQ16|Win32">
+      <Configuration>ReleaseQ16</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseQ16|x64">
+      <Configuration>ReleaseQ16</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseQ16-HDRI|Win32">
+      <Configuration>ReleaseQ16-HDRI</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseQ16-HDRI|x64">
+      <Configuration>ReleaseQ16-HDRI</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseQ8|Win32">
+      <Configuration>ReleaseQ8</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseQ8|x64">
+      <Configuration>ReleaseQ8</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{74E62AD0-D2F5-41F0-97A7-2D1E8BDE595A}</ProjectGuid>
+    <RootNamespace>ImageMagick.Native</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>Magick.NET-Q8-x86.Native</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>Magick.NET-Q16-x86.Native</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|Win32'">
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>Magick.NET-Q16-HDRI-x86.Native</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>Magick.NET-Q8-x64.Native</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>Magick.NET-Q16-x64.Native</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">
+    <OutDir>$(ProjectDir)bin\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)lib\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>Magick.NET-Q16-HDRI-x64.Native</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|Win32'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>NET20;WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\ImageMagick\include;..\ImageMagick\Q8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\v2.0\x86;..\ImageMagick\Q8\lib\v2.0\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|Win32'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>NET20;WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\ImageMagick\include;..\ImageMagick\Q16\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\v2.0\x86;..\ImageMagick\Q16\lib\v2.0\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|Win32'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>NET20;WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\ImageMagick\include;..\ImageMagick\Q16-HDRI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\v2.0\x86;..\ImageMagick\Q16-HDRI\lib\v2.0\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ8|x64'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>NET20;WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\ImageMagick\include;..\ImageMagick\Q8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\v2.0\x64;..\ImageMagick\Q8\lib\v2.0\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16|x64'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>NET20;WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\ImageMagick\include;..\ImageMagick\Q16\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\v2.0\x64;..\ImageMagick\Q16\lib\v2.0\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseQ16-HDRI|x64'">
+    <ClCompile>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>NET20;WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\ImageMagick\include;..\ImageMagick\Q16-HDRI\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\ImageMagick\lib\v2.0\x64;..\ImageMagick\Q16-HDRI\lib\v2.0\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Magick.NET.Native\Colors\MagickColor.c" />
+    <ClCompile Include="..\Magick.NET.Native\Colors\MagickColorCollection.c" />
+    <ClCompile Include="..\Magick.NET.Native\Drawables\DrawingWand.c" />
+    <ClCompile Include="..\Magick.NET.Native\Drawables\PointInfoCollection.c" />
+    <ClCompile Include="..\Magick.NET.Native\Matricis\DoubleMatrix.c" />
+    <ClCompile Include="..\Magick.NET.Native\Optimizers\JpegOptimizer.c" />
+    <ClCompile Include="..\Magick.NET.Native\Statistics\ChannelStatistics.c" />
+    <ClCompile Include="..\Magick.NET.Native\Settings\DrawingSettings.c" />
+    <ClCompile Include="..\Magick.NET.Native\Types\PrimaryInfo.c" />
+    <ClCompile Include="..\Magick.NET.Native\Types\OffsetInfo.c" />
+    <ClCompile Include="..\Magick.NET.Native\Statistics\Statistics.c" />
+    <ClCompile Include="..\Magick.NET.Native\Statistics\ChannelMoments.c" />
+    <ClCompile Include="..\Magick.NET.Native\Statistics\ChannelPerceptualHash.c" />
+    <ClCompile Include="..\Magick.NET.Native\Statistics\Moments.c" />
+    <ClCompile Include="..\Magick.NET.Native\Statistics\PerceptualHash.c" />
+    <ClCompile Include="..\Magick.NET.Native\Types\TypeMetric.c" />
+    <ClCompile Include="..\Magick.NET.Native\Types\ConnectedComponent.c" />
+    <ClCompile Include="..\Magick.NET.Native\Types\PointInfo.c" />
+    <ClCompile Include="..\Magick.NET.Native\Types\StringInfo.c" />
+    <ClCompile Include="..\Magick.NET.Native\Helpers\MagickMemory.c" />
+    <ClCompile Include="..\Magick.NET.Native\Initialize.c" />
+    <ClCompile Include="..\Magick.NET.Native\Exceptions\MagickExceptionHelper.c" />
+    <ClCompile Include="..\Magick.NET.Native\MagickFormatInfo.c" />
+    <ClCompile Include="..\Magick.NET.Native\MagickImage.c" />
+    <ClCompile Include="..\Magick.NET.Native\MagickImageCollection.c" />
+    <ClCompile Include="..\Magick.NET.Native\MagickNET.c" />
+    <ClCompile Include="..\Magick.NET.Native\Pixels\PixelCollection.c" />
+    <ClCompile Include="..\Magick.NET.Native\Settings\MagickSettings.c" />
+    <ClCompile Include="..\Magick.NET.Native\Quantum.c" />
+    <ClCompile Include="..\Magick.NET.Native\ResourceLimits.c" />
+    <ClCompile Include="..\Magick.NET.Native\Settings\MontageSettings.c" />
+    <ClCompile Include="..\Magick.NET.Native\Settings\QuantizeSettings.c" />
+    <ClCompile Include="..\Magick.NET.Native\Stdafx.c">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\Magick.NET.Native\Types\MagickGeometry.c" />
+    <ClCompile Include="..\Magick.NET.Native\Types\MagickRectangle.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\Magick.NET.Native\Resources\$(Configuration)\$(Platform)\Magick.NET.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Magick.NET.Native\Colors\MagickColor.h" />
+    <ClInclude Include="..\Magick.NET.Native\Colors\MagickColorCollection.h" />
+    <ClInclude Include="..\Magick.NET.Native\Drawables\DrawingWand.h" />
+    <ClInclude Include="..\Magick.NET.Native\Drawables\PointInfoCollection.h" />
+    <ClInclude Include="..\Magick.NET.Native\MagickFormatInfo.h" />
+    <ClInclude Include="..\Magick.NET.Native\Matricis\DoubleMatrix.h" />
+    <ClInclude Include="..\Magick.NET.Native\Optimizers\JpegOptimizer.h" />
+    <ClInclude Include="..\Magick.NET.Native\Statistics\ChannelStatistics.h" />
+    <ClInclude Include="..\Magick.NET.Native\Settings\DrawingSettings.h" />
+    <ClInclude Include="..\Magick.NET.Native\Types\PrimaryInfo.h" />
+    <ClInclude Include="..\Magick.NET.Native\Types\OffsetInfo.h" />
+    <ClInclude Include="..\Magick.NET.Native\Statistics\Statistics.h" />
+    <ClInclude Include="..\Magick.NET.Native\Statistics\ChannelMoments.h" />
+    <ClInclude Include="..\Magick.NET.Native\Statistics\ChannelPerceptualHash.h" />
+    <ClInclude Include="..\Magick.NET.Native\Statistics\Moments.h" />
+    <ClInclude Include="..\Magick.NET.Native\Statistics\PerceptualHash.h" />
+    <ClInclude Include="..\Magick.NET.Native\Types\TypeMetric.h" />
+    <ClInclude Include="..\Magick.NET.Native\Types\ConnectedComponent.h" />
+    <ClInclude Include="..\Magick.NET.Native\Types\PointInfo.h" />
+    <ClInclude Include="..\Magick.NET.Native\Types\StringInfo.h" />
+    <ClInclude Include="..\Magick.NET.Native\Helpers\MagickMemory.h" />
+    <ClInclude Include="..\Magick.NET.Native\Exceptions\MagickExceptionHelper.h" />
+    <ClInclude Include="..\Magick.NET.Native\MagickImage.h" />
+    <ClInclude Include="..\Magick.NET.Native\MagickImageCollection.h" />
+    <ClInclude Include="..\Magick.NET.Native\MagickNET.h" />
+    <ClInclude Include="..\Magick.NET.Native\Pixels\PixelCollection.h" />
+    <ClInclude Include="..\Magick.NET.Native\Settings\MagickSettings.h" />
+    <ClInclude Include="..\Magick.NET.Native\Quantum.h" />
+    <ClInclude Include="..\Magick.NET.Native\ResourceLimits.h" />
+    <ClInclude Include="..\Magick.NET.Native\Settings\MontageSettings.h" />
+    <ClInclude Include="..\Magick.NET.Native\Settings\QuantizeSettings.h" />
+    <ClInclude Include="..\Magick.NET.Native\Stdafx.h" />
+    <ClInclude Include="..\Magick.NET.Native\Types\MagickGeometry.h" />
+    <ClInclude Include="..\Magick.NET.Native\Types\MagickRectangle.h" />
+  </ItemGroup>
+  <Import Project="Magick.NET.Native.targets" />
+</Project>

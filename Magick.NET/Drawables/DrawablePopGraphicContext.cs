@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,10 +17,18 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawablePopGraphicContext object.
+  /// destroys the current drawing wand and returns to the  previously pushed drawing wand. Multiple
+  /// drawing wands may exist. It is an error to attempt to pop more drawing wands than have been
+  /// pushed, and it is proper form to pop all drawing wands which have been pushed.
   ///</summary>
-  public sealed class DrawablePopGraphicContext : IDrawablePopGraphicContext
+  public sealed class DrawablePopGraphicContext : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PopGraphicContext();
+    }
+
     ///<summary>
     /// Creates a new DrawablePopGraphicContext instance.
     ///</summary>

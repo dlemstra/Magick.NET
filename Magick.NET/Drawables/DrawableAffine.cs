@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -18,10 +18,17 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulates a 3-by-3 affine matrix that represents a geometric transform.
+  /// Adjusts the current affine transformation matrix with the specified affine transformation
+  /// matrix. Note that the current affine transform is adjusted rather than replaced.
   ///</summary>
-  public sealed class DrawableAffine : IDrawableAffine
+  public sealed class DrawableAffine : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Affine(ScaleX, ScaleY, ShearX, ShearY, TranslateX, TranslateY);
+    }
+
     ///<summary>
     /// Creates a new DrawableAffine instance.
     ///</summary>
@@ -31,8 +38,7 @@ namespace ImageMagick
     ///<param name="shearY">The Y coordinate shearing element.</param>
     ///<param name="translateX">The X coordinate of the translation element.</param>
     ///<param name="translateY">The Y coordinate of the translation element.</param>
-    public DrawableAffine(double scaleX, double scaleY, double shearX, double shearY, double translateX,
-      double translateY)
+    public DrawableAffine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)
     {
       ScaleX = scaleX;
       ScaleY = scaleY;
@@ -50,12 +56,12 @@ namespace ImageMagick
     {
       Throw.IfNull("matrix", matrix);
 
-      ScaleX = (double)matrix.Elements[0];
-      ScaleY = (double)matrix.Elements[1];
-      ShearX = (double)matrix.Elements[2];
-      ShearY = (double)matrix.Elements[3];
-      TranslateX = (double)matrix.Elements[4];
-      TranslateY = (double)matrix.Elements[5];
+      ScaleX = matrix.Elements[0];
+      ScaleY = matrix.Elements[1];
+      ShearX = matrix.Elements[2];
+      ShearY = matrix.Elements[3];
+      TranslateX = matrix.Elements[4];
+      TranslateY = matrix.Elements[5];
     }
 
     ///<summary>

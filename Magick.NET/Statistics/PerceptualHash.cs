@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,14 +12,15 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Collections.Generic;
 
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the ImageMagick ImagePerceptualHash object.
+  /// Contains the he perceptual hash of one or more image channels.
   ///</summary>
-  public sealed class PerceptualHash
+  public sealed partial class PerceptualHash
   {
     private Dictionary<PixelChannel, ChannelPerceptualHash> _Channels;
 
@@ -28,20 +29,37 @@ namespace ImageMagick
       _Channels = new Dictionary<PixelChannel, ChannelPerceptualHash>();
     }
 
-    private static ChannelPerceptualHash CreateChannelHash(Wrapper.ChannelPerceptualHash channelHash)
+    private static ChannelPerceptualHash CreateChannelPerceptualHash(MagickImage image, IntPtr list, PixelChannel channel)
     {
-      return new ChannelPerceptualHash(channelHash.Channel, channelHash.SrgbHuPhash,
-        channelHash.HclpHuPhash, channelHash.Hash);
+      IntPtr instance = NativePerceptualHash.GetInstance(image, list, channel);
+      if (instance == IntPtr.Zero)
+        return null;
+
+      return new ChannelPerceptualHash(channel, instance);
     }
 
-    internal PerceptualHash(IEnumerable<Wrapper.ChannelPerceptualHash> channelHashes)
+    private void AddChannel(MagickImage image, IntPtr list, PixelChannel channel)
+    {
+      ChannelPerceptualHash instance = CreateChannelPerceptualHash(image, list, channel);
+      if (instance != null)
+        _Channels.Add(instance.Channel, instance);
+    }
+
+    internal static void DisposeList(IntPtr list)
+    {
+      if (list != IntPtr.Zero)
+        NativePerceptualHash.DisposeList(list);
+    }
+
+    internal PerceptualHash(MagickImage image, IntPtr list)
       : this()
     {
-      Dictionary<PixelChannel, ChannelPerceptualHash> channels = new Dictionary<PixelChannel, ChannelPerceptualHash>();
-      foreach (Wrapper.ChannelPerceptualHash channelHash in channelHashes)
-      {
-        _Channels[channelHash.Channel] = CreateChannelHash(channelHash);
-      }
+      if (list == IntPtr.Zero)
+        return;
+
+      AddChannel(image, list, PixelChannel.Red);
+      AddChannel(image, list, PixelChannel.Green);
+      AddChannel(image, list, PixelChannel.Blue);
     }
 
     internal bool Isvalid
@@ -63,9 +81,9 @@ namespace ImageMagick
       Throw.IfNullOrEmpty("perceptualHash", perceptualHash);
       Throw.IfFalse("perceptualHash", perceptualHash.Length == 210, "Invalid hash size.");
 
-      _Channels[PixelChannel.Red] = CreateChannelHash(new Wrapper.ChannelPerceptualHash(perceptualHash.Substring(0, 70)));
-      _Channels[PixelChannel.Green] = CreateChannelHash(new Wrapper.ChannelPerceptualHash(perceptualHash.Substring(70, 70)));
-      _Channels[PixelChannel.Blue] = CreateChannelHash(new Wrapper.ChannelPerceptualHash(perceptualHash.Substring(140, 70)));
+      _Channels[PixelChannel.Red] = new ChannelPerceptualHash(PixelChannel.Red, perceptualHash.Substring(0, 70));
+      _Channels[PixelChannel.Green] = new ChannelPerceptualHash(PixelChannel.Green, perceptualHash.Substring(70, 70));
+      _Channels[PixelChannel.Blue] = new ChannelPerceptualHash(PixelChannel.Blue, perceptualHash.Substring(140, 70));
     }
 
     ///<summary>

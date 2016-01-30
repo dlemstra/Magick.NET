@@ -1,0 +1,19 @@
+﻿{
+  "dynamic": 1,
+  "access": "internal",
+  "const": true,
+  "nativeConstructor": true,
+  "properties":
+  [
+    {
+      "name": "Datum",
+      "type": "Instance",
+      "readonly": true
+    },
+    {
+      "name": "Length",
+      "type": "size_t",
+      "readonly": true
+    }
+  ]
+}

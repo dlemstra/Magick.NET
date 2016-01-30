@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ namespace ImageMagick
   ///<summary>
   /// Class that can be used to set the limits to the resources that are being used.
   ///</summary>
-  public static class ResourceLimits
+  public static partial class ResourceLimits
   {
     ///<summary>
     /// Pixel cache limit in bytes. Requests for memory above this limit will fail.
@@ -29,11 +29,11 @@ namespace ImageMagick
     {
       get
       {
-        return Wrapper.ResourceLimits.Disk;
+        return NativeMethods.Disk;
       }
       set
       {
-        Wrapper.ResourceLimits.Disk = value;
+        NativeMethods.Disk = value;
       }
     }
 
@@ -45,11 +45,11 @@ namespace ImageMagick
     {
       get
       {
-        return Wrapper.ResourceLimits.Height;
+        return NativeMethods.Height;
       }
       set
       {
-        Wrapper.ResourceLimits.Height = value;
+        NativeMethods.Height = value;
       }
     }
 
@@ -62,11 +62,11 @@ namespace ImageMagick
     {
       get
       {
-        return Wrapper.ResourceLimits.Memory;
+        return NativeMethods.Memory;
       }
       set
       {
-        Wrapper.ResourceLimits.Memory = value;
+        NativeMethods.Memory = value;
       }
     }
 
@@ -78,11 +78,11 @@ namespace ImageMagick
     {
       get
       {
-        return Wrapper.ResourceLimits.Thread;
+        return NativeMethods.Thread;
       }
       set
       {
-        Wrapper.ResourceLimits.Thread = value;
+        NativeMethods.Thread = value;
       }
     }
 
@@ -94,11 +94,11 @@ namespace ImageMagick
     {
       get
       {
-        return Wrapper.ResourceLimits.Throttle;
+        return NativeMethods.Throttle;
       }
       set
       {
-        Wrapper.ResourceLimits.Throttle = value;
+        NativeMethods.Throttle = value;
       }
     }
 
@@ -110,11 +110,11 @@ namespace ImageMagick
     {
       get
       {
-        return Wrapper.ResourceLimits.Width;
+        return NativeMethods.Width;
       }
       set
       {
-        Wrapper.ResourceLimits.Width = value;
+        NativeMethods.Width = value;
       }
     }
   }

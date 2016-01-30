@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -38,7 +38,6 @@ namespace ImageMagick
     {
       return CreateIDefines(parent) as IReadDefines;
     }
-
     private IDefines CreateIDefines(XmlElement parent)
     {
       if (parent == null)
@@ -100,7 +99,6 @@ namespace ImageMagick
       }
       throw new NotImplementedException(element.Name);
     }
-
     private IDefines CreateDdsWriteDefines(XmlElement element)
     {
       if (element == null)
@@ -112,7 +110,6 @@ namespace ImageMagick
       result.WeightByAlpha = Variables.GetValue<Nullable<Boolean>>(element, "weightByAlpha");
       return result;
     }
-
     private IDefines CreateJpegReadDefines(XmlElement element)
     {
       if (element == null)
@@ -126,7 +123,6 @@ namespace ImageMagick
       result.SkipProfiles = Variables.GetValue<Nullable<ImageMagick.Defines.ProfileTypes>>(element, "skipProfiles");
       return result;
     }
-
     private IDefines CreateJpegWriteDefines(XmlElement element)
     {
       if (element == null)
@@ -140,7 +136,6 @@ namespace ImageMagick
       result.SamplingFactors = CreateMagickGeometryCollection(element);
       return result;
     }
-
     private IDefines CreatePdfReadDefines(XmlElement element)
     {
       if (element == null)
@@ -151,19 +146,16 @@ namespace ImageMagick
       result.UseTrimBox = Variables.GetValue<Nullable<Boolean>>(element, "useTrimBox");
       return result;
     }
-
     private IDefines CreatePngReadDefines(XmlElement element)
     {
       if (element == null)
         return null;
       PngReadDefines result = new PngReadDefines();
-      result.PreserveCorruptImage = Variables.GetValue<Boolean>(element, "preserveCorruptImage");
       result.PreserveiCCP = Variables.GetValue<Boolean>(element, "preserveiCCP");
       result.SkipProfiles = Variables.GetValue<Nullable<ImageMagick.Defines.ProfileTypes>>(element, "skipProfiles");
       result.SwapBytes = Variables.GetValue<Boolean>(element, "swapBytes");
       return result;
     }
-
     private IDefines CreateTiffReadDefines(XmlElement element)
     {
       if (element == null)
@@ -172,7 +164,6 @@ namespace ImageMagick
       result.IgnoreExifPoperties = Variables.GetValue<Nullable<Boolean>>(element, "ignoreExifPoperties");
       return result;
     }
-
     private IDefines CreateTiffWriteDefines(XmlElement element)
     {
       if (element == null)

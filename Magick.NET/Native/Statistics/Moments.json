@@ -1,0 +1,34 @@
+﻿{
+  "dynamic": 1,
+  "instance": false,
+  "methods":
+  [
+    {
+      "name": "DisposeList",
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "list",
+          "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "GetInstance",
+      "type": "Instance",
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "list",
+          "type": "Instance"
+        },
+        {
+          "name": "channel",
+          "type": "PixelChannel"
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -14,12 +14,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using System.Text;
+using System.Runtime.InteropServices;
+
+#if !NET20
+using System.Windows.Media.Imaging;
+using MediaPixelFormat = System.Windows.Media.PixelFormat;
+using MediaPixelFormats = System.Windows.Media.PixelFormats;
+#endif
 
 #if Q8
 using QuantumType = System.Byte;
@@ -31,30 +38,25 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-#if !NET20
-using System.Windows.Media.Imaging;
-#else
-using System.Collections.ObjectModel;
-#endif
-
 namespace ImageMagick
 {
   ///<summary>
   /// Class that represents an ImageMagick image.
   ///</summary>
   [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
-  public sealed class MagickImage : IDisposable, IEquatable<MagickImage>, IComparable<MagickImage>
+  public sealed partial class MagickImage : IEquatable<MagickImage>, IComparable<MagickImage>
   {
-    private Wrapper.MagickImage _Instance;
+    private NativeMethods.ProgressDelegate _NativeProgress;
     private EventHandler<ProgressEventArgs> _Progress;
-    private EventHandler<WarningEventArgs> _WarningEvent;
+    private EventHandler<WarningEventArgs> _Warning;
 
-    private MagickImage(Wrapper.MagickImage instance)
+    private MagickImage(NativeMagickImage instance, MagickSettings settings)
     {
-      _Instance = instance;
+      SetSettings(settings);
+      SetInstance(instance);
     }
 
-    PointD CalculateContrastStretch(Percentage blackPoint, Percentage whitePoint)
+    private PointD CalculateContrastStretch(Percentage blackPoint, Percentage whitePoint)
     {
       double x = blackPoint.ToDouble();
       double y = whitePoint.ToDouble();
@@ -67,80 +69,49 @@ namespace ImageMagick
       return new PointD(x, y);
     }
 
-    private void DisposeInstance()
+    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "FrameCount")]
+    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "MagickImage")]
+    private static MagickReadSettings CheckSettings(MagickReadSettings readSettings)
     {
-      _Instance.Dispose();
+      if (readSettings != null && readSettings.FrameCount.HasValue)
+        Throw.IfFalse("readSettings", readSettings.FrameCount.Value == 1,
+          "The FrameCount can only be set to 1 when a MagickImage is being read.");
+
+      MagickReadSettings newReadSettings = readSettings;
+      if (readSettings == null)
+        newReadSettings = new MagickReadSettings();
+
+      newReadSettings.FrameCount = 1;
+
+      return newReadSettings;
     }
 
-    private void FloodFill(MagickColor color, int x, int y, bool invert)
+    private IEnumerable<MagickImage> CreateList(IntPtr images)
     {
-      Throw.IfNull("color", color);
-
-      _Instance.FloodFill(MagickColor.GetInstance(color), x, y, invert);
+      return CreateList(images, Settings.Clone());
     }
 
-    private void FloodFill(MagickColor color, int x, int y, MagickColor borderColor, bool inverse)
+    private void Dispose(bool disposing)
     {
-      Throw.IfNull("color", color);
-      Throw.IfNull("borderColor", borderColor);
+      if (_NativeInstance != null)
+      {
+        _NativeInstance.Warning -= OnWarning;
+        _NativeInstance.Dispose();
+      }
 
-      _Instance.FloodFill(MagickColor.GetInstance(color), x, y, MagickColor.GetInstance(borderColor), inverse);
-    }
-
-    private void FloodFill(MagickColor color, MagickGeometry geometry, bool inverse)
-    {
-      Throw.IfNull("color", color);
-      Throw.IfNull("geometry", geometry);
-
-      _Instance.FloodFill(MagickColor.GetInstance(color), MagickGeometry.GetInstance(geometry), inverse);
-    }
-
-    private void FloodFill(MagickColor color, MagickGeometry geometry, MagickColor borderColor, bool inverse)
-    {
-      Throw.IfNull("color", color);
-      Throw.IfNull("borderColor", borderColor);
-      Throw.IfNull("geometry", geometry);
-
-      _Instance.FloodFill(MagickColor.GetInstance(color), MagickGeometry.GetInstance(geometry),
-        MagickColor.GetInstance(borderColor), inverse);
-    }
-
-    private void FloodFill(MagickImage image, int x, int y, bool inverse)
-    {
-      Throw.IfNull("image", image);
-
-      _Instance.FloodFill(GetInstance(image), x, y, inverse);
-    }
-
-    private void FloodFill(MagickImage image, int x, int y, MagickColor borderColor, bool inverse)
-    {
-      Throw.IfNull("image", image);
-      Throw.IfNull("borderColor", borderColor);
-
-      _Instance.FloodFill(GetInstance(image), x, y, MagickColor.GetInstance(borderColor), inverse);
-    }
-
-    private void FloodFill(MagickImage image, MagickGeometry geometry, bool inverse)
-    {
-      Throw.IfNull("image", image);
-      Throw.IfNull("geometry", geometry);
-
-      _Instance.FloodFill(GetInstance(image), MagickGeometry.GetInstance(geometry), inverse);
-    }
-
-    private void FloodFill(MagickImage image, MagickGeometry geometry, MagickColor borderColor, bool inverse)
-    {
-      Throw.IfNull("image", image);
-      Throw.IfNull("borderColor", borderColor);
-      Throw.IfNull("geometry", geometry);
-
-      _Instance.FloodFill(GetInstance(image), MagickGeometry.GetInstance(geometry),
-        MagickColor.GetInstance(borderColor), inverse);
+      if (disposing)
+      {
+        if (Settings != null)
+        {
+          Settings.Artifact -= OnArtifact;
+          ((IDisposable)Settings).Dispose();
+        }
+      }
     }
 
     private string FormatedFileSize()
     {
-      Decimal fileSize = FileSize;
+      decimal fileSize = FileSize;
 
       string suffix = "";
       if (fileSize > 1073741824)
@@ -162,19 +133,137 @@ namespace ImageMagick
       return string.Format(CultureInfo.InvariantCulture, "{0:N2}{1}", fileSize, suffix);
     }
 
-    private ColorProfile GetColorProfile(string name)
+    private static int GetExpectedLength(MagickReadSettings settings)
     {
-      byte[] data = _Instance.GetProfile(name);
-      if (data == null)
-        return null;
-
-      return new ColorProfile(name, data);
+      int length = settings.Width.Value * settings.Height.Value * settings.PixelStorage.Mapping.Length;
+      switch (settings.PixelStorage.StorageType)
+      {
+        case StorageType.Char:
+          return length;
+        case StorageType.Double:
+          return length * sizeof(double);
+        case StorageType.Float:
+          return length * sizeof(float);
+        case StorageType.Long:
+          return length * sizeof(int);
+        case StorageType.LongLong:
+          return length * sizeof(long);
+        case StorageType.Quantum:
+          return length * sizeof(QuantumType);
+        case StorageType.Short:
+          return length * sizeof(short);
+        case StorageType.Undefined:
+        default:
+          throw new NotImplementedException();
+      }
     }
 
-    private static MagickFormat GetModule(MagickFormat format)
+    private void FloodFill(QuantumType alpha, int x, int y, bool invert)
     {
-      MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
-      return formatInfo.Module;
+      MagickColor target;
+      using (PixelCollection pixels = GetPixels())
+      {
+        target = pixels.GetPixel(x, y).ToColor();
+        target.A = alpha;
+      }
+
+      _NativeInstance.FloodFill(Settings.Drawing, x, y, target, invert);
+    }
+
+    private void FloodFill(MagickColor color, int x, int y, bool invert)
+    {
+      Throw.IfNull("color", color);
+
+      MagickColor target;
+      using (PixelCollection pixels = GetPixels())
+      {
+        target = pixels.GetPixel(x, y).ToColor();
+      }
+
+      FloodFill(color, x, y, target, invert);
+    }
+
+    private void FloodFill(MagickColor color, int x, int y, MagickColor target, bool invert)
+    {
+      Throw.IfNull("color", color);
+      Throw.IfNull("target", target);
+
+      DrawingSettings settings = Settings.Drawing;
+
+      using (MagickImage fillPattern = settings.FillPattern)
+      {
+        MagickColor filLColor = settings.FillColor;
+        settings.FillColor = color;
+        settings.FillPattern = null;
+
+        _NativeInstance.FloodFill(settings, x, y, target, invert);
+
+        settings.FillColor = filLColor;
+        settings.FillPattern = fillPattern;
+      }
+    }
+
+    private void FloodFill(MagickImage image, int x, int y, bool invert)
+    {
+      Throw.IfNull("image", image);
+
+      MagickColor target;
+      using (PixelCollection pixels = GetPixels())
+      {
+        target = pixels.GetPixel(x, y).ToColor();
+      }
+
+      FloodFill(image, x, y, target, invert);
+    }
+
+    private void FloodFill(MagickImage image, int x, int y, MagickColor target, bool invert)
+    {
+      Throw.IfNull("image", image);
+      Throw.IfNull("target", target);
+
+      DrawingSettings settings = Settings.Drawing;
+
+      using (MagickImage fillPattern = settings.FillPattern)
+      {
+        MagickColor filLColor = settings.FillColor;
+        settings.FillColor = null;
+        settings.FillPattern = image;
+
+        _NativeInstance.FloodFill(settings, x, y, target, invert);
+
+        settings.FillColor = filLColor;
+        settings.FillPattern = fillPattern;
+      }
+    }
+
+    private void LevelColors(MagickColor blackColor, MagickColor whiteColor, bool invert)
+    {
+      LevelColors(blackColor, whiteColor, ImageMagick.Channels.Composite, invert);
+    }
+
+    private void LevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels, bool invert)
+    {
+      Throw.IfNull("blackColor", blackColor);
+      Throw.IfNull("whiteColor", whiteColor);
+
+      _NativeInstance.LevelColors(blackColor, whiteColor, channels, invert);
+    }
+
+    private void Opaque(MagickColor target, MagickColor fill, bool invert)
+    {
+      Throw.IfNull("target", target);
+      Throw.IfNull("fill", fill);
+
+      _NativeInstance.Opaque(target, fill, invert);
+    }
+
+    private ColorProfile GetColorProfile(string name)
+    {
+      StringInfo info = _NativeInstance.GetProfile(name);
+      if (info == null || info.Datum == null)
+        return null;
+
+      return new ColorProfile(name, info.Datum);
     }
 
     private static bool IsSupportedImageFormat(ImageFormat format)
@@ -188,95 +277,159 @@ namespace ImageMagick
         format.Guid.Equals(ImageFormat.Tiff.Guid);
     }
 
-    private void LevelColors(MagickColor blackColor, MagickColor whiteColor, bool inverse)
+    private void OnArtifact(object sender, ArtifactEventArgs arguments)
     {
-      Throw.IfNull("blackColor", blackColor);
-      Throw.IfNull("whiteColor", whiteColor);
-
-      _Instance.LevelColors(MagickColor.GetInstance(blackColor), MagickColor.GetInstance(whiteColor),
-        inverse);
+      if (arguments.Value == null)
+        RemoveArtifact(arguments.Key);
+      else
+        SetArtifact(arguments.Key, arguments.Value);
     }
 
-    private void LevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels, bool inverse)
-    {
-      Throw.IfNull("blackColor", blackColor);
-      Throw.IfNull("whiteColor", whiteColor);
-
-      _Instance.LevelColors(MagickColor.GetInstance(blackColor), MagickColor.GetInstance(whiteColor),
-        channels, inverse);
-    }
-
-    private bool OnProgress(string origin, int offset, int extent)
+    private bool OnProgress(IntPtr origin, long offset, ulong extent, IntPtr userData)
     {
       if (_Progress == null)
         return true;
 
-      ProgressEventArgs eventArgs = new ProgressEventArgs(origin, offset, extent);
+      string managedOrigin = UTF8MarshalerHelper.MarshalNativeToManaged(origin);
+      ProgressEventArgs eventArgs = new ProgressEventArgs(managedOrigin, (int)offset, (int)extent);
       _Progress(this, eventArgs);
       return eventArgs.Cancel ? false : true;
     }
 
     private void OnWarning(object sender, WarningEventArgs arguments)
     {
-      if (_WarningEvent != null)
-        _WarningEvent(this, arguments);
+      if (_Warning != null)
+        _Warning(this, arguments);
     }
 
-    private void Opaque(MagickColor target, MagickColor fill, bool inverse)
+    private void Read(byte[] data, MagickReadSettings readSettings, bool ping)
     {
-      Throw.IfNull("target", target);
-      Throw.IfNull("fill", fill);
+      Throw.IfNullOrEmpty("data", data);
 
-      _Instance.Opaque(MagickColor.GetInstance(target), MagickColor.GetInstance(fill), inverse);
-    }
+      MagickReadSettings newReadSettings = CheckSettings(readSettings);
+      Settings.Apply(newReadSettings);
 
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "MagickFormat")]
-    private static Tuple<string, string> ParseDefine(MagickFormat format, string name)
-    {
-      if (format == MagickFormat.Unknown)
+      if (newReadSettings.PixelStorage != null)
       {
-        string[] info = name.Split(':');
-        if (info.Length == 2)
-          return new Tuple<string, string>(info[0], info[1]);
-        else
-          throw new InvalidOperationException("Invalid use of MagickFormat.Unknown");
+        ReadPixels(data, readSettings);
+        return;
       }
-      else
-        return new Tuple<string, string>(Enum.GetName(typeof(MagickFormat), GetModule(format)), name);
+
+      Settings.Ping = ping;
+      _NativeInstance.ReadBlob(Settings, data, data.Length);
     }
 
-    internal static MagickImage Create(Wrapper.MagickImage value)
+    private void ReadPixels(byte[] data, MagickReadSettings readSettings)
     {
-      if (value == null)
+      Throw.IfTrue("settings", readSettings.PixelStorage.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
+      Throw.IfNull("settings", readSettings.Width, "Width should be defined when pixel storage is set.");
+      Throw.IfNull("settings", readSettings.Height, "Height should be defined when pixel storage is set.");
+      Throw.IfNullOrEmpty("settings", readSettings.PixelStorage.Mapping, "Pixel storage mapping should be defined.");
+
+      int length = GetExpectedLength(readSettings);
+      Throw.IfTrue("data", data.Length != length, "The array length is " + data.Length + " but should be " + length + ".");
+
+      _NativeInstance.ReadPixels(readSettings.Width.Value, readSettings.Height.Value, readSettings.PixelStorage.Mapping, readSettings.PixelStorage.StorageType, data);
+    }
+
+    private void Read(string fileName, MagickReadSettings readSettings, bool ping)
+    {
+      string filePath = FileHelper.CheckForBaseDirectory(fileName);
+      Throw.IfInvalidFileName(filePath);
+
+      MagickReadSettings newReadSettings = CheckSettings(readSettings);
+      Settings.Apply(newReadSettings);
+
+      if (newReadSettings.PixelStorage != null)
+      {
+        byte[] data = File.ReadAllBytes(filePath);
+        ReadPixels(data, readSettings);
+        return;
+      }
+
+      Settings.Ping = ping;
+      Settings.FileName = filePath;
+
+      _NativeInstance.ReadFile(Settings);
+    }
+
+    private void SetInstance(NativeMagickImage instance)
+    {
+      _NativeInstance = instance;
+      _NativeInstance.Warning += OnWarning;
+    }
+
+    private void SetSettings(MagickSettings settings)
+    {
+      Settings = settings;
+      Settings.Artifact += OnArtifact;
+    }
+
+    internal static MagickImage Clone(MagickImage image)
+    {
+      return image != null ? image.Clone() : null;
+    }
+
+    internal static MagickImage Create(IntPtr image)
+    {
+      if (image == IntPtr.Zero)
         return null;
 
-      return new MagickImage(value);
+      NativeMagickImage instance = new NativeMagickImage(image);
+      return new MagickImage(instance, new MagickSettings());
     }
 
-    internal static Wrapper.MagickImage GetInstance(MagickImage value)
+    internal static MagickImage Create(IntPtr image, MagickSettings settings)
     {
-      if (value == null)
+      if (image == IntPtr.Zero)
         return null;
 
-      return value._Instance;
+      NativeMagickImage instance = new NativeMagickImage(image);
+      return new MagickImage(instance, settings.Clone());
     }
 
-    internal static MagickFormat GetFormat(ImageFormat format)
+    internal static MagickErrorInfo CreateErrorInfo(MagickImage image)
     {
-      if (format == ImageFormat.Bmp)
-        return MagickFormat.Bmp;
-      else if (format == ImageFormat.Gif)
-        return MagickFormat.Gif;
-      else if (format == ImageFormat.Icon)
-        return MagickFormat.Icon;
-      else if (format == ImageFormat.Jpeg)
-        return MagickFormat.Jpeg;
-      else if (format == ImageFormat.Png)
-        return MagickFormat.Png;
-      else if (format == ImageFormat.Tiff)
-        return MagickFormat.Tiff;
+      if (image == null)
+        return null;
+
+      return new MagickErrorInfo(image._NativeInstance.MeanErrorPerPixel, image._NativeInstance.NormalizedMeanError, image._NativeInstance.NormalizedMaximumError);
+    }
+
+    internal static IEnumerable<MagickImage> CreateList(IntPtr images, MagickSettings settings)
+    {
+      Collection<MagickImage> result = new Collection<MagickImage>();
+
+      IntPtr image = images;
+
+      while (image != IntPtr.Zero)
+      {
+        IntPtr next = NativeMagickImage.GetNext(image);
+
+        NativeMagickImage instance = new NativeMagickImage(image);
+        instance.SetNext(IntPtr.Zero);
+
+        result.Add(new MagickImage(instance, settings.Clone()));
+        image = next;
+      }
+
+      return result;
+    }
+
+    internal int ChannelOffset(PixelChannel pixelChannel)
+    {
+      if (!_NativeInstance.HasChannel(pixelChannel))
+        return -1;
+
+      return (int)_NativeInstance.ChannelOffset(pixelChannel);
+    }
+
+    internal void SetNext(MagickImage image)
+    {
+      if (image == null)
+        _NativeInstance.SetNext(IntPtr.Zero);
       else
-        throw new NotSupportedException("Unsupported image format: " + format.ToString());
+        _NativeInstance.SetNext(MagickImage.GetInstance(image));
     }
 
     /// <summary>
@@ -284,7 +437,7 @@ namespace ImageMagick
     /// </summary>
     ~MagickImage()
     {
-      DisposeInstance();
+      Dispose(false);
     }
 
     ///<summary>
@@ -292,30 +445,8 @@ namespace ImageMagick
     ///</summary>
     public MagickImage()
     {
-      _Instance = new Wrapper.MagickImage();
-    }
-
-    ///<summary>
-    /// Initializes a new instance of the MagickImage class using the specified byte array.
-    ///</summary>
-    ///<param name="data">The byte array to read the image data from.</param>
-    ///<exception cref="MagickException"/>
-    public MagickImage(byte[] data)
-      : this()
-    {
-      Read(data);
-    }
-
-    ///<summary>
-    /// Initializes a new instance of the MagickImage class using the specified byte array.
-    ///</summary>
-    ///<param name="data">The byte array to read the image data from.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
-    public MagickImage(byte[] data, MagickReadSettings readSettings)
-      : this()
-    {
-      Read(data, readSettings);
+      SetSettings(new MagickSettings());
+      SetInstance(new NativeMagickImage(Settings));
     }
 
     ///<summary>
@@ -330,12 +461,35 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Initializes a new instance of the MagickImage class using the specified byte array.
+    ///</summary>
+    ///<param name="data">The byte array to read the image data from.</param>
+    ///<exception cref="MagickException"/>
+    public MagickImage(byte[] data)
+          : this()
+    {
+      Read(data);
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the MagickImage class using the specified byte array.
+    ///</summary>
+    ///<param name="data">The byte array to read the image data from.</param>
+    ///<param name="readSettings">The settings to use when reading the image.</param>
+    ///<exception cref="MagickException"/>
+    public MagickImage(byte[] data, MagickReadSettings readSettings)
+          : this()
+    {
+      Read(data, readSettings);
+    }
+
+    ///<summary>
     /// Initializes a new instance of the MagickImage class using the specified file.
     ///</summary>
     ///<param name="file">The file to read the image from.</param>
     ///<exception cref="MagickException"/>
     public MagickImage(FileInfo file)
-      : this()
+          : this()
     {
       Read(file);
     }
@@ -347,7 +501,7 @@ namespace ImageMagick
     ///<param name="readSettings">The settings to use when reading the image.</param>
     ///<exception cref="MagickException"/>
     public MagickImage(FileInfo file, MagickReadSettings readSettings)
-      : this()
+          : this()
     {
       Read(file, readSettings);
     }
@@ -364,6 +518,7 @@ namespace ImageMagick
     {
       Read(color, width, height);
       BackgroundColor = color;
+      Settings.BackgroundColor = color;
     }
 
     ///<summary>
@@ -372,8 +527,11 @@ namespace ImageMagick
     ///</summary>
     ///<param name="image">The image to create a copy of.</param>
     public MagickImage(MagickImage image)
-      : this(new Wrapper.MagickImage(GetInstance(image)))
     {
+      Throw.IfNull("image", image);
+
+      SetSettings(image.Settings.Clone());
+      SetInstance(new NativeMagickImage(image._NativeInstance.Clone()));
     }
 
     ///<summary>
@@ -394,7 +552,7 @@ namespace ImageMagick
     ///<param name="readSettings">The settings to use when reading the image.</param>
     ///<exception cref="MagickException"/>
     public MagickImage(Stream stream, MagickReadSettings readSettings)
-      : this()
+          : this()
     {
       Read(stream, readSettings);
     }
@@ -405,7 +563,7 @@ namespace ImageMagick
     ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
     ///<exception cref="MagickException"/>
     public MagickImage(string fileName)
-      : this()
+          : this()
     {
       Read(fileName);
     }
@@ -418,7 +576,7 @@ namespace ImageMagick
     ///<param name="height">The height.</param>
     ///<exception cref="MagickException"/>
     public MagickImage(string fileName, int width, int height)
-      : this()
+          : this()
     {
       Read(fileName, width, height);
     }
@@ -430,7 +588,7 @@ namespace ImageMagick
     ///<param name="readSettings">The settings to use when reading the image.</param>
     ///<exception cref="MagickException"/>
     public MagickImage(string fileName, MagickReadSettings readSettings)
-      : this()
+          : this()
     {
       Read(fileName, readSettings);
     }
@@ -443,7 +601,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator ==(MagickImage left, MagickImage right)
     {
-      return object.Equals(left, right);
+      return Equals(left, right);
     }
 
     /// <summary>
@@ -454,7 +612,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator !=(MagickImage left, MagickImage right)
     {
-      return !object.Equals(left, right);
+      return !Equals(left, right);
     }
 
     /// <summary>
@@ -532,7 +690,8 @@ namespace ImageMagick
       {
         if (_Progress == null)
         {
-          _Instance.SetProgressDelegate(OnProgress);
+          _NativeProgress = new NativeMethods.ProgressDelegate(OnProgress);
+          _NativeInstance.SetProgressDelegate(_NativeProgress);
         }
 
         _Progress += value;
@@ -543,7 +702,8 @@ namespace ImageMagick
 
         if (_Progress == null)
         {
-          _Instance.SetProgressDelegate(null);
+          _NativeInstance.SetProgressDelegate(null);
+          _NativeProgress = null;
         }
       }
     }
@@ -555,28 +715,11 @@ namespace ImageMagick
     {
       add
       {
-        _Instance.Warning += OnWarning;
-        _WarningEvent += value;
+        _Warning += value;
       }
       remove
       {
-        _Instance.Warning -= OnWarning;
-        _WarningEvent -= value;
-      }
-    }
-
-    ///<summary>
-    /// Join images into a single multi-image file.
-    ///</summary>
-    public bool Adjoin
-    {
-      get
-      {
-        return _Instance.Adjoin;
-      }
-      set
-      {
-        _Instance.Adjoin = value;
+        _Warning -= value;
       }
     }
 
@@ -587,11 +730,12 @@ namespace ImageMagick
     {
       get
       {
-        return MagickColor.Create(_Instance.AlphaColor);
+        return _NativeInstance.AlphaColor;
       }
       set
       {
-        _Instance.AlphaColor = MagickColor.GetInstance(value);
+        _NativeInstance.AlphaColor = value;
+        Settings.AlphaColor = value;
       }
     }
 
@@ -603,11 +747,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.AnimationDelay;
+        return _NativeInstance.AnimationDelay;
       }
       set
       {
-        _Instance.AnimationDelay = value;
+        _NativeInstance.AnimationDelay = value;
       }
     }
 
@@ -618,11 +762,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.AnimationIterations;
+        return _NativeInstance.AnimationIterations;
       }
       set
       {
-        _Instance.AnimationIterations = value;
+        _NativeInstance.AnimationIterations = value;
       }
     }
 
@@ -633,7 +777,13 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.ArtifactNames;
+        _NativeInstance.ResetArtifactIterator();
+        string name = _NativeInstance.GetNextArtifactName();
+        while (name != null)
+        {
+          yield return name;
+          name = _NativeInstance.GetNextArtifactName();
+        }
       }
     }
 
@@ -644,7 +794,13 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.AttributeNames;
+        _NativeInstance.ResetAttributeIterator();
+        string name = _NativeInstance.GetNextAttributeName();
+        while (name != null)
+        {
+          yield return name;
+          name = _NativeInstance.GetNextAttributeName();
+        }
       }
     }
 
@@ -655,11 +811,11 @@ namespace ImageMagick
     {
       get
       {
-        return MagickColor.Create(_Instance.BackgroundColor);
+        return _NativeInstance.BackgroundColor;
       }
       set
       {
-        _Instance.BackgroundColor = MagickColor.GetInstance(value);
+        _NativeInstance.BackgroundColor = value;
       }
     }
 
@@ -670,7 +826,7 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.BaseHeight;
+        return _NativeInstance.BaseHeight;
       }
     }
 
@@ -681,7 +837,7 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.BaseWidth;
+        return _NativeInstance.BaseWidth;
       }
     }
 
@@ -692,11 +848,26 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.BlackPointCompensation;
+        return _NativeInstance.BlackPointCompensation;
       }
       set
       {
-        _Instance.BlackPointCompensation = value;
+        _NativeInstance.BlackPointCompensation = value;
+      }
+    }
+
+    ///<summary>
+    /// Border color of the image.
+    ///</summary>
+    public MagickColor BorderColor
+    {
+      get
+      {
+        return _NativeInstance.BorderColor;
+      }
+      set
+      {
+        _NativeInstance.BorderColor = value;
       }
     }
 
@@ -708,37 +879,18 @@ namespace ImageMagick
     {
       get
       {
-        return MagickGeometry.Create(_Instance.BoundingBox);
+        return MagickGeometry.FromRectangle(_NativeInstance.BoundingBox);
       }
     }
 
     ///<summary>
-    /// Border color of the image.
+    /// Returns the number of channels that the image contains.
     ///</summary>
-    public MagickColor BorderColor
+    public int ChannelCount
     {
       get
       {
-        return MagickColor.Create(_Instance.BorderColor);
-      }
-      set
-      {
-        _Instance.BorderColor = MagickColor.GetInstance(value);
-      }
-    }
-
-    ///<summary>
-    /// Text bounding-box base color.
-    ///</summary>
-    public MagickColor BoxColor
-    {
-      get
-      {
-        return MagickColor.Create(_Instance.BoxColor);
-      }
-      set
-      {
-        _Instance.BoxColor = MagickColor.GetInstance(value);
+        return _NativeInstance.ChannelCount;
       }
     }
 
@@ -749,7 +901,76 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Channels;
+        if (_NativeInstance.HasChannel(PixelChannel.Red))
+          yield return PixelChannel.Red;
+        if (_NativeInstance.HasChannel(PixelChannel.Green))
+          yield return PixelChannel.Green;
+        if (_NativeInstance.HasChannel(PixelChannel.Blue))
+          yield return PixelChannel.Blue;
+        if (_NativeInstance.HasChannel(PixelChannel.Black))
+          yield return PixelChannel.Black;
+        if (_NativeInstance.HasChannel(PixelChannel.Alpha))
+          yield return PixelChannel.Alpha;
+      }
+    }
+
+    ///<summary>
+    /// Chromaticity blue primary point.
+    ///</summary>
+    public PrimaryInfo ChromaBluePrimary
+    {
+      get
+      {
+        return _NativeInstance.ChromaBluePrimary;
+      }
+      set
+      {
+        _NativeInstance.ChromaBluePrimary = value;
+      }
+    }
+
+    ///<summary>
+    /// Chromaticity green primary point.
+    ///</summary>
+    public PrimaryInfo ChromaGreenPrimary
+    {
+      get
+      {
+        return _NativeInstance.ChromaGreenPrimary;
+      }
+      set
+      {
+        _NativeInstance.ChromaGreenPrimary = value;
+      }
+    }
+
+    ///<summary>
+    /// Chromaticity red primary point.
+    ///</summary>
+    public PrimaryInfo ChromaRedPrimary
+    {
+      get
+      {
+        return _NativeInstance.ChromaRedPrimary;
+      }
+      set
+      {
+        _NativeInstance.ChromaRedPrimary = value;
+      }
+    }
+
+    ///<summary>
+    /// Chromaticity white primary point.
+    ///</summary>
+    public PrimaryInfo ChromaWhitePoint
+    {
+      get
+      {
+        return _NativeInstance.ChromaWhitePoint;
+      }
+      set
+      {
+        _NativeInstance.ChromaWhitePoint = value;
       }
     }
 
@@ -763,11 +984,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.ClassType;
+        return _NativeInstance.ClassType;
       }
       set
       {
-        _Instance.ClassType = value;
+        _NativeInstance.ClassType = value;
       }
     }
 
@@ -778,26 +999,28 @@ namespace ImageMagick
     {
       get
       {
-        return Percentage.FromQuantum(_Instance.ColorFuzz);
+        return Percentage.FromQuantum(_NativeInstance.ColorFuzz);
       }
       set
       {
-        _Instance.ColorFuzz = value.ToQuantum();
+        double newValue = value.ToQuantum();
+        _NativeInstance.ColorFuzz = newValue;
+        Settings.SetColorFuzz(newValue);
       }
     }
 
     ///<summary>
     /// Colormap size (number of colormap entries).
     ///</summary>
-    public int ColorMapSize
+    public int ColormapSize
     {
       get
       {
-        return _Instance.ColorMapSize;
+        return _NativeInstance.ColormapSize;
       }
       set
       {
-        _Instance.ColorMapSize = value;
+        _NativeInstance.ColormapSize = value;
       }
     }
 
@@ -808,11 +1031,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.ColorSpace;
+        return _NativeInstance.ColorSpace;
       }
       set
       {
-        _Instance.ColorSpace = value;
+        _NativeInstance.ColorSpace = value;
       }
     }
 
@@ -823,11 +1046,15 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.ColorType;
+        if (Settings.ColorType != ColorType.Undefined)
+          return Settings.ColorType;
+
+        return _NativeInstance.ColorType;
       }
       set
       {
-        _Instance.ColorType = value;
+        Settings.ColorType = value;
+        _NativeInstance.ColorType = value;
       }
     }
 
@@ -838,11 +1065,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Comment;
+        return Settings.GetOption("Comment");
       }
       set
       {
-        _Instance.Comment = value;
+        Settings.SetOption("Comment", value);
       }
     }
 
@@ -853,11 +1080,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Compose;
+        return _NativeInstance.Compose;
       }
       set
       {
-        _Instance.Compose = value;
+        _NativeInstance.Compose = value;
       }
     }
 
@@ -868,26 +1095,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.CompressionMethod;
+        return _NativeInstance.CompressionMethod;
       }
       set
       {
-        _Instance.CompressionMethod = value;
-      }
-    }
-
-    ///<summary>
-    /// Enable printing of debug messages from ImageMagick when a debugger is attached.
-    ///</summary>
-    public bool Debug
-    {
-      get
-      {
-        return _Instance.Debug;
-      }
-      set
-      {
-        _Instance.Debug = value;
+        _NativeInstance.CompressionMethod = value;
       }
     }
 
@@ -898,11 +1110,12 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Density;
+        return new PointD(_NativeInstance.ResolutionX, _NativeInstance.ResolutionY);
       }
       set
       {
-        _Instance.Density = value;
+        _NativeInstance.ResolutionX = value.X;
+        _NativeInstance.ResolutionY = value.Y;
       }
     }
 
@@ -913,11 +1126,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Depth;
+        return _NativeInstance.Depth;
       }
       set
       {
-        _Instance.Depth = value;
+        _NativeInstance.Depth = value;
       }
     }
 
@@ -929,7 +1142,7 @@ namespace ImageMagick
     {
       get
       {
-        return MagickGeometry.Create(_Instance.EncodingGeometry);
+        return MagickGeometry.FromString(_NativeInstance.EncodingGeometry);
       }
     }
 
@@ -941,11 +1154,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Endian;
+        return _NativeInstance.Endian;
       }
       set
       {
-        _Instance.Endian = value;
+        _NativeInstance.Endian = value;
       }
     }
 
@@ -956,7 +1169,7 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.FileName;
+        return _NativeInstance.FileName;
       }
     }
 
@@ -967,52 +1180,7 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.FileSize;
-      }
-    }
-
-    ///<summary>
-    /// Color to use when drawing inside an object.
-    ///</summary>
-    public MagickColor FillColor
-    {
-      get
-      {
-        return MagickColor.Create(_Instance.FillColor);
-      }
-      set
-      {
-        _Instance.FillColor = MagickColor.GetInstance(value);
-      }
-    }
-
-    ///<summary>
-    /// Pattern to use while filling drawn objects.
-    ///</summary>
-    public MagickImage FillPattern
-    {
-      get
-      {
-        return Create(_Instance.FillPattern);
-      }
-      set
-      {
-        _Instance.FillPattern = GetInstance(value);
-      }
-    }
-
-    ///<summary>
-    /// Rule to use when filling drawn objects.
-    ///</summary>
-    public FillRule FillRule
-    {
-      get
-      {
-        return _Instance.FillRule;
-      }
-      set
-      {
-        _Instance.FillRule = value;
+        return _NativeInstance.FileSize;
       }
     }
 
@@ -1023,101 +1191,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.FilterType;
+        return _NativeInstance.FilterType;
       }
       set
       {
-        _Instance.FilterType = value;
-      }
-    }
-
-    ///<summary>
-    /// FlashPix viewing parameters.
-    ///</summary>
-    public string FlashPixView
-    {
-      get
-      {
-        return _Instance.FlashPixView;
-      }
-      set
-      {
-        _Instance.FlashPixView = value;
-      }
-    }
-
-    ///<summary>
-    /// Text rendering font.
-    ///</summary>
-    public string Font
-    {
-      get
-      {
-        return _Instance.Font;
-      }
-      set
-      {
-        _Instance.Font = value;
-      }
-    }
-
-    ///<summary>
-    /// Text family.
-    ///</summary>
-    public string FontFamily
-    {
-      get
-      {
-        return _Instance.FontFamily;
-      }
-      set
-      {
-        _Instance.FontFamily = value;
-      }
-    }
-
-    ///<summary>
-    /// Font point size.
-    ///</summary>
-    public double FontPointsize
-    {
-      get
-      {
-        return _Instance.FontPointsize;
-      }
-      set
-      {
-        _Instance.FontPointsize = value;
-      }
-    }
-
-    ///<summary>
-    /// Font style.
-    ///</summary>
-    public FontStyleType FontStyle
-    {
-      get
-      {
-        return _Instance.FontStyle;
-      }
-      set
-      {
-        _Instance.FontStyle = value;
-      }
-    }
-
-    ///<summary>
-    /// Font weight.
-    ///</summary>
-    public FontWeight FontWeight
-    {
-      get
-      {
-        return _Instance.FontWeight;
-      }
-      set
-      {
-        _Instance.FontWeight = value;
+        _NativeInstance.FilterType = value;
       }
     }
 
@@ -1128,11 +1206,12 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Format;
+        return EnumHelper.Parse(_NativeInstance.Format, MagickFormat.Unknown);
       }
       set
       {
-        _Instance.Format = value;
+        _NativeInstance.Format = EnumHelper.GetName(value);
+        Settings.Format = value;
       }
     }
 
@@ -1155,7 +1234,7 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Gamma;
+        return _NativeInstance.Gamma;
       }
     }
 
@@ -1166,26 +1245,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.GifDisposeMethod;
+        return _NativeInstance.GifDisposeMethod;
       }
       set
       {
-        _Instance.GifDisposeMethod = value;
-      }
-    }
-
-    ///<summary>
-    /// Image supports transparency (alpha channel).
-    ///</summary>
-    public bool HasAlpha
-    {
-      get
-      {
-        return _Instance.HasAlpha;
-      }
-      set
-      {
-        _Instance.HasAlpha = value;
+        _NativeInstance.GifDisposeMethod = value;
       }
     }
 
@@ -1201,13 +1265,32 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Image supports transparency (alpha channel).
+    ///</summary>
+    public bool HasAlpha
+    {
+      get
+      {
+        return _NativeInstance.HasAlpha;
+      }
+      set
+      {
+        if (_NativeInstance.HasAlpha != value)
+        {
+          Alpha(AlphaOption.Opaque);
+          _NativeInstance.HasAlpha = value;
+        }
+      }
+    }
+
+    ///<summary>
     /// Height of the image.
     ///</summary>
     public int Height
     {
       get
       {
-        return _Instance.Height;
+        return _NativeInstance.Height;
       }
     }
 
@@ -1218,11 +1301,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Interlace;
+        return _NativeInstance.Interlace;
       }
       set
       {
-        _Instance.Interlace = value;
+        _NativeInstance.Interlace = value;
       }
     }
 
@@ -1233,11 +1316,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Interpolate;
+        return _NativeInstance.Interpolate;
       }
       set
       {
-        _Instance.Interpolate = value;
+        _NativeInstance.Interpolate = value;
       }
     }
 
@@ -1249,7 +1332,7 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.IsOpaque;
+        return _NativeInstance.IsOpaque;
       }
     }
 
@@ -1260,27 +1343,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Label;
+        return GetAttribute("Label");
       }
       set
       {
-        _Instance.Label = value;
-      }
-    }
-
-    ///<summary>
-    /// Associate a mask with the image. The mask must be the same dimensions as the image. Pass
-    /// null to unset an existing mask.
-    ///</summary>
-    public MagickImage Mask
-    {
-      get
-      {
-        return Create(_Instance.Mask);
-      }
-      set
-      {
-        _Instance.Mask = GetInstance(value);
+        SetAttribute("Label", value);
       }
     }
 
@@ -1291,11 +1358,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Orientation;
+        return _NativeInstance.Orientation;
       }
       set
       {
-        _Instance.Orientation = value;
+        _NativeInstance.Orientation = value;
       }
     }
 
@@ -1306,26 +1373,14 @@ namespace ImageMagick
     {
       get
       {
-        return MagickGeometry.Create(_Instance.Page);
+        return MagickGeometry.FromRectangle(_NativeInstance.Page);
       }
       set
       {
-        _Instance.Page = MagickGeometry.GetInstance(value);
-      }
-    }
+        if (value == null)
+          return;
 
-    ///<summary>
-    /// Units of image resolution.
-    ///</summary>
-    public Resolution ResolutionUnits
-    {
-      get
-      {
-        return _Instance.ResolutionUnits;
-      }
-      set
-      {
-        _Instance.ResolutionUnits = value;
+        _NativeInstance.Page = MagickRectangle.FromGeometry(value, this);
       }
     }
 
@@ -1336,7 +1391,13 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.ProfileNames;
+        _NativeInstance.ResetProfileIterator();
+        string name = _NativeInstance.GetNextProfileName();
+        while (name != null)
+        {
+          yield return name;
+          name = _NativeInstance.GetNextProfileName();
+        }
       }
     }
 
@@ -1347,11 +1408,31 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Quality;
+        return _NativeInstance.Quality;
       }
       set
       {
-        _Instance.Quality = value;
+        int quality = value < 1 ? 1 : value;
+        quality = quality > 100 ? 100 : quality;
+
+        _NativeInstance.Quality = quality;
+        Settings.SetQuality(quality);
+      }
+    }
+
+    ///<summary>
+    /// Associate a mask with the image. The mask must be the same dimensions as the image and
+    /// only contain the colors black and white. Pass null to unset an existing mask.
+    ///</summary>
+    public MagickImage ReadMask
+    {
+      get
+      {
+        return _NativeInstance.ReadMask;
+      }
+      set
+      {
+        _NativeInstance.ReadMask = value;
       }
     }
 
@@ -1362,11 +1443,26 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.RenderingIntent;
+        return _NativeInstance.RenderingIntent;
       }
       set
       {
-        _Instance.RenderingIntent = value;
+        _NativeInstance.RenderingIntent = value;
+      }
+    }
+
+    ///<summary>
+    /// Units of image resolution.
+    ///</summary>
+    public Resolution ResolutionUnits
+    {
+      get
+      {
+        return _NativeInstance.ResolutionUnits;
+      }
+      set
+      {
+        _NativeInstance.ResolutionUnits = value;
       }
     }
 
@@ -1377,7 +1473,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.ResolutionX;
+        return _NativeInstance.ResolutionX;
+      }
+      set
+      {
+        _NativeInstance.ResolutionX = value;
       }
     }
 
@@ -1388,23 +1488,21 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.ResolutionY;
-      }
-    }
-
-    ///<summary>
-    /// Enabled/disable stroke anti-aliasing.
-    ///</summary>
-    public bool StrokeAntiAlias
-    {
-      get
-      {
-        return _Instance.StrokeAntiAlias;
+        return _NativeInstance.ResolutionY;
       }
       set
       {
-        _Instance.StrokeAntiAlias = value;
+        _NativeInstance.ResolutionY = value;
       }
+    }
+
+    /// <summary>
+    /// Settings for this MagickImage instance.
+    /// </summary>
+    public MagickSettings Settings
+    {
+      get;
+      private set;
     }
 
     ///<summary>
@@ -1415,270 +1513,7 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Signature;
-      }
-    }
-
-    ///<summary>
-    /// Color to use when drawing object outlines.
-    ///</summary>
-    public MagickColor StrokeColor
-    {
-      get
-      {
-        return MagickColor.Create(_Instance.StrokeColor);
-      }
-      set
-      {
-        _Instance.StrokeColor = MagickColor.GetInstance(value);
-      }
-    }
-
-    ///<summary>
-    /// Specify the pattern of dashes and gaps used to stroke paths. This represents a
-    /// zero-terminated array of numbers that specify the lengths of alternating dashes and gaps
-    /// in pixels. If a zero value is not found it will be added. If an odd number of values is
-    /// provided, then the list of values is repeated to yield an even number of values.
-    ///</summary>
-    [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
-    public double[] StrokeDashArray
-    {
-      get
-      {
-        return _Instance.StrokeDashArray;
-      }
-      set
-      {
-        _Instance.StrokeDashArray = value;
-      }
-    }
-
-    ///<summary>
-    /// While drawing using a dash pattern, specify distance into the dash pattern to start the
-    /// dash (default 0).
-    ///</summary>
-    public double StrokeDashOffset
-    {
-      get
-      {
-        return _Instance.StrokeDashOffset;
-      }
-      set
-      {
-        _Instance.StrokeDashOffset = value;
-      }
-    }
-
-    ///<summary>
-    /// Specify the shape to be used at the end of open subpaths when they are stroked.
-    ///</summary>
-    public LineCap StrokeLineCap
-    {
-      get
-      {
-        return _Instance.StrokeLineCap;
-      }
-      set
-      {
-        _Instance.StrokeLineCap = value;
-      }
-    }
-
-    ///<summary>
-    /// Specify the shape to be used at the corners of paths (or other vector shapes) when they
-    /// are stroked.
-    ///</summary>
-    public LineJoin StrokeLineJoin
-    {
-      get
-      {
-        return _Instance.StrokeLineJoin;
-      }
-      set
-      {
-        _Instance.StrokeLineJoin = value;
-      }
-    }
-
-    ///<summary>
-    /// Specify miter limit. When two line segments meet at a sharp angle and miter joins have
-    /// been specified for 'lineJoin', it is possible for the miter to extend far beyond the thickness
-    /// of the line stroking the path. The miterLimit' imposes a limit on the ratio of the miter
-    /// length to the 'lineWidth'. The default value is 4.
-    ///</summary>
-    public int StrokeMiterLimit
-    {
-      get
-      {
-        return _Instance.StrokeMiterLimit;
-      }
-      set
-      {
-        _Instance.StrokeMiterLimit = value;
-      }
-    }
-
-    ///<summary>
-    /// Pattern image to use while stroking object outlines.
-    ///</summary>
-    public MagickImage StrokePattern
-    {
-      get
-      {
-        return Create(_Instance.StrokePattern);
-      }
-      set
-      {
-        _Instance.StrokePattern = GetInstance(value);
-      }
-    }
-
-    ///<summary>
-    /// Stroke width for drawing lines, circles, ellipses, etc.
-    ///</summary>
-    public double StrokeWidth
-    {
-      get
-      {
-        return _Instance.StrokeWidth;
-      }
-      set
-      {
-        _Instance.StrokeWidth = value;
-      }
-    }
-
-    ///<summary>
-    /// Anti-alias Postscript and TrueType fonts (default true).
-    ///</summary>
-    public bool TextAntiAlias
-    {
-      get
-      {
-        return _Instance.TextAntiAlias;
-      }
-      set
-      {
-        _Instance.TextAntiAlias = value;
-      }
-    }
-
-    ///<summary>
-    /// Render text right-to-left or left-to-right. 
-    ///</summary>
-    public TextDirection TextDirection
-    {
-      get
-      {
-        return _Instance.TextDirection;
-      }
-      set
-      {
-        _Instance.TextDirection = value;
-      }
-    }
-
-    ///<summary>
-    /// Annotation text encoding (e.g. "UTF-16").
-    ///</summary>
-    public Encoding TextEncoding
-    {
-      get
-      {
-        string encoding = _Instance.TextEncoding;
-
-        if (string.IsNullOrEmpty(encoding))
-          return null;
-
-        try
-        {
-          return Encoding.GetEncoding(encoding);
-        }
-        catch (ArgumentException)
-        {
-          return null;
-        }
-      }
-      set
-      {
-        string name = value != null ? value.WebName : null;
-
-        _Instance.TextEncoding = name;
-      }
-    }
-
-    ///<summary>
-    /// Annotation text gravity.
-    ///</summary>
-    public Gravity TextGravity
-    {
-      get
-      {
-        return _Instance.TextGravity;
-      }
-      set
-      {
-        _Instance.TextGravity = value;
-      }
-    }
-
-    ///<summary>
-    /// Text inter-line spacing.
-    ///</summary>
-    public double TextInterlineSpacing
-    {
-      get
-      {
-        return _Instance.TextInterlineSpacing;
-      }
-      set
-      {
-        _Instance.TextInterlineSpacing = value;
-      }
-    }
-
-    ///<summary>
-    /// Text inter-word spacing.
-    ///</summary>
-    public double TextInterwordSpacing
-    {
-      get
-      {
-        return _Instance.TextInterwordSpacing;
-      }
-      set
-      {
-        _Instance.TextInterwordSpacing = value;
-      }
-    }
-
-    ///<summary>
-    /// Text inter-character kerning.
-    ///</summary>
-    public double TextKerning
-    {
-      get
-      {
-        return _Instance.TextKerning;
-      }
-      set
-      {
-        _Instance.TextKerning = value;
-      }
-    }
-
-    ///<summary>
-    /// Text undercolor box.
-    ///</summary>
-    public MagickColor TextUnderColor
-    {
-      get
-      {
-        return MagickColor.Create(_Instance.TextUnderColor);
-      }
-      set
-      {
-        _Instance.TextUnderColor = MagickColor.GetInstance(value);
+        return _NativeInstance.Signature;
       }
     }
 
@@ -1689,22 +1524,7 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.TotalColors;
-      }
-    }
-
-    ///<summary>
-    /// Turn verbose output on/off.
-    ///</summary>
-    public bool Verbose
-    {
-      get
-      {
-        return _Instance.Verbose;
-      }
-      set
-      {
-        _Instance.Verbose = value;
+        return _NativeInstance.TotalColors;
       }
     }
 
@@ -1715,11 +1535,11 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.VirtualPixelMethod;
+        return _NativeInstance.VirtualPixelMethod;
       }
       set
       {
-        _Instance.VirtualPixelMethod = value;
+        _NativeInstance.VirtualPixelMethod = value;
       }
     }
 
@@ -1730,7 +1550,23 @@ namespace ImageMagick
     {
       get
       {
-        return _Instance.Width;
+        return _NativeInstance.Width;
+      }
+    }
+
+    ///<summary>
+    /// Associate a mask with the image. The mask must be the same dimensions as the image and
+    /// only contain the colors black and white. Pass null to unset an existing mask.
+    ///</summary>
+    public MagickImage WriteMask
+    {
+      get
+      {
+        return _NativeInstance.WriteMask;
+      }
+      set
+      {
+        _NativeInstance.WriteMask = value;
       }
     }
 
@@ -1761,7 +1597,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AdaptiveBlur(double radius, double sigma)
     {
-      _Instance.AdaptiveBlur(radius, sigma);
+      _NativeInstance.AdaptiveBlur(radius, sigma);
     }
 
     ///<summary>
@@ -1774,7 +1610,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AdaptiveResize(int width, int height)
     {
-      AdaptiveResize(new MagickGeometry(width, height));
+      _NativeInstance.AdaptiveResize(width, height);
     }
 
     ///<summary>
@@ -1788,7 +1624,7 @@ namespace ImageMagick
     {
       Throw.IfNull("geometry", geometry);
 
-      _Instance.AdaptiveResize(MagickGeometry.GetInstance(geometry));
+      AdaptiveResize(geometry.Width, geometry.Height);
     }
 
     ///<summary>
@@ -1809,7 +1645,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AdaptiveSharpen(Channels channels)
     {
-      _Instance.AdaptiveSharpen(0.0, 1.0, channels);
+      AdaptiveSharpen(0.0, 1.0, channels);
     }
 
     ///<summary>
@@ -1821,7 +1657,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AdaptiveSharpen(double radius, double sigma)
     {
-      _Instance.AdaptiveSharpen(radius, sigma);
+      AdaptiveSharpen(radius, sigma, ImageMagick.Channels.Default);
     }
 
     ///<summary>
@@ -1833,7 +1669,7 @@ namespace ImageMagick
     ///<param name="channels">The channel(s) that should be sharpened.</param>
     public void AdaptiveSharpen(double radius, double sigma, Channels channels)
     {
-      _Instance.AdaptiveSharpen(radius, sigma, channels);
+      _NativeInstance.AdaptiveSharpen(radius, sigma, channels);
     }
 
     ///<summary>
@@ -1858,7 +1694,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AdaptiveThreshold(int width, int height, double bias)
     {
-      _Instance.AdaptiveThreshold(width, height, bias);
+      _NativeInstance.AdaptiveThreshold(width, height, bias);
     }
 
     ///<summary>
@@ -1871,7 +1707,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AdaptiveThreshold(int width, int height, Percentage biasPercentage)
     {
-      AdaptiveThreshold(width, height, (double)biasPercentage.ToQuantum());
+      AdaptiveThreshold(width, height, biasPercentage.ToQuantum());
     }
 
     ///<summary>
@@ -1881,7 +1717,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AddNoise(NoiseType noiseType)
     {
-      _Instance.AddNoise(noiseType);
+      AddNoise(noiseType, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -1892,7 +1728,30 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AddNoise(NoiseType noiseType, Channels channels)
     {
-      _Instance.AddNoise(noiseType, channels);
+      AddNoise(noiseType, 1.0, channels);
+    }
+
+    ///<summary>
+    /// Add noise to image with the specified noise type.
+    ///</summary>
+    ///<param name="attenuate">Attenuate the random distribution.</param>
+    ///<param name="noiseType">The type of noise that should be added to the image.</param>
+    ///<exception cref="MagickException"/>
+    public void AddNoise(NoiseType noiseType, double attenuate)
+    {
+      AddNoise(noiseType, attenuate, ImageMagick.Channels.Composite);
+    }
+
+    ///<summary>
+    /// Add noise to the specified channel of the image with the specified noise type.
+    ///</summary>
+    ///<param name="noiseType">The type of noise that should be added to the image.</param>
+    ///<param name="attenuate">Attenuate the random distribution.</param>
+    ///<param name="channels">The channel(s) where the noise should be added.</param>
+    ///<exception cref="MagickException"/>
+    public void AddNoise(NoiseType noiseType, double attenuate, Channels channels)
+    {
+      _NativeInstance.AddNoise(noiseType, attenuate, channels);
     }
 
     ///<summary>
@@ -1916,10 +1775,12 @@ namespace ImageMagick
     {
       Throw.IfNull("profile", profile);
 
-      if (!overwriteExisting && _Instance.GetProfile(profile.Name) != null)
+      if (!overwriteExisting && _NativeInstance.HasProfile(profile.Name))
         return;
 
-      _Instance.AddProfile(profile.Name, profile.ToByteArray());
+      byte[] datum = profile.ToByteArray();
+
+      _NativeInstance.AddProfile(profile.Name, datum, datum.Length);
     }
 
     ///<summary>
@@ -1929,9 +1790,9 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AffineTransform(DrawableAffine affineMatrix)
     {
-      Throw.IfNull("affineMatrix", affineMatrix);
+      Throw.IfNull("matrix", affineMatrix);
 
-      _Instance.AffineTransform(affineMatrix);
+      _NativeInstance.AffineTransform(affineMatrix.ScaleX, affineMatrix.ScaleY, affineMatrix.ShearX, affineMatrix.ShearY, affineMatrix.TranslateX, affineMatrix.TranslateY);
     }
 
     ///<summary>
@@ -1941,7 +1802,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Alpha(AlphaOption option)
     {
-      _Instance.Alpha(option);
+      _NativeInstance.SetAlpha(option);
     }
 
     ///<summary>
@@ -1973,14 +1834,14 @@ namespace ImageMagick
     ///<param name="text">The text to use.</param>
     ///<param name="boundingArea">The bounding area.</param>
     ///<param name="gravity">The placement gravity.</param>
-    ///<param name="degrees">The rotation.</param>
+    ///<param name="angle">The rotation.</param>
     ///<exception cref="MagickException"/>
-    public void Annotate(string text, MagickGeometry boundingArea, Gravity gravity, double degrees)
+    public void Annotate(string text, MagickGeometry boundingArea, Gravity gravity, double angle)
     {
       Throw.IfNullOrEmpty("text", text);
       Throw.IfNull("boundingArea", boundingArea);
 
-      _Instance.Annotate(text, MagickGeometry.GetInstance(boundingArea), gravity, degrees);
+      _NativeInstance.Annotate(Settings.Drawing, text, MagickGeometry.ToString(boundingArea), gravity, angle);
     }
 
     ///<summary>
@@ -1993,28 +1854,28 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("text", text);
 
-      _Instance.Annotate(text, gravity);
+      _NativeInstance.AnnotateGravity(Settings.Drawing, text, gravity);
     }
 
     ///<summary>
-    /// Extracts the 'mean' from the image and adjust the image to try make set its gamma 
+    /// Extracts the 'mean' from the image and adjust the image to try make set its gamma.
     /// appropriatally.
     ///</summary>
     ///<exception cref="MagickException"/>
     public void AutoGamma()
     {
-      _Instance.AutoGamma();
+      AutoGamma(ImageMagick.Channels.Composite);
     }
 
     ///<summary>
-    /// Extracts the 'mean' from the image and adjust the image to try make set its gamma 
+    /// Extracts the 'mean' from the image and adjust the image to try make set its gamma.
     /// appropriatally.
     ///</summary>
     ///<param name="channels">The channel(s) to set the gamma for.</param>
     ///<exception cref="MagickException"/>
     public void AutoGamma(Channels channels)
     {
-      _Instance.AutoGamma(channels);
+      _NativeInstance.AutoGamma(channels);
     }
 
     ///<summary>
@@ -2024,7 +1885,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AutoLevel()
     {
-      _Instance.AutoLevel();
+      AutoLevel(ImageMagick.Channels.Default);
     }
 
     ///<summary>
@@ -2035,7 +1896,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AutoLevel(Channels channels)
     {
-      _Instance.AutoLevel(channels);
+      _NativeInstance.AutoLevel(channels);
     }
 
     ///<summary>
@@ -2044,7 +1905,51 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AutoOrient()
     {
-      _Instance.AutoOrient();
+      _NativeInstance.AutoOrient();
+    }
+
+    ///<summary>
+    /// Forces all pixels below the threshold into black while leaving all pixels at or above
+    /// the threshold unchanged.
+    ///</summary>
+    ///<param name="threshold">The threshold to use.</param>
+    ///<exception cref="MagickException"/>
+    public void BlackThreshold(Percentage threshold)
+    {
+      BlackThreshold(threshold, ImageMagick.Channels.Composite);
+    }
+
+    ///<summary>
+    /// Forces all pixels below the threshold into black while leaving all pixels at or above
+    /// the threshold unchanged.
+    ///</summary>
+    ///<param name="threshold">The threshold to use.</param>
+    ///<param name="channels">The channel(s) to make black.</param>
+    ///<exception cref="MagickException"/>
+    public void BlackThreshold(Percentage threshold, Channels channels)
+    {
+      Throw.IfNegative("threshold", threshold);
+
+      _NativeInstance.BlackThreshold(threshold.ToString(), channels);
+    }
+
+    ///<summary>
+    /// Simulate a scene at nighttime in the moonlight.
+    ///</summary>
+    ///<exception cref="MagickException"/>
+    public void BlueShift()
+    {
+      BlueShift(1.5);
+    }
+
+    ///<summary>
+    /// Simulate a scene at nighttime in the moonlight.
+    ///</summary>
+    ///<param name="factor">The factor to use.</param>
+    ///<exception cref="MagickException"/>
+    public void BlueShift(double factor)
+    {
+      _NativeInstance.BlueShift(factor);
     }
 
     ///<summary>
@@ -2064,7 +1969,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public int BitDepth(Channels channels)
     {
-      return _Instance.BitDepth(channels);
+      return _NativeInstance.GetBitDepth(channels);
     }
 
     ///<summary>
@@ -2075,7 +1980,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void BitDepth(Channels channels, int value)
     {
-      _Instance.BitDepth(channels, value);
+      _NativeInstance.SetBitDepth(channels, value);
     }
 
     ///<summary>
@@ -2085,53 +1990,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void BitDepth(int value)
     {
-      _Instance.BitDepth(ImageMagick.Channels.Composite, value);
-    }
-
-    ///<summary>
-    /// Forces all pixels below the threshold into black while leaving all pixels at or above
-    /// the threshold unchanged.
-    ///</summary>
-    ///<param name="threshold">The threshold to use.</param>
-    ///<exception cref="MagickException"/>
-    public void BlackThreshold(Percentage threshold)
-    {
-      Throw.IfNegative("threshold", threshold);
-
-      _Instance.BlackThreshold(threshold.ToString());
-    }
-
-    ///<summary>
-    /// Forces all pixels below the threshold into black while leaving all pixels at or above
-    /// the threshold unchanged.
-    ///</summary>
-    ///<param name="threshold">The threshold to use.</param>
-    ///<param name="channels">The channel(s) to make black.</param>
-    ///<exception cref="MagickException"/>
-    public void BlackThreshold(Percentage threshold, Channels channels)
-    {
-      Throw.IfNegative("threshold", threshold);
-
-      _Instance.BlackThreshold(threshold.ToString(), channels);
-    }
-
-    ///<summary>
-    /// Simulate a scene at nighttime in the moonlight.
-    ///</summary>
-    ///<exception cref="MagickException"/>
-    public void BlueShift()
-    {
-      BlueShift(1.5);
-    }
-
-    ///<summary>
-    /// Simulate a scene at nighttime in the moonlight.
-    ///</summary>
-    ///<param name="factor">The factor to use.</param>
-    ///<exception cref="MagickException"/>
-    public void BlueShift(double factor)
-    {
-      _Instance.BlueShift(factor);
+      BitDepth(ImageMagick.Channels.Composite, value);
     }
 
     ///<summary>
@@ -2161,7 +2020,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Blur(double radius, double sigma)
     {
-      _Instance.Blur(radius, sigma);
+      Blur(radius, sigma, ImageMagick.Channels.Default);
     }
 
     ///<summary>
@@ -2173,7 +2032,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Blur(double radius, double sigma, Channels channels)
     {
-      _Instance.Blur(radius, sigma, channels);
+      _NativeInstance.Blur(radius, sigma, channels);
     }
 
     ///<summary>
@@ -2194,7 +2053,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Border(int width, int height)
     {
-      _Instance.Border(width, height);
+      MagickRectangle rectangle = new MagickRectangle(0, 0, width, height);
+      _NativeInstance.Border(rectangle);
     }
 
     ///<summary>
@@ -2207,7 +2067,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void BrightnessContrast(Percentage brightness, Percentage contrast)
     {
-      _Instance.BrightnessContrast(brightness.ToDouble(), contrast.ToDouble());
+      BrightnessContrast(brightness, contrast, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -2221,25 +2081,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void BrightnessContrast(Percentage brightness, Percentage contrast, Channels channels)
     {
-      _Instance.BrightnessContrast(brightness.ToDouble(), contrast.ToDouble(), channels);
-    }
-
-    ///<summary>
-    /// Compares the current instance with another image. Only the size of the image is compared.
-    ///</summary>
-    ///<param name="other">The object to compare this image with.</param>
-    public int CompareTo(MagickImage other)
-    {
-      if (ReferenceEquals(other, null))
-        return 1;
-
-      int left = (Width * Height);
-      int right = (other.Width * other.Height);
-
-      if (left == right)
-        return 0;
-
-      return left < right ? -1 : 1;
+      _NativeInstance.BrightnessContrast(brightness.ToDouble(), contrast.ToDouble(), channels);
     }
 
     ///<summary>
@@ -2261,28 +2103,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void CannyEdge(double radius, double sigma, Percentage lower, Percentage upper)
     {
-      _Instance.CannyEdge(radius, sigma, lower.ToDouble() / 100, upper.ToDouble() / 100);
-    }
-
-    ///<summary>
-    /// Applies the color decision list from the specified ASC CDL file.
-    ///</summary>
-    ///<param name="fileName">The file to read the ASC CDL information from.</param>
-    ///<exception cref="MagickException"/>
-    public void CDL(string fileName)
-    {
-      Throw.IfNull("fileName", fileName);
-
-      String filePath = FileHelper.CheckForBaseDirectory(fileName);
-      _Instance.CDL(filePath);
-    }
-
-    ///<summary>
-    /// Changes the ColorSpace of the image without applying a color profile.
-    ///</summary>
-    public void ChangeColorSpace(ColorSpace value)
-    {
-      _Instance.ChangeColorSpace(value);
+      _NativeInstance.CannyEdge(radius, sigma, lower.ToDouble() / 100, upper.ToDouble() / 100);
     }
 
     ///<summary>
@@ -2302,7 +2123,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Charcoal(double radius, double sigma)
     {
-      _Instance.Charcoal(radius, sigma);
+      _NativeInstance.Charcoal(radius, sigma);
     }
 
     ///<summary>
@@ -2328,7 +2149,7 @@ namespace ImageMagick
     {
       Throw.IfNull("geometry", geometry);
 
-      _Instance.Chop(MagickGeometry.GetInstance(geometry));
+      _NativeInstance.Chop(MagickRectangle.FromGeometry(geometry, this));
     }
 
     ///<summary>
@@ -2356,66 +2177,26 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Chromaticity blue primary point.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
-    public void ChromaBluePrimary(double x, double y)
-    {
-      _Instance.ChromaBluePrimary(x, y);
-    }
-
-    ///<summary>
-    /// Chromaticity green primary point.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
-    public void ChromaGreenPrimary(double x, double y)
-    {
-      _Instance.ChromaGreenPrimary(x, y);
-    }
-
-    ///<summary>
-    /// Chromaticity red primary point.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
-    public void ChromaRedPrimary(double x, double y)
-    {
-      _Instance.ChromaRedPrimary(x, y);
-    }
-
-    ///<summary>
-    /// Chromaticity red primary point.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
-    public void ChromaWhitePoint(double x, double y)
-    {
-      _Instance.ChromaWhitePoint(x, y);
-    }
-
-    ///<summary>
     /// Set each pixel whose value is below zero to zero and any the pixel whose value is above
-    /// the quantum range to the quantum range (e.g. 65535) otherwise the pixel value
+    /// the quantum range to the quantum range (Quantum.Max) otherwise the pixel value
     /// remains unchanged.
     ///</summary>
     ///<exception cref="MagickException"/>
     public void Clamp()
     {
-      _Instance.Clamp();
+      _NativeInstance.Clamp();
     }
 
     ///<summary>
     /// Set each pixel whose value is below zero to zero and any the pixel whose value is above
-    /// the quantum range to the quantum range (e.g. 65535) otherwise the pixel value
+    /// the quantum range to the quantum range (Quantum.Max) otherwise the pixel value
     /// remains unchanged.
     ///</summary>
     ///<param name="channels">The channel(s) to clamp.</param>
     ///<exception cref="MagickException"/>
     public void Clamp(Channels channels)
     {
-      _Instance.Clamp(channels);
+      _NativeInstance.ClampChannel(channels);
     }
 
     ///<summary>
@@ -2424,7 +2205,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Clip()
     {
-      _Instance.Clip();
+      _NativeInstance.Clip();
     }
 
     ///<summary>
@@ -2439,7 +2220,7 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("pathName", pathName);
 
-      _Instance.Clip(pathName, inside);
+      _NativeInstance.ClipPath(pathName, inside);
     }
 
     ///<summary>
@@ -2447,7 +2228,7 @@ namespace ImageMagick
     ///</summary>
     public MagickImage Clone()
     {
-      return new MagickImage(_Instance.Clone());
+      return new MagickImage(this);
     }
 
     ///<summary>
@@ -2459,7 +2240,7 @@ namespace ImageMagick
       Throw.IfNull("geometry", geometry);
 
       MagickImage clone = new MagickImage("xc:none", geometry.Width, geometry.Height);
-      clone._Instance.CopyPixels(_Instance, MagickGeometry.GetInstance(geometry), new Coordinate(0, 0));
+      clone.CopyPixels(this, geometry, 0, 0);
 
       return clone;
     }
@@ -2496,7 +2277,7 @@ namespace ImageMagick
     {
       Throw.IfNull("image", image);
 
-      _Instance.Clut(GetInstance(image), method);
+      Clut(image, method, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -2510,7 +2291,7 @@ namespace ImageMagick
     {
       Throw.IfNull("image", image);
 
-      _Instance.Clut(GetInstance(image), method, channels);
+      _NativeInstance.Clut(image, method, channels);
     }
 
     ///<summary>
@@ -2522,7 +2303,27 @@ namespace ImageMagick
     {
       Throw.IfNull("color", color);
 
-      _Instance.ColorAlpha(MagickColor.GetInstance(color));
+      if (!HasAlpha)
+        return;
+
+      using (MagickImage canvas = new MagickImage(color, Width, Height))
+      {
+        canvas.Composite(this, 0, 0, CompositeOperator.SrcOver);
+        SetInstance(new NativeMagickImage(canvas._NativeInstance.Clone()));
+      }
+    }
+
+    ///<summary>
+    /// Applies the color decision list from the specified ASC CDL file.
+    ///</summary>
+    ///<param name="fileName">The file to read the ASC CDL information from.</param>
+    ///<exception cref="MagickException"/>
+    public void ColorDecisionList(string fileName)
+    {
+      Throw.IfNullOrEmpty("fileName", fileName);
+
+      string filePath = FileHelper.CheckForBaseDirectory(fileName);
+      _NativeInstance.ColorDecisionList(filePath);
     }
 
     ///<summary>
@@ -2554,30 +2355,9 @@ namespace ImageMagick
       Throw.IfNegative("alphaGreen", alphaGreen);
       Throw.IfNegative("alphaBlue", alphaBlue);
 
-      _Instance.Colorize(MagickColor.GetInstance(color), alphaRed.ToInt32(), alphaGreen.ToInt32(), alphaBlue.ToInt32());
-    }
+      string blend = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", alphaRed.ToInt32(), alphaGreen.ToInt32(), alphaBlue.ToInt32());
 
-    ///<summary>
-    /// Get color at colormap position index.
-    ///</summary>
-    ///<param name="index">The position index.</param>
-    ///<exception cref="MagickException"/>
-    public MagickColor ColorMap(int index)
-    {
-      return MagickColor.Create(_Instance.ColorMap(index));
-    }
-
-    ///<summary>
-    /// Set color at colormap position index.
-    ///</summary>
-    ///<param name="index">The position index.</param>
-    ///<param name="color">The color.</param>
-    ///<exception cref="MagickException"/>
-    public void ColorMap(int index, MagickColor color)
-    {
-      Throw.IfNull("color", color);
-
-      _Instance.ColorMap(index, MagickColor.GetInstance(color));
+      _NativeInstance.Colorize(color, blend);
     }
 
     ///<summary>
@@ -2585,11 +2365,11 @@ namespace ImageMagick
     ///</summary>
     ///<param name="matrix">The color matrix to use.</param>
     ///<exception cref="MagickException"/>
-    public void ColorMatrix(ColorMatrix matrix)
+    public void ColorMatrix(MagickColorMatrix matrix)
     {
       Throw.IfNull("matrix", matrix);
 
-      _Instance.ColorMatrix(matrix);
+      _NativeInstance.ColorMatrix(matrix);
     }
 
     ///<summary>
@@ -2601,7 +2381,10 @@ namespace ImageMagick
     {
       Throw.IfNull("image", image);
 
-      return _Instance.Compare(GetInstance(image));
+      if (_NativeInstance.SetColorMetric(image))
+        return new MagickErrorInfo();
+
+      return CreateErrorInfo(this);
     }
 
     ///<summary>
@@ -2626,7 +2409,7 @@ namespace ImageMagick
     {
       Throw.IfNull("image", image);
 
-      return _Instance.Compare(GetInstance(image), metric, channels);
+      return _NativeInstance.CompareDistortion(image, metric, channels);
     }
 
     ///<summary>
@@ -2654,7 +2437,31 @@ namespace ImageMagick
       Throw.IfNull("image", image);
       Throw.IfNull("difference", difference);
 
-      return _Instance.Compare(GetInstance(image), metric, GetInstance(difference), channels);
+      double distortion;
+
+      IntPtr result = _NativeInstance.Compare(image, metric, channels, out distortion);
+      if (result != IntPtr.Zero)
+        difference._NativeInstance.Instance = result;
+
+      return distortion;
+    }
+
+    ///<summary>
+    /// Compares the current instance with another image. Only the size of the image is compared.
+    ///</summary>
+    ///<param name="other">The object to compare this image with.</param>
+    public int CompareTo(MagickImage other)
+    {
+      if (ReferenceEquals(other, null))
+        return 1;
+
+      int left = (Width * Height);
+      int right = (other.Width * other.Height);
+
+      if (left == right)
+        return 0;
+
+      return left < right ? -1 : 1;
     }
 
     ///<summary>
@@ -2721,7 +2528,7 @@ namespace ImageMagick
       if (!string.IsNullOrEmpty(args))
         SetArtifact("compose:args", args);
 
-      _Instance.Composite(GetInstance(image), x, y, compose);
+      _NativeInstance.Composite(image, x, y, compose);
     }
 
     ///<summary>
@@ -2760,10 +2567,9 @@ namespace ImageMagick
       Throw.IfNull("image", image);
       Throw.IfNull("offset", offset);
 
-      if (!string.IsNullOrEmpty(args))
-        SetArtifact("compose:args", args);
+      SetArtifact("compose:args", args);
 
-      _Instance.Composite(GetInstance(image), MagickGeometry.GetInstance(offset), compose);
+      _NativeInstance.CompositeGeometry(image, MagickGeometry.ToString(offset), compose);
     }
 
     ///<summary>
@@ -2774,7 +2580,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Composite(MagickImage image, Gravity gravity)
     {
-      Composite(image, gravity, ImageMagick.CompositeOperator.In);
+      Composite(image, gravity, CompositeOperator.In);
     }
 
     ///<summary>
@@ -2786,7 +2592,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Composite(MagickImage image, Gravity gravity, CompositeOperator compose)
     {
-      Composite(image, gravity, compose, null);
+      _NativeInstance.SetArtifact("compose:args", null);
+      _NativeInstance.CompositeGravity(image, gravity, compose);
     }
 
     ///<summary>
@@ -2801,10 +2608,9 @@ namespace ImageMagick
     {
       Throw.IfNull("image", image);
 
-      if (!string.IsNullOrEmpty(args))
-        SetArtifact("compose:args", args);
+      SetArtifact("compose:args", args);
 
-      _Instance.Composite(GetInstance(image), gravity, compose);
+      _NativeInstance.CompositeGravity(image, gravity, compose);
     }
 
     ///<summary>
@@ -2812,9 +2618,19 @@ namespace ImageMagick
     ///</summary>
     ///<param name="connectivity">How many neighbors to visit, choose from 4 or 8.</param>
     ///<exception cref="MagickException"/>
-    public void ConnectedComponents(int connectivity)
+    public IEnumerable<ConnectedComponent> ConnectedComponents(int connectivity)
     {
-      _Instance.ConnectedComponents(connectivity);
+      IntPtr objects = IntPtr.Zero;
+
+      try
+      {
+        _NativeInstance.ConnectedComponents(connectivity, out objects);
+        return ConnectedComponent.Create(objects, ColormapSize);
+      }
+      finally
+      {
+        ConnectedComponent.DisposeList(objects);
+      }
     }
 
     ///<summary>
@@ -2833,7 +2649,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Contrast(bool enhance)
     {
-      _Instance.Contrast(enhance);
+      _NativeInstance.Contrast(enhance);
     }
 
     ///<summary>
@@ -2860,11 +2676,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void ContrastStretch(Percentage blackPoint, Percentage whitePoint)
     {
-      Throw.IfNegative("blackPoint", blackPoint);
-      Throw.IfNegative("whitePoint", whitePoint);
-
-      PointD contrast = CalculateContrastStretch(blackPoint, whitePoint);
-      _Instance.ContrastStretch(contrast);
+      ContrastStretch(blackPoint, whitePoint, ImageMagick.Channels.Default);
     }
 
     ///<summary>
@@ -2883,7 +2695,7 @@ namespace ImageMagick
       Throw.IfNegative("whitePoint", whitePoint);
 
       PointD contrast = CalculateContrastStretch(blackPoint, whitePoint);
-      _Instance.ContrastStretch(contrast, channels);
+      _NativeInstance.ContrastStretch(contrast.X, contrast.Y, channels);
     }
 
     ///<summary>
@@ -2894,7 +2706,7 @@ namespace ImageMagick
     {
       Throw.IfNull("convolveMatrix", convolveMatrix);
 
-      _Instance.Convolve(convolveMatrix);
+      _NativeInstance.Convolve(convolveMatrix);
     }
 
     ///<summary>
@@ -2902,12 +2714,22 @@ namespace ImageMagick
     /// the specified offset.
     ///</summary>
     ///<exception cref="MagickException"/>
-    public void CopyPixels(MagickImage source, MagickGeometry geometry, Coordinate offset)
+    public void CopyPixels(MagickImage source, MagickGeometry geometry, PointD offset)
+    {
+      CopyPixels(source, geometry, (int)offset.X, (int)offset.Y);
+    }
+
+    ///<summary>
+    /// Copies pixels from the source image as defined by the geometry the destination image at
+    /// the specified offset.
+    ///</summary>
+    ///<exception cref="MagickException"/>
+    public void CopyPixels(MagickImage source, MagickGeometry geometry, int x, int y)
     {
       Throw.IfNull("source", source);
       Throw.IfNull("geometry", geometry);
 
-      _Instance.CopyPixels(MagickImage.GetInstance(source), MagickGeometry.GetInstance(geometry), offset);
+      _NativeInstance.CopyPixels(source, MagickRectangle.FromGeometry(geometry, this), new OffsetInfo(x, y));
     }
 
     ///<summary>
@@ -2920,7 +2742,39 @@ namespace ImageMagick
     {
       Throw.IfNull("geometry", geometry);
 
-      _Instance.Crop(MagickGeometry.GetInstance(geometry));
+      _NativeInstance.Crop(MagickRectangle.FromGeometry(geometry, this));
+    }
+
+    ///<summary>
+    /// Creates tiles of the current image in the specified dimension.
+    ///</summary>
+    ///<param name="width">The width of the tile.</param>
+    ///<param name="height">The height of the tile.</param>
+    public IEnumerable<MagickImage> CropToTiles(int width, int height)
+    {
+      return CropToTiles(new MagickGeometry(width, height));
+    }
+
+    ///<summary>
+    /// Creates tiles of the current image in the specified dimension.
+    ///</summary>
+    ///<param name="geometry">The size of the tile.</param>
+    public IEnumerable<MagickImage> CropToTiles(MagickGeometry geometry)
+    {
+      Throw.IfNull("geometry", geometry);
+
+      IntPtr images = _NativeInstance.CropToTiles(MagickGeometry.ToString(geometry));
+      return CreateList(images);
+    }
+
+    ///<summary>
+    /// Displaces an image's colormap by a given number of positions.
+    ///</summary>
+    ///<param name="amount">Displace the colormap this amount.</param>
+    ///<exception cref="MagickException"/>
+    public void CycleColormap(int amount)
+    {
+      _NativeInstance.CycleColormap(amount);
     }
 
     ///<summary>
@@ -3007,40 +2861,6 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Creates tiles of the current image in the specified dimension.
-    ///</summary>
-    ///<param name="width">The width of the tile.</param>
-    ///<param name="height">The height of the tile.</param>
-    public IEnumerable<MagickImage> CropToTiles(int width, int height)
-    {
-      return CropToTiles(new MagickGeometry(width, height));
-    }
-
-    ///<summary>
-    /// Creates tiles of the current image in the specified dimension.
-    ///</summary>
-    ///<param name="geometry">The size of the tile.</param>
-    public IEnumerable<MagickImage> CropToTiles(MagickGeometry geometry)
-    {
-      Throw.IfNull("geometry", geometry);
-
-      foreach (Wrapper.MagickImage image in _Instance.CropToTiles(MagickGeometry.GetInstance(geometry)))
-      {
-        yield return Create(image);
-      }
-    }
-
-    ///<summary>
-    /// Displaces an image's colormap by a given number of positions.
-    ///</summary>
-    ///<param name="amount">Displace the colormap this amount.</param>
-    ///<exception cref="MagickException"/>
-    public void CycleColormap(int amount)
-    {
-      _Instance.CycleColormap(amount);
-    }
-
-    ///<summary>
     /// Converts cipher pixels to plain pixels.
     ///</summary>
     ///<param name="passphrase">The password that was used to encrypt the image.</param>
@@ -3049,7 +2869,7 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("passphrase", passphrase);
 
-      _Instance.Decipher(passphrase);
+      _NativeInstance.Decipher(passphrase);
     }
 
     ///<summary>
@@ -3064,7 +2884,7 @@ namespace ImageMagick
     {
       Throw.IfNegative("threshold", threshold);
 
-      _Instance.Deskew(threshold.ToQuantum());
+      _NativeInstance.Deskew(threshold.ToQuantum());
     }
 
     ///<summary>
@@ -3073,7 +2893,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Despeckle()
     {
-      _Instance.Despeckle();
+      _NativeInstance.Despeckle();
     }
 
     ///<summary>
@@ -3083,7 +2903,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public ColorType DetermineColorType()
     {
-      return _Instance.DetermineColorType();
+      return _NativeInstance.DetermineColorType();
     }
 
     /// <summary>
@@ -3091,7 +2911,7 @@ namespace ImageMagick
     /// </summary>
     public void Dispose()
     {
-      DisposeInstance();
+      Dispose(true);
       GC.SuppressFinalize(this);
     }
 
@@ -3120,7 +2940,7 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("arguments", arguments);
 
-      _Instance.Distort(method, bestfit, arguments);
+      _NativeInstance.Distort(method, bestfit, arguments, arguments.Length);
     }
 
     ///<summary>
@@ -3142,7 +2962,10 @@ namespace ImageMagick
     {
       Throw.IfNull("drawables", drawables);
 
-      _Instance.Draw(drawables);
+      using (DrawingWand wand = new DrawingWand(this))
+      {
+        wand.Draw(drawables);
+      }
     }
 
     ///<summary>
@@ -3152,7 +2975,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Edge(double radius)
     {
-      _Instance.Edge(radius);
+      _NativeInstance.Edge(radius);
     }
 
     ///<summary>
@@ -3172,7 +2995,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Emboss(double radius, double sigma)
     {
-      _Instance.Emboss(radius, sigma);
+      _NativeInstance.Emboss(radius, sigma);
     }
 
     ///<summary>
@@ -3183,7 +3006,7 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("passphrase", passphrase);
 
-      _Instance.Encipher(passphrase);
+      _NativeInstance.Encipher(passphrase);
     }
 
     ///<summary>
@@ -3192,7 +3015,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Enhance()
     {
-      _Instance.Enhance();
+      _NativeInstance.Enhance();
     }
 
     ///<summary>
@@ -3201,7 +3024,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Equalize()
     {
-      _Instance.Equalize();
+      _NativeInstance.Equalize();
     }
 
     ///<summary>
@@ -3225,7 +3048,10 @@ namespace ImageMagick
       if (ReferenceEquals(other, null))
         return false;
 
-      return _Instance.Equals(other._Instance);
+      if (Width != other.Width || Height != other.Height)
+        return false;
+
+      return _NativeInstance.Equals(other);
     }
 
     ///<summary>
@@ -3237,7 +3063,9 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Evaluate(Channels channels, EvaluateFunction evaluateFunction, params double[] arguments)
     {
-      _Instance.Evaluate(channels, evaluateFunction, arguments);
+      Throw.IfNullOrEmpty("arguments", arguments);
+
+      _NativeInstance.EvaluateFunction(channels, evaluateFunction, arguments, arguments.Length);
     }
 
     ///<summary>
@@ -3249,7 +3077,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Evaluate(Channels channels, EvaluateOperator evaluateOperator, double value)
     {
-      _Instance.Evaluate(channels, evaluateOperator, value);
+      _NativeInstance.EvaluateOperator(channels, evaluateOperator, value);
     }
 
     ///<summary>
@@ -3277,7 +3105,7 @@ namespace ImageMagick
       Throw.IfNull("geometry", geometry);
       Throw.IfTrue("geometry", geometry.IsPercentage, "Percentage is not supported.");
 
-      _Instance.Evaluate(channels, MagickGeometry.GetInstance(geometry), evaluateOperator, value);
+      _NativeInstance.EvaluateGeometry(channels, MagickRectangle.FromGeometry(geometry, this), evaluateOperator, value);
     }
 
     ///<summary>
@@ -3358,7 +3186,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Extend the image as defined by the geometry.
+    /// Extend the image as defined by the rectangle.
     ///</summary>
     ///<param name="geometry">The geometry to extend the image to.</param>
     ///<exception cref="MagickException"/>
@@ -3366,7 +3194,8 @@ namespace ImageMagick
     {
       Throw.IfNull("geometry", geometry);
 
-      _Instance.Extent(MagickGeometry.GetInstance(geometry));
+      geometry.IgnoreAspectRatio = true;
+      _NativeInstance.Extent(MagickGeometry.ToString(geometry));
     }
 
     ///<summary>
@@ -3377,10 +3206,10 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Extent(MagickGeometry geometry, MagickColor backgroundColor)
     {
-      Throw.IfNull("geometry", geometry);
       Throw.IfNull("backgroundColor", backgroundColor);
 
-      _Instance.Extent(MagickGeometry.GetInstance(geometry), MagickColor.GetInstance(backgroundColor));
+      BackgroundColor = backgroundColor;
+      Extent(geometry);
     }
 
     ///<summary>
@@ -3393,7 +3222,8 @@ namespace ImageMagick
     {
       Throw.IfNull("geometry", geometry);
 
-      _Instance.Extent(MagickGeometry.GetInstance(geometry), gravity);
+      geometry.IgnoreAspectRatio = true;
+      _NativeInstance.ExtentGravity(MagickGeometry.ToString(geometry), gravity);
     }
 
     ///<summary>
@@ -3405,10 +3235,10 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Extent(MagickGeometry geometry, Gravity gravity, MagickColor backgroundColor)
     {
-      Throw.IfNull("geometry", geometry);
       Throw.IfNull("backgroundColor", backgroundColor);
 
-      _Instance.Extent(MagickGeometry.GetInstance(geometry), gravity, MagickColor.GetInstance(backgroundColor));
+      BackgroundColor = backgroundColor;
+      Extent(geometry, gravity);
     }
 
     ///<summary>
@@ -3417,7 +3247,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Flip()
     {
-      _Instance.Flip();
+      _NativeInstance.Flip();
     }
 
     ///<summary>
@@ -3428,9 +3258,12 @@ namespace ImageMagick
     ///<param name="x">The X coordinate.</param>
     ///<param name="y">The Y coordinate.</param>
     ///<exception cref="MagickException"/>
-    public void FloodFill(int alpha, int x, int y)
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public void FloodFill(QuantumType alpha, int x, int y)
     {
-      _Instance.FloodFill(alpha, x, y, false);
+      FloodFill(alpha, x, y, false);
     }
 
     ///<summary>
@@ -3447,17 +3280,17 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
+    /// Flood-fill color across pixels that match the color of the target pixel and are neighbors
     /// of the target pixel. Uses current fuzz setting when determining color match.
     ///</summary>
     ///<param name="color">The color to use.</param>
     ///<param name="x">The X coordinate.</param>
     ///<param name="y">The Y coordinate.</param>
-    ///<param name="borderColor">The color of the border.</param>
+    ///<param name="target">The target color.</param>
     ///<exception cref="MagickException"/>
-    public void FloodFill(MagickColor color, int x, int y, MagickColor borderColor)
+    public void FloodFill(MagickColor color, int x, int y, MagickColor target)
     {
-      FloodFill(color, x, y, borderColor, false);
+      FloodFill(color, x, y, target, false);
     }
 
     ///<summary>
@@ -3465,11 +3298,11 @@ namespace ImageMagick
     /// of the target pixel. Uses current fuzz setting when determining color match.
     ///</summary>
     ///<param name="color">The color to use.</param>
-    ///<param name="geometry">The position of the pixel.</param>
+    ///<param name="coordinate">The position of the pixel.</param>
     ///<exception cref="MagickException"/>
-    public void FloodFill(MagickColor color, MagickGeometry geometry)
+    public void FloodFill(MagickColor color, PointD coordinate)
     {
-      FloodFill(color, geometry, false);
+      FloodFill(color, (int)coordinate.X, (int)coordinate.Y, false);
     }
 
     ///<summary>
@@ -3477,12 +3310,12 @@ namespace ImageMagick
     /// of the target pixel. Uses current fuzz setting when determining color match.
     ///</summary>
     ///<param name="color">The color to use.</param>
-    ///<param name="geometry">The position of the pixel.</param>
-    ///<param name="borderColor">The color of the border.</param>
+    ///<param name="coordinate">The position of the pixel.</param>
+    ///<param name="target">The target color.</param>
     ///<exception cref="MagickException"/>
-    public void FloodFill(MagickColor color, MagickGeometry geometry, MagickColor borderColor)
+    public void FloodFill(MagickColor color, PointD coordinate, MagickColor target)
     {
-      FloodFill(color, geometry, borderColor, false);
+      FloodFill(color, (int)coordinate.X, (int)coordinate.Y, target, false);
     }
 
     ///<summary>
@@ -3505,11 +3338,11 @@ namespace ImageMagick
     ///<param name="image">The image to use.</param>
     ///<param name="x">The X coordinate.</param>
     ///<param name="y">The Y coordinate.</param>
-    ///<param name="borderColor">The color of the border.</param>
+    ///<param name="target">The target color.</param>
     ///<exception cref="MagickException"/>
-    public void FloodFill(MagickImage image, int x, int y, MagickColor borderColor)
+    public void FloodFill(MagickImage image, int x, int y, MagickColor target)
     {
-      FloodFill(image, x, y, borderColor, false);
+      FloodFill(image, x, y, target, false);
     }
 
     ///<summary>
@@ -3517,11 +3350,11 @@ namespace ImageMagick
     /// of the target pixel. Uses current fuzz setting when determining color match.
     ///</summary>
     ///<param name="image">The image to use.</param>
-    ///<param name="geometry">The position of the pixel.</param>
+    ///<param name="coordinate">The position of the pixel.</param>
     ///<exception cref="MagickException"/>
-    public void FloodFill(MagickImage image, MagickGeometry geometry)
+    public void FloodFill(MagickImage image, PointD coordinate)
     {
-      FloodFill(image, geometry, false);
+      FloodFill(image, (int)coordinate.X, (int)coordinate.Y, false);
     }
 
     ///<summary>
@@ -3529,12 +3362,12 @@ namespace ImageMagick
     /// of the target pixel. Uses current fuzz setting when determining color match.
     ///</summary>
     ///<param name="image">The image to use.</param>
-    ///<param name="geometry">The position of the pixel.</param>
-    ///<param name="borderColor">The color of the border.</param>
+    ///<param name="coordinate">The position of the pixel.</param>
+    ///<param name="target">The target color.</param>
     ///<exception cref="MagickException"/>
-    public void FloodFill(MagickImage image, MagickGeometry geometry, MagickColor borderColor)
+    public void FloodFill(MagickImage image, PointD coordinate, MagickColor target)
     {
-      FloodFill(image, geometry, borderColor, false);
+      FloodFill(image, (int)coordinate.X, (int)coordinate.Y, target, false);
     }
 
     ///<summary>
@@ -3543,7 +3376,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Flop()
     {
-      _Instance.Flop();
+      _NativeInstance.Flop();
     }
 
     ///<summary>
@@ -3566,18 +3399,23 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("text", text);
 
-      return _Instance.FontTypeMetrics(text, ignoreNewLines);
+      DrawingSettings settings = Settings.Drawing;
+
+      settings.SetText(text);
+      IntPtr result = _NativeInstance.FontTypeMetrics(settings, text, ignoreNewLines);
+      settings.SetText(null);
+      return TypeMetric.CreateInstance(result);
     }
 
     ///<summary>
     /// Formats the specified expression, more info here: http://www.imagemagick.org/script/escape.php.
     ///</summary>
     ///<exception cref="MagickException"/>
-    public String FormatExpression(string expression)
+    public string FormatExpression(string expression)
     {
       Throw.IfNullOrEmpty("expression", expression);
 
-      return _Instance.FormatExpression(expression);
+      return _NativeInstance.FormatExpression(Settings, expression);
     }
 
     ///<summary>
@@ -3598,7 +3436,7 @@ namespace ImageMagick
     {
       Throw.IfNull("geometry", geometry);
 
-      _Instance.Frame(MagickGeometry.GetInstance(geometry));
+      _NativeInstance.Frame(MagickRectangle.FromGeometry(geometry, this));
     }
 
     ///<summary>
@@ -3642,9 +3480,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Fx(string expression)
     {
-      Throw.IfNullOrEmpty("expression", expression);
-
-      _Instance.Fx(expression);
+      Fx(expression, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -3657,7 +3493,7 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("expression", expression);
 
-      _Instance.Fx(expression, channels);
+      _NativeInstance.Fx(expression, channels);
     }
 
     ///<summary>
@@ -3667,53 +3503,55 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void GammaCorrect(double gamma)
     {
-      _Instance.GammaCorrect(gamma);
+      GammaCorrect(gamma, ImageMagick.Channels.Default);
     }
 
     ///<summary>
     /// Gamma correct image.
     ///</summary>
-    ///<param name="gammaRed">The image gamma for the red channel.</param>
-    ///<param name="gammaGreen">The image gamma for the green channel.</param>
-    ///<param name="gammaBlue">The image gamma for the blue channel.</param>
+    ///<param name="gamma">The image gamma for the channel.</param>
+    ///<param name="channels">The channel(s) to gamma correct.</param>
     ///<exception cref="MagickException"/>
-    public void GammaCorrect(double gammaRed, double gammaGreen, double gammaBlue)
+    public void GammaCorrect(double gamma, Channels channels)
     {
-      _Instance.GammaCorrect(gammaRed, gammaGreen, gammaBlue);
+      _NativeInstance.GammaCorrect(gamma, channels);
     }
 
     ///<summary>
     /// Gaussian blur image.
     ///</summary>
-    ///<param name="width">The number of neighbor pixels to be included in the convolution.</param>
+    ///<param name="radius">The number of neighbor pixels to be included in the convolution.</param>
     ///<param name="sigma">The standard deviation of the gaussian bell curve.</param>
     ///<exception cref="MagickException"/>
-    public void GaussianBlur(double width, double sigma)
+    public void GaussianBlur(double radius, double sigma)
     {
-      _Instance.GaussianBlur(width, sigma);
+      GaussianBlur(radius, sigma, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
     /// Gaussian blur image.
     ///</summary>
-    ///<param name="width">The number of neighbor pixels to be included in the convolution.</param>
+    ///<param name="radius">The number of neighbor pixels to be included in the convolution.</param>
     ///<param name="sigma">The standard deviation of the gaussian bell curve.</param>
     ///<param name="channels">The channel(s) to blur.</param>
     ///<exception cref="MagickException"/>
-    public void GaussianBlur(double width, double sigma, Channels channels)
+    public void GaussianBlur(double radius, double sigma, Channels channels)
     {
-      _Instance.GaussianBlur(width, sigma, channels);
+      _NativeInstance.GaussianBlur(radius, sigma, channels);
     }
 
     ///<summary>
-    /// Returns the value of the artifact with the specified name.
+    /// Retrieve the 8bim profile from the image.
     ///</summary>
-    ///<param name="name">The name of the artifact.</param>
-    public string GetArtifact(string name)
+    ///<exception cref="MagickException"/>
+    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+    public EightBimProfile Get8BimProfile()
     {
-      Throw.IfNullOrEmpty("name", name);
+      StringInfo info = _NativeInstance.GetProfile("8bim");
+      if (info == null || info.Datum == null)
+        return null;
 
-      return _Instance.GetArtifact(name);
+      return new EightBimProfile(this, info.Datum);
     }
 
     ///<summary>
@@ -3724,7 +3562,17 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("name", name);
 
-      return _Instance.GetAttribute(name);
+      return _NativeInstance.GetAttribute(name);
+    }
+
+    ///<summary>
+    /// Get color at colormap position index.
+    ///</summary>
+    ///<param name="index">The position index.</param>
+    ///<exception cref="MagickException"/>
+    public MagickColor GetColormap(int index)
+    {
+      return _NativeInstance.GetColormap(index);
     }
 
     ///<summary>
@@ -3748,25 +3596,18 @@ namespace ImageMagick
     ///<param name="name">The name of the option.</param>
     public string GetDefine(MagickFormat format, string name)
     {
-      Throw.IfNullOrEmpty("name", name);
-
-      Tuple<string, string> define = ParseDefine(format, name);
-
-      return _Instance.GetDefine(define.Item1, define.Item2);
+      return Settings.GetDefine(format, name);
     }
 
     ///<summary>
-    /// Retrieve the 8bim profile from the image.
+    /// Returns the value of the artifact with the specified name.
     ///</summary>
-    ///<exception cref="MagickException"/>
-    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
-    public EightBimProfile Get8BimProfile()
+    ///<param name="name">The name of the artifact.</param>
+    public string GetArtifact(string name)
     {
-      Byte[] data = _Instance.GetProfile("8bim");
-      if (data == null)
-        return null;
+      Throw.IfNullOrEmpty("name", name);
 
-      return new EightBimProfile(this, data);
+      return _NativeInstance.GetArtifact(name);
     }
 
     ///<summary>
@@ -3776,11 +3617,11 @@ namespace ImageMagick
     [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
     public ExifProfile GetExifProfile()
     {
-      Byte[] data = _Instance.GetProfile("exif");
-      if (data == null)
+      StringInfo info = _NativeInstance.GetProfile("exif");
+      if (info == null || info.Datum == null)
         return null;
 
-      return new ExifProfile(data);
+      return new ExifProfile(info.Datum);
     }
 
     ///<summary>
@@ -3801,11 +3642,24 @@ namespace ImageMagick
     [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
     public IptcProfile GetIptcProfile()
     {
-      Byte[] data = _Instance.GetProfile("iptc");
-      if (data == null)
+      StringInfo info = _NativeInstance.GetProfile("iptc");
+      if (info == null || info.Datum == null)
         return null;
 
-      return new IptcProfile(data);
+      return new IptcProfile(info.Datum);
+    }
+
+    ///<summary>
+    /// Returns a pixel collection that can be used to read or modify the pixels of this image.
+    ///</summary>
+    ///<exception cref="MagickException"/>
+    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+    public PixelCollection GetPixels()
+    {
+      if (Settings.Ping)
+        throw new InvalidOperationException("Image contains no pixel data.");
+
+      return new PixelCollection(this);
     }
 
     ///<summary>
@@ -3817,55 +3671,11 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("name", name);
 
-      Byte[] data = _Instance.GetProfile(name);
-      if (data == null)
+      StringInfo info = _NativeInstance.GetProfile(name);
+      if (info == null || info.Datum == null)
         return null;
 
-      return new ImageProfile(name, data);
-    }
-
-    ///<summary>
-    /// Returns a read-only pixel collection that can be used to access the pixels of this image.
-    ///</summary>
-    ///<exception cref="MagickException"/>
-    public PixelCollection GetReadOnlyPixels()
-    {
-      return GetReadOnlyPixels(0, 0, Width, Height);
-    }
-
-    ///<summary>
-    /// Returns a read-only pixel collection that can be used to access the pixels of this image.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
-    ///<param name="width">The width of the pixel area.</param>
-    ///<param name="height">The height of the pixel area.</param>
-    ///<exception cref="MagickException"/>
-    public PixelCollection GetReadOnlyPixels(int x, int y, int width, int height)
-    {
-      return new PixelCollection(_Instance.GetReadOnlyPixels(x, y, width, height));
-    }
-
-    ///<summary>
-    /// Returns a writable pixel collection that can be used to access the pixels of this image.
-    ///</summary>
-    ///<exception cref="MagickException"/>
-    public WritablePixelCollection GetWritablePixels()
-    {
-      return GetWritablePixels(0, 0, Width, Height);
-    }
-
-    ///<summary>
-    /// Returns a writable pixel collection that can be used to access the pixels of this image.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
-    ///<param name="width">The width of the pixel area.</param>
-    ///<param name="height">The height of the pixel area.</param>
-    ///<exception cref="MagickException"/>
-    public WritablePixelCollection GetWritablePixels(int x, int y, int width, int height)
-    {
-      return new WritablePixelCollection(_Instance.GetWritablePixels(x, y, width, height));
+      return new ImageProfile(name, info.Datum);
     }
 
     ///<summary>
@@ -3875,11 +3685,11 @@ namespace ImageMagick
     [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
     public XmpProfile GetXmpProfile()
     {
-      Byte[] data = _Instance.GetProfile("xmp");
-      if (data == null)
+      StringInfo info = _NativeInstance.GetProfile("xmp");
+      if (info == null || info.Datum == null)
         return null;
 
-      return new XmpProfile(data);
+      return new XmpProfile(info.Datum);
     }
 
     ///<summary>
@@ -3889,7 +3699,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Grayscale(PixelIntensityMethod method)
     {
-      _Instance.Grayscale(method);
+      _NativeInstance.Grayscale(method);
     }
 
     ///<summary>
@@ -3901,7 +3711,7 @@ namespace ImageMagick
     {
       Throw.IfNull("image", image);
 
-      _Instance.HaldClut(GetInstance(image));
+      _NativeInstance.HaldClut(image);
     }
 
     ///<summary>
@@ -3910,14 +3720,17 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public Dictionary<MagickColor, int> Histogram()
     {
-      Dictionary<MagickColor, int> result = new Dictionary<MagickColor, int>();
-
-      foreach (Tuple<Wrapper.MagickColor, int> item in _Instance.Histogram())
+      IntPtr result = IntPtr.Zero;
+      try
       {
-        result[MagickColor.Create(item.Item1)] = item.Item2;
+        UIntPtr length;
+        result = _NativeInstance.Histogram(out length);
+        return MagickColorCollection.ToDictionary(result, (int)length);
       }
-
-      return result;
+      finally
+      {
+        MagickColorCollection.DisposeList(result);
+      }
     }
 
     ///<summary>
@@ -3938,17 +3751,18 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void HoughLine(int width, int height, int threshold)
     {
-      _Instance.HoughLine(width, height, threshold);
+      _NativeInstance.HoughLine(width, height, threshold);
     }
 
     ///<summary>
     /// Implode image (special effect).
     ///</summary>
-    ///<param name="factor">The extent of the implosion.</param>
+    ///<param name="amount">The extent of the implosion.</param>
+    ///<param name="method">Pixel interpolate method.</param>
     ///<exception cref="MagickException"/>
-    public void Implode(double factor)
+    public void Implode(double amount, PixelInterpolateMethod method)
     {
-      _Instance.Implode(factor);
+      _NativeInstance.Implode(amount, method);
     }
 
     ///<summary>
@@ -3959,9 +3773,12 @@ namespace ImageMagick
     ///<param name="x">The X coordinate.</param>
     ///<param name="y">The Y coordinate.</param>
     ///<exception cref="MagickException"/>
-    public void InverseFloodFill(int alpha, int x, int y)
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public void InverseFloodFill(QuantumType alpha, int x, int y)
     {
-      _Instance.FloodFill(alpha, x, y, true);
+      FloodFill(alpha, x, y, true);
     }
 
     ///<summary>
@@ -3984,11 +3801,11 @@ namespace ImageMagick
     ///<param name="color">The color to use.</param>
     ///<param name="x">The X coordinate.</param>
     ///<param name="y">The Y coordinate.</param>
-    ///<param name="borderColor">The color of the border.</param>
+    ///<param name="target">The target color.</param>
     ///<exception cref="MagickException"/>
-    public void InverseFloodFill(MagickColor color, int x, int y, MagickColor borderColor)
+    public void InverseFloodFill(MagickColor color, int x, int y, MagickColor target)
     {
-      FloodFill(color, x, y, borderColor, true);
+      FloodFill(color, x, y, target, true);
     }
 
     ///<summary>
@@ -3996,11 +3813,11 @@ namespace ImageMagick
     /// of the target pixel. Uses current fuzz setting when determining color match.
     ///</summary>
     ///<param name="color">The color to use.</param>
-    ///<param name="geometry">The position of the pixel.</param>
+    ///<param name="coordinate">The position of the pixel.</param>
     ///<exception cref="MagickException"/>
-    public void InverseFloodFill(MagickColor color, MagickGeometry geometry)
+    public void InverseFloodFill(MagickColor color, PointD coordinate)
     {
-      FloodFill(color, geometry, true);
+      FloodFill(color, (int)coordinate.X, (int)coordinate.Y, true);
     }
 
     ///<summary>
@@ -4008,12 +3825,12 @@ namespace ImageMagick
     /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
     ///</summary>
     ///<param name="color">The color to use.</param>
-    ///<param name="geometry">The position of the pixel.</param>
-    ///<param name="borderColor">The color of the border.</param>
+    ///<param name="coordinate">The position of the pixel.</param>
+    ///<param name="target">The target color.</param>
     ///<exception cref="MagickException"/>
-    public void InverseFloodFill(MagickColor color, MagickGeometry geometry, MagickColor borderColor)
+    public void InverseFloodFill(MagickColor color, PointD coordinate, MagickColor target)
     {
-      FloodFill(color, geometry, borderColor, true);
+      FloodFill(color, (int)coordinate.X, (int)coordinate.Y, target, true);
     }
 
     ///<summary>
@@ -4036,11 +3853,11 @@ namespace ImageMagick
     ///<param name="image">The image to use.</param>
     ///<param name="x">The X coordinate.</param>
     ///<param name="y">The Y coordinate.</param>
-    ///<param name="borderColor">The color of the border.</param>
+    ///<param name="target">The target color.</param>
     ///<exception cref="MagickException"/>
-    public void InverseFloodFill(MagickImage image, int x, int y, MagickColor borderColor)
+    public void InverseFloodFill(MagickImage image, int x, int y, MagickColor target)
     {
-      FloodFill(image, x, y, borderColor, true);
+      FloodFill(image, x, y, target, true);
     }
 
     ///<summary>
@@ -4048,11 +3865,11 @@ namespace ImageMagick
     /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
     ///</summary>
     ///<param name="image">The image to use.</param>
-    ///<param name="geometry">The position of the pixel.</param>
+    ///<param name="coordinate">The position of the pixel.</param>
     ///<exception cref="MagickException"/>
-    public void InverseFloodFill(MagickImage image, MagickGeometry geometry)
+    public void InverseFloodFill(MagickImage image, PointD coordinate)
     {
-      FloodFill(image, geometry, true);
+      FloodFill(image, (int)coordinate.X, (int)coordinate.Y, true);
     }
 
     ///<summary>
@@ -4060,36 +3877,12 @@ namespace ImageMagick
     /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
     ///</summary>
     ///<param name="image">The image to use.</param>
-    ///<param name="geometry">The position of the pixel.</param>
-    ///<param name="borderColor">The color of the border.</param>
+    ///<param name="coordinate">The position of the pixel.</param>
+    ///<param name="target">The target color.</param>
     ///<exception cref="MagickException"/>
-    public void InverseFloodFill(MagickImage image, MagickGeometry geometry, MagickColor borderColor)
+    public void InverseFloodFill(MagickImage image, PointD coordinate, MagickColor target)
     {
-      FloodFill(image, geometry, borderColor, true);
-    }
-
-    ///<summary>
-    /// Implements the inverse discrete Fourier transform (DFT) of the image as a magnitude phase.
-    ///</summary>
-    ///<param name="image">The image to use.</param>
-    ///<exception cref="MagickException"/>
-    public void InverseFourierTransform(MagickImage image)
-    {
-      InverseFourierTransform(image, true);
-    }
-
-    ///<summary>
-    /// Implements the inverse discrete Fourier transform (DFT) of the image either as a magnitude
-    /// phase or real / imaginary image pair.
-    ///</summary>
-    ///<param name="image">The image to use.</param>
-    ///<param name="magnitude">Magnitude phase or real / imaginary image pair.</param>
-    ///<exception cref="MagickException"/>
-    public void InverseFourierTransform(MagickImage image, bool magnitude)
-    {
-      Throw.IfNull("image", image);
-
-      _Instance.InverseFourierTransform(GetInstance(image), magnitude);
+      FloodFill(image, (int)coordinate.X, (int)coordinate.Y, target, true);
     }
 
     ///<summary>
@@ -4166,7 +3959,7 @@ namespace ImageMagick
 #endif
     public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double midpoint)
     {
-      _Instance.Levelize(blackPoint, whitePoint, midpoint);
+      _NativeInstance.Levelize(blackPoint, whitePoint, midpoint, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -4198,7 +3991,7 @@ namespace ImageMagick
 #endif
     public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double midpoint, Channels channels)
     {
-      _Instance.Levelize(blackPoint, whitePoint, midpoint, channels);
+      _NativeInstance.Levelize(blackPoint, whitePoint, midpoint, channels);
     }
 
     ///<summary>
@@ -4263,7 +4056,20 @@ namespace ImageMagick
     {
       Throw.IfNull("color", color);
 
-      _Instance.Transparent(MagickColor.GetInstance(color), true);
+      _NativeInstance.Transparent(color, true);
+    }
+
+    ///<summary>
+    /// Add alpha channel to image, setting pixels that don't lie in between the given two colors to
+    /// transparent.
+    ///</summary>
+    ///<exception cref="MagickException"/>
+    public void InverseTransparentChroma(MagickColor colorLow, MagickColor colorHigh)
+    {
+      Throw.IfNull("colorLow", colorLow);
+      Throw.IfNull("colorHigh", colorHigh);
+
+      _NativeInstance.TransparentChroma(colorLow, colorHigh, true);
     }
 
     ///<summary>
@@ -4283,7 +4089,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Kuwahara(double radius, double sigma)
     {
-      _Instance.Kuwahara(radius, sigma);
+      _NativeInstance.Kuwahara(radius, sigma);
     }
 
     ///<summary>
@@ -4348,14 +4154,14 @@ namespace ImageMagick
     ///</summary>
     ///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
     ///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-    ///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+    ///<param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
     ///<exception cref="MagickException"/>
 #if Q16
     [CLSCompliant(false)]
 #endif
-    public void Level(QuantumType blackPoint, QuantumType whitePoint, double midpoint)
+    public void Level(QuantumType blackPoint, QuantumType whitePoint, double gamma)
     {
-      _Instance.Level(blackPoint, whitePoint, midpoint);
+      Level(blackPoint, whitePoint, gamma, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -4364,11 +4170,11 @@ namespace ImageMagick
     ///</summary>
     ///<param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     ///<param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-    ///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+    ///<param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
     ///<exception cref="MagickException"/>
-    public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint)
+    public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double gamma)
     {
-      Level(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), midpoint);
+      Level(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), gamma);
     }
 
     ///<summary>
@@ -4377,15 +4183,15 @@ namespace ImageMagick
     ///</summary>
     ///<param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
     ///<param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-    ///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+    ///<param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
     ///<param name="channels">The channel(s) to level.</param>
     ///<exception cref="MagickException"/>
 #if Q16
     [CLSCompliant(false)]
 #endif
-    public void Level(QuantumType blackPoint, QuantumType whitePoint, double midpoint, Channels channels)
+    public void Level(QuantumType blackPoint, QuantumType whitePoint, double gamma, Channels channels)
     {
-      _Instance.Level(blackPoint, whitePoint, midpoint, channels);
+      _NativeInstance.Level(blackPoint, whitePoint, gamma, channels);
     }
 
     ///<summary>
@@ -4394,12 +4200,12 @@ namespace ImageMagick
     ///</summary>
     ///<param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     ///<param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-    ///<param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
+    ///<param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10)</param>
     ///<param name="channels">The channel(s) to level.</param>
     ///<exception cref="MagickException"/>
-    public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint, Channels channels)
+    public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double gamma, Channels channels)
     {
-      Level(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), midpoint, channels);
+      Level(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), gamma, channels);
     }
 
     ///<summary>
@@ -4440,7 +4246,19 @@ namespace ImageMagick
       Throw.IfNegative("blackPoint", blackPoint);
       Throw.IfNegative("whitePoint", whitePoint);
 
-      _Instance.LinearStretch(blackPoint.ToQuantum(), whitePoint.ToQuantum());
+      _NativeInstance.LinearStretch(blackPoint.ToQuantum(), whitePoint.ToQuantum());
+    }
+
+    ///<summary>
+    /// Rescales image with seam carving.
+    ///</summary>
+    ///<param name="width">The new width.</param>
+    ///<param name="height">The new height.</param>
+    ///<exception cref="MagickException"/>
+    public void LiquidRescale(int width, int height)
+    {
+      MagickGeometry geometry = new MagickGeometry(width, height);
+      LiquidRescale(geometry);
     }
 
     ///<summary>
@@ -4452,7 +4270,32 @@ namespace ImageMagick
     {
       Throw.IfNull("geometry", geometry);
 
-      _Instance.LiquidRescale(MagickGeometry.GetInstance(geometry));
+      _NativeInstance.LiquidRescale(MagickGeometry.ToString(geometry));
+    }
+
+    ///<summary>
+    /// Rescales image with seam carving.
+    ///</summary>
+    ///<param name="percentage">The percentage.</param>
+    ///<exception cref="MagickException"/>
+    public void LiquidRescale(Percentage percentage)
+    {
+      LiquidRescale(percentage, percentage);
+    }
+
+    ///<summary>
+    /// Rescales image with seam carving.
+    ///</summary>
+    ///<param name="percentageWidth">The percentage of the width.</param>
+    ///<param name="percentageHeight">The percentage of the height.</param>
+    ///<exception cref="MagickException"/>
+    public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight)
+    {
+      Throw.IfNegative("percentageWidth", percentageWidth);
+      Throw.IfNegative("percentageHeight", percentageHeight);
+
+      MagickGeometry geometry = new MagickGeometry(percentageWidth, percentageHeight);
+      LiquidRescale(geometry);
     }
 
     ///<summary>
@@ -4463,7 +4306,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void LocalContrast(double radius, Percentage strength)
     {
-      _Instance.LocalContrast(radius, strength.ToDouble());
+      _NativeInstance.LocalContrast(radius, strength.ToDouble());
     }
 
     ///<summary>
@@ -4473,7 +4316,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Lower(int size)
     {
-      _Instance.RaiseOrLower(size, false);
+      _NativeInstance.RaiseOrLower(size, false);
     }
 
     ///<summary>
@@ -4482,7 +4325,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Magnify()
     {
-      _Instance.Magnify();
+      _NativeInstance.Magnify();
     }
 
     ///<summary>
@@ -4506,7 +4349,10 @@ namespace ImageMagick
       Throw.IfNull("image", image);
       Throw.IfNull("settings", settings);
 
-      return _Instance.Map(MagickImage.GetInstance(image), settings);
+      if (_NativeInstance.Map(image, settings))
+        return new MagickErrorInfo();
+
+      return CreateErrorInfo(this);
     }
 
     ///<summary>
@@ -4515,7 +4361,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void MedianFilter()
     {
-      MedianFilter(0.0);
+      MedianFilter(0);
     }
 
     ///<summary>
@@ -4523,9 +4369,9 @@ namespace ImageMagick
     ///</summary>
     ///<param name="radius">The radius of the pixel neighborhood.</param>
     ///<exception cref="MagickException"/>
-    public void MedianFilter(double radius)
+    public void MedianFilter(int radius)
     {
-      _Instance.MedianFilter(radius);
+      Statistic(StatisticType.Median, radius, radius);
     }
 
     ///<summary>
@@ -4534,7 +4380,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Minify()
     {
-      _Instance.Minify();
+      _NativeInstance.Minify();
     }
 
     ///<summary>
@@ -4571,16 +4417,9 @@ namespace ImageMagick
       Throw.IfNegative("saturation", saturation);
       Throw.IfNegative("hue", hue);
 
-      _Instance.Modulate(brightness.ToDouble(), saturation.ToDouble(), hue.ToDouble());
-    }
+      string modulate = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", brightness.ToDouble(), saturation.ToDouble(), hue.ToDouble());
 
-    ///<summary>
-    /// Returns the normalized moments of one or more image channels.
-    ///</summary>
-    ///<exception cref="MagickException"/>
-    public Moments Moments()
-    {
-      return _Instance.Moments();
+      _NativeInstance.Modulate(modulate);
     }
 
     ///<summary>
@@ -4628,7 +4467,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, Kernel kernel, int iterations)
     {
-      _Instance.Morphology(method, kernel, "", iterations);
+      Morphology(method, kernel, "", ImageMagick.Channels.Composite, iterations);
     }
 
     ///<summary>
@@ -4640,7 +4479,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, Kernel kernel, string arguments)
     {
-      _Instance.Morphology(method, kernel, arguments);
+      Morphology(method, kernel, arguments, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -4653,7 +4492,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, Kernel kernel, string arguments, Channels channels)
     {
-      _Instance.Morphology(method, kernel, arguments, channels);
+      Morphology(method, kernel, arguments, channels, 1);
     }
 
     ///<summary>
@@ -4667,7 +4506,9 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, Kernel kernel, string arguments, Channels channels, int iterations)
     {
-      _Instance.Morphology(method, kernel, arguments, channels, iterations);
+      string newKernel = EnumHelper.GetName(kernel) + ":" + arguments;
+
+      Morphology(method, newKernel, channels, iterations);
     }
 
     ///<summary>
@@ -4680,7 +4521,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, Kernel kernel, string arguments, int iterations)
     {
-      _Instance.Morphology(method, kernel, arguments, iterations);
+      Morphology(method, kernel, arguments, ImageMagick.Channels.Composite, iterations);
     }
 
     ///<summary>
@@ -4691,7 +4532,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, string userKernel)
     {
-      _Instance.Morphology(method, userKernel);
+      Morphology(method, userKernel, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -4703,7 +4544,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, string userKernel, Channels channels)
     {
-      _Instance.Morphology(method, userKernel, channels);
+      Morphology(method, userKernel, channels, 1);
     }
 
     ///<summary>
@@ -4716,7 +4557,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, string userKernel, Channels channels, int iterations)
     {
-      _Instance.Morphology(method, userKernel, channels, iterations);
+      _NativeInstance.Morphology(method, userKernel, channels, iterations);
     }
 
     ///<summary>
@@ -4728,7 +4569,24 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, string userKernel, int iterations)
     {
-      _Instance.Morphology(method, userKernel, iterations);
+      Morphology(method, userKernel, ImageMagick.Channels.Composite, iterations);
+    }
+
+    ///<summary>
+    /// Returns the normalized moments of one or more image channels.
+    ///</summary>
+    ///<exception cref="MagickException"/>
+    public Moments Moments()
+    {
+      IntPtr list = _NativeInstance.Moments();
+      try
+      {
+        return new Moments(this, list);
+      }
+      finally
+      {
+        ImageMagick.Moments.DisposeList(list);
+      }
     }
 
     ///<summary>
@@ -4740,7 +4598,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void MotionBlur(double radius, double sigma, double angle)
     {
-      _Instance.MotionBlur(radius, sigma, angle);
+      _NativeInstance.MotionBlur(radius, sigma, angle);
     }
 
     ///<summary>
@@ -4759,7 +4617,18 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Negate(bool onlyGrayscale)
     {
-      _Instance.Negate(onlyGrayscale);
+      Negate(onlyGrayscale, ImageMagick.Channels.Composite);
+    }
+
+    ///<summary>
+    /// Negate colors in image for the specified channel.
+    ///</summary>
+    ///<param name="channels">The channel(s) that should be negated.</param>
+    ///<param name="onlyGrayscale">Use true to negate only the grayscale colors.</param>
+    ///<exception cref="MagickException"/>
+    public void Negate(bool onlyGrayscale, Channels channels)
+    {
+      _NativeInstance.Negate(onlyGrayscale, channels);
     }
 
     ///<summary>
@@ -4769,18 +4638,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Negate(Channels channels)
     {
-      Negate(channels, false);
-    }
-
-    ///<summary>
-    /// Negate colors in image for the specified channel.
-    ///</summary>
-    ///<param name="channels">The channel(s) that should be negated.</param>
-    ///<param name="onlyGrayscale">Use true to negate only the grayscale colors.</param>
-    ///<exception cref="MagickException"/>
-    public void Negate(Channels channels, bool onlyGrayscale)
-    {
-      _Instance.Negate(channels, onlyGrayscale);
+      Negate(false, channels);
     }
 
     ///<summary>
@@ -4790,7 +4648,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Normalize()
     {
-      _Instance.Normalize();
+      _NativeInstance.Normalize();
     }
 
     ///<summary>
@@ -4798,17 +4656,18 @@ namespace ImageMagick
     ///</summary>
     public void OilPaint()
     {
-      OilPaint(3.0);
+      OilPaint(3.0, 1.0);
     }
 
     ///<summary>
     /// Oilpaint image (image looks like oil painting)
     ///</summary>
     ///<param name="radius">The radius of the circular neighborhood.</param>
+    ///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     ///<exception cref="MagickException"/>
-    public void OilPaint(double radius)
+    public void OilPaint(double radius, double sigma)
     {
-      _Instance.OilPaint(radius);
+      _NativeInstance.OilPaint(radius, sigma);
     }
 
     ///<summary>
@@ -4833,7 +4692,7 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("thresholdMap", thresholdMap);
 
-      _Instance.OrderedDither(thresholdMap);
+      OrderedDither(thresholdMap, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -4848,7 +4707,7 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("thresholdMap", thresholdMap);
 
-      _Instance.OrderedDither(thresholdMap, channels);
+      _NativeInstance.OrderedDither(thresholdMap, channels);
     }
 
     ///<summary>
@@ -4859,7 +4718,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Perceptible(double epsilon)
     {
-      _Instance.Perceptible(epsilon);
+      Perceptible(epsilon, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -4871,7 +4730,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Perceptible(double epsilon, Channels channels)
     {
-      _Instance.Perceptible(epsilon, channels);
+      _NativeInstance.Perceptible(epsilon, channels);
     }
 
     ///<summary>
@@ -4880,11 +4739,20 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public PerceptualHash PerceptualHash()
     {
-      PerceptualHash hash = new PerceptualHash(_Instance.PerceptualHash());
-      if (!hash.Isvalid)
-        return null;
+      IntPtr list = _NativeInstance.PerceptualHash();
 
-      return hash;
+      try
+      {
+        PerceptualHash hash = new PerceptualHash(this, list);
+        if (!hash.Isvalid)
+          return null;
+
+        return hash;
+      }
+      finally
+      {
+        ImageMagick.PerceptualHash.DisposeList(list);
+      }
     }
 
     ///<summary>
@@ -4894,7 +4762,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Ping(byte[] data)
     {
-      _Instance.Ping(data);
+      Read(data, null, true);
     }
 
     ///<summary>
@@ -4906,7 +4774,7 @@ namespace ImageMagick
     {
       Throw.IfNull("file", file);
 
-      Read(file.FullName);
+      Ping(file.FullName);
     }
 
     ///<summary>
@@ -4916,7 +4784,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Ping(string fileName)
     {
-      _Instance.Ping(fileName);
+      Read(fileName, null, true);
     }
 
     ///<summary>
@@ -4926,7 +4794,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Ping(Stream stream)
     {
-      _Instance.Ping(stream);
+      Read(StreamHelper.ToByteArray(stream), null, true);
     }
 
     ///<summary>
@@ -4940,7 +4808,7 @@ namespace ImageMagick
     {
       Throw.IfNull("caption", caption);
 
-      _Instance.Polaroid(caption, angle, method);
+      _NativeInstance.Polaroid(Settings.Drawing, caption, angle, method);
     }
 
     ///<summary>
@@ -4961,7 +4829,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Posterize(int levels, DitherMethod method)
     {
-      _Instance.Posterize(levels, method);
+      Posterize(levels, method, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -4973,7 +4841,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Posterize(int levels, DitherMethod method, Channels channels)
     {
-      _Instance.Posterize(levels, method, channels);
+      _NativeInstance.Posterize(levels, method, channels);
     }
 
     ///<summary>
@@ -5005,7 +4873,12 @@ namespace ImageMagick
     {
       Throw.IfNull("settings", settings);
 
-      return _Instance.Quantize(settings);
+      _NativeInstance.Quantize(settings);
+
+      if (settings.MeasureErrors)
+        return CreateErrorInfo(this);
+      else
+        return null;
     }
 
     ///<summary>
@@ -5016,7 +4889,7 @@ namespace ImageMagick
     [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate")]
     public void Raise(int size)
     {
-      _Instance.RaiseOrLower(size, true);
+      _NativeInstance.RaiseOrLower(size, true);
     }
 
     ///<summary>
@@ -5028,10 +4901,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void RandomThreshold(Percentage percentageLow, Percentage percentageHigh)
     {
-      Throw.IfNegative("percentageLow", percentageLow);
-      Throw.IfNegative("percentageHigh", percentageHigh);
-
-      _Instance.RandomThreshold(percentageLow.ToQuantum(), percentageHigh.ToQuantum(), true);
+      RandomThreshold(percentageLow, percentageHigh, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -5047,7 +4917,7 @@ namespace ImageMagick
       Throw.IfNegative("percentageLow", percentageLow);
       Throw.IfNegative("percentageHigh", percentageHigh);
 
-      _Instance.RandomThreshold(percentageLow.ToQuantum(), percentageHigh.ToQuantum(), channels, true);
+      RandomThreshold(percentageLow.ToQuantum(), percentageHigh.ToQuantum(), channels);
     }
 
     ///<summary>
@@ -5062,7 +4932,7 @@ namespace ImageMagick
 #endif
     public void RandomThreshold(QuantumType low, QuantumType high)
     {
-      _Instance.RandomThreshold(low, high, false);
+      RandomThreshold(low, high, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -5078,28 +4948,9 @@ namespace ImageMagick
 #endif
     public void RandomThreshold(QuantumType low, QuantumType high, Channels channels)
     {
-      _Instance.RandomThreshold(low, high, channels, false);
-    }
+      string threshold = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", low, high);
 
-    ///<summary>
-    /// Read single image frame.
-    ///</summary>
-    ///<param name="data">The byte array to read the image data from.</param>
-    ///<exception cref="MagickException"/>
-    public void Read(byte[] data)
-    {
-      Read(data, null);
-    }
-
-    ///<summary>
-    /// Read single vector image frame.
-    ///</summary>
-    ///<param name="data">The byte array to read the image data from.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
-    public void Read(byte[] data, MagickReadSettings readSettings)
-    {
-      _Instance.Read(data, readSettings);
+      _NativeInstance.RandomThreshold(threshold, channels);
     }
 
     ///<summary>
@@ -5126,6 +4977,27 @@ namespace ImageMagick
     ///<summary>
     /// Read single image frame.
     ///</summary>
+    ///<param name="data">The byte array to read the image data from.</param>
+    ///<exception cref="MagickException"/>
+    public void Read(byte[] data)
+    {
+      Read(data, null);
+    }
+
+    ///<summary>
+    /// Read single vector image frame.
+    ///</summary>
+    ///<param name="data">The byte array to read the image data from.</param>
+    ///<param name="readSettings">The settings to use when reading the image.</param>
+    ///<exception cref="MagickException"/>
+    public void Read(byte[] data, MagickReadSettings readSettings)
+    {
+      Read(data, readSettings, false);
+    }
+
+    ///<summary>
+    /// Read single image frame.
+    ///</summary>
     ///<param name="file">The file to read the image from.</param>
     ///<exception cref="MagickException"/>
     public void Read(FileInfo file)
@@ -5133,6 +5005,20 @@ namespace ImageMagick
       Throw.IfNull("file", file);
 
       Read(file.FullName);
+    }
+
+    ///<summary>
+    /// Read single image frame.
+    ///</summary>
+    ///<param name="file">The file to read the image from.</param>
+    ///<param name="width">The width.</param>
+    ///<param name="height">The height.</param>
+    ///<exception cref="MagickException"/>
+    public void Read(FileInfo file, int width, int height)
+    {
+      Throw.IfNull("file", file);
+
+      Read(file.FullName, width, height);
     }
 
     ///<summary>
@@ -5157,7 +5043,9 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(MagickColor color, int width, int height)
     {
-      _Instance.Read(MagickColor.GetInstance(color), width, height);
+      Throw.IfNull("file", color);
+
+      Read("xc:" + color.ToShortString(), width, height);
     }
 
     ///<summary>
@@ -5178,7 +5066,9 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(Stream stream, MagickReadSettings readSettings)
     {
-      _Instance.Read(stream, readSettings);
+      Throw.IfNull("stream", stream);
+
+      Read(StreamHelper.ToByteArray(stream), readSettings);
     }
 
     ///<summary>
@@ -5200,8 +5090,11 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(string fileName, int width, int height)
     {
-      string filePath = FileHelper.CheckForBaseDirectory(fileName);
-      _Instance.Read(filePath, width, height);
+      MagickReadSettings readSettings = new MagickReadSettings();
+      readSettings.Width = width;
+      readSettings.Height = height;
+
+      Read(fileName, readSettings);
     }
 
     ///<summary>
@@ -5212,8 +5105,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(string fileName, MagickReadSettings readSettings)
     {
-      string filePath = FileHelper.CheckForBaseDirectory(fileName);
-      _Instance.Read(filePath, readSettings);
+      Read(fileName, readSettings, false);
     }
 
     ///<summary>
@@ -5232,7 +5124,25 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void ReduceNoise(int order)
     {
-      _Instance.ReduceNoise(order);
+      Statistic(StatisticType.Nonpeak, order, order);
+    }
+
+    ///<summary>
+    /// Removes the artifact with the specified name.
+    ///</summary>
+    ///<param name="name">The name of the artifact.</param>
+    public void RemoveArtifact(string name)
+    {
+      _NativeInstance.RemoveArtifact(name);
+    }
+
+    ///<summary>
+    /// Removes the attribute with the specified name.
+    ///</summary>
+    ///<param name="name">The name of the attribute.</param>
+    public void RemoveAttribute(string name)
+    {
+      _NativeInstance.RemoveAttribute(name);
     }
 
     ///<summary>
@@ -5242,11 +5152,7 @@ namespace ImageMagick
     ///<param name="name">The name of the option.</param>
     public void RemoveDefine(MagickFormat format, string name)
     {
-      Throw.IfNullOrEmpty("name", name);
-
-      Tuple<string, string> define = ParseDefine(format, name);
-
-      _Instance.RemoveDefine(define.Item1, define.Item2);
+      Settings.RemoveDefine(format, name);
     }
 
     ///<summary>
@@ -5258,7 +5164,7 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("name", name);
 
-      _Instance.RemoveProfile(name);
+      _NativeInstance.RemoveProfile(name);
     }
 
     ///<summary>
@@ -5267,7 +5173,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void RePage()
     {
-      _Instance.RePage();
+      Page = new MagickGeometry(0, 0, 0, 0);
+      Settings.Page = new MagickGeometry(0, 0, 0, 0);
     }
 
     ///<summary>
@@ -5289,7 +5196,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Resample(PointD density)
     {
-      _Instance.Resample(density);
+      _NativeInstance.Resample(density.X, density.Y);
     }
 
     ///<summary>
@@ -5313,7 +5220,7 @@ namespace ImageMagick
     {
       Throw.IfNull("geometry", geometry);
 
-      _Instance.Resize(geometry._Instance);
+      _NativeInstance.Resize(geometry.ToString());
     }
 
     ///<summary>
@@ -5344,12 +5251,12 @@ namespace ImageMagick
     ///<summary>
     /// Roll image (rolls image vertically and horizontally).
     ///</summary>
-    ///<param name="xOffset">The X offset from origin.</param>
-    ///<param name="yOffset">The Y offset from origin.</param>
+    ///<param name="x">The X offset from origin.</param>
+    ///<param name="y">The Y offset from origin.</param>
     ///<exception cref="MagickException"/>
-    public void Roll(int xOffset, int yOffset)
+    public void Roll(int x, int y)
     {
-      _Instance.Roll(xOffset, yOffset);
+      _NativeInstance.Roll(x, y);
     }
 
     ///<summary>
@@ -5359,7 +5266,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Rotate(double degrees)
     {
-      _Instance.Rotate(degrees);
+      _NativeInstance.Rotate(degrees);
     }
 
     ///<summary>
@@ -5369,7 +5276,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void RotationalBlur(double angle)
     {
-      _Instance.RotationalBlur(angle);
+      RotationalBlur(angle, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -5380,7 +5287,19 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void RotationalBlur(double angle, Channels channels)
     {
-      _Instance.RotationalBlur(angle, channels);
+      _NativeInstance.RotationalBlur(angle, channels);
+    }
+
+    ///<summary>
+    /// Resize image by using simple ratio algorithm.
+    ///</summary>
+    ///<param name="width">The new width.</param>
+    ///<param name="height">The new height.</param>
+    ///<exception cref="MagickException"/>
+    public void Scale(int width, int height)
+    {
+      MagickGeometry geometry = new MagickGeometry(width, height);
+      Scale(geometry);
     }
 
     ///<summary>
@@ -5404,7 +5323,7 @@ namespace ImageMagick
     {
       Throw.IfNull("geometry", geometry);
 
-      _Instance.Sample(MagickGeometry.GetInstance(geometry));
+      _NativeInstance.Sample(MagickRectangle.FromGeometry(geometry, this));
     }
 
     ///<summary>
@@ -5435,25 +5354,13 @@ namespace ImageMagick
     ///<summary>
     /// Resize image by using simple ratio algorithm.
     ///</summary>
-    ///<param name="width">The new width.</param>
-    ///<param name="height">The new height.</param>
-    ///<exception cref="MagickException"/>
-    public void Scale(int width, int height)
-    {
-      MagickGeometry geometry = new MagickGeometry(width, height);
-      Scale(geometry);
-    }
-
-    ///<summary>
-    /// Resize image by using simple ratio algorithm.
-    ///</summary>
     ///<param name="geometry">The geometry to use.</param>
     ///<exception cref="MagickException"/>
     public void Scale(MagickGeometry geometry)
     {
       Throw.IfNull("geometry", geometry);
 
-      _Instance.Scale(MagickGeometry.GetInstance(geometry));
+      _NativeInstance.Scale(MagickGeometry.ToString(geometry));
     }
 
     ///<summary>
@@ -5506,7 +5413,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Segment(ColorSpace quantizeColorSpace, double clusterThreshold, double smoothingThreshold)
     {
-      _Instance.Segment(quantizeColorSpace, clusterThreshold, smoothingThreshold);
+      _NativeInstance.Segment(quantizeColorSpace, clusterThreshold, smoothingThreshold);
     }
 
     ///<summary>
@@ -5519,7 +5426,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void SelectiveBlur(double radius, double sigma, double threshold)
     {
-      _Instance.SelectiveBlur(radius, sigma, threshold);
+      SelectiveBlur(radius, sigma, threshold, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -5533,7 +5440,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void SelectiveBlur(double radius, double sigma, double threshold, Channels channels)
     {
-      _Instance.SelectiveBlur(radius, sigma, threshold, channels);
+      _NativeInstance.SelectiveBlur(radius, sigma, threshold, channels);
     }
 
     ///<summary>
@@ -5552,10 +5459,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public IEnumerable<MagickImage> Separate(Channels channels)
     {
-      foreach (Wrapper.MagickImage image in _Instance.Separate(channels))
-      {
-        yield return Create(image);
-      }
+      IntPtr images = _NativeInstance.Separate(channels);
+      return CreateList(images);
     }
 
     ///<summary>
@@ -5576,7 +5481,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void SepiaTone(Percentage threshold)
     {
-      _Instance.SepiaTone(threshold.ToQuantum());
+      _NativeInstance.SepiaTone(threshold.ToQuantum());
     }
 
     ///<summary>
@@ -5590,7 +5495,7 @@ namespace ImageMagick
       Throw.IfNullOrEmpty("name", name);
       Throw.IfNull("value", value);
 
-      _Instance.SetArtifact(name, value);
+      _NativeInstance.SetArtifact(name, value);
     }
 
     ///<summary>
@@ -5599,7 +5504,7 @@ namespace ImageMagick
     ///<param name="attenuate">The attenuate value.</param>
     public void SetAttenuate(double attenuate)
     {
-      _Instance.SetAttenuate(attenuate);
+      SetArtifact("attenuate", attenuate.ToString(CultureInfo.InvariantCulture));
     }
 
     ///<summary>
@@ -5613,7 +5518,20 @@ namespace ImageMagick
       Throw.IfNullOrEmpty("name", name);
       Throw.IfNull("value", value);
 
-      _Instance.SetAttribute(name, value);
+      _NativeInstance.SetAttribute(name, value);
+    }
+
+    ///<summary>
+    /// Set color at colormap position index.
+    ///</summary>
+    ///<param name="index">The position index.</param>
+    ///<param name="color">The color.</param>
+    ///<exception cref="MagickException"/>
+    public void SetColormap(int index, MagickColor color)
+    {
+      Throw.IfNull("color", color);
+
+      _NativeInstance.SetColormap(index, color);
     }
 
     ///<summary>
@@ -5636,12 +5554,7 @@ namespace ImageMagick
     ///<param name="value">The value of the define.</param>
     public void SetDefine(MagickFormat format, string name, string value)
     {
-      Throw.IfNullOrEmpty("name", name);
-      Throw.IfNull("value", value);
-
-      Tuple<string, string> define = ParseDefine(format, name);
-
-      _Instance.SetDefine(define.Item1, define.Item2, value);
+      Settings.SetDefine(format, name, value);
     }
 
     ///<summary>
@@ -5666,7 +5579,7 @@ namespace ImageMagick
     {
       Throw.IfNull("color", color);
 
-      _Instance.SetHighlightColor(MagickColor.GetInstance(color));
+      SetArtifact("highlight-color", color.ToString());
     }
 
     ///<summary>
@@ -5677,7 +5590,7 @@ namespace ImageMagick
     {
       Throw.IfNull("color", color);
 
-      _Instance.SetLowlightColor(MagickColor.GetInstance(color));
+      SetArtifact("lowlight-color", color.ToString());
     }
 
     ///<summary>
@@ -5698,7 +5611,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Shade(double azimuth, double elevation, bool colorShading)
     {
-      _Instance.Shade(azimuth, elevation, colorShading);
+      _NativeInstance.Shade(azimuth, elevation, colorShading);
     }
 
     ///<summary>
@@ -5730,13 +5643,13 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Shadow(int x, int y, double sigma, Percentage alpha)
     {
-      _Instance.Shadow(x, y, sigma, alpha.ToDouble());
+      _NativeInstance.Shadow(x, y, sigma, alpha.ToDouble());
     }
 
     ///<summary>
     /// Simulate an image shadow.
     ///</summary>
-    ///<param name="x">the shadow x-offset.</param>
+    ///<param name="x ">the shadow x-offset.</param>
     ///<param name="y">the shadow y-offset.</param>
     ///<param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
     ///<param name="alpha">Transparency percentage.</param>
@@ -5746,7 +5659,10 @@ namespace ImageMagick
     {
       Throw.IfNull("color", color);
 
-      _Instance.Shadow(x, y, sigma, alpha.ToDouble(), MagickColor.GetInstance(color));
+      MagickColor backgroundColor = BackgroundColor;
+      BackgroundColor = color;
+      _NativeInstance.Shadow(x, y, sigma, alpha.ToDouble());
+      BackgroundColor = backgroundColor;
     }
 
     ///<summary>
@@ -5776,7 +5692,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Sharpen(double radius, double sigma)
     {
-      _Instance.Sharpen(radius, sigma);
+      Sharpen(radius, sigma, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -5787,7 +5703,7 @@ namespace ImageMagick
     ///<param name="channels">The channel(s) that should be sharpened.</param>
     public void Sharpen(double radius, double sigma, Channels channels)
     {
-      _Instance.Sharpen(radius, sigma, channels);
+      _NativeInstance.Sharpen(radius, sigma, channels);
     }
 
     ///<summary>
@@ -5798,7 +5714,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Shave(int leftRight, int topBottom)
     {
-      _Instance.Shave(leftRight, topBottom);
+      _NativeInstance.Shave(leftRight, topBottom);
     }
 
     ///<summary>
@@ -5809,7 +5725,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Shear(double xAngle, double yAngle)
     {
-      _Instance.Shear(xAngle, yAngle);
+      _NativeInstance.Shear(xAngle, yAngle);
     }
 
     ///<summary>
@@ -5832,62 +5748,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void SigmoidalContrast(bool sharpen, double contrast, double midpoint)
     {
-      _Instance.SigmoidalContrast(sharpen, contrast, midpoint);
-    }
-
-    ///<summary>
-    /// Simulates a pencil sketch.
-    ///</summary>
-    ///<exception cref="MagickException"/>
-    public void Sketch()
-    {
-      Sketch(0.0, 1.0, 0.0);
-    }
-
-    ///<summary>
-    /// Simulates a pencil sketch. We convolve the image with a Gaussian operator of the given
-    /// radius and standard deviation (sigma). For reasonable results, radius should be larger than sigma.
-    /// Use a radius of 0 and sketch selects a suitable radius for you.
-    ///</summary>
-    ///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
-    ///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
-    ///<param name="angle">Apply the effect along this angle.</param>
-    ///<exception cref="MagickException"/>
-    public void Sketch(double radius, double sigma, double angle)
-    {
-      _Instance.Sketch(radius, sigma, angle);
-    }
-
-    ///<summary>
-    /// Solarize image (similar to effect seen when exposing a photographic film to light during
-    /// the development process)
-    ///</summary>
-    ///<exception cref="MagickException"/>
-    public void Solarize()
-    {
-      Solarize(new Percentage(50.0));
-    }
-
-    ///<summary>
-    /// Solarize image (similar to effect seen when exposing a photographic film to light during
-    /// the development process)
-    ///</summary>
-    ///<param name="factor">The factor to use.</param>
-    ///<exception cref="MagickException"/>
-    public void Solarize(double factor)
-    {
-      _Instance.Solarize(factor);
-    }
-
-    ///<summary>
-    /// Solarize image (similar to effect seen when exposing a photographic film to light during
-    /// the development process)
-    ///</summary>
-    ///<param name="factorPercentage">The factor to use.</param>
-    ///<exception cref="MagickException"/>
-    public void Solarize(Percentage factorPercentage)
-    {
-      _Instance.Solarize((double)factorPercentage.ToQuantum());
+      _NativeInstance.SigmoidalContrast(sharpen, contrast, midpoint);
     }
 
     ///<summary>
@@ -5913,17 +5774,88 @@ namespace ImageMagick
     public void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<SparseColorArg> args)
     {
       Throw.IfNull("args", args);
-#if NET20
-      Collection<Internal.ISparseColorArg> newArgs = new Collection<Internal.ISparseColorArg>();
+
+      bool hasRed = EnumHelper.HasFlag(channels, ImageMagick.Channels.Red);
+      bool hasGreen = EnumHelper.HasFlag(channels, ImageMagick.Channels.Green);
+      bool hasBlue = EnumHelper.HasFlag(channels, ImageMagick.Channels.Blue);
+      bool hasAlpha = EnumHelper.HasFlag(channels, ImageMagick.Channels.Alpha);
+
+      Throw.IfTrue("channels", !hasRed && !hasGreen && !hasBlue && !hasAlpha, "Invalid channels specified.");
+
+      List<double> arguments = new List<double>();
+
       foreach (SparseColorArg arg in args)
       {
-        newArgs.Add((Internal.ISparseColorArg)arg);
+        arguments.Add(arg.X);
+        arguments.Add(arg.Y);
+        if (hasRed)
+          arguments.Add(Quantum.ScaleToDouble(arg.Color.R));
+        if (hasGreen)
+          arguments.Add(Quantum.ScaleToDouble(arg.Color.G));
+        if (hasBlue)
+          arguments.Add(Quantum.ScaleToDouble(arg.Color.B));
+        if (hasAlpha)
+          arguments.Add(Quantum.ScaleToDouble(arg.Color.A));
       }
 
-      _Instance.SparseColor(channels, method, newArgs);
-#else
-      _Instance.SparseColor(channels, method, (IEnumerable<Internal.ISparseColorArg>)args);
-#endif
+      Throw.IfTrue("args", arguments.Count == 0, "Value cannot be empty");
+
+      _NativeInstance.SparseColor(channels, method, arguments.ToArray(), arguments.Count);
+    }
+
+    ///<summary>
+    /// Simulates a pencil sketch.
+    ///</summary>
+    ///<exception cref="MagickException"/>
+    public void Sketch()
+    {
+      Sketch(0.0, 1.0, 0.0);
+    }
+
+    ///<summary>
+    /// Simulates a pencil sketch. We convolve the image with a Gaussian operator of the given
+    /// radius and standard deviation (sigma). For reasonable results, radius should be larger than sigma.
+    /// Use a radius of 0 and sketch selects a suitable radius for you.
+    ///</summary>
+    ///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    ///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    ///<param name="angle">Apply the effect along this angle.</param>
+    ///<exception cref="MagickException"/>
+    public void Sketch(double radius, double sigma, double angle)
+    {
+      _NativeInstance.Sketch(radius, sigma, angle);
+    }
+
+    ///<summary>
+    /// Solarize image (similar to effect seen when exposing a photographic film to light during
+    /// the development process)
+    ///</summary>
+    ///<exception cref="MagickException"/>
+    public void Solarize()
+    {
+      Solarize(new Percentage(50.0));
+    }
+
+    ///<summary>
+    /// Solarize image (similar to effect seen when exposing a photographic film to light during
+    /// the development process)
+    ///</summary>
+    ///<param name="factor">The factor to use.</param>
+    ///<exception cref="MagickException"/>
+    public void Solarize(double factor)
+    {
+      _NativeInstance.Solarize(factor);
+    }
+
+    ///<summary>
+    /// Solarize image (similar to effect seen when exposing a photographic film to light during
+    /// the development process)
+    ///</summary>
+    ///<param name="factorPercentage">The factor to use.</param>
+    ///<exception cref="MagickException"/>
+    public void Solarize(Percentage factorPercentage)
+    {
+      _NativeInstance.Solarize(factorPercentage.ToQuantum());
     }
 
     ///<summary>
@@ -5935,7 +5867,7 @@ namespace ImageMagick
     {
       Throw.IfNull("geometry", geometry);
 
-      _Instance.Splice(MagickGeometry.GetInstance(geometry));
+      _NativeInstance.Splice(MagickRectangle.FromGeometry(geometry, this));
     }
 
     ///<summary>
@@ -5944,16 +5876,31 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Spread()
     {
-      Spread(3);
+      Spread(Interpolate, 3);
     }
 
     ///<summary>
     /// Spread pixels randomly within image by specified amount.
     ///</summary>
+    ///<param name="method">Pixel interpolate method.</param>
+    ///<param name="radius">Choose a random pixel in a neighborhood of this extent.</param>
     ///<exception cref="MagickException"/>
-    public void Spread(int amount)
+    public void Spread(PixelInterpolateMethod method, double radius)
     {
-      _Instance.Spread(amount);
+      _NativeInstance.Spread(method, radius);
+    }
+
+    ///<summary>
+    /// Makes each pixel the min / max / median / mode / etc. of the neighborhood of the specified width
+    /// and height.
+    ///</summary>
+    ///<param name="type">The statistic type.</param>
+    ///<param name="width">The width of the pixel neighborhood.</param>
+    ///<param name="height">The height of the pixel neighborhood.</param>
+    ///<exception cref="MagickException"/>
+    public void Statistic(StatisticType type, int width, int height)
+    {
+      _NativeInstance.Statistic(type, width, height);
     }
 
     ///<summary>
@@ -5962,7 +5909,15 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public Statistics Statistics()
     {
-      return _Instance.Statistics();
+      IntPtr list = _NativeInstance.Statistics();
+      try
+      {
+        return new Statistics(this, list);
+      }
+      finally
+      {
+        ImageMagick.Statistics.DisposeList(list);
+      }
     }
 
     ///<summary>
@@ -5974,7 +5929,7 @@ namespace ImageMagick
     {
       Throw.IfNull("watermark", watermark);
 
-      _Instance.Stegano(GetInstance(watermark));
+      _NativeInstance.Stegano(watermark);
     }
 
     ///<summary>
@@ -5987,7 +5942,7 @@ namespace ImageMagick
     {
       Throw.IfNull("rightImage", rightImage);
 
-      _Instance.Stereo(GetInstance(rightImage));
+      _NativeInstance.Stereo(rightImage);
     }
 
     ///<summary>
@@ -5996,7 +5951,28 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Strip()
     {
-      _Instance.Strip();
+      _NativeInstance.Strip();
+    }
+
+    ///<summary>
+    /// Swirl image (image pixels are rotated by degrees).
+    ///</summary>
+    ///<param name="degrees">The number of degrees.</param>
+    ///<exception cref="MagickException"/>
+    public void Swirl(double degrees)
+    {
+      Swirl(Interpolate, degrees);
+    }
+
+    ///<summary>
+    /// Swirl image (image pixels are rotated by degrees).
+    ///</summary>
+    ///<param name="method">Pixel interpolate method.</param>
+    ///<param name="degrees">The number of degrees.</param>
+    ///<exception cref="MagickException"/>
+    public void Swirl(PixelInterpolateMethod method, double degrees)
+    {
+      _NativeInstance.Swirl(method, degrees);
     }
 
     ///<summary>
@@ -6037,29 +6013,23 @@ namespace ImageMagick
     {
       Throw.IfNull("image", image);
 
-      return new MagickSearchResult(_Instance.SubImageSearch(GetInstance(image), metric, similarityThreshold));
-    }
+      double similarityMetric;
 
-    ///<summary>
-    /// Swirl image (image pixels are rotated by degrees).
-    ///</summary>
-    ///<param name="degrees">The number of degrees.</param>
-    ///<exception cref="MagickException"/>
-    public void Swirl(double degrees)
-    {
-      _Instance.Swirl(degrees);
+      MagickRectangle rectangle;
+      IntPtr result = _NativeInstance.SubImageSearch(image, metric, similarityThreshold, out rectangle, out similarityMetric);
+      return new MagickSearchResult(Create(result, image.Settings), MagickGeometry.FromRectangle(rectangle), similarityMetric);
     }
 
     ///<summary>
     /// Channel a texture on image background.
     ///</summary>
-    ///<param name="image">The image to use as a texture on image background.</param>
+    ///<param name="image">The image to use as a texture on the image background.</param>
     ///<exception cref="MagickException"/>
     public void Texture(MagickImage image)
     {
       Throw.IfNull("image", image);
 
-      _Instance.Texture(GetInstance(image));
+      _NativeInstance.Texture(image);
     }
 
     ///<summary>
@@ -6069,7 +6039,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Threshold(Percentage percentage)
     {
-      _Instance.Threshold(percentage.ToQuantum());
+      _NativeInstance.Threshold(percentage.ToQuantum());
     }
 
     ///<summary>
@@ -6093,7 +6063,7 @@ namespace ImageMagick
     {
       Throw.IfNull("geometry", geometry);
 
-      _Instance.Thumbnail(MagickGeometry.GetInstance(geometry));
+      _NativeInstance.Thumbnail(MagickGeometry.ToString(geometry));
     }
 
     ///<summary>
@@ -6161,9 +6131,23 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Tint(string opacity)
     {
-      Throw.IfNullOrEmpty("opacity", opacity);
+      Tint(opacity, Settings.FillColor);
+    }
 
-      _Instance.Tint(opacity);
+    ///<summary>
+    /// Applies a color vector to each pixel in the image. The length of the vector is 0 for black
+    /// and white and at its maximum for the midtones. The vector weighting function is
+    /// f(x)=(1-(4.0*((x-0.5)*(x-0.5))))
+    ///</summary>
+    ///<param name="opacity">A color value used for tinting.</param>
+    ///<param name="color">A color value used for tinting.</param>
+    ///<exception cref="MagickException"/>
+    public void Tint(string opacity, MagickColor color)
+    {
+      Throw.IfNullOrEmpty("opacity", opacity);
+      Throw.IfNull("color", color);
+
+      _NativeInstance.Tint(opacity, color);
     }
 
     ///<summary>
@@ -6171,7 +6155,7 @@ namespace ImageMagick
     ///</summary>
     public string ToBase64()
     {
-      Byte[] bytes = ToByteArray();
+      byte[] bytes = ToByteArray();
       if (bytes == null)
         return "";
 
@@ -6196,22 +6180,32 @@ namespace ImageMagick
     ///</summary>
     public Bitmap ToBitmap()
     {
-      return _Instance.ToBitmap();
-    }
+      if (ColorSpace == ColorSpace.CMYK)
+        ColorSpace = ColorSpace.sRGB;
 
-    ///<summary>
-    /// Converts this instance to a bitmap using the specified ImageFormat. Supported formats are:
-    /// Bmp, Gif, Icon, Jpeg, Png, Tiff.
-    ///</summary>
-    public Bitmap ToBitmap(ImageFormat imageFormat)
-    {
-      Format = GetFormat(imageFormat);
+      string mapping = "BGR";
+      PixelFormat format = PixelFormat.Format24bppRgb;
+      if (HasAlpha)
+      {
+        mapping = "BGRA";
+        format = PixelFormat.Format32bppArgb;
+      }
 
-      MemoryStream memStream = new MemoryStream();
-      Write(memStream);
-      memStream.Position = 0;
-      // Do not dispose the memStream, the bitmap owns it.
-      return new Bitmap(memStream);
+      using (PixelCollection pixels = GetPixels())
+      {
+        Bitmap bitmap = new Bitmap(Width, Height, format);
+        BitmapData data = bitmap.LockBits(new Rectangle(0, 0, Width, Height), ImageLockMode.ReadWrite, format);
+        IntPtr destination = data.Scan0;
+        for (int y = 0; y < Height; y++)
+        {
+          byte[] bytes = pixels.ToByteArray(0, y, Width, 1, mapping);
+          Marshal.Copy(bytes, 0, destination, bytes.Length);
+
+          destination = new IntPtr(destination.ToInt64() + data.Stride);
+        }
+        bitmap.UnlockBits(data);
+        return bitmap;
+      }
     }
 
 #if !NET20
@@ -6220,16 +6214,56 @@ namespace ImageMagick
     ///</summary>
     public BitmapSource ToBitmapSource()
     {
-      return _Instance.ToBitmapSource();
+      string mapping = "RGB";
+      MediaPixelFormat format = MediaPixelFormats.Rgb24;
+      if (HasAlpha)
+      {
+        mapping = "BGRA";
+        format = MediaPixelFormats.Bgra32;
+      }
+
+      if (ColorSpace == ColorSpace.CMYK)
+      {
+        mapping = "CMYK";
+        format = MediaPixelFormats.Cmyk32;
+      }
+
+      int step = (format.BitsPerPixel / 8);
+      int stride = Width * step;
+
+      using (PixelCollection pixels = GetPixels())
+      {
+        byte[] bytes = pixels.ToByteArray(mapping);
+        return BitmapSource.Create(Width, Height, 96, 96, format, null, bytes, stride);
+      }
     }
 #endif
+
+    ///<summary>
+    /// Converts this instance to a bitmap using the specified ImageFormat. Supported formats are:
+    /// Bmp, Gif, Icon, Jpeg, Png, Tiff.
+    ///</summary>
+    public Bitmap ToBitmap(ImageFormat imageFormat)
+    {
+      Format = MagickFormatInfo.GetFormat(imageFormat);
+
+      MemoryStream memStream = new MemoryStream();
+      Write(memStream);
+      memStream.Position = 0;
+      /* Do not dispose the memStream, the bitmap owns it. */
+      return new Bitmap(memStream);
+    }
 
     ///<summary>
     /// Converts this instance to a byte array.
     ///</summary>
     public byte[] ToByteArray()
     {
-      return _Instance.ToByteArray();
+      using (MemoryStream stream = new MemoryStream())
+      {
+        Write(stream);
+        return stream.ToArray();
+      }
     }
 
     ///<summary>
@@ -6239,7 +6273,7 @@ namespace ImageMagick
     public byte[] ToByteArray(MagickFormat format)
     {
       Format = format;
-      return _Instance.ToByteArray();
+      return ToByteArray();
     }
 
     ///<summary>
@@ -6249,32 +6283,6 @@ namespace ImageMagick
     {
       return string.Format(CultureInfo.InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}",
         Format, Width, Height, Depth, ColorSpace, FormatedFileSize());
-    }
-
-    ///<summary>
-    /// Transform image based on image geometry.
-    ///</summary>
-    ///<param name="imageGeometry">The image geometry.</param>
-    ///<exception cref="MagickException"/>
-    public void Transform(MagickGeometry imageGeometry)
-    {
-      Throw.IfNull("imageGeometry", imageGeometry);
-
-      _Instance.Transform(MagickGeometry.GetInstance(imageGeometry));
-    }
-
-    ///<summary>
-    /// Transform image based on image geometry.
-    ///</summary>
-    ///<param name="imageGeometry">The image geometry.</param>
-    ///<param name="cropGeometry">The crop geometry.</param>
-    ///<exception cref="MagickException"/>
-    public void Transform(MagickGeometry imageGeometry, MagickGeometry cropGeometry)
-    {
-      Throw.IfNull("imageGeometry", imageGeometry);
-      Throw.IfNull("cropGeometry", cropGeometry);
-
-      _Instance.Transform(MagickGeometry.GetInstance(imageGeometry), MagickGeometry.GetInstance(cropGeometry));
     }
 
     /// <summary>
@@ -6297,64 +6305,29 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Origin of coordinate system to use when annotating with text or drawing.
+    /// Transform image based on image geometry.
     ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
+    ///<param name="imageGeometry">The image geometry.</param>
     ///<exception cref="MagickException"/>
-    public void TransformOrigin(double x, double y)
+    public void Transform(MagickGeometry imageGeometry)
     {
-      _Instance.TransformOrigin(x, y);
+      Throw.IfNull("imageGeometry", imageGeometry);
+
+      _NativeInstance.Transform(null, MagickGeometry.ToString(imageGeometry));
     }
 
     ///<summary>
-    /// Rotation to use when annotating with text or drawing.
+    /// Transform image based on image geometry.
     ///</summary>
-    ///<param name="angle">The angle.</param>
+    ///<param name="imageGeometry">The image geometry.</param>
+    ///<param name="cropGeometry">The crop geometry.</param>
     ///<exception cref="MagickException"/>
-    public void TransformRotation(double angle)
+    public void Transform(MagickGeometry imageGeometry, MagickGeometry cropGeometry)
     {
-      _Instance.TransformRotation(angle);
-    }
+      Throw.IfNull("imageGeometry", imageGeometry);
+      Throw.IfNull("cropGeometry", cropGeometry);
 
-    ///<summary>
-    /// Reset transformation parameters to default.
-    ///</summary>
-    ///<exception cref="MagickException"/>
-    public void TransformReset()
-    {
-      _Instance.TransformReset();
-    }
-
-    ///<summary>
-    /// Scale to use when annotating with text or drawing.
-    ///</summary>
-    ///<param name="scaleX">The X coordinate scaling element.</param>
-    ///<param name="scaleY">The Y coordinate scaling element.</param>
-    ///<exception cref="MagickException"/>
-    public void TransformScale(double scaleX, double scaleY)
-    {
-      _Instance.TransformScale(scaleX, scaleY);
-    }
-
-    ///<summary>
-    /// Skew to use in X axis when annotating with text or drawing.
-    ///</summary>
-    ///<param name="skewX">The X skew.</param>
-    ///<exception cref="MagickException"/>
-    public void TransformSkewX(double skewX)
-    {
-      _Instance.TransformSkewX(skewX);
-    }
-
-    ///<summary>
-    /// Skew to use in Y axis when annotating with text or drawing.
-    ///</summary>
-    ///<param name="skewY">The Y skew.</param>
-    ///<exception cref="MagickException"/>
-    public void TransformSkewY(double skewY)
-    {
-      _Instance.TransformSkewY(skewY);
+      _NativeInstance.Transform(MagickGeometry.ToString(cropGeometry), MagickGeometry.ToString(imageGeometry));
     }
 
     ///<summary>
@@ -6366,7 +6339,7 @@ namespace ImageMagick
     {
       Throw.IfNull("color", color);
 
-      _Instance.Transparent(MagickColor.GetInstance(color), false);
+      _NativeInstance.Transparent(color, false);
     }
 
     ///<summary>
@@ -6379,7 +6352,7 @@ namespace ImageMagick
       Throw.IfNull("colorLow", colorLow);
       Throw.IfNull("colorHigh", colorHigh);
 
-      _Instance.TransparentChroma(MagickColor.GetInstance(colorLow), MagickColor.GetInstance(colorHigh));
+      _NativeInstance.TransparentChroma(colorLow, colorHigh, false);
     }
 
     ///<summary>
@@ -6389,7 +6362,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Transpose()
     {
-      _Instance.Transpose();
+      _NativeInstance.Transpose();
     }
 
     ///<summary>
@@ -6399,7 +6372,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Transverse()
     {
-      _Instance.Transverse();
+      _NativeInstance.Transverse();
     }
 
     ///<summary>
@@ -6408,7 +6381,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Trim()
     {
-      _Instance.Trim();
+      _NativeInstance.Trim();
     }
 
     ///<summary>
@@ -6417,7 +6390,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickImage UniqueColors()
     {
-      return Create(_Instance.UniqueColors());
+      return Create(_NativeInstance.UniqueColors(), Settings);
     }
 
     ///<summary>
@@ -6426,9 +6399,9 @@ namespace ImageMagick
     ///<param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
     ///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     ///<exception cref="MagickException"/>
-    public void Unsharpmask(double radius, double sigma)
+    public void UnsharpMask(double radius, double sigma)
     {
-      Unsharpmask(radius, sigma, 1.0, 0.05);
+      UnsharpMask(radius, sigma, 1.0, 0.05);
     }
 
     ///<summary>
@@ -6438,9 +6411,9 @@ namespace ImageMagick
     ///<param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     ///<param name="channels">The channel(s) that should be sharpened.</param>
     ///<exception cref="MagickException"/>
-    public void Unsharpmask(double radius, double sigma, Channels channels)
+    public void UnsharpMask(double radius, double sigma, Channels channels)
     {
-      Unsharpmask(radius, sigma, 1.0, 0.05, channels);
+      UnsharpMask(radius, sigma, 1.0, 0.05, channels);
     }
 
     ///<summary>
@@ -6452,9 +6425,9 @@ namespace ImageMagick
     /// that is added back into the original.</param>
     ///<param name="threshold">The threshold in pixels needed to apply the diffence amount.</param>
     ///<exception cref="MagickException"/>
-    public void Unsharpmask(double radius, double sigma, double amount, double threshold)
+    public void UnsharpMask(double radius, double sigma, double amount, double threshold)
     {
-      _Instance.Unsharpmask(radius, sigma, amount, threshold);
+      UnsharpMask(radius, sigma, amount, threshold, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -6467,9 +6440,9 @@ namespace ImageMagick
     ///<param name="threshold">The threshold in pixels needed to apply the diffence amount.</param>
     ///<param name="channels">The channel(s) that should be sharpened.</param>
     ///<exception cref="MagickException"/>
-    public void Unsharpmask(double radius, double sigma, double amount, double threshold, Channels channels)
+    public void UnsharpMask(double radius, double sigma, double amount, double threshold, Channels channels)
     {
-      _Instance.Unsharpmask(radius, sigma, amount, threshold, channels);
+      _NativeInstance.UnsharpMask(radius, sigma, amount, threshold, channels);
     }
 
     ///<summary>
@@ -6491,7 +6464,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Vignette(double radius, double sigma, int x, int y)
     {
-      _Instance.Vignette(radius, sigma, x, y);
+      _NativeInstance.Vignette(radius, sigma, x, y);
     }
 
     ///<summary>
@@ -6500,18 +6473,19 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Wave()
     {
-      Wave(25.0, 150.0);
+      Wave(Interpolate, 25.0, 150.0);
     }
 
     ///<summary>
     /// Map image pixels to a sine wave.
     ///</summary>
+    ///<param name="method">Pixel interpolate method.</param>
     ///<param name="amplitude">The amplitude.</param>
     ///<param name="length">The length of the wave.</param>
     ///<exception cref="MagickException"/>
-    public void Wave(double amplitude, double length)
+    public void Wave(PixelInterpolateMethod method, double amplitude, double length)
     {
-      _Instance.Wave(amplitude, length);
+      _NativeInstance.Wave(method, amplitude, length);
     }
 
     ///<summary>
@@ -6522,9 +6496,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void WhiteThreshold(Percentage threshold)
     {
-      Throw.IfNegative("threshold", threshold);
-
-      _Instance.WhiteThreshold(threshold.ToString());
+      WhiteThreshold(threshold, ImageMagick.Channels.Composite);
     }
 
     ///<summary>
@@ -6538,7 +6510,7 @@ namespace ImageMagick
     {
       Throw.IfNegative("threshold", threshold);
 
-      _Instance.WhiteThreshold(threshold.ToString(), channels);
+      _NativeInstance.WhiteThreshold(threshold.ToString(), channels);
     }
 
     ///<summary>
@@ -6561,7 +6533,13 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Write(Stream stream)
     {
-      _Instance.Write(stream);
+      Throw.IfNull("stream", stream);
+
+      Settings.FileName = null;
+
+      UIntPtr length;
+      IntPtr data = _NativeInstance.WriteBlob(Settings, out length);
+      MagickMemory.WriteBytes(data, length, stream);
     }
 
     ///<summary>
@@ -6584,56 +6562,11 @@ namespace ImageMagick
     public void Write(string fileName)
     {
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
-      _Instance.Write(filePath);
-    }
 
-    ///<summary>
-    /// Zoom image to specified size.
-    ///</summary>
-    ///<param name="width">The new width.</param>
-    ///<param name="height">The new height.</param>
-    ///<exception cref="MagickException"/>
-    public void Zoom(int width, int height)
-    {
-      MagickGeometry geometry = new MagickGeometry(width, height);
-      Zoom(geometry);
-    }
+      Throw.IfNullOrEmpty("fileName", filePath);
 
-    ///<summary>
-    /// Zoom image to specified size.
-    ///</summary>
-    ///<param name="geometry">The geometry to use.</param>
-    ///<exception cref="MagickException"/>
-    public void Zoom(MagickGeometry geometry)
-    {
-      Throw.IfNull("geometry", geometry);
-
-      _Instance.Zoom(MagickGeometry.GetInstance(geometry));
-    }
-
-    ///<summary>
-    /// Zoom image to specified size.
-    ///</summary>
-    ///<param name="percentage">The percentage.</param>
-    ///<exception cref="MagickException"/>
-    public void Zoom(Percentage percentage)
-    {
-      Zoom(percentage, percentage);
-    }
-
-    ///<summary>
-    /// Zoom image to specified size.
-    ///</summary>
-    ///<param name="percentageWidth">The percentage of the width.</param>
-    ///<param name="percentageHeight">The percentage of the height.</param>
-    ///<exception cref="MagickException"/>
-    public void Zoom(Percentage percentageWidth, Percentage percentageHeight)
-    {
-      Throw.IfNegative("percentageWidth", percentageWidth);
-      Throw.IfNegative("percentageHeight", percentageHeight);
-
-      MagickGeometry geometry = new MagickGeometry(percentageWidth, percentageHeight);
-      Zoom(geometry);
+      _NativeInstance.FileName = filePath;
+      _NativeInstance.WriteFile(Settings);
     }
   }
 }

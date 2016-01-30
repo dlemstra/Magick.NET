@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,15 +12,23 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableRoundRectangle object.
+  /// Draws a rounted rectangle given two coordinates, x &amp; y corner radiuses and using the current
+  /// stroke, stroke width, and fill settings.
   ///</summary>
-  public sealed class DrawableRoundRectangle : IDrawableRoundRectangle
+  public sealed class DrawableRoundRectangle : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.RoundRectangle(CenterX, CenterY, Width, Height, CornerWidth, CornerHeight);
+    }
+
     ///<summary>
     /// Creates a new DrawableRoundRectangle instance.
     ///</summary>
@@ -30,8 +38,7 @@ namespace ImageMagick
     ///<param name="height">The height.</param>
     ///<param name="cornerWidth">The corner width.</param>
     ///<param name="cornerHeight">The corner height.</param>
-    public DrawableRoundRectangle(double centerX, double centerY, double width, double height,
-      double cornerWidth, double cornerHeight)
+    public DrawableRoundRectangle(double centerX, double centerY, double width, double height, double cornerWidth, double cornerHeight)
     {
       CenterX = centerX;
       CenterY = centerY;

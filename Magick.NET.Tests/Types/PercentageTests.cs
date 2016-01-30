@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -82,6 +82,22 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first == second);
       Assert.IsTrue(first.Equals(second));
       Assert.IsTrue(first.Equals((object)second));
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Multiplication()
+    {
+      Percentage percentage = new Percentage();
+      Assert.AreEqual(0, 10 * percentage);
+
+      percentage = new Percentage(50);
+      Assert.AreEqual(5, 10 * percentage);
+
+      percentage = new Percentage(200);
+      Assert.AreEqual(20.0, 10.0 * percentage);
+
+      percentage = new Percentage(25);
+      Assert.AreEqual(2.5, 10.0 * percentage);
     }
   }
 }

@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -102,7 +102,7 @@ namespace Magick.NET.FileGenerator
         foreach (MethodBase method in methods)
         {
           XElement element = new XElement(_Namespace + "element",
-                        new XAttribute("name", MagickTypes.GetXsdName(methods.First())),
+                        new XAttribute("name", MagickTypes.GetXsdName(method)),
                         new XAttribute("minOccurs", "0"),
                         new XAttribute("maxOccurs", "unbounded"));
           AddMethods(element, new MethodBase[] { method });
@@ -158,6 +158,22 @@ namespace Magick.NET.FileGenerator
       }
     }
 
+    private void AddMagickSettingsMethods(XElement annotation)
+    {
+      foreach (MethodInfo[] overloads in _Types.GetGroupedMagickSettingsMethods())
+      {
+        annotation.AddBeforeSelf(CreateElement(overloads));
+      }
+    }
+
+    private void AddMagickSettingsProperties(XElement annotation)
+    {
+      foreach (PropertyInfo property in _Types.GetMagickSettingsProperties())
+      {
+        annotation.AddBeforeSelf(CreateElement(property));
+      }
+    }
+
     private void AddMethods(XElement element, IEnumerable<MethodBase> methods)
     {
       ParameterInfo[] parameters = (from method in methods
@@ -171,7 +187,11 @@ namespace Magick.NET.FileGenerator
 
       if (methods.Count() == 1 && IsTypedElement(methods.First(), parameters))
       {
-        element.Add(new XAttribute("type", MagickTypes.GetXsdElementType(parameters[0])));
+        string elementTypeName = MagickTypes.GetXsdElementType(parameters[0]);
+        if (string.IsNullOrEmpty(elementTypeName))
+          throw new NotImplementedException("AddMethods: " + methods.First().Name);
+
+        element.Add(new XAttribute("type", elementTypeName));
         return;
       }
 
@@ -266,9 +286,13 @@ namespace Magick.NET.FileGenerator
       }
       else
       {
+        string elementTypeName = MagickTypes.GetXsdElementType(property);
+        if (string.IsNullOrEmpty(elementTypeName))
+          throw new NotImplementedException("CreateElement: "  + name);
+
         return new XElement(_Namespace + "element",
           new XAttribute("name", name),
-          new XAttribute("type", MagickTypes.GetXsdElementType(property)));
+          new XAttribute("type", elementTypeName));
       }
     }
 
@@ -357,11 +381,9 @@ namespace Magick.NET.FileGenerator
           case "colorProfile":
             ReplaceColorProfile(annotation);
             break;
-          case "coordinate":
           case "imageProfile":
           case "pathArc":
-          case "pathCurveto":
-          case "pathQuadraticCurveto":
+          case "primaryInfo":
           case "sparseColorArg":
             ReplaceWithType(annotation, annotationID);
             break;
@@ -382,6 +404,9 @@ namespace Magick.NET.FileGenerator
             break;
           case "iReadDefines":
             ReplaceIReadDefines(annotation);
+            break;
+          case "magickSettings":
+            ReplaceMagickSettings(annotation);
             break;
           case "magickReadSettings":
           case "montageSettings":
@@ -510,6 +535,14 @@ namespace Magick.NET.FileGenerator
         select new XElement(_Namespace + "element",
           new XAttribute("name", name),
           new XAttribute("type", name)));
+    }
+
+    private void ReplaceMagickSettings(XElement annotation)
+    {
+      AddMagickSettingsProperties(annotation);
+      AddMagickSettingsMethods(annotation);
+
+      annotation.Remove();
     }
 
     private void ReplacePaths(XElement annotation)

@@ -25,6 +25,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +42,34 @@
     <DefineConstants>ANYCPU;TRACE;DEBUG;Q16HDRI</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ReleaseQ16\x64\</OutputPath>
+    <DefineConstants>ANYCPU;TRACE;DEBUG;Q16;WIN64</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ReleaseQ8\x64\</OutputPath>
+    <DefineConstants>ANYCPU;TRACE;DEBUG;Q8;WIN64</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ReleaseQ16-HDRI\x64\</OutputPath>
+    <DefineConstants>ANYCPU;TRACE;DEBUG;Q16HDRI;WIN64</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -68,15 +97,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Coders\Jp2Tests.cs" />
     <Compile Include="Coders\BgrTests.cs" />
+    <Compile Include="Coders\Jp2Tests.cs" />
     <Compile Include="Coders\PdfTests.cs" />
     <Compile Include="Coders\PsdTests.cs" />
     <Compile Include="Coders\RgbTests.cs" />
     <Compile Include="Coders\TiffTests.cs" />
-    <Compile Include="ColorAssert.cs" />
+    <Compile Include="Assert\ColorAssert.cs" />
     <Compile Include="Colors\Base\ColorBaseTests.cs" />
     <Compile Include="Colors\ColorCMYKTests.cs" />
+    <Compile Include="Colors\ColorGrayTests.cs" />
+    <Compile Include="Colors\ColorHSLTests.cs" />
+    <Compile Include="Colors\ColorYUVTests.cs" />
     <Compile Include="Colors\ColorMonoTests.cs" />
     <Compile Include="Colors\ColorRGBTests.cs" />
     <Compile Include="Colors\MagickColorTests.cs" />
@@ -90,9 +122,8 @@
     <Compile Include="Drawables\DrawableDensityTests.cs" />
     <Compile Include="Drawables\DrawablePathTests.cs" />
     <Compile Include="Drawables\DrawableTests.cs" />
-    <Compile Include="ExceptionAssert.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Assert\ExceptionAssert.cs" />
+    <Compile Include="Files.cs" />
     <Compile Include="Ghostscript.cs" />
     <Compile Include="MagickFormatInfoTests.cs" />
     <Compile Include="MagickImageCollectionTests.cs" />
@@ -102,13 +133,12 @@
     <Compile Include="Matrices\ColorMatrixTests.cs" />
     <Compile Include="Matrices\ConvolveMatrixTests.cs" />
     <Compile Include="Optimizers\GifOptimizerTests.cs" />
-    <Compile Include="Optimizers\ImageOptimizerTests.cs" />
     <Compile Include="Optimizers\IImageOptimizerTests.cs" />
-    <Compile Include="Optimizers\PngOptimizerTests.cs" />
+    <Compile Include="Optimizers\ImageOptimizerTests.cs" />
     <Compile Include="Optimizers\JpegOptimizerTests.cs" />
+    <Compile Include="Optimizers\PngOptimizerTests.cs" />
     <Compile Include="Pixels\PixelCollectionTests.cs" />
     <Compile Include="Pixels\PixelTests.cs" />
-    <Compile Include="Pixels\WritablePixelCollectionTests.cs" />
     <Compile Include="Profiles\8Bim\EightBimProfileTests.cs" />
     <Compile Include="Profiles\8Bim\EightBimValueTests.cs" />
     <Compile Include="Profiles\Color\ColorProfileTests.cs" />
@@ -119,10 +149,11 @@
     <Compile Include="Profiles\Iptc\IptcValueTests.cs" />
     <Compile Include="Profiles\Xmp\XmpProfileTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Files.cs" />
+    <Compile Include="QuantumTests.cs" />
     <Compile Include="ResourceLimitsTests.cs" />
     <Compile Include="Script\MagickScriptTests.cs" />
     <Compile Include="Settings\MagickReadSettingsTests.cs" />
+    <Compile Include="Settings\MagickSettingsTests.cs" />
     <Compile Include="Settings\PixelStorageSettingsTests.cs" />
     <Compile Include="Statistics\MomentsTests.cs" />
     <Compile Include="Statistics\PerceptualHashTests.cs" />
@@ -132,16 +163,11 @@
     <Compile Include="Types\PointDTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Magick.NET.Core\Magick.NET.Core.csproj">
-      <Project>{4e26f91d-80e6-406c-b0e3-8c5fa3f83e7d}</Project>
-      <Name>Magick.NET.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Magick.NET\Magick.NET.AnyCPU.csproj">
       <Project>{daae3844-6435-4912-8f69-9f7a9242b4ac}</Project>
       <Name>Magick.NET</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Script\Collection.msl" />
     <None Include="Script\Defines.msl" />

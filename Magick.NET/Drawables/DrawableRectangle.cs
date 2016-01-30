@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -18,10 +18,17 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableRectangle object.
+  /// Draws a rectangle given two coordinates and using the current stroke, stroke width, and fill
+  /// settings.
   ///</summary>
-  public sealed class DrawableRectangle : IDrawableRectangle
+  public sealed class DrawableRectangle : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Rectangle(UpperLeftX, UpperLeftY, LowerRightX, LowerRightY);
+    }
+
     ///<summary>
     /// Creates a new DrawableRectangle instance.
     ///</summary>
@@ -43,8 +50,6 @@ namespace ImageMagick
     ///<param name="rectangle">The rectangle to use.</param>
     public DrawableRectangle(Rectangle rectangle)
     {
-      Throw.IfNull("rectangle", rectangle);
-
       UpperLeftX = rectangle.X;
       UpperLeftY = rectangle.Y;
       LowerRightX = rectangle.Right;

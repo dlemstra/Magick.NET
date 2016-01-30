@@ -1,3 +1,16 @@
+#==================================================================================================
+# Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
+#
+# Licensed under the ImageMagick License (the "License"); you may not use this file except in 
+# compliance with the License. You may obtain a copy of the License at
+#
+#   http://www.imagemagick.org/script/license.php
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the
+# License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+# express or implied. See the License for the specific language governing permissions and
+# limitations under the License.
+#==================================================================================================
 function AddFileElement($xml, $src, $target)
 {
   $files = $xml.package.files
@@ -25,16 +38,17 @@ function CheckStrongNames($builds)
 {
   foreach ($build in $builds)
   {
-    $path = FullPath "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Platform).dll"
+    $path = FullPath "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).dll"
     sn -Tp $path
     CheckExitCode "$path does not represent a strongly named assembly"
 
-    if ($build.Quantum -ne "Q16" -or $build.Framework -ne "v4.0")
+    #if ($build.Quantum -ne "Q16" -or $build.Framework -ne "v4.0")
+    if ($build.Framework -ne "v4.0")
     {
       continue
     }
 
-    $path = FullPath "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Platform).dll"
+    $path = FullPath "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).dll"
     sn -Tp $path
     CheckExitCode "$path does not represent a strongly named assembly"
   }
@@ -45,32 +59,35 @@ function CreateNuGetPackage($id, $version, $build, $hasNet20)
   $path = FullPath "Publish\NuGet\Magick.NET.nuspec"
   $xml = [xml](Get-Content $path)
 
+  $platform = $($build.Platform)
+  if ($platform -eq "x86")
+  {
+    $platform = "Win32"
+  }
+
   $versionPath = FullPath "ImageMagick\Source\Version.txt"
   $imVersion = [IO.File]::ReadAllText($versionPath, [System.Text.Encoding]::Unicode)
   $xml.package.metadata.releaseNotes = "Magick.NET linked with ImageMagick " + $imVersion
 
   if ($hasNet20 -eq $true)
   {
-    AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET.Core.dll" "lib\net20"
-    AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET.Core.xml" "lib\net20"
-    AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET.Wrapper-$($build.Platform).dll" "lib\net20"
-    AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET.Wrapper-$($build.Platform).xml" "lib\net20"
-    AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Platform).dll" "lib\net20"
-    AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Platform).xml" "lib\net20"
+    AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\net20"
+    AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\net20"
+    AddFileElement $xml "..\..\Magick.NET.Native.net20\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "build\net20\$($build.Platform)"
+    AddFileElement $xml "Magick.NET.targets" "build\net20\$id.targets"
   }
 
-  AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Core.dll" "lib\$($build.FrameworkName)"
-  AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Core.xml" "lib\$($build.FrameworkName)"
-  AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Platform).dll" "lib\$($build.FrameworkName)"
-  AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Platform).xml" "lib\$($build.FrameworkName)"
+  AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\$($build.FrameworkName)"
+  AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\$($build.FrameworkName)"
 
   if ($build.Platform -ne "AnyCPU")
   {
-    AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Wrapper-$($build.Platform).dll" "lib\$($build.FrameworkName)"
-    AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Wrapper-$($build.Platform).xml" "lib\$($build.FrameworkName)"
+    AddFileElement $xml "..\..\Magick.NET.Native\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "build\$($build.FrameworkName)\$($build.Platform)"
+    AddFileElement $xml "Magick.NET.targets" "build\$($build.FrameworkName)\$id.targets"
   }
 
-  AddFileElement $xml "Readme.txt" "Readme.txt"
+  AddFileElement $xml "..\Readme.txt" "Readme.txt"
+  AddFileElement $xml "..\..\Copyright.txt" "Copyright.txt"
 
   WriteNuGetPackage $id $version $xml
 
@@ -78,10 +95,11 @@ function CreateNuGetPackage($id, $version, $build, $hasNet20)
   $path = FullPath "Publish\NuGet\Magick.NET.Web.nuspec"
   $xml = [xml](Get-Content $path)
 
-  AddFileElement $xml "..\..\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Platform).dll" "lib\$($build.FrameworkName)"
-  AddFileElement $xml "..\..\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Platform).xml" "lib\$($build.FrameworkName)"
+  AddFileElement $xml "..\..\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).dll" "lib\$($build.FrameworkName)"
+  AddFileElement $xml "..\..\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).xml" "lib\$($build.FrameworkName)"
 
-  AddFileElement $xml "Readme.Web.txt" "Readme.txt"
+  AddFileElement $xml "..\Readme.Web.txt" "Readme.txt"
+  AddFileElement $xml "..\..\Copyright.txt" "Copyright.txt"
 
   WriteNuGetPackage $webId $version $xml
 }
@@ -134,9 +152,7 @@ function UpdateAssemblyInfo($fileName, $version)
 
 function UpdateAssemblyInfos($version)
 {
-  UpdateAssemblyInfo "Magick.NET.Wrapper\AssemblyInfo.cpp" $version
   UpdateAssemblyInfo "Magick.NET\Properties\AssemblyInfo.cs" $version
-  UpdateAssemblyInfo "Magick.NET.Core\Properties\AssemblyInfo.cs" $version
   UpdateAssemblyInfo "Magick.NET.Web\Properties\AssemblyInfo.cs" $version
 }
 
@@ -154,13 +170,14 @@ function UpdateResourceFiles($builds, $version)
       $platform = "Win32"
     }
 
-    $fileName = FullPath "Magick.NET.Wrapper$($build.Suffix)\Resources\Release$($build.Quantum)\$platform\Magick.NET.rc"
+    $fileName = FullPath "Magick.NET.Native$($build.Suffix)\Resources\Release$($build.Quantum)\$platform\Magick.NET.rc"
 
     $content = [IO.File]::ReadAllText($fileName, [System.Text.Encoding]::Unicode)
     $content = SetVersion $content "FILEVERSION " `r $version.Replace('.', ',')
     $content = SetVersion $content "PRODUCTVERSION " `r $version.Replace('.', ',')
     $content = SetVersion $content "`"FileVersion`", `""  "`"" $version
     $content = SetVersion $content "`"ProductVersion`", `"" "`"" $version
+    $content = SetVersion $content "`"LegalCopyright`", `"" "`"" "Copyright © Dirk Lemstra $((Get-Date).year)"
 
     [IO.File]::WriteAllText($fileName, $content, [System.Text.Encoding]::Unicode)
   }

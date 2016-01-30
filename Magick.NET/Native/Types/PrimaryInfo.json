@@ -1,0 +1,18 @@
+﻿{
+  "dynamic": 3,
+  "properties":
+  [
+    {
+      "name": "X",
+      "type": "double"
+    },
+    {
+      "name": "Y",
+      "type": "double"
+    },
+    {
+      "name": "Z",
+      "type": "double"
+    }
+  ]
+}

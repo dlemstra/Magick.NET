@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -45,7 +45,6 @@ namespace ImageMagick
       Boolean useSweep_ = Variables.GetValue<Boolean>(element, "useSweep");
       return new PathArc(x_, y_, radiusX_, radiusY_, rotationX_, useLargeArc_, useSweep_);
     }
-
     private Collection<PathArc> CreatePathArcs(XmlElement element)
     {
       Collection<PathArc> collection = new Collection<PathArc>();

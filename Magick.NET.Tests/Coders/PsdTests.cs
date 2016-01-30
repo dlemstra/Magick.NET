@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -28,14 +27,9 @@ namespace Magick.NET.Tests.Coders
     {
       using (MagickImage image = new MagickImage(Files.Coders.PlayerPSD))
       {
-        using (PixelCollection pixels = image.GetReadOnlyPixels())
-        {
-          Pixel pixel = pixels.GetPixel(0, 0);
-          ColorAssert.AreEqual(MagickColor.Transparent, pixel.ToColor());
+        ColorAssert.AreEqual(MagickColors.Transparent, image, 0, 0);
 
-          pixel = pixels.GetPixel(8, 6);
-          ColorAssert.AreEqual(Color.FromArgb(15, 43, 255), pixel.ToColor());
-        }
+        ColorAssert.AreEqual(MagickColor.FromRgb(15, 43, 255), image, 8, 6);
       }
     }
   }

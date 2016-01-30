@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -31,14 +31,43 @@ namespace ImageMagick
   ///</summary>
   public sealed class ColorHSL : ColorBase
   {
+    private void Initialize(double red, double green, double blue)
+    {
+      double quantumScale = 1.0 / Quantum.Max;
+      double max = Math.Max(red, Math.Max(green, blue)) * quantumScale;
+      double min = Math.Min(red, Math.Max(green, blue)) * quantumScale;
+      double c = max - min;
+
+      Lightness = (max + min) / 2.0;
+      if (c <= 0.0)
+      {
+        Hue = 0.0;
+        Saturation = 0.0;
+      }
+      else
+      {
+        if (max == (quantumScale * red))
+        {
+          Hue = (quantumScale * green - quantumScale * blue) / c;
+          if ((quantumScale * green) < (quantumScale * blue))
+            Hue += 6.0;
+        }
+        else if (max == (quantumScale * green))
+          Hue = 2.0 + (quantumScale * blue - quantumScale * red) / c;
+        else
+          Hue = 4.0 + (quantumScale * red - quantumScale * green) / c;
+        Hue *= 60.0 / 360.0;
+        if (Lightness <= 0.5)
+          Saturation = c / (2.0 * (Lightness));
+        else
+          Saturation = c / (2.0 - 2.0 * (Lightness));
+      }
+    }
+
     private ColorHSL(MagickColor color)
       : base(color)
     {
-      Tuple<double, double, double> value = Wrapper.MagickColor.ConvertRGBToHSL(MagickColor.GetInstance(color));
-
-      Hue = value.Item1;
-      Saturation = value.Item3;
-      Luminosity = value.Item2;
+      Initialize(color.R, color.G, color.B);
     }
 
     /// <summary>
@@ -46,12 +75,54 @@ namespace ImageMagick
     /// </summary>
     protected override void UpdateValue()
     {
-      Tuple<double, double, double> value = new Tuple<double, double, double>(Hue, Saturation, Luminosity);
-
-      Wrapper.MagickColor color = Wrapper.MagickColor.ConvertHSLToRGB(value);
-      Value.R = color.R;
-      Value.G = color.G;
-      Value.B = color.B;
+      double c;
+      double h = Hue * 360.0;
+      if (Lightness <= 0.5)
+        c = 2.0 * Lightness * Saturation;
+      else
+        c = (2.0 - 2.0 * Lightness) * Saturation;
+      double min = Lightness - 0.5 * c;
+      h -= 360.0 * Math.Floor(h / 360.0);
+      h /= 60.0;
+      double x = c * (1.0 - Math.Abs(h - 2.0 * Math.Floor(h / 2.0) - 1.0));
+      switch ((int)Math.Floor(h))
+      {
+        case 0:
+          Value.R = (QuantumType)(Quantum.Max * (min + c));
+          Value.G = (QuantumType)(Quantum.Max * (min + x));
+          Value.B = (QuantumType)(Quantum.Max * min);
+          break;
+        case 1:
+          Value.R = (QuantumType)(Quantum.Max * (min + x));
+          Value.G = (QuantumType)(Quantum.Max * (min + c));
+          Value.B = (QuantumType)(Quantum.Max * min);
+          break;
+        case 2:
+          Value.R = (QuantumType)(Quantum.Max * min);
+          Value.G = (QuantumType)(Quantum.Max * (min + c));
+          Value.B = (QuantumType)(Quantum.Max * (min + x));
+          break;
+        case 3:
+          Value.R = (QuantumType)(Quantum.Max * min);
+          Value.G = (QuantumType)(Quantum.Max * (min + x));
+          Value.B = (QuantumType)(Quantum.Max * (min + c));
+          break;
+        case 4:
+          Value.R = (QuantumType)(Quantum.Max * (min + x));
+          Value.G = (QuantumType)(Quantum.Max * min);
+          Value.B = (QuantumType)(Quantum.Max * (min + c));
+          break;
+        case 5:
+          Value.R = (QuantumType)(Quantum.Max * (min + c));
+          Value.G = (QuantumType)(Quantum.Max * min);
+          Value.B = (QuantumType)(Quantum.Max * (min + x));
+          break;
+        default:
+          Value.R = 0;
+          Value.G = 0;
+          Value.B = 0;
+          break;
+      }
     }
 
     ///<summary>
@@ -59,13 +130,13 @@ namespace ImageMagick
     ///</summary>
     ///<param name="hue">Hue component value of this color.</param>
     ///<param name="saturation">Saturation component value of this color.</param>
-    ///<param name="luminosity">Luminosity component value of this color.</param>
-    public ColorHSL(double hue, double saturation, double luminosity)
-      : base(new MagickColor(0, 0, 0))
+    ///<param name="lightness">Lightness component value of this color.</param>
+    public ColorHSL(double hue, double saturation, double lightness)
+          : base(new MagickColor(0, 0, 0))
     {
       Hue = hue;
       Saturation = saturation;
-      Luminosity = luminosity;
+      Lightness = lightness;
     }
 
     ///<summary>
@@ -78,9 +149,9 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Luminosity component value of this color.
+    /// Lightness component value of this color.
     ///</summary>
-    public double Luminosity
+    public double Lightness
     {
       get;
       set;

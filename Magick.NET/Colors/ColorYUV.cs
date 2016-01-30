@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -48,9 +48,9 @@ namespace ImageMagick
     /// </summary>
     protected override void UpdateValue()
     {
-      Value.R = Quantum.Scale(_Y + 1.13980 * _V);
-      Value.G = Quantum.Scale(_Y - (0.39380 * _U) - (0.58050 * _V));
-      Value.B = Quantum.Scale(_Y + 2.02790 * _U);
+      Value.R = Quantum.ScaleToQuantum(_Y + 1.13980 * _V);
+      Value.G = Quantum.ScaleToQuantum(_Y - (0.39380 * _U) - (0.58050 * _V));
+      Value.B = Quantum.ScaleToQuantum(_Y + 2.02790 * _U);
     }
 
     ///<summary>

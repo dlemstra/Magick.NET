@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Drawing;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -26,23 +25,23 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_IComparable()
     {
-      ColorRGB first = new ColorRGB(Color.Red);
+      ColorRGB first = new ColorRGB(MagickColors.Red);
 
       Test_IComparable(first);
 
-      ColorRGB second = new ColorRGB(Color.White);
+      ColorRGB second = new ColorRGB(MagickColors.White);
 
       Test_IComparable_FirstLower(first, second);
 
-      second = new ColorRGB(Color.Green);
+      second = new ColorRGB(MagickColors.Green);
 
       Test_IComparable_FirstLower(second, first);
 
-      second = new ColorRGB(Color.Blue);
+      second = new ColorRGB(MagickColors.Blue);
 
       Test_IComparable_FirstLower(second, first);
 
-      second = new ColorRGB(Color.Red);
+      second = new ColorRGB(MagickColors.Red);
 
       Test_IComparable_Equal(first, second);
     }
@@ -50,7 +49,7 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_IEquatable()
     {
-      ColorRGB first = new ColorRGB(Color.Red);
+      ColorRGB first = new ColorRGB(MagickColors.Red);
 
       Test_IEquatable_NullAndSelf(first);
 
@@ -58,7 +57,7 @@ namespace Magick.NET.Tests
 
       Test_IEquatable_Equal(first, second);
 
-      second = new ColorRGB(Color.Green);
+      second = new ColorRGB(MagickColors.Green);
 
       Test_IEquatable_NotEqual(first, second);
     }

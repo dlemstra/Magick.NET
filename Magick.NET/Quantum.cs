@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ using QuantumType = System.Byte;
 #elif Q16
 using QuantumType = System.UInt16;
 #elif Q16HDRI
-	using QuantumType = System.Single;
+using QuantumType = System.Single;
 #else
 #error Not implemented!
 #endif
@@ -29,21 +29,62 @@ namespace ImageMagick
   ///<summary>
   /// Class that can be used to acquire information about the Quantum.
   ///</summary>
-  public static class Quantum
+  public static partial class Quantum
   {
-    internal static QuantumType Scale(double value)
+    internal static QuantumType Convert(byte value)
     {
-      return (QuantumType)(value / Max);
+#if (Q16) || (Q16HDRI)
+      return (QuantumType)(257UL * value);
+#else
+      return value;
+#endif
     }
 
-    internal static double Scale(QuantumType value)
+    internal static QuantumType Convert(double value)
     {
-      return ((double)1.0 / (double)Max) * value;
+      if (value < 0)
+        return 0;
+      if (value > Max)
+        return Max;
+
+      return (QuantumType)value;
     }
 
-    internal static QuantumType Convert(Byte value)
+    internal static QuantumType Convert(uint value)
     {
-      return Wrapper.Quantum.Convert(value);
+      if (value < 0)
+        return 0;
+      if (value > Max)
+        return Max;
+
+      return (QuantumType)value;
+    }
+
+#if !(Q16)
+    internal static QuantumType Convert(ushort value)
+    {
+      if (value < 0)
+        return 0;
+      if (value > Max)
+        return Max;
+
+      return (QuantumType)value;
+    }
+#endif
+
+    internal static QuantumType ScaleToQuantum(double value)
+    {
+      return (QuantumType)(value * Max);
+    }
+
+    internal static byte ScaleToByte(QuantumType value)
+    {
+      return NativeMethods.ScaleToByte(value);
+    }
+
+    internal static double ScaleToDouble(QuantumType value)
+    {
+      return (1.0 / Max) * value;
     }
 
     ///<summary>
@@ -53,7 +94,7 @@ namespace ImageMagick
     {
       get
       {
-        return Wrapper.Quantum.Depth;
+        return NativeMethods.Depth;
       }
     }
 
@@ -67,7 +108,7 @@ namespace ImageMagick
     {
       get
       {
-        return Wrapper.Quantum.Max;
+        return NativeMethods.Max;
       }
     }
   }

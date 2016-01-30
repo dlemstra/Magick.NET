@@ -21,9 +21,10 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <AssemblyName>Magick.NET-x64</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ16\x64\Magick.NET-x64.xml</DocumentationFile>
+    <AssemblyName>Magick.NET-Q16-x64</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ16\x64\Magick.NET-Q16-x64.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
     <OutputPath>bin\ReleaseQ16-HDRI\x64</OutputPath>
@@ -33,10 +34,11 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <AssemblyName>Magick.NET-x64</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ16-HDRI\x64\Magick.NET-x64.xml</DocumentationFile>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <AssemblyName>Magick.NET-Q16-HDRI-x64</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ16-HDRI\x64\Magick.NET-Q16-HDRI-x64.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x64'">
     <OutputPath>bin\ReleaseQ8\x64</OutputPath>
@@ -46,10 +48,11 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <AssemblyName>Magick.NET-x64</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ8\x64\Magick.NET-x64.xml</DocumentationFile>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <AssemblyName>Magick.NET-Q8-x64</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ8\x64\Magick.NET-Q8-x64.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x86'">
     <OutputPath>bin\ReleaseQ16\x86</OutputPath>
@@ -60,9 +63,10 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <AssemblyName>Magick.NET-x86</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ16\x86\Magick.NET-x86.xml</DocumentationFile>
+    <AssemblyName>Magick.NET-Q16-x86</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ16\x86\Magick.NET-Q16-x86.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
     <OutputPath>bin\ReleaseQ16-HDRI\x86</OutputPath>
@@ -72,9 +76,11 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <AssemblyName>Magick.NET-x86</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ16-HDRI\x86\Magick.NET-x86.xml</DocumentationFile>
+    <AssemblyName>Magick.NET-Q16-HDRI-x86</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ16-HDRI\x86\Magick.NET-Q16-HDRI-x86.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
     <OutputPath>bin\ReleaseQ8\x86</OutputPath>
@@ -84,9 +90,10 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <AssemblyName>Magick.NET-x86</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ8\x86\Magick.NET-x86.xml</DocumentationFile>
+    <AssemblyName>Magick.NET-Q8-x86</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ8\x86\Magick.NET-Q8-x86.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -110,43 +117,49 @@
     <Compile Include="Colors\ColorMono.cs" />
     <Compile Include="Colors\ColorRGB.cs" />
     <Compile Include="Colors\ColorYUV.cs" />
+    <Compile Include="Colors\MagickColors.cs" />
     <Compile Include="Colors\MagickColor.cs" />
+    <Compile Include="Colors\MagickColorCollection.cs" />
     <Compile Include="Defines\Dds\DdsCompression.cs" />
     <Compile Include="Defines\Dds\DdsWriteDefines.cs" />
     <Compile Include="Defines\DefineCreator.cs" />
+    <Compile Include="Defines\IDefine.cs" />
+    <Compile Include="Defines\IDefines.cs" />
+    <Compile Include="Defines\IReadDefines.cs" />
     <Compile Include="Defines\Jpeg\DtcMethod.cs" />
     <Compile Include="Defines\Jpeg\JpegReadDefines.cs" />
     <Compile Include="Defines\Jpeg\JpegWriteDefines.cs" />
+    <Compile Include="Defines\MagickDefine.cs" />
     <Compile Include="Defines\Pdf\PdfReadDefines.cs" />
     <Compile Include="Defines\Png\PngReadDefines.cs" />
     <Compile Include="Defines\ProfileTypes.cs" />
     <Compile Include="Defines\Tiff\TiffAlpha.cs" />
     <Compile Include="Defines\Tiff\TiffReadDefines.cs" />
     <Compile Include="Defines\Tiff\TiffWriteDefines.cs" />
-    <Compile Include="Drawables\DrawableDensity.cs" />
+    <Compile Include="Drawables\Coordinates\PathArcCoordinates.cs" />
     <Compile Include="Drawables\DrawableAffine.cs" />
-    <Compile Include="Drawables\DrawableOpacity.cs" />
+    <Compile Include="Drawables\DrawableAlpha.cs" />
     <Compile Include="Drawables\DrawableArc.cs" />
-    <Compile Include="Drawables\DrawableBezier.cs" />
+    <Compile Include="Drawables\Coordinates\PointDCoordinates.cs" />
     <Compile Include="Drawables\DrawableCircle.cs" />
     <Compile Include="Drawables\DrawableClipPath.cs" />
+    <Compile Include="Drawables\DrawableBorderColor.cs" />
+    <Compile Include="Drawables\DrawableClipUnits.cs" />
+    <Compile Include="Drawables\DrawableClipRule.cs" />
     <Compile Include="Drawables\DrawableColor.cs" />
-    <Compile Include="Drawables\DrawableCompositeImage.cs" />
-    <Compile Include="Drawables\DrawableDashArray.cs" />
-    <Compile Include="Drawables\DrawableDashOffset.cs" />
+    <Compile Include="Drawables\DrawableComposite.cs" />
+    <Compile Include="Drawables\DrawableDensity.cs" />
     <Compile Include="Drawables\DrawableEllipse.cs" />
-    <Compile Include="Drawables\DrawableFillOpacity.cs" />
     <Compile Include="Drawables\DrawableFillColor.cs" />
+    <Compile Include="Drawables\DrawableFillOpacity.cs" />
+    <Compile Include="Drawables\DrawableFillPatternUrl.cs" />
     <Compile Include="Drawables\DrawableFillRule.cs" />
     <Compile Include="Drawables\DrawableFont.cs" />
+    <Compile Include="Drawables\DrawableFontPointSize.cs" />
     <Compile Include="Drawables\DrawableGravity.cs" />
     <Compile Include="Drawables\DrawableLine.cs" />
-    <Compile Include="Drawables\DrawableMiterLimit.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Drawables\DrawablePath.cs" />
     <Compile Include="Drawables\DrawablePoint.cs" />
-    <Compile Include="Drawables\DrawablePointSize.cs" />
     <Compile Include="Drawables\DrawablePolygon.cs" />
     <Compile Include="Drawables\DrawablePolyline.cs" />
     <Compile Include="Drawables\DrawablePopClipPath.cs" />
@@ -161,57 +174,193 @@
     <Compile Include="Drawables\DrawableScaling.cs" />
     <Compile Include="Drawables\DrawableSkewX.cs" />
     <Compile Include="Drawables\DrawableSkewY.cs" />
-    <Compile Include="Drawables\DrawableStrokeOpacity.cs" />
     <Compile Include="Drawables\DrawableStrokeAntialias.cs" />
     <Compile Include="Drawables\DrawableStrokeColor.cs" />
+    <Compile Include="Drawables\DrawableStrokeDashArray.cs" />
+    <Compile Include="Drawables\DrawableStrokeDashOffset.cs" />
     <Compile Include="Drawables\DrawableStrokeLineCap.cs" />
     <Compile Include="Drawables\DrawableStrokeLineJoin.cs" />
+    <Compile Include="Drawables\DrawableStrokeMiterLimit.cs" />
+    <Compile Include="Drawables\DrawableStrokeOpacity.cs" />
+    <Compile Include="Drawables\DrawableStrokePatternUrl.cs" />
     <Compile Include="Drawables\DrawableStrokeWidth.cs" />
     <Compile Include="Drawables\DrawableText.cs" />
+    <Compile Include="Drawables\DrawableTextAlignment.cs" />
     <Compile Include="Drawables\DrawableTextAntialias.cs" />
     <Compile Include="Drawables\DrawableTextDecoration.cs" />
     <Compile Include="Drawables\DrawableTextDirection.cs" />
+    <Compile Include="Drawables\DrawableTextEncoding.cs" />
     <Compile Include="Drawables\DrawableTextInterlineSpacing.cs" />
     <Compile Include="Drawables\DrawableTextInterwordSpacing.cs" />
     <Compile Include="Drawables\DrawableTextKerning.cs" />
     <Compile Include="Drawables\DrawableTextUnderColor.cs" />
     <Compile Include="Drawables\DrawableTranslation.cs" />
     <Compile Include="Drawables\DrawableViewbox.cs" />
-    <Compile Include="Drawables\DrawableCoordinates.cs" />
-    <Compile Include="Drawables\Paths\PathArcAbs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Events\LogEventArgs.cs" />
+    <Compile Include="Drawables\Paths\IPath.cs" />
+    <Compile Include="Drawables\Paths\PathArcAbs.cs" />
+    <Compile Include="Drawables\Paths\PathArcRel.cs" />
+    <Compile Include="Drawables\Paths\PathClose.cs" />
+    <Compile Include="Drawables\Paths\PathCurveToAbs.cs" />
+    <Compile Include="Drawables\Paths\PathCurveToRel.cs" />
+    <Compile Include="Drawables\Paths\PathLineToAbs.cs" />
+    <Compile Include="Drawables\Paths\PathLineToHorizontalAbs.cs" />
+    <Compile Include="Drawables\Paths\PathLineToHorizontalRel.cs" />
+    <Compile Include="Drawables\Paths\PathLineToRel.cs" />
+    <Compile Include="Drawables\Paths\PathLineToVerticalAbs.cs" />
+    <Compile Include="Drawables\Paths\PathLineToVerticalRel.cs" />
+    <Compile Include="Drawables\Paths\PathMoveToAbs.cs" />
+    <Compile Include="Drawables\Paths\PathMoveToRel.cs" />
+    <Compile Include="Drawables\Paths\PathQuadraticCurveToAbs.cs" />
+    <Compile Include="Drawables\Paths\PathQuadraticCurveToRel.cs" />
+    <Compile Include="Drawables\Paths\PathSmoothCurveToAbs.cs" />
+    <Compile Include="Drawables\Paths\PathSmoothCurveToRel.cs" />
+    <Compile Include="Drawables\Paths\PathSmoothQuadraticCurveToAbs.cs" />
+    <Compile Include="Drawables\Paths\PathSmoothQuadraticCurveToRel.cs" />
+    <Compile Include="Drawables\PointInfo.cs" />
+    <Compile Include="Drawables\DrawableBezier.cs" />
+    <Compile Include="Drawables\Coordinates\DrawableCoordinates.cs" />
+    <Compile Include="Drawables\DrawingWand.cs" />
+    <Compile Include="Drawables\IDrawingWand.cs" />
+    <Compile Include="Drawables\IDrawable.cs" />
+    <Compile Include="Drawables\Paths\Args\PathArc.cs" />
+    <Compile Include="Enums\ClipPathUnit.cs" />
+    <Compile Include="Enums\GeometryFlags.cs" />
+    <Compile Include="Enums\LayerMethod.cs" />
+    <Compile Include="Enums\AlphaOption.cs" />
+    <Compile Include="Enums\Channels.cs" />
+    <Compile Include="Enums\ClassType.cs" />
+    <Compile Include="Enums\ColorSpace.cs" />
+    <Compile Include="Enums\ColorType.cs" />
+    <Compile Include="Enums\CompositeOperator.cs" />
+    <Compile Include="Enums\CompressionMethod.cs" />
+    <Compile Include="Enums\DistortMethod.cs" />
+    <Compile Include="Enums\DitherMethod.cs" />
+    <Compile Include="Enums\Endian.cs" />
+    <Compile Include="Enums\ErrorMetric.cs" />
+    <Compile Include="Enums\EvaluateFunction.cs" />
+    <Compile Include="Enums\EvaluateOperator.cs" />
+    <Compile Include="Enums\FillRule.cs" />
+    <Compile Include="Enums\FilterType.cs" />
+    <Compile Include="Enums\FontStretch.cs" />
+    <Compile Include="Enums\FontStyleType.cs" />
+    <Compile Include="Enums\FontWeight.cs" />
+    <Compile Include="Enums\GifDisposeMethod.cs" />
+    <Compile Include="Enums\Gravity.cs" />
+    <Compile Include="Enums\Interlace.cs" />
+    <Compile Include="Enums\Kernel.cs" />
+    <Compile Include="Enums\LineCap.cs" />
+    <Compile Include="Enums\LineJoin.cs" />
+    <Compile Include="Enums\LogEvents.cs" />
+    <Compile Include="Enums\MagickFormat.cs" />
+    <Compile Include="Enums\MorphologyMethod.cs" />
+    <Compile Include="Enums\NoiseType.cs" />
+    <Compile Include="Enums\OrientationType.cs" />
+    <Compile Include="Enums\PaintMethod.cs" />
+    <Compile Include="Enums\PixelChannel.cs" />
+    <Compile Include="Enums\PixelIntensityMethod.cs" />
+    <Compile Include="Enums\PixelInterpolateMethod.cs" />
+    <Compile Include="Enums\RenderingIntent.cs" />
+    <Compile Include="Enums\Resolution.cs" />
+    <Compile Include="Enums\SparseColorMethod.cs" />
+    <Compile Include="Enums\StatisticType.cs" />
+    <Compile Include="Enums\StorageType.cs" />
+    <Compile Include="Enums\TextAlignment.cs" />
+    <Compile Include="Enums\TextDecoration.cs" />
+    <Compile Include="Enums\TextDirection.cs" />
+    <Compile Include="Enums\VirtualPixelMethod.cs" />
+    <Compile Include="Events\ArtifactEventArgs.cs" />
     <Compile Include="Events\ProgressEventArgs.cs" />
+    <Compile Include="Events\LogEventArgs.cs" />
+    <Compile Include="Exceptions\Error\MagickBlobErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickCacheErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickCoderErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickConfigureErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickCorruptImageErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickDelegateErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickDrawErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickFileOpenErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickImageErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickMissingDelegateErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickModuleErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickOptionErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickRegistryErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickStreamErrorException.cs" />
+    <Compile Include="Exceptions\Error\MagickTypeErrorException.cs" />
+    <Compile Include="Exceptions\MagickException.cs" />
+    <Compile Include="Exceptions\MagickExceptionHelper.cs" />
+    <Compile Include="Exceptions\WarningEventArgs.cs" />
+    <Compile Include="Exceptions\Warning\MagickBlobWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickCacheWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickCoderWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickConfigureWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickCorruptImageWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickDelegateWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickDrawWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickFileOpenWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickImageWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickMissingDelegateWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickModuleWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickOptionWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickRegistryWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickStreamWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickTypeWarningException.cs" />
+    <Compile Include="Exceptions\Warning\MagickWarningException.cs" />
+    <Compile Include="Exceptions\ExceptionSeverity.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helpers\ByteConverter.cs" />
-    <Compile Include="Helpers\EnumHelper.cs" />
-    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Helpers\ArrayConverters.cs\DoubleConverter.cs" />
+    <Compile Include="Helpers\ArrayConverters.cs\QuantumConverter.cs" />
+    <Compile Include="Helpers\CustomMarshalers\UTF8NativeMarshaler.cs" />
+    <Compile Include="Helpers\CustomMarshalers\UTF8MarshalerHelper.cs" />
+    <Compile Include="Helpers\CustomMarshalers\UTF8NoCleanupMarshaler.cs" />
+    <Compile Include="Matrices\ConvolveMatrix.cs" />
+    <Compile Include="Matrices\DoubleMatrix.cs" />
+    <Compile Include="Matrices\MagickColorMatrix.cs" />
+    <Compile Include="Native\Colors\MagickColor.cs" />
+    <Compile Include="Native\Colors\MagickColorCollection.cs" />
+    <Compile Include="Native\Drawables\DrawingWand.cs" />
+    <Compile Include="Native\Drawables\PointInfoCollection.cs" />
+    <Compile Include="Native\Exceptions\MagickExceptionHelper.cs" />
+    <Compile Include="Helpers\ArrayConverters.cs\ByteConverter.cs" />
     <Compile Include="Helpers\MagickConverter.cs" />
-    <Compile Include="Helpers\Throw.cs" />
+    <Compile Include="Helpers\StreamHelper.cs" />
+    <Compile Include="Native\MagickFormatInfo.cs" />
+    <Compile Include="Native\MagickImage.cs" />
+    <Compile Include="Native\MagickImageCollection.cs" />
+    <Compile Include="Native\MagickNET.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Native\MagickMemory.cs" />
+    <Compile Include="Helpers\MagickMemory.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="MagickFormatInfo.cs" />
-    <Compile Include="MagickImage.cs" />
     <Compile Include="MagickImageCollection.cs" />
     <Compile Include="MagickImageInfo.cs" />
     <Compile Include="MagickNET.cs" />
+    <Compile Include="Native\Matricis\DoubleMatrix.cs" />
+    <Compile Include="Native\NativeLibrary.cs" />
+    <Compile Include="Native\Optimizers\JpegOptimizer.cs" />
+    <Compile Include="Native\Settings\DrawingSettings.cs" />
+    <Compile Include="Native\Statistics\ChannelMoments.cs" />
+    <Compile Include="Native\Statistics\ChannelPerceptualHash.cs" />
+    <Compile Include="Native\Statistics\ChannelStatistics.cs" />
+    <Compile Include="Native\Statistics\Moments.cs" />
+    <Compile Include="Native\Statistics\PerceptualHash.cs" />
+    <Compile Include="Native\Statistics\Statistics.cs" />
+    <Compile Include="Native\Types\PrimaryInfo.cs" />
+    <Compile Include="Native\Types\ConnectedComponent.cs" />
+    <Compile Include="Native\Types\OffsetInfo.cs" />
+    <Compile Include="Native\Types\PointInfo.cs" />
+    <Compile Include="Native\Types\TypeMetric.cs" />
     <Compile Include="Optimizers\GifOptimizer.cs" />
-    <Compile Include="Optimizers\IImageOptimizer.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Optimizers\IImageOptimizer.cs" />
     <Compile Include="Optimizers\ILosslessImageOptimizer.cs" />
-    <Compile Include="Optimizers\ImageOptimizer.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Optimizers\ImageOptimizer.cs" />
     <Compile Include="Optimizers\JpegOptimizer.cs" />
     <Compile Include="Optimizers\PngOptimizer.cs" />
-    <Compile Include="Pixels\PixelCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Native\Pixels\PixelCollection.cs" />
+    <Compile Include="Pixels\Pixel.cs" />
+    <Compile Include="Pixels\PixelCollection.cs" />
     <Compile Include="Pixels\PixelCollectionEnumerator.cs" />
-    <Compile Include="Pixels\WritablePixelCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Profiles\8Bim\ClipPath.cs" />
     <Compile Include="Profiles\8Bim\ClipPathReader.cs" />
     <Compile Include="Profiles\8Bim\EightBimProfile.cs" />
@@ -229,43 +378,86 @@
     <Compile Include="Profiles\Iptc\IptcTag.cs" />
     <Compile Include="Profiles\Iptc\IptcValue.cs" />
     <Compile Include="Profiles\XmpProfile.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Quantum.cs" />
-    <Compile Include="ResourceLimits.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Native\Settings\MagickSettings.cs" />
+    <Compile Include="Native\Quantum.cs" />
+    <Compile Include="Native\ResourceLimits.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\Throw.cs" />
+    <Compile Include="Helpers\CustomMarshalers\UTF8Marshaler.cs" />
+    <Compile Include="Helpers\ValidatedNotNullAttribute.cs" />
+    <Compile Include="MagickImage.cs" />
+    <Compile Include="Native\Settings\MontageSettings.cs" />
+    <Compile Include="Native\Settings\QuantizeSettings.cs" />
     <Compile Include="Script\Generated\Collection.cs" />
     <Compile Include="Script\Generated\ColorProfile.cs" />
-    <Compile Include="Script\Generated\Coordinate.cs" />
     <Compile Include="Script\Generated\IDefines.cs" />
     <Compile Include="Script\Generated\IDrawable.cs" />
     <Compile Include="Script\Generated\ImageProfile.cs" />
     <Compile Include="Script\Generated\IPath.cs" />
-    <Compile Include="Script\Generated\MagickImage.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Script\Generated\MagickImage.cs" />
     <Compile Include="Script\Generated\MagickImageCollection.cs" />
     <Compile Include="Script\Generated\MagickReadSettings.cs" />
+    <Compile Include="Script\Generated\MagickSettings.cs" />
     <Compile Include="Script\Generated\MontageSettings.cs" />
     <Compile Include="Script\Generated\PathArc.cs" />
-    <Compile Include="Script\Generated\PathCurveto.cs" />
-    <Compile Include="Script\Generated\PathQuadraticCurveto.cs" />
     <Compile Include="Script\Generated\PixelStorageSettings.cs" />
+    <Compile Include="Script\Generated\PointD.cs" />
+    <Compile Include="Script\Generated\PrimaryInfo.cs" />
     <Compile Include="Script\Generated\QuantizeSettings.cs" />
     <Compile Include="Script\Generated\SparseColorArg.cs" />
     <Compile Include="Script\MagickScript.cs" />
     <Compile Include="Script\ScriptReadEventArgs.cs" />
     <Compile Include="Script\ScriptVariables.cs" />
     <Compile Include="Script\ScriptWriteEventArgs.cs" />
+    <Compile Include="Settings\DrawingSettings.cs" />
     <Compile Include="Settings\MontageSettings.cs" />
+    <Compile Include="Settings\QuantizeSettings.cs" />
+    <Compile Include="Native\Types\MagickRectangle.cs" />
+    <Compile Include="Native\Types\StringInfo.cs" />
+    <Compile Include="Statistics\ChannelMoments.cs" />
+    <Compile Include="Statistics\ChannelPerceptualHash.cs" />
+    <Compile Include="Statistics\ChannelStatistics.cs" />
+    <Compile Include="Statistics\Moments.cs" />
     <Compile Include="Statistics\PerceptualHash.cs" />
-    <Compile Include="Types\MagickGeometry.cs" />
+    <Compile Include="Statistics\Statistics.cs" />
+    <Compile Include="Types\ConnectedComponent.cs" />
     <Compile Include="Types\MagickSearchResults.cs" />
-    <Compile Include="Types\Percentage.cs" />
+    <Compile Include="Types\OffsetInfo.cs" />
+    <Compile Include="Types\PrimaryInfo.cs" />
+    <Compile Include="Types\PointInfo.cs" />
     <Compile Include="Types\SparseColorArg.cs" />
+    <Compile Include="Types\StringInfo.cs" />
+    <Compile Include="Types\MagickErrorInfo.cs" />
+    <Compile Include="Types\MagickRectangle.cs" />
+    <Compile Include="Native\INativeInstance.cs" />
+    <Compile Include="Native\ConstNativeInstance.cs" />
+    <Compile Include="Native\NativeInstance.cs" />
+    <Compile Include="Settings\MagickReadSettings.cs" />
+    <Compile Include="Settings\MagickSettings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quantum.cs" />
+    <Compile Include="ResourceLimits.cs" />
+    <Compile Include="Settings\PixelStorageSettings.cs" />
+    <Compile Include="Native\Types\MagickGeometry.cs" />
+    <Compile Include="Types\MagickGeometry.cs" />
+    <Compile Include="Types\Percentage.cs" />
+    <Compile Include="Types\PointD.cs" />
+    <Compile Include="Native\NativeHelper.cs" />
+    <Compile Include="Types\TypeMetric.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Magick.NET.snk" />
+    <None Include="Native\Colors\MagickColor.json" />
+    <None Include="Native\Colors\MagickColorCollection.json" />
+    <None Include="Native\Drawables\PointInfoCollection.json" />
+    <None Include="Native\Drawables\DrawingWand.json" />
+    <None Include="Native\Exceptions\MagickExceptionHelper.json" />
+    <None Include="Native\MagickImageCollection.json" />
+    <None Include="Native\MagickNET.json" />
+    <None Include="Native\MagickFormatInfo.json" />
+    <None Include="Native\MagickMemory.json" />
+    <None Include="Native\Matricis\DoubleMatrix.json" />
+    <None Include="Native\Optimizers\JpegOptimizer.json" />
+    <None Include="Native\Pixels\PixelCollection.json" />
     <EmbeddedResource Include="Resources\ColorProfiles\CMYK\CoatedFOGRA39.icc" />
     <EmbeddedResource Include="Resources\ColorProfiles\CMYK\USWebCoatedSWOP.icc" />
     <EmbeddedResource Include="Resources\ColorProfiles\RGB\AdobeRGB1998.icc" />
@@ -281,72 +473,28 @@
     <EmbeddedResource Include="Resources\ReleaseQ8\MagickScript.xsd" Condition="'$(Configuration)' == 'ReleaseQ8'">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Magick.NET.Core\Magick.NET.Core.csproj">
-      <Project>{4e26f91d-80e6-406c-b0e3-8c5fa3f83e7d}</Project>
-      <Name>Magick.NET.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Magick.NET.Wrapper\Magick.NET.Wrapper.vcxproj">
-      <Project>{13c84dce-50bc-42a3-bcec-d3bffe3bc49e}</Project>
-      <Name>Magick.NET.Wrapper</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\Args\PathArc.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\Args\PathCurveto.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\Args\PathQuadraticCurveto.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathArcRel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathClosePath.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathCurvetoAbs.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathCurvetoRel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathLinetoAbs.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathLinetoHorizontalAbs.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathLinetoHorizontalRel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathLinetoRel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathLinetoVerticalAbs.cs" />
-    <Compile Include="Drawables\Paths\PathLinetoVerticalRel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathMovetoAbs.cs" />
-    <Compile Include="Drawables\Paths\PathMovetoRel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathQuadraticCurvetoAbs.cs" />
-    <Compile Include="Drawables\Paths\PathQuadraticCurvetoRel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathSmoothCurvetoAbs.cs" />
-    <Compile Include="Drawables\Paths\PathSmoothCurvetoRel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawables\Paths\PathSmoothQuadraticCurvetoAbs.cs" />
-    <Compile Include="Drawables\Paths\PathSmoothQuadraticCurvetoRel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Pixels\Pixel.cs" />
+    <None Include="Native\Settings\DrawingSettings.json" />
+    <None Include="Native\Settings\MontageSettings.json" />
+    <None Include="Native\Settings\QuantizeSettings.json" />
+    <None Include="Native\Settings\MagickSettings.json" />
+    <None Include="Native\MagickImage.json" />
+    <None Include="Native\Quantum.json" />
+    <None Include="Native\ResourceLimits.json" />
+    <None Include="Magick.NET.snk" />
+    <None Include="Native\Statistics\ChannelStatistics.json" />
+    <None Include="Native\Statistics\Statistics.json" />
+    <None Include="Native\Statistics\PerceptualHash.json" />
+    <None Include="Native\Statistics\Moments.json" />
+    <None Include="Native\Statistics\ChannelMoments.json" />
+    <None Include="Native\Statistics\ChannelPerceptualHash.json" />
+    <None Include="Native\Types\ConnectedComponent.json" />
+    <None Include="Native\Types\PrimaryInfo.json" />
+    <None Include="Native\Types\OffsetInfo.json" />
+    <None Include="Native\Types\TypeMetric.json" />
+    <None Include="Native\Types\PointInfo.json" />
+    <None Include="Native\Types\StringInfo.json" />
+    <None Include="Native\Types\MagickRectangle.json" />
+    <None Include="Native\Types\MagickGeometry.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

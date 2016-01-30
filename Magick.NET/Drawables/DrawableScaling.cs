@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,15 +17,22 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableScaling object.
+  /// Adjusts the scaling factor to apply in the horizontal and vertical directions to the current
+  /// coordinate space.
   ///</summary>
-  public class DrawableScaling : IDrawableScaling
+  public sealed class DrawableScaling : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Scaling(X, Y);
+    }
+
     ///<summary>
     /// Creates a new DrawableScaling instance.
     ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
+    ///<param name="x">Horizontal scale factor.</param>
+    ///<param name="y">Vertical scale factor.</param>
     public DrawableScaling(double x, double y)
     {
       X = x;

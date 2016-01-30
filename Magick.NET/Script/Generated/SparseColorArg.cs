@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
@@ -41,7 +41,6 @@ namespace ImageMagick
       MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
       return new SparseColorArg(x_, y_, color_);
     }
-
     private Collection<SparseColorArg> CreateSparseColorArgs(XmlElement element)
     {
       Collection<SparseColorArg> collection = new Collection<SparseColorArg>();

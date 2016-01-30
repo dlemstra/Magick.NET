@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -20,7 +19,6 @@ namespace Magick.NET.FileGenerator
 {
   internal sealed class MagickImageGenerator : ExecuteCodeGenerator
   {
-
     protected override string[] CustomMethods
     {
       get
@@ -61,30 +59,35 @@ namespace Magick.NET.FileGenerator
       }
     }
 
-    protected override void WriteCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
     {
-      writer.Write("image.");
-      writer.Write(method.Name);
-      writer.Write("(");
-      WriteParameters(writer, parameters);
-      writer.WriteLine(");");
+      Write("image.");
+      Write(method.Name);
+      Write("(");
+      WriteParameters(parameters);
+      WriteLine(");");
     }
 
-    protected override void WriteHashtableCall(IndentedTextWriter writer, MethodBase method, ParameterInfo[] parameters)
+    protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
     {
-      writer.Write("image.");
-      writer.Write(method.Name);
-      writer.Write("(");
-      WriteHashtableParameters(writer, parameters);
-      writer.WriteLine(");");
+      Write("image.");
+      Write(method.Name);
+      Write("(");
+      WriteHashtableParameters(parameters);
+      WriteLine(");");
     }
 
-    protected override void WriteSet(IndentedTextWriter writer, PropertyInfo property)
+    protected override void WriteSet(PropertyInfo property)
     {
-      writer.Write("image.");
-      writer.Write(property.Name);
-      writer.Write(" = ");
-      WriteGetValue(writer, property);
+      if (property.Name == "Settings")
+        WriteLine("ExecuteMagickSettings(element, image);");
+      else
+      {
+        Write("image.");
+        Write(property.Name);
+        Write(" = ");
+        WriteGetValue(property);
+      }
     }
 
     public override string Name
@@ -94,7 +97,5 @@ namespace Magick.NET.FileGenerator
         return "MagickImage";
       }
     }
-
   }
-  //==============================================================================================
 }

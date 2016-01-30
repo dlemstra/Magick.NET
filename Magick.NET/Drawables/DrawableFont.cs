@@ -1,5 +1,5 @@
 //=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -17,10 +17,16 @@ using ImageMagick.Drawables;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the DrawableFont object.
+  /// Sets the font family, style, weight and stretch to use when annotating with text.
   ///</summary>
-  public sealed class DrawableFont : IDrawableFont
+  public sealed class DrawableFont : IDrawable
   {
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Font(Family, Style, Weight, Stretch);
+    }
+
     ///<summary>
     /// Creates a new DrawableFont instance.
     ///</summary>
@@ -39,6 +45,8 @@ namespace ImageMagick
     ///<param name="stretch">The font stretching type.</param>
     public DrawableFont(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
     {
+      Throw.IfNullOrEmpty("family", family);
+
       Family = family;
       Style = style;
       Weight = weight;

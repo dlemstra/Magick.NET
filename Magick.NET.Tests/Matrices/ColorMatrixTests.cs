@@ -1,5 +1,5 @@
 ﻿//=================================================================================================
-// Copyright 2013-2015 Dirk Lemstra <https://magick.codeplex.com/>
+// Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
 // compliance with the License. You may obtain a copy of the License at
@@ -28,22 +28,22 @@ namespace Magick.NET.Tests
     {
       ExceptionAssert.Throws<ArgumentException>(delegate ()
       {
-        new ColorMatrix(-1);
+        new MagickColorMatrix(-1);
       });
 
       ExceptionAssert.Throws<ArgumentException>(delegate ()
       {
-        new ColorMatrix(7);
+        new MagickColorMatrix(7);
       });
 
-      new ColorMatrix(1);
+      new MagickColorMatrix(1);
 
       ExceptionAssert.Throws<ArgumentException>(delegate ()
       {
-        new ColorMatrix(2, 1.0);
+        new MagickColorMatrix(2, 1.0);
       });
 
-      ColorMatrix matrix = new ColorMatrix(2, 0.0, 1.0, 0.1, 1.1);
+      MagickColorMatrix matrix = new MagickColorMatrix(2, 0.0, 1.0, 0.1, 1.1);
       Assert.AreEqual(0.0, matrix.GetValue(0, 0));
       Assert.AreEqual(1.0, matrix.GetValue(1, 0));
       Assert.AreEqual(0.1, matrix.GetValue(0, 1));
@@ -73,7 +73,7 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_SetColumn()
     {
-      ColorMatrix matrix = new ColorMatrix(2);
+      MagickColorMatrix matrix = new MagickColorMatrix(2);
 
       matrix.SetColumn(0, 2, 4);
       Assert.AreEqual(2, matrix.GetValue(0, 0));
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_SetRow()
     {
-      ColorMatrix matrix = new ColorMatrix(2);
+      MagickColorMatrix matrix = new MagickColorMatrix(2);
 
       matrix.SetRow(0, 2, 4);
       Assert.AreEqual(2, matrix.GetValue(0, 0));
@@ -101,7 +101,7 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Value()
     {
-      ColorMatrix matrix = new ColorMatrix(2);
+      MagickColorMatrix matrix = new MagickColorMatrix(2);
 
       matrix.SetValue(0, 0, 1.5);
       Assert.AreEqual(1.5, matrix.GetValue(0, 0));
