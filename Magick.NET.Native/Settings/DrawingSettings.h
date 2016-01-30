@@ -89,7 +89,7 @@ MAGICK_NET_EXPORT void DrawingSettings_TextKerning_Set(DrawInfo *, const double)
 MAGICK_NET_EXPORT PixelInfo *DrawingSettings_TextUnderColor_Get(const DrawInfo *);
 MAGICK_NET_EXPORT void DrawingSettings_TextUnderColor_Set(DrawInfo *, const  PixelInfo *);
 
-MAGICK_NET_EXPORT double *DrawingSettings_GetStrokeDashArray(DrawInfo *, size_t *);
+MAGICK_NET_EXPORT const double *DrawingSettings_GetStrokeDashArray(DrawInfo *, size_t *);
 
 MAGICK_NET_EXPORT void DrawingSettings_ResetTransform(DrawInfo *);
 

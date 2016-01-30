@@ -2838,6 +2838,10 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_SubImageSearch()
     {
+#if NET20
+      Assert.Inconclusive("VS2008 compiler crashes the unit test.");
+#endif
+
       using (MagickImageCollection images = new MagickImageCollection())
       {
         images.Add(new MagickImage(Color.Green, 2, 2));

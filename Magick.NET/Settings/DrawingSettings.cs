@@ -173,15 +173,7 @@ namespace ImageMagick
       {
         UIntPtr length;
         IntPtr data = _NativeInstance.GetStrokeDashArray(out length);
-
-        try
-        {
-          return DoubleConverter.ToArray(data, (int)length);
-        }
-        finally
-        {
-          MagickMemory.Relinquish(data);
-        }
+        return DoubleConverter.ToArray(data, (int)length);
       }
       set
       {

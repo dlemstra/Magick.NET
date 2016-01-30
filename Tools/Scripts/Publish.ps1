@@ -31,19 +31,15 @@ function BuildAll($builds)
   {
     Build $build
 
-    # .NET 2.0 x64 build stop suddenly but passes when run separately
-    if (($build.Framework -eq "v4.0") -or ($build.Platform -eq "x86"))
+    $platform = ""
+    if ($($build.Platform) -ne "AnyCPU")
     {
-      $platform = ""
-      if ($($build.Platform) -ne "AnyCPU")
-      {
-        $platform = "/Platform:$($build.Platform)"
-      }
-
-      $dll = "Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Tests.dll"
-      vstest.console.exe /inIsolation $platform $dll
-      CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform + " (" + $build.FrameworkName + ")")
+      $platform = "/Platform:$($build.Platform)"
     }
+
+    $dll = "Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Tests.dll"
+    vstest.console.exe /inIsolation $platform $dll
+    CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform + " (" + $build.FrameworkName + ")")
   }
 }
 

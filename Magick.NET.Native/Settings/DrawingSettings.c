@@ -316,7 +316,7 @@ MAGICK_NET_EXPORT void DrawingSettings_TextUnderColor_Set(DrawInfo *instance, co
     instance->undercolor = *value;
 }
 
-MAGICK_NET_EXPORT double *DrawingSettings_GetStrokeDashArray(DrawInfo *instance, size_t *length)
+MAGICK_NET_EXPORT const double *DrawingSettings_GetStrokeDashArray(DrawInfo *instance, size_t *length)
 {
   *length = 0;
   if (instance->dash_pattern == (double *)NULL)
@@ -335,13 +335,9 @@ MAGICK_NET_EXPORT void DrawingSettings_ResetTransform(DrawInfo *instance)
 
 MAGICK_NET_EXPORT void DrawingSettings_SetStrokeDashArray(DrawInfo *instance, const double *value, const size_t length)
 {
-  size_t
-    count;
-
-  count = (length + 1)*sizeof(double);
   instance->dash_pattern = (double *)RelinquishMagickMemory(instance->dash_pattern);
-  instance->dash_pattern = AcquireMagickMemory(count);
-  memcpy(instance->dash_pattern, value, count);
+  instance->dash_pattern = AcquireMagickMemory((length + 1) * sizeof(double));
+  memcpy(instance->dash_pattern, value, length * sizeof(double));
   instance->dash_pattern[length] = 0.0;
 }
 
