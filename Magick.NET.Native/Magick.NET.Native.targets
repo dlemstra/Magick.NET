@@ -5,6 +5,7 @@
       <NativeFiles Include="$(TargetDir)\$(TargetName).pdb" />
     </ItemGroup>
     <Copy Condition="'$(Platform)'=='Win32'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Magick.NET.Tests\bin\$(Configuration)\x86" />
+    <Copy Condition="'$(Platform)'=='Win32'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Magick.NET.Samples\bin\$(Configuration)" />
     <Copy Condition="'$(Platform)'=='x64'" SourceFiles="@(NativeFiles)" DestinationFolder="$(SolutionDir)\Magick.NET.Tests\bin\$(Configuration)\x64" />
   </Target>
 </Project>
