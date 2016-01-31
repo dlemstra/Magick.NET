@@ -1,3 +1,5 @@
+StrongName:
+
 Fix the typo in the build process (2.d.A):
 
 1. Open cmd prompt as administrator
@@ -11,3 +13,7 @@ Fix the typo in the build process (2.d.A):
 7. Change property  KeyFile
       a. From :       KeyFile    ="%(Link.KeyFile)"
       b. To:         KeyFile    ="$(LinkKeyFile)"
+
+UCRT 2015:
+
+Edit %ProgramFiles(x86)%\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.Cpp.Common.props and change TargetUniversalCRTVersion from 10.0.10240.0 to 10.0.10586.0. 
