@@ -78,7 +78,7 @@ function CopyPdbFiles($builds)
   foreach ($build in $builds)
   {
     $source = "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).pdb"
-    $destination = "Publish\Pdb\$($build.Quantum)-$($build.FrameworkName).Magick.NET-$($build.Quantum)-$($build.Platform).pdb"
+    $destination = "Publish\Pdb\$($build.FrameworkName).Magick.NET-$($build.Quantum)-$($build.Platform).pdb"
 
     Copy-Item $source $destination
 
@@ -87,7 +87,7 @@ function CopyPdbFiles($builds)
       $source = "Magick.NET.Native$($build.Suffix)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
       if (Test-Path $source)
       {
-        $destination = "Publish\Pdb\$($build.Quantum)-$($build.FrameworkName).Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
+        $destination = "Publish\Pdb\$($build.FrameworkName).Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
 
         Copy-Item $source $destination
       }
@@ -243,7 +243,7 @@ function PreparePublish($builds)
 function Publish($builds)
 {
   CreateNuGetPackages $builds
-#  CreateZipFiles $builds
+  CreateZipFiles $builds
 }
 
 if ($args.count -ne 2)
