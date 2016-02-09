@@ -3170,6 +3170,17 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_VirtualPixelMethod()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        Assert.AreEqual(image.VirtualPixelMethod, VirtualPixelMethod.Undefined);
+        image.VirtualPixelMethod = VirtualPixelMethod.Random;
+        Assert.AreEqual(image.VirtualPixelMethod, VirtualPixelMethod.Random);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_Wave()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))

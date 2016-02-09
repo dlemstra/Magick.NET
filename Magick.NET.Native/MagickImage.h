@@ -144,8 +144,8 @@ MAGICK_NET_EXPORT const char *MagickImage_Signature_Get(Image *, ExceptionInfo *
 
 MAGICK_NET_EXPORT size_t MagickImage_TotalColors_Get(const Image *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT size_t MagickImage_VirtualPixel_Get(const Image *, ExceptionInfo **);
-MAGICK_NET_EXPORT void MagickImage_VirtualPixel_Set(Image *, const size_t, ExceptionInfo **);
+MAGICK_NET_EXPORT size_t MagickImage_VirtualPixelMethod_Get(const Image *, ExceptionInfo **);
+MAGICK_NET_EXPORT void MagickImage_VirtualPixelMethod_Set(Image *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT size_t MagickImage_Width_Get(const Image *);
 

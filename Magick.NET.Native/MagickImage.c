@@ -585,14 +585,14 @@ MAGICK_NET_EXPORT size_t MagickImage_TotalColors_Get(const Image *instance, Exce
   return colors;
 }
 
-MAGICK_NET_EXPORT size_t MagickImage_VirtualPixel_Get(const Image *instance, ExceptionInfo **exception)
+MAGICK_NET_EXPORT size_t MagickImage_VirtualPixelMethod_Get(const Image *instance, ExceptionInfo **exception)
 {
   (void)exception;
 
   return GetImageVirtualPixelMethod(instance);
 }
 
-MAGICK_NET_EXPORT void MagickImage_VirtualPixel_Set(Image *instance, const size_t value, ExceptionInfo **exception)
+MAGICK_NET_EXPORT void MagickImage_VirtualPixelMethod_Set(Image *instance, const size_t value, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
   SetImageVirtualPixelMethod(instance, (const VirtualPixelMethod)value, exceptionInfo);
