@@ -744,7 +744,7 @@ MAGICK_NET_EXPORT void MagickImage_AnnotateGravity(Image *instance, const DrawIn
 
   MAGICK_NET_GET_EXCEPTION;
   AnnotateImage(instance, drawInfo, exceptionInfo);
-  drawInfo->text = (char *) NULL;
+  drawInfo->text = (char *)NULL;
   DestroyDrawInfo(drawInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
@@ -2246,7 +2246,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Swirl(const Image *instance, const size_t m
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = SwirlImage(instance, (const PixelInterpolateMethod)method, degrees, exceptionInfo);
+  image = SwirlImage(instance, degrees, (const PixelInterpolateMethod)method, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
