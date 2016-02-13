@@ -1211,6 +1211,17 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_Density()
+    {
+      using (MagickImage image = new MagickImage(Files.EightBimTIF))
+      {
+        Assert.AreEqual(72, image.Density.X);
+        Assert.AreEqual(72, image.Density.Y);
+        Assert.AreEqual(DensityUnit.PixelsPerInch, image.Density.Units);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_Deskew()
     {
       using (MagickImage image = new MagickImage(Files.ConnectedComponentsPNG))
@@ -2283,8 +2294,8 @@ namespace Magick.NET.Tests
       {
         image.Resample(new PointD(300));
 
-        Assert.AreEqual(300, image.ResolutionX);
-        Assert.AreEqual(300, image.ResolutionY);
+        Assert.AreEqual(300, image.Density.X);
+        Assert.AreEqual(300, image.Density.Y);
         Assert.AreNotEqual(100, image.Width);
         Assert.AreNotEqual(100, image.Height);
       }
@@ -2344,17 +2355,6 @@ namespace Magick.NET.Tests
         {
           image.Resize(percentage);
         });
-      }
-    }
-
-    [TestMethod, TestCategory(_Category)]
-    public void Test_Resolution()
-    {
-      using (MagickImage image = new MagickImage(Files.EightBimTIF))
-      {
-        Assert.AreEqual(Resolution.PixelsPerInch, image.ResolutionUnits);
-        Assert.AreEqual(72, image.ResolutionX);
-        Assert.AreEqual(72, image.ResolutionY);
       }
     }
 

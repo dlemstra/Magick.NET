@@ -234,7 +234,7 @@ namespace Magick.NET.Tests
             value.Value = "Magick.NET";
           });
 
-          image.Density = new PointD(72);
+          image.Density = new Density(72);
 
           value = profile.GetValue(ExifTag.XResolution);
           TestValue(value, 150.0);

@@ -949,45 +949,6 @@ namespace ImageMagick
                   ExecuteRenderingIntent(element, image);
                   return;
                 }
-                case 's':
-                {
-                  switch(element.Name[3])
-                  {
-                    case 'o':
-                    {
-                      switch(element.Name[10])
-                      {
-                        case 'U':
-                        {
-                          ExecuteResolutionUnits(element, image);
-                          return;
-                        }
-                        case 'X':
-                        {
-                          ExecuteResolutionX(element, image);
-                          return;
-                        }
-                        case 'Y':
-                        {
-                          ExecuteResolutionY(element, image);
-                          return;
-                        }
-                      }
-                      break;
-                    }
-                    case 'a':
-                    {
-                      ExecuteResample(element, image);
-                      return;
-                    }
-                    case 'i':
-                    {
-                      ExecuteResize(element, image);
-                      return;
-                    }
-                  }
-                  break;
-                }
                 case 'd':
                 {
                   ExecuteReduceNoise(element, image);
@@ -1031,6 +992,23 @@ namespace ImageMagick
                 {
                   ExecuteRePage(image);
                   return;
+                }
+                case 's':
+                {
+                  switch(element.Name[3])
+                  {
+                    case 'a':
+                    {
+                      ExecuteResample(element, image);
+                      return;
+                    }
+                    case 'i':
+                    {
+                      ExecuteResize(element, image);
+                      return;
+                    }
+                  }
+                  break;
                 }
               }
               break;
@@ -1621,7 +1599,7 @@ namespace ImageMagick
     }
     private void ExecuteDensity(XmlElement element, MagickImage image)
     {
-      image.Density = Variables.GetValue<PointD>(element, "value");
+      image.Density = Variables.GetValue<Density>(element, "value");
     }
     private void ExecuteDepth(XmlElement element, MagickImage image)
     {
@@ -1678,18 +1656,6 @@ namespace ImageMagick
     private void ExecuteRenderingIntent(XmlElement element, MagickImage image)
     {
       image.RenderingIntent = Variables.GetValue<RenderingIntent>(element, "value");
-    }
-    private void ExecuteResolutionUnits(XmlElement element, MagickImage image)
-    {
-      image.ResolutionUnits = Variables.GetValue<Resolution>(element, "value");
-    }
-    private void ExecuteResolutionX(XmlElement element, MagickImage image)
-    {
-      image.ResolutionX = Variables.GetValue<double>(element, "value");
-    }
-    private void ExecuteResolutionY(XmlElement element, MagickImage image)
-    {
-      image.ResolutionY = Variables.GetValue<double>(element, "value");
     }
     private void ExecuteSettings(XmlElement element, MagickImage image)
     {

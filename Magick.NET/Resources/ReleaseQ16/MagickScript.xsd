@@ -1084,19 +1084,6 @@
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
-  <xs:simpleType name="Resolution">
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:NMTOKEN">
-          <xs:enumeration value="PixelsPerCentimeter" />
-          <xs:enumeration value="PixelsPerInch" />
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction base="var" />
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
   <xs:simpleType name="SparseColorMethod">
     <xs:union>
       <xs:simpleType>
@@ -1300,6 +1287,11 @@
     <xs:attribute name="rowsPerStrip" type="int" />
     <xs:attribute name="tileGeometry" type="geometry" />
   </xs:complexType>
+  <xs:simpleType name="density">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="((\d+x?\d*)|(\d*x\d+))( cm| inch)*" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="doubleArray">
     <xs:sequence>
       <xs:element name="value" type="xs:double" minOccurs="0" maxOccurs="unbounded" />
@@ -1745,7 +1737,7 @@
         </xs:element>
         <xs:element name="density">
           <xs:complexType>
-            <xs:attribute name="value" use="required" type="pointd" />
+            <xs:attribute name="value" use="required" type="density" />
           </xs:complexType>
         </xs:element>
         <xs:element name="depth">
@@ -1812,21 +1804,6 @@
         <xs:element name="renderingIntent">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="RenderingIntent" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="resolutionUnits">
-          <xs:complexType>
-            <xs:attribute name="value" use="required" type="Resolution" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="resolutionX">
-          <xs:complexType>
-            <xs:attribute name="value" use="required" type="double" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="resolutionY">
-          <xs:complexType>
-            <xs:attribute name="value" use="required" type="double" />
           </xs:complexType>
         </xs:element>
         <xs:element name="settings" type="magickSettings" />

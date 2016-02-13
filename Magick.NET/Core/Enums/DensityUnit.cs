@@ -17,7 +17,7 @@ namespace ImageMagick
   ///<summary>
   /// Units of image resolution.
   ///</summary>
-  public enum Resolution
+  public enum DensityUnit
   {
     /// <summary>
     /// Undefied

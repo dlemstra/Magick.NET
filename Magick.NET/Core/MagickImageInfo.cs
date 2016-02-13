@@ -171,6 +171,15 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// The density of the image.
+    ///</summary>
+    public Density Density
+    {
+      get;
+      private set;
+    }
+
+    ///<summary>
     /// Original file name of the image (only available if read from disk).
     ///</summary>
     public string FileName
@@ -200,33 +209,6 @@ namespace ImageMagick
     /// Type of interlacing.
     ///</summary>
     public Interlace Interlace
-    {
-      get;
-      private set;
-    }
-
-    ///<summary>
-    /// Units of image resolution.
-    ///</summary>
-    public Resolution ResolutionUnits
-    {
-      get;
-      private set;
-    }
-
-    ///<summary>
-    /// The X resolution of the image.
-    ///</summary>
-    public double ResolutionX
-    {
-      get;
-      private set;
-    }
-
-    ///<summary>
-    /// The Y resolution of the image.
-    ///</summary>
-    public double ResolutionY
     {
       get;
       private set;
@@ -286,12 +268,10 @@ namespace ImageMagick
       return
         ColorSpace == other.ColorSpace &&
         CompressionMethod == other.CompressionMethod &&
+        Density == other.Density &&
         Format == other.Format &&
         Height == other.Height &&
         Interlace == other.Interlace &&
-        ResolutionUnits == other.ResolutionUnits &&
-        ResolutionX == other.ResolutionX &&
-        ResolutionY == other.ResolutionY &&
         Width == other.Width;
     }
 
@@ -303,12 +283,10 @@ namespace ImageMagick
       return
         ColorSpace.GetHashCode() ^
         CompressionMethod.GetHashCode() ^
+        Density.GetHashCode() ^
         Format.GetHashCode() ^
         Height.GetHashCode() ^
         Interlace.GetHashCode() ^
-        ResolutionUnits.GetHashCode() ^
-        ResolutionX.GetHashCode() ^
-        ResolutionY.GetHashCode() ^
         Width.GetHashCode();
     }
 
@@ -316,12 +294,10 @@ namespace ImageMagick
     {
       ColorSpace = image.ColorSpace;
       CompressionMethod = image.CompressionMethod;
+      Density = image.Density;
       Format = image.Format;
       Height = image.Height;
       Interlace = image.Interlace;
-      ResolutionUnits = image.ResolutionUnits;
-      ResolutionX = image.ResolutionX;
-      ResolutionY = image.ResolutionY;
       Width = image.Width;
     }
 

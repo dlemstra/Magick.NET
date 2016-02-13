@@ -64,6 +64,9 @@ namespace ImageMagick
       if (type == typeof(bool))
         return (T)(object)(value == "1" || value == "true");
 
+      if (type == typeof(Density))
+        return (T)(object)new Density(value);
+
       if (type == typeof(MagickColor))
         return (T)(object)new MagickColor(value);
 

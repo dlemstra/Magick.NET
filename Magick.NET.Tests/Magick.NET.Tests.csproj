@@ -161,6 +161,7 @@
     <Compile Include="Core\Statistics\StatisticsTests.cs" />
     <Compile Include="Core\Types\MagickGeometryTests.cs" />
     <Compile Include="Core\Types\PercentageTests.cs" />
+    <Compile Include="Core\Types\DensityTests.cs" />
     <Compile Include="Core\Types\PointDTests.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="MagickImageCollectionTests.cs" />

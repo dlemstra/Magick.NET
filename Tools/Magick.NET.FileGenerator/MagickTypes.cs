@@ -96,6 +96,8 @@ namespace Magick.NET.FileGenerator
           return "bool";
         case "Byte":
           return "byte";
+        case "Density":
+          return "density";
         case "Double":
           return "double";
         case "Encoding":
@@ -272,6 +274,7 @@ namespace Magick.NET.FileGenerator
         case "Boolean":
         case "Encoding":
         case "ColorProfile":
+        case "Density":
         case "Double":
         case "Double[]":
         case "IDefines":

@@ -1940,7 +1940,7 @@ namespace ImageMagick
             NativeMethods.X86.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
         }
       }
-      public Resolution ResolutionUnits
+      public DensityUnit ResolutionUnits
       {
         get
         {
@@ -1949,7 +1949,7 @@ namespace ImageMagick
             result = NativeMethods.X64.MagickImage_ResolutionUnits_Get(Instance);
           else
             result = NativeMethods.X86.MagickImage_ResolutionUnits_Get(Instance);
-          return (Resolution)result;
+          return (DensityUnit)result;
         }
         set
         {

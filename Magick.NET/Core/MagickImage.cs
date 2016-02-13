@@ -1076,16 +1076,20 @@ namespace ImageMagick
     ///<summary>
     /// Vertical and horizontal resolution in pixels of the image.
     ///</summary>
-    public PointD Density
+    public Density Density
     {
       get
       {
-        return new PointD(_NativeInstance.ResolutionX, _NativeInstance.ResolutionY);
+        return new Density(_NativeInstance.ResolutionX, _NativeInstance.ResolutionY, _NativeInstance.ResolutionUnits);
       }
       set
       {
+        if (value == null)
+          return;
+
         _NativeInstance.ResolutionX = value.X;
         _NativeInstance.ResolutionY = value.Y;
+        _NativeInstance.ResolutionUnits = value.Units;
       }
     }
 
@@ -1418,51 +1422,6 @@ namespace ImageMagick
       set
       {
         _NativeInstance.RenderingIntent = value;
-      }
-    }
-
-    ///<summary>
-    /// Units of image resolution.
-    ///</summary>
-    public Resolution ResolutionUnits
-    {
-      get
-      {
-        return _NativeInstance.ResolutionUnits;
-      }
-      set
-      {
-        _NativeInstance.ResolutionUnits = value;
-      }
-    }
-
-    ///<summary>
-    /// The X resolution of the image.
-    ///</summary>
-    public double ResolutionX
-    {
-      get
-      {
-        return _NativeInstance.ResolutionX;
-      }
-      set
-      {
-        _NativeInstance.ResolutionX = value;
-      }
-    }
-
-    ///<summary>
-    /// The Y resolution of the image.
-    ///</summary>
-    public double ResolutionY
-    {
-      get
-      {
-        return _NativeInstance.ResolutionY;
-      }
-      set
-      {
-        _NativeInstance.ResolutionY = value;
       }
     }
 

@@ -86,8 +86,9 @@ namespace Magick.NET.Tests
       Assert.AreEqual(MagickFormat.Gif, first.Format);
       Assert.AreEqual(70, first.Width);
       Assert.AreEqual(46, first.Height);
-      Assert.AreEqual(0, first.ResolutionX);
-      Assert.AreEqual(0, first.ResolutionY);
+      Assert.AreEqual(0, first.Density.X);
+      Assert.AreEqual(0, first.Density.Y);
+      Assert.AreEqual(DensityUnit.Undefined, first.Density.Units);
     }
 
     [TestMethod, TestCategory(_Category)]
@@ -195,9 +196,9 @@ namespace Magick.NET.Tests
       Assert.AreEqual(MagickFormat.Jpeg, imageInfo.Format);
       Assert.AreEqual(118, imageInfo.Height);
       Assert.AreEqual(Interlace.NoInterlace, imageInfo.Interlace);
-      Assert.AreEqual(72, imageInfo.ResolutionX);
-      Assert.AreEqual(72, imageInfo.ResolutionY);
-      Assert.AreEqual(Resolution.PixelsPerInch, imageInfo.ResolutionUnits);
+      Assert.AreEqual(72, imageInfo.Density.X);
+      Assert.AreEqual(72, imageInfo.Density.Y);
+      Assert.AreEqual(DensityUnit.PixelsPerInch, imageInfo.Density.Units);
       Assert.AreEqual(123, imageInfo.Width);
     }
   }

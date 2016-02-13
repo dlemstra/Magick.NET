@@ -53,6 +53,12 @@
 
   <xs:annotation id="defines"/>
 
+  <xs:simpleType name="density">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="((\d+x?\d*)|(\d*x\d+))( cm| inch)*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:complexType name="doubleArray">
     <xs:sequence>
       <xs:element name="value" type="xs:double" minOccurs="0" maxOccurs="unbounded"/>

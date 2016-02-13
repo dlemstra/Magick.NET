@@ -233,6 +233,7 @@
     <Compile Include="Core\Enums\ColorType.cs" />
     <Compile Include="Core\Enums\CompositeOperator.cs" />
     <Compile Include="Core\Enums\CompressionMethod.cs" />
+    <Compile Include="Core\Enums\DensityUnit.cs" />
     <Compile Include="Core\Enums\DistortMethod.cs" />
     <Compile Include="Core\Enums\DitherMethod.cs" />
     <Compile Include="Core\Enums\Endian.cs" />
@@ -262,7 +263,6 @@
     <Compile Include="Core\Enums\PixelIntensityMethod.cs" />
     <Compile Include="Core\Enums\PixelInterpolateMethod.cs" />
     <Compile Include="Core\Enums\RenderingIntent.cs" />
-    <Compile Include="Core\Enums\Resolution.cs" />
     <Compile Include="Core\Enums\SparseColorMethod.cs" />
     <Compile Include="Core\Enums\StatisticType.cs" />
     <Compile Include="Core\Enums\StorageType.cs" />
@@ -428,6 +428,7 @@
     <Compile Include="Core\Statistics\PerceptualHash.cs" />
     <Compile Include="Core\Statistics\Statistics.cs" />
     <Compile Include="Core\Types\ConnectedComponent.cs" />
+    <Compile Include="Core\Types\Density.cs" />
     <Compile Include="Core\Types\MagickErrorInfo.cs" />
     <Compile Include="Core\Types\MagickGeometry.cs" />
     <Compile Include="Core\Types\MagickRectangle.cs" />

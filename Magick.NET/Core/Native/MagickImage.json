@@ -232,7 +232,7 @@
     },
     {
       "name": "ResolutionUnits",
-      "type": "Resolution"
+      "type": "DensityUnit"
     },
     {
       "name": "ResolutionX",

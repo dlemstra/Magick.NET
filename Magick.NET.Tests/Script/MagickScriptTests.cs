@@ -57,8 +57,9 @@ namespace Magick.NET.Tests
     private void EventsScriptWrite(object sender, ScriptWriteEventArgs arguments)
     {
       Assert.AreEqual("write.id", arguments.Id);
-      Assert.AreEqual(100, arguments.Image.ResolutionX);
-      Assert.AreEqual(100, arguments.Image.ResolutionY);
+      Assert.AreEqual(100, arguments.Image.Density.X);
+      Assert.AreEqual(100, arguments.Image.Density.Y);
+      Assert.AreEqual(DensityUnit.PixelsPerCentimeter, arguments.Image.Density.Units);
     }
 
     private void ResizeScriptRead(object sender, ScriptReadEventArgs arguments)
