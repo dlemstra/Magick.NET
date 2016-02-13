@@ -153,7 +153,39 @@ function UpdateAssemblyInfo($fileName, $version)
 function UpdateAssemblyInfos($version)
 {
   UpdateAssemblyInfo "Magick.NET\Properties\AssemblyInfo.cs" $version
+  UpdateAssemblyInfo "Magick.NET\Core\Properties\AssemblyInfo.Core.cs" $version
   UpdateAssemblyInfo "Magick.NET.Web\Properties\AssemblyInfo.cs" $version
+}
+
+function UpdateCoreProject($directory, $version)
+{
+  $path = FullPath "Magick.NET.Core\src\$directory\project.json"
+  $testPath = FullPath "Magick.NET.Core\test\$directory.Tests\project.json"
+
+  $content = [IO.File]::ReadAllText($path, [System.Text.Encoding]::Default)
+  $content = SetVersion $content "`"version`": `"" "`"" $version
+  If (Test-Path $testPath)
+  {
+    $content = SetVersion $content "$directory`.Native`": `"" "`"" $version
+  }
+  [IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::Default)
+
+  If (Test-Path $testPath)
+  {
+    $content = [IO.File]::ReadAllText($testPath, [System.Text.Encoding]::Default)
+    $content = SetVersion $content "`"$directory`": `"" "`"" $version
+    [IO.File]::WriteAllText($testPath, $content, [System.Text.Encoding]::Default)
+  }
+}
+
+function UpdateCoreProjects($version)
+{
+  UpdateCoreProject "Magick.NET.Core-Q8" $version
+  UpdateCoreProject "Magick.NET.Core-Q8.Native" $version
+  UpdateCoreProject "Magick.NET.Core-Q16" $version
+  UpdateCoreProject "Magick.NET.Core-Q16.Native" $version
+  UpdateCoreProject "Magick.NET.Core-Q16-HDRI" $version
+  UpdateCoreProject "Magick.NET.Core-Q16-HDRI.Native" $version
 }
 
 function UpdateResourceFiles($builds, $version)

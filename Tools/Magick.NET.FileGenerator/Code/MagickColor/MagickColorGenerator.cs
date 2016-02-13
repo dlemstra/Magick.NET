@@ -75,7 +75,7 @@ namespace Magick.NET.FileGenerator
     public static void Generate()
     {
       MagickColorGenerator generator = new MagickColorGenerator();
-      generator.CreateWriter(Config.RootFolder + @"Magick.NET\Colors\MagickColors.cs");
+      generator.CreateWriter(Config.RootFolder + @"Magick.NET\Core\Colors\MagickColors.cs");
       generator.WriteStart("ImageMagick");
       generator.WriteColors();
       generator.WriteEnd();

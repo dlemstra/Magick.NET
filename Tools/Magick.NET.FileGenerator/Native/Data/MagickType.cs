@@ -26,7 +26,7 @@ namespace Magick.NET.FileGenerator
     {
       get
       {
-        if (_Type == "Instance" || HasInstance)
+        if (_Type == "Instance" || HasInstance || IsString)
           return false;
 
         return _Type != Native || _Type != Managed;
@@ -38,8 +38,8 @@ namespace Magick.NET.FileGenerator
       if (_Type == "void")
         return "void";
 
-      if (_Type == "nativeString")
-        return "string";
+      if (_Type == "nativeString" || _Type == "string")
+        return "IntPtr";
 
       if (_IsEnum || _Type == "size_t")
         return "UIntPtr";
@@ -70,7 +70,7 @@ namespace Magick.NET.FileGenerator
     public MagickType(string type)
     {
       _Type = !string.IsNullOrEmpty(type) ? type : "void";
-      _IsEnum = File.Exists(Config.RootFolder + @"\Magick.NET\Enums\" + type + ".cs");
+      _IsEnum = File.Exists(Config.RootFolder + @"\Magick.NET\Core\Enums\" + type + ".cs");
     }
 
     public bool HasInstance
@@ -102,11 +102,27 @@ namespace Magick.NET.FileGenerator
       }
     }
 
+    public bool IsBool
+    {
+      get
+      {
+        return Managed == "bool";
+      }
+    }
+
     public bool IsNativeString
     {
       get
       {
         return _Type == "nativeString";
+      }
+    }
+
+    public bool IsString
+    {
+      get
+      {
+        return _Type == "string";
       }
     }
 

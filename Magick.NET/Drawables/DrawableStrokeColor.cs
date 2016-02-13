@@ -13,21 +13,11 @@
 //=================================================================================================
 
 using System.Drawing;
-using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-  ///<summary>
-  /// Sets the color used for stroking object outlines.
-  ///</summary>
-  public sealed class DrawableStrokeColor : IDrawable
+  public sealed partial class DrawableStrokeColor
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeColor(Color);
-    }
-
     ///<summary>
     /// Creates a new DrawableStrokeColor instance.
     ///</summary>
@@ -35,26 +25,6 @@ namespace ImageMagick
     public DrawableStrokeColor(Color color)
     {
       Color = color;
-    }
-
-    ///<summary>
-    /// Creates a new DrawableStrokeColor instance.
-    ///</summary>
-    ///<param name="color">The color to use.</param>
-    public DrawableStrokeColor(MagickColor color)
-    {
-      Throw.IfNull("color", color);
-
-      Color = color;
-    }
-
-    ///<summary>
-    /// The color to use.
-    ///</summary>
-    public MagickColor Color
-    {
-      get;
-      set;
     }
   }
 }

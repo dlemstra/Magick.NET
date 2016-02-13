@@ -1,5 +1,6 @@
 ﻿
 *.aps
+*.lock.json
 *.opendb
 *.sdf
 *.suo
@@ -8,6 +9,7 @@
 bin
 obj
 lib
+runtimes
 /Magick.NET.AnyCPU/Generated/*
 /Magick.NET.AnyCPU/Resources
 /Magick.NET.Samples/Samples/Magick.NET/*.pp

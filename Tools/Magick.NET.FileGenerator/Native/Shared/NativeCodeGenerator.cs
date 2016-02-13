@@ -84,9 +84,9 @@ namespace Magick.NET.FileGenerator
         else
           result += argument.Type.NativeTypeCast;
 
-        if (IsDynamic(argument.Type))
+        if (NeedsCreate(argument.Type))
         {
-          result += argument.Name + "Dynamic";
+          result += argument.Name + "Native";
           if (argument.IsOut)
             result += "Out";
           else
@@ -105,7 +105,7 @@ namespace Magick.NET.FileGenerator
     {
       string arguments = GetNativeArgumentsCall(method.Arguments);
 
-      if (method.IsStatic)
+      if (Class.IsStatic || method.IsStatic)
         return arguments;
       else if (string.IsNullOrEmpty(arguments))
         return "Instance";
@@ -120,15 +120,10 @@ namespace Magick.NET.FileGenerator
         if (argument.Type.HasInstance)
           return "IntPtr";
 
-        if (argument.Type.Managed == "string")
-        {
-          if (argument.IsConst)
-            return "[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8NoCleanupMarshaler))] string";
-          else
-            return "[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))] string";
-        }
+        if (argument.Type.IsString)
+          return "IntPtr";
 
-        if (argument.Type.Managed == "bool")
+        if (argument.Type.IsBool)
           return "[MarshalAs(UnmanagedType.Bool)] bool";
 
         if (argument.IsOut && !IsDynamic(argument.Type))
@@ -160,6 +155,14 @@ namespace Magick.NET.FileGenerator
 
     protected bool IsDynamic(MagickType type)
     {
+      return IsDynamic(type.Managed);
+    }
+
+    protected bool NeedsCreate(MagickType type)
+    {
+      if (type.IsString)
+        return true;
+
       return IsDynamic(type.Managed);
     }
 

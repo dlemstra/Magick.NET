@@ -13,37 +13,11 @@
 //=================================================================================================
 
 using System.Drawing;
-using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-  ///<summary>
-  /// Draws a rectangle given two coordinates and using the current stroke, stroke width, and fill
-  /// settings.
-  ///</summary>
-  public sealed class DrawableRectangle : IDrawable
+  public sealed partial class DrawableRectangle
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Rectangle(UpperLeftX, UpperLeftY, LowerRightX, LowerRightY);
-    }
-
-    ///<summary>
-    /// Creates a new DrawableRectangle instance.
-    ///</summary>
-    ///<param name="upperLeftX">The upper left X coordinate.</param>
-    ///<param name="upperLeftY">The upper left Y coordinate.</param>
-    ///<param name="lowerRightX">The lower right X coordinate.</param>
-    ///<param name="lowerRightY">The lower right Y coordinate.</param>
-    public DrawableRectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY)
-    {
-      UpperLeftX = upperLeftX;
-      UpperLeftY = upperLeftY;
-      LowerRightX = lowerRightX;
-      LowerRightY = lowerRightY;
-    }
-
     ///<summary>
     /// Creates a new DrawableRectangle instance.
     ///</summary>
@@ -54,42 +28,6 @@ namespace ImageMagick
       UpperLeftY = rectangle.Y;
       LowerRightX = rectangle.Right;
       LowerRightY = rectangle.Bottom;
-    }
-
-    ///<summary>
-    /// The upper left X coordinate.
-    ///</summary>
-    public double LowerRightX
-    {
-      get;
-      set;
-    }
-
-    ///<summary>
-    /// The upper left Y coordinate.
-    ///</summary>
-    public double LowerRightY
-    {
-      get;
-      set;
-    }
-
-    ///<summary>
-    /// The upper left X coordinate.
-    ///</summary>
-    public double UpperLeftX
-    {
-      get;
-      set;
-    }
-
-    ///<summary>
-    /// The upper left Y coordinate.
-    ///</summary>
-    public double UpperLeftY
-    {
-      get;
-      set;
     }
   }
 }

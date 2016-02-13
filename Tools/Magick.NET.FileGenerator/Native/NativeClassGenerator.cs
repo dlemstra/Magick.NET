@@ -34,7 +34,7 @@ namespace Magick.NET.FileGenerator
       {
         string arguments = GetNativeArgumentsDeclaration(func.Arguments);
         WriteLine("[UnmanagedFunctionPointer(CallingConvention.Cdecl)]");
-        WriteLine("public delegate " + func.Type + " " + func.Name + "Delegate(" + arguments + ");");
+        WriteLine("private delegate " + func.Type + " " + func.Name + "Delegate(" + arguments + ");");
       }
     }
 
@@ -89,9 +89,7 @@ namespace Magick.NET.FileGenerator
 
         WriteLine(_DllImport);
         arguments = Class.IsStatic ? null : "IntPtr instance, ";
-        if (property.Type.Managed == "string")
-          arguments += "[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8Marshaler))] ";
-        else if (property.Type.Managed == "bool")
+        if (property.Type.IsBool)
           arguments += "[MarshalAs(UnmanagedType.Bool)] ";
 
         arguments += property.Type.Native + " value";
@@ -105,86 +103,13 @@ namespace Magick.NET.FileGenerator
 
     private void WriteDllImportStaticConstructor()
     {
-      WriteLine("static "+_Platform + "() { NativeLibrary.DoInitialize(); }");
+      WriteLine("static " + _Platform + "() { NativeLibrary.DoInitialize(); }");
     }
 
     private void WriteMarshal(MagickType type)
     {
-      if (type.Managed == "string")
-      {
-        if (type.IsNativeString)
-          WriteLine("[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8NativeMarshaler))]");
-        else
-          WriteLine("[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(UTF8NoCleanupMarshaler))]");
-      }
-      else if (type.Managed == "bool")
+      if (type.IsBool)
         WriteLine("[return: MarshalAs(UnmanagedType.Bool)]");
-    }
-
-    private void WriteMethods()
-    {
-      if (!Class.IsStatic)
-        return;
-
-      foreach (var method in Class.Methods)
-      {
-        string arguments = GetArgumentsDeclaration(method.Arguments);
-        WriteLine("public static " + method.ReturnType.Managed + " " + method.Name + "(" + arguments + ")");
-
-        arguments = GetNativeArgumentsCall(method.Arguments);
-        string action = method.ReturnType.ManagedTypeCast + "{0}." + Class.Name + "_" + method.Name + "(" + arguments + ");";
-
-        if (!method.Throws)
-        {
-          if (!method.ReturnType.IsVoid)
-            action = "return " + action;
-          WriteStartColon();
-          WriteNativeIf(action);
-          WriteEndColon();
-        }
-        else
-        {
-          WriteStartColon();
-          WriteThrowStart();
-          if (!method.ReturnType.IsVoid)
-          {
-            WriteLine(method.ReturnType.Managed + " result;");
-            action = "result = " + action;
-          }
-          WriteNativeIfContent(action);
-          WriteCheckException(method.Throws);
-          if (!method.ReturnType.IsVoid)
-            WriteLine("return result;");
-          WriteEndColon();
-        }
-      }
-    }
-
-    private void WriteProperties()
-    {
-      if (!Class.IsStatic)
-        return;
-
-      foreach (var property in Class.Properties)
-      {
-        WriteLine("public static " + property.Type.Managed + " " + property.Name);
-        WriteStartColon();
-
-        WriteLine("get");
-        WriteStartColon();
-        WriteNativeIf("return " + property.Type.ManagedTypeCast + "{0}." + Class.Name + "_" + property.Name + "_Get();");
-        WriteEndColon();
-
-        if (!property.IsReadOnly)
-        {
-          WriteLine("set");
-          WriteStartColon();
-          WriteNativeIf("{0}." + Class.Name + "_" + property.Name + "_Set(" + property.Type.NativeTypeCast + "value);");
-          WriteEndColon();
-        }
-
-        WriteEndColon();
-      }
     }
 
     private void WriteX64()
@@ -234,17 +159,16 @@ namespace Magick.NET.FileGenerator
       WriteLine(Class.Access + (Class.IsStatic ? " static" : "") + " partial class " + Class.Name + baseClass);
       WriteStartColon();
 
+      WriteDelegates();
+
       WriteLine("private static class NativeMethods");
       WriteStartColon();
-      WriteDelegates();
       WriteX64();
       WriteX86();
-      WriteProperties();
-      WriteMethods();
       WriteEndColon();
 
-      var _WrapperGenerator = new NativeInstanceGenerator(this);
-      _WrapperGenerator.Write();
+      var generator = new NativeInstanceGenerator(this);
+      generator.Write();
 
       WriteEndColon();
       WriteEnd();

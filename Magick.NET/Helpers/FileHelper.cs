@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.IO;
 
 namespace ImageMagick
 {
@@ -27,6 +28,12 @@ namespace ImageMagick
         return fileName;
 
       return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
+    }
+
+    public static void Delete(FileInfo file)
+    {
+      if (file.Exists)
+        file.Delete();
     }
   }
 }

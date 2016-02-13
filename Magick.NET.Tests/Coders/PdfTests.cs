@@ -18,34 +18,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests.Coders
 {
-  [TestClass]
-  public class PdfTests
+  public partial class PdfTests
   {
-    private const string _Category = "PdfTests";
-
     private delegate void ReadDelegate();
-
-    private static void Test_Image(MagickImage image)
-    {
-      Assert.AreEqual(765, image.Width);
-      Assert.AreEqual(361, image.Height);
-      Assert.AreEqual(MagickFormat.Ai, image.Format);
-    }
-
-    [TestInitialize]
-    public void Initialize()
-    {
-      Ghostscript.Initialize();
-    }
-
-    [TestMethod, TestCategory(_Category)]
-    public void Test_Format()
-    {
-      using (MagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
-      {
-        Test_Image(image);
-      }
-    }
 
     [TestMethod, TestCategory(_Category)]
     public void Test_Multithreading()

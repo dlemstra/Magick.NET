@@ -13,21 +13,11 @@
 //=================================================================================================
 
 using System.Drawing;
-using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-  ///<summary>
-  /// Sets the border color to be used for drawing bordered objects.
-  ///</summary>
-  public sealed class DrawableBorderColor : IDrawable
+  public sealed partial class DrawableBorderColor
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.BorderColor(Color);
-    }
-
     ///<summary>
     /// Creates a new DrawableColor instance.
     ///</summary>
@@ -35,26 +25,6 @@ namespace ImageMagick
     public DrawableBorderColor(Color color)
       : this(new MagickColor(color))
     {
-    }
-
-    ///<summary>
-    /// Creates a new DrawableColor instance.
-    ///</summary>
-    ///<param name="color">The color of the border.</param>
-    public DrawableBorderColor(MagickColor color)
-    {
-      Throw.IfNull("color", color);
-
-      Color = color;
-    }
-
-    ///<summary>
-    /// The color to use.
-    ///</summary>
-    public MagickColor Color
-    {
-      get;
-      set;
     }
   }
 }

@@ -58,6 +58,14 @@ namespace Magick.NET.FileGenerator
       return result + ");";
     }
 
+    private string GetAction(string action, MagickType type)
+    {
+      if (type.IsString)
+        return "UTF8Marshaler.NativeToManaged(" + action + ");";
+      else
+        return type.ManagedTypeCast + action + ";";
+    }
+
     private void WriteCleanup(string cleanupString)
     {
       WriteLine("MagickException magickException = MagickExceptionHelper.Create(exception);");
@@ -103,6 +111,23 @@ namespace Magick.NET.FileGenerator
       WriteEndColon();
     }
 
+    private void WriteCreateEnd(IEnumerable<MagickArgument> arguments)
+    {
+      foreach (MagickArgument argument in arguments)
+      {
+        if (!NeedsCreate(argument.Type))
+          continue;
+
+        WriteEndColon();
+      }
+    }
+
+    private void WriteCreateEnd(MagickProperty property)
+    {
+      if (NeedsCreate(property.Type))
+        WriteEndColon();
+    }
+
     private void WriteCreateInstance()
     {
       if (Class.DynamicMode.HasFlag(DynamicMode.ManagedToNative))
@@ -127,6 +152,59 @@ namespace Magick.NET.FileGenerator
       }
     }
 
+    private void WriteCreateOut(IEnumerable<MagickArgument> arguments)
+    {
+      foreach (MagickArgument argument in arguments)
+      {
+        if (!argument.IsOut || !NeedsCreate(argument.Type))
+          continue;
+
+        WriteLine(argument.Name + " = " + argument.Type.Managed + ".CreateInstance(" + argument.Name + "Native);");
+      }
+    }
+
+    private void WriteCreateStart(IEnumerable<MagickArgument> arguments)
+    {
+      foreach (MagickArgument argument in arguments)
+      {
+        if (!NeedsCreate(argument.Type))
+          continue;
+
+        if (argument.IsOut)
+          WriteCreateStartOut(argument.Name, argument.Type);
+        else
+          WriteCreateStart(argument.Name, argument.Type);
+      }
+    }
+
+    private void WriteCreateStart(MagickProperty property)
+    {
+      if (!NeedsCreate(property.Type))
+        return;
+
+      WriteCreateStart("value", property.Type);
+    }
+
+    private void WriteCreateStart(string name, MagickType type)
+    {
+      Write("using (INativeInstance " + name + "Native = ");
+
+      if (type.IsString)
+        Write("UTF8Marshaler");
+      else
+        Write(type.Managed);
+
+      WriteLine(".CreateInstance(" + name + "))");
+      WriteStartColon();
+    }
+
+    private void WriteCreateStartOut(string name, MagickType type)
+    {
+      WriteLine("using (INativeInstance " + name + "Native = " + type.Managed + ".CreateInstance())");
+      WriteStartColon();
+      WriteLine("IntPtr " + name + "NativeOut = " + name + "Native.Instance;");
+    }
+
     private void WriteDispose()
     {
       if (Class.IsConst || !Class.HasInstance)
@@ -141,69 +219,6 @@ namespace Magick.NET.FileGenerator
       WriteStartColon();
       WriteNativeIfContent("NativeMethods.{0}." + Class.Name + "_Dispose(instance);");
       WriteEndColon();
-    }
-
-    private void WriteDynamicEnd(IEnumerable<MagickArgument> arguments)
-    {
-      foreach (MagickArgument argument in arguments)
-      {
-        if (!IsDynamic(argument.Type))
-          continue;
-
-        WriteEndColon();
-      }
-    }
-
-    private void WriteDynamicEnd(MagickProperty property)
-    {
-      if (IsDynamic(property.Type))
-        WriteEndColon();
-    }
-
-    private void WriteDynamicOut(IEnumerable<MagickArgument> arguments)
-    {
-      foreach (MagickArgument argument in arguments)
-      {
-        if (!argument.IsOut || !IsDynamic(argument.Type))
-          continue;
-
-        WriteLine(argument.Name + " = " + argument.Type.Managed + ".CreateInstance(" + argument.Name + "DynamicOut);");
-      }
-    }
-
-    private void WriteDynamicStart(IEnumerable<MagickArgument> arguments)
-    {
-      foreach (MagickArgument argument in arguments)
-      {
-        if (!IsDynamic(argument.Type))
-          continue;
-
-        if (argument.IsOut)
-          WriteDynamicStartOut(argument.Name, argument.Type);
-        else
-          WriteDynamicStart(argument.Name, argument.Type);
-      }
-    }
-
-    private void WriteDynamicStart(MagickProperty property)
-    {
-      if (!IsDynamic(property.Type))
-        return;
-
-      WriteDynamicStart("value", property.Type);
-    }
-
-    private void WriteDynamicStart(string name, MagickType type)
-    {
-      WriteLine("using (INativeInstance " + name + "Dynamic = " + type.Managed + ".CreateInstance(" + name + "))");
-      WriteStartColon();
-    }
-
-    private void WriteDynamicStartOut(string name, MagickType type)
-    {
-      WriteLine("using (INativeInstance " + name + "Dynamic = " + type.Managed + ".CreateInstance())");
-      WriteStartColon();
-      WriteLine("IntPtr " + name + "DynamicOut = " + name + "Dynamic.Instance;");
     }
 
     private void WriteGetInstance()
@@ -241,12 +256,12 @@ namespace Magick.NET.FileGenerator
       foreach (var method in Class.Methods)
       {
         string arguments = GetArgumentsDeclaration(method.Arguments);
-        bool isStatic = (method.IsStatic && !method.Throws) && !method.CreatesInstance;
+        bool isStatic = Class.IsStatic || ((method.IsStatic && !method.Throws) && !method.CreatesInstance);
         WriteLine("public " + (isStatic ? "static " : "") + method.ReturnType.Managed + " " + method.Name + "(" + arguments + ")");
 
         WriteStartColon();
 
-        WriteDynamicStart(method.Arguments);
+        WriteCreateStart(method.Arguments);
 
         if (method.Throws)
           WriteThrow(method);
@@ -260,7 +275,7 @@ namespace Magick.NET.FileGenerator
           if (isDynamic)
             WriteLine("IntPtr result;");
           arguments = GetNativeArgumentsCall(method);
-          string action = method.ReturnType.ManagedTypeCast + "NativeMethods.{0}." + Class.Name + "_" + method.Name + "(" + arguments + ");";
+          string action = GetAction("NativeMethods.{0}." + Class.Name + "_" + method.Name + "(" + arguments + ")", method.ReturnType);
           if (isDynamic)
             action = "result = " + action;
           else if (!method.ReturnType.IsVoid && !method.CreatesInstance)
@@ -272,7 +287,7 @@ namespace Magick.NET.FileGenerator
             WriteLine("return " + method.ReturnType.Managed + ".CreateInstance(result);");
         }
 
-        WriteDynamicEnd(method.Arguments);
+        WriteCreateEnd(method.Arguments);
 
         WriteEndColon();
       }
@@ -282,7 +297,11 @@ namespace Magick.NET.FileGenerator
     {
       foreach (var property in Class.Properties)
       {
-        WriteLine("public " + property.Type.Managed + " " + property.Name);
+        Write("public ");
+        if (Class.IsStatic)
+          Write("static ");
+
+        WriteLine(property.Type.Managed + " " + property.Name);
         WriteStartColon();
 
         WriteLine("get");
@@ -291,17 +310,12 @@ namespace Magick.NET.FileGenerator
         WriteThrowStart(property.Throws);
 
         WriteLine(property.Type.Native + " result;");
-        string arguments = "Instance";
+        string arguments = !Class.IsStatic ? "Instance" : "";
         if (property.Throws)
           arguments += ", out exception";
         WriteNativeIfContent("result = NativeMethods.{0}." + Class.Name + "_" + property.Name + "_Get(" + arguments + ");");
         WriteCheckException(property.Throws);
-        if (IsDynamic(property.Type))
-          WriteLine("return " + property.Type.Managed + ".CreateInstance(result);");
-        else if (property.Type.HasInstance)
-          WriteLine("return " + property.Type.Managed + ".Create(result);");
-        else
-          WriteLine("return " + property.Type.ManagedTypeCast + "result;");
+        WriteReturn(property.Type);
 
         WriteEndColon();
 
@@ -310,26 +324,45 @@ namespace Magick.NET.FileGenerator
           WriteLine("set");
           WriteStartColon();
 
-          WriteDynamicStart(property);
+          WriteCreateStart(property);
 
           string value = property.Type.NativeTypeCast + "value";
-          if (IsDynamic(property.Type))
-            value = "valueDynamic.Instance";
+          if (NeedsCreate(property.Type))
+            value = "valueNative.Instance";
           else if (property.Type.HasInstance)
             value = property.Type.Managed + ".GetInstance(value)";
+
+          arguments = !Class.IsStatic ? "Instance, " : "";
 
           if (property.Throws)
             WriteThrowSet(property, value);
           else
-            WriteNativeIfContent("NativeMethods.{0}." + Class.Name + "_" + property.Name + "_Set(Instance, " + value + ");");
+            WriteNativeIfContent("NativeMethods.{0}." + Class.Name + "_" + property.Name + "_Set(" + arguments + value + ");");
 
-          WriteDynamicEnd(property);
+          WriteCreateEnd(property);
 
           WriteEndColon();
         }
 
         WriteEndColon();
       }
+    }
+
+    private void WriteReturn(MagickType type)
+    {
+      if (type.IsVoid)
+        return;
+
+      if (IsDynamic(type))
+        WriteLine("return " + type.Managed + ".CreateInstance(result);");
+      else if (type.IsNativeString)
+        WriteLine("return UTF8Marshaler.NativeToManagedAndRelinquish(result);");
+      else if (type.IsString)
+        WriteLine("return UTF8Marshaler.NativeToManaged(result);");
+      else if (type.HasInstance)
+        WriteLine("return " + type.Managed + ".Create(result);");
+      else
+        WriteLine("return " + type.ManagedTypeCast + "result;");
     }
 
     private void WriteThrow(MagickMethod method)
@@ -347,7 +380,7 @@ namespace Magick.NET.FileGenerator
         action = "result = " + action;
       WriteNativeIfContent(action);
 
-      WriteDynamicOut(method.Arguments);
+      WriteCreateOut(method.Arguments);
 
       string cleanupString = CreateCleanupString(method);
       if (!string.IsNullOrEmpty(cleanupString))
@@ -357,12 +390,10 @@ namespace Magick.NET.FileGenerator
       else
         WriteCheckException(true);
 
-      if (IsDynamic(method.ReturnType))
-        WriteLine("return " + method.ReturnType.Managed + ".CreateInstance(result);");
-      else if (method.CreatesInstance && method.ReturnType.IsVoid)
+      if (method.CreatesInstance && method.ReturnType.IsVoid)
         WriteLine("Instance = result;");
-      else if (!method.ReturnType.IsVoid)
-        WriteLine("return " + method.ReturnType.ManagedTypeCast + "result;");
+      else
+        WriteReturn(method.ReturnType);
     }
 
     private void WriteThrowSet(MagickProperty property, string value)
@@ -381,32 +412,37 @@ namespace Magick.NET.FileGenerator
     public void Write()
     {
       if (Class.IsStatic)
-        return;
-
-      if (!IsDynamic(Class.Name))
-        WriteLine("private Native" + Class.Name + " _NativeInstance;");
-
-      string baseClass = "";
-      if (IsNativeStatic)
-        baseClass = "";
-      else if (!Class.HasInstance)
-        baseClass = " : NativeHelper";
-      else if (Class.IsConst)
-        baseClass = " : ConstNativeInstance";
+      {
+        WriteLine("private static class Native" + Class.Name);
+        WriteStartColon();
+      }
       else
-        baseClass = " : NativeInstance";
+      {
+        if (!IsDynamic(Class.Name))
+          WriteLine("private Native" + Class.Name + " _NativeInstance;");
 
-      WriteLine("private " + (IsNativeStatic ? "static" : "sealed") + " class Native" + Class.Name + baseClass);
-      WriteStartColon();
+        string baseClass = "";
+        if (IsNativeStatic)
+          baseClass = "";
+        else if (!Class.HasInstance)
+          baseClass = " : NativeHelper";
+        else if (Class.IsConst)
+          baseClass = " : ConstNativeInstance";
+        else
+          baseClass = " : NativeInstance";
 
-      if (Class.HasInstance)
-        WriteLine("private IntPtr _Instance = IntPtr.Zero;");
+        WriteLine("private " + (IsNativeStatic ? "static" : "sealed") + " class Native" + Class.Name + baseClass);
+        WriteStartColon();
 
-      WriteDispose();
+        if (Class.HasInstance)
+          WriteLine("private IntPtr _Instance = IntPtr.Zero;");
 
-      WriteConstructors();
+        WriteDispose();
 
-      WriteInstance();
+        WriteConstructors();
+
+        WriteInstance();
+      }
 
       WriteProperties();
 
@@ -414,7 +450,7 @@ namespace Magick.NET.FileGenerator
 
       WriteEndColon();
 
-      if (!Class.HasInstance || Class.IsConst)
+      if (!Class.HasInstance || Class.IsConst || Class.IsStatic)
         return;
 
       if (IsDynamic(Class.Name))

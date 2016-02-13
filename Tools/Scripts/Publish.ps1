@@ -73,6 +73,14 @@ function CleanupZipFolder()
   }
 }
 
+function CopyCorePackage($name)
+{
+  $source = "Magick.NET.Core\src\$name\bin\Debug\$name.$version.nupkg"
+  $destination = "Publish\NuGet"
+
+  Copy-Item $source $destination
+}
+
 function CopyPdbFiles($builds)
 {
   foreach ($build in $builds)
@@ -246,6 +254,21 @@ function Publish($builds)
   CreateZipFiles $builds
 }
 
+function PublishCore()
+{
+  PublishCoreDepth "Q8"
+  PublishCoreDepth "Q16"
+  PublishCoreDepth "Q16-HDRI"
+}
+
+function PublishCoreDepth($quantum)
+{
+  BuildCore "Magick.NET.Core-$quantum.Native"
+  BuildCore "Magick.NET.Core-$quantum"
+  CopyCorePackage "Magick.NET.Core-$quantum.Native"
+  CopyCorePackage "Magick.NET.Core-$quantum"
+}
+
 if ($args.count -ne 2)
 {
   Write-Error "Invalid arguments"
@@ -257,6 +280,7 @@ $version = $args[1]
 CheckArchive
 Cleanup
 UpdateAssemblyInfos $version
+UpdateCoreProjects $version
 CreateNet20ProjectFiles
 UpdateResourceFiles $builds $version
 CreatePreProcessedFiles
@@ -266,5 +290,6 @@ CreateAnyCPUProjectFiles
 PreparePublish $anyCPUbuilds
 Publish $builds
 Publish $anyCPUbuilds
+PublishCore
 CleanupZipFolder
 

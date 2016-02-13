@@ -13,21 +13,11 @@
 //=================================================================================================
 
 using System.Drawing;
-using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-  ///<summary>
-  /// Sets the fill color to be used for drawing filled objects.
-  ///</summary>
-  public sealed class DrawableFillColor : IDrawable
+  public sealed partial class DrawableFillColor
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.FillColor(Color);
-    }
-
     ///<summary>
     /// Creates a new DrawableFillColor instance.
     ///</summary>
@@ -35,26 +25,6 @@ namespace ImageMagick
     public DrawableFillColor(Color color)
     {
       Color = color;
-    }
-
-    ///<summary>
-    /// Creates a new DrawableFillColor instance.
-    ///</summary>
-    ///<param name="color">The color to use.</param>
-    public DrawableFillColor(MagickColor color)
-    {
-      Throw.IfNull("color", color);
-
-      Color = color;
-    }
-
-    ///<summary>
-    /// The color to use.
-    ///</summary>
-    public MagickColor Color
-    {
-      get;
-      set;
     }
   }
 }

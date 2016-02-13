@@ -11,13 +11,13 @@
 # express or implied. See the License for the specific language governing permissions and
 # limitations under the License.
 #==================================================================================================
-function _BuildFileGenerator()
+function BuildFileGenerator()
 {
   BuildSolution "Tools\Magick.NET.FileGenerator.sln" "Configuration=Release"
 }
 
 function GenerateFiles()
 {
-  _BuildFileGenerator
+  BuildFileGenerator
   ExecuteFile "Tools\Magick.NET.FileGenerator\bin\Release\Magick.NET.FileGenerator.exe"
 }

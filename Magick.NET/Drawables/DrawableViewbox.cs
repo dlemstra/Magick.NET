@@ -13,39 +13,11 @@
 //=================================================================================================
 
 using System.Drawing;
-using ImageMagick.Drawables;
 
 namespace ImageMagick
 {
-  ///<summary>
-  /// Sets the overall canvas size to be recorded with the drawing vector data. Usually this will
-  /// be specified using the same size as the canvas image. When the vector data is saved to SVG
-  /// or MVG formats, the viewbox is use to specify the size of the canvas image that a viewer
-  /// will render the vector data on.
-  ///</summary>
-  public sealed class DrawableViewbox : IDrawable
+  public sealed partial class DrawableViewbox
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Viewbox(UpperLeftX, UpperLeftY, LowerRightX, LowerRightY);
-    }
-
-    ///<summary>
-    /// Creates a new DrawableViewbox instance.
-    ///</summary>
-    ///<param name="upperLeftX">The upper left X coordinate.</param>
-    ///<param name="upperLeftY">The upper left Y coordinate.</param>
-    ///<param name="lowerRightX">The lower right X coordinate.</param>
-    ///<param name="lowerRightY">The lower right Y coordinate.</param>
-    public DrawableViewbox(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY)
-    {
-      UpperLeftX = upperLeftX;
-      UpperLeftY = upperLeftY;
-      LowerRightX = lowerRightX;
-      LowerRightY = lowerRightY;
-    }
-
     ///<summary>
     /// Creates a new DrawableViewbox instance.
     ///</summary>
@@ -56,42 +28,6 @@ namespace ImageMagick
       UpperLeftY = rectangle.Y;
       LowerRightX = rectangle.Right;
       LowerRightY = rectangle.Bottom;
-    }
-
-    ///<summary>
-    /// The upper left X coordinate.
-    ///</summary>
-    public double LowerRightX
-    {
-      get;
-      set;
-    }
-
-    ///<summary>
-    /// The upper left Y coordinate.
-    ///</summary>
-    public double LowerRightY
-    {
-      get;
-      set;
-    }
-
-    ///<summary>
-    /// The upper left X coordinate.
-    ///</summary>
-    public double UpperLeftX
-    {
-      get;
-      set;
-    }
-
-    ///<summary>
-    /// The upper left Y coordinate.
-    ///</summary>
-    public double UpperLeftY
-    {
-      get;
-      set;
     }
   }
 }
