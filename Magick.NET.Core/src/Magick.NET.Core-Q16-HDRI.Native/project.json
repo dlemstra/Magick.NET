@@ -11,7 +11,7 @@
   ],
   "licenseUrl": "https://magick.codeplex.com/license",
   "projectUrl": "https://magick.codeplex.com/documentation",
-  "iconUrl": "http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=752622e7b2e069b698a47df994dd4aaaf1d8aebe&amp;itemId=Magick.NET.Tests%2fImages%2fMagick.NET.icon.png",
+  "iconUrl": "http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&changeSetId=752622e7b2e069b698a47df994dd4aaaf1d8aebe&itemId=Magick.NET.Tests%2fImages%2fMagick.NET.icon.png",
   "description": "Native library for Magick.NET.Core",
   "summary": "A .NET API to the ImageMagick image-processing library for Desktop and Web.",
   "copyright": "Copyright 2013-2016 Dirk Lemstra",
