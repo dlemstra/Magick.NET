@@ -63,13 +63,13 @@ MAGICK_NET_EXPORT void MagickImage_Dispose(Image *instance)
 
 MAGICK_NET_EXPORT PixelInfo *MagickImage_AlphaColor_Get(const Image *instance)
 {
-  return MagickColor_Clone(&instance->matte_color);
+  return MagickColor_Clone(&instance->alpha_color);
 }
 
 MAGICK_NET_EXPORT void MagickImage_AlphaColor_Set(Image *instance, const PixelInfo *value)
 {
   if (value != (PixelInfo *)NULL)
-    instance->matte_color = *value;
+    instance->alpha_color = *value;
 }
 
 MAGICK_NET_EXPORT size_t MagickImage_AnimationDelay_Get(const Image *instance)
@@ -369,7 +369,7 @@ MAGICK_NET_EXPORT size_t MagickImage_FilterType_Get(const Image *instance)
 
 MAGICK_NET_EXPORT void MagickImage_FilterType_Set(Image *instance, const size_t value)
 {
-  instance->filter = (FilterTypes)value;
+  instance->filter = (FilterType)value;
 }
 
 MAGICK_NET_EXPORT const char *MagickImage_Format_Get(const Image *instance)
@@ -1131,7 +1131,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Distort(const Image *instance, const size_t
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = DistortImage(instance, (const DistortImageMethod)method, length, arguments, bestfit, exceptionInfo);
+  image = DistortImage(instance, (const DistortMethod)method, length, arguments, bestfit, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
@@ -1709,7 +1709,7 @@ MAGICK_NET_EXPORT void MagickImage_OrderedDither(Image *instance, const char *th
 {
   MAGICK_NET_GET_EXCEPTION;
   SetChannelMask(instance, channels);
-  OrderedPosterizeImage(instance, thresholdMap, exceptionInfo);
+  OrderedDitherImage(instance, thresholdMap, exceptionInfo);
   RestoreChannelMask(instance);
   MAGICK_NET_SET_EXCEPTION;
 }
@@ -1773,10 +1773,10 @@ MAGICK_NET_EXPORT void MagickImage_RaiseOrLower(Image *image, const size_t size,
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT void MagickImage_RandomThreshold(Image *instance, const char *threshold, ExceptionInfo **exception)
+MAGICK_NET_EXPORT void MagickImage_RandomThreshold(Image *instance, const double low, const double high, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
-  RandomThresholdImage(instance, threshold, exceptionInfo);
+  RandomThresholdImage(instance, low, high, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }
 

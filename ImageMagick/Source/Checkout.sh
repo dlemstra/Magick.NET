@@ -52,6 +52,7 @@ rm -rf VisualMagick/demos
 rm -rf VisualMagick/ImageMagickObject
 rm -rf VisualMagick/IMDisplay
 rm -rf VisualMagick/iptcutil
+rm -rf VisualMagick/Magick++
 rm -rf VisualMagick/NtMagick
 rm -rf VisualMagick/tests
 rm -rf VisualMagick/utilities

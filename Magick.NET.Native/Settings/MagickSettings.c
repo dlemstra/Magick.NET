@@ -42,13 +42,13 @@ MAGICK_NET_EXPORT void MagickSettings_Adjoin_Set(ImageInfo *instance, const Magi
 
 MAGICK_NET_EXPORT PixelInfo *MagickSettings_AlphaColor_Get(const ImageInfo *instance)
 {
-  return MagickColor_Clone(&instance->matte_color);
+  return MagickColor_Clone(&instance->alpha_color);
 }
 
 MAGICK_NET_EXPORT void MagickSettings_AlphaColor_Set(ImageInfo *instance, const PixelInfo *value)
 {
   if (value != (PixelInfo *)NULL)
-    instance->matte_color = *value;
+    instance->alpha_color = *value;
 }
 
 MAGICK_NET_EXPORT PixelInfo *MagickSettings_BackgroundColor_Get(const ImageInfo *instance)

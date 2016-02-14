@@ -14,6 +14,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
     <OutputPath>bin\ReleaseQ16\x64</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
     <DefineConstants>TRACE;Q16;WIN64</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -28,6 +29,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
     <OutputPath>bin\ReleaseQ16-HDRI\x64</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
     <DefineConstants>TRACE;Q16HDRI;WIN64</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -42,6 +44,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x64'">
     <OutputPath>bin\ReleaseQ8\x64</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
     <DefineConstants>TRACE;Q8;WIN64</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -56,6 +59,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x86'">
     <OutputPath>bin\ReleaseQ16\x86</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
     <DefineConstants>TRACE;Q16</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -70,6 +74,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
     <OutputPath>bin\ReleaseQ16-HDRI\x86</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
     <DefineConstants>TRACE;Q16HDRI</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -84,6 +89,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
     <OutputPath>bin\ReleaseQ8\x86</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
     <DefineConstants>TRACE;Q8</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>

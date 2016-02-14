@@ -1860,8 +1860,12 @@
       "arguments":
       [
         {
-          "name": "threshold",
-          "type": "string"
+          "name": "low",
+          "type": "double"
+        },
+        {
+          "name": "high",
+          "type": "double"
         },
         {
           "name": "channels",

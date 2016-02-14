@@ -4877,9 +4877,7 @@ namespace ImageMagick
 #endif
     public void RandomThreshold(QuantumType low, QuantumType high, Channels channels)
     {
-      string threshold = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", low, high);
-
-      _NativeInstance.RandomThreshold(threshold, channels);
+      _NativeInstance.RandomThreshold(low, high, channels);
     }
 
     ///<summary>

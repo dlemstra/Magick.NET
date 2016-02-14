@@ -20,6 +20,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseQ16|x86' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ReleaseQ16\x86.net20</OutputPath>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
     <DefineConstants>NET20;TRACE;DEBUG;Q16</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -30,6 +31,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ReleaseQ8\x86.net20</OutputPath>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
     <DefineConstants>NET20;TRACE;DEBUG;Q8</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -39,6 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ReleaseQ16-HDRI\x86.net20</OutputPath>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
     <DefineConstants>NET20;TRACE;DEBUG;Q16HDRI</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -48,6 +51,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ReleaseQ16\x64.net20\</OutputPath>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
     <DefineConstants>NET20;TRACE;DEBUG;Q16;WIN64</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -58,6 +62,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ReleaseQ8\x64.net20\</OutputPath>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
     <DefineConstants>NET20;TRACE;DEBUG;Q8;WIN64</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -67,6 +72,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ReleaseQ16-HDRI\x64.net20\</OutputPath>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
     <DefineConstants>NET20;TRACE;DEBUG;Q16HDRI;WIN64</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -95,70 +101,79 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Coders\BgrTests.cs" />
-    <Compile Include="Coders\Jp2Tests.cs" />
     <Compile Include="Coders\PdfTests.cs" />
-    <Compile Include="Coders\PsdTests.cs" />
-    <Compile Include="Coders\RgbTests.cs" />
     <Compile Include="Coders\TiffTests.cs" />
-    <Compile Include="Assert\ColorAssert.cs" />
-    <Compile Include="Colors\Base\ColorBaseTests.cs" />
-    <Compile Include="Colors\ColorCMYKTests.cs" />
-    <Compile Include="Colors\ColorGrayTests.cs" />
-    <Compile Include="Colors\ColorHSLTests.cs" />
-    <Compile Include="Colors\ColorYUVTests.cs" />
-    <Compile Include="Colors\ColorMonoTests.cs" />
-    <Compile Include="Colors\ColorRGBTests.cs" />
     <Compile Include="Colors\MagickColorTests.cs" />
-    <Compile Include="Defines\Dds\DdsWriteDefinesTests.cs" />
-    <Compile Include="Defines\Jpeg\JpegReadDefinesTests.cs" />
-    <Compile Include="Defines\Jpeg\JpegWriteDefinesTests.cs" />
-    <Compile Include="Defines\Pdf\PdfReadDefinesTests.cs" />
-    <Compile Include="Defines\Png\PngReadDefinesTests.cs" />
-    <Compile Include="Defines\Tiff\TiffReadDefinesTests.cs" />
-    <Compile Include="Defines\Tiff\TiffWriteDefinesTests.cs" />
-    <Compile Include="Drawables\DrawableDensityTests.cs" />
-    <Compile Include="Drawables\DrawablePathTests.cs" />
-    <Compile Include="Drawables\DrawableTests.cs" />
-    <Compile Include="Assert\ExceptionAssert.cs" />
-    <Compile Include="Files.cs" />
-    <Compile Include="Ghostscript.cs" />
-    <Compile Include="MagickFormatInfoTests.cs" />
+    <Compile Include="Core\Assert\ColorAssert.cs" />
+    <Compile Include="Core\Assert\ExceptionAssert.cs" />
+    <Compile Include="Core\Coders\BgrTests.cs" />
+    <Compile Include="Core\Coders\Jp2Tests.cs" />
+    <Compile Include="Core\Coders\PdfTests.cs" />
+    <Compile Include="Core\Coders\PsdTests.cs" />
+    <Compile Include="Core\Coders\RgbTests.cs" />
+    <Compile Include="Core\Coders\TiffTests.cs" />
+    <Compile Include="Core\Colors\ColorBaseTests.cs" />
+    <Compile Include="Core\Colors\ColorCMYKTests.cs" />
+    <Compile Include="Core\Colors\ColorGrayTests.cs" />
+    <Compile Include="Core\Colors\ColorHSLTests.cs" />
+    <Compile Include="Core\Colors\ColorMonoTests.cs" />
+    <Compile Include="Core\Colors\ColorRGBTests.cs" />
+    <Compile Include="Core\Colors\ColorYUVTests.cs" />
+    <Compile Include="Core\Colors\MagickColorTests.cs" />
+    <Compile Include="Core\Defines\Dds\DdsWriteDefinesTests.cs" />
+    <Compile Include="Core\Defines\Jpeg\JpegReadDefinesTests.cs" />
+    <Compile Include="Core\Defines\Jpeg\JpegWriteDefinesTests.cs" />
+    <Compile Include="Core\Defines\Pdf\PdfReadDefinesTests.cs" />
+    <Compile Include="Core\Defines\Png\PngReadDefinesTests.cs" />
+    <Compile Include="Core\Defines\Tiff\TiffReadDefinesTests.cs" />
+    <Compile Include="Core\Defines\Tiff\TiffWriteDefinesTests.cs" />
+    <Compile Include="Core\Drawables\DrawableDensityTests.cs" />
+    <Compile Include="Core\Drawables\DrawablePathTests.cs" />
+    <Compile Include="Core\Drawables\DrawableTests.cs" />
+    <Compile Include="Core\Files.cs" />
+    <Compile Include="Core\Ghostscript.cs" />
+    <Compile Include="Core\MagickFormatInfoTests.cs" />
+    <Compile Include="Core\MagickImageCollectionTests.cs" />
+    <Compile Include="Core\MagickImageInfoTests.cs" />
+    <Compile Include="Core\MagickImageTests.cs" />
+    <Compile Include="Core\MagickNETTests.cs" />
+    <Compile Include="Core\Matrices\ColorMatrixTests.cs" />
+    <Compile Include="Core\Matrices\ConvolveMatrixTests.cs" />
+    <Compile Include="Core\Optimizers\GifOptimizerTests.cs" />
+    <Compile Include="Core\Optimizers\IImageOptimizerTests.cs" />
+    <Compile Include="Core\Optimizers\ImageOptimizerTests.cs" />
+    <Compile Include="Core\Optimizers\JpegOptimizerTests.cs" />
+    <Compile Include="Core\Optimizers\PngOptimizerTests.cs" />
+    <Compile Include="Core\Pixels\PixelCollectionTests.cs" />
+    <Compile Include="Core\Pixels\PixelTests.cs" />
+    <Compile Include="Core\Profiles\8Bim\EightBimProfileTests.cs" />
+    <Compile Include="Core\Profiles\8Bim\EightBimValueTests.cs" />
+    <Compile Include="Core\Profiles\Color\ColorProfileTests.cs" />
+    <Compile Include="Core\Profiles\Exif\ExifProfileTests.cs" />
+    <Compile Include="Core\Profiles\Exif\ExifValueTests.cs" />
+    <Compile Include="Core\Profiles\ImageProfileTests.cs" />
+    <Compile Include="Core\Profiles\Iptc\IptcProfileTests.cs" />
+    <Compile Include="Core\Profiles\Iptc\IptcValueTests.cs" />
+    <Compile Include="Core\Profiles\Xmp\XmpProfileTests.cs" />
+    <Compile Include="Core\QuantumTests.cs" />
+    <Compile Include="Core\ResourceLimitsTests.cs" />
+    <Compile Include="Core\Script\MagickScriptTests.cs" />
+    <Compile Include="Core\Settings\MagickReadSettingsTests.cs" />
+    <Compile Include="Core\Settings\MagickSettingsTests.cs" />
+    <Compile Include="Core\Settings\PixelStorageSettingsTests.cs" />
+    <Compile Include="Core\Statistics\MomentsTests.cs" />
+    <Compile Include="Core\Statistics\PerceptualHashTests.cs" />
+    <Compile Include="Core\Statistics\StatisticsTests.cs" />
+    <Compile Include="Core\Types\MagickGeometryTests.cs" />
+    <Compile Include="Core\Types\PercentageTests.cs" />
+    <Compile Include="Core\Types\DensityTests.cs" />
+    <Compile Include="Core\Types\PointDTests.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="MagickImageCollectionTests.cs" />
-    <Compile Include="MagickImageInfoTests.cs" />
     <Compile Include="MagickImageTests.cs" />
     <Compile Include="MagickNETTests.cs" />
-    <Compile Include="Matrices\ColorMatrixTests.cs" />
-    <Compile Include="Matrices\ConvolveMatrixTests.cs" />
-    <Compile Include="Optimizers\GifOptimizerTests.cs" />
-    <Compile Include="Optimizers\IImageOptimizerTests.cs" />
-    <Compile Include="Optimizers\ImageOptimizerTests.cs" />
-    <Compile Include="Optimizers\JpegOptimizerTests.cs" />
-    <Compile Include="Optimizers\PngOptimizerTests.cs" />
-    <Compile Include="Pixels\PixelCollectionTests.cs" />
-    <Compile Include="Pixels\PixelTests.cs" />
-    <Compile Include="Profiles\8Bim\EightBimProfileTests.cs" />
-    <Compile Include="Profiles\8Bim\EightBimValueTests.cs" />
-    <Compile Include="Profiles\Color\ColorProfileTests.cs" />
-    <Compile Include="Profiles\Exif\ExifProfileTests.cs" />
-    <Compile Include="Profiles\Exif\ExifValueTests.cs" />
-    <Compile Include="Profiles\ImageProfileTests.cs" />
-    <Compile Include="Profiles\Iptc\IptcProfileTests.cs" />
-    <Compile Include="Profiles\Iptc\IptcValueTests.cs" />
-    <Compile Include="Profiles\Xmp\XmpProfileTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuantumTests.cs" />
-    <Compile Include="ResourceLimitsTests.cs" />
     <Compile Include="Script\MagickScriptTests.cs" />
-    <Compile Include="Settings\MagickReadSettingsTests.cs" />
-    <Compile Include="Settings\MagickSettingsTests.cs" />
-    <Compile Include="Settings\PixelStorageSettingsTests.cs" />
-    <Compile Include="Statistics\MomentsTests.cs" />
-    <Compile Include="Statistics\PerceptualHashTests.cs" />
-    <Compile Include="Statistics\StatisticsTests.cs" />
-    <Compile Include="Types\MagickGeometryTests.cs" />
-    <Compile Include="Types\PercentageTests.cs" />
-    <Compile Include="Types\PointDTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Magick.NET\Magick.NET.net20.csproj">
@@ -167,15 +182,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Script\Collection.msl" />
-    <None Include="Script\Defines.msl" />
-    <None Include="Script\Distort.msl" />
-    <None Include="Script\Draw.msl" />
-    <None Include="Script\Events.msl" />
-    <None Include="Script\ImageProfile.msl" />
+    <None Include="Core\Script\Collection.msl" />
+    <None Include="Core\Script\Defines.msl" />
+    <None Include="Core\Script\Distort.msl" />
+    <None Include="Core\Script\Draw.msl" />
+    <None Include="Core\Script\Events.msl" />
+    <None Include="Core\Script\ImageProfile.msl" />
+    <None Include="Core\Script\Resize.msl" />
+    <None Include="Core\Script\Variables.msl" />
     <None Include="Script\Invalid.msl" />
-    <None Include="Script\Resize.msl" />
-    <None Include="Script\Variables.msl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\Helpers\" />
+    <Folder Include="Core\Replacements\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

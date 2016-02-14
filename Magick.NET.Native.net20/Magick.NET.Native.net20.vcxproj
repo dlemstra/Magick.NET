@@ -27,7 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{74E62AD0-D2F5-41F0-97A7-2D1E8BDE595A}</ProjectGuid>
+    <ProjectGuid>{13C84DCE-50BC-42A3-BCEC-D3BFFE3BC49E}</ProjectGuid>
     <RootNamespace>ImageMagick.Native</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>

@@ -73,7 +73,6 @@ function Build($platform, $builds)
     {
       [void](New-Item -ItemType directory -Path "ImageMagick\lib\$($build.Framework)\$platform")
     }
-    Remove-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_Magick++_.lib"
     Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_*.lib" "ImageMagick\lib\$($build.Framework)\$platform"
 
     if (!(Test-Path "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform"))

@@ -180,9 +180,9 @@ struct _Image
 
   PixelInfo
     *colormap,
+    alpha_color,        /* current alphacolor attribute */
     background_color,   /* current background color attribute */
     border_color,       /* current bordercolor attribute */
-    matte_color,        /* current mattecolor attribute */
     transparent_color;  /* color for 'transparent' color index in GIF */
 
   double
@@ -218,7 +218,7 @@ struct _Image
   double
     fuzz;           /* current color fuzz attribute - move to image_info */
 
-  FilterTypes
+  FilterType
     filter;         /* resize/distort filter to apply */
 
   PixelIntensityMethod
@@ -412,9 +412,9 @@ struct _ImageInfo
     fuzz;               /* current color fuzz attribute */
 
   PixelInfo
+    alpha_color,        /* alpha (frame) color */
     background_color,   /* user set background color */
     border_color,       /* user set border color */
-    matte_color,        /* matte (frame) color */
     transparent_color;  /* color for transparent index in color tables */
                         /* NB: fill color is only needed in draw_info! */
                         /* the same for undercolor (for font drawing) */

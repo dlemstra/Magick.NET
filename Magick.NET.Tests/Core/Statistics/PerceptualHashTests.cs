@@ -22,7 +22,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PerceptualHashTests
   {
-
     private const string _Category = "PerceptualHash";
 
     private void TestChannel(ChannelPerceptualHash channel, int index, double srgbHuPhash, double hclpHuPhash)
@@ -194,23 +193,21 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_SumSquaredDistance()
     {
-#if NET20
-      Assert.Inconclusive("VS2008 compiler produces different results, no clue why this is happening");
-#endif
-
       using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
       {
         PerceptualHash phash = image.PerceptualHash();
 
         using (MagickImage other = new MagickImage(Files.MagickNETIconPNG))
         {
+          other.HasAlpha = false;
+
           PerceptualHash otherPhash = other.PerceptualHash();
 #if Q8
-          Assert.AreEqual(248.53, phash.SumSquaredDistance(otherPhash), 0.01);
+          Assert.AreEqual(311.71, phash.SumSquaredDistance(otherPhash), 0.01);
 #elif Q16
-          Assert.AreEqual(199.53, phash.SumSquaredDistance(otherPhash), 0.01);
+          Assert.AreEqual(311.45, phash.SumSquaredDistance(otherPhash), 0.02);
 #elif Q16HDRI
-          Assert.AreEqual(183.73, phash.SumSquaredDistance(otherPhash), 0.01);
+          Assert.AreEqual(311.27, phash.SumSquaredDistance(otherPhash), 0.02);
 #else
 #error Not implemented!
 #endif

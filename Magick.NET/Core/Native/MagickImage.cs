@@ -440,7 +440,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_RaiseOrLower(IntPtr Instance, UIntPtr size, [MarshalAs(UnmanagedType.Bool)] bool raise, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickImage_RandomThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
+        public static extern void MagickImage_RandomThreshold(IntPtr Instance, double low, double high, UIntPtr channels, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte[] data, UIntPtr length, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -976,7 +976,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_RaiseOrLower(IntPtr Instance, UIntPtr size, [MarshalAs(UnmanagedType.Bool)] bool raise, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickImage_RandomThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
+        public static extern void MagickImage_RandomThreshold(IntPtr Instance, double low, double high, UIntPtr channels, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte[] data, UIntPtr length, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3311,17 +3311,14 @@ namespace ImageMagick
           NativeMethods.X86.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
         CheckException(exception);
       }
-      public void RandomThreshold(string threshold, Channels channels)
+      public void RandomThreshold(double low, double high, Channels channels)
       {
-        using (INativeInstance thresholdNative = UTF8Marshaler.CreateInstance(threshold))
-        {
-          IntPtr exception = IntPtr.Zero;
-          if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_RandomThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
-          else
-            NativeMethods.X86.MagickImage_RandomThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
-          CheckException(exception);
-        }
+        IntPtr exception = IntPtr.Zero;
+        if (NativeLibrary.Is64Bit)
+          NativeMethods.X64.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
+        else
+          NativeMethods.X86.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
+        CheckException(exception);
       }
       public void ReadBlob(MagickSettings settings, byte[] data, int length)
       {
