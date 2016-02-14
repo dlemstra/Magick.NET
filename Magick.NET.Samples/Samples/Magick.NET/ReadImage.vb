@@ -86,8 +86,9 @@ Namespace RootNamespace.Samples.MagickNET
       Console.WriteLine(info.Height)
       Console.WriteLine(info.ColorSpace)
       Console.WriteLine(info.Format)
-      Console.WriteLine(info.ResolutionX)
-      Console.WriteLine(info.ResolutionY)
+      Console.WriteLine(info.Density.X)
+      Console.WriteLine(info.Density.Y)
+      Console.WriteLine(info.Density.Units)
     End Sub
 
     Public Shared Sub ReadImageWithMultipleFrames()
