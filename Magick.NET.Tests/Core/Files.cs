@@ -246,7 +246,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Script\Collection.msl";
+          return _Root + @"Core\Script\Collection.msl";
         }
       }
 
@@ -254,7 +254,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Script\Draw.msl";
+          return _Root + @"Core\Script\Draw.msl";
         }
       }
 
@@ -262,7 +262,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Script\Defines.msl";
+          return _Root + @"Core\Script\Defines.msl";
         }
       }
 
@@ -270,7 +270,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Script\Distort.msl";
+          return _Root + @"Core\Script\Distort.msl";
         }
       }
 
@@ -278,7 +278,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Script\Events.msl";
+          return _Root + @"Core\Script\Events.msl";
         }
       }
 
@@ -286,7 +286,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Script\ImageProfile.msl";
+          return _Root + @"Core\Script\ImageProfile.msl";
         }
       }
 
@@ -302,7 +302,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Script\Resize.msl";
+          return _Root + @"Core\Script\Resize.msl";
         }
       }
 
@@ -310,7 +310,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Script\Variables.msl";
+          return _Root + @"Core\Script\Variables.msl";
         }
       }
     }

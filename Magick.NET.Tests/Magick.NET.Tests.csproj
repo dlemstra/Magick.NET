@@ -153,6 +153,7 @@
     <Compile Include="Core\Profiles\Xmp\XmpProfileTests.cs" />
     <Compile Include="Core\QuantumTests.cs" />
     <Compile Include="Core\ResourceLimitsTests.cs" />
+    <Compile Include="Core\Script\MagickScriptTests.cs" />
     <Compile Include="Core\Settings\MagickReadSettingsTests.cs" />
     <Compile Include="Core\Settings\MagickSettingsTests.cs" />
     <Compile Include="Core\Settings\PixelStorageSettingsTests.cs" />
@@ -177,15 +178,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Script\Collection.msl" />
-    <None Include="Script\Defines.msl" />
-    <None Include="Script\Distort.msl" />
-    <None Include="Script\Draw.msl" />
-    <None Include="Script\Events.msl" />
-    <None Include="Script\ImageProfile.msl" />
+    <None Include="Core\Script\Collection.msl" />
+    <None Include="Core\Script\Defines.msl" />
+    <None Include="Core\Script\Distort.msl" />
+    <None Include="Core\Script\Draw.msl" />
+    <None Include="Core\Script\Events.msl" />
+    <None Include="Core\Script\ImageProfile.msl" />
+    <None Include="Core\Script\Resize.msl" />
+    <None Include="Core\Script\Variables.msl" />
     <None Include="Script\Invalid.msl" />
-    <None Include="Script\Resize.msl" />
-    <None Include="Script\Variables.msl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\Helpers\" />
