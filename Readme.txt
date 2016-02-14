@@ -1,5 +1,11 @@
 Breaking changes.
 
+Magick.NET 7.0.0.0102:
+ - Removed Resolution properties from MagickImage and replaced this with a new Density property.
+
+Magick.NET 7.0.0.0101:
+ - Read: https://magick.codeplex.com/discussions/650746
+
 Magick.NET 7.0.0.0022:
   - Renamed MagickImage.AntiAlias to TextAntiAlias.
 

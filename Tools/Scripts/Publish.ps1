@@ -267,6 +267,10 @@ function PublishCoreDepth($quantum)
   BuildCore "Magick.NET.Core-$quantum"
   CopyCorePackage "Magick.NET.Core-$quantum.Native"
   CopyCorePackage "Magick.NET.Core-$quantum"
+
+  $source = "Magick.NET.Core\src\Magick.NET.Core-$quantum\bin\Debug\dotnet5.5\Magick.NET.Core-$quantum.pdb"
+  $destination = "Publish\Pdb\dotnet.Magick.NET.Core-$quantum.pdb"
+  Copy-Item $source $destination
 }
 
 if ($args.count -ne 2)
