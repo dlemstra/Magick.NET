@@ -33,7 +33,7 @@ namespace ImageMagick
     {
       public static class X64
       {
-        static X64() { NativeLibrary.DoInitialize(); }
+        static X64() { NativeLibraryLoader.Load(); }
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr ChannelMoments_Centroid_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -49,7 +49,7 @@ namespace ImageMagick
       }
       public static class X86
       {
-        static X86() { NativeLibrary.DoInitialize(); }
+        static X86() { NativeLibraryLoader.Load(); }
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr ChannelMoments_Centroid_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]

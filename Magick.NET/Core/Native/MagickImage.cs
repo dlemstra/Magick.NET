@@ -35,7 +35,7 @@ namespace ImageMagick
     {
       public static class X64
       {
-        static X64() { NativeLibrary.DoInitialize(); }
+        static X64() { NativeLibraryLoader.Load(); }
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Create(IntPtr settings, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -571,7 +571,7 @@ namespace ImageMagick
       }
       public static class X86
       {
-        static X86() { NativeLibrary.DoInitialize(); }
+        static X86() { NativeLibraryLoader.Load(); }
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Create(IntPtr settings, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]

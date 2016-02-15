@@ -349,6 +349,7 @@
     <Compile Include="Core\Native\Matricis\DoubleMatrix.cs" />
     <Compile Include="Core\Native\NativeHelper.cs" />
     <Compile Include="Core\Native\NativeInstance.cs" />
+    <Compile Include="Core\Native\NativeLibraryLoader.cs" />
     <Compile Include="Core\Native\NativeLibrary.cs" />
     <Compile Include="Core\Native\Optimizers\JpegOptimizer.cs" />
     <Compile Include="Core\Native\Pixels\PixelCollection.cs" />

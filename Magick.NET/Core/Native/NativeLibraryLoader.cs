@@ -12,31 +12,15 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
+using System.Diagnostics;
 
 namespace ImageMagick
 {
-  internal static class NativeLibrary
+  internal static class NativeLibraryLoader
   {
-#if Q8
-    public const string X64Name = "Magick.NET-Q8-x64.Native.dll";
-    public const string X86Name = "Magick.NET-Q8-x86.Native.dll";
-#elif Q16
-    public const string X64Name = "Magick.NET-Q16-x64.Native.dll";
-    public const string X86Name = "Magick.NET-Q16-x86.Native.dll";
-#elif Q16HDRI
-    public const string X64Name = "Magick.NET-Q16-HDRI-x64.Native.dll";
-    public const string X86Name = "Magick.NET-Q16-HDRI-x86.Native.dll";
-#else
-#error Not implemented!
-#endif
-
-    public static bool Is64Bit
+    [Conditional("ONLY_HERE_FOR_ANYCPU")]
+    public static void Load()
     {
-      get
-      {
-        return IntPtr.Size == 8;
-      }
     }
   }
 }

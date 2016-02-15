@@ -11,6 +11,12 @@
 # express or implied. See the License for the specific language governing permissions and
 # limitations under the License.
 #==================================================================================================
+function AddProjectFile($xml, $xpath, $name, $attribute, $file)
+{
+  $element = CreateChild $xml "/msb:Project$xpath" $name
+  $element.SetAttribute($attribute, $file)
+}
+
 function CreateAnyCPUProjectFiles()
 {
   $path = FullPath "Magick.NET\Magick.NET.csproj"
@@ -22,8 +28,10 @@ function CreateAnyCPUProjectFiles()
   SelectNodes $xml "//msb:DocumentationFile" | Foreach {$_.InnerText = $_.InnerText.Replace("x86", "AnyCPU") }
   SelectNodes $xml "//msb:AssemblyName" | Foreach {$_.InnerText = $_.InnerText.Replace("x86", "AnyCPU")}
   SelectNodes $xml "//msb:PlatformTarget" | Foreach {$_.InnerText = "AnyCPU"}
-  $element = CreateChild $xml "/msb:Project" "Import"
-  $element.SetAttribute("Project", "Magick.NET.AnyCPU.targets")
+  SelectNodes $xml "//msb:Compile[contains(@Include, 'NativeLibraryLoader.cs')]" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
+  AddProjectFile $xml "/msb:ItemGroup" "Compile" "Include" "..\Magick.NET.AnyCPU\MagickAnyCPU.cs"
+  AddProjectFile $xml "/msb:ItemGroup" "Compile" "Include" "..\Magick.NET.AnyCPU\NativeLibraryLoader.cs"
+  AddProjectFile $xml "" "Import" "Project" "..\Magick.NET.AnyCPU\Magick.NET.AnyCPU.targets"
 
   $csproj = FullPath "Magick.NET\Magick.NET.AnyCPU.csproj"
   Write-Host "Creating file: $csproj"

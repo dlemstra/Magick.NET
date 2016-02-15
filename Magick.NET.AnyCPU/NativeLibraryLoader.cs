@@ -19,12 +19,12 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "ImageMagick.AssemblyHelper.#Initialize()")]
-
 namespace ImageMagick
 {
-  internal static class AssemblyHelper
+  internal static class NativeLibraryLoader
   {
+    private static volatile bool _Loaded;
+
     private static class NativeMethods
     {
       [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -32,9 +32,17 @@ namespace ImageMagick
       public static extern bool SetDllDirectory(string lpPathName);
     }
 
+    private static Assembly Assembly
+    {
+      get
+      {
+        return typeof(NativeLibraryLoader).Assembly;
+      }
+    }
+
     private static string CreateCacheDirectory()
     {
-      AssemblyFileVersionAttribute version = (AssemblyFileVersionAttribute)typeof(AssemblyHelper).Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
+      AssemblyFileVersionAttribute version = (AssemblyFileVersionAttribute)Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
 
       string path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET." + version.Version);
       if (!Directory.Exists(path))
@@ -65,11 +73,6 @@ namespace ImageMagick
       MagickNET.Initialize(cacheDirectory);
     }
 
-    private static void NativeLibrary_Initialize(object sender, EventArgs e)
-    {
-      ExtractLibrary();
-    }
-
     [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
     private static void WriteAssembly(string tempFile)
     {
@@ -78,7 +81,7 @@ namespace ImageMagick
 
       string resourceName = "ImageMagick.Resources.Library.Magick.NET.Native_" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gz";
 
-      using (Stream stream = typeof(AssemblyHelper).Assembly.GetManifestResourceStream(resourceName))
+      using (Stream stream = Assembly.GetManifestResourceStream(resourceName))
       {
         using (GZipStream compressedStream = new GZipStream(stream, CompressionMode.Decompress, false))
         {
@@ -105,7 +108,7 @@ namespace ImageMagick
           continue;
 
         string resourceName = "ImageMagick.Resources.Xml." + xmlFile;
-        using (Stream stream = typeof(MagickImage).Assembly.GetManifestResourceStream(resourceName))
+        using (Stream stream = Assembly.GetManifestResourceStream(resourceName))
         {
           using (FileStream fileStream = File.Open(outputFile, FileMode.CreateNew))
           {
@@ -115,9 +118,13 @@ namespace ImageMagick
       }
     }
 
-    public static void Initialize()
+    public static void Load()
     {
-      NativeLibrary.Initialize += NativeLibrary_Initialize;
+      if (_Loaded)
+        return;
+
+      _Loaded = true;
+      ExtractLibrary();
     }
   }
 }

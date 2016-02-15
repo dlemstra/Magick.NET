@@ -103,7 +103,7 @@ namespace Magick.NET.FileGenerator
 
     private void WriteDllImportStaticConstructor()
     {
-      WriteLine("static " + _Platform + "() { NativeLibrary.DoInitialize(); }");
+      WriteLine("static " + _Platform + "() { NativeLibraryLoader.Load(); }");
     }
 
     private void WriteMarshal(MagickType type)

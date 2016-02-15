@@ -69,6 +69,8 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
+    <Compile Include="..\Magick.NET.AnyCPU\MagickAnyCPU.cs" />
+    <Compile Include="..\Magick.NET.AnyCPU\NativeLibraryLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Colors\ColorRGB.cs" />
@@ -479,5 +481,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="Magick.NET.AnyCPU.targets" />
+  <Import Project="..\Magick.NET.AnyCPU\Magick.NET.AnyCPU.targets" />
 </Project>
