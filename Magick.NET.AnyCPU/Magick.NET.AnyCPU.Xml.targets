@@ -1,0 +1,40 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\coder.xml">
+      <LogicalName>ImageMagick.Resources.Xml.coder.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\colors.xml">
+      <LogicalName>ImageMagick.Resources.Xml.colors.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\configure.xml">
+      <LogicalName>ImageMagick.Resources.Xml.configure.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\delegates.xml">
+      <LogicalName>ImageMagick.Resources.Xml.delegates.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\english.xml">
+      <LogicalName>ImageMagick.Resources.Xml.english.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\locale.xml">
+      <LogicalName>ImageMagick.Resources.Xml.locale.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\log.xml">
+      <LogicalName>ImageMagick.Resources.Xml.log.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\magic.xml">
+      <LogicalName>ImageMagick.Resources.Xml.magic.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\policy.xml">
+      <LogicalName>ImageMagick.Resources.Xml.policy.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\thresholds.xml">
+      <LogicalName>ImageMagick.Resources.Xml.thresholds.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\type.xml">
+      <LogicalName>ImageMagick.Resources.Xml.type.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\..\Magick.NET.Native\Resources\xml\type-ghostscript.xml">
+      <LogicalName>ImageMagick.Resources.Xml.type-ghostscript.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

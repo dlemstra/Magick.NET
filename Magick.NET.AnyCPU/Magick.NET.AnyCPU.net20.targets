@@ -1,0 +1,23 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\net20\ReleaseQ8\Magick.NET-Q8-x86.Native.gz" Condition="'$(Configuration)' == 'ReleaseQ8'">
+      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x86.gz</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\net20\ReleaseQ8\Magick.NET-Q8-x64.Native.gz" Condition="'$(Configuration)' == 'ReleaseQ8'">
+      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x64.gz</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\net20\ReleaseQ16\Magick.NET-Q16-x86.Native.gz" Condition="'$(Configuration)' == 'ReleaseQ16'">
+      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x86.gz</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\net20\ReleaseQ16\Magick.NET-Q16-x64.Native.gz" Condition="'$(Configuration)' == 'ReleaseQ16'">
+      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x64.gz</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\net20\ReleaseQ16-HDRI\Magick.NET-Q16-HDRI-x86.Native.gz" Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
+      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x86.gz</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)\Resources\net20\ReleaseQ16-HDRI\Magick.NET-Q16-HDRI-x64.Native.gz" Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
+      <LogicalName>ImageMagick.Resources.Library.Magick.NET.Native_x64.gz</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildThisFileDirectory)\Magick.NET.AnyCPU.Xml.targets" />
+</Project>

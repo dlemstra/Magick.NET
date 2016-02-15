@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Magick.NET.Tests</RootNamespace>
+    <AssemblyName>Magick.NET.Tests</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseQ16|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ReleaseQ16\AnyCPU.net20</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>NET20;ANYCPU;TRACE;DEBUG;Q16</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ReleaseQ8\AnyCPU.net20</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>NET20;ANYCPU;TRACE;DEBUG;Q8</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ReleaseQ16-HDRI\AnyCPU.net20</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>NET20;ANYCPU;TRACE;DEBUG;Q16HDRI</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ReleaseQ16\x64\</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>NET20;ANYCPU;TRACE;DEBUG;Q16;WIN64</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ReleaseQ8\x64\</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>NET20;ANYCPU;TRACE;DEBUG;Q8;WIN64</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ReleaseQ16-HDRI\x64\</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>NET20;ANYCPU;TRACE;DEBUG;Q16HDRI;WIN64</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="Coders\PdfTests.cs" />
+    <Compile Include="Coders\TiffTests.cs" />
+    <Compile Include="Colors\MagickColorTests.cs" />
+    <Compile Include="Core\Assert\ColorAssert.cs" />
+    <Compile Include="Core\Assert\ExceptionAssert.cs" />
+    <Compile Include="Core\Coders\BgrTests.cs" />
+    <Compile Include="Core\Coders\Jp2Tests.cs" />
+    <Compile Include="Core\Coders\PdfTests.cs" />
+    <Compile Include="Core\Coders\PsdTests.cs" />
+    <Compile Include="Core\Coders\RgbTests.cs" />
+    <Compile Include="Core\Coders\TiffTests.cs" />
+    <Compile Include="Core\Colors\ColorBaseTests.cs" />
+    <Compile Include="Core\Colors\ColorCMYKTests.cs" />
+    <Compile Include="Core\Colors\ColorGrayTests.cs" />
+    <Compile Include="Core\Colors\ColorHSLTests.cs" />
+    <Compile Include="Core\Colors\ColorMonoTests.cs" />
+    <Compile Include="Core\Colors\ColorRGBTests.cs" />
+    <Compile Include="Core\Colors\ColorYUVTests.cs" />
+    <Compile Include="Core\Colors\MagickColorTests.cs" />
+    <Compile Include="Core\Defines\Dds\DdsWriteDefinesTests.cs" />
+    <Compile Include="Core\Defines\Jpeg\JpegReadDefinesTests.cs" />
+    <Compile Include="Core\Defines\Jpeg\JpegWriteDefinesTests.cs" />
+    <Compile Include="Core\Defines\Pdf\PdfReadDefinesTests.cs" />
+    <Compile Include="Core\Defines\Png\PngReadDefinesTests.cs" />
+    <Compile Include="Core\Defines\Tiff\TiffReadDefinesTests.cs" />
+    <Compile Include="Core\Defines\Tiff\TiffWriteDefinesTests.cs" />
+    <Compile Include="Core\Drawables\DrawableDensityTests.cs" />
+    <Compile Include="Core\Drawables\DrawablePathTests.cs" />
+    <Compile Include="Core\Drawables\DrawableTests.cs" />
+    <Compile Include="Core\Files.cs" />
+    <Compile Include="Core\Ghostscript.cs" />
+    <Compile Include="Core\MagickFormatInfoTests.cs" />
+    <Compile Include="Core\MagickImageCollectionTests.cs" />
+    <Compile Include="Core\MagickImageInfoTests.cs" />
+    <Compile Include="Core\MagickImageTests.cs" />
+    <Compile Include="Core\MagickNETTests.cs" />
+    <Compile Include="Core\Matrices\ColorMatrixTests.cs" />
+    <Compile Include="Core\Matrices\ConvolveMatrixTests.cs" />
+    <Compile Include="Core\Optimizers\GifOptimizerTests.cs" />
+    <Compile Include="Core\Optimizers\IImageOptimizerTests.cs" />
+    <Compile Include="Core\Optimizers\ImageOptimizerTests.cs" />
+    <Compile Include="Core\Optimizers\JpegOptimizerTests.cs" />
+    <Compile Include="Core\Optimizers\PngOptimizerTests.cs" />
+    <Compile Include="Core\Pixels\PixelCollectionTests.cs" />
+    <Compile Include="Core\Pixels\PixelTests.cs" />
+    <Compile Include="Core\Profiles\8Bim\EightBimProfileTests.cs" />
+    <Compile Include="Core\Profiles\8Bim\EightBimValueTests.cs" />
+    <Compile Include="Core\Profiles\Color\ColorProfileTests.cs" />
+    <Compile Include="Core\Profiles\Exif\ExifProfileTests.cs" />
+    <Compile Include="Core\Profiles\Exif\ExifValueTests.cs" />
+    <Compile Include="Core\Profiles\ImageProfileTests.cs" />
+    <Compile Include="Core\Profiles\Iptc\IptcProfileTests.cs" />
+    <Compile Include="Core\Profiles\Iptc\IptcValueTests.cs" />
+    <Compile Include="Core\Profiles\Xmp\XmpProfileTests.cs" />
+    <Compile Include="Core\QuantumTests.cs" />
+    <Compile Include="Core\ResourceLimitsTests.cs" />
+    <Compile Include="Core\Script\MagickScriptTests.cs" />
+    <Compile Include="Core\Settings\MagickReadSettingsTests.cs" />
+    <Compile Include="Core\Settings\MagickSettingsTests.cs" />
+    <Compile Include="Core\Settings\PixelStorageSettingsTests.cs" />
+    <Compile Include="Core\Statistics\MomentsTests.cs" />
+    <Compile Include="Core\Statistics\PerceptualHashTests.cs" />
+    <Compile Include="Core\Statistics\StatisticsTests.cs" />
+    <Compile Include="Core\Types\MagickGeometryTests.cs" />
+    <Compile Include="Core\Types\PercentageTests.cs" />
+    <Compile Include="Core\Types\DensityTests.cs" />
+    <Compile Include="Core\Types\PointDTests.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="MagickImageCollectionTests.cs" />
+    <Compile Include="MagickImageTests.cs" />
+    <Compile Include="MagickNETTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Script\MagickScriptTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Magick.NET\Magick.NET.AnyCPU.net20.csproj">
+      <Project>{daae3844-6435-4912-8f69-9f7a9242b4ac}</Project>
+      <Name>Magick.NET</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Core\Script\Collection.msl" />
+    <None Include="Core\Script\Defines.msl" />
+    <None Include="Core\Script\Distort.msl" />
+    <None Include="Core\Script\Draw.msl" />
+    <None Include="Core\Script\Events.msl" />
+    <None Include="Core\Script\ImageProfile.msl" />
+    <None Include="Core\Script\Resize.msl" />
+    <None Include="Core\Script\Variables.msl" />
+    <None Include="Script\Invalid.msl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\Helpers\" />
+    <Folder Include="Core\Replacements\" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

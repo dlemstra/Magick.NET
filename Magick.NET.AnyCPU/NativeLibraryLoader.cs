@@ -40,11 +40,30 @@ namespace ImageMagick
       }
     }
 
+    public static void Copy(Stream source, Stream destination)
+    {
+#if NET20
+      byte[] buffer = new byte[16384];
+      int bytesRead;
+
+      while ((bytesRead = source.Read(buffer, 0, buffer.Length)) > 0)
+      {
+        destination.Write(buffer, 0, bytesRead);
+      }
+#else
+      source.CopyTo(destination);
+#endif
+    }
+
     private static string CreateCacheDirectory()
     {
       AssemblyFileVersionAttribute version = (AssemblyFileVersionAttribute)Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
 
-      string path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET." + version.Version);
+#if NET20
+      string path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET.net20." + version.Version);
+#else
+      string path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET.net40-client." + version.Version);
+#endif
       if (!Directory.Exists(path))
         Directory.CreateDirectory(path);
 
@@ -54,11 +73,11 @@ namespace ImageMagick
     private static void ExtractLibrary()
     {
 #if Q8
-      string name = "Magick.NET-Q8-" + (Environment.Is64BitProcess ? "x64" : "x86");
+      string name = "Magick.NET-Q8-" + (NativeLibrary.Is64Bit ? "x64" : "x86");
 #elif Q16
-      string name = "Magick.NET-Q16-" + (Environment.Is64BitProcess ? "x64" : "x86");
+      string name = "Magick.NET-Q16-" + (NativeLibrary.Is64Bit ? "x64" : "x86");
 #elif Q16HDRI
-      string name = "Magick.NET-Q16-HDRI-" + (Environment.Is64BitProcess ? "x64" : "x86");
+      string name = "Magick.NET-Q16-HDRI-" + (NativeLibrary.Is64Bit ? "x64" : "x86");
 #else
 #error Not implemented!
 #endif
@@ -79,7 +98,7 @@ namespace ImageMagick
       if (File.Exists(tempFile))
         return;
 
-      string resourceName = "ImageMagick.Resources.Library.Magick.NET.Native_" + (Environment.Is64BitProcess ? "x64" : "x86") + ".gz";
+      string resourceName = "ImageMagick.Resources.Library.Magick.NET.Native_" + (NativeLibrary.Is64Bit ? "x64" : "x86") + ".gz";
 
       using (Stream stream = Assembly.GetManifestResourceStream(resourceName))
       {
@@ -87,7 +106,7 @@ namespace ImageMagick
         {
           using (FileStream fileStream = File.Open(tempFile, FileMode.CreateNew))
           {
-            compressedStream.CopyTo(fileStream);
+            Copy(compressedStream, fileStream);
           }
         }
       }
@@ -112,7 +131,7 @@ namespace ImageMagick
         {
           using (FileStream fileStream = File.Open(outputFile, FileMode.CreateNew))
           {
-            stream.CopyTo(fileStream);
+            Copy(stream, fileStream);
           }
         }
       }

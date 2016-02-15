@@ -20,6 +20,8 @@ using System.Security.Permissions;
 #if (Q8)
 #if (WIN64 && NET20)
 [assembly: AssemblyTitle("Magick.NET Q8 x64 net20")]
+#elif (ANYCPU && NET20)
+[assembly: AssemblyTitle("Magick.NET Q8 AnyCPU net20")]
 #elif (NET20)
 [assembly: AssemblyTitle("Magick.NET Q8 x86 net20")]
 #elif (WIN64)
@@ -32,6 +34,8 @@ using System.Security.Permissions;
 #elif (Q16)
 #if (WIN64 && NET20)
 [assembly: AssemblyTitle("Magick.NET Q16 x64 net20")]
+#elif (ANYCPU && NET20)
+[assembly: AssemblyTitle("Magick.NET Q16 AnyCPU net20")]
 #elif (NET20)
 [assembly: AssemblyTitle("Magick.NET Q16 x86 net20")]
 #elif (WIN64)
@@ -44,6 +48,8 @@ using System.Security.Permissions;
 #elif (Q16HDRI)
 #if (WIN64 && NET20)
 [assembly: AssemblyTitle("Magick.NET Q16-HDRI x64 net20")]
+#elif (ANYCPU && NET20)
+[assembly: AssemblyTitle("Magick.NET Q16-HDRI AnyCPU net20")]
 #elif (NET20)
 [assembly: AssemblyTitle("Magick.NET Q16-HDRI x86 net20")]
 #elif (WIN64)
