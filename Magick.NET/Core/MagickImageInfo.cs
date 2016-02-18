@@ -185,6 +185,7 @@ namespace ImageMagick
     public string FileName
     {
       get;
+      private set;
     }
 
     ///<summary>
@@ -269,6 +270,7 @@ namespace ImageMagick
         ColorSpace == other.ColorSpace &&
         CompressionMethod == other.CompressionMethod &&
         Density == other.Density &&
+        FileName == other.FileName &&
         Format == other.Format &&
         Height == other.Height &&
         Interlace == other.Interlace &&
@@ -284,6 +286,7 @@ namespace ImageMagick
         ColorSpace.GetHashCode() ^
         CompressionMethod.GetHashCode() ^
         Density.GetHashCode() ^
+        FileName.GetHashCode() ^
         Format.GetHashCode() ^
         Height.GetHashCode() ^
         Interlace.GetHashCode() ^
@@ -295,6 +298,7 @@ namespace ImageMagick
       ColorSpace = image.ColorSpace;
       CompressionMethod = image.CompressionMethod;
       Density = image.Density;
+      FileName = image.FileName;
       Format = image.Format;
       Height = image.Height;
       Interlace = image.Interlace;
