@@ -24,6 +24,14 @@ namespace ImageMagick
   {
     private static string _CacheDirectory = Path.GetTempPath();
 
+    internal static bool UsesDefaultCacheDirectory
+    {
+       get
+       {
+         return _CacheDirectory == Path.GetTempPath();
+       }
+    }
+
     ///<summary>
     /// Sets the directory that will be used by Magick.NET to store the embedded assemblies.
     ///</summary>

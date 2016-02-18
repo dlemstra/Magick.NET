@@ -18,6 +18,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 namespace ImageMagick
 {
@@ -65,7 +67,10 @@ namespace ImageMagick
       string path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET.net40-client." + version.Version);
 #endif
       if (!Directory.Exists(path))
+      {
         Directory.CreateDirectory(path);
+        GrantEveryoneReadAndExecuteAccess(path);
+      }
 
       return path;
     }
@@ -90,6 +95,19 @@ namespace ImageMagick
       NativeMethods.SetDllDirectory(cacheDirectory);
 
       MagickNET.Initialize(cacheDirectory);
+    }
+
+    private static void GrantEveryoneReadAndExecuteAccess(string cacheDirectory)
+    {
+      if (!MagickAnyCPU.UsesDefaultCacheDirectory)
+        return;
+
+      DirectoryInfo directoryInfo = new DirectoryInfo(cacheDirectory);
+      DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
+      SecurityIdentifier identity = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
+      InheritanceFlags inheritanceFlags = InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit;
+      directorySecurity.AddAccessRule(new FileSystemAccessRule(identity, FileSystemRights.ReadAndExecute, inheritanceFlags, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+      directoryInfo.SetAccessControl(directorySecurity);
     }
 
     [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
