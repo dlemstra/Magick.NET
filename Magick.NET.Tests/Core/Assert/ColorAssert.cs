@@ -68,14 +68,14 @@ namespace Magick.NET.Tests
     {
       if (notExpected.R == actual.R && notExpected.G == actual.G &&
          notExpected.B == actual.B && notExpected.A == actual.A)
-        Assert.Fail("Colors are the same");
+        Assert.Fail("Colors are the same (" + actual.ToString() + ")");
     }
 
-    public static void AreNotEqual(MagickColor expected, MagickImage image, int x, int y)
+    public static void AreNotEqual(MagickColor notExpected, MagickImage image, int x, int y)
     {
       using (PixelCollection collection = image.GetPixels())
       {
-        AreNotEqual(expected, collection.GetPixel(x, y));
+        AreNotEqual(notExpected, collection.GetPixel(x, y));
       }
     }
 

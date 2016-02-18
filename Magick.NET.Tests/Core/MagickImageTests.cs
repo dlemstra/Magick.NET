@@ -2755,8 +2755,15 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
+        image.Alpha(AlphaOption.Deactivate);
+
+        ColorAssert.AreEqual(MagickColors.Red, image, 287, 74);
+        ColorAssert.AreNotEqual(MagickColors.White, image, 363, 333);
+
         image.Swirl(60);
-        Assert.Inconclusive("Needs implementation.");
+
+        ColorAssert.AreNotEqual(MagickColors.Red, image, 287, 74);
+        ColorAssert.AreEqual(MagickColors.White, image, 363, 333);
       }
     }
 
