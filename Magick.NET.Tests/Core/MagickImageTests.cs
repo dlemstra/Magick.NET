@@ -2150,6 +2150,17 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_Properties()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        Assert.AreEqual(false, image.BlackPointCompensation);
+        image.BlackPointCompensation = true;
+        Assert.AreEqual(true, image.BlackPointCompensation);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_Quantize()
     {
       QuantizeSettings settings = new QuantizeSettings();

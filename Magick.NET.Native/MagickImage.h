@@ -33,6 +33,9 @@ MAGICK_NET_EXPORT size_t MagickImage_BaseHeight_Get(const Image *);
 
 MAGICK_NET_EXPORT size_t MagickImage_BaseWidth_Get(const Image *);
 
+MAGICK_NET_EXPORT MagickBooleanType MagickImage_BlackPointCompensation_Get(const Image *);
+MAGICK_NET_EXPORT void MagickImage_BlackPointCompensation_Set(Image *, MagickBooleanType);
+
 MAGICK_NET_EXPORT PixelInfo *MagickImage_BorderColor_Get(const Image *);
 MAGICK_NET_EXPORT void MagickImage_BorderColor_Set(Image *, const PixelInfo *);
 
@@ -490,7 +493,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Trim(Image *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_UniqueColors(const Image *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_UnsharpMask( Image *, const double, const double, const double, const double, const size_t, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_UnsharpMask(Image *, const double, const double, const double, const double, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_Vignette(const Image *, const double, const double, const ssize_t, const ssize_t, ExceptionInfo **);
 

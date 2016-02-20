@@ -113,6 +113,16 @@ MAGICK_NET_EXPORT size_t MagickImage_BaseWidth_Get(const Image *instance)
   return instance->magick_columns;
 }
 
+MAGICK_NET_EXPORT MagickBooleanType MagickImage_BlackPointCompensation_Get(const Image *instance)
+{
+  return instance->black_point_compensation;
+}
+
+MAGICK_NET_EXPORT void MagickImage_BlackPointCompensation_Set(Image *instance, MagickBooleanType value)
+{
+  instance->black_point_compensation = value;
+}
+
 MAGICK_NET_EXPORT PixelInfo *MagickImage_BorderColor_Get(const Image *instance)
 {
   return MagickColor_Clone(&instance->border_color);
