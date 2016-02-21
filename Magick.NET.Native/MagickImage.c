@@ -2408,6 +2408,17 @@ MAGICK_NET_EXPORT Image *MagickImage_Wave(const Image *instance, const size_t me
   return image;
 }
 
+MAGICK_NET_EXPORT Image *MagickImage_WaveletDenoise(const Image *instance, const double threshold, ExceptionInfo **exception)
+{
+  Image
+    *image;
+
+  MAGICK_NET_GET_EXCEPTION;
+  image = WaveletDenoiseImage(instance, threshold, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+  return image;
+}
+
 MAGICK_NET_EXPORT void MagickImage_WhiteThreshold(Image *instance, const char *threshold, const size_t channels, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;

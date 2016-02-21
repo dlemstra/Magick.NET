@@ -3055,6 +3055,27 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_WaveletDenoise()
+    {
+      using (MagickImage image = new MagickImage(Files.NoisePNG))
+      {
+#if Q8
+        var color = new MagickColor("#dd");
+#elif Q16 || Q16HDRI
+        var color = new MagickColor("#deb5deb5deb5");
+#else
+#error Not implemented!
+#endif
+
+        ColorAssert.AreNotEqual(color, image, 130, 123);
+
+        image.WaveletDenoise((Percentage)25);
+
+        ColorAssert.AreEqual(color, image, 130, 123);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_Warning()
     {
       int count = 0;

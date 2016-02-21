@@ -119,6 +119,14 @@ namespace Magick.NET.Tests
       }
     }
 
+    public static string NoisePNG
+    {
+      get
+      {
+        return _Root + @"Images\Noise.png";
+      }
+    }
+
     public static string RedPNG
     {
       get

@@ -6315,6 +6315,27 @@ namespace ImageMagick
       _NativeInstance.Wave(method, amplitude, length);
     }
 
+    /// <summary>
+    /// Removes noise from the image using a wavelet transform.
+    /// </summary>
+    /// <param name="threshold">The threshold for smoothing</param>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public void WaveletDenoise(QuantumType threshold)
+    {
+      _NativeInstance.WaveletDenoise(threshold);
+    }
+
+    /// <summary>
+    /// Removes noise from the image using a wavelet transform.
+    /// </summary>
+    /// <param name="thresholdPercentage">The threshold for smoothing</param>
+    public void WaveletDenoise(Percentage thresholdPercentage)
+    {
+      WaveletDenoise(thresholdPercentage.ToQuantum());
+    }
+
     ///<summary>
     /// Forces all pixels above the threshold into white while leaving all pixels at or below
     /// the threshold unchanged.

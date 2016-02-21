@@ -499,6 +499,8 @@ MAGICK_NET_EXPORT Image *MagickImage_Vignette(const Image *, const double, const
 
 MAGICK_NET_EXPORT Image *MagickImage_Wave(const Image *, const size_t, const double, const double, ExceptionInfo **);
 
+MAGICK_NET_EXPORT Image *MagickImage_WaveletDenoise(const Image *, const double, ExceptionInfo **);
+
 MAGICK_NET_EXPORT void MagickImage_WhiteThreshold(Image *, const char *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT unsigned char *MagickImage_WriteBlob(Image *, const ImageInfo *, size_t *, ExceptionInfo **);

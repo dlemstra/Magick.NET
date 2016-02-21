@@ -2736,6 +2736,18 @@
       ]
     },
     {
+      "name": "WaveletDenoise",
+      "instance": true,
+      "throws": true,
+      "arguments":
+      [
+        {
+          "name": "threshold",
+          "type": "double"
+        }
+      ]
+    },
+    {
       "name": "WhiteThreshold",
       "throws": true,
       "arguments":

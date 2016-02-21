@@ -563,6 +563,8 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Wave(IntPtr Instance, UIntPtr method, double amplitude, double length, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MagickImage_WaveletDenoise(IntPtr Instance, double threshold, out IntPtr exception);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_WhiteThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_WriteBlob(IntPtr Instance, IntPtr settings, out UIntPtr length, out IntPtr exception);
@@ -1098,6 +1100,8 @@ namespace ImageMagick
         public static extern IntPtr MagickImage_Vignette(IntPtr Instance, double radius, double sigma, IntPtr x, IntPtr y, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Wave(IntPtr Instance, UIntPtr method, double amplitude, double length, out IntPtr exception);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MagickImage_WaveletDenoise(IntPtr Instance, double threshold, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_WhiteThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3990,6 +3994,17 @@ namespace ImageMagick
           result = NativeMethods.X64.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
         else
           result = NativeMethods.X86.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
+        CheckException(exception, result);
+        Instance = result;
+      }
+      public void WaveletDenoise(double threshold)
+      {
+        IntPtr exception = IntPtr.Zero;
+        IntPtr result;
+        if (NativeLibrary.Is64Bit)
+          result = NativeMethods.X64.MagickImage_WaveletDenoise(Instance, threshold, out exception);
+        else
+          result = NativeMethods.X86.MagickImage_WaveletDenoise(Instance, threshold, out exception);
         CheckException(exception, result);
         Instance = result;
       }
