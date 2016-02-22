@@ -71,8 +71,12 @@ function CreateNuGetPackage($id, $version, $build)
 
   AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\net20"
   AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\net20"
-  AddFileElement $xml "..\..\Magick.NET.Native.net20\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "build\net20\$($build.Platform)"
-  AddFileElement $xml "Magick.NET.targets" "build\net20\$id.targets"
+
+  if ($build.Platform -ne "AnyCPU")
+  {
+    AddFileElement $xml "..\..\Magick.NET.Native.net20\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "build\net20\$($build.Platform)"
+    AddFileElement $xml "Magick.NET.targets" "build\net20\$id.targets"
+  }
 
   AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\$($build.FrameworkName)"
   AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\$($build.FrameworkName)"
