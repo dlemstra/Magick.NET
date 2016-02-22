@@ -156,8 +156,6 @@ function CopyZipFiles($builds)
 
 function CreateNuGetPackages($builds)
 {
-  $hasNet20 = HasNet20($builds)
-
   foreach ($build in $builds)
   {
     if ($build.Framework -ne "v4.0")
@@ -166,7 +164,7 @@ function CreateNuGetPackages($builds)
     }
 
     $id = "Magick.NET-$($build.Quantum)-$($build.Platform)"
-    CreateNuGetPackage $id $version $build $hasNet20
+    CreateNuGetPackage $id $version $build
 
     if ($build.Quantum -eq "Q16")
     {
@@ -296,4 +294,3 @@ Publish $builds
 Publish $anyCPUbuilds
 PublishCore
 CleanupZipFolder
-

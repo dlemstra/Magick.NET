@@ -26,9 +26,12 @@ $builds = @(
   @{Name = "Magick.NET";       Suffix = "";       Quantum = "Q16-HDRI"; Platform = "x64"; Framework = "v4.0"; FrameworkName = "net40-client";}
 )
 $anyCPUbuilds = @(
-  @{Name = "Magick.NET.AnyCPU"; Suffix=""; Quantum = "Q8";       Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client";}
-  @{Name = "Magick.NET.AnyCPU"; Suffix=""; Quantum = "Q16";      Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client";}
-  @{Name = "Magick.NET.AnyCPU"; Suffix=""; Quantum = "Q16-HDRI"; Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client";}
+  @{Name = "Magick.NET.AnyCPU.net20"; Suffix=".net20"; Quantum = "Q8";       Platform = "AnyCPU"; Framework = "v2.0"; FrameworkName = "net20";}
+  @{Name = "Magick.NET.AnyCPU.net20"; Suffix=".net20"; Quantum = "Q16";      Platform = "AnyCPU"; Framework = "v2.0"; FrameworkName = "net20";}
+  @{Name = "Magick.NET.AnyCPU.net20"; Suffix=".net20"; Quantum = "Q16-HDRI"; Platform = "AnyCPU"; Framework = "v2.0"; FrameworkName = "net20";}
+  @{Name = "Magick.NET.AnyCPU";       Suffix="";       Quantum = "Q8";       Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client";}
+  @{Name = "Magick.NET.AnyCPU";       Suffix="";       Quantum = "Q16";      Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client";}
+  @{Name = "Magick.NET.AnyCPU";       Suffix="";       Quantum = "Q16-HDRI"; Platform = "AnyCPU"; Framework = "v4.0"; FrameworkName = "net40-client";}
 )
 
 function GetBuilds($quantum, $platform)
@@ -45,7 +48,7 @@ function GetBuilds($quantum, $platform)
     }
     elseif ($platform -eq "AnyCPU")
     {
-      return ,@($anyCPUbuilds[0])
+      return @($anyCPUbuilds[3], $anyCPUbuilds[0])
     }
   }
   elseif ($quantum -eq "Q16")
@@ -60,7 +63,7 @@ function GetBuilds($quantum, $platform)
     }
     elseif ($platform -eq "AnyCPU")
     {
-      return ,@($anyCPUbuilds[1])
+      return @($anyCPUbuilds[4], $anyCPUbuilds[1])
     }
   }
   elseif ($quantum -eq "Q16-HDRI")
@@ -75,7 +78,7 @@ function GetBuilds($quantum, $platform)
     }
     elseif ($platform -eq "AnyCPU")
     {
-      return ,@($anyCPUbuilds[2])
+      return @($anyCPUbuilds[5], $anyCPUbuilds[2])
     }
   }
   return $null

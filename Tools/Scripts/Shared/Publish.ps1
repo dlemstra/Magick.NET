@@ -54,7 +54,7 @@ function CheckStrongNames($builds)
   }
 }
 
-function CreateNuGetPackage($id, $version, $build, $hasNet20)
+function CreateNuGetPackage($id, $version, $build)
 {
   $path = FullPath "Publish\NuGet\Magick.NET.nuspec"
   $xml = [xml](Get-Content $path)
@@ -69,13 +69,10 @@ function CreateNuGetPackage($id, $version, $build, $hasNet20)
   $imVersion = [IO.File]::ReadAllText($versionPath, [System.Text.Encoding]::Unicode)
   $xml.package.metadata.releaseNotes = "Magick.NET linked with ImageMagick " + $imVersion
 
-  if ($hasNet20 -eq $true)
-  {
-    AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\net20"
-    AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\net20"
-    AddFileElement $xml "..\..\Magick.NET.Native.net20\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "build\net20\$($build.Platform)"
-    AddFileElement $xml "Magick.NET.targets" "build\net20\$id.targets"
-  }
+  AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\net20"
+  AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\net20"
+  AddFileElement $xml "..\..\Magick.NET.Native.net20\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "build\net20\$($build.Platform)"
+  AddFileElement $xml "Magick.NET.targets" "build\net20\$id.targets"
 
   AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\$($build.FrameworkName)"
   AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\$($build.FrameworkName)"
@@ -102,19 +99,6 @@ function CreateNuGetPackage($id, $version, $build, $hasNet20)
   AddFileElement $xml "..\..\Copyright.txt" "Copyright.txt"
 
   WriteNuGetPackage $webId $version $xml
-}
-
-function HasNet20($builds)
-{
-  foreach ($build in $builds)
-  {
-    if ($build.Framework -eq "v2.0")
-    {
-      return $true
-    }
-  }
-
-  return $false
 }
 
 function SetVersion($content, $startMatch, $endMatch, $version)

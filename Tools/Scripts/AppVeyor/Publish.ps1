@@ -22,12 +22,11 @@ SetFolder $scriptPath
 function Publish($builds, $version)
 {
   CheckStrongNames $builds
-  $hasNet20 = HasNet20($builds)
 
   $build = $builds[0];
 
   $id = "Magick.NET-dev-$($build.Quantum)-$($build.Platform)"
-  CreateNuGetPackage $id $version $build $hasNet20
+  CreateNuGetPackage $id $version $build
 
   $fileName = FullPath "Publish\NuGet\$id.$version.nupkg"
   appveyor PushArtifact $fileName
