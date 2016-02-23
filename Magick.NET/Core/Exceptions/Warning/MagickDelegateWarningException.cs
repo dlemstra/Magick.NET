@@ -17,7 +17,7 @@ using System;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the ImageMagick WarningDelegate exception object.
+  /// Encapsulation of the ImageMagick DelegateWarning exception.
   ///</summary>
   [Serializable]
   public sealed class MagickDelegateWarningException : MagickWarningException

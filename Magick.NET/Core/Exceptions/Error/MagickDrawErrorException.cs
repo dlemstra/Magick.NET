@@ -17,7 +17,7 @@ using System;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the ImageMagick ErrorDraw exception object.
+  /// Encapsulation of the ImageMagick DrawError exception.
   ///</summary>
   [Serializable]
   public sealed class MagickDrawErrorException : MagickErrorException

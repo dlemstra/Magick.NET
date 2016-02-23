@@ -18,6 +18,7 @@ namespace ImageMagick
   {
     Undefined,
     Warning = 300,
+    ResourceLimitWarning = 300,
     TypeWarning = 305,
     OptionWarning = 310,
     DelegateWarning = 315,
@@ -40,6 +41,7 @@ namespace ImageMagick
     ConfigureWarning = 395,
     PolicyWarning = 399,
     Error = 400,
+    ResourceLimitError = 400,
     TypeError = 405,
     OptionError = 410,
     DelegateError = 415,
@@ -62,6 +64,7 @@ namespace ImageMagick
     ConfigureError = 495,
     PolicyError = 499,
     FatalError = 700,
+    ResourceLimitFatalError = 700,
     TypeFatalError = 705,
     OptionFatalError = 710,
     DelegateFatalError = 715,

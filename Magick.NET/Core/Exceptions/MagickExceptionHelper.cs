@@ -88,12 +88,12 @@ namespace ImageMagick
           return new MagickOptionWarningException(message, innerExceptions);
         case ExceptionSeverity.RegistryWarning:
           return new MagickRegistryWarningException(message, innerExceptions);
+        case ExceptionSeverity.ResourceLimitWarning:
+          return new MagickResourceLimitWarningException(message, innerExceptions);
         case ExceptionSeverity.StreamWarning:
           return new MagickStreamWarningException(message, innerExceptions);
         case ExceptionSeverity.TypeWarning:
           return new MagickTypeWarningException(message, innerExceptions);
-        case ExceptionSeverity.Warning:
-          return new MagickWarningException(message, innerExceptions);
         case ExceptionSeverity.BlobError:
           return new MagickBlobErrorException(message, innerExceptions);
         case ExceptionSeverity.CacheError:
@@ -120,14 +120,17 @@ namespace ImageMagick
           return new MagickOptionErrorException(message, innerExceptions);
         case ExceptionSeverity.RegistryError:
           return new MagickRegistryErrorException(message, innerExceptions);
+        case ExceptionSeverity.ResourceLimitError:
+          return new MagickResourceLimitErrorException(message, innerExceptions);
         case ExceptionSeverity.StreamError:
           return new MagickStreamErrorException(message, innerExceptions);
         case ExceptionSeverity.TypeError:
           return new MagickTypeErrorException(message, innerExceptions);
-        case ExceptionSeverity.Error:
-          return new MagickErrorException(message, innerExceptions);
         default:
-          return new MagickErrorException(message, innerExceptions);
+          if (severity < ExceptionSeverity.Error)
+            return new MagickWarningException(message, innerExceptions);
+          else
+            return new MagickErrorException(message, innerExceptions);
       }
     }
 

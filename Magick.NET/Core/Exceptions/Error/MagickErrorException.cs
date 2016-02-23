@@ -17,7 +17,7 @@ using System;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the ImageMagick Error exception object.
+  /// Encapsulation of the ImageMagick Error exception.
   ///</summary>
   [Serializable]
   public class MagickErrorException : MagickException

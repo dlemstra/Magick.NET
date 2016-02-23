@@ -17,7 +17,7 @@ using System;
 namespace ImageMagick
 {
   ///<summary>
-  /// Encapsulation of the ImageMagick ErrorMissingDelegate exception object.
+  /// Encapsulation of the ImageMagick MissingDelegateError exception.
   ///</summary>
   [Serializable]
   public sealed class MagickMissingDelegateErrorException : MagickErrorException
