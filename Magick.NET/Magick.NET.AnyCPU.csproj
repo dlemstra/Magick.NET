@@ -236,6 +236,7 @@
     <Compile Include="Core\EventArgs\ArtifactEventArgs.cs" />
     <Compile Include="Core\EventArgs\LogEventArgs.cs" />
     <Compile Include="Core\EventArgs\ProgressEventArgs.cs" />
+    <Compile Include="Core\Exceptions\Error\MagickResourceLimitErrorException.cs" />
     <Compile Include="Core\Exceptions\Error\MagickBlobErrorException.cs" />
     <Compile Include="Core\Exceptions\Error\MagickCacheErrorException.cs" />
     <Compile Include="Core\Exceptions\Error\MagickCoderErrorException.cs" />
@@ -268,6 +269,7 @@
     <Compile Include="Core\Exceptions\Warning\MagickMissingDelegateWarningException.cs" />
     <Compile Include="Core\Exceptions\Warning\MagickModuleWarningException.cs" />
     <Compile Include="Core\Exceptions\Warning\MagickOptionWarningException.cs" />
+    <Compile Include="Core\Exceptions\Warning\MagickResourceLimitWarningException.cs" />
     <Compile Include="Core\Exceptions\Warning\MagickRegistryWarningException.cs" />
     <Compile Include="Core\Exceptions\Warning\MagickStreamWarningException.cs" />
     <Compile Include="Core\Exceptions\Warning\MagickTypeWarningException.cs" />
