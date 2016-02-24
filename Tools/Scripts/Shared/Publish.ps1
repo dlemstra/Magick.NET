@@ -42,7 +42,6 @@ function CheckStrongNames($builds)
     sn -Tp $path
     CheckExitCode "$path does not represent a strongly named assembly"
 
-    #if ($build.Quantum -ne "Q16" -or $build.Framework -ne "v4.0")
     if ($build.Framework -ne "v4.0")
     {
       continue
@@ -71,12 +70,6 @@ function CreateNuGetPackage($id, $version, $build)
 
   AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\net20"
   AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\net20"
-
-  if ($build.Platform -ne "AnyCPU")
-  {
-    AddFileElement $xml "..\..\Magick.NET.Native.net20\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" "build\net20\$($build.Platform)"
-    AddFileElement $xml "Magick.NET.targets" "build\net20\$id.targets"
-  }
 
   AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\$($build.FrameworkName)"
   AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).xml" "lib\$($build.FrameworkName)"
@@ -180,17 +173,18 @@ function UpdateResourceFiles($builds, $version)
 {
   foreach ($build in $builds)
   {
-    $platform = $($build.Platform)
-    if ($platform -eq "AnyCPU")
+    if ($build.Framework -ne "v4.0")
     {
       continue
     }
-    elseif ($platform -eq "x86")
+
+    $platform = $($build.Platform)
+    if ($platform -eq "x86")
     {
       $platform = "Win32"
     }
 
-    $fileName = FullPath "Magick.NET.Native$($build.Suffix)\Resources\Release$($build.Quantum)\$platform\Magick.NET.rc"
+    $fileName = FullPath "Magick.NET.Native\Resources\Release$($build.Quantum)\$platform\Magick.NET.rc"
 
     $content = [IO.File]::ReadAllText($fileName, [System.Text.Encoding]::Unicode)
     $content = SetVersion $content "FILEVERSION " `r $version.Replace('.', ',')
