@@ -113,7 +113,7 @@ function PatchAnyCPUProjectFile($xml, $binDir)
   SelectNodes $xml "//msb:Compile[contains(@Include, 'NativeLibraryLoader.cs')]" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
   AddProjectFile $xml "/msb:ItemGroup" "Compile" "Include" "..\Magick.NET.AnyCPU\MagickAnyCPU.cs"
   AddProjectFile $xml "/msb:ItemGroup" "Compile" "Include" "..\Magick.NET.AnyCPU\NativeLibraryLoader.cs"
-  AddProjectFile $xml "" "Import" "Project" "..\Magick.NET.AnyCPU\Magick.NET.$binDir.targets"
+  AddProjectFile $xml "" "Import" "Project" "..\Magick.NET.AnyCPU\Magick.NET.AnyCPU.targets"
 }
 
 function PatchAnyCPUTestProjectFile($xml, $binDir, $projectFile)

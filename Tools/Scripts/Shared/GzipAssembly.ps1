@@ -53,27 +53,18 @@ function GzipAssemblies()
 
 function GzipAssembliesQ8()
 {
-  GzipAssembly "Magick.NET.Native\bin\ReleaseQ8\Win32\Magick.NET-Q8-x86.Native.dll" "Magick.NET.AnyCPU\Resources\net40-client\ReleaseQ8\Magick.NET-Q8-x86.Native.gz"
-  GzipAssembly "Magick.NET.Native\bin\ReleaseQ8\x64\Magick.NET-Q8-x64.Native.dll" "Magick.NET.AnyCPU\Resources\net40-client\ReleaseQ8\Magick.NET-Q8-x64.Native.gz"
-
-  GzipAssembly "Magick.NET.Native.net20\bin\ReleaseQ8\Win32\Magick.NET-Q8-x86.Native.dll" "Magick.NET.AnyCPU\Resources\net20\ReleaseQ8\Magick.NET-Q8-x86.Native.gz"
-  GzipAssembly "Magick.NET.Native.net20\bin\ReleaseQ8\x64\Magick.NET-Q8-x64.Native.dll" "Magick.NET.AnyCPU\Resources\net20\ReleaseQ8\Magick.NET-Q8-x64.Native.gz"
+  GzipAssembly "Magick.NET.Native\bin\ReleaseQ8\Win32\Magick.NET-Q8-x86.Native.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ8\Magick.NET-Q8-x86.Native.gz"
+  GzipAssembly "Magick.NET.Native\bin\ReleaseQ8\x64\Magick.NET-Q8-x64.Native.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ8\Magick.NET-Q8-x64.Native.gz"
 }
 
 function GzipAssembliesQ16()
 {
-  GzipAssembly "Magick.NET.Native\bin\ReleaseQ16\Win32\Magick.NET-Q16-x86.Native.dll" "Magick.NET.AnyCPU\Resources\net40-client\ReleaseQ16\Magick.NET-Q16-x86.Native.gz"
-  GzipAssembly "Magick.NET.Native\bin\ReleaseQ16\x64\Magick.NET-Q16-x64.Native.dll" "Magick.NET.AnyCPU\Resources\net40-client\ReleaseQ16\Magick.NET-Q16-x64.Native.gz"
-
-  GzipAssembly "Magick.NET.Native.net20\bin\ReleaseQ16\Win32\Magick.NET-Q16-x86.Native.dll" "Magick.NET.AnyCPU\Resources\net20\ReleaseQ16\Magick.NET-Q16-x86.Native.gz"
-  GzipAssembly "Magick.NET.Native.net20\bin\ReleaseQ16\x64\Magick.NET-Q16-x64.Native.dll" "Magick.NET.AnyCPU\Resources\net20\ReleaseQ16\Magick.NET-Q16-x64.Native.gz"
+  GzipAssembly "Magick.NET.Native\bin\ReleaseQ16\Win32\Magick.NET-Q16-x86.Native.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16\Magick.NET-Q16-x86.Native.gz"
+  GzipAssembly "Magick.NET.Native\bin\ReleaseQ16\x64\Magick.NET-Q16-x64.Native.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16\Magick.NET-Q16-x64.Native.gz"
 }
 
 function GzipAssembliesQ16HDRI()
 {
-  GzipAssembly "Magick.NET.Native\bin\ReleaseQ16-HDRI\Win32\Magick.NET-Q16-HDRI-x86.Native.dll" "Magick.NET.AnyCPU\Resources\net40-client\ReleaseQ16-HDRI\Magick.NET-Q16-HDRI-x86.Native.gz"
-  GzipAssembly "Magick.NET.Native\bin\ReleaseQ16-HDRI\x64\Magick.NET-Q16-HDRI-x64.Native.dll" "Magick.NET.AnyCPU\Resources\net40-client\ReleaseQ16-HDRI\Magick.NET-Q16-HDRI-x64.Native.gz"
-
-  GzipAssembly "Magick.NET.Native.net20\bin\ReleaseQ16-HDRI\Win32\Magick.NET-Q16-HDRI-x86.Native.dll" "Magick.NET.AnyCPU\Resources\net20\ReleaseQ16-HDRI\Magick.NET-Q16-HDRI-x86.Native.gz"
-  GzipAssembly "Magick.NET.Native.net20\bin\ReleaseQ16-HDRI\x64\Magick.NET-Q16-HDRI-x64.Native.dll" "Magick.NET.AnyCPU\Resources\net20\ReleaseQ16-HDRI\Magick.NET-Q16-HDRI-x64.Native.gz"
+  GzipAssembly "Magick.NET.Native\bin\ReleaseQ16-HDRI\Win32\Magick.NET-Q16-HDRI-x86.Native.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16-HDRI\Magick.NET-Q16-HDRI-x86.Native.gz"
+  GzipAssembly "Magick.NET.Native\bin\ReleaseQ16-HDRI\x64\Magick.NET-Q16-HDRI-x64.Native.dll" "Magick.NET.AnyCPU\Resources\ReleaseQ16-HDRI\Magick.NET-Q16-HDRI-x64.Native.gz"
 }
