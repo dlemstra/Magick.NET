@@ -16,16 +16,13 @@ $scriptPath = Split-Path -parent $MyInvocation.MyCommand.Path
 SetFolder $scriptPath
 
 $Q8Builds = @(
-  @{Name = "Q8"; QuantumDepth = "8"; Framework = "v2.0"; PlatformToolset = "v90"}
-  @{Name = "Q8"; QuantumDepth = "8"; Framework = "v4.0"; PlatformToolset = "v140"}
+  @{Name = "Q8"; QuantumDepth = "8"; PlatformToolset = "v140"}
 )
 $Q16Builds = @(
-  @{Name= "Q16"; QuantumDepth = "16"; Framework = "v2.0"; PlatformToolset = "v90"}
-  @{Name= "Q16"; QuantumDepth = "16"; Framework = "v4.0"; PlatformToolset = "v140"}
+  @{Name= "Q16"; QuantumDepth = "16"; PlatformToolset = "v140"}
 )
 $Q16HDRIBuilds = @(
-  @{Name = "Q16-HDRI"; QuantumDepth = "16"; Framework = "v2.0"; PlatformToolset = "v90"}
-  @{Name = "Q16-HDRI"; QuantumDepth = "16"; Framework = "v4.0"; PlatformToolset = "v140"}
+  @{Name = "Q16-HDRI"; QuantumDepth = "16"; PlatformToolset = "v140"}
 )
 $configurations = @(
   @{Platform = "x86"; Options = "/opencl /noHdri";      Builds = $Q8Builds}
@@ -57,11 +54,7 @@ function Build($platform, $builds)
       $platformName = "x64";
     }
 
-    $options = "Configuration=Release,Platform=$($platformName)"
-    if ($build.Framework -eq "v2.0")
-    {
-      $options = "$($options),VCBuildAdditionalOptions=/arch:SSE";
-    }
+    $options = "Configuration=Release,Platform=$($platformName),PlatformToolset=v140,VCBuildAdditionalOptions=/arch:SSE"
 
     BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMT.sln" $options
 
@@ -69,19 +62,19 @@ function Build($platform, $builds)
     $newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"", "//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"")
     [IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
 
-    if (!(Test-Path "ImageMagick\lib\$($build.Framework)\$platform"))
+    if (!(Test-Path "ImageMagick\lib\$platform"))
     {
-      [void](New-Item -ItemType directory -Path "ImageMagick\lib\$($build.Framework)\$platform")
+      [void](New-Item -ItemType directory -Path "ImageMagick\lib\$platform")
     }
-    Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_*.lib" "ImageMagick\lib\$($build.Framework)\$platform"
+    Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_*.lib" "ImageMagick\lib\$platform"
 
-    if (!(Test-Path "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform"))
+    if (!(Test-Path "ImageMagick\$($build.Name)\lib\$platform"))
     {
-      [void](New-Item -ItemType directory -Path "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform")
+      [void](New-Item -ItemType directory -Path "ImageMagick\$($build.Name)\lib\$platform")
     }
-    Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_coders_.lib"     "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
-    Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_MagickCore_.lib" "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
-    Move-Item "ImageMagick\lib\$($build.Framework)\$($platform)\CORE_RL_MagickWand_.lib" "ImageMagick\$($build.Name)\lib\$($build.Framework)\$platform" -force
+    Move-Item "ImageMagick\lib\$($platform)\CORE_RL_coders_.lib"     "ImageMagick\$($build.Name)\lib\$platform" -force
+    Move-Item "ImageMagick\lib\$($platform)\CORE_RL_MagickCore_.lib" "ImageMagick\$($build.Name)\lib\$platform" -force
+    Move-Item "ImageMagick\lib\$($platform)\CORE_RL_MagickWand_.lib" "ImageMagick\$($build.Name)\lib\$platform" -force
   }
 }
 
@@ -103,7 +96,7 @@ function BuildDevelopment($config, $build)
 function BuildDevelopmentQ8()
 {
   $config = $configurations[0]
-  $build = @($config.Builds[1]);
+  $build = @($config.Builds[0]);
 
   BuildDevelopment $config $build
 }
@@ -111,7 +104,15 @@ function BuildDevelopmentQ8()
 function BuildDevelopmentQ16()
 {
   $config = $configurations[2]
-  $build = @($config.Builds[1]);
+  $build = @($config.Builds[0]);
+
+  BuildDevelopment $config $build
+}
+
+function BuildDevelopmentQ16HDRI()
+{
+  $config = $configurations[4]
+  $build = @($config.Builds[0]);
 
   BuildDevelopment $config $build
 }
@@ -199,8 +200,14 @@ function PatchFiles()
   [IO.File]::WriteAllText($xmlversionFile, $xmlversion, [System.Text.Encoding]::Default)
 }
 
+function RecompileConfigure()
+{
+  BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\configure\configure.sln" "Configuration=Release,Platform=Win32,PlatformToolset=v140"
+}
+
 CheckFolder "ImageMagick\Source"
 PatchFiles
+RecompileConfigure
 if ($args[0] -eq "-devQ8")
 {
   BuildDevelopmentQ8
@@ -208,6 +215,10 @@ if ($args[0] -eq "-devQ8")
 elseif ($args[0] -eq "-devQ16")
 {
   BuildDevelopmentQ16
+}
+elseif ($args[0] -eq "-devQ16-HDRI")
+{
+  BuildDevelopmentQ16HDRI
 }
 else
 {

@@ -55,21 +55,6 @@ function CreateAnyCPUProjectFiles()
 
 function CreateNet20ProjectFiles()
 {
-  $path = FullPath "Magick.NET.Native\Magick.NET.Native.vcxproj"
-  $xml = [xml](get-content $path)
-  SelectNodes $xml "//msb:AdditionalLibraryDirectories" | Foreach {$_.InnerText = $_.InnerText.Replace("v4.0", "v2.0")}
-  SelectNodes $xml "//msb:ClCompile[@Include]" | Foreach {$_.SetAttribute("Include", "..\Magick.NET.Native\" + $_.GetAttribute("Include"))}
-  SelectNodes $xml "//msb:ClInclude[@Include]" | Foreach {$_.SetAttribute("Include", "..\Magick.NET.Native\" + $_.GetAttribute("Include"))}
-  SelectNodes $xml "//msb:EmbedManagedResourceFile" | Foreach {$_.InnerText = $_.InnerText.Replace("Resources\", "..\Magick.NET.Native\Resources\")}
-  SelectNodes $xml "//msb:None[@Include]" | Foreach {$_.SetAttribute("Include", "..\Magick.NET.Native\" + $_.GetAttribute("Include"))}
-  SelectNodes $xml "//msb:PlatformToolset" | Foreach {$_.InnerText = "v90"}
-  SelectNodes $xml "//msb:PreprocessorDefinitions" | Foreach {$_.InnerText = "NET20;" + $_.InnerText}
-  SelectNodes $xml "//msb:ResourceCompile[@Include]" | Foreach {$_.SetAttribute("Include", "..\Magick.NET.Native\" + $_.GetAttribute("Include"))}
-
-  $vcxproj = FullPath "Magick.NET.Native.net20\Magick.NET.Native.net20.vcxproj"
-  Write-Host "Creating file: $vcxproj"
-  $xml.Save($vcxproj)
-
   $path = FullPath "Magick.NET\Magick.NET.csproj"
   $xml = [xml](get-content $path)
   SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "NET20;" + $_.InnerText}
