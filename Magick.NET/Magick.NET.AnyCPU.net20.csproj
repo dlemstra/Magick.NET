@@ -479,5 +479,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\Magick.NET.AnyCPU\Magick.NET.AnyCPU.net20.targets" />
+  <Import Project="..\Magick.NET.AnyCPU\Magick.NET.AnyCPU.targets" />
 </Project>
