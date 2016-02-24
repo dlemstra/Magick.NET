@@ -179,6 +179,11 @@ function UpdateResourceFiles($builds, $version)
     }
 
     $platform = $($build.Platform)
+    if ($platform -eq "AnyCPU")
+    {
+      continue
+    }
+
     if ($platform -eq "x86")
     {
       $platform = "Win32"
