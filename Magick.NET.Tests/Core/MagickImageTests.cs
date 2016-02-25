@@ -1328,8 +1328,13 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
+        ColorAssert.AreNotEqual(MagickColors.Black, image, 400, 295);
+        ColorAssert.AreNotEqual(MagickColors.Blue, image, 455, 126);
+
         image.Edge(2);
-        Assert.Inconclusive("Needs implementation.");
+
+        ColorAssert.AreEqual(MagickColors.Black, image, 400, 295);
+        ColorAssert.AreEqual(MagickColors.Blue, image, 455, 126);
       }
     }
 
