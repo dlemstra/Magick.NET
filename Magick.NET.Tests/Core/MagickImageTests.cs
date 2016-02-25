@@ -1332,6 +1332,7 @@ namespace Magick.NET.Tests
         ColorAssert.AreNotEqual(MagickColors.Blue, image, 455, 126);
 
         image.Edge(2);
+        image.Clamp();
 
         ColorAssert.AreEqual(MagickColors.Black, image, 400, 295);
         ColorAssert.AreEqual(MagickColors.Blue, image, 455, 126);
