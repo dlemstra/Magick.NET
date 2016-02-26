@@ -39,7 +39,7 @@ MAGICK_NET_EXPORT size_t MagickSettings_CompressionMethod_Get(const ImageInfo *)
 MAGICK_NET_EXPORT void MagickSettings_CompressionMethod_Set(ImageInfo *, const size_t);
 
 MAGICK_NET_EXPORT MagickBooleanType MagickSettings_Debug_Get(const ImageInfo *);
-MAGICK_NET_EXPORT void MagickSettings_Debug_Set(ImageInfo *, const size_t MagickBooleanType);
+MAGICK_NET_EXPORT void MagickSettings_Debug_Set(ImageInfo *, const MagickBooleanType);
 
 MAGICK_NET_EXPORT const char *MagickSettings_Density_Get(const ImageInfo *);
 MAGICK_NET_EXPORT void MagickSettings_Density_Set(ImageInfo *, const char *);
@@ -55,9 +55,6 @@ MAGICK_NET_EXPORT void MagickSettings_Format_Set(ImageInfo *, const char *);
 
 MAGICK_NET_EXPORT const char *MagickSettings_Font_Get(const ImageInfo *);
 MAGICK_NET_EXPORT void MagickSettings_Font_Set(ImageInfo *, const char *);
-
-MAGICK_NET_EXPORT const char *MagickSettings_FontFamily_Get(const ImageInfo *);
-MAGICK_NET_EXPORT void MagickSettings_FontFamily_Set(ImageInfo *, const char *);
 
 MAGICK_NET_EXPORT const double MagickSettings_FontPointsize_Get(const ImageInfo *);
 MAGICK_NET_EXPORT void MagickSettings_FontPointsize_Set(ImageInfo *, const double);
