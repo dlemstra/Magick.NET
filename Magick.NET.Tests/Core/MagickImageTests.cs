@@ -1239,10 +1239,23 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Despeckle()
     {
-      using (MagickImage image = new MagickImage(Files.ConnectedComponentsPNG))
+      using (MagickImage image = new MagickImage(Files.NoisePNG))
       {
+#if Q8
+        MagickColor color = new MagickColor("#d1");
+#elif Q16 || Q16HDRI
+        MagickColor color = new MagickColor("#d1d1d1d1d1d1");
+#else
+#error Not implemented!
+#endif
+
+        ColorAssert.AreNotEqual(color, image, 130, 123);
+
         image.Despeckle();
-        Assert.Inconclusive("Needs implementation.");
+        image.Despeckle();
+        image.Despeckle();
+
+        ColorAssert.AreEqual(color, image, 130, 123);
       }
     }
 
@@ -3071,9 +3084,9 @@ namespace Magick.NET.Tests
       using (MagickImage image = new MagickImage(Files.NoisePNG))
       {
 #if Q8
-        var color = new MagickColor("#dd");
+        MagickColor color = new MagickColor("#dd");
 #elif Q16 || Q16HDRI
-        var color = new MagickColor("#deb5deb5deb5");
+        MagickColor color = new MagickColor("#deb5deb5deb5");
 #else
 #error Not implemented!
 #endif
