@@ -29,7 +29,7 @@ namespace ImageMagick
   ///<summary>
   /// Class that can be used to access an individual pixel of an image.
   ///</summary>
-  public sealed class Pixel //: IEquatable<Pixel>
+  public sealed class Pixel : IEquatable<Pixel>
   {
     private PixelCollection _Collection;
 
@@ -264,19 +264,19 @@ namespace ImageMagick
     ///</summary>
     public MagickColor ToColor()
     {
+      if (Value.Length == 0)
+        return null;
+
       if (Value.Length == 1)
         return new MagickColor(Value[0], Value[0], Value[0]);
 
       if (Value.Length == 2)
         return new MagickColor(Value[0], Value[0], Value[0], Value[1]);
 
-      if (Value.Length == 3)
+      if (Value.Length == 3 || (_Collection != null && _Collection.GetIndex(PixelChannel.Alpha) == -1))
         return new MagickColor(Value[0], Value[1], Value[2]);
 
-      if (Value.Length >= 4)
-        return new MagickColor(Value[0], Value[1], Value[2], Value[3]);
-
-      return null;
+      return new MagickColor(Value[0], Value[1], Value[2], Value[3]);
     }
   }
 }

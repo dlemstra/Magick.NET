@@ -103,6 +103,14 @@ namespace Magick.NET.Tests
       }
     }
 
+    public static string LetterJPG
+    {
+      get
+      {
+        return _Root + @"Images\Letter.jpg";
+      }
+    }
+
     public static string MagickNETIconPNG
     {
       get

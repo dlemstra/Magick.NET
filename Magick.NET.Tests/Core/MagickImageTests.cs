@@ -421,9 +421,9 @@ namespace Magick.NET.Tests
         image.AutoGamma();
 
 #if Q8
-        ColorAssert.AreEqual(new MagickColor("#00000144"), image, 496, 429);
+        ColorAssert.AreEqual(new MagickColor("#000001"), image, 496, 429);
 #elif Q16 || Q16HDRI
-        ColorAssert.AreEqual(new MagickColor("#00000003017E0044"), image, 496, 429);
+        ColorAssert.AreEqual(new MagickColor("#00000003017E"), image, 496, 429);
 #else
 #error Not implemented!
 #endif
@@ -1224,10 +1224,15 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Deskew()
     {
-      using (MagickImage image = new MagickImage(Files.ConnectedComponentsPNG))
+      using (MagickImage image = new MagickImage(Files.LetterJPG))
       {
+        image.ColorType = ColorType.Bilevel;
+
+        ColorAssert.AreEqual(MagickColors.White, image, 471, 92);
+
         image.Deskew(new Percentage(10));
-        Assert.Inconclusive("Needs implementation.");
+
+        ColorAssert.AreEqual(MagickColors.Black, image, 471, 92);
       }
     }
 
