@@ -1232,7 +1232,15 @@ namespace Magick.NET.Tests
 
         image.Deskew(new Percentage(10));
 
-        ColorAssert.AreEqual(MagickColors.Black, image, 471, 92);
+#if Q8
+        MagickColor color = MagickColors.Black;
+#elif Q16 || Q16HDRI
+        MagickColor color = new MagickColor("#007400740074");
+#else
+#error Not implemented!
+#endif
+
+        ColorAssert.AreEqual(color, image, 471, 92);
       }
     }
 
