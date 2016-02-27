@@ -767,6 +767,7 @@ namespace ImageMagick
       }
       set
       {
+        SetOption("gravity", EnumHelper.GetName(value));
         Drawing.TextGravity = value;
       }
     }
