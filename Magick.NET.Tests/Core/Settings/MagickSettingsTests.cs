@@ -255,6 +255,23 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_TextGravity()
+    {
+      using (MagickImage image = new MagickImage("xc:red", 300, 300))
+      {
+        image.Settings.BackgroundColor = MagickColors.Yellow;
+        image.Settings.StrokeColor = MagickColors.Fuchsia;
+        image.Settings.FillColor = MagickColors.Fuchsia;
+        image.Settings.TextGravity = Gravity.Center;
+
+        image.Read("label:Test");
+
+        ColorAssert.AreEqual(MagickColors.Yellow, image, 50, 80);
+        ColorAssert.AreEqual(MagickColors.Fuchsia, image, 50, 160);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_Transform()
     {
       using (MagickImage image = new MagickImage())
