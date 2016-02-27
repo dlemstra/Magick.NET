@@ -267,12 +267,12 @@ MAGICK_NET_EXPORT void DrawingSettings_TextEncoding_Set(DrawInfo *instance, cons
 
 MAGICK_NET_EXPORT size_t DrawingSettings_TextGravity_Get(const DrawInfo *instance)
 {
-  return instance->gravity;
+  return (size_t) instance->gravity;
 }
 
 MAGICK_NET_EXPORT void DrawingSettings_TextGravity_Set(DrawInfo *instance, const size_t value)
 {
-  instance->gravity = value;
+  instance->gravity = (GravityType) value;
 }
 
 MAGICK_NET_EXPORT double DrawingSettings_TextInterlineSpacing_Get(const DrawInfo *instance)
