@@ -14,13 +14,8 @@
 
 #include "Stdafx.h"
 #include "DrawingSettings.h"
-#if defined(NET20)
-#include "../Colors/MagickColor.h"
-#include "../MagickImage.h"
-#else
 #include "Colors/MagickColor.h"
 #include "MagickImage.h"
-#endif
 
 #define MagickPI 3.14159265358979323846264338327950288419716939937510
 #define DegreesToRadians(x) (MagickPI*(x)/180.0)

@@ -14,11 +14,7 @@
 
 #include "Stdafx.h"
 #include "MagickSettings.h"
-#if defined(NET20)
-#include "../Colors/MagickColor.h"
-#else
 #include "Colors/MagickColor.h"
-#endif
 
 MAGICK_NET_EXPORT ImageInfo *MagickSettings_Create(void)
 {
