@@ -255,6 +255,21 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_StrokeWidth()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.Purple, 300, 300))
+      {
+        image.Settings.StrokeWidth = 40;
+        image.Settings.StrokeColor = MagickColors.Orange;
+        image.Draw(new DrawableCircle(150, 150, 100, 100));
+
+        ColorAssert.AreEqual(MagickColors.Black, image, 150, 150);
+        ColorAssert.AreEqual(MagickColors.Orange, image, 201, 150);
+        ColorAssert.AreEqual(MagickColors.Purple, image, 244, 150);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_TextGravity()
     {
       using (MagickImage image = new MagickImage("xc:red", 300, 300))
@@ -268,6 +283,79 @@ namespace Magick.NET.Tests
 
         ColorAssert.AreEqual(MagickColors.Yellow, image, 50, 80);
         ColorAssert.AreEqual(MagickColors.Fuchsia, image, 50, 160);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_TextInterlineSpacing()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.TextInterlineSpacing = 10;
+        image.Read("label:First\nSecond");
+
+        Assert.AreEqual(43, image.Width);
+        Assert.AreEqual(39, image.Height);
+
+        image.Settings.TextInterlineSpacing = 20;
+        image.Read("label:First\nSecond");
+
+        Assert.AreEqual(43, image.Width);
+        Assert.AreEqual(49, image.Height);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_TextInterwordSpacing()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.TextInterwordSpacing = 10;
+        image.Read("label:First second");
+
+        Assert.AreEqual(74, image.Width);
+        Assert.AreEqual(15, image.Height);
+
+        image.Settings.TextInterwordSpacing = 20;
+        image.Read("label:First second");
+
+        Assert.AreEqual(84, image.Width);
+        Assert.AreEqual(15, image.Height);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_TextKerning()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.TextKerning = 10;
+        image.Read("label:First");
+
+        Assert.AreEqual(66, image.Width);
+        Assert.AreEqual(15, image.Height);
+
+        image.Settings.TextKerning = 20;
+        image.Read("label:First");
+
+        Assert.AreEqual(106, image.Width);
+        Assert.AreEqual(15, image.Height);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_TextUnderColor()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.TextUnderColor = MagickColors.Purple;
+        image.Read("label:First");
+
+        Assert.AreEqual(26, image.Width);
+        Assert.AreEqual(15, image.Height);
+
+        ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
+        ColorAssert.AreEqual(MagickColors.White, image, 24, 0);
       }
     }
 

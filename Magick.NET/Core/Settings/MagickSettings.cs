@@ -119,6 +119,11 @@ namespace ImageMagick
         return EnumHelper.GetName(GetModule(format)) + ":" + name;
     }
 
+    private void SetOptionAndArtifact(string key, double value)
+    {
+      SetOptionAndArtifact(key, value.ToString(CultureInfo.InvariantCulture));
+    }
+
     private void SetOptionAndArtifact(string key, string value)
     {
       _NativeInstance.SetOption(key, value);
@@ -523,7 +528,7 @@ namespace ImageMagick
 
         int fontweight;
         int.TryParse(weight, NumberStyles.Number, CultureInfo.InvariantCulture, out fontweight);
-        return EnumHelper.Parse(fontweight, ImageMagick.FontWeight.Undefined);
+        return EnumHelper.Parse(fontweight, FontWeight.Undefined);
       }
       set
       {
@@ -707,6 +712,7 @@ namespace ImageMagick
       }
       set
       {
+        SetOptionAndArtifact("strokewidth", value);
         Drawing.StrokeWidth = value;
       }
     }
@@ -767,7 +773,7 @@ namespace ImageMagick
       }
       set
       {
-        SetOption("gravity", EnumHelper.GetName(value));
+        SetOptionAndArtifact("gravity", EnumHelper.GetName(value));
         Drawing.TextGravity = value;
       }
     }
@@ -783,6 +789,7 @@ namespace ImageMagick
       }
       set
       {
+        SetOptionAndArtifact("interline-spacing", value);
         Drawing.TextInterlineSpacing = value;
       }
     }
@@ -798,6 +805,7 @@ namespace ImageMagick
       }
       set
       {
+        SetOptionAndArtifact("interword-spacing", value);
         Drawing.TextInterwordSpacing = value;
       }
     }
@@ -813,6 +821,7 @@ namespace ImageMagick
       }
       set
       {
+        SetOptionAndArtifact("kerning", value);
         Drawing.TextKerning = value;
       }
     }
@@ -828,6 +837,7 @@ namespace ImageMagick
       }
       set
       {
+        SetOptionAndArtifact("undercolor", MagickColor.ToString(value));
         Drawing.TextUnderColor = value;
       }
     }
