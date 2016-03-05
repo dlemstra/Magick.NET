@@ -298,7 +298,7 @@ namespace Magick.NET.Tests
         image.Settings.StrokeColor = MagickColors.Purple;
         image.Annotate("Magick.NET", Gravity.East);
 
-        ColorAssert.AreEqual(MagickColors.Purple, image, 198, 15);
+        ColorAssert.AreEqual(MagickColors.Purple, image, 197, 15);
         ColorAssert.AreEqual(MagickColors.Thistle, image, 199, 15);
       }
 
@@ -1540,7 +1540,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(-3, typeMetric.Descent);
         Assert.AreEqual(30, typeMetric.MaxHorizontalAdvance);
         Assert.AreEqual(17, typeMetric.TextHeight);
-        Assert.AreEqual(82.64, typeMetric.TextWidth, 0.01);
+        Assert.AreEqual(83, typeMetric.TextWidth);
         Assert.AreEqual(-4.5625, typeMetric.UnderlinePosition);
         Assert.AreEqual(2.34375, typeMetric.UnderlineThickness);
 
@@ -1551,7 +1551,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(-32, typeMetric.Descent);
         Assert.AreEqual(300, typeMetric.MaxHorizontalAdvance);
         Assert.AreEqual(172, typeMetric.TextHeight);
-        Assert.AreEqual(810.48, typeMetric.TextWidth, 0.01);
+        Assert.AreEqual(814, typeMetric.TextWidth);
         Assert.AreEqual(-4.5625, typeMetric.UnderlinePosition);
         Assert.AreEqual(2.34375, typeMetric.UnderlineThickness);
       }
@@ -3156,6 +3156,7 @@ namespace Magick.NET.Tests
 
         ColorAssert.AreNotEqual(color, image, 130, 123);
 
+        image.ColorType = ColorType.TrueColor;
         image.WaveletDenoise((Percentage)25);
 
         ColorAssert.AreEqual(color, image, 130, 123);

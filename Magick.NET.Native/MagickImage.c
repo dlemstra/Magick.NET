@@ -2408,13 +2408,13 @@ MAGICK_NET_EXPORT Image *MagickImage_Wave(const Image *instance, const size_t me
   return image;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_WaveletDenoise(const Image *instance, const double threshold, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_WaveletDenoise(const Image *instance, const double threshold, const double softness, ExceptionInfo **exception)
 {
   Image
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
-  image = WaveletDenoiseImage(instance, threshold, exceptionInfo);
+  image = WaveletDenoiseImage(instance, threshold, softness, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }

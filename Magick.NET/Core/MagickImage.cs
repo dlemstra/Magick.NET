@@ -6324,7 +6324,20 @@ namespace ImageMagick
 #endif
     public void WaveletDenoise(QuantumType threshold)
     {
-      _NativeInstance.WaveletDenoise(threshold);
+      WaveletDenoise(threshold, 0.0);
+    }
+
+    /// <summary>
+    /// Removes noise from the image using a wavelet transform.
+    /// </summary>
+    /// <param name="threshold">The threshold for smoothing</param>
+    /// <param name="softness">Attenuate the smoothing threshold.</param>
+#if Q16
+    [CLSCompliant(false)]
+#endif
+    public void WaveletDenoise(QuantumType threshold, double softness)
+    {
+      _NativeInstance.WaveletDenoise(threshold, 0.0);
     }
 
     /// <summary>
@@ -6333,7 +6346,17 @@ namespace ImageMagick
     /// <param name="thresholdPercentage">The threshold for smoothing</param>
     public void WaveletDenoise(Percentage thresholdPercentage)
     {
-      WaveletDenoise(thresholdPercentage.ToQuantum());
+      WaveletDenoise(thresholdPercentage.ToQuantum(), 0.0);
+    }
+
+    /// <summary>
+    /// Removes noise from the image using a wavelet transform.
+    /// </summary>
+    /// <param name="thresholdPercentage">The threshold for smoothing</param>
+    /// <param name="softness">Attenuate the smoothing threshold.</param>
+    public void WaveletDenoise(Percentage thresholdPercentage, double softness)
+    {
+      WaveletDenoise(thresholdPercentage.ToQuantum(), softness);
     }
 
     ///<summary>
