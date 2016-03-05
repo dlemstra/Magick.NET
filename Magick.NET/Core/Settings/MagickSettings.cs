@@ -54,10 +54,12 @@ namespace ImageMagick
 
     private void ApplyDimensions(MagickReadSettings readSettings)
     {
-      if (!readSettings.Width.HasValue || !readSettings.Height.HasValue)
-        return;
-
-      _NativeInstance.SetSize(readSettings.Width + "x" + readSettings.Height);
+      if (readSettings.Width.HasValue && readSettings.Height.HasValue)
+        _NativeInstance.SetSize(readSettings.Width + "x" + readSettings.Height);
+      else if (readSettings.Width.HasValue)
+        _NativeInstance.SetSize(readSettings.Width + "x");
+      else if (readSettings.Height.HasValue)
+        _NativeInstance.SetSize("x" + readSettings.Height);
     }
 
     private void ApplyFormat(MagickReadSettings readSettings)

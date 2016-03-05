@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
-    public void Test_Image_Read()
+    public void Test_Image_Read_Density()
     {
       using (MagickImage image = new MagickImage())
       {
@@ -81,7 +81,11 @@ namespace Magick.NET.Tests
         settings = null;
         image.Read(Files.ImageMagickJPG, settings);
       }
+    }
 
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Image_Read_FrameIndex()
+    {
       using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
       {
         MagickImage imageA = new MagickImage();
@@ -120,6 +124,37 @@ namespace Magick.NET.Tests
 
         imageA.Dispose();
         imageB.Dispose();
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Image_Read_Dimensions()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        MagickReadSettings settings = new MagickReadSettings();
+        settings.Width = 10;
+
+        image.Read("xc:fuchsia", settings);
+
+        Assert.AreEqual(10, image.Width);
+        Assert.AreEqual(1, image.Height);
+
+        settings.Width = null;
+        settings.Height = 20;
+
+        image.Read("xc:fuchsia", settings);
+
+        Assert.AreEqual(1, image.Width);
+        Assert.AreEqual(20, image.Height);
+
+        settings.Width = 30;
+        settings.Height = 40;
+
+        image.Read("xc:fuchsia", settings);
+
+        Assert.AreEqual(30, image.Width);
+        Assert.AreEqual(40, image.Height);
       }
     }
   }

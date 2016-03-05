@@ -245,6 +245,17 @@ namespace Magick.NET.Tests
       }
     }
 
+    public static class Logos
+    {
+      public static string MagickNETSVG
+      {
+        get
+        {
+          return _Root + @"..\Logo\Magick.NET.svg";
+        }
+      }
+    }
+
     public static class Patterns
     {
       public static string Checkerboard
