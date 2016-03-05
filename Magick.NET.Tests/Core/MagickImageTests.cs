@@ -983,6 +983,61 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_Composite_Gravity()
+    {
+      MagickColor backgroundColor = MagickColors.LightBlue;
+      MagickColor overlayColor = MagickColors.YellowGreen;
+
+      using (MagickImage background = new MagickImage(backgroundColor, 100, 100))
+      {
+        using (MagickImage overlay = new MagickImage(overlayColor, 50, 50))
+        {
+          background.Composite(overlay, Gravity.West, CompositeOperator.Over);
+
+          ColorAssert.AreEqual(backgroundColor, background, 0, 0);
+          ColorAssert.AreEqual(overlayColor, background, 0, 25);
+          ColorAssert.AreEqual(backgroundColor, background, 0, 75);
+
+          ColorAssert.AreEqual(backgroundColor, background, 49, 0);
+          ColorAssert.AreEqual(overlayColor, background, 49, 25);
+          ColorAssert.AreEqual(backgroundColor, background, 49, 75);
+
+          ColorAssert.AreEqual(backgroundColor, background, 50, 0);
+          ColorAssert.AreEqual(backgroundColor, background, 50, 25);
+          ColorAssert.AreEqual(backgroundColor, background, 50, 75);
+
+          ColorAssert.AreEqual(backgroundColor, background, 99, 0);
+          ColorAssert.AreEqual(backgroundColor, background, 99, 25);
+          ColorAssert.AreEqual(backgroundColor, background, 99, 75);
+        }
+      }
+
+      using (MagickImage background = new MagickImage(backgroundColor, 100, 100))
+      {
+        using (MagickImage overlay = new MagickImage(overlayColor, 50, 50))
+        {
+          background.Composite(overlay, Gravity.East, CompositeOperator.Over);
+
+          ColorAssert.AreEqual(backgroundColor, background, 0, 0);
+          ColorAssert.AreEqual(backgroundColor, background, 0, 50);
+          ColorAssert.AreEqual(backgroundColor, background, 0, 75);
+
+          ColorAssert.AreEqual(backgroundColor, background, 49, 0);
+          ColorAssert.AreEqual(backgroundColor, background, 49, 25);
+          ColorAssert.AreEqual(backgroundColor, background, 49, 75);
+
+          ColorAssert.AreEqual(backgroundColor, background, 50, 0);
+          ColorAssert.AreEqual(overlayColor, background, 50, 25);
+          ColorAssert.AreEqual(backgroundColor, background, 50, 75);
+
+          ColorAssert.AreEqual(backgroundColor, background, 99, 0);
+          ColorAssert.AreEqual(overlayColor, background, 99, 25);
+          ColorAssert.AreEqual(backgroundColor, background, 99, 75);
+        }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_ConnectedComponents()
     {
       using (MagickImage image = new MagickImage(Files.ConnectedComponentsPNG))

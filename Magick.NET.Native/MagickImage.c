@@ -1016,7 +1016,7 @@ MAGICK_NET_EXPORT void MagickImage_CompositeGravity(Image *instance, const Image
   RectangleInfo
     geometry;
 
-  SetGeometry(instance, &geometry);
+  SetGeometry(reference, &geometry);
   GravityAdjustGeometry(instance->columns, instance->rows, gravity, &geometry);
   MagickImage_Composite(instance, reference, geometry.x, geometry.y, compose, exception);
 }
