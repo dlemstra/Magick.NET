@@ -25,5 +25,5 @@ function BuildMagickNET()
 }
 
 BuildMagickNET
-GenerateFiles
+GenerateFiles("MagickScript")
 BuildMagickNET

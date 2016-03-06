@@ -16,7 +16,6 @@ $scriptPath = Split-Path -parent $MyInvocation.MyCommand.Path
 SetFolder $scriptPath
 
 . Tools\Scripts\Shared\GzipAssembly.ps1
-. Tools\Scripts\Shared\FileGenerator.ps1
 . Tools\Scripts\Shared\ProjectFiles.ps1
 
 function BuildMagickNET()
