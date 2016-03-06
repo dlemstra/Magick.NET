@@ -111,6 +111,7 @@
     <Compile Include="Core\Coders\PdfTests.cs" />
     <Compile Include="Core\Coders\PsdTests.cs" />
     <Compile Include="Core\Coders\RgbTests.cs" />
+    <Compile Include="Core\Coders\SvgTests.cs" />
     <Compile Include="Core\Coders\TiffTests.cs" />
     <Compile Include="Core\Colors\ColorBaseTests.cs" />
     <Compile Include="Core\Colors\ColorCMYKTests.cs" />
