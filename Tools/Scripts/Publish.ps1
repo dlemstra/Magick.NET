@@ -134,7 +134,7 @@ function CopyZipFiles($builds)
 
     if ($build.Platform -ne "AnyCPU")
     {
-      Copy-Item "Magick.NET.Native$($build.Suffix)\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" $dir
+      Copy-Item "Magick.NET.Native\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" $dir
     }
 
     if ($build.Framework -ne "v4.0")
