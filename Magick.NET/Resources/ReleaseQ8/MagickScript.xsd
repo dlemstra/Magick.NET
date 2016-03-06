@@ -2708,6 +2708,13 @@
             <xs:attribute name="method" type="PixelInterpolateMethod" />
           </xs:complexType>
         </xs:element>
+        <xs:element name="waveletDenoise">
+          <xs:complexType>
+            <xs:attribute name="softness" type="double" />
+            <xs:attribute name="threshold" type="byte" />
+            <xs:attribute name="thresholdPercentage" type="double" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="whiteThreshold">
           <xs:complexType>
             <xs:attribute name="channels" type="Channels" />

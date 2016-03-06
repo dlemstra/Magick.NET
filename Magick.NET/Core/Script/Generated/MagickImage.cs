@@ -1330,8 +1330,17 @@ namespace ImageMagick
             }
             case 'a':
             {
-              ExecuteWave(element, image);
-              return;
+              if (element.Name.Length == 4)
+              {
+                ExecuteWave(element, image);
+                return;
+              }
+              if (element.Name.Length == 14)
+              {
+                ExecuteWaveletDenoise(element, image);
+                return;
+              }
+              break;
             }
             case 'h':
             {
@@ -3715,6 +3724,29 @@ namespace ImageMagick
         image.Wave((PixelInterpolateMethod)arguments["method"], (double)arguments["amplitude"], (double)arguments["length"]);
       else
         throw new ArgumentException("Invalid argument combination for 'wave', allowed combinations are: [] [method, amplitude, length]");
+    }
+    private void ExecuteWaveletDenoise(XmlElement element, MagickImage image)
+    {
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "softness")
+          arguments["softness"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "threshold")
+          arguments["threshold"] = Variables.GetValue<QuantumType>(attribute);
+        else if (attribute.Name == "thresholdPercentage")
+          arguments["thresholdPercentage"] = Variables.GetValue<Percentage>(attribute);
+      }
+      if (OnlyContains(arguments, "threshold"))
+        image.WaveletDenoise((QuantumType)arguments["threshold"]);
+      else if (OnlyContains(arguments, "threshold", "softness"))
+        image.WaveletDenoise((QuantumType)arguments["threshold"], (double)arguments["softness"]);
+      else if (OnlyContains(arguments, "thresholdPercentage"))
+        image.WaveletDenoise((Percentage)arguments["thresholdPercentage"]);
+      else if (OnlyContains(arguments, "thresholdPercentage", "softness"))
+        image.WaveletDenoise((Percentage)arguments["thresholdPercentage"], (double)arguments["softness"]);
+      else
+        throw new ArgumentException("Invalid argument combination for 'waveletDenoise', allowed combinations are: [threshold] [threshold, softness] [thresholdPercentage] [thresholdPercentage, softness]");
     }
     private void ExecuteWhiteThreshold(XmlElement element, MagickImage image)
     {
