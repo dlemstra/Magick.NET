@@ -1,6 +1,6 @@
 ﻿{
   "access": "internal",
-  "dynamic": 3,
+  "dynamic": "Both",
   "properties":
   [
     {

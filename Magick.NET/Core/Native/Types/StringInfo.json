@@ -1,5 +1,5 @@
 ﻿{
-  "dynamic": 1,
+  "dynamic": "NativeToManaged",
   "access": "internal",
   "const": true,
   "nativeConstructor": true,

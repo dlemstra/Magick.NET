@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -32,6 +33,13 @@ namespace FileGenerator.Native
 
     [DataMember(Name = "properties")]
     private List<MagickProperty> _Properties = new List<MagickProperty>();
+
+    [DataMember(Name = "dynamic")]
+    private string _Dynamic
+    {
+      get;
+      set;
+    }
 
     [DataMember(Name = "nativeConstructor")]
     private bool _HasNativeConstructor
@@ -77,11 +85,16 @@ namespace FileGenerator.Native
       }
     }
 
-    [DataMember(Name = "dynamic")]
+    
     public DynamicMode DynamicMode
     {
-      get;
-      set;
+      get
+      {
+        if (string.IsNullOrEmpty(_Dynamic))
+          return DynamicMode.None;
+
+        return (DynamicMode)Enum.Parse(typeof(DynamicMode), _Dynamic);
+      }
     }
 
     public string FileName

@@ -1,6 +1,6 @@
 ﻿{
   "namespace": "ImageMagick.ImageOptimizers",
-  "dynamic": 1,
+  "dynamic": "NativeToManaged",
   "instance": false,
   "methods":
   [

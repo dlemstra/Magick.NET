@@ -1,5 +1,5 @@
 ﻿{
-  "dynamic": 1,
+  "dynamic": "NativeToManaged",
   "const": true,
   "nativeConstructor": true,
   "methods":

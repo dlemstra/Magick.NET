@@ -1,5 +1,5 @@
 ﻿{
-  "dynamic": 2,
+  "dynamic": "ManagedToNative",
   "constructor":
   {
     "arguments":
