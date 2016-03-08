@@ -1546,34 +1546,6 @@
             <xs:attribute name="value" use="required" type="bool" />
           </xs:complexType>
         </xs:element>
-        <xs:element name="resetTransform" type="empty" />
-        <xs:element name="setTransformOrigin">
-          <xs:complexType>
-            <xs:attribute name="x" use="required" type="double" />
-            <xs:attribute name="y" use="required" type="double" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="setTransformRotation">
-          <xs:complexType>
-            <xs:attribute name="angle" use="required" type="double" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="setTransformScale">
-          <xs:complexType>
-            <xs:attribute name="x" use="required" type="double" />
-            <xs:attribute name="y" use="required" type="double" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="setTransformSkewX">
-          <xs:complexType>
-            <xs:attribute name="value" use="required" type="double" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="setTransformSkewY">
-          <xs:complexType>
-            <xs:attribute name="value" use="required" type="double" />
-          </xs:complexType>
-        </xs:element>
       </xs:choice>
     </xs:sequence>
   </xs:complexType>

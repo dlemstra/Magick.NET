@@ -13,394 +13,283 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace ImageMagick
 {
   internal sealed partial class DrawingSettings
   {
-    private void DisposeInstance()
+    private double[] _StrokeDashArray;
+
+    private INativeInstance CreateNativeInstance()
     {
-      if (_NativeInstance != null)
-        _NativeInstance.Dispose();
+      NativeDrawingSettings instance = new NativeDrawingSettings();
+      instance.BorderColor = BorderColor;
+      instance.FillColor = FillColor;
+      instance.FillPattern = FillPattern;
+      instance.FillRule = FillRule;
+      instance.Font = Font;
+      instance.FontFamily = FontFamily;
+      instance.FontPointsize = FontPointsize;
+      instance.FontStyle = FontStyle;
+      instance.FontWeight = FontWeight;
+      instance.StrokeAntiAlias = StrokeAntiAlias;
+      instance.StrokeColor = StrokeColor;
+      instance.StrokeDashOffset = StrokeDashOffset;
+      instance.StrokeLineCap = StrokeLineCap;
+      instance.StrokeLineJoin = StrokeLineJoin;
+      instance.StrokeMiterLimit = StrokeMiterLimit;
+      instance.StrokePattern = StrokePattern;
+      instance.StrokeWidth = StrokeWidth;
+      instance.TextAntiAlias = TextAntiAlias;
+      instance.TextDirection = TextDirection;
+      if (TextEncoding != null)
+        instance.TextEncoding = TextEncoding.WebName;
+      instance.TextGravity = TextGravity;
+      instance.TextInterlineSpacing = TextInterlineSpacing;
+      instance.TextInterwordSpacing = TextInterwordSpacing;
+      instance.TextKerning = TextKerning;
+      instance.TextUnderColor = TextUnderColor;
+
+      if (Affine != null)
+        instance.SetAffine(Affine.ScaleX, Affine.ScaleY, Affine.ShearX, Affine.ShearY, Affine.TranslateX, Affine.TranslateY);
+      if (_StrokeDashArray != null)
+        instance.SetStrokeDashArray(_StrokeDashArray, _StrokeDashArray.Length);
+      instance.SetText(Text);
+
+      return instance;
+    }
+
+    private Encoding GetTextEncoding(NativeDrawingSettings instance)
+    {
+      string name = instance.TextEncoding;
+      if (string.IsNullOrEmpty(name))
+        return null;
+
+      try
+      {
+        return Encoding.GetEncoding(name);
+      }
+      catch (ArgumentException)
+      {
+        return null;
+      }
+    }
+
+    private double[] GetStrokeDashArray(NativeDrawingSettings instance)
+    {
+      UIntPtr length;
+      IntPtr data = instance.GetStrokeDashArray(out length);
+      return DoubleConverter.ToArray(data, (int)length);
     }
 
     internal DrawingSettings()
     {
-      _NativeInstance = new NativeDrawingSettings();
+      using (NativeDrawingSettings instance = new NativeDrawingSettings())
+      {
+        BorderColor = instance.BorderColor;
+        FillColor = instance.FillColor;
+        FillRule = instance.FillRule;
+        FillPattern = null;
+        Font = instance.Font;
+        FontFamily = instance.FontFamily;
+        FontPointsize = instance.FontPointsize;
+        FontStyle = instance.FontStyle;
+        FontWeight = instance.FontWeight;
+        StrokeAntiAlias = instance.StrokeAntiAlias;
+        StrokeColor = instance.StrokeColor;
+        _StrokeDashArray = GetStrokeDashArray(instance);
+        StrokeDashOffset = instance.StrokeDashOffset;
+        StrokeLineCap = instance.StrokeLineCap;
+        StrokeLineJoin = instance.StrokeLineJoin;
+        StrokeMiterLimit = instance.StrokeMiterLimit;
+        StrokePattern = null;
+        StrokeWidth = instance.StrokeWidth;
+        TextAntiAlias = instance.TextAntiAlias;
+        TextDirection = instance.TextDirection;
+        TextEncoding = GetTextEncoding(instance);
+        TextGravity = instance.TextGravity;
+        TextInterlineSpacing = instance.TextInterlineSpacing;
+        TextInterwordSpacing = instance.TextInterwordSpacing;
+        TextKerning = instance.TextKerning;
+        TextUnderColor = instance.TextUnderColor;
+      }
     }
 
-    ~DrawingSettings()
+    public DrawableAffine Affine
     {
-      DisposeInstance();
+      get;
+      set;
     }
 
     public MagickColor BorderColor
     {
-      get
-      {
-        return _NativeInstance.BorderColor;
-      }
-      set
-      {
-        _NativeInstance.BorderColor = value;
-      }
+      get;
+      set;
     }
 
     public MagickColor FillColor
     {
-      get
-      {
-        return _NativeInstance.FillColor;
-      }
-      set
-      {
-        _NativeInstance.FillColor = value;
-      }
+      get;
+      set;
     }
 
     public MagickImage FillPattern
     {
-      get
-      {
-        return _NativeInstance.FillPattern;
-      }
-      set
-      {
-        _NativeInstance.FillPattern = value;
-      }
+      get;
+      set;
     }
 
     public FillRule FillRule
     {
-      get
-      {
-        return _NativeInstance.FillRule;
-      }
-      set
-      {
-        _NativeInstance.FillRule = value;
-      }
+      get;
+      set;
     }
 
     public string Font
     {
-      get
-      {
-        return _NativeInstance.Font;
-      }
-      set
-      {
-        _NativeInstance.Font = value;
-      }
+      get;
+      set;
     }
 
     public string FontFamily
     {
-      get
-      {
-        return _NativeInstance.FontFamily;
-      }
-      set
-      {
-        _NativeInstance.FontFamily = value;
-      }
+      get;
+      set;
     }
 
     public double FontPointsize
     {
-      get
-      {
-        return _NativeInstance.FontPointsize;
-      }
-      set
-      {
-        _NativeInstance.FontPointsize = value;
-      }
+      get;
+      set;
     }
 
     public FontStyleType FontStyle
     {
-      get
-      {
-        return _NativeInstance.FontStyle;
-      }
-      set
-      {
-        _NativeInstance.FontStyle = value;
-      }
+      get;
+      set;
     }
 
     public FontWeight FontWeight
     {
-      get
-      {
-        return _NativeInstance.FontWeight;
-      }
-      set
-      {
-        _NativeInstance.FontWeight = value;
-      }
+      get;
+      set;
     }
 
     public bool StrokeAntiAlias
     {
-      get
-      {
-        return _NativeInstance.StrokeAntiAlias;
-      }
-      set
-      {
-        _NativeInstance.StrokeAntiAlias = value;
-      }
+      get;
+      set;
     }
 
     public MagickColor StrokeColor
     {
-      get
-      {
-        return _NativeInstance.StrokeColor;
-      }
-      set
-      {
-        _NativeInstance.StrokeColor = value;
-      }
+      get;
+      set;
     }
 
-    public double[] StrokeDashArray
+    public IEnumerable<double> StrokeDashArray
     {
       get
       {
-        UIntPtr length;
-        IntPtr data = _NativeInstance.GetStrokeDashArray(out length);
-        return DoubleConverter.ToArray(data, (int)length);
+        return _StrokeDashArray;
       }
       set
       {
-        if (value != null && value.Length > 0)
-          _NativeInstance.SetStrokeDashArray(value, value.Length);
+        if (value != null)
+          _StrokeDashArray = new List<double>(value).ToArray();
       }
     }
 
     public double StrokeDashOffset
     {
-      get
-      {
-        return _NativeInstance.StrokeDashOffset;
-      }
-      set
-      {
-        _NativeInstance.StrokeDashOffset = value;
-      }
+      get;
+      set;
     }
 
     public LineCap StrokeLineCap
     {
-      get
-      {
-        return _NativeInstance.StrokeLineCap;
-      }
-      set
-      {
-        _NativeInstance.StrokeLineCap = value;
-      }
+      get;
+      set;
     }
 
     public LineJoin StrokeLineJoin
     {
-      get
-      {
-        return _NativeInstance.StrokeLineJoin;
-      }
-      set
-      {
-        _NativeInstance.StrokeLineJoin = value;
-      }
+      get;
+      set;
     }
 
     public int StrokeMiterLimit
     {
-      get
-      {
-        return _NativeInstance.StrokeMiterLimit;
-      }
-      set
-      {
-        _NativeInstance.StrokeMiterLimit = value;
-      }
+      get;
+      set;
     }
 
     public MagickImage StrokePattern
     {
-      get
-      {
-        return _NativeInstance.StrokePattern;
-      }
-      set
-      {
-        _NativeInstance.StrokePattern = value;
-      }
+      get;
+      set;
     }
 
     public double StrokeWidth
     {
-      get
-      {
-        return _NativeInstance.StrokeWidth;
-      }
-      set
-      {
-        _NativeInstance.StrokeWidth = value;
-      }
+      get;
+      set;
+    }
+
+    public string Text
+    {
+      get;
+      set;
     }
 
     public bool TextAntiAlias
     {
-      get
-      {
-        return _NativeInstance.TextAntiAlias;
-      }
-      set
-      {
-        _NativeInstance.TextAntiAlias = value;
-      }
+      get;
+      set;
     }
 
     public TextDirection TextDirection
     {
-      get
-      {
-        return _NativeInstance.TextDirection;
-      }
-      set
-      {
-        _NativeInstance.TextDirection = value;
-      }
+      get;
+      set;
     }
 
     public Encoding TextEncoding
     {
-      get
-      {
-        string name = _NativeInstance.TextEncoding;
-        if (string.IsNullOrEmpty(name))
-          return null;
-
-        try
-        {
-          return Encoding.GetEncoding(name);
-        }
-        catch (ArgumentException)
-        {
-          return null;
-        }
-      }
-      set
-      {
-        if (value != null)
-          _NativeInstance.TextEncoding = value.WebName;
-      }
+      get;
+      set;
     }
 
     public Gravity TextGravity
     {
-      get
-      {
-        return _NativeInstance.TextGravity;
-      }
-      set
-      {
-        _NativeInstance.TextGravity = value;
-      }
+      get;
+      set;
     }
 
     public double TextInterlineSpacing
     {
-      get
-      {
-        return _NativeInstance.TextInterlineSpacing;
-      }
-      set
-      {
-        _NativeInstance.TextInterlineSpacing = value;
-      }
+      get;
+      set;
     }
 
     public double TextInterwordSpacing
     {
-      get
-      {
-        return _NativeInstance.TextInterwordSpacing;
-      }
-      set
-      {
-        _NativeInstance.TextInterwordSpacing = value;
-      }
+      get;
+      set;
     }
 
     public double TextKerning
     {
-      get
-      {
-        return _NativeInstance.TextKerning;
-      }
-      set
-      {
-        _NativeInstance.TextKerning = value;
-      }
+      get;
+      set;
     }
 
     public MagickColor TextUnderColor
     {
-      get
-      {
-        return _NativeInstance.TextUnderColor;
-      }
-      set
-      {
-        _NativeInstance.TextUnderColor = value;
-      }
-    }
-
-    public void Dispose()
-    {
-      DisposeInstance();
-      GC.SuppressFinalize(this);
-    }
-
-    internal void ResetTransform()
-    {
-      _NativeInstance.ResetTransform();
-    }
-
-    public void SetText(string value)
-    {
-      _NativeInstance.SetText(value);
-    }
-
-    public void SetTransformOrigin(double x, double y)
-    {
-      _NativeInstance.SetTransformOrigin(x, y);
-    }
-
-    public void SetTransformRotation(double angle)
-    {
-      _NativeInstance.SetTransformRotation(angle);
-    }
-
-    internal void SetTransformScale(double x, double y)
-    {
-      _NativeInstance.SetTransformScale(x, y);
-    }
-
-    internal void SetTransformSkewX(double value)
-    {
-      _NativeInstance.SetTransformSkewX(value);
-    }
-
-    internal void SetTransformSkewY(double value)
-    {
-      _NativeInstance.SetTransformSkewY(value);
+      get;
+      set;
     }
   }
 }

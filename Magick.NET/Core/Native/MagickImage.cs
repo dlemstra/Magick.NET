@@ -2167,29 +2167,35 @@ namespace ImageMagick
       }
       public void Annotate(DrawingSettings settings, string text, string boundingArea, Gravity gravity, double degrees)
       {
-        using (INativeInstance textNative = UTF8Marshaler.CreateInstance(text))
+        using (INativeInstance settingsNative = DrawingSettings.CreateInstance(settings))
         {
-          using (INativeInstance boundingAreaNative = UTF8Marshaler.CreateInstance(boundingArea))
+          using (INativeInstance textNative = UTF8Marshaler.CreateInstance(text))
           {
-            IntPtr exception = IntPtr.Zero;
-            if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_Annotate(Instance, DrawingSettings.GetInstance(settings), textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
-            else
-              NativeMethods.X86.MagickImage_Annotate(Instance, DrawingSettings.GetInstance(settings), textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
-            CheckException(exception);
+            using (INativeInstance boundingAreaNative = UTF8Marshaler.CreateInstance(boundingArea))
+            {
+              IntPtr exception = IntPtr.Zero;
+              if (NativeLibrary.Is64Bit)
+                NativeMethods.X64.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
+              else
+                NativeMethods.X86.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
+              CheckException(exception);
+            }
           }
         }
       }
       public void AnnotateGravity(DrawingSettings settings, string text, Gravity gravity)
       {
-        using (INativeInstance textNative = UTF8Marshaler.CreateInstance(text))
+        using (INativeInstance settingsNative = DrawingSettings.CreateInstance(settings))
         {
-          IntPtr exception = IntPtr.Zero;
-          if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_AnnotateGravity(Instance, DrawingSettings.GetInstance(settings), textNative.Instance, (UIntPtr)gravity, out exception);
-          else
-            NativeMethods.X86.MagickImage_AnnotateGravity(Instance, DrawingSettings.GetInstance(settings), textNative.Instance, (UIntPtr)gravity, out exception);
-          CheckException(exception);
+          using (INativeInstance textNative = UTF8Marshaler.CreateInstance(text))
+          {
+            IntPtr exception = IntPtr.Zero;
+            if (NativeLibrary.Is64Bit)
+              NativeMethods.X64.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
+            else
+              NativeMethods.X86.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
+            CheckException(exception);
+          }
         }
       }
       public void AutoGamma(Channels channels)
@@ -2762,14 +2768,17 @@ namespace ImageMagick
       }
       public void FloodFill(DrawingSettings settings, int x, int y, MagickColor target, bool invert)
       {
-        using (INativeInstance targetNative = MagickColor.CreateInstance(target))
+        using (INativeInstance settingsNative = DrawingSettings.CreateInstance(settings))
         {
-          IntPtr exception = IntPtr.Zero;
-          if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_FloodFill(Instance, DrawingSettings.GetInstance(settings), (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
-          else
-            NativeMethods.X86.MagickImage_FloodFill(Instance, DrawingSettings.GetInstance(settings), (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
-          CheckException(exception);
+          using (INativeInstance targetNative = MagickColor.CreateInstance(target))
+          {
+            IntPtr exception = IntPtr.Zero;
+            if (NativeLibrary.Is64Bit)
+              NativeMethods.X64.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
+            else
+              NativeMethods.X86.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
+            CheckException(exception);
+          }
         }
       }
       public void Flop()
@@ -2785,23 +2794,26 @@ namespace ImageMagick
       }
       public IntPtr FontTypeMetrics(DrawingSettings settings, string text, bool ignoreNewLines)
       {
-        using (INativeInstance textNative = UTF8Marshaler.CreateInstance(text))
+        using (INativeInstance settingsNative = DrawingSettings.CreateInstance(settings))
         {
-          IntPtr exception = IntPtr.Zero;
-          IntPtr result;
-          if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_FontTypeMetrics(Instance, DrawingSettings.GetInstance(settings), textNative.Instance, ignoreNewLines, out exception);
-          else
-            result = NativeMethods.X86.MagickImage_FontTypeMetrics(Instance, DrawingSettings.GetInstance(settings), textNative.Instance, ignoreNewLines, out exception);
-          MagickException magickException = MagickExceptionHelper.Create(exception);
-          if (MagickExceptionHelper.IsError(magickException))
+          using (INativeInstance textNative = UTF8Marshaler.CreateInstance(text))
           {
-            if (result != IntPtr.Zero)
-              ImageMagick.TypeMetric.Dispose(result);
-            throw magickException;
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            if (NativeLibrary.Is64Bit)
+              result = NativeMethods.X64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, textNative.Instance, ignoreNewLines, out exception);
+            else
+              result = NativeMethods.X86.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, textNative.Instance, ignoreNewLines, out exception);
+            MagickException magickException = MagickExceptionHelper.Create(exception);
+            if (MagickExceptionHelper.IsError(magickException))
+            {
+              if (result != IntPtr.Zero)
+                ImageMagick.TypeMetric.Dispose(result);
+              throw magickException;
+            }
+            RaiseWarning(magickException);
+            return result;
           }
-          RaiseWarning(magickException);
-          return result;
         }
       }
       public string FormatExpression(MagickSettings settings, string expression)
@@ -3273,16 +3285,19 @@ namespace ImageMagick
       }
       public void Polaroid(DrawingSettings settings, string caption, double angle, PixelInterpolateMethod method)
       {
-        using (INativeInstance captionNative = UTF8Marshaler.CreateInstance(caption))
+        using (INativeInstance settingsNative = DrawingSettings.CreateInstance(settings))
         {
-          IntPtr exception = IntPtr.Zero;
-          IntPtr result;
-          if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Polaroid(Instance, DrawingSettings.GetInstance(settings), captionNative.Instance, angle, (UIntPtr)method, out exception);
-          else
-            result = NativeMethods.X86.MagickImage_Polaroid(Instance, DrawingSettings.GetInstance(settings), captionNative.Instance, angle, (UIntPtr)method, out exception);
-          CheckException(exception, result);
-          Instance = result;
+          using (INativeInstance captionNative = UTF8Marshaler.CreateInstance(caption))
+          {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            if (NativeLibrary.Is64Bit)
+              result = NativeMethods.X64.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
+            else
+              result = NativeMethods.X86.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
+            CheckException(exception, result);
+            Instance = result;
+          }
         }
       }
       public void Posterize(int levels, DitherMethod method, Channels channels)

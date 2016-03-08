@@ -91,18 +91,8 @@ MAGICK_NET_EXPORT void DrawingSettings_TextUnderColor_Set(DrawInfo *, const  Pix
 
 MAGICK_NET_EXPORT const double *DrawingSettings_GetStrokeDashArray(DrawInfo *, size_t *);
 
-MAGICK_NET_EXPORT void DrawingSettings_ResetTransform(DrawInfo *);
+MAGICK_NET_EXPORT void DrawingSettings_SetAffine(DrawInfo *, const double, const double, const double, const double, const double, const double);
 
 MAGICK_NET_EXPORT void DrawingSettings_SetStrokeDashArray(DrawInfo *, const double *, const size_t);
 
 MAGICK_NET_EXPORT void DrawingSettings_SetText(DrawInfo *, const char *);
-
-MAGICK_NET_EXPORT void DrawingSettings_SetTransformOrigin(DrawInfo *, const double, const double);
-
-MAGICK_NET_EXPORT void DrawingSettings_SetTransformRotation(DrawInfo *, const double);
-
-MAGICK_NET_EXPORT void DrawingSettings_SetTransformScale(DrawInfo *, const double, const double);
-
-MAGICK_NET_EXPORT void DrawingSettings_SetTransformSkewX(DrawInfo *, const double);
-
-MAGICK_NET_EXPORT void DrawingSettings_SetTransformSkewY(DrawInfo *, const double);

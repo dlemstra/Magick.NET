@@ -21,6 +21,9 @@
 #include "Types/MagickRectangle.h"
 #include "Types/TypeMetric.h"
 
+#define MagickPI 3.14159265358979323846264338327950288419716939937510
+#define DegreesToRadians(x) (MagickPI*(x)/180.0)
+
 #define SetChannelMask(image, channels) \
   { \
     ChannelType \
@@ -43,6 +46,33 @@ static inline void RemoveFrames(Image *image)
     next->previous = (Image *)NULL;
     DestroyImageList(next);
   }
+}
+
+static inline void SetTransformRotation(DrawInfo *instance, const double angle)
+{
+  AffineMatrix
+    affine,
+    current;
+
+  affine.sx = 1.0;
+  affine.rx = 0.0;
+  affine.ry = 0.0;
+  affine.sy = 1.0;
+  affine.tx = 0.0;
+  affine.ty = 0.0;
+
+  current = instance->affine;
+  affine.sx = cos(DegreesToRadians(fmod(angle, 360.0)));
+  affine.rx = (-sin(DegreesToRadians(fmod(angle, 360.0))));
+  affine.ry = sin(DegreesToRadians(fmod(angle, 360.0)));
+  affine.sy = cos(DegreesToRadians(fmod(angle, 360.0)));
+
+  instance->affine.sx = current.sx*affine.sx + current.ry*affine.rx;
+  instance->affine.rx = current.rx*affine.sx + current.sy*affine.rx;
+  instance->affine.ry = current.sx*affine.ry + current.ry*affine.sy;
+  instance->affine.sy = current.rx*affine.ry + current.sy*affine.sy;
+  instance->affine.tx = current.sx*affine.tx + current.ry*affine.ty + current.tx;
+  instance->affine.ty = current.rx*affine.tx + current.sy*affine.ty + current.ty;
 }
 
 MAGICK_NET_EXPORT Image *MagickImage_Create(const ImageInfo *settings, ExceptionInfo **exception)
@@ -732,7 +762,7 @@ MAGICK_NET_EXPORT void MagickImage_Annotate(Image *instance, const DrawInfo *set
   drawInfo->gravity = (GradientType)gravity;
 
   if (angle != 0.0)
-    DrawingSettings_SetTransformRotation(drawInfo, angle);
+    SetTransformRotation(drawInfo, angle);
 
   MAGICK_NET_GET_EXCEPTION;
   AnnotateImage(instance, drawInfo, exceptionInfo);

@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
@@ -90,12 +91,6 @@ namespace ImageMagick
     {
       if (_NativeInstance != null)
         _NativeInstance.Dispose();
-
-      if (disposing)
-      {
-        if (Drawing != null)
-          Drawing.Dispose();
-      }
     }
 
     private static string GetDefineKey(IDefine define)
@@ -266,6 +261,21 @@ namespace ImageMagick
       set
       {
         _NativeInstance.Adjoin = value;
+      }
+    }
+
+    /// <summary>
+    /// Affine to use  when annotating with text or drawing.
+    /// /// </summary>
+    public DrawableAffine Affine
+    {
+      get
+      {
+        return Drawing.Affine;
+      }
+      set
+      {
+        Drawing.Affine = value;
       }
     }
 
@@ -610,8 +620,7 @@ namespace ImageMagick
     /// in pixels. If a zero value is not found it will be added. If an odd number of values is
     /// provided, then the list of values is repeated to yield an even number of values.
     ///</summary>
-    [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
-    public double[] StrokeDashArray
+    public IEnumerable<double> StrokeDashArray
     {
       get
       {
@@ -857,67 +866,6 @@ namespace ImageMagick
       {
         _NativeInstance.Verbose = value;
       }
-    }
-
-    ///<summary>
-    /// Reset transformation parameters to default.
-    ///</summary>
-    ///<exception cref="MagickException"/>
-    public void ResetTransform()
-    {
-      Drawing.ResetTransform();
-    }
-
-    ///<summary>
-    /// Origin of coordinate system to use when annotating with text or drawing.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
-    ///<exception cref="MagickException"/>
-    public void SetTransformOrigin(double x, double y)
-    {
-      Drawing.SetTransformOrigin(x, y);
-    }
-
-    ///<summary>
-    /// Rotation to use when annotating with text or drawing.
-    ///</summary>
-    ///<param name="angle">The angle.</param>
-    ///<exception cref="MagickException"/>
-    public void SetTransformRotation(double angle)
-    {
-      Drawing.SetTransformRotation(angle);
-    }
-
-    ///<summary>
-    /// Scale to use when annotating with text or drawing.
-    ///</summary>
-    ///<param name="x">The X coordinate scaling element.</param>
-    ///<param name="y">The Y coordinate scaling element.</param>
-    ///<exception cref="MagickException"/>
-    public void SetTransformScale(double x, double y)
-    {
-      Drawing.SetTransformScale(x, y);
-    }
-
-    ///<summary>
-    /// Skew to use in X axis when annotating with text or drawing.
-    ///</summary>
-    ///<param name="value">The X skew.</param>
-    ///<exception cref="MagickException"/>
-    public void SetTransformSkewX(double value)
-    {
-      Drawing.SetTransformSkewX(value);
-    }
-
-    ///<summary>
-    /// Skew to use in Y axis when annotating with text or drawing.
-    ///</summary>
-    ///<param name="value">The Y skew.</param>
-    ///<exception cref="MagickException"/>
-    public void SetTransformSkewY(double value)
-    {
-      Drawing.SetTransformSkewY(value);
     }
   }
 }

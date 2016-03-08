@@ -17,19 +17,6 @@
 #include "Colors/MagickColor.h"
 #include "MagickImage.h"
 
-#define MagickPI 3.14159265358979323846264338327950288419716939937510
-#define DegreesToRadians(x) (MagickPI*(x)/180.0)
-
-static inline void ResetAffine(AffineMatrix *affine)
-{
-  affine->sx = 1.0;
-  affine->rx = 0.0;
-  affine->ry = 0.0;
-  affine->sy = 1.0;
-  affine->tx = 0.0;
-  affine->ty = 0.0;
-}
-
 MAGICK_NET_EXPORT DrawInfo *DrawingSettings_Create(void)
 {
   return AcquireDrawInfo();
@@ -262,12 +249,12 @@ MAGICK_NET_EXPORT void DrawingSettings_TextEncoding_Set(DrawInfo *instance, cons
 
 MAGICK_NET_EXPORT size_t DrawingSettings_TextGravity_Get(const DrawInfo *instance)
 {
-  return (size_t) instance->gravity;
+  return (size_t)instance->gravity;
 }
 
 MAGICK_NET_EXPORT void DrawingSettings_TextGravity_Set(DrawInfo *instance, const size_t value)
 {
-  instance->gravity = (GravityType) value;
+  instance->gravity = (GravityType)value;
 }
 
 MAGICK_NET_EXPORT double DrawingSettings_TextInterlineSpacing_Get(const DrawInfo *instance)
@@ -323,16 +310,22 @@ MAGICK_NET_EXPORT const double *DrawingSettings_GetStrokeDashArray(DrawInfo *ins
   return instance->dash_pattern;
 }
 
-MAGICK_NET_EXPORT void DrawingSettings_ResetTransform(DrawInfo *instance)
+MAGICK_NET_EXPORT void DrawingSettings_SetAffine(DrawInfo *instance, const double scaleX, const double scaleY, const double shearX, const double shearY, const double translateX, const double translateY)
 {
-  ResetAffine(&(instance->affine));
+  instance->affine.sx = scaleX;
+  instance->affine.sy = scaleY;
+  instance->affine.rx = shearX;
+  instance->affine.ry = shearY;
+  instance->affine.tx = translateX;
+  instance->affine.ty = translateY;
 }
 
 MAGICK_NET_EXPORT void DrawingSettings_SetStrokeDashArray(DrawInfo *instance, const double *value, const size_t length)
 {
   instance->dash_pattern = (double *)RelinquishMagickMemory(instance->dash_pattern);
   instance->dash_pattern = AcquireMagickMemory((length + 1) * sizeof(double));
-  memcpy(instance->dash_pattern, value, length * sizeof(double));
+  if (length > 0)
+    memcpy(instance->dash_pattern, value, length * sizeof(double));
   instance->dash_pattern[length] = 0.0;
 }
 
@@ -342,108 +335,4 @@ MAGICK_NET_EXPORT void DrawingSettings_SetText(DrawInfo *instance, const char *v
     instance->text = DestroyString(instance->text);
   if (value != (const char *)NULL)
     instance->text = ConstantString(value);
-}
-
-MAGICK_NET_EXPORT void DrawingSettings_SetTransformOrigin(DrawInfo *instance, const double x, const double y)
-{
-  AffineMatrix
-    affine,
-    current;
-
-  ResetAffine(&affine);
-
-  affine.tx = x;
-  affine.ty = y;
-
-  current = instance->affine;
-  instance->affine.sx = current.sx*affine.sx + current.ry*affine.rx;
-  instance->affine.rx = current.rx*affine.sx + current.sy*affine.rx;
-  instance->affine.ry = current.sx*affine.ry + current.ry*affine.sy;
-  instance->affine.sy = current.rx*affine.ry + current.sy*affine.sy;
-  instance->affine.tx = current.sx*affine.tx + current.ry*affine.ty + current.tx;
-  instance->affine.ty = current.rx*affine.tx + current.sy*affine.ty + current.ty;
-}
-
-MAGICK_NET_EXPORT void DrawingSettings_SetTransformRotation(DrawInfo *instance, const double angle)
-{
-  AffineMatrix
-    affine,
-    current;
-
-  ResetAffine(&affine);
-
-  current = instance->affine;
-  affine.sx = cos(DegreesToRadians(fmod(angle, 360.0)));
-  affine.rx = (-sin(DegreesToRadians(fmod(angle, 360.0))));
-  affine.ry = sin(DegreesToRadians(fmod(angle, 360.0)));
-  affine.sy = cos(DegreesToRadians(fmod(angle, 360.0)));
-
-  instance->affine.sx = current.sx*affine.sx + current.ry*affine.rx;
-  instance->affine.rx = current.rx*affine.sx + current.sy*affine.rx;
-  instance->affine.ry = current.sx*affine.ry + current.ry*affine.sy;
-  instance->affine.sy = current.rx*affine.ry + current.sy*affine.sy;
-  instance->affine.tx = current.sx*affine.tx + current.ry*affine.ty + current.tx;
-  instance->affine.ty = current.rx*affine.tx + current.sy*affine.ty + current.ty;
-}
-
-MAGICK_NET_EXPORT void DrawingSettings_SetTransformScale(DrawInfo *instance, const double x, const double y)
-{
-  AffineMatrix
-    affine,
-    current;
-
-  ResetAffine(&affine);
-
-  affine.sx = x;
-  affine.sy = y;
-
-  current = instance->affine;
-  instance->affine.sx = current.sx*affine.sx + current.ry*affine.rx;
-  instance->affine.rx = current.rx*affine.sx + current.sy*affine.rx;
-  instance->affine.ry = current.sx*affine.ry + current.ry*affine.sy;
-  instance->affine.sy = current.rx*affine.ry + current.sy*affine.sy;
-  instance->affine.tx = current.sx*affine.tx + current.ry*affine.ty + current.tx;
-  instance->affine.ty = current.rx*affine.tx + current.sy*affine.ty + current.ty;
-}
-
-MAGICK_NET_EXPORT void DrawingSettings_SetTransformSkewX(DrawInfo *instance, const double value)
-{
-  AffineMatrix
-    affine,
-    current;
-
-  ResetAffine(&affine);
-
-  affine.sx = 1.0;
-  affine.ry = tan(DegreesToRadians(fmod(value, 360.0)));
-  affine.sy = 1.0;
-
-  current = instance->affine;
-  instance->affine.sx = current.sx*affine.sx + current.ry*affine.rx;
-  instance->affine.rx = current.rx*affine.sx + current.sy*affine.rx;
-  instance->affine.ry = current.sx*affine.ry + current.ry*affine.sy;
-  instance->affine.sy = current.rx*affine.ry + current.sy*affine.sy;
-  instance->affine.tx = current.sx*affine.tx + current.ry*affine.ty + current.tx;
-  instance->affine.ty = current.rx*affine.tx + current.sy*affine.ty + current.ty;
-}
-
-MAGICK_NET_EXPORT void DrawingSettings_SetTransformSkewY(DrawInfo *instance, const double value)
-{
-  AffineMatrix
-    affine,
-    current;
-
-  ResetAffine(&affine);
-
-  affine.sx = 1.0;
-  affine.rx = tan(DegreesToRadians(fmod(value, 360.0)));
-  affine.sy = 1.0;
-
-  current = instance->affine;
-  instance->affine.sx = current.sx*affine.sx + current.ry*affine.rx;
-  instance->affine.rx = current.rx*affine.sx + current.sy*affine.rx;
-  instance->affine.ry = current.sx*affine.ry + current.ry*affine.sy;
-  instance->affine.sy = current.rx*affine.ry + current.sy*affine.sy;
-  instance->affine.tx = current.sx*affine.tx + current.ry*affine.ty + current.tx;
-  instance->affine.ty = current.rx*affine.tx + current.sy*affine.ty + current.ty;
 }

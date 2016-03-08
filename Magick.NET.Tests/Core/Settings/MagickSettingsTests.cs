@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -183,9 +184,9 @@ namespace Magick.NET.Tests
         ColorAssert.AreEqual(strokeColor, settings.StrokeColor);
 
         Assert.AreEqual(null, settings.StrokeDashArray);
-        double[] dashArray = new double[] { 1.0, 2.0, 3.0 };
+        List<double> dashArray = new List<double>(new double[] { 1.0, 2.0, 3.0 });
         settings.StrokeDashArray = dashArray;
-        CollectionAssert.AreEqual(dashArray, settings.StrokeDashArray);
+        CollectionAssert.AreEqual(dashArray, new List<double>(settings.StrokeDashArray));
 
         Assert.AreEqual(0, settings.StrokeDashOffset);
         settings.StrokeDashOffset = 5;
@@ -356,21 +357,6 @@ namespace Magick.NET.Tests
 
         ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
         ColorAssert.AreEqual(MagickColors.White, image, 24, 0);
-      }
-    }
-
-    [TestMethod, TestCategory(_Category)]
-    public void Test_Transform()
-    {
-      using (MagickImage image = new MagickImage())
-      {
-        MagickSettings settings = image.Settings;
-        settings.SetTransformOrigin(45, 90);
-        settings.SetTransformRotation(45);
-        settings.SetTransformScale(60, 45);
-        settings.SetTransformSkewX(42);
-        settings.SetTransformSkewY(24);
-        settings.ResetTransform();
       }
     }
   }

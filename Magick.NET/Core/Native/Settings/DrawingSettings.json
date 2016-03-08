@@ -1,5 +1,6 @@
 ﻿{
   "access": "internal",
+  "dynamic": "ManagedToNative",
   "properties":
   [
     {
@@ -124,7 +125,35 @@
       ]
     },
     {
-      "name": "ResetTransform"
+      "name": "SetAffine",
+      "throws": true,
+      "arguments":
+      [
+        {
+          "name": "scaleX",
+          "type": "double"
+        },
+        {
+          "name": "scaleY",
+          "type": "double"
+        },
+        {
+          "name": "shearX",
+          "type": "double"
+        },
+        {
+          "name": "shearY",
+          "type": "double"
+        },
+        {
+          "name": "translateX",
+          "type": "double"
+        },
+        {
+          "name": "translateY",
+          "type": "double"
+        }
+      ]
     },
     {
       "name": "SetStrokeDashArray",
@@ -147,64 +176,6 @@
         {
           "name": "value",
           "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SetTransformOrigin",
-      "arguments":
-      [
-        {
-          "name": "x",
-          "type": "double"
-        },
-        {
-          "name": "y",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "SetTransformRotation",
-      "arguments":
-      [
-        {
-          "name": "angle",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "SetTransformScale",
-      "arguments":
-      [
-        {
-          "name": "x",
-          "type": "double"
-        },
-        {
-          "name": "y",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "SetTransformSkewX",
-      "arguments":
-      [
-        {
-          "name": "value",
-          "type": "double"
-        }
-      ]
-    },
-    {
-      "name": "SetTransformSkewY",
-      "arguments":
-      [
-        {
-          "name": "value",
-          "type": "double"
         }
       ]
     }

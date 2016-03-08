@@ -385,12 +385,15 @@ namespace ImageMagick
       }
       public NativeDrawingWand(MagickImage image, DrawingSettings settings)
       {
-        if (NativeLibrary.Is64Bit)
-          _Instance = NativeMethods.X64.DrawingWand_Create(MagickImage.GetInstance(image), DrawingSettings.GetInstance(settings));
-        else
-          _Instance = NativeMethods.X86.DrawingWand_Create(MagickImage.GetInstance(image), DrawingSettings.GetInstance(settings));
-        if (_Instance == IntPtr.Zero)
-          throw new InvalidOperationException();
+        using (INativeInstance settingsNative = DrawingSettings.CreateInstance(settings))
+        {
+          if (NativeLibrary.Is64Bit)
+            _Instance = NativeMethods.X64.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
+          else
+            _Instance = NativeMethods.X86.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
+          if (_Instance == IntPtr.Zero)
+            throw new InvalidOperationException();
+        }
       }
       public override IntPtr Instance
       {

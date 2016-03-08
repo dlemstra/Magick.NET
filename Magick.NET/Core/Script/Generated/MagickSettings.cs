@@ -205,119 +205,66 @@ namespace ImageMagick
         }
         case 's':
         {
-          switch(element.Name[1])
+          switch(element.Name[6])
           {
-            case 't':
+            case 'A':
             {
-              switch(element.Name[6])
+              ExecuteStrokeAntiAlias(element, settings);
+              return;
+            }
+            case 'C':
+            {
+              ExecuteStrokeColor(element, settings);
+              return;
+            }
+            case 'D':
+            {
+              switch(element.Name[10])
               {
                 case 'A':
                 {
-                  ExecuteStrokeAntiAlias(element, settings);
+                  ExecuteStrokeDashArray(element, settings);
                   return;
                 }
-                case 'C':
+                case 'O':
                 {
-                  ExecuteStrokeColor(element, settings);
-                  return;
-                }
-                case 'D':
-                {
-                  switch(element.Name[10])
-                  {
-                    case 'A':
-                    {
-                      ExecuteStrokeDashArray(element, settings);
-                      return;
-                    }
-                    case 'O':
-                    {
-                      ExecuteStrokeDashOffset(element, settings);
-                      return;
-                    }
-                  }
-                  break;
-                }
-                case 'L':
-                {
-                  switch(element.Name[10])
-                  {
-                    case 'C':
-                    {
-                      ExecuteStrokeLineCap(element, settings);
-                      return;
-                    }
-                    case 'J':
-                    {
-                      ExecuteStrokeLineJoin(element, settings);
-                      return;
-                    }
-                  }
-                  break;
-                }
-                case 'M':
-                {
-                  ExecuteStrokeMiterLimit(element, settings);
-                  return;
-                }
-                case 'P':
-                {
-                  ExecuteStrokePattern(element, settings);
-                  return;
-                }
-                case 'W':
-                {
-                  ExecuteStrokeWidth(element, settings);
+                  ExecuteStrokeDashOffset(element, settings);
                   return;
                 }
               }
               break;
             }
-            case 'e':
+            case 'L':
             {
-              switch(element.Name[12])
+              switch(element.Name[10])
               {
-                case 'O':
+                case 'C':
                 {
-                  ExecuteSetTransformOrigin(element, settings);
+                  ExecuteStrokeLineCap(element, settings);
                   return;
                 }
-                case 'R':
+                case 'J':
                 {
-                  ExecuteSetTransformRotation(element, settings);
+                  ExecuteStrokeLineJoin(element, settings);
                   return;
-                }
-                case 'S':
-                {
-                  switch(element.Name[13])
-                  {
-                    case 'c':
-                    {
-                      ExecuteSetTransformScale(element, settings);
-                      return;
-                    }
-                    case 'k':
-                    {
-                      switch(element.Name[16])
-                      {
-                        case 'X':
-                        {
-                          ExecuteSetTransformSkewX(element, settings);
-                          return;
-                        }
-                        case 'Y':
-                        {
-                          ExecuteSetTransformSkewY(element, settings);
-                          return;
-                        }
-                      }
-                      break;
-                    }
-                  }
-                  break;
                 }
               }
               break;
+            }
+            case 'M':
+            {
+              ExecuteStrokeMiterLimit(element, settings);
+              return;
+            }
+            case 'P':
+            {
+              ExecuteStrokePattern(element, settings);
+              return;
+            }
+            case 'W':
+            {
+              ExecuteStrokeWidth(element, settings);
+              return;
             }
           }
           break;
@@ -379,11 +326,6 @@ namespace ImageMagick
         case 'v':
         {
           ExecuteVerbose(element, settings);
-          return;
-        }
-        case 'r':
-        {
-          ExecuteResetTransform(settings);
           return;
         }
       }
@@ -540,37 +482,6 @@ namespace ImageMagick
     private void ExecuteVerbose(XmlElement element, MagickSettings settings)
     {
       settings.Verbose = Variables.GetValue<Boolean>(element, "value");
-    }
-    private static void ExecuteResetTransform(MagickSettings settings)
-    {
-      settings.ResetTransform();
-    }
-    private void ExecuteSetTransformOrigin(XmlElement element, MagickSettings settings)
-    {
-      double x_ = Variables.GetValue<double>(element, "x");
-      double y_ = Variables.GetValue<double>(element, "y");
-      settings.SetTransformOrigin(x_, y_);
-    }
-    private void ExecuteSetTransformRotation(XmlElement element, MagickSettings settings)
-    {
-      double angle_ = Variables.GetValue<double>(element, "angle");
-      settings.SetTransformRotation(angle_);
-    }
-    private void ExecuteSetTransformScale(XmlElement element, MagickSettings settings)
-    {
-      double x_ = Variables.GetValue<double>(element, "x");
-      double y_ = Variables.GetValue<double>(element, "y");
-      settings.SetTransformScale(x_, y_);
-    }
-    private void ExecuteSetTransformSkewX(XmlElement element, MagickSettings settings)
-    {
-      double value_ = Variables.GetValue<double>(element, "value");
-      settings.SetTransformSkewX(value_);
-    }
-    private void ExecuteSetTransformSkewY(XmlElement element, MagickSettings settings)
-    {
-      double value_ = Variables.GetValue<double>(element, "value");
-      settings.SetTransformSkewY(value_);
     }
   }
 }

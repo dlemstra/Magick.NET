@@ -258,11 +258,12 @@ namespace FileGenerator.MagickScript
     {
       switch (typeName)
       {
-        case "Double[]":
-          Write("Variables.GetDoubleArray");
-          break;
         case "ColorProfile":
           Write("CreateColorProfile");
+          break;
+        case "Double[]":
+        case "IEnumerable<Double>":
+          Write("Variables.GetDoubleArray");
           break;
         case "IDefines":
           Write("CreateIDefines");
@@ -390,6 +391,7 @@ namespace FileGenerator.MagickScript
       switch (typeName)
       {
         case "Double[]":
+        case "IEnumerable<Double>":
         case "MagickImage":
           Write("element");
           if (!string.IsNullOrEmpty(elementName))

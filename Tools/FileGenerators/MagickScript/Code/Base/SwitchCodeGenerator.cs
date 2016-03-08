@@ -96,6 +96,7 @@ namespace FileGenerator.MagickScript
         case "Double[]":
         case "PathArc":
         case "IDefines":
+        case "IEnumerable<Double>":
         case "IEnumerable<MagickGeometry>":
         case "IEnumerable<IPath>":
         case "IEnumerable<PathArc>":

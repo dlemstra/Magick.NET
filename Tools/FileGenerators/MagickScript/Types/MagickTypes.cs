@@ -121,6 +121,7 @@ namespace FileGenerator.MagickScript
         case "Double[]":
         case "Drawable":
         case "IDefines":
+        case "IEnumerable<Double>":
         case "IEnumerable<Drawable>":
         case "IEnumerable<IPath>":
         case "IEnumerable<MagickGeometry>":
@@ -160,6 +161,7 @@ namespace FileGenerator.MagickScript
       switch (typeName)
       {
         case "Double[]":
+        case "IEnumerable<Double>":
           return "doubleArray";
         case "ColorProfile":
         case "Drawable":

@@ -27,7 +27,7 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  internal partial class DrawingSettings : IDisposable
+  internal partial class DrawingSettings
   {
     private static class NativeMethods
     {
@@ -143,21 +143,11 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr DrawingSettings_GetStrokeDashArray(IntPtr Instance, out UIntPtr length);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_ResetTransform(IntPtr Instance);
+        public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetStrokeDashArray(IntPtr Instance, double[] dash, UIntPtr length);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetText(IntPtr Instance, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_SetTransformOrigin(IntPtr Instance, double x, double y);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_SetTransformRotation(IntPtr Instance, double angle);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_SetTransformScale(IntPtr Instance, double x, double y);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_SetTransformSkewX(IntPtr Instance, double value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_SetTransformSkewY(IntPtr Instance, double value);
       }
       public static class X86
       {
@@ -271,24 +261,13 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr DrawingSettings_GetStrokeDashArray(IntPtr Instance, out UIntPtr length);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_ResetTransform(IntPtr Instance);
+        public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetStrokeDashArray(IntPtr Instance, double[] dash, UIntPtr length);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetText(IntPtr Instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_SetTransformOrigin(IntPtr Instance, double x, double y);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_SetTransformRotation(IntPtr Instance, double angle);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_SetTransformScale(IntPtr Instance, double x, double y);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_SetTransformSkewX(IntPtr Instance, double value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_SetTransformSkewY(IntPtr Instance, double value);
       }
     }
-    private NativeDrawingSettings _NativeInstance;
     private sealed class NativeDrawingSettings : NativeInstance
     {
       private IntPtr _Instance = IntPtr.Zero;
@@ -838,12 +817,14 @@ namespace ImageMagick
         else
           return NativeMethods.X86.DrawingSettings_GetStrokeDashArray(Instance, out length);
       }
-      public void ResetTransform()
+      public void SetAffine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)
       {
+        IntPtr exception = IntPtr.Zero;
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.DrawingSettings_ResetTransform(Instance);
+          NativeMethods.X64.DrawingSettings_SetAffine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
         else
-          NativeMethods.X86.DrawingSettings_ResetTransform(Instance);
+          NativeMethods.X86.DrawingSettings_SetAffine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+        CheckException(exception);
       }
       public void SetStrokeDashArray(double[] dash, int length)
       {
@@ -862,47 +843,12 @@ namespace ImageMagick
             NativeMethods.X86.DrawingSettings_SetText(Instance, valueNative.Instance);
         }
       }
-      public void SetTransformOrigin(double x, double y)
-      {
-        if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.DrawingSettings_SetTransformOrigin(Instance, x, y);
-        else
-          NativeMethods.X86.DrawingSettings_SetTransformOrigin(Instance, x, y);
-      }
-      public void SetTransformRotation(double angle)
-      {
-        if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.DrawingSettings_SetTransformRotation(Instance, angle);
-        else
-          NativeMethods.X86.DrawingSettings_SetTransformRotation(Instance, angle);
-      }
-      public void SetTransformScale(double x, double y)
-      {
-        if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.DrawingSettings_SetTransformScale(Instance, x, y);
-        else
-          NativeMethods.X86.DrawingSettings_SetTransformScale(Instance, x, y);
-      }
-      public void SetTransformSkewX(double value)
-      {
-        if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.DrawingSettings_SetTransformSkewX(Instance, value);
-        else
-          NativeMethods.X86.DrawingSettings_SetTransformSkewX(Instance, value);
-      }
-      public void SetTransformSkewY(double value)
-      {
-        if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.DrawingSettings_SetTransformSkewY(Instance, value);
-        else
-          NativeMethods.X86.DrawingSettings_SetTransformSkewY(Instance, value);
-      }
     }
-    internal static IntPtr GetInstance(DrawingSettings instance)
+    internal static INativeInstance CreateInstance(DrawingSettings instance)
     {
       if (instance == null)
-        return IntPtr.Zero;
-      return instance._NativeInstance.Instance;
+        return NativeInstance.Zero;
+      return instance.CreateNativeInstance();
     }
   }
 }

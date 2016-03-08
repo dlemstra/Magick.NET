@@ -89,6 +89,8 @@ namespace FileGenerator.Native
         WriteLine("public Native" + Class.Name + "(" + arguments + ")");
         WriteStartColon();
 
+        WriteCreateStart(Class.Constructor.Arguments);
+
         WriteThrowStart(Class.Constructor.Throws);
 
         arguments = GetNativeArgumentsCall(Class.Constructor.Arguments);
@@ -98,6 +100,8 @@ namespace FileGenerator.Native
           WriteLine("CheckException(exception, _Instance);");
 
         WriteIf("_Instance == IntPtr.Zero", "throw new InvalidOperationException();");
+
+        WriteCreateEnd(Class.Constructor.Arguments);
 
         WriteEndColon();
       }
