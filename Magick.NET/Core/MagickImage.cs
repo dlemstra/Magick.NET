@@ -786,6 +786,7 @@ namespace ImageMagick
       set
       {
         _NativeInstance.BackgroundColor = value;
+        Settings.BackgroundColor = value;
       }
     }
 
