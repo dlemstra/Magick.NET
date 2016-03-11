@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.IO;
 
 namespace ImageMagick
@@ -24,7 +25,16 @@ namespace ImageMagick
 
       MemoryStream memStream = stream as MemoryStream;
       if (memStream != null)
-        return memStream.ToArray();
+      {
+        try
+        {
+          return memStream.GetBuffer();
+        }
+        catch (UnauthorizedAccessException)
+        {
+          return memStream.ToArray();
+        }
+      }
 
       if (stream.CanSeek)
       {
