@@ -1808,6 +1808,25 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_Interlace()
+    {
+      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      {
+        image.Interlace = Interlace.Png;
+
+        using (MemoryStream memStream = new MemoryStream())
+        {
+          image.Write(memStream);
+          memStream.Position = 0;
+          using (MagickImage result = new MagickImage(memStream))
+          {
+            Assert.AreEqual(Interlace.Png, result.Interlace);
+          }
+        }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_IsOpaque()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))

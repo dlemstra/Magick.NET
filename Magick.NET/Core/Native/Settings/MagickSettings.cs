@@ -119,6 +119,8 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_SetColorFuzz(IntPtr Instance, double value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MagickSettings_SetInterlace(IntPtr Instance, UIntPtr value);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_SetMonochrome(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_SetNumberScenes(IntPtr Instance, UIntPtr value);
@@ -220,6 +222,8 @@ namespace ImageMagick
         public static extern IntPtr MagickSettings_RemoveOption(IntPtr Instance, IntPtr key);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_SetColorFuzz(IntPtr Instance, double value);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MagickSettings_SetInterlace(IntPtr Instance, UIntPtr value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_SetMonochrome(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -663,6 +667,13 @@ namespace ImageMagick
           NativeMethods.X64.MagickSettings_SetColorFuzz(Instance, value);
         else
           NativeMethods.X86.MagickSettings_SetColorFuzz(Instance, value);
+      }
+      public void SetInterlace(Interlace value)
+      {
+        if (NativeLibrary.Is64Bit)
+          NativeMethods.X64.MagickSettings_SetInterlace(Instance, (UIntPtr)value);
+        else
+          NativeMethods.X86.MagickSettings_SetInterlace(Instance, (UIntPtr)value);
       }
       public void SetMonochrome(bool value)
       {

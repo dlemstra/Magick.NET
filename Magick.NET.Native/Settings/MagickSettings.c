@@ -234,6 +234,11 @@ MAGICK_NET_EXPORT void MagickSettings_SetColorFuzz(ImageInfo *instance, const do
   instance->fuzz = value;
 }
 
+MAGICK_NET_EXPORT void MagickSettings_SetInterlace(ImageInfo *instance, const size_t value)
+{
+  instance->interlace = (InterlaceType)value;
+}
+
 MAGICK_NET_EXPORT void MagickSettings_SetMonochrome(ImageInfo *instance, const MagickBooleanType value)
 {
   instance->monochrome = value;

@@ -112,6 +112,16 @@
       ]
     },
     {
+      "name": "SetInterlace",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "Interlace"
+        }
+      ]
+    },
+    {
       "name": "SetMonochrome",
       "arguments":
       [

@@ -18,7 +18,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -1281,6 +1280,7 @@ namespace ImageMagick
       set
       {
         _NativeInstance.Interlace = value;
+        Settings.SetInterlace(value);
       }
     }
 

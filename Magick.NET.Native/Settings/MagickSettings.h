@@ -76,6 +76,8 @@ MAGICK_NET_EXPORT void MagickSettings_RemoveOption(ImageInfo *, const char *);
 
 MAGICK_NET_EXPORT void MagickSettings_SetColorFuzz(ImageInfo *, const double);
 
+MAGICK_NET_EXPORT void MagickSettings_SetInterlace(ImageInfo *, const size_t);
+
 MAGICK_NET_EXPORT void MagickSettings_SetMonochrome(ImageInfo *, const MagickBooleanType);
 
 MAGICK_NET_EXPORT void MagickSettings_SetNumberScenes(ImageInfo *, const size_t);

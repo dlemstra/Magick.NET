@@ -221,6 +221,11 @@ namespace ImageMagick
       _NativeInstance.SetOption(ParseDefine(format, name), value);
     }
 
+    internal void SetInterlace(Interlace value)
+    {
+      _NativeInstance.SetInterlace(value);
+    }
+
     internal void SetOption(string key, string value)
     {
       Throw.IfNullOrEmpty("key", key);
