@@ -4792,6 +4792,7 @@ namespace ImageMagick
     public void PreserveColorType()
     {
       ColorType = ColorType;
+      SetAttribute("colorspace:auto-grayscale", "false");
     }
 
     ///<summary>

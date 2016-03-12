@@ -860,6 +860,7 @@ namespace Magick.NET.Tests
         ColorAssert.AreEqual(MagickColor.FromRgb(58, 31, 255), image, 39, 25);
       }
     }
+
     [TestMethod, TestCategory(_Category)]
     public void Test_ColorType()
     {
@@ -872,7 +873,7 @@ namespace Magick.NET.Tests
           memStream.Position = 0;
           using (MagickImage result = new MagickImage(memStream))
           {
-            Assert.AreEqual(ColorType.Grayscale, image.ColorType);
+            Assert.AreEqual(ColorType.Grayscale, result.ColorType);
           }
         }
       }
@@ -883,11 +884,12 @@ namespace Magick.NET.Tests
         image.PreserveColorType();
         using (MemoryStream memStream = new MemoryStream())
         {
+          image.Format = MagickFormat.Psd;
           image.Write(memStream);
           memStream.Position = 0;
           using (MagickImage result = new MagickImage(memStream))
           {
-            Assert.AreEqual(ColorType.TrueColor, image.ColorType);
+            Assert.AreEqual(ColorType.TrueColor, result.ColorType);
           }
         }
       }
