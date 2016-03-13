@@ -40,7 +40,6 @@ namespace FileGenerator.Native
 
     private void WriteDllImports()
     {
-      WriteDllImportStaticConstructor();
       WriteDllImportCreateAndDispose();
       WriteDllImportProperties();
       WriteDllImportMethods();
@@ -101,9 +100,10 @@ namespace FileGenerator.Native
       }
     }
 
-    private void WriteDllImportStaticConstructor()
+    private void WriteNativeMethodsStaticConstructor()
     {
-      WriteLine("static " + _Platform + "() { NativeLibraryLoader.Load(); }");
+      WriteLine(@"[SuppressMessage(""Microsoft.Performance"", ""CA1810: InitializeReferenceTypeStaticFieldsInline"", Scope = ""member"", Target = ""ImageMagick." + Class.Name + @"+NativeMethods.#.cctor()"")]");
+      WriteLine("static NativeMethods() { NativeLibraryLoader.Load(); }");
     }
 
     private void WriteMarshal(MagickType type)
@@ -163,6 +163,7 @@ namespace FileGenerator.Native
 
       WriteLine("private static class NativeMethods");
       WriteStartColon();
+      WriteNativeMethodsStaticConstructor();
       WriteX64();
       WriteX86();
       WriteEndColon();
