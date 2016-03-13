@@ -27,7 +27,6 @@ namespace ImageMagick
       NativeDrawingSettings instance = new NativeDrawingSettings();
       instance.BorderColor = BorderColor;
       instance.FillColor = FillColor;
-      instance.FillPattern = FillPattern;
       instance.FillRule = FillRule;
       instance.Font = Font;
       instance.FontFamily = FontFamily;
@@ -40,7 +39,6 @@ namespace ImageMagick
       instance.StrokeLineCap = StrokeLineCap;
       instance.StrokeLineJoin = StrokeLineJoin;
       instance.StrokeMiterLimit = StrokeMiterLimit;
-      instance.StrokePattern = StrokePattern;
       instance.StrokeWidth = StrokeWidth;
       instance.TextAntiAlias = TextAntiAlias;
       instance.TextDirection = TextDirection;
@@ -54,14 +52,19 @@ namespace ImageMagick
 
       if (Affine != null)
         instance.SetAffine(Affine.ScaleX, Affine.ScaleY, Affine.ShearX, Affine.ShearY, Affine.TranslateX, Affine.TranslateY);
+      if (FillPattern != null)
+        instance.SetFillPattern(FillPattern);
       if (_StrokeDashArray != null)
         instance.SetStrokeDashArray(_StrokeDashArray, _StrokeDashArray.Length);
-      instance.SetText(Text);
+      if (StrokePattern != null)
+        instance.SetStrokePattern(StrokePattern);
+      if (!string.IsNullOrEmpty(Text))
+        instance.SetText(Text);
 
       return instance;
     }
 
-    private Encoding GetTextEncoding(NativeDrawingSettings instance)
+    private static Encoding GetTextEncoding(NativeDrawingSettings instance)
     {
       string name = instance.TextEncoding;
       if (string.IsNullOrEmpty(name))
@@ -77,7 +80,7 @@ namespace ImageMagick
       }
     }
 
-    private double[] GetStrokeDashArray(NativeDrawingSettings instance)
+    private static double[] GetStrokeDashArray(NativeDrawingSettings instance)
     {
       UIntPtr length;
       IntPtr data = instance.GetStrokeDashArray(out length);

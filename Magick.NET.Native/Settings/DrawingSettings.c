@@ -49,20 +49,6 @@ MAGICK_NET_EXPORT void DrawingSettings_FillColor_Set(DrawInfo *instance, const P
     instance->fill = *value;
 }
 
-MAGICK_NET_EXPORT Image *DrawingSettings_FillPattern_Get(const DrawInfo *instance, ExceptionInfo **exception)
-{
-  return MagickImage_Clone(instance->fill_pattern, exception);
-}
-
-MAGICK_NET_EXPORT void DrawingSettings_FillPattern_Set(DrawInfo *instance, const Image *value, ExceptionInfo **exception)
-{
-  if (instance->fill_pattern != (Image *)NULL)
-    instance->fill_pattern = DestroyImage(instance->fill_pattern);
-
-  if (value != (const Image *)NULL)
-    instance->fill_pattern = MagickImage_Clone(value, exception);
-}
-
 MAGICK_NET_EXPORT size_t DrawingSettings_FillRule_Get(const DrawInfo *instance)
 {
   return instance->fill_rule;
@@ -190,20 +176,6 @@ MAGICK_NET_EXPORT void DrawingSettings_StrokeMiterLimit_Set(DrawInfo  *instance,
   instance->miterlimit = value;
 }
 
-MAGICK_NET_EXPORT Image *DrawingSettings_StrokePattern_Get(const DrawInfo *instance, ExceptionInfo **exception)
-{
-  return MagickImage_Clone(instance->stroke_pattern, exception);
-}
-
-MAGICK_NET_EXPORT void DrawingSettings_StrokePattern_Set(DrawInfo *instance, const Image *value, ExceptionInfo **exception)
-{
-  if (instance->stroke_pattern != (Image *)NULL)
-    instance->stroke_pattern = DestroyImage(instance->stroke_pattern);
-
-  if (value != (const Image *)NULL)
-    instance->stroke_pattern = MagickImage_Clone(value, exception);
-}
-
 MAGICK_NET_EXPORT double DrawingSettings_StrokeWidth_Get(const DrawInfo *instance)
 {
   return instance->stroke_width;
@@ -320,6 +292,15 @@ MAGICK_NET_EXPORT void DrawingSettings_SetAffine(DrawInfo *instance, const doubl
   instance->affine.ty = translateY;
 }
 
+MAGICK_NET_EXPORT void DrawingSettings_SetFillPattern(DrawInfo *instance, const Image *value, ExceptionInfo **exception)
+{
+  if (instance->fill_pattern != (Image *)NULL)
+    instance->fill_pattern = DestroyImage(instance->fill_pattern);
+
+  if (value != (const Image *)NULL)
+    instance->fill_pattern = MagickImage_Clone(value, exception);
+}
+
 MAGICK_NET_EXPORT void DrawingSettings_SetStrokeDashArray(DrawInfo *instance, const double *value, const size_t length)
 {
   instance->dash_pattern = (double *)RelinquishMagickMemory(instance->dash_pattern);
@@ -327,6 +308,15 @@ MAGICK_NET_EXPORT void DrawingSettings_SetStrokeDashArray(DrawInfo *instance, co
   if (length > 0)
     memcpy(instance->dash_pattern, value, length * sizeof(double));
   instance->dash_pattern[length] = 0.0;
+}
+
+MAGICK_NET_EXPORT void DrawingSettings_SetStrokePattern(DrawInfo *instance, const Image *value, ExceptionInfo **exception)
+{
+  if (instance->stroke_pattern != (Image *)NULL)
+    instance->stroke_pattern = DestroyImage(instance->stroke_pattern);
+
+  if (value != (const Image *)NULL)
+    instance->stroke_pattern = MagickImage_Clone(value, exception);
 }
 
 MAGICK_NET_EXPORT void DrawingSettings_SetText(DrawInfo *instance, const char *value)

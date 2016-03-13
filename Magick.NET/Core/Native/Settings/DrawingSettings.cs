@@ -49,10 +49,6 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_FillColor_Set(IntPtr instance, IntPtr value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr DrawingSettings_FillPattern_Get(IntPtr instance, out IntPtr exception);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_FillPattern_Set(IntPtr instance, IntPtr value, out IntPtr exception);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr DrawingSettings_FillRule_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_FillRule_Set(IntPtr instance, UIntPtr value);
@@ -102,10 +98,6 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_StrokeMiterLimit_Set(IntPtr instance, UIntPtr value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr DrawingSettings_StrokePattern_Get(IntPtr instance, out IntPtr exception);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_StrokePattern_Set(IntPtr instance, IntPtr value, out IntPtr exception);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern double DrawingSettings_StrokeWidth_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_StrokeWidth_Set(IntPtr instance, double value);
@@ -145,9 +137,13 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr DrawingSettings_GetStrokeDashArray(IntPtr Instance, out UIntPtr length);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DrawingSettings_SetFillPattern(IntPtr Instance, IntPtr value, out IntPtr exception);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetStrokeDashArray(IntPtr Instance, double[] dash, UIntPtr length);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DrawingSettings_SetStrokePattern(IntPtr Instance, IntPtr value, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetText(IntPtr Instance, IntPtr value);
       }
@@ -166,10 +162,6 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_FillColor_Set(IntPtr instance, IntPtr value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr DrawingSettings_FillPattern_Get(IntPtr instance, out IntPtr exception);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_FillPattern_Set(IntPtr instance, IntPtr value, out IntPtr exception);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr DrawingSettings_FillRule_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_FillRule_Set(IntPtr instance, UIntPtr value);
@@ -219,10 +211,6 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_StrokeMiterLimit_Set(IntPtr instance, UIntPtr value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr DrawingSettings_StrokePattern_Get(IntPtr instance, out IntPtr exception);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingSettings_StrokePattern_Set(IntPtr instance, IntPtr value, out IntPtr exception);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern double DrawingSettings_StrokeWidth_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_StrokeWidth_Set(IntPtr instance, double value);
@@ -262,9 +250,13 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr DrawingSettings_GetStrokeDashArray(IntPtr Instance, out UIntPtr length);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DrawingSettings_SetFillPattern(IntPtr Instance, IntPtr value, out IntPtr exception);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetStrokeDashArray(IntPtr Instance, double[] dash, UIntPtr length);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DrawingSettings_SetStrokePattern(IntPtr Instance, IntPtr value, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetText(IntPtr Instance, IntPtr value);
       }
@@ -349,29 +341,6 @@ namespace ImageMagick
             else
               NativeMethods.X86.DrawingSettings_FillColor_Set(Instance, valueNative.Instance);
           }
-        }
-      }
-      public MagickImage FillPattern
-      {
-        get
-        {
-          IntPtr exception = IntPtr.Zero;
-          IntPtr result;
-          if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.DrawingSettings_FillPattern_Get(Instance, out exception);
-          else
-            result = NativeMethods.X86.DrawingSettings_FillPattern_Get(Instance, out exception);
-          CheckException(exception);
-          return MagickImage.Create(result);
-        }
-        set
-        {
-          IntPtr exception = IntPtr.Zero;
-          if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.DrawingSettings_FillPattern_Set(Instance, MagickImage.GetInstance(value), out exception);
-          else
-            NativeMethods.X86.DrawingSettings_FillPattern_Set(Instance, MagickImage.GetInstance(value), out exception);
-          CheckException(exception);
         }
       }
       public FillRule FillRule
@@ -611,29 +580,6 @@ namespace ImageMagick
             NativeMethods.X86.DrawingSettings_StrokeMiterLimit_Set(Instance, (UIntPtr)value);
         }
       }
-      public MagickImage StrokePattern
-      {
-        get
-        {
-          IntPtr exception = IntPtr.Zero;
-          IntPtr result;
-          if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.DrawingSettings_StrokePattern_Get(Instance, out exception);
-          else
-            result = NativeMethods.X86.DrawingSettings_StrokePattern_Get(Instance, out exception);
-          CheckException(exception);
-          return MagickImage.Create(result);
-        }
-        set
-        {
-          IntPtr exception = IntPtr.Zero;
-          if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.DrawingSettings_StrokePattern_Set(Instance, MagickImage.GetInstance(value), out exception);
-          else
-            NativeMethods.X86.DrawingSettings_StrokePattern_Set(Instance, MagickImage.GetInstance(value), out exception);
-          CheckException(exception);
-        }
-      }
       public double StrokeWidth
       {
         get
@@ -818,6 +764,15 @@ namespace ImageMagick
         else
           return NativeMethods.X86.DrawingSettings_GetStrokeDashArray(Instance, out length);
       }
+      public void SetFillPattern(MagickImage value)
+      {
+        IntPtr exception = IntPtr.Zero;
+        if (NativeLibrary.Is64Bit)
+          NativeMethods.X64.DrawingSettings_SetFillPattern(Instance, MagickImage.GetInstance(value), out exception);
+        else
+          NativeMethods.X86.DrawingSettings_SetFillPattern(Instance, MagickImage.GetInstance(value), out exception);
+        CheckException(exception);
+      }
       public void SetAffine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)
       {
         IntPtr exception = IntPtr.Zero;
@@ -833,6 +788,15 @@ namespace ImageMagick
           NativeMethods.X64.DrawingSettings_SetStrokeDashArray(Instance, dash, (UIntPtr)length);
         else
           NativeMethods.X86.DrawingSettings_SetStrokeDashArray(Instance, dash, (UIntPtr)length);
+      }
+      public void SetStrokePattern(MagickImage value)
+      {
+        IntPtr exception = IntPtr.Zero;
+        if (NativeLibrary.Is64Bit)
+          NativeMethods.X64.DrawingSettings_SetStrokePattern(Instance, MagickImage.GetInstance(value), out exception);
+        else
+          NativeMethods.X86.DrawingSettings_SetStrokePattern(Instance, MagickImage.GetInstance(value), out exception);
+        CheckException(exception);
       }
       public void SetText(string value)
       {

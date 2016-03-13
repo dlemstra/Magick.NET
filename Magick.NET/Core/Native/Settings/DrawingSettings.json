@@ -12,11 +12,6 @@
       "type": "MagickColor"
     },
     {
-      "name": "FillPattern",
-      "type": "MagickImage",
-      "throws": true
-    },
-    {
       "name": "FillRule",
       "type": "FillRule"
     },
@@ -63,11 +58,6 @@
     {
       "name": "StrokeMiterLimit",
       "type": "size_t"
-    },
-    {
-      "name": "StrokePattern",
-      "type": "MagickImage",
-      "throws": true
     },
     {
       "name": "StrokeWidth",
@@ -125,6 +115,17 @@
       ]
     },
     {
+      "name": "SetFillPattern",
+      "throws": true,
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "MagickImage"
+        }
+      ]
+    },
+    {
       "name": "SetAffine",
       "throws": true,
       "arguments":
@@ -166,6 +167,17 @@
         {
           "name": "length",
           "type": "size_t"
+        }
+      ]
+    },
+    {
+      "name": "SetStrokePattern",
+      "throws": true,
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "MagickImage"
         }
       ]
     },

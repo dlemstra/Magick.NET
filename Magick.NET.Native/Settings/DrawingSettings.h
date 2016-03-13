@@ -23,9 +23,6 @@ MAGICK_NET_EXPORT void DrawingSettings_BorderColor_Set(DrawInfo *, const PixelIn
 MAGICK_NET_EXPORT PixelInfo *DrawingSettings_FillColor_Get(const DrawInfo *);
 MAGICK_NET_EXPORT void DrawingSettings_FillColor_Set(DrawInfo *, const PixelInfo *);
 
-MAGICK_NET_EXPORT Image *DrawingSettings_FillPattern_Get(const DrawInfo *, ExceptionInfo **);
-MAGICK_NET_EXPORT void DrawingSettings_FillPattern_Set(DrawInfo *, const Image *, ExceptionInfo **);
-
 MAGICK_NET_EXPORT size_t DrawingSettings_FillRule_Get(const DrawInfo *);
 MAGICK_NET_EXPORT void DrawingSettings_FillRule_Set(DrawInfo *, const size_t);
 
@@ -59,9 +56,6 @@ MAGICK_NET_EXPORT void DrawingSettings_StrokeLineJoin_Set(DrawInfo *, const size
 MAGICK_NET_EXPORT size_t DrawingSettings_StrokeMiterLimit_Get(const DrawInfo *);
 MAGICK_NET_EXPORT void DrawingSettings_StrokeMiterLimit_Set(DrawInfo *, const size_t);
 
-MAGICK_NET_EXPORT Image *DrawingSettings_StrokePattern_Get(const DrawInfo *, ExceptionInfo **);
-MAGICK_NET_EXPORT void DrawingSettings_StrokePattern_Set(DrawInfo *, const Image *, ExceptionInfo **);
-
 MAGICK_NET_EXPORT double DrawingSettings_StrokeWidth_Get(const DrawInfo *);
 MAGICK_NET_EXPORT void DrawingSettings_StrokeWidth_Set(DrawInfo *, const double);
 
@@ -93,6 +87,10 @@ MAGICK_NET_EXPORT const double *DrawingSettings_GetStrokeDashArray(DrawInfo *, s
 
 MAGICK_NET_EXPORT void DrawingSettings_SetAffine(DrawInfo *, const double, const double, const double, const double, const double, const double);
 
+MAGICK_NET_EXPORT void DrawingSettings_SetFillPattern(DrawInfo *, const Image *, ExceptionInfo **);
+
 MAGICK_NET_EXPORT void DrawingSettings_SetStrokeDashArray(DrawInfo *, const double *, const size_t);
+
+MAGICK_NET_EXPORT void DrawingSettings_SetStrokePattern(DrawInfo *, const Image *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void DrawingSettings_SetText(DrawInfo *, const char *);
