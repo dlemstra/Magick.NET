@@ -1,5 +1,8 @@
 # Breaking changes.
 
+### Magick.NET 7.0.0.0104:
+ - Removed Transform methods from MagickImage (use Resize and Crop instead).
+
 ### Magick.NET 7.0.0.0102:
  - Removed Resolution properties from MagickImage and replaced this with a new Density property.
 

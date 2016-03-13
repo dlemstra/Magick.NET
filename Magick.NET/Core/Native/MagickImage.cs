@@ -543,8 +543,6 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Tint(IntPtr Instance, IntPtr opacity, IntPtr tint, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImage_Transform(IntPtr Instance, IntPtr cropGeometry, IntPtr imageGeometry, out IntPtr exception);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_Transparent(IntPtr Instance, IntPtr color, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_TransparentChroma(IntPtr Instance, IntPtr colorLow, IntPtr colorHigh, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
@@ -1080,8 +1078,6 @@ namespace ImageMagick
         public static extern IntPtr MagickImage_Thumbnail(IntPtr Instance, IntPtr geometry, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Tint(IntPtr Instance, IntPtr opacity, IntPtr tint, out IntPtr exception);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImage_Transform(IntPtr Instance, IntPtr cropGeometry, IntPtr imageGeometry, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_Transparent(IntPtr Instance, IntPtr color, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3886,23 +3882,6 @@ namespace ImageMagick
               result = NativeMethods.X64.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
             else
               result = NativeMethods.X86.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
-            CheckException(exception, result);
-            Instance = result;
-          }
-        }
-      }
-      public void Transform(string cropGeometry, string imageGeometry)
-      {
-        using (INativeInstance cropGeometryNative = UTF8Marshaler.CreateInstance(cropGeometry))
-        {
-          using (INativeInstance imageGeometryNative = UTF8Marshaler.CreateInstance(imageGeometry))
-          {
-            IntPtr exception = IntPtr.Zero;
-            IntPtr result;
-            if (NativeLibrary.Is64Bit)
-              result = NativeMethods.X64.MagickImage_Transform(Instance, cropGeometryNative.Instance, imageGeometryNative.Instance, out exception);
-            else
-              result = NativeMethods.X86.MagickImage_Transform(Instance, cropGeometryNative.Instance, imageGeometryNative.Instance, out exception);
             CheckException(exception, result);
             Instance = result;
           }

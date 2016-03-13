@@ -1469,16 +1469,7 @@ namespace ImageMagick
                   {
                     case 'f':
                     {
-                      if (element.Name.Length == 9)
-                      {
-                        ExecuteTransform(element, image);
-                        return;
-                      }
-                      if (element.Name.Length == 19)
-                      {
-                        ExecuteTransformColorSpace(element, image);
-                        return;
-                      }
+                      ExecuteTransformColorSpace(element, image);
                       break;
                     }
                     case 'p':
@@ -3614,20 +3605,6 @@ namespace ImageMagick
         image.Tint((String)arguments["opacity"], (MagickColor)arguments["color"]);
       else
         throw new ArgumentException("Invalid argument combination for 'tint', allowed combinations are: [opacity] [opacity, color]");
-    }
-    private void ExecuteTransform(XmlElement element, MagickImage image)
-    {
-      Hashtable arguments = new Hashtable();
-      foreach (XmlAttribute attribute in element.Attributes)
-      {
-        arguments[attribute.Name] = Variables.GetValue<MagickGeometry>(attribute);
-      }
-      if (OnlyContains(arguments, "imageGeometry"))
-        image.Transform((MagickGeometry)arguments["imageGeometry"]);
-      else if (OnlyContains(arguments, "imageGeometry", "cropGeometry"))
-        image.Transform((MagickGeometry)arguments["imageGeometry"], (MagickGeometry)arguments["cropGeometry"]);
-      else
-        throw new ArgumentException("Invalid argument combination for 'transform', allowed combinations are: [imageGeometry] [imageGeometry, cropGeometry]");
     }
     private static void ExecuteTransformColorSpace(XmlElement element, MagickImage image)
     {

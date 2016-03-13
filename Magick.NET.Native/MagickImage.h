@@ -479,8 +479,6 @@ MAGICK_NET_EXPORT Image *MagickImage_Thumbnail(const Image *, const char *, Exce
 
 MAGICK_NET_EXPORT Image *MagickImage_Tint(const Image *, const char *, const PixelInfo *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_Transform(const Image *, const char *, const char *, ExceptionInfo **);
-
 MAGICK_NET_EXPORT void MagickImage_Transparent(Image *, const PixelInfo *, const MagickBooleanType, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImage_TransparentChrome(Image *, const PixelInfo *, const PixelInfo *, const MagickBooleanType, ExceptionInfo **);

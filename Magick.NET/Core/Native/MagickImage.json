@@ -2593,22 +2593,6 @@
       ]
     },
     {
-      "name": "Transform",
-      "instance": true,
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "cropGeometry",
-          "type": "string"
-        },
-        {
-          "name": "imageGeometry",
-          "type": "string"
-        }
-      ]
-    },
-    {
       "name": "Transparent",
       "throws": true,
       "arguments":

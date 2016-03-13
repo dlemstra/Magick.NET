@@ -2333,18 +2333,6 @@ MAGICK_NET_EXPORT Image *MagickImage_Tint(const Image *instance, const char *opa
   return image;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_Transform(const Image *instance, const char *cropGeometry, const char *imageGeometry, ExceptionInfo **exception)
-{
-  Image
-    *image;
-
-  image = MagickImage_Clone(instance, exception);
-  MAGICK_NET_GET_EXCEPTION;
-  TransformImage(&image, cropGeometry, imageGeometry, exceptionInfo);
-  MAGICK_NET_SET_EXCEPTION;
-  return image;
-}
-
 MAGICK_NET_EXPORT void MagickImage_Transparent(Image *instance, const PixelInfo *color, const MagickBooleanType invert, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;

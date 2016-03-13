@@ -6134,32 +6134,6 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Transform image based on image geometry.
-    ///</summary>
-    ///<param name="imageGeometry">The image geometry.</param>
-    ///<exception cref="MagickException"/>
-    public void Transform(MagickGeometry imageGeometry)
-    {
-      Throw.IfNull("imageGeometry", imageGeometry);
-
-      _NativeInstance.Transform(null, MagickGeometry.ToString(imageGeometry));
-    }
-
-    ///<summary>
-    /// Transform image based on image geometry.
-    ///</summary>
-    ///<param name="imageGeometry">The image geometry.</param>
-    ///<param name="cropGeometry">The crop geometry.</param>
-    ///<exception cref="MagickException"/>
-    public void Transform(MagickGeometry imageGeometry, MagickGeometry cropGeometry)
-    {
-      Throw.IfNull("imageGeometry", imageGeometry);
-      Throw.IfNull("cropGeometry", cropGeometry);
-
-      _NativeInstance.Transform(MagickGeometry.ToString(cropGeometry), MagickGeometry.ToString(imageGeometry));
-    }
-
-    ///<summary>
     /// Add alpha channel to image, setting pixels matching color to transparent.
     ///</summary>
     ///<param name="color">The color to make transparent.</param>

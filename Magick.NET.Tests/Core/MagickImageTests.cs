@@ -3002,16 +3002,6 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
-    public void Test_Transform()
-    {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
-      {
-        image.Transform(new MagickGeometry(0, 0, 50, 50));
-        Assert.Inconclusive("Needs implementation.");
-      }
-    }
-
-    [TestMethod, TestCategory(_Category)]
     public void Test_Transparent()
     {
       MagickColor red = new MagickColor("red");
