@@ -6313,7 +6313,7 @@ namespace ImageMagick
 #endif
     public void WaveletDenoise(QuantumType threshold, double softness)
     {
-      _NativeInstance.WaveletDenoise(threshold, 0.0);
+      _NativeInstance.WaveletDenoise(threshold, softness);
     }
 
     /// <summary>
