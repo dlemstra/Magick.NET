@@ -17,9 +17,6 @@ MAGICK_NET_EXPORT ImageInfo *MagickSettings_Create(void);
 
 MAGICK_NET_EXPORT void MagickSettings_Dispose(ImageInfo *);
 
-MAGICK_NET_EXPORT MagickBooleanType MagickSettings_Adjoin_Get(const ImageInfo *);
-MAGICK_NET_EXPORT void MagickSettings_Adjoin_Set(ImageInfo *, const MagickBooleanType value);
-
 MAGICK_NET_EXPORT PixelInfo *MagickSettings_AlphaColor_Get(const ImageInfo *);
 MAGICK_NET_EXPORT void MagickSettings_AlphaColor_Set(ImageInfo *, const  PixelInfo *);
 

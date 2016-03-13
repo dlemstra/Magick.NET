@@ -73,10 +73,6 @@ namespace Magick.NET.Tests
       {
         MagickSettings settings = image.Settings;
 
-        Assert.AreEqual(true, settings.Adjoin);
-        settings.Adjoin = false;
-        Assert.AreEqual(false, settings.Adjoin);
-
         MagickColor alphaColor = new MagickColor("#bd");
         ColorAssert.AreEqual(alphaColor, settings.AlphaColor);
         alphaColor = MagickColors.Tan;

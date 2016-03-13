@@ -254,21 +254,6 @@ namespace ImageMagick
       Dispose(false);
     }
 
-    ///<summary>
-    /// Join images into a single multi-image file.
-    ///</summary>
-    public bool Adjoin
-    {
-      get
-      {
-        return _NativeInstance.Adjoin;
-      }
-      set
-      {
-        _NativeInstance.Adjoin = value;
-      }
-    }
-
     /// <summary>
     /// Affine to use  when annotating with text or drawing.
     /// /// </summary>

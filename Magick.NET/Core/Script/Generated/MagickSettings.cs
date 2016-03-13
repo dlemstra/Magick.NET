@@ -42,19 +42,7 @@ namespace ImageMagick
       {
         case 'a':
         {
-          switch(element.Name[1])
-          {
-            case 'd':
-            {
-              ExecuteAdjoin(element, settings);
-              return;
-            }
-            case 'l':
-            {
-              ExecuteAlphaColor(element, settings);
-              return;
-            }
-          }
+          ExecuteAlphaColor(element, settings);
           break;
         }
         case 'b':
@@ -330,10 +318,6 @@ namespace ImageMagick
         }
       }
       throw new NotImplementedException(element.Name);
-    }
-    private void ExecuteAdjoin(XmlElement element, MagickSettings settings)
-    {
-      settings.Adjoin = Variables.GetValue<Boolean>(element, "value");
     }
     private void ExecuteAlphaColor(XmlElement element, MagickSettings settings)
     {

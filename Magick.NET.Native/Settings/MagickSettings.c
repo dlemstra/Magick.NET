@@ -26,16 +26,6 @@ MAGICK_NET_EXPORT void MagickSettings_Dispose(ImageInfo *instance)
   DestroyImageInfo(instance);
 }
 
-MAGICK_NET_EXPORT MagickBooleanType MagickSettings_Adjoin_Get(const ImageInfo *instance)
-{
-  return instance->adjoin;
-}
-
-MAGICK_NET_EXPORT void MagickSettings_Adjoin_Set(ImageInfo *instance, const MagickBooleanType value)
-{
-  instance->adjoin = value;
-}
-
 MAGICK_NET_EXPORT PixelInfo *MagickSettings_AlphaColor_Get(const ImageInfo *instance)
 {
   return MagickColor_Clone(&instance->alpha_color);

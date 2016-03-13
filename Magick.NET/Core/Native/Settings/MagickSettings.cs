@@ -41,11 +41,6 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_Dispose(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickSettings_Adjoin_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Adjoin_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickSettings_AlphaColor_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_AlphaColor_Set(IntPtr instance, IntPtr value);
@@ -143,11 +138,6 @@ namespace ImageMagick
         public static extern IntPtr MagickSettings_Create();
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_Dispose(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickSettings_Adjoin_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_Adjoin_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickSettings_AlphaColor_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -282,25 +272,6 @@ namespace ImageMagick
           if (_Instance != IntPtr.Zero)
             Dispose(_Instance);
           _Instance = value;
-        }
-      }
-      public bool Adjoin
-      {
-        get
-        {
-          bool result;
-          if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_Adjoin_Get(Instance);
-          else
-            result = NativeMethods.X86.MagickSettings_Adjoin_Get(Instance);
-          return result;
-        }
-        set
-        {
-          if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_Adjoin_Set(Instance, value);
-          else
-            NativeMethods.X86.MagickSettings_Adjoin_Set(Instance, value);
         }
       }
       public MagickColor AlphaColor

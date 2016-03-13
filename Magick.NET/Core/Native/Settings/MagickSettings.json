@@ -3,10 +3,6 @@
   "properties":
   [
     {
-      "name": "Adjoin",
-      "type": "bool"
-    },
-    {
       "name": "AlphaColor",
       "type": "MagickColor"
     },
