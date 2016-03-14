@@ -33,6 +33,16 @@ namespace ImageMagick
     ///<summary>
     /// Initializes a new instance of the PathMoveToAbs class.
     ///</summary>
+    ///<param name="x">The X coordinate.</param>
+    ///<param name="y">The Y coordinate.</param>
+    public PathMoveToAbs(double x, double y)
+     : this(new PointD(x, y))
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathMoveToAbs class.
+    ///</summary>
     ///<param name="coordinate">The coordinate to use.</param>
     public PathMoveToAbs(PointD coordinate)
     {

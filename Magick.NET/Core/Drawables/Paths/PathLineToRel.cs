@@ -34,6 +34,16 @@ namespace ImageMagick
     ///<summary>
     /// Initializes a new instance of the PathLineToRel class.
     ///</summary>
+    ///<param name="x">The X coordinate.</param>
+    ///<param name="y">The Y coordinate.</param>
+    public PathLineToRel(double x, double y)
+      : this(new PointD(x, y))
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the PathLineToRel class.
+    ///</summary>
     ///<param name="coordinates">The coordinates to use.</param>
     public PathLineToRel(params PointD[] coordinates)
     {
