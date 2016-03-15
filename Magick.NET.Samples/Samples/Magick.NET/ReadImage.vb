@@ -109,7 +109,7 @@ Namespace RootNamespace.Samples.MagickNET
 
       ' Read pdf with custom density.
       Dim settings As New MagickReadSettings()
-      settings.Density = New PointD(144, 144)
+      settings.Density = New Density(144)
 
       Using collection As New MagickImageCollection(SampleFiles.SnakewarePdf, settings)
       End Using

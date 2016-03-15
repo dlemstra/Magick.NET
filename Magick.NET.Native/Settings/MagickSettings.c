@@ -26,17 +26,6 @@ MAGICK_NET_EXPORT void MagickSettings_Dispose(ImageInfo *instance)
   DestroyImageInfo(instance);
 }
 
-MAGICK_NET_EXPORT PixelInfo *MagickSettings_AlphaColor_Get(const ImageInfo *instance)
-{
-  return MagickColor_Clone(&instance->alpha_color);
-}
-
-MAGICK_NET_EXPORT void MagickSettings_AlphaColor_Set(ImageInfo *instance, const PixelInfo *value)
-{
-  if (value != (PixelInfo *)NULL)
-    instance->alpha_color = *value;
-}
-
 MAGICK_NET_EXPORT PixelInfo *MagickSettings_BackgroundColor_Get(const ImageInfo *instance)
 {
   return MagickColor_Clone(&instance->background_color);
@@ -46,17 +35,6 @@ MAGICK_NET_EXPORT void MagickSettings_BackgroundColor_Set(ImageInfo *instance, c
 {
   if (value != (PixelInfo *)NULL)
     instance->background_color = *value;
-}
-
-MAGICK_NET_EXPORT PixelInfo *MagickSettings_BorderColor_Get(const ImageInfo *instance)
-{
-  return MagickColor_Clone(&instance->border_color);
-}
-
-MAGICK_NET_EXPORT void MagickSettings_BorderColor_Set(ImageInfo *instance, const PixelInfo *value)
-{
-  if (value != (PixelInfo *)NULL)
-    instance->border_color = *value;
 }
 
 MAGICK_NET_EXPORT size_t MagickSettings_ColorSpace_Get(const ImageInfo *instance)

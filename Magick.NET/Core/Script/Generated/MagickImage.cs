@@ -1470,7 +1470,7 @@ namespace ImageMagick
                     case 'f':
                     {
                       ExecuteTransformColorSpace(element, image);
-                      break;
+                      return;
                     }
                     case 'p':
                     {

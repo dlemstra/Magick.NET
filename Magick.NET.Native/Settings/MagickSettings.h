@@ -17,14 +17,8 @@ MAGICK_NET_EXPORT ImageInfo *MagickSettings_Create(void);
 
 MAGICK_NET_EXPORT void MagickSettings_Dispose(ImageInfo *);
 
-MAGICK_NET_EXPORT PixelInfo *MagickSettings_AlphaColor_Get(const ImageInfo *);
-MAGICK_NET_EXPORT void MagickSettings_AlphaColor_Set(ImageInfo *, const  PixelInfo *);
-
 MAGICK_NET_EXPORT PixelInfo *MagickSettings_BackgroundColor_Get(const ImageInfo *);
 MAGICK_NET_EXPORT void MagickSettings_BackgroundColor_Set(ImageInfo *, const  PixelInfo *);
-
-MAGICK_NET_EXPORT PixelInfo *MagickSettings_BoxColor_Get(const ImageInfo *);
-MAGICK_NET_EXPORT void MagickSettings_BoxColor_Set(ImageInfo *, const  PixelInfo *);
 
 MAGICK_NET_EXPORT size_t MagickSettings_ColorSpace_Get(const ImageInfo *);
 MAGICK_NET_EXPORT void MagickSettings_ColorSpace_Set(ImageInfo *, const size_t value);

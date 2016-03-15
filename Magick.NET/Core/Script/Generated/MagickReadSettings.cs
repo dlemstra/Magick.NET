@@ -41,7 +41,7 @@ namespace ImageMagick
       MagickReadSettings result = new MagickReadSettings();
       result.ColorSpace = Variables.GetValue<Nullable<ColorSpace>>(element, "colorSpace");
       result.Defines = CreateIReadDefines(element["defines"]);
-      result.Density = Variables.GetValue<Nullable<PointD>>(element, "density");
+      result.Density = Variables.GetValue<Density>(element, "density");
       result.Format = Variables.GetValue<Nullable<MagickFormat>>(element, "format");
       result.FrameCount = Variables.GetValue<Nullable<Int32>>(element, "frameCount");
       result.FrameIndex = Variables.GetValue<Nullable<Int32>>(element, "frameIndex");

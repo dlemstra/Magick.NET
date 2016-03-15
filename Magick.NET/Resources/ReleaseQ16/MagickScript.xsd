@@ -1344,7 +1344,7 @@
             </xs:element>
           </xs:sequence>
           <xs:attribute name="colorSpace" type="ColorSpace" />
-          <xs:attribute name="density" type="pointd" />
+          <xs:attribute name="density" type="density" />
           <xs:attribute name="format" type="MagickFormat" />
           <xs:attribute name="frameCount" type="int" />
           <xs:attribute name="frameIndex" type="int" />
@@ -1368,16 +1368,6 @@
   <xs:complexType name="magickSettings">
     <xs:sequence>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="adjoin">
-          <xs:complexType>
-            <xs:attribute name="value" use="required" type="bool" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="alphaColor">
-          <xs:complexType>
-            <xs:attribute name="value" use="required" type="color" />
-          </xs:complexType>
-        </xs:element>
         <xs:element name="backgroundColor">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="color" />
@@ -1410,7 +1400,7 @@
         </xs:element>
         <xs:element name="density">
           <xs:complexType>
-            <xs:attribute name="value" use="required" type="pointd" />
+            <xs:attribute name="value" use="required" type="density" />
           </xs:complexType>
         </xs:element>
         <xs:element name="endian">
@@ -2629,12 +2619,6 @@
             <xs:attribute name="opacity" use="required" type="xs:string" />
           </xs:complexType>
         </xs:element>
-        <xs:element name="transform">
-          <xs:complexType>
-            <xs:attribute name="cropGeometry" type="geometry" />
-            <xs:attribute name="imageGeometry" use="required" type="geometry" />
-          </xs:complexType>
-        </xs:element>
         <xs:element name="transformColorSpace">
           <xs:complexType>
             <xs:sequence>
@@ -3163,7 +3147,15 @@
             <xs:attribute name="y2" type="double" />
           </xs:complexType>
         </xs:element>
-        <xs:element name="lineToAbs" type="points" />
+        <xs:element name="lineToAbs">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="coordinates" minOccurs="0" type="points" />
+            </xs:sequence>
+            <xs:attribute name="x" type="double" />
+            <xs:attribute name="y" type="double" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="lineToHorizontalAbs">
           <xs:complexType>
             <xs:attribute name="x" use="required" type="double" />
@@ -3174,7 +3166,15 @@
             <xs:attribute name="x" use="required" type="double" />
           </xs:complexType>
         </xs:element>
-        <xs:element name="lineToRel" type="points" />
+        <xs:element name="lineToRel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="coordinates" minOccurs="0" type="points" />
+            </xs:sequence>
+            <xs:attribute name="x" type="double" />
+            <xs:attribute name="y" type="double" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="lineToVerticalAbs">
           <xs:complexType>
             <xs:attribute name="y" use="required" type="double" />
@@ -3187,12 +3187,16 @@
         </xs:element>
         <xs:element name="moveToAbs">
           <xs:complexType>
-            <xs:attribute name="coordinate" use="required" type="pointd" />
+            <xs:attribute name="coordinate" type="pointd" />
+            <xs:attribute name="x" type="double" />
+            <xs:attribute name="y" type="double" />
           </xs:complexType>
         </xs:element>
         <xs:element name="moveToRel">
           <xs:complexType>
-            <xs:attribute name="coordinate" use="required" type="pointd" />
+            <xs:attribute name="coordinate" type="pointd" />
+            <xs:attribute name="x" type="double" />
+            <xs:attribute name="y" type="double" />
           </xs:complexType>
         </xs:element>
         <xs:element name="quadraticCurveToAbs">

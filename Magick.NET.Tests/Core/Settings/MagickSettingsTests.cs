@@ -12,8 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,16 +26,169 @@ namespace Magick.NET.Tests
     private const string _Category = "MagickSettings";
 
     [TestMethod, TestCategory(_Category)]
-    public void Test_Dispose()
+    public void Test_Affine()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.White, 300, 300))
+      {
+        Assert.AreEqual(null, image.Settings.Affine);
+
+        image.Annotate("Magick.NET", Gravity.Center);
+        ColorAssert.AreEqual(MagickColors.White, image, 200, 200);
+
+        image.Settings.Affine = new DrawableAffine(10, 20, 30, 40, 50, 60);
+        image.Annotate("Magick.NET", Gravity.Center);
+        ColorAssert.AreEqual(MagickColors.Black, image, 200, 200);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_BackgroundColor()
     {
       using (MagickImage image = new MagickImage())
       {
-        ((IDisposable)image.Settings).Dispose();
+        ColorAssert.AreEqual(MagickColors.White, image.Settings.BackgroundColor);
 
-        ExceptionAssert.Throws<ObjectDisposedException>(delegate ()
+        image.Read(Files.Logos.MagickNETSVG);
+        ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+
+        image.Settings.BackgroundColor = MagickColors.Yellow;
+        image.Read(Files.Logos.MagickNETSVG);
+        ColorAssert.AreEqual(MagickColors.Yellow, image, 0, 0);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_BorderColor()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.MediumTurquoise, 10, 10))
+      {
+        ColorAssert.AreEqual(new MagickColor("#df"), image.Settings.BorderColor);
+
+        image.Settings.FillColor = MagickColors.Beige;
+        image.Settings.BorderColor = MagickColors.MediumTurquoise;
+        image.Extent(20, 20, Gravity.Center, MagickColors.Aqua);
+        image.Draw(new DrawableAlpha(0, 0, PaintMethod.FillToBorder));
+
+        ColorAssert.AreEqual(MagickColors.Beige, image, 0, 0);
+        ColorAssert.AreEqual(MagickColors.MediumTurquoise, image, 10, 10);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ColorSpace()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        Assert.AreEqual(ColorSpace.Undefined, image.Settings.ColorSpace);
+
+        image.Read(Files.ImageMagickJPG);
+        ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
+
+        image.Settings.ColorSpace = ColorSpace.Rec601YCbCr;
+        image.Read(Files.ImageMagickJPG);
+        ColorAssert.AreEqual(new MagickColor("#ff8080"), image, 0, 0);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ColorType()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        Assert.AreEqual(ColorType.Undefined, image.Settings.ColorType);
+
+        image.Read(Files.Builtin.Wizard);
+        image.ColorType = ColorType.Grayscale;
+
+        Assert.AreEqual(ColorType.Grayscale, image.ColorType);
+        image.Settings.ColorType = ColorType.TrueColor;
+
+        using (MemoryStream memStream = new MemoryStream())
         {
-          image.Settings.ColorSpace = ColorSpace.CMYK;
-        });
+          image.Format = MagickFormat.Jpg;
+          image.Write(memStream);
+          memStream.Position = 0;
+
+          using (MagickImage result = new MagickImage(memStream))
+          {
+            Assert.AreEqual(ColorType.TrueColor, result.ColorType);
+          }
+        }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Compression()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        Assert.AreEqual(CompressionMethod.Undefined, image.Settings.CompressionMethod);
+
+        image.Read(Files.Builtin.Wizard);
+
+        image.Settings.CompressionMethod = CompressionMethod.NoCompression;
+
+        using (MemoryStream memStream = new MemoryStream())
+        {
+          image.Format = MagickFormat.Bmp;
+          image.Write(memStream);
+          memStream.Position = 0;
+
+          using (MagickImage result = new MagickImage(memStream))
+          {
+            Assert.AreEqual(CompressionMethod.NoCompression, result.CompressionMethod);
+          }
+        }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Debug()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        Assert.AreEqual(false, image.Settings.Debug);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Density()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        Assert.AreEqual(null, image.Settings.Density);
+
+        image.Settings.Density = new Density(100);
+
+        image.Read(Files.Logos.MagickNETSVG);
+        Assert.AreEqual(new Density(100, DensityUnit.Undefined), image.Density);
+        Assert.AreEqual(582, image.Width);
+        Assert.AreEqual(280, image.Height);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Endian()
+    {
+      using (MagickImage image = new MagickImage(Files.NoisePNG))
+      {
+        Assert.AreEqual(Endian.Undefined, image.Settings.Endian);
+
+        using (MemoryStream memStream = new MemoryStream())
+        {
+          image.Settings.Endian = Endian.MSB;
+          image.Format = MagickFormat.Ipl;
+          image.Write(memStream);
+          memStream.Position = 0;
+
+          MagickReadSettings settings = new MagickReadSettings();
+          settings.Format = MagickFormat.Ipl;
+
+          using (MagickImage result = new MagickImage(memStream, settings))
+          {
+            Assert.AreEqual(Endian.MSB, result.Endian);
+          }
+        }
       }
     }
 
@@ -44,7 +197,7 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(MagickColors.Transparent, 100, 100))
       {
-        image.Settings.FillColor = null;
+        ColorAssert.AreEqual(MagickColors.Black, image.Settings.FillColor);
 
         Pixel pixelA;
         image.Settings.FillColor = MagickColors.Red;
@@ -67,187 +220,211 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
-    public void Test_Properties()
+    public void Test_FillPattern()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.Transparent, 500, 500))
+      {
+        Assert.AreEqual(null, image.Settings.FillPattern);
+
+        image.Settings.FillPattern = new MagickImage(Files.SnakewarePNG);
+
+        PointD[] coordinates = new PointD[4];
+        coordinates[0] = new PointD(50, 50);
+        coordinates[1] = new PointD(150, 50);
+        coordinates[2] = new PointD(150, 150);
+        coordinates[3] = new PointD(50, 150);
+        image.Draw(new DrawablePolygon(coordinates));
+
+        ColorAssert.AreEqual(new MagickColor("#02"), image, 84, 80);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_FillRule()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
+      {
+        Assert.AreEqual(FillRule.EvenOdd, image.Settings.FillRule);
+
+        image.Settings.FillRule = FillRule.Nonzero;
+        image.Settings.FillColor = MagickColors.White;
+        image.Settings.StrokeColor = MagickColors.Black;
+        image.Draw(new DrawablePath(
+          new PathMoveToAbs(40, 10),
+          new PathLineToAbs(20, 20),
+          new PathLineToAbs(70, 50),
+          new PathClose(),
+          new PathMoveToAbs(20, 40),
+          new PathLineToAbs(70, 40),
+          new PathLineToAbs(90, 10),
+          new PathClose()
+        ));
+
+        ColorAssert.AreEqual(MagickColors.White, image, 50, 30);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Font()
     {
       using (MagickImage image = new MagickImage())
       {
-        MagickSettings settings = image.Settings;
+        Assert.AreEqual(null, image.Settings.Font);
 
-        MagickColor alphaColor = new MagickColor("#bd");
-        ColorAssert.AreEqual(alphaColor, settings.AlphaColor);
-        alphaColor = MagickColors.Tan;
-        settings.AlphaColor = alphaColor;
-        ColorAssert.AreEqual(alphaColor, settings.AlphaColor);
+        image.Settings.Font = "DejaVu Sans Bold Oblique";
+        image.Settings.FontPointsize = 40;
+        image.Read("pango:Test");
 
-        MagickColor backgroundColor = new MagickColor("white");
-        ColorAssert.AreEqual(backgroundColor, settings.BackgroundColor);
-        backgroundColor = new MagickColor("purple");
-        settings.BackgroundColor = backgroundColor;
-        ColorAssert.AreEqual(backgroundColor, settings.BackgroundColor);
+        Assert.AreEqual(122, image.Width);
+        Assert.AreEqual(58, image.Height);
+        ColorAssert.AreEqual(MagickColors.Black, image, 15, 42);
+      }
+    }
 
-        MagickColor borderColor = new MagickColor("#df");
-        ColorAssert.AreEqual(borderColor, settings.BorderColor);
-        borderColor = new MagickColor("orange");
-        settings.BorderColor = borderColor;
-        ColorAssert.AreEqual(borderColor, settings.BorderColor);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_FontFamily()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        Assert.AreEqual(null, image.Settings.FontFamily);
+        Assert.AreEqual(0, image.Settings.FontPointsize);
+        Assert.AreEqual(FontStyleType.Undefined, image.Settings.FontStyle);
+        Assert.AreEqual(FontWeight.Undefined, image.Settings.FontWeight);
 
-        Assert.AreEqual(ColorSpace.Undefined, settings.ColorSpace);
-        settings.ColorSpace = ColorSpace.CMYK;
-        Assert.AreEqual(ColorSpace.CMYK, settings.ColorSpace);
+        image.Settings.FontFamily = "DejaVu Sans";
+        image.Settings.FontPointsize = 40;
+        image.Settings.FontStyle = FontStyleType.Oblique;
+        image.Settings.FontWeight = FontWeight.ExtraBold;
+        image.Read("label:Test");
 
-        Assert.AreEqual(ColorType.Undefined, settings.ColorType);
-        settings.ColorType = ColorType.ColorSeparation;
-        Assert.AreEqual(ColorType.ColorSeparation, settings.ColorType);
+        Assert.AreEqual(96, image.Width);
+        Assert.AreEqual(47, image.Height);
+        ColorAssert.AreEqual(MagickColors.Black, image, 10, 34);
+      }
+    }
 
-        Assert.AreEqual(CompressionMethod.Undefined, settings.CompressionMethod);
-        settings.CompressionMethod = CompressionMethod.BZip;
-        Assert.AreEqual(CompressionMethod.BZip, settings.CompressionMethod);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Page()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        Assert.AreEqual(null, image.Settings.Page);
 
-        Assert.AreEqual(false, settings.Debug);
-        settings.Debug = true;
-        Assert.AreEqual(true, settings.Debug);
-        settings.Debug = false;
+        image.Settings.Font = "DejaVu Sans";
+        image.Settings.Page = new MagickGeometry(50, 50, 100, 100);
+        image.Read("pango:Test");
 
-        PointD density = new PointD(72);
-        Assert.AreEqual(density, settings.Density);
-        density = new PointD(100);
-        settings.Density = density;
-        Assert.AreEqual(density, settings.Density);
+        Assert.AreEqual(132, image.Width);
+        Assert.AreEqual(118, image.Height);
+      }
+    }
 
-        density = new PointD(50, 10);
-        settings.Density = density;
-        Assert.AreEqual(density, settings.Density);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_StrokeAntiAlias()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.Purple, 300, 300))
+      {
+        Assert.AreEqual(true, image.Settings.StrokeAntiAlias);
 
-        Assert.AreEqual(Endian.Undefined, settings.Endian);
-        settings.Endian = Endian.MSB;
-        Assert.AreEqual(Endian.MSB, settings.Endian);
+        image.Settings.StrokeWidth = 20;
+        image.Settings.StrokeAntiAlias = false;
+        image.Settings.StrokeColor = MagickColors.Orange;
+        image.Draw(new DrawableCircle(150, 150, 100, 100));
 
-        MagickColor fillColor = MagickColors.Black;
-        ColorAssert.AreEqual(fillColor, settings.FillColor);
-        fillColor = new MagickColor("purple");
-        settings.FillColor = fillColor;
-        ColorAssert.AreEqual(fillColor, settings.FillColor);
+        ColorAssert.AreEqual(MagickColors.Orange, image, 84, 103);
+      }
+    }
 
-        using (MagickImage fillPattern = new MagickImage(Files.CirclePNG))
-        {
-          Assert.AreEqual(null, settings.FillPattern);
-          settings.FillPattern = fillPattern;
-          Assert.AreEqual(fillPattern, settings.FillPattern);
-        }
+    [TestMethod, TestCategory(_Category)]
+    public void Test_StrokeDashArray()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
+      {
+        Assert.AreEqual(null, image.Settings.StrokeDashArray);
+        Assert.AreEqual(0, image.Settings.StrokeDashOffset);
 
-        Assert.AreEqual(FillRule.EvenOdd, settings.FillRule);
-        settings.FillRule = FillRule.Nonzero;
-        Assert.AreEqual(FillRule.Nonzero, settings.FillRule);
+        image.Settings.StrokeColor = MagickColors.Moccasin;
+        image.Settings.StrokeDashArray = new double[] { 5.0, 8.0, 10.0 };
+        image.Settings.StrokeDashOffset = 1;
 
-        Assert.AreEqual(null, settings.Font);
-        settings.Font = "Comic Sans";
-        Assert.AreEqual("Comic Sans", settings.Font);
+        image.Draw(new DrawablePath(new PathMoveToAbs(10, 20), new PathLineToAbs(90, 20)));
 
-        Assert.AreEqual(null, settings.FontFamily);
-        settings.FontFamily = "Trajan";
-        Assert.AreEqual("Trajan", settings.FontFamily);
+        ColorAssert.AreEqual(MagickColors.Moccasin, image, 13, 20);
+        ColorAssert.AreEqual(MagickColors.Moccasin, image, 37, 20);
+        ColorAssert.AreEqual(MagickColors.Moccasin, image, 60, 20);
+        ColorAssert.AreEqual(MagickColors.Moccasin, image, 84, 20);
+      }
+    }
 
-        Assert.AreEqual(0, settings.FontPointsize);
-        settings.FontPointsize = 60;
-        Assert.AreEqual(60, settings.FontPointsize);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_StrokeLineCap()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
+      {
+        Assert.AreEqual(LineCap.Butt, image.Settings.StrokeLineCap);
 
-        Assert.AreEqual(FontStyleType.Undefined, settings.FontStyle);
-        settings.FontStyle = FontStyleType.Oblique;
-        Assert.AreEqual(FontStyleType.Oblique, settings.FontStyle);
+        image.Settings.StrokeWidth = 8;
+        image.Settings.StrokeColor = MagickColors.Sienna;
+        image.Settings.StrokeLineCap = LineCap.Round;
 
-        Assert.AreEqual(FontWeight.Undefined, settings.FontWeight);
-        settings.FontWeight = FontWeight.ExtraBold;
-        Assert.AreEqual(FontWeight.ExtraBold, settings.FontWeight);
+        image.Draw(new DrawablePath(new PathMoveToAbs(40, 20), new PathLineToAbs(40, 70)));
 
-        Assert.AreEqual(MagickFormat.Unknown, settings.Format);
-        settings.Format = MagickFormat.WebP;
-        Assert.AreEqual(MagickFormat.WebP, settings.Format);
+        ColorAssert.AreEqual(MagickColors.Sienna, image, 40, 17);
+      }
+    }
 
-        MagickGeometry page = new MagickGeometry(0, 0, 0, 0);
-        Assert.AreEqual(page, settings.Page);
-        page = new MagickGeometry(0, 0, 10, 10);
-        settings.Page = page;
-        Assert.AreEqual(page, settings.Page);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_StrokeLineJoin()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
+      {
+        Assert.AreEqual(LineJoin.Miter, image.Settings.StrokeLineJoin);
 
-        Assert.AreEqual(true, settings.StrokeAntiAlias);
-        settings.StrokeAntiAlias = false;
-        Assert.AreEqual(false, settings.StrokeAntiAlias);
+        image.Settings.StrokeWidth = 5;
+        image.Settings.StrokeColor = MagickColors.LemonChiffon;
+        image.Settings.StrokeLineJoin = LineJoin.Round;
 
-        MagickColor strokeColor = new MagickColor(0, 0, 0, 0);
-        ColorAssert.AreEqual(strokeColor, settings.StrokeColor);
-        strokeColor = MagickColors.Fuchsia;
-        settings.StrokeColor = strokeColor;
-        ColorAssert.AreEqual(strokeColor, settings.StrokeColor);
+        image.Draw(new DrawablePath(new PathMoveToAbs(75, 70), new PathLineToAbs(90, 20), new PathLineToAbs(105, 70)));
 
-        Assert.AreEqual(null, settings.StrokeDashArray);
-        List<double> dashArray = new List<double>(new double[] { 1.0, 2.0, 3.0 });
-        settings.StrokeDashArray = dashArray;
-        CollectionAssert.AreEqual(dashArray, new List<double>(settings.StrokeDashArray));
+        ColorAssert.AreEqual(MagickColors.SkyBlue, image, 90, 12);
+      }
+    }
 
-        Assert.AreEqual(0, settings.StrokeDashOffset);
-        settings.StrokeDashOffset = 5;
-        Assert.AreEqual(5, settings.StrokeDashOffset);
+    [TestMethod, TestCategory(_Category)]
+    public void Test_StrokeMiterLimit()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
+      {
+        Assert.AreEqual(10, image.Settings.StrokeMiterLimit);
 
-        Assert.AreEqual(LineCap.Butt, settings.StrokeLineCap);
-        settings.StrokeLineCap = LineCap.Round;
-        Assert.AreEqual(LineCap.Round, settings.StrokeLineCap);
+        image.Settings.StrokeWidth = 5;
+        image.Settings.StrokeColor = MagickColors.MediumSpringGreen;
+        image.Settings.StrokeMiterLimit = 6;
 
-        Assert.AreEqual(LineJoin.Miter, settings.StrokeLineJoin);
-        settings.StrokeLineJoin = LineJoin.Round;
-        Assert.AreEqual(LineJoin.Round, settings.StrokeLineJoin);
+        image.Draw(new DrawablePath(new PathMoveToAbs(65, 70), new PathLineToAbs(80, 20), new PathLineToAbs(95, 70)));
 
-        Assert.AreEqual(10, settings.StrokeMiterLimit);
-        settings.StrokeMiterLimit = 8;
-        Assert.AreEqual(8, settings.StrokeMiterLimit);
+        ColorAssert.AreEqual(MagickColors.SkyBlue, image, 80, 18);
+      }
+    }
 
-        using (MagickImage strokePattern = new MagickImage(Files.MagickNETIconPNG))
-        {
-          Assert.AreEqual(null, settings.StrokePattern);
-          settings.StrokePattern = strokePattern;
-          Assert.AreEqual(strokePattern, settings.StrokePattern);
-        }
+    [TestMethod, TestCategory(_Category)]
+    public void Test_StrokePattern()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.Red, 250, 100))
+      {
+        Assert.AreEqual(null, image.Settings.StrokePattern);
 
-        Assert.AreEqual(1, settings.StrokeWidth);
-        settings.StrokeWidth = 9.5;
-        Assert.AreEqual(9.5, settings.StrokeWidth);
+        image.Settings.StrokeWidth = 40;
+        image.Settings.StrokePattern = new MagickImage(Files.Builtin.Logo);
 
-        Assert.AreEqual(true, settings.TextAntiAlias);
-        settings.TextAntiAlias = false;
-        Assert.AreEqual(false, settings.TextAntiAlias);
+        image.Draw(new DrawableLine(50, 50, 200, 50));
 
-        Assert.AreEqual(TextDirection.Undefined, settings.TextDirection);
-        settings.TextDirection = TextDirection.RightToLeft;
-        Assert.AreEqual(TextDirection.RightToLeft, settings.TextDirection);
-
-        Assert.AreEqual(null, settings.TextEncoding);
-        settings.TextEncoding = Encoding.Unicode;
-        Assert.AreEqual(Encoding.Unicode, settings.TextEncoding);
-
-        Assert.AreEqual(Gravity.Undefined, settings.TextGravity);
-        settings.TextGravity = Gravity.North;
-        Assert.AreEqual(Gravity.North, settings.TextGravity);
-
-        Assert.AreEqual(0, settings.TextInterlineSpacing);
-        settings.TextInterlineSpacing = 3.4;
-        Assert.AreEqual(3.4, settings.TextInterlineSpacing);
-
-        Assert.AreEqual(0, settings.TextInterwordSpacing);
-        settings.TextInterwordSpacing = 7.8;
-        Assert.AreEqual(7.8, settings.TextInterwordSpacing);
-
-        Assert.AreEqual(0, settings.TextKerning);
-        settings.TextKerning = 6.2;
-        Assert.AreEqual(6.2, settings.TextKerning);
-
-        MagickColor underColor = new MagickColor(0, 0, 0, 0);
-        ColorAssert.AreEqual(underColor, settings.TextUnderColor);
-        underColor = new MagickColor("yellow");
-        settings.TextUnderColor = underColor;
-        ColorAssert.AreEqual(underColor, settings.TextUnderColor);
-
-        Assert.AreEqual(false, settings.Verbose);
-        settings.Verbose = true;
-        Assert.AreEqual(true, settings.Verbose);
+        ColorAssert.AreEqual(MagickColors.Red, image, 49, 50);
+        ColorAssert.AreEqual(MagickColors.White, image, 50, 50);
+        ColorAssert.AreEqual(MagickColors.White, image, 50, 70);
+        ColorAssert.AreEqual(MagickColors.White, image, 200, 50);
+        ColorAssert.AreEqual(MagickColors.White, image, 200, 70);
+        ColorAssert.AreEqual(MagickColors.Red, image, 201, 50);
       }
     }
 
@@ -256,6 +433,9 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(MagickColors.Purple, 300, 300))
       {
+        Assert.AreEqual(1, image.Settings.StrokeWidth);
+        Assert.AreEqual(new MagickColor(0, 0, 0, 0), image.Settings.StrokeColor);
+
         image.Settings.StrokeWidth = 40;
         image.Settings.StrokeColor = MagickColors.Orange;
         image.Draw(new DrawableCircle(150, 150, 100, 100));
@@ -267,10 +447,45 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_TextAntiAlias()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.Azure, 300, 300))
+      {
+        Assert.AreEqual(true, image.Settings.TextAntiAlias);
+
+        image.Settings.TextAntiAlias = false;
+        image.Settings.FontPointsize = 100;
+        image.Annotate("TEST", Gravity.Center);
+
+        ColorAssert.AreEqual(MagickColors.Azure, image, 175, 112);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_TextDirection()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        Assert.AreEqual(TextDirection.Undefined, image.Settings.TextDirection);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_TextEncoding()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.Azure, 300, 300))
+      {
+        Assert.AreEqual(null, image.Settings.TextEncoding);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_TextGravity()
     {
       using (MagickImage image = new MagickImage("xc:red", 300, 300))
       {
+        Assert.AreEqual(Gravity.Undefined, image.Settings.TextGravity);
+
         image.Settings.BackgroundColor = MagickColors.Yellow;
         image.Settings.StrokeColor = MagickColors.Fuchsia;
         image.Settings.FillColor = MagickColors.Fuchsia;
@@ -288,6 +503,8 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage())
       {
+        Assert.AreEqual(0, image.Settings.TextInterlineSpacing);
+
         image.Settings.TextInterlineSpacing = 10;
         image.Read("label:First\nSecond");
 
@@ -307,6 +524,8 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage())
       {
+        Assert.AreEqual(0, image.Settings.TextInterwordSpacing);
+
         image.Settings.TextInterwordSpacing = 10;
         image.Read("label:First second");
 
@@ -326,6 +545,8 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage())
       {
+        Assert.AreEqual(0, image.Settings.TextKerning);
+
         image.Settings.TextKerning = 10;
         image.Read("label:First");
 
@@ -345,6 +566,8 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage())
       {
+        ColorAssert.AreEqual(new MagickColor(0, 0, 0, 0), image.Settings.TextUnderColor);
+
         image.Settings.TextUnderColor = MagickColors.Purple;
         image.Read("label:First");
 
@@ -353,6 +576,15 @@ namespace Magick.NET.Tests
 
         ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
         ColorAssert.AreEqual(MagickColors.White, image, 24, 0);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_Verbose()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        Assert.AreEqual(false, image.Settings.Verbose);
       }
     }
   }

@@ -47,10 +47,10 @@ namespace ImageMagick
 
     private void ApplyDensity(MagickReadSettings readSettings)
     {
-      if (!readSettings.Density.HasValue)
+      if (readSettings.Density == null)
         return;
 
-      Density = readSettings.Density.Value;
+      Density = readSettings.Density;
     }
 
     private void ApplyDimensions(MagickReadSettings readSettings)
@@ -87,6 +87,7 @@ namespace ImageMagick
         _NativeInstance.SetMonochrome(readSettings.UseMonochrome.Value);
     }
 
+    [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "disposing")]
     private void Dispose(bool disposing)
     {
       if (_NativeInstance != null)
@@ -255,7 +256,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Affine to use  when annotating with text or drawing.
+    /// Affine to use when annotating with text or drawing.
     /// /// </summary>
     public DrawableAffine Affine
     {
@@ -266,21 +267,6 @@ namespace ImageMagick
       set
       {
         Drawing.Affine = value;
-      }
-    }
-
-    ///<summary>
-    /// Transparent color.
-    ///</summary>
-    public MagickColor AlphaColor
-    {
-      get
-      {
-        return _NativeInstance.AlphaColor;
-      }
-      set
-      {
-        _NativeInstance.AlphaColor = value;
       }
     }
 
@@ -309,11 +295,10 @@ namespace ImageMagick
     {
       get
       {
-        return _NativeInstance.BorderColor;
+        return Drawing.BorderColor;
       }
       set
       {
-        _NativeInstance.BorderColor = value;
         Drawing.BorderColor = value;
       }
     }
@@ -381,15 +366,18 @@ namespace ImageMagick
     ///<summary>
     /// Vertical and horizontal resolution in pixels.
     ///</summary>
-    public PointD Density
+    public Density Density
     {
       get
       {
-        return PointD.Create(_NativeInstance.Density);
+        return Density.Create(_NativeInstance.Density);
       }
       set
       {
-        _NativeInstance.Density = value.ToString();
+        if (value == null)
+          _NativeInstance.Density = null;
+        else
+          _NativeInstance.Density = value.ToString(DensityUnit.Undefined);
       }
     }
 
@@ -563,7 +551,7 @@ namespace ImageMagick
       {
         string value = _NativeInstance.Page;
         if (string.IsNullOrEmpty(value))
-          return new MagickGeometry(0, 0, 0, 0);
+          return null;
 
         return new MagickGeometry(value);
       }

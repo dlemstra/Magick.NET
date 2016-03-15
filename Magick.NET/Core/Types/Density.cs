@@ -56,6 +56,14 @@ namespace ImageMagick
       Y = y;
     }
 
+    internal static Density Create(string value)
+    {
+      if (string.IsNullOrEmpty(value))
+        return null;
+
+      return new Density(value);
+    }
+
     ///<summary>
     /// Initializes a new instance of the Density class using the specified x and y.
     ///</summary>
@@ -101,7 +109,7 @@ namespace ImageMagick
     ///<summary>
     /// Initializes a new instance of the Density class using the specified string.
     ///</summary>
-    ///<param name="value">PointD specifications in the form: &lt;x&gt;x&lt;y&gt;[inch/cm] (where x, y are numbers)</param>
+    ///<param name="value">Density specifications in the form: &lt;x&gt;x&lt;y&gt;[inch/cm] (where x, y are numbers)</param>
     public Density(string value)
     {
       Initialize(value);
@@ -205,9 +213,17 @@ namespace ImageMagick
     ///</summary>
     public override string ToString()
     {
+      return ToString(Units);
+    }
+
+    ///<summary>
+    /// Returns a string that represents the current Density.
+    ///</summary>
+    public string ToString(DensityUnit units)
+    {
       string result = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", X, Y);
 
-      switch (Units)
+      switch (units)
       {
         case DensityUnit.PixelsPerCentimeter:
           return result + " cm";

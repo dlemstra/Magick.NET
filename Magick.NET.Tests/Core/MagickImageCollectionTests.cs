@@ -748,8 +748,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(0, collection[0].Page.X);
         Assert.AreEqual(0, collection[0].Page.Y);
 
-        Assert.AreEqual(0, collection[0].Settings.Page.X);
-        Assert.AreEqual(0, collection[0].Settings.Page.Y);
+        Assert.AreEqual(null, collection[0].Settings.Page);
       }
     }
 

@@ -41,17 +41,9 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_Dispose(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_AlphaColor_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_AlphaColor_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickSettings_BackgroundColor_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_BackgroundColor_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_BorderColor_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_BorderColor_Set(IntPtr instance, IntPtr value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr MagickSettings_ColorSpace_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -139,17 +131,9 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_Dispose(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_AlphaColor_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_AlphaColor_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickSettings_BackgroundColor_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_BackgroundColor_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickSettings_BorderColor_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_BorderColor_Set(IntPtr instance, IntPtr value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr MagickSettings_ColorSpace_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -274,28 +258,6 @@ namespace ImageMagick
           _Instance = value;
         }
       }
-      public MagickColor AlphaColor
-      {
-        get
-        {
-          IntPtr result;
-          if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_AlphaColor_Get(Instance);
-          else
-            result = NativeMethods.X86.MagickSettings_AlphaColor_Get(Instance);
-          return MagickColor.CreateInstance(result);
-        }
-        set
-        {
-          using (INativeInstance valueNative = MagickColor.CreateInstance(value))
-          {
-            if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickSettings_AlphaColor_Set(Instance, valueNative.Instance);
-            else
-              NativeMethods.X86.MagickSettings_AlphaColor_Set(Instance, valueNative.Instance);
-          }
-        }
-      }
       public MagickColor BackgroundColor
       {
         get
@@ -315,28 +277,6 @@ namespace ImageMagick
               NativeMethods.X64.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
             else
               NativeMethods.X86.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
-          }
-        }
-      }
-      public MagickColor BorderColor
-      {
-        get
-        {
-          IntPtr result;
-          if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_BorderColor_Get(Instance);
-          else
-            result = NativeMethods.X86.MagickSettings_BorderColor_Get(Instance);
-          return MagickColor.CreateInstance(result);
-        }
-        set
-        {
-          using (INativeInstance valueNative = MagickColor.CreateInstance(value))
-          {
-            if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickSettings_BorderColor_Set(Instance, valueNative.Instance);
-            else
-              NativeMethods.X86.MagickSettings_BorderColor_Set(Instance, valueNative.Instance);
           }
         }
       }

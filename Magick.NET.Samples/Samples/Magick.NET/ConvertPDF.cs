@@ -29,7 +29,7 @@ namespace RootNamespace.Samples.MagickNET
     {
       MagickReadSettings settings = new MagickReadSettings();
       // Settings the density to 300 dpi will create an image with a better quality
-      settings.Density = new PointD(300, 300);
+      settings.Density = new Density(300, 300);
 
       using (MagickImageCollection images = new MagickImageCollection())
       {
@@ -53,7 +53,7 @@ namespace RootNamespace.Samples.MagickNET
     {
       MagickReadSettings settings = new MagickReadSettings();
       // Settings the density to 300 dpi will create an image with a better quality
-      settings.Density = new PointD(300, 300);
+      settings.Density = new Density(300);
 
       using (MagickImageCollection images = new MagickImageCollection())
       {

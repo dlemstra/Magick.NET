@@ -3,15 +3,7 @@
   "properties":
   [
     {
-      "name": "AlphaColor",
-      "type": "MagickColor"
-    },
-    {
       "name": "BackgroundColor",
-      "type": "MagickColor"
-    },
-    {
-      "name": "BorderColor",
       "type": "MagickColor"
     },
     {

@@ -289,6 +289,19 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_AlphaColor()
+    {
+      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      {
+        image.AlphaColor = MagickColors.PaleGoldenrod;
+        image.Frame();
+
+        ColorAssert.AreEqual(MagickColors.PaleGoldenrod, image, 10, 10);
+        ColorAssert.AreEqual(MagickColors.PaleGoldenrod, image, 680, 520);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_Annotate()
     {
       using (MagickImage image = new MagickImage(MagickColors.Thistle, 200, 50))
@@ -460,6 +473,18 @@ namespace Magick.NET.Tests
           Assert.AreEqual(600, image.Height);
           Assert.AreEqual(OrientationType.TopLeft, image.Orientation);
         }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_BlackPointCompensation()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        Assert.AreEqual(false, image.BlackPointCompensation);
+        image.BlackPointCompensation = true;
+        Assert.AreEqual(true, image.BlackPointCompensation);
+        Assert.Inconclusive("Needs implementation.");
       }
     }
 
@@ -2254,17 +2279,6 @@ namespace Magick.NET.Tests
 
         image.Flip();
         Assert.IsTrue(progress <= (Percentage)1);
-      }
-    }
-
-    [TestMethod, TestCategory(_Category)]
-    public void Test_Properties()
-    {
-      using (MagickImage image = new MagickImage())
-      {
-        Assert.AreEqual(false, image.BlackPointCompensation);
-        image.BlackPointCompensation = true;
-        Assert.AreEqual(true, image.BlackPointCompensation);
       }
     }
 

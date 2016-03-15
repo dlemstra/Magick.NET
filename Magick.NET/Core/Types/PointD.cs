@@ -43,18 +43,6 @@ namespace ImageMagick
       _Y = y;
     }
 
-    internal static PointD Create(string value)
-    {
-      PointD point = new PointD();
-
-      if (string.IsNullOrEmpty(value))
-        point._X = point._Y = 72;
-      else
-        point.Initialize(value);
-
-      return point;
-    }
-
     internal static PointD FromPointInfo(PointInfo point)
     {
       if (point == null)

@@ -40,11 +40,6 @@ namespace ImageMagick
     {
       switch(element.Name[0])
       {
-        case 'a':
-        {
-          ExecuteAlphaColor(element, settings);
-          break;
-        }
         case 'b':
         {
           switch(element.Name[1])
@@ -319,10 +314,6 @@ namespace ImageMagick
       }
       throw new NotImplementedException(element.Name);
     }
-    private void ExecuteAlphaColor(XmlElement element, MagickSettings settings)
-    {
-      settings.AlphaColor = Variables.GetValue<MagickColor>(element, "value");
-    }
     private void ExecuteBackgroundColor(XmlElement element, MagickSettings settings)
     {
       settings.BackgroundColor = Variables.GetValue<MagickColor>(element, "value");
@@ -349,7 +340,7 @@ namespace ImageMagick
     }
     private void ExecuteDensity(XmlElement element, MagickSettings settings)
     {
-      settings.Density = Variables.GetValue<PointD>(element, "value");
+      settings.Density = Variables.GetValue<Density>(element, "value");
     }
     private void ExecuteEndian(XmlElement element, MagickSettings settings)
     {

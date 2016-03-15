@@ -29,7 +29,7 @@ Namespace RootNamespace.Samples.MagickNET
     Public Shared Sub ConvertPDFToMultipleImages()
       Dim settings As New MagickReadSettings()
       ' Settings the density to 300 dpi will create an image with a better quality
-      settings.Density = New PointD(300, 300)
+      settings.Density = New Density(300, 300)
 
       Using images As New MagickImageCollection()
         ' Add all the pages of the pdf file to the collection
@@ -50,7 +50,7 @@ Namespace RootNamespace.Samples.MagickNET
     Public Shared Sub ConvertPDFTOneImage()
       Dim settings As New MagickReadSettings()
       ' Settings the density to 300 dpi will create an image with a better quality
-      settings.Density = New PointD(300, 300)
+      settings.Density = New Density(300)
 
       Using images As New MagickImageCollection()
         ' Add all the pages of the pdf file to the collection

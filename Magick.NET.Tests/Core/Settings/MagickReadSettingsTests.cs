@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
       using (MagickImageCollection collection = new MagickImageCollection())
       {
         MagickReadSettings settings = new MagickReadSettings();
-        settings.Density = new PointD(150, 150);
+        settings.Density = new Density(150);
 
         collection.Read(Files.RoseSparkleGIF, settings);
 
@@ -72,7 +72,7 @@ namespace Magick.NET.Tests
       using (MagickImage image = new MagickImage())
       {
         MagickReadSettings settings = new MagickReadSettings();
-        settings.Density = new PointD(300);
+        settings.Density = new Density(300);
 
         image.Read(Files.SnakewarePNG, settings);
 

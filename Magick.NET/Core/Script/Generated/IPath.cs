@@ -277,8 +277,21 @@ namespace ImageMagick
     }
     private void ExecutePathLineToAbs(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<PointD> coordinates_ = CreatePointDs(element);
-      paths.Add(new PathLineToAbs(coordinates_));
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        arguments[attribute.Name] = Variables.GetValue<double>(attribute);
+      }
+      foreach (XmlElement elem in element.SelectNodes("*"))
+      {
+        arguments[elem.Name] = CreatePointDs(elem);
+      }
+      if (OnlyContains(arguments, "coordinates"))
+        paths.Add(new PathLineToAbs((IEnumerable<PointD>)arguments["coordinates"]));
+      else if (OnlyContains(arguments, "x", "y"))
+        paths.Add(new PathLineToAbs((double)arguments["x"], (double)arguments["y"]));
+      else
+        throw new ArgumentException("Invalid argument combination for 'lineToAbs', allowed combinations are: [coordinates] [x, y]");
     }
     private void ExecutePathLineToHorizontalAbs(XmlElement element, Collection<IPath> paths)
     {
@@ -292,8 +305,21 @@ namespace ImageMagick
     }
     private void ExecutePathLineToRel(XmlElement element, Collection<IPath> paths)
     {
-      IEnumerable<PointD> coordinates_ = CreatePointDs(element);
-      paths.Add(new PathLineToRel(coordinates_));
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        arguments[attribute.Name] = Variables.GetValue<double>(attribute);
+      }
+      foreach (XmlElement elem in element.SelectNodes("*"))
+      {
+        arguments[elem.Name] = CreatePointDs(elem);
+      }
+      if (OnlyContains(arguments, "coordinates"))
+        paths.Add(new PathLineToRel((IEnumerable<PointD>)arguments["coordinates"]));
+      else if (OnlyContains(arguments, "x", "y"))
+        paths.Add(new PathLineToRel((double)arguments["x"], (double)arguments["y"]));
+      else
+        throw new ArgumentException("Invalid argument combination for 'lineToRel', allowed combinations are: [coordinates] [x, y]");
     }
     private void ExecutePathLineToVerticalAbs(XmlElement element, Collection<IPath> paths)
     {
@@ -307,13 +333,41 @@ namespace ImageMagick
     }
     private void ExecutePathMoveToAbs(XmlElement element, Collection<IPath> paths)
     {
-      PointD coordinate_ = Variables.GetValue<PointD>(element, "coordinate");
-      paths.Add(new PathMoveToAbs(coordinate_));
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "coordinate")
+          arguments["coordinate"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "x")
+          arguments["x"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y")
+          arguments["y"] = Variables.GetValue<double>(attribute);
+      }
+      if (OnlyContains(arguments, "coordinate"))
+        paths.Add(new PathMoveToAbs((PointD)arguments["coordinate"]));
+      else if (OnlyContains(arguments, "x", "y"))
+        paths.Add(new PathMoveToAbs((double)arguments["x"], (double)arguments["y"]));
+      else
+        throw new ArgumentException("Invalid argument combination for 'moveToAbs', allowed combinations are: [coordinate] [x, y]");
     }
     private void ExecutePathMoveToRel(XmlElement element, Collection<IPath> paths)
     {
-      PointD coordinate_ = Variables.GetValue<PointD>(element, "coordinate");
-      paths.Add(new PathMoveToRel(coordinate_));
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "coordinate")
+          arguments["coordinate"] = Variables.GetValue<PointD>(attribute);
+        else if (attribute.Name == "x")
+          arguments["x"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "y")
+          arguments["y"] = Variables.GetValue<double>(attribute);
+      }
+      if (OnlyContains(arguments, "coordinate"))
+        paths.Add(new PathMoveToRel((PointD)arguments["coordinate"]));
+      else if (OnlyContains(arguments, "x", "y"))
+        paths.Add(new PathMoveToRel((double)arguments["x"], (double)arguments["y"]));
+      else
+        throw new ArgumentException("Invalid argument combination for 'moveToRel', allowed combinations are: [coordinate] [x, y]");
     }
     private void ExecutePathQuadraticCurveToAbs(XmlElement element, Collection<IPath> paths)
     {

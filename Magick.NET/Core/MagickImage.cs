@@ -487,7 +487,6 @@ namespace ImageMagick
     {
       Read(color, width, height);
       BackgroundColor = color;
-      Settings.BackgroundColor = color;
     }
 
     ///<summary>
@@ -704,7 +703,6 @@ namespace ImageMagick
       set
       {
         _NativeInstance.AlphaColor = value;
-        Settings.AlphaColor = value;
       }
     }
 

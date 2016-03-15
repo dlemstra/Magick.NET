@@ -92,7 +92,7 @@ namespace ImageMagick
     ///<summary>
     /// Vertical and horizontal resolution in pixels.
     ///</summary>
-    public PointD? Density
+    public Density Density
     {
       get;
       set;
