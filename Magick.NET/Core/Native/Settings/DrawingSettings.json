@@ -99,22 +99,6 @@
   "methods":
   [
     {
-      "name": "GetStrokeDashArray",
-      "type": "Instance",
-      "cleanup":
-      {
-        "name": "MagickMemory.Relinquish"
-      },
-      "arguments":
-      [
-        {
-          "name": "length",
-          "type": "size_t",
-          "out": true
-        }
-      ]
-    },
-    {
       "name": "SetFillPattern",
       "throws": true,
       "arguments":

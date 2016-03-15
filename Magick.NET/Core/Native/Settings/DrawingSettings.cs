@@ -135,8 +135,6 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_TextUnderColor_Set(IntPtr instance, IntPtr value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr DrawingSettings_GetStrokeDashArray(IntPtr Instance, out UIntPtr length);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetFillPattern(IntPtr Instance, IntPtr value, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
@@ -247,8 +245,6 @@ namespace ImageMagick
         public static extern IntPtr DrawingSettings_TextUnderColor_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_TextUnderColor_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr DrawingSettings_GetStrokeDashArray(IntPtr Instance, out UIntPtr length);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingSettings_SetFillPattern(IntPtr Instance, IntPtr value, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -756,13 +752,6 @@ namespace ImageMagick
               NativeMethods.X86.DrawingSettings_TextUnderColor_Set(Instance, valueNative.Instance);
           }
         }
-      }
-      public IntPtr GetStrokeDashArray(out UIntPtr length)
-      {
-        if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.DrawingSettings_GetStrokeDashArray(Instance, out length);
-        else
-          return NativeMethods.X86.DrawingSettings_GetStrokeDashArray(Instance, out length);
       }
       public void SetFillPattern(MagickImage value)
       {

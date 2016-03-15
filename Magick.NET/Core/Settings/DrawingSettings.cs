@@ -80,13 +80,6 @@ namespace ImageMagick
       }
     }
 
-    private static double[] GetStrokeDashArray(NativeDrawingSettings instance)
-    {
-      UIntPtr length;
-      IntPtr data = instance.GetStrokeDashArray(out length);
-      return DoubleConverter.ToArray(data, (int)length);
-    }
-
     internal DrawingSettings()
     {
       using (NativeDrawingSettings instance = new NativeDrawingSettings())
@@ -102,7 +95,7 @@ namespace ImageMagick
         FontWeight = instance.FontWeight;
         StrokeAntiAlias = instance.StrokeAntiAlias;
         StrokeColor = instance.StrokeColor;
-        _StrokeDashArray = GetStrokeDashArray(instance);
+        _StrokeDashArray = null;
         StrokeDashOffset = instance.StrokeDashOffset;
         StrokeLineCap = instance.StrokeLineCap;
         StrokeLineJoin = instance.StrokeLineJoin;

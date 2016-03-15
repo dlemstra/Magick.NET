@@ -66,10 +66,7 @@ MAGICK_NET_EXPORT const char *DrawingSettings_Font_Get(const DrawInfo *instance)
 
 MAGICK_NET_EXPORT void DrawingSettings_Font_Set(DrawInfo *instance, const char *value)
 {
-  if (instance->font != (char *)NULL)
-    instance->font = DestroyString(instance->font);
-  if (value != (const char *)NULL)
-    instance->font = ConstantString(value);
+  CloneString(&instance->font, value);
 }
 
 MAGICK_NET_EXPORT const char *DrawingSettings_FontFamily_Get(const DrawInfo *instance)
@@ -79,10 +76,7 @@ MAGICK_NET_EXPORT const char *DrawingSettings_FontFamily_Get(const DrawInfo *ins
 
 MAGICK_NET_EXPORT void DrawingSettings_FontFamily_Set(DrawInfo *instance, const char *value)
 {
-  if (instance->family != (char *)NULL)
-    instance->family = DestroyString(instance->family);
-  if (value != (const char *)NULL)
-    instance->family = ConstantString(value);
+  CloneString(&instance->family, value);
 }
 
 MAGICK_NET_EXPORT const double DrawingSettings_FontPointsize_Get(const DrawInfo *instance)
@@ -213,10 +207,7 @@ MAGICK_NET_EXPORT const char *DrawingSettings_TextEncoding_Get(const DrawInfo *i
 
 MAGICK_NET_EXPORT void DrawingSettings_TextEncoding_Set(DrawInfo *instance, const char *value)
 {
-  if (instance->encoding != (char *)NULL)
-    instance->encoding = DestroyString(instance->encoding);
-  if (value != (const char *)NULL)
-    instance->encoding = ConstantString(value);
+  CloneString(&instance->encoding, value);
 }
 
 MAGICK_NET_EXPORT size_t DrawingSettings_TextGravity_Get(const DrawInfo *instance)
@@ -270,18 +261,6 @@ MAGICK_NET_EXPORT void DrawingSettings_TextUnderColor_Set(DrawInfo *instance, co
     instance->undercolor = *value;
 }
 
-MAGICK_NET_EXPORT const double *DrawingSettings_GetStrokeDashArray(DrawInfo *instance, size_t *length)
-{
-  *length = 0;
-  if (instance->dash_pattern == (double *)NULL)
-    return (double *)NULL;
-
-  while (instance->dash_pattern[*length] != 0.0)
-    (*length)++;
-
-  return instance->dash_pattern;
-}
-
 MAGICK_NET_EXPORT void DrawingSettings_SetAffine(DrawInfo *instance, const double scaleX, const double scaleY, const double shearX, const double shearY, const double translateX, const double translateY)
 {
   instance->affine.sx = scaleX;
@@ -303,11 +282,16 @@ MAGICK_NET_EXPORT void DrawingSettings_SetFillPattern(DrawInfo *instance, const 
 
 MAGICK_NET_EXPORT void DrawingSettings_SetStrokeDashArray(DrawInfo *instance, const double *value, const size_t length)
 {
+  MagickBooleanType
+    isTerminated;
+
   instance->dash_pattern = (double *)RelinquishMagickMemory(instance->dash_pattern);
-  instance->dash_pattern = AcquireMagickMemory((length + 1) * sizeof(double));
+  isTerminated = (length > 0 && value[length] == 0.0) ? MagickTrue : MagickFalse;
+  instance->dash_pattern = AcquireMagickMemory((length + (isTerminated != MagickFalse ? 1 : 0)) * sizeof(double));
   if (length > 0)
     memcpy(instance->dash_pattern, value, length * sizeof(double));
-  instance->dash_pattern[length] = 0.0;
+  if (isTerminated == MagickFalse)
+    instance->dash_pattern[length] = 0.0;
 }
 
 MAGICK_NET_EXPORT void DrawingSettings_SetStrokePattern(DrawInfo *instance, const Image *value, ExceptionInfo **exception)
@@ -321,8 +305,5 @@ MAGICK_NET_EXPORT void DrawingSettings_SetStrokePattern(DrawInfo *instance, cons
 
 MAGICK_NET_EXPORT void DrawingSettings_SetText(DrawInfo *instance, const char *value)
 {
-  if (instance->text != (char *)NULL)
-    instance->text = DestroyString(instance->text);
-  if (value != (const char *)NULL)
-    instance->text = ConstantString(value);
+  CloneString(&instance->text, value);
 }
