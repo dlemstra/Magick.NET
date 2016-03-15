@@ -271,13 +271,13 @@ namespace Magick.NET.Tests
       {
         Assert.AreEqual(null, image.Settings.Font);
 
-        image.Settings.Font = "DejaVu Sans Bold Oblique";
+        image.Settings.Font = "Courier New Bold Oblique";
         image.Settings.FontPointsize = 40;
         image.Read("pango:Test");
 
-        Assert.AreEqual(122, image.Width);
-        Assert.AreEqual(58, image.Height);
-        ColorAssert.AreEqual(MagickColors.Black, image, 15, 42);
+        Assert.AreEqual(120, image.Width);
+        Assert.AreEqual(57, image.Height);
+        ColorAssert.AreEqual(MagickColors.Black, image, 21, 18);
       }
     }
 
@@ -291,15 +291,15 @@ namespace Magick.NET.Tests
         Assert.AreEqual(FontStyleType.Undefined, image.Settings.FontStyle);
         Assert.AreEqual(FontWeight.Undefined, image.Settings.FontWeight);
 
-        image.Settings.FontFamily = "DejaVu Sans";
+        image.Settings.FontFamily = "Courier New";
         image.Settings.FontPointsize = 40;
         image.Settings.FontStyle = FontStyleType.Oblique;
         image.Settings.FontWeight = FontWeight.ExtraBold;
         image.Read("label:Test");
 
-        Assert.AreEqual(96, image.Width);
-        Assert.AreEqual(47, image.Height);
-        ColorAssert.AreEqual(MagickColors.Black, image, 10, 34);
+        Assert.AreEqual(99, image.Width);
+        Assert.AreEqual(46, image.Height);
+        ColorAssert.AreEqual(MagickColors.Black, image, 16, 16);
       }
     }
 
@@ -310,12 +310,12 @@ namespace Magick.NET.Tests
       {
         Assert.AreEqual(null, image.Settings.Page);
 
-        image.Settings.Font = "DejaVu Sans";
+        image.Settings.Font = "Courier New";
         image.Settings.Page = new MagickGeometry(50, 50, 100, 100);
         image.Read("pango:Test");
 
-        Assert.AreEqual(132, image.Width);
-        Assert.AreEqual(118, image.Height);
+        Assert.AreEqual(136, image.Width);
+        Assert.AreEqual(117, image.Height);
       }
     }
 
