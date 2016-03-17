@@ -415,9 +415,10 @@ typedef long ssize_t;
   Disable specific warnings.
 */
 #ifdef _MSC_VER
-#pragma warning(disable: 4054)
-#pragma warning(disable: 4055)
-#pragma warning(disable: 4100)
-#pragma warning(disable: 4130)
-#pragma warning(disable: 4459)
+#pragma warning(disable: 4054) /* 'conversion' : from function pointer 'type1' to data pointer 'type2' */
+#pragma warning(disable: 4055) /* 'conversion' : from data pointer 'type1' to function pointer 'type2' */
+#pragma warning(disable: 4101) /* 'identifier' : unreferenced local variable */
+#pragma warning(disable: 4201) /* nonstandard extension used : nameless struct/union */
+#pragma warning(disable: 4130) /* 'operator' : logical operation on address of string constant */
+#pragma warning(disable: 4459) /* 'identifier' : declaration of 'foo' hides global declaration */
 #endif
