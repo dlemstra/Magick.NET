@@ -37,8 +37,8 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_LosslessCompress()
     {
-      Test_LosslessCompress(Files.RoseSparkleGIF, false);
-      Test_LosslessCompress(Files.FujiFilmFinePixS1ProGIF);
+      Test_LosslessCompress_NotSmaller(Files.RoseSparkleGIF);
+      Test_LosslessCompress_Smaller(Files.FujiFilmFinePixS1ProGIF);
     }
 
     [TestMethod, TestCategory(_Category)]

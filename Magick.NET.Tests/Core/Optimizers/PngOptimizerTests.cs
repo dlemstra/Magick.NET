@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_LosslessCompress()
     {
-      Test_LosslessCompress(Files.SnakewarePNG);
+      Test_LosslessCompress_Smaller(Files.SnakewarePNG);
     }
 
     [TestMethod, TestCategory(_Category)]

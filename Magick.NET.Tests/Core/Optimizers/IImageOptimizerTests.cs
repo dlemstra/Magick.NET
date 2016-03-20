@@ -30,22 +30,7 @@ namespace Magick.NET.Tests
       return new FileInfo(tempFile);
     }
 
-    protected abstract ILosslessImageOptimizer CreateLosslessImageOptimizer();
-
-    protected static string GetTemporaryFileName(string extension)
-    {
-      string tempFile = Path.GetTempFileName();
-      File.Move(tempFile, tempFile + extension);
-
-      return tempFile + extension;
-    }
-
-    protected void Test_LosslessCompress(string fileName)
-    {
-      Test_LosslessCompress(fileName, true);
-    }
-
-    protected void Test_LosslessCompress(string fileName, bool resultIsSmaller)
+    private void Test_LosslessCompress(string fileName, bool resultIsSmaller)
     {
       FileInfo tempFile = CreateTemporaryFile(fileName);
       try
@@ -67,6 +52,26 @@ namespace Magick.NET.Tests
       {
         FileHelper.Delete(tempFile);
       }
+    }
+
+    protected abstract ILosslessImageOptimizer CreateLosslessImageOptimizer();
+
+    protected static string GetTemporaryFileName(string extension)
+    {
+      string tempFile = Path.GetTempFileName();
+      File.Move(tempFile, tempFile + extension);
+
+      return tempFile + extension;
+    }
+
+    protected void Test_LosslessCompress_Smaller(string fileName)
+    {
+      Test_LosslessCompress(fileName, true);
+    }
+
+    protected void Test_LosslessCompress_NotSmaller(string fileName)
+    {
+      Test_LosslessCompress(fileName, false);
     }
 
     protected void Test_LosslessCompress_InvalidFile(string fileName)

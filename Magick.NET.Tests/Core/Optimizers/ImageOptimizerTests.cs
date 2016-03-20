@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
       try
       {
         File.Copy(fileName, tempFile, true);
-        Test_LosslessCompress(tempFile);
+        Test_LosslessCompress_Smaller(tempFile);
       }
       finally
       {
@@ -82,9 +82,9 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_LosslessCompress()
     {
-      Test_LosslessCompress(Files.FujiFilmFinePixS1ProGIF);
-      Test_LosslessCompress(Files.ImageMagickJPG);
-      Test_LosslessCompress(Files.SnakewarePNG);
+      Test_LosslessCompress_Smaller(Files.FujiFilmFinePixS1ProGIF);
+      Test_LosslessCompress_Smaller(Files.ImageMagickJPG);
+      Test_LosslessCompress_Smaller(Files.SnakewarePNG);
       Test_LosslessCompressWithTempFile(Files.ImageMagickJPG);
       Test_LosslessCompressWithTempFile(Files.SnakewarePNG);
     }
