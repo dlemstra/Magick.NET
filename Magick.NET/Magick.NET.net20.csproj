@@ -314,7 +314,6 @@
     <Compile Include="Core\Exceptions\Warning\MagickTypeWarningException.cs" />
     <Compile Include="Core\Exceptions\Warning\MagickWarningException.cs" />
     <Compile Include="Core\Helpers\ArrayConverters.cs\ByteConverter.cs" />
-    <Compile Include="Core\Helpers\ArrayConverters.cs\DoubleConverter.cs" />
     <Compile Include="Core\Helpers\ArrayConverters.cs\QuantumConverter.cs" />
     <Compile Include="Core\Helpers\EnumHelper.cs" />
     <Compile Include="Core\Helpers\MagickConverter.cs" />
