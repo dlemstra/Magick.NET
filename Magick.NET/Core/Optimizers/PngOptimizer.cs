@@ -47,8 +47,8 @@ namespace ImageMagick.ImageOptimizers
         CheckFormat(image);
 
         image.Strip();
-        image.SetDefine(MagickFormat.Png, "exclude-chunks", "all");
-        image.SetDefine(MagickFormat.Png, "include-chunks", "tRNS,gAMA");
+        image.Settings.SetDefine(MagickFormat.Png, "exclude-chunks", "all");
+        image.Settings.SetDefine(MagickFormat.Png, "include-chunks", "tRNS,gAMA");
         CheckTransparency(image);
 
         Collection<FileInfo> tempFiles = new Collection<FileInfo>();

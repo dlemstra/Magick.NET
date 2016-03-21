@@ -12,8 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System;
 using System.Globalization;
 
 namespace ImageMagick
@@ -21,23 +20,69 @@ namespace ImageMagick
   ///<summary>
   /// Class that contains setting for when an image is being read.
   ///</summary>
-  public sealed class MagickReadSettings
+  public sealed class MagickReadSettings : MagickSettings
   {
-    private Collection<IDefine> _Defines;
-
-    internal string Scenes
+    private string GetScenes()
     {
-      get
+      if (!FrameIndex.HasValue && !FrameCount.HasValue)
+        return null;
+
+      if (FrameIndex.HasValue && (!FrameCount.HasValue || FrameCount.Value == 1))
+        return FrameIndex.Value.ToString(CultureInfo.InvariantCulture);
+
+      int frame = FrameIndex.HasValue ? FrameIndex.Value : 0;
+      return string.Format(CultureInfo.InvariantCulture, "{0}-{1}", frame, frame + FrameCount.Value);
+    }
+
+    private void ApplyDefines()
+    {
+      if (Defines == null)
+        return;
+
+      foreach (IDefine define in Defines.Defines)
       {
-        if (!FrameIndex.HasValue && !FrameCount.HasValue)
-          return null;
-
-        if (FrameIndex.HasValue && (!FrameCount.HasValue || FrameCount.Value == 1))
-          return FrameIndex.Value.ToString(CultureInfo.InvariantCulture);
-
-        int frame = FrameIndex.HasValue ? FrameIndex.Value : 0;
-        return string.Format(CultureInfo.InvariantCulture, "{0}-{1}", frame, frame + FrameCount.Value);
+        SetOption(GetDefineKey(define), define.Value);
       }
+    }
+
+    private void ApplyDimensions()
+    {
+      if (Width.HasValue && Height.HasValue)
+        Size = Width + "x" + Height;
+      else if (Width.HasValue)
+        Size = Width + "x";
+      else if (Height.HasValue)
+        Size = "x" + Height;
+    }
+
+    private void ApplyFrame()
+    {
+      if (!FrameIndex.HasValue && !FrameCount.HasValue)
+        return;
+
+      Scenes = GetScenes();
+      Scene = FrameIndex.HasValue ? FrameIndex.Value : 0;
+      NumberScenes = FrameCount.HasValue ? FrameCount.Value : 1;
+    }
+
+    private static string GetDefineKey(IDefine define)
+    {
+      if (define.Format == MagickFormat.Unknown)
+        return define.Name;
+
+      return EnumHelper.GetName(define.Format) + ":" + define.Name;
+    }
+
+    internal MagickReadSettings(MagickSettings settings)
+    {
+      Copy(settings);
+    }
+
+    internal void Apply()
+    {
+      ApplyDefines();
+      ApplyDimensions();
+      ApplyFrame();
     }
 
     ///<summary>
@@ -45,63 +90,12 @@ namespace ImageMagick
     ///</summary>
     public MagickReadSettings()
     {
-      _Defines = new Collection<IDefine>();
-    }
-
-    /// <summary>
-    /// Returns all the defines that are set in this MagickReadSettings instance.
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerable<IDefine> AllDefines
-    {
-      get
-      {
-        foreach (IDefine define in _Defines)
-        {
-          yield return define;
-        }
-
-        if (Defines != null)
-        {
-          foreach (IDefine define in Defines.Defines)
-          {
-            yield return define;
-          }
-        }
-      }
-    }
-
-    ///<summary>
-    /// Color space.
-    ///</summary>
-    public ColorSpace? ColorSpace
-    {
-      get;
-      set;
     }
 
     ///<summary>
     /// Defines that should be set before the image is read.
     ///</summary>
     public IReadDefines Defines
-    {
-      get;
-      set;
-    }
-
-    ///<summary>
-    /// Vertical and horizontal resolution in pixels.
-    ///</summary>
-    public Density Density
-    {
-      get;
-      set;
-    }
-
-    ///<summary>
-    /// The format of the image.
-    ///</summary>
-    public MagickFormat? Format
     {
       get;
       set;
@@ -146,10 +140,16 @@ namespace ImageMagick
     ///<summary>
     /// Use monochrome reader.
     ///</summary>
-    public bool? UseMonochrome
+    public bool UseMonochrome
     {
-      get;
-      set;
+      get
+      {
+        return Monochrome;
+      }
+      set
+      {
+        Monochrome = value;
+      }
     }
 
     ///<summary>
@@ -159,20 +159,6 @@ namespace ImageMagick
     {
       get;
       set;
-    }
-
-    ///<summary>
-    /// Sets a format-specific option.
-    ///</summary>
-    ///<param name="format">The format to set the option for.</param>
-    ///<param name="name">The name of the option.</param>
-    ///<param name="value">The value of the option.</param>
-    public void SetDefine(MagickFormat format, string name, string value)
-    {
-      Throw.IfNullOrEmpty("name", name);
-      Throw.IfNull("value", value);
-
-      _Defines.Add(new MagickDefine(format, name, value));
     }
   }
 }

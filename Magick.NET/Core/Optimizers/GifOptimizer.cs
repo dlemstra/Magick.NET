@@ -49,6 +49,7 @@ namespace ImageMagick.ImageOptimizers
       FileInfo tempFile = new FileInfo(Path.GetTempFileName());
       try
       {
+        image.Settings.Interlace = Interlace.NoInterlace;
         image.Write(tempFile);
 
         if (tempFile.Length < file.Length)

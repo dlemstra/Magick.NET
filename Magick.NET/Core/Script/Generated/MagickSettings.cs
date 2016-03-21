@@ -188,66 +188,87 @@ namespace ImageMagick
         }
         case 's':
         {
-          switch(element.Name[6])
+          switch(element.Name[1])
           {
-            case 'A':
+            case 't':
             {
-              ExecuteStrokeAntiAlias(element, settings);
-              return;
-            }
-            case 'C':
-            {
-              ExecuteStrokeColor(element, settings);
-              return;
-            }
-            case 'D':
-            {
-              switch(element.Name[10])
+              switch(element.Name[6])
               {
                 case 'A':
                 {
-                  ExecuteStrokeDashArray(element, settings);
+                  ExecuteStrokeAntiAlias(element, settings);
                   return;
                 }
-                case 'O':
-                {
-                  ExecuteStrokeDashOffset(element, settings);
-                  return;
-                }
-              }
-              break;
-            }
-            case 'L':
-            {
-              switch(element.Name[10])
-              {
                 case 'C':
                 {
-                  ExecuteStrokeLineCap(element, settings);
+                  ExecuteStrokeColor(element, settings);
                   return;
                 }
-                case 'J':
+                case 'D':
                 {
-                  ExecuteStrokeLineJoin(element, settings);
+                  switch(element.Name[10])
+                  {
+                    case 'A':
+                    {
+                      ExecuteStrokeDashArray(element, settings);
+                      return;
+                    }
+                    case 'O':
+                    {
+                      ExecuteStrokeDashOffset(element, settings);
+                      return;
+                    }
+                  }
+                  break;
+                }
+                case 'L':
+                {
+                  switch(element.Name[10])
+                  {
+                    case 'C':
+                    {
+                      ExecuteStrokeLineCap(element, settings);
+                      return;
+                    }
+                    case 'J':
+                    {
+                      ExecuteStrokeLineJoin(element, settings);
+                      return;
+                    }
+                  }
+                  break;
+                }
+                case 'M':
+                {
+                  ExecuteStrokeMiterLimit(element, settings);
+                  return;
+                }
+                case 'P':
+                {
+                  ExecuteStrokePattern(element, settings);
+                  return;
+                }
+                case 'W':
+                {
+                  ExecuteStrokeWidth(element, settings);
                   return;
                 }
               }
               break;
             }
-            case 'M':
+            case 'e':
             {
-              ExecuteStrokeMiterLimit(element, settings);
-              return;
-            }
-            case 'P':
-            {
-              ExecuteStrokePattern(element, settings);
-              return;
-            }
-            case 'W':
-            {
-              ExecuteStrokeWidth(element, settings);
-              return;
+              if (element.Name.Length == 9)
+              {
+                ExecuteSetDefine(element, settings);
+                return;
+              }
+              if (element.Name.Length == 10)
+              {
+                ExecuteSetDefines(element, settings);
+                return;
+              }
+              break;
             }
           }
           break;
@@ -309,6 +330,11 @@ namespace ImageMagick
         case 'v':
         {
           ExecuteVerbose(element, settings);
+          return;
+        }
+        case 'r':
+        {
+          ExecuteRemoveDefine(element, settings);
           return;
         }
       }
@@ -457,6 +483,38 @@ namespace ImageMagick
     private void ExecuteVerbose(XmlElement element, MagickSettings settings)
     {
       settings.Verbose = Variables.GetValue<Boolean>(element, "value");
+    }
+    private void ExecuteRemoveDefine(XmlElement element, MagickSettings settings)
+    {
+      MagickFormat format_ = Variables.GetValue<MagickFormat>(element, "format");
+      String name_ = Variables.GetValue<String>(element, "name");
+      settings.RemoveDefine(format_, name_);
+    }
+    private void ExecuteSetDefine(XmlElement element, MagickSettings settings)
+    {
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "flag")
+          arguments["flag"] = Variables.GetValue<Boolean>(attribute);
+        else if (attribute.Name == "format")
+          arguments["format"] = Variables.GetValue<MagickFormat>(attribute);
+        else if (attribute.Name == "name")
+          arguments["name"] = Variables.GetValue<String>(attribute);
+        else if (attribute.Name == "value")
+          arguments["value"] = Variables.GetValue<String>(attribute);
+      }
+      if (OnlyContains(arguments, "format", "name", "flag"))
+        settings.SetDefine((MagickFormat)arguments["format"], (String)arguments["name"], (Boolean)arguments["flag"]);
+      else if (OnlyContains(arguments, "format", "name", "value"))
+        settings.SetDefine((MagickFormat)arguments["format"], (String)arguments["name"], (String)arguments["value"]);
+      else
+        throw new ArgumentException("Invalid argument combination for 'setDefine', allowed combinations are: [format, name, flag] [format, name, value]");
+    }
+    private void ExecuteSetDefines(XmlElement element, MagickSettings settings)
+    {
+      IDefines defines_ = CreateIDefines(element["defines"]);
+      settings.SetDefines(defines_);
     }
   }
 }

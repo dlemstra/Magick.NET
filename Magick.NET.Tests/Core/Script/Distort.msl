@@ -1,6 +1,9 @@
-﻿<msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
+﻿<msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
   <read fileName="plasma:">
-    <readSettings width="500" height="500"/>
+    <readSettings>
+      <width value="500"/>
+      <height value="500"/>
+    </readSettings>
     <distort method="Perspective">
       <arguments>
         <value>0</value>

@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
 
       using (MagickImage input = new MagickImage(Files.Builtin.Logo))
       {
-        input.SetDefines(defines);
+        input.Settings.SetDefines(defines);
         input.Alpha(AlphaOption.Set);
 
         using (MagickImage output = WriteTiff(input))
@@ -69,11 +69,11 @@ namespace Magick.NET.Tests
 
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        image.SetDefines(defines);
+        image.Settings.SetDefines(defines);
 
-        Assert.AreEqual("LSB", image.GetDefine(MagickFormat.Tiff, "fill-order"));
-        Assert.AreEqual("42", image.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
-        Assert.AreEqual("100x100", image.GetDefine(MagickFormat.Tiff, "tile-geometry"));
+        Assert.AreEqual("LSB", image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
+        Assert.AreEqual("42", image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
+        Assert.AreEqual("100x100", image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
       }
     }
   }

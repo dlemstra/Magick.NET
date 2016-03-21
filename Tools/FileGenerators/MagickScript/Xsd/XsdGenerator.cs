@@ -157,6 +157,22 @@ namespace FileGenerator.MagickScript
       }
     }
 
+    private void AddMagickReadSettingsMethods(XElement annotation)
+    {
+      foreach (MethodInfo[] overloads in _Types.GetGroupedMagickReadSettingsMethods())
+      {
+        annotation.AddBeforeSelf(CreateElement(overloads));
+      }
+    }
+
+    private void AddMagickReadSettingsProperties(XElement annotation)
+    {
+      foreach (PropertyInfo property in _Types.GetMagickReadSettingsProperties())
+      {
+        annotation.AddBeforeSelf(CreateElement(property));
+      }
+    }
+
     private void AddMagickSettingsMethods(XElement annotation)
     {
       foreach (MethodInfo[] overloads in _Types.GetGroupedMagickSettingsMethods())
@@ -404,10 +420,12 @@ namespace FileGenerator.MagickScript
           case "iReadDefines":
             ReplaceIReadDefines(annotation);
             break;
+          case "magickReadSettings":
+            ReplaceMagickReadSettings(annotation);
+            break;
           case "magickSettings":
             ReplaceMagickSettings(annotation);
             break;
-          case "magickReadSettings":
           case "montageSettings":
           case "pixelStorageSettings":
           case "quantizeSettings":
@@ -534,6 +552,14 @@ namespace FileGenerator.MagickScript
         select new XElement(_Namespace + "element",
           new XAttribute("name", name),
           new XAttribute("type", name)));
+    }
+
+    private void ReplaceMagickReadSettings(XElement annotation)
+    {
+      AddMagickReadSettingsProperties(annotation);
+      AddMagickReadSettingsMethods(annotation);
+
+      annotation.Remove();
     }
 
     private void ReplaceMagickSettings(XElement annotation)

@@ -33,16 +33,11 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("data", data);
 
-      CheckReadSettings(readSettings);
+      MagickSettings settings = CreateSettings(readSettings);
+      settings.Ping = ping;
 
-      using (MagickSettings settings = new MagickSettings())
-      {
-        settings.Apply(readSettings);
-        settings.Ping = ping;
-
-        IntPtr result = _NativeInstance.ReadBlob(settings, data, data.Length);
-        AddImages(result, settings);
-      }
+      IntPtr result = _NativeInstance.ReadBlob(settings, data, data.Length);
+      AddImages(result, settings);
     }
 
     private void AddImages(string fileName, MagickReadSettings readSettings, bool ping)
@@ -50,17 +45,12 @@ namespace ImageMagick
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
       Throw.IfInvalidFileName(filePath);
 
-      CheckReadSettings(readSettings);
+      MagickSettings settings = CreateSettings(readSettings);
+      settings.FileName = filePath;
+      settings.Ping = ping;
 
-      using (MagickSettings settings = new MagickSettings())
-      {
-        settings.Apply(readSettings);
-        settings.FileName = filePath;
-        settings.Ping = ping;
-
-        IntPtr result = _NativeInstance.ReadFile(settings);
-        AddImages(result, settings);
-      }
+      IntPtr result = _NativeInstance.ReadFile(settings);
+      AddImages(result, settings);
     }
 
     private void AddImages(IntPtr result, MagickSettings settings)
@@ -80,10 +70,16 @@ namespace ImageMagick
     }
 
     [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "PixelStorage")]
-    private static void CheckReadSettings(MagickReadSettings readSettings)
+    private static MagickSettings CreateSettings(MagickReadSettings readSettings)
     {
-      if (readSettings != null)
-        Throw.IfTrue("readSettings", readSettings.PixelStorage != null, "PixelStorage is not supported for images with multiple frames/layers.");
+      if (readSettings == null)
+        return new MagickSettings();
+
+      Throw.IfTrue("readSettings", readSettings.PixelStorage != null, "PixelStorage is not supported for images with multiple frames/layers.");
+
+      readSettings.Apply();
+
+      return readSettings;
     }
 
     private void DetachImages()
@@ -484,23 +480,22 @@ namespace ImageMagick
     {
       ThrowIfEmpty();
 
-      using (MagickSettings settings = _Images[0].Settings.Clone())
-      {
-        IntPtr images;
-        try
-        {
-          AttachImages();
-          images = _NativeInstance.Coalesce(_Images[0]);
-        }
-        finally
-        {
-          DetachImages();
-        }
+      MagickSettings settings = _Images[0].Settings.Clone();
 
-        Clear();
-        foreach (MagickImage image in MagickImage.CreateList(images, settings))
-          Add(image);
+      IntPtr images;
+      try
+      {
+        AttachImages();
+        images = _NativeInstance.Coalesce(_Images[0]);
       }
+      finally
+      {
+        DetachImages();
+      }
+
+      Clear();
+      foreach (MagickImage image in MagickImage.CreateList(images, settings))
+        Add(image);
     }
 
     ///<summary>
@@ -601,23 +596,22 @@ namespace ImageMagick
     {
       ThrowIfEmpty();
 
-      using (MagickSettings settings = _Images[0].Settings.Clone())
-      {
-        IntPtr images;
-        try
-        {
-          AttachImages();
-          images = _NativeInstance.Deconstruct(_Images[0]);
-        }
-        finally
-        {
-          DetachImages();
-        }
+      MagickSettings settings = _Images[0].Settings.Clone();
 
-        Clear();
-        foreach (MagickImage image in MagickImage.CreateList(images, settings))
-          Add(image);
+      IntPtr images;
+      try
+      {
+        AttachImages();
+        images = _NativeInstance.Deconstruct(_Images[0]);
       }
+      finally
+      {
+        DetachImages();
+      }
+
+      Clear();
+      foreach (MagickImage image in MagickImage.CreateList(images, settings))
+        Add(image);
     }
 
     /// <summary>
@@ -814,23 +808,22 @@ namespace ImageMagick
     {
       ThrowIfCountLowerThan(2);
 
-      using (MagickSettings settings = _Images[0].Settings.Clone())
-      {
-        IntPtr images;
-        try
-        {
-          AttachImages();
-          images = _NativeInstance.Morph(_Images[0], frames);
-        }
-        finally
-        {
-          DetachImages();
-        }
+      MagickSettings settings = _Images[0].Settings.Clone();
 
-        Clear();
-        foreach (MagickImage image in MagickImage.CreateList(images, settings))
-          Add(image);
+      IntPtr images;
+      try
+      {
+        AttachImages();
+        images = _NativeInstance.Morph(_Images[0], frames);
       }
+      finally
+      {
+        DetachImages();
+      }
+
+      Clear();
+      foreach (MagickImage image in MagickImage.CreateList(images, settings))
+        Add(image);
     }
 
     ///<summary>
@@ -863,23 +856,22 @@ namespace ImageMagick
     {
       ThrowIfEmpty();
 
-      using (MagickSettings settings = _Images[0].Settings.Clone())
-      {
-        IntPtr images;
-        try
-        {
-          AttachImages();
-          images = _NativeInstance.Optimize(_Images[0]);
-        }
-        finally
-        {
-          DetachImages();
-        }
+      MagickSettings settings = _Images[0].Settings.Clone();
 
-        Clear();
-        foreach (MagickImage image in MagickImage.CreateList(images, settings))
-          Add(image);
+      IntPtr images;
+      try
+      {
+        AttachImages();
+        images = _NativeInstance.Optimize(_Images[0]);
       }
+      finally
+      {
+        DetachImages();
+      }
+
+      Clear();
+      foreach (MagickImage image in MagickImage.CreateList(images, settings))
+        Add(image);
     }
 
     ///<summary>
@@ -891,23 +883,22 @@ namespace ImageMagick
     {
       ThrowIfEmpty();
 
-      using (MagickSettings settings = _Images[0].Settings.Clone())
-      {
-        IntPtr images;
-        try
-        {
-          AttachImages();
-          images = _NativeInstance.OptimizePlus(_Images[0]);
-        }
-        finally
-        {
-          DetachImages();
-        }
+      MagickSettings settings = _Images[0].Settings.Clone();
 
-        Clear();
-        foreach (MagickImage image in MagickImage.CreateList(images, settings))
-          Add(image);
+      IntPtr images;
+      try
+      {
+        AttachImages();
+        images = _NativeInstance.OptimizePlus(_Images[0]);
       }
+      finally
+      {
+        DetachImages();
+      }
+
+      Clear();
+      foreach (MagickImage image in MagickImage.CreateList(images, settings))
+        Add(image);
     }
 
     ///<summary>
@@ -1274,7 +1265,7 @@ namespace ImageMagick
       if (_Images.Count == 0)
         return;
 
-      MagickSettings settings = _Images[0].Settings;
+      MagickSettings settings = _Images[0].Settings.Clone();
       settings.FileName = null;
 
       try
@@ -1316,7 +1307,7 @@ namespace ImageMagick
       if (_Images.Count == 0)
         return;
 
-      MagickSettings settings = _Images[0].Settings;
+      MagickSettings settings = _Images[0].Settings.Clone();
       settings.FileName = fileName;
 
       try

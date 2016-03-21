@@ -67,7 +67,7 @@ MAGICK_NET_EXPORT void MagickSettings_CompressionMethod_Set(ImageInfo *instance,
   instance->compression = value;
 }
 
-MAGICK_NET_EXPORT MagickBooleanType MagickSettings_Debug_Get(const ImageInfo  *instance)
+MAGICK_NET_EXPORT const MagickBooleanType MagickSettings_Debug_Get(const ImageInfo  *instance)
 {
   return instance->debug;
 }
@@ -95,22 +95,6 @@ MAGICK_NET_EXPORT size_t MagickSettings_Endian_Get(const ImageInfo *instance)
 MAGICK_NET_EXPORT void MagickSettings_Endian_Set(ImageInfo *instance, const size_t value)
 {
   instance->endian = value;
-}
-
-MAGICK_NET_EXPORT const char *MagickSettings_FileName_Get(const ImageInfo *instance)
-{
-  if (*instance->filename == '\0')
-    return (const char *)NULL;
-
-  return (const char *)&(instance->filename);
-}
-
-MAGICK_NET_EXPORT void MagickSettings_FileName_Set(ImageInfo *instance, const char *value)
-{
-  if (value == (const char *)NULL)
-    *instance->filename = '\0';
-  else
-    CopyMagickString(instance->filename, value, MaxTextExtent);
 }
 
 MAGICK_NET_EXPORT const char *MagickSettings_Format_Get(const ImageInfo *instance)
@@ -152,24 +136,14 @@ MAGICK_NET_EXPORT void MagickSettings_FontPointsize_Set(ImageInfo *instance, con
   instance->pointsize = value;
 }
 
-MAGICK_NET_EXPORT const char *MagickSettings_Page_Get(const ImageInfo *instance)
+MAGICK_NET_EXPORT const MagickBooleanType MagickSettings_Monochrome_Get(ImageInfo *instance)
 {
-  return instance->page;
+  return instance->monochrome;
 }
 
-MAGICK_NET_EXPORT void MagickSettings_Page_Set(ImageInfo *instance, const char *value)
+MAGICK_NET_EXPORT void MagickSettings_Monochrome_Set(ImageInfo *instance, const MagickBooleanType value)
 {
-  CloneString(&instance->page, value);
-}
-
-MAGICK_NET_EXPORT MagickBooleanType MagickSettings_Ping_Get(const ImageInfo *instance)
-{
-  return instance->ping;
-}
-
-MAGICK_NET_EXPORT void MagickSettings_Ping_Set(ImageInfo *instance, const MagickBooleanType value)
-{
-  instance->ping = value;
+  instance->monochrome = value;
 }
 
 MAGICK_NET_EXPORT MagickBooleanType MagickSettings_Verbose_Get(const ImageInfo *instance)
@@ -182,34 +156,22 @@ MAGICK_NET_EXPORT void MagickSettings_Verbose_Set(ImageInfo *instance, const Mag
   instance->verbose = value;
 }
 
-MAGICK_NET_EXPORT ImageInfo *MagickSettings_Clone(const ImageInfo *instance)
-{
-  return CloneImageInfo(instance);
-}
-
-MAGICK_NET_EXPORT const char *MagickSettings_GetOption(const ImageInfo *instance, const char *key)
-{
-  return GetImageOption(instance, key);
-}
-
-MAGICK_NET_EXPORT void MagickSettings_RemoveOption(ImageInfo *instance, const char *key)
-{
-  DestroyString(RemoveImageOption(instance, key));
-}
-
 MAGICK_NET_EXPORT void MagickSettings_SetColorFuzz(ImageInfo *instance, const double value)
 {
   instance->fuzz = value;
 }
 
+MAGICK_NET_EXPORT void MagickSettings_SetFileName(ImageInfo *instance, const char *value)
+{
+  if (value == (const char *)NULL)
+    *instance->filename = '\0';
+  else
+    CopyMagickString(instance->filename, value, MaxTextExtent);
+}
+
 MAGICK_NET_EXPORT void MagickSettings_SetInterlace(ImageInfo *instance, const size_t value)
 {
   instance->interlace = (InterlaceType)value;
-}
-
-MAGICK_NET_EXPORT void MagickSettings_SetMonochrome(ImageInfo *instance, const MagickBooleanType value)
-{
-  instance->monochrome = value;
 }
 
 MAGICK_NET_EXPORT void MagickSettings_SetNumberScenes(ImageInfo *instance, const size_t value)
@@ -220,6 +182,16 @@ MAGICK_NET_EXPORT void MagickSettings_SetNumberScenes(ImageInfo *instance, const
 MAGICK_NET_EXPORT void MagickSettings_SetOption(ImageInfo *instance, const char *key, const char *value)
 {
   SetImageOption(instance, key, value);
+}
+
+MAGICK_NET_EXPORT void MagickSettings_SetPage(ImageInfo *instance, const char *value)
+{
+  CloneString(&instance->page, value);
+}
+
+MAGICK_NET_EXPORT void MagickSettings_SetPing(ImageInfo *instance, const MagickBooleanType value)
+{
+  instance->ping = value;
 }
 
 MAGICK_NET_EXPORT void MagickSettings_SetQuality(ImageInfo *instance, const size_t value)

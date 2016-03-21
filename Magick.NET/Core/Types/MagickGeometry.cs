@@ -63,6 +63,26 @@ namespace ImageMagick
       LimitPixels = EnumHelper.HasFlag(flags, GeometryFlags.LimitPixels);
     }
 
+    internal static MagickGeometry Clone(MagickGeometry value)
+    {
+      if (value == null)
+        return null;
+
+      MagickGeometry clone = new MagickGeometry();
+      clone.FillArea = value.FillArea;
+      clone.Greater = value.Greater;
+      clone.Height = value.Height;
+      clone.IgnoreAspectRatio = value.IgnoreAspectRatio;
+      clone.IsPercentage = value.IsPercentage;
+      clone.Less = value.Less;
+      clone.LimitPixels = value.LimitPixels;
+      clone.Width = value.Width;
+      clone.X = value.X;
+      clone.Y = value.Y;
+
+      return clone;
+    }
+
     internal static MagickGeometry FromRectangle(MagickRectangle rectangle)
     {
       if (rectangle == null)
@@ -357,7 +377,7 @@ namespace ImageMagick
       if (ReferenceEquals(other, null))
         return 1;
 
-      int left = (this.Width * this.Height);
+      int left = (Width * Height);
       int right = (other.Width * other.Height);
 
       if (left == right)

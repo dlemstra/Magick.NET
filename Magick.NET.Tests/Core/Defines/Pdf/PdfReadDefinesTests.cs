@@ -38,10 +38,10 @@ namespace Magick.NET.Tests
 
       using (MagickImage image = new MagickImage())
       {
-        image.SetDefines(defines);
+        image.Settings.SetDefines(defines);
 
-        Assert.AreEqual("True", image.GetDefine(MagickFormat.Pdf, "use-cropbox"));
-        Assert.AreEqual("False", image.GetDefine(MagickFormat.Pdf, "use-trimbox"));
+        Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
+        Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
       }
     }
 

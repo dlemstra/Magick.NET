@@ -1343,24 +1343,225 @@
       <xs:element name="readSettings" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="defines" minOccurs="0" type="iReadDefines" />
-            <xs:element name="pixelStorage" minOccurs="0" type="pixelStorageSettings" />
-            <xs:element name="setDefine" minOccurs="0" maxOccurs="unbounded">
-              <xs:complexType>
-                <xs:attribute name="format" use="required" type="MagickFormat" />
-                <xs:attribute name="name" use="required" type="xs:string" />
-                <xs:attribute name="value" use="required" type="xs:string" />
-              </xs:complexType>
-            </xs:element>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="backgroundColor">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="color" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="borderColor">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="color" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="colorSpace">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="ColorSpace" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="colorType">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="ColorType" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="compressionMethod">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="CompressionMethod" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="debug">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="bool" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="defines" type="iReadDefines" />
+              <xs:element name="density">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="density" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="endian">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="Endian" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="fillColor">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="color" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="fillPattern" type="image" />
+              <xs:element name="fillRule">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="FillRule" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="font">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="fontFamily">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="fontPointsize">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="double" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="fontStyle">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="FontStyleType" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="fontWeight">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="FontWeight" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="format">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="MagickFormat" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="frameCount">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="int" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="frameIndex">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="int" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="height">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="int" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="page">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="geometry" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="pixelStorage" type="pixelStorageSettings" />
+              <xs:element name="strokeAntiAlias">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="bool" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="strokeColor">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="color" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="strokeDashArray" type="doubleArray" />
+              <xs:element name="strokeDashOffset">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="double" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="strokeLineCap">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="LineCap" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="strokeLineJoin">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="LineJoin" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="strokeMiterLimit">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="int" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="strokePattern" type="image" />
+              <xs:element name="strokeWidth">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="double" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="textAntiAlias">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="bool" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="textDirection">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="TextDirection" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="textEncoding">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="textGravity">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="Gravity" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="textInterlineSpacing">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="double" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="textInterwordSpacing">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="double" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="textKerning">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="double" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="textUnderColor">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="color" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="useMonochrome">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="bool" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="verbose">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="bool" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="width">
+                <xs:complexType>
+                  <xs:attribute name="value" use="required" type="int" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="removeDefine">
+                <xs:complexType>
+                  <xs:attribute name="format" use="required" type="MagickFormat" />
+                  <xs:attribute name="name" use="required" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="setDefine">
+                <xs:complexType>
+                  <xs:attribute name="flag" type="bool" />
+                  <xs:attribute name="format" use="required" type="MagickFormat" />
+                  <xs:attribute name="name" use="required" type="xs:string" />
+                  <xs:attribute name="value" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="setDefines">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="defines" type="iDefines" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
           </xs:sequence>
-          <xs:attribute name="colorSpace" type="ColorSpace" />
-          <xs:attribute name="density" type="density" />
-          <xs:attribute name="format" type="MagickFormat" />
-          <xs:attribute name="frameCount" type="int" />
-          <xs:attribute name="frameIndex" type="int" />
-          <xs:attribute name="height" type="int" />
-          <xs:attribute name="useMonochrome" type="bool" />
-          <xs:attribute name="width" type="int" />
         </xs:complexType>
       </xs:element>
       <xs:group ref="actions" />
@@ -1544,6 +1745,27 @@
         <xs:element name="verbose">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="bool" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="removeDefine">
+          <xs:complexType>
+            <xs:attribute name="format" use="required" type="MagickFormat" />
+            <xs:attribute name="name" use="required" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="setDefine">
+          <xs:complexType>
+            <xs:attribute name="flag" type="bool" />
+            <xs:attribute name="format" use="required" type="MagickFormat" />
+            <xs:attribute name="name" use="required" type="xs:string" />
+            <xs:attribute name="value" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="setDefines">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="defines" type="iDefines" />
+            </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
@@ -2355,12 +2577,6 @@
             <xs:attribute name="name" use="required" type="xs:string" />
           </xs:complexType>
         </xs:element>
-        <xs:element name="removeDefine">
-          <xs:complexType>
-            <xs:attribute name="format" use="required" type="MagickFormat" />
-            <xs:attribute name="name" use="required" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
         <xs:element name="removeProfile">
           <xs:complexType>
             <xs:attribute name="name" use="required" type="xs:string" />
@@ -2462,21 +2678,6 @@
           <xs:complexType>
             <xs:attribute name="color" use="required" type="color" />
             <xs:attribute name="index" use="required" type="int" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="setDefine">
-          <xs:complexType>
-            <xs:attribute name="flag" type="bool" />
-            <xs:attribute name="format" use="required" type="MagickFormat" />
-            <xs:attribute name="name" use="required" type="xs:string" />
-            <xs:attribute name="value" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="setDefines">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="defines" type="iDefines" />
-            </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="setHighlightColor">

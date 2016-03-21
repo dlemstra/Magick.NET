@@ -75,6 +75,7 @@ namespace FileGenerator.MagickScript
       CreateCodeFile(new MagickImageCollectionGenerator());
       CreateCodeFile(new MagickImageGenerator());
       CreateCodeFile(new MagickSettingsGenerator());
+      CreateCodeFile(new MagickReadSettingsGenerator());
     }
 
     private void WriteInterfaces()
@@ -84,7 +85,6 @@ namespace FileGenerator.MagickScript
 
     private void WriteSettings()
     {
-      CreateCodeFile(new MagickReadSettingsGenerator());
       CreateCodeFile(new MagickSettingsGenerator());
       CreateCodeFile(new MontageSettingsGenerator());
       CreateCodeFile(new PixelStorageSettingsGenerator());

@@ -179,6 +179,23 @@ namespace ImageMagick
       private set;
     }
 
+    internal static MagickColor Clone(MagickColor value)
+    {
+      if (value == null)
+        return value;
+
+      MagickColor clone = new MagickColor();
+
+      clone.R = value.R;
+      clone.G = value.G;
+      clone.B = value.B;
+      clone.A = value.A;
+      clone.K = value.K;
+      clone._IsCmyk = value._IsCmyk;
+
+      return clone;
+    }
+
     internal string ToShortString()
     {
       if (A != Quantum.Max)

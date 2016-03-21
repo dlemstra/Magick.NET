@@ -72,6 +72,17 @@ namespace FileGenerator.MagickScript
       }
     }
 
+    private IEnumerable<MethodInfo[]> GetGroupedMethods(string name)
+    {
+      return from type in _MagickNET.GetTypes()
+             where type.Name == name
+             from method in type.GetMethods()
+             where IsSupported(method)
+             group method by method.Name into g
+             orderby g.Key
+             select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+    }
+
     private static string GetXsdAttributeType(Type type)
     {
       if (type.IsEnum)
@@ -417,13 +428,7 @@ namespace FileGenerator.MagickScript
 
     public IEnumerable<MethodInfo[]> GetGroupedMagickImageCollectionMethods()
     {
-      return from type in GetTypes()
-             where type.Name == "MagickImageCollection"
-             from method in type.GetMethods()
-             where IsSupported(method)
-             group method by method.Name into g
-             orderby g.Key
-             select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+      return GetGroupedMethods("MagickImageCollection");
     }
 
     public IEnumerable<MethodInfo[]> GetGroupedMagickImageCollectionResultMethods()
@@ -439,24 +444,17 @@ namespace FileGenerator.MagickScript
 
     public IEnumerable<MethodInfo[]> GetGroupedMagickImageMethods()
     {
-      return from type in _MagickNET.GetTypes()
-             where type.Name == "MagickImage"
-             from method in type.GetMethods()
-             where IsSupported(method)
-             group method by method.Name into g
-             orderby g.Key
-             select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+      return GetGroupedMethods("MagickImage");
     }
 
     public IEnumerable<MethodInfo[]> GetGroupedMagickSettingsMethods()
     {
-      return from type in _MagickNET.GetTypes()
-             where type.Name == "MagickSettings"
-             from method in type.GetMethods()
-             where IsSupported(method)
-             group method by method.Name into g
-             orderby g.Key
-             select g.OrderBy(m => m.GetParameters().Count()).ToArray();
+      return GetGroupedMethods("MagickSettings");
+    }
+
+    public IEnumerable<MethodInfo[]> GetGroupedMagickReadSettingsMethods()
+    {
+      return GetGroupedMethods("MagickReadSettings");
     }
 
     public IEnumerable<PropertyInfo> GetMagickImageProperties()
@@ -467,6 +465,11 @@ namespace FileGenerator.MagickScript
     public IEnumerable<PropertyInfo> GetMagickSettingsProperties()
     {
       return GetProperties(GetType("MagickSettings"));
+    }
+
+    public IEnumerable<PropertyInfo> GetMagickReadSettingsProperties()
+    {
+      return GetProperties(GetType("MagickReadSettings"));
     }
 
     public IEnumerable<MethodInfo> GetMethods(string typeName)

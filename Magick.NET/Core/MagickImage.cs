@@ -60,9 +60,14 @@ namespace ImageMagick
       return new PointD(x, y);
     }
 
+    private IEnumerable<MagickImage> CreateList(IntPtr images)
+    {
+      return CreateList(images, Settings.Clone());
+    }
+
     [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "FrameCount")]
     [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "MagickImage")]
-    private static MagickReadSettings CheckSettings(MagickReadSettings readSettings)
+    private MagickReadSettings CreateReadSettings(MagickReadSettings readSettings)
     {
       if (readSettings != null && readSettings.FrameCount.HasValue)
         Throw.IfFalse("readSettings", readSettings.FrameCount.Value == 1,
@@ -70,16 +75,12 @@ namespace ImageMagick
 
       MagickReadSettings newReadSettings = readSettings;
       if (readSettings == null)
-        newReadSettings = new MagickReadSettings();
+        newReadSettings = new MagickReadSettings(Settings);
 
       newReadSettings.FrameCount = 1;
+      newReadSettings.Apply();
 
       return newReadSettings;
-    }
-
-    private IEnumerable<MagickImage> CreateList(IntPtr images)
-    {
-      return CreateList(images, Settings.Clone());
     }
 
     private void Dispose(bool disposing)
@@ -93,10 +94,7 @@ namespace ImageMagick
       if (disposing)
       {
         if (Settings != null)
-        {
           Settings.Artifact -= OnArtifact;
-          ((IDisposable)Settings).Dispose();
-        }
       }
     }
 
@@ -286,8 +284,8 @@ namespace ImageMagick
     {
       Throw.IfNullOrEmpty("data", data);
 
-      MagickReadSettings newReadSettings = CheckSettings(readSettings);
-      Settings.Apply(newReadSettings);
+      MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
+      SetSettings(newReadSettings);
 
       if (newReadSettings.PixelStorage != null)
       {
@@ -317,8 +315,8 @@ namespace ImageMagick
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
       Throw.IfInvalidFileName(filePath);
 
-      MagickReadSettings newReadSettings = CheckSettings(readSettings);
-      Settings.Apply(newReadSettings);
+      MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
+      SetSettings(newReadSettings);
 
       if (newReadSettings.PixelStorage != null)
       {
@@ -341,6 +339,9 @@ namespace ImageMagick
 
     private void SetSettings(MagickSettings settings)
     {
+      if (Settings != null)
+        Settings.Artifact -= OnArtifact;
+
       Settings = settings;
       Settings.Artifact += OnArtifact;
     }
@@ -973,7 +974,7 @@ namespace ImageMagick
       {
         double newValue = value.ToQuantum();
         _NativeInstance.ColorFuzz = newValue;
-        Settings.SetColorFuzz(newValue);
+        Settings.ColorFuzz = newValue;
       }
     }
 
@@ -1021,8 +1022,8 @@ namespace ImageMagick
       }
       set
       {
-        Settings.ColorType = value;
         _NativeInstance.ColorType = value;
+        Settings.ColorType = value;
       }
     }
 
@@ -1278,7 +1279,7 @@ namespace ImageMagick
       set
       {
         _NativeInstance.Interlace = value;
-        Settings.SetInterlace(value);
+        Settings.Interlace = value;
       }
     }
 
@@ -1389,7 +1390,7 @@ namespace ImageMagick
         quality = quality > 100 ? 100 : quality;
 
         _NativeInstance.Quality = quality;
-        Settings.SetQuality(quality);
+        Settings.Quality = quality;
       }
     }
 
@@ -3518,16 +3519,6 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Returns the value of a format-specific option.
-    ///</summary>
-    ///<param name="format">The format to get the option for.</param>
-    ///<param name="name">The name of the option.</param>
-    public string GetDefine(MagickFormat format, string name)
-    {
-      return Settings.GetDefine(format, name);
-    }
-
-    ///<summary>
     /// Returns the value of the artifact with the specified name.
     ///</summary>
     ///<param name="name">The name of the artifact.</param>
@@ -4996,7 +4987,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(string fileName, int width, int height)
     {
-      MagickReadSettings readSettings = new MagickReadSettings();
+      MagickReadSettings readSettings = new MagickReadSettings(Settings);
       readSettings.Width = width;
       readSettings.Height = height;
 
@@ -5052,16 +5043,6 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Removes the define with the specified name.
-    ///</summary>
-    ///<param name="format">The format to set the option for.</param>
-    ///<param name="name">The name of the option.</param>
-    public void RemoveDefine(MagickFormat format, string name)
-    {
-      Settings.RemoveDefine(format, name);
-    }
-
-    ///<summary>
     /// Remove a named profile from the image.
     ///</summary>
     ///<param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
@@ -5080,7 +5061,6 @@ namespace ImageMagick
     public void RePage()
     {
       Page = new MagickGeometry(0, 0, 0, 0);
-      Settings.Page = new MagickGeometry(0, 0, 0, 0);
     }
 
     ///<summary>
@@ -5438,43 +5418,6 @@ namespace ImageMagick
       Throw.IfNull("color", color);
 
       _NativeInstance.SetColormap(index, color);
-    }
-
-    ///<summary>
-    /// Sets a format-specific option.
-    ///</summary>
-    ///<param name="format">The format to set the define for.</param>
-    ///<param name="name">The name of the define.</param>
-    ///<param name="flag">The value of the define.</param>
-    [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "flag")]
-    public void SetDefine(MagickFormat format, string name, bool flag)
-    {
-      SetDefine(format, name, flag ? "true" : "false");
-    }
-
-    ///<summary>
-    /// Sets a format-specific option.
-    ///</summary>
-    ///<param name="format">The format to set the define for.</param>
-    ///<param name="name">The name of the define.</param>
-    ///<param name="value">The value of the define.</param>
-    public void SetDefine(MagickFormat format, string name, string value)
-    {
-      Settings.SetDefine(format, name, value);
-    }
-
-    ///<summary>
-    /// Sets format-specific options with the specified defines.
-    ///</summary>
-    ///<param name="defines">The defines to set.</param>
-    public void SetDefines(IDefines defines)
-    {
-      Throw.IfNull("defines", defines);
-
-      foreach (IDefine define in defines.Defines)
-      {
-        SetDefine(define.Format, define.Name, define.Value);
-      }
     }
 
     ///<summary>

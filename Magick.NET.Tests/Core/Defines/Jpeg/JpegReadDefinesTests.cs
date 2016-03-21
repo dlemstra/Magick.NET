@@ -40,9 +40,9 @@ namespace Magick.NET.Tests
       {
         image.Read(Files.ImageMagickJPG, settings);
 
-        Assert.AreEqual("True", image.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
-        Assert.AreEqual("Slow", image.GetDefine(MagickFormat.Jpeg, "dct-method"));
-        Assert.AreEqual("False", image.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
+        Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
+        Assert.AreEqual("Slow", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
+        Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
       }
     }
 
@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
 
         image.Read(Files.FujiFilmFinePixS1ProJPG, settings);
         Assert.IsNull(image.GetIptcProfile());
-        Assert.AreEqual("Icc,Iptc", image.GetDefine(MagickFormat.Unknown, "profile:skip"));
+        Assert.AreEqual("Icc,Iptc", image.Settings.GetDefine(MagickFormat.Unknown, "profile:skip"));
       }
     }
   }

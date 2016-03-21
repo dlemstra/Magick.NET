@@ -366,39 +366,45 @@ namespace ImageMagick
       }
       public IntPtr ReadBlob(MagickSettings settings, byte[] data, int length)
       {
-        IntPtr exception = IntPtr.Zero;
-        IntPtr result;
-        if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImageCollection_ReadBlob(MagickSettings.GetInstance(settings), data, (UIntPtr)length, out exception);
-        else
-          result = NativeMethods.X86.MagickImageCollection_ReadBlob(MagickSettings.GetInstance(settings), data, (UIntPtr)length, out exception);
-        MagickException magickException = MagickExceptionHelper.Create(exception);
-        if (MagickExceptionHelper.IsError(magickException))
+        using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
         {
-          if (result != IntPtr.Zero)
-            Dispose(result);
-          throw magickException;
+          IntPtr exception = IntPtr.Zero;
+          IntPtr result;
+          if (NativeLibrary.Is64Bit)
+            result = NativeMethods.X64.MagickImageCollection_ReadBlob(settingsNative.Instance, data, (UIntPtr)length, out exception);
+          else
+            result = NativeMethods.X86.MagickImageCollection_ReadBlob(settingsNative.Instance, data, (UIntPtr)length, out exception);
+          MagickException magickException = MagickExceptionHelper.Create(exception);
+          if (MagickExceptionHelper.IsError(magickException))
+          {
+            if (result != IntPtr.Zero)
+              Dispose(result);
+            throw magickException;
+          }
+          RaiseWarning(magickException);
+          return result;
         }
-        RaiseWarning(magickException);
-        return result;
       }
       public IntPtr ReadFile(MagickSettings settings)
       {
-        IntPtr exception = IntPtr.Zero;
-        IntPtr result;
-        if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImageCollection_ReadFile(MagickSettings.GetInstance(settings), out exception);
-        else
-          result = NativeMethods.X86.MagickImageCollection_ReadFile(MagickSettings.GetInstance(settings), out exception);
-        MagickException magickException = MagickExceptionHelper.Create(exception);
-        if (MagickExceptionHelper.IsError(magickException))
+        using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
         {
-          if (result != IntPtr.Zero)
-            Dispose(result);
-          throw magickException;
+          IntPtr exception = IntPtr.Zero;
+          IntPtr result;
+          if (NativeLibrary.Is64Bit)
+            result = NativeMethods.X64.MagickImageCollection_ReadFile(settingsNative.Instance, out exception);
+          else
+            result = NativeMethods.X86.MagickImageCollection_ReadFile(settingsNative.Instance, out exception);
+          MagickException magickException = MagickExceptionHelper.Create(exception);
+          if (MagickExceptionHelper.IsError(magickException))
+          {
+            if (result != IntPtr.Zero)
+              Dispose(result);
+            throw magickException;
+          }
+          RaiseWarning(magickException);
+          return result;
         }
-        RaiseWarning(magickException);
-        return result;
       }
       public IntPtr Smush(MagickImage image, int offset, bool stack)
       {
@@ -420,30 +426,36 @@ namespace ImageMagick
       }
       public IntPtr WriteBlob(MagickImage image, MagickSettings settings, out UIntPtr length)
       {
-        IntPtr exception = IntPtr.Zero;
-        IntPtr result;
-        if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImageCollection_WriteBlob(MagickImage.GetInstance(image), MagickSettings.GetInstance(settings), out length, out exception);
-        else
-          result = NativeMethods.X86.MagickImageCollection_WriteBlob(MagickImage.GetInstance(image), MagickSettings.GetInstance(settings), out length, out exception);
-        MagickException magickException = MagickExceptionHelper.Create(exception);
-        if (MagickExceptionHelper.IsError(magickException))
+        using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
         {
-          if (result != IntPtr.Zero)
-            MagickMemory.Relinquish(result);
-          throw magickException;
+          IntPtr exception = IntPtr.Zero;
+          IntPtr result;
+          if (NativeLibrary.Is64Bit)
+            result = NativeMethods.X64.MagickImageCollection_WriteBlob(MagickImage.GetInstance(image), settingsNative.Instance, out length, out exception);
+          else
+            result = NativeMethods.X86.MagickImageCollection_WriteBlob(MagickImage.GetInstance(image), settingsNative.Instance, out length, out exception);
+          MagickException magickException = MagickExceptionHelper.Create(exception);
+          if (MagickExceptionHelper.IsError(magickException))
+          {
+            if (result != IntPtr.Zero)
+              MagickMemory.Relinquish(result);
+            throw magickException;
+          }
+          RaiseWarning(magickException);
+          return result;
         }
-        RaiseWarning(magickException);
-        return result;
       }
       public void WriteFile(MagickImage image, MagickSettings settings)
       {
-        IntPtr exception = IntPtr.Zero;
-        if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), MagickSettings.GetInstance(settings), out exception);
-        else
-          NativeMethods.X86.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), MagickSettings.GetInstance(settings), out exception);
-        CheckException(exception);
+        using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
+        {
+          IntPtr exception = IntPtr.Zero;
+          if (NativeLibrary.Is64Bit)
+            NativeMethods.X64.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+          else
+            NativeMethods.X86.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+          CheckException(exception);
+        }
       }
     }
   }

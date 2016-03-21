@@ -17,13 +17,13 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class MagickSettingsGenerator : ExecuteCodeGenerator
+  internal sealed class MagickReadSettingsGenerator : ExecuteCodeGenerator
   {
     protected override string ExecuteArgument
     {
       get
       {
-        return "MagickSettings settings";
+        return "MagickReadSettings readSettings";
       }
     }
 
@@ -31,7 +31,7 @@ namespace FileGenerator.MagickScript
     {
       get
       {
-        return "MagickSettings";
+        return "MagickReadSettings";
       }
     }
 
@@ -39,7 +39,7 @@ namespace FileGenerator.MagickScript
     {
       get
       {
-        return Types.GetMagickSettingsProperties();
+        return Types.GetMagickReadSettingsProperties();
       }
     }
 
@@ -47,13 +47,13 @@ namespace FileGenerator.MagickScript
     {
       get
       {
-        return Types.GetGroupedMagickSettingsMethods();
+        return Types.GetGroupedMagickReadSettingsMethods();
       }
     }
 
     protected override void WriteCall(MethodBase method, ParameterInfo[] parameters)
     {
-      Write("settings.");
+      Write("readSettings.");
       Write(method.Name);
       Write("(");
       WriteParameters(parameters);
@@ -62,7 +62,7 @@ namespace FileGenerator.MagickScript
 
     protected override void WriteHashtableCall(MethodBase method, ParameterInfo[] parameters)
     {
-      Write("settings.");
+      Write("readSettings.");
       Write(method.Name);
       Write("(");
       WriteHashtableParameters(parameters);
@@ -71,7 +71,7 @@ namespace FileGenerator.MagickScript
 
     protected override void WriteSet(PropertyInfo property)
     {
-      Write("settings.");
+      Write("readSettings.");
       Write(property.Name);
       Write(" = ");
       WriteGetValue(property);

@@ -407,12 +407,12 @@ namespace FileGenerator.MagickScript
         case "IEnumerable<PathArc>":
         case "IEnumerable<PointD>":
         case "ImageProfile":
+        case "IReadDefines":
         case "PrimaryInfo":
           Write("element");
           break;
         case "ColorProfile":
         case "IDefines":
-        case "IReadDefines":
         case "MagickSettings":
         case "MontageSettings":
         case "PixelStorageSettings":

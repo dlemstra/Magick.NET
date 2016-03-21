@@ -710,6 +710,21 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_ReadSettings()
+    {
+      MagickReadSettings settings = new MagickReadSettings();
+      settings.FontFamily = "Courier New";
+      settings.FillColor = MagickColors.Gold;
+      settings.FontPointsize = 80;
+
+      using (MagickImageCollection images = new MagickImageCollection(Files.ImageMagickTXT, settings))
+      {
+        Assert.AreEqual(2, images.Count);
+        ColorAssert.AreEqual(MagickColors.Gold, images[0], 67, 549);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_Remove()
     {
       using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
@@ -733,22 +748,23 @@ namespace Magick.NET.Tests
     {
       using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
       {
-        collection[0].Page = new MagickGeometry("0x0+10+10");
+        collection[0].Page = new MagickGeometry("0x0+10+20");
 
         Assert.AreEqual(10, collection[0].Page.X);
-        Assert.AreEqual(10, collection[0].Page.Y);
+        Assert.AreEqual(20, collection[0].Page.Y);
 
-        collection[0].Settings.Page = new MagickGeometry("0x0+10+10");
+        collection[0].Settings.Page = new MagickGeometry("0x0+10+20");
 
         Assert.AreEqual(10, collection[0].Settings.Page.X);
-        Assert.AreEqual(10, collection[0].Settings.Page.Y);
+        Assert.AreEqual(20, collection[0].Settings.Page.Y);
 
         collection.RePage();
 
         Assert.AreEqual(0, collection[0].Page.X);
         Assert.AreEqual(0, collection[0].Page.Y);
 
-        Assert.AreEqual(null, collection[0].Settings.Page);
+        Assert.AreEqual(10, collection[0].Settings.Page.X);
+        Assert.AreEqual(20, collection[0].Settings.Page.Y);
       }
     }
 
@@ -841,6 +857,8 @@ namespace Magick.NET.Tests
       {
         fileSize = image.FileSize;
       }
+
+      Assert.AreEqual(fileSize, 9891);
 
       using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
       {

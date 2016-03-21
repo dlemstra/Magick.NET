@@ -42,7 +42,7 @@ namespace ImageMagick
 
       MagickImage image = null;
 
-      MagickReadSettings settings = CreateMagickReadSettings((XmlElement)element.SelectSingleNode("readSettings"));
+      MagickReadSettings settings = CreateReadSettings((XmlElement)element.SelectSingleNode("readSettings"));
 
       string fileName = element.GetAttribute("fileName");
       if (!string.IsNullOrEmpty(fileName))
@@ -96,6 +96,20 @@ namespace ImageMagick
         return CreateColorProfile(elem);
 
       throw new NotImplementedException(elem.Name);
+    }
+
+    private MagickReadSettings CreateReadSettings(XmlElement element)
+    {
+      MagickReadSettings settings = new MagickReadSettings();
+      if (element == null)
+        return settings;
+
+      foreach (XmlElement elem in element.SelectNodes("*"))
+      {
+        ExecuteMagickReadSettings(elem, settings);
+      }
+
+      return settings;
     }
 
     private void Execute(XmlElement element, MagickImage image)

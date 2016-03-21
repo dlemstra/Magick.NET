@@ -63,11 +63,11 @@
     <Compile Include="Code\Execute\DrawableGenerator.cs" />
     <Compile Include="Code\Execute\MagickImageCollectionGenerator.cs" />
     <Compile Include="Code\Execute\MagickImageGenerator.cs" />
+    <Compile Include="Code\Execute\MagickReadSettingsGenerator.cs" />
     <Compile Include="Code\Execute\MagickSettingsGenerator.cs" />
     <Compile Include="Code\Execute\PathsGenerator.cs" />
     <Compile Include="Code\Interface\IDefinesGenerator.cs" />
     <Compile Include="Code\MagickScriptGenerator.cs" />
-    <Compile Include="Code\Settings\MagickReadSettingsGenerator.cs" />
     <Compile Include="Code\Settings\MontageSettingsGenerator.cs" />
     <Compile Include="Code\Settings\PixelStorageSettingsGenerator.cs" />
     <Compile Include="Code\Settings\QuantizeSettingsGenerator.cs" />

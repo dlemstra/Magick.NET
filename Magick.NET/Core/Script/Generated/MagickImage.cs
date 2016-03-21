@@ -975,11 +975,6 @@ namespace ImageMagick
                       }
                       break;
                     }
-                    case 'D':
-                    {
-                      ExecuteRemoveDefine(element, image);
-                      return;
-                    }
                     case 'P':
                     {
                       ExecuteRemoveProfile(element, image);
@@ -1112,20 +1107,6 @@ namespace ImageMagick
                     {
                       ExecuteSetColormap(element, image);
                       return;
-                    }
-                    case 'D':
-                    {
-                      if (element.Name.Length == 9)
-                      {
-                        ExecuteSetDefine(element, image);
-                        return;
-                      }
-                      if (element.Name.Length == 10)
-                      {
-                        ExecuteSetDefines(element, image);
-                        return;
-                      }
-                      break;
                     }
                     case 'H':
                     {
@@ -3053,12 +3034,6 @@ namespace ImageMagick
       String name_ = Variables.GetValue<String>(element, "name");
       image.RemoveAttribute(name_);
     }
-    private void ExecuteRemoveDefine(XmlElement element, MagickImage image)
-    {
-      MagickFormat format_ = Variables.GetValue<MagickFormat>(element, "format");
-      String name_ = Variables.GetValue<String>(element, "name");
-      image.RemoveDefine(format_, name_);
-    }
     private void ExecuteRemoveProfile(XmlElement element, MagickImage image)
     {
       String name_ = Variables.GetValue<String>(element, "name");
@@ -3278,32 +3253,6 @@ namespace ImageMagick
       Int32 index_ = Variables.GetValue<Int32>(element, "index");
       MagickColor color_ = Variables.GetValue<MagickColor>(element, "color");
       image.SetColormap(index_, color_);
-    }
-    private void ExecuteSetDefine(XmlElement element, MagickImage image)
-    {
-      Hashtable arguments = new Hashtable();
-      foreach (XmlAttribute attribute in element.Attributes)
-      {
-        if (attribute.Name == "flag")
-          arguments["flag"] = Variables.GetValue<Boolean>(attribute);
-        else if (attribute.Name == "format")
-          arguments["format"] = Variables.GetValue<MagickFormat>(attribute);
-        else if (attribute.Name == "name")
-          arguments["name"] = Variables.GetValue<String>(attribute);
-        else if (attribute.Name == "value")
-          arguments["value"] = Variables.GetValue<String>(attribute);
-      }
-      if (OnlyContains(arguments, "format", "name", "flag"))
-        image.SetDefine((MagickFormat)arguments["format"], (String)arguments["name"], (Boolean)arguments["flag"]);
-      else if (OnlyContains(arguments, "format", "name", "value"))
-        image.SetDefine((MagickFormat)arguments["format"], (String)arguments["name"], (String)arguments["value"]);
-      else
-        throw new ArgumentException("Invalid argument combination for 'setDefine', allowed combinations are: [format, name, flag] [format, name, value]");
-    }
-    private void ExecuteSetDefines(XmlElement element, MagickImage image)
-    {
-      IDefines defines_ = CreateIDefines(element["defines"]);
-      image.SetDefines(defines_);
     }
     private void ExecuteSetHighlightColor(XmlElement element, MagickImage image)
     {

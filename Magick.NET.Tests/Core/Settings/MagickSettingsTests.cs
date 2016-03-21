@@ -202,6 +202,10 @@ namespace Magick.NET.Tests
         Pixel pixelA;
         image.Settings.FillColor = MagickColors.Red;
         image.Read("caption:Magick.NET");
+
+        Assert.AreEqual(100, image.Width);
+        Assert.AreEqual(100, image.Height);
+
         using (PixelCollection pixels = image.GetPixels())
         {
           pixelA = pixels.GetPixel(69, 6);

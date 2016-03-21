@@ -24,7 +24,7 @@ namespace RootNamespace.Samples.MagickNET
       using (MagickImage image = new MagickImage(SampleFiles.SnakewarePng))
       {
         // Tells the dds coder to use dxt1 compression when writing the image
-        image.SetDefine(MagickFormat.Dds, "compression", "dxt1");
+        image.Settings.SetDefine(MagickFormat.Dds, "compression", "dxt1");
         // Save image as dds file
         image.Write(SampleFiles.OutputDirectory + "Snakeware.dds");
       }

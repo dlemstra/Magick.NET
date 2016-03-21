@@ -48,11 +48,11 @@ namespace Magick.NET.Tests
 
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        image.SetDefines(defines);
+        image.Settings.SetDefines(defines);
 
-        Assert.AreEqual("True", image.GetDefine(MagickFormat.Dds, "cluster-fit"));
-        Assert.AreEqual("0", image.GetDefine(MagickFormat.Dds, "mipmaps"));
-        Assert.AreEqual("False", image.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
+        Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
+        Assert.AreEqual("0", image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+        Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
       }
     }
 
@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
           Assert.AreEqual(CompressionMethod.DXT1, output.CompressionMethod);
         }
 
-        input.SetDefines(defines);
+        input.Settings.SetDefines(defines);
 
         using (MagickImage output = WriteDds(input))
         {

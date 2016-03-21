@@ -64,6 +64,14 @@ namespace ImageMagick
       return new Density(value);
     }
 
+    internal static Density Clone(Density value)
+    {
+      if (value == null)
+        return null;
+
+      return new Density(value.X, value.Y, value.Units);
+    }
+
     ///<summary>
     /// Initializes a new instance of the Density class using the specified x and y.
     ///</summary>

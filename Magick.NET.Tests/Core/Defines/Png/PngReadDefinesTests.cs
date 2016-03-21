@@ -34,10 +34,10 @@ namespace Magick.NET.Tests
 
       using (MagickImage image = new MagickImage())
       {
-        image.SetDefines(defines);
+        image.Settings.SetDefines(defines);
 
-        Assert.AreEqual("True", image.GetDefine(MagickFormat.Png, "preserve-iCCP"));
-        Assert.AreEqual(null, image.GetDefine(MagickFormat.Png, "swap-bytes"));
+        Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
       }
 
       defines = new PngReadDefines()
@@ -48,10 +48,10 @@ namespace Magick.NET.Tests
 
       using (MagickImage image = new MagickImage())
       {
-        image.SetDefines(defines);
+        image.Settings.SetDefines(defines);
 
-        Assert.AreEqual(null, image.GetDefine(MagickFormat.Png, "preserve-iCCP"));
-        Assert.AreEqual("True", image.GetDefine(MagickFormat.Png, "swap-bytes"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
+        Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
       }
     }
 
@@ -75,7 +75,7 @@ namespace Magick.NET.Tests
         image.Read(Files.FujiFilmFinePixS1ProPNG, settings);
         Assert.IsNull(image.GetExifProfile());
         Assert.IsNull(image.GetXmpProfile());
-        Assert.AreEqual("Exif,Xmp", image.GetDefine(MagickFormat.Unknown, "profile:skip"));
+        Assert.AreEqual("Exif,Xmp", image.Settings.GetDefine(MagickFormat.Unknown, "profile:skip"));
       }
     }
   }

@@ -111,6 +111,14 @@ namespace Magick.NET.Tests
       }
     }
 
+    public static string ImageMagickTXT
+    {
+      get
+      {
+        return _Root + @"Images\ImageMagick.txt";
+      }
+    }
+
     public static string MagickNETIconPNG
     {
       get

@@ -87,7 +87,6 @@ namespace ImageMagick
         BorderColor = instance.BorderColor;
         FillColor = instance.FillColor;
         FillRule = instance.FillRule;
-        FillPattern = null;
         Font = instance.Font;
         FontFamily = instance.FontFamily;
         FontPointsize = instance.FontPointsize;
@@ -95,12 +94,10 @@ namespace ImageMagick
         FontWeight = instance.FontWeight;
         StrokeAntiAlias = instance.StrokeAntiAlias;
         StrokeColor = instance.StrokeColor;
-        _StrokeDashArray = null;
         StrokeDashOffset = instance.StrokeDashOffset;
         StrokeLineCap = instance.StrokeLineCap;
         StrokeLineJoin = instance.StrokeLineJoin;
         StrokeMiterLimit = instance.StrokeMiterLimit;
-        StrokePattern = null;
         StrokeWidth = instance.StrokeWidth;
         TextAntiAlias = instance.TextAntiAlias;
         TextDirection = instance.TextDirection;
@@ -111,6 +108,42 @@ namespace ImageMagick
         TextKerning = instance.TextKerning;
         TextUnderColor = instance.TextUnderColor;
       }
+    }
+
+    internal DrawingSettings Clone()
+    {
+      DrawingSettings clone = new DrawingSettings();
+      clone.BorderColor = MagickColor.Clone(BorderColor);
+      clone.FillColor = MagickColor.Clone(FillColor);
+      clone.FillRule = FillRule;
+      clone.Font = Font;
+      clone.FontFamily = FontFamily;
+      clone.FontPointsize = FontPointsize;
+      clone.FontStyle = FontStyle;
+      clone.FontWeight = FontWeight;
+      clone.StrokeAntiAlias = StrokeAntiAlias;
+      clone.StrokeColor = MagickColor.Clone(StrokeColor);
+      clone.StrokeDashOffset = StrokeDashOffset;
+      clone.StrokeLineCap = StrokeLineCap;
+      clone.StrokeLineJoin = StrokeLineJoin;
+      clone.StrokeMiterLimit = StrokeMiterLimit;
+      clone.StrokeWidth = StrokeWidth;
+      clone.TextAntiAlias = TextAntiAlias;
+      clone.TextDirection = TextDirection;
+      clone.TextEncoding = TextEncoding;
+      clone.TextGravity = TextGravity;
+      clone.TextInterlineSpacing = TextInterlineSpacing;
+      clone.TextInterwordSpacing = TextInterwordSpacing;
+      clone.TextKerning = TextKerning;
+      clone.TextUnderColor = MagickColor.Clone(TextUnderColor);
+
+      clone.Affine = Affine;
+      clone.FillPattern = MagickImage.Clone(FillPattern);
+      clone._StrokeDashArray = _StrokeDashArray != null ? (double[]) _StrokeDashArray.Clone() : null;
+      clone.StrokePattern = MagickImage.Clone(StrokePattern);
+      clone.Text = Text;
+
+      return clone;
     }
 
     public DrawableAffine Affine

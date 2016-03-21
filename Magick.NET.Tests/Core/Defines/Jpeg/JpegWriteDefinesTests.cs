@@ -42,13 +42,13 @@ namespace Magick.NET.Tests
 
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        image.SetDefines(defines);
+        image.Settings.SetDefines(defines);
 
-        Assert.AreEqual("Fast", image.GetDefine(MagickFormat.Jpeg, "dct-method"));
-        Assert.AreEqual("False", image.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
-        Assert.AreEqual("80x80", image.GetDefine(MagickFormat.Jpeg, "quality"));
-        Assert.AreEqual(@"C:\path\to\file.xml", image.GetDefine(MagickFormat.Jpeg, "q-table"));
-        Assert.AreEqual("5x10,15x20", image.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
+        Assert.AreEqual("Fast", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
+        Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
+        Assert.AreEqual("80x80", image.Settings.GetDefine(MagickFormat.Jpeg, "quality"));
+        Assert.AreEqual(@"C:\path\to\file.xml", image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
+        Assert.AreEqual("5x10,15x20", image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
       }
     }
 
@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
       {
         using (MemoryStream memStream = new MemoryStream())
         {
-          image.SetDefines(defines);
+          image.Settings.SetDefines(defines);
 
           image.Format = MagickFormat.Jpeg;
           image.Write(memStream);

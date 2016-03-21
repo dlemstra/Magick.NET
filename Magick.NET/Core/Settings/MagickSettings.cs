@@ -23,98 +23,49 @@ namespace ImageMagick
   ///<summary>
   /// Class that contains various settings.
   ///</summary>
-  public sealed partial class MagickSettings
+  public partial class MagickSettings
   {
-    private MagickSettings(NativeMagickSettings instance)
+    private string _Font;
+    private double _FontPointsize;
+    private Dictionary<string, string> _Options = new Dictionary<string, string>();
+
+    private INativeInstance CreateNativeInstance()
     {
-      _NativeInstance = instance;
-      Drawing = new DrawingSettings();
-    }
+      NativeMagickSettings instance = new NativeMagickSettings();
+      instance.BackgroundColor = BackgroundColor;
+      instance.ColorSpace = ColorSpace;
+      instance.ColorType = ColorType;
+      instance.CompressionMethod = CompressionMethod;
+      instance.Debug = Debug;
+      instance.Density = Density != null ? Density.ToString(DensityUnit.Undefined) : null;
+      instance.Endian = Endian;
+      instance.Font = _Font;
+      instance.FontPointsize = _FontPointsize;
+      instance.Format = Format != MagickFormat.Unknown ? EnumHelper.GetName(Format) : null;
+      instance.Monochrome = Monochrome;
+      instance.Verbose = Verbose;
 
-    private void ApplyColorSpace(MagickReadSettings readSettings)
-    {
-      if (readSettings.ColorSpace != null)
-        ColorSpace = readSettings.ColorSpace.Value;
-    }
+      instance.SetColorFuzz(ColorFuzz);
+      instance.SetFileName(FileName);
+      instance.SetInterlace(Interlace);
+      instance.SetNumberScenes(NumberScenes);
+      instance.SetPage(MagickGeometry.ToString(Page));
+      instance.SetPing(Ping);
+      instance.SetQuality(Quality);
+      instance.SetScene(Scene);
+      instance.SetScenes(Scenes);
+      instance.SetSize(Size);
 
-    private void ApplyDefines(MagickReadSettings readSettings)
-    {
-      foreach (IDefine define in readSettings.AllDefines)
-      {
-        _NativeInstance.SetOption(GetDefineKey(define), define.Value);
-      }
-    }
+      foreach (string key in _Options.Keys)
+        instance.SetOption(key, _Options[key]);
 
-    private void ApplyDensity(MagickReadSettings readSettings)
-    {
-      if (readSettings.Density == null)
-        return;
-
-      Density = readSettings.Density;
-    }
-
-    private void ApplyDimensions(MagickReadSettings readSettings)
-    {
-      if (readSettings.Width.HasValue && readSettings.Height.HasValue)
-        _NativeInstance.SetSize(readSettings.Width + "x" + readSettings.Height);
-      else if (readSettings.Width.HasValue)
-        _NativeInstance.SetSize(readSettings.Width + "x");
-      else if (readSettings.Height.HasValue)
-        _NativeInstance.SetSize("x" + readSettings.Height);
-    }
-
-    private void ApplyFormat(MagickReadSettings readSettings)
-    {
-      if (!readSettings.Format.HasValue)
-        return;
-
-      Format = readSettings.Format.Value;
-    }
-
-    private void ApplyFrame(MagickReadSettings readSettings)
-    {
-      if (!readSettings.FrameIndex.HasValue && !readSettings.FrameCount.HasValue)
-        return;
-
-      _NativeInstance.SetScenes(readSettings.Scenes);
-      _NativeInstance.SetScene((readSettings.FrameIndex.HasValue ? readSettings.FrameIndex.Value : 0));
-      _NativeInstance.SetNumberScenes((readSettings.FrameCount.HasValue ? readSettings.FrameCount.Value : 1));
-    }
-
-    private void ApplyUseMonochrome(MagickReadSettings readSettings)
-    {
-      if (readSettings.UseMonochrome.HasValue)
-        _NativeInstance.SetMonochrome(readSettings.UseMonochrome.Value);
-    }
-
-    [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "disposing")]
-    private void Dispose(bool disposing)
-    {
-      if (_NativeInstance != null)
-        _NativeInstance.Dispose();
-    }
-
-    private static string GetDefineKey(IDefine define)
-    {
-      if (define.Format == MagickFormat.Unknown)
-        return define.Name;
-
-      return EnumHelper.GetName(define.Format) + ":" + define.Name;
+      return instance;
     }
 
     private static MagickFormat GetModule(MagickFormat format)
     {
       MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(format);
       return formatInfo.Module;
-    }
-
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "MagickFormat")]
-    private static string ParseDefine(MagickFormat format, string name)
-    {
-      if (format == MagickFormat.Unknown)
-        return name;
-      else
-        return EnumHelper.GetName(GetModule(format)) + ":" + name;
     }
 
     private void SetOptionAndArtifact(string key, double value)
@@ -124,15 +75,31 @@ namespace ImageMagick
 
     private void SetOptionAndArtifact(string key, string value)
     {
-      _NativeInstance.SetOption(key, value);
+      SetOption(key, value);
 
       if (Artifact != null)
         Artifact(this, new ArtifactEventArgs(key, value));
     }
 
     internal MagickSettings()
-      : this(new NativeMagickSettings())
     {
+      using (NativeMagickSettings instance = new NativeMagickSettings())
+      {
+        BackgroundColor = instance.BackgroundColor;
+        ColorSpace = instance.ColorSpace;
+        ColorType = instance.ColorType;
+        CompressionMethod = instance.CompressionMethod;
+        Debug = instance.Debug;
+        Density = Density.Create(instance.Density);
+        Endian = instance.Endian;
+        _Font = instance.Font;
+        _FontPointsize = instance.FontPointsize;
+        Format = EnumHelper.Parse(instance.Format, MagickFormat.Unknown);
+        Monochrome = instance.Monochrome;
+        Verbose = instance.Verbose;
+      }
+
+      Drawing = new DrawingSettings();
     }
 
     internal event EventHandler<ArtifactEventArgs> Artifact;
@@ -143,116 +110,151 @@ namespace ImageMagick
       private set;
     }
 
+    internal double ColorFuzz
+    {
+      get;
+      set;
+    }
+
     internal string FileName
     {
-      get
-      {
-        return _NativeInstance.FileName;
-      }
-      set
-      {
-        _NativeInstance.FileName = value;
-      }
+      get;
+      set;
+    }
+
+    internal Interlace Interlace
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// Number of scenes.
+    /// </summary>
+    protected int NumberScenes
+    {
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Use monochrome reader.
+    ///</summary>
+    protected bool Monochrome
+    {
+      get;
+      set;
     }
 
     internal bool Ping
     {
-      get
-      {
-        return _NativeInstance.Ping;
-      }
-      set
-      {
-        _NativeInstance.Ping = value;
-      }
+      get;
+      set;
     }
 
-    internal void Apply(MagickReadSettings readSettings)
+    internal int Quality
     {
-      FileName = null;
+      get;
+      set;
+    }
 
-      if (readSettings == null)
-        return;
+    /// <summary>
+    /// The size of the image.
+    /// </summary>
+    protected string Size
+    {
+      get;
+      set;
+    }
 
-      ApplyColorSpace(readSettings);
-      ApplyDefines(readSettings);
-      ApplyDensity(readSettings);
-      ApplyDimensions(readSettings);
-      ApplyFormat(readSettings);
-      ApplyFrame(readSettings);
-      ApplyUseMonochrome(readSettings);
+    /// <summary>
+    /// Active scene
+    /// </summary>
+    protected int Scene
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// The scenes of the image.
+    /// </summary>
+    protected string Scenes
+    {
+      get;
+      set;
     }
 
     internal MagickSettings Clone()
     {
-      return new MagickSettings(new NativeMagickSettings(_NativeInstance.Clone()));
+      MagickSettings clone = new MagickSettings();
+      clone.Copy(this);
+
+      return clone;
     }
 
-    internal string GetDefine(MagickFormat format, string name)
+    /// <summary>
+    /// Copies the settings from the specified settings.
+    /// </summary>
+    /// <param name="settings"></param>
+    protected void Copy(MagickSettings settings)
     {
-      Throw.IfNullOrEmpty("name", name);
+      if (settings == null)
+        return;
 
-      return _NativeInstance.GetOption(ParseDefine(format, name));
+      BackgroundColor = MagickColor.Clone(settings.BackgroundColor);
+      ColorSpace = settings.ColorSpace;
+      ColorType = settings.ColorType;
+      CompressionMethod = settings.CompressionMethod;
+      Debug = settings.Debug;
+      Density = Density.Clone(settings.Density);
+      Endian = settings.Endian;
+      _Font = settings._Font;
+      _FontPointsize = settings._FontPointsize;
+      Format = settings.Format;
+      Page = MagickGeometry.Clone(settings.Page);
+      Verbose = settings.Verbose;
+
+      ColorFuzz = settings.ColorFuzz;
+      Interlace = settings.Interlace;
+      Ping = settings.Ping;
+      Quality = settings.Quality;
+      Size = settings.Size;
+
+      foreach (string key in settings._Options.Keys)
+        _Options[key] = settings._Options[key];
+
+      Drawing = settings.Drawing.Clone();
     }
 
     internal string GetOption(string key)
     {
       Throw.IfNullOrEmpty("key", key);
 
-      return _NativeInstance.GetOption(key);
+      string result;
+      if (_Options.TryGetValue(key, out result))
+        return result;
+
+      return null;
     }
 
-    internal void RemoveDefine(MagickFormat format, string name)
+    /// <summary>
+    /// Creates a define string for the specified format and name.
+    /// </summary>
+    ///<param name="format">The format to set the define for.</param>
+    /// <param name="name">The name of the define.</param>
+    /// <returns></returns>
+    protected static string ParseDefine(MagickFormat format, string name)
     {
-      Throw.IfNullOrEmpty("name", name);
-
-      _NativeInstance.RemoveOption(ParseDefine(format, name));
-    }
-
-    internal void SetColorFuzz(double value)
-    {
-      _NativeInstance.SetColorFuzz(value);
-    }
-
-    internal void SetDefine(MagickFormat format, string name, string value)
-    {
-      Throw.IfNullOrEmpty("name", name);
-      Throw.IfNull("value", value);
-
-      _NativeInstance.SetOption(ParseDefine(format, name), value);
-    }
-
-    internal void SetInterlace(Interlace value)
-    {
-      _NativeInstance.SetInterlace(value);
+      if (format == MagickFormat.Unknown)
+        return name;
+      else
+        return EnumHelper.GetName(GetModule(format)) + ":" + name;
     }
 
     internal void SetOption(string key, string value)
     {
-      Throw.IfNullOrEmpty("key", key);
-      Throw.IfNull("value", value);
-
-      _NativeInstance.SetOption(key, value);
-    }
-
-    internal void SetQuality(int value)
-    {
-      _NativeInstance.SetQuality(value);
-    }
-
-    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
-    void IDisposable.Dispose()
-    {
-      Dispose(true);
-      GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
-    /// Finalizer
-    /// </summary>
-    ~MagickSettings()
-    {
-      Dispose(false);
+      _Options[key] = value;
     }
 
     /// <summary>
@@ -275,17 +277,8 @@ namespace ImageMagick
     ///</summary>
     public MagickColor BackgroundColor
     {
-      get
-      {
-        return _NativeInstance.BackgroundColor;
-      }
-      set
-      {
-        if (value == null)
-          return;
-
-        _NativeInstance.BackgroundColor = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -308,14 +301,8 @@ namespace ImageMagick
     ///</summary>
     public ColorSpace ColorSpace
     {
-      get
-      {
-        return _NativeInstance.ColorSpace;
-      }
-      set
-      {
-        _NativeInstance.ColorSpace = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -323,14 +310,8 @@ namespace ImageMagick
     ///</summary>
     public ColorType ColorType
     {
-      get
-      {
-        return _NativeInstance.ColorType;
-      }
-      set
-      {
-        _NativeInstance.ColorType = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -338,14 +319,8 @@ namespace ImageMagick
     ///</summary>
     public CompressionMethod CompressionMethod
     {
-      get
-      {
-        return _NativeInstance.CompressionMethod;
-      }
-      set
-      {
-        _NativeInstance.CompressionMethod = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -353,14 +328,8 @@ namespace ImageMagick
     ///</summary>
     public bool Debug
     {
-      get
-      {
-        return _NativeInstance.Debug;
-      }
-      set
-      {
-        _NativeInstance.Debug = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -368,17 +337,8 @@ namespace ImageMagick
     ///</summary>
     public Density Density
     {
-      get
-      {
-        return Density.Create(_NativeInstance.Density);
-      }
-      set
-      {
-        if (value == null)
-          _NativeInstance.Density = null;
-        else
-          _NativeInstance.Density = value.ToString(DensityUnit.Undefined);
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -387,14 +347,8 @@ namespace ImageMagick
     ///</summary>
     public Endian Endian
     {
-      get
-      {
-        return _NativeInstance.Endian;
-      }
-      set
-      {
-        _NativeInstance.Endian = value;
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -450,11 +404,11 @@ namespace ImageMagick
     {
       get
       {
-        return _NativeInstance.Font;
+        return _Font;
       }
       set
       {
-        _NativeInstance.Font = value;
+        _Font = value;
         Drawing.Font = value;
       }
     }
@@ -466,7 +420,7 @@ namespace ImageMagick
     {
       get
       {
-        return _NativeInstance.GetOption("family");
+        return GetOption("family");
       }
       set
       {
@@ -482,11 +436,11 @@ namespace ImageMagick
     {
       get
       {
-        return _NativeInstance.FontPointsize;
+        return _FontPointsize;
       }
       set
       {
-        _NativeInstance.FontPointsize = value;
+        _FontPointsize = value;
         Drawing.FontPointsize = value;
       }
     }
@@ -498,7 +452,7 @@ namespace ImageMagick
     {
       get
       {
-        return EnumHelper.Parse(_NativeInstance.GetOption("style"), FontStyleType.Undefined);
+        return EnumHelper.Parse(GetOption("style"), FontStyleType.Undefined);
       }
       set
       {
@@ -514,7 +468,9 @@ namespace ImageMagick
     {
       get
       {
-        string weight = _NativeInstance.GetOption("weight");
+        string weight = GetOption("weight");
+        if (string.IsNullOrEmpty(weight))
+          return FontWeight.Undefined;
 
         int fontweight;
         int.TryParse(weight, NumberStyles.Number, CultureInfo.InvariantCulture, out fontweight);
@@ -532,14 +488,8 @@ namespace ImageMagick
     ///</summary>
     public MagickFormat Format
     {
-      get
-      {
-        return EnumHelper.Parse(_NativeInstance.Format, MagickFormat.Unknown);
-      }
-      set
-      {
-        _NativeInstance.Format = EnumHelper.GetName(value);
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -547,18 +497,8 @@ namespace ImageMagick
     ///</summary>
     public MagickGeometry Page
     {
-      get
-      {
-        string value = _NativeInstance.Page;
-        if (string.IsNullOrEmpty(value))
-          return null;
-
-        return new MagickGeometry(value);
-      }
-      set
-      {
-        _NativeInstance.Page = MagickGeometry.ToString(value);
-      }
+      get;
+      set;
     }
 
     ///<summary>
@@ -836,13 +776,73 @@ namespace ImageMagick
     ///</summary>
     public bool Verbose
     {
-      get
+      get;
+      set;
+    }
+
+    ///<summary>
+    /// Returns the value of a format-specific option.
+    ///</summary>
+    ///<param name="format">The format to get the option for.</param>
+    ///<param name="name">The name of the option.</param>
+    public string GetDefine(MagickFormat format, string name)
+    {
+      Throw.IfNullOrEmpty("name", name);
+
+      return GetOption(ParseDefine(format, name));
+    }
+
+    ///<summary>
+    /// Removes the define with the specified name.
+    ///</summary>
+    ///<param name="format">The format to set the define for.</param>
+    ///<param name="name">The name of the define.</param>
+    public void RemoveDefine(MagickFormat format, string name)
+    {
+      Throw.IfNullOrEmpty("name", name);
+
+      string key = ParseDefine(format, name);
+      if (_Options.ContainsKey(key))
+        _Options.Remove(key);
+    }
+
+    ///<summary>
+    /// Sets a format-specific option.
+    ///</summary>
+    ///<param name="format">The format to set the define for.</param>
+    ///<param name="name">The name of the define.</param>
+    ///<param name="flag">The value of the define.</param>
+    [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "flag")]
+    public void SetDefine(MagickFormat format, string name, bool flag)
+    {
+      SetDefine(format, name, flag ? "true" : "false");
+    }
+
+    ///<summary>
+    /// Sets a format-specific option.
+    ///</summary>
+    ///<param name="format">The format to set the option for.</param>
+    ///<param name="name">The name of the option.</param>
+    ///<param name="value">The value of the option.</param>
+    public void SetDefine(MagickFormat format, string name, string value)
+    {
+      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNull("value", value);
+
+      SetOption(ParseDefine(format, name), value);
+    }
+
+    ///<summary>
+    /// Sets format-specific options with the specified defines.
+    ///</summary>
+    ///<param name="defines">The defines to set.</param>
+    public void SetDefines(IDefines defines)
+    {
+      Throw.IfNull("defines", defines);
+
+      foreach (IDefine define in defines.Defines)
       {
-        return _NativeInstance.Verbose;
-      }
-      set
-      {
-        _NativeInstance.Verbose = value;
+        SetDefine(define.Format, define.Name, define.Value);
       }
     }
   }

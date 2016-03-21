@@ -106,7 +106,11 @@
     <xs:sequence>
       <xs:element name="readSettings" minOccurs="0">
         <xs:complexType>
-          <xs:annotation id="magickReadSettings"/>
+          <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:annotation id="magickReadSettings"/>
+            </xs:choice>
+          </xs:sequence>
         </xs:complexType>
       </xs:element>
       <xs:group ref="actions" />

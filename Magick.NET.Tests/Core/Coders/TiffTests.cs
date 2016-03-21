@@ -35,7 +35,7 @@ namespace Magick.NET.Tests.Coders
     {
       using (MagickImage image = new MagickImage())
       {
-        image.SetDefine(MagickFormat.Tiff, "ignore-tags", "32934");
+        image.Settings.SetDefine(MagickFormat.Tiff, "ignore-tags", "32934");
         image.Read(Files.Coders.IgnoreTagTIF);
       }
     }

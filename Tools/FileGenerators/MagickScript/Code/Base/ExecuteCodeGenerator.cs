@@ -85,9 +85,9 @@ namespace FileGenerator.MagickScript
 
       IEnumerable<string> names = (from property in Properties
                                    select MagickTypes.GetXsdName(property)).Concat(
-                          from method in Methods
-                          select MagickTypes.GetXsdName(method[0])).Concat(
-                          CustomMethods);
+                                     from method in Methods
+                                     select MagickTypes.GetXsdName(method[0])).Concat(
+                                     CustomMethods);
 
       WriteSwitch(names);
       WriteEndColon();

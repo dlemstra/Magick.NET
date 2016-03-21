@@ -1273,22 +1273,22 @@ namespace Magick.NET.Tests
       {
         string option = "optimize-coding";
 
-        image.SetDefine(MagickFormat.Jpg, option, true);
-        Assert.AreEqual("true", image.GetDefine(MagickFormat.Jpg, option));
-        Assert.AreEqual("true", image.GetDefine(MagickFormat.Jpeg, option));
+        image.Settings.SetDefine(MagickFormat.Jpg, option, true);
+        Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Jpg, option));
+        Assert.AreEqual("true", image.Settings.GetDefine(MagickFormat.Jpeg, option));
 
-        image.RemoveDefine(MagickFormat.Jpeg, option);
-        Assert.AreEqual(null, image.GetDefine(MagickFormat.Jpg, option));
+        image.Settings.RemoveDefine(MagickFormat.Jpeg, option);
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpg, option));
 
-        image.SetDefine(MagickFormat.Jpeg, option, "test");
-        Assert.AreEqual("test", image.GetDefine(MagickFormat.Jpg, option));
-        Assert.AreEqual("test", image.GetDefine(MagickFormat.Jpeg, option));
+        image.Settings.SetDefine(MagickFormat.Jpeg, option, "test");
+        Assert.AreEqual("test", image.Settings.GetDefine(MagickFormat.Jpg, option));
+        Assert.AreEqual("test", image.Settings.GetDefine(MagickFormat.Jpeg, option));
 
-        image.RemoveDefine(MagickFormat.Jpg, option);
-        Assert.AreEqual(null, image.GetDefine(MagickFormat.Jpeg, option));
+        image.Settings.RemoveDefine(MagickFormat.Jpg, option);
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, option));
 
-        image.SetDefine(MagickFormat.Unknown, "profile:skip", "ICC");
-        Assert.AreEqual("ICC", image.GetDefine(MagickFormat.Unknown, "profile:skip"));
+        image.Settings.SetDefine(MagickFormat.Unknown, "profile:skip", "ICC");
+        Assert.AreEqual("ICC", image.Settings.GetDefine(MagickFormat.Unknown, "profile:skip"));
       }
     }
 
@@ -1370,16 +1370,6 @@ namespace Magick.NET.Tests
       ExceptionAssert.Throws<ObjectDisposedException>(delegate ()
       {
         image.HasAlpha = true;
-      });
-
-      ExceptionAssert.Throws<ObjectDisposedException>(delegate ()
-      {
-        image.Settings.Verbose = true;
-      });
-
-      ExceptionAssert.Throws<ObjectDisposedException>(delegate ()
-      {
-        image.SetArtifact("test", "test");
       });
     }
 
@@ -2416,7 +2406,7 @@ namespace Magick.NET.Tests
 
       ExceptionAssert.Throws<ObjectDisposedException>(delegate ()
       {
-        image.Read(Files.Builtin.Logo);
+        image.BackgroundColor = MagickColors.PaleGreen;
       });
     }
 

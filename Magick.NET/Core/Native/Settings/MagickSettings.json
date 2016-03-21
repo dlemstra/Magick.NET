@@ -1,5 +1,5 @@
 ﻿{
-  "nativeConstructor": true,
+  "dynamic": "ManagedToNative",
   "properties":
   [
     {
@@ -31,10 +31,6 @@
       "type": "Endian"
     },
     {
-      "name": "FileName",
-      "type": "string"
-    },
-    {
       "name": "Format",
       "type": "string"
     },
@@ -47,11 +43,7 @@
       "type": "double"
     },
     {
-      "name": "Page",
-      "type": "string"
-    },
-    {
-      "name": "Ping",
+      "name": "Monochrome",
       "type": "bool"
     },
     {
@@ -61,34 +53,6 @@
   ],
   "methods":
   [
-    {
-      "name": "Clone",
-      "type": "Instance",
-      "instance": true,
-      "throws": true
-    },
-    {
-      "name": "GetOption",
-      "type": "string",
-      "arguments":
-      [
-        {
-          "name": "key",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "RemoveOption",
-      "type": "string",
-      "arguments":
-      [
-        {
-          "name": "key",
-          "type": "string"
-        }
-      ]
-    },
     {
       "name": "SetColorFuzz",
       "arguments":
@@ -100,22 +64,22 @@
       ]
     },
     {
+      "name": "SetFileName",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    },
+    {
       "name": "SetInterlace",
       "arguments":
       [
         {
           "name": "value",
           "type": "Interlace"
-        }
-      ]
-    },
-    {
-      "name": "SetMonochrome",
-      "arguments":
-      [
-        {
-          "name": "value",
-          "type": "bool"
         }
       ]
     },
@@ -140,6 +104,26 @@
         {
           "name": "value",
           "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SetPage",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SetPing",
+      "arguments":
+      [
+        {
+          "name": "value",
+          "type": "bool"
         }
       ]
     },
