@@ -716,11 +716,12 @@ namespace Magick.NET.Tests
       settings.FontFamily = "Courier New";
       settings.FillColor = MagickColors.Gold;
       settings.FontPointsize = 80;
+      settings.TextGravity = Gravity.Center;
 
       using (MagickImageCollection images = new MagickImageCollection(Files.ImageMagickTXT, settings))
       {
         Assert.AreEqual(2, images.Count);
-        ColorAssert.AreEqual(MagickColors.Gold, images[0], 67, 549);
+        ColorAssert.AreEqual(MagickColors.Gold, images[0], 348, 648);
       }
     }
 
