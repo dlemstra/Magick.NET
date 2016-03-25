@@ -11,6 +11,10 @@
 # express or implied. See the License for the specific language governing permissions and
 # limitations under the License.
 #==================================================================================================
+ param (
+    [string]$dev = ""
+ )
+
 $scriptPath = Split-Path -parent $MyInvocation.MyCommand.Path
 . $scriptPath\Shared\Functions.ps1
 SetFolder $scriptPath
@@ -87,34 +91,56 @@ function BuildAll()
   }
 }
 
-function BuildDevelopment($config, $build)
+function BuildDevelopment($dev)
 {
+  $info = $dev.Split('.')
+  $quantum = $info[0]
+  $platform = $info[1]
+
+  $config = $null
+  if ($quantum -eq "Q8")
+  {
+    if ($platform -eq "x86")
+    {
+      $config = $configurations[0]
+    }
+    elseif ($platform -eq "x64")
+    {
+      $config = $configurations[1]
+    }
+  }
+  elseif ($quantum -eq "Q16")
+  {
+    if ($platform -eq "x86")
+    {
+      $config = $configurations[2]
+    }
+    elseif ($platform -eq "x64")
+    {
+      $config = $configurations[3]
+    }
+  }
+  elseif ($quantum -eq "Q16-HDRI")
+  {
+    if ($platform -eq "x86")
+    {
+      $config = $configurations[4]
+    }
+    elseif ($platform -eq "x64")
+    {
+      $config = $configurations[5]
+    }
+  }
+
+  if ($config -eq $null)
+  {
+    return
+  }
+
+  $build = @($config.Builds[0]);
+
   CreateSolution $config.Platform $config.Options
   Build $config.Platform $build
-}
-
-function BuildDevelopmentQ8()
-{
-  $config = $configurations[0]
-  $build = @($config.Builds[0]);
-
-  BuildDevelopment $config $build
-}
-
-function BuildDevelopmentQ16()
-{
-  $config = $configurations[2]
-  $build = @($config.Builds[0]);
-
-  BuildDevelopment $config $build
-}
-
-function BuildDevelopmentQ16HDRI()
-{
-  $config = $configurations[4]
-  $build = @($config.Builds[0]);
-
-  BuildDevelopment $config $build
 }
 
 function CopyFiles($folder)
@@ -208,20 +234,14 @@ function RecompileConfigure()
 CheckFolder "ImageMagick\Source"
 PatchFiles
 RecompileConfigure
-if ($args[0] -eq "-devQ8")
+
+if ($dev -ne "")
 {
-  BuildDevelopmentQ8
-}
-elseif ($args[0] -eq "-devQ16")
-{
-  BuildDevelopmentQ16
-}
-elseif ($args[0] -eq "-devQ16-HDRI")
-{
-  BuildDevelopmentQ16HDRI
+  BuildDevelopment $dev
 }
 else
 {
   BuildAll
 }
+
 CopyFiles
