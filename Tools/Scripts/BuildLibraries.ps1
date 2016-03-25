@@ -12,7 +12,8 @@
 # limitations under the License.
 #==================================================================================================
  param (
-    [string]$dev = ""
+  [string]$dev = "",
+  [string]$configuration = "Release"
  )
 
 $scriptPath = Split-Path -parent $MyInvocation.MyCommand.Path
@@ -42,7 +43,10 @@ function Build($platform, $builds)
   $configFile = FullPath "ImageMagick\Source\ImageMagick\ImageMagick\MagickCore\magick-baseconfig.h"
   $config = [IO.File]::ReadAllText($configFile, [System.Text.Encoding]::Default)
 
-  ModifyDebugInformationFormat
+  if ($configuration -eq "Release")
+  {
+    ModifyDebugInformationFormat
+  }
 
   foreach ($build in $builds)
   {
@@ -58,7 +62,7 @@ function Build($platform, $builds)
       $platformName = "x64";
     }
 
-    $options = "Configuration=Release,Platform=$($platformName),PlatformToolset=v140,VCBuildAdditionalOptions=/arch:SSE"
+    $options = "Configuration=$configuration,Platform=$($platformName),PlatformToolset=v140,VCBuildAdditionalOptions=/arch:SSE"
 
     BuildSolution "ImageMagick\Source\ImageMagick\VisualMagick\VisualStaticMT.sln" $options
 
@@ -66,19 +70,30 @@ function Build($platform, $builds)
     $newConfig = $newConfig.Replace("#define MAGICKCORE_LIBRARY_NAME `"Magick.NET-" + $platform + ".dll`"", "//#define MAGICKCORE_LIBRARY_NAME `"MyImageMagick.dll`"")
     [IO.File]::WriteAllText($configFile, $newConfig, [System.Text.Encoding]::Default)
 
-    if (!(Test-Path "ImageMagick\lib\$platform"))
+    $type = "RL"
+    if ($configuration -eq "Debug")
     {
-      [void](New-Item -ItemType directory -Path "ImageMagick\lib\$platform")
+      $type = "DB"
     }
-    Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_RL_*.lib" "ImageMagick\lib\$platform"
 
-    if (!(Test-Path "ImageMagick\$($build.Name)\lib\$platform"))
+    if (!(Test-Path "ImageMagick\lib\$($configuration)\$($platform)"))
     {
-      [void](New-Item -ItemType directory -Path "ImageMagick\$($build.Name)\lib\$platform")
+      [void](New-Item -ItemType directory -Path "ImageMagick\lib\$($configuration)\$($platform)")
     }
-    Move-Item "ImageMagick\lib\$($platform)\CORE_RL_coders_.lib"     "ImageMagick\$($build.Name)\lib\$platform" -force
-    Move-Item "ImageMagick\lib\$($platform)\CORE_RL_MagickCore_.lib" "ImageMagick\$($build.Name)\lib\$platform" -force
-    Move-Item "ImageMagick\lib\$($platform)\CORE_RL_MagickWand_.lib" "ImageMagick\$($build.Name)\lib\$platform" -force
+    Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_$($type)_*.lib" "ImageMagick\lib\$($configuration)\$($platform)"
+    
+    if ($configuration -eq "Debug")
+    {
+      Copy-Item "ImageMagick\Source\ImageMagick\VisualMagick\lib\CORE_$($type)_*.pdb" "ImageMagick\lib\$($configuration)\$($platform)"
+    }
+
+    if (!(Test-Path "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)"))
+    {
+      [void](New-Item -ItemType directory -Path "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)")
+    }
+    Move-Item "ImageMagick\lib\$($configuration)\$($platform)\CORE_$($type)_coders_.*"     "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)" -force
+    Move-Item "ImageMagick\lib\$($configuration)\$($platform)\CORE_$($type)_MagickCore_.*" "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)" -force
+    Move-Item "ImageMagick\lib\$($configuration)\$($platform)\CORE_$($type)_MagickWand_.*" "ImageMagick\$($build.Name)\lib\$($configuration)\$($platform)" -force
   }
 }
 
@@ -190,7 +205,7 @@ function CreateSolution($platform, $options)
   set-location $location
 }
 
-function ModifyDebugInformationFormat($folder)
+function ModifyDebugInformationFormat()
 {
   $folder = FullPath "ImageMagick\Source\ImageMagick"
   foreach ($projectFile in [IO.Directory]::GetFiles($folder, "CORE_*.vcxproj", [IO.SearchOption]::AllDirectories))

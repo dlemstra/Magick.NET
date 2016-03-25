@@ -30,69 +30,99 @@
 
 #pragma warning(pop)
 
-#if defined(MAGICKCORE_BZLIB_DELEGATE)
-#  pragma comment(lib, "CORE_RL_bzlib_.lib")
+#include <string.h>
+
+#define MAGICKNET_STRINGIFY(s) #s
+#if defined(_DEBUG)
+#define MAGICKNET_LINK_LIB(name) \
+ __pragma(comment(lib,MAGICKNET_STRINGIFY(CORE_DB_##name##_.lib)))
+#else
+#define MAGICKNET_LINK_LIB(name) \
+ __pragma(comment(lib,MAGICKNET_STRINGIFY(CORE_RL_##name##_.lib)))
 #endif
-#pragma comment(lib, "CORE_RL_coders_.lib")
-#if defined(MAGICKCORE_OPENEXR_DELEGATE)
-#  pragma comment(lib, "CORE_RL_exr_.lib")
-#endif
-#if defined(MAGICKCORE_LQR_DELEGATE)
-#  pragma comment(lib, "CORE_RL_ffi_.lib")
-#endif
-#pragma comment(lib, "CORE_RL_filters_.lib")
-#if defined(MAGICKCORE_LQR_DELEGATE)
-#  pragma comment(lib, "CORE_RL_glib_.lib")
-#  pragma comment(lib, "winmm.lib")
-#endif
-#if defined(MAGICKCORE_JBIG_DELEGATE)
-#  pragma comment(lib, "CORE_RL_jbig_.lib")
-#endif
-#if defined(MAGICKCORE_JP2_DELEGATE)
-#  pragma comment(lib, "CORE_RL_jp2_.lib")
-#endif
-#if defined(MAGICKCORE_JPEG_DELEGATE)
-#  pragma comment(lib, "CORE_RL_jpeg_.lib")
-#endif
-#if defined(MAGICKCORE_LCMS_DELEGATE)
-#  pragma comment(lib, "CORE_RL_lcms_.lib")
-#endif
-#if defined(MAGICKCORE_LIBOPENJP2_DELEGATE)
-#  pragma comment(lib, "CORE_RL_openjpeg_.lib")
-#endif
-#pragma comment(lib, "CORE_RL_libxml_.lib")
-#if defined(MAGICKCORE_LQR_DELEGATE)
-#  pragma comment(lib, "CORE_RL_lqr_.lib")
-#endif
-#pragma comment(lib, "CORE_RL_MagickCore_.lib")
-#pragma comment(lib, "CORE_RL_MagickWand_.lib")
-#if defined(MAGICKCORE_PANGOCAIRO_DELEGATE)
-#  pragma comment(lib, "CORE_RL_cairo_.lib")
-#  pragma comment(lib, "CORE_RL_pango_.lib")
-#  pragma comment(lib, "CORE_RL_pixman_.lib")
-#endif
-#if defined(MAGICKCORE_PNG_DELEGATE)
-#  pragma comment(lib, "CORE_RL_png_.lib")
-#endif
-#if defined(MAGICKCORE_RSVG_DELEGATE)
-#  pragma comment(lib, "CORE_RL_croco_.lib")
-#  pragma comment(lib, "CORE_RL_librsvg_.lib")
-#endif
-#if defined(MAGICKCORE_TIFF_DELEGATE)
-#  pragma comment(lib, "CORE_RL_tiff_.lib")
-#endif
-#if defined(MAGICKCORE_FREETYPE_DELEGATE)
-#  pragma comment(lib, "CORE_RL_ttf_.lib")
-#endif
-#if defined(MAGICKCORE_WEBP_DELEGATE)
-#  pragma comment(lib, "CORE_RL_webp_.lib")
-#endif
-#if defined(MAGICKCORE_ZLIB_DELEGATE)
-#  pragma comment(lib, "CORE_RL_zlib_.lib")
-#endif
-#pragma comment(lib, "ws2_32.lib")
-#pragma comment(lib, "urlmon.lib")
 
 #define MAGICK_NET_EXPORT __declspec(dllexport)
+
+#if defined(MAGICKCORE_BZLIB_DELEGATE)
+MAGICKNET_LINK_LIB("bzlib")
+#endif
+
+MAGICKNET_LINK_LIB("coders")
+
+#if defined(MAGICKCORE_OPENEXR_DELEGATE)
+MAGICKNET_LINK_LIB("exr")
+#endif
+
+#if defined(MAGICKCORE_LQR_DELEGATE)
+MAGICKNET_LINK_LIB("ffi")
+#endif
+
+#if defined(MAGICKCORE_LQR_DELEGATE)
+MAGICKNET_LINK_LIB("glib")
+#pragma comment(lib, "winmm.lib")
+#endif
+
+#if defined(MAGICKCORE_JBIG_DELEGATE)
+MAGICKNET_LINK_LIB("jbig")
+#endif
+
+#if defined(MAGICKCORE_JP2_DELEGATE)
+MAGICKNET_LINK_LIB("jp2")
+#endif
+
+#if defined(MAGICKCORE_JPEG_DELEGATE)
+MAGICKNET_LINK_LIB("jpeg")
+#endif
+
+#if defined(MAGICKCORE_LCMS_DELEGATE)
+MAGICKNET_LINK_LIB("lcms")
+#endif
+
+#if defined(MAGICKCORE_LIBOPENJP2_DELEGATE)
+MAGICKNET_LINK_LIB("openjpeg")
+#endif
+
+MAGICKNET_LINK_LIB("libxml")
+
+#if defined(MAGICKCORE_LQR_DELEGATE)
+MAGICKNET_LINK_LIB("lqr")
+#endif
+
+MAGICKNET_LINK_LIB("MagickCore")
+MAGICKNET_LINK_LIB("MagickWand")
+
+#if defined(MAGICKCORE_PANGOCAIRO_DELEGATE)
+MAGICKNET_LINK_LIB("cairo")
+MAGICKNET_LINK_LIB("pango")
+MAGICKNET_LINK_LIB("pixman")
+#endif
+
+#if defined(MAGICKCORE_PNG_DELEGATE)
+MAGICKNET_LINK_LIB("png")
+#endif
+
+#if defined(MAGICKCORE_RSVG_DELEGATE)
+MAGICKNET_LINK_LIB("croco")
+MAGICKNET_LINK_LIB("librsvg")
+#endif
+
+#if defined(MAGICKCORE_TIFF_DELEGATE)
+MAGICKNET_LINK_LIB("tiff")
+#endif
+
+#if defined(MAGICKCORE_FREETYPE_DELEGATE)
+MAGICKNET_LINK_LIB("ttf")
+#endif
+
+#if defined(MAGICKCORE_WEBP_DELEGATE)
+MAGICKNET_LINK_LIB("webp")
+#endif
+
+#if defined(MAGICKCORE_ZLIB_DELEGATE)
+MAGICKNET_LINK_LIB("zlib")
+#endif
+
+#pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib, "urlmon.lib")
 
 #include "Exceptions\MagickExceptionHelper.h"

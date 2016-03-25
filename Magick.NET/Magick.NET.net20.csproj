@@ -11,33 +11,94 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
-    <OutputPath>bin\ReleaseQ16\x64.net20</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ8|x86'">
+    <OutputPath>bin\DebugQ8\x86.net20</OutputPath>
     <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
-    <DefineConstants>NET20;TRACE;Q16;WIN64</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
+    <DefineConstants>NET20;DEBUG;TRACE;Q8</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <AssemblyName>Magick.NET-Q16-x64</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ16\x64.net20\Magick.NET-Q16-x64.xml</DocumentationFile>
+    <AssemblyName>Magick.NET-Q8-x86</AssemblyName>
+    <DocumentationFile>bin\DebugQ8\x86.net20\Magick.NET-Q8-x86.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
-    <OutputPath>bin\ReleaseQ16-HDRI\x64.net20</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ8|x64'">
+    <OutputPath>bin\DebugQ8\x64.net20</OutputPath>
     <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
-    <DefineConstants>NET20;TRACE;Q16HDRI;WIN64</DefineConstants>
+    <DefineConstants>NET20;DEBUG;TRACE;Q8;WIN64</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <AssemblyName>Magick.NET-Q8-x64</AssemblyName>
+    <DocumentationFile>bin\DebugQ8\x64.net20\Magick.NET-Q8-x64.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|x86'">
+    <OutputPath>bin\DebugQ16\x86.net20</OutputPath>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
+    <DefineConstants>NET20;DEBUG;TRACE;Q16</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>Magick.NET-Q16-x86</AssemblyName>
+    <DocumentationFile>bin\DebugQ16\x86.net20\Magick.NET-Q16-x86.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|x64'">
+    <OutputPath>bin\DebugQ16\x64.net20</OutputPath>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
+    <DefineConstants>NET20;DEBUG;TRACE;Q16;WIN64</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>Magick.NET-Q16-x64</AssemblyName>
+    <DocumentationFile>bin\DebugQ16\x64.net20\Magick.NET-Q16-x64.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
+    <OutputPath>bin\DebugQ16-HDRI\x86.net20</OutputPath>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
+    <DefineConstants>NET20;DEBUG;TRACE;Q16HDRI</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>Magick.NET-Q16-HDRI-x86</AssemblyName>
+    <DocumentationFile>bin\DebugQ16-HDRI\x86.net20\Magick.NET-Q16-HDRI-x86.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16-HDRI|x64'">
+    <OutputPath>bin\DebugQ16-HDRI\x64.net20</OutputPath>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
+    <DefineConstants>NET20;DEBUG;TRACE;Q16HDRI;WIN64</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
     <AssemblyName>Magick.NET-Q16-HDRI-x64</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ16-HDRI\x64.net20\Magick.NET-Q16-HDRI-x64.xml</DocumentationFile>
+    <DocumentationFile>bin\DebugQ16-HDRI\x64.net20\Magick.NET-Q16-HDRI-x64.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
+    <OutputPath>bin\ReleaseQ8\x86.net20</OutputPath>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
+    <DefineConstants>NET20;TRACE;Q8</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>Magick.NET-Q8-x86</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ8\x86.net20\Magick.NET-Q8-x86.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
@@ -49,8 +110,6 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <AssemblyName>Magick.NET-Q8-x64</AssemblyName>
     <DocumentationFile>bin\ReleaseQ8\x64.net20\Magick.NET-Q8-x64.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -71,6 +130,19 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
+    <OutputPath>bin\ReleaseQ16\x64.net20</OutputPath>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
+    <DefineConstants>NET20;TRACE;Q16;WIN64</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>Magick.NET-Q16-x64</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ16\x64.net20\Magick.NET-Q16-x64.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
     <OutputPath>bin\ReleaseQ16-HDRI\x86.net20</OutputPath>
     <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
@@ -79,24 +151,21 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET-Q16-HDRI-x86</AssemblyName>
     <DocumentationFile>bin\ReleaseQ16-HDRI\x86.net20\Magick.NET-Q16-HDRI-x86.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
-    <OutputPath>bin\ReleaseQ8\x86.net20</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
+    <OutputPath>bin\ReleaseQ16-HDRI\x64.net20</OutputPath>
     <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
-    <DefineConstants>NET20;TRACE;Q8</DefineConstants>
+    <DefineConstants>NET20;TRACE;Q16HDRI;WIN64</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <AssemblyName>Magick.NET-Q8-x86</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ8\x86.net20\Magick.NET-Q8-x86.xml</DocumentationFile>
+    <AssemblyName>Magick.NET-Q16-HDRI-x64</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ16-HDRI\x64.net20\Magick.NET-Q16-HDRI-x64.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>

@@ -7,10 +7,10 @@ echo You can download the library files here: https://www.dropbox.com/sh/5m3zllq
 goto done
 
 :copy
-xcopy %DROPBOX%\lib lib /Y /S /I
-xcopy %DROPBOX%\Q8\lib Q8\lib /Y /S /I
-xcopy %DROPBOX%\Q16\lib Q16\lib /Y /S /I
-xcopy %DROPBOX%\Q16-HDRI\lib Q16-HDRI\lib /Y /S /I
+xcopy %DROPBOX%\lib lib\Release /Y /S /I
+xcopy %DROPBOX%\Q8\lib Q8\lib\Release /Y /S /I
+xcopy %DROPBOX%\Q16\lib Q16\lib\Release /Y /S /I
+xcopy %DROPBOX%\Q16-HDRI\lib Q16-HDRI\lib\Release /Y /S /I
 
 :done
 pause

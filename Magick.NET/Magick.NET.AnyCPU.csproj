@@ -12,6 +12,58 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ8|AnyCPU'">
+    <OutputPath>bin\DebugQ8\AnyCPU</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>ANYCPU;DEBUG;TRACE;Q8</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>Magick.NET-Q8-AnyCPU</AssemblyName>
+    <DocumentationFile>bin\DebugQ8\AnyCPU\Magick.NET-Q8-AnyCPU.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|AnyCPU'">
+    <OutputPath>bin\DebugQ16\AnyCPU</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>ANYCPU;DEBUG;TRACE;Q16</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>Magick.NET-Q16-AnyCPU</AssemblyName>
+    <DocumentationFile>bin\DebugQ16\AnyCPU\Magick.NET-Q16-AnyCPU.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|AnyCPU'">
+    <OutputPath>bin\DebugQ16-HDRI\AnyCPU</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>ANYCPU;DEBUG;TRACE;Q16HDRI</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>Magick.NET-Q16-HDRI-AnyCPU</AssemblyName>
+    <DocumentationFile>bin\DebugQ16-HDRI\AnyCPU\Magick.NET-Q16-HDRI-AnyCPU.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|AnyCPU'">
+    <OutputPath>bin\ReleaseQ8\AnyCPU</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>ANYCPU;TRACE;Q8</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>Magick.NET-Q8-AnyCPU</AssemblyName>
+    <DocumentationFile>bin\ReleaseQ8\AnyCPU\Magick.NET-Q8-AnyCPU.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|AnyCPU'">
     <OutputPath>bin\ReleaseQ16\AnyCPU</OutputPath>
     <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
@@ -35,24 +87,8 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET-Q16-HDRI-AnyCPU</AssemblyName>
     <DocumentationFile>bin\ReleaseQ16-HDRI\AnyCPU\Magick.NET-Q16-HDRI-AnyCPU.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|AnyCPU'">
-    <OutputPath>bin\ReleaseQ8\AnyCPU</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>ANYCPU;TRACE;Q8</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <AssemblyName>Magick.NET-Q8-AnyCPU</AssemblyName>
-    <DocumentationFile>bin\ReleaseQ8\AnyCPU\Magick.NET-Q8-AnyCPU.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>

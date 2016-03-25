@@ -11,10 +11,10 @@ goto done
 echo Are you sure?
 pause
 
-xcopy lib %DROPBOX%\lib /Y /S /I
-xcopy Q8\lib %DROPBOX%\Q8\lib /Y /S /I
-xcopy Q16\lib %DROPBOX%\Q16\lib /Y /S /I
-xcopy Q16-HDRI\lib %DROPBOX%\Q16-HDRI\lib /Y /S /I
+xcopy lib\Release %DROPBOX%\lib /Y /S /I
+xcopy Q8\lib\Release %DROPBOX%\Q8\lib /Y /S /I
+xcopy Q16\lib\Release %DROPBOX%\Q16\lib /Y /S /I
+xcopy Q16-HDRI\lib\Release %DROPBOX%\Q16-HDRI\lib /Y /S /I
 
 :done
 pause

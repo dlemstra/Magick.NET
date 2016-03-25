@@ -17,16 +17,59 @@
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseQ16|x86' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ8|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ16\x86</OutputPath>
+    <OutputPath>bin\DebugQ8\x86</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;Q8</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ8|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugQ8\x64\</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;Q8;WIN64</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugQ16\x64\</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;Q16;WIN64</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugQ16\x86</OutputPath>
     <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
     <DefineConstants>TRACE;DEBUG;Q16</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16-HDRI|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugQ16-HDRI\x86</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;Q16HDRI</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16-HDRI|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugQ16-HDRI\x64\</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;Q16HDRI;WIN64</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -36,28 +79,6 @@
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ16-HDRI\x86</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q16HDRI</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ReleaseQ16\x64\</OutputPath>
-    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;Q16;WIN64</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -67,7 +88,33 @@
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ReleaseQ16\x64\</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;Q16;WIN64</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ReleaseQ16\x86</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;Q16</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ReleaseQ16-HDRI\x86</OutputPath>
+    <BaseIntermediateOutputPath>obj\net40-client</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;Q16HDRI</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -77,7 +124,6 @@
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
