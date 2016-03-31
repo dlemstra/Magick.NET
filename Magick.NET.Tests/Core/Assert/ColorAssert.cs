@@ -50,10 +50,10 @@ namespace Magick.NET.Tests
       QuantumType delta = 0;
 #endif
 
-      Assert.AreEqual(expected.R, actual.R, delta, "R is not equal (" + expected.ToString() + " , " + actual.ToString());
-      Assert.AreEqual(expected.G, actual.G, delta, "G is not equal (" + expected.ToString() + " , " + actual.ToString());
-      Assert.AreEqual(expected.B, actual.B, delta, "B is not equal (" + expected.ToString() + " , " + actual.ToString());
-      Assert.AreEqual(expected.A, actual.A, delta, "A is not equal (" + expected.ToString() + " , " + actual.ToString());
+      Assert.AreEqual(expected.R, actual.R, delta, "R is not equal (" + expected.ToString() + " , " + actual.ToString() + ")");
+      Assert.AreEqual(expected.G, actual.G, delta, "G is not equal (" + expected.ToString() + " , " + actual.ToString() + ")");
+      Assert.AreEqual(expected.B, actual.B, delta, "B is not equal (" + expected.ToString() + " , " + actual.ToString() + ")");
+      Assert.AreEqual(expected.A, actual.A, delta, "A is not equal (" + expected.ToString() + " , " + actual.ToString() + ")");
     }
 
     public static void AreEqual(MagickColor expected, MagickImage image, int x, int y)
