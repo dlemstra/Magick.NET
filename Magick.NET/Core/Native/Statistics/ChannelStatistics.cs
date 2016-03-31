@@ -32,10 +32,10 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
-      [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.ChannelStatistics+NativeMethods.#.cctor()")]
-      static NativeMethods() { NativeLibraryLoader.Load(); }
       public static class X64
       {
+        [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.ChannelStatistics+NativeMethods.X64#.cctor()")]
+        static X64() { NativeLibraryLoader.Load(); }
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr ChannelStatistics_Depth_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -65,6 +65,8 @@ namespace ImageMagick
       }
       public static class X86
       {
+        [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.ChannelStatistics+NativeMethods.X86#.cctor()")]
+        static X86() { NativeLibraryLoader.Load(); }
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr ChannelStatistics_Depth_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]

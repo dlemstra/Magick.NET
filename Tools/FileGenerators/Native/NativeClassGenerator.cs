@@ -100,10 +100,19 @@ namespace FileGenerator.Native
       }
     }
 
+    private void WriteNativeMethods()
+    {
+      WriteLine("public static class " + _Platform);
+      WriteStartColon();
+      WriteNativeMethodsStaticConstructor();
+      WriteDllImports();
+      WriteEndColon();
+    }
+
     private void WriteNativeMethodsStaticConstructor()
     {
-      WriteLine(@"[SuppressMessage(""Microsoft.Performance"", ""CA1810: InitializeReferenceTypeStaticFieldsInline"", Scope = ""member"", Target = ""ImageMagick." + Class.Name + @"+NativeMethods.#.cctor()"")]");
-      WriteLine("static NativeMethods() { NativeLibraryLoader.Load(); }");
+      WriteLine(@"[SuppressMessage(""Microsoft.Performance"", ""CA1810: InitializeReferenceTypeStaticFieldsInline"", Scope = ""member"", Target = ""ImageMagick." + Class.Name + @"+NativeMethods." + _Platform + @"#.cctor()"")]");
+      WriteLine("static " + _Platform + "() { NativeLibraryLoader.Load(); }");
     }
 
     private void WriteMarshal(MagickType type)
@@ -115,21 +124,13 @@ namespace FileGenerator.Native
     private void WriteX64()
     {
       _Platform = "X64";
-
-      WriteLine("public static class X64");
-      WriteStartColon();
-      WriteDllImports();
-      WriteEndColon();
+      WriteNativeMethods();
     }
 
     private void WriteX86()
     {
       _Platform = "X86";
-
-      WriteLine("public static class X86");
-      WriteStartColon();
-      WriteDllImports();
-      WriteEndColon();
+      WriteNativeMethods();
     }
 
     public NativeClassGenerator(MagickClass magickClass)
@@ -163,7 +164,6 @@ namespace FileGenerator.Native
 
       WriteLine("private static class NativeMethods");
       WriteStartColon();
-      WriteNativeMethodsStaticConstructor();
       WriteX64();
       WriteX86();
       WriteEndColon();

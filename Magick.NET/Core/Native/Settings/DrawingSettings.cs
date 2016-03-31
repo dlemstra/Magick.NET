@@ -32,10 +32,10 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
-      [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.DrawingSettings+NativeMethods.#.cctor()")]
-      static NativeMethods() { NativeLibraryLoader.Load(); }
       public static class X64
       {
+        [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.DrawingSettings+NativeMethods.X64#.cctor()")]
+        static X64() { NativeLibraryLoader.Load(); }
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr DrawingSettings_Create();
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -147,6 +147,8 @@ namespace ImageMagick
       }
       public static class X86
       {
+        [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.DrawingSettings+NativeMethods.X86#.cctor()")]
+        static X86() { NativeLibraryLoader.Load(); }
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr DrawingSettings_Create();
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
