@@ -165,32 +165,52 @@ namespace Magick.NET.Tests
       {
         using (PixelCollection pixels = image.GetPixels())
         {
-          ExceptionAssert.Throws<ArgumentException>(delegate ()
+          ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
           {
             pixels.GetArea(4, 0, 2, 1);
           });
 
-          ExceptionAssert.Throws<ArgumentException>(delegate ()
+          ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
           {
             pixels.GetArea(new MagickGeometry(0, 9, 1, 2));
           });
 
-          ExceptionAssert.Throws<ArgumentException>(delegate ()
+          ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+          {
+            pixels.GetArea(-1, 0, 1, 1);
+          });
+
+          ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+          {
+            pixels.GetArea(0, -1, 1, 1);
+          });
+
+          ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+          {
+            pixels.GetArea(0, 0, -1, 1);
+          });
+
+          ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
+          {
+            pixels.GetArea(0, 0, 1, -1);
+          });
+
+          ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
           {
             pixels.GetValue(5, 0);
           });
 
-          ExceptionAssert.Throws<ArgumentException>(delegate ()
+          ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
           {
             pixels.GetValue(-1, 0);
           });
 
-          ExceptionAssert.Throws<ArgumentException>(delegate ()
+          ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
           {
             pixels.GetValue(0, -1);
           });
 
-          ExceptionAssert.Throws<ArgumentException>(delegate ()
+          ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
           {
             pixels.GetValue(0, 10);
           });

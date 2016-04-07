@@ -115,6 +115,12 @@ namespace ImageMagick
         throw new ArgumentOutOfRangeException(paramName);
     }
 
+    public static void IfOutOfRange(string paramName, int min, int max, int value, string message, params object[] args)
+    {
+      if (value < min || value > max)
+        throw new ArgumentOutOfRangeException(FormatMessage(message, args), paramName);
+    }
+
     public static void IfTrue(string paramName, bool condition, string message, params object[] args)
     {
       if (condition)

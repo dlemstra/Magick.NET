@@ -133,7 +133,7 @@ namespace Magick.NET.Tests
           Assert.AreEqual(0, pixel.GetChannel(2));
           Assert.AreEqual(0, pixel.GetChannel(3));
 
-          ExceptionAssert.Throws<ArgumentException>(delegate ()
+          ExceptionAssert.Throws<ArgumentOutOfRangeException>(delegate ()
           {
             pixels.GetPixel(0, 1);
           });

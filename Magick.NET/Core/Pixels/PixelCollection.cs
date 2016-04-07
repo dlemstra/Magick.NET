@@ -51,14 +51,14 @@ namespace ImageMagick
     private void CheckArea(int x, int y, int width, int height)
     {
       CheckIndex(x, y);
-      Throw.IfTrue("width", x + width > _Image.Width, "Invalid width: {0}.", width);
-      Throw.IfTrue("height", y + height > _Image.Height, "Invalid height: {0}.", width);
+      Throw.IfOutOfRange("width", 0, _Image.Width - x, width, "Invalid width: {0}.", width);
+      Throw.IfOutOfRange("height", 0, _Image.Height - y, height, "Invalid height: {0}.", height);
     }
 
     private void CheckIndex(int x, int y)
     {
-      Throw.IfFalse("x", x >= 0 && x < _Image.Width, "Invalid X coordinate: {0}.", x);
-      Throw.IfFalse("y", y >= 0 && y < _Image.Height, "Invalid Y coordinate: {0}.", y);
+      Throw.IfOutOfRange("x", 0, _Image.Width - 1, x, "Invalid X coordinate: {0}.", x);
+      Throw.IfOutOfRange("y", 0, _Image.Height - 1, y, "Invalid Y coordinate: {0}.", y);
     }
 
     private void CheckValues<T>(T[] values)
@@ -86,16 +86,6 @@ namespace ImageMagick
       Throw.IfTrue("values", length > max, "Too many values specified.");
     }
 
-    private QuantumType[] GetAreaUnchecked(int x, int y, int width, int height)
-    {
-      IntPtr pixels = _NativeInstance.GetArea(x, y, width, height);
-      if (pixels == IntPtr.Zero)
-        throw new InvalidOperationException("Image contains no pixel data.");
-
-      int length = width * height * _Image.ChannelCount;
-      return QuantumConverter.ToArray(pixels, length);
-    }
-
     private void SetAreaUnchecked(int x, int y, int width, int height, QuantumType[] values)
     {
       _NativeInstance.SetArea(x, y, width, height, values, values.Length);
@@ -108,15 +98,25 @@ namespace ImageMagick
       SetAreaUnchecked(x, y, 1, 1, value);
     }
 
-    internal void SetPixelUnchecked(int x, int y, QuantumType[] value)
-    {
-      SetAreaUnchecked(x, y, 1, 1, value);
-    }
-
     internal PixelCollection(MagickImage image)
     {
       _Image = image;
       _NativeInstance = new NativePixelCollection(image);
+    }
+
+    internal QuantumType[] GetAreaUnchecked(int x, int y, int width, int height)
+    {
+      IntPtr pixels = _NativeInstance.GetArea(x, y, width, height);
+      if (pixels == IntPtr.Zero)
+        throw new InvalidOperationException("Image contains no pixel data.");
+
+      int length = width * height * _Image.ChannelCount;
+      return QuantumConverter.ToArray(pixels, length);
+    }
+
+    internal void SetPixelUnchecked(int x, int y, QuantumType[] value)
+    {
+      SetAreaUnchecked(x, y, 1, 1, value);
     }
 
     ///<summary>

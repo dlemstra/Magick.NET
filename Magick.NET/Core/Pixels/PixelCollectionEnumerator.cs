@@ -40,7 +40,7 @@ namespace ImageMagick
     private void SetRow()
     {
       if (_Y < _Height)
-        _Row = _Collection.GetArea(0, _Y, _Width, 1);
+        _Row = _Collection.GetAreaUnchecked(0, _Y, _Width, 1);
     }
 
     public PixelCollectionEnumerator(PixelCollection collection, int width, int height)
