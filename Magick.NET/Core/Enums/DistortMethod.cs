@@ -14,7 +14,6 @@
 
 namespace ImageMagick
 {
-  ///=============================================================================================
   ///<summary>
   /// Specifies distortion methods.
   ///</summary>

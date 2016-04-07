@@ -338,7 +338,6 @@ namespace ImageMagick
     }
 
 #if !Q16
-    ///==========================================================================================
     ///<summary>
     /// Changes the values of the specified pixels.
     ///</summary>
@@ -423,7 +422,6 @@ namespace ImageMagick
     }
 
 #if !Q16
-    ///==========================================================================================
     ///<summary>
     /// Changes the values of the specified pixels.
     ///</summary>

@@ -19,7 +19,6 @@ using System.IO;
 
 namespace ImageMagick
 {
-  ///=============================================================================================
   /// <summary>
   /// Class that can be used to access an Exif profile.
   /// </summary>

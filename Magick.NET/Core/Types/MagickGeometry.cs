@@ -129,7 +129,7 @@ namespace ImageMagick
     {
       Initialize(0, 0, width, height, false);
     }
-    ///=======================================================================================
+
     ///<summary>
     /// Initializes a new instance of the MagickGeometry class using the specified offsets, width
     /// and height.

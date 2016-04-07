@@ -290,7 +290,6 @@ namespace ImageMagick
     }
 
 #if Q8
-    ///==========================================================================================
     ///<summary>
     /// Initializes a new instance of the MagickColor class using the specified RGBA hex string or
     /// name of the color (http://www.imagemagick.org/script/color.php).
