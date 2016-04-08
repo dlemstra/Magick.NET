@@ -2031,7 +2031,7 @@ MAGICK_NET_EXPORT void MagickImage_SetAlpha(Image *instance, const size_t value,
 
 MAGICK_NET_EXPORT void MagickImage_SetArtifact(Image *instance, const char *name, const char *value)
 {
-  SetImageArtifact(instance, name, value);
+  (void) SetImageArtifact(instance, name, value);
 }
 
 MAGICK_NET_EXPORT void MagickImage_SetAttribute(Image *instance, const char *name, const char *value, ExceptionInfo **exception)

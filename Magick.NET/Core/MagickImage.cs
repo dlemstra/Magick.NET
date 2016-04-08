@@ -2454,9 +2454,7 @@ namespace ImageMagick
     {
       Throw.IfNull("image", image);
 
-      if (!string.IsNullOrEmpty(args))
-        SetArtifact("compose:args", args);
-
+      _NativeInstance.SetArtifact("compose:args", args);
       _NativeInstance.Composite(image, x, y, compose);
     }
 
@@ -2496,8 +2494,7 @@ namespace ImageMagick
       Throw.IfNull("image", image);
       Throw.IfNull("offset", offset);
 
-      SetArtifact("compose:args", args);
-
+      _NativeInstance.SetArtifact("compose:args", args);
       _NativeInstance.CompositeGeometry(image, MagickGeometry.ToString(offset), compose);
     }
 
@@ -2537,8 +2534,7 @@ namespace ImageMagick
     {
       Throw.IfNull("image", image);
 
-      SetArtifact("compose:args", args);
-
+      _NativeInstance.SetArtifact("compose:args", args);
       _NativeInstance.CompositeGravity(image, gravity, compose);
     }
 
