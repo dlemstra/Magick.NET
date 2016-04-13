@@ -28,13 +28,18 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Features()
     {
-#if Q8
-      Assert.AreEqual("Cipher DPC OpenCL ", MagickNET.Features);
-#elif Q16
-      Assert.AreEqual("Cipher DPC OpenCL ", MagickNET.Features);
-#elif Q16HDRI
-      Assert.AreEqual("Cipher DPC HDRI OpenCL ", MagickNET.Features);
+#if Q8 || Q16
+#if DEBUG
+      Assert.AreEqual("Debug Cipher DPC OpenCL ", MagickNET.Features);
 #else
+      Assert.AreEqual("Cipher DPC OpenCL ", MagickNET.Features);
+#endif
+#elif Q16HDRI
+#if DEBUG
+      Assert.AreEqual("Debug Cipher DPC HDRI OpenCL ", MagickNET.Features);
+#else
+      Assert.AreEqual("Cipher DPC HDRI OpenCL ", MagickNET.Features);
+#endif
 #error Not implemented!
 #endif
     }

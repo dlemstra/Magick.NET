@@ -575,13 +575,13 @@
     <EmbeddedResource Include="Resources\ColorProfiles\RGB\AppleRGB.icc" />
     <EmbeddedResource Include="Resources\ColorProfiles\RGB\ColorMatchRGB.icc" />
     <EmbeddedResource Include="Resources\ColorProfiles\RGB\SRGB.icm" />
-    <EmbeddedResource Include="Resources\ReleaseQ16-HDRI\MagickScript.xsd" Condition="'$(Configuration)' == 'ReleaseQ16-HDRI'">
+    <EmbeddedResource Include="Resources\ReleaseQ16-HDRI\MagickScript.xsd" Condition="'$(Configuration)' == 'ReleaseQ16-HDRI' Or '$(Configuration)' == 'DebugQ16-HDRI'">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ReleaseQ16\MagickScript.xsd" Condition="'$(Configuration)' == 'ReleaseQ16'">
+    <EmbeddedResource Include="Resources\ReleaseQ16\MagickScript.xsd" Condition="'$(Configuration)' == 'ReleaseQ16' Or '$(Configuration)' == 'DebugQ16'">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ReleaseQ8\MagickScript.xsd" Condition="'$(Configuration)' == 'ReleaseQ8'">
+    <EmbeddedResource Include="Resources\ReleaseQ8\MagickScript.xsd" Condition="'$(Configuration)' == 'ReleaseQ8' Or '$(Configuration)' == 'ReleaseQ8'">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Magick.NET.snk" />
