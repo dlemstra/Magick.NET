@@ -20,8 +20,13 @@ MAGICK_NET_EXPORT MontageInfo *MontageSettings_Create(void)
   MontageInfo
     *montage_info;
 
+  ImageInfo
+    *image_info;
+
+  image_info=AcquireImageInfo();
   montage_info = AcquireMagickMemory(sizeof(*montage_info));
-  ResetMagickMemory(montage_info, 0, sizeof(*montage_info));
+  GetMontageInfo(image_info, montage_info);
+  DestroyImageInfo(image_info);
   return montage_info;
 }
 
