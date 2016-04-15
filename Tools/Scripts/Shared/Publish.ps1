@@ -169,6 +169,18 @@ function UpdateCoreProjects($version)
   UpdateCoreProject "Magick.NET.Core-Q16-HDRI.Native" $version
 }
 
+function UpdateResourceFile($fileName, $version)
+{
+  $content = [IO.File]::ReadAllText($fileName, [System.Text.Encoding]::Unicode)
+  $content = SetVersion $content "FILEVERSION " `r $version.Replace('.', ',')
+  $content = SetVersion $content "PRODUCTVERSION " `r $version.Replace('.', ',')
+  $content = SetVersion $content "`"FileVersion`", `""  "`"" $version
+  $content = SetVersion $content "`"ProductVersion`", `"" "`"" $version
+  $content = SetVersion $content "`"LegalCopyright`", `"" "`"" "Copyright © Dirk Lemstra $((Get-Date).year)"
+
+  [IO.File]::WriteAllText($fileName, $content, [System.Text.Encoding]::Unicode)
+}
+
 function UpdateResourceFiles($builds, $version)
 {
   foreach ($build in $builds)
@@ -190,15 +202,10 @@ function UpdateResourceFiles($builds, $version)
     }
 
     $fileName = FullPath "Magick.NET.Native\Resources\Release$($build.Quantum)\$platform\Magick.NET.rc"
+    UpdateResourceFile $filename $version
 
-    $content = [IO.File]::ReadAllText($fileName, [System.Text.Encoding]::Unicode)
-    $content = SetVersion $content "FILEVERSION " `r $version.Replace('.', ',')
-    $content = SetVersion $content "PRODUCTVERSION " `r $version.Replace('.', ',')
-    $content = SetVersion $content "`"FileVersion`", `""  "`"" $version
-    $content = SetVersion $content "`"ProductVersion`", `"" "`"" $version
-    $content = SetVersion $content "`"LegalCopyright`", `"" "`"" "Copyright © Dirk Lemstra $((Get-Date).year)"
-
-    [IO.File]::WriteAllText($fileName, $content, [System.Text.Encoding]::Unicode)
+    $fileName = FullPath "Magick.NET.Native\Resources\Debug$($build.Quantum)\$platform\Magick.NET.rc"
+    UpdateResourceFile $filename $version
   }
 }
 
