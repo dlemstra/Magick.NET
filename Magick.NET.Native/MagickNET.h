@@ -23,4 +23,4 @@ MAGICK_NET_EXPORT void MagickNET_SetLogEvents(const char *);
 
 MAGICK_NET_EXPORT void MagickNET_SetRandomSeed(const unsigned long);
 
-MAGICK_NET_EXPORT MagickBooleanType MagickNET_SetUseOpenCL(const MagickBooleanType, ExceptionInfo **);
+MAGICK_NET_EXPORT MagickBooleanType MagickNET_SetUseOpenCL(const MagickBooleanType);

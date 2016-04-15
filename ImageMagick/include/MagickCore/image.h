@@ -432,12 +432,6 @@ struct _ImageInfo
   ImageType
     type;
 
-  PreviewType
-    preview_type;
-
-  ssize_t
-    group;
-
   MagickBooleanType
     ping,                    /* fast read image attributes, not image data */
     verbose;                 /* verbose output enable/disable */
@@ -476,7 +470,6 @@ struct _ImageInfo
   char
     magick[MagickPathExtent],    /* image file format (file magick) */
     unique[MagickPathExtent],    /* unique tempory filename - delegates */
-    zero[MagickPathExtent],      /* unique filename ? - delegates */
     filename[MagickPathExtent];  /* filename when reading/writing image */
 
   MagickBooleanType

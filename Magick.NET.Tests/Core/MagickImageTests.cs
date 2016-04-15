@@ -1508,6 +1508,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(100, image.Height);
 
         ColorAssert.AreEqual(MagickColors.Transparent, image, 0, 0);
+        ColorAssert.AreEqual(MagickColors.Red, image, 15, 50);
         ColorAssert.AreEqual(new MagickColor(0, 0, 0, 0), image, 35, 35);
       }
     }
@@ -3163,8 +3164,10 @@ namespace Magick.NET.Tests
       {
 #if Q8
         MagickColor color = new MagickColor("#dd");
-#elif Q16 || Q16HDRI
-        MagickColor color = new MagickColor("#deb5deb5deb5");
+#elif Q16
+        MagickColor color = new MagickColor("#dea4dea4dea4");
+#elif Q16HDRI
+        MagickColor color = new MagickColor("#dea5dea5dea5");
 #else
 #error Not implemented!
 #endif

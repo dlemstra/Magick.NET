@@ -40,17 +40,7 @@ MAGICK_NET_EXPORT void MagickNET_SetLogEvents(const char *events)
   SetLogEventMask(events);
 }
 
-MAGICK_NET_EXPORT MagickBooleanType MagickNET_SetUseOpenCL(const MagickBooleanType value, ExceptionInfo **exception)
+MAGICK_NET_EXPORT MagickBooleanType MagickNET_SetUseOpenCL(const MagickBooleanType value)
 {
-  MagickBooleanType
-    result;
-
-  MAGICK_NET_GET_EXCEPTION;
-  result = MagickFalse;
-  if (!value)
-    InitImageMagickOpenCL(MAGICK_OPENCL_OFF, NULL, NULL, exceptionInfo);
-  else
-    result = InitImageMagickOpenCL(MAGICK_OPENCL_DEVICE_SELECT_AUTO, NULL, NULL, exceptionInfo);
-  MAGICK_NET_SET_EXCEPTION;
-  return result;
+  return SetOpenCLEnabled(value);
 }

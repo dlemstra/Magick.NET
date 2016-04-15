@@ -830,11 +830,6 @@ namespace ImageMagick
     Ppm,
 
     ///<summary>
-    /// Show a preview an image enhancement, effect, or f/x
-    ///</summary>
-    Preview,
-
-    ///<summary>
     /// PostScript
     ///</summary>
     Ps,

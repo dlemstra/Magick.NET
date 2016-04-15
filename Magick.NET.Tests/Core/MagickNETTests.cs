@@ -29,17 +29,18 @@ namespace Magick.NET.Tests
     public void Test_Features()
     {
 #if Q8 || Q16
-#if DEBUG
+#if DEBUG_TEST
       Assert.AreEqual("Debug Cipher DPC OpenCL ", MagickNET.Features);
 #else
       Assert.AreEqual("Cipher DPC OpenCL ", MagickNET.Features);
 #endif
 #elif Q16HDRI
-#if DEBUG
+#if DEBUG_TEST
       Assert.AreEqual("Debug Cipher DPC HDRI OpenCL ", MagickNET.Features);
 #else
       Assert.AreEqual("Cipher DPC HDRI OpenCL ", MagickNET.Features);
 #endif
+#else
 #error Not implemented!
 #endif
     }

@@ -50,7 +50,7 @@ namespace ImageMagick
         public static extern void MagickNET_SetRandomSeed(long value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickNET_SetUseOpenCL([MarshalAs(UnmanagedType.Bool)] bool value, out IntPtr exception);
+        public static extern bool MagickNET_SetUseOpenCL([MarshalAs(UnmanagedType.Bool)] bool value);
       }
       public static class X86
       {
@@ -68,7 +68,7 @@ namespace ImageMagick
         public static extern void MagickNET_SetRandomSeed(long value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickNET_SetUseOpenCL([MarshalAs(UnmanagedType.Bool)] bool value, out IntPtr exception);
+        public static extern bool MagickNET_SetUseOpenCL([MarshalAs(UnmanagedType.Bool)] bool value);
       }
     }
     private static class NativeMagickNET
@@ -124,14 +124,10 @@ namespace ImageMagick
       }
       public static bool SetUseOpenCL(bool value)
       {
-        IntPtr exception = IntPtr.Zero;
-        bool result;
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickNET_SetUseOpenCL(value, out exception);
+          return NativeMethods.X64.MagickNET_SetUseOpenCL(value);
         else
-          result = NativeMethods.X86.MagickNET_SetUseOpenCL(value, out exception);
-        MagickExceptionHelper.Check(exception);
-        return result;
+          return NativeMethods.X86.MagickNET_SetUseOpenCL(value);
       }
     }
   }

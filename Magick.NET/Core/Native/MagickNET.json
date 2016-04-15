@@ -74,7 +74,6 @@
     {
       "name": "SetUseOpenCL",
       "type": "bool",
-      "throws": true,
       "arguments":
       [
         {
