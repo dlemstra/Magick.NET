@@ -1,0 +1,26 @@
+﻿{
+  "dynamic": "Both",
+  "const": true,
+  "properties":
+  [
+    {
+      "name": "Name",
+      "type": "string",
+      "readonly": true
+    },
+    {
+      "name": "IsEnabled",
+      "type": "bool"
+    },
+    {
+      "name": "Version",
+      "type": "string",
+      "readonly": true
+    },
+    {
+      "name": "Type",
+      "type": "OpenCLDeviceType",
+      "readonly": true
+    }
+  ]
+}

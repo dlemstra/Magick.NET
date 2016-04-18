@@ -33,17 +33,6 @@ namespace ImageMagick
       "coder.xml", "colors.xml", "configure.xml", "delegates.xml", "english.xml", "locale.xml",
       "log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml"
     };
-    private static bool? _UseOpenCL;
-
-    private static string CheckDirectory(string path)
-    {
-      Throw.IfNullOrEmpty("path", path);
-
-      path = FileHelper.CheckForBaseDirectory(path);
-      path = Path.GetFullPath(path);
-      Throw.IfFalse("path", Directory.Exists(path), "Unable to find directory: {0}", path);
-      return path;
-    }
 
     private static void CheckImageMagickFiles(string path)
     {
@@ -116,11 +105,11 @@ namespace ImageMagick
     ///<param name="path">The path that contains the ImageMagick xml files.</param>
     public static void Initialize(string path)
     {
-      string newPath = CheckDirectory(path);
+      string newPath = FileHelper.GetFullPath(path);
 
       CheckImageMagickFiles(newPath);
 
-      NativeMagickNET.SetEnv("MAGICK_CONFIGURE_PATH", path);
+      Environment.SetEnv("MAGICK_CONFIGURE_PATH", path);
     }
 
     ///<summary>
@@ -143,7 +132,7 @@ namespace ImageMagick
     ///<param name="path">The path of the Ghostscript directory.</param>
     public static void SetGhostscriptDirectory(string path)
     {
-      NativeMagickNET.SetEnv("MAGICK_GHOSTSCRIPT_PATH", CheckDirectory(path));
+      Environment.SetEnv("MAGICK_GHOSTSCRIPT_PATH", FileHelper.GetFullPath(path));
     }
 
     ///<summary>
@@ -152,16 +141,7 @@ namespace ImageMagick
     ///<param name="path">The path of the Ghostscript font directory.</param>
     public static void SetGhostscriptFontDirectory(string path)
     {
-      NativeMagickNET.SetEnv("MAGICK_GHOSTSCRIPT_FONT_PATH", CheckDirectory(path));
-    }
-
-    ///<summary>
-    /// Sets the directory that will be used by ImageMagick to store OpenCL cache files.
-    ///</summary>
-    ///<param name="path">The path of the OpenCL cache directory.</param>
-    public static void SetOpenCLCacheDirectory(string path)
-    {
-      NativeMagickNET.SetEnv("MAGICK_OPENCL_CACHE_DIR", CheckDirectory(path));
+      Environment.SetEnv("MAGICK_GHOSTSCRIPT_FONT_PATH", FileHelper.GetFullPath(path));
     }
 
     ///<summary>
@@ -171,7 +151,7 @@ namespace ImageMagick
     ///<param name="path">The path where temp files will be written.</param>
     public static void SetTempDirectory(string path)
     {
-      NativeMagickNET.SetEnv("MAGICK_TEMPORARY_PATH", CheckDirectory(path));
+      Environment.SetEnv("MAGICK_TEMPORARY_PATH", FileHelper.GetFullPath(path));
     }
 
     /// <summary>
@@ -231,24 +211,6 @@ namespace ImageMagick
       get
       {
         return MagickFormatInfo.All;
-      }
-    }
-
-    ///<summary>
-    /// Gets or sets the use of OpenCL.
-    ///</summary>
-    public static bool UseOpenCL
-    {
-      get
-      {
-        if (!_UseOpenCL.HasValue)
-          _UseOpenCL = NativeMagickNET.SetUseOpenCL(true);
-
-        return _UseOpenCL.Value;
-      }
-      set
-      {
-        _UseOpenCL = NativeMagickNET.SetUseOpenCL(value);
       }
     }
 

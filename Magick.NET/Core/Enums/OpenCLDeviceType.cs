@@ -12,28 +12,26 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.IO;
-
 namespace ImageMagick
 {
-  internal static partial class FileHelper
+  ///<summary>
+  /// Specifies the OpenCL device types.
+  ///</summary>
+  public enum OpenCLDeviceType
   {
-    public static string CheckForBaseDirectory(string fileName)
-    {
-      if (string.IsNullOrEmpty(fileName))
-        return fileName;
+    /// <summary>
+    /// Undefined
+    /// </summary>
+    Undefined,
 
-      if (fileName.Length < 2 || fileName[0] != '~')
-        return fileName;
+    /// <summary>
+    /// Cpu
+    /// </summary>
+    Cpu,
 
-      return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
-    }
-
-    public static void Delete(FileInfo file)
-    {
-      if (file.Exists)
-        file.Delete();
-    }
+    /// <summary>
+    /// Gpu
+    /// </summary>
+    Gpu
   }
 }

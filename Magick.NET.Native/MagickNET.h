@@ -15,12 +15,10 @@
 
 MAGICK_NET_EXPORT const char *MagickNET_Features_Get(void);
 
-MAGICK_NET_EXPORT void MagickNET_SetEnv(const char *key, const char *value);
-
 MAGICK_NET_EXPORT void MagickNET_SetLogDelegate(const MagickLogMethod);
 
 MAGICK_NET_EXPORT void MagickNET_SetLogEvents(const char *);
 
 MAGICK_NET_EXPORT void MagickNET_SetRandomSeed(const unsigned long);
 
-MAGICK_NET_EXPORT MagickBooleanType MagickNET_SetUseOpenCL(const MagickBooleanType);
+MAGICK_NET_EXPORT MagickBooleanType MagickNET_SetOpenCLEnabled(const MagickBooleanType);

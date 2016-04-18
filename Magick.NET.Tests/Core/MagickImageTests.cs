@@ -3165,9 +3165,9 @@ namespace Magick.NET.Tests
 #if Q8
         MagickColor color = new MagickColor("#dd");
 #elif Q16
-        MagickColor color = new MagickColor("#dea4dea4dea4");
+        MagickColor color = new MagickColor(OpenCLValue.Get("#dea4dea4dea4", "#deb5deb5deb5"));
 #elif Q16HDRI
-        MagickColor color = new MagickColor("#dea5dea5dea5");
+        MagickColor color = new MagickColor(OpenCLValue.Get("#dea5dea5dea5", "#deb5deb5deb5"));
 #else
 #error Not implemented!
 #endif

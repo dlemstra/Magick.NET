@@ -41,16 +41,11 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickNET_Features_Get();
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickNET_SetEnv(IntPtr name, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickNET_SetLogDelegate(LogDelegate method);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickNET_SetLogEvents(IntPtr events);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickNET_SetRandomSeed(long value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickNET_SetUseOpenCL([MarshalAs(UnmanagedType.Bool)] bool value);
       }
       public static class X86
       {
@@ -59,16 +54,11 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickNET_Features_Get();
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickNET_SetEnv(IntPtr name, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickNET_SetLogDelegate(LogDelegate method);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickNET_SetLogEvents(IntPtr events);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickNET_SetRandomSeed(long value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickNET_SetUseOpenCL([MarshalAs(UnmanagedType.Bool)] bool value);
       }
     }
     private static class NativeMagickNET
@@ -83,19 +73,6 @@ namespace ImageMagick
           else
             result = NativeMethods.X86.MagickNET_Features_Get();
           return UTF8Marshaler.NativeToManaged(result);
-        }
-      }
-      public static void SetEnv(string name, string value)
-      {
-        using (INativeInstance nameNative = UTF8Marshaler.CreateInstance(name))
-        {
-          using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
-          {
-            if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickNET_SetEnv(nameNative.Instance, valueNative.Instance);
-            else
-              NativeMethods.X86.MagickNET_SetEnv(nameNative.Instance, valueNative.Instance);
-          }
         }
       }
       public static void SetLogDelegate(LogDelegate method)
@@ -121,13 +98,6 @@ namespace ImageMagick
           NativeMethods.X64.MagickNET_SetRandomSeed(value);
         else
           NativeMethods.X86.MagickNET_SetRandomSeed(value);
-      }
-      public static bool SetUseOpenCL(bool value)
-      {
-        if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.MagickNET_SetUseOpenCL(value);
-        else
-          return NativeMethods.X86.MagickNET_SetUseOpenCL(value);
       }
     }
   }

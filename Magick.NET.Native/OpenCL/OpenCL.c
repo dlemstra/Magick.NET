@@ -1,4 +1,4 @@
-﻿//=================================================================================================
+//=================================================================================================
 // Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -12,28 +12,26 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.IO;
+#include "Stdafx.h"
+#include "OpenCL.h"
 
-namespace ImageMagick
+MAGICK_NET_EXPORT MagickCLDevice *OpenCL_GetDevices(size_t *length)
 {
-  internal static partial class FileHelper
-  {
-    public static string CheckForBaseDirectory(string fileName)
-    {
-      if (string.IsNullOrEmpty(fileName))
-        return fileName;
+  MagickCLDevice
+    *devices;
 
-      if (fileName.Length < 2 || fileName[0] != '~')
-        return fileName;
+  MAGICK_NET_GET_EXCEPTION;
+  devices = GetOpenCLDevices(length, exceptionInfo);
+  MAGICK_NET_DESTROY_EXCEPTION;
+  return devices;
+}
 
-      return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
-    }
+MAGICK_NET_EXPORT MagickCLDevice OpenCL_GetInstance(const MagickCLDevice *list, const size_t index)
+{
+  return list[index];
+}
 
-    public static void Delete(FileInfo file)
-    {
-      if (file.Exists)
-        file.Delete();
-    }
-  }
+MAGICK_NET_EXPORT MagickBooleanType OpenCL_SetEnabled(const MagickBooleanType value)
+{
+  return SetOpenCLEnabled(value);
 }

@@ -125,6 +125,15 @@
     <ClCompile Include="Types\PrimaryInfo.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Helpers\Environment.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenCL\OpenCL.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenCL\OpenCLDevice.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -227,6 +236,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MagickFormatInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\Environment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenCL\OpenCL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenCL\OpenCLDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -28,20 +28,6 @@
   "methods":
   [
     {
-      "name": "SetEnv",
-      "arguments":
-      [
-        {
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "name": "value",
-          "type": "string"
-        }
-      ]
-    },
-    {
       "name": "SetLogDelegate",
       "arguments":
       [
@@ -68,17 +54,6 @@
         {
           "name": "value",
           "type": "long"
-        }
-      ]
-    },
-    {
-      "name": "SetUseOpenCL",
-      "type": "bool",
-      "arguments":
-      [
-        {
-          "name": "value",
-          "type": "bool"
         }
       ]
     }

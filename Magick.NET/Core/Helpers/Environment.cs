@@ -12,28 +12,13 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.IO;
-
 namespace ImageMagick
 {
-  internal static partial class FileHelper
+  internal static partial class Environment
   {
-    public static string CheckForBaseDirectory(string fileName)
+    public static void SetEnv(string name, string value)
     {
-      if (string.IsNullOrEmpty(fileName))
-        return fileName;
-
-      if (fileName.Length < 2 || fileName[0] != '~')
-        return fileName;
-
-      return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
-    }
-
-    public static void Delete(FileInfo file)
-    {
-      if (file.Exists)
-        file.Delete();
+      NativeEnvironment.SetEnv(name, value);
     }
   }
 }

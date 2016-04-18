@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace ImageMagick
 {
-  internal static class FileHelper
+  internal static partial class FileHelper
   {
     public static string CheckForBaseDirectory(string fileName)
     {

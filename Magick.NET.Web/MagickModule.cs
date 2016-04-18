@@ -74,7 +74,7 @@ namespace ImageMagick.Web
     private static void InitOpenCL()
     {
       if (!MagickWebSettings.UseOpenCL)
-        MagickNET.UseOpenCL = false;
+        OpenCL.IsEnabled = false;
     }
 
     private static void InitResourceLimits()

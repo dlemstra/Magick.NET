@@ -332,6 +332,7 @@
     <Compile Include="Core\Enums\MagickFormat.cs" />
     <Compile Include="Core\Enums\MorphologyMethod.cs" />
     <Compile Include="Core\Enums\NoiseType.cs" />
+    <Compile Include="Core\Enums\OpenCLDeviceType.cs" />
     <Compile Include="Core\Enums\OrientationType.cs" />
     <Compile Include="Core\Enums\PaintMethod.cs" />
     <Compile Include="Core\Enums\PixelChannel.cs" />
@@ -389,6 +390,8 @@
     <Compile Include="Core\Helpers\ArrayConverters.cs\ByteConverter.cs" />
     <Compile Include="Core\Helpers\ArrayConverters.cs\QuantumConverter.cs" />
     <Compile Include="Core\Helpers\EnumHelper.cs" />
+    <Compile Include="Core\Helpers\Environment.cs" />
+    <Compile Include="Core\Helpers\FileHelper.cs" />
     <Compile Include="Core\Helpers\MagickConverter.cs" />
     <Compile Include="Core\Helpers\MagickMemory.cs" />
     <Compile Include="Core\Helpers\StreamHelper.cs" />
@@ -400,6 +403,10 @@
     <Compile Include="Core\MagickImage.cs" />
     <Compile Include="Core\MagickImageCollection.cs" />
     <Compile Include="Core\MagickImageInfo.cs" />
+    <Compile Include="Core\Native\Helpers\Environment.cs" />
+    <Compile Include="Core\Native\OpenCL\OpenCL.cs" />
+    <Compile Include="Core\Native\OpenCL\OpenCLDevice.cs" />
+    <Compile Include="Core\OpenCL\OpenCL.cs" />
     <Compile Include="Core\MagickNET.cs" />
     <Compile Include="Core\Matrices\ConvolveMatrix.cs" />
     <Compile Include="Core\Matrices\DoubleMatrix.cs" />
@@ -511,6 +518,7 @@
     <Compile Include="Core\Types\MagickRectangle.cs" />
     <Compile Include="Core\Types\MagickSearchResults.cs" />
     <Compile Include="Core\Types\OffsetInfo.cs" />
+    <Compile Include="Core\OpenCL\OpenCLDevice.cs" />
     <Compile Include="Core\Types\Percentage.cs" />
     <Compile Include="Core\Types\PointD.cs" />
     <Compile Include="Core\Types\PointInfo.cs" />
@@ -542,6 +550,9 @@
     <None Include="Core\Native\Drawables\PointInfoCollection.json" />
     <None Include="Core\Native\Exceptions\MagickExceptionHelper.json" />
     <None Include="Core\Native\Helpers\MagickMemory.json" />
+    <None Include="Core\Native\Helpers\Environment.json" />
+    <None Include="Core\Native\OpenCL\OpenCL.json" />
+    <None Include="Core\Native\OpenCL\OpenCLDevice.json" />
     <None Include="Core\Native\MagickFormatInfo.json" />
     <None Include="Core\Native\MagickImage.json" />
     <None Include="Core\Native\MagickImageCollection.json" />

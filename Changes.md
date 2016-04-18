@@ -1,5 +1,8 @@
 # Breaking changes.
 
+### Magick.NET 7.0.0.0105:
+ - Moved MagickNET.UseOpenCL and SetOpenCLCacheDirectory to the new OpenCL class.
+
 ### Magick.NET 7.0.0.0104:
  - Removed Transform methods from MagickImage (use Resize and Crop instead).
  - The Density property of MagickSettings now also uses the Density class.

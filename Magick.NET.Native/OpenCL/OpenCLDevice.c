@@ -13,29 +13,29 @@
 //=================================================================================================
 
 #include "Stdafx.h"
-#include "MagickNET.h"
+#include "OpenCLDevice.h"
 
-MAGICK_NET_EXPORT const char *MagickNET_Features_Get(void)
+MAGICK_NET_EXPORT MagickBooleanType OpenCLDevice_IsEnabled_Get(const MagickCLDevice device)
 {
-  return GetMagickFeatures();
+  return GetOpenCLDeviceEnabled(device);
 }
 
-MAGICK_NET_EXPORT void MagickNET_SetRandomSeed(const unsigned long seed)
+MAGICK_NET_EXPORT void OpenCLDevice_IsEnabled_Set(const MagickCLDevice device, const MagickBooleanType value)
 {
-  SetRandomSecretKey(seed);
+  SetOpenCLDeviceEnabled(device, value);
 }
 
-MAGICK_NET_EXPORT void MagickNET_SetLogDelegate(const MagickLogMethod method)
+MAGICK_NET_EXPORT const char *OpenCLDevice_Name_Get(const MagickCLDevice device)
 {
-  SetLogMethod(method);
+  return GetOpenCLDeviceName(device);
 }
 
-MAGICK_NET_EXPORT void MagickNET_SetLogEvents(const char *events)
+MAGICK_NET_EXPORT const MagickCLDeviceType OpenCLDevice_Type_Get(const MagickCLDevice device)
 {
-  SetLogEventMask(events);
+  return GetOpenCLDeviceType(device);
 }
 
-MAGICK_NET_EXPORT MagickBooleanType MagickNET_SetOpenCLEnabled(const MagickBooleanType value)
+MAGICK_NET_EXPORT const char *OpenCLDevice_Version_Get(const MagickCLDevice device)
 {
-  return SetOpenCLEnabled(value);
+  return GetOpenCLDeviceVersion(device);
 }

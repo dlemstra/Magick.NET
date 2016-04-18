@@ -1,4 +1,4 @@
-﻿//=================================================================================================
+//=================================================================================================
 // Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
 // Licensed under the ImageMagick License (the "License"); you may not use this file except in 
@@ -12,28 +12,10 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.IO;
+#include "Stdafx.h"
+#include "Environment.h"
 
-namespace ImageMagick
+MAGICK_NET_EXPORT void Environment_SetEnv(const char *name, const char *value)
 {
-  internal static partial class FileHelper
-  {
-    public static string CheckForBaseDirectory(string fileName)
-    {
-      if (string.IsNullOrEmpty(fileName))
-        return fileName;
-
-      if (fileName.Length < 2 || fileName[0] != '~')
-        return fileName;
-
-      return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
-    }
-
-    public static void Delete(FileInfo file)
-    {
-      if (file.Exists)
-        file.Delete();
-    }
-  }
+  _putenv_s(name, value);
 }

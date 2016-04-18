@@ -12,28 +12,20 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.IO;
 
 namespace ImageMagick
 {
   internal static partial class FileHelper
   {
-    public static string CheckForBaseDirectory(string fileName)
+    public static string GetFullPath(string path)
     {
-      if (string.IsNullOrEmpty(fileName))
-        return fileName;
+      Throw.IfNullOrEmpty("path", path);
 
-      if (fileName.Length < 2 || fileName[0] != '~')
-        return fileName;
-
-      return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
-    }
-
-    public static void Delete(FileInfo file)
-    {
-      if (file.Exists)
-        file.Delete();
+      path = CheckForBaseDirectory(path);
+      path = Path.GetFullPath(path);
+      Throw.IfFalse("path", Directory.Exists(path), "Unable to find directory: {0}", path);
+      return path;
     }
   }
 }

@@ -1,0 +1,21 @@
+﻿{
+  "access": "internal",
+  "static": true,
+  "methods":
+  [
+    {
+      "name": "SetEnv",
+      "arguments":
+      [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

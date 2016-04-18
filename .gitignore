@@ -1,5 +1,6 @@
 ﻿
 *.aps
+*.db
 *.lock.json
 *.opendb
 *.sdf

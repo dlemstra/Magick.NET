@@ -12,28 +12,26 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.IO;
+using ImageMagick;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ImageMagick
+namespace Magick.NET.Tests
 {
-  internal static partial class FileHelper
+  [TestClass]
+  public partial class OpenCLTests
   {
-    public static string CheckForBaseDirectory(string fileName)
+    private const string _Category = "OpenCL";
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_IsEnabled()
     {
-      if (string.IsNullOrEmpty(fileName))
-        return fileName;
+      Assert.AreEqual(OpenCL.IsEnabled, true);
 
-      if (fileName.Length < 2 || fileName[0] != '~')
-        return fileName;
+      OpenCL.IsEnabled = false;
+      Assert.AreEqual(OpenCL.IsEnabled, false);
 
-      return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
-    }
-
-    public static void Delete(FileInfo file)
-    {
-      if (file.Exists)
-        file.Delete();
+      OpenCL.IsEnabled = true;
+      Assert.AreEqual(OpenCL.IsEnabled, true);
     }
   }
 }

@@ -132,18 +132,6 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
-    public void Test_OpenCL()
-    {
-      Assert.AreEqual(MagickNET.UseOpenCL, true);
-
-      MagickNET.UseOpenCL = false;
-      Assert.AreEqual(MagickNET.UseOpenCL, false);
-
-      MagickNET.UseOpenCL = true;
-      Assert.AreEqual(MagickNET.UseOpenCL, true);
-    }
-
-    [TestMethod, TestCategory(_Category)]
     public void Test_RandomSeed()
     {
       using (MagickImage first = new MagickImage("plasma:red", 10, 10))
