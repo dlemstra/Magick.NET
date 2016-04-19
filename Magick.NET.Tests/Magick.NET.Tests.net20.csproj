@@ -21,7 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DebugQ8\x86.net20</OutputPath>
     <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
-    <DefineConstants>NET20;TRACE;DEBUG;Q8</DefineConstants>
+    <DefineConstants>NET20;TRACE;DEBUG;Q8;DEBUG_TEST</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -30,7 +30,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DebugQ8\x64.net20\</OutputPath>
     <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
-    <DefineConstants>NET20;TRACE;DEBUG;Q8;WIN64</DefineConstants>
+    <DefineConstants>NET20;TRACE;DEBUG;Q8;WIN64;DEBUG_TEST</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -39,7 +39,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DebugQ16\x64.net20\</OutputPath>
     <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
-    <DefineConstants>NET20;TRACE;DEBUG;Q16;WIN64</DefineConstants>
+    <DefineConstants>NET20;TRACE;DEBUG;Q16;WIN64;DEBUG_TEST</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -48,7 +48,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DebugQ16\x86.net20</OutputPath>
     <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
-    <DefineConstants>NET20;TRACE;DEBUG;Q16</DefineConstants>
+    <DefineConstants>NET20;TRACE;DEBUG;Q16;DEBUG_TEST</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -57,7 +57,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DebugQ16-HDRI\x86.net20</OutputPath>
     <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
-    <DefineConstants>NET20;TRACE;DEBUG;Q16HDRI</DefineConstants>
+    <DefineConstants>NET20;TRACE;DEBUG;Q16HDRI;DEBUG_TEST</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -66,7 +66,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DebugQ16-HDRI\x64.net20\</OutputPath>
     <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
-    <DefineConstants>NET20;TRACE;DEBUG;Q16HDRI;WIN64</DefineConstants>
+    <DefineConstants>NET20;TRACE;DEBUG;Q16HDRI;WIN64;DEBUG_TEST</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -186,6 +186,8 @@
     <Compile Include="Core\MagickNETTests.cs" />
     <Compile Include="Core\Matrices\ColorMatrixTests.cs" />
     <Compile Include="Core\Matrices\ConvolveMatrixTests.cs" />
+    <Compile Include="Core\OpenCL\OpenCLDeviceTests.cs" />
+    <Compile Include="Core\OpenCL\OpenCLTests.cs" />
     <Compile Include="Core\Optimizers\GifOptimizerTests.cs" />
     <Compile Include="Core\Optimizers\IImageOptimizerTests.cs" />
     <Compile Include="Core\Optimizers\ImageOptimizerTests.cs" />
@@ -221,6 +223,7 @@
     <Compile Include="MagickNETTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\MagickScriptTests.cs" />
+    <Compile Include="Core\Assert\OpenCLValue.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Magick.NET\Magick.NET.net20.csproj">
