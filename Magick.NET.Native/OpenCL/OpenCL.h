@@ -15,6 +15,6 @@
 
 MAGICK_NET_EXPORT MagickCLDevice *OpenCL_GetDevices(size_t *);
 
-MAGICK_NET_EXPORT MagickCLDevice OpenCL_GetInstance(const MagickCLDevice *, const size_t);
+MAGICK_NET_EXPORT MagickCLDevice OpenCL_GetDevice(const MagickCLDevice *, const size_t);
 
 MAGICK_NET_EXPORT MagickBooleanType OpenCL_SetEnabled(const MagickBooleanType);

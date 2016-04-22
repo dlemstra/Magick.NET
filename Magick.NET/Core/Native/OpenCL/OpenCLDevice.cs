@@ -37,32 +37,44 @@ namespace ImageMagick
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.OpenCLDevice+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr OpenCLDevice_Name_Get(IntPtr instance);
+        public static extern UIntPtr OpenCLDevice_DeviceType_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool OpenCLDevice_IsEnabled_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void OpenCLDevice_IsEnabled_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr OpenCLDevice_Name_Get(IntPtr instance);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr OpenCLDevice_Version_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr OpenCLDevice_Type_Get(IntPtr instance);
+        public static extern IntPtr OpenCLDevice_GetKernelProfileRecords(IntPtr Instance, out UIntPtr length);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr OpenCLDevice_GetKernelProfileRecord(IntPtr list, UIntPtr index);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void OpenCLDevice_SetProfileKernels(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool value);
       }
       public static class X86
       {
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.OpenCLDevice+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr OpenCLDevice_Name_Get(IntPtr instance);
+        public static extern UIntPtr OpenCLDevice_DeviceType_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool OpenCLDevice_IsEnabled_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void OpenCLDevice_IsEnabled_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr OpenCLDevice_Name_Get(IntPtr instance);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr OpenCLDevice_Version_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr OpenCLDevice_Type_Get(IntPtr instance);
+        public static extern IntPtr OpenCLDevice_GetKernelProfileRecords(IntPtr Instance, out UIntPtr length);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr OpenCLDevice_GetKernelProfileRecord(IntPtr list, UIntPtr index);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void OpenCLDevice_SetProfileKernels(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool value);
       }
     }
     private sealed class NativeOpenCLDevice : ConstNativeInstance
@@ -81,16 +93,16 @@ namespace ImageMagick
           _Instance = value;
         }
       }
-      public string Name
+      public OpenCLDeviceType DeviceType
       {
         get
         {
-          IntPtr result;
+          UIntPtr result;
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.OpenCLDevice_Name_Get(Instance);
+            result = NativeMethods.X64.OpenCLDevice_DeviceType_Get(Instance);
           else
-            result = NativeMethods.X86.OpenCLDevice_Name_Get(Instance);
-          return UTF8Marshaler.NativeToManaged(result);
+            result = NativeMethods.X86.OpenCLDevice_DeviceType_Get(Instance);
+          return (OpenCLDeviceType)result;
         }
       }
       public bool IsEnabled
@@ -112,6 +124,18 @@ namespace ImageMagick
             NativeMethods.X86.OpenCLDevice_IsEnabled_Set(Instance, value);
         }
       }
+      public string Name
+      {
+        get
+        {
+          IntPtr result;
+          if (NativeLibrary.Is64Bit)
+            result = NativeMethods.X64.OpenCLDevice_Name_Get(Instance);
+          else
+            result = NativeMethods.X86.OpenCLDevice_Name_Get(Instance);
+          return UTF8Marshaler.NativeToManaged(result);
+        }
+      }
       public string Version
       {
         get
@@ -124,17 +148,26 @@ namespace ImageMagick
           return UTF8Marshaler.NativeToManaged(result);
         }
       }
-      public OpenCLDeviceType Type
+      public IntPtr GetKernelProfileRecords(out UIntPtr length)
       {
-        get
-        {
-          UIntPtr result;
-          if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.OpenCLDevice_Type_Get(Instance);
-          else
-            result = NativeMethods.X86.OpenCLDevice_Type_Get(Instance);
-          return (OpenCLDeviceType)result;
-        }
+        if (NativeLibrary.Is64Bit)
+          return NativeMethods.X64.OpenCLDevice_GetKernelProfileRecords(Instance, out length);
+        else
+          return NativeMethods.X86.OpenCLDevice_GetKernelProfileRecords(Instance, out length);
+      }
+      public static IntPtr GetKernelProfileRecord(IntPtr list, int index)
+      {
+        if (NativeLibrary.Is64Bit)
+          return NativeMethods.X64.OpenCLDevice_GetKernelProfileRecord(list, (UIntPtr)index);
+        else
+          return NativeMethods.X86.OpenCLDevice_GetKernelProfileRecord(list, (UIntPtr)index);
+      }
+      public void SetProfileKernels(bool value)
+      {
+        if (NativeLibrary.Is64Bit)
+          NativeMethods.X64.OpenCLDevice_SetProfileKernels(Instance, value);
+        else
+          NativeMethods.X86.OpenCLDevice_SetProfileKernels(Instance, value);
       }
     }
   }

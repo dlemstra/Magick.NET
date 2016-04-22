@@ -326,6 +326,7 @@
     <Compile Include="Core\Native\Helpers\Environment.cs" />
     <Compile Include="Core\Native\OpenCL\OpenCL.cs" />
     <Compile Include="Core\Native\OpenCL\OpenCLDevice.cs" />
+    <Compile Include="Core\Native\OpenCL\OpenCLKernelProfileRecord.cs" />
     <Compile Include="Core\OpenCL\OpenCL.cs" />
     <Compile Include="Core\MagickNET.cs" />
     <Compile Include="Core\Matrices\ConvolveMatrix.cs" />
@@ -369,6 +370,7 @@
     <Compile Include="Core\Native\Types\PrimaryInfo.cs" />
     <Compile Include="Core\Native\Types\StringInfo.cs" />
     <Compile Include="Core\Native\Types\TypeMetric.cs" />
+    <Compile Include="Core\OpenCL\OpenCLKernelProfileRecord.cs" />
     <Compile Include="Core\Optimizers\GifOptimizer.cs" />
     <Compile Include="Core\Optimizers\IImageOptimizer.cs" />
     <Compile Include="Core\Optimizers\ILosslessImageOptimizer.cs" />
@@ -471,6 +473,7 @@
     <None Include="Core\Native\Helpers\MagickMemory.json" />
     <None Include="Core\Native\Helpers\Environment.json" />
     <None Include="Core\Native\OpenCL\OpenCL.json" />
+    <None Include="Core\Native\OpenCL\OpenCLKernelProfileRecord.json" />
     <None Include="Core\Native\OpenCL\OpenCLDevice.json" />
     <None Include="Core\Native\MagickFormatInfo.json" />
     <None Include="Core\Native\MagickImage.json" />

@@ -488,6 +488,7 @@
     <ClCompile Include="Helpers\Environment.c" />
     <ClCompile Include="Matricis\DoubleMatrix.c" />
     <ClCompile Include="OpenCL\OpenCL.c" />
+    <ClCompile Include="OpenCL\OpenCLKernelProfileRecord.c" />
     <ClCompile Include="Optimizers\JpegOptimizer.c" />
     <ClCompile Include="Statistics\ChannelStatistics.c" />
     <ClCompile Include="Settings\DrawingSettings.c" />
@@ -537,6 +538,7 @@
     <ClInclude Include="MagickFormatInfo.h" />
     <ClInclude Include="Matricis\DoubleMatrix.h" />
     <ClInclude Include="OpenCL\OpenCL.h" />
+    <ClInclude Include="OpenCL\OpenCLKernelProfileRecord.h" />
     <ClInclude Include="Optimizers\JpegOptimizer.h" />
     <ClInclude Include="Statistics\ChannelStatistics.h" />
     <ClInclude Include="Settings\DrawingSettings.h" />

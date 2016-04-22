@@ -39,7 +39,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr OpenCL_GetDevices(out UIntPtr length);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr OpenCL_GetInstance(IntPtr list, UIntPtr index);
+        public static extern IntPtr OpenCL_GetDevice(IntPtr list, UIntPtr index);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool OpenCL_SetEnabled([MarshalAs(UnmanagedType.Bool)] bool value);
@@ -51,7 +51,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr OpenCL_GetDevices(out UIntPtr length);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr OpenCL_GetInstance(IntPtr list, UIntPtr index);
+        public static extern IntPtr OpenCL_GetDevice(IntPtr list, UIntPtr index);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool OpenCL_SetEnabled([MarshalAs(UnmanagedType.Bool)] bool value);
@@ -66,12 +66,12 @@ namespace ImageMagick
         else
           return NativeMethods.X86.OpenCL_GetDevices(out length);
       }
-      public static IntPtr GetInstance(IntPtr list, int index)
+      public static IntPtr GetDevice(IntPtr list, int index)
       {
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.OpenCL_GetInstance(list, (UIntPtr)index);
+          return NativeMethods.X64.OpenCL_GetDevice(list, (UIntPtr)index);
         else
-          return NativeMethods.X86.OpenCL_GetInstance(list, (UIntPtr)index);
+          return NativeMethods.X86.OpenCL_GetDevice(list, (UIntPtr)index);
       }
       public static bool SetEnabled(bool value)
       {

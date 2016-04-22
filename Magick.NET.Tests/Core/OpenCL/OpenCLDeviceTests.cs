@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System.Collections.Generic;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,6 +22,17 @@ namespace Magick.NET.Tests
   public partial class OpenCLDeviceTests
   {
     private const string _Category = "OpenCLDevice";
+
+    private OpenCLDevice GetEnabledDevice()
+    {
+      foreach (OpenCLDevice device in OpenCL.Devices)
+      {
+        if (device.IsEnabled)
+          return device;
+      }
+
+      return null;
+    }
 
     [TestMethod, TestCategory(_Category)]
     public void Test_Name()
@@ -43,6 +55,41 @@ namespace Magick.NET.Tests
 
         device.IsEnabled = isEnabled;
         Assert.AreEqual(isEnabled, device.IsEnabled);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_KernelProfileRecords()
+    {
+      OpenCLDevice device = GetEnabledDevice();
+      if (device == null)
+      {
+        Assert.Inconclusive("No OpenCL devices detected.");
+        return;
+      }
+
+      device.ProfileKernels = true;
+
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      {
+        image.Resize(500, 500);
+        image.Resize(100, 100);
+      }
+
+      device.ProfileKernels = false;
+
+      List<OpenCLKernelProfileRecord> records = new List<OpenCLKernelProfileRecord>(device.KernelProfileRecords);
+      Assert.IsFalse(records.Count < 2);
+
+      foreach (OpenCLKernelProfileRecord record in records)
+      {
+        Assert.IsNotNull(record.Name);
+        Assert.IsFalse(record.Count < 0);
+        Assert.IsFalse(record.MaximumDuration < 0);
+        Assert.IsFalse(record.MinimumDuration < 0);
+        Assert.IsFalse(record.TotalDuration < 0);
+
+        Assert.AreEqual(record.AverageDuration, record.TotalDuration / record.Count);
       }
     }
 

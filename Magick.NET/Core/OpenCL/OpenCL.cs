@@ -51,7 +51,7 @@ namespace ImageMagick
 
         for (int i = 0; i < (int)length; i++)
         {
-          IntPtr instance = NativeOpenCL.GetInstance(devices, i);
+          IntPtr instance = NativeOpenCL.GetDevice(devices, i);
           OpenCLDevice device = OpenCLDevice.CreateInstance(instance);
           if (device != null)
             result.Add(device);

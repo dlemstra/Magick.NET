@@ -15,7 +15,7 @@
       ]
     },
     {
-      "name": "GetInstance",
+      "name": "GetDevice",
       "type": "Instance",
       "static": true,
       "arguments":

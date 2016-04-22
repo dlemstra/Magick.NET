@@ -1,0 +1,32 @@
+﻿{
+  "dynamic": "NativeToManaged",
+  "const": true,
+  "properties":
+  [
+    {
+      "name": "Count",
+      "type": "long",
+      "readonly": true
+    },
+    {
+      "name": "MaximumDuration",
+      "type": "long",
+      "readonly": true
+    },
+    {
+      "name": "MinimumDuration",
+      "type": "long",
+      "readonly": true
+    },
+    {
+      "name": "Name",
+      "type": "string",
+      "readonly": true
+    },
+    {
+      "name": "TotalDuration",
+      "type": "long",
+      "readonly": true
+    }
+  ]
+}

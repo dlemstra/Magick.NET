@@ -30,7 +30,7 @@ MAGICK_NET_EXPORT const char *OpenCLDevice_Name_Get(const MagickCLDevice device)
   return GetOpenCLDeviceName(device);
 }
 
-MAGICK_NET_EXPORT const MagickCLDeviceType OpenCLDevice_Type_Get(const MagickCLDevice device)
+MAGICK_NET_EXPORT const MagickCLDeviceType OpenCLDevice_DeviceType_Get(const MagickCLDevice device)
 {
   return GetOpenCLDeviceType(device);
 }
@@ -38,4 +38,19 @@ MAGICK_NET_EXPORT const MagickCLDeviceType OpenCLDevice_Type_Get(const MagickCLD
 MAGICK_NET_EXPORT const char *OpenCLDevice_Version_Get(const MagickCLDevice device)
 {
   return GetOpenCLDeviceVersion(device);
+}
+
+MAGICK_NET_EXPORT const KernelProfileRecord *OpenCLDevice_GetKernelProfileRecords(const MagickCLDevice device, size_t *length)
+{
+  return GetOpenCLKernelProfileRecords(device, length);
+}
+
+MAGICK_NET_EXPORT const KernelProfileRecord OpenCLDevice_GetKernelProfileRecord(const KernelProfileRecord *records, const size_t index)
+{
+  return records[index];
+}
+
+MAGICK_NET_EXPORT void OpenCLDevice_SetProfileKernels(const MagickCLDevice device, const MagickBooleanType value)
+{
+  SetOpenCLKernelProfileEnabled(device, value);
 }

@@ -13,6 +13,8 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ImageMagick
 {
@@ -22,11 +24,13 @@ namespace ImageMagick
   public sealed partial class OpenCLDevice
   {
     private NativeOpenCLDevice _Instance;
+    private bool _ProfileKernels;
 
     private OpenCLDevice(IntPtr instance)
     {
       _Instance = new NativeOpenCLDevice();
       _Instance.Instance = instance;
+      _ProfileKernels = false;
     }
 
     internal static OpenCLDevice CreateInstance(IntPtr instance)
@@ -35,6 +39,17 @@ namespace ImageMagick
         return null;
 
       return new OpenCLDevice(instance);
+    }
+
+    /// <summary>
+    /// The type of the device.
+    /// </summary>
+    public OpenCLDeviceType DeviceType
+    {
+      get
+      {
+        return _Instance.DeviceType;
+      }
     }
 
     /// <summary>
@@ -64,13 +79,45 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The type of the device.
+    /// Returns all the kernel profile records for this devices.
     /// </summary>
-    public OpenCLDeviceType DeviceType
+    /// <returns></returns>
+    public IEnumerable<OpenCLKernelProfileRecord> KernelProfileRecords
     {
       get
       {
-        return _Instance.Type;
+        UIntPtr length;
+        IntPtr records = _Instance.GetKernelProfileRecords(out length);
+        Collection<OpenCLKernelProfileRecord> result = new Collection<OpenCLKernelProfileRecord>();
+
+        if (records == IntPtr.Zero)
+          return result;
+
+        for (int i = 0; i < (int)length; i++)
+        {
+          IntPtr instance = NativeOpenCLDevice.GetKernelProfileRecord(records, i);
+          OpenCLKernelProfileRecord record = OpenCLKernelProfileRecord.CreateInstance(instance);
+          if (record != null)
+            result.Add(record);
+        }
+
+        return result;
+      }
+    }
+
+    /// <summary>
+    /// Specifies if kernel profiling is enabled. This can be used to get information about the OpenCL performance.
+    /// </summary>
+    public bool ProfileKernels
+    {
+      get
+      {
+        return _ProfileKernels;
+      }
+      set
+      {
+        _Instance.SetProfileKernels(value);
+        _ProfileKernels = value;
       }
     }
 
