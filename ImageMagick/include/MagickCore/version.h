@@ -41,7 +41,7 @@ extern "C" {
 #else
 #  define MagickPlatform "x86"
 #endif
-#define MagickReleaseDate  "2016-04-22"
+#define MagickReleaseDate  "2016-04-23"
 #define MagickAuthoritativeLicense  \
   "http://www.imagemagick.org/script/license.php"
 #define MagickAuthoritativeURL  "http://www.imagemagick.org"
