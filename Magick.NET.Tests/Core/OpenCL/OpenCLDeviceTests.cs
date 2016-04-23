@@ -35,11 +35,20 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
-    public void Test_Name()
+    public void Test_BenchmarkScore()
     {
       foreach (OpenCLDevice device in OpenCL.Devices)
       {
-        Assert.IsNotNull(device.Name);
+        Assert.AreNotEqual(device.BenchmarkScore, 0.0);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_DeviceType()
+    {
+      foreach (OpenCLDevice device in OpenCL.Devices)
+      {
+        Assert.AreNotEqual(OpenCLDeviceType.Undefined, device.DeviceType);
       }
     }
 
@@ -94,11 +103,11 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
-    public void Test_Type()
+    public void Test_Name()
     {
       foreach (OpenCLDevice device in OpenCL.Devices)
       {
-        Assert.AreNotEqual(OpenCLDeviceType.Undefined, device.DeviceType);
+        Assert.IsNotNull(device.Name);
       }
     }
 

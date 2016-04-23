@@ -37,6 +37,8 @@ namespace ImageMagick
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.OpenCLDevice+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern double OpenCLDevice_BenchmarkScore_Get(IntPtr instance);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr OpenCLDevice_DeviceType_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -58,6 +60,8 @@ namespace ImageMagick
       {
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.OpenCLDevice+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern double OpenCLDevice_BenchmarkScore_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr OpenCLDevice_DeviceType_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -91,6 +95,18 @@ namespace ImageMagick
         set
         {
           _Instance = value;
+        }
+      }
+      public double BenchmarkScore
+      {
+        get
+        {
+          double result;
+          if (NativeLibrary.Is64Bit)
+            result = NativeMethods.X64.OpenCLDevice_BenchmarkScore_Get(Instance);
+          else
+            result = NativeMethods.X86.OpenCLDevice_BenchmarkScore_Get(Instance);
+          return result;
         }
       }
       public OpenCLDeviceType DeviceType

@@ -15,6 +15,16 @@
 #include "Stdafx.h"
 #include "OpenCLDevice.h"
 
+MAGICK_NET_EXPORT const MagickCLDeviceType OpenCLDevice_DeviceType_Get(const MagickCLDevice device)
+{
+  return GetOpenCLDeviceType(device);
+}
+
+MAGICK_NET_EXPORT double OpenCLDevice_BenchmarkScore_Get(const MagickCLDevice device)
+{
+  return GetOpenCLDeviceBenchmarkScore(device);
+}
+
 MAGICK_NET_EXPORT MagickBooleanType OpenCLDevice_IsEnabled_Get(const MagickCLDevice device)
 {
   return GetOpenCLDeviceEnabled(device);
@@ -28,11 +38,6 @@ MAGICK_NET_EXPORT void OpenCLDevice_IsEnabled_Set(const MagickCLDevice device, c
 MAGICK_NET_EXPORT const char *OpenCLDevice_Name_Get(const MagickCLDevice device)
 {
   return GetOpenCLDeviceName(device);
-}
-
-MAGICK_NET_EXPORT const MagickCLDeviceType OpenCLDevice_DeviceType_Get(const MagickCLDevice device)
-{
-  return GetOpenCLDeviceType(device);
 }
 
 MAGICK_NET_EXPORT const char *OpenCLDevice_Version_Get(const MagickCLDevice device)

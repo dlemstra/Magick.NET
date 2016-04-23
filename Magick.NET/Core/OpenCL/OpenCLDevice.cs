@@ -42,6 +42,17 @@ namespace ImageMagick
     }
 
     /// <summary>
+    /// The benchmark score of the device.
+    /// </summary>
+    public double BenchmarkScore
+    {
+      get
+      {
+        return _Instance.BenchmarkScore;
+      }
+    }
+
+    /// <summary>
     /// The type of the device.
     /// </summary>
     public OpenCLDeviceType DeviceType

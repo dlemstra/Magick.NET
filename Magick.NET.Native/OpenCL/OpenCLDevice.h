@@ -13,12 +13,14 @@
 //=================================================================================================
 #pragma once
 
+MAGICK_NET_EXPORT const MagickCLDeviceType OpenCLDevice_DeviceType_Get(const MagickCLDevice);
+
+MAGICK_NET_EXPORT double OpenCLDevice_BenchmarkScore_Get(const MagickCLDevice);
+
 MAGICK_NET_EXPORT MagickBooleanType OpenCLDevice_IsEnabled_Get(const MagickCLDevice);
 MAGICK_NET_EXPORT void OpenCLDevice_IsEnabled_Set(const MagickCLDevice, const MagickBooleanType);
 
 MAGICK_NET_EXPORT const char *OpenCLDevice_Name_Get(const MagickCLDevice);
-
-MAGICK_NET_EXPORT const MagickCLDeviceType OpenCLDevice_DeviceType_Get(const MagickCLDevice);
 
 MAGICK_NET_EXPORT const char *OpenCLDevice_Version_Get(const MagickCLDevice);
 

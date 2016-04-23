@@ -4,6 +4,11 @@
   "properties":
   [
     {
+      "name": "BenchmarkScore",
+      "type": "double",
+      "readonly": true
+    },
+    {
       "name": "DeviceType",
       "type": "OpenCLDeviceType",
       "readonly": true
