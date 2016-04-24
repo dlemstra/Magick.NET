@@ -38,6 +38,7 @@ extern "C" {
 #include <process.h>
 #include <errno.h>
 #include <malloc.h>
+#include <sys/utime.h>
 #if defined(_DEBUG) && !defined(__MINGW32__) && !defined(__MINGW64__)
 #include <crtdbg.h>
 #endif
@@ -263,6 +264,9 @@ extern "C" {
 #endif
 #if !defined(unlink)
 #  define unlink  _unlink
+#endif
+#if !defined(utime)
+#  define utime  _utime
 #endif
 #if !defined(vfprintf_l)
 #define vfprintf_l  _vfprintf_l
