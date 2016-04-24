@@ -15,6 +15,7 @@
 using System;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 
 namespace FileGenerator.MagickColors
@@ -38,10 +39,15 @@ namespace FileGenerator.MagickColors
       if (property.PropertyType != _Type)
         return;
 
+      WriteColor(property.Name, property);
+    }
+
+    private void WriteColor(string name, PropertyInfo property)
+    {
       Color color = (Color)property.GetValue(null, null);
 
       WriteComment(GetComment(color));
-      WriteLine("public static MagickColor " + property.Name);
+      WriteLine("public static MagickColor " + name);
       WriteStartColon();
       WriteLine("get");
       WriteStartColon();
@@ -58,6 +64,8 @@ namespace FileGenerator.MagickColors
       WriteStartColon();
 
       var properties = _Type.GetProperties(BindingFlags.Public | BindingFlags.Static);
+
+      WriteColor("None", properties.First(p => p.Name == "Transparent"));
       foreach (var property in properties)
         WriteColor(property);
 

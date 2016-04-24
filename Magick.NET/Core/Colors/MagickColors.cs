@@ -23,6 +23,16 @@ namespace ImageMagick
     /// <summary>
     /// Gets a system-defined color that has an RGBA value of #FFFFFF00.
     /// </summary>
+    public static MagickColor None
+    {
+      get
+      {
+        return MagickColor.FromRgba(255, 255, 255, 0);
+      }
+    }
+    /// <summary>
+    /// Gets a system-defined color that has an RGBA value of #FFFFFF00.
+    /// </summary>
     public static MagickColor Transparent
     {
       get
