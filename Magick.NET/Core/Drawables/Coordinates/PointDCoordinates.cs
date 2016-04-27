@@ -14,7 +14,7 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick.Drawables
+namespace ImageMagick
 {
   internal class PointDCoordinates : DrawableCoordinates<PointD>
   {

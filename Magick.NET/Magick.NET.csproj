@@ -250,6 +250,7 @@
     <Compile Include="Core\Drawables\DrawableRectangle.cs" />
     <Compile Include="Core\Drawables\DrawableRotation.cs" />
     <Compile Include="Core\Drawables\DrawableRoundRectangle.cs" />
+    <Compile Include="Core\Drawables\Drawables.cs" />
     <Compile Include="Core\Drawables\DrawableScaling.cs" />
     <Compile Include="Core\Drawables\DrawableSkewX.cs" />
     <Compile Include="Core\Drawables\DrawableSkewY.cs" />
@@ -276,9 +277,11 @@
     <Compile Include="Core\Drawables\DrawableTranslation.cs" />
     <Compile Include="Core\Drawables\DrawableViewbox.cs" />
     <Compile Include="Core\Drawables\DrawingWand.cs" />
+    <Compile Include="Core\Drawables\Generated\Drawables.cs" />
     <Compile Include="Core\Drawables\IDrawable.cs" />
     <Compile Include="Core\Drawables\IDrawingWand.cs" />
     <Compile Include="Core\Drawables\Paths\Args\PathArc.cs" />
+    <Compile Include="Core\Drawables\Paths\Generated\Paths.cs" />
     <Compile Include="Core\Drawables\Paths\IPath.cs" />
     <Compile Include="Core\Drawables\Paths\PathArcAbs.cs" />
     <Compile Include="Core\Drawables\Paths\PathArcRel.cs" />
@@ -295,6 +298,7 @@
     <Compile Include="Core\Drawables\Paths\PathMoveToRel.cs" />
     <Compile Include="Core\Drawables\Paths\PathQuadraticCurveToAbs.cs" />
     <Compile Include="Core\Drawables\Paths\PathQuadraticCurveToRel.cs" />
+    <Compile Include="Core\Drawables\Paths\Paths.cs" />
     <Compile Include="Core\Drawables\Paths\PathSmoothCurveToAbs.cs" />
     <Compile Include="Core\Drawables\Paths\PathSmoothCurveToRel.cs" />
     <Compile Include="Core\Drawables\Paths\PathSmoothQuadraticCurveToAbs.cs" />
@@ -535,6 +539,7 @@
     <Compile Include="Drawables\DrawableStrokeColor.cs" />
     <Compile Include="Drawables\DrawableTextUnderColor.cs" />
     <Compile Include="Drawables\DrawableViewbox.cs" />
+    <Compile Include="Drawables\Generated\Drawables.cs" />
     <Compile Include="Helpers\TypeHelper.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\FileHelper.cs" />

@@ -31,7 +31,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified MagickColor to a Color instance.
     ///</summary>
     public static implicit operator Color(MagickColor color)
     {

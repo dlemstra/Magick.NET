@@ -20,15 +20,12 @@ using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  public sealed class MagickTypes
+  public sealed class MagickScriptTypes : MagickTypes
   {
     private static readonly string[] _UnsupportedMethods = new string[]
     {
       "Add", "AddRange", "Clear", "Dispose", "Draw", "Insert", "Ping", "Read", "RemoveAt", "Write"
     };
-
-    private QuantumDepth _Depth;
-    private Assembly _MagickNET;
 
     private static bool CanIgnoreResult(MethodInfo method)
     {
@@ -43,7 +40,7 @@ namespace FileGenerator.MagickScript
 
     private string CheckForQuantum(string name)
     {
-      if (_Depth == QuantumDepth.Q16HDRI)
+      if (Depth == QuantumDepth.Q16HDRI)
         return name == "Single" ? "QuantumType" : name;
       else
         throw new NotImplementedException();
@@ -74,7 +71,7 @@ namespace FileGenerator.MagickScript
 
     private IEnumerable<MethodInfo[]> GetGroupedMethods(string name)
     {
-      return from type in _MagickNET.GetTypes()
+      return from type in MagickNET.GetTypes()
              where type.Name == name
              from method in type.GetMethods()
              where IsSupported(method)
@@ -204,11 +201,6 @@ namespace FileGenerator.MagickScript
         default:
           return null;
       }
-    }
-
-    private IEnumerable<Type> GetTypes()
-    {
-      return _MagickNET.GetTypes();
     }
 
     private static bool HasSupportedResult(MethodInfo method)
@@ -357,13 +349,9 @@ namespace FileGenerator.MagickScript
       return Assembly.ReflectionOnlyLoad(File.ReadAllBytes(assemblyFile));
     }
 
-    public MagickTypes(QuantumDepth depth)
+    public MagickScriptTypes(QuantumDepth depth)
+      : base(depth)
     {
-      string folderName = GetFolderName(depth);
-      string quantumName = GetQuantumName(depth);
-      string assemblyFile = PathHelper.GetFullPath(@"Magick.NET\bin\" + folderName + @"\x86\Magick.NET-" + quantumName + @"-x86.dll");
-      _MagickNET = LoadAssembly(assemblyFile);
-      _Depth = depth;
     }
 
     public IEnumerable<ConstructorInfo> GetConstructors(string typeName)
@@ -394,7 +382,7 @@ namespace FileGenerator.MagickScript
 
     public IEnumerable<string> GetColorProfileNames()
     {
-      return from name in _MagickNET.GetManifestResourceNames()
+      return from name in MagickNET.GetManifestResourceNames()
              where
               name.EndsWith(".icc", StringComparison.OrdinalIgnoreCase) ||
               name.EndsWith(".icm", StringComparison.OrdinalIgnoreCase)
@@ -413,15 +401,6 @@ namespace FileGenerator.MagickScript
     {
       return from type in GetTypes()
              where type.IsEnum && type.IsPublic
-             orderby type.Name
-             select type;
-    }
-
-    public IEnumerable<Type> GetInterfaceTypes(string interfaceName)
-    {
-      return from type in _MagickNET.GetTypes()
-             from interfaceType in type.GetInterfaces()
-             where interfaceType.Name == interfaceName && type.IsPublic && !type.IsInterface && !type.IsAbstract
              orderby type.Name
              select type;
     }

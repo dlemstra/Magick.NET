@@ -15,7 +15,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ImageMagick.Drawables;
 
 namespace ImageMagick
 {

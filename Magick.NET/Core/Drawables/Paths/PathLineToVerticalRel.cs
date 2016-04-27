@@ -12,8 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using ImageMagick.Drawables;
-
 namespace ImageMagick
 {
   ///<summary>

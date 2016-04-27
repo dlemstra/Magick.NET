@@ -15,12 +15,11 @@
 using System;
 using System.Reflection;
 
-namespace FileGenerator.MagickScript
+namespace FileGenerator
 {
-  [Serializable]
-  internal static class AppDomainHelper
+  public static class AppDomainHelper
   {
-    private static AppDomain CreateDomain()
+    public static AppDomain CreateDomain()
     {
       return AppDomain.CreateDomain("AppDomainHelper", null, new AppDomainSetup()
       {
@@ -28,41 +27,14 @@ namespace FileGenerator.MagickScript
       });
     }
 
-    private static ApplicationProxy CreateProxy(AppDomain domain)
+    public static TProxy CreateProxy<TProxy>(AppDomain domain)
+      where TProxy : ApplicationProxy
     {
-      Type activator = typeof(ApplicationProxy);
-      ApplicationProxy proxy = domain.CreateInstanceAndUnwrap(
+      Type activator = typeof(TProxy);
+      TProxy proxy = domain.CreateInstanceAndUnwrap(
             Assembly.GetAssembly(activator).FullName,
-            activator.ToString()) as ApplicationProxy;
+            activator.ToString()) as TProxy;
       return proxy;
-    }
-
-    private static void GenerateCode()
-    {
-      AppDomain domain = CreateDomain();
-      ApplicationProxy proxy = CreateProxy(domain);
-
-      proxy.GenerateCode();
-
-      AppDomain.Unload(domain);
-    }
-
-    private static void GenerateXsd(QuantumDepth depth)
-    {
-      AppDomain domain = CreateDomain();
-      ApplicationProxy proxy = CreateProxy(domain);
-
-      proxy.GenerateXsd(depth);
-
-      AppDomain.Unload(domain);
-    }
-
-    public static void Execute()
-    {
-      GenerateXsd(QuantumDepth.Q8);
-      GenerateXsd(QuantumDepth.Q16);
-      GenerateXsd(QuantumDepth.Q16HDRI);
-      GenerateCode();
     }
   }
 }

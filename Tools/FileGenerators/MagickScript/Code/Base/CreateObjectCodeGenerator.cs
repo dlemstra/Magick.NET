@@ -40,7 +40,7 @@ namespace FileGenerator.MagickScript
     {
       foreach (MethodBase method in Methods)
       {
-        string xsdMethodName = MagickTypes.GetXsdName(method);
+        string xsdMethodName = MagickScriptTypes.GetXsdName(method);
         ParameterInfo[] parameters = method.GetParameters();
 
         Write("XmlElement ");
@@ -91,17 +91,17 @@ namespace FileGenerator.MagickScript
     private void WriteGetValue(PropertyInfo property)
     {
       string typeName = GetName(property);
-      string xsdTypeName = MagickTypes.GetXsdAttributeType(property);
+      string xsdTypeName = MagickScriptTypes.GetXsdAttributeType(property);
 
       if (xsdTypeName != null)
       {
-        WriteGetElementValue(typeName, MagickTypes.GetXsdName(property));
+        WriteGetElementValue(typeName, MagickScriptTypes.GetXsdName(property));
       }
       else
       {
         WriteCreateMethod(typeName);
         Write("(");
-        WriteSelectElement(typeName, MagickTypes.GetXsdName(property));
+        WriteSelectElement(typeName, MagickScriptTypes.GetXsdName(property));
         WriteLine(");");
       }
     }

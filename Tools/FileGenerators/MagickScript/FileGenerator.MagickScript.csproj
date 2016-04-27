@@ -44,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppDomain\AppDomainHelper.cs" />
-    <Compile Include="AppDomain\ApplicationProxy.cs" />
+    <Compile Include="AppDomain\ScriptAppDomainHelper.cs" />
+    <Compile Include="AppDomain\ScriptApplicationProxy.cs" />
     <Compile Include="Code\Base\ConstructorCodeGenerator.cs" />
     <Compile Include="Code\Base\CreateObjectCodeGenerator.cs" />
     <Compile Include="Code\Base\ExecuteCodeGenerator.cs" />
@@ -73,7 +73,7 @@
     <Compile Include="Code\Settings\QuantizeSettingsGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Types\MagickTypes.cs" />
+    <Compile Include="Types\MagickScriptTypes.cs" />
     <Compile Include="Xsd\XsdGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

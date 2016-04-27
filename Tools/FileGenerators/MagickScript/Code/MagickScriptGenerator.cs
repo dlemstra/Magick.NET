@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.IO;
 
 namespace FileGenerator.MagickScript
@@ -20,12 +19,12 @@ namespace FileGenerator.MagickScript
   internal sealed class MagickScriptGenerator
   {
     private string _OutputFolder;
-    private MagickTypes _Types;
+    private MagickScriptTypes _Types;
 
     private MagickScriptGenerator()
     {
       _OutputFolder = SetOutputFolder(@"Magick.NET\Core\Script\Generated");
-      _Types = new MagickTypes(QuantumDepth.Q16HDRI);
+      _Types = new MagickScriptTypes(QuantumDepth.Q16HDRI);
     }
 
     private void Cleanup()

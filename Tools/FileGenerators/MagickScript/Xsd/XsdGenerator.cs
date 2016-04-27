@@ -26,7 +26,7 @@ namespace FileGenerator.MagickScript
   {
     private QuantumDepth _Depth;
     private XDocument _Document;
-    private MagickTypes _Types;
+    private MagickScriptTypes _Types;
     private XNamespace _Namespace = "http://www.w3.org/2001/XMLSchema";
     private XmlNamespaceManager _Namespaces;
 
@@ -49,16 +49,16 @@ namespace FileGenerator.MagickScript
 
     private void AddClass(XElement parent, Type type)
     {
-      AddClassElements(parent, MagickTypes.GetProperties(type), MagickTypes.GetMethods(type));
-      AddClassAttributes(parent, MagickTypes.GetProperties(type));
+      AddClassElements(parent, MagickScriptTypes.GetProperties(type), MagickScriptTypes.GetMethods(type));
+      AddClassAttributes(parent, MagickScriptTypes.GetProperties(type));
     }
 
     private void AddClassAttributes(XElement complexType, IEnumerable<PropertyInfo> properties)
     {
       foreach (var property in from property in properties
-                               let typeName = MagickTypes.GetXsdAttributeType(property)
+                               let typeName = MagickScriptTypes.GetXsdAttributeType(property)
                                where typeName != null
-                               let name = MagickTypes.GetXsdName(property)
+                               let name = MagickScriptTypes.GetXsdName(property)
                                orderby name
                                select new
                                {
@@ -77,9 +77,9 @@ namespace FileGenerator.MagickScript
       XElement sequence = new XElement(_Namespace + "sequence");
 
       foreach (var property in from property in properties
-                               let typeName = MagickTypes.GetXsdElementType(property)
+                               let typeName = MagickScriptTypes.GetXsdElementType(property)
                                where typeName != null
-                               let name = MagickTypes.GetXsdName(property)
+                               let name = MagickScriptTypes.GetXsdName(property)
                                orderby name
                                select new
                                {
@@ -101,7 +101,7 @@ namespace FileGenerator.MagickScript
         foreach (MethodBase method in methods)
         {
           XElement element = new XElement(_Namespace + "element",
-                        new XAttribute("name", MagickTypes.GetXsdName(method)),
+                        new XAttribute("name", MagickScriptTypes.GetXsdName(method)),
                         new XAttribute("minOccurs", "0"),
                         new XAttribute("maxOccurs", "unbounded"));
           AddMethods(element, new MethodBase[] { method });
@@ -202,7 +202,7 @@ namespace FileGenerator.MagickScript
 
       if (methods.Count() == 1 && IsTypedElement(methods.First(), parameters))
       {
-        string elementTypeName = MagickTypes.GetXsdElementType(parameters[0]);
+        string elementTypeName = MagickScriptTypes.GetXsdElementType(parameters[0]);
         if (string.IsNullOrEmpty(elementTypeName))
           throw new NotImplementedException("AddMethods: " + methods.First().Name);
 
@@ -222,7 +222,7 @@ namespace FileGenerator.MagickScript
       XElement sequence = new XElement(_Namespace + "sequence");
 
       foreach (var parameter in from parameter in parameters
-                                let typeName = MagickTypes.GetXsdElementType(parameter)
+                                let typeName = MagickScriptTypes.GetXsdElementType(parameter)
                                 where typeName != null
                                 orderby parameter.Name
                                 select new
@@ -250,7 +250,7 @@ namespace FileGenerator.MagickScript
     private void AddParameterAttributes(XElement complexType, ParameterInfo[] parameters, string[] requiredParameters)
     {
       foreach (var parameter in from parameter in parameters
-                                let typeName = MagickTypes.GetXsdAttributeType(parameter)
+                                let typeName = MagickScriptTypes.GetXsdAttributeType(parameter)
                                 where typeName != null
                                 orderby parameter.Name
                                 select new
@@ -275,7 +275,7 @@ namespace FileGenerator.MagickScript
     private XElement CreateElement(IEnumerable<MethodBase> methods)
     {
       XElement element = new XElement(_Namespace + "element",
-                    new XAttribute("name", MagickTypes.GetXsdName(methods.First())));
+                    new XAttribute("name", MagickScriptTypes.GetXsdName(methods.First())));
 
       AddMethods(element, methods);
       return element;
@@ -283,9 +283,9 @@ namespace FileGenerator.MagickScript
 
     private XElement CreateElement(PropertyInfo property)
     {
-      string name = MagickTypes.GetXsdName(property);
+      string name = MagickScriptTypes.GetXsdName(property);
 
-      string attributeTypeName = MagickTypes.GetXsdAttributeType(property);
+      string attributeTypeName = MagickScriptTypes.GetXsdAttributeType(property);
 
       if (attributeTypeName != null)
       {
@@ -301,7 +301,7 @@ namespace FileGenerator.MagickScript
       }
       else
       {
-        string elementTypeName = MagickTypes.GetXsdElementType(property);
+        string elementTypeName = MagickScriptTypes.GetXsdElementType(property);
         if (string.IsNullOrEmpty(elementTypeName))
           throw new NotImplementedException("CreateElement: " + name);
 
@@ -498,7 +498,7 @@ namespace FileGenerator.MagickScript
       foreach (Type interfaceType in _Types.GetInterfaceTypes("IDefines"))
       {
         XElement complexType = new XElement(_Namespace + "complexType",
-                          new XAttribute("name", MagickTypes.GetXsdName(interfaceType)));
+                          new XAttribute("name", MagickScriptTypes.GetXsdName(interfaceType)));
         AddClass(complexType, interfaceType);
         types.Add(complexType);
       }
@@ -530,7 +530,7 @@ namespace FileGenerator.MagickScript
     {
       annotation.ReplaceWith(
         from type in _Types.GetInterfaceTypes("IDefines")
-        let name = MagickTypes.GetXsdName(type)
+        let name = MagickScriptTypes.GetXsdName(type)
         select new XElement(_Namespace + "element",
           new XAttribute("name", name),
           new XAttribute("type", name)));
@@ -548,7 +548,7 @@ namespace FileGenerator.MagickScript
     {
       annotation.ReplaceWith(
         from type in _Types.GetInterfaceTypes("IReadDefines")
-        let name = MagickTypes.GetXsdName(type)
+        let name = MagickScriptTypes.GetXsdName(type)
         select new XElement(_Namespace + "element",
           new XAttribute("name", name),
           new XAttribute("type", name)));
@@ -588,7 +588,7 @@ namespace FileGenerator.MagickScript
 
     private void Write()
     {
-      string folder = MagickTypes.GetFolderName(_Depth);
+      string folder = MagickScriptTypes.GetFolderName(_Depth);
       string outputFile = PathHelper.GetFullPath(@"Magick.NET\Resources\" + folder + @"\MagickScript.xsd");
       Console.WriteLine("Creating: " + outputFile);
 
@@ -612,7 +612,7 @@ namespace FileGenerator.MagickScript
     public XsdGenerator(QuantumDepth depth)
     {
       _Depth = depth;
-      _Types = new MagickTypes(depth);
+      _Types = new MagickScriptTypes(depth);
 
       _Namespaces = new XmlNamespaceManager(new NameTable());
       _Namespaces.AddNamespace("xs", _Namespace.ToString());

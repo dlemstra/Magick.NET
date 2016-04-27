@@ -14,7 +14,7 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick.Drawables
+namespace ImageMagick
 {
   internal class PathArcCoordinates : DrawableCoordinates<PathArc>
   {

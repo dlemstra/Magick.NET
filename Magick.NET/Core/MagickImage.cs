@@ -2873,6 +2873,16 @@ namespace ImageMagick
     ///</summary>
     ///<param name="drawables">The drawable(s) to draw on the image.</param>
     ///<exception cref="MagickException"/>
+    public void Draw(Drawables drawables)
+    {
+      Draw((IEnumerable<IDrawable>)drawables);
+    }
+
+    ///<summary>
+    /// Draw on image using one or more drawables.
+    ///</summary>
+    ///<param name="drawables">The drawable(s) to draw on the image.</param>
+    ///<exception cref="MagickException"/>
     public void Draw(params IDrawable[] drawables)
     {
       Draw((IEnumerable<IDrawable>)drawables);

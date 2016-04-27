@@ -13,7 +13,6 @@
 //=================================================================================================
 
 using System.Collections.Generic;
-using ImageMagick.Drawables;
 
 namespace ImageMagick
 {

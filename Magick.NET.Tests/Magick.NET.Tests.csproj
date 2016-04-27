@@ -177,7 +177,9 @@
     <Compile Include="Core\Defines\Tiff\TiffReadDefinesTests.cs" />
     <Compile Include="Core\Defines\Tiff\TiffWriteDefinesTests.cs" />
     <Compile Include="Core\Drawables\DrawableDensityTests.cs" />
-    <Compile Include="Core\Drawables\DrawablePathTests.cs" />
+    <Compile Include="Core\Drawables\Paths\PathsTests.cs" />
+    <Compile Include="Core\Drawables\Paths\PathTests.cs" />
+    <Compile Include="Core\Drawables\DrawablesTests.cs" />
     <Compile Include="Core\Drawables\DrawableTests.cs" />
     <Compile Include="Core\Files.cs" />
     <Compile Include="Core\Ghostscript.cs" />

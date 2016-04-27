@@ -13,7 +13,6 @@
 //=================================================================================================
 
 using System;
-using ImageMagick.Drawables;
 
 namespace ImageMagick
 {

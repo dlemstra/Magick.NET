@@ -13,30 +13,38 @@
 //=================================================================================================
 
 using System;
-using System.Reflection;
 
 namespace FileGenerator.MagickScript
 {
-  internal sealed class ApplicationProxy : MarshalByRefObject
+  [Serializable]
+  internal static class ScriptAppDomainHelper
   {
-    private Assembly ResolveAssembly(object sender, ResolveEventArgs args)
+    private static void GenerateCode()
     {
-      return Assembly.ReflectionOnlyLoad(args.Name);
+      AppDomain domain = AppDomainHelper.CreateDomain();
+      ScriptApplicationProxy proxy = AppDomainHelper.CreateProxy<ScriptApplicationProxy>(domain);
+
+      proxy.GenerateCode();
+
+      AppDomain.Unload(domain);
     }
 
-    public void GenerateXsd(QuantumDepth depth)
+    private static void GenerateXsd(QuantumDepth depth)
     {
-      AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+      AppDomain domain = AppDomainHelper.CreateDomain();
+      ScriptApplicationProxy proxy = AppDomainHelper.CreateProxy<ScriptApplicationProxy>(domain);
 
-      XsdGenerator generator = new XsdGenerator(depth);
-      generator.Generate();
+      proxy.GenerateXsd(depth);
+
+      AppDomain.Unload(domain);
     }
 
-    public void GenerateCode()
+    public static void Execute()
     {
-      AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
-
-      MagickScriptGenerator.Generate();
+      GenerateXsd(QuantumDepth.Q8);
+      GenerateXsd(QuantumDepth.Q16);
+      GenerateXsd(QuantumDepth.Q16HDRI);
+      GenerateCode();
     }
   }
 }

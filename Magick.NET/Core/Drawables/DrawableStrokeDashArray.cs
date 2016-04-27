@@ -12,9 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using ImageMagick.Drawables;
-
 namespace ImageMagick
 {
   ///<summary>
@@ -38,7 +35,7 @@ namespace ImageMagick
     /// Creates a new DrawableDashArray instance.
     ///</summary>
     ///<param name="dash">An array containing the dash information.</param>
-    public DrawableStrokeDashArray(double[] dash)
+    public DrawableStrokeDashArray(params double[] dash)
     {
       _Dash = dash;
     }

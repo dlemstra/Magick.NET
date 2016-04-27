@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileGenerator.Drawables", "Drawables\FileGenerator.Drawables.csproj", "{AAB594DD-BD69-4A18-91F5-7EEAB2CC7E2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileGenerator.Shared", "Shared\FileGenerator.Shared.csproj", "{02447B49-3569-4E75-9619-91A90CBB30F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AAB594DD-BD69-4A18-91F5-7EEAB2CC7E2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB594DD-BD69-4A18-91F5-7EEAB2CC7E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAB594DD-BD69-4A18-91F5-7EEAB2CC7E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAB594DD-BD69-4A18-91F5-7EEAB2CC7E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02447B49-3569-4E75-9619-91A90CBB30F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02447B49-3569-4E75-9619-91A90CBB30F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02447B49-3569-4E75-9619-91A90CBB30F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02447B49-3569-4E75-9619-91A90CBB30F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

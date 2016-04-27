@@ -18,7 +18,7 @@ namespace FileGenerator.MagickScript
   {
     internal static void Main()
     {
-      AppDomainHelper.Execute();
+      ScriptAppDomainHelper.Execute();
     }
   }
 }

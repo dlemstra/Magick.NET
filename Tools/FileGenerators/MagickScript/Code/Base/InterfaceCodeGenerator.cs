@@ -46,7 +46,7 @@ namespace FileGenerator.MagickScript
       WriteLine("XmlElement element = (XmlElement)parent.FirstChild;");
       WriteCheckNull("element");
       WriteSwitch(from type in Types.GetInterfaceTypes(className)
-                  select MagickTypes.GetXsdName(type));
+                  select MagickScriptTypes.GetXsdName(type));
       WriteEndColon();
     }
 

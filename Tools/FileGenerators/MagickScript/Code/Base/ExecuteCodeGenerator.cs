@@ -58,7 +58,7 @@ namespace FileGenerator.MagickScript
 
       foreach (ParameterInfo parameter in parameters)
       {
-        string xsdTypeName = MagickTypes.GetXsdAttributeType(parameter);
+        string xsdTypeName = MagickScriptTypes.GetXsdAttributeType(parameter);
         if (xsdTypeName != null)
           return false;
 
@@ -84,9 +84,9 @@ namespace FileGenerator.MagickScript
       WriteStartColon();
 
       IEnumerable<string> names = (from property in Properties
-                                   select MagickTypes.GetXsdName(property)).Concat(
+                                   select MagickScriptTypes.GetXsdName(property)).Concat(
                                      from method in Methods
-                                     select MagickTypes.GetXsdName(method[0])).Concat(
+                                     select MagickScriptTypes.GetXsdName(method[0])).Concat(
                                      CustomMethods);
 
       WriteSwitch(names);
@@ -173,13 +173,13 @@ namespace FileGenerator.MagickScript
     protected sealed override void WriteCase(string name)
     {
       MemberInfo member = (from property in Properties
-                           where MagickTypes.GetXsdName(property).Equals(name, StringComparison.OrdinalIgnoreCase)
+                           where MagickScriptTypes.GetXsdName(property).Equals(name, StringComparison.OrdinalIgnoreCase)
                            select property).FirstOrDefault();
 
       if (member == null)
         member = (from overloads in Methods
                   let method = overloads[overloads.Length - 1]
-                  where MagickTypes.GetXsdName(method).Equals(name, StringComparison.OrdinalIgnoreCase)
+                  where MagickScriptTypes.GetXsdName(method).Equals(name, StringComparison.OrdinalIgnoreCase)
                   select method).FirstOrDefault();
 
 
@@ -222,7 +222,7 @@ namespace FileGenerator.MagickScript
     protected void WriteGetValue(PropertyInfo property)
     {
       string typeName = GetName(property);
-      string xsdTypeName = MagickTypes.GetXsdAttributeType(property);
+      string xsdTypeName = MagickScriptTypes.GetXsdAttributeType(property);
 
       if (xsdTypeName != null)
       {

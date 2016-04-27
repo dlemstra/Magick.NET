@@ -13,7 +13,6 @@
 //=================================================================================================
 
 using System.Diagnostics.CodeAnalysis;
-using ImageMagick.Drawables;
 
 namespace ImageMagick
 {

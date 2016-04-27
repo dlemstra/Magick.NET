@@ -34,7 +34,7 @@ namespace FileGenerator.MagickScript
 
     private void WriteAttributeForEach(ParameterInfo[] allParameters)
     {
-      ParameterInfo[] parameters = allParameters.Where(p => MagickTypes.GetXsdAttributeType(p) != null).ToArray();
+      ParameterInfo[] parameters = allParameters.Where(p => MagickScriptTypes.GetXsdAttributeType(p) != null).ToArray();
       if (parameters.Length == 0)
         return;
 
@@ -53,7 +53,7 @@ namespace FileGenerator.MagickScript
       {
         for (int i = 0; i < parameters.Length; i++)
         {
-          string xsdName = MagickTypes.GetXsdName(parameters[i]);
+          string xsdName = MagickScriptTypes.GetXsdName(parameters[i]);
 
           if (i > 0)
             Write("else ");
@@ -108,7 +108,7 @@ namespace FileGenerator.MagickScript
 
     private void WriteElementForEach(ParameterInfo[] allParameters)
     {
-      ParameterInfo[] parameters = allParameters.Where(p => MagickTypes.GetXsdAttributeType(p) == null).ToArray();
+      ParameterInfo[] parameters = allParameters.Where(p => MagickScriptTypes.GetXsdAttributeType(p) == null).ToArray();
       if (parameters.Length == 0)
         return;
 
@@ -125,7 +125,7 @@ namespace FileGenerator.MagickScript
       {
         for (int i = 0; i < parameters.Length; i++)
         {
-          string xsdName = MagickTypes.GetXsdName(parameters[i]);
+          string xsdName = MagickScriptTypes.GetXsdName(parameters[i]);
 
           if (i > 0)
             Write("else ");
@@ -158,7 +158,7 @@ namespace FileGenerator.MagickScript
     private void WriteGetValue(ParameterInfo parameter)
     {
       string typeName = GetName(parameter);
-      string xsdTypeName = MagickTypes.GetXsdAttributeType(parameter);
+      string xsdTypeName = MagickScriptTypes.GetXsdAttributeType(parameter);
 
       if (xsdTypeName != null)
       {
@@ -177,7 +177,7 @@ namespace FileGenerator.MagickScript
     {
       WriteLine("else");
       Indent++;
-      Write("throw new ArgumentException(\"Invalid argument combination for '" + MagickTypes.GetXsdName(methods[0]) + "', allowed combinations are:");
+      Write("throw new ArgumentException(\"Invalid argument combination for '" + MagickScriptTypes.GetXsdName(methods[0]) + "', allowed combinations are:");
       foreach (MethodBase method in methods)
       {
         Write(" [");
@@ -219,7 +219,7 @@ namespace FileGenerator.MagickScript
     {
     }
 
-    protected MagickTypes Types
+    protected MagickScriptTypes Types
     {
       get;
       private set;
@@ -227,7 +227,7 @@ namespace FileGenerator.MagickScript
 
     protected static string GetName(MemberInfo member)
     {
-      return MagickTypes.GetName(member);
+      return MagickScriptTypes.GetName(member);
     }
 
     protected string GetName(ParameterInfo parameterInfo)
@@ -443,7 +443,7 @@ namespace FileGenerator.MagickScript
       get;
     }
 
-    public void Write(MagickTypes types)
+    public void Write(MagickScriptTypes types)
     {
       Types = types;
 
@@ -455,7 +455,7 @@ namespace FileGenerator.MagickScript
       WriteEnd();
     }
 
-    public void WriteCode(MagickTypes types)
+    public void WriteCode(MagickScriptTypes types)
     {
       Types = types;
       WriteCode();

@@ -16,7 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ImageMagick.Drawables
+namespace ImageMagick
 {
   internal abstract class DrawableCoordinates<TCoordinateType>
   {
