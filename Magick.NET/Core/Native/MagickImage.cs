@@ -290,8 +290,6 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_Composite(IntPtr Instance, IntPtr image, IntPtr x, IntPtr y, UIntPtr compose, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickImage_CompositeGeometry(IntPtr Instance, IntPtr image, IntPtr geometry, UIntPtr compose, out IntPtr exception);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_CompositeGravity(IntPtr Instance, IntPtr image, UIntPtr gravity, UIntPtr compose, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_ConnectedComponents(IntPtr Instance, UIntPtr connectivity, out IntPtr objects, out IntPtr exception);
@@ -826,8 +824,6 @@ namespace ImageMagick
         public static extern double MagickImage_CompareDistortion(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_Composite(IntPtr Instance, IntPtr image, IntPtr x, IntPtr y, UIntPtr compose, out IntPtr exception);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickImage_CompositeGeometry(IntPtr Instance, IntPtr image, IntPtr geometry, UIntPtr compose, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_CompositeGravity(IntPtr Instance, IntPtr image, UIntPtr gravity, UIntPtr compose, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -2479,18 +2475,6 @@ namespace ImageMagick
         else
           NativeMethods.X86.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, out exception);
         CheckException(exception);
-      }
-      public void CompositeGeometry(MagickImage image, string geometry, CompositeOperator compose)
-      {
-        using (INativeInstance geometryNative = UTF8Marshaler.CreateInstance(geometry))
-        {
-          IntPtr exception = IntPtr.Zero;
-          if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_CompositeGeometry(Instance, MagickImage.GetInstance(image), geometryNative.Instance, (UIntPtr)compose, out exception);
-          else
-            NativeMethods.X86.MagickImage_CompositeGeometry(Instance, MagickImage.GetInstance(image), geometryNative.Instance, (UIntPtr)compose, out exception);
-          CheckException(exception);
-        }
       }
       public void CompositeGravity(MagickImage image, Gravity gravity, CompositeOperator compose)
       {

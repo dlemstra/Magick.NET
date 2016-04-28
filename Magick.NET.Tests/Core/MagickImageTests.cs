@@ -1010,6 +1010,29 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_Composite_Copy()
+    {
+      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      {
+        using (MagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+        {
+          image.Composite(yellow, new PointD(50, 50), CompositeOperator.Copy);
+
+          ColorAssert.AreEqual(MagickColors.White, image, 49, 49);
+          ColorAssert.AreEqual(MagickColors.Yellow, image, 50, 50);
+          ColorAssert.AreEqual(MagickColors.Yellow, image, 149, 149);
+          ColorAssert.AreEqual(MagickColors.White, image, 150, 150);
+
+          image.Composite(yellow, 100, 100, CompositeOperator.Copy);
+
+          ColorAssert.AreEqual(MagickColors.Yellow, image, 150, 150);
+          ColorAssert.AreEqual(MagickColors.Yellow, image, 199, 109);
+          ColorAssert.AreEqual(MagickColors.White, image, 200, 200);
+        }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_Composite_Gravity()
     {
       MagickColor backgroundColor = MagickColors.LightBlue;

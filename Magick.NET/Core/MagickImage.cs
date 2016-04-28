@@ -2464,7 +2464,7 @@ namespace ImageMagick
     ///<param name="image">The image to composite with this image.</param>
     ///<param name="offset">The offset from origin.</param>
     ///<exception cref="MagickException"/>
-    public void Composite(MagickImage image, MagickGeometry offset)
+    public void Composite(MagickImage image, PointD offset)
     {
       Composite(image, offset, CompositeOperator.In);
     }
@@ -2476,7 +2476,7 @@ namespace ImageMagick
     ///<param name="offset">The offset from origin.</param>
     ///<param name="compose">The algorithm to use.</param>
     ///<exception cref="MagickException"/>
-    public void Composite(MagickImage image, MagickGeometry offset, CompositeOperator compose)
+    public void Composite(MagickImage image, PointD offset, CompositeOperator compose)
     {
       Composite(image, offset, compose, null);
     }
@@ -2489,13 +2489,9 @@ namespace ImageMagick
     ///<param name="compose">The algorithm to use.</param>
     ///<param name="args">The arguments for the algorithm (compose:args).</param>
     ///<exception cref="MagickException"/>
-    public void Composite(MagickImage image, MagickGeometry offset, CompositeOperator compose, string args)
+    public void Composite(MagickImage image, PointD offset, CompositeOperator compose, string args)
     {
-      Throw.IfNull("image", image);
-      Throw.IfNull("offset", offset);
-
-      _NativeInstance.SetArtifact("compose:args", args);
-      _NativeInstance.CompositeGeometry(image, MagickGeometry.ToString(offset), compose);
+      Composite(image, (int)offset.X, (int)offset.Y, compose, args);
     }
 
     ///<summary>

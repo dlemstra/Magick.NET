@@ -841,7 +841,6 @@
           <xs:enumeration value="Png8" />
           <xs:enumeration value="Pnm" />
           <xs:enumeration value="Ppm" />
-          <xs:enumeration value="Preview" />
           <xs:enumeration value="Ps" />
           <xs:enumeration value="Ps2" />
           <xs:enumeration value="Ps3" />
@@ -2183,7 +2182,7 @@
             <xs:attribute name="args" type="xs:string" />
             <xs:attribute name="compose" type="CompositeOperator" />
             <xs:attribute name="gravity" type="Gravity" />
-            <xs:attribute name="offset" type="geometry" />
+            <xs:attribute name="offset" type="pointd" />
             <xs:attribute name="x" type="int" />
             <xs:attribute name="y" type="int" />
           </xs:complexType>

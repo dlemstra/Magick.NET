@@ -827,25 +827,6 @@
       ]
     },
     {
-      "name": "CompositeGeometry",
-      "throws": true,
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "MagickImage"
-        },
-        {
-          "name": "geometry",
-          "type": "string"
-        },
-        {
-          "name": "compose",
-          "type": "CompositeOperator"
-        }
-      ]
-    },
-    {
       "name": "CompositeGravity",
       "throws": true,
       "arguments":

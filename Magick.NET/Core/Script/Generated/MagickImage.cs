@@ -2105,7 +2105,7 @@ namespace ImageMagick
         else if (attribute.Name == "gravity")
           arguments["gravity"] = Variables.GetValue<Gravity>(attribute);
         else if (attribute.Name == "offset")
-          arguments["offset"] = Variables.GetValue<MagickGeometry>(attribute);
+          arguments["offset"] = Variables.GetValue<PointD>(attribute);
         else if (attribute.Name == "x")
           arguments["x"] = Variables.GetValue<Int32>(attribute);
         else if (attribute.Name == "y")
@@ -2126,11 +2126,11 @@ namespace ImageMagick
       else if (OnlyContains(arguments, "image", "gravity", "compose", "args"))
         image.Composite((MagickImage)arguments["image"], (Gravity)arguments["gravity"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
       else if (OnlyContains(arguments, "image", "offset"))
-        image.Composite((MagickImage)arguments["image"], (MagickGeometry)arguments["offset"]);
+        image.Composite((MagickImage)arguments["image"], (PointD)arguments["offset"]);
       else if (OnlyContains(arguments, "image", "offset", "compose"))
-        image.Composite((MagickImage)arguments["image"], (MagickGeometry)arguments["offset"], (CompositeOperator)arguments["compose"]);
+        image.Composite((MagickImage)arguments["image"], (PointD)arguments["offset"], (CompositeOperator)arguments["compose"]);
       else if (OnlyContains(arguments, "image", "offset", "compose", "args"))
-        image.Composite((MagickImage)arguments["image"], (MagickGeometry)arguments["offset"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
+        image.Composite((MagickImage)arguments["image"], (PointD)arguments["offset"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
       else if (OnlyContains(arguments, "image", "x", "y"))
         image.Composite((MagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"]);
       else if (OnlyContains(arguments, "image", "x", "y", "compose"))

@@ -1025,22 +1025,6 @@ MAGICK_NET_EXPORT void MagickImage_Composite(Image *instance, const Image *refer
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT void MagickImage_CompositeGeometry(Image *instance, const Image *reference, const char *geometry, const size_t compose, ExceptionInfo **exception)
-{
-  size_t
-    height,
-    width;
-
-  ssize_t
-    x = 0,
-    y = 0;
-
-  width = instance->columns;
-  height = instance->rows;
-  ParseMetaGeometry(geometry, &x, &y, &width, &height);
-  MagickImage_Composite(instance, reference, x, y, compose, exception);
-}
-
 MAGICK_NET_EXPORT void MagickImage_CompositeGravity(Image *instance, const Image *reference, const size_t gravity, const size_t compose, ExceptionInfo **exception)
 {
   RectangleInfo
