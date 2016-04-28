@@ -793,6 +793,17 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Returns the value of a format-specific option.
+    ///</summary>
+    ///<param name="name">The name of the option.</param>
+    public string GetDefine(string name)
+    {
+      Throw.IfNullOrEmpty("name", name);
+
+      return GetOption(name);
+    }
+
+    ///<summary>
     /// Removes the define with the specified name.
     ///</summary>
     ///<param name="format">The format to set the define for.</param>
@@ -804,6 +815,18 @@ namespace ImageMagick
       string key = ParseDefine(format, name);
       if (_Options.ContainsKey(key))
         _Options.Remove(key);
+    }
+
+    ///<summary>
+    /// Removes the define with the specified name.
+    ///</summary>
+    ///<param name="name">The name of the define.</param>
+    public void RemoveDefine(string name)
+    {
+      Throw.IfNullOrEmpty("name", name);
+
+      if (_Options.ContainsKey(name))
+        _Options.Remove(name);
     }
 
     ///<summary>
@@ -830,6 +853,19 @@ namespace ImageMagick
       Throw.IfNull("value", value);
 
       SetOption(ParseDefine(format, name), value);
+    }
+
+    ///<summary>
+    /// Sets a format-specific option.
+    ///</summary>
+    ///<param name="name">The name of the option.</param>
+    ///<param name="value">The value of the option.</param>
+    public void SetDefine(string name, string value)
+    {
+      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNull("value", value);
+
+      SetOption(name, value);
     }
 
     ///<summary>

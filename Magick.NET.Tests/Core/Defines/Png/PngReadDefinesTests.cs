@@ -75,7 +75,7 @@ namespace Magick.NET.Tests
         image.Read(Files.FujiFilmFinePixS1ProPNG, settings);
         Assert.IsNull(image.GetExifProfile());
         Assert.IsNull(image.GetXmpProfile());
-        Assert.AreEqual("Exif,Xmp", image.Settings.GetDefine(MagickFormat.Unknown, "profile:skip"));
+        Assert.AreEqual("Exif,Xmp", image.Settings.GetDefine("profile:skip"));
       }
     }
   }

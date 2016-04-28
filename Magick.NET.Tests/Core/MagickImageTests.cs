@@ -1310,8 +1310,8 @@ namespace Magick.NET.Tests
         image.Settings.RemoveDefine(MagickFormat.Jpg, option);
         Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, option));
 
-        image.Settings.SetDefine(MagickFormat.Unknown, "profile:skip", "ICC");
-        Assert.AreEqual("ICC", image.Settings.GetDefine(MagickFormat.Unknown, "profile:skip"));
+        image.Settings.SetDefine("profile:skip", "ICC");
+        Assert.AreEqual("ICC", image.Settings.GetDefine("profile:skip"));
       }
     }
 

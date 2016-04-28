@@ -22,6 +22,16 @@ namespace ImageMagick
     /// <summary>
     /// Initializes a new instance of the MagickDefine class.
     /// </summary>
+    public MagickDefine(string name, string value)
+    {
+      Format = MagickFormat.Unknown;
+      Name = name;
+      Value = value;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the MagickDefine class.
+    /// </summary>
     public MagickDefine(MagickFormat format, string name, string value)
     {
       Format = format;

@@ -87,7 +87,7 @@ namespace Magick.NET.Tests
 
         image.Read(Files.FujiFilmFinePixS1ProJPG, settings);
         Assert.IsNull(image.GetIptcProfile());
-        Assert.AreEqual("Icc,Iptc", image.Settings.GetDefine(MagickFormat.Unknown, "profile:skip"));
+        Assert.AreEqual("Icc,Iptc", image.Settings.GetDefine("profile:skip"));
       }
     }
   }

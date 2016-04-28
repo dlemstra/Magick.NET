@@ -77,7 +77,7 @@ namespace ImageMagick
           string value = EnumHelper.ConvertFlags(SkipProfiles.Value);
 
           if (!string.IsNullOrEmpty(value))
-            yield return new MagickDefine(MagickFormat.Unknown, "profile:skip", value);
+            yield return new MagickDefine("profile:skip", value);
         }
 
         if (SwapBytes)
