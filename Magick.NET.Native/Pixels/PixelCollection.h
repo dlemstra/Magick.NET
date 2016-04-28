@@ -22,3 +22,5 @@ MAGICK_NET_EXPORT const Quantum *PixelCollection_GetArea(const CacheView *, cons
 MAGICK_NET_EXPORT void PixelCollection_SetArea(CacheView *, const size_t, const size_t, const size_t, const size_t, const Quantum *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT unsigned char *PixelCollection_ToByteArray(const CacheView *, const size_t, const size_t, const size_t, const size_t, const char *, ExceptionInfo **);
+
+MAGICK_NET_EXPORT unsigned short *PixelCollection_ToShortArray(const CacheView *, const size_t, const size_t, const size_t, const size_t, const char *, ExceptionInfo **);

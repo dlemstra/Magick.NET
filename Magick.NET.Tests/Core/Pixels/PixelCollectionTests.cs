@@ -342,5 +342,23 @@ namespace Magick.NET.Tests
         }
       }
     }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ToShortArray()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
+      {
+        using (PixelCollection pixels = image.GetPixels())
+        {
+          var shorts = pixels.ToShortArray(0, 0, 1, 1, "BGR");
+          Assert.AreEqual(3, shorts.Length);
+          CollectionAssert.AreEqual(new ushort[] { 0, 0, 65535 }, shorts);
+
+          shorts = pixels.ToShortArray(0, 0, 1, 1, "BG");
+          Assert.AreEqual(2, shorts.Length);
+          CollectionAssert.AreEqual(new ushort[] { 0, 0 }, shorts);
+        }
+      }
+    }
   }
 }

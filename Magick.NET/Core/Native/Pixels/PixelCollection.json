@@ -98,6 +98,38 @@
           "type": "string"
         }
       ]
+    },
+    {
+      "name": "ToShortArray",
+      "type": "Instance",
+      "throws": "true",
+      "cleanup":
+      {
+        "name": "MagickMemory.Relinquish"
+      },
+      "arguments":
+      [
+        {
+          "name": "x",
+          "type": "size_t"
+        },
+        {
+          "name": "y",
+          "type": "size_t"
+        },
+        {
+          "name": "width",
+          "type": "size_t"
+        },
+        {
+          "name": "height",
+          "type": "size_t"
+        },
+        {
+          "name": "mapping",
+          "type": "string"
+        }
+      ]
     }
   ]
 }
