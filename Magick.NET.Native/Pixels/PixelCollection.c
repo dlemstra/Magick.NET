@@ -20,7 +20,7 @@
     *result; \
   size_t \
     length; \
-  length = width*height*strlen(mapping)
+  length = width*height*strlen(mapping)*sizeof(type);
 
 MAGICK_NET_EXPORT CacheView *PixelCollection_Create(const Image *image, ExceptionInfo **exception)
 {
