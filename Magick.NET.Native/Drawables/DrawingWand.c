@@ -30,7 +30,7 @@
 static inline ExceptionInfo *DrawingWand_DestroyException(DrawingWand *instance)
 {
   if (DrawGetExceptionType(instance) == UndefinedException)
-    return (ExceptionInfo *)NULL;
+    return (ExceptionInfo *) NULL;
 
   return DrawCloneExceptionInfo(instance);
 }
@@ -63,7 +63,7 @@ MAGICK_NET_EXPORT void DrawingWand_Affine(DrawingWand *instance, const double sc
 
 MAGICK_NET_EXPORT void DrawingWand_Alpha(DrawingWand *instance, const double x, const double y, const size_t paintMethod, ExceptionInfo **exception)
 {
-  DrawAlpha(instance, x, y, (const PaintMethod)paintMethod);
+  DrawAlpha(instance, x, y, (const PaintMethod) paintMethod);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
@@ -101,19 +101,19 @@ MAGICK_NET_EXPORT void DrawingWand_ClipPath(DrawingWand *instance, const char *v
 
 MAGICK_NET_EXPORT void DrawingWand_ClipRule(DrawingWand *instance, const size_t value, ExceptionInfo **exception)
 {
-  DrawSetClipRule(instance, (const FillRule)value);
+  DrawSetClipRule(instance, (const FillRule) value);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
 MAGICK_NET_EXPORT void DrawingWand_ClipUnits(DrawingWand *instance, const size_t value, ExceptionInfo **exception)
 {
-  DrawSetClipUnits(instance, (const ClipPathUnits)value);
+  DrawSetClipUnits(instance, (const ClipPathUnits) value);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
 MAGICK_NET_EXPORT void DrawingWand_Color(DrawingWand *instance, const double x, const double y, const size_t paintMethod, ExceptionInfo **exception)
 {
-  DrawColor(instance, x, y, (const PaintMethod)paintMethod);
+  DrawColor(instance, x, y, (const PaintMethod) paintMethod);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
@@ -123,7 +123,7 @@ MAGICK_NET_EXPORT void DrawingWand_Composite(DrawingWand *instance, const double
     *magick_wand;
 
   magick_wand = NewMagickWandFromImage(image);
-  DrawComposite(instance, (const CompositeOperator)compositeOperator, x, y, width, height, magick_wand);
+  DrawComposite(instance, (const CompositeOperator) compositeOperator, x, y, width, height, magick_wand);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
@@ -161,14 +161,14 @@ MAGICK_NET_EXPORT void DrawingWand_FillPatternUrl(DrawingWand *instance, const c
 
 MAGICK_NET_EXPORT void DrawingWand_FillRule(DrawingWand *instance, const size_t value, ExceptionInfo **exception)
 {
-  DrawSetFillRule(instance, (const FillRule)value);
+  DrawSetFillRule(instance, (const FillRule) value);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
 MAGICK_NET_EXPORT void DrawingWand_Font(DrawingWand *instance, const char *family, const size_t style, const size_t weight, const size_t stretch, ExceptionInfo **exception)
 {
   DrawSetFontFamily(instance, family);
-  DrawSetFontStyle(instance, (const StyleType)style);
+  DrawSetFontStyle(instance, (const StyleType) style);
   DrawSetFontWeight(instance, weight);
   DrawSetFontStretch(instance, stretch);
   MAGICK_NET_SET_DRAW_EXCEPTION;
@@ -182,7 +182,7 @@ MAGICK_NET_EXPORT void DrawingWand_FontPointSize(DrawingWand *instance, const do
 
 MAGICK_NET_EXPORT void DrawingWand_Gravity(DrawingWand *instance, const size_t value, ExceptionInfo **exception)
 {
-  DrawSetGravity(instance, (const GravityType)value);
+  DrawSetGravity(instance, (const GravityType) value);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
@@ -444,13 +444,13 @@ MAGICK_NET_EXPORT void DrawingWand_StrokeDashOffset(DrawingWand *instance, const
 
 MAGICK_NET_EXPORT void DrawingWand_StrokeLineCap(DrawingWand *instance, const size_t value, ExceptionInfo **exception)
 {
-  DrawSetStrokeLineCap(instance, (const LineCap)value);
+  DrawSetStrokeLineCap(instance, (const LineCap) value);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
 MAGICK_NET_EXPORT void DrawingWand_StrokeLineJoin(DrawingWand *instance, const size_t value, ExceptionInfo **exception)
 {
-  DrawSetStrokeLineJoin(instance, (const LineJoin)value);
+  DrawSetStrokeLineJoin(instance, (const LineJoin) value);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
@@ -486,7 +486,7 @@ MAGICK_NET_EXPORT void DrawingWand_Text(DrawingWand *instance, const double x, c
 
 MAGICK_NET_EXPORT void DrawingWand_TextAlignment(DrawingWand *instance, const size_t value, ExceptionInfo **exception)
 {
-  DrawSetTextAlignment(instance, (const AlignType)value);
+  DrawSetTextAlignment(instance, (const AlignType) value);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
@@ -498,13 +498,13 @@ MAGICK_NET_EXPORT void DrawingWand_TextAntialias(DrawingWand *instance, MagickBo
 
 MAGICK_NET_EXPORT void DrawingWand_TextDecoration(DrawingWand *instance, const size_t value, ExceptionInfo **exception)
 {
-  DrawSetTextDecoration(instance, (const DecorationType)value);
+  DrawSetTextDecoration(instance, (const DecorationType) value);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
 MAGICK_NET_EXPORT void DrawingWand_TextDirection(DrawingWand *instance, const size_t value, ExceptionInfo **exception)
 {
-  DrawSetTextDirection(instance, (const DirectionType)value);
+  DrawSetTextDirection(instance, (const DirectionType) value);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
