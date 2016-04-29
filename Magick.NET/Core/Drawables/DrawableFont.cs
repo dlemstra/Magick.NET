@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
+
 namespace ImageMagick
 {
   ///<summary>
@@ -19,10 +21,23 @@ namespace ImageMagick
   ///</summary>
   public sealed class DrawableFont : IDrawable
   {
+    private static readonly string[] _FontExtensions = new string[] { ".ttf", ".tcc", ".pfb", ".pfm", ".otf" };
+
     void IDrawable.Draw(IDrawingWand wand)
     {
-      if (wand != null)
-        wand.Font(Family, Style, Weight, Stretch);
+      if (wand == null)
+        return;
+
+      foreach (string extension in _FontExtensions)
+      {
+        if (Family.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
+        {
+          wand.Font(Family);
+          return;
+        }
+      }
+
+      wand.FontFamily(Family, Style, Weight, Stretch);
     }
 
     ///<summary>

@@ -321,6 +321,17 @@
       "arguments":
       [
         {
+          "name": "fontName",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "FontFamily",
+      "throws": true,
+      "arguments":
+      [
+        {
           "name": "family",
           "type": "string"
         },

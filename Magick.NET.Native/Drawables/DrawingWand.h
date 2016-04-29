@@ -51,7 +51,9 @@ MAGICK_NET_EXPORT void DrawingWand_FillPatternUrl(DrawingWand *, const char *, E
 
 MAGICK_NET_EXPORT void DrawingWand_FillRule(DrawingWand *, const size_t, ExceptionInfo **);
 
-MAGICK_NET_EXPORT void DrawingWand_Font(DrawingWand *, const char *, const size_t, const size_t, const size_t, ExceptionInfo **);
+MAGICK_NET_EXPORT void DrawingWand_Font(DrawingWand *, const char *, ExceptionInfo **);
+
+MAGICK_NET_EXPORT void DrawingWand_FontFamily(DrawingWand *, const char *, const size_t, const size_t, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void DrawingWand_FontPointSize(DrawingWand *, const double, ExceptionInfo **);
 

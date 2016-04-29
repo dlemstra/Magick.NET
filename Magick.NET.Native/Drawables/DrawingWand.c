@@ -165,7 +165,13 @@ MAGICK_NET_EXPORT void DrawingWand_FillRule(DrawingWand *instance, const size_t 
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT void DrawingWand_Font(DrawingWand *instance, const char *family, const size_t style, const size_t weight, const size_t stretch, ExceptionInfo **exception)
+MAGICK_NET_EXPORT void DrawingWand_Font(DrawingWand *instance, const char *fontName, ExceptionInfo **exception)
+{
+  DrawSetFont(instance, fontName);
+  MAGICK_NET_SET_DRAW_EXCEPTION;
+}
+
+MAGICK_NET_EXPORT void DrawingWand_FontFamily(DrawingWand *instance, const char *family, const size_t style, const size_t weight, const size_t stretch, ExceptionInfo **exception)
 {
   DrawSetFontFamily(instance, family);
   DrawSetFontStyle(instance, (const StyleType) style);

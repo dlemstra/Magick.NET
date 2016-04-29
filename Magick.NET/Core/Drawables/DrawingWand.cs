@@ -129,9 +129,14 @@ namespace ImageMagick
       _NativeInstance.FillRule(value);
     }
 
-    public void Font(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
+    public void Font(string fontName)
     {
-      _NativeInstance.Font(family, style, weight, stretch);
+      _NativeInstance.Font(fontName);
+    }
+
+    public void FontFamily(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
+    {
+      _NativeInstance.FontFamily(family, style, weight, stretch);
     }
 
     public void FontPointSize(double value)

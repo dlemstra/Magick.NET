@@ -43,7 +43,8 @@ namespace ImageMagick
     [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#")]
     void FillPatternUrl(string url);
     void FillRule(FillRule value);
-    void Font(string family, FontStyleType style, FontWeight weight, FontStretch stretch);
+    void Font(string fontName);
+    void FontFamily(string family, FontStyleType style, FontWeight weight, FontStretch stretch);
     void FontPointSize(double value);
     void Gravity(Gravity value);
     void Line(double startX, double startY, double endX, double endY);

@@ -75,7 +75,9 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingWand_FillRule(IntPtr Instance, UIntPtr value, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingWand_Font(IntPtr Instance, IntPtr family, UIntPtr style, UIntPtr weight, UIntPtr stretch, out IntPtr exception);
+        public static extern void DrawingWand_Font(IntPtr Instance, IntPtr fontName, out IntPtr exception);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DrawingWand_FontFamily(IntPtr Instance, IntPtr family, UIntPtr style, UIntPtr weight, UIntPtr stretch, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingWand_FontPointSize(IntPtr Instance, double value, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -244,7 +246,9 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingWand_FillRule(IntPtr Instance, UIntPtr value, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingWand_Font(IntPtr Instance, IntPtr family, UIntPtr style, UIntPtr weight, UIntPtr stretch, out IntPtr exception);
+        public static extern void DrawingWand_Font(IntPtr Instance, IntPtr fontName, out IntPtr exception);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DrawingWand_FontFamily(IntPtr Instance, IntPtr family, UIntPtr style, UIntPtr weight, UIntPtr stretch, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingWand_FontPointSize(IntPtr Instance, double value, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -581,15 +585,27 @@ namespace ImageMagick
           NativeMethods.X86.DrawingWand_FillRule(Instance, (UIntPtr)value, out exception);
         CheckException(exception);
       }
-      public void Font(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
+      public void Font(string fontName)
+      {
+        using (INativeInstance fontNameNative = UTF8Marshaler.CreateInstance(fontName))
+        {
+          IntPtr exception = IntPtr.Zero;
+          if (NativeLibrary.Is64Bit)
+            NativeMethods.X64.DrawingWand_Font(Instance, fontNameNative.Instance, out exception);
+          else
+            NativeMethods.X86.DrawingWand_Font(Instance, fontNameNative.Instance, out exception);
+          CheckException(exception);
+        }
+      }
+      public void FontFamily(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
       {
         using (INativeInstance familyNative = UTF8Marshaler.CreateInstance(family))
         {
           IntPtr exception = IntPtr.Zero;
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.DrawingWand_Font(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
+            NativeMethods.X64.DrawingWand_FontFamily(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
           else
-            NativeMethods.X86.DrawingWand_Font(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
+            NativeMethods.X86.DrawingWand_FontFamily(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
           CheckException(exception);
         }
       }

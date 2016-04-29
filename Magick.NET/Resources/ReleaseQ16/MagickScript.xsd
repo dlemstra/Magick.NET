@@ -1530,14 +1530,14 @@
               </xs:element>
               <xs:element name="removeDefine">
                 <xs:complexType>
-                  <xs:attribute name="format" use="required" type="MagickFormat" />
+                  <xs:attribute name="format" type="MagickFormat" />
                   <xs:attribute name="name" use="required" type="xs:string" />
                 </xs:complexType>
               </xs:element>
               <xs:element name="setDefine">
                 <xs:complexType>
                   <xs:attribute name="flag" type="bool" />
-                  <xs:attribute name="format" use="required" type="MagickFormat" />
+                  <xs:attribute name="format" type="MagickFormat" />
                   <xs:attribute name="name" use="required" type="xs:string" />
                   <xs:attribute name="value" type="xs:string" />
                 </xs:complexType>
@@ -1738,14 +1738,14 @@
         </xs:element>
         <xs:element name="removeDefine">
           <xs:complexType>
-            <xs:attribute name="format" use="required" type="MagickFormat" />
+            <xs:attribute name="format" type="MagickFormat" />
             <xs:attribute name="name" use="required" type="xs:string" />
           </xs:complexType>
         </xs:element>
         <xs:element name="setDefine">
           <xs:complexType>
             <xs:attribute name="flag" type="bool" />
-            <xs:attribute name="format" use="required" type="MagickFormat" />
+            <xs:attribute name="format" type="MagickFormat" />
             <xs:attribute name="name" use="required" type="xs:string" />
             <xs:attribute name="value" type="xs:string" />
           </xs:complexType>

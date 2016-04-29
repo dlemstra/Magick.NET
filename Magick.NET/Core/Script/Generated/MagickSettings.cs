@@ -486,9 +486,20 @@ namespace ImageMagick
     }
     private void ExecuteRemoveDefine(XmlElement element, MagickSettings settings)
     {
-      MagickFormat format_ = Variables.GetValue<MagickFormat>(element, "format");
-      String name_ = Variables.GetValue<String>(element, "name");
-      settings.RemoveDefine(format_, name_);
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        if (attribute.Name == "format")
+          arguments["format"] = Variables.GetValue<MagickFormat>(attribute);
+        else if (attribute.Name == "name")
+          arguments["name"] = Variables.GetValue<String>(attribute);
+      }
+      if (OnlyContains(arguments, "format", "name"))
+        settings.RemoveDefine((MagickFormat)arguments["format"], (String)arguments["name"]);
+      else if (OnlyContains(arguments, "name"))
+        settings.RemoveDefine((String)arguments["name"]);
+      else
+        throw new ArgumentException("Invalid argument combination for 'removeDefine', allowed combinations are: [format, name] [name]");
     }
     private void ExecuteSetDefine(XmlElement element, MagickSettings settings)
     {
@@ -508,8 +519,10 @@ namespace ImageMagick
         settings.SetDefine((MagickFormat)arguments["format"], (String)arguments["name"], (Boolean)arguments["flag"]);
       else if (OnlyContains(arguments, "format", "name", "value"))
         settings.SetDefine((MagickFormat)arguments["format"], (String)arguments["name"], (String)arguments["value"]);
+      else if (OnlyContains(arguments, "name", "value"))
+        settings.SetDefine((String)arguments["name"], (String)arguments["value"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'setDefine', allowed combinations are: [format, name, flag] [format, name, value]");
+        throw new ArgumentException("Invalid argument combination for 'setDefine', allowed combinations are: [format, name, flag] [format, name, value] [name, value]");
     }
     private void ExecuteSetDefines(XmlElement element, MagickSettings settings)
     {
