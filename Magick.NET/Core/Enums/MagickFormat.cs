@@ -305,6 +305,11 @@ namespace ImageMagick
     Fits,
 
     ///<summary>
+    /// Free Lossless Image Format
+    ///</summary>
+    Flif,
+
+    ///<summary>
     /// Plasma fractal image
     ///</summary>
     Fractal,

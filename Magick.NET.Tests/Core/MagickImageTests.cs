@@ -1609,9 +1609,9 @@ namespace Magick.NET.Tests
         });
 
         Assert.AreEqual("FOO", image.FormatExpression("FOO"));
-        Assert.AreEqual("OO", image.FormatExpression("%FOO"));
+        Assert.AreEqual("OO", image.FormatExpression("%EOO"));
         image.Warning += ShouldRaiseWarning;
-        Assert.AreEqual("OO", image.FormatExpression("%FOO"));
+        Assert.AreEqual("OO", image.FormatExpression("%EOO"));
         image.Warning -= ShouldRaiseWarning;
 
         Assert.AreEqual("a48a7f2fdc26e9ccf75b0c85a254c958f004cc182d0ca8c3060c1df734645367", image.FormatExpression("%#"));

@@ -57,6 +57,10 @@ MAGICKNET_LINK_LIB("exr")
 MAGICKNET_LINK_LIB("ffi")
 #endif
 
+#if defined(MAGICKCORE_FLIF_DELEGATE)
+MAGICKNET_LINK_LIB("flif")
+#endif
+
 #if defined(MAGICKCORE_LQR_DELEGATE)
 MAGICKNET_LINK_LIB("glib")
 #pragma comment(lib, "winmm.lib")

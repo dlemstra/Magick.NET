@@ -87,6 +87,11 @@
 #define MAGICKCORE_OPENEXR_DELEGATE
 
 /*
+  Define to use the FLIF library
+*/
+#define MAGICKCORE_FLIF_DELEGATE
+
+/*
   Define to use the Jasper JPEG v2 library
 */
 #define MAGICKCORE_JP2_DELEGATE
