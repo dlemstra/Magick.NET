@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -36,6 +37,21 @@ namespace ImageMagick
     private Pixel(PixelCollection collection)
     {
       _Collection = collection;
+    }
+
+    private QuantumType[] GetValueWithoutIndexChannel()
+    {
+      if (_Collection == null)
+        return Value;
+
+      int index = _Collection.GetIndex(PixelChannel.Index);
+      if (index == -1)
+        return Value;
+
+      List<QuantumType> newValue = new List<QuantumType>(Value);
+      newValue.RemoveAt(index);
+
+      return newValue.ToArray();
     }
 
     private void Initialize(int x, int y, QuantumType[] value)
@@ -264,19 +280,21 @@ namespace ImageMagick
     ///</summary>
     public MagickColor ToColor()
     {
-      if (Value.Length == 0)
+      QuantumType[] value = GetValueWithoutIndexChannel();
+
+      if (value.Length == 0)
         return null;
 
-      if (Value.Length == 1)
-        return new MagickColor(Value[0], Value[0], Value[0]);
+      if (value.Length == 1)
+        return new MagickColor(value[0], value[0], value[0]);
 
-      if (Value.Length == 2)
-        return new MagickColor(Value[0], Value[0], Value[0], Value[1]);
+      if (value.Length == 2)
+        return new MagickColor(value[0], value[0], value[0], value[1]);
 
-      if (Value.Length == 3 || (_Collection != null && _Collection.GetIndex(PixelChannel.Alpha) == -1))
-        return new MagickColor(Value[0], Value[1], Value[2]);
+      if (value.Length == 3 || (_Collection != null && _Collection.GetIndex(PixelChannel.Alpha) == -1))
+        return new MagickColor(value[0], value[1], value[2]);
 
-      return new MagickColor(Value[0], Value[1], Value[2], Value[3]);
+      return new MagickColor(value[0], value[1], value[2], value[3]);
     }
   }
 }
