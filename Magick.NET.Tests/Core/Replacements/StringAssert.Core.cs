@@ -12,7 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
-namespace Magick.NET.Tests
+namespace Microsoft.VisualStudio.TestTools.UnitTesting
 {
   public static class StringAssert
   {

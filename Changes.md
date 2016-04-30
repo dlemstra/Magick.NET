@@ -1,6 +1,6 @@
 # Breaking changes.
 
-### Magick.NET 7.0.0.105:
+### Magick.NET 7.0.1.0:
  - Moved MagickNET.UseOpenCL and SetOpenCLCacheDirectory to the new OpenCL class.
  - Changed MagickGeometry argument of MagickImage.Composite to a PointD.
 

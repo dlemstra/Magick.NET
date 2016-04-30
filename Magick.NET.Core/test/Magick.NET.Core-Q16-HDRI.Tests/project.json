@@ -17,7 +17,7 @@
   },
   "dependencies":
   {
-    "Magick.NET.Core-Q16-HDRI": "7.0.0.0104",
+    "Magick.NET.Core-Q16-HDRI": "7.0.1.0",
     "Microsoft.CSharp": "4.0.1-*",
     "xunit": "2.2.0-beta1-build3239",
     "xunit.runner.dnx": "2.1.0-rc1-build204"

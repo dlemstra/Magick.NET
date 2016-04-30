@@ -1,5 +1,5 @@
 {
-  "version": "7.0.0.0104",
+  "version": "7.0.1.0",
   "title": "Magick.NET.Core-Q8",
   "authors":
   [
@@ -42,7 +42,7 @@
   ],
   "dependencies":
   {
-    "Magick.NET.Core-Q8.Native": "7.0.0.0104",
+    "Magick.NET.Core-Q8.Native": "7.0.1.0",
     "Microsoft.CSharp": "4.0.1-*",
     "System.Collections.NonGeneric": "4.0.0",
     "System.IO.FileSystem": "4.0.1-*",

@@ -14,7 +14,7 @@
 
 using System.Collections;
 
-namespace Magick.NET.Tests
+namespace Microsoft.VisualStudio.TestTools.UnitTesting
 {
   public static class CollectionAssert
   {

@@ -24,7 +24,7 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Microsoft.VisualStudio.TestTools.UnitTesting
 {
   public static class Assert
   {
