@@ -67,7 +67,7 @@ namespace ImageMagick
           return null;
 
         QuantumType[] pixel = new QuantumType[_Collection.Channels];
-        Buffer.BlockCopy(_Row, _X * _Collection.Channels, pixel, 0, _Collection.Channels);
+        Array.Copy(_Row, _X * _Collection.Channels, pixel, 0, _Collection.Channels);
 
         return Pixel.Create(_Collection, _X, _Y, pixel);
       }

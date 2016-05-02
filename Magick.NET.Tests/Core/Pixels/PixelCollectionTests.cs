@@ -91,6 +91,40 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_Enumerator()
+    {
+      using (MagickImage image = new MagickImage(Files.ConnectedComponentsPNG, 10, 10))
+      {
+        Pixel pixel = image.GetPixels().First(p => p.ToColor() == MagickColors.Black);
+        Assert.IsNotNull(pixel);
+
+        Pixel otherPixel = null;
+
+        using (var pixels = image.GetPixels())
+        {
+          for (int y = 0; y < image.Height; y++)
+          {
+            for (int x = 0; x < image.Width; x++)
+            {
+              otherPixel = pixels.GetPixel(x, y);
+              if (otherPixel.ToColor() == MagickColors.Black)
+                break;
+            }
+            if (otherPixel.ToColor() == MagickColors.Black)
+              break;
+          }
+        }
+
+        Assert.IsNotNull(otherPixel);
+
+        Assert.AreEqual(pixel, otherPixel);
+        Assert.AreEqual(350, pixel.X);
+        Assert.AreEqual(196, pixel.Y);
+        Assert.AreEqual(2, pixel.Channels);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_GetArea()
     {
       using (MagickImage image = new MagickImage(MagickColors.Fuchsia, 10, 10))
