@@ -1,5 +1,5 @@
 {
-  "version": "7.0.1.100",
+  "version": "7.0.1.101",
   "title": "Magick.NET.Core-Q16-HDRI",
   "authors":
   [
@@ -42,7 +42,7 @@
   ],
   "dependencies":
   {
-    "Magick.NET.Core-Q16-HDRI.Native": "7.0.1.100",
+    "Magick.NET.Core-Q16-HDRI.Native": "7.0.1.101",
     "Microsoft.CSharp": "4.0.1-*",
     "System.Collections.NonGeneric": "4.0.0",
     "System.IO.FileSystem": "4.0.1-*",

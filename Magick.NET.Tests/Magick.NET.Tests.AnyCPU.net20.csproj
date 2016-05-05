@@ -147,6 +147,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\Coders\MslTests.cs" />
+    <Compile Include="Core\Coders\MvgTests.cs" />
     <Compile Include="Coders\PdfTests.cs" />
     <Compile Include="Coders\TiffTests.cs" />
     <Compile Include="Colors\MagickColorTests.cs" />
