@@ -44,4 +44,4 @@ MAGICK_NET_EXPORT const ExceptionInfo *MagickExceptionHelper_Related(const Excep
 
 MAGICK_NET_EXPORT size_t MagickExceptionHelper_RelatedCount(const ExceptionInfo *);
 
-MAGICK_NET_EXPORT size_t MagickExceptionHelper_Severity(const ExceptionInfo *);
+MAGICK_NET_EXPORT ExceptionType MagickExceptionHelper_Severity(const ExceptionInfo *);

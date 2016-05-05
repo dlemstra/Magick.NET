@@ -86,6 +86,8 @@ namespace ImageMagick
           return new MagickModuleWarningException(message, innerExceptions);
         case ExceptionSeverity.OptionWarning:
           return new MagickOptionWarningException(message, innerExceptions);
+        case ExceptionSeverity.PolicyWarning:
+          return new MagickPolicyWarningException(message, innerExceptions);
         case ExceptionSeverity.RegistryWarning:
           return new MagickRegistryWarningException(message, innerExceptions);
         case ExceptionSeverity.ResourceLimitWarning:
@@ -118,6 +120,8 @@ namespace ImageMagick
           return new MagickModuleErrorException(message, innerExceptions);
         case ExceptionSeverity.OptionError:
           return new MagickOptionErrorException(message, innerExceptions);
+        case ExceptionSeverity.PolicyError:
+          return new MagickPolicyErrorException(message, innerExceptions);
         case ExceptionSeverity.RegistryError:
           return new MagickRegistryErrorException(message, innerExceptions);
         case ExceptionSeverity.ResourceLimitError:

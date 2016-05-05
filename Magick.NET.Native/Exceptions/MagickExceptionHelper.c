@@ -101,7 +101,7 @@ MAGICK_NET_EXPORT const char *MagickExceptionHelper_Message(const ExceptionInfo 
   return instance->reason;
 }
 
-MAGICK_NET_EXPORT size_t MagickExceptionHelper_Severity(const ExceptionInfo *instance)
+MAGICK_NET_EXPORT ExceptionType MagickExceptionHelper_Severity(const ExceptionInfo *instance)
 {
-  return (size_t)instance->severity;
+  return instance->severity;
 }
