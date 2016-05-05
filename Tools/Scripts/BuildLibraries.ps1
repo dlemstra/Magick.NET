@@ -172,7 +172,8 @@ function CopyFiles($folder)
   $xmlDirectory = FullPath "ImageMagick\Source\ImageMagick\VisualMagick\bin"
   foreach ($xmlFile in [IO.Directory]::GetFiles($xmlDirectory, "*.xml"))
   {
-    if ([IO.Path]::GetFileName($xmlFile) -eq "log.xml")
+    if (([IO.Path]::GetFileName($xmlFile) -eq "log.xml") -or
+        ([IO.Path]::GetFileName($xmlFile) -eq "policy.xml"))
     {
       continue
     }

@@ -41,7 +41,7 @@ namespace ImageMagick
       instance.Endian = Endian;
       instance.Font = _Font;
       instance.FontPointsize = _FontPointsize;
-      instance.Format = Format != MagickFormat.Unknown ? EnumHelper.GetName(Format) : null;
+      instance.Format = Format != MagickFormat.Unknown ? EnumHelper.GetName(Format).ToUpperInvariant() : null;
       instance.Monochrome = Monochrome;
       instance.Verbose = Verbose;
 
