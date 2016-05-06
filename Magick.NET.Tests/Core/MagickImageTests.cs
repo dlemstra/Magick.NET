@@ -590,9 +590,8 @@ namespace Magick.NET.Tests
         image.Settings.FillColor = MagickColors.Red;
         image.Settings.StrokeColor = MagickColors.Red;
 
-        Assert.Inconclusive("Temporary disabled due to security issue with the MVG coder.");
-        //image.HoughLine();
-        //ColorAssert.AreEqual(MagickColors.Red, image, 105, 25);
+        image.HoughLine();
+        ColorAssert.AreEqual(MagickColors.Red, image, 105, 25);
       }
     }
 
