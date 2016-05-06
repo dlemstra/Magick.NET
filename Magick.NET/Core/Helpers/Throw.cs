@@ -64,7 +64,7 @@ namespace ImageMagick
           path = path.Substring(0, endIndex);
       }
 
-      IfFalse("fileName", File.Exists(path), "Unable to find file: {0}", path);
+      IfFalse("fileName", File.Exists(path), "Unable to find file: {0}.", path);
     }
 
     public static void IfNull(string paramName, object value)
@@ -84,7 +84,7 @@ namespace ImageMagick
       IfNull(paramName, value);
 
       if (value.Length == 0)
-        throw new ArgumentException("Value cannot be empty", paramName);
+        throw new ArgumentException("Value cannot be empty.", paramName);
     }
 
     public static void IfNullOrEmpty(string paramName, string value, string message, params object[] args)
@@ -100,7 +100,7 @@ namespace ImageMagick
       IfNull(paramName, value);
 
       if (value.Length == 0)
-        throw new ArgumentException("Value cannot be empty", paramName);
+        throw new ArgumentException("Value cannot be empty.", paramName);
     }
 
     public static void IfNegative(string paramName, Percentage value)
