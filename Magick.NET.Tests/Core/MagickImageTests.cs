@@ -2028,8 +2028,25 @@ namespace Magick.NET.Tests
         using (MagickImage colors = CreatePallete())
         {
           image.Map(colors);
+
+          ColorAssert.AreEqual(MagickColors.Blue, image, 0, 0);
+          ColorAssert.AreEqual(MagickColors.Green, image, 392, 154);
+          ColorAssert.AreEqual(MagickColors.Red, image, 505, 451);
         }
-        Assert.Inconclusive("Needs implementation.");
+      }
+
+      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      {
+        List<MagickColor> colors = new List<MagickColor>();
+        colors.Add(MagickColors.Gold);
+        colors.Add(MagickColors.Lime);
+        colors.Add(MagickColors.Fuchsia);
+
+        image.Map(colors);
+
+        ColorAssert.AreEqual(MagickColors.Fuchsia, image, 0, 0);
+        ColorAssert.AreEqual(MagickColors.Lime, image, 392, 154);
+        ColorAssert.AreEqual(MagickColors.Gold, image, 505, 451);
       }
     }
 

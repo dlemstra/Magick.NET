@@ -4250,6 +4250,44 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Remap image colors with closest color from the specified colors.
+    ///</summary>
+    ///<param name="colors">The colors to use.</param>
+    ///<exception cref="MagickException"/>
+    public MagickErrorInfo Map(IEnumerable<MagickColor> colors)
+    {
+      Throw.IfNull("colors", colors);
+
+      return Map(colors, new QuantizeSettings());
+    }
+
+    ///<summary>
+    /// Remap image colors with closest color from the specified colors.
+    ///</summary>
+    ///<param name="colors">The colors to use.</param>
+    ///<param name="settings">Quantize settings.</param>
+    ///<exception cref="MagickException"/>
+    public MagickErrorInfo Map(IEnumerable<MagickColor> colors, QuantizeSettings settings)
+    {
+      Throw.IfNull("colors", colors);
+
+      List<MagickColor> colorList = new List<MagickColor>(colors);
+      if (colorList.Count == 0)
+        throw new ArgumentException("Value cannot be empty.", "colors");
+
+      using (MagickImageCollection images = new MagickImageCollection())
+      {
+        foreach (MagickColor color in colorList)
+          images.Add(new MagickImage(color, 1, 1));
+
+        using (MagickImage image = images.AppendHorizontally())
+        {
+          return Map(image, settings);
+        }
+      }
+    }
+
+    ///<summary>
     /// Remap image colors with closest color from reference image.
     ///</summary>
     ///<param name="image">The image to use.</param>
