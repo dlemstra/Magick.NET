@@ -5631,12 +5631,33 @@ namespace ImageMagick
     ///<summary>
     /// adjust the image contrast with a non-linear sigmoidal contrast algorithm
     ///</summary>
+    ///<param name="contrast">The contrast</param>
+    ///<exception cref="MagickException"/>
+    public void SigmoidalContrast(double contrast)
+    {
+      SigmoidalContrast(true, contrast);
+    }
+
+    ///<summary>
+    /// adjust the image contrast with a non-linear sigmoidal contrast algorithm
+    ///</summary>
     ///<param name="sharpen">Specifies if sharpening should be used.</param>
     ///<param name="contrast">The contrast</param>
     ///<exception cref="MagickException"/>
     public void SigmoidalContrast(bool sharpen, double contrast)
     {
       SigmoidalContrast(sharpen, contrast, Quantum.Max / 2.0);
+    }
+
+    ///<summary>
+    /// adjust the image contrast with a non-linear sigmoidal contrast algorithm
+    ///</summary>
+    ///<param name="contrast">The contrast to use.</param>
+    ///<param name="midpoint">The midpoint to use.</param>
+    ///<exception cref="MagickException"/>
+    public void SigmoidalContrast(double contrast, double midpoint)
+    {
+      SigmoidalContrast(true, contrast, midpoint);
     }
 
     ///<summary>
