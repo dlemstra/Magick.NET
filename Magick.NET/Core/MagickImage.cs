@@ -5496,6 +5496,17 @@ namespace ImageMagick
     ///</summary>
     ///<param name="azimuth">The light source direction.</param>
     ///<param name="elevation">The light source direction.</param>
+    ///<exception cref="MagickException"/>
+    public void Shade(double azimuth, double elevation)
+    {
+      _NativeInstance.Shade(azimuth, elevation, true);
+    }
+
+    ///<summary>
+    /// Shade image using distant light source.
+    ///</summary>
+    ///<param name="azimuth">The light source direction.</param>
+    ///<param name="elevation">The light source direction.</param>
     ///<param name="colorShading">Specify true to shade the intensity of each pixel.</param>
     ///<exception cref="MagickException"/>
     public void Shade(double azimuth, double elevation, bool colorShading)
