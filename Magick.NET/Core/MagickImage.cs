@@ -5499,7 +5499,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Shade(double azimuth, double elevation)
     {
-      _NativeInstance.Shade(azimuth, elevation, true);
+      Shade(azimuth, elevation, true);
     }
 
     ///<summary>
