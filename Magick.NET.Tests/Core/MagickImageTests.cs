@@ -2721,17 +2721,25 @@ namespace Magick.NET.Tests
         int width = image.Width;
         int height = image.Height;
 
-        image.Shadow(2, 2, 1, new Percentage(50), MagickColors.Red);
+        image.Shadow(2, 2, 5, new Percentage(50), MagickColors.Red);
 
-        Assert.AreEqual(width + 4, image.Width);
-        Assert.AreEqual(height + 4, image.Height);
+        Assert.AreEqual(width + 20, image.Width);
+        Assert.AreEqual(height + 20, image.Height);
 
         using (PixelCollection pixels = image.GetPixels())
         {
           Pixel pixel = pixels.GetPixel(90, 9);
           Assert.AreEqual(0, pixel.ToColor().A);
-          pixel = pixels.GetPixel(42, 22);
-          Assert.AreEqual(Quantum.Max, pixel.ToColor().A);
+          pixel = pixels.GetPixel(34, 55);
+
+#if Q8
+          Assert.AreEqual(72, pixel.ToColor().A);
+#elif Q16 || Q16HDRI
+          Assert.AreEqual(18096, (int)pixel.ToColor().A);
+#else
+#error Not implemented!
+#endif
+
         }
       }
     }

@@ -2097,7 +2097,6 @@ MAGICK_NET_EXPORT Image *MagickImage_Shadow(Image *instance, const ssize_t x, co
 
   MAGICK_NET_GET_EXCEPTION;
   image = ShadowImage(instance, alphaPercentage, sigma, x, y, exceptionInfo);
-  CompositeImage(image, instance, OverCompositeOp, MagickTrue, 0, 0, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }
