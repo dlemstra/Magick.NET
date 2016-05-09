@@ -2030,7 +2030,7 @@ namespace Magick.NET.Tests
           image.Map(colors);
 
           ColorAssert.AreEqual(MagickColors.Blue, image, 0, 0);
-          ColorAssert.AreEqual(MagickColors.Green, image, 392, 154);
+          ColorAssert.AreEqual(MagickColors.Green, image, 455, 396);
           ColorAssert.AreEqual(MagickColors.Red, image, 505, 451);
         }
       }
@@ -2045,7 +2045,7 @@ namespace Magick.NET.Tests
         image.Map(colors);
 
         ColorAssert.AreEqual(MagickColors.Fuchsia, image, 0, 0);
-        ColorAssert.AreEqual(MagickColors.Lime, image, 392, 154);
+        ColorAssert.AreEqual(MagickColors.Lime, image, 455, 396);
         ColorAssert.AreEqual(MagickColors.Gold, image, 505, 451);
       }
     }
