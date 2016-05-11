@@ -99,7 +99,7 @@ namespace ImageMagick
 
     private static void GrantEveryoneReadAndExecuteAccess(string cacheDirectory)
     {
-      if (!MagickAnyCPU.UsesDefaultCacheDirectory)
+      if (!MagickAnyCPU.HasSharedCacheDirectory || !MagickAnyCPU.UsesDefaultCacheDirectory)
         return;
 
       DirectoryInfo directoryInfo = new DirectoryInfo(cacheDirectory);

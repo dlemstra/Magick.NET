@@ -26,10 +26,10 @@ namespace ImageMagick
 
     internal static bool UsesDefaultCacheDirectory
     {
-       get
-       {
-         return _CacheDirectory == Path.GetTempPath();
-       }
+      get
+      {
+        return _CacheDirectory == Path.GetTempPath();
+      }
     }
 
     ///<summary>
@@ -47,6 +47,17 @@ namespace ImageMagick
           throw new InvalidOperationException("The specified directory does not exist.");
         _CacheDirectory = value;
       }
+    }
+
+    /// <summary>
+    /// Setting this to true will change the security permissions of the embeded library that is
+    /// written to disk. Only set this to true when multiple application pools with different
+    /// idententies need to execute the same library.
+    /// </summary>
+    public static bool HasSharedCacheDirectory
+    {
+      get;
+      set;
     }
   }
 }
