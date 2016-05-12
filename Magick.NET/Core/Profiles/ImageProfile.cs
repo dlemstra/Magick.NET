@@ -25,7 +25,8 @@ namespace ImageMagick
   {
     private static byte[] Copy(byte[] data)
     {
-      Throw.IfNullOrEmpty("data", data);
+      if (data == null || data.Length == 0)
+        return new byte[0];
 
       byte[] result = new byte[data.Length];
       data.CopyTo(result, 0);
@@ -67,7 +68,7 @@ namespace ImageMagick
     public ImageProfile(string name, byte[] data)
     {
       Throw.IfNullOrEmpty("name", name);
-      Throw.IfNull("data", data);
+      Throw.IfNullOrEmpty("data", data);
 
       Name = name;
       Data = Copy(data);

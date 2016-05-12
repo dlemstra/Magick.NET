@@ -59,7 +59,10 @@ namespace ImageMagick
     protected override void UpdateData()
     {
       if (_Values == null || _Values.Count == 0)
+      {
         Data = null;
+        return;
+      }
 
       ExifWriter writer = new ExifWriter(_Values, Parts, BestPrecision);
       Data = writer.GetData();

@@ -1708,6 +1708,8 @@ namespace ImageMagick
         return;
 
       byte[] datum = profile.ToByteArray();
+      if (datum == null || datum.Length == 0)
+        return;
 
       _NativeInstance.AddProfile(profile.Name, datum, datum.Length);
     }
