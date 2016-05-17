@@ -109,6 +109,19 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_Constructor_Empty()
+    {
+      using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+      {
+        using (MemoryStream memStream = new MemoryStream())
+        {
+          ExifProfile profile = new ExifProfile(memStream);
+          image.AddProfile(profile);
+        }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_Fraction()
     {
       using (MemoryStream memStream = new MemoryStream())
