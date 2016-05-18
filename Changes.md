@@ -1,5 +1,9 @@
 # Breaking changes.
 
+### Magick.NET 7.0.1.400:
+ - The Shadow method of MagickImage now just creates the shadow. The shadow is no longer drawn behind
+   the input image.
+
 ### Magick.NET 7.0.1.0:
  - Moved MagickNET.UseOpenCL and SetOpenCLCacheDirectory to the new OpenCL class.
  - Changed MagickGeometry argument of MagickImage.Composite to a PointD.
