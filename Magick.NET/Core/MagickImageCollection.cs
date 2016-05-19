@@ -432,7 +432,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Creates a single image, by appending all the images in the collection horizontally.
+    /// Creates a single image, by appending all the images in the collection horizontally (+append).
     ///</summary>
     ///<exception cref="MagickException"/>
     public MagickImage AppendHorizontally()
@@ -452,7 +452,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Creates a single image, by appending all the images in the collection vertically.
+    /// Creates a single image, by appending all the images in the collection vertically (-append).
     ///</summary>
     ///<exception cref="MagickException"/>
     public MagickImage AppendVertically()
