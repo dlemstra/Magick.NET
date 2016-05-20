@@ -311,8 +311,8 @@ namespace Magick.NET.Tests
         image.Settings.StrokeColor = MagickColors.Purple;
         image.Annotate("Magick.NET", Gravity.East);
 
-        ColorAssert.AreEqual(MagickColors.Purple, image, 197, 15);
-        ColorAssert.AreEqual(MagickColors.Thistle, image, 199, 15);
+        ColorAssert.AreEqual(MagickColors.Purple, image, 197, 17);
+        ColorAssert.AreEqual(MagickColors.Thistle, image, 199, 17);
       }
 
       using (MagickImage image = new MagickImage(MagickColors.GhostWhite, 200, 200))

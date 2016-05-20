@@ -1,6 +1,6 @@
 # Breaking changes.
 
-### Magick.NET 7.0.1.400:
+### Magick.NET 7.0.1.500:
  - The Shadow method of MagickImage now just creates the shadow. The shadow is no longer drawn behind
    the input image.
 

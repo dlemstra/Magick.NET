@@ -41,9 +41,19 @@ namespace Magick.NET.Tests.Coders
 
           using (MagickImage image = new MagickImage())
           {
-            ExceptionAssert.Throws<MagickPolicyErrorException>(delegate ()
+            ExceptionAssert.Throws<MagickMissingDelegateErrorException>(delegate ()
             {
               image.Read(memStream);
+            });
+
+            ExceptionAssert.Throws<MagickPolicyErrorException>(delegate ()
+            {
+              MagickReadSettings settings = new MagickReadSettings()
+              {
+                Format = MagickFormat.Mvg
+              };
+
+              image.Read(memStream, settings);
             });
           }
         }
