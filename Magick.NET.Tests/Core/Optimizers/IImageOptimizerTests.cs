@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
       }
       finally
       {
-        FileHelper.Delete(tempFile);
+        tempFile.Delete();
       }
     }
 
@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
       }
       finally
       {
-        FileHelper.Delete(tempFile);
+        tempFile.Delete();
       }
     }
 
