@@ -28,9 +28,6 @@ function BuildCoreLibrary($directory)
 
   dotnet pack
 
-  TestCoreLibrary $directory x64
-  TestCoreLibrary $directory x86
-
   Set-Location $location
 }
 
@@ -77,14 +74,17 @@ function CopyNativeLibrary($directory, $platform, $binDir)
   Copy-Item "Magick.NET.Native\bin\Release$quantum\$binDir\*.Native.dll" "$directory\runtimes\win7-$platform\native"
 }
 
-function TestCoreLibrary($directory, $platform)
+function TestCoreLibrary($directory)
 {
   Set-Location "..\..\test\$directory.Tests"
 
-  dnvm use 1.0.0-rc1-update1 -r coreclr -a $platform
-  dnu restore
-  dnu build
+  dotnet restore
 
-  dnx test
-  CheckExitCode "Failed to test $directory-$platform"
+  dotnet build
+
+  # restore does not copy this file
+  Copy-Item "..\..\src\$directory.Native\runtimes\win7-x64\native\*.Native.dll" "bin\Debug\netcoreapp1.3"
+
+  dotnet test
+  CheckExitCode "Failed to test $directory"
 }

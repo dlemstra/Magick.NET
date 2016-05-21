@@ -5,28 +5,31 @@
   [
     "Dirk Lemstra"
   ],
-  "owners":
-  [
-    "Dirk Lemstra"
-  ],
-  "licenseUrl": "https://magick.codeplex.com/license",
-  "projectUrl": "https://magick.codeplex.com/documentation",
-  "iconUrl": "http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&changeSetId=752622e7b2e069b698a47df994dd4aaaf1d8aebe&itemId=Magick.NET.Tests%2fImages%2fMagick.NET.icon.png",
   "description": "ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://magick.codeplex.com/documentation before installing to help you decide the best version.",
-  "summary": "A .NET API to the ImageMagick image-processing library for Desktop and Web.",
   "copyright": "Copyright 2013-2016 Dirk Lemstra",
-  "tags":
-  [
-    "ImageMagick",
-    "Magick.NET.Core"
-  ],
-  "compile":
-  [
-    "../../../Magick.NET/Core/**/*.cs"
-  ],
-  "compilationOptions":
+  "packOptions":
+  {
+    "licenseUrl": "https://magick.codeplex.com/license",
+    "projectUrl": "https://magick.codeplex.com/documentation",
+    "iconUrl": "http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&changeSetId=752622e7b2e069b698a47df994dd4aaaf1d8aebe&itemId=Magick.NET.Tests%2fImages%2fMagick.NET.icon.png",
+    "summary": "A .NET API to the ImageMagick image-processing library for Desktop and Web.",
+    "tags":
+    [
+      "ImageMagick",
+      "Magick.NET.Core"
+    ],
+    "owners":
+    [
+      "Dirk Lemstra"
+    ]
+  },
+  "buildOptions":
   {
     "allowUnsafe": true,
+    "compile":
+    [
+      "../../../Magick.NET/Core/**/*.cs"
+    ],
     "define":
     [
       "Q16",
@@ -34,28 +37,29 @@
     ],
     "optimize": true,
     "warningsAsErrors": true,
-    "keyFile": "../../../Magick.NET/Magick.NET.snk"
+    "keyFile": "../../../Magick.NET/Magick.NET.snk",
+    "embed":
+    [
+      "../../../Magick.NET/Resources/ColorProfiles/**/*"
+    ]
   },
-  "resource":
-  [
-    "../../../Magick.NET/Resources/ColorProfiles/**/*"
-  ],
   "dependencies":
   {
-    "Magick.NET.Core-Q16.Native": "7.0.1.101",
-    "Microsoft.CSharp": "4.0.1-*",
-    "System.Collections.NonGeneric": "4.0.0",
-    "System.IO.FileSystem": "4.0.1-*",
-    "System.Runtime": "4.0.21-*",
-    "System.Xml.XDocument": "4.0.11-*",
-    "System.Xml.XmlDocument": "4.0.1-*",
-    "System.Xml.XPath.XDocument": "4.0.1-*",
-    "System.Xml.XPath.XmlDocument": "4.0.1-*"
+    "Magick.NET.Core-Q16.Native": "7.0.1.101"
   },
   "frameworks":
   {
-    "dotnet5.5":
+    "netstandard1.3":
     {
+      "dependencies":
+      {
+        "NETStandard.Library": "1.5.0-rc2-24027",
+        "System.Collections.NonGeneric": "4.0.1-*",
+        "System.Xml.XDocument": "4.0.11-*",
+        "System.Xml.XmlDocument": "4.0.1-*",
+        "System.Xml.XPath.XDocument": "4.0.1-*",
+        "System.Xml.XPath.XmlDocument": "4.0.1-*"
+      }
     }
   }
 }

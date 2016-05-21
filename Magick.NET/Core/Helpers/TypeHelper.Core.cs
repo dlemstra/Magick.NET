@@ -40,7 +40,7 @@ namespace ImageMagick
 
     public static Type[] GetGenericArguments(Type type)
     {
-      return type.GetGenericArguments();
+      return type.GetTypeInfo().GenericTypeArguments;
     }
 
     public static bool IsGeneric(Type type)
