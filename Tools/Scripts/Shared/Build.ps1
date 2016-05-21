@@ -28,6 +28,8 @@ function BuildCoreLibrary($directory)
 
   dotnet pack
 
+  TestCoreLibrary $directory
+
   Set-Location $location
 }
 
