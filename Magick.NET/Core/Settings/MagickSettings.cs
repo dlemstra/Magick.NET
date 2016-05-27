@@ -259,7 +259,7 @@ namespace ImageMagick
 
     /// <summary>
     /// Affine to use when annotating with text or drawing.
-    /// /// </summary>
+    /// </summary>
     public DrawableAffine Affine
     {
       get
