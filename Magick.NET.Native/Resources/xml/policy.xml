@@ -62,4 +62,5 @@
   <policy domain="coder" rights="none" pattern="MVG" />
   <policy domain="coder" rights="none" pattern="MSL" />
   <policy domain="path" rights="none" pattern="@*" />
+  <policy domain="path" rights="none" pattern="|*" />
 </policymap>
