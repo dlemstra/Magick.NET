@@ -4534,6 +4534,27 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Applies a kernel to the image according to the given mophology settings.
+    ///</summary>
+    ///<param name="settings">The morphology settings.</param>
+    ///<exception cref="MagickException"/>
+    public void Morphology(MorphologySettings settings)
+    {
+      Throw.IfNull("settings", settings);
+
+      if (settings.ConvolveBias != null)
+        SetArtifact("convolve:bias", settings.ConvolveBias.ToString());
+
+      if (settings.ConvolveScale != null)
+        SetArtifact("convolve:scale", settings.ConvolveScale.ToString());
+
+      if (!string.IsNullOrEmpty(settings.UserKernel))
+        Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
+      else
+        Morphology(settings.Method, settings.Kernel, settings.KernelArguments, settings.Channels, settings.Iterations);
+    }
+
+    ///<summary>
     /// Returns the normalized moments of one or more image channels.
     ///</summary>
     ///<exception cref="MagickException"/>
