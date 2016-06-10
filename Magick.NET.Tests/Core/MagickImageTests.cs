@@ -2083,7 +2083,24 @@ namespace Magick.NET.Tests
         image.Morphology(MorphologyMethod.Dilate, Kernel.Square, "1");
 
         image.Morphology(MorphologyMethod.Convolve, "3: 0.3,0.6,0.3 0.6,1.0,0.6 0.3,0.6,0.3");
-        Assert.Inconclusive("Needs implementation.");
+
+        MorphologySettings settings = new MorphologySettings();
+        settings.Method = MorphologyMethod.Convolve;
+        settings.ConvolveBias = new Percentage(50);
+        settings.Kernel = Kernel.DoG;
+        settings.KernelArguments = "0x2";
+
+        image.Read(Files.Builtin.Logo);
+
+        ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+        {
+          image.Morphology(null);
+        });
+
+        image.Morphology(settings);
+
+        QuantumType half = (QuantumType)((Quantum.Max / 2.0) + 0.5);
+        ColorAssert.AreEqual(new MagickColor(half, half, half), image, 120, 160);
       }
     }
 
