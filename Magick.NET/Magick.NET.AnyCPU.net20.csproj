@@ -431,6 +431,7 @@
     <Compile Include="Core\Settings\MagickReadSettings.cs" />
     <Compile Include="Core\Settings\MagickSettings.cs" />
     <Compile Include="Core\Settings\MontageSettings.cs" />
+    <Compile Include="Core\Settings\MorphologySettings.cs" />
     <Compile Include="Core\Settings\PixelStorageSettings.cs" />
     <Compile Include="Core\Settings\QuantizeSettings.cs" />
     <Compile Include="Core\Statistics\ChannelMoments.cs" />
