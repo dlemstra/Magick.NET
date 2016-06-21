@@ -300,6 +300,11 @@ namespace ImageMagick
     Fax,
 
     ///<summary>
+    /// Uniform Resource Locator (file://)
+    ///</summary>
+    File,
+
+    ///<summary>
     /// Flexible Image Transport System
     ///</summary>
     Fits,
@@ -315,6 +320,11 @@ namespace ImageMagick
     Fractal,
 
     ///<summary>
+    /// Uniform Resource Locator (ftp://)
+    ///</summary>
+    Ftp,
+
+    ///<summary>
     /// Flexible Image Transport System
     ///</summary>
     Fts,
@@ -328,6 +338,11 @@ namespace ImageMagick
     /// Group 3 FAX
     ///</summary>
     G3,
+
+    ///<summary>
+    /// Group 4 FAX
+    ///</summary>
+    G4,
 
     ///<summary>
     /// CompuServe graphics interchange format
@@ -383,6 +398,16 @@ namespace ImageMagick
     /// Hypertext Markup Language and a client-side image map
     ///</summary>
     Html,
+
+    ///<summary>
+    /// Uniform Resource Locator (http://)
+    ///</summary>
+    Http,
+
+    ///<summary>
+    /// Uniform Resource Locator (https://)
+    ///</summary>
+    Https,
 
     ///<summary>
     /// Truevision Targa image

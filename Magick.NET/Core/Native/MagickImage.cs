@@ -153,9 +153,9 @@ namespace ImageMagick
         public static extern UIntPtr MagickImage_Height_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickImage_HasAlpha_Get(IntPtr instance);
+        public static extern bool MagickImage_HasAlpha_Get(IntPtr instance, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickImage_HasAlpha_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+        public static extern void MagickImage_HasAlpha_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr MagickImage_Interlace_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -688,9 +688,9 @@ namespace ImageMagick
         public static extern UIntPtr MagickImage_Height_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool MagickImage_HasAlpha_Get(IntPtr instance);
+        public static extern bool MagickImage_HasAlpha_Get(IntPtr instance, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickImage_HasAlpha_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+        public static extern void MagickImage_HasAlpha_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr MagickImage_Interlace_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1737,19 +1737,23 @@ namespace ImageMagick
       {
         get
         {
+          IntPtr exception = IntPtr.Zero;
           bool result;
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_HasAlpha_Get(Instance);
+            result = NativeMethods.X64.MagickImage_HasAlpha_Get(Instance, out exception);
           else
-            result = NativeMethods.X86.MagickImage_HasAlpha_Get(Instance);
+            result = NativeMethods.X86.MagickImage_HasAlpha_Get(Instance, out exception);
+          CheckException(exception);
           return result;
         }
         set
         {
+          IntPtr exception = IntPtr.Zero;
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_HasAlpha_Set(Instance, value);
+            NativeMethods.X64.MagickImage_HasAlpha_Set(Instance, value, out exception);
           else
-            NativeMethods.X86.MagickImage_HasAlpha_Set(Instance, value);
+            NativeMethods.X86.MagickImage_HasAlpha_Set(Instance, value, out exception);
+          CheckException(exception);
         }
       }
       public Interlace Interlace

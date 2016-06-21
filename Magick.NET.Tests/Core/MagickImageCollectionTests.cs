@@ -716,6 +716,7 @@ namespace Magick.NET.Tests
       settings.FontFamily = "Courier New";
       settings.FillColor = MagickColors.Gold;
       settings.FontPointsize = 80;
+      settings.Format = MagickFormat.Text;
       settings.TextGravity = Gravity.Center;
 
       using (MagickImageCollection images = new MagickImageCollection(Files.ImageMagickTXT, settings))

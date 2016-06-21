@@ -103,8 +103,8 @@ MAGICK_NET_EXPORT void MagickImage_GifDisposeMethod_Set(Image *, const size_t);
 MAGICK_NET_EXPORT size_t MagickImage_Interpolate_Get(const Image *);
 MAGICK_NET_EXPORT void MagickImage_Interpolate_Set(Image *, const size_t);
 
-MAGICK_NET_EXPORT MagickBooleanType MagickImage_HasAlpha_Get(const Image *);
-MAGICK_NET_EXPORT void MagickImage_HasAlpha_Set(Image *, const MagickBooleanType);
+MAGICK_NET_EXPORT MagickBooleanType MagickImage_HasAlpha_Get(const Image *, ExceptionInfo **);
+MAGICK_NET_EXPORT void MagickImage_HasAlpha_Set(Image *, const MagickBooleanType, ExceptionInfo **);
 
 MAGICK_NET_EXPORT size_t MagickImage_Height_Get(const Image *);
 

@@ -312,7 +312,7 @@ namespace Magick.NET.Tests
         image.Annotate("Magick.NET", Gravity.East);
 
         ColorAssert.AreEqual(MagickColors.Purple, image, 197, 17);
-        ColorAssert.AreEqual(MagickColors.Thistle, image, 199, 17);
+        ColorAssert.AreEqual(MagickColors.Thistle, image, 174, 17);
       }
 
       using (MagickImage image = new MagickImage(MagickColors.GhostWhite, 200, 200))
@@ -1581,7 +1581,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(-3, typeMetric.Descent);
         Assert.AreEqual(30, typeMetric.MaxHorizontalAdvance);
         Assert.AreEqual(17, typeMetric.TextHeight);
-        Assert.AreEqual(83, typeMetric.TextWidth);
+        Assert.AreEqual(82, typeMetric.TextWidth);
         Assert.AreEqual(-4.5625, typeMetric.UnderlinePosition);
         Assert.AreEqual(2.34375, typeMetric.UnderlineThickness);
 
@@ -1592,7 +1592,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(-32, typeMetric.Descent);
         Assert.AreEqual(300, typeMetric.MaxHorizontalAdvance);
         Assert.AreEqual(172, typeMetric.TextHeight);
-        Assert.AreEqual(814, typeMetric.TextWidth);
+        Assert.AreEqual(813, typeMetric.TextWidth);
         Assert.AreEqual(-4.5625, typeMetric.UnderlinePosition);
         Assert.AreEqual(2.34375, typeMetric.UnderlineThickness);
       }
@@ -2746,7 +2746,13 @@ namespace Magick.NET.Tests
         using (PixelCollection pixels = image.GetPixels())
         {
           Pixel pixel = pixels.GetPixel(90, 9);
+#if Q8 || Q16
           Assert.AreEqual(0, pixel.ToColor().A);
+#elif Q16HDRI
+          Assert.AreEqual(0.5, pixel.ToColor().A);
+#else
+#error Not implemented!
+#endif
           pixel = pixels.GetPixel(34, 55);
 
 #if Q8

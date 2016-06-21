@@ -15,15 +15,15 @@
 
   MagickCore private image transform methods.
 */
-#ifndef _MAGICKCORE_TRANSFORM_PRIVATE_H
-#define _MAGICKCORE_TRANSFORM_PRIVATE_H
+#ifndef MAGICKCORE_TRANSFORM_PRIVATE_H
+#define MAGICKCORE_TRANSFORM_PRIVATE_H
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
 
-  extern MagickPrivate MagickBooleanType
-    TransformImage(Image **, const char *, const char *, ExceptionInfo *);
+extern MagickPrivate MagickBooleanType
+  TransformImage(Image **,const char *,const char *,ExceptionInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

@@ -15,8 +15,8 @@
 
   MagickCore pixel accessor methods.
 */
-#ifndef _MAGICKCORE_PIXEL_ACCESSOR_H
-#define _MAGICKCORE_PIXEL_ACCESSOR_H
+#ifndef MAGICKCORE_PIXEL_ACCESSOR_H
+#define MAGICKCORE_PIXEL_ACCESSOR_H
 
 #include "MagickCore/cache.h"
 #include "MagickCore/cache-view.h"
@@ -572,9 +572,6 @@ static inline MagickBooleanType IsPixelMonochrome(
 static inline MagickBooleanType IsPixelInfoGray(
   const PixelInfo *magick_restrict pixel)
 {
-  if ((pixel->colorspace != GRAYColorspace) &&
-      (pixel->colorspace != RGBColorspace))
-    return(MagickFalse);
   if ((AbsolutePixelValue(pixel->red-pixel->green) < MagickEpsilon) &&
       (AbsolutePixelValue(pixel->green-pixel->blue) < MagickEpsilon))
     return(MagickTrue);
@@ -588,9 +585,6 @@ static inline MagickBooleanType IsPixelInfoMonochrome(
     green_blue,
     red_green;
 
-  if ((pixel_info->colorspace != GRAYColorspace) &&
-      (pixel_info->colorspace != RGBColorspace))
-    return(MagickFalse);
   if ((AbsolutePixelValue(pixel_info->red) >= MagickEpsilon) ||
       (AbsolutePixelValue(pixel_info->red-QuantumRange) >= MagickEpsilon))
     return(MagickFalse);

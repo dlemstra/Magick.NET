@@ -1250,7 +1250,8 @@ namespace ImageMagick
       {
         if (_NativeInstance.HasAlpha != value)
         {
-          Alpha(AlphaOption.Opaque);
+          if (value)
+            Alpha(AlphaOption.Opaque);
           _NativeInstance.HasAlpha = value;
         }
       }

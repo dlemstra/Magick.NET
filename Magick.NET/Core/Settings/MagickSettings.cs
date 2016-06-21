@@ -31,6 +31,11 @@ namespace ImageMagick
 
     private INativeInstance CreateNativeInstance()
     {
+      string format = Format != MagickFormat.Unknown ? EnumHelper.GetName(Format).ToUpperInvariant() : null;
+      string fileName = FileName;
+      if (!string.IsNullOrEmpty(fileName) && !string.IsNullOrEmpty(format))
+        fileName = format + ":" + fileName;
+
       NativeMagickSettings instance = new NativeMagickSettings();
       instance.BackgroundColor = BackgroundColor;
       instance.ColorSpace = ColorSpace;
@@ -41,12 +46,12 @@ namespace ImageMagick
       instance.Endian = Endian;
       instance.Font = _Font;
       instance.FontPointsize = _FontPointsize;
-      instance.Format = Format != MagickFormat.Unknown ? EnumHelper.GetName(Format).ToUpperInvariant() : null;
+      instance.Format = format;
       instance.Monochrome = Monochrome;
       instance.Verbose = Verbose;
 
       instance.SetColorFuzz(ColorFuzz);
-      instance.SetFileName(FileName);
+      instance.SetFileName(fileName);
       instance.SetInterlace(Interlace);
       instance.SetNumberScenes(NumberScenes);
       instance.SetPage(MagickGeometry.ToString(Page));

@@ -15,8 +15,8 @@
 
   MagickCore Windows NT utility methods.
 */
-#ifndef _MAGICKCORE_NT_BASE_H
-#define _MAGICKCORE_NT_BASE_H
+#ifndef MAGICKCORE_NT_BASE_H
+#define MAGICKCORE_NT_BASE_H
 
 #include "MagickCore/exception.h"
 #include "MagickCore/geometry.h"
@@ -95,6 +95,10 @@ extern "C" {
 #if !defined(closedir)
 #  define closedir(directory)  NTCloseDirectory(directory)
 #endif
+#define MAGICKCORE_HAVE_ERF
+#if defined(_VISUALC_) && (_MSC_VER < 1700)
+#  define erf(x)  NTErf(x)
+#endif
 #if !defined(fdopen)
 #  define fdopen  _fdopen
 #endif
@@ -138,9 +142,6 @@ extern "C" {
 #endif
 #if !defined(hypot)
 #  define hypot  _hypot
-#endif
-#if !defined(inline)
-#  define inline __inline
 #endif
 #if !defined(isatty)
 #  define isatty  _isatty

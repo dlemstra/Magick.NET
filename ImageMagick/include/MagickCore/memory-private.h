@@ -15,8 +15,8 @@
 
   MagickCore private memory methods.
 */
-#ifndef _MAGICKCORE_MEMORY_PRIVATE_H
-#define _MAGICKCORE_MEMORY_PRIVATE_H
+#ifndef MAGICKCORE_MEMORY_PRIVATE_H
+#define MAGICKCORE_MEMORY_PRIVATE_H
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
@@ -41,6 +41,9 @@ extern "C" {
 #else
 #define MagickAssumeAligned(address)  (address)
 #endif
+
+MagickExport MagickBooleanType 
+  HeapOverflowSanityCheck(const size_t,const size_t) magick_alloc_sizes(1,2);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

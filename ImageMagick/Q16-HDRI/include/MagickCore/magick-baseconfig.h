@@ -428,3 +428,8 @@ typedef long ssize_t;
 #pragma warning(disable: 4130) /* 'operator' : logical operation on address of string constant */
 #pragma warning(disable: 4459) /* 'identifier' : declaration of 'foo' hides global declaration */
 #endif
+
+/* only report these warnings once per file */
+#pragma warning(once: 4100) /* 'identifier' : unreferenced formal parameter */
+#pragma warning(once: 4456) /* 'identifier' : declaration of 'foo' hides previous local declaration */
+#pragma warning(once: 4459) /* 'identifier' : declaration of 'foo' hides global declaration */

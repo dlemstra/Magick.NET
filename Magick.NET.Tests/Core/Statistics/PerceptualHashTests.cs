@@ -195,6 +195,7 @@ namespace Magick.NET.Tests
         using (MagickImage other = new MagickImage(Files.MagickNETIconPNG))
         {
           other.HasAlpha = false;
+          Assert.AreEqual(3, other.ChannelCount);
 
           PerceptualHash otherPhash = other.PerceptualHash();
 #if Q8

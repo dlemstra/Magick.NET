@@ -450,14 +450,23 @@ MAGICK_NET_EXPORT void MagickImage_Interpolate_Set(Image *instance, const size_t
   instance->interpolate = (PixelInterpolateMethod)value;
 }
 
-MAGICK_NET_EXPORT MagickBooleanType MagickImage_HasAlpha_Get(const Image *instance)
+MAGICK_NET_EXPORT MagickBooleanType MagickImage_HasAlpha_Get(const Image *instance, ExceptionInfo **exception)
 {
+  (exception);
   return instance->alpha_trait == BlendPixelTrait ? MagickTrue : MagickFalse;
 }
 
-MAGICK_NET_EXPORT void MagickImage_HasAlpha_Set(Image *instance, const MagickBooleanType value)
+MAGICK_NET_EXPORT void MagickImage_HasAlpha_Set(Image *instance, const MagickBooleanType value, ExceptionInfo **exception)
 {
+  CacheView
+    *cache_view;
+
   instance->alpha_trait = value ? BlendPixelTrait : UndefinedPixelTrait;
+  MAGICK_NET_GET_EXCEPTION;
+  cache_view=AcquireAuthenticCacheView(instance,exceptionInfo);
+  (void) GetCacheViewAuthenticPixels(cache_view,0,0,1,1,exceptionInfo);
+  cache_view=DestroyCacheView(cache_view);
+  MAGICK_NET_SET_EXCEPTION;
 }
 
 MAGICK_NET_EXPORT size_t MagickImage_Height_Get(const Image *instance)

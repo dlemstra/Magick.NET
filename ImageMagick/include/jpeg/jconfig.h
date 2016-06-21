@@ -2,23 +2,32 @@
 /* see jconfig.txt for explanations */
 
 #define JPEG_LIB_VERSION 80
-#define LIBJPEG_TURBO_VERSION 1.3.0
+#define LIBJPEG_TURBO_VERSION 1.4.2
 #define C_ARITH_CODING_SUPPORTED
 #define D_ARITH_CODING_SUPPORTED
 #define MEM_SRCDST_SUPPORTED
 
-#define HAVE_PROTOTYPES
+/*
+ * Define BITS_IN_JSAMPLE as either
+ *   8   for 8-bit sample values (the usual setting)
+ *   12  for 12-bit sample values
+ * Only 8 and 12 are legal data precisions for lossy JPEG according to the
+ * JPEG standard, and the IJG code does not support anything else!
+ * We do not support run-time selection of data precision, sorry.
+ */
+
+#define BITS_IN_JSAMPLE  8      /* use 8 or 12 */
+
 #define HAVE_UNSIGNED_CHAR
 #define HAVE_UNSIGNED_SHORT
 /* #define void char */
 /* #define const */
-#undef CHAR_IS_UNSIGNED
+#undef __CHAR_UNSIGNED__
 #define HAVE_STDDEF_H
 #define HAVE_STDLIB_H
 #undef NEED_BSD_STRINGS
 #undef NEED_SYS_TYPES_H
 #undef NEED_FAR_POINTERS	/* we presume a 32-bit flat memory model */
-#undef NEED_SHORT_EXTERNAL_NAMES
 #undef INCOMPLETE_TYPES_BROKEN
 
 /* Define "boolean" as unsigned char, not int, per Windows custom */

@@ -15,15 +15,11 @@
 
   MagickCore utility methods.
 */
-#ifndef _MAGICKCORE_UTILITY_H
-#define _MAGICKCORE_UTILITY_H
+#ifndef MAGICKCORE_UTILITY_H
+#define MAGICKCORE_UTILITY_H
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
-#endif
-
-#if defined(MAGICKCORE_WINDOWS_SUPPORT) || defined(MAGICKCORE_POSIX_SUPPORT)
-# include <sys/stat.h>
 #endif
 
 typedef enum
@@ -46,7 +42,7 @@ extern MagickExport MagickBooleanType
   AcquireUniqueFilename(char *),
   AcquireUniqueSymbolicLink(const char *,char *),
   ExpandFilenames(int *,char ***),
-  GetPathAttributes(const char *,struct stat *),
+  GetPathAttributes(const char *,void *),
   IsPathAccessible(const char *);
 
 extern MagickExport size_t
