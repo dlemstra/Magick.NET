@@ -52,6 +52,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("7.0.0.0")]
-[assembly: AssemblyFileVersion("7.0.1.500")]
+[assembly: AssemblyFileVersion("7.0.2.100")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
