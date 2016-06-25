@@ -2749,7 +2749,7 @@ namespace Magick.NET.Tests
 #if Q8 || Q16
           Assert.AreEqual(0, pixel.ToColor().A);
 #elif Q16HDRI
-          Assert.AreEqual(0.5, pixel.ToColor().A);
+          Assert.AreEqual(OpenCLValue.Get(0.5, 0.0), pixel.ToColor().A);
 #else
 #error Not implemented!
 #endif
