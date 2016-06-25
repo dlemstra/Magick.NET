@@ -39,6 +39,7 @@ environment:
       im_platform: "AnyCPU"
 
 install:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))
   - cd Tools\AppVeyor
   - Install.cmd
 
