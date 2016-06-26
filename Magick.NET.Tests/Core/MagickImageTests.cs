@@ -479,12 +479,31 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_BlackPointCompensation()
     {
-      using (MagickImage image = new MagickImage())
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
       {
         Assert.AreEqual(false, image.BlackPointCompensation);
+        image.RenderingIntent = RenderingIntent.Relative;
+
+        image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#d98c32"), image, 130, 100);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#da478d06323d"), image, 130, 100);
+#endif
+
+        image.Read(Files.FujiFilmFinePixS1ProPNG);
+
+        Assert.AreEqual(false, image.BlackPointCompensation);
+        image.RenderingIntent = RenderingIntent.Relative;
         image.BlackPointCompensation = true;
-        Assert.AreEqual(true, image.BlackPointCompensation);
-        Assert.Inconclusive("Needs implementation.");
+
+        image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#cc8432"), image, 130, 100);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#cd0a844e3209"), image, 130, 100);
+#endif
       }
     }
 
