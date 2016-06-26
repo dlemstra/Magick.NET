@@ -13,12 +13,15 @@
 //=================================================================================================
 
 using ImageMagick;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
+  [TestClass]
   internal sealed class Ghostscript
   {
-    public static void Initialize()
+    [AssemblyInitialize]
+    public static void Initialize(TestContext context)
     {
       MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs9.19\bin");
     }

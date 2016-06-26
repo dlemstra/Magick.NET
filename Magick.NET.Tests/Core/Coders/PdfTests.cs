@@ -29,11 +29,6 @@ namespace Magick.NET.Tests.Coders
       Assert.AreEqual(MagickFormat.Ai, image.Format);
     }
 
-    public PdfTests()
-    {
-      Ghostscript.Initialize();
-    }
-
     [TestMethod, TestCategory(_Category)]
     public void Test_Format()
     {
