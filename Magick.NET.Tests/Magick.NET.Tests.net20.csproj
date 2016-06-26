@@ -182,7 +182,7 @@
     <Compile Include="Core\Drawables\DrawablesTests.cs" />
     <Compile Include="Core\Drawables\DrawableTests.cs" />
     <Compile Include="Core\Files.cs" />
-    <Compile Include="Core\Ghostscript.cs" />
+    <Compile Include="Ghostscript.cs" />
     <Compile Include="Core\MagickFormatInfoTests.cs" />
     <Compile Include="Core\MagickImageCollectionTests.cs" />
     <Compile Include="Core\MagickImageInfoTests.cs" />
