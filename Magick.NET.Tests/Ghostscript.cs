@@ -18,7 +18,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
   [TestClass]
-  internal sealed class Ghostscript
+  public sealed class Ghostscript
   {
     [AssemblyInitialize]
     public static void Initialize(TestContext context)
