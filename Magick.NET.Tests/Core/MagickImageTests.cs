@@ -2148,10 +2148,10 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_OilPaint()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
-        image.OilPaint();
-        Assert.Inconclusive("Needs implementation.");
+        image.OilPaint(2, 5);
+        ColorAssert.AreEqual(new MagickColor("#6a7e85"), image, 180, 98);
       }
     }
 
