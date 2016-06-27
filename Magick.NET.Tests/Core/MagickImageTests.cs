@@ -2032,10 +2032,11 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Magnify()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.Magnify();
-        Assert.Inconclusive("Needs implementation.");
+        Assert.AreEqual(image.Width, 256);
+        Assert.AreEqual(image.Height, 256);
       }
     }
 
@@ -2072,10 +2073,11 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Minify()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
-        image.Magnify();
-        Assert.Inconclusive("Needs implementation.");
+        image.Minify();
+        Assert.AreEqual(image.Width, 64);
+        Assert.AreEqual(image.Height, 64);
       }
     }
 
