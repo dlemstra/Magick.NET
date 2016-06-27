@@ -138,7 +138,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Use monochrome reader.
+    /// Use monochrome reader. This is supported by: PCL, PDF, PS and XPS.
     ///</summary>
     public bool UseMonochrome
     {
