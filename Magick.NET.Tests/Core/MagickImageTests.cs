@@ -2138,10 +2138,34 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Normalize()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImageCollection images = new MagickImageCollection())
       {
-        image.Normalize();
-        Assert.Inconclusive("Needs implementation.");
+        images.Add(new MagickImage("gradient:gray70-gray30", 100, 100));
+        images.Add(new MagickImage("gradient:blue-navy", 50, 100));
+
+        using (MagickImage colorRange = images.AppendHorizontally())
+        {
+          ColorAssert.AreEqual(new MagickColor("gray70"), colorRange, 0, 0);
+          ColorAssert.AreEqual(new MagickColor("blue"), colorRange, 101, 0);
+
+          ColorAssert.AreEqual(new MagickColor("gray30"), colorRange, 0, 99);
+          ColorAssert.AreEqual(new MagickColor("navy"), colorRange, 101, 99);
+
+          colorRange.Normalize();
+
+          ColorAssert.AreEqual(new MagickColor("whirtte"), colorRange, 0, 0);
+          ColorAssert.AreEqual(new MagickColor("blue"), colorRange, 101, 0);
+
+#if Q8
+          ColorAssert.AreEqual(new MagickColor("gray40"), colorRange, 0, 99);
+          ColorAssert.AreEqual(new MagickColor("#0000b3"), colorRange, 101, 99);
+#elif Q16 || Q16HDRI
+          ColorAssert.AreEqual(new MagickColor("#662e662e662e"), colorRange, 0, 99);
+          ColorAssert.AreEqual(new MagickColor("#00000000b317"), colorRange, 101, 99);
+#else
+#error Not implemented!
+#endif
+        }
       }
     }
 
