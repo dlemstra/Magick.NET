@@ -489,6 +489,8 @@ namespace Magick.NET.Tests
         ColorAssert.AreEqual(new MagickColor("#d98c32"), image, 130, 100);
 #elif Q16 || Q16HDRI
         ColorAssert.AreEqual(new MagickColor("#da478d06323d"), image, 130, 100);
+#else
+#error Not implemented!
 #endif
 
         image.Read(Files.FujiFilmFinePixS1ProPNG);
@@ -503,6 +505,8 @@ namespace Magick.NET.Tests
         ColorAssert.AreEqual(new MagickColor("#cc8432"), image, 130, 100);
 #elif Q16 || Q16HDRI
         ColorAssert.AreEqual(new MagickColor("#cd0a844e3209"), image, 130, 100);
+#else
+#error Not implemented!
 #endif
       }
     }
