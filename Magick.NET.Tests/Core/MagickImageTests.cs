@@ -2157,7 +2157,7 @@ namespace Magick.NET.Tests
 
           colorRange.Normalize();
 
-          ColorAssert.AreEqual(new MagickColor("whirtte"), colorRange, 0, 0);
+          ColorAssert.AreEqual(new MagickColor("white"), colorRange, 0, 0);
           ColorAssert.AreEqual(new MagickColor("blue"), colorRange, 101, 0);
 
 #if Q8
