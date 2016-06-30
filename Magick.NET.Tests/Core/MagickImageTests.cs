@@ -2921,10 +2921,14 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Sketch()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
+        image.Resize(200, 0);
+
         image.Sketch();
-        Assert.Inconclusive("Needs implementation.");
+
+        ColorAssert.AreEqual(MagickColors.White, image, 31, 46);
+        ColorAssert.AreEqual(MagickColors.White, image, 128, 108);
       }
     }
 
