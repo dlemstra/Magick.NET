@@ -1,6 +1,6 @@
 @echo off
 
-if not exist "C:\Program Files (x86)\gs" choco install ghostscript.app -y -x86 -version 9.19
+if not exist "C:\Program Files (x86)\gs" powershell -ExecutionPolicy Unrestricted ..\Scripts\AppVeyor\InstallGhostscript.ps1
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 set LIBDIR=C:\Magick.NET.libs
