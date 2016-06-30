@@ -2928,7 +2928,6 @@ namespace Magick.NET.Tests
         image.Sketch();
 
         ColorAssert.AreEqual(MagickColors.White, image, 31, 46);
-        ColorAssert.AreEqual(MagickColors.White, image, 128, 108);
       }
     }
 
