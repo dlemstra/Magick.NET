@@ -3075,8 +3075,18 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
+        image.Settings.FillColor = MagickColors.Gold;
         image.Tint("1x2");
-        Assert.Inconclusive("Needs implementation.");
+        image.Clamp();
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#de0000"), image, 400, 205);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#dee500000000"), image, 400, 205);
+#else
+#error Not implemented!
+#endif
+        ColorAssert.AreEqual(MagickColors.Black, image, 400, 380);
       }
     }
 
