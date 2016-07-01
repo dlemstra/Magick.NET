@@ -2923,11 +2923,14 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
-        image.Resize(200, 0);
+        image.Resize(400, 400);
 
         image.Sketch();
+        image.ColorType = ColorType.Bilevel;
 
-        ColorAssert.AreEqual(MagickColors.White, image, 31, 46);
+        ColorAssert.AreEqual(MagickColors.White, image, 63, 100);
+        ColorAssert.AreEqual(MagickColors.White, image, 150, 175);
+        ColorAssert.AreEqual(MagickColors.White, image, 350, 25);
       }
     }
 
