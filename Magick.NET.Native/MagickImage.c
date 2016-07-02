@@ -1243,9 +1243,9 @@ MAGICK_NET_EXPORT void MagickImage_EvaluateGeometry(Image *instance, const size_
 
   MAGICK_NET_GET_EXCEPTION;
   cropImage = CropImage(instance, geometry, exceptionInfo);
-  SetChannelMask(instance, channels);
-  EvaluateImage(instance, evaluateOperator, value, exceptionInfo);
-  RestoreChannelMask(instance);
+  SetChannelMask(cropImage, channels);
+  EvaluateImage(cropImage, evaluateOperator, value, exceptionInfo);
+  RestoreChannelMask(cropImage);
   CompositeImage(instance, cropImage, instance->alpha_trait == BlendPixelTrait ? OverCompositeOp : CopyCompositeOp, MagickFalse, geometry->x, geometry->y, exceptionInfo);
   DestroyImage(cropImage);
   MAGICK_NET_SET_EXCEPTION;

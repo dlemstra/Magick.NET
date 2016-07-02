@@ -1565,13 +1565,42 @@ namespace Magick.NET.Tests
           image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, new double[] { });
         });
 
-        image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, new double[] { 0.0 });
+        ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+        {
+          image.Evaluate(Channels.Red, null, EvaluateOperator.Set, 0.0);
+        });
 
-        image.Evaluate(Channels.RGB, EvaluateOperator.Set, Quantum.Max);
+        image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, new double[] { 5.0 });
 
-        image.Evaluate(Channels.Red, new MagickGeometry(0, 0, 100, 100), EvaluateOperator.Set, 0);
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#90ffff"), image, 100, 295);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#9068ffffffff"), image, 100, 295);
+#else
+#error Not implemented!
+#endif
 
-        Assert.Inconclusive("Needs implementation.");
+        image.Evaluate(Channels.Red, new MagickGeometry(0, 0, 100, 295), EvaluateOperator.Set, 0);
+
+        ColorAssert.AreEqual(new MagickColor("#0ff"), image, 99, 195);
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#90ffff"), image, 100, 295);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#9068ffffffff"), image, 100, 295);
+#else
+#error Not implemented!
+#endif
+
+        image.Evaluate(Channels.Green, EvaluateOperator.Set, 0);
+
+        ColorAssert.AreEqual(new MagickColor("#00f"), image, 99, 195);
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#9000ff"), image, 100, 295);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#90680000ffff"), image, 100, 295);
+#else
+#error Not implemented!
+#endif
       }
     }
 
