@@ -1422,10 +1422,32 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Distort()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
-        image.Distort(DistortMethod.Affine, new double[] { 10.0, 10.0, 15.0, 15.0 });
-        Assert.Inconclusive("Needs implementation.");
+        ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+        {
+          image.Distort(DistortMethod.Perspective, null);
+        });
+
+        ExceptionAssert.Throws<ArgumentException>(delegate ()
+        {
+          image.Distort(DistortMethod.Perspective, new double[] { });
+        });
+
+        image.BackgroundColor = MagickColors.Cornsilk;
+        image.VirtualPixelMethod = VirtualPixelMethod.Background;
+        image.Distort(DistortMethod.Perspective, new double[] { 0, 0, 0, 0, 0, 90, 0, 90, 90, 0, 90, 25, 90, 90, 90, 65 });
+        image.Clamp();
+
+        ColorAssert.AreEqual(new MagickColor("#0000"), image, 1, 64);
+        ColorAssert.AreEqual(MagickColors.Cornsilk, image, 104, 50);
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#aae0f9"), image, 66, 62);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#aa67e157f9da"), image, 66, 62);
+#else
+#error Not implemented!
+#endif
       }
     }
 
