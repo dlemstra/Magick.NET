@@ -1764,8 +1764,62 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        image.Fx("1/2");
-        Assert.Inconclusive("Needs implementation.");
+        ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+        {
+          image.Fx(null);
+        });
+
+        ExceptionAssert.Throws<ArgumentException>(delegate ()
+        {
+          image.Fx("");
+        });
+
+        ExceptionAssert.Throws<MagickOptionErrorException>(delegate ()
+        {
+          image.Fx("foobar");
+        });
+
+        image.Fx("b");
+
+        ColorAssert.AreEqual(MagickColors.Black, image, 183, 83);
+        ColorAssert.AreEqual(MagickColors.White, image, 140, 400);
+
+        image.Fx("1/2", Channels.Green);
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#008000"), image, 183, 83);
+        ColorAssert.AreEqual(new MagickColor("#ff80ff"), image, 140, 400);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#000080000000"), image, 183, 83);
+        ColorAssert.AreEqual(new MagickColor("#ffff8000ffff"), image, 140, 400);
+#else
+#error Not implemented!
+#endif
+
+        image.Fx("1/4", Channels.Alpha);
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#008000"), image, 183, 83);
+        ColorAssert.AreEqual(new MagickColor("#ff80ff"), image, 140, 400);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#000080000000"), image, 183, 83);
+        ColorAssert.AreEqual(new MagickColor("#ffff8000ffff"), image, 140, 400);
+#else
+#error Not implemented!
+#endif
+
+        image.HasAlpha = true;
+        image.Fx("1/4", Channels.Alpha);
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#00800040"), image, 183, 83);
+        ColorAssert.AreEqual(new MagickColor("#ff80ff40"), image, 140, 400);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#0000800000004000"), image, 183, 83);
+        ColorAssert.AreEqual(new MagickColor("#ffff8000ffff4000"), image, 140, 400);
+#else
+#error Not implemented!
+#endif
       }
     }
 
