@@ -1841,10 +1841,25 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_GaussianBlur()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage gaussian = new MagickImage(Files.Builtin.Wizard))
       {
-        image.GaussianBlur(1.5, 1.0);
-        Assert.Inconclusive("Needs implementation.");
+        gaussian.GaussianBlur(5.5, 10.2);
+
+        using (MagickImage blur = new MagickImage(Files.Builtin.Wizard))
+        {
+          blur.Blur(5.5, 10.2);
+
+          double distortion = blur.Compare(gaussian, ErrorMetric.RootMeanSquared);
+#if Q8
+          Assert.AreEqual(0.00066, distortion, 0.00001);
+#elif Q16
+          Assert.AreEqual(0.0000033, distortion, 0.0000001);
+#elif Q16HDRI
+          Assert.AreEqual(0.0000011, distortion, 0.0000001);
+#else
+#error Not implemented!
+#endif
+        }
       }
     }
 
