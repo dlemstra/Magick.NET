@@ -1515,9 +1515,12 @@ namespace Magick.NET.Tests
 #if Q8
         ColorAssert.AreEqual(new MagickColor("#ff5e43"), image, 325, 175);
         ColorAssert.AreEqual(new MagickColor("#4344ff"), image, 99, 270);
-#elif Q16 || Q16HDRI
+#elif Q16
         ColorAssert.AreEqual(new MagickColor("#ffff597e4397"), image, 325, 175);
         ColorAssert.AreEqual(new MagickColor("#431f43f0ffff"), image, 99, 270);
+#elif Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#ffff59624391"), image, 325, 175);
+        ColorAssert.AreEqual(new MagickColor("#431843e8ffff"), image, 99, 270);
 #else
 #error Not implemented!
 #endif
