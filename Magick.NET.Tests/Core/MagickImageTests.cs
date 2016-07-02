@@ -1799,8 +1799,13 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        image.Grayscale(PixelIntensityMethod.RMS);
-        Assert.Inconclusive("Needs implementation.");
+        image.Grayscale(PixelIntensityMethod.Brightness);
+        Assert.AreEqual(1, image.ChannelCount);
+        Assert.AreEqual(PixelChannel.Red, image.Channels.First());
+
+        ColorAssert.AreEqual(MagickColors.White, image, 220, 45);
+        ColorAssert.AreEqual(new MagickColor("#929292"), image, 386, 379);
+        ColorAssert.AreEqual(new MagickColor("#f5f5f5"), image, 405, 158);
       }
     }
 
