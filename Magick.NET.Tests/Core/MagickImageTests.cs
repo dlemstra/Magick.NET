@@ -1527,10 +1527,14 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Enhance()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage enhanced = new MagickImage(Files.NoisePNG))
       {
-        image.Enhance();
-        Assert.Inconclusive("Needs implementation.");
+        enhanced.Enhance();
+
+        using (MagickImage original = new MagickImage(Files.NoisePNG))
+        {
+          Assert.AreEqual(0.0115, enhanced.Compare(original, ErrorMetric.RootMeanSquared), 0.0003);
+        }
       }
     }
 
