@@ -1508,10 +1508,19 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Emboss()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
       {
-        image.Emboss();
-        Assert.Inconclusive("Needs implementation.");
+        image.Emboss(4, 2);
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#ff5e43"), image, 325, 175);
+        ColorAssert.AreEqual(new MagickColor("#4344ff"), image, 99, 270);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#ffff597e4397"), image, 325, 175);
+        ColorAssert.AreEqual(new MagickColor("#431f43f0ffff"), image, 99, 270);
+#else
+#error Not implemented!
+#endif
       }
     }
 
