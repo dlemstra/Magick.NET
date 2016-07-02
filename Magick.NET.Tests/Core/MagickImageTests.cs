@@ -1541,10 +1541,12 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Equalize()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         image.Equalize();
-        Assert.Inconclusive("Needs implementation.");
+
+        ColorAssert.AreEqual(MagickColors.White, image, 105, 25);
+        ColorAssert.AreEqual(new MagickColor("#0000"), image, 105, 60);
       }
     }
 
