@@ -2443,11 +2443,34 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Raise_Lower()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
-        image.Raise(5);
-        image.Lower(5);
-        Assert.Inconclusive("Needs implementation.");
+        image.Raise(30);
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#6e94b4"), image, 29, 30);
+        ColorAssert.AreEqual(new MagickColor("#2f547a"), image, 570, 265);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#6ee29508b532"), image, 29, 30);
+        ColorAssert.AreEqual(new MagickColor("#2f2054867aac"), image, 570, 265);
+#else
+#error Not implemented!
+#endif
+      }
+
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      {
+        image.Lower(30);
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#2d5373"), image, 29, 30);
+        ColorAssert.AreEqual(new MagickColor("#7095bb"), image, 570, 265);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#2da153c773f1"), image, 29, 30);
+        ColorAssert.AreEqual(new MagickColor("#706195c7bbed"), image, 570, 265);
+#else
+#error Not implemented!
+#endif
       }
     }
 
