@@ -1884,12 +1884,22 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_HaldClut()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         using (MagickImage clut = CreatePallete())
         {
           image.HaldClut(clut);
-          Assert.Inconclusive("Needs implementation.");
+          image.Clamp();
+
+#if Q8
+          ColorAssert.AreEqual(new MagickColor("#8000005b"), image, 228, 276);
+          ColorAssert.AreEqual(new MagickColor("#80000040"), image, 295, 270);
+#elif Q16 || Q16HDRI
+          ColorAssert.AreEqual(new MagickColor("#8080000000005bd6"), image, 228, 276);
+          ColorAssert.AreEqual(new MagickColor("#8080000000004036"), image, 295, 270);
+#else
+#error Not implemented!
+#endif
         }
       }
     }
