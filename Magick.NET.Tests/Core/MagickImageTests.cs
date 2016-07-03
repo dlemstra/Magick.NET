@@ -2062,10 +2062,13 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Kuwahara()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (MagickImage image = new MagickImage(Files.NoisePNG))
       {
-        image.Kuwahara();
-        Assert.Inconclusive("Needs implementation.");
+        image.Kuwahara(13.4, 2.5);
+        image.ColorType = ColorType.Bilevel;
+
+        ColorAssert.AreEqual(MagickColors.White, image, 216, 120);
+        ColorAssert.AreEqual(MagickColors.Black, image, 39, 138);
       }
     }
 
