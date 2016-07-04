@@ -2317,10 +2317,14 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_MotionBlur()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage motionBlurred = new MagickImage(Files.Builtin.Logo))
       {
-        image.MotionBlur(1.0, 0.4, 0.6);
-        Assert.Inconclusive("Needs implementation.");
+        motionBlurred.MotionBlur(4.0, 5.4, 10.6);
+
+        using (MagickImage original = new MagickImage(Files.Builtin.Logo))
+        {
+          Assert.AreEqual(0.11019, motionBlurred.Compare(original, ErrorMetric.RootMeanSquared), 0.00001);
+        }
       }
     }
 
