@@ -2017,8 +2017,15 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
-        image.Implode(0.5, PixelInterpolateMethod.Bilinear);
-        Assert.Inconclusive("Needs implementation.");
+        ColorAssert.AreEqual(new MagickColor("#00000000"), image, 69, 45);
+
+        image.Implode(0.5, PixelInterpolateMethod.Blend);
+
+        ColorAssert.AreEqual(new MagickColor("#a8dff8"), image, 69, 45);
+
+        image.Implode(-0.5, PixelInterpolateMethod.Background);
+
+        ColorAssert.AreEqual(new MagickColor("#00000000"), image, 69, 45);
       }
     }
 
