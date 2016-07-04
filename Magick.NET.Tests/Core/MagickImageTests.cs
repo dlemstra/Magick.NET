@@ -2256,10 +2256,27 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Modulate()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.TestPNG))
       {
-        image.Modulate(new Percentage(10));
-        Assert.Inconclusive("Needs implementation.");
+        image.Modulate(new Percentage(70), new Percentage(30));
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#743e3e"), image, 25, 70);
+        ColorAssert.AreEqual(new MagickColor("#0b0b0b"), image, 25, 40);
+        ColorAssert.AreEqual(new MagickColor("#1f3a1f"), image, 75, 70);
+        ColorAssert.AreEqual(new MagickColor("#5a5a5a"), image, 75, 40);
+        ColorAssert.AreEqual(new MagickColor("#3e3e74"), image, 125, 70);
+        ColorAssert.AreEqual(new MagickColor("#a8a8a8"), image, 125, 40);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#72803da83da8"), image, 25, 70);
+        ColorAssert.AreEqual(new MagickColor("#0b2d0b2d0b2d"), image, 25, 40);
+        ColorAssert.AreEqual(new MagickColor("#1ef3397a1ef3"), image, 75, 70);
+        ColorAssert.AreEqual(new MagickColor("#592d592d592d"), image, 75, 40);
+        ColorAssert.AreEqual(new MagickColor("#3da83da87280"), image, 125, 70);
+        ColorAssert.AreEqual(new MagickColor("#a5aea5aea5ae"), image, 125, 40);
+#else
+#error Not implemented!
+#endif
       }
     }
 

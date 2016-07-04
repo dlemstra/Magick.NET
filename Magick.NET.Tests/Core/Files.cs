@@ -183,6 +183,14 @@ namespace Magick.NET.Tests
       }
     }
 
+    public static string TestPNG
+    {
+      get
+      {
+        return _Root + @"Images\Test.png";
+      }
+    }
+
     public static class Builtin
     {
       public static string Logo
