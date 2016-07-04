@@ -2175,10 +2175,15 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_LocalContrast()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.NoisePNG))
       {
-        image.LocalContrast(2.0, (Percentage)50);
-        Assert.Inconclusive("Needs implementation.");
+        image.LocalContrast(5.0, (Percentage)75);
+        image.Clamp();
+
+        ColorAssert.AreEqual(MagickColors.Black, image, 81, 28);
+        ColorAssert.AreEqual(MagickColors.Black, image, 245, 181);
+        ColorAssert.AreEqual(MagickColors.White, image, 200, 135);
+        ColorAssert.AreEqual(MagickColors.White, image, 200, 135);
       }
     }
 
