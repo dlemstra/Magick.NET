@@ -2165,10 +2165,55 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_LinearStretch()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
-        image.LinearStretch((Percentage)10, (Percentage)50);
-        Assert.Inconclusive("Needs implementation.");
+        image.Scale(100, 100);
+
+        image.LinearStretch((Percentage)1, (Percentage)1);
+        using (MemoryStream memStream = new MemoryStream())
+        {
+          image.Format = MagickFormat.Histogram;
+          image.Write(memStream);
+          memStream.Position = 0;
+
+          using (MagickImage histogram = new MagickImage(memStream))
+          {
+#if Q8
+            ColorAssert.AreEqual(MagickColors.Red, histogram, 66, 11);
+            ColorAssert.AreEqual(MagickColors.Lime, histogram, 95, 122);
+            ColorAssert.AreEqual(MagickColors.Blue, histogram, 204, 80);
+#elif Q16 || Q16HDRI
+            ColorAssert.AreEqual(MagickColors.Red, histogram, 34, 182);
+            ColorAssert.AreEqual(MagickColors.Lime, histogram, 122, 193);
+            ColorAssert.AreEqual(MagickColors.Blue, histogram, 210, 194);
+#else
+#error Not implemented!
+#endif
+          }
+        }
+
+        image.LinearStretch((Percentage)10, (Percentage)90);
+        using (MemoryStream memStream = new MemoryStream())
+        {
+          image.Format = MagickFormat.Histogram;
+          image.Write(memStream);
+          memStream.Position = 0;
+
+          using (MagickImage histogram = new MagickImage(memStream))
+          {
+#if Q8
+            ColorAssert.AreEqual(MagickColors.Red, histogram, 103, 183);
+            ColorAssert.AreEqual(MagickColors.Lime, histogram, 147, 188);
+            ColorAssert.AreEqual(MagickColors.Blue, histogram, 194, 190);
+#elif Q16 || Q16HDRI
+            ColorAssert.AreEqual(MagickColors.Red, histogram, 221, 182);
+            ColorAssert.AreEqual(MagickColors.Lime, histogram, 12, 183);
+            ColorAssert.AreEqual(MagickColors.Blue, histogram, 45, 194);
+#else
+#error Not implemented!
+#endif
+          }
+        }
       }
     }
 
