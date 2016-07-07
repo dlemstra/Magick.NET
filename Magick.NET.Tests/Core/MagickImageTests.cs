@@ -2514,10 +2514,23 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Polaroid()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
-        image.Polaroid("Magick.NET", 5, PixelInterpolateMethod.Bilinear);
-        Assert.Inconclusive("Needs implementation.");
+        image.BorderColor = MagickColors.Red;
+        image.BackgroundColor = MagickColors.Fuchsia;
+        image.Settings.FontPointsize = 20;
+        image.Polaroid("Magick.NET", 10, PixelInterpolateMethod.Bilinear);
+        image.Clamp();
+
+        ColorAssert.AreEqual(MagickColors.Black, image, 103, 162);
+        ColorAssert.AreEqual(MagickColors.Red, image, 99, 97);
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#ff00ffbc"), image, 146, 194);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#ffff0000ffffbbe5"), image, 146, 194);
+#else
+#error Not implemented!
+#endif
       }
     }
 
