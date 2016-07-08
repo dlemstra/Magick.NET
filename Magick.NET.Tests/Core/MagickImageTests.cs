@@ -2313,12 +2313,12 @@ namespace Magick.NET.Tests
         ColorAssert.AreEqual(new MagickColor("#3e3e74"), image, 125, 70);
         ColorAssert.AreEqual(new MagickColor("#a8a8a8"), image, 125, 40);
 #elif Q16 || Q16HDRI
-        ColorAssert.AreEqual(new MagickColor("#72803da83da8"), image, 25, 70);
-        ColorAssert.AreEqual(new MagickColor("#0b2d0b2d0b2d"), image, 25, 40);
-        ColorAssert.AreEqual(new MagickColor("#1ef3397a1ef3"), image, 75, 70);
-        ColorAssert.AreEqual(new MagickColor("#592d592d592d"), image, 75, 40);
-        ColorAssert.AreEqual(new MagickColor("#3da83da87280"), image, 125, 70);
-        ColorAssert.AreEqual(new MagickColor("#a5aea5aea5ae"), image, 125, 40);
+        ColorAssert.AreEqual(new MagickColor(OpenCLValue.Get("#72803da83da8", "#747a3eb83eb8")), image, 25, 70);
+        ColorAssert.AreEqual(new MagickColor(OpenCLValue.Get("#0b2d0b2d0b2d", "#0b5f0b5f0b5f")), image, 25, 40);
+        ColorAssert.AreEqual(new MagickColor(OpenCLValue.Get("#1ef3397a1ef3", "#1f7c3a781f7c")), image, 75, 70);
+        ColorAssert.AreEqual(new MagickColor(OpenCLValue.Get("#592d592d592d", "#5ab75ab75ab7")), image, 75, 40);
+        ColorAssert.AreEqual(new MagickColor(OpenCLValue.Get("#3da83da87280", "#3eb83eb8747a")), image, 125, 70);
+        ColorAssert.AreEqual(new MagickColor(OpenCLValue.Get("#a5aea5aea5ae", "#a88ba88ba88b")), image, 125, 40);
 #else
 #error Not implemented!
 #endif
