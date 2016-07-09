@@ -2542,10 +2542,21 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Posterize()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         image.Posterize(5);
-        Assert.Inconclusive("Needs implementation.");
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#3f7fbf"), image, 300, 150);
+        ColorAssert.AreEqual(new MagickColor("#3f3f7f"), image, 495, 270);
+        ColorAssert.AreEqual(new MagickColor("#3f3f3f"), image, 445, 255);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#3fff7fffbfff"), image, 300, 150);
+        ColorAssert.AreEqual(new MagickColor("#3fff3fff7fff"), image, 495, 270);
+        ColorAssert.AreEqual(new MagickColor("#3fff3fff3fff"), image, 445, 255);
+#else
+#error Not implemented!
+#endif
       }
     }
 
