@@ -2674,10 +2674,15 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_RandomThreshold()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.TestPNG))
       {
         image.RandomThreshold((QuantumType)(Quantum.Max / 4), (QuantumType)(Quantum.Max / 2));
-        Assert.Inconclusive("Needs implementation.");
+
+        ColorAssert.AreEqual(MagickColors.Black, image, 52, 52);
+        ColorAssert.AreEqual(MagickColors.White, image, 75, 52);
+        ColorAssert.AreEqual(MagickColors.Red, image, 31, 90);
+        ColorAssert.AreEqual(MagickColors.Lime, image, 69, 90);
+        ColorAssert.AreEqual(MagickColors.Blue, image, 120, 90);
       }
     }
 
