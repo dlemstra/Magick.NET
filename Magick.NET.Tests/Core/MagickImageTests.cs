@@ -2423,7 +2423,10 @@ namespace Magick.NET.Tests
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.OrderedDither("h4x4a");
-        Assert.Inconclusive("Needs implementation.");
+
+        ColorAssert.AreEqual(MagickColors.Yellow, image, 299, 212);
+        ColorAssert.AreEqual(MagickColors.Red, image, 314, 228);
+        ColorAssert.AreEqual(MagickColors.Black, image, 448, 159);
       }
     }
 
