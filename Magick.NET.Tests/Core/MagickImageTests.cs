@@ -2453,8 +2453,10 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        image.Perceptible(6.0);
-        Assert.Inconclusive("Needs implementation.");
+        image.Perceptible(Quantum.Max * 0.4);
+
+        ColorAssert.AreEqual(new MagickColor("#f79868"), image, 300, 210);
+        ColorAssert.AreEqual(new MagickColor("#666692"), image, 410, 405);
       }
     }
 
