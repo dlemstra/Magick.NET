@@ -37,6 +37,7 @@
     ],
     "optimize": true,
     "warningsAsErrors": true,
+    "xmlDoc": true,
     "keyFile": "../../../Magick.NET/Magick.NET.snk",
     "embed":
     [

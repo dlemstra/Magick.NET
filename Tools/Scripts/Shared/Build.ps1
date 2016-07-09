@@ -23,10 +23,10 @@ function BuildCoreLibrary($directory)
 
   dotnet restore
 
-  dotnet build
+  dotnet build --configuration Release
   CheckExitCode "Failed to build $directory"
 
-  dotnet pack
+  dotnet pack --configuration Release
 
   TestCoreLibrary $directory
 
@@ -43,7 +43,7 @@ function BuildCoreNative($directory)
 
   dotnet restore
 
-  dotnet pack
+  dotnet pack --configuration Release
   CheckExitCode "Failed to pack $directory"
 
   Set-Location $location
