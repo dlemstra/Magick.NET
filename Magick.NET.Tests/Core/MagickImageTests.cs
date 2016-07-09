@@ -2882,10 +2882,14 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Roll()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.Roll(40, 60);
-        Assert.Inconclusive("Needs implementation.");
+
+        MagickColor blue = new MagickColor("#a8dff8");
+        ColorAssert.AreEqual(blue, image, 66, 103);
+        ColorAssert.AreEqual(blue, image, 120, 86);
+        ColorAssert.AreEqual(blue, image, 0, 82);
       }
     }
 
