@@ -2912,10 +2912,43 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_RotationalBlur()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.TestPNG))
       {
-        image.RotationalBlur(2);
-        Assert.Inconclusive("Needs implementation.");
+        image.RotationalBlur(20);
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#fbfbfb2b"), image, 10, 10);
+        ColorAssert.AreEqual(new MagickColor("#8b0303"), image, 13, 67);
+        ColorAssert.AreEqual(new MagickColor(OpenCLValue.Get("#167516", "#167616")), image, 63, 67);
+        ColorAssert.AreEqual(new MagickColor("#3131fc"), image, 125, 67);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#fbf7fbf7fbf72aab"), image, 10, 10);
+        ColorAssert.AreEqual(new MagickColor("#8b2102990299"), image, 13, 67);
+        ColorAssert.AreEqual(new MagickColor(OpenCLValue.Get("#159275f21592", "#159175f11591")), image, 63, 67);
+        ColorAssert.AreEqual(new MagickColor("#31853185fd47"), image, 125, 67);
+#else
+#error Not implemented!
+#endif
+
+      }
+
+      using (MagickImage image = new MagickImage(Files.TestPNG))
+      {
+        image.RotationalBlur(20, Channels.RGB);
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#fbfbfb80"), image, 10, 10);
+        ColorAssert.AreEqual(new MagickColor("#8b0303"), image, 13, 67);
+        ColorAssert.AreEqual(new MagickColor(OpenCLValue.Get("#167516", "#167616")), image, 63, 67);
+        ColorAssert.AreEqual(new MagickColor("#3131fc"), image, 125, 67);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#fbf7fbf7fbf78000"), image, 10, 10);
+        ColorAssert.AreEqual(new MagickColor("#8b2102990299"), image, 13, 67);
+        ColorAssert.AreEqual(new MagickColor(OpenCLValue.Get("#159275f21592", "#159175f11591")), image, 63, 67);
+        ColorAssert.AreEqual(new MagickColor("#31853185fd47"), image, 125, 67);
+#else
+#error Not implemented!
+#endif
       }
     }
 
