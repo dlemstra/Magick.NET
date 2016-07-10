@@ -53,6 +53,34 @@ function CheckStrongNames($builds)
   }
 }
 
+function GetImageMagickVersion()
+{
+  $versionPath = FullPath "ImageMagick\Include\MagickCore\version.h"
+  $lines = [IO.File]::ReadAllLines($versionPath, [System.Text.Encoding]::UTF8)
+
+  $version = "0.0.0"
+  $addendum = "--0"
+  foreach ($line in $lines)
+  {
+    if ($line.StartsWith("#define MagickLibVersionText  "))
+    {
+      $version = $line.Replace("""","").SubString(30);
+    }
+    elseif ($line.StartsWith("#define MagickLibAddendum  "))
+    {
+      $addendum = $line.Replace("""","").SubString(27);
+    }
+  }
+
+  if (("$version" -eq "0.0.0") -or ("$addendum" -eq "--0"))
+  {
+    Write-Error "Unable to find ImageMagickVersion"
+    Exit
+  }
+
+  return "$version$addendum"
+}
+
 function CreateNuGetPackage($id, $version, $build)
 {
   $path = FullPath "Publish\NuGet\Magick.NET.nuspec"
@@ -64,8 +92,7 @@ function CreateNuGetPackage($id, $version, $build)
     $platform = "Win32"
   }
 
-  $versionPath = FullPath "ImageMagick\Source\Version.txt"
-  $imVersion = [IO.File]::ReadAllText($versionPath, [System.Text.Encoding]::Unicode)
+  $imVersion = GetImageMagickVersion
   $xml.package.metadata.releaseNotes = "Magick.NET linked with ImageMagick " + $imVersion
 
   AddFileElement $xml "..\..\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform).net20\Magick.NET-$($build.Quantum)-$($build.Platform).dll" "lib\net20"

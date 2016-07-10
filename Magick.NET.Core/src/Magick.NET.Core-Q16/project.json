@@ -1,5 +1,5 @@
 {
-  "version": "7.0.2.100",
+  "version": "7.0.2.400",
   "title": "Magick.NET.Core-Q16",
   "authors":
   [
@@ -15,8 +15,7 @@
     "summary": "A .NET API to the ImageMagick image-processing library for Desktop and Web.",
     "tags":
     [
-      "ImageMagick",
-      "Magick.NET.Core"
+      "ImageMagick Magick.NET.Core Image Convert Resize Draw Effects"
     ],
     "owners":
     [
@@ -46,7 +45,7 @@
   },
   "dependencies":
   {
-    "Magick.NET.Core-Q16.Native": "7.0.2.100"
+    "Magick.NET.Core-Q16.Native": "7.0.2.400"
   },
   "frameworks":
   {

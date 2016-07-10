@@ -74,7 +74,7 @@ function CleanupZipFolder()
 
 function CopyCorePackage($name)
 {
-  $source = "Magick.NET.Core\src\$name\bin\Debug\$name.$version.nupkg"
+  $source = "Magick.NET.Core\src\$name\bin\Release\$name.$version.nupkg"
   $destination = "Publish\NuGet"
 
   Copy-Item $source $destination
@@ -270,13 +270,12 @@ function PublishCoreDepth($quantum)
   Copy-Item $source $destination
 }
 
-if ($args.count -ne 2)
+if ($args.count -ne 1)
 {
   Write-Error "Invalid arguments"
   Exit 1
 }
-$imVersion = $args[0]
-$version = $args[1]
+$version = $args[0]
 
 CheckArchive
 Cleanup

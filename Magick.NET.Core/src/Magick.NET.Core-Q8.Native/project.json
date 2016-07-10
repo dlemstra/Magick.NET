@@ -1,11 +1,11 @@
 {
-  "version": "7.0.2.100",
+  "version": "7.0.2.400",
   "title": "Magick.NET.Core-Q8.Native",
   "authors":
   [
     "Dirk Lemstra"
   ],
-  "description": "The native library that is automatically used by Magick.NET.Core-Q8",
+  "description": "Dependency for Magick.NET.Core-Q8 that should be installed instead of this package.",
   "copyright": "Copyright 2013-2016 Dirk Lemstra",
   "packOptions":
   {
@@ -15,8 +15,7 @@
     "summary": "A .NET API to the ImageMagick image-processing library for Desktop and Web.",
     "tags":
     [
-      "ImageMagick",
-      "Magick.NET.Core.Native"
+      "ImageMagick Magick.NET.Core.Native Image Convert Resize Draw Effects"
     ],
     "owners":
     [
