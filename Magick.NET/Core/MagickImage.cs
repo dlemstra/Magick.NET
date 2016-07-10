@@ -227,7 +227,7 @@ namespace ImageMagick
 
     private void LevelColors(MagickColor blackColor, MagickColor whiteColor, bool invert)
     {
-      LevelColors(blackColor, whiteColor, ImageMagick.Channels.Composite, invert);
+      LevelColors(blackColor, whiteColor, ImageMagick.Channels.RGB, invert);
     }
 
     private void LevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels, bool invert)
@@ -5723,7 +5723,7 @@ namespace ImageMagick
       bool hasRed = EnumHelper.HasFlag(channels, ImageMagick.Channels.Red);
       bool hasGreen = EnumHelper.HasFlag(channels, ImageMagick.Channels.Green);
       bool hasBlue = EnumHelper.HasFlag(channels, ImageMagick.Channels.Blue);
-      bool hasAlpha = EnumHelper.HasFlag(channels, ImageMagick.Channels.Alpha);
+      bool hasAlpha = HasAlpha && EnumHelper.HasFlag(channels, ImageMagick.Channels.Alpha);
 
       Throw.IfTrue("channels", !hasRed && !hasGreen && !hasBlue && !hasAlpha, "Invalid channels specified.");
 

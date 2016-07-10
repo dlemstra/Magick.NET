@@ -1026,7 +1026,7 @@ namespace Magick.NET.Tests
           using (MagickImage result = new MagickImage(MagickColors.Transparent, 200, 100))
           {
             result.Draw(drawables);
-            Assert.AreEqual(0.052, result.Compare(image, ErrorMetric.RootMeanSquared), 0.001);
+            Assert.AreEqual(0.0634, result.Compare(image, ErrorMetric.RootMeanSquared), 0.001);
           }
         }
       }
@@ -1889,14 +1889,13 @@ namespace Magick.NET.Tests
         using (MagickImage clut = CreatePallete())
         {
           image.HaldClut(clut);
-          image.Clamp();
 
 #if Q8
-          ColorAssert.AreEqual(new MagickColor("#8000005b"), image, 228, 276);
-          ColorAssert.AreEqual(new MagickColor("#80000040"), image, 295, 270);
+          ColorAssert.AreEqual(new MagickColor("#05682c"), image, 228, 276);
+          ColorAssert.AreEqual(new MagickColor("#146228"), image, 295, 270);
 #elif Q16 || Q16HDRI
-          ColorAssert.AreEqual(new MagickColor("#8080000000005bd6"), image, 228, 276);
-          ColorAssert.AreEqual(new MagickColor("#8080000000004036"), image, 295, 270);
+          ColorAssert.AreEqual(new MagickColor("#052467fc2bb4"), image, 228, 276);
+          ColorAssert.AreEqual(new MagickColor("#144f623a2801"), image, 295, 270);
 #else
 #error Not implemented!
 #endif
@@ -2095,6 +2094,7 @@ namespace Magick.NET.Tests
           QuantumType ten = (QuantumType)(Quantum.Max * 0.1);
           second.Level(fifty, ten, Channels.Red);
           second.Level(fifty, ten, Channels.Green | Channels.Blue);
+          second.Level(fifty, ten, Channels.Alpha);
 
           Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
 
@@ -2116,6 +2116,7 @@ namespace Magick.NET.Tests
           QuantumType ten = (QuantumType)(Quantum.Max * 0.1);
           second.InverseLevel(fifty, ten, Channels.Red);
           second.InverseLevel(fifty, ten, Channels.Green | Channels.Blue);
+          second.InverseLevel(fifty, ten, Channels.Alpha);
 
           Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
 

@@ -8,7 +8,7 @@
 <configuremap>
   <configure name="NAME" value="ImageMagick"/>
   <configure name="LIB_VERSION" value="0x702"/>
-  <configure name="LIB_VERSION_NUMBER" value="7,0,2,3"/>
+  <configure name="LIB_VERSION_NUMBER" value="7,0,2,4"/>
   <configure name="RELEASE_DATE" value="2016-07-30"/>
   <configure name="VERSION" value="7.0.2"/>
   <configure name="CC" value="vs10"/>

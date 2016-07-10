@@ -266,7 +266,7 @@ const char *accelerateKernels =
        ReadMaskChannel = 0x0040,          /* Pixel is Not Readable? */
        WriteMaskChannel = 0x0080,         /* Pixel is Write Protected? */
        MetaChannel = 0x0100,              /* ???? */
-       CompositeChannels = 0x002F,
+       CompositeChannels = 0x001F,
        AllChannels = 0x7ffffff,
        /*
          Special purpose channel types.
@@ -413,6 +413,26 @@ OPENCL_ENDIF()
       *alpha=getPixelAlpha(p,number_channels);
   }
 
+  inline float4 ReadAllChannels(const __global CLQuantum *image, const unsigned int number_channels,
+    const unsigned int columns, const unsigned int x, const unsigned int y)
+  {
+    const __global CLQuantum *p = image + getPixelIndex(number_channels, columns, x, y);
+
+    float4 pixel;
+
+    pixel.x=getPixelRed(p);
+
+    if (number_channels > 2)
+      {
+        pixel.y=getPixelGreen(p);
+        pixel.z=getPixelBlue(p);
+      }
+
+    if ((number_channels == 4) || (number_channels == 2))
+      pixel.w=getPixelAlpha(p,number_channels);
+    return(pixel);
+  }
+
   inline float4 ReadFloat4(const __global CLQuantum *image, const unsigned int number_channels,
     const unsigned int columns, const unsigned int x, const unsigned int y, const ChannelType channel)
   {
@@ -445,6 +465,23 @@ OPENCL_ENDIF()
     if (((number_channels == 4) || (number_channels == 2)) &&
         ((channel & AlphaChannel) != 0))
       setPixelAlpha(p,number_channels,ClampToQuantum(alpha));
+  }
+
+  inline void WriteAllChannels(__global CLQuantum *image, const unsigned int number_channels,
+    const unsigned int columns, const unsigned int x, const unsigned int y, float4 pixel)
+  {
+    __global CLQuantum *p = image + getPixelIndex(number_channels, columns, x, y);
+
+    setPixelRed(p,ClampToQuantum(pixel.x));
+
+    if (number_channels > 2)
+      {
+        setPixelGreen(p,ClampToQuantum(pixel.y));
+        setPixelBlue(p,ClampToQuantum(pixel.z));
+      }
+
+    if ((number_channels == 4) || (number_channels == 2))
+      setPixelAlpha(p,number_channels,ClampToQuantum(pixel.w));
   }
 
   inline void WriteFloat4(__global CLQuantum *image, const unsigned int number_channels,
@@ -2559,7 +2596,7 @@ OPENCL_ENDIF()
           filteredPixel.z *= gamma;
         }
 
-        WriteFloat4(filteredImage, number_channels, filteredColumns, chunkStartX + itemID, y, AllChannels, filteredPixel);
+        WriteAllChannels(filteredImage, number_channels, filteredColumns, chunkStartX + itemID, y, filteredPixel);
       }
     }
   }
@@ -2724,7 +2761,7 @@ OPENCL_ENDIF()
           filteredPixel.z *= gamma;
         }
 
-        WriteFloat4(filteredImage, number_channels, filteredColumns, x, chunkStartY + itemID, AllChannels, filteredPixel);
+        WriteAllChannels(filteredImage, number_channels, filteredColumns, x, chunkStartY + itemID, filteredPixel);
       }
     }
   }
@@ -2743,9 +2780,11 @@ OPENCL_ENDIF()
 */
 
   STRINGIFY(
-  __kernel void RotationalBlur(const __global CLQuantum *image,const unsigned int number_channels,
-    const unsigned int channel,const float4 bias,const float2 blurCenter,__constant float *cos_theta,
-    __constant float *sin_theta,const unsigned int cossin_theta_size,__global CLQuantum *filteredImage)
+  __kernel void RotationalBlur(const __global CLQuantum *image,
+    const unsigned int number_channels,const unsigned int channel,
+    const float2 blurCenter,__constant float *cos_theta,
+    __constant float *sin_theta,const unsigned int cossin_theta_size,
+    __global CLQuantum *filteredImage)
   {
     const int x = get_global_id(0);
     const int y = get_global_id(1);
@@ -2767,8 +2806,7 @@ OPENCL_ENDIF()
         step = cossin_theta_size-1;
     }
 
-    float4 result = bias;
-
+    float4 result = 0.0f;
     float normalize = 0.0f;
     float gamma = 0.0f;
 
@@ -2777,7 +2815,7 @@ OPENCL_ENDIF()
       int cx = ClampToCanvas(blurCenter.x+center_x*cos_theta[i]-center_y*sin_theta[i]+0.5f,columns);
       int cy = ClampToCanvas(blurCenter.y+center_x*sin_theta[i]+center_y*cos_theta[i]+0.5f,rows);
 
-      float4 pixel = ReadFloat4(image, number_channels, columns, cx, cy, channel);
+      float4 pixel = ReadAllChannels(image, number_channels, columns, cx, cy);
 
       if ((number_channels == 4) || (number_channels == 2))
       {
