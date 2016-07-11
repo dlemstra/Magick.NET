@@ -3055,7 +3055,18 @@ namespace Magick.NET.Tests
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.SepiaTone();
-        Assert.Inconclusive("Needs implementation.");
+
+#if Q8
+        ColorAssert.AreEqual(new MagickColor("#472400"), image, 243, 45);
+        ColorAssert.AreEqual(new MagickColor("#522e00"), image, 394, 394);
+        ColorAssert.AreEqual(new MagickColor("#e4bb7c"), image, 477, 373);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(new MagickColor("#475F24BF0000"), image, 243, 45);
+        ColorAssert.AreEqual(new MagickColor("#52672E770000"), image, 394, 394);
+        ColorAssert.AreEqual(new MagickColor("#E5ADBB627BF2"), image, 477, 373);
+#else
+#error Not implemented!
+#endif
       }
     }
 
