@@ -2992,10 +2992,14 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_SelectiveBlur()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.NoisePNG))
       {
-        image.SelectiveBlur(1.0, 2.0, 3.0);
-        Assert.Inconclusive("Needs implementation.");
+        image.SelectiveBlur(5.0, 2.0, Quantum.Max / 2);
+
+        using (MagickImage original = new MagickImage(Files.NoisePNG))
+        {
+          Assert.AreEqual(0.07777, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00002);
+        }
       }
     }
 
