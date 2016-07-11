@@ -3155,10 +3155,15 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Sharpen()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.NoisePNG))
       {
-        image.Sharpen();
-        Assert.Inconclusive("Needs implementation.");
+        image.Sharpen(10, 20);
+        image.Clamp();
+
+        using (MagickImage original = new MagickImage(Files.NoisePNG))
+        {
+          Assert.AreEqual(0.06675, image.Compare(original, ErrorMetric.RootMeanSquared), 0.00001);
+        }
       }
     }
 
