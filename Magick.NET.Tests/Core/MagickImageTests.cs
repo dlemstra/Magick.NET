@@ -2979,10 +2979,13 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Segment()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.TestPNG))
       {
         image.Segment();
-        Assert.Inconclusive("Needs implementation.");
+
+        ColorAssert.AreEqual(new MagickColor("#008300"), image, 77, 30);
+        ColorAssert.AreEqual(new MagickColor("#f9f9f9"), image, 79, 30);
+        ColorAssert.AreEqual(new MagickColor("#00c2fe"), image, 128, 62);
       }
     }
 
