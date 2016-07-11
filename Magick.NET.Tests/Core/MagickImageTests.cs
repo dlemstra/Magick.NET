@@ -3193,10 +3193,23 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Shear()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.TestPNG))
       {
+        image.BackgroundColor = MagickColors.Firebrick;
+        image.VirtualPixelMethod = VirtualPixelMethod.Background;
         image.Shear(20, 40);
-        Assert.Inconclusive("Needs implementation.");
+
+#if Q8
+        ColorAssert.AreEqual(MagickColors.Firebrick, image, 45, 6);
+        ColorAssert.AreEqual(new MagickColor("#7e7e7efd"), image, 98, 86);
+        ColorAssert.AreEqual(MagickColors.Firebrick, image, 158, 181);
+#elif Q16 || Q16HDRI
+        ColorAssert.AreEqual(MagickColors.Firebrick, image, 45, 6);
+        ColorAssert.AreEqual(new MagickColor("#7e907e907e90fd57"), image, 98, 86);
+        ColorAssert.AreEqual(MagickColors.Firebrick, image, 158, 181);
+#else
+#error Not implemented!
+#endif
       }
     }
 
