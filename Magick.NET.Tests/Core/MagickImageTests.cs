@@ -3308,7 +3308,10 @@ namespace Magick.NET.Tests
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Solarize();
-        Assert.Inconclusive("Needs implementation.");
+
+        ColorAssert.AreEqual(MagickColors.Black, image, 125, 125);
+        ColorAssert.AreEqual(new MagickColor("#007f7f"), image, 122, 143);
+        ColorAssert.AreEqual(new MagickColor("#2e6935"), image, 435, 240);
       }
     }
 
