@@ -3318,10 +3318,15 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Splice()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
       {
-        image.Splice(new MagickGeometry(0, 0, 50, 50));
-        Assert.Inconclusive("Needs implementation.");
+        image.BackgroundColor = MagickColors.Fuchsia;
+        image.Splice(new MagickGeometry(105, 50, 10, 20));
+
+        Assert.AreEqual(296, image.Width);
+        Assert.AreEqual(87, image.Height);
+        ColorAssert.AreEqual(MagickColors.Fuchsia, image, 105, 50);
+        ColorAssert.AreEqual(new MagickColor("#0000"), image, 115, 70);
       }
     }
 
