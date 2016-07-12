@@ -3216,10 +3216,14 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_SigmoidalContrast()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.NoisePNG))
       {
-        image.SigmoidalContrast(true, 1.0);
-        Assert.Inconclusive("Needs implementation.");
+        image.SigmoidalContrast(true, 8.0);
+
+        using (MagickImage original = new MagickImage(Files.NoisePNG))
+        {
+          Assert.AreEqual(0.07361, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00001);
+        }
       }
     }
 
