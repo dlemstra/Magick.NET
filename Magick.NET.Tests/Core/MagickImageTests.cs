@@ -3333,10 +3333,14 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Spread()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
-        image.Spread();
-        Assert.Inconclusive("Needs implementation.");
+        image.Spread(10);
+
+        using (MagickImage original = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+        {
+          Assert.AreEqual(0.121, original.Compare(image, ErrorMetric.RootMeanSquared), 0.002);
+        }
       }
     }
 
