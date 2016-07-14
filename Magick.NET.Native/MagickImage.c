@@ -463,9 +463,9 @@ MAGICK_NET_EXPORT void MagickImage_HasAlpha_Set(Image *instance, const MagickBoo
 
   instance->alpha_trait = value ? BlendPixelTrait : UndefinedPixelTrait;
   MAGICK_NET_GET_EXCEPTION;
-  cache_view=AcquireAuthenticCacheView(instance,exceptionInfo);
-  (void) GetCacheViewAuthenticPixels(cache_view,0,0,1,1,exceptionInfo);
-  cache_view=DestroyCacheView(cache_view);
+  cache_view = AcquireAuthenticCacheView(instance, exceptionInfo);
+  (void)GetCacheViewAuthenticPixels(cache_view, 0, 0, 1, 1, exceptionInfo);
+  cache_view = DestroyCacheView(cache_view);
   MAGICK_NET_SET_EXCEPTION;
 }
 
@@ -2024,7 +2024,7 @@ MAGICK_NET_EXPORT void MagickImage_SetAlpha(Image *instance, const size_t value,
 
 MAGICK_NET_EXPORT void MagickImage_SetArtifact(Image *instance, const char *name, const char *value)
 {
-  (void) SetImageArtifact(instance, name, value);
+  (void)SetImageArtifact(instance, name, value);
 }
 
 MAGICK_NET_EXPORT void MagickImage_SetAttribute(Image *instance, const char *name, const char *value, ExceptionInfo **exception)
