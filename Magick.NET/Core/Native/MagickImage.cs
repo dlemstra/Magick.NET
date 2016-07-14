@@ -499,7 +499,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate method);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImage_Shade(IntPtr Instance, double azimuth, double elevation, [MarshalAs(UnmanagedType.Bool)] bool colorShading, out IntPtr exception);
+        public static extern IntPtr MagickImage_Shade(IntPtr Instance, double azimuth, double elevation, [MarshalAs(UnmanagedType.Bool)] bool colorShading, UIntPtr channels, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Shadow(IntPtr Instance, IntPtr x, IntPtr y, double sigma, double alphaPercentage, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1034,7 +1034,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate method);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImage_Shade(IntPtr Instance, double azimuth, double elevation, [MarshalAs(UnmanagedType.Bool)] bool colorShading, out IntPtr exception);
+        public static extern IntPtr MagickImage_Shade(IntPtr Instance, double azimuth, double elevation, [MarshalAs(UnmanagedType.Bool)] bool colorShading, UIntPtr channels, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Shadow(IntPtr Instance, IntPtr x, IntPtr y, double sigma, double alphaPercentage, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3634,14 +3634,14 @@ namespace ImageMagick
         else
           NativeMethods.X86.MagickImage_SetProgressDelegate(Instance, method);
       }
-      public void Shade(double azimuth, double elevation, bool colorShading)
+      public void Shade(double azimuth, double elevation, bool colorShading, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Shade(Instance, azimuth, elevation, colorShading, out exception);
+          result = NativeMethods.X64.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
         else
-          result = NativeMethods.X86.MagickImage_Shade(Instance, azimuth, elevation, colorShading, out exception);
+          result = NativeMethods.X86.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
         CheckException(exception, result);
         Instance = result;
       }

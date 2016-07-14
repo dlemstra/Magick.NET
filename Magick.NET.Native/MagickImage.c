@@ -2088,13 +2088,15 @@ MAGICK_NET_EXPORT void MagickImage_SetProgressDelegate(Image *instance, const Ma
   instance->progress_monitor = method;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_Shade(Image *instance, const double azimuth, const double elevation, const MagickBooleanType colorShading, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_Shade(Image *instance, const double azimuth, const double elevation, const MagickBooleanType colorShading, const size_t channels, ExceptionInfo **exception)
 {
   Image
     *image;
 
   MAGICK_NET_GET_EXCEPTION;
+  SetChannelMask(instance, channels);
   image = ShadeImage(instance, colorShading, azimuth, elevation, exceptionInfo);
+  RestoreChannelMask(instance);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 }

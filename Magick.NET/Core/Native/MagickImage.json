@@ -2239,6 +2239,10 @@
         {
           "name": "colorShading",
           "type": "bool"
+        },
+        {
+          "name": "channels",
+          "type": "Channels"
         }
       ]
     },

@@ -2992,10 +2992,28 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Shade()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage())
       {
+        image.Settings.FontPointsize = 90;
+        image.Read("label:Magick.NET");
+
         image.Shade();
-        Assert.Inconclusive("Needs implementation.");
+
+        ColorAssert.AreEqual(new MagickColor("#800080008000"), image, 64, 48);
+        ColorAssert.AreEqual(MagickColors.Black, image, 118, 48);
+        ColorAssert.AreEqual(new MagickColor("#800080008000"), image, 148, 48);
+      }
+
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.FontPointsize = 90;
+        image.Read("label:Magick.NET");
+
+        image.Shade(10, 20, false, Channels.Composite);
+
+        ColorAssert.AreEqual(new MagickColor("#000000000000578e"), image, 64, 48);
+        ColorAssert.AreEqual(new MagickColor("#0000000000000000"), image, 118, 48);
+        ColorAssert.AreEqual(new MagickColor("#578e578e578e578e"), image, 148, 48);
       }
     }
 

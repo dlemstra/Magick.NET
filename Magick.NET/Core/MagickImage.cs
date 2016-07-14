@@ -5512,7 +5512,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Shade()
     {
-      Shade(30, 30, false);
+      Shade(30, 30);
     }
 
     ///<summary>
@@ -5535,7 +5535,20 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Shade(double azimuth, double elevation, bool colorShading)
     {
-      _NativeInstance.Shade(azimuth, elevation, colorShading);
+      Shade(azimuth, elevation, colorShading, ImageMagick.Channels.RGB);
+    }
+
+    ///<summary>
+    /// Shade image using distant light source.
+    ///</summary>
+    ///<param name="azimuth">The light source direction.</param>
+    ///<param name="elevation">The light source direction.</param>
+    ///<param name="colorShading">Specify true to shade the intensity of each pixel.</param>
+    ///<param name="channels">The channel(s) that should be shaded.</param>
+    ///<exception cref="MagickException"/>
+    public void Shade(double azimuth, double elevation, bool colorShading, Channels channels)
+    {
+      _NativeInstance.Shade(azimuth, elevation, colorShading, channels);
     }
 
     ///<summary>

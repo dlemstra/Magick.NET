@@ -433,7 +433,7 @@ MAGICK_NET_EXPORT void MagickImage_SetNext(Image *, Image *);
 
 MAGICK_NET_EXPORT void MagickImage_SetProgressDelegate(Image *, const MagickProgressMonitor);
 
-MAGICK_NET_EXPORT Image *MagickImage_Shade(Image *, const double, const double, const MagickBooleanType, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_Shade(Image *, const double, const double, const MagickBooleanType, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_Shadow(Image *, const ssize_t, const ssize_t, const double, const double, ExceptionInfo **);
 
