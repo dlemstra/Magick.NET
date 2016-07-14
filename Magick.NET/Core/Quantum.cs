@@ -60,15 +60,14 @@ namespace ImageMagick
       return (QuantumType)value;
     }
 
-#if !(Q16)
+#if (!Q16)
     internal static QuantumType Convert(ushort value)
     {
-      if (value < 0)
-        return 0;
-      if (value > Max)
-        return Max;
-
+#if (Q8)
+      return (QuantumType)((value + 128U) / 257U);
+#elif Q16HDRI
       return (QuantumType)value;
+#endif
     }
 #endif
 

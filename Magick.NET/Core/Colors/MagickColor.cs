@@ -108,7 +108,34 @@ namespace ImageMagick
       return result;
     }
 
-#if !Q8
+#if Q8
+    private static QuantumType ParseHexQ8(string color, int offset, int length)
+    {
+      ushort result = 0;
+      ushort k = 1;
+
+      int i = 3;
+      while (i >= 0)
+      {
+        char c = color[offset + i];
+
+        if (c >= '0' && c <= '9')
+          result += (ushort)(k * (c - '0'));
+        else if (c >= 'a' && c <= 'f')
+          result += (ushort)(k * (c - 'a' + '\n'));
+        else if (c >= 'A' && c <= 'F')
+          result += (ushort)(k * (c - 'A' + '\n'));
+        else
+          throw new ArgumentException("Invalid character: " + c + ".");
+
+        i--;
+        k = (ushort)(k * 16);
+      }
+
+      return Quantum.Convert(result);
+    }
+#endif
+
     private void ParseQ16HexColor(string color)
     {
       if (color.Length < 13)
@@ -117,20 +144,25 @@ namespace ImageMagick
       }
       else if (color.Length == 13 || color.Length == 17)
       {
-        QuantumType red = ParseHex(color, 1, 4);
-        QuantumType green = ParseHex(color, 5, 4);
-        QuantumType blue = ParseHex(color, 9, 4);
+#if Q8
+        Func<string, int, int, QuantumType> parseHex = ParseHexQ8;
+#else
+        Func<string, int, int, QuantumType> parseHex = ParseHex;
+#endif
+
+        QuantumType red = parseHex(color, 1, 4);
+        QuantumType green = parseHex(color, 5, 4);
+        QuantumType blue = parseHex(color, 9, 4);
         QuantumType alpha = Quantum.Max;
 
         if (color.Length == 17)
-          alpha = ParseHex(color, 13, 4);
+          alpha = parseHex(color, 13, 4);
 
         Initialize(red, green, blue, alpha);
       }
       else
         throw new ArgumentException("Invalid hex value.");
     }
-#endif
 
     private void ParseQ8HexColor(string color)
     {
@@ -337,13 +369,7 @@ namespace ImageMagick
 
       if (color[0] == '#')
       {
-#if Q8
-        ParseQ8HexColor(color);
-#elif Q16 || Q16HDRI
         ParseQ16HexColor(color);
-#else
-#error Not implemented!
-#endif
         return;
       }
 
