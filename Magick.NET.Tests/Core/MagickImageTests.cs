@@ -3241,10 +3241,13 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Statistic()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.NoisePNG))
       {
-        image.Statistic(StatisticType.Median, 2, 1);
-        Assert.Inconclusive("Needs implementation.");
+        image.Statistic(StatisticType.Minimum, 10, 1);
+
+        ColorAssert.AreEqual(MagickColors.Black, image, 42, 119);
+        ColorAssert.AreEqual(new MagickColor("#eeeeeeeeeeee"), image, 90, 120);
+        ColorAssert.AreEqual(new MagickColor("#999999999999"), image, 90, 168);
       }
     }
 
