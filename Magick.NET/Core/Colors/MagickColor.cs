@@ -242,12 +242,21 @@ namespace ImageMagick
       K = color.K;
     }
 
+#if Q8
     ///<summary>
     /// Initializes a new instance of the MagickColor class.
     ///</summary>
-    ///<param name="red">Red component value of this color.</param>
-    ///<param name="green">Green component value of this color.</param>
-    ///<param name="blue">Blue component value of this color.</param>
+    ///<param name="red">Red component value of this color (0-255).</param>
+    ///<param name="green">Green component value of this color (0-255).</param>
+    ///<param name="blue">Blue component value of this color (0-255).</param>
+#elif Q16 || Q16HDRI
+    ///<summary>
+    /// Initializes a new instance of the MagickColor class.
+    ///</summary>
+    ///<param name="red">Red component value of this color (0-65535).</param>
+    ///<param name="green">Green component value of this color (0-65535).</param>
+    ///<param name="blue">Blue component value of this color (0-65535).</param>
+#endif
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -256,13 +265,23 @@ namespace ImageMagick
       Initialize(red, green, blue, Quantum.Max);
     }
 
+#if Q8
     ///<summary>
     /// Initializes a new instance of the MagickColor class.
     ///</summary>
-    ///<param name="red">Red component value of this color.</param>
-    ///<param name="green">Green component value of this color.</param>
-    ///<param name="blue">Blue component value of this color.</param>
-    ///<param name="alpha">Alpha component value of this color.</param>
+    ///<param name="red">Red component value of this color (0-255).</param>
+    ///<param name="green">Green component value of this color (0-255).</param>
+    ///<param name="blue">Blue component value of this color (0-255).</param>
+    ///<param name="alpha">Alpha component value of this color (0-255).</param>
+#elif Q16 || Q16HDRI
+    ///<summary>
+    /// Initializes a new instance of the MagickColor class.
+    ///</summary>
+    ///<param name="red">Red component value of this color (0-65535).</param>
+    ///<param name="green">Green component value of this color (0-65535).</param>
+    ///<param name="blue">Blue component value of this color (0-65535).</param>
+    ///<param name="alpha">Alpha component value of this color (0-65535).</param>
+#endif
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -297,7 +316,6 @@ namespace ImageMagick
     ///</summary>
     ///<param name="color">The RGBA/CMYK hex string or name of the color.</param>
 #elif Q16 || Q16HDRI
-
     ///<summary>
     /// Initializes a new instance of the MagickColor class using the specified RGBA hex string or
     /// name of the color (http://www.imagemagick.org/script/color.php).
