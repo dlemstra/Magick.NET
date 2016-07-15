@@ -3479,7 +3479,13 @@ namespace Magick.NET.Tests
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Transpose();
-        Assert.Inconclusive("Needs implementation.");
+
+        Assert.AreEqual(480, image.Width);
+        Assert.AreEqual(640, image.Height);
+
+        ColorAssert.AreEqual(MagickColors.Red, image, 61, 292);
+        ColorAssert.AreEqual(new MagickColor("#f5f5eeee3636"), image, 104, 377);
+        ColorAssert.AreEqual(new MagickColor("#eded1f1f2424"), image, 442, 391);
       }
     }
 
@@ -3489,7 +3495,13 @@ namespace Magick.NET.Tests
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Transverse();
-        Assert.Inconclusive("Needs implementation.");
+
+        Assert.AreEqual(480, image.Width);
+        Assert.AreEqual(640, image.Height);
+
+        ColorAssert.AreEqual(MagickColors.Red, image, 330, 508);
+        ColorAssert.AreEqual(new MagickColor("#f5f5eeee3636"), image, 288, 474);
+        ColorAssert.AreEqual(new MagickColor("#cdcd20202727"), image, 30, 123);
       }
     }
 
