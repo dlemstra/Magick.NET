@@ -156,6 +156,7 @@ namespace Magick.NET.Tests
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.AdaptiveBlur(10, 5);
+
 #if Q8 || Q16
         ColorAssert.AreEqual(new MagickColor("#a868dfa7f8d7fe76"), image, 56, 68);
 #elif Q16HDRI
@@ -3326,12 +3327,15 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Texture()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
-        using (MagickImage checkerboard = new MagickImage(Files.Patterns.Checkerboard))
+        using (MagickImage canvas = new MagickImage(MagickColors.Fuchsia, 300, 300))
         {
-          image.Texture(checkerboard);
-          Assert.Inconclusive("Needs implementation.");
+          canvas.Texture(image);
+
+          ColorAssert.AreEqual(MagickColors.Fuchsia, canvas, 72, 68);
+          ColorAssert.AreEqual(new MagickColor("#a8a8dfdff8f8"), canvas, 299, 48);
+          ColorAssert.AreEqual(new MagickColor("#a8a8dfdff8f8"), canvas, 160, 299);
         }
       }
     }
