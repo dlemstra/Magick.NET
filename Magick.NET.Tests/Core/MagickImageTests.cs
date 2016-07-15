@@ -3452,10 +3452,24 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_TransparentChroma()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.TestPNG))
       {
-        image.TransparentChroma(MagickColors.PeachPuff, MagickColors.WhiteSmoke);
-        Assert.Inconclusive("Needs implementation.");
+        image.TransparentChroma(MagickColors.Black, MagickColors.WhiteSmoke);
+
+        ColorAssert.AreEqual(new MagickColor("#3962396239620000"), image, 50, 50);
+        ColorAssert.AreEqual(new MagickColor("#0000"), image, 32, 80);
+        ColorAssert.AreEqual(new MagickColor("#f6def6def6deffff"), image, 132, 42);
+        ColorAssert.AreEqual(new MagickColor("#0000808000000000"), image, 74, 79);
+      }
+
+      using (MagickImage image = new MagickImage(Files.TestPNG))
+      {
+        image.InverseTransparentChroma(MagickColors.Black, MagickColors.WhiteSmoke);
+
+        ColorAssert.AreEqual(new MagickColor("#396239623962ffff"), image, 50, 50);
+        ColorAssert.AreEqual(new MagickColor("#000f"), image, 32, 80);
+        ColorAssert.AreEqual(new MagickColor("#f6def6def6de0000"), image, 132, 42);
+        ColorAssert.AreEqual(new MagickColor("#000080800000ffff"), image, 74, 79);
       }
     }
 
