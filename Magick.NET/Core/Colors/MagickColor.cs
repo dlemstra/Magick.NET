@@ -109,7 +109,7 @@ namespace ImageMagick
     }
 
 #if Q8
-    private static QuantumType ParseHexQ8(string color, int offset, int length)
+    private static QuantumType ParseHexQ8(string color, int offset)
     {
       ushort result = 0;
       ushort k = 1;
@@ -145,18 +145,22 @@ namespace ImageMagick
       else if (color.Length == 13 || color.Length == 17)
       {
 #if Q8
-        Func<string, int, int, QuantumType> parseHex = ParseHexQ8;
-#else
-        Func<string, int, int, QuantumType> parseHex = ParseHex;
-#endif
-
-        QuantumType red = parseHex(color, 1, 4);
-        QuantumType green = parseHex(color, 5, 4);
-        QuantumType blue = parseHex(color, 9, 4);
+        QuantumType red = ParseHexQ8(color, 1);
+        QuantumType green = ParseHexQ8(color, 5);
+        QuantumType blue = ParseHexQ8(color, 9);
         QuantumType alpha = Quantum.Max;
 
         if (color.Length == 17)
-          alpha = parseHex(color, 13, 4);
+          alpha = ParseHexQ8(color, 13);
+#else
+        QuantumType red = ParseHex(color, 1, 4);
+        QuantumType green = ParseHex(color, 5, 4);
+        QuantumType blue = ParseHex(color, 9, 4);
+        QuantumType alpha = Quantum.Max;
+
+        if (color.Length == 17)
+          alpha = ParseHex(color, 13, 4);
+#endif
 
         Initialize(red, green, blue, alpha);
       }
