@@ -3560,10 +3560,20 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_UnsharpMask()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage image = new MagickImage(Files.NoisePNG))
       {
-        image.UnsharpMask(1.0, 0.0);
-        Assert.Inconclusive("Needs implementation.");
+        image.UnsharpMask(7.0, 3.0);
+
+        using (MagickImage original = new MagickImage(Files.NoisePNG))
+        {
+#if Q8 || Q16
+          Assert.AreEqual(0.06476, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00002);
+#elif Q16HDRI
+          Assert.AreEqual(0.10234, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00001);
+#else
+#error Not implemented!
+#endif
+        }
       }
     }
 
