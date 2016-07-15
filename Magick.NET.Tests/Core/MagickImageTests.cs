@@ -3255,12 +3255,33 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Stegano()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (MagickImage message = new MagickImage("label:Magick.NET is the best!", 200, 20))
       {
-        using (MagickImage watermark = new MagickImage(Files.MagickNETIconPNG))
+        using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
         {
-          image.Stegano(watermark);
-          Assert.Inconclusive("Needs implementation.");
+          image.Stegano(message);
+
+          FileInfo tempFile = new FileInfo(Path.GetTempFileName() + ".png");
+
+          try
+          {
+            image.Write(tempFile);
+
+            MagickReadSettings settings = new MagickReadSettings();
+            settings.Format = MagickFormat.Stegano;
+            settings.Width = 200;
+            settings.Height = 20;
+
+            using (MagickImage hiddenMessage = new MagickImage(tempFile, settings))
+            {
+              Assert.AreEqual(0, message.Compare(hiddenMessage, ErrorMetric.RootMeanSquared));
+            }
+          }
+          finally
+          {
+            if (tempFile.Exists)
+              tempFile.Delete();
+          }
         }
       }
     }
