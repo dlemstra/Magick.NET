@@ -3582,8 +3582,11 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
+        image.BackgroundColor = MagickColors.Aqua;
         image.Vignette();
-        Assert.Inconclusive("Needs implementation.");
+
+        ColorAssert.AreEqual(new MagickColor("#647cffffffff"), image, 292, 0);
+        ColorAssert.AreEqual(new MagickColor("#91abffffffff"), image, 358, 479);
       }
     }
 
