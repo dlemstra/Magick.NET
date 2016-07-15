@@ -3269,10 +3269,14 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
+        image.Flop();
+
         using (MagickImage rightImage = new MagickImage(Files.Builtin.Logo))
         {
           image.Stereo(rightImage);
-          Assert.Inconclusive("Needs implementation.");
+
+          ColorAssert.AreEqual(new MagickColor("#2222ffffffff"), image, 250, 375);
+          ColorAssert.AreEqual(new MagickColor("#ffff3e3e9292"), image, 380, 375);
         }
       }
     }
