@@ -2807,7 +2807,6 @@ namespace Magick.NET.Tests
 #else
 #error Not implemented!
 #endif
-
       }
 
       using (MagickImage image = new MagickImage(Files.TestPNG))
