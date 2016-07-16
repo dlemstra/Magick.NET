@@ -19,6 +19,12 @@ namespace ImageMagick
 {
   internal static class StreamHelper
   {
+    private static void CheckLength(long length)
+    {
+      if (length > 2147483591)
+        throw new ArgumentException("Streams with a length larger than 2147483591 are not supported, read from file instead.", "stream");
+    }
+
     internal static byte[] ToByteArray(Stream stream)
     {
       Throw.IfNull("stream", stream);
@@ -38,28 +44,30 @@ namespace ImageMagick
 
       if (stream.CanSeek)
       {
-        int length = (int)stream.Length;
-        if (length == 0)
+        if (stream.Length == 0)
           return new byte[0];
 
+        CheckLength(stream.Length);
+
+        int length = (int)stream.Length;
         byte[] result = new byte[length];
         stream.Read(result, 0, length);
         return result;
       }
-      else
-      {
-        int bufferSize = 8192;
-        using (MemoryStream tmpStream = new MemoryStream())
-        {
-          byte[] buffer = new byte[bufferSize];
-          int length;
-          while ((length = stream.Read(buffer, 0, bufferSize)) != 0)
-          {
-            tmpStream.Write(buffer, 0, length);
-          }
 
-          return tmpStream.ToArray();
+      int bufferSize = 8192;
+      using (MemoryStream tmpStream = new MemoryStream())
+      {
+        byte[] buffer = new byte[bufferSize];
+        int length;
+        while ((length = stream.Read(buffer, 0, bufferSize)) != 0)
+        {
+          CheckLength(tmpStream.Length + length);
+
+          tmpStream.Write(buffer, 0, length);
         }
+
+        return tmpStream.ToArray();
       }
     }
   }
