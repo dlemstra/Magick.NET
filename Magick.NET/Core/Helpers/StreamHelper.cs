@@ -22,7 +22,7 @@ namespace ImageMagick
     private static void CheckLength(long length)
     {
       if (length > 2147483591)
-        throw new ArgumentException("Streams with a length larger than 2147483591 are not supported, read from file instead.", "stream");
+        throw new ArgumentException("Streams with a length larger than 2147483591 are not supported, read from file instead.", "length");
     }
 
     internal static byte[] ToByteArray(Stream stream)
