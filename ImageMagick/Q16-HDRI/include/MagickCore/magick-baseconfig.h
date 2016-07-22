@@ -164,6 +164,11 @@
 #define MAGICKCORE_WINGDI32_DELEGATE
 
 /*
+  Define to only use the built-in (in-memory) settings.
+*/
+//#define MAGICKCORE_ZERO_CONFIGURATION_SUPPORT
+
+/*
   Hard Coded Paths
 
   If hard-coded paths are defined via the the following define
