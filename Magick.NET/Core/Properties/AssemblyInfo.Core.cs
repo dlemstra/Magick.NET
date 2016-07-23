@@ -25,7 +25,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("7.0.0.0")]
-[assembly: AssemblyFileVersion("7.0.2.400")]
+[assembly: AssemblyFileVersion("7.0.2.600")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 #if (NET20)
