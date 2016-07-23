@@ -2203,12 +2203,20 @@ namespace ImageMagick
     /// Apply a color lookup table (CLUT) to the image.
     ///</summary>
     ///<param name="image">The image to use.</param>
+    ///<exception cref="MagickException"/>
+    public void Clut(MagickImage image)
+    {
+      Clut(image, PixelInterpolateMethod.Undefined);
+    }
+
+    ///<summary>
+    /// Apply a color lookup table (CLUT) to the image.
+    ///</summary>
+    ///<param name="image">The image to use.</param>
     ///<param name="method">Pixel interpolate method.</param>
     ///<exception cref="MagickException"/>
     public void Clut(MagickImage image, PixelInterpolateMethod method)
     {
-      Throw.IfNull("image", image);
-
       Clut(image, method, ImageMagick.Channels.Composite);
     }
 
