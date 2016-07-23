@@ -1200,6 +1200,56 @@ namespace Magick.NET.Tests
       {
         using (MagickImage destination = new MagickImage(MagickColors.Black, 50, 50))
         {
+          ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+          {
+            destination.CopyPixels(null);
+          });
+
+          ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+          {
+            destination.CopyPixels(null, Channels.Red);
+          });
+
+          ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+          {
+            destination.CopyPixels(source, null);
+          });
+
+          ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+          {
+            destination.CopyPixels(source, null, Channels.Green);
+          });
+
+          ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+          {
+            destination.CopyPixels(source, null, 0, 0);
+          });
+
+          ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+          {
+            destination.CopyPixels(source, null, 0, 0, Channels.Green);
+          });
+
+          ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+          {
+            destination.CopyPixels(null, new MagickGeometry(10, 10));
+          });
+
+          ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+          {
+            destination.CopyPixels(null, new MagickGeometry(10, 10), Channels.Black);
+          });
+
+          ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+          {
+            destination.CopyPixels(null, new MagickGeometry(10, 10), 0, 0);
+          });
+
+          ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+          {
+            destination.CopyPixels(null, new MagickGeometry(10, 10), 0, 0, Channels.Black);
+          });
+
           ExceptionAssert.Throws<MagickOptionErrorException>(delegate ()
           {
             destination.CopyPixels(source, new MagickGeometry(51, 50), new PointD(0, 0));
@@ -1226,6 +1276,15 @@ namespace Magick.NET.Tests
           ColorAssert.AreEqual(MagickColors.Black, destination, 24, 24);
           ColorAssert.AreEqual(MagickColors.White, destination, 25, 25);
           ColorAssert.AreEqual(MagickColors.White, destination, 49, 49);
+
+          destination.CopyPixels(source, new MagickGeometry(25, 25), 0, 25, Channels.Green);
+
+          ColorAssert.AreEqual(MagickColors.Black, destination, 0, 0);
+          ColorAssert.AreEqual(MagickColors.Black, destination, 24, 24);
+          ColorAssert.AreEqual(MagickColors.White, destination, 25, 25);
+          ColorAssert.AreEqual(MagickColors.White, destination, 49, 49);
+          ColorAssert.AreEqual(MagickColors.Lime, destination, 0, 25);
+          ColorAssert.AreEqual(MagickColors.Lime, destination, 24, 49);
         }
       }
     }

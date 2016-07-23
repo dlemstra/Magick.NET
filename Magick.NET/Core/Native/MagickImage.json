@@ -891,6 +891,10 @@
         {
           "name": "offset",
           "type": "OffsetInfo"
+        },
+        {
+          "name": "channels",
+          "type": "Channels"
         }
       ]
     },

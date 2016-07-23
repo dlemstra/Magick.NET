@@ -231,7 +231,7 @@ MAGICK_NET_EXPORT void MagickImage_ContrastStretch(Image *, const double, const 
 
 MAGICK_NET_EXPORT Image *MagickImage_Convolve(const Image *, const KernelInfo *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT void MagickImage_CopyPixels(Image *, const Image *, const RectangleInfo *, const OffsetInfo *, ExceptionInfo **);
+MAGICK_NET_EXPORT void MagickImage_CopyPixels(Image *, const Image *, const RectangleInfo *, const OffsetInfo *, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_Crop(const Image *, const RectangleInfo *, ExceptionInfo **);
 

@@ -1082,10 +1082,12 @@ MAGICK_NET_EXPORT Image *MagickImage_Convolve(const Image *instance, const Kerne
   return image;
 }
 
-MAGICK_NET_EXPORT void MagickImage_CopyPixels(Image *instance, const Image *image, const RectangleInfo *geometry, const OffsetInfo *offset, ExceptionInfo **exception)
+MAGICK_NET_EXPORT void MagickImage_CopyPixels(Image *instance, const Image *image, const RectangleInfo *geometry, const OffsetInfo *offset, const size_t channels, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
+  SetChannelMask(instance, channels);
   CopyImagePixels(instance, image, geometry, offset, exceptionInfo);
+  RestoreChannelMask(instance);
   MAGICK_NET_SET_EXCEPTION;
 }
 

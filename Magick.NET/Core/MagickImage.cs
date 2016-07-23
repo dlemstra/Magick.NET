@@ -2635,6 +2635,54 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Copies pixels from the source image to the destination image.
+    ///</summary>
+    ///<param name="source">The source image to copy the pixels from.</param>
+    ///<exception cref="MagickException"/>
+    public void CopyPixels(MagickImage source)
+    {
+      CopyPixels(source, ImageMagick.Channels.All);
+    }
+
+    ///<summary>
+    /// Copies pixels from the source image to the destination image.
+    ///</summary>
+    ///<param name="source">The source image to copy the pixels from.</param>
+    ///<param name="channels">The channels to copy.</param>
+    ///<exception cref="MagickException"/>
+    public void CopyPixels(MagickImage source, Channels channels)
+    {
+      Throw.IfNull("source", source);
+
+      MagickGeometry geometry = new MagickGeometry(0, 0, Math.Min(source.Width, Width), Math.Min(source.Height, Height));
+
+      CopyPixels(source, geometry, 0, 0, channels);
+    }
+
+    ///<summary>
+    /// Copies pixels from the source image to the destination image.
+    ///</summary>
+    ///<param name="source">The source image to copy the pixels from.</param>
+    ///<param name="geometry">The geometry to copy.</param>
+    ///<exception cref="MagickException"/>
+    public void CopyPixels(MagickImage source, MagickGeometry geometry)
+    {
+      CopyPixels(source, geometry, ImageMagick.Channels.All);
+    }
+
+    ///<summary>
+    /// Copies pixels from the source image to the destination image.
+    ///</summary>
+    ///<param name="source">The source image to copy the pixels from.</param>
+    ///<param name="geometry">The geometry to copy.</param>
+    ///<param name="channels">The channels to copy.</param>
+    ///<exception cref="MagickException"/>
+    public void CopyPixels(MagickImage source, MagickGeometry geometry, Channels channels)
+    {
+      CopyPixels(source, geometry, 0, 0, channels);
+    }
+
+    ///<summary>
     /// Copies pixels from the source image as defined by the geometry the destination image at
     /// the specified offset.
     ///</summary>
@@ -2643,6 +2691,20 @@ namespace ImageMagick
     ///<param name="offset">The offset to copy the pixels to.</param>
     ///<exception cref="MagickException"/>
     public void CopyPixels(MagickImage source, MagickGeometry geometry, PointD offset)
+    {
+      CopyPixels(source, geometry, offset, ImageMagick.Channels.All);
+    }
+
+    ///<summary>
+    /// Copies pixels from the source image as defined by the geometry the destination image at
+    /// the specified offset.
+    ///</summary>
+    ///<param name="source">The source image to copy the pixels from.</param>
+    ///<param name="geometry">The geometry to copy.</param>
+    ///<param name="offset">The offset to start the copy from.</param>
+    ///<param name="channels">The channels to copy.</param>
+    ///<exception cref="MagickException"/>
+    public void CopyPixels(MagickImage source, MagickGeometry geometry, PointD offset, Channels channels)
     {
       CopyPixels(source, geometry, (int)offset.X, (int)offset.Y);
     }
@@ -2653,15 +2715,30 @@ namespace ImageMagick
     ///</summary>
     ///<param name="source">The source image to copy the pixels from.</param>
     ///<param name="geometry">The geometry to copy.</param>
-    ///<param name="x">The X offset to copy the pixels to.</param>
-    ///<param name="y">The Y offset to copy the pixels to.</param>
+    ///<param name="x">The X offset to start the copy from.</param>
+    ///<param name="y">The Y offset to start the copy from.</param>
     ///<exception cref="MagickException"/>
     public void CopyPixels(MagickImage source, MagickGeometry geometry, int x, int y)
+    {
+      CopyPixels(source, geometry, x, y, ImageMagick.Channels.All);
+    }
+
+    ///<summary>
+    /// Copies pixels from the source image as defined by the geometry the destination image at
+    /// the specified offset.
+    ///</summary>
+    ///<param name="source">The source image to copy the pixels from.</param>
+    ///<param name="geometry">The geometry to copy.</param>
+    ///<param name="x">The X offset to copy the pixels to.</param>
+    ///<param name="y">The Y offset to copy the pixels to.</param>
+    ///<param name="channels">The channels to copy.</param>
+    ///<exception cref="MagickException"/>
+    public void CopyPixels(MagickImage source, MagickGeometry geometry, int x, int y, Channels channels)
     {
       Throw.IfNull("source", source);
       Throw.IfNull("geometry", geometry);
 
-      _NativeInstance.CopyPixels(source, MagickRectangle.FromGeometry(geometry, this), new OffsetInfo(x, y));
+      _NativeInstance.CopyPixels(source, MagickRectangle.FromGeometry(geometry, this), new OffsetInfo(x, y), channels);
     }
 
     ///<summary>
