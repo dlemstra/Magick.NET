@@ -2625,6 +2625,7 @@ namespace ImageMagick
     ///<summary>
     /// Convolve image. Applies a user-specified convolution to the image.
     ///</summary>
+    ///<param name="convolveMatrix">The convolution matrix.</param>
     ///<exception cref="MagickException"/>
     public void Convolve(ConvolveMatrix convolveMatrix)
     {
@@ -2637,6 +2638,9 @@ namespace ImageMagick
     /// Copies pixels from the source image as defined by the geometry the destination image at
     /// the specified offset.
     ///</summary>
+    ///<param name="source">The source image to copy the pixels from.</param>
+    ///<param name="geometry">The geometry to copy.</param>
+    ///<param name="offset">The offset to copy the pixels to.</param>
     ///<exception cref="MagickException"/>
     public void CopyPixels(MagickImage source, MagickGeometry geometry, PointD offset)
     {
@@ -2647,6 +2651,10 @@ namespace ImageMagick
     /// Copies pixels from the source image as defined by the geometry the destination image at
     /// the specified offset.
     ///</summary>
+    ///<param name="source">The source image to copy the pixels from.</param>
+    ///<param name="geometry">The geometry to copy.</param>
+    ///<param name="x">The X offset to copy the pixels to.</param>
+    ///<param name="y">The Y offset to copy the pixels to.</param>
     ///<exception cref="MagickException"/>
     public void CopyPixels(MagickImage source, MagickGeometry geometry, int x, int y)
     {
