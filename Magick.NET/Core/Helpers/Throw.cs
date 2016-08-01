@@ -54,6 +54,9 @@ namespace ImageMagick
 
         if (fileName[colonIndex + 1] != '/' && fileName[colonIndex + 1] != '\\')
           path = path.Substring(colonIndex + 1);
+
+        if (path.Length > 1 && path[0] == '@')
+          path = path.Substring(1);
       }
 
       path = Path.GetFullPath(path);
