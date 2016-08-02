@@ -1192,10 +1192,6 @@
           "type": "DrawingSettings"
         },
         {
-          "name": "text",
-          "type": "string"
-        },
-        {
           "name": "ignoreNewLines",
           "type": "bool"
         }

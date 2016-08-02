@@ -343,7 +343,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Flop(IntPtr Instance, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, IntPtr text, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewLines, out IntPtr exception);
+        public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewLines, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_FormatExpression(IntPtr Instance, IntPtr settings, IntPtr expression, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -878,7 +878,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Flop(IntPtr Instance, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, IntPtr text, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewLines, out IntPtr exception);
+        public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewLines, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_FormatExpression(IntPtr Instance, IntPtr settings, IntPtr expression, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -2782,28 +2782,25 @@ namespace ImageMagick
         CheckException(exception, result);
         Instance = result;
       }
-      public IntPtr FontTypeMetrics(DrawingSettings settings, string text, bool ignoreNewLines)
+      public IntPtr FontTypeMetrics(DrawingSettings settings, bool ignoreNewLines)
       {
         using (INativeInstance settingsNative = DrawingSettings.CreateInstance(settings))
         {
-          using (INativeInstance textNative = UTF8Marshaler.CreateInstance(text))
+          IntPtr exception = IntPtr.Zero;
+          IntPtr result;
+          if (NativeLibrary.Is64Bit)
+            result = NativeMethods.X64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewLines, out exception);
+          else
+            result = NativeMethods.X86.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewLines, out exception);
+          MagickException magickException = MagickExceptionHelper.Create(exception);
+          if (MagickExceptionHelper.IsError(magickException))
           {
-            IntPtr exception = IntPtr.Zero;
-            IntPtr result;
-            if (NativeLibrary.Is64Bit)
-              result = NativeMethods.X64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, textNative.Instance, ignoreNewLines, out exception);
-            else
-              result = NativeMethods.X86.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, textNative.Instance, ignoreNewLines, out exception);
-            MagickException magickException = MagickExceptionHelper.Create(exception);
-            if (MagickExceptionHelper.IsError(magickException))
-            {
-              if (result != IntPtr.Zero)
-                ImageMagick.TypeMetric.Dispose(result);
-              throw magickException;
-            }
-            RaiseWarning(magickException);
-            return result;
+            if (result != IntPtr.Zero)
+              ImageMagick.TypeMetric.Dispose(result);
+            throw magickException;
           }
+          RaiseWarning(magickException);
+          return result;
         }
       }
       public string FormatExpression(MagickSettings settings, string expression)

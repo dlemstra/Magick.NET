@@ -3429,7 +3429,7 @@ namespace ImageMagick
       DrawingSettings settings = Settings.Drawing;
 
       settings.Text = text;
-      IntPtr result = _NativeInstance.FontTypeMetrics(settings, text, ignoreNewLines);
+      IntPtr result = _NativeInstance.FontTypeMetrics(settings, ignoreNewLines);
       settings.Text = null;
       return TypeMetric.CreateInstance(result);
     }
