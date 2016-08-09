@@ -2714,7 +2714,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void CopyPixels(MagickImage source, MagickGeometry geometry, PointD offset, Channels channels)
     {
-      CopyPixels(source, geometry, (int)offset.X, (int)offset.Y);
+      CopyPixels(source, geometry, (int)offset.X, (int)offset.Y, channels);
     }
 
     ///<summary>
