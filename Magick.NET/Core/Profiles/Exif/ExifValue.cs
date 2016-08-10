@@ -24,7 +24,7 @@ namespace ImageMagick
   /// </summary>
   public sealed class ExifValue : IEquatable<ExifValue>
   {
-    object _Value;
+    private object _Value;
 
     private void CheckValue(object value)
     {
@@ -500,7 +500,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator ==(ExifValue left, ExifValue right)
     {
-      return object.Equals(left, right);
+      return Equals(left, right);
     }
 
     /// <summary>
@@ -511,7 +511,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator !=(ExifValue left, ExifValue right)
     {
-      return !object.Equals(left, right);
+      return !Equals(left, right);
     }
 
     ///<summary>
@@ -541,7 +541,7 @@ namespace ImageMagick
       return
         Tag == other.Tag &&
         DataType == other.DataType &&
-        object.Equals(_Value, other._Value);
+        Equals(_Value, other._Value);
     }
 
     ///<summary>

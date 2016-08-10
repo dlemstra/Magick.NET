@@ -21,7 +21,7 @@ namespace ImageMagick
 {
   internal sealed class ExifWriter
   {
-    private static ExifTag[] _IfdTags = new ExifTag[93]
+    private static readonly ExifTag[] _IfdTags = new ExifTag[93]
     {
       ExifTag.ImageWidth, ExifTag.ImageLength, ExifTag.BitsPerSample, ExifTag.Compression,
       ExifTag.PhotometricInterpretation, ExifTag.Threshholding, ExifTag.CellWidth,
@@ -52,7 +52,7 @@ namespace ImageMagick
       ExifTag.StripRowCounts, ExifTag.XMP, ExifTag.ImageID, ExifTag.ImageLayer
     };
 
-    private static ExifTag[] _ExifTags = new ExifTag[56]
+    private static readonly ExifTag[] _ExifTags = new ExifTag[56]
     {
       ExifTag.ExposureTime, ExifTag.FNumber, ExifTag.ExposureProgram,
       ExifTag.SpectralSensitivity, ExifTag.ISOSpeedRatings, ExifTag.OECF,
@@ -74,7 +74,7 @@ namespace ImageMagick
       ExifTag.DeviceSettingDescription, ExifTag.SubjectDistanceRange, ExifTag.ImageUniqueID
     };
 
-    private static ExifTag[] _GPSTags = new ExifTag[31]
+    private static readonly ExifTag[] _GPSTags = new ExifTag[31]
     {
       ExifTag.GPSVersionID, ExifTag.GPSLatitudeRef, ExifTag.GPSLatitude,
       ExifTag.GPSLongitudeRef, ExifTag.GPSLongitude, ExifTag.GPSAltitudeRef,
@@ -100,19 +100,16 @@ namespace ImageMagick
 
     private int GetIndex(Collection<int> indexes, ExifTag tag)
     {
-
+      foreach (int index in indexes)
       {
-        foreach (int index in indexes)
-        {
-          if (_Values[index].Tag == tag)
-            return index;
-        }
-
-        int newIndex = _Values.Count;
-        indexes.Add(newIndex);
-        _Values.Add(ExifValue.Create(tag, null));
-        return newIndex;
+        if (_Values[index].Tag == tag)
+          return index;
       }
+
+      int newIndex = _Values.Count;
+      indexes.Add(newIndex);
+      _Values.Add(ExifValue.Create(tag, null));
+      return newIndex;
     }
 
     private Collection<int> GetIndexes(ExifParts part, ExifTag[] tags)

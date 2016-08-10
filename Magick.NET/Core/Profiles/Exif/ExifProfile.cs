@@ -26,8 +26,8 @@ namespace ImageMagick
   {
     private Collection<ExifValue> _Values;
     private List<ExifTag> _InvalidTags;
-    private uint _ThumbnailOffset;
-    private uint _ThumbnailLength;
+    private int _ThumbnailOffset;
+    private int _ThumbnailLength;
 
     private void Initialize()
     {
@@ -49,8 +49,8 @@ namespace ImageMagick
       ExifReader reader = new ExifReader();
       _Values = reader.Read(Data);
       _InvalidTags = new List<ExifTag>(reader.InvalidTags);
-      _ThumbnailOffset = reader.ThumbnailOffset;
-      _ThumbnailLength = reader.ThumbnailLength;
+      _ThumbnailOffset = (int)reader.ThumbnailOffset;
+      _ThumbnailLength = (int)reader.ThumbnailLength;
     }
 
     /// <summary>
@@ -160,8 +160,11 @@ namespace ImageMagick
       if (_ThumbnailOffset == 0 || _ThumbnailLength == 0)
         return null;
 
+      if (Data.Length < (_ThumbnailOffset + _ThumbnailLength))
+        return null;
+
       byte[] data = new byte[_ThumbnailLength];
-      Array.Copy(Data, (int)_ThumbnailOffset, data, 0, (int)_ThumbnailLength);
+      Array.Copy(Data, _ThumbnailOffset, data, 0, _ThumbnailLength);
       return new MagickImage(data);
     }
 
