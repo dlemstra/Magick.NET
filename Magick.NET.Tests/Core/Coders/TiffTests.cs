@@ -38,6 +38,15 @@ namespace Magick.NET.Tests.Coders
         image.Settings.SetDefine(MagickFormat.Tiff, "ignore-tags", "32934");
         image.Read(Files.Coders.IgnoreTagTIF);
       }
+
+      using (MagickImage image = new MagickImage())
+      {
+        MagickReadSettings readSettings = new MagickReadSettings(new TiffReadDefines()
+        {
+          IgnoreTags = new string[] { "32934" }
+        });
+        image.Read(Files.Coders.IgnoreTagTIF, readSettings);
+      }
     }
 
     [TestMethod, TestCategory(_Category)]

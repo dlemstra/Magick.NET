@@ -39,6 +39,15 @@ namespace ImageMagick
       set;
     }
 
+    /// <summary>
+    /// Specifies the tiff tags that should be ignored (tiff:ignore-tags).
+    /// </summary>
+    public IEnumerable<string> IgnoreTags
+    {
+      get;
+      set;
+    }
+
     ///<summary>
     /// The defines that should be set as an define on an image
     ///</summary>
@@ -48,6 +57,12 @@ namespace ImageMagick
       {
         if (IgnoreExifPoperties.Equals(true))
           yield return CreateDefine("exif-properties", "false");
+
+        if (IgnoreTags != null)
+        {
+          List<string> tags = new List<string>(IgnoreTags);
+          yield return CreateDefine("ignore-tags", string.Join(",", tags.ToArray()));
+        }
       }
     }
   }

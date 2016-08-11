@@ -24,6 +24,15 @@ namespace Magick.NET.Tests
     private const string _Category = "MagickReadSettings";
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_Constructor()
+    {
+      ExceptionAssert.Throws<ArgumentNullException>(() =>
+      {
+        MagickReadSettings settings = new MagickReadSettings(null);
+      });
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_Collection_Read()
     {
       using (MagickImageCollection collection = new MagickImageCollection())

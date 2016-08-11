@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.Globalization;
 
 namespace ImageMagick
@@ -90,6 +89,15 @@ namespace ImageMagick
     ///</summary>
     public MagickReadSettings()
     {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the MagickReadSettings class with the specified defines.
+    ///</summary>
+    ///<param name="readDefines">The read defines to set.</param>
+    public MagickReadSettings(IReadDefines readDefines)
+    {
+      SetDefines(readDefines);
     }
 
     ///<summary>
