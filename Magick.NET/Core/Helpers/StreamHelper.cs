@@ -52,10 +52,10 @@ namespace ImageMagick
         int length = (int)stream.Length;
         byte[] result = new byte[length];
         int read = 0;
-        int lastRead = 0;
-        while ((lastRead = stream.Read(result, read, length - read)) != 0)
+        int bytesRead = 0;
+        while ((bytesRead = stream.Read(result, read, length - read)) != 0)
         {
-          read += lastRead;
+          read += bytesRead;
         }
         return result;
       }

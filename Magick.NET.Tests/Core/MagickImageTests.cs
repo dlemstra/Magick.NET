@@ -2744,24 +2744,15 @@ namespace Magick.NET.Tests
 
         fs.Position = 0;
         using (FakePartialStream fakeStream = new FakePartialStream(fs))
-        using (MagickImage testImage = new MagickImage())
         {
-          testImage.Read(fakeStream);
-
-          Assert.AreEqual(image.Width, testImage.Width);
-          Assert.AreEqual(image.Height, testImage.Height);
-          Assert.AreEqual(image.Format, testImage.Format);
-
-          PixelCollection validPixels = image.GetPixels();
-          PixelCollection testPixels = testImage.GetPixels();
-          for (int x = 0; x < image.Width; x++)
+          using (MagickImage testImage = new MagickImage())
           {
-            for (int y = 0; y < image.Height; y++)
-            {
-              Pixel pixA = validPixels[x, y];
-              Pixel pixB = testPixels[x, y];
-              ColorAssert.AreEqual(pixA.ToColor(), pixB.ToColor());
-            }
+            testImage.Read(fakeStream);
+
+            Assert.AreEqual(image.Width, testImage.Width);
+            Assert.AreEqual(image.Height, testImage.Height);
+            Assert.AreEqual(image.Format, testImage.Format);
+            Assert.AreEqual(0.0, image.Compare(testImage, ErrorMetric.RootMeanSquared));
           }
         }
       }
