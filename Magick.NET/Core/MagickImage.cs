@@ -5366,7 +5366,7 @@ namespace ImageMagick
     {
       Throw.IfNull("geometry", geometry);
 
-      _NativeInstance.Sample(MagickRectangle.FromGeometry(geometry, this));
+      _NativeInstance.Sample(geometry.ToString());
     }
 
     ///<summary>

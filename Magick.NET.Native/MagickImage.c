@@ -1944,13 +1944,19 @@ MAGICK_NET_EXPORT Image *MagickImage_RotationalBlur(Image *instance, const doubl
   return image;
 }
 
-MAGICK_NET_EXPORT Image *MagickImage_Sample(const Image *instance, const RectangleInfo *geometry, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImage_Sample(const Image *instance, const char *geometry, ExceptionInfo **exception)
 {
   Image
     *image;
 
+  RectangleInfo
+    rectangle;
+
+  SetGeometry(instance, &rectangle);
+  ParseMetaGeometry(geometry, &rectangle.x, &rectangle.y, &rectangle.width, &rectangle.height);
+
   MAGICK_NET_GET_EXCEPTION;
-  image = SampleImage(instance, geometry->width, geometry->height, exceptionInfo);
+  image = SampleImage(instance, rectangle.width, rectangle.height, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return image;
 

@@ -405,7 +405,7 @@ MAGICK_NET_EXPORT Image *MagickImage_Rotate(const Image *, const double, Excepti
 
 MAGICK_NET_EXPORT Image *MagickImage_RotationalBlur(Image *, const double, const size_t, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_Sample(const Image *, const RectangleInfo *, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_Sample(const Image *, const char *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT Image *MagickImage_Scale(const Image *, const char *, ExceptionInfo **);
 

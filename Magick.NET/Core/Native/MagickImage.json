@@ -2037,7 +2037,7 @@
       [
         {
           "name": "geometry",
-          "type": "MagickRectangle"
+          "type": "string"
         }
       ]
     },

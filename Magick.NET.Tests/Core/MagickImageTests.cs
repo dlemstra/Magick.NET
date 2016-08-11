@@ -2914,7 +2914,7 @@ namespace Magick.NET.Tests
       {
         image.Sample(400, 400);
         Assert.AreEqual(400, image.Width);
-        Assert.AreEqual(400, image.Height);
+        Assert.AreEqual(300, image.Height);
       }
     }
 

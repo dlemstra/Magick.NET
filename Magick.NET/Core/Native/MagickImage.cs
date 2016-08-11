@@ -3480,9 +3480,9 @@ namespace ImageMagick
         CheckException(exception, result);
         Instance = result;
       }
-      public void Sample(MagickRectangle geometry)
+      public void Sample(string geometry)
       {
-        using (INativeInstance geometryNative = MagickRectangle.CreateInstance(geometry))
+        using (INativeInstance geometryNative = UTF8Marshaler.CreateInstance(geometry))
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
