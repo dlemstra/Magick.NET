@@ -59,7 +59,15 @@ namespace ImageMagick
           path = path.Substring(1);
       }
 
-      path = Path.GetFullPath(path);
+      try
+      {
+        path = Path.GetFullPath(path);
+      }
+      catch (ArgumentException)
+      {
+        return;
+      }
+
       if (path.EndsWith("]", StringComparison.OrdinalIgnoreCase))
       {
         int endIndex = path.IndexOf("[", StringComparison.OrdinalIgnoreCase);
