@@ -2,6 +2,11 @@
 
 ImageMagick is a powerful image manipulation library that supports over [100 major file formats](www.imagemagick.org/script/formats.php) (not including sub-formats). With Magick.NET you can use ImageMagick in your C#/VB.NET/.NET Core application without having to install ImageMagick on your server or desktop.
 
+## Supported Platforms
+
+- .NET Framework (2.0 and higher)
+- .NET Core (.NETStandard 1.3 and higher on Windows)
+
 ## Documentation
 
 For examples on how to install and use Magick.NET visit the [documentation](https://magick.codeplex.com/documentation) page.
