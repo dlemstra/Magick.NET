@@ -34,6 +34,9 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
     SetMagickResourceLimit(HeightResource, 10000000);
     SetMagickResourceLimit(WidthResource, 10000000);
     break;
+  case DLL_PROCESS_DETACH:
+    MagickCoreTerminus();
+    break;
   default:
     break;
   }
