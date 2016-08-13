@@ -187,7 +187,7 @@ namespace Magick.NET.Tests
         profile = image.GetExifProfile();
         ExifValue value = profile.GetValue(ExifTag.ExposureBiasValue);
         Assert.IsNotNull(value);
-        Assert.IsTrue(double.PositiveInfinity.Equals(value.Value));
+        Assert.AreEqual(double.PositiveInfinity, value.Value);
 
         profile.SetValue(ExifTag.ExposureBiasValue, double.NegativeInfinity);
         image.AddProfile(profile);
@@ -195,7 +195,7 @@ namespace Magick.NET.Tests
         profile = image.GetExifProfile();
         value = profile.GetValue(ExifTag.ExposureBiasValue);
         Assert.IsNotNull(value);
-        Assert.IsTrue(double.NegativeInfinity.Equals(value.Value));
+        Assert.AreEqual(double.NegativeInfinity, value.Value);
 
         profile.SetValue(ExifTag.FlashEnergy, double.NegativeInfinity);
         image.AddProfile(profile);
@@ -203,7 +203,7 @@ namespace Magick.NET.Tests
         profile = image.GetExifProfile();
         value = profile.GetValue(ExifTag.FlashEnergy);
         Assert.IsNotNull(value);
-        Assert.IsTrue(double.PositiveInfinity.Equals(value.Value));
+        Assert.AreEqual(double.PositiveInfinity, value.Value);
       }
     }
 
