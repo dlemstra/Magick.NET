@@ -33,6 +33,7 @@ namespace ImageMagick
     {
       Parts = ExifParts.All;
       BestPrecision = false;
+      _InvalidTags = new List<ExifTag>();
     }
 
     private void InitializeValues()
