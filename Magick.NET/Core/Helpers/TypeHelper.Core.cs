@@ -26,6 +26,16 @@ namespace ImageMagick
       return (T)type.GetTypeInfo().Assembly.GetCustomAttribute<T>();
     }
 
+    public static T[] GetCustomAttributes<T>(Enum value)
+      where T : Attribute
+    {
+      FieldInfo field = value.GetType().GetTypeInfo().GetDeclaredField(value.ToString());
+      if (field == null)
+        return null;
+
+      return (T[])field.GetCustomAttributes(typeof(T), false);
+    }
+
     public static Stream GetManifestResourceStream(Type type, string path, string resourceName)
     {
       Assembly assembly = type.GetTypeInfo().Assembly;

@@ -14,6 +14,7 @@
 
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace ImageMagick
 {
@@ -23,6 +24,16 @@ namespace ImageMagick
       where T : Attribute
     {
       return (T)type.Assembly.GetCustomAttributes(typeof(T), false)[0];
+    }
+
+    public static T[] GetCustomAttributes<T>(Enum value)
+      where T : Attribute
+    {
+      FieldInfo field = value.GetType().GetField(value.ToString());
+      if (field == null)
+        return null;
+
+      return (T[])field.GetCustomAttributes(typeof(T), false);
     }
 
     public static Type[] GetGenericArguments(Type type)

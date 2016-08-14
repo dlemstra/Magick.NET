@@ -474,6 +474,7 @@
     <Compile Include="Core\Profiles\8Bim\EightBimValue.cs" />
     <Compile Include="Core\Profiles\ColorProfile.cs" />
     <Compile Include="Core\Profiles\Exif\ExifDataType.cs" />
+    <Compile Include="Core\Profiles\Exif\ExifTagDescriptionAttribute.cs" />
     <Compile Include="Core\Profiles\Exif\ExifParts.cs" />
     <Compile Include="Core\Profiles\Exif\ExifProfile.cs" />
     <Compile Include="Core\Profiles\Exif\ExifReader.cs" />

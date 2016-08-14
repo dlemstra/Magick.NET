@@ -168,6 +168,9 @@ namespace ImageMagick
     /// <summary>
     /// ResolutionUnit
     /// </summary>
+    [ExifTagDescription((ushort)1, "None")]
+    [ExifTagDescription((ushort)2, "Inches")]
+    [ExifTagDescription((ushort)3, "Cm")]
     ResolutionUnit = 0x0128,
 
     /// <summary>
