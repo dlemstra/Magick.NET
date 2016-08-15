@@ -18,7 +18,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Xml;
-using System.Xml.XPath;
 
 namespace ImageMagick
 {
@@ -101,6 +100,9 @@ namespace ImageMagick
 
         length = ByteConverter.ToInt(Data, ref i);
         if (i + length > Data.Length)
+          return;
+
+        if (length < 0)
           return;
 
         if (length != 0)
