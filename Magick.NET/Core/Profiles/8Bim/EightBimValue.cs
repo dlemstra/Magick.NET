@@ -22,9 +22,9 @@ namespace ImageMagick
   /// </summary>
   public sealed class EightBimValue : IEquatable<EightBimValue>
   {
-    private Byte[] _Data;
+    private byte[] _Data;
 
-    internal EightBimValue(short id, Byte[] data)
+    internal EightBimValue(short id, byte[] data)
     {
       ID = id;
       _Data = data;
@@ -47,7 +47,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator ==(EightBimValue left, EightBimValue right)
     {
-      return object.Equals(left, right);
+      return Equals(left, right);
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ namespace ImageMagick
     /// <returns></returns>
     public static bool operator !=(EightBimValue left, EightBimValue right)
     {
-      return !object.Equals(left, right);
+      return !Equals(left, right);
     }
 
     ///<summary>
@@ -120,9 +120,9 @@ namespace ImageMagick
     ///<summary>
     /// Converts this instance to a byte array.
     ///</summary>
-    public Byte[] ToByteArray()
+    public byte[] ToByteArray()
     {
-      Byte[] data = new Byte[_Data.Length];
+      byte[] data = new byte[_Data.Length];
       Array.Copy(_Data, 0, data, 0, _Data.Length);
       return data;
     }
