@@ -61,9 +61,9 @@ namespace ImageMagick
     PhotometricInterpretation = 0x0106,
 
     /// <summary>
-    /// Threshholding
+    /// Thresholding
     /// </summary>
-    Threshholding = 0x0107,
+    Thresholding = 0x0107,
 
     /// <summary>
     /// CellWidth

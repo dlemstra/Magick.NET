@@ -24,7 +24,7 @@ namespace ImageMagick
     private static readonly ExifTag[] _IfdTags = new ExifTag[93]
     {
       ExifTag.ImageWidth, ExifTag.ImageLength, ExifTag.BitsPerSample, ExifTag.Compression,
-      ExifTag.PhotometricInterpretation, ExifTag.Threshholding, ExifTag.CellWidth,
+      ExifTag.PhotometricInterpretation, ExifTag.Thresholding, ExifTag.CellWidth,
       ExifTag.CellLength, ExifTag.FillOrder,ExifTag.ImageDescription, ExifTag.Make,
       ExifTag.Model, ExifTag.StripOffsets, ExifTag.Orientation, ExifTag.SamplesPerPixel,
       ExifTag.RowsPerStrip, ExifTag.StripByteCounts, ExifTag.MinSampleValue,
