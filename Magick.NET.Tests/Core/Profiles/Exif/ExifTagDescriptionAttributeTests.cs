@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
 
       exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)3);
       value = exifProfile.GetValue(ExifTag.ResolutionUnit);
-      Assert.AreEqual("Cm", value.ToString());
+      Assert.AreEqual("Centimeter", value.ToString());
 
       exifProfile.SetValue(ExifTag.ResolutionUnit, (ushort)4);
       value = exifProfile.GetValue(ExifTag.ResolutionUnit);
