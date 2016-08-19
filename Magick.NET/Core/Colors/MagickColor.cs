@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 #if Q8
@@ -82,131 +83,16 @@ namespace ImageMagick
       K = 0;
     }
 
-    private static QuantumType ParseHex(string color, int offset, int length)
+    private void ParseHexColor(string color)
     {
-      QuantumType result = 0;
-      QuantumType k = 1;
+      List<QuantumType> colors = HexColor.Parse(color);
 
-      int i = length - 1;
-      while (i >= 0)
-      {
-        char c = color[offset + i];
-
-        if (c >= '0' && c <= '9')
-          result += (QuantumType)(k * (c - '0'));
-        else if (c >= 'a' && c <= 'f')
-          result += (QuantumType)(k * (c - 'a' + '\n'));
-        else if (c >= 'A' && c <= 'F')
-          result += (QuantumType)(k * (c - 'A' + '\n'));
-        else
-          throw new ArgumentException("Invalid character: " + c + ".");
-
-        i--;
-        k = (QuantumType)(k * 16);
-      }
-
-      return result;
-    }
-
-#if Q8
-    private static QuantumType ParseHexQ8(string color, int offset)
-    {
-      ushort result = 0;
-      ushort k = 1;
-
-      int i = 3;
-      while (i >= 0)
-      {
-        char c = color[offset + i];
-
-        if (c >= '0' && c <= '9')
-          result += (ushort)(k * (c - '0'));
-        else if (c >= 'a' && c <= 'f')
-          result += (ushort)(k * (c - 'a' + '\n'));
-        else if (c >= 'A' && c <= 'F')
-          result += (ushort)(k * (c - 'A' + '\n'));
-        else
-          throw new ArgumentException("Invalid character: " + c + ".");
-
-        i--;
-        k = (ushort)(k * 16);
-      }
-
-      return Quantum.Convert(result);
-    }
-#endif
-
-    private void ParseQ16HexColor(string color)
-    {
-      if (color.Length < 13)
-      {
-        ParseQ8HexColor(color);
-      }
-      else if (color.Length == 13 || color.Length == 17)
-      {
-#if Q8
-        QuantumType red = ParseHexQ8(color, 1);
-        QuantumType green = ParseHexQ8(color, 5);
-        QuantumType blue = ParseHexQ8(color, 9);
-        QuantumType alpha = Quantum.Max;
-
-        if (color.Length == 17)
-          alpha = ParseHexQ8(color, 13);
-#else
-        QuantumType red = ParseHex(color, 1, 4);
-        QuantumType green = ParseHex(color, 5, 4);
-        QuantumType blue = ParseHex(color, 9, 4);
-        QuantumType alpha = Quantum.Max;
-
-        if (color.Length == 17)
-          alpha = ParseHex(color, 13, 4);
-#endif
-
-        Initialize(red, green, blue, alpha);
-      }
-      else
-        throw new ArgumentException("Invalid hex value.");
-    }
-
-    private void ParseQ8HexColor(string color)
-    {
-      byte red;
-      byte green;
-      byte blue;
-      byte alpha = 255;
-
-      if (color.Length == 3)
-      {
-        red = green = blue = (byte)ParseHex(color, 1, 2);
-      }
-      else if (color.Length == 4 || color.Length == 5)
-      {
-        red = (byte)ParseHex(color, 1, 1);
-        red += (byte)(red * 16);
-        green = (byte)ParseHex(color, 2, 1);
-        green += (byte)(green * 16);
-        blue = (byte)ParseHex(color, 3, 1);
-        blue += (byte)(blue * 16);
-
-        if (color.Length == 5)
-        {
-          alpha = (byte)ParseHex(color, 4, 1);
-          alpha += (byte)(alpha * 16);
-        }
-      }
-      else if (color.Length == 7 || color.Length == 9)
-      {
-        red = (byte)ParseHex(color, 1, 2);
-        green = (byte)ParseHex(color, 3, 2);
-        blue = (byte)ParseHex(color, 5, 2);
-
-        if (color.Length == 9)
-          alpha = (byte)ParseHex(color, 7, 2);
-      }
-      else
-        throw new ArgumentException("Invalid hex value.");
-
-      Initialize(Quantum.Convert(red), Quantum.Convert(green), Quantum.Convert(blue), Quantum.Convert(alpha));
+      if (colors.Count == 1)
+        Initialize(colors[0], colors[0], colors[0], Quantum.Max);
+      else if (colors.Count == 3)
+        Initialize(colors[0], colors[1], colors[2], Quantum.Max);
+      else if (colors.Count == 4)
+        Initialize(colors[0], colors[1], colors[2], colors[3]);
     }
 
     internal int Count
@@ -269,7 +155,7 @@ namespace ImageMagick
     ///<param name="color">The color to use.</param>
     public MagickColor(MagickColor color)
     {
-      Throw.IfNull("color", color);
+      Throw.IfNull(nameof(color), color);
 
       R = color.R;
       G = color.G;
@@ -363,7 +249,7 @@ namespace ImageMagick
 #endif
     public MagickColor(string color)
     {
-      Throw.IfNullOrEmpty("color", color);
+      Throw.IfNullOrEmpty(nameof(color), color);
 
       if (color.Equals("transparent", StringComparison.OrdinalIgnoreCase))
       {
@@ -373,13 +259,13 @@ namespace ImageMagick
 
       if (color[0] == '#')
       {
-        ParseQ16HexColor(color);
+        ParseHexColor(color);
         return;
       }
 
       using (NativeMagickColor instance = new NativeMagickColor())
       {
-        Throw.IfFalse("color", instance.Initialize(color), "Invalid color specified");
+        Throw.IfFalse(nameof(color), instance.Initialize(color), "Invalid color specified");
         Initialize(instance);
       }
     }

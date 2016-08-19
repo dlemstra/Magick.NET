@@ -14,6 +14,7 @@
 
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Magick.NET.Tests
 {
@@ -77,6 +78,61 @@ namespace Magick.NET.Tests
 
       second = new MagickColor("cmyka(0,0,100%,0,0)");
       Assert.AreEqual(second, first.ToMagickColor());
+
+      first = new ColorCMYK((Percentage)0, (Percentage)100, (Percentage)0, (Percentage)100);
+      Assert.AreEqual(0, first.C);
+      Assert.AreEqual(Quantum.Max, first.M);
+      Assert.AreEqual(0, first.Y);
+      Assert.AreEqual(Quantum.Max, first.K);
+      Assert.AreEqual(Quantum.Max, first.A);
+
+      first = new ColorCMYK((Percentage)100, (Percentage)0, (Percentage)100, (Percentage)0, (Percentage)100);
+      Assert.AreEqual(Quantum.Max, first.C);
+      Assert.AreEqual(0, first.M);
+      Assert.AreEqual(Quantum.Max, first.Y);
+      Assert.AreEqual(0, first.K);
+      Assert.AreEqual(Quantum.Max, first.A);
+
+      first = new ColorCMYK("#0ff0");
+      Assert.AreEqual(0, first.C);
+      Assert.AreEqual(Quantum.Max, first.M);
+      Assert.AreEqual(Quantum.Max, first.Y);
+      Assert.AreEqual(0, first.K);
+      Assert.AreEqual(Quantum.Max, first.A);
+
+      first = new ColorCMYK("#ff00ff00");
+      Assert.AreEqual(Quantum.Max, first.C);
+      Assert.AreEqual(0, first.M);
+      Assert.AreEqual(Quantum.Max, first.Y);
+      Assert.AreEqual(0, first.K);
+      Assert.AreEqual(Quantum.Max, first.A);
+
+      first = new ColorCMYK("#0000ffff0000ffff");
+      Assert.AreEqual(0, first.C);
+      Assert.AreEqual(Quantum.Max, first.M);
+      Assert.AreEqual(0, first.Y);
+      Assert.AreEqual(Quantum.Max, first.K);
+      Assert.AreEqual(Quantum.Max, first.A);
+
+      ExceptionAssert.Throws<ArgumentException>(() =>
+      {
+        new ColorCMYK("#fff");
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(() =>
+      {
+        new ColorCMYK("#ff00ff");
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(() =>
+      {
+        new ColorCMYK("#ffff0000fffff");
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(() =>
+      {
+        new ColorCMYK("#ffff0000fffff0000fffff");
+      });
     }
   }
 }

@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Collections.Generic;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -33,6 +34,46 @@ namespace ImageMagick
   {
     private ColorCMYK(MagickColor color)
       : base(color)
+    {
+    }
+
+    private static MagickColor CreateColor(string color)
+    {
+      Throw.IfNullOrEmpty(nameof(color), color);
+
+      if (color[0] == '#')
+      {
+        List<QuantumType> colors = HexColor.Parse(color);
+
+        if (colors.Count == 4)
+          return new MagickColor(colors[0], colors[1], colors[2], colors[3], Quantum.Max);
+      }
+
+      throw new ArgumentException("Invalid color specified", nameof(color));
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the ColorCMYK class.
+    ///</summary>
+    ///<param name="cyan">Cyan component value of this color.</param>
+    ///<param name="magenta">Magenta component value of this color.</param>
+    ///<param name="yellow">Yellow component value of this color.</param>
+    ///<param name="key">Key (black) component value of this color.</param>
+    public ColorCMYK(Percentage cyan, Percentage magenta, Percentage yellow, Percentage key)
+      : base(new MagickColor(cyan.ToQuantum(), magenta.ToQuantum(), yellow.ToQuantum(), key.ToQuantum(), Quantum.Max))
+    {
+    }
+
+    ///<summary>
+    /// Initializes a new instance of the ColorCMYK class.
+    ///</summary>
+    ///<param name="cyan">Cyan component value of this color.</param>
+    ///<param name="magenta">Magenta component value of this color.</param>
+    ///<param name="yellow">Yellow component value of this color.</param>
+    ///<param name="key">Key (black) component value of this color.</param>
+    ///<param name="alpha">Key (black) component value of this color.</param>
+    public ColorCMYK(Percentage cyan, Percentage magenta, Percentage yellow, Percentage key, Percentage alpha)
+      : base(new MagickColor(cyan.ToQuantum(), magenta.ToQuantum(), yellow.ToQuantum(), key.ToQuantum(), alpha.ToQuantum()))
     {
     }
 
@@ -64,6 +105,28 @@ namespace ImageMagick
 #endif
     public ColorCMYK(QuantumType cyan, QuantumType magenta, QuantumType yellow, QuantumType key, QuantumType alpha)
       : base(new MagickColor(cyan, magenta, yellow, key, alpha))
+    {
+    }
+
+#if Q8
+    ///<summary>
+    /// Initializes a new instance of the MagickColor class using the specified CMYK hex string or
+    /// name of the color (http://www.imagemagick.org/script/color.php).
+    /// For example: #F000, #FF000000
+    ///</summary>
+    ///<param name="color">The RGBA/CMYK hex string or name of the color.</param>
+#elif Q16 || Q16HDRI
+    ///<summary>
+    /// Initializes a new instance of the MagickColor class using the specified CMYK hex string or
+    /// name of the color (http://www.imagemagick.org/script/color.php).
+    /// For example: #F000, #FF000000, #FFFF000000000000
+    ///</summary>
+    ///<param name="color">The RGBA/CMYK hex string or name of the color.</param>
+#else
+#error Not implemented!
+#endif
+    public ColorCMYK(string color)
+      : base(CreateColor(color))
     {
     }
 
