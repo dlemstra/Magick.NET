@@ -2405,6 +2405,16 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Compose an image onto another at specified offset using the 'In' operator.
+    ///</summary>
+    ///<param name="image">The image to composite with this image.</param>
+    ///<exception cref="MagickException"/>
+    public void Composite(MagickImage image)
+    {
+      Composite(image, CompositeOperator.In);
+    }
+
+    ///<summary>
     /// Compose an image onto another using the specified algorithm.
     ///</summary>
     ///<param name="image">The image to composite with this image.</param>
