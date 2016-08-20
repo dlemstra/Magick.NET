@@ -1,5 +1,5 @@
 {
-  "version": "7.0.2.900",
+  "version": "7.0.2.901",
   "title": "Magick.NET.Core-Q8",
   "authors":
   [
@@ -45,7 +45,7 @@
   },
   "dependencies":
   {
-    "Magick.NET.Core-Q8.Native": "7.0.2.900"
+    "Magick.NET.Core-Q8.Native": "7.0.2.901"
   },
   "frameworks":
   {
