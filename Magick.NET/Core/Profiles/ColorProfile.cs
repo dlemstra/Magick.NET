@@ -56,7 +56,7 @@ namespace ImageMagick
         case "Yxy":
           return ColorSpace.XyY;
         default:
-          throw new NotImplementedException(colorSpace);
+          throw new NotSupportedException(colorSpace);
       }
     }
 

@@ -30,8 +30,8 @@ namespace ImageMagick
 
     private int GetIndex(int x, int y)
     {
-      Throw.IfOutOfRange("x", x, Order);
-      Throw.IfOutOfRange("y", y, Order);
+      Throw.IfOutOfRange(nameof(x), x, Order);
+      Throw.IfOutOfRange(nameof(y), y, Order);
 
       return (y * Order) + x;
     }
@@ -48,7 +48,7 @@ namespace ImageMagick
       _Values = new double[Order * Order];
       if (values != null)
       {
-        Throw.IfFalse("values", (Order * Order) == values.Length, "Invalid number of values specified");
+        Throw.IfFalse(nameof(values), (Order * Order) == values.Length, "Invalid number of values specified");
         Array.Copy(values, _Values, _Values.Length);
       }
     }
@@ -94,9 +94,9 @@ namespace ImageMagick
     ///<param name="values">The values</param>
     public void SetColumn(int x, params double[] values)
     {
-      Throw.IfOutOfRange("x", x, Order);
-      Throw.IfNull("values", values);
-      Throw.IfTrue("values", values.Length != Order, "Invalid length");
+      Throw.IfOutOfRange(nameof(x), x, Order);
+      Throw.IfNull(nameof(values), values);
+      Throw.IfTrue(nameof(values), values.Length != Order, "Invalid length");
 
       for (int y = 0; y < Order; y++)
       {
@@ -111,9 +111,9 @@ namespace ImageMagick
     ///<param name="values">The values</param>
     public void SetRow(int y, params double[] values)
     {
-      Throw.IfOutOfRange("y", y, Order);
-      Throw.IfNull("values", values);
-      Throw.IfTrue("values", values.Length != Order, "Invalid length");
+      Throw.IfOutOfRange(nameof(y), y, Order);
+      Throw.IfNull(nameof(values), values);
+      Throw.IfTrue(nameof(values), values.Length != Order, "Invalid length");
 
       for (int x = 0; x < Order; x++)
       {

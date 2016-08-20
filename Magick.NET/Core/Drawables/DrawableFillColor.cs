@@ -31,7 +31,7 @@ namespace ImageMagick
     ///<param name="color">The color to use.</param>
     public DrawableFillColor(MagickColor color)
     {
-      Throw.IfNull("color", color);
+      Throw.IfNull(nameof(color), color);
 
       Color = color;
     }

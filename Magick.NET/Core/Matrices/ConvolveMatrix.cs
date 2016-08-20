@@ -19,10 +19,10 @@ namespace ImageMagick
   ///</summary>
   public sealed class ConvolveMatrix : DoubleMatrix
   {
-    private void CheckOrder()
+    private static void CheckOrder(int order)
     {
-      Throw.IfTrue("order", Order < 1, "Invalid order specified, value has to be at least 1.");
-      Throw.IfTrue("order", Order % 2 == 0, "Order must be an odd number.");
+      Throw.IfTrue(nameof(order), order < 1, "Invalid order specified, value has to be at least 1.");
+      Throw.IfTrue(nameof(order), order % 2 == 0, "Order must be an odd number.");
     }
 
     ///<summary>
@@ -32,7 +32,7 @@ namespace ImageMagick
     public ConvolveMatrix(int order)
       : base(order, null)
     {
-      CheckOrder();
+      CheckOrder(order);
     }
 
     ///<summary>
@@ -43,7 +43,7 @@ namespace ImageMagick
     public ConvolveMatrix(int order, params double[] values)
       : base(order, values)
     {
-      CheckOrder();
+      CheckOrder(order);
     }
   }
 }

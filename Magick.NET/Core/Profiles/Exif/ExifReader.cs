@@ -150,7 +150,7 @@ namespace ImageMagick
           else
             return data;
         default:
-          throw new NotImplementedException();
+          throw new NotSupportedException();
       }
     }
 

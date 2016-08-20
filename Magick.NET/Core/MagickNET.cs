@@ -39,7 +39,7 @@ namespace ImageMagick
       foreach (string imageMagickFile in _ImageMagickFiles)
       {
         string fileName = path + "\\" + imageMagickFile;
-        Throw.IfFalse("path", File.Exists(fileName), "Unable to find file: {0}", fileName);
+        Throw.IfFalse(nameof(path), File.Exists(fileName), "Unable to find file: {0}", fileName);
       }
     }
 

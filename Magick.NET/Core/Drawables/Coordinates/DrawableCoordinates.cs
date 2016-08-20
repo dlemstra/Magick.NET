@@ -14,34 +14,33 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
   internal abstract class DrawableCoordinates<TCoordinateType>
   {
-    [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly")]
-    private void CheckCoordinates(int minCount)
+    private void CheckCoordinates(List<TCoordinateType> coordinates, int minCount)
     {
-      if (Coordinates.Count == 0)
-        throw new ArgumentException("Value cannot be empty", "coordinates");
+      if (coordinates.Count == 0)
+        throw new ArgumentException("Value cannot be empty", nameof(coordinates));
 
-      foreach (TCoordinateType coordinate in Coordinates)
+      foreach (TCoordinateType coordinate in coordinates)
       {
         if (coordinate == null)
-          throw new ArgumentNullException("Value should not contain null values", "coordinates");
+          throw new ArgumentNullException(nameof(coordinates), "Value should not contain null values");
       }
 
-      if (Coordinates.Count < minCount)
-        throw new ArgumentException("Value should contain at least " + minCount + " coordinates.", "coordinates");
+      if (coordinates.Count < minCount)
+        throw new ArgumentException("Value should contain at least " + minCount + " coordinates.", nameof(coordinates));
+
+      Coordinates = coordinates;
     }
 
     protected DrawableCoordinates(IEnumerable<TCoordinateType> coordinates, int minCount)
     {
-      Throw.IfNull("coordinates", coordinates);
+      Throw.IfNull(nameof(coordinates), coordinates);
 
-      Coordinates = new List<TCoordinateType>(coordinates);
-      CheckCoordinates(minCount);
+      CheckCoordinates(new List<TCoordinateType>(coordinates), minCount);
     }
 
     protected List<TCoordinateType> Coordinates

@@ -111,7 +111,7 @@ namespace ImageMagick
     ///</summary>
     public double HuInvariants(int index)
     {
-      Throw.IfOutOfRange("index", index, 8);
+      Throw.IfOutOfRange(nameof(index), index, 8);
 
       return _HuInvariants[index];
     }

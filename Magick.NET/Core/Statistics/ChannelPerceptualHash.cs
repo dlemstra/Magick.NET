@@ -41,7 +41,7 @@ namespace ImageMagick
       {
         int hex;
         if (!int.TryParse(hash.Substring(i * 5, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out hex))
-          throw new ArgumentException("Invalid hash specified", "hash");
+          throw new ArgumentException("Invalid hash specified", nameof(hash));
 
         double value = (ushort)hex / Math.Pow(10.0, (hex >> 17));
         if ((hex & (1 << 16)) != 0)
@@ -135,7 +135,7 @@ namespace ImageMagick
     ///</summary>
     public double SrgbHuPhash(int index)
     {
-      Throw.IfOutOfRange("index", index, 7);
+      Throw.IfOutOfRange(nameof(index), index, 7);
 
       return _SrgbHuPhash[index];
     }
@@ -145,7 +145,7 @@ namespace ImageMagick
     ///</summary>
     public double HclpHuPhash(int index)
     {
-      Throw.IfOutOfRange("index", index, 7);
+      Throw.IfOutOfRange(nameof(index), index, 7);
 
       return _HclpHuPhash[index];
     }
@@ -156,7 +156,7 @@ namespace ImageMagick
     ///<param name="other">The ChannelPerceptualHash to get the distance of.</param>
     public double SumSquaredDistance(ChannelPerceptualHash other)
     {
-      Throw.IfNull("other", other);
+      Throw.IfNull(nameof(other), other);
 
       double ssd = 0.0;
 

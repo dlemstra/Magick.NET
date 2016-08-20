@@ -31,7 +31,7 @@ namespace ImageMagick
 
     private void AddImages(byte[] data, MagickReadSettings readSettings, bool ping)
     {
-      Throw.IfNullOrEmpty("data", data);
+      Throw.IfNullOrEmpty(nameof(data), data);
 
       MagickSettings settings = CreateSettings(readSettings);
       settings.Ping = ping;
@@ -75,7 +75,7 @@ namespace ImageMagick
       if (readSettings == null)
         return new MagickSettings();
 
-      Throw.IfTrue("readSettings", readSettings.PixelStorage != null, "PixelStorage is not supported for images with multiple frames/layers.");
+      Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage != null, "PixelStorage is not supported for images with multiple frames/layers.");
 
       readSettings.Apply();
 
@@ -202,7 +202,7 @@ namespace ImageMagick
     public MagickImageCollection(IEnumerable<MagickImage> images)
       : this()
     {
-      Throw.IfNull("images", images);
+      Throw.IfNull(nameof(images), images);
 
       foreach (MagickImage image in images)
       {
@@ -261,7 +261,7 @@ namespace ImageMagick
     ///</summary>
     public static explicit operator byte[] (MagickImageCollection collection)
     {
-      Throw.IfNull("collection", collection);
+      Throw.IfNull(nameof(collection), collection);
 
       return collection.ToByteArray();
     }
@@ -365,7 +365,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AddRange(IEnumerable<MagickImage> images)
     {
-      Throw.IfNull("images", images);
+      Throw.IfNull(nameof(images), images);
 
       foreach (MagickImage image in images)
       {
@@ -380,7 +380,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AddRange(MagickImageCollection images)
     {
-      Throw.IfNull("images", images);
+      Throw.IfNull(nameof(images), images);
 
       int count = images.Count;
       for (int i = 0; i < count; i++)
@@ -575,9 +575,9 @@ namespace ImageMagick
       if (_Images.Count == 0)
         return;
 
-      Throw.IfNull("array", array);
-      Throw.IfOutOfRange("arrayIndex", arrayIndex, _Images.Count);
-      Throw.IfOutOfRange("arrayIndex", arrayIndex, array.Length);
+      Throw.IfNull(nameof(array), array);
+      Throw.IfOutOfRange(nameof(arrayIndex), arrayIndex, _Images.Count);
+      Throw.IfOutOfRange(nameof(arrayIndex), arrayIndex, array.Length);
 
       int indexI = 0;
       int length = Math.Min(array.Length, _Images.Count);
@@ -724,8 +724,8 @@ namespace ImageMagick
     {
       ThrowIfEmpty();
 
-      Throw.IfNull("image", image);
-      Throw.IfNull("settings", settings);
+      Throw.IfNull(nameof(image), image);
+      Throw.IfNull(nameof(settings), settings);
 
       try
       {
@@ -768,7 +768,7 @@ namespace ImageMagick
     {
       ThrowIfEmpty();
 
-      Throw.IfNull("settings", settings);
+      Throw.IfNull(nameof(settings), settings);
 
       IntPtr images;
       try
@@ -939,7 +939,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Ping(FileInfo file)
     {
-      Throw.IfNull("file", file);
+      Throw.IfNull(nameof(file), file);
 
       Ping(file.FullName);
     }
@@ -983,7 +983,7 @@ namespace ImageMagick
     {
       ThrowIfEmpty();
 
-      Throw.IfNull("settings", settings);
+      Throw.IfNull(nameof(settings), settings);
 
       try
       {
@@ -1008,7 +1008,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(FileInfo file)
     {
-      Throw.IfNull("file", file);
+      Throw.IfNull(nameof(file), file);
 
       Read(file.FullName);
     }
@@ -1021,7 +1021,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(FileInfo file, MagickReadSettings readSettings)
     {
-      Throw.IfNull("file", file);
+      Throw.IfNull(nameof(file), file);
 
       Read(file.FullName, readSettings);
     }
@@ -1246,7 +1246,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Write(FileInfo file)
     {
-      Throw.IfNull("file", file);
+      Throw.IfNull(nameof(file), file);
 
       Write(file.FullName);
       file.Refresh();
@@ -1260,7 +1260,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Write(Stream stream)
     {
-      Throw.IfNull("stream", stream);
+      Throw.IfNull(nameof(stream), stream);
 
       if (_Images.Count == 0)
         return;

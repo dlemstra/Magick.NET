@@ -234,7 +234,7 @@ namespace ImageMagick
 
     internal string GetOption(string key)
     {
-      Throw.IfNullOrEmpty("key", key);
+      Throw.IfNullOrEmpty(nameof(key), key);
 
       string result;
       if (_Options.TryGetValue(key, out result))
@@ -792,7 +792,7 @@ namespace ImageMagick
     ///<param name="name">The name of the option.</param>
     public string GetDefine(MagickFormat format, string name)
     {
-      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNullOrEmpty(nameof(name), name);
 
       return GetOption(ParseDefine(format, name));
     }
@@ -803,7 +803,7 @@ namespace ImageMagick
     ///<param name="name">The name of the option.</param>
     public string GetDefine(string name)
     {
-      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNullOrEmpty(nameof(name), name);
 
       return GetOption(name);
     }
@@ -815,7 +815,7 @@ namespace ImageMagick
     ///<param name="name">The name of the define.</param>
     public void RemoveDefine(MagickFormat format, string name)
     {
-      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNullOrEmpty(nameof(name), name);
 
       string key = ParseDefine(format, name);
       if (_Options.ContainsKey(key))
@@ -828,7 +828,7 @@ namespace ImageMagick
     ///<param name="name">The name of the define.</param>
     public void RemoveDefine(string name)
     {
-      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNullOrEmpty(nameof(name), name);
 
       if (_Options.ContainsKey(name))
         _Options.Remove(name);
@@ -854,8 +854,8 @@ namespace ImageMagick
     ///<param name="value">The value of the option.</param>
     public void SetDefine(MagickFormat format, string name, string value)
     {
-      Throw.IfNullOrEmpty("name", name);
-      Throw.IfNull("value", value);
+      Throw.IfNullOrEmpty(nameof(name), name);
+      Throw.IfNull(nameof(value), value);
 
       SetOption(ParseDefine(format, name), value);
     }
@@ -867,8 +867,8 @@ namespace ImageMagick
     ///<param name="value">The value of the option.</param>
     public void SetDefine(string name, string value)
     {
-      Throw.IfNullOrEmpty("name", name);
-      Throw.IfNull("value", value);
+      Throw.IfNullOrEmpty(nameof(name), name);
+      Throw.IfNull(nameof(value), value);
 
       SetOption(name, value);
     }
@@ -879,7 +879,7 @@ namespace ImageMagick
     ///<param name="defines">The defines to set.</param>
     public void SetDefines(IDefines defines)
     {
-      Throw.IfNull("defines", defines);
+      Throw.IfNull(nameof(defines), defines);
 
       foreach (IDefine define in defines.Defines)
       {

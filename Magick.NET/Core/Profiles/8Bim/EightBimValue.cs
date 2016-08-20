@@ -140,7 +140,7 @@ namespace ImageMagick
     ///</summary>
     public string ToString(Encoding encoding)
     {
-      Throw.IfNull("encoding", encoding);
+      Throw.IfNull(nameof(encoding), encoding);
 
       return encoding.GetString(_Data);
     }

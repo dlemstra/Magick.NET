@@ -28,14 +28,14 @@ namespace ImageMagick
     private void Initialize(string value)
     {
       string[] values = value.Split('x');
-      Throw.IfTrue("value", values.Length > 2, "Invalid point specified.");
+      Throw.IfTrue(nameof(value), values.Length > 2, "Invalid point specified.");
 
       double x;
-      Throw.IfFalse("value", double.TryParse(values[0], NumberStyles.Number, CultureInfo.InvariantCulture, out x), "Invalid point specified.");
+      Throw.IfFalse(nameof(value), double.TryParse(values[0], NumberStyles.Number, CultureInfo.InvariantCulture, out x), "Invalid point specified.");
 
       double y;
       if (values.Length == 2)
-        Throw.IfFalse("value", double.TryParse(values[1], NumberStyles.Number, CultureInfo.InvariantCulture, out y), "Invalid point specified.");
+        Throw.IfFalse(nameof(value), double.TryParse(values[1], NumberStyles.Number, CultureInfo.InvariantCulture, out y), "Invalid point specified.");
       else
         y = x;
 
@@ -79,7 +79,7 @@ namespace ImageMagick
     public PointD(string value)
       : this()
     {
-      Throw.IfNullOrEmpty("value", value);
+      Throw.IfNullOrEmpty(nameof(value), value);
 
       Initialize(value);
     }

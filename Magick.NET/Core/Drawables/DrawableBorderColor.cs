@@ -31,7 +31,7 @@ namespace ImageMagick
     ///<param name="color">The color of the border.</param>
     public DrawableBorderColor(MagickColor color)
     {
-      Throw.IfNull("color", color);
+      Throw.IfNull(nameof(color), color);
 
       Color = color;
     }

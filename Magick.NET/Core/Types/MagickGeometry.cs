@@ -51,7 +51,7 @@ namespace ImageMagick
 
     private void Initialize(NativeMagickGeometry instance, GeometryFlags flags)
     {
-      Throw.IfTrue("value", flags == GeometryFlags.NoValue, "Invalid geometry specified.");
+      Throw.IfTrue(nameof(flags), flags == GeometryFlags.NoValue, "Invalid geometry specified.");
 
       Initialize(instance);
 
@@ -151,8 +151,8 @@ namespace ImageMagick
     ///<param name="percentageHeight">The percentage of the  height.</param>
     public MagickGeometry(Percentage percentageWidth, Percentage percentageHeight)
     {
-      Throw.IfNegative("percentageWidth", percentageWidth);
-      Throw.IfNegative("percentageHeight", percentageHeight);
+      Throw.IfNegative(nameof(percentageWidth), percentageWidth);
+      Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
       Initialize(0, 0, (int)percentageWidth, (int)percentageHeight, true);
     }
@@ -167,8 +167,8 @@ namespace ImageMagick
     ///<param name="percentageHeight">The percentage of the  height.</param>
     public MagickGeometry(int x, int y, Percentage percentageWidth, Percentage percentageHeight)
     {
-      Throw.IfNegative("percentageWidth", percentageWidth);
-      Throw.IfNegative("percentageHeight", percentageHeight);
+      Throw.IfNegative(nameof(percentageWidth), percentageWidth);
+      Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
       Initialize(x, y, (int)percentageWidth, (int)percentageHeight, true);
     }
@@ -180,7 +180,7 @@ namespace ImageMagick
     ///{+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
     public MagickGeometry(string value)
     {
-      Throw.IfNullOrEmpty("value", value);
+      Throw.IfNullOrEmpty(nameof(value), value);
 
       using (NativeMagickGeometry instance = new NativeMagickGeometry())
       {

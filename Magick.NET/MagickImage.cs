@@ -67,7 +67,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(Bitmap bitmap)
     {
-      Throw.IfNull("bitmap", bitmap);
+      Throw.IfNull(nameof(bitmap), bitmap);
 
       using (MemoryStream memStream = new MemoryStream())
       {

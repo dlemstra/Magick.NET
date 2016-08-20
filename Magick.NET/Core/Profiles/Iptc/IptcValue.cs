@@ -27,7 +27,7 @@ namespace ImageMagick
 
     internal IptcValue(IptcTag tag, byte[] value)
     {
-      Throw.IfNull("value", value);
+      Throw.IfNull(nameof(value), value);
 
       Tag = tag;
       _Data = value;
@@ -60,7 +60,7 @@ namespace ImageMagick
       }
       set
       {
-        Throw.IfNull("value", value);
+        Throw.IfNull(nameof(value), value);
 
         _Encoding = value;
       }
@@ -194,7 +194,7 @@ namespace ImageMagick
     ///</summary>
     public string ToString(Encoding encoding)
     {
-      Throw.IfNull("encoding", encoding);
+      Throw.IfNull(nameof(encoding), encoding);
 
       return encoding.GetString(_Data);
     }

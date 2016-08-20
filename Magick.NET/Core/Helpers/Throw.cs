@@ -36,7 +36,7 @@ namespace ImageMagick
 
     public static void IfInvalidFileName(string fileName)
     {
-      IfNullOrEmpty("fileName", fileName);
+      IfNullOrEmpty(nameof(fileName), fileName);
 
       if (fileName.Length > 248)
         return;
@@ -75,7 +75,7 @@ namespace ImageMagick
           path = path.Substring(0, endIndex);
       }
 
-      IfFalse("fileName", File.Exists(path), "Unable to find file: {0}.", path);
+      IfFalse(nameof(fileName), File.Exists(path), "Unable to find file: {0}.", path);
     }
 
     public static void IfNull(string paramName, object value)

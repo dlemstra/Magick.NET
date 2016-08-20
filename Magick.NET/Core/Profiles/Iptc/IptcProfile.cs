@@ -176,7 +176,7 @@ namespace ImageMagick
     ///<param name="encoding">The encoding to use when storing the bytes.</param>
     public void SetEncoding(Encoding encoding)
     {
-      Throw.IfNull("encoding", encoding);
+      Throw.IfNull(nameof(encoding), encoding);
 
       foreach (IptcValue value in Values)
       {
@@ -192,7 +192,7 @@ namespace ImageMagick
     ///<param name="value">The value.</param>
     public void SetValue(IptcTag tag, Encoding encoding, string value)
     {
-      Throw.IfNull("encoding", encoding);
+      Throw.IfNull(nameof(encoding), encoding);
 
       foreach (IptcValue iptcValue in Values)
       {

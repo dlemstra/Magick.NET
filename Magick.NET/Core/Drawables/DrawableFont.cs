@@ -58,7 +58,7 @@ namespace ImageMagick
     ///<param name="stretch">The font stretching type.</param>
     public DrawableFont(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
     {
-      Throw.IfNullOrEmpty("family", family);
+      Throw.IfNullOrEmpty(nameof(family), family);
 
       Family = family;
       Style = style;

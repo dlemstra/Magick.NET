@@ -57,7 +57,7 @@ namespace ImageMagick
     public ColorGray(double shade)
       : base(new MagickColor(0, 0, 0))
     {
-      Throw.IfTrue("shade", shade < 0.0 || shade > 1.0, "Invalid shade specified");
+      Throw.IfTrue(nameof(shade), shade < 0.0 || shade > 1.0, "Invalid shade specified");
 
       Shade = shade;
     }

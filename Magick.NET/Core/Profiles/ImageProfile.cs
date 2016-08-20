@@ -49,7 +49,7 @@ namespace ImageMagick
     ///<param name="name">The name of the profile.</param>
     protected ImageProfile(string name)
     {
-      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNullOrEmpty(nameof(name), name);
       Name = name;
     }
 
@@ -67,8 +67,8 @@ namespace ImageMagick
     ///<param name="data">A byte array containing the profile.</param>
     public ImageProfile(string name, byte[] data)
     {
-      Throw.IfNullOrEmpty("name", name);
-      Throw.IfNullOrEmpty("data", data);
+      Throw.IfNullOrEmpty(nameof(name), name);
+      Throw.IfNullOrEmpty(nameof(data), data);
 
       Name = name;
       Data = Copy(data);
@@ -81,7 +81,7 @@ namespace ImageMagick
     ///<param name="stream">A stream containing the profile.</param>
     public ImageProfile(string name, Stream stream)
     {
-      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNullOrEmpty(nameof(name), name);
 
       Name = name;
       Data = StreamHelper.ToByteArray(stream);
@@ -94,7 +94,7 @@ namespace ImageMagick
     ///<param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
     public ImageProfile(string name, string fileName)
     {
-      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNullOrEmpty(nameof(name), name);
 
       Name = name;
 

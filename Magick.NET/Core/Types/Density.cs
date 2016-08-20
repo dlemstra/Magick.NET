@@ -25,10 +25,10 @@ namespace ImageMagick
   {
     private void Initialize(string value)
     {
-      Throw.IfNullOrEmpty("value", value);
+      Throw.IfNullOrEmpty(nameof(value), value);
 
       string[] values = value.Split(' ');
-      Throw.IfTrue("value", values.Length > 2, "Invalid density specified.");
+      Throw.IfTrue(nameof(value), values.Length > 2, "Invalid density specified.");
 
       if (values.Length == 2)
       {
@@ -37,20 +37,20 @@ namespace ImageMagick
         else if (values[1].Equals("inch", StringComparison.OrdinalIgnoreCase))
           Units = DensityUnit.PixelsPerInch;
         else
-          throw new ArgumentException("Invalid density specified.");
+          throw new ArgumentException("Invalid density specified.", nameof(value));
       }
 
       string[] xyValues = values[0].Split('x');
-      Throw.IfTrue("value", xyValues.Length > 2, "Invalid density specified.");
+      Throw.IfTrue(nameof(value), xyValues.Length > 2, "Invalid density specified.");
 
       double x;
-      Throw.IfFalse("value", double.TryParse(xyValues[0], NumberStyles.Number, CultureInfo.InvariantCulture, out x), "Invalid density specified.");
+      Throw.IfFalse(nameof(value), double.TryParse(xyValues[0], NumberStyles.Number, CultureInfo.InvariantCulture, out x), "Invalid density specified.");
 
       double y;
       if (xyValues.Length == 1)
         y = x;
       else
-        Throw.IfFalse("value", double.TryParse(xyValues[1], NumberStyles.Number, CultureInfo.InvariantCulture, out y), "Invalid density specified.");
+        Throw.IfFalse(nameof(value), double.TryParse(xyValues[1], NumberStyles.Number, CultureInfo.InvariantCulture, out y), "Invalid density specified.");
 
       X = x;
       Y = y;

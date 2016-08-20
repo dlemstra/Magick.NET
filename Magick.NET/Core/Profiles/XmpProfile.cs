@@ -30,7 +30,7 @@ namespace ImageMagick
   {
     private static byte[] CheckTrailingNULL(byte[] data)
     {
-      Throw.IfNull("data", data);
+      Throw.IfNull(nameof(data), data);
 
       int length = data.Length;
 
@@ -67,7 +67,7 @@ namespace ImageMagick
       : base("xmp")
     {
 
-      Throw.IfNull("document", document);
+      Throw.IfNull(nameof(document), document);
 
       MemoryStream memStream = new MemoryStream();
       using (XmlWriter writer = XmlWriter.Create(memStream))
@@ -86,7 +86,7 @@ namespace ImageMagick
     public XmpProfile(XDocument document)
       : base("xmp")
     {
-      Throw.IfNull("document", document);
+      Throw.IfNull(nameof(document), document);
 
       MemoryStream memStream = new MemoryStream();
       using (XmlWriter writer = XmlWriter.Create(memStream))

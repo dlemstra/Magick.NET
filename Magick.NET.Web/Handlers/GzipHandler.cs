@@ -81,7 +81,7 @@ namespace ImageMagick.Web.Handlers
       if (encoding == "deflate")
         return new DeflateStream(stream, CompressionMode.Compress);
 
-      throw new NotImplementedException(encoding);
+      throw new NotSupportedException(encoding);
     }
 
     private static string GetEncoding(HttpRequest request)

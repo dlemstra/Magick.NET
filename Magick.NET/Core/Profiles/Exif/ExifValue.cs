@@ -35,53 +35,53 @@ namespace ImageMagick
 
       if (DataType == ExifDataType.Ascii)
       {
-        Throw.IfFalse("value", type == typeof(string), "Value should be a string.");
+        Throw.IfFalse(nameof(value), type == typeof(string), "Value should be a string.");
         return;
       }
 
       if (type.IsArray)
       {
-        Throw.IfTrue("value", !IsArray, "Value should not be an array.");
+        Throw.IfTrue(nameof(value), !IsArray, "Value should not be an array.");
         type = type.GetElementType();
       }
       else
       {
-        Throw.IfTrue("value", IsArray, "Value should be an array.");
+        Throw.IfTrue(nameof(value), IsArray, "Value should be an array.");
       }
 
       switch (DataType)
       {
         case ExifDataType.Byte:
-          Throw.IfFalse("value", type == typeof(byte), "Value should be a byte{0}", IsArray ? " array." : ".");
+          Throw.IfFalse(nameof(value), type == typeof(byte), "Value should be a byte{0}", IsArray ? " array." : ".");
           break;
         case ExifDataType.DoubleFloat:
         case ExifDataType.Rational:
         case ExifDataType.SignedRational:
-          Throw.IfFalse("value", type == typeof(double), "Value should be a double{0}", IsArray ? " array." : ".");
+          Throw.IfFalse(nameof(value), type == typeof(double), "Value should be a double{0}", IsArray ? " array." : ".");
           break;
         case ExifDataType.Long:
-          Throw.IfFalse("value", type == typeof(uint), "Value should be an unsigned int{0}", IsArray ? " array." : ".");
+          Throw.IfFalse(nameof(value), type == typeof(uint), "Value should be an unsigned int{0}", IsArray ? " array." : ".");
           break;
         case ExifDataType.Short:
-          Throw.IfFalse("value", type == typeof(ushort), "Value should be an unsigned short{0}", IsArray ? " array." : ".");
+          Throw.IfFalse(nameof(value), type == typeof(ushort), "Value should be an unsigned short{0}", IsArray ? " array." : ".");
           break;
         case ExifDataType.SignedByte:
-          Throw.IfFalse("value", type == typeof(sbyte), "Value should be a signed byte{0}", IsArray ? " array." : ".");
+          Throw.IfFalse(nameof(value), type == typeof(sbyte), "Value should be a signed byte{0}", IsArray ? " array." : ".");
           break;
         case ExifDataType.SignedLong:
-          Throw.IfFalse("value", type == typeof(int), "Value should be an int{0}", IsArray ? " array." : ".");
+          Throw.IfFalse(nameof(value), type == typeof(int), "Value should be an int{0}", IsArray ? " array." : ".");
           break;
         case ExifDataType.SignedShort:
-          Throw.IfFalse("value", type == typeof(short), "Value should be a short{0}", IsArray ? " array." : ".");
+          Throw.IfFalse(nameof(value), type == typeof(short), "Value should be a short{0}", IsArray ? " array." : ".");
           break;
         case ExifDataType.SingleFloat:
-          Throw.IfFalse("value", type == typeof(float), "Value should be a float{0}", IsArray ? " array." : ".");
+          Throw.IfFalse(nameof(value), type == typeof(float), "Value should be a float{0}", IsArray ? " array." : ".");
           break;
         case ExifDataType.Undefined:
-          Throw.IfFalse("value", type == typeof(byte), "Value should be a byte array.");
+          Throw.IfFalse(nameof(value), type == typeof(byte), "Value should be a byte array.");
           break;
         default:
-          throw new NotImplementedException();
+          throw new NotSupportedException();
       }
     }
 
@@ -130,7 +130,7 @@ namespace ImageMagick
         case ExifDataType.Undefined:
           return ((byte)value).ToString("X2", CultureInfo.InvariantCulture);
         default:
-          throw new NotImplementedException();
+          throw new NotSupportedException();
       }
     }
 
@@ -194,7 +194,7 @@ namespace ImageMagick
     [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
     internal static ExifValue Create(ExifTag tag, object value)
     {
-      Throw.IfTrue("tag", tag == ExifTag.Unknown, "Invalid Tag");
+      Throw.IfTrue(nameof(tag), tag == ExifTag.Unknown, "Invalid Tag");
 
       ExifValue exifValue = null;
       Type type = value != null ? value.GetType() : null;
@@ -421,7 +421,7 @@ namespace ImageMagick
           break;
 
         default:
-          throw new NotImplementedException();
+          throw new NotSupportedException();
       }
 
       exifValue.Value = value;
@@ -449,7 +449,7 @@ namespace ImageMagick
         case ExifDataType.SignedRational:
           return 8;
         default:
-          throw new NotImplementedException(dataType.ToString());
+          throw new NotSupportedException(dataType.ToString());
       }
     }
 

@@ -32,7 +32,7 @@ namespace ImageMagick
     ///<param name="clipPath">The ID of the clip path.</param>
     public DrawableClipPath(string clipPath)
     {
-      Throw.IfNullOrEmpty("clipPath", clipPath);
+      Throw.IfNullOrEmpty(nameof(clipPath), clipPath);
 
       ClipPath = clipPath;
     }

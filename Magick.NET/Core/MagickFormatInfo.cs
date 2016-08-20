@@ -221,7 +221,7 @@ namespace ImageMagick
     /// <param name="file">The file to check.</param>
     public static MagickFormatInfo Create(FileInfo file)
     {
-      Throw.IfNull("file", file);
+      Throw.IfNull(nameof(file), file);
 
       MagickFormat? format = null;
       if (file.Extension != null && file.Extension.Length > 1)
@@ -253,7 +253,7 @@ namespace ImageMagick
     public static MagickFormatInfo Create(string fileName)
     {
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
-      Throw.IfNull("fileName", filePath);
+      Throw.IfNull(nameof(fileName), filePath);
 
       return Create(new FileInfo(filePath));
     }

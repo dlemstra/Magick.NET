@@ -33,7 +33,7 @@ namespace ImageMagick
     ///<param name="encoding">Encoding to use.</param>
     public DrawableTextEncoding(Encoding encoding)
     {
-      Throw.IfNull("encoding", encoding);
+      Throw.IfNull(nameof(encoding), encoding);
 
       Encoding = encoding;
     }

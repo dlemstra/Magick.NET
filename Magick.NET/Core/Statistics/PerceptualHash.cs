@@ -78,8 +78,8 @@ namespace ImageMagick
     public PerceptualHash(string perceptualHash)
       : this()
     {
-      Throw.IfNullOrEmpty("perceptualHash", perceptualHash);
-      Throw.IfFalse("perceptualHash", perceptualHash.Length == 210, "Invalid hash size.");
+      Throw.IfNullOrEmpty(nameof(perceptualHash), perceptualHash);
+      Throw.IfFalse(nameof(perceptualHash), perceptualHash.Length == 210, "Invalid hash size.");
 
       _Channels[PixelChannel.Red] = new ChannelPerceptualHash(PixelChannel.Red, perceptualHash.Substring(0, 70));
       _Channels[PixelChannel.Green] = new ChannelPerceptualHash(PixelChannel.Green, perceptualHash.Substring(70, 70));
@@ -102,7 +102,7 @@ namespace ImageMagick
     ///<param name="other">The PerceptualHash to get the distance of.</param>
     public double SumSquaredDistance(PerceptualHash other)
     {
-      Throw.IfNull("other", other);
+      Throw.IfNull(nameof(other), other);
 
       return
         _Channels[PixelChannel.Red].SumSquaredDistance(other._Channels[PixelChannel.Red]) +

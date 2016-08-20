@@ -29,7 +29,7 @@ namespace ImageMagick
 
     private DrawableComposite(MagickImage image)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       _Image = image;
     }
@@ -75,7 +75,7 @@ namespace ImageMagick
     public DrawableComposite(MagickGeometry offset, MagickImage image)
       : this(image)
     {
-      Throw.IfNull("offset", offset);
+      Throw.IfNull(nameof(offset), offset);
 
       X = offset.X;
       Y = offset.Y;

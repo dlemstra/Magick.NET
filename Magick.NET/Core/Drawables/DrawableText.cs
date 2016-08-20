@@ -33,7 +33,7 @@ namespace ImageMagick
     ///<param name="value">The text to draw.</param>
     public DrawableText(double x, double y, string value)
     {
-      Throw.IfNullOrEmpty("value", value);
+      Throw.IfNullOrEmpty(nameof(value), value);
 
       X = x;
       Y = y;

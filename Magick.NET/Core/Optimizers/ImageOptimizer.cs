@@ -125,7 +125,7 @@ namespace ImageMagick
     /// <param name="file">The image file to optimize</param>
     public void LosslessCompress(FileInfo file)
     {
-      Throw.IfNull("file", file);
+      Throw.IfNull(nameof(file), file);
 
       DoLosslessCompress(file);
     }

@@ -48,7 +48,7 @@ namespace ImageMagick
         return ColorProfile.SRGB;
       if (element.GetAttribute("name") == "USWebCoatedSWOP")
         return ColorProfile.USWebCoatedSWOP;
-      throw new NotImplementedException(element.Name);
+      throw new NotSupportedException(element.Name);
     }
   }
 }

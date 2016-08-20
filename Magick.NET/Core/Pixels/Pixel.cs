@@ -63,7 +63,7 @@ namespace ImageMagick
 
     private static void CheckChannels(int channels)
     {
-      Throw.IfTrue("value", channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
+      Throw.IfTrue(nameof(channels), channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
     }
 
     internal QuantumType[] Value
@@ -96,7 +96,7 @@ namespace ImageMagick
 #endif
     public Pixel(int x, int y, QuantumType[] value)
     {
-      Throw.IfNull("value", value);
+      Throw.IfNull(nameof(value), value);
 
       CheckChannels(value.Length);
       Initialize(x, y, value);

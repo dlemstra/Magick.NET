@@ -27,7 +27,7 @@ namespace ImageMagick
     /// <param name="color">The color.</param>
     public SparseColorArg(double x, double y, MagickColor color)
     {
-      Throw.IfNull("color", color);
+      Throw.IfNull(nameof(color), color);
 
       X = x;
       Y = y;

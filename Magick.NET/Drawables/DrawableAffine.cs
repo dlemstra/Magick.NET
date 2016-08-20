@@ -24,7 +24,7 @@ namespace ImageMagick
     ///<param name="matrix">The matrix.</param>
     public DrawableAffine(Matrix matrix)
     {
-      Throw.IfNull("matrix", matrix);
+      Throw.IfNull(nameof(matrix), matrix);
 
       ScaleX = matrix.Elements[0];
       ScaleY = matrix.Elements[1];

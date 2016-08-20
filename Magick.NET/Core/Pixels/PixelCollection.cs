@@ -51,14 +51,14 @@ namespace ImageMagick
     private void CheckArea(int x, int y, int width, int height)
     {
       CheckIndex(x, y);
-      Throw.IfOutOfRange("width", 0, _Image.Width - x, width, "Invalid width: {0}.", width);
-      Throw.IfOutOfRange("height", 0, _Image.Height - y, height, "Invalid height: {0}.", height);
+      Throw.IfOutOfRange(nameof(width), 0, _Image.Width - x, width, "Invalid width: {0}.", width);
+      Throw.IfOutOfRange(nameof(height), 0, _Image.Height - y, height, "Invalid height: {0}.", height);
     }
 
     private void CheckIndex(int x, int y)
     {
-      Throw.IfOutOfRange("x", 0, _Image.Width - 1, x, "Invalid X coordinate: {0}.", x);
-      Throw.IfOutOfRange("y", 0, _Image.Height - 1, y, "Invalid Y coordinate: {0}.", y);
+      Throw.IfOutOfRange(nameof(x), 0, _Image.Width - 1, x, "Invalid X coordinate: {0}.", x);
+      Throw.IfOutOfRange(nameof(y), 0, _Image.Height - 1, y, "Invalid Y coordinate: {0}.", y);
     }
 
     private void CheckValues<T>(T[] values)
@@ -74,16 +74,16 @@ namespace ImageMagick
     private void CheckValues<T>(int x, int y, int width, int height, T[] values)
     {
       CheckIndex(x, y);
-      Throw.IfNullOrEmpty("values", values);
-      Throw.IfFalse("values", values.Length % Channels == 0, "Values should have {0} channels.", Channels);
+      Throw.IfNullOrEmpty(nameof(values), values);
+      Throw.IfFalse(nameof(values), values.Length % Channels == 0, "Values should have {0} channels.", Channels);
 
       int length = values.Length;
       int max = width * height * Channels;
-      Throw.IfTrue("values", length > max, "Too many values specified.");
+      Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
 
       length = (x * y * Channels) + length;
       max = _Image.Width * _Image.Height * Channels;
-      Throw.IfTrue("values", length > max, "Too many values specified.");
+      Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
     }
 
     private void SetAreaUnchecked(int x, int y, int width, int height, QuantumType[] values)
@@ -175,7 +175,7 @@ namespace ImageMagick
 #endif
     public QuantumType[] GetArea(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       return GetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height);
     }
@@ -247,7 +247,7 @@ namespace ImageMagick
     ///<param name="pixel">The pixel to set.</param>
     public void Set(Pixel pixel)
     {
-      Throw.IfNull("pixel", pixel);
+      Throw.IfNull(nameof(pixel), pixel);
 
       SetPixel(pixel.X, pixel.Y, pixel.Value);
     }
@@ -258,7 +258,7 @@ namespace ImageMagick
     ///<param name="pixels">The pixels to set.</param>
     public void Set(IEnumerable<Pixel> pixels)
     {
-      Throw.IfNull("pixels", pixels);
+      Throw.IfNull(nameof(pixels), pixels);
 
       IEnumerator<Pixel> enumerator = pixels.GetEnumerator();
 
@@ -279,7 +279,7 @@ namespace ImageMagick
 #endif
     public void Set(int x, int y, QuantumType[] value)
     {
-      Throw.IfNullOrEmpty("value", value);
+      Throw.IfNullOrEmpty(nameof(value), value);
 
       SetPixel(x, y, value);
     }
@@ -461,7 +461,7 @@ namespace ImageMagick
     ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     public byte[] ToByteArray(int x, int y, int width, int height, string mapping)
     {
-      Throw.IfNullOrEmpty("mapping", mapping);
+      Throw.IfNullOrEmpty(nameof(mapping), mapping);
 
       CheckArea(x, y, width, height);
       IntPtr nativeResult = _NativeInstance.ToByteArray(x, y, width, height, mapping);
@@ -477,7 +477,7 @@ namespace ImageMagick
     ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     public byte[] ToByteArray(MagickGeometry geometry, string mapping)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       return ToByteArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping);
     }
@@ -503,7 +503,7 @@ namespace ImageMagick
     [CLSCompliant(false)]
     public ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
     {
-      Throw.IfNullOrEmpty("mapping", mapping);
+      Throw.IfNullOrEmpty(nameof(mapping), mapping);
 
       CheckArea(x, y, width, height);
       IntPtr nativeResult = _NativeInstance.ToShortArray(x, y, width, height, mapping);
@@ -520,7 +520,7 @@ namespace ImageMagick
     [CLSCompliant(false)]
     public ushort[] ToShortArray(MagickGeometry geometry, string mapping)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       return ToShortArray(geometry.X, geometry.Y, geometry.Width, geometry.Height, mapping);
     }

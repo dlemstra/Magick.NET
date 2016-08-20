@@ -317,7 +317,7 @@ namespace ImageMagick
         case ExifDataType.SingleFloat:
           return Write(BitConverter.GetBytes((float)value), destination, offset);
         default:
-          throw new NotImplementedException();
+          throw new NotSupportedException();
       }
     }
 

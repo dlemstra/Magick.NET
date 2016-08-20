@@ -62,9 +62,9 @@ namespace ImageMagick
     public ColorYUV(double y, double u, double v)
       : base(new MagickColor(0, 0, 0))
     {
-      Throw.IfTrue("y", y < 0.0 || y > 1.0, "Invalid Y component.");
-      Throw.IfTrue("u", u < -0.5 || u > 0.5, "Invalid Y component.");
-      Throw.IfTrue("v", v < -0.5 || v > 0.5, "Invalid Y component.");
+      Throw.IfTrue(nameof(y), y < 0.0 || y > 1.0, "Invalid Y component.");
+      Throw.IfTrue(nameof(u), u < -0.5 || u > 0.5, "Invalid Y component.");
+      Throw.IfTrue(nameof(v), v < -0.5 || v > 0.5, "Invalid Y component.");
 
       _Y = y;
       _U = u;

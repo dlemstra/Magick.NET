@@ -70,7 +70,7 @@ namespace ImageMagick
     private MagickReadSettings CreateReadSettings(MagickReadSettings readSettings)
     {
       if (readSettings != null && readSettings.FrameCount.HasValue)
-        Throw.IfFalse("readSettings", readSettings.FrameCount.Value == 1,
+        Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1,
           "The FrameCount can only be set to 1 when a MagickImage is being read.");
 
       MagickReadSettings newReadSettings = readSettings;
@@ -143,7 +143,7 @@ namespace ImageMagick
           return length * sizeof(short);
         case StorageType.Undefined:
         default:
-          throw new NotImplementedException();
+          throw new NotSupportedException();
       }
     }
 
@@ -161,7 +161,7 @@ namespace ImageMagick
 
     private void FloodFill(MagickColor color, int x, int y, bool invert)
     {
-      Throw.IfNull("color", color);
+      Throw.IfNull(nameof(color), color);
 
       MagickColor target;
       using (PixelCollection pixels = GetPixels())
@@ -174,8 +174,8 @@ namespace ImageMagick
 
     private void FloodFill(MagickColor color, int x, int y, MagickColor target, bool invert)
     {
-      Throw.IfNull("color", color);
-      Throw.IfNull("target", target);
+      Throw.IfNull(nameof(color), color);
+      Throw.IfNull(nameof(target), target);
 
       DrawingSettings settings = Settings.Drawing;
 
@@ -194,7 +194,7 @@ namespace ImageMagick
 
     private void FloodFill(MagickImage image, int x, int y, bool invert)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       MagickColor target;
       using (PixelCollection pixels = GetPixels())
@@ -207,8 +207,8 @@ namespace ImageMagick
 
     private void FloodFill(MagickImage image, int x, int y, MagickColor target, bool invert)
     {
-      Throw.IfNull("image", image);
-      Throw.IfNull("target", target);
+      Throw.IfNull(nameof(image), image);
+      Throw.IfNull(nameof(target), target);
 
       DrawingSettings settings = Settings.Drawing;
 
@@ -232,16 +232,16 @@ namespace ImageMagick
 
     private void LevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels, bool invert)
     {
-      Throw.IfNull("blackColor", blackColor);
-      Throw.IfNull("whiteColor", whiteColor);
+      Throw.IfNull(nameof(blackColor), blackColor);
+      Throw.IfNull(nameof(whiteColor), whiteColor);
 
       _NativeInstance.LevelColors(blackColor, whiteColor, channels, invert);
     }
 
     private void Opaque(MagickColor target, MagickColor fill, bool invert)
     {
-      Throw.IfNull("target", target);
-      Throw.IfNull("fill", fill);
+      Throw.IfNull(nameof(target), target);
+      Throw.IfNull(nameof(fill), fill);
 
       _NativeInstance.Opaque(target, fill, invert);
     }
@@ -282,7 +282,7 @@ namespace ImageMagick
 
     private void Read(byte[] data, MagickReadSettings readSettings, bool ping)
     {
-      Throw.IfNullOrEmpty("data", data);
+      Throw.IfNullOrEmpty(nameof(data), data);
 
       MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
       SetSettings(newReadSettings);
@@ -299,13 +299,13 @@ namespace ImageMagick
 
     private void ReadPixels(byte[] data, MagickReadSettings readSettings)
     {
-      Throw.IfTrue("settings", readSettings.PixelStorage.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
-      Throw.IfNull("settings", readSettings.Width, "Width should be defined when pixel storage is set.");
-      Throw.IfNull("settings", readSettings.Height, "Height should be defined when pixel storage is set.");
-      Throw.IfNullOrEmpty("settings", readSettings.PixelStorage.Mapping, "Pixel storage mapping should be defined.");
+      Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
+      Throw.IfNull(nameof(readSettings), readSettings.Width, "Width should be defined when pixel storage is set.");
+      Throw.IfNull(nameof(readSettings), readSettings.Height, "Height should be defined when pixel storage is set.");
+      Throw.IfNullOrEmpty(nameof(readSettings), readSettings.PixelStorage.Mapping, "Pixel storage mapping should be defined.");
 
       int length = GetExpectedLength(readSettings);
-      Throw.IfTrue("data", data.Length != length, "The array length is " + data.Length + " but should be " + length + ".");
+      Throw.IfTrue(nameof(data), data.Length != length, "The array length is " + data.Length + " but should be " + length + ".");
 
       _NativeInstance.ReadPixels(readSettings.Width.Value, readSettings.Height.Value, readSettings.PixelStorage.Mapping, readSettings.PixelStorage.StorageType, data);
     }
@@ -497,7 +497,7 @@ namespace ImageMagick
     ///<param name="image">The image to create a copy of.</param>
     public MagickImage(MagickImage image)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       SetSettings(image.Settings.Clone());
       SetInstance(new NativeMagickImage(image._NativeInstance.Clone()));
@@ -645,7 +645,7 @@ namespace ImageMagick
     ///</summary>
     public static explicit operator byte[] (MagickImage image)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       return image.ToByteArray();
     }
@@ -1552,7 +1552,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AdaptiveResize(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       AdaptiveResize(geometry.Width, geometry.Height);
     }
@@ -1703,7 +1703,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AddProfile(ImageProfile profile, bool overwriteExisting)
     {
-      Throw.IfNull("profile", profile);
+      Throw.IfNull(nameof(profile), profile);
 
       if (!overwriteExisting && _NativeInstance.HasProfile(profile.Name))
         return;
@@ -1722,7 +1722,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void AffineTransform(DrawableAffine affineMatrix)
     {
-      Throw.IfNull("matrix", affineMatrix);
+      Throw.IfNull(nameof(affineMatrix), affineMatrix);
 
       _NativeInstance.AffineTransform(affineMatrix.ScaleX, affineMatrix.ScaleY, affineMatrix.ShearX, affineMatrix.ShearY, affineMatrix.TranslateX, affineMatrix.TranslateY);
     }
@@ -1770,8 +1770,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Annotate(string text, MagickGeometry boundingArea, Gravity gravity, double angle)
     {
-      Throw.IfNullOrEmpty("text", text);
-      Throw.IfNull("boundingArea", boundingArea);
+      Throw.IfNullOrEmpty(nameof(text), text);
+      Throw.IfNull(nameof(boundingArea), boundingArea);
 
       _NativeInstance.Annotate(Settings.Drawing, text, MagickGeometry.ToString(boundingArea), gravity, angle);
     }
@@ -1784,7 +1784,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Annotate(string text, Gravity gravity)
     {
-      Throw.IfNullOrEmpty("text", text);
+      Throw.IfNullOrEmpty(nameof(text), text);
 
       _NativeInstance.AnnotateGravity(Settings.Drawing, text, gravity);
     }
@@ -1860,7 +1860,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void BlackThreshold(Percentage threshold, Channels channels)
     {
-      Throw.IfNegative("threshold", threshold);
+      Throw.IfNegative(nameof(threshold), threshold);
 
       _NativeInstance.BlackThreshold(threshold.ToString(), channels);
     }
@@ -2079,7 +2079,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Chop(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       _NativeInstance.Chop(MagickRectangle.FromGeometry(geometry, this));
     }
@@ -2150,7 +2150,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Clip(string pathName, bool inside)
     {
-      Throw.IfNullOrEmpty("pathName", pathName);
+      Throw.IfNullOrEmpty(nameof(pathName), pathName);
 
       _NativeInstance.ClipPath(pathName, inside);
     }
@@ -2169,7 +2169,7 @@ namespace ImageMagick
     ///<param name="geometry">The area to clone.</param>
     public MagickImage Clone(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       MagickImage clone = new MagickImage("xc:none", geometry.Width, geometry.Height);
       clone.CopyPixels(this, geometry, 0, 0);
@@ -2229,7 +2229,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Clut(MagickImage image, PixelInterpolateMethod method, Channels channels)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       _NativeInstance.Clut(image, method, channels);
     }
@@ -2241,7 +2241,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void ColorAlpha(MagickColor color)
     {
-      Throw.IfNull("color", color);
+      Throw.IfNull(nameof(color), color);
 
       if (!HasAlpha)
         return;
@@ -2260,7 +2260,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void ColorDecisionList(string fileName)
     {
-      Throw.IfNullOrEmpty("fileName", fileName);
+      Throw.IfNullOrEmpty(nameof(fileName), fileName);
 
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
       _NativeInstance.ColorDecisionList(filePath);
@@ -2274,7 +2274,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Colorize(MagickColor color, Percentage alpha)
     {
-      Throw.IfNegative("alpha", alpha);
+      Throw.IfNegative(nameof(alpha), alpha);
 
       Colorize(color, alpha, alpha, alpha);
     }
@@ -2290,10 +2290,10 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Colorize(MagickColor color, Percentage alphaRed, Percentage alphaGreen, Percentage alphaBlue)
     {
-      Throw.IfNull("color", color);
-      Throw.IfNegative("alphaRed", alphaRed);
-      Throw.IfNegative("alphaGreen", alphaGreen);
-      Throw.IfNegative("alphaBlue", alphaBlue);
+      Throw.IfNull(nameof(color), color);
+      Throw.IfNegative(nameof(alphaRed), alphaRed);
+      Throw.IfNegative(nameof(alphaGreen), alphaGreen);
+      Throw.IfNegative(nameof(alphaBlue), alphaBlue);
 
       string blend = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", alphaRed.ToInt32(), alphaGreen.ToInt32(), alphaBlue.ToInt32());
 
@@ -2307,7 +2307,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void ColorMatrix(MagickColorMatrix matrix)
     {
-      Throw.IfNull("matrix", matrix);
+      Throw.IfNull(nameof(matrix), matrix);
 
       _NativeInstance.ColorMatrix(matrix);
     }
@@ -2319,7 +2319,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickErrorInfo Compare(MagickImage image)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       if (_NativeInstance.SetColorMetric(image))
         return new MagickErrorInfo();
@@ -2347,7 +2347,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public double Compare(MagickImage image, ErrorMetric metric, Channels channels)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       return _NativeInstance.CompareDistortion(image, metric, channels);
     }
@@ -2374,8 +2374,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public double Compare(MagickImage image, ErrorMetric metric, MagickImage difference, Channels channels)
     {
-      Throw.IfNull("image", image);
-      Throw.IfNull("difference", difference);
+      Throw.IfNull(nameof(image), image);
+      Throw.IfNull(nameof(difference), difference);
 
       double distortion;
 
@@ -2473,7 +2473,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Composite(MagickImage image, int x, int y, CompositeOperator compose, string args)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       _NativeInstance.SetArtifact("compose:args", args);
       _NativeInstance.Composite(image, x, y, compose);
@@ -2549,7 +2549,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Composite(MagickImage image, Gravity gravity, CompositeOperator compose, string args)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       _NativeInstance.SetArtifact("compose:args", args);
       _NativeInstance.CompositeGravity(image, gravity, compose);
@@ -2633,8 +2633,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void ContrastStretch(Percentage blackPoint, Percentage whitePoint, Channels channels)
     {
-      Throw.IfNegative("blackPoint", blackPoint);
-      Throw.IfNegative("whitePoint", whitePoint);
+      Throw.IfNegative(nameof(blackPoint), blackPoint);
+      Throw.IfNegative(nameof(whitePoint), whitePoint);
 
       PointD contrast = CalculateContrastStretch(blackPoint, whitePoint);
       _NativeInstance.ContrastStretch(contrast.X, contrast.Y, channels);
@@ -2647,7 +2647,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Convolve(ConvolveMatrix convolveMatrix)
     {
-      Throw.IfNull("convolveMatrix", convolveMatrix);
+      Throw.IfNull(nameof(convolveMatrix), convolveMatrix);
 
       _NativeInstance.Convolve(convolveMatrix);
     }
@@ -2670,7 +2670,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void CopyPixels(MagickImage source, Channels channels)
     {
-      Throw.IfNull("source", source);
+      Throw.IfNull(nameof(source), source);
 
       MagickGeometry geometry = new MagickGeometry(0, 0, Math.Min(source.Width, Width), Math.Min(source.Height, Height));
 
@@ -2753,8 +2753,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void CopyPixels(MagickImage source, MagickGeometry geometry, int x, int y, Channels channels)
     {
-      Throw.IfNull("source", source);
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(source), source);
+      Throw.IfNull(nameof(geometry), geometry);
 
       _NativeInstance.CopyPixels(source, MagickRectangle.FromGeometry(geometry, this), new OffsetInfo(x, y), channels);
     }
@@ -2767,7 +2767,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Crop(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       _NativeInstance.Crop(MagickRectangle.FromGeometry(geometry, this));
     }
@@ -2788,7 +2788,7 @@ namespace ImageMagick
     ///<param name="geometry">The size of the tile.</param>
     public IEnumerable<MagickImage> CropToTiles(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       IntPtr images = _NativeInstance.CropToTiles(MagickGeometry.ToString(geometry));
       return CreateList(images);
@@ -2894,7 +2894,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Decipher(string passphrase)
     {
-      Throw.IfNullOrEmpty("passphrase", passphrase);
+      Throw.IfNullOrEmpty(nameof(passphrase), passphrase);
 
       _NativeInstance.Decipher(passphrase);
     }
@@ -2909,7 +2909,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Deskew(Percentage threshold)
     {
-      Throw.IfNegative("threshold", threshold);
+      Throw.IfNegative(nameof(threshold), threshold);
 
       _NativeInstance.Deskew(threshold.ToQuantum());
     }
@@ -2965,7 +2965,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Distort(DistortMethod method, bool bestfit, params double[] arguments)
     {
-      Throw.IfNullOrEmpty("arguments", arguments);
+      Throw.IfNullOrEmpty(nameof(arguments), arguments);
 
       _NativeInstance.Distort(method, bestfit, arguments, arguments.Length);
     }
@@ -2997,7 +2997,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Draw(IEnumerable<IDrawable> drawables)
     {
-      Throw.IfNull("drawables", drawables);
+      Throw.IfNull(nameof(drawables), drawables);
 
       using (DrawingWand wand = new DrawingWand(this))
       {
@@ -3041,7 +3041,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Encipher(string passphrase)
     {
-      Throw.IfNullOrEmpty("passphrase", passphrase);
+      Throw.IfNullOrEmpty(nameof(passphrase), passphrase);
 
       _NativeInstance.Encipher(passphrase);
     }
@@ -3100,7 +3100,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Evaluate(Channels channels, EvaluateFunction evaluateFunction, params double[] arguments)
     {
-      Throw.IfNullOrEmpty("arguments", arguments);
+      Throw.IfNullOrEmpty(nameof(arguments), arguments);
 
       _NativeInstance.EvaluateFunction(channels, evaluateFunction, arguments, arguments.Length);
     }
@@ -3139,8 +3139,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Evaluate(Channels channels, MagickGeometry geometry, EvaluateOperator evaluateOperator, double value)
     {
-      Throw.IfNull("geometry", geometry);
-      Throw.IfTrue("geometry", geometry.IsPercentage, "Percentage is not supported.");
+      Throw.IfNull(nameof(geometry), geometry);
+      Throw.IfTrue(nameof(geometry), geometry.IsPercentage, "Percentage is not supported.");
 
       _NativeInstance.EvaluateGeometry(channels, MagickRectangle.FromGeometry(geometry, this), evaluateOperator, value);
     }
@@ -3229,7 +3229,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Extent(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       geometry.IgnoreAspectRatio = true;
       _NativeInstance.Extent(MagickGeometry.ToString(geometry));
@@ -3243,7 +3243,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Extent(MagickGeometry geometry, MagickColor backgroundColor)
     {
-      Throw.IfNull("backgroundColor", backgroundColor);
+      Throw.IfNull(nameof(backgroundColor), backgroundColor);
 
       BackgroundColor = backgroundColor;
       Extent(geometry);
@@ -3257,7 +3257,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Extent(MagickGeometry geometry, Gravity gravity)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       geometry.IgnoreAspectRatio = true;
       _NativeInstance.ExtentGravity(MagickGeometry.ToString(geometry), gravity);
@@ -3272,7 +3272,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Extent(MagickGeometry geometry, Gravity gravity, MagickColor backgroundColor)
     {
-      Throw.IfNull("backgroundColor", backgroundColor);
+      Throw.IfNull(nameof(backgroundColor), backgroundColor);
 
       BackgroundColor = backgroundColor;
       Extent(geometry, gravity);
@@ -3434,7 +3434,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public TypeMetric FontTypeMetrics(string text, bool ignoreNewLines)
     {
-      Throw.IfNullOrEmpty("text", text);
+      Throw.IfNullOrEmpty(nameof(text), text);
 
       DrawingSettings settings = Settings.Drawing;
 
@@ -3450,7 +3450,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public string FormatExpression(string expression)
     {
-      Throw.IfNullOrEmpty("expression", expression);
+      Throw.IfNullOrEmpty(nameof(expression), expression);
 
       return _NativeInstance.FormatExpression(Settings, expression);
     }
@@ -3471,7 +3471,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Frame(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       _NativeInstance.Frame(MagickRectangle.FromGeometry(geometry, this));
     }
@@ -3528,7 +3528,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Fx(string expression, Channels channels)
     {
-      Throw.IfNullOrEmpty("expression", expression);
+      Throw.IfNullOrEmpty(nameof(expression), expression);
 
       _NativeInstance.Fx(expression, channels);
     }
@@ -3597,7 +3597,7 @@ namespace ImageMagick
     ///<param name="name">The name of the attribute.</param>
     public string GetAttribute(string name)
     {
-      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNullOrEmpty(nameof(name), name);
 
       return _NativeInstance.GetAttribute(name);
     }
@@ -3632,7 +3632,7 @@ namespace ImageMagick
     ///<param name="name">The name of the artifact.</param>
     public string GetArtifact(string name)
     {
-      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNullOrEmpty(nameof(name), name);
 
       return _NativeInstance.GetArtifact(name);
     }
@@ -3696,7 +3696,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public ImageProfile GetProfile(string name)
     {
-      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNullOrEmpty(nameof(name), name);
 
       StringInfo info = _NativeInstance.GetProfile(name);
       if (info == null || info.Datum == null)
@@ -3736,7 +3736,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void HaldClut(MagickImage image)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       _NativeInstance.HaldClut(image);
     }
@@ -4081,7 +4081,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void InverseTransparent(MagickColor color)
     {
-      Throw.IfNull("color", color);
+      Throw.IfNull(nameof(color), color);
 
       _NativeInstance.Transparent(color, true);
     }
@@ -4093,8 +4093,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void InverseTransparentChroma(MagickColor colorLow, MagickColor colorHigh)
     {
-      Throw.IfNull("colorLow", colorLow);
-      Throw.IfNull("colorHigh", colorHigh);
+      Throw.IfNull(nameof(colorLow), colorLow);
+      Throw.IfNull(nameof(colorHigh), colorHigh);
 
       _NativeInstance.TransparentChroma(colorLow, colorHigh, true);
     }
@@ -4270,8 +4270,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void LinearStretch(Percentage blackPoint, Percentage whitePoint)
     {
-      Throw.IfNegative("blackPoint", blackPoint);
-      Throw.IfNegative("whitePoint", whitePoint);
+      Throw.IfNegative(nameof(blackPoint), blackPoint);
+      Throw.IfNegative(nameof(whitePoint), whitePoint);
 
       _NativeInstance.LinearStretch(blackPoint.ToQuantum(), whitePoint.ToQuantum());
     }
@@ -4295,7 +4295,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void LiquidRescale(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       _NativeInstance.LiquidRescale(MagickGeometry.ToString(geometry));
     }
@@ -4318,8 +4318,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight)
     {
-      Throw.IfNegative("percentageWidth", percentageWidth);
-      Throw.IfNegative("percentageHeight", percentageHeight);
+      Throw.IfNegative(nameof(percentageWidth), percentageWidth);
+      Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
       MagickGeometry geometry = new MagickGeometry(percentageWidth, percentageHeight);
       LiquidRescale(geometry);
@@ -4362,7 +4362,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickErrorInfo Map(IEnumerable<MagickColor> colors)
     {
-      Throw.IfNull("colors", colors);
+      Throw.IfNull(nameof(colors), colors);
 
       return Map(colors, new QuantizeSettings());
     }
@@ -4375,11 +4375,11 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickErrorInfo Map(IEnumerable<MagickColor> colors, QuantizeSettings settings)
     {
-      Throw.IfNull("colors", colors);
+      Throw.IfNull(nameof(colors), colors);
 
       List<MagickColor> colorList = new List<MagickColor>(colors);
       if (colorList.Count == 0)
-        throw new ArgumentException("Value cannot be empty.", "colors");
+        throw new ArgumentException("Value cannot be empty.", nameof(colors));
 
       using (MagickImageCollection images = new MagickImageCollection())
       {
@@ -4411,8 +4411,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickErrorInfo Map(MagickImage image, QuantizeSettings settings)
     {
-      Throw.IfNull("image", image);
-      Throw.IfNull("settings", settings);
+      Throw.IfNull(nameof(image), image);
+      Throw.IfNull(nameof(settings), settings);
 
       if (_NativeInstance.Map(image, settings))
         return new MagickErrorInfo();
@@ -4478,9 +4478,9 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Modulate(Percentage brightness, Percentage saturation, Percentage hue)
     {
-      Throw.IfNegative("brightness", brightness);
-      Throw.IfNegative("saturation", saturation);
-      Throw.IfNegative("hue", hue);
+      Throw.IfNegative(nameof(brightness), brightness);
+      Throw.IfNegative(nameof(saturation), saturation);
+      Throw.IfNegative(nameof(hue), hue);
 
       string modulate = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", brightness.ToDouble(), saturation.ToDouble(), hue.ToDouble());
 
@@ -4644,7 +4644,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Morphology(MorphologySettings settings)
     {
-      Throw.IfNull("settings", settings);
+      Throw.IfNull(nameof(settings), settings);
 
       if (settings.ConvolveBias != null)
         SetArtifact("convolve:bias", settings.ConvolveBias.ToString());
@@ -4776,7 +4776,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void OrderedDither(string thresholdMap)
     {
-      Throw.IfNullOrEmpty("thresholdMap", thresholdMap);
+      Throw.IfNullOrEmpty(nameof(thresholdMap), thresholdMap);
 
       OrderedDither(thresholdMap, ImageMagick.Channels.Composite);
     }
@@ -4791,7 +4791,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void OrderedDither(string thresholdMap, Channels channels)
     {
-      Throw.IfNullOrEmpty("thresholdMap", thresholdMap);
+      Throw.IfNullOrEmpty(nameof(thresholdMap), thresholdMap);
 
       _NativeInstance.OrderedDither(thresholdMap, channels);
     }
@@ -4858,7 +4858,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Ping(FileInfo file)
     {
-      Throw.IfNull("file", file);
+      Throw.IfNull(nameof(file), file);
 
       Ping(file.FullName);
     }
@@ -4892,7 +4892,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Polaroid(string caption, double angle, PixelInterpolateMethod method)
     {
-      Throw.IfNull("caption", caption);
+      Throw.IfNull(nameof(caption), caption);
 
       _NativeInstance.Polaroid(Settings.Drawing, caption, angle, method);
     }
@@ -4958,7 +4958,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickErrorInfo Quantize(QuantizeSettings settings)
     {
-      Throw.IfNull("settings", settings);
+      Throw.IfNull(nameof(settings), settings);
 
       _NativeInstance.Quantize(settings);
 
@@ -5001,8 +5001,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void RandomThreshold(Percentage percentageLow, Percentage percentageHigh, Channels channels)
     {
-      Throw.IfNegative("percentageLow", percentageLow);
-      Throw.IfNegative("percentageHigh", percentageHigh);
+      Throw.IfNegative(nameof(percentageLow), percentageLow);
+      Throw.IfNegative(nameof(percentageHigh), percentageHigh);
 
       RandomThreshold(percentageLow.ToQuantum(), percentageHigh.ToQuantum(), channels);
     }
@@ -5066,7 +5066,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(FileInfo file)
     {
-      Throw.IfNull("file", file);
+      Throw.IfNull(nameof(file), file);
 
       Read(file.FullName);
     }
@@ -5080,7 +5080,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(FileInfo file, int width, int height)
     {
-      Throw.IfNull("file", file);
+      Throw.IfNull(nameof(file), file);
 
       Read(file.FullName, width, height);
     }
@@ -5093,7 +5093,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(FileInfo file, MagickReadSettings readSettings)
     {
-      Throw.IfNull("file", file);
+      Throw.IfNull(nameof(file), file);
 
       Read(file.FullName, readSettings);
     }
@@ -5107,7 +5107,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(MagickColor color, int width, int height)
     {
-      Throw.IfNull("file", color);
+      Throw.IfNull(nameof(color), color);
 
       Read("xc:" + color.ToShortString(), width, height);
     }
@@ -5130,7 +5130,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Read(Stream stream, MagickReadSettings readSettings)
     {
-      Throw.IfNull("stream", stream);
+      Throw.IfNull(nameof(stream), stream);
 
       Read(StreamHelper.ToByteArray(stream), readSettings);
     }
@@ -5216,7 +5216,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void RemoveProfile(string name)
     {
-      Throw.IfNullOrEmpty("name", name);
+      Throw.IfNullOrEmpty(nameof(name), name);
 
       _NativeInstance.RemoveProfile(name);
     }
@@ -5271,7 +5271,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Resize(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       _NativeInstance.Resize(geometry.ToString());
     }
@@ -5294,8 +5294,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Resize(Percentage percentageWidth, Percentage percentageHeight)
     {
-      Throw.IfNegative("percentageWidth", percentageWidth);
-      Throw.IfNegative("percentageHeight", percentageHeight);
+      Throw.IfNegative(nameof(percentageWidth), percentageWidth);
+      Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
       MagickGeometry geometry = new MagickGeometry(percentageWidth, percentageHeight);
       Resize(geometry);
@@ -5374,7 +5374,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Sample(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       _NativeInstance.Sample(geometry.ToString());
     }
@@ -5397,8 +5397,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Sample(Percentage percentageWidth, Percentage percentageHeight)
     {
-      Throw.IfNegative("percentageWidth", percentageWidth);
-      Throw.IfNegative("percentageHeight", percentageHeight);
+      Throw.IfNegative(nameof(percentageWidth), percentageWidth);
+      Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
       MagickGeometry geometry = new MagickGeometry(percentageWidth, percentageHeight);
       Sample(geometry);
@@ -5411,7 +5411,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Scale(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       _NativeInstance.Scale(MagickGeometry.ToString(geometry));
     }
@@ -5434,8 +5434,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Scale(Percentage percentageWidth, Percentage percentageHeight)
     {
-      Throw.IfNegative("percentageWidth", percentageWidth);
-      Throw.IfNegative("percentageHeight", percentageHeight);
+      Throw.IfNegative(nameof(percentageWidth), percentageWidth);
+      Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
       MagickGeometry geometry = new MagickGeometry(percentageWidth, percentageHeight);
       Scale(geometry);
@@ -5545,8 +5545,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void SetArtifact(string name, string value)
     {
-      Throw.IfNullOrEmpty("name", name);
-      Throw.IfNull("value", value);
+      Throw.IfNullOrEmpty(nameof(name), name);
+      Throw.IfNull(nameof(value), value);
 
       _NativeInstance.SetArtifact(name, value);
     }
@@ -5568,8 +5568,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void SetAttribute(string name, string value)
     {
-      Throw.IfNullOrEmpty("name", name);
-      Throw.IfNull("value", value);
+      Throw.IfNullOrEmpty(nameof(name), name);
+      Throw.IfNull(nameof(value), value);
 
       _NativeInstance.SetAttribute(name, value);
     }
@@ -5582,7 +5582,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void SetColormap(int index, MagickColor color)
     {
-      Throw.IfNull("color", color);
+      Throw.IfNull(nameof(color), color);
 
       _NativeInstance.SetColormap(index, color);
     }
@@ -5593,7 +5593,7 @@ namespace ImageMagick
     ///<param name="color">The color.</param>
     public void SetHighlightColor(MagickColor color)
     {
-      Throw.IfNull("color", color);
+      Throw.IfNull(nameof(color), color);
 
       SetArtifact("highlight-color", color.ToString());
     }
@@ -5604,7 +5604,7 @@ namespace ImageMagick
     ///<param name="color">The color.</param>
     public void SetLowlightColor(MagickColor color)
     {
-      Throw.IfNull("color", color);
+      Throw.IfNull(nameof(color), color);
 
       SetArtifact("lowlight-color", color.ToString());
     }
@@ -5697,7 +5697,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Shadow(int x, int y, double sigma, Percentage alpha, MagickColor color)
     {
-      Throw.IfNull("color", color);
+      Throw.IfNull(nameof(color), color);
 
       MagickColor backgroundColor = BackgroundColor;
       BackgroundColor = color;
@@ -5834,14 +5834,14 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<SparseColorArg> args)
     {
-      Throw.IfNull("args", args);
+      Throw.IfNull(nameof(args), args);
 
       bool hasRed = EnumHelper.HasFlag(channels, ImageMagick.Channels.Red);
       bool hasGreen = EnumHelper.HasFlag(channels, ImageMagick.Channels.Green);
       bool hasBlue = EnumHelper.HasFlag(channels, ImageMagick.Channels.Blue);
       bool hasAlpha = HasAlpha && EnumHelper.HasFlag(channels, ImageMagick.Channels.Alpha);
 
-      Throw.IfTrue("channels", !hasRed && !hasGreen && !hasBlue && !hasAlpha, "Invalid channels specified.");
+      Throw.IfTrue(nameof(channels), !hasRed && !hasGreen && !hasBlue && !hasAlpha, "Invalid channels specified.");
 
       List<double> arguments = new List<double>();
 
@@ -5859,7 +5859,7 @@ namespace ImageMagick
           arguments.Add(Quantum.ScaleToDouble(arg.Color.A));
       }
 
-      Throw.IfTrue("args", arguments.Count == 0, "Value cannot be empty");
+      Throw.IfTrue(nameof(args), arguments.Count == 0, "Value cannot be empty");
 
       _NativeInstance.SparseColor(channels, method, arguments.ToArray(), arguments.Count);
     }
@@ -5926,7 +5926,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Splice(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       _NativeInstance.Splice(MagickRectangle.FromGeometry(geometry, this));
     }
@@ -5998,7 +5998,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Stegano(MagickImage watermark)
     {
-      Throw.IfNull("watermark", watermark);
+      Throw.IfNull(nameof(watermark), watermark);
 
       _NativeInstance.Stegano(watermark);
     }
@@ -6011,7 +6011,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Stereo(MagickImage rightImage)
     {
-      Throw.IfNull("rightImage", rightImage);
+      Throw.IfNull(nameof(rightImage), rightImage);
 
       _NativeInstance.Stereo(rightImage);
     }
@@ -6082,7 +6082,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public MagickSearchResult SubImageSearch(MagickImage image, ErrorMetric metric, double similarityThreshold)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       double similarityMetric;
 
@@ -6098,7 +6098,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Texture(MagickImage image)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       _NativeInstance.Texture(image);
     }
@@ -6132,7 +6132,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Thumbnail(MagickGeometry geometry)
     {
-      Throw.IfNull("geometry", geometry);
+      Throw.IfNull(nameof(geometry), geometry);
 
       _NativeInstance.Thumbnail(MagickGeometry.ToString(geometry));
     }
@@ -6155,8 +6155,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Thumbnail(Percentage percentageWidth, Percentage percentageHeight)
     {
-      Throw.IfNegative("percentageWidth", percentageWidth);
-      Throw.IfNegative("percentageHeight", percentageHeight);
+      Throw.IfNegative(nameof(percentageWidth), percentageWidth);
+      Throw.IfNegative(nameof(percentageHeight), percentageHeight);
 
       MagickGeometry geometry = new MagickGeometry(percentageWidth, percentageHeight);
       Thumbnail(geometry);
@@ -6182,7 +6182,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Tile(MagickImage image, CompositeOperator compose, string args)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       for (int y = 0; y < Height; y += image.Height)
       {
@@ -6215,8 +6215,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Tint(string opacity, MagickColor color)
     {
-      Throw.IfNullOrEmpty("opacity", opacity);
-      Throw.IfNull("color", color);
+      Throw.IfNullOrEmpty(nameof(opacity), opacity);
+      Throw.IfNull(nameof(color), color);
 
       _NativeInstance.Tint(opacity, color);
     }
@@ -6286,8 +6286,8 @@ namespace ImageMagick
     /// <param name="target">The target color profile</param>
     public void TransformColorSpace(ColorProfile source, ColorProfile target)
     {
-      Throw.IfNull("source", source);
-      Throw.IfNull("target", target);
+      Throw.IfNull(nameof(source), source);
+      Throw.IfNull(nameof(target), target);
 
       if (source.ColorSpace != ColorSpace)
         return;
@@ -6303,7 +6303,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Transparent(MagickColor color)
     {
-      Throw.IfNull("color", color);
+      Throw.IfNull(nameof(color), color);
 
       _NativeInstance.Transparent(color, false);
     }
@@ -6315,8 +6315,8 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void TransparentChroma(MagickColor colorLow, MagickColor colorHigh)
     {
-      Throw.IfNull("colorLow", colorLow);
-      Throw.IfNull("colorHigh", colorHigh);
+      Throw.IfNull(nameof(colorLow), colorLow);
+      Throw.IfNull(nameof(colorHigh), colorHigh);
 
       _NativeInstance.TransparentChroma(colorLow, colorHigh, false);
     }
@@ -6518,7 +6518,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void WhiteThreshold(Percentage threshold, Channels channels)
     {
-      Throw.IfNegative("threshold", threshold);
+      Throw.IfNegative(nameof(threshold), threshold);
 
       _NativeInstance.WhiteThreshold(threshold.ToString(), channels);
     }
@@ -6530,7 +6530,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Write(FileInfo file)
     {
-      Throw.IfNull("file", file);
+      Throw.IfNull(nameof(file), file);
 
       Write(file.FullName);
       file.Refresh();
@@ -6543,7 +6543,7 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public void Write(Stream stream)
     {
-      Throw.IfNull("stream", stream);
+      Throw.IfNull(nameof(stream), stream);
 
       Settings.FileName = null;
 
@@ -6573,7 +6573,7 @@ namespace ImageMagick
     {
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-      Throw.IfNullOrEmpty("fileName", filePath);
+      Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
       _NativeInstance.FileName = filePath;
       _NativeInstance.WriteFile(Settings);

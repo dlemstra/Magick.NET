@@ -108,7 +108,7 @@ namespace ImageMagick.ImageOptimizers
     /// <param name="file">The png file to optimize</param>
     public void LosslessCompress(FileInfo file)
     {
-      Throw.IfNull("file", file);
+      Throw.IfNull(nameof(file), file);
 
       LosslessCompress(file, Progressive);
       if (OptimalCompression)

@@ -38,7 +38,7 @@ namespace ImageMagick
 
     private MagickImage CreateMagickImage(XmlElement element)
     {
-      Throw.IfNull("element", element);
+      Throw.IfNull(nameof(element), element);
 
       MagickImage image = null;
 
@@ -95,7 +95,7 @@ namespace ImageMagick
       else if (elem.Name == "colorProfile")
         return CreateColorProfile(elem);
 
-      throw new NotImplementedException(elem.Name);
+      throw new NotSupportedException(elem.Name);
     }
 
     private MagickReadSettings CreateReadSettings(XmlElement element)
@@ -198,7 +198,7 @@ namespace ImageMagick
 
     private void Initialize(Stream stream)
     {
-      Throw.IfNull("stream", stream);
+      Throw.IfNull(nameof(stream), stream);
 
       using (XmlReader xmlReader = XmlReader.Create(stream, _ReaderSettings))
       {
@@ -244,7 +244,7 @@ namespace ImageMagick
     ///<param name="xml">The IXPathNavigable that contains the script.</param>
     public MagickScript(IXPathNavigable xml)
     {
-      Throw.IfNull("xml", xml);
+      Throw.IfNull(nameof(xml), xml);
       Initialize(xml.CreateNavigator());
     }
 
@@ -279,7 +279,7 @@ namespace ImageMagick
     ///<param name="xml">The XElement that contains the script.</param>
     public MagickScript(XElement xml)
     {
-      Throw.IfNull("xml", xml);
+      Throw.IfNull(nameof(xml), xml);
 
       Initialize(xml.CreateNavigator());
     }
@@ -316,7 +316,7 @@ namespace ImageMagick
       else if (element.Name == "collection")
         return ExecuteCollection(element);
       else
-        throw new NotImplementedException(element.Name);
+        throw new NotSupportedException(element.Name);
     }
 
     ///<summary>
@@ -325,7 +325,7 @@ namespace ImageMagick
     ///<param name="image">The image to execute the script on.</param>
     public void Execute(MagickImage image)
     {
-      Throw.IfNull("image", image);
+      Throw.IfNull(nameof(image), image);
 
       XmlElement element = (XmlElement)_Script.SelectSingleNode("/msl/read");
       if (element == null)
