@@ -91,7 +91,6 @@ namespace ImageMagick
     private const int _StartIndex = 6;
 
     private ExifParts _AllowedParts;
-    private bool _BestPrecision;
     private Collection<ExifValue> _Values;
     private Collection<int> _DataOffsets;
     private Collection<int> _IfdIndexes;
@@ -157,7 +156,7 @@ namespace ImageMagick
       return offset + source.Length;
     }
 
-    private int WriteArray(ExifValue value, byte[] destination, int offset)
+    private static int WriteArray(ExifValue value, byte[] destination, int offset)
     {
       if (value.DataType == ExifDataType.Ascii)
         return WriteValue(ExifDataType.Ascii, value.Value, destination, offset);
@@ -217,77 +216,23 @@ namespace ImageMagick
       return newOffset;
     }
 
-    private int WriteRational(double value, byte[] destination, int offset)
+    private static int WriteRational(Rational value, byte[] destination, int offset)
     {
-      uint numerator = 1;
-      uint denominator = 1;
-
-      if (double.IsPositiveInfinity(value))
-        denominator = 0;
-      else if (double.IsNegativeInfinity(value))
-        denominator = 0;
-      else
-      {
-        double val = Math.Abs(value);
-        double df = numerator / denominator;
-        double epsilon = _BestPrecision ? double.Epsilon : .000001;
-
-        while (Math.Abs(df - val) > epsilon)
-        {
-          if (df < val)
-            numerator++;
-          else
-          {
-            denominator++;
-            numerator = (uint)(val * denominator);
-          }
-
-          df = numerator / (double)denominator;
-        }
-      }
-
-      Write(BitConverter.GetBytes(numerator), destination, offset);
-      Write(BitConverter.GetBytes(denominator), destination, offset + 4);
+      Write(BitConverter.GetBytes(value.Numerator), destination, offset);
+      Write(BitConverter.GetBytes(value.Denominator), destination, offset + 4);
 
       return offset + 8;
     }
 
-    private int WriteSignedRational(double value, byte[] destination, int offset)
+    private static int WriteSignedRational(SignedRational value, byte[] destination, int offset)
     {
-      int numerator = 1;
-      int denominator = 1;
-
-      if (double.IsPositiveInfinity(value))
-        denominator = 0;
-      else if (double.IsNegativeInfinity(value))
-        denominator = 0;
-      else
-      {
-        double val = Math.Abs(value);
-        double df = numerator / denominator;
-        double epsilon = _BestPrecision ? double.Epsilon : .000001;
-
-        while (Math.Abs(df - val) > epsilon)
-        {
-          if (df < val)
-            numerator++;
-          else
-          {
-            denominator++;
-            numerator = (int)(val * denominator);
-          }
-
-          df = numerator / (double)denominator;
-        }
-      }
-
-      Write(BitConverter.GetBytes(numerator * (value < 0.0 ? -1 : 1)), destination, offset);
-      Write(BitConverter.GetBytes(denominator), destination, offset + 4);
+      Write(BitConverter.GetBytes(value.Numerator), destination, offset);
+      Write(BitConverter.GetBytes(value.Denominator), destination, offset + 4);
 
       return offset + 8;
     }
 
-    private int WriteValue(ExifDataType dataType, object value, byte[] destination, int offset)
+    private static int WriteValue(ExifDataType dataType, object value, byte[] destination, int offset)
     {
       switch (dataType)
       {
@@ -304,7 +249,7 @@ namespace ImageMagick
         case ExifDataType.Long:
           return Write(BitConverter.GetBytes((uint)value), destination, offset);
         case ExifDataType.Rational:
-          return WriteRational((double)value, destination, offset);
+          return WriteRational((Rational)value, destination, offset);
         case ExifDataType.SignedByte:
           destination[offset] = unchecked((byte)((sbyte)value));
           return offset + 1;
@@ -313,7 +258,7 @@ namespace ImageMagick
         case ExifDataType.SignedShort:
           return Write(BitConverter.GetBytes((short)value), destination, offset);
         case ExifDataType.SignedRational:
-          return WriteSignedRational((double)value, destination, offset);
+          return WriteSignedRational((SignedRational)value, destination, offset);
         case ExifDataType.SingleFloat:
           return Write(BitConverter.GetBytes((float)value), destination, offset);
         default:
@@ -321,7 +266,7 @@ namespace ImageMagick
       }
     }
 
-    private int WriteValue(ExifValue value, byte[] destination, int offset)
+    private static int WriteValue(ExifValue value, byte[] destination, int offset)
     {
       if (value.IsArray && value.DataType != ExifDataType.Ascii)
         return WriteArray(value, destination, offset);
@@ -329,11 +274,10 @@ namespace ImageMagick
         return WriteValue(value.DataType, value.Value, destination, offset);
     }
 
-    public ExifWriter(Collection<ExifValue> values, ExifParts allowedParts, bool bestPrecision)
+    public ExifWriter(Collection<ExifValue> values, ExifParts allowedParts)
     {
       _Values = values;
       _AllowedParts = allowedParts;
-      _BestPrecision = bestPrecision;
 
       _IfdIndexes = GetIndexes(ExifParts.IfdTags, _IfdTags);
       _ExifIndexes = GetIndexes(ExifParts.ExifTags, _ExifTags);

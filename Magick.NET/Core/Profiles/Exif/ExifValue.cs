@@ -26,6 +26,7 @@ namespace ImageMagick
   {
     private object _Value;
 
+    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
     private void CheckValue(object value)
     {
       if (value == null)
@@ -55,12 +56,13 @@ namespace ImageMagick
           Throw.IfFalse(nameof(value), type == typeof(byte), "Value should be a byte{0}", IsArray ? " array." : ".");
           break;
         case ExifDataType.DoubleFloat:
-        case ExifDataType.Rational:
-        case ExifDataType.SignedRational:
           Throw.IfFalse(nameof(value), type == typeof(double), "Value should be a double{0}", IsArray ? " array." : ".");
           break;
         case ExifDataType.Long:
           Throw.IfFalse(nameof(value), type == typeof(uint), "Value should be an unsigned int{0}", IsArray ? " array." : ".");
+          break;
+        case ExifDataType.Rational:
+          Throw.IfFalse(nameof(value), type == typeof(Rational), "Value should be a rational{0}", IsArray ? " array." : ".");
           break;
         case ExifDataType.Short:
           Throw.IfFalse(nameof(value), type == typeof(ushort), "Value should be an unsigned short{0}", IsArray ? " array." : ".");
@@ -70,6 +72,9 @@ namespace ImageMagick
           break;
         case ExifDataType.SignedLong:
           Throw.IfFalse(nameof(value), type == typeof(int), "Value should be an int{0}", IsArray ? " array." : ".");
+          break;
+        case ExifDataType.SignedRational:
+          Throw.IfFalse(nameof(value), type == typeof(SignedRational), "Value should be a signed rational{0}", IsArray ? " array." : ".");
           break;
         case ExifDataType.SignedShort:
           Throw.IfFalse(nameof(value), type == typeof(short), "Value should be a short{0}", IsArray ? " array." : ".");
@@ -114,7 +119,7 @@ namespace ImageMagick
         case ExifDataType.Long:
           return ((uint)value).ToString(CultureInfo.InvariantCulture);
         case ExifDataType.Rational:
-          return ((double)value).ToString(CultureInfo.InvariantCulture);
+          return ((Rational)value).ToString(CultureInfo.InvariantCulture);
         case ExifDataType.Short:
           return ((ushort)value).ToString(CultureInfo.InvariantCulture);
         case ExifDataType.SignedByte:
@@ -122,7 +127,7 @@ namespace ImageMagick
         case ExifDataType.SignedLong:
           return ((int)value).ToString(CultureInfo.InvariantCulture);
         case ExifDataType.SignedRational:
-          return ((double)value).ToString(CultureInfo.InvariantCulture);
+          return ((SignedRational)value).ToString(CultureInfo.InvariantCulture);
         case ExifDataType.SignedShort:
           return ((short)value).ToString(CultureInfo.InvariantCulture);
         case ExifDataType.SingleFloat:

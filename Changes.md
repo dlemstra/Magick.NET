@@ -1,5 +1,8 @@
 # Breaking changes.
 
+### Magick.NET 7.0.1.901:
+ - The ExifProfile no longer has a BestPrecision property and uses a Rational and SignedRational struct instead of a double.
+
 ### Magick.NET 7.0.1.500:
  - The Shadow method of MagickImage now just creates the shadow. The shadow is no longer drawn behind
    the input image.

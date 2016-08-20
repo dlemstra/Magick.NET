@@ -32,7 +32,6 @@ namespace ImageMagick
     private void Initialize()
     {
       Parts = ExifParts.All;
-      BestPrecision = false;
       _InvalidTags = new List<ExifTag>();
     }
 
@@ -65,7 +64,7 @@ namespace ImageMagick
         return;
       }
 
-      ExifWriter writer = new ExifWriter(_Values, Parts, BestPrecision);
+      ExifWriter writer = new ExifWriter(_Values, Parts);
       Data = writer.GetData();
     }
 
@@ -107,16 +106,6 @@ namespace ImageMagick
       : base("exif", stream)
     {
       Initialize();
-    }
-
-    ///<summary>
-    /// Specifies if rationals should be stored with the best precision possible. This is disabled
-    /// by default, setting this to true will have an impact on the performance.
-    ///</summary>
-    public bool BestPrecision
-    {
-      get;
-      set;
     }
 
     ///<summary>

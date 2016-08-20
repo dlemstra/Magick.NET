@@ -40,18 +40,18 @@ namespace Magick.NET.Tests
           Assert.AreEqual("Adobe Photoshop 7.0", value.ToString());
 
         if (value.Tag == ExifTag.XResolution)
-          Assert.AreEqual(300.0, value.Value);
+          Assert.AreEqual(new Rational(300, 1), (Rational)value.Value);
 
         if (value.Tag == ExifTag.GPSLatitude)
         {
-          double[] pos = (double[])value.Value;
-          Assert.AreEqual(54, pos[0]);
-          Assert.AreEqual(59.38, pos[1]);
-          Assert.AreEqual(0, pos[2]);
+          Rational[] pos = (Rational[])value.Value;
+          Assert.AreEqual(54, pos[0].ToDouble());
+          Assert.AreEqual(59.38, pos[1].ToDouble());
+          Assert.AreEqual(0, pos[2].ToDouble());
         }
 
         if (value.Tag == ExifTag.ShutterSpeedValue)
-          Assert.AreEqual(9.5, value.Value);
+          Assert.AreEqual(9.5, ((SignedRational)value.Value).ToDouble());
       }
     }
 
@@ -61,16 +61,18 @@ namespace Magick.NET.Tests
       Assert.AreEqual(expected, value.Value);
     }
 
-    private static void TestValue(ExifValue value, double expected)
+    private static void TestValue(ExifValue value, Rational[] expected)
     {
       Assert.IsNotNull(value);
-      Assert.AreEqual(expected, value.Value);
+      Rational[] values = (Rational[])value.Value;
+      Assert.IsNotNull(values);
+      CollectionAssert.AreEqual(expected, values);
     }
 
-    private static void TestValue(ExifValue value, double[] expected)
+    private static void TestRationalValue(ExifValue value, string expected)
     {
       Assert.IsNotNull(value);
-      CollectionAssert.AreEqual(expected, (ICollection)value.Value);
+      Assert.AreEqual(expected, value.ToString());
     }
 
     [TestMethod, TestCategory(_Category)]
@@ -132,7 +134,7 @@ namespace Magick.NET.Tests
         {
           ExifProfile profile = image.GetExifProfile();
 
-          profile.SetValue(ExifTag.ExposureTime, exposureTime);
+          profile.SetValue(ExifTag.ExposureTime, new Rational(exposureTime));
           image.AddProfile(profile);
 
           image.Write(memStream);
@@ -147,7 +149,7 @@ namespace Magick.NET.Tests
 
           ExifValue value = profile.GetValue(ExifTag.ExposureTime);
           Assert.IsNotNull(value);
-          Assert.AreNotEqual(exposureTime, value.Value);
+          Assert.AreNotEqual(exposureTime, ((Rational)value.Value).ToDouble());
         }
 
         memStream.Position = 0;
@@ -155,8 +157,7 @@ namespace Magick.NET.Tests
         {
           ExifProfile profile = image.GetExifProfile();
 
-          profile.SetValue(ExifTag.ExposureTime, exposureTime);
-          profile.BestPrecision = true;
+          profile.SetValue(ExifTag.ExposureTime, new Rational(exposureTime, true));
           image.AddProfile(profile);
 
           image.Write(memStream);
@@ -170,7 +171,7 @@ namespace Magick.NET.Tests
           Assert.IsNotNull(profile);
 
           ExifValue value = profile.GetValue(ExifTag.ExposureTime);
-          TestValue(value, exposureTime);
+          Assert.AreEqual(exposureTime, ((Rational)value.Value).ToDouble());
         }
       }
     }
@@ -181,36 +182,36 @@ namespace Magick.NET.Tests
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         ExifProfile profile = image.GetExifProfile();
-        profile.SetValue(ExifTag.ExposureBiasValue, double.PositiveInfinity);
+        profile.SetValue(ExifTag.ExposureBiasValue, new SignedRational(double.PositiveInfinity));
         image.AddProfile(profile);
 
         profile = image.GetExifProfile();
         ExifValue value = profile.GetValue(ExifTag.ExposureBiasValue);
         Assert.IsNotNull(value);
-        Assert.AreEqual(double.PositiveInfinity, value.Value);
+        Assert.AreEqual(double.PositiveInfinity, ((SignedRational)value.Value).ToDouble());
 
-        profile.SetValue(ExifTag.ExposureBiasValue, double.NegativeInfinity);
+        profile.SetValue(ExifTag.ExposureBiasValue, new SignedRational(double.NegativeInfinity));
         image.AddProfile(profile);
 
         profile = image.GetExifProfile();
         value = profile.GetValue(ExifTag.ExposureBiasValue);
         Assert.IsNotNull(value);
-        Assert.AreEqual(double.NegativeInfinity, value.Value);
+        Assert.AreEqual(double.NegativeInfinity, ((SignedRational)value.Value).ToDouble());
 
-        profile.SetValue(ExifTag.FlashEnergy, double.NegativeInfinity);
+        profile.SetValue(ExifTag.FlashEnergy, new Rational(double.NegativeInfinity));
         image.AddProfile(profile);
 
         profile = image.GetExifProfile();
         value = profile.GetValue(ExifTag.FlashEnergy);
         Assert.IsNotNull(value);
-        Assert.AreEqual(double.PositiveInfinity, value.Value);
+        Assert.AreEqual(double.PositiveInfinity, ((Rational)value.Value).ToDouble());
       }
     }
 
     [TestMethod, TestCategory(_Category)]
     public void Test_SetValue()
     {
-      double[] latitude = new double[] { 12.3, 4.56, 789.0 };
+      Rational[] latitude = new Rational[] { new Rational(12.3), new Rational(4.56), new Rational(789.0) };
 
       using (MemoryStream memStream = new MemoryStream())
       {
@@ -227,20 +228,20 @@ namespace Magick.NET.Tests
             value.Value = 15;
           });
 
-          profile.SetValue(ExifTag.ShutterSpeedValue, 75.55);
+          profile.SetValue(ExifTag.ShutterSpeedValue, new SignedRational(75.55));
 
           value = profile.GetValue(ExifTag.ShutterSpeedValue);
-          TestValue(value, 75.55);
+          TestRationalValue(value, "1511/20");
 
           ExceptionAssert.Throws<ArgumentException>(delegate ()
           {
             value.Value = 75;
           });
 
-          profile.SetValue(ExifTag.XResolution, 150.0);
+          profile.SetValue(ExifTag.XResolution, new Rational(150.0));
 
           value = profile.GetValue(ExifTag.XResolution);
-          TestValue(value, 150.0);
+          TestRationalValue(value, "150");
 
           ExceptionAssert.Throws<ArgumentException>(delegate ()
           {
@@ -250,7 +251,7 @@ namespace Magick.NET.Tests
           image.Density = new Density(72);
 
           value = profile.GetValue(ExifTag.XResolution);
-          TestValue(value, 150.0);
+          TestRationalValue(value, "150");
 
           value = profile.GetValue(ExifTag.ReferenceBlackWhite);
           Assert.IsNotNull(value);
@@ -282,10 +283,10 @@ namespace Magick.NET.Tests
           TestValue(value, "Magick.NET");
 
           value = profile.GetValue(ExifTag.ShutterSpeedValue);
-          TestValue(value, 75.55);
+          TestRationalValue(value, "1511/20");
 
           value = profile.GetValue(ExifTag.XResolution);
-          TestValue(value, 72.0);
+          TestRationalValue(value, "72");
 
           value = profile.GetValue(ExifTag.ReferenceBlackWhite);
           Assert.IsNull(value);

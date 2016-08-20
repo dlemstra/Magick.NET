@@ -521,6 +521,7 @@
     <Compile Include="Core\Statistics\Statistics.cs" />
     <Compile Include="Core\Types\ConnectedComponent.cs" />
     <Compile Include="Core\Types\Density.cs" />
+    <Compile Include="Core\Types\BigRational.cs" />
     <Compile Include="Core\Types\MagickErrorInfo.cs" />
     <Compile Include="Core\Types\MagickGeometry.cs" />
     <Compile Include="Core\Types\MagickRectangle.cs" />
@@ -531,6 +532,8 @@
     <Compile Include="Core\Types\PointD.cs" />
     <Compile Include="Core\Types\PointInfo.cs" />
     <Compile Include="Core\Types\PrimaryInfo.cs" />
+    <Compile Include="Core\Types\Rational.cs" />
+    <Compile Include="Core\Types\SignedRational.cs" />
     <Compile Include="Core\Types\SparseColorArg.cs" />
     <Compile Include="Core\Types\StringInfo.cs" />
     <Compile Include="Core\Types\TypeMetric.cs" />

@@ -184,6 +184,8 @@
     <Compile Include="Core\Files.cs" />
     <Compile Include="Core\Profiles\Exif\ExifTagDescriptionAttributeTests.cs" />
     <Compile Include="Core\FakePartialStream.cs" />
+    <Compile Include="Core\Types\RationalTests.cs" />
+    <Compile Include="Core\Types\SignedRationalTests.cs" />
     <Compile Include="Ghostscript.cs" />
     <Compile Include="Core\MagickFormatInfoTests.cs" />
     <Compile Include="Core\MagickImageCollectionTests.cs" />

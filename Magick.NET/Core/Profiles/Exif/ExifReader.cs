@@ -301,15 +301,15 @@ namespace ImageMagick
       return result;
     }
 
-    private double ToRational(byte[] data)
+    private Rational ToRational(byte[] data)
     {
       if (!ValidateArray(data, 8, 4))
-        return default(double);
+        return new Rational();
 
       uint numerator = BitConverter.ToUInt32(data, 0);
       uint denominator = BitConverter.ToUInt32(data, 4);
 
-      return numerator / (double)denominator;
+      return new Rational(numerator, denominator, false);
     }
 
     private sbyte ToSignedByte(byte[] data)
@@ -325,15 +325,15 @@ namespace ImageMagick
       return BitConverter.ToInt32(data, 0);
     }
 
-    private double ToSignedRational(byte[] data)
+    private SignedRational ToSignedRational(byte[] data)
     {
       if (!ValidateArray(data, 8, 4))
-        return default(double);
+        return new SignedRational();
 
       int numerator = BitConverter.ToInt32(data, 0);
       int denominator = BitConverter.ToInt32(data, 4);
 
-      return numerator / (double)denominator;
+      return new SignedRational(numerator, denominator, false);
     }
 
     private short ToSignedShort(byte[] data)
