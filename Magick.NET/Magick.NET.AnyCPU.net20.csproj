@@ -112,6 +112,7 @@
     <Compile Include="Core\Colors\ColorGray.cs" />
     <Compile Include="Core\Colors\ColorHSL.cs" />
     <Compile Include="Core\Colors\ColorMono.cs" />
+    <Compile Include="Core\Colors\HexColor.cs" />
     <Compile Include="Core\Colors\ColorRGB.cs" />
     <Compile Include="Core\Colors\ColorYUV.cs" />
     <Compile Include="Core\Colors\MagickColor.cs" />
