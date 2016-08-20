@@ -85,40 +85,4 @@ namespace ImageMagick
       Instance = IntPtr.Zero;
     }
   }
-
-  /*
-  [SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
-  internal class UTF8Marshaler : ICustomMarshaler
-  {
-    public void CleanUpManagedData(object managedObj)
-    {
-    }
-
-    public void CleanUpNativeData(IntPtr nativeData)
-    {
-      Marshal.FreeHGlobal(nativeData);
-    }
-
-    public IntPtr MarshalManagedToNative(object managedObj)
-    {
-      return UTF8MarshalerHelper.MarshalManagedToNative(managedObj);
-    }
-
-    public object MarshalNativeToManaged(IntPtr nativeData)
-    {
-      throw new NotImplementedException();
-    }
-
-    public int GetNativeDataSize()
-    {
-      return -1;
-    }
-
-    [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-    [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "cookie")]
-    public static ICustomMarshaler GetInstance(string cookie)
-    {
-      return new UTF8Marshaler();
-    }
-  }*/
 }
