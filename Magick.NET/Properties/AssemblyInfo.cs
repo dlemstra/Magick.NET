@@ -72,7 +72,7 @@ using System.Security.Permissions;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("7.0.0.0")]
-[assembly: AssemblyFileVersion("7.0.2.901")]
+[assembly: AssemblyFileVersion("7.0.2.902")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 #if (NET20)
