@@ -433,6 +433,7 @@
     <Compile Include="Core\Script\ScriptReadEventArgs.cs" />
     <Compile Include="Core\Script\ScriptVariables.cs" />
     <Compile Include="Core\Script\ScriptWriteEventArgs.cs" />
+    <Compile Include="Core\Settings\ConnectedComponentsSettings.cs" />
     <Compile Include="Core\Settings\DrawingSettings.cs" />
     <Compile Include="Core\Settings\MagickReadSettings.cs" />
     <Compile Include="Core\Settings\MagickSettings.cs" />

@@ -44,6 +44,9 @@ namespace ImageMagick
         if (instance == IntPtr.Zero)
           continue;
 
+        if (NativeConnectedComponent.GetArea(instance) < double.Epsilon)
+          continue;
+
         result.Add(new ConnectedComponent(instance));
       }
 

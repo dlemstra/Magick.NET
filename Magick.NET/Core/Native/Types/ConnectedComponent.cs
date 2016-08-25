@@ -39,6 +39,8 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ConnectedComponent_DisposeList(IntPtr list);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern double ConnectedComponent_GetArea(IntPtr instance);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr ConnectedComponent_GetHeight(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr ConnectedComponent_GetInstance(IntPtr list, UIntPtr index);
@@ -55,6 +57,8 @@ namespace ImageMagick
         static X86() { NativeLibraryLoader.Load(); }
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ConnectedComponent_DisposeList(IntPtr list);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern double ConnectedComponent_GetArea(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr ConnectedComponent_GetHeight(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -75,6 +79,13 @@ namespace ImageMagick
           NativeMethods.X64.ConnectedComponent_DisposeList(list);
         else
           NativeMethods.X86.ConnectedComponent_DisposeList(list);
+      }
+      public static double GetArea(IntPtr instance)
+      {
+        if (NativeLibrary.Is64Bit)
+          return NativeMethods.X64.ConnectedComponent_GetArea(instance);
+        else
+          return NativeMethods.X86.ConnectedComponent_GetArea(instance);
       }
       public static int GetHeight(IntPtr instance)
       {

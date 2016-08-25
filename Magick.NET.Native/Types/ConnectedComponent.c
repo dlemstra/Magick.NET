@@ -20,6 +20,11 @@ MAGICK_NET_EXPORT void ConnectedComponent_DisposeList(CCObjectInfo *list)
   RelinquishMagickMemory(list);
 }
 
+MAGICK_NET_EXPORT double ConnectedComponent_GetArea(const CCObjectInfo *instance)
+{
+  return instance->area;
+}
+
 MAGICK_NET_EXPORT size_t ConnectedComponent_GetHeight(const CCObjectInfo *instance)
 {
   return instance->bounding_box.height;

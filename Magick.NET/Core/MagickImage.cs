@@ -2562,11 +2562,30 @@ namespace ImageMagick
     ///<exception cref="MagickException"/>
     public IEnumerable<ConnectedComponent> ConnectedComponents(int connectivity)
     {
+      ConnectedComponentsSettings settings = new ConnectedComponentsSettings();
+      settings.Connectivity = connectivity;
+      return ConnectedComponents(settings);
+    }
+
+    ///<summary>
+    /// Determines the connected-components of the image
+    ///</summary>
+    ///<param name="settings">The settings for this operation.</param>
+    ///<exception cref="MagickException"/>
+    public IEnumerable<ConnectedComponent> ConnectedComponents(ConnectedComponentsSettings settings)
+    {
+      Throw.IfNull(nameof(settings), settings);
+
+      if (settings.AreaThreshold != null)
+        SetArtifact("connected-components:area-threshold", settings.AreaThreshold.Value.ToString(CultureInfo.InvariantCulture));
+
+      SetArtifact("connected-components:mean-color", settings.MeanColor.ToString(CultureInfo.InvariantCulture));
+
       IntPtr objects = IntPtr.Zero;
 
       try
       {
-        _NativeInstance.ConnectedComponents(connectivity, out objects);
+        _NativeInstance.ConnectedComponents(settings.Connectivity, out objects);
         return ConnectedComponent.Create(objects, ColormapSize);
       }
       finally

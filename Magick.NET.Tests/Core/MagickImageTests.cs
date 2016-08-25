@@ -1101,6 +1101,29 @@ namespace Magick.NET.Tests
           Test_Component(image, components[5], 341, 622, 136, 150);
           Test_Component(image, components[6], 434, 411, 88, 139);
         }
+
+#if !Q8
+        using (MagickImage temp = image.Clone())
+        {
+          ConnectedComponentsSettings settings = new ConnectedComponentsSettings()
+          {
+            Connectivity = 4,
+            MeanColor = true,
+            AreaThreshold = 400
+          };
+
+          ConnectedComponent[] components = temp.ConnectedComponents(settings).OrderBy(c => c.X).ToArray();
+          Assert.AreEqual(8, components.Length);
+
+          Test_Component(image, components[1], 90, 293, 139, 158);
+          Test_Component(image, components[2], 96, 550, 138, 158);
+          Test_Component(image, components[3], 268, 433, 89, 139);
+          Test_Component(image, components[4], 298, 198, 159, 151);
+          Test_Component(image, components[5], 337, 618, 148, 158);
+          Test_Component(image, components[6], 435, 411, 88, 139);
+          Test_Component(image, components[7], 453, 282, 1, 2);
+        }
+#endif
       }
     }
 
