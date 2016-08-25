@@ -2579,7 +2579,8 @@ namespace ImageMagick
       if (settings.AreaThreshold != null)
         SetArtifact("connected-components:area-threshold", settings.AreaThreshold.Value.ToString(CultureInfo.InvariantCulture));
 
-      SetArtifact("connected-components:mean-color", settings.MeanColor.ToString(CultureInfo.InvariantCulture));
+      if (settings.MeanColor)
+        SetArtifact("connected-components:mean-color", "true");
 
       IntPtr objects = IntPtr.Zero;
 

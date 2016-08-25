@@ -1093,6 +1093,8 @@ namespace Magick.NET.Tests
 
           ConnectedComponent[] components = temp.ConnectedComponents(4).OrderBy(c => c.X).ToArray();
           Assert.AreEqual(7, components.Length);
+          Assert.IsNull(temp.GetArtifact("connected-components:area-threshold"));
+          Assert.IsNull(temp.GetArtifact("connected-components:mean-color"));
 
           Test_Component(image, components[1], 94, 297, 128, 151);
           Test_Component(image, components[2], 99, 554, 128, 150);
@@ -1114,6 +1116,8 @@ namespace Magick.NET.Tests
 
           ConnectedComponent[] components = temp.ConnectedComponents(settings).OrderBy(c => c.X).ToArray();
           Assert.AreEqual(8, components.Length);
+          Assert.IsNotNull(temp.GetArtifact("connected-components:area-threshold"));
+          Assert.IsNotNull(temp.GetArtifact("connected-components:mean-color"));
 
           Test_Component(image, components[1], 90, 293, 139, 158);
           Test_Component(image, components[2], 96, 550, 138, 158);
