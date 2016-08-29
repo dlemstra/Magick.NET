@@ -30,10 +30,10 @@ extern "C" {
 */
 #define MagickPackageName "ImageMagick"
 #define MagickCopyright  "Copyright (C) 1999-2015 ImageMagick Studio LLC"
-#define MagickLibVersion  0x702
-#define MagickLibVersionText  "7.0.2"
-#define MagickLibVersionNumber  7,0,2,9
-#define MagickLibAddendum  "-9"
+#define MagickLibVersion  0x703
+#define MagickLibVersionText  "7.0.3"
+#define MagickLibVersionNumber  7,0,3,0
+#define MagickLibAddendum  "-0"
 #define MagickLibInterface  0
 #define MagickLibMinInterface  0
 #if defined(_WIN64)
@@ -41,7 +41,7 @@ extern "C" {
 #else
 #  define MagickPlatform "x86"
 #endif
-#define MagickReleaseDate  "2016-08-15"
+#define MagickReleaseDate  "2016-08-29"
 #define MagickAuthoritativeLicense  \
   "http://www.imagemagick.org/script/license.php"
 #define MagickAuthoritativeURL  "http://www.imagemagick.org"
