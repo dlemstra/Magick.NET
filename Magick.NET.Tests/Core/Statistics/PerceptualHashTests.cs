@@ -18,7 +18,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  //==============================================================================================
   [TestClass]
   public class PerceptualHashTests
   {
