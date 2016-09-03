@@ -3830,6 +3830,14 @@ namespace Magick.NET.Tests
       {
         using (MagickImage image = new MagickImage())
         {
+          image.Write(new FileInfo("foo"), null);
+        }
+      });
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        using (MagickImage image = new MagickImage())
+        {
           image.Write((string)null);
         }
       });
@@ -3846,7 +3854,26 @@ namespace Magick.NET.Tests
       {
         using (MagickImage image = new MagickImage())
         {
+          image.Write("foo", null);
+        }
+      });
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        using (MagickImage image = new MagickImage())
+        {
           image.Write((Stream)null);
+        }
+      });
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        using (MagickImage image = new MagickImage())
+        {
+          using (MemoryStream memStream = new MemoryStream())
+          {
+            image.Write(memStream, null);
+          }
         }
       });
 

@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 
 namespace ImageMagick.Defines
@@ -24,15 +23,13 @@ namespace ImageMagick.Defines
   ///</summary>
   public abstract class DefineCreator : IDefines
   {
-    private MagickFormat _Format;
-
     /// <summary>
-    /// Initializes a new instance of the DefineCreator.
+    /// Initializes a new instance of the <see cref="DefineCreator"/> class.
     /// </summary>
-    /// <param name="format"></param>
+    /// <param name="format">The format where the defines are for.</param>
     protected DefineCreator(MagickFormat format)
     {
-      _Format = format;
+      Format = format;
     }
 
     /// <summary>
@@ -43,7 +40,7 @@ namespace ImageMagick.Defines
     /// <returns></returns>
     protected MagickDefine CreateDefine(string name, bool value)
     {
-      return new MagickDefine(_Format, name, value.ToString());
+      return new MagickDefine(Format, name, value.ToString());
     }
 
     /// <summary>
@@ -54,7 +51,7 @@ namespace ImageMagick.Defines
     /// <returns></returns>
     protected MagickDefine CreateDefine(string name, int value)
     {
-      return new MagickDefine(_Format, name, value.ToString(CultureInfo.InvariantCulture));
+      return new MagickDefine(Format, name, value.ToString(CultureInfo.InvariantCulture));
     }
 
     /// <summary>
@@ -68,7 +65,7 @@ namespace ImageMagick.Defines
       if (value == null)
         return null;
 
-      return new MagickDefine(_Format, name, value.ToString());
+      return new MagickDefine(Format, name, value.ToString());
     }
 
     /// <summary>
@@ -79,7 +76,7 @@ namespace ImageMagick.Defines
     /// <returns></returns>
     protected MagickDefine CreateDefine(string name, string value)
     {
-      return new MagickDefine(_Format, name, value);
+      return new MagickDefine(Format, name, value);
     }
 
     /// <summary>
@@ -90,7 +87,16 @@ namespace ImageMagick.Defines
     /// <returns></returns>
     protected MagickDefine CreateDefine<TEnum>(string name, TEnum value)
     {
-      return new MagickDefine(_Format, name, Enum.GetName(typeof(TEnum), value));
+      return new MagickDefine(Format, name, Enum.GetName(typeof(TEnum), value));
+    }
+
+    ///<summary>
+    /// The format where the defines are for.
+    ///</summary>
+    protected MagickFormat Format
+    {
+      get;
+      private set;
     }
 
     ///<summary>

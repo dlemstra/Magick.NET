@@ -20,14 +20,22 @@ namespace ImageMagick
   ///<summary>
   /// Class for defines that are used when a jpeg image is written.
   ///</summary>
-  public sealed class JpegWriteDefines : DefineCreator
+  public sealed class JpegWriteDefines : DefineCreator, IWriteDefines
   {
     ///<summary>
-    /// Initializes a new instance of the JpegWriteDefines class.
+    /// Initializes a new instance of the <see cref="JpegWriteDefines"/> class.
     ///</summary>
     public JpegWriteDefines()
       : base(MagickFormat.Jpeg)
     {
+    }
+
+    MagickFormat IWriteDefines.Format
+    {
+      get
+      {
+        return Format;
+      }
     }
 
     ///<summary>

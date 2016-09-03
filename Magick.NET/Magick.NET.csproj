@@ -203,6 +203,7 @@
     <Compile Include="Core\Defines\DefineCreator.cs" />
     <Compile Include="Core\Defines\IDefine.cs" />
     <Compile Include="Core\Defines\IDefines.cs" />
+    <Compile Include="Core\Defines\IWriteDefines.cs" />
     <Compile Include="Core\Defines\IReadDefines.cs" />
     <Compile Include="Core\Defines\Jpeg\DtcMethod.cs" />
     <Compile Include="Core\Defines\Jpeg\JpegReadDefines.cs" />

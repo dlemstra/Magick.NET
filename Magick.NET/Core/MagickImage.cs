@@ -6558,6 +6558,18 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Writes the image to the specified file.
+    ///</summary>
+    ///<param name="file">The file to write the image to.</param>
+    ///<param name="defines">The defines to set.</param>
+    ///<exception cref="MagickException"/>
+    public void Write(FileInfo file, IWriteDefines defines)
+    {
+      Settings.SetDefines(defines);
+      Write(file);
+    }
+
+    ///<summary>
     /// Writes the image to the specified stream.
     ///</summary>
     ///<param name="stream">The stream to write the image data to.</param>
@@ -6571,6 +6583,19 @@ namespace ImageMagick
       UIntPtr length;
       IntPtr data = _NativeInstance.WriteBlob(Settings, out length);
       MagickMemory.WriteBytes(data, length, stream);
+    }
+
+    ///<summary>
+    /// Writes the image to the specified stream.
+    ///</summary>
+    ///<param name="stream">The stream to write the image data to.</param>
+    ///<param name="defines">The defines to set.</param>
+    ///<exception cref="MagickException"/>
+    public void Write(Stream stream, IWriteDefines defines)
+    {
+      Settings.SetDefines(defines);
+      Format = defines.Format;
+      Write(stream);
     }
 
     ///<summary>
@@ -6598,6 +6623,18 @@ namespace ImageMagick
 
       _NativeInstance.FileName = filePath;
       _NativeInstance.WriteFile(Settings);
+    }
+
+    ///<summary>
+    /// Writes the image to the specified file name.
+    ///</summary>
+    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    ///<param name="defines">The defines to set.</param>
+    ///<exception cref="MagickException"/>
+    public void Write(string fileName, IWriteDefines defines)
+    {
+      Settings.SetDefines(defines);
+      Write(fileName);
     }
   }
 }
