@@ -100,7 +100,7 @@ namespace ImageMagick.Defines
     }
 
     ///<summary>
-    /// The defines that should be set as an define on an image
+    /// The defines that should be set as a define on an image
     ///</summary>
     public abstract IEnumerable<IDefine> Defines
     {

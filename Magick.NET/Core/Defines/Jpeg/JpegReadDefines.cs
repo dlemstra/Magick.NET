@@ -86,7 +86,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// The defines that should be set as an define on an image
+    /// The defines that should be set as a define on an image
     ///</summary>
     public override IEnumerable<IDefine> Defines
     {
