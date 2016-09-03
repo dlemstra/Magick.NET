@@ -73,12 +73,13 @@ namespace ImageMagick
         Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1,
           "The FrameCount can only be set to 1 when a MagickImage is being read.");
 
-      MagickReadSettings newReadSettings = readSettings;
+      MagickReadSettings newReadSettings = null;
       if (readSettings == null)
         newReadSettings = new MagickReadSettings(Settings);
+      else
+        newReadSettings = new MagickReadSettings(readSettings);
 
       newReadSettings.FrameCount = 1;
-      newReadSettings.Apply();
 
       return newReadSettings;
     }

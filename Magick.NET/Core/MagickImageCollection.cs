@@ -77,9 +77,7 @@ namespace ImageMagick
 
       Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage != null, "PixelStorage is not supported for images with multiple frames/layers.");
 
-      readSettings.Apply();
-
-      return readSettings;
+      return new MagickReadSettings(readSettings);
     }
 
     private void DetachImages()

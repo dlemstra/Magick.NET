@@ -217,6 +217,7 @@ namespace ImageMagick
       _Font = settings._Font;
       _FontPointsize = settings._FontPointsize;
       Format = settings.Format;
+      Monochrome = settings.Monochrome;
       Page = MagickGeometry.Clone(settings.Page);
       Verbose = settings.Verbose;
 

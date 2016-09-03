@@ -33,35 +33,35 @@ namespace ImageMagick
       return string.Format(CultureInfo.InvariantCulture, "{0}-{1}", frame, frame + FrameCount.Value);
     }
 
-    private void ApplyDefines()
+    private void ApplyDefines(MagickReadSettings settings)
     {
-      if (Defines == null)
+      if (settings.Defines == null)
         return;
 
-      foreach (IDefine define in Defines.Defines)
+      foreach (IDefine define in settings.Defines.Defines)
       {
         SetOption(GetDefineKey(define), define.Value);
       }
     }
 
-    private void ApplyDimensions()
+    private void ApplyDimensions(MagickReadSettings settings)
     {
-      if (Width.HasValue && Height.HasValue)
-        Size = Width + "x" + Height;
-      else if (Width.HasValue)
-        Size = Width + "x";
-      else if (Height.HasValue)
-        Size = "x" + Height;
+      if (settings.Width.HasValue && settings.Height.HasValue)
+        Size = settings.Width + "x" + settings.Height;
+      else if (settings.Width.HasValue)
+        Size = settings.Width + "x";
+      else if (settings.Height.HasValue)
+        Size = "x" + settings.Height;
     }
 
-    private void ApplyFrame()
+    private void ApplyFrame(MagickReadSettings settings)
     {
-      if (!FrameIndex.HasValue && !FrameCount.HasValue)
+      if (!settings.FrameIndex.HasValue && !settings.FrameCount.HasValue)
         return;
 
-      Scenes = GetScenes();
-      Scene = FrameIndex.HasValue ? FrameIndex.Value : 0;
-      NumberScenes = FrameCount.HasValue ? FrameCount.Value : 1;
+      Scenes = settings.GetScenes();
+      Scene = settings.FrameIndex.HasValue ? settings.FrameIndex.Value : 0;
+      NumberScenes = settings.FrameCount.HasValue ? settings.FrameCount.Value : 1;
     }
 
     private static string GetDefineKey(IDefine define)
@@ -77,22 +77,26 @@ namespace ImageMagick
       Copy(settings);
     }
 
-    internal void Apply()
+    internal MagickReadSettings(MagickReadSettings settings)
     {
-      ApplyDefines();
-      ApplyDimensions();
-      ApplyFrame();
+      Copy(settings);
+
+      ApplyDefines(settings);
+      ApplyDimensions(settings);
+      ApplyFrame(settings);
+
+      PixelStorage = settings.PixelStorage?.Clone();
     }
 
     ///<summary>
-    /// Initializes a new instance of the MagickReadSettings class.
+    /// Initializes a new instance of the <see cref="MagickReadSettings"/> class.
     ///</summary>
     public MagickReadSettings()
     {
     }
 
     ///<summary>
-    /// Initializes a new instance of the MagickReadSettings class with the specified defines.
+    /// Initializes a new instance of the <see cref="MagickReadSettings"/> class with the specified defines.
     ///</summary>
     ///<param name="readDefines">The read defines to set.</param>
     public MagickReadSettings(IReadDefines readDefines)
