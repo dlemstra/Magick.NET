@@ -23,7 +23,7 @@ namespace ImageMagick
   public sealed class TiffReadDefines : DefineCreator, IReadDefines
   {
     ///<summary>
-    /// Initializes a new instance of the TiffReadDefines class.
+    /// Initializes a new instance of the <see cref="TiffReadDefines"/> class.
     ///</summary>
     public TiffReadDefines()
       : base(MagickFormat.Tiff)
@@ -56,7 +56,7 @@ namespace ImageMagick
       get
       {
         if (IgnoreExifPoperties.Equals(true))
-          yield return CreateDefine("exif-properties", "false");
+          yield return CreateDefine("exif-properties", false);
 
         if (IgnoreTags != null)
         {

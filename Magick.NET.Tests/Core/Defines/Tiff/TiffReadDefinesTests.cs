@@ -20,7 +20,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class TiffReadDefinesTests
   {
-
     private const string _Category = "TiffReadDefines";
 
     [TestMethod, TestCategory(_Category)]
