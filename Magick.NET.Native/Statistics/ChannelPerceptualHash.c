@@ -16,10 +16,10 @@
 
 MAGICK_NET_EXPORT const double ChannelPerceptualHash_GetHclpHuPhash(const ChannelPerceptualHash *instance, const size_t index)
 {
-  return instance->hclp_hu_phash[index];
+  return instance->phash[1][index];
 }
 
 MAGICK_NET_EXPORT const double ChannelPerceptualHash_GetSrgbHuPhash(const ChannelPerceptualHash *instance, const size_t index)
 {
-  return instance->srgb_hu_phash[index];
+  return instance->phash[0][index];
 }
