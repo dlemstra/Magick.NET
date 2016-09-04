@@ -176,6 +176,8 @@
     <Compile Include="Core\Defines\Jpeg\JpegWriteDefinesTests.cs" />
     <Compile Include="Core\Defines\Pdf\PdfReadDefinesTests.cs" />
     <Compile Include="Core\Defines\Png\PngReadDefinesTests.cs" />
+    <Compile Include="Core\Defines\Psd\PsdReadDefinesTests.cs" />
+    <Compile Include="Core\Defines\Psd\PsdWriteDefinesTests.cs" />
     <Compile Include="Core\Defines\Tiff\TiffReadDefinesTests.cs" />
     <Compile Include="Core\Defines\Tiff\TiffWriteDefinesTests.cs" />
     <Compile Include="Core\Drawables\DrawableDensityTests.cs" />

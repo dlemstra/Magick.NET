@@ -212,6 +212,9 @@
     <Compile Include="Core\Defines\Pdf\PdfReadDefines.cs" />
     <Compile Include="Core\Defines\Png\PngReadDefines.cs" />
     <Compile Include="Core\Defines\ProfileTypes.cs" />
+    <Compile Include="Core\Defines\Psd\PsdAdditionalInfo.cs" />
+    <Compile Include="Core\Defines\Psd\PsdReadDefines.cs" />
+    <Compile Include="Core\Defines\Psd\PsdWriteDefines.cs" />
     <Compile Include="Core\Defines\Tiff\TiffAlpha.cs" />
     <Compile Include="Core\Defines\Tiff\TiffReadDefines.cs" />
     <Compile Include="Core\Defines\Tiff\TiffWriteDefines.cs" />

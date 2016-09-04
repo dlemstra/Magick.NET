@@ -243,6 +243,14 @@ namespace Magick.NET.Tests
         }
       }
 
+      public static string LayerStylesSamplePSD
+      {
+        get
+        {
+          return _Root + @"Images\Coders\layer-styles-sample.psd";
+        }
+      }
+
       public static string PageTIF
       {
         get
