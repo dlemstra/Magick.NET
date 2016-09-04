@@ -338,7 +338,7 @@ namespace ImageMagick
           return;
         }
       }
-      throw new NotImplementedException(element.Name);
+      throw new NotSupportedException(element.Name);
     }
     private void ExecuteBackgroundColor(XmlElement element, MagickSettings settings)
     {

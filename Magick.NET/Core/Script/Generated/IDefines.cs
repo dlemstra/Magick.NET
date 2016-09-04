@@ -78,6 +78,21 @@ namespace ImageMagick
             {
               return CreatePngReadDefines(element);
             }
+            case 's':
+            {
+              switch(element.Name[3])
+              {
+                case 'R':
+                {
+                  return CreatePsdReadDefines(element);
+                }
+                case 'W':
+                {
+                  return CreatePsdWriteDefines(element);
+                }
+              }
+              break;
+            }
           }
           break;
         }
@@ -97,7 +112,7 @@ namespace ImageMagick
           break;
         }
       }
-      throw new NotImplementedException(element.Name);
+      throw new NotSupportedException(element.Name);
     }
     private IDefines CreateDdsWriteDefines(XmlElement element)
     {
@@ -156,12 +171,29 @@ namespace ImageMagick
       result.SwapBytes = Variables.GetValue<Boolean>(element, "swapBytes");
       return result;
     }
+    private IDefines CreatePsdReadDefines(XmlElement element)
+    {
+      if (element == null)
+        return null;
+      PsdReadDefines result = new PsdReadDefines();
+      result.AlphaUnblend = Variables.GetValue<Nullable<Boolean>>(element, "alphaUnblend");
+      return result;
+    }
+    private IDefines CreatePsdWriteDefines(XmlElement element)
+    {
+      if (element == null)
+        return null;
+      PsdWriteDefines result = new PsdWriteDefines();
+      result.AdditionalInfo = Variables.GetValue<PsdAdditionalInfo>(element, "additionalInfo");
+      return result;
+    }
     private IDefines CreateTiffReadDefines(XmlElement element)
     {
       if (element == null)
         return null;
       TiffReadDefines result = new TiffReadDefines();
       result.IgnoreExifPoperties = Variables.GetValue<Nullable<Boolean>>(element, "ignoreExifPoperties");
+      result.IgnoreTags = Variables.GetStringArray(element["ignoreTags"]);
       return result;
     }
     private IDefines CreateTiffWriteDefines(XmlElement element)

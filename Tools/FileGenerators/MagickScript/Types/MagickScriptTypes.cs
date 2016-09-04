@@ -136,11 +136,13 @@ namespace FileGenerator.MagickScript
         case "IEnumerable<PathArc>":
         case "IEnumerable<PointD>":
         case "IEnumerable<SparseColorArg>":
+        case "IEnumerable<String>":
         case "ImageProfile":
         case "IReadDefines":
         case "MagickImage":
         case "MagickSettings":
         case "MontageSettings":
+        case "MorphologySettings":
         case "PathArc":
         case "PrimaryInfo":
         case "PixelStorageSettings":
@@ -293,6 +295,7 @@ namespace FileGenerator.MagickScript
         case "MagickReadSettings":
         case "MagickSettings":
         case "MontageSettings":
+        case "MorphologySettings":
         case "PathArc":
         case "Percentage":
         case "PixelStorageSettings":
@@ -320,7 +323,7 @@ namespace FileGenerator.MagickScript
         case "Stream":
           return false;
         default:
-          throw new NotSupportedException(newType.Name);
+          throw new NotSupportedException("IsSupported: " + newType.Name);
       }
     }
 

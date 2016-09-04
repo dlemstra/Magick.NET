@@ -69,6 +69,9 @@ namespace ImageMagick
 
     internal double[] GetDoubleArray(XmlElement element)
     {
+      if (element == null)
+        return null;
+
       XmlAttribute attribute = element.Attributes["variable"];
       if (attribute != null)
       {
@@ -82,6 +85,28 @@ namespace ImageMagick
       foreach (XmlElement child in element.ChildNodes)
       {
         result[index++] = double.Parse(child.InnerText, CultureInfo.InvariantCulture);
+      }
+      return result;
+    }
+
+    internal string[] GetStringArray(XmlElement element)
+    {
+      if (element == null)
+        return null;
+
+      XmlAttribute attribute = element.Attributes["variable"];
+      if (attribute != null)
+      {
+        string[] names = GetNames(attribute.Value);
+        if (names != null)
+          return (string[])_Variables[names[0]];
+      }
+
+      string[] result = new string[element.ChildNodes.Count];
+      int index = 0;
+      foreach (XmlElement child in element.ChildNodes)
+      {
+        result[index++] = child.InnerText;
       }
       return result;
     }

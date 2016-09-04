@@ -51,7 +51,7 @@ namespace FileGenerator.MagickScript
         WriteLine(";");
         Indent--;
       }
-      WriteLine("throw new NotImplementedException(element.Name);");
+      WriteLine("throw new NotSupportedException(element.Name);");
       WriteEndColon();
     }
 

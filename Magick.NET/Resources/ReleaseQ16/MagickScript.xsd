@@ -736,11 +736,15 @@
           <xs:enumeration value="Erf" />
           <xs:enumeration value="Exr" />
           <xs:enumeration value="Fax" />
+          <xs:enumeration value="File" />
           <xs:enumeration value="Fits" />
+          <xs:enumeration value="Flif" />
           <xs:enumeration value="Fractal" />
+          <xs:enumeration value="Ftp" />
           <xs:enumeration value="Fts" />
           <xs:enumeration value="G" />
           <xs:enumeration value="G3" />
+          <xs:enumeration value="G4" />
           <xs:enumeration value="Gif" />
           <xs:enumeration value="Gif87" />
           <xs:enumeration value="Gradient" />
@@ -752,6 +756,8 @@
           <xs:enumeration value="Hrz" />
           <xs:enumeration value="Htm" />
           <xs:enumeration value="Html" />
+          <xs:enumeration value="Http" />
+          <xs:enumeration value="Https" />
           <xs:enumeration value="Icb" />
           <xs:enumeration value="Ico" />
           <xs:enumeration value="Icon" />
@@ -1068,6 +1074,20 @@
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
+  <xs:simpleType name="PsdAdditionalInfo">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="All" />
+          <xs:enumeration value="None" />
+          <xs:enumeration value="Selective" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="var" />
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
   <xs:simpleType name="RenderingIntent">
     <xs:union>
       <xs:simpleType>
@@ -1275,6 +1295,12 @@
     <xs:attribute name="preserveiCCP" type="bool" />
     <xs:attribute name="skipProfiles" type="ProfileTypes" />
     <xs:attribute name="swapBytes" type="bool" />
+  </xs:complexType>
+  <xs:complexType name="psdReadDefines">
+    <xs:attribute name="alphaUnblend" type="bool" />
+  </xs:complexType>
+  <xs:complexType name="psdWriteDefines">
+    <xs:attribute name="additionalInfo" type="PsdAdditionalInfo" />
   </xs:complexType>
   <xs:complexType name="tiffReadDefines">
     <xs:attribute name="ignoreExifPoperties" type="bool" />
@@ -2153,7 +2179,7 @@
               <xs:element name="image" type="image" />
             </xs:sequence>
             <xs:attribute name="channels" type="Channels" />
-            <xs:attribute name="method" use="required" type="PixelInterpolateMethod" />
+            <xs:attribute name="method" type="PixelInterpolateMethod" />
           </xs:complexType>
         </xs:element>
         <xs:element name="colorAlpha">
@@ -2205,7 +2231,8 @@
             <xs:sequence>
               <xs:element name="source" type="image" />
             </xs:sequence>
-            <xs:attribute name="geometry" use="required" type="geometry" />
+            <xs:attribute name="channels" type="Channels" />
+            <xs:attribute name="geometry" type="geometry" />
             <xs:attribute name="offset" type="pointd" />
             <xs:attribute name="x" type="int" />
             <xs:attribute name="y" type="int" />
@@ -2473,7 +2500,7 @@
             <xs:attribute name="channels" type="Channels" />
             <xs:attribute name="iterations" type="int" />
             <xs:attribute name="kernel" type="Kernel" />
-            <xs:attribute name="method" use="required" type="MorphologyMethod" />
+            <xs:attribute name="method" type="MorphologyMethod" />
             <xs:attribute name="userKernel" type="xs:string" />
           </xs:complexType>
         </xs:element>
@@ -2682,6 +2709,7 @@
         <xs:element name="shade">
           <xs:complexType>
             <xs:attribute name="azimuth" type="double" />
+            <xs:attribute name="channels" type="Channels" />
             <xs:attribute name="colorShading" type="bool" />
             <xs:attribute name="elevation" type="double" />
           </xs:complexType>
@@ -2718,7 +2746,7 @@
           <xs:complexType>
             <xs:attribute name="contrast" use="required" type="double" />
             <xs:attribute name="midpoint" type="double" />
-            <xs:attribute name="sharpen" use="required" type="bool" />
+            <xs:attribute name="sharpen" type="bool" />
           </xs:complexType>
         </xs:element>
         <xs:element name="sketch">
@@ -2989,6 +3017,8 @@
         <xs:element name="jpegWriteDefines" type="jpegWriteDefines" />
         <xs:element name="pdfReadDefines" type="pdfReadDefines" />
         <xs:element name="pngReadDefines" type="pngReadDefines" />
+        <xs:element name="psdReadDefines" type="psdReadDefines" />
+        <xs:element name="psdWriteDefines" type="psdWriteDefines" />
         <xs:element name="tiffReadDefines" type="tiffReadDefines" />
         <xs:element name="tiffWriteDefines" type="tiffWriteDefines" />
       </xs:choice>
@@ -3467,6 +3497,7 @@
         <xs:element name="jpegReadDefines" type="jpegReadDefines" />
         <xs:element name="pdfReadDefines" type="pdfReadDefines" />
         <xs:element name="pngReadDefines" type="pngReadDefines" />
+        <xs:element name="psdReadDefines" type="psdReadDefines" />
         <xs:element name="tiffReadDefines" type="tiffReadDefines" />
       </xs:choice>
     </xs:sequence>

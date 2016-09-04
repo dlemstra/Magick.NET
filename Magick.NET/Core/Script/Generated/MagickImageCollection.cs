@@ -174,7 +174,7 @@ namespace ImageMagick
           break;
         }
       }
-      throw new NotImplementedException(element.Name);
+      throw new NotSupportedException(element.Name);
     }
     private static MagickImage ExecuteCoalesce(MagickImageCollection collection)
     {

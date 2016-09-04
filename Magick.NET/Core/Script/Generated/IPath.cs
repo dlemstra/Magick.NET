@@ -201,7 +201,7 @@ namespace ImageMagick
           break;
         }
       }
-      throw new NotImplementedException(element.Name);
+      throw new NotSupportedException(element.Name);
     }
     private void ExecutePathArcAbs(XmlElement element, Collection<IPath> paths)
     {

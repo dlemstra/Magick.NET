@@ -1504,7 +1504,7 @@ namespace ImageMagick
           return;
         }
       }
-      throw new NotImplementedException(element.Name);
+      throw new NotSupportedException(element.Name);
     }
     private void ExecuteAlphaColor(XmlElement element, MagickImage image)
     {
@@ -2053,12 +2053,14 @@ namespace ImageMagick
       {
         arguments[elem.Name] = CreateMagickImage(elem);
       }
-      if (OnlyContains(arguments, "image", "method"))
+      if (OnlyContains(arguments, "image"))
+        image.Clut((MagickImage)arguments["image"]);
+      else if (OnlyContains(arguments, "image", "method"))
         image.Clut((MagickImage)arguments["image"], (PixelInterpolateMethod)arguments["method"]);
       else if (OnlyContains(arguments, "image", "method", "channels"))
         image.Clut((MagickImage)arguments["image"], (PixelInterpolateMethod)arguments["method"], (Channels)arguments["channels"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'clut', allowed combinations are: [image, method] [image, method, channels]");
+        throw new ArgumentException("Invalid argument combination for 'clut', allowed combinations are: [image] [image, method] [image, method, channels]");
     }
     private void ExecuteColorAlpha(XmlElement element, MagickImage image)
     {
@@ -2115,7 +2117,9 @@ namespace ImageMagick
       {
         arguments[elem.Name] = CreateMagickImage(elem);
       }
-      if (OnlyContains(arguments, "image", "compose"))
+      if (OnlyContains(arguments, "image"))
+        image.Composite((MagickImage)arguments["image"]);
+      else if (OnlyContains(arguments, "image", "compose"))
         image.Composite((MagickImage)arguments["image"], (CompositeOperator)arguments["compose"]);
       else if (OnlyContains(arguments, "image", "compose", "args"))
         image.Composite((MagickImage)arguments["image"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
@@ -2138,7 +2142,7 @@ namespace ImageMagick
       else if (OnlyContains(arguments, "image", "x", "y", "compose", "args"))
         image.Composite((MagickImage)arguments["image"], (Int32)arguments["x"], (Int32)arguments["y"], (CompositeOperator)arguments["compose"], (String)arguments["args"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [image, compose] [image, compose, args] [image, gravity] [image, gravity, compose] [image, gravity, compose, args] [image, offset] [image, offset, compose] [image, offset, compose, args] [image, x, y] [image, x, y, compose] [image, x, y, compose, args]");
+        throw new ArgumentException("Invalid argument combination for 'composite', allowed combinations are: [image] [image, compose] [image, compose, args] [image, gravity] [image, gravity, compose] [image, gravity, compose, args] [image, offset] [image, offset, compose] [image, offset, compose, args] [image, x, y] [image, x, y, compose] [image, x, y, compose, args]");
     }
     private void ExecuteContrast(XmlElement element, MagickImage image)
     {
@@ -2180,7 +2184,9 @@ namespace ImageMagick
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
       {
-        if (attribute.Name == "geometry")
+        if (attribute.Name == "channels")
+          arguments["channels"] = Variables.GetValue<Channels>(attribute);
+        else if (attribute.Name == "geometry")
           arguments["geometry"] = Variables.GetValue<MagickGeometry>(attribute);
         else if (attribute.Name == "offset")
           arguments["offset"] = Variables.GetValue<PointD>(attribute);
@@ -2193,12 +2199,24 @@ namespace ImageMagick
       {
         arguments[elem.Name] = CreateMagickImage(elem);
       }
-      if (OnlyContains(arguments, "source", "geometry", "offset"))
+      if (OnlyContains(arguments, "source"))
+        image.CopyPixels((MagickImage)arguments["source"]);
+      else if (OnlyContains(arguments, "source", "channels"))
+        image.CopyPixels((MagickImage)arguments["source"], (Channels)arguments["channels"]);
+      else if (OnlyContains(arguments, "source", "geometry"))
+        image.CopyPixels((MagickImage)arguments["source"], (MagickGeometry)arguments["geometry"]);
+      else if (OnlyContains(arguments, "source", "geometry", "channels"))
+        image.CopyPixels((MagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (Channels)arguments["channels"]);
+      else if (OnlyContains(arguments, "source", "geometry", "offset"))
         image.CopyPixels((MagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (PointD)arguments["offset"]);
+      else if (OnlyContains(arguments, "source", "geometry", "offset", "channels"))
+        image.CopyPixels((MagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (PointD)arguments["offset"], (Channels)arguments["channels"]);
       else if (OnlyContains(arguments, "source", "geometry", "x", "y"))
         image.CopyPixels((MagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (Int32)arguments["x"], (Int32)arguments["y"]);
+      else if (OnlyContains(arguments, "source", "geometry", "x", "y", "channels"))
+        image.CopyPixels((MagickImage)arguments["source"], (MagickGeometry)arguments["geometry"], (Int32)arguments["x"], (Int32)arguments["y"], (Channels)arguments["channels"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'copyPixels', allowed combinations are: [source, geometry, offset] [source, geometry, x, y]");
+        throw new ArgumentException("Invalid argument combination for 'copyPixels', allowed combinations are: [source] [source, channels] [source, geometry] [source, geometry, channels] [source, geometry, offset] [source, geometry, offset, channels] [source, geometry, x, y] [source, geometry, x, y, channels]");
     }
     private void ExecuteCrop(XmlElement element, MagickImage image)
     {
@@ -2826,6 +2844,10 @@ namespace ImageMagick
         else if (attribute.Name == "userKernel")
           arguments["userKernel"] = Variables.GetValue<String>(attribute);
       }
+      foreach (XmlElement elem in element.SelectNodes("*"))
+      {
+        arguments[elem.Name] = CreateMorphologySettings(elem);
+      }
       if (OnlyContains(arguments, "method", "kernel"))
         image.Morphology((MorphologyMethod)arguments["method"], (Kernel)arguments["kernel"]);
       else if (OnlyContains(arguments, "method", "kernel", "arguments"))
@@ -2850,8 +2872,10 @@ namespace ImageMagick
         image.Morphology((MorphologyMethod)arguments["method"], (String)arguments["userKernel"], (Channels)arguments["channels"], (Int32)arguments["iterations"]);
       else if (OnlyContains(arguments, "method", "userKernel", "iterations"))
         image.Morphology((MorphologyMethod)arguments["method"], (String)arguments["userKernel"], (Int32)arguments["iterations"]);
+      else if (OnlyContains(arguments, "settings"))
+        image.Morphology((MorphologySettings)arguments["settings"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'morphology', allowed combinations are: [method, kernel] [method, kernel, arguments] [method, kernel, arguments, channels] [method, kernel, arguments, channels, iterations] [method, kernel, arguments, iterations] [method, kernel, channels] [method, kernel, channels, iterations] [method, kernel, iterations] [method, userKernel] [method, userKernel, channels] [method, userKernel, channels, iterations] [method, userKernel, iterations]");
+        throw new ArgumentException("Invalid argument combination for 'morphology', allowed combinations are: [method, kernel] [method, kernel, arguments] [method, kernel, arguments, channels] [method, kernel, arguments, channels, iterations] [method, kernel, arguments, iterations] [method, kernel, channels] [method, kernel, channels, iterations] [method, kernel, iterations] [method, userKernel] [method, userKernel, channels] [method, userKernel, channels, iterations] [method, userKernel, iterations] [settings]");
     }
     private void ExecuteMotionBlur(XmlElement element, MagickImage image)
     {
@@ -3271,6 +3295,8 @@ namespace ImageMagick
       {
         if (attribute.Name == "azimuth")
           arguments["azimuth"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "channels")
+          arguments["channels"] = Variables.GetValue<Channels>(attribute);
         else if (attribute.Name == "colorShading")
           arguments["colorShading"] = Variables.GetValue<Boolean>(attribute);
         else if (attribute.Name == "elevation")
@@ -3278,10 +3304,14 @@ namespace ImageMagick
       }
       if (arguments.Count == 0)
         image.Shade();
+      else if (OnlyContains(arguments, "azimuth", "elevation"))
+        image.Shade((double)arguments["azimuth"], (double)arguments["elevation"]);
       else if (OnlyContains(arguments, "azimuth", "elevation", "colorShading"))
         image.Shade((double)arguments["azimuth"], (double)arguments["elevation"], (Boolean)arguments["colorShading"]);
+      else if (OnlyContains(arguments, "azimuth", "elevation", "colorShading", "channels"))
+        image.Shade((double)arguments["azimuth"], (double)arguments["elevation"], (Boolean)arguments["colorShading"], (Channels)arguments["channels"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'shade', allowed combinations are: [] [azimuth, elevation, colorShading]");
+        throw new ArgumentException("Invalid argument combination for 'shade', allowed combinations are: [] [azimuth, elevation] [azimuth, elevation, colorShading] [azimuth, elevation, colorShading, channels]");
     }
     private void ExecuteShadow(XmlElement element, MagickImage image)
     {
@@ -3357,12 +3387,16 @@ namespace ImageMagick
         else if (attribute.Name == "sharpen")
           arguments["sharpen"] = Variables.GetValue<Boolean>(attribute);
       }
-      if (OnlyContains(arguments, "sharpen", "contrast"))
+      if (OnlyContains(arguments, "contrast"))
+        image.SigmoidalContrast((double)arguments["contrast"]);
+      else if (OnlyContains(arguments, "contrast", "midpoint"))
+        image.SigmoidalContrast((double)arguments["contrast"], (double)arguments["midpoint"]);
+      else if (OnlyContains(arguments, "sharpen", "contrast"))
         image.SigmoidalContrast((Boolean)arguments["sharpen"], (double)arguments["contrast"]);
       else if (OnlyContains(arguments, "sharpen", "contrast", "midpoint"))
         image.SigmoidalContrast((Boolean)arguments["sharpen"], (double)arguments["contrast"], (double)arguments["midpoint"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'sigmoidalContrast', allowed combinations are: [sharpen, contrast] [sharpen, contrast, midpoint]");
+        throw new ArgumentException("Invalid argument combination for 'sigmoidalContrast', allowed combinations are: [contrast] [contrast, midpoint] [sharpen, contrast] [sharpen, contrast, midpoint]");
     }
     private void ExecuteSketch(XmlElement element, MagickImage image)
     {
@@ -3437,8 +3471,10 @@ namespace ImageMagick
         image.Spread();
       else if (OnlyContains(arguments, "method", "radius"))
         image.Spread((PixelInterpolateMethod)arguments["method"], (double)arguments["radius"]);
+      else if (OnlyContains(arguments, "radius"))
+        image.Spread((double)arguments["radius"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'spread', allowed combinations are: [] [method, radius]");
+        throw new ArgumentException("Invalid argument combination for 'spread', allowed combinations are: [] [method, radius] [radius]");
     }
     private void ExecuteStatistic(XmlElement element, MagickImage image)
     {

@@ -283,6 +283,9 @@ namespace FileGenerator.MagickScript
         case "IEnumerable<SparseColorArg>":
           Write("CreateSparseColorArgs");
           break;
+        case "IEnumerable<String>":
+          Write("Variables.GetStringArray");
+          break;
         case "ImageProfile":
           Write("CreateProfile");
           break;
@@ -300,6 +303,9 @@ namespace FileGenerator.MagickScript
           break;
         case "MontageSettings":
           Write("CreateMontageSettings");
+          break;
+        case "MorphologySettings":
+          Write("CreateMorphologySettings");
           break;
         case "PathArc":
           Write("CreateArc");
@@ -392,6 +398,7 @@ namespace FileGenerator.MagickScript
       {
         case "Double[]":
         case "IEnumerable<Double>":
+        case "IEnumerable<String>":
         case "MagickImage":
           Write("element");
           if (!string.IsNullOrEmpty(elementName))

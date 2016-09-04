@@ -481,7 +481,7 @@ namespace ImageMagick
           return;
         }
       }
-      throw new NotImplementedException(element.Name);
+      throw new NotSupportedException(element.Name);
     }
     private void ExecuteDrawableAffine(XmlElement element, Collection<IDrawable> drawables)
     {

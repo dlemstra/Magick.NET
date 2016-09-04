@@ -121,7 +121,7 @@ namespace FileGenerator.MagickScript
     {
       _StartIndent = Indent;
       WriteSwitch(names, 0);
-      WriteLine("throw new NotImplementedException(element.Name);");
+      WriteLine("throw new NotSupportedException(element.Name);");
     }
 
     protected abstract void WriteCase(string name);

@@ -86,6 +86,7 @@ namespace FileGenerator.MagickScript
     {
       CreateCodeFile(new MagickSettingsGenerator());
       CreateCodeFile(new MontageSettingsGenerator());
+      CreateCodeFile(new MorphologySettingsGenerator());
       CreateCodeFile(new PixelStorageSettingsGenerator());
       CreateCodeFile(new QuantizeSettingsGenerator());
     }
