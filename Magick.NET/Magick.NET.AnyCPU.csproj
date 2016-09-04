@@ -427,6 +427,7 @@
     <Compile Include="Core\Script\Generated\MagickReadSettings.cs" />
     <Compile Include="Core\Script\Generated\MagickSettings.cs" />
     <Compile Include="Core\Script\Generated\MontageSettings.cs" />
+    <Compile Include="Core\Script\Generated\MorphologySettings.cs" />
     <Compile Include="Core\Script\Generated\PathArc.cs" />
     <Compile Include="Core\Script\Generated\PixelStorageSettings.cs" />
     <Compile Include="Core\Script\Generated\PointD.cs" />
