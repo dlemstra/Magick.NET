@@ -103,6 +103,14 @@ namespace ImageMagick
         _Warning(this, arguments);
     }
 
+    private void SetDefines(IWriteDefines defines)
+    {
+      foreach (MagickImage image in _Images)
+      {
+        image.Settings.SetDefines(defines);
+      }
+    }
+
     private void SetFormat(MagickFormat format)
     {
       foreach (MagickImage image in _Images)
@@ -1251,6 +1259,19 @@ namespace ImageMagick
     }
 
     ///<summary>
+    /// Writes the images to the specified file. If the output image's file format does not
+    /// allow multi-image files multiple files will be written.
+    ///</summary>
+    ///<param name="file">The file to write the image to.</param>
+    ///<param name="defines">The defines to set.</param>
+    ///<exception cref="MagickException"/>
+    public void Write(FileInfo file, IWriteDefines defines)
+    {
+      SetDefines(defines);
+      Write(file);
+    }
+
+    ///<summary>
     /// Writes the imagse to the specified stream. If the output image's file format does not
     /// allow multi-image files multiple files will be written.
     ///</summary>
@@ -1278,6 +1299,20 @@ namespace ImageMagick
       {
         DetachImages();
       }
+    }
+
+    ///<summary>
+    /// Writes the imagse to the specified stream. If the output image's file format does not
+    /// allow multi-image files multiple files will be written.
+    ///</summary>
+    ///<param name="stream">The stream to write the images to.</param>
+    ///<param name="defines">The defines to set.</param>
+    ///<exception cref="MagickException"/>
+    public void Write(Stream stream, IWriteDefines defines)
+    {
+      SetDefines(defines);
+      SetFormat(defines.Format);
+      Write(stream);
     }
 
     ///<summary>
@@ -1317,6 +1352,19 @@ namespace ImageMagick
       {
         DetachImages();
       }
+    }
+
+    ///<summary>
+    /// Writes the images to the specified file name. If the output image's file format does not
+    /// allow multi-image files multiple files will be written.
+    ///</summary>
+    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    ///<param name="defines">The defines to set.</param>
+    ///<exception cref="MagickException"/>
+    public void Write(string fileName, IWriteDefines defines)
+    {
+      SetDefines(defines);
+      Write(fileName);
     }
   }
 }
