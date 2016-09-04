@@ -103,7 +103,7 @@ namespace ImageMagick
         _Warning(this, arguments);
     }
 
-    private void SetDefines(IWriteDefines defines)
+    private void SetDefines([ValidatedNotNull] IWriteDefines defines)
     {
       foreach (MagickImage image in _Images)
       {

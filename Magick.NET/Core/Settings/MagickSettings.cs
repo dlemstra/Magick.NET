@@ -878,7 +878,7 @@ namespace ImageMagick
     /// Sets format-specific options with the specified defines.
     ///</summary>
     ///<param name="defines">The defines to set.</param>
-    public void SetDefines(IDefines defines)
+    public void SetDefines([ValidatedNotNull] IDefines defines)
     {
       Throw.IfNull(nameof(defines), defines);
 
