@@ -127,6 +127,7 @@
     <Compile Include="Core\Defines\DefineCreator.cs" />
     <Compile Include="Core\Defines\IDefine.cs" />
     <Compile Include="Core\Defines\IDefines.cs" />
+    <Compile Include="Core\Defines\IWriteDefines.cs" />
     <Compile Include="Core\Defines\IReadDefines.cs" />
     <Compile Include="Core\Defines\Jpeg\DtcMethod.cs" />
     <Compile Include="Core\Defines\Jpeg\JpegReadDefines.cs" />
@@ -135,6 +136,9 @@
     <Compile Include="Core\Defines\Pdf\PdfReadDefines.cs" />
     <Compile Include="Core\Defines\Png\PngReadDefines.cs" />
     <Compile Include="Core\Defines\ProfileTypes.cs" />
+    <Compile Include="Core\Defines\Psd\PsdAdditionalInfo.cs" />
+    <Compile Include="Core\Defines\Psd\PsdReadDefines.cs" />
+    <Compile Include="Core\Defines\Psd\PsdWriteDefines.cs" />
     <Compile Include="Core\Defines\Tiff\TiffAlpha.cs" />
     <Compile Include="Core\Defines\Tiff\TiffReadDefines.cs" />
     <Compile Include="Core\Defines\Tiff\TiffWriteDefines.cs" />
