@@ -448,6 +448,8 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, byte[] data, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MagickImage_RegionMask(IntPtr Instance, IntPtr region, out IntPtr exception);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_RemoveArtifact(IntPtr Instance, IntPtr name);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_RemoveAttribute(IntPtr Instance, IntPtr name);
@@ -982,6 +984,8 @@ namespace ImageMagick
         public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, byte[] data, out IntPtr exception);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MagickImage_RegionMask(IntPtr Instance, IntPtr region, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_RemoveArtifact(IntPtr Instance, IntPtr name);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3369,6 +3373,18 @@ namespace ImageMagick
             result = NativeMethods.X86.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, out exception);
           CheckException(exception, result);
           Instance = result;
+        }
+      }
+      public void RegionMask(MagickRectangle region)
+      {
+        using (INativeInstance regionNative = MagickRectangle.CreateInstance(region))
+        {
+          IntPtr exception = IntPtr.Zero;
+          if (NativeLibrary.Is64Bit)
+            NativeMethods.X64.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
+          else
+            NativeMethods.X86.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
+          CheckException(exception);
         }
       }
       public void RemoveArtifact(string name)

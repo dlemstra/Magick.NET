@@ -2793,6 +2793,32 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_RegionMask()
+    {
+      using (MagickImage red = new MagickImage("xc:red", 100, 100))
+      {
+        red.RegionMask(new MagickGeometry(10, 10, 50, 50));
+
+        using (MagickImage green = new MagickImage("xc:green", 100, 100))
+        {
+          green.Composite(red, CompositeOperator.SrcOver);
+
+          ColorAssert.AreEqual(MagickColors.Green, green, 0, 0);
+          ColorAssert.AreEqual(MagickColors.Red, green, 10, 10);
+          ColorAssert.AreEqual(MagickColors.Green, green, 60, 60);
+
+          red.RemoveRegionMask();
+
+          green.Composite(red, CompositeOperator.SrcOver);
+
+          ColorAssert.AreEqual(MagickColors.Red, green, 0, 0);
+          ColorAssert.AreEqual(MagickColors.Red, green, 10, 10);
+          ColorAssert.AreEqual(MagickColors.Red, green, 60, 60);
+        }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_Resample()
     {
       using (MagickImage image = new MagickImage("xc:red", 100, 100))

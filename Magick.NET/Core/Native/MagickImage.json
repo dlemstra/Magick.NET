@@ -1919,6 +1919,17 @@
       ]
     },
     {
+      "name": "RegionMask",
+      "throws": true,
+      "arguments":
+      [
+        {
+          "name": "region",
+          "type": "MagickRectangle"
+        }
+      ]
+    },
+    {
       "name": "RemoveArtifact",
       "arguments":
       [

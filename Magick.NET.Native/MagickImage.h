@@ -383,6 +383,8 @@ MAGICK_NET_EXPORT Image *MagickImage_ReadFile(const ImageInfo *, ExceptionInfo *
 
 MAGICK_NET_EXPORT Image *MagickImage_ReadPixels(const size_t, const size_t, const char *, const size_t, const unsigned char *, ExceptionInfo **);
 
+MAGICK_NET_EXPORT void MagickImage_RegionMask(Image *, const RectangleInfo *, ExceptionInfo **);
+
 MAGICK_NET_EXPORT void MagickImage_RemoveArtifact(Image *, const char *);
 
 MAGICK_NET_EXPORT void MagickImage_RemoveAttribute(Image *, const char *);

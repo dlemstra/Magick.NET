@@ -5212,6 +5212,18 @@ namespace ImageMagick
       Statistic(StatisticType.Nonpeak, order, order);
     }
 
+    /// <summary>
+    /// Associates a mask with the image as defined by the specified region.
+    /// </summary>
+    /// <param name="region">The mask region.</param>
+    public void RegionMask(MagickGeometry region)
+    {
+      Throw.IfNull(nameof(region), region);
+
+      MagickRectangle magickRegion = MagickRectangle.FromGeometry(region, this);
+      _NativeInstance.RegionMask(magickRegion);
+    }
+
     ///<summary>
     /// Removes the artifact with the specified name.
     ///</summary>
@@ -5228,6 +5240,14 @@ namespace ImageMagick
     public void RemoveAttribute(string name)
     {
       _NativeInstance.RemoveAttribute(name);
+    }
+
+    /// <summary>
+    /// Removes the region mask of the image.
+    /// </summary>
+    public void RemoveRegionMask()
+    {
+      _NativeInstance.RegionMask(null);
     }
 
     ///<summary>

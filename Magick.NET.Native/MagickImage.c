@@ -1851,6 +1851,13 @@ MAGICK_NET_EXPORT Image *MagickImage_ReadPixels(const size_t width, const size_t
   return image;
 }
 
+MAGICK_NET_EXPORT void MagickImage_RegionMask(Image *instance, const RectangleInfo *region, ExceptionInfo **exception)
+{
+  MAGICK_NET_GET_EXCEPTION;
+  (void) SetImageRegionMask(instance, ReadPixelMask, region, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+}
+
 MAGICK_NET_EXPORT void MagickImage_RemoveArtifact(Image *instance, const char *name)
 {
   DestroyString(RemoveImageArtifact(instance, name));
