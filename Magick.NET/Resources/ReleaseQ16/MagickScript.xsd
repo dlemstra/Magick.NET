@@ -2583,6 +2583,11 @@
             <xs:attribute name="order" type="int" />
           </xs:complexType>
         </xs:element>
+        <xs:element name="regionMask">
+          <xs:complexType>
+            <xs:attribute name="region" use="required" type="geometry" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="removeArtifact">
           <xs:complexType>
             <xs:attribute name="name" use="required" type="xs:string" />
@@ -2598,6 +2603,7 @@
             <xs:attribute name="name" use="required" type="xs:string" />
           </xs:complexType>
         </xs:element>
+        <xs:element name="removeRegionMask" type="empty" />
         <xs:element name="rePage" type="empty" />
         <xs:element name="resample">
           <xs:complexType>

@@ -954,6 +954,11 @@ namespace ImageMagick
                   ExecuteReduceNoise(element, image);
                   return;
                 }
+                case 'g':
+                {
+                  ExecuteRegionMask(element, image);
+                  return;
+                }
                 case 'm':
                 {
                   switch(element.Name[6])
@@ -978,6 +983,11 @@ namespace ImageMagick
                     case 'P':
                     {
                       ExecuteRemoveProfile(element, image);
+                      return;
+                    }
+                    case 'R':
+                    {
+                      ExecuteRemoveRegionMask(image);
                       return;
                     }
                   }
@@ -3048,6 +3058,11 @@ namespace ImageMagick
       else
         throw new ArgumentException("Invalid argument combination for 'reduceNoise', allowed combinations are: [] [order]");
     }
+    private void ExecuteRegionMask(XmlElement element, MagickImage image)
+    {
+      MagickGeometry region_ = Variables.GetValue<MagickGeometry>(element, "region");
+      image.RegionMask(region_);
+    }
     private void ExecuteRemoveArtifact(XmlElement element, MagickImage image)
     {
       String name_ = Variables.GetValue<String>(element, "name");
@@ -3062,6 +3077,10 @@ namespace ImageMagick
     {
       String name_ = Variables.GetValue<String>(element, "name");
       image.RemoveProfile(name_);
+    }
+    private static void ExecuteRemoveRegionMask(MagickImage image)
+    {
+      image.RemoveRegionMask();
     }
     private static void ExecuteRePage(MagickImage image)
     {
