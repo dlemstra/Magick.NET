@@ -21,7 +21,7 @@ namespace ImageMagick
   /// Represents a number that can be expressed as a fraction
   /// </summary>
   /// <remarks>
-  /// This is a very simplified implimentation of a rational number designed for use with metadata only.
+  /// This is a very simplified implementation of a rational number designed for use with metadata only.
   /// </remarks>
   public struct SignedRational : IEquatable<SignedRational>
   {
