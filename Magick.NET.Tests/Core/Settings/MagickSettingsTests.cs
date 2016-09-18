@@ -286,6 +286,33 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_Interlace()
+    {
+      using (MagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 60))
+      {
+        using (MemoryStream memStream = new MemoryStream())
+        {
+          image.Format = MagickFormat.Jpeg;
+          image.Write(memStream);
+
+          memStream.Position = 0;
+          image.Read(memStream);
+          Assert.AreEqual(Interlace.NoInterlace, image.Interlace);
+        }
+
+        using (MemoryStream memStream = new MemoryStream())
+        {
+          image.Interlace = Interlace.Undefined;
+          image.Write(memStream);
+
+          memStream.Position = 0;
+          image.Read(memStream);
+          Assert.AreEqual(Interlace.Jpeg, image.Interlace);
+        }
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_FontFamily()
     {
       using (MagickImage image = new MagickImage())

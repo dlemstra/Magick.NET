@@ -47,12 +47,12 @@ namespace ImageMagick
       instance.Font = _Font;
       instance.FontPointsize = _FontPointsize;
       instance.Format = format;
+      instance.Interlace = Interlace;
       instance.Monochrome = Monochrome;
       instance.Verbose = Verbose;
 
       instance.SetColorFuzz(ColorFuzz);
       instance.SetFileName(fileName);
-      instance.SetInterlace(Interlace);
       instance.SetNumberScenes(NumberScenes);
       instance.SetPage(MagickGeometry.ToString(Page));
       instance.SetPing(Ping);
@@ -100,6 +100,7 @@ namespace ImageMagick
         _Font = instance.Font;
         _FontPointsize = instance.FontPointsize;
         Format = EnumHelper.Parse(instance.Format, MagickFormat.Unknown);
+        Interlace = instance.Interlace;
         Monochrome = instance.Monochrome;
         Verbose = instance.Verbose;
       }

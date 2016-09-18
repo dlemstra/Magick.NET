@@ -47,6 +47,10 @@
       "type": "bool"
     },
     {
+      "name": "Interlace",
+      "type": "Interlace"
+    },
+    {
       "name": "Verbose",
       "type": "bool"
     }
@@ -70,16 +74,6 @@
         {
           "name": "value",
           "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "SetInterlace",
-      "arguments":
-      [
-        {
-          "name": "value",
-          "type": "Interlace"
         }
       ]
     },

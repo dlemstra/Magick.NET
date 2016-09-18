@@ -2018,6 +2018,8 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
+        Assert.AreEqual(Interlace.NoInterlace, image.Interlace);
+
         image.Interlace = Interlace.Png;
 
         using (MemoryStream memStream = new MemoryStream())

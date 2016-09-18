@@ -136,6 +136,16 @@ MAGICK_NET_EXPORT void MagickSettings_FontPointsize_Set(ImageInfo *instance, con
   instance->pointsize = value;
 }
 
+MAGICK_NET_EXPORT const size_t MagickSettings_Interlace_Get(const ImageInfo *instance)
+{
+  return (size_t)instance->interlace;
+}
+
+MAGICK_NET_EXPORT void MagickSettings_Interlace_Set(ImageInfo *instance, const size_t value)
+{
+  instance->interlace = (InterlaceType)value;
+}
+
 MAGICK_NET_EXPORT const MagickBooleanType MagickSettings_Monochrome_Get(ImageInfo *instance)
 {
   return instance->monochrome;
@@ -167,11 +177,6 @@ MAGICK_NET_EXPORT void MagickSettings_SetFileName(ImageInfo *instance, const cha
     *instance->filename = '\0';
   else
     CopyMagickString(instance->filename, value, MaxTextExtent);
-}
-
-MAGICK_NET_EXPORT void MagickSettings_SetInterlace(ImageInfo *instance, const size_t value)
-{
-  instance->interlace = (InterlaceType)value;
 }
 
 MAGICK_NET_EXPORT void MagickSettings_SetNumberScenes(ImageInfo *instance, const size_t value)

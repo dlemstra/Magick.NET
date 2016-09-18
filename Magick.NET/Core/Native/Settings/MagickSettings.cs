@@ -87,6 +87,10 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_Monochrome_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern UIntPtr MagickSettings_Interlace_Get(IntPtr instance);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MagickSettings_Interlace_Set(IntPtr instance, UIntPtr value);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MagickSettings_Verbose_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -95,8 +99,6 @@ namespace ImageMagick
         public static extern void MagickSettings_SetColorFuzz(IntPtr Instance, double value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_SetFileName(IntPtr Instance, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetInterlace(IntPtr Instance, UIntPtr value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_SetNumberScenes(IntPtr Instance, UIntPtr value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -169,6 +171,10 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_Monochrome_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern UIntPtr MagickSettings_Interlace_Get(IntPtr instance);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MagickSettings_Interlace_Set(IntPtr instance, UIntPtr value);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MagickSettings_Verbose_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -177,8 +183,6 @@ namespace ImageMagick
         public static extern void MagickSettings_SetColorFuzz(IntPtr Instance, double value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_SetFileName(IntPtr Instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickSettings_SetInterlace(IntPtr Instance, UIntPtr value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_SetNumberScenes(IntPtr Instance, UIntPtr value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -456,6 +460,25 @@ namespace ImageMagick
             NativeMethods.X86.MagickSettings_Monochrome_Set(Instance, value);
         }
       }
+      public Interlace Interlace
+      {
+        get
+        {
+          UIntPtr result;
+          if (NativeLibrary.Is64Bit)
+            result = NativeMethods.X64.MagickSettings_Interlace_Get(Instance);
+          else
+            result = NativeMethods.X86.MagickSettings_Interlace_Get(Instance);
+          return (Interlace)result;
+        }
+        set
+        {
+          if (NativeLibrary.Is64Bit)
+            NativeMethods.X64.MagickSettings_Interlace_Set(Instance, (UIntPtr)value);
+          else
+            NativeMethods.X86.MagickSettings_Interlace_Set(Instance, (UIntPtr)value);
+        }
+      }
       public bool Verbose
       {
         get
@@ -491,13 +514,6 @@ namespace ImageMagick
           else
             NativeMethods.X86.MagickSettings_SetFileName(Instance, valueNative.Instance);
         }
-      }
-      public void SetInterlace(Interlace value)
-      {
-        if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickSettings_SetInterlace(Instance, (UIntPtr)value);
-        else
-          NativeMethods.X86.MagickSettings_SetInterlace(Instance, (UIntPtr)value);
       }
       public void SetNumberScenes(int value)
       {
