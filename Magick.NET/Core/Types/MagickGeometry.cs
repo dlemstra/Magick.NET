@@ -102,7 +102,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Initializes a new instance of the MagickGeometry class.
+    /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
     ///</summary>
     public MagickGeometry()
     {
@@ -110,8 +110,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Initializes a new instance of the MagickGeometry class using the specified width and
-    /// height.
+    /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
     ///</summary>
     ///<param name="widthAndHeight">The width and height.</param>
     public MagickGeometry(int widthAndHeight)
@@ -120,8 +119,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Initializes a new instance of the MagickGeometry class using the specified width and
-    /// height.
+    /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
     ///</summary>
     ///<param name="width">The width.</param>
     ///<param name="height">The height.</param>
@@ -131,8 +129,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Initializes a new instance of the MagickGeometry class using the specified offsets, width
-    /// and height.
+    /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified offsets, width and height.
     ///</summary>
     ///<param name="x">The X offset from origin.</param>
     ///<param name="y">The Y offset from origin.</param>
@@ -144,8 +141,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Initializes a new instance of the MagickGeometry class using the specified width and
-    /// height.
+    /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
     ///</summary>
     ///<param name="percentageWidth">The percentage of the width.</param>
     ///<param name="percentageHeight">The percentage of the  height.</param>
@@ -158,8 +154,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Initializes a new instance of the MagickGeometry class using the specified offsets, width
-    /// and height.
+    /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified offsets, width and height.
     ///</summary>
     ///<param name="x">The X offset from origin.</param>
     ///<param name="y">The Y offset from origin.</param>
@@ -174,7 +169,7 @@ namespace ImageMagick
     }
 
     ///<summary>
-    /// Initializes a new instance of the MagickGeometry class using the specified geometry.
+    /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified geometry.
     ///</summary>
     ///<param name="value">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
     ///{+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
@@ -190,10 +185,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified MagickGeometry instances are considered equal.
+    /// Determines whether the specified <see cref="MagickGeometry"/> instances are considered equal.
     /// </summary>
-    /// <param name="left">The first MagickGeometry to compare.</param>
-    /// <param name="right"> The second MagickGeometry to compare.</param>
+    /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
+    /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
     /// <returns></returns>
     public static bool operator ==(MagickGeometry left, MagickGeometry right)
     {
@@ -201,10 +196,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified MagickGeometry instances are not considered equal.
+    /// Determines whether the specified <see cref="MagickGeometry"/> instances are not considered equal.
     /// </summary>
-    /// <param name="left">The first MagickGeometry to compare.</param>
-    /// <param name="right"> The second MagickGeometry to compare.</param>
+    /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
+    /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
     /// <returns></returns>
     public static bool operator !=(MagickGeometry left, MagickGeometry right)
     {
@@ -214,8 +209,8 @@ namespace ImageMagick
     /// <summary>
     /// Determines whether the first MagickGeometry is more than the second MagickGeometry.
     /// </summary>
-    /// <param name="left">The first MagickGeometry to compare.</param>
-    /// <param name="right"> The second MagickGeometry to compare.</param>
+    /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
+    /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
     /// <returns></returns>
     public static bool operator >(MagickGeometry left, MagickGeometry right)
     {
@@ -226,10 +221,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the first MagickGeometry is less than the second MagickGeometry.
+    /// Determines whether the first <see cref="MagickGeometry"/> is less than the second MagickGeometry.
     /// </summary>
-    /// <param name="left">The first MagickGeometry to compare.</param>
-    /// <param name="right"> The second MagickGeometry to compare.</param>
+    /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
+    /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
     /// <returns></returns>
     public static bool operator <(MagickGeometry left, MagickGeometry right)
     {
@@ -240,10 +235,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the first MagickGeometry is more than or equal to the second MagickGeometry.
+    /// Determines whether the first <see cref="MagickGeometry"/> is more than or equal to the second MagickGeometry.
     /// </summary>
-    /// <param name="left">The first MagickGeometry to compare.</param>
-    /// <param name="right"> The second MagickGeometry to compare.</param>
+    /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
+    /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
     /// <returns></returns>
     public static bool operator >=(MagickGeometry left, MagickGeometry right)
     {
@@ -254,10 +249,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the first MagickGeometry is less than or equal to the second MagickGeometry.
+    /// Determines whether the first <see cref="MagickGeometry"/> is less than or equal to the second <see cref="MagickGeometry"/>.
     /// </summary>
-    /// <param name="left">The first MagickGeometry to compare.</param>
-    /// <param name="right"> The second MagickGeometry to compare.</param>
+    /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
+    /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
     /// <returns></returns>
     public static bool operator <=(MagickGeometry left, MagickGeometry right)
     {
