@@ -436,6 +436,15 @@ namespace ImageMagick
         LimitPixels.GetHashCode();
     }
 
+    /// <summary>
+    /// Returns a <see cref="PointD"/> that represents the position of the current geometry.
+    /// </summary>
+    /// <returns></returns>
+    public PointD ToPoint()
+    {
+      return new PointD(X, Y);
+    }
+
     ///<summary>
     /// Returns a string that represents the current geometry.
     ///</summary>

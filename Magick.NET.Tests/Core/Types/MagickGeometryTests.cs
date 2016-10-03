@@ -163,6 +163,20 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod, TestCategory(_Category)]
+    public void Test_ToPoint()
+    {
+      PointD point = new MagickGeometry(10, 5).ToPoint();
+
+      Assert.AreEqual(0, point.X);
+      Assert.AreEqual(0, point.Y);
+
+      point = new MagickGeometry(1, 2, 3, 4).ToPoint();
+
+      Assert.AreEqual(1, point.X);
+      Assert.AreEqual(2, point.Y);
+    }
+
+    [TestMethod, TestCategory(_Category)]
     public void Test_ToString()
     {
       MagickGeometry geometry = new MagickGeometry(10, 5);
