@@ -162,8 +162,8 @@ namespace Magick.NET.Tests
 
         image.Read(Files.Logos.MagickNETSVG);
         Assert.AreEqual(new Density(100, DensityUnit.Undefined), image.Density);
-        Assert.AreEqual(582, image.Width);
-        Assert.AreEqual(280, image.Height);
+        Assert.AreEqual(524, image.Width);
+        Assert.AreEqual(252, image.Height);
       }
     }
 

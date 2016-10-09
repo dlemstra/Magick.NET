@@ -1115,17 +1115,22 @@ namespace Magick.NET.Tests
           };
 
           ConnectedComponent[] components = temp.ConnectedComponents(settings).OrderBy(c => c.X).ToArray();
-          Assert.AreEqual(8, components.Length);
+          Assert.AreEqual(13, components.Length);
           Assert.IsNotNull(temp.GetArtifact("connected-components:area-threshold"));
           Assert.IsNotNull(temp.GetArtifact("connected-components:mean-color"));
 
-          Test_Component(image, components[1], 90, 293, 139, 158);
-          Test_Component(image, components[2], 96, 550, 138, 158);
-          Test_Component(image, components[3], 268, 433, 89, 139);
-          Test_Component(image, components[4], 298, 198, 159, 151);
-          Test_Component(image, components[5], 337, 618, 148, 158);
-          Test_Component(image, components[6], 435, 411, 88, 139);
-          Test_Component(image, components[7], 453, 282, 1, 2);
+          Test_Component(image, components[1], 90, 293, 139, 162);
+          Test_Component(image, components[2], 96, 550, 138, 162);
+          Test_Component(image, components[3], 213, 633, 1, 2);
+          Test_Component(image, components[4], 215, 637, 3, 1);
+          Test_Component(image, components[5], 217, 641, 3, 1);
+          Test_Component(image, components[6], 219, 645, 3, 1);
+          Test_Component(image, components[7], 221, 647, 3, 1);
+          Test_Component(image, components[8], 268, 433, 89, 139);
+          Test_Component(image, components[9], 298, 198, 155, 151);
+          Test_Component(image, components[10], 337, 618, 148, 158);
+          Test_Component(image, components[11], 410, 247, 2, 1);
+          Test_Component(image, components[12], 434, 411, 88, 140);
         }
 #endif
       }
@@ -2367,20 +2372,26 @@ namespace Magick.NET.Tests
           ColorAssert.AreEqual(new MagickColor("gray70"), colorRange, 0, 0);
           ColorAssert.AreEqual(new MagickColor("blue"), colorRange, 101, 0);
 
-          ColorAssert.AreEqual(new MagickColor("gray30"), colorRange, 0, 99);
-          ColorAssert.AreEqual(new MagickColor("navy"), colorRange, 101, 99);
-
+#if Q8
+          ColorAssert.AreEqual(new MagickColor("#4e4e4e"), colorRange, 0, 99);
+          ColorAssert.AreEqual(new MagickColor("#000081"), colorRange, 101, 99);
+#elif Q16 || Q16HDRI
+          ColorAssert.AreEqual(new MagickColor("#4e534e534e53"), colorRange, 0, 99);
+          ColorAssert.AreEqual(new MagickColor("#0000000081c6"), colorRange, 101, 99);
+#else
+#error Not implemented!
+#endif
           colorRange.Normalize();
 
           ColorAssert.AreEqual(new MagickColor("white"), colorRange, 0, 0);
           ColorAssert.AreEqual(new MagickColor("blue"), colorRange, 101, 0);
 
 #if Q8
-          ColorAssert.AreEqual(new MagickColor("gray40"), colorRange, 0, 99);
-          ColorAssert.AreEqual(new MagickColor("#0000b3"), colorRange, 101, 99);
+          ColorAssert.AreEqual(new MagickColor("#686868"), colorRange, 0, 99);
+          ColorAssert.AreEqual(new MagickColor("#0000b4"), colorRange, 101, 99);
 #elif Q16 || Q16HDRI
-          ColorAssert.AreEqual(new MagickColor("#662e662e662e"), colorRange, 0, 99);
-          ColorAssert.AreEqual(new MagickColor("#00000000b317"), colorRange, 101, 99);
+          ColorAssert.AreEqual(new MagickColor("#67a367a367a3"), colorRange, 0, 99);
+          ColorAssert.AreEqual(new MagickColor("#00000000b4f6"), colorRange, 101, 99);
 #else
 #error Not implemented!
 #endif
