@@ -31,7 +31,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the Drawables class.
+    /// Initializes a new instance of the <see cref="Drawables"/> class.
     /// </summary>
     public Drawables()
     {
@@ -39,7 +39,18 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new Paths instance.
+    /// Draw on the specified image.
+    /// </summary>
+    /// <param name="image">The image to draw on.</param>
+    public void Draw(MagickImage image)
+    {
+      Throw.IfNull("image", image);
+
+      image.Draw(this);
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="Paths"/> instance.
     /// </summary>
     /// <returns></returns>
     public Paths Paths()
