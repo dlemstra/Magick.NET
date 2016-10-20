@@ -40,6 +40,7 @@
     <Compile Include="Samples\Magick.NET\DetailedDebugInformation.cs" />
     <Compile Include="Samples\Magick.NET\ExceptionHandling.cs" />
     <Compile Include="Samples\Magick.NET\ExifData.cs" />
+    <Compile Include="Samples\Magick.NET\Drawing.cs" />
     <Compile Include="Samples\Magick.NET\Files\Files.cs" />
     <Compile Include="Samples\Magick.NET\MagickScript.cs" />
     <Compile Include="Samples\Magick.NET\LosslessCompression.cs" />
@@ -60,6 +61,7 @@
     <Content Include="Samples\Magick.NET\CommandLineOptionDefine.vb" />
     <Content Include="Samples\Magick.NET\ConvertImage.vb" />
     <Content Include="Samples\Magick.NET\ConvertPDF.vb" />
+    <Content Include="Samples\Magick.NET\Drawing.vb" />
     <Content Include="Samples\Magick.NET\LosslessCompression.vb" />
     <Content Include="Samples\Magick.NET\ResizeImage.vb" />
     <Content Include="Samples\Magick.NET\UsingColors.vb" />
