@@ -42,11 +42,12 @@ namespace ImageMagick
     /// Draw on the specified image.
     /// </summary>
     /// <param name="image">The image to draw on.</param>
-    public void Draw(MagickImage image)
+    public Drawables Draw(MagickImage image)
     {
       Throw.IfNull("image", image);
 
       image.Draw(this);
+      return this;
     }
 
     /// <summary>
