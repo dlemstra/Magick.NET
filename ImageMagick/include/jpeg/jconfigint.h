@@ -1,6 +1,6 @@
-#define VERSION "@VERSION@"
-#define BUILD "@BUILD@"
-#define PACKAGE_NAME "@CMAKE_PROJECT_NAME@"
+#define VERSION "1.5.1"
+#define BUILD "20161018"
+#define PACKAGE_NAME "libjpeg-turbo"
 
 #ifndef INLINE
 #if defined(__GNUC__)
