@@ -37,7 +37,7 @@ namespace ImageMagick
       instance.SetFont(Font);
       instance.SetFontPointsize(FontPointsize);
       instance.SetFrameGeometry(Convert(FrameGeometry));
-      instance.SetGeometry(Geometry.ToString());
+      instance.SetGeometry(Convert(Geometry));
       instance.SetGravity(Gravity);
       instance.SetShadow(Shadow);
       instance.SetStrokeColor(StrokeColor);
