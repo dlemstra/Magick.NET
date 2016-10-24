@@ -1323,7 +1323,10 @@ namespace ImageMagick
       }
       set
       {
-        SetAttribute("Label", value);
+        if (value == null)
+          RemoveAttribute("Label");
+        else
+          SetAttribute("Label", value);
       }
     }
 
