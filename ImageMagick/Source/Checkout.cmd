@@ -1,7 +1,7 @@
 @echo off
 
 set REPOS=http://git.imagemagick.org/repos
-set DATE=2016-19-10 07:29
+set DATE=2016-30-10 15:17
 
 set BASH="%PROGRAMFILES%\Git\bin\bash.exe"
 if exist %BASH% goto EXECUTE
@@ -15,4 +15,8 @@ exit /b 1
 
 :EXECUTE
 %BASH% --login -i -c "./Checkout.sh %REPOS% \"%DATE%\""
+
+call "%vs140comntools%vsvars32.bat"
+powershell -ExecutionPolicy Unrestricted ..\..\Tools\Scripts\GenerateLibrariesDoc.ps1
+
 pause
