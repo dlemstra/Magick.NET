@@ -86,17 +86,22 @@ namespace ImageMagick
 
     private void Dispose(bool disposing)
     {
-      if (_NativeInstance != null)
-      {
-        _NativeInstance.Warning -= OnWarning;
-        _NativeInstance.Dispose();
-      }
+      DisposeInstance();
 
       if (disposing)
       {
         if (Settings != null)
           Settings.Artifact -= OnArtifact;
       }
+    }
+
+    private void DisposeInstance()
+    {
+      if (_NativeInstance == null)
+        return;
+
+      _NativeInstance.Warning -= OnWarning;
+      _NativeInstance.Dispose();
     }
 
     private string FormatedFileSize()
@@ -334,6 +339,8 @@ namespace ImageMagick
 
     private void SetInstance(NativeMagickImage instance)
     {
+      DisposeInstance();
+
       _NativeInstance = instance;
       _NativeInstance.Warning += OnWarning;
     }
