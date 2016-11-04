@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies alpha options.
-  ///</summary>
+  /// </summary>
   public enum AlphaOption
   {
     /// <summary>

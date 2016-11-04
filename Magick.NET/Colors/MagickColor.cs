@@ -16,23 +16,23 @@ using System.Drawing;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that represents a color.
-  ///</summary>
+  /// </summary>
   public sealed partial class MagickColor
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickColor class using the specified color.
-    ///</summary>
-    ///<param name="color">The color to use.</param>
+    /// </summary>
+    /// <param name="color">The color to use.</param>
     public MagickColor(Color color)
     {
       Initialize(color.R, color.G, color.B, color.A);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified MagickColor to a Color instance.
-    ///</summary>
+    /// </summary>
     public static implicit operator Color(MagickColor color)
     {
       if (ReferenceEquals(color, null))
@@ -41,17 +41,17 @@ namespace ImageMagick
       return color.ToColor();
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified color to an MagickColor instance.
-    ///</summary>
+    /// </summary>
     public static implicit operator MagickColor(Color color)
     {
       return new MagickColor(color);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the value of this instance to an equivalent Color.
-    ///</summary>
+    /// </summary>
     public Color ToColor()
     {
       return Color.FromArgb(Quantum.ScaleToByte(A), Quantum.ScaleToByte(R), Quantum.ScaleToByte(G), Quantum.ScaleToByte(B));

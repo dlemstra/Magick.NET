@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the evaluate functions.
-  ///</summary>
+  /// </summary>
   public enum EvaluateFunction
   {
     /// <summary>

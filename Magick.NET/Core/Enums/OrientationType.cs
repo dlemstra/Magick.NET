@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specified the photo orientation of the image.
-  ///</summary>
+  /// </summary>
   public enum OrientationType
   {
     /// <summary>

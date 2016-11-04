@@ -18,9 +18,9 @@ using System.Text;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Interface for internal use.
-  ///</summary>
+  /// </summary>
   public interface IDrawingWand
   {
 #pragma warning disable 1591

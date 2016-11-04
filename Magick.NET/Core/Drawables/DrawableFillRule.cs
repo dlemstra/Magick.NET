@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Sets the fill rule to use while drawing polygons.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableFillRule : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.FillRule(FillRule);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableFillRule instance.
-    ///</summary>
-    ///<param name="fillRule">The rule to use when filling drawn objects.</param>
+    /// </summary>
+    /// <param name="fillRule">The rule to use when filling drawn objects.</param>
     public DrawableFillRule(FillRule fillRule)
     {
       FillRule = fillRule;
     }
 
-    ///<summary>
+    /// <summary>
     /// The rule to use when filling drawn objects.
-    ///</summary>
+    /// </summary>
     public FillRule FillRule
     {
       get;

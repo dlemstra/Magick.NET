@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the virtual pixel methods.
-  ///</summary>
+  /// </summary>
   public enum VirtualPixelMethod
   {
 

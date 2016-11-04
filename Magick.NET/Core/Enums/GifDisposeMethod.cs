@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies gif disposal methods.
-  ///</summary>
+  /// </summary>
   public enum GifDisposeMethod
   {
     /// <summary>

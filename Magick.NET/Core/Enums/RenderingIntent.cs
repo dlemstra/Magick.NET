@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the type of rendering intent.
-  ///</summary>
+  /// </summary>
   public enum RenderingIntent
   {
     /// <summary>

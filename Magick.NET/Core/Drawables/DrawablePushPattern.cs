@@ -14,12 +14,12 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// indicates that subsequent commands up to a DrawablePopPattern command comprise the definition
   /// of a named pattern. The pattern space is assigned top left corner coordinates, a width and
   /// height, and becomes its own drawing space. Anything which can be drawn may be used in a
   /// pattern definition. Named patterns may be used as stroke or brush definitions.
-  ///</summary>
+  /// </summary>
   public sealed class DrawablePushPattern : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -28,14 +28,14 @@ namespace ImageMagick
         wand.PushPattern(ID, X, Y, Width, Height);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawablePushPattern instance.
-    ///</summary>
-    ///<param name="id">The ID of the pattern.</param>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
-    ///<param name="width">The width.</param>
-    ///<param name="height">The height.</param>
+    /// </summary>
+    /// <param name="id">The ID of the pattern.</param>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
+    /// <param name="width">The width.</param>
+    /// <param name="height">The height.</param>
     public DrawablePushPattern(string id, double x, double y, double width, double height)
     {
       ID = id;

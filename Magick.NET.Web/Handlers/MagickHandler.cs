@@ -114,7 +114,7 @@ namespace ImageMagick.Web.Handlers
       return false;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickHandler class.
     /// </summary>
     protected MagickHandler(IUrlResolver urlResolver, MagickFormatInfo formatInfo)

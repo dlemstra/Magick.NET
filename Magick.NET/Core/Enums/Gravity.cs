@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the placement gravity.
-  ///</summary>
+  /// </summary>
   public enum Gravity
   {
     /// <summary>

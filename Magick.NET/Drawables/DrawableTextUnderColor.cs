@@ -18,10 +18,10 @@ namespace ImageMagick
 {
   public sealed partial class DrawableTextUnderColor
   {
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableTextUnderColor instance.
-    ///</summary>
-    ///<param name="color">The color to use.</param>
+    /// </summary>
+    /// <param name="color">The color to use.</param>
     public DrawableTextUnderColor(Color color)
     {
       Color = color;

@@ -16,9 +16,9 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains setting for when an image is being read.
-  ///</summary>
+  /// </summary>
   public sealed class MagickReadSettings : MagickSettings
   {
     private string GetScenes()
@@ -88,70 +88,70 @@ namespace ImageMagick
       PixelStorage = settings.PixelStorage?.Clone();
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="MagickReadSettings"/> class.
-    ///</summary>
+    /// </summary>
     public MagickReadSettings()
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="MagickReadSettings"/> class with the specified defines.
-    ///</summary>
-    ///<param name="readDefines">The read defines to set.</param>
+    /// </summary>
+    /// <param name="readDefines">The read defines to set.</param>
     public MagickReadSettings(IReadDefines readDefines)
     {
       SetDefines(readDefines);
     }
 
-    ///<summary>
+    /// <summary>
     /// Defines that should be set before the image is read.
-    ///</summary>
+    /// </summary>
     public IReadDefines Defines
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The index of the image to read from a multi layer/frame image.
-    ///</summary>
+    /// </summary>
     public int? FrameIndex
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The number of images to read from a multi layer/frame image.
-    ///</summary>
+    /// </summary>
     public int? FrameCount
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The height.
-    ///</summary>
+    /// </summary>
     public int? Height
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The settings for pixel storage.
-    ///</summary>
+    /// </summary>
     public PixelStorageSettings PixelStorage
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Use monochrome reader. This is supported by: PCL, PDF, PS and XPS.
-    ///</summary>
+    /// </summary>
     public bool UseMonochrome
     {
       get
@@ -164,9 +164,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// The width.
-    ///</summary>
+    /// </summary>
     public int? Width
     {
       get;

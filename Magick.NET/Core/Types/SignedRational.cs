@@ -28,7 +28,7 @@ namespace ImageMagick
     /// <summary>
     /// Initializes a new instance of the <see cref="SignedRational"/> struct.
     /// </summary>
-    ///<param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
+    /// <param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
     public SignedRational(double value)
       : this(value, false)
     {
@@ -37,8 +37,8 @@ namespace ImageMagick
     /// <summary>
     /// Initializes a new instance of the <see cref="SignedRational"/> struct.
     /// </summary>
-    ///<param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
-    ///<param name="bestPrecision">Specifies if the instance should be created with the best precision possible.</param>
+    /// <param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
+    /// <param name="bestPrecision">Specifies if the instance should be created with the best precision possible.</param>
     public SignedRational(double value, bool bestPrecision)
     {
       BigRational rational = new BigRational(value, bestPrecision);
@@ -120,10 +120,10 @@ namespace ImageMagick
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified <see cref="object"/> is equal to this <see cref="SignedRational"/>.
-    ///</summary>
-    ///<param name="obj">The <see cref="object"/> to compare this <see cref="SignedRational"/> with.</param>
+    /// </summary>
+    /// <param name="obj">The <see cref="object"/> to compare this <see cref="SignedRational"/> with.</param>
     public override bool Equals(object obj)
     {
       if (obj is SignedRational)
@@ -132,10 +132,10 @@ namespace ImageMagick
       return false;
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified <see cref="SignedRational"/> is equal to this <see cref="SignedRational"/>.
-    ///</summary>
-    ///<param name="other">The <see cref="SignedRational"/> to compare this <see cref="SignedRational"/> with.</param>
+    /// </summary>
+    /// <param name="other">The <see cref="SignedRational"/> to compare this <see cref="SignedRational"/> with.</param>
     public bool Equals(SignedRational other)
     {
       BigRational left = new BigRational(Numerator, Denominator);
@@ -144,28 +144,28 @@ namespace ImageMagick
       return left.Equals(right);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified <see cref="double"/> to an instance of this type.
-    ///</summary>
-    ///<param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
+    /// </summary>
+    /// <param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
     public static SignedRational FromDouble(double value)
     {
       return new SignedRational(value, false);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified <see cref="double"/> to an instance of this type.
-    ///</summary>
-    ///<param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
-    ///<param name="bestPrecision">Specifies if the instance should be created with the best precision possible.</param>
+    /// </summary>
+    /// <param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
+    /// <param name="bestPrecision">Specifies if the instance should be created with the best precision possible.</param>
     public static SignedRational FromDouble(double value, bool bestPrecision)
     {
       return new SignedRational(value, bestPrecision);
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       BigRational self = new BigRational(Numerator, Denominator);

@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// The normalized moments of one image channels.
-  ///</summary>
+  /// </summary>
   public sealed partial class ChannelMoments
   {
     private double[] _HuInvariants;
@@ -52,63 +52,63 @@ namespace ImageMagick
       return new ChannelMoments(channel, instance);
     }
 
-    ///<summary>
+    /// <summary>
     /// The centroid.
-    ///</summary>
+    /// </summary>
     public PointD Centroid
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The channel of this moment.
-    ///</summary>
+    /// </summary>
     public PixelChannel Channel
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The ellipse axis.
-    ///</summary>
+    /// </summary>
     public PointD EllipseAxis
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The ellipse angle.
-    ///</summary>
+    /// </summary>
     public double EllipseAngle
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The ellipse eccentricity.
-    ///</summary>
+    /// </summary>
     public double EllipseEccentricity
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The ellipse intensity.
-    ///</summary>
+    /// </summary>
     public double EllipseIntensity
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Hu invariants.
-    ///</summary>
+    /// </summary>
     public double HuInvariants(int index)
     {
       Throw.IfOutOfRange(nameof(index), index, 8);

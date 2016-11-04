@@ -16,10 +16,10 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Adjusts the current affine transformation matrix with the specified affine transformation
   /// matrix. Note that the current affine transform is adjusted rather than replaced.
-  ///</summary>
+  /// </summary>
   public sealed partial class DrawableAffine : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -50,23 +50,23 @@ namespace ImageMagick
       TranslateY = shearX * affine.TranslateX + scaleY * affine.TranslateY + translateY;
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableAffine instance.
-    ///</summary>
+    /// </summary>
     public DrawableAffine()
     {
       Reset();
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableAffine instance.
-    ///</summary>
-    ///<param name="scaleX">The X coordinate scaling element.</param>
-    ///<param name="scaleY">The Y coordinate scaling element.</param>
-    ///<param name="shearX">The X coordinate shearing element.</param>
-    ///<param name="shearY">The Y coordinate shearing element.</param>
-    ///<param name="translateX">The X coordinate of the translation element.</param>
-    ///<param name="translateY">The Y coordinate of the translation element.</param>
+    /// </summary>
+    /// <param name="scaleX">The X coordinate scaling element.</param>
+    /// <param name="scaleY">The Y coordinate scaling element.</param>
+    /// <param name="shearX">The X coordinate shearing element.</param>
+    /// <param name="shearY">The Y coordinate shearing element.</param>
+    /// <param name="translateX">The X coordinate of the translation element.</param>
+    /// <param name="translateY">The Y coordinate of the translation element.</param>
     public DrawableAffine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)
     {
       ScaleX = scaleX;
@@ -77,54 +77,54 @@ namespace ImageMagick
       TranslateY = translateY;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X coordinate scaling element.
-    ///</summary>
+    /// </summary>
     public double ScaleX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y coordinate scaling element.
-    ///</summary>
+    /// </summary>
     public double ScaleY
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X coordinate shearing element.
-    ///</summary>
+    /// </summary>
     public double ShearX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y coordinate shearing element.
-    ///</summary>
+    /// </summary>
     public double ShearY
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X coordinate of the translation element.
-    ///</summary>
+    /// </summary>
     public double TranslateX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y coordinate of the translation element.
-    ///</summary>
+    /// </summary>
     public double TranslateY
     {
       get;
@@ -147,8 +147,8 @@ namespace ImageMagick
     /// <summary>
     /// Sets the origin of coordinate system.
     /// </summary>
-    ///<param name="translateX">The X coordinate of the translation element.</param>
-    ///<param name="translateY">The Y coordinate of the translation element.</param>
+    /// <param name="translateX">The X coordinate of the translation element.</param>
+    /// <param name="translateY">The Y coordinate of the translation element.</param>
     public void TransformOrigin(double translateX, double translateY)
     {
       DrawableAffine affine = new DrawableAffine();
@@ -178,8 +178,8 @@ namespace ImageMagick
     /// <summary>
     /// Sets the scale to use.
     /// </summary>
-    ///<param name="scaleX">The X coordinate scaling element.</param>
-    ///<param name="scaleY">The Y coordinate scaling element.</param>
+    /// <param name="scaleX">The X coordinate scaling element.</param>
+    /// <param name="scaleY">The Y coordinate scaling element.</param>
     public void TransformScale(double scaleX, double scaleY)
     {
       DrawableAffine affine = new DrawableAffine();
@@ -193,7 +193,7 @@ namespace ImageMagick
     /// <summary>
     /// Skew to use in X axis
     /// </summary>
-    ///<param name="skewX">The X skewing element.</param>
+    /// <param name="skewX">The X skewing element.</param>
     public void TransformSkewX(double skewX)
     {
       DrawableAffine affine = new DrawableAffine();
@@ -206,7 +206,7 @@ namespace ImageMagick
     /// <summary>
     /// Skew to use in Y axis
     /// </summary>
-    ///<param name="skewY">The Y skewing element.</param>
+    /// <param name="skewY">The Y skewing element.</param>
     public void TransformSkewY(double skewY)
     {
       DrawableAffine affine = new DrawableAffine();

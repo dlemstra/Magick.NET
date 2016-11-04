@@ -16,9 +16,9 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a bezier curve through a set of points on the image.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableBezier : IDrawable
   {
     PointDCoordinates _Coordinates;
@@ -29,19 +29,19 @@ namespace ImageMagick
         wand.Bezier(_Coordinates.ToList());
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableBezier instance.
-    ///</summary>
-    ///<param name="coordinates">The coordinates.</param>
+    /// </summary>
+    /// <param name="coordinates">The coordinates.</param>
     public DrawableBezier(params PointD[] coordinates)
     {
       _Coordinates = new PointDCoordinates(coordinates, 3);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableBezier instance.
-    ///</summary>
-    ///<param name="coordinates">The coordinates.</param>
+    /// </summary>
+    /// <param name="coordinates">The coordinates.</param>
     public DrawableBezier(IEnumerable<PointD> coordinates)
     {
       _Coordinates = new PointDCoordinates(coordinates, 3);

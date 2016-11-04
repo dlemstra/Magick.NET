@@ -17,9 +17,9 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// The normalized moments of one or more image channels.
-  ///</summary>
+  /// </summary>
   public sealed partial class Moments
   {
     private Dictionary<PixelChannel, ChannelMoments> _Channels;
@@ -49,17 +49,17 @@ namespace ImageMagick
         NativeMoments.DisposeList(list);
     }
 
-    ///<summary>
+    /// <summary>
     /// Moments for the all the channels.
-    ///</summary>
+    /// </summary>
     public ChannelMoments Composite()
     {
       return GetChannel(PixelChannel.Composite);
     }
 
-    ///<summary>
+    /// <summary>
     /// Moments for the specified channel.
-    ///</summary>
+    /// </summary>
     public ChannelMoments GetChannel(PixelChannel channel)
     {
       ChannelMoments moments;

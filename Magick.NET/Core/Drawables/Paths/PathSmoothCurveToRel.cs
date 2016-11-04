@@ -14,7 +14,7 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a cubic Bezier curve from the current point to (x,y) using relative coordinates. The
   /// first control point is assumed to be the reflection of the second control point on the
   /// previous command relative to the current point. (If there is no previous command or if the
@@ -23,7 +23,7 @@ namespace ImageMagick
   /// (x2,y2) is the second control point (i.e., the control point at the end of the curve). At
   /// the end of the command, the new current point becomes the final (x,y) coordinate pair used
   /// in the polybezier.
-  ///</summary>
+  /// </summary>
   public sealed class PathSmoothCurveToRel : IPath
   {
     private PointD _ControlPoint;
@@ -35,23 +35,23 @@ namespace ImageMagick
         wand.PathSmoothCurveToRel(_ControlPoint, _End);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathSmoothCurveToRel class.
-    ///</summary>
-    ///<param name="x2">X coordinate of second point</param>
-    ///<param name="y2">Y coordinate of second point</param>
-    ///<param name="x">X coordinate of final point</param>
-    ///<param name="y">Y coordinate of final point</param>
+    /// </summary>
+    /// <param name="x2">X coordinate of second point</param>
+    /// <param name="y2">Y coordinate of second point</param>
+    /// <param name="x">X coordinate of final point</param>
+    /// <param name="y">Y coordinate of final point</param>
     public PathSmoothCurveToRel(double x2, double y2, double x, double y)
       : this(new PointD(x2, y2), new PointD(x, y))
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathSmoothCurveToRel class.
-    ///</summary>
-    ///<param name="controlPoint">Coordinate of second point</param>
-    ///<param name="end">Coordinate of final point</param>
+    /// </summary>
+    /// <param name="controlPoint">Coordinate of second point</param>
+    /// <param name="end">Coordinate of final point</param>
     public PathSmoothCurveToRel(PointD controlPoint, PointD end)
     {
       _ControlPoint = controlPoint;

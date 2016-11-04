@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulation of the ImageMagick Warning exception.
-  ///</summary>
+  /// </summary>
   [Serializable]
   public class MagickWarningException : MagickException
   {

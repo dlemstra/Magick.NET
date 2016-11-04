@@ -16,24 +16,24 @@ using System.Drawing;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulation of the ImageMagick geometry object.
-  ///</summary>
+  /// </summary>
   public sealed partial class MagickGeometry
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickGeometry class using the specified rectangle.
-    ///</summary>
-    ///<param name="rectangle">The rectangle to use.</param>
+    /// </summary>
+    /// <param name="rectangle">The rectangle to use.</param>
     public MagickGeometry(Rectangle rectangle)
     {
       Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, false);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified rectangle to an instance of this type.
-    ///</summary>
-    ///<param name="rectangle">The rectangle to use.</param>
+    /// </summary>
+    /// <param name="rectangle">The rectangle to use.</param>
     public static explicit operator MagickGeometry(Rectangle rectangle)
     {
       return new MagickGeometry(rectangle);

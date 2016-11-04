@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Sets the spacing between words in text.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableTextInterwordSpacing : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.TextInterwordSpacing(Spacing);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableTextInterwordSpacing instance.
-    ///</summary>
-    ///<param name="spacing">Spacing to use.</param>
+    /// </summary>
+    /// <param name="spacing">Spacing to use.</param>
     public DrawableTextInterwordSpacing(double spacing)
     {
       Spacing = spacing;
     }
 
-    ///<summary>
+    /// <summary>
     /// Spacing to use.
-    ///</summary>
+    /// </summary>
     public double Spacing
     {
       get;

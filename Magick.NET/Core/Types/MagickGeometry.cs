@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulation of the ImageMagick geometry object.
-  ///</summary>
+  /// </summary>
   public sealed partial class MagickGeometry
   {
     private MagickGeometry(NativeMagickGeometry instance)
@@ -101,50 +101,50 @@ namespace ImageMagick
       return value == null ? null : value.ToString();
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
-    ///</summary>
+    /// </summary>
     public MagickGeometry()
     {
       Initialize(0, 0, 0, 0, false);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
-    ///</summary>
-    ///<param name="widthAndHeight">The width and height.</param>
+    /// </summary>
+    /// <param name="widthAndHeight">The width and height.</param>
     public MagickGeometry(int widthAndHeight)
     {
       Initialize(0, 0, widthAndHeight, widthAndHeight, false);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
-    ///</summary>
-    ///<param name="width">The width.</param>
-    ///<param name="height">The height.</param>
+    /// </summary>
+    /// <param name="width">The width.</param>
+    /// <param name="height">The height.</param>
     public MagickGeometry(int width, int height)
     {
       Initialize(0, 0, width, height, false);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified offsets, width and height.
-    ///</summary>
-    ///<param name="x">The X offset from origin.</param>
-    ///<param name="y">The Y offset from origin.</param>
-    ///<param name="width">The width.</param>
-    ///<param name="height">The height.</param>
+    /// </summary>
+    /// <param name="x">The X offset from origin.</param>
+    /// <param name="y">The Y offset from origin.</param>
+    /// <param name="width">The width.</param>
+    /// <param name="height">The height.</param>
     public MagickGeometry(int x, int y, int width, int height)
     {
       Initialize(x, y, width, height, false);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
-    ///</summary>
-    ///<param name="percentageWidth">The percentage of the width.</param>
-    ///<param name="percentageHeight">The percentage of the  height.</param>
+    /// </summary>
+    /// <param name="percentageWidth">The percentage of the width.</param>
+    /// <param name="percentageHeight">The percentage of the  height.</param>
     public MagickGeometry(Percentage percentageWidth, Percentage percentageHeight)
     {
       Throw.IfNegative(nameof(percentageWidth), percentageWidth);
@@ -153,13 +153,13 @@ namespace ImageMagick
       Initialize(0, 0, (int)percentageWidth, (int)percentageHeight, true);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified offsets, width and height.
-    ///</summary>
-    ///<param name="x">The X offset from origin.</param>
-    ///<param name="y">The Y offset from origin.</param>
-    ///<param name="percentageWidth">The percentage of the width.</param>
-    ///<param name="percentageHeight">The percentage of the  height.</param>
+    /// </summary>
+    /// <param name="x">The X offset from origin.</param>
+    /// <param name="y">The Y offset from origin.</param>
+    /// <param name="percentageWidth">The percentage of the width.</param>
+    /// <param name="percentageHeight">The percentage of the  height.</param>
     public MagickGeometry(int x, int y, Percentage percentageWidth, Percentage percentageHeight)
     {
       Throw.IfNegative(nameof(percentageWidth), percentageWidth);
@@ -168,11 +168,11 @@ namespace ImageMagick
       Initialize(x, y, (int)percentageWidth, (int)percentageHeight, true);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified geometry.
-    ///</summary>
-    ///<param name="value">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
-    ///{+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
+    /// </summary>
+    /// <param name="value">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
+    /// {+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
     public MagickGeometry(string value)
     {
       Throw.IfNullOrEmpty(nameof(value), value);
@@ -262,110 +262,110 @@ namespace ImageMagick
       return left.CompareTo(right) <= 0;
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified string to an instance of this type.
-    ///</summary>
-    ///<param name="value">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
-    ///{+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
+    /// </summary>
+    /// <param name="value">Geometry specifications in the form: &lt;width&gt;x&lt;height&gt;
+    /// {+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers)</param>
     public static explicit operator MagickGeometry(string value)
     {
       return new MagickGeometry(value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Resize the image based on the smallest fitting dimension (^).
-    ///</summary>
+    /// </summary>
     public bool FillArea
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Resize if image is greater than size (&gt;)
-    ///</summary>
+    /// </summary>
     public bool Greater
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The height of the geometry.
-    ///</summary>
+    /// </summary>
     public int Height
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Resize without preserving aspect ratio (!)
-    ///</summary>
+    /// </summary>
     public bool IgnoreAspectRatio
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// True if width and height are expressed as percentages.
-    ///</summary>
+    /// </summary>
     public bool IsPercentage
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Resize if image is less than size (&lt;)
-    ///</summary>
+    /// </summary>
     public bool Less
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Resize using a pixel area count limit (@).
-    ///</summary>
+    /// </summary>
     public bool LimitPixels
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The width of the geometry.
-    ///</summary>
+    /// </summary>
     public int Width
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// X offset from origin
-    ///</summary>
+    /// </summary>
     public int X
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Y offset from origin
-    ///</summary>
+    /// </summary>
     public int Y
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Compares the current instance with another object of the same type.
-    ///</summary>
-    ///<param name="other">The object to compare this geometry with.</param>
+    /// </summary>
+    /// <param name="other">The object to compare this geometry with.</param>
     public int CompareTo(MagickGeometry other)
     {
 
@@ -381,10 +381,10 @@ namespace ImageMagick
       return left < right ? -1 : 1;
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current geometry.
-    ///</summary>
-    ///<param name="obj">The object to compare this geometry with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this geometry with.</param>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -393,10 +393,10 @@ namespace ImageMagick
       return Equals(obj as MagickGeometry);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified geometry is equal to the current geometry.
-    ///</summary>
-    ///<param name="other">The geometry to compare this geometry with.</param>
+    /// </summary>
+    /// <param name="other">The geometry to compare this geometry with.</param>
     public bool Equals(MagickGeometry other)
     {
       if (ReferenceEquals(other, null))
@@ -418,9 +418,9 @@ namespace ImageMagick
         LimitPixels == other.LimitPixels;
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return
@@ -445,9 +445,9 @@ namespace ImageMagick
       return new PointD(X, Y);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string that represents the current geometry.
-    ///</summary>
+    /// </summary>
     public override string ToString()
     {
       string result = null;

@@ -61,10 +61,10 @@ namespace ImageMagick
       return !Equals(left, right);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current 8bim value.
-    ///</summary>
-    ///<param name="obj">The object to compare this 8bim value with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this 8bim value with.</param>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -73,10 +73,10 @@ namespace ImageMagick
       return Equals(obj as EightBimValue);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified 8bim value is equal to the current 8bim value.
-    ///</summary>
-    ///<param name="other">The exif value to compare this 8bim value with.</param>
+    /// </summary>
+    /// <param name="other">The exif value to compare this 8bim value with.</param>
     public bool Equals(EightBimValue other)
     {
       if (ReferenceEquals(other, null))
@@ -106,9 +106,9 @@ namespace ImageMagick
       return true;
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
 
@@ -117,9 +117,9 @@ namespace ImageMagick
         ID.GetHashCode();
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts this instance to a byte array.
-    ///</summary>
+    /// </summary>
     public byte[] ToByteArray()
     {
       byte[] data = new byte[_Data.Length];
@@ -127,17 +127,17 @@ namespace ImageMagick
       return data;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string that represents the current value.
-    ///</summary>
+    /// </summary>
     public override string ToString()
     {
       return ToString(Encoding.UTF8);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string that represents the current value with the specified encoding.
-    ///</summary>
+    /// </summary>
     public string ToString(Encoding encoding)
     {
       Throw.IfNull(nameof(encoding), encoding);

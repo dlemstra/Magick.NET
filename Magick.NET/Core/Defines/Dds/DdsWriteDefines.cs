@@ -17,14 +17,14 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class for defines that are used when a dds image is written.
-  ///</summary>
+  /// </summary>
   public sealed class DdsWriteDefines : DefineCreator, IWriteDefines
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="DdsWriteDefines"/> class.
-    ///</summary>
+    /// </summary>
     public DdsWriteDefines()
       : base(MagickFormat.Dds)
     {
@@ -38,45 +38,45 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Enables or disables cluser fit (dds:cluster-fit).
-    ///</summary>
+    /// </summary>
     public bool? ClusterFit
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the compression that will be used (dds:compression).
-    ///</summary>
+    /// </summary>
     public DdsCompression? Compression
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the number of mipmaps, zero will disable writing mipmaps (dds:mipmaps).
-    ///</summary>
+    /// </summary>
     public int? Mipmaps
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Enables or disables weight by alpha when cluster fit is used (dds:weight-by-alpha).
-    ///</summary>
+    /// </summary>
     public bool? WeightByAlpha
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The defines that should be set as a define on an image
-    ///</summary>
+    /// </summary>
     public override IEnumerable<IDefine> Defines
     {
       get

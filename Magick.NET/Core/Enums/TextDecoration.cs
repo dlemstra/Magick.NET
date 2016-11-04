@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specified the type of decoration for text.
-  ///</summary>
+  /// </summary>
   public enum TextDecoration
   {
     /// <summary>

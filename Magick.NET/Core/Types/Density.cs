@@ -18,9 +18,9 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Represents the density of an image.
-  ///</summary>
+  /// </summary>
   public sealed class Density : IEquatable<Density>
   {
     private void Initialize(string value)
@@ -72,41 +72,41 @@ namespace ImageMagick
       return new Density(value.X, value.Y, value.Units);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the Density class using the specified x and y.
-    ///</summary>
-    ///<param name="xy">The x and y.</param>
+    /// </summary>
+    /// <param name="xy">The x and y.</param>
     public Density(double xy)
       : this(xy, xy)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the Density class using the specified x and y and units.
-    ///</summary>
-    ///<param name="xy">The x and y.</param>
-    ///<param name="units">The units.</param>
+    /// </summary>
+    /// <param name="xy">The x and y.</param>
+    /// <param name="units">The units.</param>
     public Density(double xy, DensityUnit units)
       : this(xy, xy, units)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the Density class using the specified x and y.
-    ///</summary>
-    ///<param name="x">The x.</param>
-    ///<param name="y">The y.</param>
+    /// </summary>
+    /// <param name="x">The x.</param>
+    /// <param name="y">The y.</param>
     public Density(double x, double y)
       : this(x, y, DensityUnit.PixelsPerInch)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the Density class using the specified x and y and units.
-    ///</summary>
-    ///<param name="x">The x.</param>
-    ///<param name="y">The y.</param>
-    ///<param name="units">The units.</param>
+    /// </summary>
+    /// <param name="x">The x.</param>
+    /// <param name="y">The y.</param>
+    /// <param name="units">The units.</param>
     public Density(double x, double y, DensityUnit units)
     {
       X = x;
@@ -114,36 +114,36 @@ namespace ImageMagick
       Units = units;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the Density class using the specified string.
-    ///</summary>
-    ///<param name="value">Density specifications in the form: &lt;x&gt;x&lt;y&gt;[inch/cm] (where x, y are numbers)</param>
+    /// </summary>
+    /// <param name="value">Density specifications in the form: &lt;x&gt;x&lt;y&gt;[inch/cm] (where x, y are numbers)</param>
     public Density(string value)
     {
       Initialize(value);
     }
 
-    ///<summary>
+    /// <summary>
     /// The units.
-    ///</summary>
+    /// </summary>
     public DensityUnit Units
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The x resolution.
-    ///</summary>
+    /// </summary>
     public double X
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The y resolution.
-    ///</summary>
+    /// </summary>
     public double Y
     {
       get;
@@ -172,10 +172,10 @@ namespace ImageMagick
       return !Equals(left, right);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current density.
-    ///</summary>
-    ///<param name="obj">The object to compare this density with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this density with.</param>
     public override bool Equals(object obj)
     {
       if (obj == null)
@@ -187,10 +187,10 @@ namespace ImageMagick
       return Equals((Density)obj);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified density is equal to the current density.
-    ///</summary>
-    ///<param name="other">The density to compare this density with.</param>
+    /// </summary>
+    /// <param name="other">The density to compare this density with.</param>
     public bool Equals(Density other)
     {
       if (ReferenceEquals(other, null))
@@ -205,9 +205,9 @@ namespace ImageMagick
         Units == other.Units;
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return
@@ -216,17 +216,17 @@ namespace ImageMagick
         Units.GetHashCode();
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string that represents the current Density.
-    ///</summary>
+    /// </summary>
     public override string ToString()
     {
       return ToString(Units);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string that represents the current Density.
-    ///</summary>
+    /// </summary>
     public string ToString(DensityUnit units)
     {
       string result = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", X, Y);

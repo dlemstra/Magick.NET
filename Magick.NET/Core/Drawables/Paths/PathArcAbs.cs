@@ -16,7 +16,7 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws an elliptical arc from the current point to (X, Y) using absolute coordinates. The size
   /// and orientation of the ellipse are defined by two radii(RadiusX, RadiusY) and an RotationX,
   /// which indicates how the ellipse as a whole is rotated relative to the current coordinate
@@ -25,7 +25,7 @@ namespace ImageMagick
   /// calculations and help determine how the arc is drawn. If UseLargeArc is true then draw the
   /// larger of the available arcs. If UseSweep is true, then draw the arc matching a clock-wise
   /// rotation.
-  ///</summary>
+  /// </summary>
   public sealed class PathArcAbs : IPath
   {
     private PathArcCoordinates _Coordinates;
@@ -36,19 +36,19 @@ namespace ImageMagick
         wand.PathArcAbs(_Coordinates.ToList());
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathArcAbs class.
-    ///</summary>
-    ///<param name="pathArcs">The coordinates to use.</param>
+    /// </summary>
+    /// <param name="pathArcs">The coordinates to use.</param>
     public PathArcAbs(params PathArc[] pathArcs)
     {
       _Coordinates = new PathArcCoordinates(pathArcs);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathArcAbs class.
-    ///</summary>
-    ///<param name="pathArcs">The coordinates to use.</param>
+    /// </summary>
+    /// <param name="pathArcs">The coordinates to use.</param>
     public PathArcAbs(IEnumerable<PathArc> pathArcs)
     {
       _Coordinates = new PathArcCoordinates(pathArcs);

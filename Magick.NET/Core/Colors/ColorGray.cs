@@ -26,9 +26,9 @@ using QuantumType = System.UInt16;
 
 namespace ImageMagick
 {
-  ///<summary>
-  /// Class that represents a gray color.
-  ///</summary>
+  /// <summary>
+  ///  Class that represents a gray color.
+  /// </summary>
   public sealed class ColorGray : ColorBase
   {
     private double _Shade;
@@ -50,10 +50,10 @@ namespace ImageMagick
       Value.B = gray;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ColorGray class.
-    ///</summary>
-    ///<param name="shade">Value between 0.0 - 1.0.</param>
+    /// </summary>
+    /// <param name="shade">Value between 0.0 - 1.0.</param>
     public ColorGray(double shade)
       : base(new MagickColor(0, 0, 0))
     {
@@ -62,9 +62,9 @@ namespace ImageMagick
       Shade = shade;
     }
 
-    ///<summary>
+    /// <summary>
     /// The shade of this color (value between 0.0 - 1.0).
-    ///</summary>
+    /// </summary>
     public double Shade
     {
       get
@@ -80,18 +80,17 @@ namespace ImageMagick
       }
     }
 
-
-    ///<summary>
+    /// <summary>
     /// Converts the specified MagickColor to an instance of this type.
-    ///</summary>
+    /// </summary>
     public static implicit operator ColorGray(MagickColor color)
     {
       return FromMagickColor(color);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified MagickColor to an instance of this type.
-    ///</summary>
+    /// </summary>
     public static ColorGray FromMagickColor(MagickColor color)
     {
       if (color == null)

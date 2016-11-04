@@ -14,9 +14,9 @@
 
 namespace ImageMagick.Defines
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the DCT method.
-  ///</summary>
+  /// </summary>
   public enum DctMethod
   {
     /// <summary>

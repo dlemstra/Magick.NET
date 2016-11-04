@@ -14,10 +14,10 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a horizontal line path from the current point to the target point using absolute
   /// coordinates. The target point then becomes the new current point.
-  ///</summary>
+  /// </summary>
   public sealed class PathLineToHorizontalAbs : IPath
   {
     void IPath.Draw(IDrawingWand wand)
@@ -26,10 +26,10 @@ namespace ImageMagick
         wand.PathLineToHorizontalAbs(X);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathLineToHorizontalAbs class.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
     public PathLineToHorizontalAbs(double x)
     {
       X = x;

@@ -36,12 +36,12 @@ namespace ImageMagick
       instance.Z = Z;
       return instance;
     }
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PrimaryInfo class.
-    ///</summary>
-    ///<param name="x">The x value.</param>
-    ///<param name="y">The y value.</param>
-    ///<param name="z">The z value.</param>
+    /// </summary>
+    /// <param name="x">The x value.</param>
+    /// <param name="y">The y value.</param>
+    /// <param name="z">The z value.</param>
     public PrimaryInfo(double x, double y, double z)
     {
       X = x;
@@ -76,10 +76,10 @@ namespace ImageMagick
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified primary info is equal to the current primary info.
-    ///</summary>
-    ///<param name="other">The primary info to compare this primary info with.</param>
+    /// </summary>
+    /// <param name="other">The primary info to compare this primary info with.</param>
     public bool Equals(PrimaryInfo other)
     {
       if (ReferenceEquals(other, null))
@@ -94,9 +94,9 @@ namespace ImageMagick
         Z == other.Z;
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return

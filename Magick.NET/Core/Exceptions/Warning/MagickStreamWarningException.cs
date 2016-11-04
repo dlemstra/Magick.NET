@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulation of the ImageMagick StreamWarning exception.
-  ///</summary>
+  /// </summary>
   [Serializable]
   public sealed class MagickStreamWarningException : MagickWarningException
   {

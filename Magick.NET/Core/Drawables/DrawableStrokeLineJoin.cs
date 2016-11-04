@@ -14,10 +14,10 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the shape to be used at the corners of paths (or other vector shapes) when they
   /// are stroked.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableStrokeLineJoin : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -26,18 +26,18 @@ namespace ImageMagick
         wand.StrokeLineJoin(LineJoin);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableStrokeLineJoin instance.
-    ///</summary>
-    ///<param name="lineJoin">The line join.</param>
+    /// </summary>
+    /// <param name="lineJoin">The line join.</param>
     public DrawableStrokeLineJoin(LineJoin lineJoin)
     {
       LineJoin = lineJoin;
     }
 
-    ///<summary>
+    /// <summary>
     /// The line join.
-    ///</summary>
+    /// </summary>
     public LineJoin LineJoin
     {
       get;

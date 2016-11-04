@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Units of image resolution.
-  ///</summary>
+  /// </summary>
   public enum DensityUnit
   {
     /// <summary>

@@ -17,14 +17,14 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class for defines that are used when a png image is read.
-  ///</summary>
+  /// </summary>
   public sealed class PngReadDefines : DefineCreator, IReadDefines
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PngReadDefines class.
-    ///</summary>
+    /// </summary>
     public PngReadDefines()
       : base(MagickFormat.Png)
     {
@@ -42,9 +42,9 @@ namespace ImageMagick
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the profile that should be skipped when the image is read (profile:skip).
-    ///</summary>
+    /// </summary>
     public ProfileTypes? SkipProfiles
     {
       get;
@@ -62,9 +62,9 @@ namespace ImageMagick
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The defines that should be set as a define on an image
-    ///</summary>
+    /// </summary>
     public override IEnumerable<IDefine> Defines
     {
       get

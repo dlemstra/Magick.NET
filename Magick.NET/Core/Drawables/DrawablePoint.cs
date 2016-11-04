@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a point using the current fill color.
-  ///</summary>
+  /// </summary>
   public sealed class DrawablePoint : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,29 +25,29 @@ namespace ImageMagick
         wand.Point(X, Y);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawablePoint instance.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
     public DrawablePoint(double x, double y)
     {
       X = x;
       Y = y;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X coordinate.
-    ///</summary>
+    /// </summary>
     public double X
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y coordinate.
-    ///</summary>
+    /// </summary>
     public double Y
     {
       get;

@@ -17,77 +17,77 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class for defines that are used when a jpeg image is read.
-  ///</summary>
+  /// </summary>
   public sealed class JpegReadDefines : DefineCreator, IReadDefines
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the JpegReadDefines class.
-    ///</summary>
+    /// </summary>
     public JpegReadDefines()
       : base(MagickFormat.Jpeg)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Enables or disables block smoothing (jpeg:block-smoothing).
-    ///</summary>
+    /// </summary>
     public bool? BlockSmoothing
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the size desired number of colors (jpeg:colors).
-    ///</summary>
+    /// </summary>
     public int? Colors
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the dtc method that will be used (jpeg:dct-method).
-    ///</summary>
+    /// </summary>
     public DctMethod? DctMethod
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Enables or disables fancy upsampling (jpeg:fancy-upsampling).
-    ///</summary>
+    /// </summary>
     public bool? FancyUpsampling
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the size the scale the image to (jpeg:size). The output image won't be exactly
     /// the specified size. More information can be found here: http://jpegclub.org/djpeg/.
-    ///</summary>
+    /// </summary>
     public MagickGeometry Size
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the profile that should be skipped when the image is read (profile:skip).
-    ///</summary>
+    /// </summary>
     public ProfileTypes? SkipProfiles
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The defines that should be set as a define on an image
-    ///</summary>
+    /// </summary>
     public override IEnumerable<IDefine> Defines
     {
       get

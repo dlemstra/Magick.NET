@@ -26,9 +26,9 @@ using QuantumType = System.UInt16;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that represents a YUV color.
-  ///</summary>
+  /// </summary>
   public sealed class ColorYUV : ColorBase
   {
     private double _U;
@@ -53,12 +53,12 @@ namespace ImageMagick
       Value.B = Quantum.ScaleToQuantum(_Y + 2.02790 * _U);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ColorYUV class.
-    ///</summary>
-    ///<param name="y">Y component value of this color.</param>
-    ///<param name="u">U component value of this color.</param>
-    ///<param name="v">V component value of this color.</param>
+    /// </summary>
+    /// <param name="y">Y component value of this color.</param>
+    /// <param name="u">U component value of this color.</param>
+    /// <param name="v">V component value of this color.</param>
     public ColorYUV(double y, double u, double v)
       : base(new MagickColor(0, 0, 0))
     {
@@ -71,9 +71,9 @@ namespace ImageMagick
       _V = v;
     }
 
-    ///<summary>
+    /// <summary>
     /// U component value of this color. (value beteeen -0.5 and 0.5)
-    ///</summary>
+    /// </summary>
     public double U
     {
       get
@@ -89,9 +89,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// V component value of this color. (value beteeen -0.5 and 0.5)
-    ///</summary>
+    /// </summary>
     public double V
     {
       get
@@ -107,9 +107,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Y component value of this color. (value beteeen 0.0 and 1.0)
-    ///</summary>
+    /// </summary>
     public double Y
     {
       get
@@ -126,17 +126,17 @@ namespace ImageMagick
     }
 
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified MagickColor to an instance of this type.
-    ///</summary>
+    /// </summary>
     public static implicit operator ColorYUV(MagickColor color)
     {
       return FromMagickColor(color);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified MagickColor to an instance of this type.
-    ///</summary>
+    /// </summary>
     public static ColorYUV FromMagickColor(MagickColor color)
     {
       if (color == null)

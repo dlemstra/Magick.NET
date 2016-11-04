@@ -28,9 +28,9 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that represents a color.
-  ///</summary>
+  /// </summary>
   public sealed partial class MagickColor : IEquatable<MagickColor>, IComparable<MagickColor>
   {
     private bool _IsCmyk = false;
@@ -142,17 +142,17 @@ namespace ImageMagick
       return value == null ? null : value.ToString();
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickColor class.
-    ///</summary>
+    /// </summary>
     public MagickColor()
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ColorBase class using the specified color.
-    ///</summary>
-    ///<param name="color">The color to use.</param>
+    /// </summary>
+    /// <param name="color">The color to use.</param>
     public MagickColor(MagickColor color)
     {
       Throw.IfNull(nameof(color), color);
@@ -165,19 +165,19 @@ namespace ImageMagick
     }
 
 #if Q8
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickColor class.
-    ///</summary>
-    ///<param name="red">Red component value of this color (0-255).</param>
-    ///<param name="green">Green component value of this color (0-255).</param>
-    ///<param name="blue">Blue component value of this color (0-255).</param>
+    /// </summary>
+    /// <param name="red">Red component value of this color (0-255).</param>
+    /// <param name="green">Green component value of this color (0-255).</param>
+    /// <param name="blue">Blue component value of this color (0-255).</param>
 #elif Q16 || Q16HDRI
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickColor class.
-    ///</summary>
-    ///<param name="red">Red component value of this color (0-65535).</param>
-    ///<param name="green">Green component value of this color (0-65535).</param>
-    ///<param name="blue">Blue component value of this color (0-65535).</param>
+    /// </summary>
+    /// <param name="red">Red component value of this color (0-65535).</param>
+    /// <param name="green">Green component value of this color (0-65535).</param>
+    /// <param name="blue">Blue component value of this color (0-65535).</param>
 #endif
 #if Q16
     [CLSCompliant(false)]
@@ -188,21 +188,21 @@ namespace ImageMagick
     }
 
 #if Q8
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickColor class.
-    ///</summary>
-    ///<param name="red">Red component value of this color (0-255).</param>
-    ///<param name="green">Green component value of this color (0-255).</param>
-    ///<param name="blue">Blue component value of this color (0-255).</param>
-    ///<param name="alpha">Alpha component value of this color (0-255).</param>
+    /// </summary>
+    /// <param name="red">Red component value of this color (0-255).</param>
+    /// <param name="green">Green component value of this color (0-255).</param>
+    /// <param name="blue">Blue component value of this color (0-255).</param>
+    /// <param name="alpha">Alpha component value of this color (0-255).</param>
 #elif Q16 || Q16HDRI
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickColor class.
-    ///</summary>
-    ///<param name="red">Red component value of this color (0-65535).</param>
-    ///<param name="green">Green component value of this color (0-65535).</param>
-    ///<param name="blue">Blue component value of this color (0-65535).</param>
-    ///<param name="alpha">Alpha component value of this color (0-65535).</param>
+    /// </summary>
+    /// <param name="red">Red component value of this color (0-65535).</param>
+    /// <param name="green">Green component value of this color (0-65535).</param>
+    /// <param name="blue">Blue component value of this color (0-65535).</param>
+    /// <param name="alpha">Alpha component value of this color (0-65535).</param>
 #endif
 #if Q16
     [CLSCompliant(false)]
@@ -212,14 +212,14 @@ namespace ImageMagick
       Initialize(red, green, blue, alpha);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickColor class.
-    ///</summary>
-    ///<param name="cyan">Cyan component value of this color.</param>
-    ///<param name="magenta">Magenta component value of this color.</param>
-    ///<param name="yellow">Yellow component value of this color.</param>
-    ///<param name="black">Black component value of this color.</param>
-    ///<param name="alpha">Alpha component value of this color.</param>
+    /// </summary>
+    /// <param name="cyan">Cyan component value of this color.</param>
+    /// <param name="magenta">Magenta component value of this color.</param>
+    /// <param name="yellow">Yellow component value of this color.</param>
+    /// <param name="black">Black component value of this color.</param>
+    /// <param name="alpha">Alpha component value of this color.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -231,19 +231,19 @@ namespace ImageMagick
     }
 
 #if Q8
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickColor class using the specified RGBA hex string or
     /// name of the color (http://www.imagemagick.org/script/color.php).
     /// For example: #F00, #F00C, #FF0000, #FF0000CC
-    ///</summary>
-    ///<param name="color">The RGBA/CMYK hex string or name of the color.</param>
+    /// </summary>
+    /// <param name="color">The RGBA/CMYK hex string or name of the color.</param>
 #elif Q16 || Q16HDRI
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickColor class using the specified RGBA hex string or
     /// name of the color (http://www.imagemagick.org/script/color.php).
     /// For example: #F00, #F00C, #FF0000, #FF0000CC, #FFFF00000000, #FFFF00000000CCCC
-    ///</summary>
-    ///<param name="color">The RGBA/CMYK hex string or name of the color.</param>
+    /// </summary>
+    /// <param name="color">The RGBA/CMYK hex string or name of the color.</param>
 #else
 #error Not implemented!
 #endif
@@ -348,9 +348,9 @@ namespace ImageMagick
       return left.CompareTo(right) <= 0;
     }
 
-    ///<summary>
+    /// <summary>
     /// Alpha component value of this color.
-    ///</summary>
+    /// </summary>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -360,9 +360,9 @@ namespace ImageMagick
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Blue component value of this color.
-    ///</summary>
+    /// </summary>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -372,9 +372,9 @@ namespace ImageMagick
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Green component value of this color.
-    ///</summary>
+    /// </summary>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -384,9 +384,9 @@ namespace ImageMagick
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Key (black) component value of this color.
-    ///</summary>
+    /// </summary>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -396,9 +396,9 @@ namespace ImageMagick
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Red component value of this color.
-    ///</summary>
+    /// </summary>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -408,10 +408,10 @@ namespace ImageMagick
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Compares the current instance with another object of the same type.
-    ///</summary>
-    ///<param name="other">The color to compare this color with.</param>
+    /// </summary>
+    /// <param name="other">The color to compare this color with.</param>
     public int CompareTo(MagickColor other)
     {
       if (ReferenceEquals(other, null))
@@ -450,10 +450,10 @@ namespace ImageMagick
       return 0;
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current color.
-    ///</summary>
-    ///<param name="obj">The object to compare this color with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this color with.</param>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -462,10 +462,10 @@ namespace ImageMagick
       return Equals(obj as MagickColor);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified color is equal to the current color.
-    ///</summary>
-    ///<param name="other">The color to compare this color with.</param>
+    /// </summary>
+    /// <param name="other">The color to compare this color with.</param>
     public bool Equals(MagickColor other)
     {
       if (ReferenceEquals(other, null))
@@ -486,10 +486,10 @@ namespace ImageMagick
     /// <summary>
     /// Creates a new MagickColor instance from the specified 8-bit color values (red, green,
     /// and blue). The alpha value is implicitly 255 (fully opaque).
-    ///<param name="red">Red component value of this color.</param>
-    ///<param name="green">Green component value of this color.</param>
-    ///<param name="blue">Blue component value of this color.</param>
     /// </summary>
+    /// <param name="red">Red component value of this color.</param>
+    /// <param name="green">Green component value of this color.</param>
+    /// <param name="blue">Blue component value of this color.</param>
     public static MagickColor FromRgb(byte red, byte green, byte blue)
     {
       MagickColor color = new MagickColor();
@@ -500,11 +500,11 @@ namespace ImageMagick
     /// <summary>
     /// Creates a new MagickColor instance from the specified 8-bit color values (red, green,
     /// blue and alpha).
-    ///<param name="red">Red component value of this color.</param>
-    ///<param name="green">Green component value of this color.</param>
-    ///<param name="blue">Blue component value of this color.</param>
-    ///<param name="alpha">Alpha component value of this color.</param>
     /// </summary>
+    /// <param name="red">Red component value of this color.</param>
+    /// <param name="green">Green component value of this color.</param>
+    /// <param name="blue">Blue component value of this color.</param>
+    /// <param name="alpha">Alpha component value of this color.</param>
     public static MagickColor FromRgba(byte red, byte green, byte blue, byte alpha)
     {
       MagickColor color = new MagickColor();
@@ -512,10 +512,10 @@ namespace ImageMagick
       return color;
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified geometry is fuzzy equal to the current color.
-    ///</summary>
-    ///<param name="other">The color to compare this color with.</param>
+    /// </summary>
+    /// <param name="other">The color to compare this color with.</param>
     /// <param name="fuzz">The fuzz factor.</param>
     public bool FuzzyEquals(MagickColor other, Percentage fuzz)
     {
@@ -528,9 +528,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return
@@ -542,9 +542,9 @@ namespace ImageMagick
         R.GetHashCode();
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the value of this instance to a hexadecimal string.
-    ///</summary>
+    /// </summary>
     public override string ToString()
     {
       if (_IsCmyk)

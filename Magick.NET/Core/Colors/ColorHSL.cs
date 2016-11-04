@@ -26,9 +26,9 @@ using QuantumType = System.UInt16;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that represents a HSL color.
-  ///</summary>
+  /// </summary>
   public sealed class ColorHSL : ColorBase
   {
     private void Initialize(double red, double green, double blue)
@@ -125,12 +125,12 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ColorHSL class.
-    ///</summary>
-    ///<param name="hue">Hue component value of this color.</param>
-    ///<param name="saturation">Saturation component value of this color.</param>
-    ///<param name="lightness">Lightness component value of this color.</param>
+    /// </summary>
+    /// <param name="hue">Hue component value of this color.</param>
+    /// <param name="saturation">Saturation component value of this color.</param>
+    /// <param name="lightness">Lightness component value of this color.</param>
     public ColorHSL(double hue, double saturation, double lightness)
           : base(new MagickColor(0, 0, 0))
     {
@@ -139,44 +139,44 @@ namespace ImageMagick
       Lightness = lightness;
     }
 
-    ///<summary>
+    /// <summary>
     /// Hue component value of this color.
-    ///</summary>
+    /// </summary>
     public double Hue
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Lightness component value of this color.
-    ///</summary>
+    /// </summary>
     public double Lightness
     {
       get;
       set;
     }
 
-    ///<summary>
-    /// Saturation component value of this color.
-    ///</summary>
+    /// <summary>
+    ///  Saturation component value of this color.
+    /// </summary>
     public double Saturation
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified MagickColor to an instance of this type.
-    ///</summary>
+    /// </summary>
     public static implicit operator ColorHSL(MagickColor color)
     {
       return FromMagickColor(color);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified MagickColor to an instance of this type.
-    ///</summary>
+    /// </summary>
     public static ColorHSL FromMagickColor(MagickColor color)
     {
       if (color == null)

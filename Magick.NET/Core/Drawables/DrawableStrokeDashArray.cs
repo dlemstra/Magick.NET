@@ -14,13 +14,13 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the pattern of dashes and gaps used to stroke paths. The stroke dash array
   /// represents an array of numbers that specify the lengths of alternating dashes and gaps in
   /// pixels. If an odd number of values is provided, then the list of values is repeated to yield
   /// an even number of values. To remove an existing dash array, pass a null dasharray. A typical
   /// stroke dash array might contain the members 5 3 2.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableStrokeDashArray : IDrawable
   {
     private double[] _Dash;
@@ -31,10 +31,10 @@ namespace ImageMagick
         wand.StrokeDashArray(_Dash);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableDashArray instance.
-    ///</summary>
-    ///<param name="dash">An array containing the dash information.</param>
+    /// </summary>
+    /// <param name="dash">An array containing the dash information.</param>
     public DrawableStrokeDashArray(params double[] dash)
     {
       _Dash = dash;

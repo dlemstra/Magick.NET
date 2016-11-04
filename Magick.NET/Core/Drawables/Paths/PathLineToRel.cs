@@ -16,10 +16,10 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a line path from the current point to the given coordinate using relative coordinates.
   /// The coordinate then becomes the new current point.
-  ///</summary>
+  /// </summary>
   public sealed class PathLineToRel : IPath
   {
     private PointDCoordinates _Coordinates;
@@ -30,29 +30,29 @@ namespace ImageMagick
         wand.PathLineToRel(_Coordinates.ToList());
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathLineToRel class.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
     public PathLineToRel(double x, double y)
       : this(new PointD(x, y))
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathLineToRel class.
-    ///</summary>
-    ///<param name="coordinates">The coordinates to use.</param>
+    /// </summary>
+    /// <param name="coordinates">The coordinates to use.</param>
     public PathLineToRel(params PointD[] coordinates)
     {
       _Coordinates = new PointDCoordinates(coordinates);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathLineToRel class.
-    ///</summary>
-    ///<param name="coordinates">The coordinates to use.</param>
+    /// </summary>
+    /// <param name="coordinates">The coordinates to use.</param>
     public PathLineToRel(IEnumerable<PointD> coordinates)
     {
       _Coordinates = new PointDCoordinates(coordinates);

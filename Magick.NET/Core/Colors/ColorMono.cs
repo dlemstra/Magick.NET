@@ -26,9 +26,9 @@ using QuantumType = System.UInt16;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that represents a monochrome color.
-  ///</summary>
+  /// </summary>
   public sealed class ColorMono : ColorBase
   {
     private ColorMono(MagickColor color)
@@ -47,36 +47,36 @@ namespace ImageMagick
       Value.B = color;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ColorMono class.
-    ///</summary>
-    ///<param name="isBlack">Specifies if the color is black or white.</param>
+    /// </summary>
+    /// <param name="isBlack">Specifies if the color is black or white.</param>
     public ColorMono(bool isBlack)
       : base(new MagickColor(0, 0, 0))
     {
       IsBlack = isBlack;
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies if the color is black or white.
-    ///</summary>
+    /// </summary>
     public bool IsBlack
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified MagickColor to an instance of this type.
-    ///</summary>
+    /// </summary>
     public static implicit operator ColorMono(MagickColor color)
     {
       return FromMagickColor(color);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified MagickColor to an instance of this type.
-    ///</summary>
+    /// </summary>
     public static ColorMono FromMagickColor(MagickColor color)
     {
       if (color == null)

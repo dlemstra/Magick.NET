@@ -523,10 +523,10 @@ namespace ImageMagick
       return !Equals(left, right);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current exif value.
-    ///</summary>
-    ///<param name="obj">The object to compare this exif value with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this exif value with.</param>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -535,10 +535,10 @@ namespace ImageMagick
       return Equals(obj as ExifValue);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified exif value is equal to the current exif value.
-    ///</summary>
-    ///<param name="other">The exif value to compare this exif value with.</param>
+    /// </summary>
+    /// <param name="other">The exif value to compare this exif value with.</param>
     public bool Equals(ExifValue other)
     {
       if (ReferenceEquals(other, null))
@@ -553,18 +553,18 @@ namespace ImageMagick
         Equals(_Value, other._Value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       int hashCode = Tag.GetHashCode() ^ DataType.GetHashCode();
       return _Value != null ? hashCode ^ _Value.GetHashCode() : hashCode;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string that represents the current value.
-    ///</summary>
+    /// </summary>
     public override string ToString()
     {
 

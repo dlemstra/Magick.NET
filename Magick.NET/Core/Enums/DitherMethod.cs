@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies dither methods.
-  ///</summary>
+  /// </summary>
   public enum DitherMethod
   {
     /// <summary>

@@ -16,11 +16,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Sets the URL to use as a fill pattern for filling objects. Only local URLs("#identifier") are
   /// supported at this time. These local URLs are normally created by defining a named fill pattern
   /// with DrawablePushPattern/DrawablePopPattern.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableFillPatternUrl : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -29,19 +29,19 @@ namespace ImageMagick
         wand.FillPatternUrl(Url);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableFillPatternUrl instance.
-    ///</summary>
-    ///<param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
+    /// </summary>
+    /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
     [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#")]
     public DrawableFillPatternUrl(string url)
     {
       Url = url;
     }
 
-    ///<summary>
+    /// <summary>
     /// Url specifying pattern ID (e.g. "#pattern_id").
-    ///</summary>
+    /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
     public string Url
     {

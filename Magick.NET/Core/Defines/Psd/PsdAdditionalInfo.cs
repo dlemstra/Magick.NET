@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies which additional info should be written to the output file.
-  ///</summary>
+  /// </summary>
   public enum PsdAdditionalInfo
   {
     /// <summary>

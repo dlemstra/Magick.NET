@@ -61,9 +61,9 @@ namespace ImageMagick.ImageOptimizers
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the GifOptimizer class.
-    ///</summary>
+    /// </summary>
     public GifOptimizer()
     {
     }

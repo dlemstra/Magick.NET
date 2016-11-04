@@ -17,14 +17,14 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class for defines that are used when a psd image is written.
-  ///</summary>
+  /// </summary>
   public sealed class PsdWriteDefines : DefineCreator, IWriteDefines
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="PsdWriteDefines"/> class.
-    ///</summary>
+    /// </summary>
     public PsdWriteDefines()
       : base(MagickFormat.Psd)
     {
@@ -38,18 +38,18 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies which additional info should be written to the output file.
-    ///</summary>
+    /// </summary>
     public PsdAdditionalInfo AdditionalInfo
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The defines that should be set as a define on an image.
-    ///</summary>
+    /// </summary>
     public override IEnumerable<IDefine> Defines
     {
       get

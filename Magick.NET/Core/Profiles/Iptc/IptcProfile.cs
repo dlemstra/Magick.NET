@@ -87,45 +87,45 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the IptcProfile class.
-    ///</summary>
+    /// </summary>
     public IptcProfile()
       : base("iptc")
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the IptcProfile class.
-    ///</summary>
-    ///<param name="data">The byte array to read the iptc profile from.</param>
+    /// </summary>
+    /// <param name="data">The byte array to read the iptc profile from.</param>
     public IptcProfile(byte[] data)
       : base("iptc", data)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the IptcProfile class.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the iptc profile file, or the relative
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the iptc profile file, or the relative
     /// iptc profile file name.</param>
     public IptcProfile(string fileName)
       : base("iptc", fileName)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the IptcProfile class.
-    ///</summary>
-    ///<param name="stream">The stream to read the iptc profile from.</param>
+    /// </summary>
+    /// <param name="stream">The stream to read the iptc profile from.</param>
     public IptcProfile(Stream stream)
       : base("iptc", stream)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the values of this iptc profile.
-    ///</summary>
+    /// </summary>
     public IEnumerable<IptcValue> Values
     {
       get
@@ -135,10 +135,10 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the value with the specified tag.
-    ///</summary>
-    ///<param name="tag">The tag of the iptc value.</param>
+    /// </summary>
+    /// <param name="tag">The tag of the iptc value.</param>
     public IptcValue GetValue(IptcTag tag)
     {
       foreach (IptcValue iptcValue in Values)
@@ -150,10 +150,10 @@ namespace ImageMagick
       return null;
     }
 
-    ///<summary>
+    /// <summary>
     /// Removes the value with the specified tag.
-    ///</summary>
-    ///<param name="tag">The tag of the iptc value.</param>
+    /// </summary>
+    /// <param name="tag">The tag of the iptc value.</param>
     public bool RemoveValue(IptcTag tag)
     {
       Initialize();
@@ -170,10 +170,10 @@ namespace ImageMagick
       return false;
     }
 
-    ///<summary>
+    /// <summary>
     /// Changes the encoding for all the values,
-    ///</summary>
-    ///<param name="encoding">The encoding to use when storing the bytes.</param>
+    /// </summary>
+    /// <param name="encoding">The encoding to use when storing the bytes.</param>
     public void SetEncoding(Encoding encoding)
     {
       Throw.IfNull(nameof(encoding), encoding);
@@ -184,12 +184,12 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Sets the value of the specified tag.
-    ///</summary>
-    ///<param name="tag">The tag of the iptc value.</param>
-    ///<param name="encoding">The encoding to use when storing the bytes.</param>
-    ///<param name="value">The value.</param>
+    /// </summary>
+    /// <param name="tag">The tag of the iptc value.</param>
+    /// <param name="encoding">The encoding to use when storing the bytes.</param>
+    /// <param name="value">The value.</param>
     public void SetValue(IptcTag tag, Encoding encoding, string value)
     {
       Throw.IfNull(nameof(encoding), encoding);
@@ -207,11 +207,11 @@ namespace ImageMagick
       _Values.Add(new IptcValue(tag, encoding, value));
     }
 
-    ///<summary>
+    /// <summary>
     /// Sets the value of the specified tag.
-    ///</summary>
-    ///<param name="tag">The tag of the iptc value.</param>
-    ///<param name="value">The value.</param>
+    /// </summary>
+    /// <param name="tag">The tag of the iptc value.</param>
+    /// <param name="value">The value.</param>
     public void SetValue(IptcTag tag, string value)
     {
       SetValue(tag, Encoding.UTF8, value);

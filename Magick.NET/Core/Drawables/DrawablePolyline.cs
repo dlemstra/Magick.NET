@@ -16,10 +16,10 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a polyline using the current stroke, stroke width, and fill color or texture, using the
   /// specified array of coordinates.
-  ///</summary>
+  /// </summary>
   public sealed class DrawablePolyline : IDrawable
   {
     PointDCoordinates _Coordinates;
@@ -30,19 +30,19 @@ namespace ImageMagick
         wand.Polyline(_Coordinates.ToList());
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawablePolyline instance.
-    ///</summary>
-    ///<param name="coordinates">The coordinates.</param>
+    /// </summary>
+    /// <param name="coordinates">The coordinates.</param>
     public DrawablePolyline(params PointD[] coordinates)
     {
       _Coordinates = new PointDCoordinates(coordinates, 3);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawablePolyline instance.
-    ///</summary>
-    ///<param name="coordinates">The coordinates.</param>
+    /// </summary>
+    /// <param name="coordinates">The coordinates.</param>
     public DrawablePolyline(IEnumerable<PointD> coordinates)
     {
       _Coordinates = new PointDCoordinates(coordinates, 3);

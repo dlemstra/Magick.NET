@@ -16,9 +16,9 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a set of paths 
-  ///</summary>
+  /// </summary>
   public sealed class DrawablePath : IDrawable
   {
     private List<IPath> _Paths;
@@ -34,19 +34,19 @@ namespace ImageMagick
       wand.PathFinish();
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawablePath instance.
-    ///</summary>
-    ///<param name="paths">The paths to use.</param>
+    /// </summary>
+    /// <param name="paths">The paths to use.</param>
     public DrawablePath(params IPath[] paths)
     {
       _Paths = new List<IPath>(paths);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawablePath instance.
-    ///</summary>
-    ///<param name="paths">The paths to use.</param>
+    /// </summary>
+    /// <param name="paths">The paths to use.</param>
     public DrawablePath(IEnumerable<IPath> paths)
     {
       _Paths = new List<IPath>(paths);

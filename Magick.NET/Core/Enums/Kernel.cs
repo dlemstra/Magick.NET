@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the built-in kernels.
-  ///</summary>
+  /// </summary>
   public enum Kernel
   {
     /// <summary>

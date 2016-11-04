@@ -26,9 +26,9 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that can be used to acquire information about the Quantum.
-  ///</summary>
+  /// </summary>
   public static partial class Quantum
   {
     internal static QuantumType Convert(byte value)
@@ -86,9 +86,9 @@ namespace ImageMagick
       return (1.0 / Max) * value;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the Quantum depth.
-    ///</summary>
+    /// </summary>
     public static int Depth
     {
       get
@@ -97,9 +97,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the maximum value of the quantum.
-    ///</summary>
+    /// </summary>
 #if Q16
     [CLSCompliant(false)]
 #endif

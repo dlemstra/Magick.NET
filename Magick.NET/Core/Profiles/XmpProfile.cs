@@ -23,9 +23,9 @@ using System.Xml.Linq;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains an XMP profile.
-  ///</summary>
+  /// </summary>
   public sealed class XmpProfile : ImageProfile
   {
     private static byte[] CheckTrailingNULL(byte[] data)
@@ -50,19 +50,19 @@ namespace ImageMagick
       return result;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the XmpProfile class.
-    ///</summary>
-    ///<param name="data">A byte array containing the profile.</param>
+    /// </summary>
+    /// <param name="data">A byte array containing the profile.</param>
     public XmpProfile(Byte[] data)
       : base("xmp", CheckTrailingNULL(data))
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the XmpProfile class.
-    ///</summary>
-    ///<param name="document">A document containing the profile.</param>
+    /// </summary>
+    /// <param name="document">A document containing the profile.</param>
     public XmpProfile(IXPathNavigable document)
       : base("xmp")
     {
@@ -79,10 +79,10 @@ namespace ImageMagick
     }
 
 #if !(NET20)
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the XmpProfile class.
-    ///</summary>
-    ///<param name="document">A document containing the profile.</param>
+    /// </summary>
+    /// <param name="document">A document containing the profile.</param>
     public XmpProfile(XDocument document)
       : base("xmp")
     {
@@ -98,27 +98,27 @@ namespace ImageMagick
     }
 #endif
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the XmpProfile class.
-    ///</summary>
-    ///<param name="stream">A stream containing the profile.</param>
+    /// </summary>
+    /// <param name="stream">A stream containing the profile.</param>
     public XmpProfile(Stream stream)
       : base("xmp", stream)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the XmpProfile class.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
     public XmpProfile(string fileName)
       : base("xmp", fileName)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a XmlReader that can be used to read the data of the profile.
-    ///</summary>
+    /// </summary>
     public XmlReader CreateReader()
     {
       MemoryStream memStream = new MemoryStream(Data, 0, Data.Length);
@@ -127,29 +127,29 @@ namespace ImageMagick
       return XmlReader.Create(memStream, settings);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates an instance from the specified IXPathNavigable.
-    ///</summary>
-    ///<param name="document">A document containing the profile.</param>
+    /// </summary>
+    /// <param name="document">A document containing the profile.</param>
     public static XmpProfile FromIXPathNavigable(IXPathNavigable document)
     {
       return new XmpProfile(document);
     }
 
 #if !(NET20)
-    ///<summary>
+    /// <summary>
     /// Creates an instance from the specified IXPathNavigable.
-    ///</summary>
-    ///<param name="document">A document containing the profile.</param>
+    /// </summary>
+    /// <param name="document">A document containing the profile.</param>
     public static XmpProfile FromXDocument(XDocument document)
     {
       return new XmpProfile(document);
     }
 #endif
 
-    ///<summary>
+    /// <summary>
     /// Converts this instance to an IXPathNavigable.
-    ///</summary>
+    /// </summary>
     public IXPathNavigable ToIXPathNavigable()
     {
       using (XmlReader reader = CreateReader())
@@ -161,9 +161,9 @@ namespace ImageMagick
     }
 
 #if !(NET20)
-    ///<summary>
+    /// <summary>
     /// Converts this instance to a XDocument.
-    ///</summary>
+    /// </summary>
     public XDocument ToXDocument()
     {
       using (XmlReader reader = CreateReader())

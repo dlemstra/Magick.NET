@@ -45,9 +45,9 @@ namespace ImageMagick
       _Paths = new Collection<IPath>();
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified Paths to a DrawablePath instance.
-    ///</summary>
+    /// </summary>
     public static implicit operator Drawables(Paths paths)
     {
       if (ReferenceEquals(paths, null))

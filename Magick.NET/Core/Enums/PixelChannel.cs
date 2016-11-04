@@ -16,9 +16,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the pixel channels.
-  ///</summary>
+  /// </summary>
   [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags")]
   public enum PixelChannel
   {

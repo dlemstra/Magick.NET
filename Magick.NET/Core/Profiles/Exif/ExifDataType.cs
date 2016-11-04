@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies exif data types.
-  ///</summary>
+  /// </summary>
   public enum ExifDataType
   {
     /// <summary>

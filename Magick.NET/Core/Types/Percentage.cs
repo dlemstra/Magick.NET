@@ -27,9 +27,9 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Represents a percentage value.
-  ///</summary>
+  /// </summary>
   public struct Percentage : IEquatable<Percentage>, IComparable<Percentage>
   {
     private double _Value;
@@ -44,21 +44,21 @@ namespace ImageMagick
       return (QuantumType)(Quantum.Max * (_Value / 100));
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the Percentage class using the specified value.
     /// (0% = 0.0, 100% = 100.0)
-    ///</summary>
-    ///<param name="value">The value (0% = 0.0, 100% = 100.0)</param>
+    /// </summary>
+    /// <param name="value">The value (0% = 0.0, 100% = 100.0)</param>
     public Percentage(double value)
     {
       _Value = value;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the Percentage class using the specified value.
     /// (0% = 0, 100% = 100)
-    ///</summary>
-    ///<param name="value">The value (0% = 0, 100% = 100)</param>
+    /// </summary>
+    /// <param name="value">The value (0% = 0, 100% = 100)</param>
     public Percentage(int value)
     {
       _Value = value;
@@ -164,19 +164,19 @@ namespace ImageMagick
       return percentage.Multiply(value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified double to an instance of this type.
-    ///</summary>
-    ///<param name="value">The value (0% = 0, 100% = 100)</param>
+    /// </summary>
+    /// <param name="value">The value (0% = 0, 100% = 100)</param>
     public static explicit operator Percentage(double value)
     {
       return new Percentage(value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified int to an instance of this type.
-    ///</summary>
-    ///<param name="value">The value (0% = 0, 100% = 100)</param>
+    /// </summary>
+    /// <param name="value">The value (0% = 0, 100% = 100)</param>
     public static explicit operator Percentage(int value)
     {
       return new Percentage(value);
@@ -202,19 +202,19 @@ namespace ImageMagick
       return percentage.ToInt32();
     }
 
-    ///<summary>
+    /// <summary>
     /// Compares the current instance with another object of the same type.
-    ///</summary>
-    ///<param name="other">The object to compare this percentage with.</param>
+    /// </summary>
+    /// <param name="other">The object to compare this percentage with.</param>
     public int CompareTo(Percentage other)
     {
       return _Value.CompareTo(other._Value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current percentage.
-    ///</summary>
-    ///<param name="obj">The object to compare this percentage with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this percentage with.</param>
     public override bool Equals(object obj)
     {
 
@@ -233,18 +233,18 @@ namespace ImageMagick
       return false;
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified percentage is equal to the current percentage.
-    ///</summary>
-    ///<param name="other">The percentage to compare this percentage with.</param>
+    /// </summary>
+    /// <param name="other">The percentage to compare this percentage with.</param>
     public bool Equals(Percentage other)
     {
       return _Value.Equals(other._Value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return _Value.GetHashCode();
@@ -266,25 +266,25 @@ namespace ImageMagick
       return (int)((value * _Value) / 100.0);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a double that represents the current percentage.
-    ///</summary>
+    /// </summary>
     public double ToDouble()
     {
       return _Value;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns an integer that represents the current percentage.
-    ///</summary>
+    /// </summary>
     public int ToInt32()
     {
       return (int)_Value;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string that represents the current percentage.
-    ///</summary>
+    /// </summary>
     public override string ToString()
     {
       return string.Format(CultureInfo.InvariantCulture, "{0:0.##}%", _Value);

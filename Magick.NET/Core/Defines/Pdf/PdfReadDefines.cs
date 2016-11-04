@@ -17,49 +17,49 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class for defines that are used when a pdf image is read.
-  ///</summary>
+  /// </summary>
   public sealed class PdfReadDefines : DefineCreator, IReadDefines
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PdfReadDefines class.
-    ///</summary>
+    /// </summary>
     public PdfReadDefines()
       : base(MagickFormat.Pdf)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Scale the image the specified size
-    ///</summary>
+    /// </summary>
     public MagickGeometry FitPage
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Force use of the crop box.
-    ///</summary>
+    /// </summary>
     public bool? UseCropBox
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Force use of the trim box.
-    ///</summary>
+    /// </summary>
     public bool? UseTrimBox
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The defines that should be set as a define on an image
-    ///</summary>
+    /// </summary>
     public override IEnumerable<IDefine> Defines
     {
       get

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies line join.
-  ///</summary>
+  /// </summary>
   public enum LineJoin
   {
     /// <summary>

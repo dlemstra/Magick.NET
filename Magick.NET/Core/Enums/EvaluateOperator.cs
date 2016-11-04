@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the evaluate operator.
-  ///</summary>
+  /// </summary>
   public enum EvaluateOperator
   {
     /// <summary>

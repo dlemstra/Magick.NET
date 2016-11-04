@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the style of a font.
-  ///</summary>
+  /// </summary>
   public enum FontStyleType
   {
     /// <summary>

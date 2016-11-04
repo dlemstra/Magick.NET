@@ -17,9 +17,9 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Contains the he perceptual hash of one or more image channels.
-  ///</summary>
+  /// </summary>
   public sealed partial class PerceptualHash
   {
     private Dictionary<PixelChannel, ChannelPerceptualHash> _Channels;
@@ -72,9 +72,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PerceptualHash class with the specified hash.
-    ///</summary>
+    /// </summary>
     public PerceptualHash(string perceptualHash)
       : this()
     {
@@ -86,9 +86,9 @@ namespace ImageMagick
       _Channels[PixelChannel.Blue] = new ChannelPerceptualHash(PixelChannel.Blue, perceptualHash.Substring(140, 70));
     }
 
-    ///<summary>
+    /// <summary>
     /// Perceptual hash for the specified channel.
-    ///</summary>
+    /// </summary>
     public ChannelPerceptualHash GetChannel(PixelChannel channel)
     {
       ChannelPerceptualHash perceptualHash;
@@ -96,10 +96,10 @@ namespace ImageMagick
       return perceptualHash;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the sum squared difference between this hash and the other hash.
-    ///</summary>
-    ///<param name="other">The PerceptualHash to get the distance of.</param>
+    /// </summary>
+    /// <param name="other">The PerceptualHash to get the distance of.</param>
     public double SumSquaredDistance(PerceptualHash other)
     {
       Throw.IfNull(nameof(other), other);
@@ -110,9 +110,9 @@ namespace ImageMagick
         _Channels[PixelChannel.Blue].SumSquaredDistance(other._Channels[PixelChannel.Blue]);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string representation of this hash.
-    ///</summary>
+    /// </summary>
     public override string ToString()
     {
       return

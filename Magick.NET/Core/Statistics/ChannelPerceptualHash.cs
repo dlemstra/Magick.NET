@@ -17,9 +17,9 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Contains the he perceptual hash of one image channel.
-  ///</summary>
+  /// </summary>
   public partial class ChannelPerceptualHash
   {
     private double[] _SrgbHuPhash;
@@ -121,18 +121,18 @@ namespace ImageMagick
       _Hash = hash;
     }
 
-    ///<summary>
+    /// <summary>
     /// The channel.
-    ///</summary>
+    /// </summary>
     public PixelChannel Channel
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// SRGB hu perceptual hash.
-    ///</summary>
+    /// </summary>
     public double SrgbHuPhash(int index)
     {
       Throw.IfOutOfRange(nameof(index), index, 7);
@@ -140,9 +140,9 @@ namespace ImageMagick
       return _SrgbHuPhash[index];
     }
 
-    ///<summary>
+    /// <summary>
     /// Hclp hu perceptual hash.
-    ///</summary>
+    /// </summary>
     public double HclpHuPhash(int index)
     {
       Throw.IfOutOfRange(nameof(index), index, 7);
@@ -150,10 +150,10 @@ namespace ImageMagick
       return _HclpHuPhash[index];
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the sum squared difference between this hash and the other hash.
-    ///</summary>
-    ///<param name="other">The ChannelPerceptualHash to get the distance of.</param>
+    /// </summary>
+    /// <param name="other">The ChannelPerceptualHash to get the distance of.</param>
     public double SumSquaredDistance(ChannelPerceptualHash other)
     {
       Throw.IfNull(nameof(other), other);
@@ -169,9 +169,9 @@ namespace ImageMagick
       return ssd;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string representation of this hash.
-    ///</summary>
+    /// </summary>
     public override string ToString()
     {
       return _Hash;

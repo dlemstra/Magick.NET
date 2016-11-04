@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws text on the image.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableText : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,12 +25,12 @@ namespace ImageMagick
         wand.Text(X, Y, Value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableText instance.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
-    ///<param name="value">The text to draw.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
+    /// <param name="value">The text to draw.</param>
     public DrawableText(double x, double y, string value)
     {
       Throw.IfNullOrEmpty(nameof(value), value);
@@ -40,27 +40,27 @@ namespace ImageMagick
       Value = value;
     }
 
-    ///<summary>
+    /// <summary>
     /// The text to draw.
-    ///</summary>
+    /// </summary>
     public string Value
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X coordinate.
-    ///</summary>
+    /// </summary>
     public double X
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y coordinate.
-    ///</summary>
+    /// </summary>
     public double Y
     {
       get;

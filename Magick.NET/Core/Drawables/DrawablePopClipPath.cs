@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Terminates a clip path definition.
-  ///</summary>
+  /// </summary>
   public sealed class DrawablePopClipPath : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,9 +25,9 @@ namespace ImageMagick
         wand.PopClipPath();
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawablePopClipPath instance.
-    ///</summary>
+    /// </summary>
     public DrawablePopClipPath()
     {
     }

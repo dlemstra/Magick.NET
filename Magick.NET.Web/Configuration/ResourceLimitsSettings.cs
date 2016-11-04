@@ -22,9 +22,9 @@ namespace ImageMagick.Web
   /// </summary>
   public class ResourceLimitsSettings : ConfigurationElement
   {
-    ///<summary>
+    /// <summary>
     /// The maximum height of an image.
-    ///</summary>
+    /// </summary>
     [ConfigurationProperty("height")]
     public int? Height
     {
@@ -34,9 +34,9 @@ namespace ImageMagick.Web
       }
     }
 
-    ///<summary>
+    /// <summary>
 	 /// The maximum width of an image.
-    ///</summary>
+    /// </summary>
     [ConfigurationProperty("width")]
     public int? Width
     {

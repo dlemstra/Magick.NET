@@ -14,9 +14,9 @@
 
 namespace ImageMagick.Defines
 {
-  ///<summary>
+  /// <summary>
   /// Specifies tiff alpha options.
-  ///</summary>
+  /// </summary>
   public enum TiffAlpha
   {
     /// <summary>

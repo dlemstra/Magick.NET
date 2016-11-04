@@ -14,10 +14,10 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a vertical line path from the current point to the target point using relative
   /// coordinates. The target point then becomes the new current point.
-  ///</summary>
+  /// </summary>
   public sealed class PathLineToVerticalRel : IPath
   {
     void IPath.Draw(IDrawingWand wand)
@@ -26,10 +26,10 @@ namespace ImageMagick
         wand.PathLineToVerticalRel(Y);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathLineToVerticalRel class.
-    ///</summary>
-    ///<param name="y">The Y coordinate.</param>
+    /// </summary>
+    /// <param name="y">The Y coordinate.</param>
     public PathLineToVerticalRel(double y)
     {
       Y = y;

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the composite operators.
-  ///</summary>
+  /// </summary>
   public enum CompositeOperator
   {
     /// <summary>

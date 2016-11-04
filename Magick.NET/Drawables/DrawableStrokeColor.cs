@@ -18,10 +18,10 @@ namespace ImageMagick
 {
   public sealed partial class DrawableStrokeColor
   {
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableStrokeColor instance.
-    ///</summary>
-    ///<param name="color">The color to use.</param>
+    /// </summary>
+    /// <param name="color">The color to use.</param>
     public DrawableStrokeColor(Color color)
     {
       Color = color;

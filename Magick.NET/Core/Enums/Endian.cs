@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies endian.
-  ///</summary>
+  /// </summary>
   public enum Endian
   {
     /// <summary>

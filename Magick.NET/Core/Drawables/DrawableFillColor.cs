@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Sets the fill color to be used for drawing filled objects.
-  ///</summary>
+  /// </summary>
   public sealed partial class DrawableFillColor : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,10 +25,10 @@ namespace ImageMagick
         wand.FillColor(Color);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableFillColor instance.
-    ///</summary>
-    ///<param name="color">The color to use.</param>
+    /// </summary>
+    /// <param name="color">The color to use.</param>
     public DrawableFillColor(MagickColor color)
     {
       Throw.IfNull(nameof(color), color);
@@ -36,9 +36,9 @@ namespace ImageMagick
       Color = color;
     }
 
-    ///<summary>
+    /// <summary>
     /// The color to use.
-    ///</summary>
+    /// </summary>
     public MagickColor Color
     {
       get;

@@ -18,10 +18,10 @@ namespace ImageMagick
 {
   public sealed partial class DrawableViewbox
   {
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableViewbox instance.
-    ///</summary>
-    ///<param name="rectangle">The rectangle to use.</param>
+    /// </summary>
+    /// <param name="rectangle">The rectangle to use.</param>
     public DrawableViewbox(Rectangle rectangle)
     {
       UpperLeftX = rectangle.X;

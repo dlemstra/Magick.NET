@@ -18,10 +18,10 @@ namespace ImageMagick
 {
   public sealed partial class DrawableAffine
   {
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableAffine instance using the specified Matrix.
-    ///</summary>
-    ///<param name="matrix">The matrix.</param>
+    /// </summary>
+    /// <param name="matrix">The matrix.</param>
     public DrawableAffine(Matrix matrix)
     {
       Throw.IfNull(nameof(matrix), matrix);

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Sets the spacing between characters in text.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableTextKerning : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.TextKerning(Kerning);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableTextKerning instance.
-    ///</summary>
-    ///<param name="kerning">Kerning to use.</param>
+    /// </summary>
+    /// <param name="kerning">Kerning to use.</param>
     public DrawableTextKerning(double kerning)
     {
       Kerning = kerning;
     }
 
-    ///<summary>
+    /// <summary>
     /// Kerning to use.
-    ///</summary>
+    /// </summary>
     public double Kerning
     {
       get;

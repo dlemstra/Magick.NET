@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Skews the current coordinate system in the vertical direction.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableSkewY : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.SkewY(Angle);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableSkewY instance.
-    ///</summary>
-    ///<param name="angle">The angle.</param>
+    /// </summary>
+    /// <param name="angle">The angle.</param>
     public DrawableSkewY(double angle)
     {
       Angle = angle;
     }
 
-    ///<summary>
+    /// <summary>
     /// The angle.
-    ///</summary>
+    /// </summary>
     public double Angle
     {
       get;

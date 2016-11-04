@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the color type of the image
-  ///</summary>
+  /// </summary>
   public enum ColorType
   {
     /// <summary>

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the image class type.
-  ///</summary>
+  /// </summary>
   public enum ClassType
   {
     /// <summary>

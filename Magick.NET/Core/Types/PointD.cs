@@ -17,9 +17,9 @@ using System.Globalization;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Struct for a point with doubles.
-  ///</summary>
+  /// </summary>
   public struct PointD : IEquatable<PointD>
   {
     private double _X;
@@ -51,31 +51,31 @@ namespace ImageMagick
       return new PointD(point.X, point.Y);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PointD struct using the specified x and y.
-    ///</summary>
-    ///<param name="xy">The x and y.</param>
+    /// </summary>
+    /// <param name="xy">The x and y.</param>
     public PointD(double xy)
     {
       _X = xy;
       _Y = xy;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PointD struct using the specified x and y.
-    ///</summary>
-    ///<param name="x">The x.</param>
-    ///<param name="y">The y.</param>
+    /// </summary>
+    /// <param name="x">The x.</param>
+    /// <param name="y">The y.</param>
     public PointD(double x, double y)
     {
       _X = x;
       _Y = y;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PointD class using the specified string.
-    ///</summary>
-    ///<param name="value">PointD specifications in the form: &lt;x&gt;x&lt;y&gt; (where x, y are numbers)</param>
+    /// </summary>
+    /// <param name="value">PointD specifications in the form: &lt;x&gt;x&lt;y&gt; (where x, y are numbers)</param>
     public PointD(string value)
       : this()
     {
@@ -84,9 +84,9 @@ namespace ImageMagick
       Initialize(value);
     }
 
-    ///<summary>
+    /// <summary>
     /// The x-coordinate of this Point.
-    ///</summary>
+    /// </summary>
     public double X
     {
       get
@@ -95,9 +95,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// The y-coordinate of this Point.
-    ///</summary>
+    /// </summary>
     public double Y
     {
       get
@@ -128,10 +128,10 @@ namespace ImageMagick
       return !Equals(left, right);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current point.
-    ///</summary>
-    ///<param name="obj">The object to compare this point with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this point with.</param>
     public override bool Equals(object obj)
     {
       if (obj == null)
@@ -143,10 +143,10 @@ namespace ImageMagick
       return Equals((PointD)obj);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified point is equal to the current point.
-    ///</summary>
-    ///<param name="other">The point to compare this point with.</param>
+    /// </summary>
+    /// <param name="other">The point to compare this point with.</param>
     public bool Equals(PointD other)
     {
       return
@@ -154,9 +154,9 @@ namespace ImageMagick
         Y == other.Y;
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return
@@ -164,9 +164,9 @@ namespace ImageMagick
         Y.GetHashCode();
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string that represents the current PointD.
-    ///</summary>
+    /// </summary>
     public override string ToString()
     {
       return string.Format(CultureInfo.InvariantCulture, "{0}x{1}", _X, _Y);

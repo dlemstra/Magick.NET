@@ -18,10 +18,10 @@ namespace ImageMagick
 {
   public sealed partial class DrawableFillColor
   {
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableFillColor instance.
-    ///</summary>
-    ///<param name="color">The color to use.</param>
+    /// </summary>
+    /// <param name="color">The color to use.</param>
     public DrawableFillColor(Color color)
     {
       Color = color;

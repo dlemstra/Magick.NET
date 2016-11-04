@@ -17,9 +17,9 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulation of the ImageMagick exception object.
-  ///</summary>
+  /// </summary>
   [Serializable]
   public class MagickException : Exception
   {

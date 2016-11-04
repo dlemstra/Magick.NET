@@ -14,7 +14,7 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws an elliptical arc from the current point to(X, Y). The size and orientation of the
   /// ellipse are defined by two radii(RadiusX, RadiusY) and a RotationX, which indicates how the
   /// ellipse as a whole is rotated relative to the current coordinate system. The center of the
@@ -22,27 +22,27 @@ namespace ImageMagick
   /// parameters. UseLargeArc and UseSweep contribute to the automatic calculations and help
   /// determine how the arc is drawn. If UseLargeArc is true then draw the larger of the
   /// available arcs. If UseSweep is true, then draw the arc matching a clock-wise rotation.
-  ///</summary>
+  /// </summary>
   public sealed class PathArc
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathArc class.
-    ///</summary>
+    /// </summary>
     public PathArc()
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathArc class.
-    ///</summary>
-    ///<param name="x">The X offset from origin.</param>
-    ///<param name="y">The Y offset from origin.</param>
-    ///<param name="radiusX">The X radius.</param>
-    ///<param name="radiusY">The Y radius.</param>
-    ///<param name="rotationX">Indicates how the ellipse as a whole is rotated relative to the
+    /// </summary>
+    /// <param name="x">The X offset from origin.</param>
+    /// <param name="y">The Y offset from origin.</param>
+    /// <param name="radiusX">The X radius.</param>
+    /// <param name="radiusY">The Y radius.</param>
+    /// <param name="rotationX">Indicates how the ellipse as a whole is rotated relative to the
     /// current coordinate system.</param>
-    ///<param name="useLargeArc">If true then draw the larger of the available arcs.</param>
-    ///<param name="useSweep">If true then draw the arc matching a clock-wise rotation.</param>
+    /// <param name="useLargeArc">If true then draw the larger of the available arcs.</param>
+    /// <param name="useSweep">If true then draw the arc matching a clock-wise rotation.</param>
     public PathArc(double x, double y, double radiusX, double radiusY, double rotationX, bool useLargeArc, bool useSweep)
     {
       X = x;
@@ -54,63 +54,63 @@ namespace ImageMagick
       UseSweep = useSweep;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X radius.
-    ///</summary>
+    /// </summary>
     public double RadiusX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y radius.
-    ///</summary>
+    /// </summary>
     public double RadiusY
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Indicates how the ellipse as a whole is rotated relative to the current coordinate system.
-    ///</summary>
+    /// </summary>
     public double RotationX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// If true then draw the larger of the available arcs.
-    ///</summary>
+    /// </summary>
     public bool UseLargeArc
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// If true then draw the arc matching a clock-wise rotation.
-    ///</summary>
+    /// </summary>
     public bool UseSweep
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X offset from origin.
-    ///</summary>
+    /// </summary>
     public double X
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y offset from origin.
-    ///</summary>
+    /// </summary>
     public double Y
     {
       get;

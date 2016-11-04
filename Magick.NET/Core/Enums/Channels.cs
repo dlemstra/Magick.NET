@@ -17,9 +17,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies channel types.
-  ///</summary>
+  /// </summary>
   [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces"), Flags]
   public enum Channels
   {

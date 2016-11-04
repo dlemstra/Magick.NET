@@ -14,7 +14,7 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a quadratic Bezier curve (using absolute coordinates) from the current point to (X, Y).
   /// The control point is assumed to be the reflection of the control point on the previous
   /// command relative to the current point. (If there is no previous command or if the previous
@@ -22,7 +22,7 @@ namespace ImageMagick
   /// PathSmoothQuadraticCurveToAbs or PathSmoothQuadraticCurveToRel, assume the control point is
   /// coincident with the current point.). At the end of the command, the new current point becomes
   /// the final (X,Y) coordinate pair used in the polybezier.
-  ///</summary>
+  /// </summary>
   public sealed class PathSmoothQuadraticCurveToAbs : IPath
   {
     private PointD _End;
@@ -33,20 +33,20 @@ namespace ImageMagick
         wand.PathSmoothQuadraticCurveToAbs(_End);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathSmoothQuadraticCurveToAbs class.
-    ///</summary>
-    ///<param name="x">X coordinate of final point</param>
-    ///<param name="y">Y coordinate of final point</param>
+    /// </summary>
+    /// <param name="x">X coordinate of final point</param>
+    /// <param name="y">Y coordinate of final point</param>
     public PathSmoothQuadraticCurveToAbs(double x, double y)
       : this(new PointD(x, y))
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathSmoothQuadraticCurveToAbs class.
-    ///</summary>
-    ///<param name="end">Coordinate of final point</param>
+    /// </summary>
+    /// <param name="end">Coordinate of final point</param>
     public PathSmoothQuadraticCurveToAbs(PointD end)
     {
       _End = end;

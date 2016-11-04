@@ -17,14 +17,14 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class for defines that are used when a tiff image is written.
-  ///</summary>
+  /// </summary>
   public sealed class TiffWriteDefines : DefineCreator, IWriteDefines
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="TiffWriteDefines"/> class.
-    ///</summary>
+    /// </summary>
     public TiffWriteDefines()
       : base(MagickFormat.Tiff)
     {
@@ -38,54 +38,54 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the tiff alpha (tiff:alpha).
-    ///</summary>
+    /// </summary>
     public TiffAlpha? Alpha
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the endianness of the tiff file (tiff:endian).
-    ///</summary>
+    /// </summary>
     public Endian? Endian
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the endianness of the tiff file (tiff:fill-order).
-    ///</summary>
+    /// </summary>
     public Endian? FillOrder
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the rows per strip (tiff:rows-per-strip).
-    ///</summary>
+    /// </summary>
     public int? RowsPerStrip
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the tile geometry (tiff:tile-geometry).
-    ///</summary>
+    /// </summary>
     public MagickGeometry TileGeometry
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The defines that should be set a an define on an image
-    ///</summary>
+    /// </summary>
     public override IEnumerable<IDefine> Defines
     {
       get

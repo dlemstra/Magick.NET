@@ -14,10 +14,10 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Associates a named clipping path with the image. Only the areas drawn on by the clipping path
   /// will be modified as ssize_t as it remains in effect.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableClipPath : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -26,10 +26,10 @@ namespace ImageMagick
         wand.ClipPath(ClipPath);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableClipPath instance.
-    ///</summary>
-    ///<param name="clipPath">The ID of the clip path.</param>
+    /// </summary>
+    /// <param name="clipPath">The ID of the clip path.</param>
     public DrawableClipPath(string clipPath)
     {
       Throw.IfNullOrEmpty(nameof(clipPath), clipPath);
@@ -37,9 +37,9 @@ namespace ImageMagick
       ClipPath = clipPath;
     }
 
-    ///<summary>
+    /// <summary>
     /// The ID of the clip path.
-    ///</summary>
+    /// </summary>
     public string ClipPath
     {
       get;

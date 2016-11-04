@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Sets the font pointsize to use when annotating with text.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableFontPointSize : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.FontPointSize(PointSize);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawablePointSize instance.
-    ///</summary>
-    ///<param name="pointSize">The point size.</param>
+    /// </summary>
+    /// <param name="pointSize">The point size.</param>
     public DrawableFontPointSize(double pointSize)
     {
       PointSize = pointSize;
     }
 
-    ///<summary>
+    /// <summary>
     /// The point size.
-    ///</summary>
+    /// </summary>
     public double PointSize
     {
       get;

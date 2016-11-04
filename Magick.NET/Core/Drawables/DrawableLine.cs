@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a line on the image using the current stroke color, stroke alpha, and stroke width.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableLine : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,13 +25,13 @@ namespace ImageMagick
         wand.Line(StartX, StartY, EndX, EndY);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableLine instance.
-    ///</summary>
-    ///<param name="startX">The starting X coordinate.</param>
-    ///<param name="startY">The starting Y coordinate.</param>
-    ///<param name="endX">The ending X coordinate.</param>
-    ///<param name="endY">The ending Y coordinate.</param>
+    /// </summary>
+    /// <param name="startX">The starting X coordinate.</param>
+    /// <param name="startY">The starting Y coordinate.</param>
+    /// <param name="endX">The ending X coordinate.</param>
+    /// <param name="endY">The ending Y coordinate.</param>
     public DrawableLine(double startX, double startY, double endX, double endY)
     {
       StartX = startX;
@@ -40,36 +40,36 @@ namespace ImageMagick
       EndY = endY;
     }
 
-    ///<summary>
+    /// <summary>
     /// The ending X coordinate.
-    ///</summary>
+    /// </summary>
     public double EndX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The ending Y coordinate.
-    ///</summary>
+    /// </summary>
     public double EndY
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The starting X coordinate.
-    ///</summary>
+    /// </summary>
     public double StartX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The starting Y coordinate.
-    ///</summary>
+    /// </summary>
     public double StartY
     {
       get;

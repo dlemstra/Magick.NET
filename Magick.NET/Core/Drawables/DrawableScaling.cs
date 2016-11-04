@@ -14,10 +14,10 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Adjusts the scaling factor to apply in the horizontal and vertical directions to the current
   /// coordinate space.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableScaling : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -26,29 +26,29 @@ namespace ImageMagick
         wand.Scaling(X, Y);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableScaling instance.
-    ///</summary>
-    ///<param name="x">Horizontal scale factor.</param>
-    ///<param name="y">Vertical scale factor.</param>
+    /// </summary>
+    /// <param name="x">Horizontal scale factor.</param>
+    /// <param name="y">Vertical scale factor.</param>
     public DrawableScaling(double x, double y)
     {
       X = x;
       Y = y;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X coordinate.
-    ///</summary>
+    /// </summary>
     public double X
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y coordinate.
-    ///</summary>
+    /// </summary>
     public double Y
     {
       get;

@@ -14,11 +14,11 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// destroys the current drawing wand and returns to the  previously pushed drawing wand. Multiple
   /// drawing wands may exist. It is an error to attempt to pop more drawing wands than have been
   /// pushed, and it is proper form to pop all drawing wands which have been pushed.
-  ///</summary>
+  /// </summary>
   public sealed class DrawablePopGraphicContext : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -27,9 +27,9 @@ namespace ImageMagick
         wand.PopGraphicContext();
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawablePopGraphicContext instance.
-    ///</summary>
+    /// </summary>
     public DrawablePopGraphicContext()
     {
     }

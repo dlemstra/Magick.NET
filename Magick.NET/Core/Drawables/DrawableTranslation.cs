@@ -14,10 +14,10 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Applies a translation to the current coordinate system which moves the coordinate system
   /// origin to the specified coordinate.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableTranslation : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -26,29 +26,29 @@ namespace ImageMagick
         wand.Translation(X, Y);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableTranslation instance.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
     public DrawableTranslation(double x, double y)
     {
       X = x;
       Y = y;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X coordinate.
-    ///</summary>
+    /// </summary>
     public double X
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y coordinate.
-    ///</summary>
+    /// </summary>
     public double Y
     {
       get;

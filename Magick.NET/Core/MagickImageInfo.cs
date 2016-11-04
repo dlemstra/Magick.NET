@@ -18,56 +18,56 @@ using System.IO;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains basic information about an image.
-  ///</summary>
+  /// </summary>
   public sealed class MagickImageInfo : IEquatable<MagickImageInfo>, IComparable<MagickImageInfo>
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImageInfo class.
-    ///</summary>
+    /// </summary>
     public MagickImageInfo()
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImageInfo class using the specified blob.
-    ///</summary>
-    ///<param name="data">The byte array to read the information from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="data">The byte array to read the information from.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageInfo(byte[] data)
       : this()
     {
       Read(data);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImageInfo class using the specified filename.
-    ///</summary>
-    ///<param name="file">The file to read the image from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="file">The file to read the image from.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageInfo(FileInfo file)
       : this()
     {
       Read(file);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImageInfo class using the specified stream.
-    ///</summary>
-    ///<param name="stream">The stream to read the image data from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageInfo(Stream stream)
       : this()
     {
       Read(stream);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImageInfo class using the specified filename.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageInfo(string fileName)
       : this()
     {
@@ -152,82 +152,82 @@ namespace ImageMagick
       return left.CompareTo(right) <= 0;
     }
 
-    ///<summary>
+    /// <summary>
     /// Color space of the image.
-    ///</summary>
+    /// </summary>
     public ColorSpace ColorSpace
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Compression method of the image.
-    ///</summary>
+    /// </summary>
     public CompressionMethod CompressionMethod
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The density of the image.
-    ///</summary>
+    /// </summary>
     public Density Density
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Original file name of the image (only available if read from disk).
-    ///</summary>
+    /// </summary>
     public string FileName
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The format of the image.
-    ///</summary>
+    /// </summary>
     public MagickFormat Format
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Height of the image.
-    ///</summary>
+    /// </summary>
     public int Height
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Type of interlacing.
-    ///</summary>
+    /// </summary>
     public Interlace Interlace
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Height of the image.
-    ///</summary>
+    /// </summary>
     public int Width
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Compares the current instance with another object of the same type.
-    ///</summary>
-    ///<param name="other">The object to compare this image information with.</param>
+    /// </summary>
+    /// <param name="other">The object to compare this image information with.</param>
     public int CompareTo(MagickImageInfo other)
     {
       if (ReferenceEquals(other, null))
@@ -242,10 +242,10 @@ namespace ImageMagick
       return left < right ? -1 : 1;
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current image information.
-    ///</summary>
-    ///<param name="obj">The object to compare this image information with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this image information with.</param>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -254,10 +254,10 @@ namespace ImageMagick
       return Equals(obj as MagickImageInfo);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified geometry is equal to the current image information.
-    ///</summary>
-    ///<param name="other">The image to compare this image information with.</param>
+    /// </summary>
+    /// <param name="other">The image to compare this image information with.</param>
     public bool Equals(MagickImageInfo other)
     {
       if (ReferenceEquals(other, null))
@@ -277,9 +277,9 @@ namespace ImageMagick
         Width == other.Width;
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return
@@ -305,11 +305,11 @@ namespace ImageMagick
       Width = image.Width;
     }
 
-    ///<summary>
+    /// <summary>
     /// Read basic information about an image.
-    ///</summary>
-    ///<param name="data">The byte array to read the information from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="data">The byte array to read the information from.</param>
+    /// <exception cref="MagickException"/>
     public void Read(byte[] data)
     {
       using (MagickImage image = new MagickImage())
@@ -319,11 +319,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Read basic information about an image.
-    ///</summary>
-    ///<param name="file">The file to read the image from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="file">The file to read the image from.</param>
+    /// <exception cref="MagickException"/>
     public void Read(FileInfo file)
     {
       using (MagickImage image = new MagickImage())
@@ -333,11 +333,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Read basic information about an image.
-    ///</summary>
-    ///<param name="stream">The stream to read the image data from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <exception cref="MagickException"/>
     public void Read(Stream stream)
     {
       using (MagickImage image = new MagickImage())
@@ -347,11 +347,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Read basic information about an image.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <exception cref="MagickException"/>
     public void Read(string fileName)
     {
       using (MagickImage image = new MagickImage())
@@ -361,11 +361,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Read basic information about an image with multiple frames/pages.
-    ///</summary>
-    ///<param name="data">The byte array to read the information from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="data">The byte array to read the information from.</param>
+    /// <exception cref="MagickException"/>
     public static IEnumerable<MagickImageInfo> ReadCollection(byte[] data)
     {
       using (MagickImageCollection images = new MagickImageCollection())
@@ -380,11 +380,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Read basic information about an image with multiple frames/pages.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <exception cref="MagickException"/>
     public static IEnumerable<MagickImageInfo> ReadCollection(string fileName)
     {
       using (MagickImageCollection images = new MagickImageCollection())
@@ -399,11 +399,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Read basic information about an image with multiple frames/pages.
-    ///</summary>
-    ///<param name="stream">The stream to read the image data from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <exception cref="MagickException"/>
     public static IEnumerable<MagickImageInfo> ReadCollection(Stream stream)
     {
       using (MagickImageCollection images = new MagickImageCollection())

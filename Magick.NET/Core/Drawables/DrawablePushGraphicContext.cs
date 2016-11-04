@@ -14,11 +14,11 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Clones the current drawing wand to create a new drawing wand. The original drawing wand(s)
   /// may be returned to by invoking DrawablePopGraphicContext. The drawing wands are stored on a
   /// drawing wand stack. For every Pop there must have already been an equivalent Push.
-  ///</summary>
+  /// </summary>
   public sealed class DrawablePushGraphicContext : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -27,9 +27,9 @@ namespace ImageMagick
         wand.PushGraphicContext();
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawablePushGraphicContext instance.
-    ///</summary>
+    /// </summary>
     public DrawablePushGraphicContext()
     {
     }

@@ -19,9 +19,9 @@ using System.Reflection;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that can be used to initialize Magick.NET.
-  ///</summary>
+  /// </summary>
   public static partial class MagickNET
   {
     private static LogDelegate _NativeLog;
@@ -69,40 +69,40 @@ namespace ImageMagick
       NativeMagickNET.SetLogEvents(eventFlags);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the format information of the specified format based on the extension of the
     /// file.
-    ///</summary>
-    ///<param name="file">The file to get the format for.</param>
+    /// </summary>
+    /// <param name="file">The file to get the format for.</param>
     public static MagickFormatInfo GetFormatInformation(FileInfo file)
     {
       return MagickFormatInfo.Create(file);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the format information of the specified format.
-    ///</summary>
-    ///<param name="format">The image format.</param>
+    /// </summary>
+    /// <param name="format">The image format.</param>
     public static MagickFormatInfo GetFormatInformation(MagickFormat format)
     {
       return MagickFormatInfo.Create(format);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the format information of the specified format based on the extension of the
     /// file. If that fails the format will be determined by 'pinging' the file.
-    ///</summary>
-    ///<param name="fileName">The name of the file to get the format for.</param>
+    /// </summary>
+    /// <param name="fileName">The name of the file to get the format for.</param>
     public static MagickFormatInfo GetFormatInformation(string fileName)
     {
       return MagickFormatInfo.Create(fileName);
     }
 
-    ///<summary>
+    /// <summary>
     /// Adds the specified path to the environment path. You should place the ImageMagick
     /// xml files in that directory.
-    ///</summary>
-    ///<param name="path">The path that contains the ImageMagick xml files.</param>
+    /// </summary>
+    /// <param name="path">The path that contains the ImageMagick xml files.</param>
     public static void Initialize(string path)
     {
       string newPath = FileHelper.GetFullPath(path);
@@ -112,12 +112,12 @@ namespace ImageMagick
       Environment.SetEnv("MAGICK_CONFIGURE_PATH", path);
     }
 
-    ///<summary>
+    /// <summary>
     /// Set the events that will be written to the log. The log will be written to the Log event
     /// and the debug window in VisualStudio. To change the log settings you must use a custom
     /// log.xml file.
-    ///</summary>
-    ///<param name="events">The events that will be logged.</param>
+    /// </summary>
+    /// <param name="events">The events that will be logged.</param>
     public static void SetLogEvents(LogEvents events)
     {
       _LogEvents = events;
@@ -126,29 +126,29 @@ namespace ImageMagick
         SetLogEvents();
     }
 
-    ///<summary>
+    /// <summary>
     /// Sets the directory that contains the Ghostscript file gsdll32.dll / gsdll64.dll.
-    ///</summary>
-    ///<param name="path">The path of the Ghostscript directory.</param>
+    /// </summary>
+    /// <param name="path">The path of the Ghostscript directory.</param>
     public static void SetGhostscriptDirectory(string path)
     {
       Environment.SetEnv("MAGICK_GHOSTSCRIPT_PATH", FileHelper.GetFullPath(path));
     }
 
-    ///<summary>
+    /// <summary>
     /// Sets the directory that contains the Ghostscript font files.
-    ///</summary>
-    ///<param name="path">The path of the Ghostscript font directory.</param>
+    /// </summary>
+    /// <param name="path">The path of the Ghostscript font directory.</param>
     public static void SetGhostscriptFontDirectory(string path)
     {
       Environment.SetEnv("MAGICK_GHOSTSCRIPT_FONT_PATH", FileHelper.GetFullPath(path));
     }
 
-    ///<summary>
+    /// <summary>
     /// Sets the directory that will be used when ImageMagick does not have enough memory for the
     /// pixel cache.
-    ///</summary>
-    ///<param name="path">The path where temp files will be written.</param>
+    /// </summary>
+    /// <param name="path">The path where temp files will be written.</param>
     public static void SetTempDirectory(string path)
     {
       Environment.SetEnv("MAGICK_TEMPORARY_PATH", FileHelper.GetFullPath(path));
@@ -163,9 +163,9 @@ namespace ImageMagick
       NativeMagickNET.SetRandomSeed(seed);
     }
 
-    ///<summary>
+    /// <summary>
     /// Event that will be raised when something is logged by ImageMagick.
-    ///</summary>
+    /// </summary>
     public static event EventHandler<LogEventArgs> Log
     {
       add
@@ -192,9 +192,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the features reported by ImageMagick.
-    ///</summary>
+    /// </summary>
     public static string Features
     {
       get
@@ -203,9 +203,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns information about the supported formats.
-    ///</summary>
+    /// </summary>
     public static IEnumerable<MagickFormatInfo> SupportedFormats
     {
       get
@@ -214,9 +214,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the version of Magick.NET.
-    ///</summary>
+    /// </summary>
     public static string Version
     {
       get

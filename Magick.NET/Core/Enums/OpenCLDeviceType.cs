@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the OpenCL device types.
-  ///</summary>
+  /// </summary>
   public enum OpenCLDeviceType
   {
     /// <summary>

@@ -18,9 +18,9 @@ using System.Globalization;
 
 namespace ImageMagick.Defines
 {
-  ///<summary>
+  /// <summary>
   /// Base class that can create defines.
-  ///</summary>
+  /// </summary>
   public abstract class DefineCreator : IDefines
   {
     /// <summary>
@@ -90,18 +90,18 @@ namespace ImageMagick.Defines
       return new MagickDefine(Format, name, Enum.GetName(typeof(TEnum), value));
     }
 
-    ///<summary>
+    /// <summary>
     /// The format where the defines are for.
-    ///</summary>
+    /// </summary>
     protected MagickFormat Format
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The defines that should be set as a define on an image
-    ///</summary>
+    /// </summary>
     public abstract IEnumerable<IDefine> Defines
     {
       get;

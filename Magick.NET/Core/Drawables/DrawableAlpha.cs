@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Paints on the image's alpha channel in order to set effected pixels to transparent.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableAlpha : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,12 +25,12 @@ namespace ImageMagick
         wand.Alpha(X, Y, PaintMethod);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableOpacity instance.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
-    ///<param name="paintMethod">The paint method to use.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
+    /// <param name="paintMethod">The paint method to use.</param>
     public DrawableAlpha(double x, double y, PaintMethod paintMethod)
     {
       X = x;
@@ -38,27 +38,27 @@ namespace ImageMagick
       PaintMethod = paintMethod;
     }
 
-    ///<summary>
+    /// <summary>
     /// The PaintMethod to use.
-    ///</summary>
+    /// </summary>
     public PaintMethod PaintMethod
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X coordinate.
-    ///</summary>
+    /// </summary>
     public double X
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y coordinate.
-    ///</summary>
+    /// </summary>
     public double Y
     {
       get;

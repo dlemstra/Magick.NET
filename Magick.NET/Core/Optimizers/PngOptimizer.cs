@@ -93,9 +93,9 @@ namespace ImageMagick.ImageOptimizers
         return new int[] { 90 };
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PngOptimizer class.
-    ///</summary>
+    /// </summary>
     public PngOptimizer()
     {
     }

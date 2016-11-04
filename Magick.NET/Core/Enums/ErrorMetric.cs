@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the error metric types.
-  ///</summary>
+  /// </summary>
   public enum ErrorMetric
   {
     /// <summary>

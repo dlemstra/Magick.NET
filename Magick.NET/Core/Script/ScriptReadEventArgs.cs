@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains data for the Read event.
-  ///</summary>
+  /// </summary>
   public sealed class ScriptReadEventArgs : EventArgs
   {
     internal ScriptReadEventArgs(string id, MagickReadSettings settings)
@@ -27,27 +27,27 @@ namespace ImageMagick
       Settings = settings;
     }
 
-    ///<summary>
+    /// <summary>
     /// The ID of the image.
-    ///</summary>
+    /// </summary>
     public string Id
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The image that was read.
-    ///</summary>
+    /// </summary>
     public MagickImage Image
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The read settings for the image.
-    ///</summary>
+    /// </summary>
     public MagickReadSettings Settings
     {
       get;

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies line cap.
-  ///</summary>
+  /// </summary>
   public enum LineCap
   {
     /// <summary>

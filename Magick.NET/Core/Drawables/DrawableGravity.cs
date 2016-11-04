@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulation of the DrawableGravity object.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableGravity : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.Gravity(Gravity);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableGravity instance.
-    ///</summary>
-    ///<param name="gravity">The gravity.</param>
+    /// </summary>
+    /// <param name="gravity">The gravity.</param>
     public DrawableGravity(Gravity gravity)
     {
       Gravity = gravity;
     }
 
-    ///<summary>
+    /// <summary>
     /// The gravity.
-    ///</summary>
+    /// </summary>
     public Gravity Gravity
     {
       get;

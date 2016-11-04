@@ -59,54 +59,54 @@ namespace ImageMagick
         NativeConnectedComponent.DisposeList(list);
     }
 
-    ///<summary>
+    /// <summary>
     /// The height of the area.
-    ///</summary>
+    /// </summary>
     public int Height
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The width of the area.
-    ///</summary>
+    /// </summary>
     public int Width
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// X offset from origin
-    ///</summary>
+    /// </summary>
     public int X
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Y offset from origin
-    ///</summary>
+    /// </summary>
     public int Y
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the geometry of the area of this connected component.
-    ///</summary>
+    /// </summary>
     public MagickGeometry ToGeometry()
     {
       return new MagickGeometry(X, Y, Width, Height);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the geometry of the area of this connected component.
-    ///</summary>
-    ///<param name="extent">The number of pixels to extent the image width.</param>
+    /// </summary>
+    /// <param name="extent">The number of pixels to extent the image width.</param>
     public MagickGeometry ToGeometry(int extent)
     {
       int extra;

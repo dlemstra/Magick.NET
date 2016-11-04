@@ -14,11 +14,11 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Adds a path element to the current path which closes the current subpath by drawing a straight
   /// line from the current point to the current subpath's most recent starting point (usually, the
   /// most recent moveto point).
-  ///</summary>
+  /// </summary>
   public sealed class PathClose : IPath
   {
     void IPath.Draw(IDrawingWand wand)
@@ -27,9 +27,9 @@ namespace ImageMagick
         wand.PathClose();
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathClose class.
-    ///</summary>
+    /// </summary>
     public PathClose()
     {
     }

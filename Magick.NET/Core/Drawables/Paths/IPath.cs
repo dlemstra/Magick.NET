@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Interface for paths.
-  ///</summary>
+  /// </summary>
   public interface IPath
   {
     /// <summary>

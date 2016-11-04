@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the direction to be used when annotating with text.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableTextDirection : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.TextDirection(Direction);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableTextDirection instance.
-    ///</summary>
-    ///<param name="direction">Direction to use.</param>
+    /// </summary>
+    /// <param name="direction">Direction to use.</param>
     public DrawableTextDirection(TextDirection direction)
     {
       Direction = direction;
     }
 
-    ///<summary>
+    /// <summary>
     /// Direction to use.
-    ///</summary>
+    /// </summary>
     public TextDirection Direction
     {
       get;

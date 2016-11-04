@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the pixel storage types.
-  ///</summary>
+  /// </summary>
   public enum StorageType
   {
     /// <summary>

@@ -20,9 +20,9 @@ using System.IO;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Represents the collection of images.
-  ///</summary>
+  /// </summary>
   public sealed partial class MagickImageCollection : IDisposable, IList<MagickImage>
   {
     private List<MagickImage> _Images;
@@ -144,9 +144,9 @@ namespace ImageMagick
       Dispose(false);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImage class.
-    ///</summary>
+    /// </summary>
     public MagickImageCollection()
     {
       _Images = new List<MagickImage>();
@@ -154,57 +154,57 @@ namespace ImageMagick
       _NativeInstance.Warning += OnWarning;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImageCollection class using the specified byte array.
-    ///</summary>
-    ///<param name="data">The byte array to read the image data from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="data">The byte array to read the image data from.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageCollection(byte[] data)
       : this()
     {
       Read(data);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImageCollection class using the specified byte array.
-    ///</summary>
-    ///<param name="data">The byte array to read the image data from.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="data">The byte array to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageCollection(byte[] data, MagickReadSettings readSettings)
       : this()
     {
       Read(data, readSettings);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImage class using the specified file.
-    ///</summary>
-    ///<param name="file">The file to read the image from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="file">The file to read the image from.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageCollection(FileInfo file)
       : this()
     {
       Read(file);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImage class using the specified file.
-    ///</summary>
-    ///<param name="file">The file to read the image from.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="file">The file to read the image from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageCollection(FileInfo file, MagickReadSettings readSettings)
       : this()
     {
       Read(file, readSettings);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImage class using the specified images.
-    ///</summary>
-    ///<param name="images">The images to add to the collection.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="images">The images to add to the collection.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageCollection(IEnumerable<MagickImage> images)
       : this()
     {
@@ -216,55 +216,55 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImageCollection class using the specified stream.
-    ///</summary>
-    ///<param name="stream">The stream to read the image data from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageCollection(Stream stream)
       : this()
     {
       AddRange(stream);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImageCollection class using the specified stream.
-    ///</summary>
-    ///<param name="stream">The stream to read the image data from.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageCollection(Stream stream, MagickReadSettings readSettings)
       : this()
     {
       AddRange(stream, readSettings);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImageCollection class using the specified filename.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageCollection(string fileName)
       : this()
     {
       AddRange(fileName);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImageCollection class using the specified filename
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException"/>
     public MagickImageCollection(string fileName, MagickReadSettings readSettings)
       : this()
     {
       AddRange(fileName, readSettings);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts this instance to a byte array.
-    ///</summary>
+    /// </summary>
     public static explicit operator byte[] (MagickImageCollection collection)
     {
       Throw.IfNull(nameof(collection), collection);
@@ -272,9 +272,9 @@ namespace ImageMagick
       return collection.ToByteArray();
     }
 
-    ///<summary>
+    /// <summary>
     /// Event that will we raised when a warning is thrown by ImageMagick.
-    ///</summary>
+    /// </summary>
     public event EventHandler<WarningEventArgs> Warning
     {
       add
@@ -287,9 +287,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Gets or sets the image at the specified index.
-    ///</summary>
+    /// </summary>
     public MagickImage this[int index]
     {
       get
@@ -302,9 +302,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the number of images in the collection.
-    ///</summary>
+    /// </summary>
     public int Count
     {
       get
@@ -313,9 +313,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
-    ///Gets a value indicating whether the collection is read-only.
-    ///</summary>
+    /// <summary>
+    /// Gets a value indicating whether the collection is read-only.
+    /// </summary>
     public bool IsReadOnly
     {
       get
@@ -324,51 +324,51 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Adds an image to the collection.
-    ///</summary>
-    ///<param name="item">The image to add.</param>
+    /// </summary>
+    /// <param name="item">The image to add.</param>
     public void Add(MagickImage item)
     {
       _Images.Add(item);
     }
 
-    ///<summary>
+    /// <summary>
     /// Adds an image with the specified file name to the collection.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <exception cref="MagickException"/>
     public void Add(string fileName)
     {
       _Images.Add(new MagickImage(fileName));
     }
 
-    ///<summary>
+    /// <summary>
     /// Adds the image(s) from the specified byte array to the collection.
-    ///</summary>
-    ///<param name="data">The byte array to read the image data from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="data">The byte array to read the image data from.</param>
+    /// <exception cref="MagickException"/>
     public void AddRange(byte[] data)
     {
       AddRange(data, null);
     }
 
-    ///<summary>
+    /// <summary>
     /// Adds the image(s) from the specified byte array to the collection.
-    ///</summary>
-    ///<param name="data">The byte array to read the image data from.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="data">The byte array to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException"/>
     public void AddRange(byte[] data, MagickReadSettings readSettings)
     {
       AddImages(data, readSettings, false);
     }
 
-    ///<summary>
+    /// <summary>
     /// Adds a the specified images to this collection.
-    ///</summary>
-    ///<param name="images">The images to add to the collection.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="images">The images to add to the collection.</param>
+    /// <exception cref="MagickException"/>
     public void AddRange(IEnumerable<MagickImage> images)
     {
       Throw.IfNull(nameof(images), images);
@@ -379,11 +379,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Adds a Clone of the images from the specified collection to this collection.
-    ///</summary>
-    ///<param name="images">A collection of MagickImages.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="images">A collection of MagickImages.</param>
+    /// <exception cref="MagickException"/>
     public void AddRange(MagickImageCollection images)
     {
       Throw.IfNull(nameof(images), images);
@@ -395,52 +395,52 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Adds the image(s) from the specified file name to the collection.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <exception cref="MagickException"/>
     public void AddRange(string fileName)
     {
       AddRange(fileName, null);
     }
 
-    ///<summary>
+    /// <summary>
     /// Adds the image(s) from the specified file name to the collection.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException"/>
     public void AddRange(string fileName, MagickReadSettings readSettings)
     {
       AddImages(fileName, readSettings, false);
     }
 
-    ///<summary>
+    /// <summary>
     /// Adds the image(s) from the specified stream to the collection.
-    ///</summary>
-    ///<param name="stream">The stream to read the images from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to read the images from.</param>
+    /// <exception cref="MagickException"/>
     public void AddRange(Stream stream)
     {
       AddRange(stream, null);
     }
 
-    ///<summary>
+    /// <summary>
     /// Adds the image(s) from the specified stream to the collection.
-    ///</summary>
-    ///<param name="stream">The stream to read the images from.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to read the images from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException"/>
     public void AddRange(Stream stream, MagickReadSettings readSettings)
     {
       AddRange(StreamHelper.ToByteArray(stream), readSettings);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a single image, by appending all the images in the collection horizontally (+append).
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public MagickImage AppendHorizontally()
     {
       ThrowIfEmpty();
@@ -457,10 +457,10 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a single image, by appending all the images in the collection vertically (-append).
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public MagickImage AppendVertically()
     {
       ThrowIfEmpty();
@@ -477,11 +477,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Merge a sequence of images. This is useful for GIF animation sequences that have page
     /// offsets and disposal methods
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public void Coalesce()
     {
       ThrowIfEmpty();
@@ -504,9 +504,9 @@ namespace ImageMagick
         Add(image);
     }
 
-    ///<summary>
+    /// <summary>
     /// Removes all images from the collection.
-    ///</summary>
+    /// </summary>
     public void Clear()
     {
       foreach (MagickImage image in _Images)
@@ -518,9 +518,9 @@ namespace ImageMagick
       _Images.Clear();
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a clone of the current image collection.
-    ///</summary>
+    /// </summary>
     public MagickImageCollection Clone()
     {
       MagickImageCollection result = new MagickImageCollection();
@@ -530,22 +530,22 @@ namespace ImageMagick
       return result;
     }
 
-    ///<summary>
+    /// <summary>
     /// Combines one or more images into a single image. The typical ordering would be
     /// image 1 => Red, 2 => Green, 3 => Blue, etc.
-    ///</summary>
+    /// </summary>
     public MagickImage Combine()
     {
       return Combine(Channels.All);
     }
 
-    ///<summary>
+    /// <summary>
     /// Combines one or more images into a single image. The grayscale value of the pixels of each
     /// image in the sequence is assigned in order to the specified channels of the combined image.
     /// The typical ordering would be image 1 => Red, 2 => Green, 3 => Blue, etc.
-    ///</summary>
-    ///<param name="channels">The channel(s) to combine.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="channels">The channel(s) to combine.</param>
+    /// <exception cref="MagickException"/>
     public MagickImage Combine(Channels channels)
     {
       ThrowIfEmpty();
@@ -562,20 +562,20 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the collection contains the specified image.
-    ///</summary>
-    ///<param name="item">The image to check.</param>
+    /// </summary>
+    /// <param name="item">The image to check.</param>
     public bool Contains(MagickImage item)
     {
       return _Images.Contains(item);
     }
 
-    ///<summary>
+    /// <summary>
     /// Copies the images to an Array, starting at a particular Array index.
-    ///</summary>
-    ///<param name="array">The one-dimensional Array that is the destination.</param>
-    ///<param name="arrayIndex">The zero-based index in 'destination' at which copying begins.</param>
+    /// </summary>
+    /// <param name="array">The one-dimensional Array that is the destination.</param>
+    /// <param name="arrayIndex">The zero-based index in 'destination' at which copying begins.</param>
     public void CopyTo(MagickImage[] array, int arrayIndex)
     {
       if (_Images.Count == 0)
@@ -593,11 +593,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Break down an image sequence into constituent parts. This is useful for creating GIF or
     /// MNG animation sequences.
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public void Deconstruct()
     {
       ThrowIfEmpty();
@@ -629,12 +629,12 @@ namespace ImageMagick
       GC.SuppressFinalize(this);
     }
 
-    ///<summary>
+    /// <summary>
     /// Evaluate image pixels into a single image. All the images in the collection must be the
     /// same size in pixels.
-    ///</summary>
-    ///<param name="evaluateOperator">The operator.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="evaluateOperator">The operator.</param>
+    /// <exception cref="MagickException"/>
     public MagickImage Evaluate(EvaluateOperator evaluateOperator)
     {
       ThrowIfEmpty();
@@ -651,11 +651,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Flatten this collection into a single image.
     /// This is useful for combining Photoshop layers into a single image.
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public MagickImage Flatten()
     {
       ThrowIfEmpty();
@@ -681,51 +681,51 @@ namespace ImageMagick
       return _Images.GetEnumerator();
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines the index of the specified image.
-    ///</summary>
-    ///<param name="item">The image to check.</param>
+    /// </summary>
+    /// <param name="item">The image to check.</param>
     public int IndexOf(MagickImage item)
     {
       return _Images.IndexOf(item);
     }
 
-    ///<summary>
+    /// <summary>
     /// Inserts an image into the collection.
-    ///</summary>
-    ///<param name="index">The index to insert the image.</param>
-    ///<param name="item">The image to insert.</param>
+    /// </summary>
+    /// <param name="index">The index to insert the image.</param>
+    /// <param name="item">The image to insert.</param>
     public void Insert(int index, MagickImage item)
     {
       _Images.Insert(index, item);
     }
 
-    ///<summary>
+    /// <summary>
     /// Inserts an image with the specified file name into the collection.
-    ///</summary>
-    ///<param name="index">The index to insert the image.</param>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// </summary>
+    /// <param name="index">The index to insert the image.</param>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
     public void Insert(int index, string fileName)
     {
       _Images.Insert(index, new MagickImage(fileName));
     }
 
-    ///<summary>
+    /// <summary>
     /// Remap image colors with closest color from reference image.
-    ///</summary>
-    ///<param name="image">The image to use.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="image">The image to use.</param>
+    /// <exception cref="MagickException"/>
     public void Map(MagickImage image)
     {
       Map(image, new QuantizeSettings());
     }
 
-    ///<summary>
+    /// <summary>
     /// Remap image colors with closest color from reference image.
-    ///</summary>
-    ///<param name="image">The image to use.</param>
-    ///<param name="settings">Quantize settings.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="image">The image to use.</param>
+    /// <param name="settings">Quantize settings.</param>
+    /// <exception cref="MagickException"/>
     public void Map(MagickImage image, QuantizeSettings settings)
     {
       ThrowIfEmpty();
@@ -744,11 +744,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Merge this collection into a single image.
     /// This is useful for combining Photoshop layers into a single image.
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public MagickImage Merge()
     {
       ThrowIfEmpty();
@@ -765,11 +765,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Create a composite image by combining the images with the specified settings.
-    ///</summary>
-    ///<param name="settings">The settings to use.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="settings">The settings to use.</param>
+    /// <exception cref="MagickException"/>
     public MagickImage Montage(MontageSettings settings)
     {
       ThrowIfEmpty();
@@ -804,12 +804,12 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// The Morph method requires a minimum of two images. The first image is transformed into
     /// the second by a number of intervening images as specified by frames.
-    ///</summary>
-    ///<param name="frames">The number of in-between images to generate.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="frames">The number of in-between images to generate.</param>
+    /// <exception cref="MagickException"/>
     public void Morph(int frames)
     {
       ThrowIfCountLowerThan(2);
@@ -832,10 +832,10 @@ namespace ImageMagick
         Add(image);
     }
 
-    ///<summary>
+    /// <summary>
     /// Inlay the images to form a single coherent picture.
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public MagickImage Mosaic()
     {
       ThrowIfEmpty();
@@ -852,12 +852,12 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Compares each image the GIF disposed forms of the previous image in the sequence. From
     /// this it attempts to select the smallest cropped image to replace each frame, while
     /// preserving the results of the GIF animation.
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public void Optimize()
     {
       ThrowIfEmpty();
@@ -880,11 +880,11 @@ namespace ImageMagick
         Add(image);
     }
 
-    ///<summary>
+    /// <summary>
     /// OptimizePlus is exactly as Optimize, but may also add or even remove extra frames in the
     /// animation, if it improves the total number of pixels in the resulting GIF animation.
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public void OptimizePlus()
     {
       ThrowIfEmpty();
@@ -907,11 +907,11 @@ namespace ImageMagick
         Add(image);
     }
 
-    ///<summary>
+    /// <summary>
     /// Compares each image the GIF disposed forms of the previous image in the sequence. Any
     /// pixel that does not change the displayed result is replaced with transparency. 
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public void OptimizeTransparency()
     {
       ThrowIfEmpty();
@@ -927,22 +927,22 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Read only metadata and not the pixel data from all image frames.
-    ///</summary>
-    ///<param name="data">The byte array to read the image data from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="data">The byte array to read the image data from.</param>
+    /// <exception cref="MagickException"/>
     public void Ping(byte[] data)
     {
       Clear();
       AddImages(data, null, true);
     }
 
-    ///<summary>
+    /// <summary>
     /// Read only metadata and not the pixel data from all image frames.
-    ///</summary>
-    ///<param name="file">The file to read the frames from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="file">The file to read the frames from.</param>
+    /// <exception cref="MagickException"/>
     public void Ping(FileInfo file)
     {
       Throw.IfNull(nameof(file), file);
@@ -950,41 +950,41 @@ namespace ImageMagick
       Ping(file.FullName);
     }
 
-    ///<summary>
+    /// <summary>
     /// Read only metadata and not the pixel data from all image frames.
-    ///</summary>
-    ///<param name="stream">The stream to read the image data from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <exception cref="MagickException"/>
     public void Ping(Stream stream)
     {
       Ping(StreamHelper.ToByteArray(stream));
     }
 
-    ///<summary>
+    /// <summary>
     /// Read only metadata and not the pixel data from all image frames.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <exception cref="MagickException"/>
     public void Ping(string fileName)
     {
       Clear();
       AddImages(fileName, null, true);
     }
 
-    ///<summary>
+    /// <summary>
     /// Quantize images (reduce number of colors).
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public MagickErrorInfo Quantize()
     {
       return Quantize(new QuantizeSettings());
     }
 
-    ///<summary>
+    /// <summary>
     /// Quantize images (reduce number of colors).
-    ///</summary>
-    ///<param name="settings">Quantize settings.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="settings">Quantize settings.</param>
+    /// <exception cref="MagickException"/>
     public MagickErrorInfo Quantize(QuantizeSettings settings)
     {
       ThrowIfEmpty();
@@ -1007,11 +1007,11 @@ namespace ImageMagick
         return null;
     }
 
-    ///<summary>
+    /// <summary>
     /// Read all image frames.
-    ///</summary>
-    ///<param name="file">The file to read the frames from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="file">The file to read the frames from.</param>
+    /// <exception cref="MagickException"/>
     public void Read(FileInfo file)
     {
       Throw.IfNull(nameof(file), file);
@@ -1019,12 +1019,12 @@ namespace ImageMagick
       Read(file.FullName);
     }
 
-    ///<summary>
+    /// <summary>
     /// Read all image frames.
-    ///</summary>
-    ///<param name="file">The file to read the frames from.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="file">The file to read the frames from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException"/>
     public void Read(FileInfo file, MagickReadSettings readSettings)
     {
       Throw.IfNull(nameof(file), file);
@@ -1032,93 +1032,93 @@ namespace ImageMagick
       Read(file.FullName, readSettings);
     }
 
-    ///<summary>
+    /// <summary>
     /// Read all image frames.
-    ///</summary>
-    ///<param name="data">The byte array to read the image data from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="data">The byte array to read the image data from.</param>
+    /// <exception cref="MagickException"/>
     public void Read(byte[] data)
     {
       Read(data, null);
     }
 
-    ///<summary>
+    /// <summary>
     /// Read all image frames.
-    ///</summary>
-    ///<param name="data">The byte array to read the image data from.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="data">The byte array to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException"/>
     public void Read(byte[] data, MagickReadSettings readSettings)
     {
       Clear();
       AddImages(data, readSettings, false);
     }
 
-    ///<summary>
+    /// <summary>
     /// Read all image frames.
-    ///</summary>
-    ///<param name="stream">The stream to read the image data from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <exception cref="MagickException"/>
     public void Read(Stream stream)
     {
       Read(stream, null);
     }
 
-    ///<summary>
+    /// <summary>
     /// Read all image frames.
-    ///</summary>
-    ///<param name="stream">The stream to read the image data from.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException"/>
     public void Read(Stream stream, MagickReadSettings readSettings)
     {
       Read(StreamHelper.ToByteArray(stream), readSettings);
     }
 
-    ///<summary>
+    /// <summary>
     /// Read all image frames.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <exception cref="MagickException"/>
     public void Read(string fileName)
     {
       Read(fileName, null);
     }
 
-    ///<summary>
+    /// <summary>
     /// Read all image frames.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<param name="readSettings">The settings to use when reading the image.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException"/>
     public void Read(string fileName, MagickReadSettings readSettings)
     {
       Clear();
       AddImages(fileName, readSettings, false);
     }
 
-    ///<summary>
+    /// <summary>
     /// Removes the first occurrence of the specified image from the collection.
-    ///</summary>
-    ///<param name="item">The image to remove.</param>
+    /// </summary>
+    /// <param name="item">The image to remove.</param>
     public bool Remove(MagickImage item)
     {
       return _Images.Remove(item);
     }
 
-    ///<summary>
+    /// <summary>
     /// Removes the image at the specified index from the collection.
-    ///</summary>
-    ///<param name="index">The index of the image to remove.</param>
+    /// </summary>
+    /// <param name="index">The index of the image to remove.</param>
     public void RemoveAt(int index)
     {
       _Images.RemoveAt(index);
     }
 
-    ///<summary>
+    /// <summary>
     /// Resets the page property of every image in the collection.
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public void RePage()
     {
       foreach (MagickImage image in _Images)
@@ -1127,19 +1127,19 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Reverses the order of the images in the collection.
-    ///</summary>
+    /// </summary>
     public void Reverse()
     {
       _Images.Reverse();
     }
 
-    ///<summary>
+    /// <summary>
     /// Smush images from list into single image in horizontal direction.
-    ///</summary>
-    ///<param name="offset">Minimum distance in pixels between images.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="offset">Minimum distance in pixels between images.</param>
+    /// <exception cref="MagickException"/>
     public MagickImage SmushHorizontal(int offset)
     {
       ThrowIfEmpty();
@@ -1156,11 +1156,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Smush images from list into single image in vertical direction.
-    ///</summary>
-    ///<param name="offset">Minimum distance in pixels between images.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="offset">Minimum distance in pixels between images.</param>
+    /// <exception cref="MagickException"/>
     public MagickImage SmushVertical(int offset)
     {
       ThrowIfEmpty();
@@ -1177,9 +1177,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts this instance to a byte array.
-    ///</summary>
+    /// </summary>
     public byte[] ToByteArray()
     {
       using (MemoryStream memStream = new MemoryStream())
@@ -1189,19 +1189,19 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts this instance to a byte array.
-    ///</summary>
-    ///<param name="format">The format to use.</param>
+    /// </summary>
+    /// <param name="format">The format to use.</param>
     public byte[] ToByteArray(MagickFormat format)
     {
       SetFormat(format);
       return ToByteArray();
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts this instance to a base64 string.
-    ///</summary>
+    /// </summary>
     public string ToBase64()
     {
       byte[] bytes = ToByteArray();
@@ -1211,10 +1211,10 @@ namespace ImageMagick
       return Convert.ToBase64String(bytes);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts this instance to a base64 string.
-    ///</summary>
-    ///<param name="format">The format to use.</param>
+    /// </summary>
+    /// <param name="format">The format to use.</param>
     public string ToBase64(MagickFormat format)
     {
       byte[] bytes = ToByteArray(format);
@@ -1224,11 +1224,11 @@ namespace ImageMagick
       return Convert.ToBase64String(bytes);
     }
 
-    ///<summary>
+    /// <summary>
     /// Merge this collection into a single image.
     /// This is useful for combining Photoshop layers into a single image.
-    ///</summary>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <exception cref="MagickException"/>
     public void TrimBounds()
     {
       ThrowIfEmpty();
@@ -1244,12 +1244,12 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Writes the images to the specified file. If the output image's file format does not
     /// allow multi-image files multiple files will be written.
-    ///</summary>
-    ///<param name="file">The file to write the image to.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="file">The file to write the image to.</param>
+    /// <exception cref="MagickException"/>
     public void Write(FileInfo file)
     {
       Throw.IfNull(nameof(file), file);
@@ -1258,25 +1258,25 @@ namespace ImageMagick
       file.Refresh();
     }
 
-    ///<summary>
+    /// <summary>
     /// Writes the images to the specified file. If the output image's file format does not
     /// allow multi-image files multiple files will be written.
-    ///</summary>
-    ///<param name="file">The file to write the image to.</param>
-    ///<param name="defines">The defines to set.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="file">The file to write the image to.</param>
+    /// <param name="defines">The defines to set.</param>
+    /// <exception cref="MagickException"/>
     public void Write(FileInfo file, IWriteDefines defines)
     {
       SetDefines(defines);
       Write(file);
     }
 
-    ///<summary>
+    /// <summary>
     /// Writes the imagse to the specified stream. If the output image's file format does not
     /// allow multi-image files multiple files will be written.
-    ///</summary>
-    ///<param name="stream">The stream to write the images to.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to write the images to.</param>
+    /// <exception cref="MagickException"/>
     public void Write(Stream stream)
     {
       Throw.IfNull(nameof(stream), stream);
@@ -1301,13 +1301,13 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Writes the imagse to the specified stream. If the output image's file format does not
     /// allow multi-image files multiple files will be written.
-    ///</summary>
-    ///<param name="stream">The stream to write the images to.</param>
-    ///<param name="defines">The defines to set.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to write the images to.</param>
+    /// <param name="defines">The defines to set.</param>
+    /// <exception cref="MagickException"/>
     public void Write(Stream stream, IWriteDefines defines)
     {
       SetDefines(defines);
@@ -1315,24 +1315,24 @@ namespace ImageMagick
       Write(stream);
     }
 
-    ///<summary>
+    /// <summary>
     /// Writes the image to the specified stream.
-    ///</summary>
-    ///<param name="stream">The stream to write the image data to.</param>
-    ///<param name="format">The format to use.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="stream">The stream to write the image data to.</param>
+    /// <param name="format">The format to use.</param>
+    /// <exception cref="MagickException"/>
     public void Write(Stream stream, MagickFormat format)
     {
       SetFormat(format);
       Write(stream);
     }
 
-    ///<summary>
+    /// <summary>
     /// Writes the images to the specified file name. If the output image's file format does not
     /// allow multi-image files multiple files will be written.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <exception cref="MagickException"/>
     public void Write(string fileName)
     {
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
@@ -1354,13 +1354,13 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Writes the images to the specified file name. If the output image's file format does not
     /// allow multi-image files multiple files will be written.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    ///<param name="defines">The defines to set.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <param name="defines">The defines to set.</param>
+    /// <exception cref="MagickException"/>
     public void Write(string fileName, IWriteDefines defines)
     {
       SetDefines(defines);

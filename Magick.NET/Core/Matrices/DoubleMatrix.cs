@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulates a matrix of doubles.
-  ///</summary>
+  /// </summary>
   public abstract partial class DoubleMatrix
   {
     private double[] _Values;
@@ -53,9 +53,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Get or set the value at the specified x/y position.
-    ///</summary>
+    /// </summary>
     public double this[int x, int y]
     {
       get
@@ -68,30 +68,30 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the order of the matrix.
-    ///</summary>
+    /// </summary>
     public int Order
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the value at the specified x/y position.
-    ///</summary>
-    ///<param name="x">The x position</param>
-    ///<param name="y">The y position</param>
+    /// </summary>
+    /// <param name="x">The x position</param>
+    /// <param name="y">The y position</param>
     public double GetValue(int x, int y)
     {
       return _Values[GetIndex(x, y)];
     }
 
-    ///<summary>
+    /// <summary>
     /// Set the column at the specified x position.
-    ///</summary>
-    ///<param name="x">The x position</param>
-    ///<param name="values">The values</param>
+    /// </summary>
+    /// <param name="x">The x position</param>
+    /// <param name="values">The values</param>
     public void SetColumn(int x, params double[] values)
     {
       Throw.IfOutOfRange(nameof(x), x, Order);
@@ -104,11 +104,11 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Set the row at the specified y position.
-    ///</summary>
-    ///<param name="y">The y position</param>
-    ///<param name="values">The values</param>
+    /// </summary>
+    /// <param name="y">The y position</param>
+    /// <param name="values">The values</param>
     public void SetRow(int y, params double[] values)
     {
       Throw.IfOutOfRange(nameof(y), y, Order);
@@ -121,20 +121,20 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Set the value at the specified x/y position.
-    ///</summary>
-    ///<param name="x">The x position</param>
-    ///<param name="y">The y position</param>
-    ///<param name="value">The value</param>
+    /// </summary>
+    /// <param name="x">The x position</param>
+    /// <param name="y">The y position</param>
+    /// <param name="value">The value</param>
     public void SetValue(int x, int y, double value)
     {
       _Values[GetIndex(x, y)] = value;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string that represents the current DoubleMatrix.
-    ///</summary>
+    /// </summary>
     public double[] ToArray()
     {
       return _Values;

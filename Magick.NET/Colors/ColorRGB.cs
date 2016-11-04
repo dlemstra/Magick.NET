@@ -18,10 +18,10 @@ namespace ImageMagick
 {
   public sealed partial class ColorRGB
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ColorRGB class using the specified color.
-    ///</summary>
-    ///<param name="color">The color to use.</param>
+    /// </summary>
+    /// <param name="color">The color to use.</param>
     public ColorRGB(Color color)
       : base(new MagickColor(color))
     {

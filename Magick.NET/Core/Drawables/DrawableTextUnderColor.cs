@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the color of a background rectangle to place under text annotations.
-  ///</summary>
+  /// </summary>
   public sealed partial class DrawableTextUnderColor : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,10 +25,10 @@ namespace ImageMagick
         wand.TextUnderColor(Color);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableTextUnderColor instance.
-    ///</summary>
-    ///<param name="color">The color to use.</param>
+    /// </summary>
+    /// <param name="color">The color to use.</param>
     public DrawableTextUnderColor(MagickColor color)
     {
       Throw.IfNull(nameof(color), color);
@@ -36,9 +36,9 @@ namespace ImageMagick
       Color = color;
     }
 
-    ///<summary>
+    /// <summary>
     /// The color to use.
-    ///</summary>
+    /// </summary>
     public MagickColor Color
     {
       get;

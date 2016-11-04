@@ -12,12 +12,11 @@
 // limitations under the License.
 //=================================================================================================
 
-
 namespace ImageMagick.Defines
 {
-  ///<summary>
+  /// <summary>
   /// Specifies dds compression methods
-  ///</summary>
+  /// </summary>
   public enum DdsCompression
   {
     /// <summary>

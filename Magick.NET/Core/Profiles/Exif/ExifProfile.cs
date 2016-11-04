@@ -68,29 +68,29 @@ namespace ImageMagick
       Data = writer.GetData();
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ExifProfile class.
-    ///</summary>
+    /// </summary>
     public ExifProfile()
       : base("exif")
     {
       Initialize();
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ExifProfile class.
-    ///</summary>
-    ///<param name="data">The byte array to read the exif profile from.</param>
+    /// </summary>
+    /// <param name="data">The byte array to read the exif profile from.</param>
     public ExifProfile(byte[] data)
       : base("exif", data)
     {
       Initialize();
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ExifProfile class.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the exif profile file, or the relative
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the exif profile file, or the relative
     /// exif profile file name.</param>
     public ExifProfile(string fileName)
       : base("exif", fileName)
@@ -98,28 +98,28 @@ namespace ImageMagick
       Initialize();
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ExifProfile class.
-    ///</summary>
-    ///<param name="stream">The stream to read the exif profile from.</param>
+    /// </summary>
+    /// <param name="stream">The stream to read the exif profile from.</param>
     public ExifProfile(Stream stream)
       : base("exif", stream)
     {
       Initialize();
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies which parts will be written when the profile is added to an image.
-    ///</summary>
+    /// </summary>
     public ExifParts Parts
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the tags that where found but contained an invalid value.
-    ///</summary>
+    /// </summary>
     public IEnumerable<ExifTag> InvalidTags
     {
       get
@@ -128,9 +128,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the values of this exif profile.
-    ///</summary>
+    /// </summary>
     public IEnumerable<ExifValue> Values
     {
       get
@@ -140,9 +140,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the thumbnail in the exif profile when available.
-    ///</summary>
+    /// </summary>
     public MagickImage CreateThumbnail()
     {
       InitializeValues();
@@ -158,10 +158,10 @@ namespace ImageMagick
       return new MagickImage(data);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the value with the specified tag.
-    ///</summary>
-    ///<param name="tag">The tag of the exif value.</param>
+    /// </summary>
+    /// <param name="tag">The tag of the exif value.</param>
     public ExifValue GetValue(ExifTag tag)
     {
       foreach (ExifValue exifValue in Values)
@@ -173,10 +173,10 @@ namespace ImageMagick
       return null;
     }
 
-    ///<summary>
+    /// <summary>
     /// Removes the value with the specified tag.
-    ///</summary>
-    ///<param name="tag">The tag of the exif value.</param>
+    /// </summary>
+    /// <param name="tag">The tag of the exif value.</param>
     public bool RemoveValue(ExifTag tag)
     {
       InitializeValues();
@@ -193,11 +193,11 @@ namespace ImageMagick
       return false;
     }
 
-    ///<summary>
+    /// <summary>
     /// Sets the value of the specified tag.
-    ///</summary>
-    ///<param name="tag">The tag of the exif value.</param>
-    ///<param name="value">The value.</param>
+    /// </summary>
+    /// <param name="tag">The tag of the exif value.</param>
+    /// <param name="value">The value.</param>
     public void SetValue(ExifTag tag, object value)
     {
       foreach (ExifValue exifValue in Values)

@@ -116,10 +116,10 @@ namespace ImageMagick
       return !object.Equals(left, right);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current iptc value.
-    ///</summary>
-    ///<param name="obj">The object to compare this iptc value with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this iptc value with.</param>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -128,10 +128,10 @@ namespace ImageMagick
       return Equals(obj as IptcValue);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified iptc value is equal to the current iptc value.
-    ///</summary>
-    ///<param name="other">The iptc value to compare this iptc value with.</param>
+    /// </summary>
+    /// <param name="other">The iptc value to compare this iptc value with.</param>
     public bool Equals(IptcValue other)
     {
       if (ReferenceEquals(other, null))
@@ -161,9 +161,9 @@ namespace ImageMagick
       return true;
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return
@@ -171,9 +171,9 @@ namespace ImageMagick
         Tag.GetHashCode();
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts this instance to a byte array.
-    ///</summary>
+    /// </summary>
     public byte[] ToByteArray()
     {
       byte[] result = new byte[_Data.Length];
@@ -181,17 +181,17 @@ namespace ImageMagick
       return result;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string that represents the current value.
-    ///</summary>
+    /// </summary>
     public override string ToString()
     {
       return Value;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string that represents the current value with the specified encoding.
-    ///</summary>
+    /// </summary>
     public string ToString(Encoding encoding)
     {
       Throw.IfNull(nameof(encoding), encoding);

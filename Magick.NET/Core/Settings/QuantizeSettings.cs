@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains setting for quantize operations.
-  ///</summary>
+  /// </summary>
   public sealed partial class QuantizeSettings
   {
     private INativeInstance CreateNativeInstance()
@@ -33,54 +33,54 @@ namespace ImageMagick
       return instance;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the QuantizeSettings class.
-    ///</summary>
+    /// </summary>
     public QuantizeSettings()
     {
       Colors = 1;
       DitherMethod = ImageMagick.DitherMethod.Riemersma;
     }
 
-    ///<summary>
+    /// <summary>
     /// Maximum number of colors to quantize to.
-    ///</summary>
+    /// </summary>
     public int Colors
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Colorspace to quantize in.
-    ///</summary>
+    /// </summary>
     public ColorSpace ColorSpace
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Dither method to use.
-    ///</summary>
+    /// </summary>
     public DitherMethod? DitherMethod
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Measure errors.
-    ///</summary>
+    /// </summary>
     public bool MeasureErrors
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Quantization tree-depth.
-    ///</summary>
+    /// </summary>
     public int TreeDepth
     {
       get;

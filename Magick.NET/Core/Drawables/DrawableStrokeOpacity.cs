@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the alpha of stroked object outlines.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableStrokeOpacity : IDrawable
   {
 
@@ -26,18 +26,18 @@ namespace ImageMagick
         wand.StrokeOpacity((double)Opacity / 100);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableStrokeOpacity instance.
-    ///</summary>
-    ///<param name="opacity">The opacity.</param>
+    /// </summary>
+    /// <param name="opacity">The opacity.</param>
     public DrawableStrokeOpacity(Percentage opacity)
     {
       Opacity = opacity;
     }
 
-    ///<summary>
+    /// <summary>
     /// The opacity.
-    ///</summary>
+    /// </summary>
     public Percentage Opacity
     {
       get;

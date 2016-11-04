@@ -17,9 +17,9 @@ using System.Drawing.Imaging;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains information about an image format.
-  ///</summary>
+  /// </summary>
   public sealed partial class MagickFormatInfo
   {
     internal static MagickFormat GetFormat(ImageFormat format)

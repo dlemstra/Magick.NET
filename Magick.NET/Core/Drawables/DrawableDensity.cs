@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulation of the DrawableDensity object.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableDensity : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,27 +25,27 @@ namespace ImageMagick
         wand.Density(Density);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableDensity instance.
-    ///</summary>
-    ///<param name="density">The vertical and horizontal resolution.</param>
+    /// </summary>
+    /// <param name="density">The vertical and horizontal resolution.</param>
     public DrawableDensity(double density)
     {
       Density = new PointD(density);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableDensity instance.
-    ///</summary>
-    ///<param name="pointDensity">The vertical and horizontal resolution.</param>
+    /// </summary>
+    /// <param name="pointDensity">The vertical and horizontal resolution.</param>
     public DrawableDensity(PointD pointDensity)
     {
       Density = pointDensity;
     }
 
-    ///<summary>
+    /// <summary>
     /// The vertical and horizontal resolution.
-    ///</summary>
+    /// </summary>
     public PointD Density
     {
       get;

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Terminates a pattern definition.
-  ///</summary>
+  /// </summary>
   public sealed class DrawablePopPattern : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,9 +25,9 @@ namespace ImageMagick
         wand.PopPattern();
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawablePopPattern instance.
-    ///</summary>
+    /// </summary>
     public DrawablePopPattern()
     {
     }

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains setting for pixel storage.
-  ///</summary>
+  /// </summary>
   public sealed class PixelStorageSettings
   {
     internal PixelStorageSettings Clone()
@@ -28,36 +28,36 @@ namespace ImageMagick
       };
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="PixelStorageSettings"/> class.
-    ///</summary>
+    /// </summary>
     public PixelStorageSettings()
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="PixelStorageSettings"/> class.
-    ///</summary>
-    ///<param name="storageType">The pixel storage type</param>
-    ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    /// </summary>
+    /// <param name="storageType">The pixel storage type</param>
+    /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     public PixelStorageSettings(StorageType storageType, string mapping)
     {
       Mapping = mapping;
       StorageType = storageType;
     }
 
-    ///<summary>
+    /// <summary>
     /// The mapping of the pixels (e.g. RGB/RGBA/ARGB).
-    ///</summary>
+    /// </summary>
     public string Mapping
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The pixel storage type.
-    ///</summary>
+    /// </summary>
     public StorageType StorageType
     {
       get;

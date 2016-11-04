@@ -16,9 +16,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Interface for defines that are used when writing an image.
-  ///</summary>
+  /// </summary>
   [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
   public interface IWriteDefines : IDefines
   {

@@ -14,14 +14,14 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains setting for the morphology operation.
-  ///</summary>
+  /// </summary>
   public sealed class MorphologySettings
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MorphologySettings class.
-    ///</summary>
+    /// </summary>
     public MorphologySettings()
     {
       Channels = Channels.Composite;

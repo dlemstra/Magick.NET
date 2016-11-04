@@ -50,9 +50,9 @@ namespace ImageMagick.ImageOptimizers
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the JpegOptimizer class.
-    ///</summary>
+    /// </summary>
     public JpegOptimizer()
     {
       Progressive = true;

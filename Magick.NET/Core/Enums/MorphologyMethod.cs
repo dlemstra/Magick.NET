@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the morphology methods.
-  ///</summary>
+  /// </summary>
   public enum MorphologyMethod
   {
     /// <summary>

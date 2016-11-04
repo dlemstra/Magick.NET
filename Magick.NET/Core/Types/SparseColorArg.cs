@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Represents an argument for the SparseColor method.
-  ///</summary>
+  /// </summary>
   public sealed class SparseColorArg
   {
     /// <summary>
@@ -34,27 +34,27 @@ namespace ImageMagick
       Color = color;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X position.
-    ///</summary>
+    /// </summary>
     public double X
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y position.
-    ///</summary>
+    /// </summary>
     public double Y
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The color.
-    ///</summary>
+    /// </summary>
     public MagickColor Color
     {
       get;

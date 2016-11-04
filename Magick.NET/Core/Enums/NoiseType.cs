@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specified the type of noise that should be added to the image.
-  ///</summary>
+  /// </summary>
   public enum NoiseType
   {
     /// <summary>

@@ -29,18 +29,18 @@ namespace ImageMagick
       SetFormat(MagickFormatInfo.GetFormat(format));
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the images in this instance to a bitmap using ImageFormat.Tiff.
-    ///</summary>
+    /// </summary>
     public Bitmap ToBitmap()
     {
       return ToBitmap(ImageFormat.Tiff);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the images in this instance to a bitmap using the specified ImageFormat.
     /// Supported formats are: Gif, Icon, Tiff.
-    ///</summary>
+    /// </summary>
     public Bitmap ToBitmap(ImageFormat imageFormat)
     {
       SetFormat(imageFormat);

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Interface for drawables.
-  ///</summary>
+  /// </summary>
   public interface IDrawable
   {
     /// <summary>

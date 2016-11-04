@@ -18,10 +18,10 @@ namespace ImageMagick
 {
   public sealed partial class DrawableRectangle
   {
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableRectangle instance.
-    ///</summary>
-    ///<param name="rectangle">The rectangle to use.</param>
+    /// </summary>
+    /// <param name="rectangle">The rectangle to use.</param>
     public DrawableRectangle(Rectangle rectangle)
     {
       UpperLeftX = rectangle.X;

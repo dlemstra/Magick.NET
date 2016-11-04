@@ -49,22 +49,22 @@ namespace ImageMagick
         format.Guid.Equals(ImageFormat.Tiff.Guid);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickImage class using the specified bitmap.
-    ///</summary>
-    ///<param name="bitmap">The bitmap to use.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="bitmap">The bitmap to use.</param>
+    /// <exception cref="MagickException"/>
     public MagickImage(Bitmap bitmap)
       : this()
     {
       Read(bitmap);
     }
 
-    ///<summary>
+    /// <summary>
     /// Read single image frame.
-    ///</summary>
-    ///<param name="bitmap">The bitmap to read the image from.</param>
-    ///<exception cref="MagickException"/>
+    /// </summary>
+    /// <param name="bitmap">The bitmap to read the image from.</param>
+    /// <exception cref="MagickException"/>
     public void Read(Bitmap bitmap)
     {
       Throw.IfNull(nameof(bitmap), bitmap);
@@ -81,9 +81,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts this instance to a bitmap using ImageFormat.Bitmap.
-    ///</summary>
+    /// </summary>
     public Bitmap ToBitmap()
     {
       if (ColorSpace == ColorSpace.CMYK)
@@ -114,10 +114,10 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts this instance to a bitmap using the specified ImageFormat. Supported formats are:
     /// Bmp, Gif, Icon, Jpeg, Png, Tiff.
-    ///</summary>
+    /// </summary>
     public Bitmap ToBitmap(ImageFormat imageFormat)
     {
       Format = MagickFormatInfo.GetFormat(imageFormat);
@@ -130,9 +130,9 @@ namespace ImageMagick
     }
 
 #if !NET20
-    ///<summary>
+    /// <summary>
     /// Converts this instance to a BitmapSource.
-    ///</summary>
+    /// </summary>
     public BitmapSource ToBitmapSource()
     {
       string mapping = "RGB";

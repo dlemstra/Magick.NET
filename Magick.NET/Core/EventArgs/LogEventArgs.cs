@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// EventArgs for Log events.
-  ///</summary>
+  /// </summary>
   public sealed class LogEventArgs : EventArgs
   {
     internal LogEventArgs(LogEvents eventType, string message)
@@ -27,18 +27,18 @@ namespace ImageMagick
       Message = message;
     }
 
-    ///<summary>
+    /// <summary>
     /// Type of the log message.
-    ///</summary>
+    /// </summary>
     public LogEvents EventType
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Type of the log message.
-    ///</summary>
+    /// </summary>
     public string Message
     {
       get;

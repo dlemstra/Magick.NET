@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// EventArgs for Progress events.
-  ///</summary>
+  /// </summary>
   public sealed class ProgressEventArgs : EventArgs
   {
     internal ProgressEventArgs(string origin, int offset, int extent)
@@ -27,27 +27,27 @@ namespace ImageMagick
       Progress = new Percentage(((offset + 1) / (double)extent) * 100);
     }
 
-    ///<summary>
+    /// <summary>
     /// The originator of this event.
-    ///</summary>
+    /// </summary>
     public string Origin
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Progress percentage.
-    ///</summary>
+    /// </summary>
     public Percentage Progress
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// When set to true the current operation will be canceled.
-    ///</summary>
+    /// </summary>
     public bool Cancel
     {
       get;

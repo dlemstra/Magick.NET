@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Sets the width of the stroke used to draw object outlines.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableStrokeWidth : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.StrokeWidth(Width);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableStrokeWidth instance.
-    ///</summary>
-    ///<param name="width">The width.</param>
+    /// </summary>
+    /// <param name="width">The width.</param>
     public DrawableStrokeWidth(double width)
     {
       Width = width;
     }
 
-    ///<summary>
+    /// <summary>
     /// The width.
-    ///</summary>
+    /// </summary>
     public double Width
     {
       get;

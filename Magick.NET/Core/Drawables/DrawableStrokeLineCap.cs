@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the shape to be used at the end of open subpaths when they are stroked.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableStrokeLineCap : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.StrokeLineCap(LineCap);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableStrokeLineCap instance.
-    ///</summary>
-    ///<param name="lineCap">The line cap.</param>
+    /// </summary>
+    /// <param name="lineCap">The line cap.</param>
     public DrawableStrokeLineCap(LineCap lineCap)
     {
       LineCap = lineCap;
     }
 
-    ///<summary>
+    /// <summary>
     /// The line cap.
-    ///</summary>
+    /// </summary>
     public LineCap LineCap
     {
       get;

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies a kind of color space.
-  ///</summary>
+  /// </summary>
   public enum ColorSpace
   {
     /// <summary>

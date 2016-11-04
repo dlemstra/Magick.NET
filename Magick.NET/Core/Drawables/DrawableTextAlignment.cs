@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies a text alignment to be applied when annotating with text.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableTextAlignment : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.TextAlignment(Alignment);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableTextAntialias instance.
-    ///</summary>
-    ///<param name="alignment">Text alignment.</param>
+    /// </summary>
+    /// <param name="alignment">Text alignment.</param>
     public DrawableTextAlignment(TextAlignment alignment)
     {
       Alignment = alignment;
     }
 
-    ///<summary>
+    /// <summary>
     /// True if text antialiasing is enabled otherwise false.
-    ///</summary>
+    /// </summary>
     public TextAlignment Alignment
     {
       get;

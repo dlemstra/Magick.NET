@@ -18,9 +18,9 @@ using System.IO;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains an image profile.
-  ///</summary>
+  /// </summary>
   public class ImageProfile : IEquatable<ImageProfile>
   {
     private static byte[] Copy(byte[] data)
@@ -33,9 +33,9 @@ namespace ImageMagick
       return result;
     }
 
-    ///<summary>
+    /// <summary>
     /// The data of this profile
-    ///</summary>
+    /// </summary>
     [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
     protected byte[] Data
     {
@@ -43,10 +43,10 @@ namespace ImageMagick
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ImageProfile class.
-    ///</summary>
-    ///<param name="name">The name of the profile.</param>
+    /// </summary>
+    /// <param name="name">The name of the profile.</param>
     protected ImageProfile(string name)
     {
       Throw.IfNullOrEmpty(nameof(name), name);
@@ -60,11 +60,11 @@ namespace ImageMagick
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ImageProfile class.
-    ///</summary>
-    ///<param name="name">The name of the profile.</param>
-    ///<param name="data">A byte array containing the profile.</param>
+    /// </summary>
+    /// <param name="name">The name of the profile.</param>
+    /// <param name="data">A byte array containing the profile.</param>
     public ImageProfile(string name, byte[] data)
     {
       Throw.IfNullOrEmpty(nameof(name), name);
@@ -74,11 +74,11 @@ namespace ImageMagick
       Data = Copy(data);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ImageProfile class.
-    ///</summary>
-    ///<param name="name">The name of the profile.</param>
-    ///<param name="stream">A stream containing the profile.</param>
+    /// </summary>
+    /// <param name="name">The name of the profile.</param>
+    /// <param name="stream">A stream containing the profile.</param>
     public ImageProfile(string name, Stream stream)
     {
       Throw.IfNullOrEmpty(nameof(name), name);
@@ -87,11 +87,11 @@ namespace ImageMagick
       Data = StreamHelper.ToByteArray(stream);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ImageProfile class.
-    ///</summary>
-    ///<param name="name">The name of the profile.</param>
-    ///<param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
+    /// </summary>
+    /// <param name="name">The name of the profile.</param>
+    /// <param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
     public ImageProfile(string name, string fileName)
     {
       Throw.IfNullOrEmpty(nameof(name), name);
@@ -102,9 +102,9 @@ namespace ImageMagick
       Data = File.ReadAllBytes(filePath);
     }
 
-    ///<summary>
+    /// <summary>
     /// The name of the profile.
-    ///</summary>
+    /// </summary>
     public string Name
     {
       get;
@@ -133,10 +133,10 @@ namespace ImageMagick
       return !Equals(left, right);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current image profile.
-    ///</summary>
-    ///<param name="obj">The object to compare this image profile with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this image profile with.</param>
     public override bool Equals(object obj)
     {
 
@@ -146,10 +146,10 @@ namespace ImageMagick
       return Equals(obj as ImageProfile);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified image compare is equal to the current image profile.
-    ///</summary>
-    ///<param name="other">The image profile to compare this image profile with.</param>
+    /// </summary>
+    /// <param name="other">The image profile to compare this image profile with.</param>
     public bool Equals(ImageProfile other)
     {
       if (ReferenceEquals(other, null))
@@ -181,9 +181,9 @@ namespace ImageMagick
       return true;
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return
@@ -191,9 +191,9 @@ namespace ImageMagick
         Name.GetHashCode();
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts this instance to a byte array.
-    ///</summary>
+    /// </summary>
     public byte[] ToByteArray()
     {
       UpdateData();

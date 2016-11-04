@@ -14,10 +14,10 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Starts a new sub-path at the given coordinate using absolute coordinates. The current point
   /// then becomes the specified coordinate.
-  ///</summary>
+  /// </summary>
   public sealed class PathMoveToAbs : IPath
   {
     private PointD _Coordinate;
@@ -28,20 +28,20 @@ namespace ImageMagick
         wand.PathMoveToAbs(_Coordinate.X, _Coordinate.Y);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathMoveToAbs class.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
     public PathMoveToAbs(double x, double y)
      : this(new PointD(x, y))
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathMoveToAbs class.
-    ///</summary>
-    ///<param name="coordinate">The coordinate to use.</param>
+    /// </summary>
+    /// <param name="coordinate">The coordinate to use.</param>
     public PathMoveToAbs(PointD coordinate)
     {
       _Coordinate = coordinate;

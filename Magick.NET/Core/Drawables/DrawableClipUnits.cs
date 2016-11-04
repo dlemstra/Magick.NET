@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Sets the interpretation of clip path units.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableClipUnits : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.ClipUnits(Units);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableClipUnits instance.
-    ///</summary>
-    ///<param name="units">The clip path units.</param>
+    /// </summary>
+    /// <param name="units">The clip path units.</param>
     public DrawableClipUnits(ClipPathUnit units)
     {
       Units = units;
     }
 
-    ///<summary>
+    /// <summary>
     /// The clip path units.
-    ///</summary>
+    /// </summary>
     public ClipPathUnit Units
     {
       get;

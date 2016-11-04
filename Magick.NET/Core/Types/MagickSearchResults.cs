@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Result for a sub image search operation.
-  ///</summary>
+  /// </summary>
   public sealed class MagickSearchResult : IDisposable
   {
     internal MagickSearchResult(MagickImage image, MagickGeometry bestMatch, double similarityMetric)
@@ -28,28 +28,28 @@ namespace ImageMagick
       SimilarityMetric = similarityMetric;
     }
 
-    ///<summary>
+    /// <summary>
     /// The offset for the best match.
-    ///</summary>
+    /// </summary>
     public MagickGeometry BestMatch
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// A similarity image such that an exact match location is completely white and if none of
     /// the pixels match, black, otherwise some gray level in-between.
-    ///</summary>
+    /// </summary>
     public MagickImage SimilarityImage
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Similarity metric.
-    ///</summary>
+    /// </summary>
     public double SimilarityMetric
     {
       get;

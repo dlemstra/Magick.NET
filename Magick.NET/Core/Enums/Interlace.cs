@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the interlace types.
-  ///</summary>
+  /// </summary>
   public enum Interlace
   {
     /// <summary>

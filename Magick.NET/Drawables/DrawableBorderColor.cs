@@ -18,10 +18,10 @@ namespace ImageMagick
 {
   public sealed partial class DrawableBorderColor
   {
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableColor instance.
-    ///</summary>
-    ///<param name="color">The color of the border.</param>
+    /// </summary>
+    /// <param name="color">The color of the border.</param>
     public DrawableBorderColor(Color color)
       : this(new MagickColor(color))
     {

@@ -14,10 +14,10 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a rounted rectangle given two coordinates, x &amp; y corner radiuses and using the current
   /// stroke, stroke width, and fill settings.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableRoundRectangle : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -26,15 +26,15 @@ namespace ImageMagick
         wand.RoundRectangle(CenterX, CenterY, Width, Height, CornerWidth, CornerHeight);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableRoundRectangle instance.
-    ///</summary>
-    ///<param name="centerX">The center X coordinate.</param>
-    ///<param name="centerY">The center Y coordinate.</param>
-    ///<param name="width">The width.</param>
-    ///<param name="height">The height.</param>
-    ///<param name="cornerWidth">The corner width.</param>
-    ///<param name="cornerHeight">The corner height.</param>
+    /// </summary>
+    /// <param name="centerX">The center X coordinate.</param>
+    /// <param name="centerY">The center Y coordinate.</param>
+    /// <param name="width">The width.</param>
+    /// <param name="height">The height.</param>
+    /// <param name="cornerWidth">The corner width.</param>
+    /// <param name="cornerHeight">The corner height.</param>
     public DrawableRoundRectangle(double centerX, double centerY, double width, double height, double cornerWidth, double cornerHeight)
     {
       CenterX = centerX;
@@ -45,54 +45,54 @@ namespace ImageMagick
       CornerHeight = cornerHeight;
     }
 
-    ///<summary>
+    /// <summary>
     /// The center X coordinate.
-    ///</summary>
+    /// </summary>
     public double CenterX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The center Y coordinate.
-    ///</summary>
+    /// </summary>
     public double CenterY
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The corner height.
-    ///</summary>
+    /// </summary>
     public double CornerHeight
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The corner width.
-    ///</summary>
+    /// </summary>
     public double CornerWidth
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The height.
-    ///</summary>
+    /// </summary>
     public double Height
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The width.
-    ///</summary>
+    /// </summary>
     public double Width
     {
       get;

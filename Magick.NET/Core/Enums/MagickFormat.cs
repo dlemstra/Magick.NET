@@ -14,1210 +14,1210 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the different file formats that are supported by ImageMagick.
-  ///</summary>
+  /// </summary>
   public enum MagickFormat
   {
-    ///<summary>
+    /// <summary>
     /// Unknown
-    ///</summary>
+    /// </summary>
     Unknown,
 
-    ///<summary>
+    /// <summary>
     /// Hasselblad CFV/H3D39II
-    ///</summary>
+    /// </summary>
     ThreeFr,
 
-    ///<summary>
+    /// <summary>
     /// Raw alpha samples
-    ///</summary>
+    /// </summary>
     A,
 
-    ///<summary>
+    /// <summary>
     /// AAI Dune image
-    ///</summary>
+    /// </summary>
     Aai,
 
-    ///<summary>
+    /// <summary>
     /// Adobe Illustrator CS2
-    ///</summary>
+    /// </summary>
     Ai,
 
-    ///<summary>
+    /// <summary>
     /// PFS: 1st Publisher Clip Art
-    ///</summary>
+    /// </summary>
     Art,
 
-    ///<summary>
+    /// <summary>
     /// Sony Alpha Raw Image Format
-    ///</summary>
+    /// </summary>
     Arw,
 
-    ///<summary>
+    /// <summary>
     /// Microsoft Audio/Visual Interleaved
-    ///</summary>
+    /// </summary>
     Avi,
 
-    ///<summary>
+    /// <summary>
     /// AVS X image
-    ///</summary>
+    /// </summary>
     Avs,
 
-    ///<summary>
+    /// <summary>
     /// Raw blue samples
-    ///</summary>
+    /// </summary>
     B,
 
-    ///<summary>
+    /// <summary>
     /// Raw blue, green, and red samples
-    ///</summary>
+    /// </summary>
     Bgr,
 
-    ///<summary>
+    /// <summary>
     /// Raw blue, green, red, and alpha samples
-    ///</summary>
+    /// </summary>
     Bgra,
 
-    ///<summary>
+    /// <summary>
     /// Raw blue, green, red, and opacity samples
-    ///</summary>
+    /// </summary>
     Bgro,
 
-    ///<summary>
+    /// <summary>
     /// Microsoft Windows bitmap image
-    ///</summary>
+    /// </summary>
     Bmp,
 
-    ///<summary>
+    /// <summary>
     /// Microsoft Windows bitmap image (V2)
-    ///</summary>
+    /// </summary>
     Bmp2,
 
-    ///<summary>
+    /// <summary>
     /// Microsoft Windows bitmap image (V3)
-    ///</summary>
+    /// </summary>
     Bmp3,
 
-    ///<summary>
+    /// <summary>
     /// BRF ASCII Braille format
-    ///</summary>
+    /// </summary>
     Brf,
 
-    ///<summary>
+    /// <summary>
     /// Raw cyan samples
-    ///</summary>
+    /// </summary>
     C,
 
-    ///<summary>
+    /// <summary>
     /// Continuous Acquisition and Life-cycle Support Type 1
-    ///</summary>
+    /// </summary>
     Cal,
 
-    ///<summary>
+    /// <summary>
     /// Continuous Acquisition and Life-cycle Support Type 1
-    ///</summary>
+    /// </summary>
     Cals,
 
-    ///<summary>
+    /// <summary>
     /// Constant image uniform color
-    ///</summary>
+    /// </summary>
     Canvas,
 
-    ///<summary>
+    /// <summary>
     /// Caption
-    ///</summary>
+    /// </summary>
     Caption,
 
-    ///<summary>
+    /// <summary>
     /// Cineon Image File
-    ///</summary>
+    /// </summary>
     Cin,
 
-    ///<summary>
+    /// <summary>
     /// Cisco IP phone image format
-    ///</summary>
+    /// </summary>
     Cip,
 
-    ///<summary>
+    /// <summary>
     /// Image Clip Mask
-    ///</summary>
+    /// </summary>
     Clip,
 
-    ///<summary>
+    /// <summary>
     /// The system clipboard
-    ///</summary>
+    /// </summary>
     Clipboard,
 
-    ///<summary>
+    /// <summary>
     /// Raw cyan, magenta, yellow, and black samples
-    ///</summary>
+    /// </summary>
     Cmyk,
 
-    ///<summary>
+    /// <summary>
     /// Raw cyan, magenta, yellow, black, and alpha samples
-    ///</summary>
+    /// </summary>
     Cmyka,
 
-    ///<summary>
+    /// <summary>
     /// Canon Digital Camera Raw Image Format
-    ///</summary>
+    /// </summary>
     Cr2,
 
-    ///<summary>
+    /// <summary>
     /// Canon Digital Camera Raw Image Format
-    ///</summary>
+    /// </summary>
     Crw,
 
-    ///<summary>
+    /// <summary>
     /// Microsoft icon
-    ///</summary>
+    /// </summary>
     Cur,
 
-    ///<summary>
+    /// <summary>
     /// DR Halo
-    ///</summary>
+    /// </summary>
     Cut,
 
-    ///<summary>
+    /// <summary>
     /// Digital Imaging and Communications in Medicine image
-    ///</summary>
+    /// </summary>
     Dcm,
 
-    ///<summary>
+    /// <summary>
     /// Kodak Digital Camera Raw Image File
-    ///</summary>
+    /// </summary>
     Dcr,
 
-    ///<summary>
+    /// <summary>
     /// ZSoft IBM PC multi-page Paintbrush
-    ///</summary>
+    /// </summary>
     Dcx,
 
-    ///<summary>
+    /// <summary>
     /// Microsoft DirectDraw Surface
-    ///</summary>
+    /// </summary>
     Dds,
 
-    ///<summary>
+    /// <summary>
     /// Multi-face font package
-    ///</summary>
+    /// </summary>
     Dfont,
 
-    ///<summary>
+    /// <summary>
     /// Microsoft Windows 3.X Packed Device-Independent Bitmap
-    ///</summary>
+    /// </summary>
     Dib,
 
-    ///<summary>
+    /// <summary>
     /// Digital Negative
-    ///</summary>
+    /// </summary>
     Dng,
 
-    ///<summary>
+    /// <summary>
     /// SMPTE 268M-2003 (DPX 2.0)
-    ///</summary>
+    /// </summary>
     Dpx,
 
-    ///<summary>
+    /// <summary>
     /// Microsoft DirectDraw Surface
-    ///</summary>
+    /// </summary>
     Dxt1,
 
-    ///<summary>
+    /// <summary>
     /// Microsoft DirectDraw Surface
-    ///</summary>
+    /// </summary>
     Dxt5,
 
-    ///<summary>
+    /// <summary>
     /// Windows Enhanced Meta File
-    ///</summary>
+    /// </summary>
     Emf,
 
-    ///<summary>
+    /// <summary>
     /// Encapsulated Portable Document Format
-    ///</summary>
+    /// </summary>
     Epdf,
 
-    ///<summary>
+    /// <summary>
     /// Encapsulated PostScript Interchange format
-    ///</summary>
+    /// </summary>
     Epi,
 
-    ///<summary>
+    /// <summary>
     /// Encapsulated PostScript
-    ///</summary>
+    /// </summary>
     Eps,
 
-    ///<summary>
+    /// <summary>
     /// Level II Encapsulated PostScript
-    ///</summary>
+    /// </summary>
     Eps2,
 
-    ///<summary>
+    /// <summary>
     /// Level III Encapsulated PostScript
-    ///</summary>
+    /// </summary>
     Eps3,
 
-    ///<summary>
+    /// <summary>
     /// Encapsulated PostScript
-    ///</summary>
+    /// </summary>
     Epsf,
 
-    ///<summary>
+    /// <summary>
     /// Encapsulated PostScript Interchange format
-    ///</summary>
+    /// </summary>
     Epsi,
 
-    ///<summary>
+    /// <summary>
     /// Encapsulated PostScript with TIFF preview
-    ///</summary>
+    /// </summary>
     Ept,
 
-    ///<summary>
+    /// <summary>
     /// Encapsulated PostScript Level II with TIFF preview
-    ///</summary>
+    /// </summary>
     Ept2,
 
-    ///<summary>
+    /// <summary>
     /// Encapsulated PostScript Level III with TIFF preview
-    ///</summary>
+    /// </summary>
     Ept3,
 
-    ///<summary>
+    /// <summary>
     /// Epson RAW Format
-    ///</summary>
+    /// </summary>
     Erf,
 
-    ///<summary>
+    /// <summary>
     /// High Dynamic-range (HDR)
-    ///</summary>
+    /// </summary>
     Exr,
 
-    ///<summary>
+    /// <summary>
     /// Group 3 FAX
-    ///</summary>
+    /// </summary>
     Fax,
 
-    ///<summary>
+    /// <summary>
     /// Uniform Resource Locator (file://)
-    ///</summary>
+    /// </summary>
     File,
 
-    ///<summary>
+    /// <summary>
     /// Flexible Image Transport System
-    ///</summary>
+    /// </summary>
     Fits,
 
-    ///<summary>
+    /// <summary>
     /// Free Lossless Image Format
-    ///</summary>
+    /// </summary>
     Flif,
 
-    ///<summary>
+    /// <summary>
     /// Plasma fractal image
-    ///</summary>
+    /// </summary>
     Fractal,
 
-    ///<summary>
+    /// <summary>
     /// Uniform Resource Locator (ftp://)
-    ///</summary>
+    /// </summary>
     Ftp,
 
-    ///<summary>
+    /// <summary>
     /// Flexible Image Transport System
-    ///</summary>
+    /// </summary>
     Fts,
 
-    ///<summary>
+    /// <summary>
     /// Raw green samples
-    ///</summary>
+    /// </summary>
     G,
 
-    ///<summary>
+    /// <summary>
     /// Group 3 FAX
-    ///</summary>
+    /// </summary>
     G3,
 
-    ///<summary>
+    /// <summary>
     /// Group 4 FAX
-    ///</summary>
+    /// </summary>
     G4,
 
-    ///<summary>
+    /// <summary>
     /// CompuServe graphics interchange format
-    ///</summary>
+    /// </summary>
     Gif,
 
-    ///<summary>
+    /// <summary>
     /// CompuServe graphics interchange format
-    ///</summary>
+    /// </summary>
     Gif87,
 
-    ///<summary>
+    /// <summary>
     /// Gradual linear passing from one shade to another
-    ///</summary>
+    /// </summary>
     Gradient,
 
-    ///<summary>
+    /// <summary>
     /// Raw gray samples
-    ///</summary>
+    /// </summary>
     Gray,
 
-    ///<summary>
+    /// <summary>
     /// Raw CCITT Group4
-    ///</summary>
+    /// </summary>
     Group4,
 
-    ///<summary>
+    /// <summary>
     /// Identity Hald color lookup table image
-    ///</summary>
+    /// </summary>
     Hald,
 
-    ///<summary>
+    /// <summary>
     /// Radiance RGBE image format
-    ///</summary>
+    /// </summary>
     Hdr,
 
-    ///<summary>
+    /// <summary>
     /// Histogram of the image
-    ///</summary>
+    /// </summary>
     Histogram,
 
-    ///<summary>
+    /// <summary>
     /// Slow Scan TeleVision
-    ///</summary>
+    /// </summary>
     Hrz,
 
-    ///<summary>
+    /// <summary>
     /// Hypertext Markup Language and a client-side image map
-    ///</summary>
+    /// </summary>
     Htm,
 
-    ///<summary>
+    /// <summary>
     /// Hypertext Markup Language and a client-side image map
-    ///</summary>
+    /// </summary>
     Html,
 
-    ///<summary>
+    /// <summary>
     /// Uniform Resource Locator (http://)
-    ///</summary>
+    /// </summary>
     Http,
 
-    ///<summary>
+    /// <summary>
     /// Uniform Resource Locator (https://)
-    ///</summary>
+    /// </summary>
     Https,
 
-    ///<summary>
+    /// <summary>
     /// Truevision Targa image
-    ///</summary>
+    /// </summary>
     Icb,
 
-    ///<summary>
+    /// <summary>
     /// Microsoft icon
-    ///</summary>
+    /// </summary>
     Ico,
 
-    ///<summary>
+    /// <summary>
     /// Microsoft icon
-    ///</summary>
+    /// </summary>
     Icon,
 
-    ///<summary>
+    /// <summary>
     /// Phase One Raw Image Format
-    ///</summary>
+    /// </summary>
     Iiq,
 
-    ///<summary>
+    /// <summary>
     /// The image format and characteristics
-    ///</summary>
+    /// </summary>
     Info,
 
-    ///<summary>
+    /// <summary>
     /// Base64-encoded inline images
-    ///</summary>
+    /// </summary>
     Inline,
 
-    ///<summary>
+    /// <summary>
     /// IPL Image Sequence
-    ///</summary>
+    /// </summary>
     Ipl,
 
-    ///<summary>
+    /// <summary>
     /// ISO/TR 11548-1 format
-    ///</summary>
+    /// </summary>
     Isobrl,
 
-    ///<summary>
+    /// <summary>
     /// ISO/TR 11548-1 format 6dot
-    ///</summary>
+    /// </summary>
     Isobrl6,
 
-    ///<summary>
+    /// <summary>
     /// JPEG-2000 Code Stream Syntax
-    ///</summary>
+    /// </summary>
     J2c,
 
-    ///<summary>
+    /// <summary>
     /// JPEG-2000 Code Stream Syntax
-    ///</summary>
+    /// </summary>
     J2k,
 
-    ///<summary>
+    /// <summary>
     /// JPEG Network Graphics
-    ///</summary>
+    /// </summary>
     Jng,
 
-    ///<summary>
+    /// <summary>
     /// Garmin tile format
-    ///</summary>
+    /// </summary>
     Jnx,
 
-    ///<summary>
+    /// <summary>
     /// JPEG-2000 File Format Syntax
-    ///</summary>
+    /// </summary>
     Jp2,
 
-    ///<summary>
+    /// <summary>
     /// JPEG-2000 Code Stream Syntax
-    ///</summary>
+    /// </summary>
     Jpc,
 
-    ///<summary>
+    /// <summary>
     /// Joint Photographic Experts Group JFIF format
-    ///</summary>
+    /// </summary>
     Jpe,
 
-    ///<summary>
+    /// <summary>
     /// Joint Photographic Experts Group JFIF format
-    ///</summary>
+    /// </summary>
     Jpeg,
 
-    ///<summary>
+    /// <summary>
     /// Joint Photographic Experts Group JFIF format
-    ///</summary>
+    /// </summary>
     Jpg,
 
-    ///<summary>
+    /// <summary>
     /// JPEG-2000 File Format Syntax
-    ///</summary>
+    /// </summary>
     Jpm,
 
-    ///<summary>
+    /// <summary>
     /// Joint Photographic Experts Group JFIF format
-    ///</summary>
+    /// </summary>
     Jps,
 
-    ///<summary>
+    /// <summary>
     /// JPEG-2000 File Format Syntax
-    ///</summary>
+    /// </summary>
     Jpt,
 
-    ///<summary>
+    /// <summary>
     /// The image format and characteristics
-    ///</summary>
+    /// </summary>
     Json,
 
-    ///<summary>
+    /// <summary>
     /// Raw black samples
-    ///</summary>
+    /// </summary>
     K,
 
-    ///<summary>
+    /// <summary>
     /// Kodak Digital Camera Raw Image Format
-    ///</summary>
+    /// </summary>
     K25,
 
-    ///<summary>
+    /// <summary>
     /// Kodak Digital Camera Raw Image Format
-    ///</summary>
+    /// </summary>
     Kdc,
 
-    ///<summary>
+    /// <summary>
     /// Image label
-    ///</summary>
+    /// </summary>
     Label,
 
-    ///<summary>
+    /// <summary>
     /// Raw magenta samples
-    ///</summary>
+    /// </summary>
     M,
 
-    ///<summary>
+    /// <summary>
     /// MPEG Video Stream
-    ///</summary>
+    /// </summary>
     M2v,
 
-    ///<summary>
+    /// <summary>
     /// Raw MPEG-4 Video
-    ///</summary>
+    /// </summary>
     M4v,
 
-    ///<summary>
+    /// <summary>
     /// MAC Paint
-    ///</summary>
+    /// </summary>
     Mac,
 
-    ///<summary>
+    /// <summary>
     /// Colormap intensities and indices
-    ///</summary>
+    /// </summary>
     Map,
 
-    ///<summary>
+    /// <summary>
     /// Image Clip Mask
-    ///</summary>
+    /// </summary>
     Mask,
 
-    ///<summary>
+    /// <summary>
     /// MATLAB level 5 image format
-    ///</summary>
+    /// </summary>
     Mat,
 
-    ///<summary>
+    /// <summary>
     /// MATTE format
-    ///</summary>
+    /// </summary>
     Matte,
 
-    ///<summary>
+    /// <summary>
     /// Mamiya Raw Image File
-    ///</summary>
+    /// </summary>
     Mef,
 
-    ///<summary>
+    /// <summary>
     /// Magick Image File Format
-    ///</summary>
+    /// </summary>
     Miff,
 
-    ///<summary>
+    /// <summary>
     /// Multimedia Container
-    ///</summary>
+    /// </summary>
     Mkv,
 
-    ///<summary>
+    /// <summary>
     /// Multiple-image Network Graphics
-    ///</summary>
+    /// </summary>
     Mng,
 
-    ///<summary>
+    /// <summary>
     /// Raw bi-level bitmap
-    ///</summary>
+    /// </summary>
     Mono,
 
-    ///<summary>
+    /// <summary>
     /// MPEG Video Stream
-    ///</summary>
+    /// </summary>
     Mov,
 
-    ///<summary>
+    /// <summary>
     /// MPEG-4 Video Stream
-    ///</summary>
+    /// </summary>
     Mp4,
 
-    ///<summary>
+    /// <summary>
     /// Magick Persistent Cache image format
-    ///</summary>
+    /// </summary>
     Mpc,
 
-    ///<summary>
+    /// <summary>
     /// MPEG Video Stream
-    ///</summary>
+    /// </summary>
     Mpeg,
 
-    ///<summary>
+    /// <summary>
     /// MPEG Video Stream
-    ///</summary>
+    /// </summary>
     Mpg,
 
-    ///<summary>
+    /// <summary>
     /// Sony (Minolta) Raw Image File
-    ///</summary>
+    /// </summary>
     Mrw,
 
-    ///<summary>
+    /// <summary>
     /// Magick Scripting Language
-    ///</summary>
+    /// </summary>
     Msl,
 
-    ///<summary>
+    /// <summary>
     /// ImageMagick's own SVG internal renderer
-    ///</summary>
+    /// </summary>
     Msvg,
 
-    ///<summary>
+    /// <summary>
     /// MTV Raytracing image format
-    ///</summary>
+    /// </summary>
     Mtv,
 
-    ///<summary>
+    /// <summary>
     /// Magick Vector Graphics
-    ///</summary>
+    /// </summary>
     Mvg,
 
-    ///<summary>
+    /// <summary>
     /// Nikon Digital SLR Camera Raw Image File
-    ///</summary>
+    /// </summary>
     Nef,
 
-    ///<summary>
+    /// <summary>
     /// Nikon Digital SLR Camera Raw Image File
-    ///</summary>
+    /// </summary>
     Nrw,
 
-    ///<summary>
+    /// <summary>
     /// Constant image of uniform color
-    ///</summary>
+    /// </summary>
     Null,
 
-    ///<summary>
+    /// <summary>
     /// Raw opacity samples
-    ///</summary>
+    /// </summary>
     O,
 
-    ///<summary>
+    /// <summary>
     /// Olympus Digital Camera Raw Image File
-    ///</summary>
+    /// </summary>
     Orf,
 
-    ///<summary>
+    /// <summary>
     /// On-the-air bitmap
-    ///</summary>
+    /// </summary>
     Otb,
 
-    ///<summary>
+    /// <summary>
     /// Open Type font
-    ///</summary>
+    /// </summary>
     Otf,
 
-    ///<summary>
+    /// <summary>
     /// 16bit/pixel interleaved YUV
-    ///</summary>
+    /// </summary>
     Pal,
 
-    ///<summary>
+    /// <summary>
     /// Palm pixmap
-    ///</summary>
+    /// </summary>
     Palm,
 
-    ///<summary>
+    /// <summary>
     /// Common 2-dimensional bitmap format
-    ///</summary>
+    /// </summary>
     Pam,
 
-    ///<summary>
+    /// <summary>
     /// Pango Markup Language
-    ///</summary>
+    /// </summary>
     Pango,
 
-    ///<summary>
+    /// <summary>
     /// Predefined pattern
-    ///</summary>
+    /// </summary>
     Pattern,
 
-    ///<summary>
+    /// <summary>
     /// Portable bitmap format (black and white)
-    ///</summary>
+    /// </summary>
     Pbm,
 
-    ///<summary>
+    /// <summary>
     /// Photo CD
-    ///</summary>
+    /// </summary>
     Pcd,
 
-    ///<summary>
+    /// <summary>
     /// Photo CD
-    ///</summary>
+    /// </summary>
     Pcds,
 
-    ///<summary>
+    /// <summary>
     /// Printer Control Language
-    ///</summary>
+    /// </summary>
     Pcl,
 
-    ///<summary>
+    /// <summary>
     /// Apple Macintosh QuickDraw/PICT
-    ///</summary>
+    /// </summary>
     Pct,
 
-    ///<summary>
+    /// <summary>
     /// ZSoft IBM PC Paintbrush
-    ///</summary>
+    /// </summary>
     Pcx,
 
-    ///<summary>
+    /// <summary>
     /// Palm Database ImageViewer Format
-    ///</summary>
+    /// </summary>
     Pdb,
 
-    ///<summary>
+    /// <summary>
     /// Portable Document Format
-    ///</summary>
+    /// </summary>
     Pdf,
 
-    ///<summary>
+    /// <summary>
     /// Portable Document Archive Format
-    ///</summary>
+    /// </summary>
     Pdfa,
 
-    ///<summary>
+    /// <summary>
     /// Pentax Electronic File
-    ///</summary>
+    /// </summary>
     Pef,
 
-    ///<summary>
+    /// <summary>
     /// Embrid Embroidery Format
-    ///</summary>
+    /// </summary>
     Pes,
 
-    ///<summary>
+    /// <summary>
     /// Postscript Type 1 font (ASCII)
-    ///</summary>
+    /// </summary>
     Pfa,
 
-    ///<summary>
+    /// <summary>
     /// Postscript Type 1 font (binary)
-    ///</summary>
+    /// </summary>
     Pfb,
 
-    ///<summary>
+    /// <summary>
     /// Portable float format
-    ///</summary>
+    /// </summary>
     Pfm,
 
-    ///<summary>
+    /// <summary>
     /// Portable graymap format (gray scale)
-    ///</summary>
+    /// </summary>
     Pgm,
 
-    ///<summary>
+    /// <summary>
     /// Personal Icon
-    ///</summary>
+    /// </summary>
     Picon,
 
-    ///<summary>
+    /// <summary>
     /// Apple Macintosh QuickDraw/PICT
-    ///</summary>
+    /// </summary>
     Pict,
 
-    ///<summary>
+    /// <summary>
     /// Alias/Wavefront RLE image format
-    ///</summary>
+    /// </summary>
     Pix,
 
-    ///<summary>
+    /// <summary>
     /// Joint Photographic Experts Group JFIF format
-    ///</summary>
+    /// </summary>
     Pjpeg,
 
-    ///<summary>
+    /// <summary>
     /// Plasma fractal image
-    ///</summary>
+    /// </summary>
     Plasma,
 
-    ///<summary>
+    /// <summary>
     /// Portable Network Graphics
-    ///</summary>
+    /// </summary>
     Png,
 
-    ///<summary>
+    /// <summary>
     /// PNG inheriting bit-depth and color-type from original
-    ///</summary>
+    /// </summary>
     Png00,
 
-    ///<summary>
+    /// <summary>
     /// opaque or binary transparent 24-bit RGB
-    ///</summary>
+    /// </summary>
     Png24,
 
-    ///<summary>
+    /// <summary>
     /// opaque or transparent 32-bit RGBA
-    ///</summary>
+    /// </summary>
     Png32,
 
-    ///<summary>
+    /// <summary>
     /// opaque or binary transparent 48-bit RGB
-    ///</summary>
+    /// </summary>
     Png48,
 
-    ///<summary>
+    /// <summary>
     /// opaque or transparent 64-bit RGBA
-    ///</summary>
+    /// </summary>
     Png64,
 
-    ///<summary>
+    /// <summary>
     /// 8-bit indexed with optional binary transparency
-    ///</summary>
+    /// </summary>
     Png8,
 
-    ///<summary>
+    /// <summary>
     /// Portable anymap
-    ///</summary>
+    /// </summary>
     Pnm,
 
-    ///<summary>
+    /// <summary>
     /// Portable pixmap format (color)
-    ///</summary>
+    /// </summary>
     Ppm,
 
-    ///<summary>
+    /// <summary>
     /// PostScript
-    ///</summary>
+    /// </summary>
     Ps,
 
-    ///<summary>
+    /// <summary>
     /// Level II PostScript
-    ///</summary>
+    /// </summary>
     Ps2,
 
-    ///<summary>
+    /// <summary>
     /// Level III PostScript
-    ///</summary>
+    /// </summary>
     Ps3,
 
-    ///<summary>
+    /// <summary>
     /// Adobe Large Document Format
-    ///</summary>
+    /// </summary>
     Psb,
 
-    ///<summary>
+    /// <summary>
     /// Adobe Photoshop bitmap
-    ///</summary>
+    /// </summary>
     Psd,
 
-    ///<summary>
+    /// <summary>
     /// Pyramid encoded TIFF
-    ///</summary>
+    /// </summary>
     Ptif,
 
-    ///<summary>
+    /// <summary>
     /// Seattle Film Works
-    ///</summary>
+    /// </summary>
     Pwp,
 
-    ///<summary>
+    /// <summary>
     /// Raw red samples
-    ///</summary>
+    /// </summary>
     R,
 
-    ///<summary>
+    /// <summary>
     /// Gradual radial passing from one shade to another
-    ///</summary>
+    /// </summary>
     RadialGradient,
 
-    ///<summary>
+    /// <summary>
     /// Fuji CCD-RAW Graphic File
-    ///</summary>
+    /// </summary>
     Raf,
 
-    ///<summary>
+    /// <summary>
     /// SUN Rasterfile
-    ///</summary>
+    /// </summary>
     Ras,
 
-    ///<summary>
+    /// <summary>
     /// Raw
-    ///</summary>
+    /// </summary>
     Raw,
 
-    ///<summary>
+    /// <summary>
     /// Raw red, green, and blue samples
-    ///</summary>
+    /// </summary>
     Rgb,
 
-    ///<summary>
+    /// <summary>
     /// Raw red, green, blue, and alpha samples
-    ///</summary>
+    /// </summary>
     Rgba,
 
-    ///<summary>
+    /// <summary>
     /// Raw red, green, blue, and opacity samples
-    ///</summary>
+    /// </summary>
     Rgbo,
 
-    ///<summary>
+    /// <summary>
     /// LEGO Mindstorms EV3 Robot Graphic Format (black and white)
-    ///</summary>
+    /// </summary>
     Rgf,
 
-    ///<summary>
+    /// <summary>
     /// Alias/Wavefront image
-    ///</summary>
+    /// </summary>
     Rla,
 
-    ///<summary>
+    /// <summary>
     /// Utah Run length encoded image
-    ///</summary>
+    /// </summary>
     Rle,
 
-    ///<summary>
+    /// <summary>
     /// Raw Media Format
-    ///</summary>
+    /// </summary>
     Rmf,
 
-    ///<summary>
+    /// <summary>
     /// Panasonic Lumix Raw Image
-    ///</summary>
+    /// </summary>
     Rw2,
 
-    ///<summary>
+    /// <summary>
     /// ZX-Spectrum SCREEN$
-    ///</summary>
+    /// </summary>
     Scr,
 
-    ///<summary>
+    /// <summary>
     /// Screen shot
-    ///</summary>
+    /// </summary>
     Screenshot,
 
-    ///<summary>
+    /// <summary>
     /// Scitex HandShake
-    ///</summary>
+    /// </summary>
     Sct,
 
-    ///<summary>
+    /// <summary>
     /// Seattle Film Works
-    ///</summary>
+    /// </summary>
     Sfw,
 
-    ///<summary>
+    /// <summary>
     /// Irix RGB image
-    ///</summary>
+    /// </summary>
     Sgi,
 
-    ///<summary>
+    /// <summary>
     /// Hypertext Markup Language and a client-side image map
-    ///</summary>
+    /// </summary>
     Shtml,
 
-    ///<summary>
+    /// <summary>
     /// DEC SIXEL Graphics Format
-    ///</summary>
+    /// </summary>
     Six,
 
-    ///<summary>
+    /// <summary>
     /// DEC SIXEL Graphics Format
-    ///</summary>
+    /// </summary>
     Sixel,
 
-    ///<summary>
+    /// <summary>
     /// Sparse Color
-    ///</summary>
+    /// </summary>
     SparseColor,
 
-    ///<summary>
+    /// <summary>
     /// Sony Raw Format 2
-    ///</summary>
+    /// </summary>
     Sr2,
 
-    ///<summary>
+    /// <summary>
     /// Sony Raw Format
-    ///</summary>
+    /// </summary>
     Srf,
 
-    ///<summary>
+    /// <summary>
     /// Steganographic image
-    ///</summary>
+    /// </summary>
     Stegano,
 
-    ///<summary>
+    /// <summary>
     /// SUN Rasterfile
-    ///</summary>
+    /// </summary>
     Sun,
 
-    ///<summary>
+    /// <summary>
     /// Scalable Vector Graphics
-    ///</summary>
+    /// </summary>
     Svg,
 
-    ///<summary>
+    /// <summary>
     /// Compressed Scalable Vector Graphics
-    ///</summary>
+    /// </summary>
     Svgz,
 
-    ///<summary>
+    /// <summary>
     /// Text
-    ///</summary>
+    /// </summary>
     Text,
 
-    ///<summary>
+    /// <summary>
     /// Truevision Targa image
-    ///</summary>
+    /// </summary>
     Tga,
 
-    ///<summary>
+    /// <summary>
     /// EXIF Profile Thumbnail
-    ///</summary>
+    /// </summary>
     Thumbnail,
 
-    ///<summary>
+    /// <summary>
     /// Tagged Image File Format
-    ///</summary>
+    /// </summary>
     Tif,
 
-    ///<summary>
+    /// <summary>
     /// Tagged Image File Format
-    ///</summary>
+    /// </summary>
     Tiff,
 
-    ///<summary>
+    /// <summary>
     /// Tagged Image File Format (64-bit)
-    ///</summary>
+    /// </summary>
     Tiff64,
 
-    ///<summary>
+    /// <summary>
     /// Tile image with a texture
-    ///</summary>
+    /// </summary>
     Tile,
 
-    ///<summary>
+    /// <summary>
     /// PSX TIM
-    ///</summary>
+    /// </summary>
     Tim,
 
-    ///<summary>
+    /// <summary>
     /// TrueType font collection
-    ///</summary>
+    /// </summary>
     Ttc,
 
-    ///<summary>
+    /// <summary>
     /// TrueType font
-    ///</summary>
+    /// </summary>
     Ttf,
 
-    ///<summary>
+    /// <summary>
     /// Text
-    ///</summary>
+    /// </summary>
     Txt,
 
-    ///<summary>
+    /// <summary>
     /// Unicode Text format
-    ///</summary>
+    /// </summary>
     Ubrl,
 
-    ///<summary>
+    /// <summary>
     /// Unicode Text format 6dot
-    ///</summary>
+    /// </summary>
     Ubrl6,
 
-    ///<summary>
+    /// <summary>
     /// X-Motif UIL table
-    ///</summary>
+    /// </summary>
     Uil,
 
-    ///<summary>
+    /// <summary>
     /// 16bit/pixel interleaved YUV
-    ///</summary>
+    /// </summary>
     Uyvy,
 
-    ///<summary>
+    /// <summary>
     /// Truevision Targa image
-    ///</summary>
+    /// </summary>
     Vda,
 
-    ///<summary>
+    /// <summary>
     /// VICAR rasterfile format
-    ///</summary>
+    /// </summary>
     Vicar,
 
-    ///<summary>
+    /// <summary>
     /// Visual Image Directory
-    ///</summary>
+    /// </summary>
     Vid,
 
-    ///<summary>
+    /// <summary>
     /// Khoros Visualization image
-    ///</summary>
+    /// </summary>
     Viff,
 
-    ///<summary>
+    /// <summary>
     /// VIPS image
-    ///</summary>
+    /// </summary>
     Vips,
 
-    ///<summary>
+    /// <summary>
     /// Truevision Targa image
-    ///</summary>
+    /// </summary>
     Vst,
 
-    ///<summary>
+    /// <summary>
     /// WebP Image Format
-    ///</summary>
+    /// </summary>
     WebP,
 
-    ///<summary>
+    /// <summary>
     /// Wireless Bitmap (level 0) image
-    ///</summary>
+    /// </summary>
     Wbmp,
 
-    ///<summary>
+    /// <summary>
     /// Windows Meta File
-    ///</summary>
+    /// </summary>
     Wmf,
 
-    ///<summary>
+    /// <summary>
     /// Windows Media Video
-    ///</summary>
+    /// </summary>
     Wmv,
 
-    ///<summary>
+    /// <summary>
     /// Word Perfect Graphics
-    ///</summary>
+    /// </summary>
     Wpg,
 
-    ///<summary>
+    /// <summary>
     /// Sigma Camera RAW Picture File
-    ///</summary>
+    /// </summary>
     X3f,
 
-    ///<summary>
+    /// <summary>
     /// X Windows system bitmap (black and white)
-    ///</summary>
+    /// </summary>
     Xbm,
 
-    ///<summary>
+    /// <summary>
     /// Constant image uniform color
-    ///</summary>
+    /// </summary>
     Xc,
 
-    ///<summary>
+    /// <summary>
     /// GIMP image
-    ///</summary>
+    /// </summary>
     Xcf,
 
-    ///<summary>
+    /// <summary>
     /// X Windows system pixmap (color)
-    ///</summary>
+    /// </summary>
     Xpm,
 
-    ///<summary>
+    /// <summary>
     /// Microsoft XML Paper Specification
-    ///</summary>
+    /// </summary>
     Xps,
 
-    ///<summary>
+    /// <summary>
     /// Khoros Visualization image
-    ///</summary>
+    /// </summary>
     Xv,
 
-    ///<summary>
+    /// <summary>
     /// Raw yellow samples
-    ///</summary>
+    /// </summary>
     Y,
 
-    ///<summary>
+    /// <summary>
     /// Raw Y, Cb, and Cr samples
-    ///</summary>
+    /// </summary>
     Ycbcr,
 
-    ///<summary>
+    /// <summary>
     /// Raw Y, Cb, Cr, and alpha samples
-    ///</summary>
+    /// </summary>
     Ycbcra,
 
 
-    ///<summary>
+    /// <summary>
     /// CCIR 601 4:1:1 or 4:2:2
-    ///</summary>
+    /// </summary>
     Yuv
   }
 }

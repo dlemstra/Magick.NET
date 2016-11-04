@@ -28,9 +28,9 @@ using QuantumType = System.UInt16;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that can be used to access the individual pixels of an image.
-  ///</summary>
+  /// </summary>
   public sealed partial class PixelCollection : IEnumerable<Pixel>
   {
     private MagickImage _Image;
@@ -119,9 +119,9 @@ namespace ImageMagick
       SetAreaUnchecked(x, y, 1, 1, value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the pixel at the specified coordinate.
-    ///</summary>
+    /// </summary>
     public Pixel this[int x, int y]
     {
       get
@@ -130,9 +130,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the number of channels that the image contains.
-    ///</summary>
+    /// </summary>
     public int Channels
     {
       get
@@ -149,13 +149,13 @@ namespace ImageMagick
       _NativeInstance.Dispose();
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the pixel at the specified coordinates.
-    ///</summary>
-    ///<param name="x">The X coordinate of the area.</param>
-    ///<param name="y">The Y coordinate of the area.</param>
-    ///<param name="width">The width of the area.</param>
-    ///<param name="height">The height of the area.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate of the area.</param>
+    /// <param name="y">The Y coordinate of the area.</param>
+    /// <param name="width">The width of the area.</param>
+    /// <param name="height">The height of the area.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -166,10 +166,10 @@ namespace ImageMagick
       return GetAreaUnchecked(x, y, width, height);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the pixel of the specified area
-    ///</summary>
-    ///<param name="geometry">The geometry of the area.</param>
+    /// </summary>
+    /// <param name="geometry">The geometry of the area.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -194,20 +194,20 @@ namespace ImageMagick
       return new PixelCollectionEnumerator(this, _Image.Width, _Image.Height);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the index of the specified channel. Returns -1 if not found.
-    ///</summary>
-    ///<param name="channel">The channel to get the index of.</param>
+    /// </summary>
+    /// <param name="channel">The channel to get the index of.</param>
     public int GetIndex(PixelChannel channel)
     {
       return _Image.ChannelOffset(channel);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the pixel at the specified coordinate.
-    ///</summary>
-    ///<param name="x">The X coordinate of the pixel.</param>
-    ///<param name="y">The Y coordinate of the pixel.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate of the pixel.</param>
+    /// <param name="y">The Y coordinate of the pixel.</param>
     public Pixel GetPixel(int x, int y)
     {
       CheckIndex(x, y);
@@ -215,11 +215,11 @@ namespace ImageMagick
       return Pixel.Create(this, x, y, GetAreaUnchecked(x, y, 1, 1));
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the value of the specified coordinate.
-    ///</summary>
-    ///<param name="x">The X coordinate of the pixel.</param>
-    ///<param name="y">The Y coordinate of the pixel.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate of the pixel.</param>
+    /// <param name="y">The Y coordinate of the pixel.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -230,9 +230,9 @@ namespace ImageMagick
       return GetAreaUnchecked(x, y, 1, 1);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the values of the pixels as an array.
-    ///</summary>
+    /// </summary>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -241,10 +241,10 @@ namespace ImageMagick
       return GetAreaUnchecked(0, 0, _Image.Width, _Image.Height);
     }
 
-    ///<summary>
+    /// <summary>
     /// Changes the value of the specified pixel.
-    ///</summary>
-    ///<param name="pixel">The pixel to set.</param>
+    /// </summary>
+    /// <param name="pixel">The pixel to set.</param>
     public void Set(Pixel pixel)
     {
       Throw.IfNull(nameof(pixel), pixel);
@@ -252,10 +252,10 @@ namespace ImageMagick
       SetPixel(pixel.X, pixel.Y, pixel.Value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Changes the value of the specified pixels.
-    ///</summary>
-    ///<param name="pixels">The pixels to set.</param>
+    /// </summary>
+    /// <param name="pixels">The pixels to set.</param>
     public void Set(IEnumerable<Pixel> pixels)
     {
       Throw.IfNull(nameof(pixels), pixels);
@@ -268,12 +268,12 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Changes the value of the specified pixel.
-    ///</summary>
-    ///<param name="x">The X coordinate of the pixel.</param>
-    ///<param name="y">The Y coordinate of the pixel.</param>
-    ///<param name="value">The value of the pixel.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate of the pixel.</param>
+    /// <param name="y">The Y coordinate of the pixel.</param>
+    /// <param name="value">The value of the pixel.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -285,10 +285,10 @@ namespace ImageMagick
     }
 
 #if !Q8
-    ///<summary>
+    /// <summary>
     /// Changes the values of the specified pixels.
-    ///</summary>
-    ///<param name="values">The values of the pixels.</param>
+    /// </summary>
+    /// <param name="values">The values of the pixels.</param>
     public void Set(byte[] values)
     {
       CheckValues(values);
@@ -298,10 +298,10 @@ namespace ImageMagick
     }
 #endif
 
-    ///<summary>
+    /// <summary>
     /// Changes the values of the specified pixels.
-    ///</summary>
-    ///<param name="values">The values of the pixels.</param>
+    /// </summary>
+    /// <param name="values">The values of the pixels.</param>
     public void Set(double[] values)
     {
       CheckValues(values);
@@ -310,10 +310,10 @@ namespace ImageMagick
       SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, castedValues);
     }
 
-    ///<summary>
+    /// <summary>
     /// Changes the values of the specified pixels.
-    ///</summary>
-    ///<param name="values">The values of the pixels.</param>
+    /// </summary>
+    /// <param name="values">The values of the pixels.</param>
     [CLSCompliant(false)]
     public void Set(uint[] values)
     {
@@ -323,10 +323,10 @@ namespace ImageMagick
       SetAreaUnchecked(0, 0, _Image.Width, _Image.Height, castedValues);
     }
 
-    ///<summary>
+    /// <summary>
     /// Changes the values of the specified pixels.
-    ///</summary>
-    ///<param name="values">The values of the pixels.</param>
+    /// </summary>
+    /// <param name="values">The values of the pixels.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -338,10 +338,10 @@ namespace ImageMagick
     }
 
 #if !Q16
-    ///<summary>
+    /// <summary>
     /// Changes the values of the specified pixels.
-    ///</summary>
-    ///<param name="values">The values of the pixels.</param>
+    /// </summary>
+    /// <param name="values">The values of the pixels.</param>
     [CLSCompliant(false)]
     public void Set(ushort[] values)
     {
@@ -353,14 +353,14 @@ namespace ImageMagick
 #endif
 
 #if !Q8
-    ///<summary>
+    /// <summary>
     /// Changes the values of the specified pixels.
-    ///</summary>
-    ///<param name="x">The X coordinate of the area.</param>
-    ///<param name="y">The Y coordinate of the area.</param>
-    ///<param name="width">The width of the area.</param>
-    ///<param name="height">The height of the area.</param>
-    ///<param name="values">The values of the pixels.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate of the area.</param>
+    /// <param name="y">The Y coordinate of the area.</param>
+    /// <param name="width">The width of the area.</param>
+    /// <param name="height">The height of the area.</param>
+    /// <param name="values">The values of the pixels.</param>
     public void SetArea(int x, int y, int width, int height, byte[] values)
     {
       CheckValues(x, y, width, height, values);
@@ -370,14 +370,14 @@ namespace ImageMagick
     }
 #endif
 
-    ///<summary>
+    /// <summary>
     /// Changes the values of the specified pixels.
-    ///</summary>
-    ///<param name="x">The X coordinate of the area.</param>
-    ///<param name="y">The Y coordinate of the area.</param>
-    ///<param name="width">The width of the area.</param>
-    ///<param name="height">The height of the area.</param>
-    ///<param name="values">The values of the pixels.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate of the area.</param>
+    /// <param name="y">The Y coordinate of the area.</param>
+    /// <param name="width">The width of the area.</param>
+    /// <param name="height">The height of the area.</param>
+    /// <param name="values">The values of the pixels.</param>
     public void SetArea(int x, int y, int width, int height, double[] values)
     {
       CheckValues(x, y, width, height, values);
@@ -386,14 +386,14 @@ namespace ImageMagick
       SetAreaUnchecked(x, y, width, height, castedValues);
     }
 
-    ///<summary>
+    /// <summary>
     /// Changes the values of the specified pixels.
-    ///</summary>
-    ///<param name="x">The X coordinate of the area.</param>
-    ///<param name="y">The Y coordinate of the area.</param>
-    ///<param name="width">The width of the area.</param>
-    ///<param name="height">The height of the area.</param>
-    ///<param name="values">The values of the pixels.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate of the area.</param>
+    /// <param name="y">The Y coordinate of the area.</param>
+    /// <param name="width">The width of the area.</param>
+    /// <param name="height">The height of the area.</param>
+    /// <param name="values">The values of the pixels.</param>
     [CLSCompliant(false)]
     public void SetArea(int x, int y, int width, int height, uint[] values)
     {
@@ -403,14 +403,14 @@ namespace ImageMagick
       SetAreaUnchecked(x, y, width, height, castedValues);
     }
 
-    ///<summary>
+    /// <summary>
     /// Changes the values of the specified pixels.
-    ///</summary>
-    ///<param name="x">The X coordinate of the area.</param>
-    ///<param name="y">The Y coordinate of the area.</param>
-    ///<param name="width">The width of the area.</param>
-    ///<param name="height">The height of the area.</param>
-    ///<param name="values">The values of the pixels.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate of the area.</param>
+    /// <param name="y">The Y coordinate of the area.</param>
+    /// <param name="width">The width of the area.</param>
+    /// <param name="height">The height of the area.</param>
+    /// <param name="values">The values of the pixels.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -422,14 +422,14 @@ namespace ImageMagick
     }
 
 #if !Q16
-    ///<summary>
+    /// <summary>
     /// Changes the values of the specified pixels.
-    ///</summary>
-    ///<param name="x">The X coordinate of the area.</param>
-    ///<param name="y">The Y coordinate of the area.</param>
-    ///<param name="width">The width of the area.</param>
-    ///<param name="height">The height of the area.</param>
-    ///<param name="values">The values of the pixels.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate of the area.</param>
+    /// <param name="y">The Y coordinate of the area.</param>
+    /// <param name="width">The width of the area.</param>
+    /// <param name="height">The height of the area.</param>
+    /// <param name="values">The values of the pixels.</param>
     [CLSCompliant(false)]
     public void SetArea(int x, int y, int width, int height, ushort[] values)
     {
@@ -440,9 +440,9 @@ namespace ImageMagick
     }
 #endif
 
-    ///<summary>
+    /// <summary>
     /// Returns the values of the pixels as an array.
-    ///</summary>
+    /// </summary>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -454,11 +454,11 @@ namespace ImageMagick
     /// <summary>
     /// Returns the values of the pixels as an array.
     /// </summary>
-    ///<param name="x">The X coordinate of the area.</param>
-    ///<param name="y">The Y coordinate of the area.</param>
-    ///<param name="width">The width of the area.</param>
-    ///<param name="height">The height of the area.</param>
-    ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    /// <param name="x">The X coordinate of the area.</param>
+    /// <param name="y">The Y coordinate of the area.</param>
+    /// <param name="width">The width of the area.</param>
+    /// <param name="height">The height of the area.</param>
+    /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     public byte[] ToByteArray(int x, int y, int width, int height, string mapping)
     {
       Throw.IfNullOrEmpty(nameof(mapping), mapping);
@@ -473,8 +473,8 @@ namespace ImageMagick
     /// <summary>
     /// Returns the values of the pixels as an array.
     /// </summary>
-    ///<param name="geometry">The geometry of the area.</param>
-    ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    /// <param name="geometry">The geometry of the area.</param>
+    /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     public byte[] ToByteArray(MagickGeometry geometry, string mapping)
     {
       Throw.IfNull(nameof(geometry), geometry);
@@ -485,7 +485,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns the values of the pixels as an array.
     /// </summary>
-    ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     /// <returns></returns>
     public byte[] ToByteArray(string mapping)
     {
@@ -495,11 +495,11 @@ namespace ImageMagick
     /// <summary>
     /// Returns the values of the pixels as an array.
     /// </summary>
-    ///<param name="x">The X coordinate of the area.</param>
-    ///<param name="y">The Y coordinate of the area.</param>
-    ///<param name="width">The width of the area.</param>
-    ///<param name="height">The height of the area.</param>
-    ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    /// <param name="x">The X coordinate of the area.</param>
+    /// <param name="y">The Y coordinate of the area.</param>
+    /// <param name="width">The width of the area.</param>
+    /// <param name="height">The height of the area.</param>
+    /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     [CLSCompliant(false)]
     public ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
     {
@@ -515,8 +515,8 @@ namespace ImageMagick
     /// <summary>
     /// Returns the values of the pixels as an array.
     /// </summary>
-    ///<param name="geometry">The geometry of the area.</param>
-    ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    /// <param name="geometry">The geometry of the area.</param>
+    /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     [CLSCompliant(false)]
     public ushort[] ToShortArray(MagickGeometry geometry, string mapping)
     {
@@ -528,7 +528,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns the values of the pixels as an array.
     /// </summary>
-    ///<param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     /// <returns></returns>
     [CLSCompliant(false)]
     public ushort[] ToShortArray(string mapping)

@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Sets the font family, style, weight and stretch to use when annotating with text.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableFont : IDrawable
   {
     private static readonly string[] _FontExtensions = new string[] { ".ttf", ".tcc", ".pfb", ".pfm", ".otf" };
@@ -40,22 +40,22 @@ namespace ImageMagick
       wand.FontFamily(Family, Style, Weight, Stretch);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableFont instance.
-    ///</summary>
-    ///<param name="family">The font family or the full path to the font file.</param>
+    /// </summary>
+    /// <param name="family">The font family or the full path to the font file.</param>
     public DrawableFont(string family)
       : this(family, FontStyleType.Any, FontWeight.Normal, FontStretch.Normal)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableFont instance.
-    ///</summary>
-    ///<param name="family">The font family or the full path to the font file.</param>
-    ///<param name="style">The style of the font.</param>
-    ///<param name="weight">The weight of the font.</param>
-    ///<param name="stretch">The font stretching type.</param>
+    /// </summary>
+    /// <param name="family">The font family or the full path to the font file.</param>
+    /// <param name="style">The style of the font.</param>
+    /// <param name="weight">The weight of the font.</param>
+    /// <param name="stretch">The font stretching type.</param>
     public DrawableFont(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
     {
       Throw.IfNullOrEmpty(nameof(family), family);
@@ -66,9 +66,9 @@ namespace ImageMagick
       Stretch = stretch;
     }
 
-    ///<summary>
+    /// <summary>
     /// The font family or the full path to the font file.
-    ///</summary>
+    /// </summary>
     public string Family
     {
       get;

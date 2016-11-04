@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulates a color matrix in the order of 1 to 6 (1x1 through 6x6).
-  ///</summary>
+  /// </summary>
   public sealed class MagickColorMatrix : DoubleMatrix
   {
     private static void CheckOrder(int order)
@@ -24,21 +24,21 @@ namespace ImageMagick
       Throw.IfTrue(nameof(order), (order < 1) || (order > 6), "Invalid order specified, range 1-6.");
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new MagickColorMatrix instance with the specified order of 1 to 6.
-    ///</summary>
-    ///<param name="order">The order (1 to 6).</param>
+    /// </summary>
+    /// <param name="order">The order (1 to 6).</param>
     public MagickColorMatrix(int order)
       : base(order, null)
     {
       CheckOrder(order);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new MagickColorMatrix instance with the specified order of 1 to 6.
-    ///</summary>
-    ///<param name="order">The order (1 to 6).</param>
-    ///<param name="values">The values to initialize the matrix with.</param>
+    /// </summary>
+    /// <param name="order">The order (1 to 6).</param>
+    /// <param name="values">The values to initialize the matrix with.</param>
     public MagickColorMatrix(int order, params double[] values)
       : base(order, values)
     {

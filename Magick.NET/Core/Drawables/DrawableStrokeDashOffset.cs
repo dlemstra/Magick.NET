@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the offset into the dash pattern to start the dash.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableStrokeDashOffset : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.StrokeDashOffset(Offset);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableStrokeDashOffset instance.
-    ///</summary>
-    ///<param name="offset">The dash offset.</param>
+    /// </summary>
+    /// <param name="offset">The dash offset.</param>
     public DrawableStrokeDashOffset(double offset)
     {
       Offset = offset;
     }
 
-    ///<summary>
+    /// <summary>
     /// The dash offset.
-    ///</summary>
+    /// </summary>
     public double Offset
     {
       get;

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains setting for the montage operation.
-  ///</summary>
+  /// </summary>
   public sealed partial class MontageSettings
   {
     private static string Convert(MagickGeometry geometry)
@@ -48,151 +48,151 @@ namespace ImageMagick
       return instance;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MontageSettings class.
-    ///</summary>
+    /// </summary>
     public MontageSettings()
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Color that thumbnails are composed on
-    ///</summary>
+    /// </summary>
     public MagickColor BackgroundColor
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Frame border color
-    ///</summary>
+    /// </summary>
     public MagickColor BorderColor
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Pixels between thumbnail and surrounding frame
-    ///</summary>
+    /// </summary>
     public int BorderWidth
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Fill color
-    ///</summary>
+    /// </summary>
     public MagickColor FillColor
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Label font
-    ///</summary>
+    /// </summary>
     public string Font
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Font point size
-    ///</summary>
+    /// </summary>
     public int FontPointsize
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Frame geometry (width &amp; height frame thickness)
-    ///</summary>
+    /// </summary>
     public MagickGeometry FrameGeometry
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnail width &amp; height plus border width &amp; height
-    ///</summary>
+    /// </summary>
     public MagickGeometry Geometry
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnail position (e.g. SouthWestGravity)
-    ///</summary>
+    /// </summary>
     public Gravity Gravity
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Thumbnail label (applied to image prior to montage)
-    ///</summary>
+    /// </summary>
     public string Label
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Enable drop-shadows on thumbnails
-    ///</summary>
+    /// </summary>
     public bool Shadow
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Outline color
-    ///</summary>
+    /// </summary>
     public MagickColor StrokeColor
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Background texture image
-    ///</summary>
+    /// </summary>
     public string TextureFileName
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Frame geometry (width &amp; height frame thickness)
-    ///</summary>
+    /// </summary>
     public MagickGeometry TileGeometry
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Montage title
-    ///</summary>
+    /// </summary>
     public string Title
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Transparent color
-    ///</summary>
+    /// </summary>
     public MagickColor TransparentColor
     {
       get;

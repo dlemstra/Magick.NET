@@ -17,31 +17,31 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class for defines that are used when a psd image is read.
-  ///</summary>
+  /// </summary>
   public sealed class PsdReadDefines : DefineCreator, IReadDefines
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="PsdReadDefines"/> class.
-    ///</summary>
+    /// </summary>
     public PsdReadDefines()
       : base(MagickFormat.Psd)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies if alpha unblending should be enabled or disabled (psd:alpha-unblend).
-    ///</summary>
+    /// </summary>
     public bool? AlphaUnblend
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The defines that should be set as a define on an image.
-    ///</summary>
+    /// </summary>
     public override IEnumerable<IDefine> Defines
     {
       get

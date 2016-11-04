@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Sets the polygon fill rule to be used by the clipping path.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableClipRule : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.ClipRule(FillRule);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableClipRule instance.
-    ///</summary>
-    ///<param name="fillRule">The rule to use when filling drawn objects.</param>
+    /// </summary>
+    /// <param name="fillRule">The rule to use when filling drawn objects.</param>
     public DrawableClipRule(FillRule fillRule)
     {
       FillRule = fillRule;
     }
 
-    ///<summary>
+    /// <summary>
     /// The rule to use when filling drawn objects.
-    ///</summary>
+    /// </summary>
     public FillRule FillRule
     {
       get;

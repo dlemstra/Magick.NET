@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws an arc falling within a specified bounding rectangle on the image.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableArc : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,15 +25,15 @@ namespace ImageMagick
         wand.Arc(StartX, StartY, EndX, EndY, StartDegrees, EndDegrees);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableArc instance.
-    ///</summary>
-    ///<param name="startX">The starting X coordinate of the bounding rectangle.</param>
-    ///<param name="startY">The starting Y coordinate of thebounding rectangle.</param>
-    ///<param name="endX">The ending X coordinate of the bounding rectangle.</param>
-    ///<param name="endY">The ending Y coordinate of the bounding rectangle.</param>
-    ///<param name="startDegrees">The starting degrees of rotation.</param>
-    ///<param name="endDegrees">The ending degrees of rotation.</param>
+    /// </summary>
+    /// <param name="startX">The starting X coordinate of the bounding rectangle.</param>
+    /// <param name="startY">The starting Y coordinate of thebounding rectangle.</param>
+    /// <param name="endX">The ending X coordinate of the bounding rectangle.</param>
+    /// <param name="endY">The ending Y coordinate of the bounding rectangle.</param>
+    /// <param name="startDegrees">The starting degrees of rotation.</param>
+    /// <param name="endDegrees">The ending degrees of rotation.</param>
     public DrawableArc(double startX, double startY, double endX, double endY, double startDegrees, double endDegrees)
     {
       StartX = startX;
@@ -44,54 +44,54 @@ namespace ImageMagick
       EndDegrees = endDegrees;
     }
 
-    ///<summary>
+    /// <summary>
     /// The ending degrees of rotation.
-    ///</summary>
+    /// </summary>
     public double EndDegrees
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The ending X coordinate of the bounding rectangle.
-    ///</summary>
+    /// </summary>
     public double EndX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The ending Y coordinate of the bounding rectangle.
-    ///</summary>
+    /// </summary>
     public double EndY
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The starting degrees of rotation.
-    ///</summary>
+    /// </summary>
     public double StartDegrees
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The starting X coordinate of the bounding rectangle.
-    ///</summary>
+    /// </summary>
     public double StartX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The starting Y coordinate of the bounding rectangle.
-    ///</summary>
+    /// </summary>
     public double StartY
     {
       get;

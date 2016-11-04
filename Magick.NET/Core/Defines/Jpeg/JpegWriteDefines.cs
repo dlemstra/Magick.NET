@@ -17,14 +17,14 @@ using ImageMagick.Defines;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class for defines that are used when a jpeg image is written.
-  ///</summary>
+  /// </summary>
   public sealed class JpegWriteDefines : DefineCreator, IWriteDefines
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="JpegWriteDefines"/> class.
-    ///</summary>
+    /// </summary>
     public JpegWriteDefines()
       : base(MagickFormat.Jpeg)
     {
@@ -38,63 +38,63 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Specifies the dtc method that will be used (jpeg:dct-method).
-    ///</summary>
+    /// </summary>
     public DctMethod? DctMethod
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Search for compression quality that does not exceed the specified extent in kilobytes. (jpeg:extent).
-    ///</summary>
+    /// </summary>
     public int? Extent
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Enables or disables optimize coding (jpeg:optimize-coding).
-    ///</summary>
+    /// </summary>
     public bool? OptimizeCoding
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Set quality scaling for luminance and chrominance separately (jpeg:quality).
-    ///</summary>
+    /// </summary>
     public MagickGeometry Quality
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// File name that contains custom quantization tables (jpeg:q-table).
-    ///</summary>
+    /// </summary>
     public string QuantizationTables
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Set jpeg sampling factor (jpeg:sampling-factor).
-    ///</summary>
+    /// </summary>
     public IEnumerable<MagickGeometry> SamplingFactors
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The defines that should be set as a define on an image
-    ///</summary>
+    /// </summary>
     public override IEnumerable<IDefine> Defines
     {
       get

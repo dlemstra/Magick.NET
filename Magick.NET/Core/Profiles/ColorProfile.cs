@@ -20,9 +20,9 @@ using System.Text;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains an ICM/ICC color profile.
-  ///</summary>
+  /// </summary>
   public sealed class ColorProfile : ImageProfile
   {
     private static readonly object _SyncRoot = new object();
@@ -92,47 +92,47 @@ namespace ImageMagick
       Initialize();
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ColorProfile class.
-    ///</summary>
-    ///<param name="data">A byte array containing the profile.</param>
+    /// </summary>
+    /// <param name="data">A byte array containing the profile.</param>
     public ColorProfile(Byte[] data)
       : base("icc", data)
     {
       Initialize();
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ColorProfile class.
-    ///</summary>
-    ///<param name="stream">A stream containing the profile.</param>
+    /// </summary>
+    /// <param name="stream">A stream containing the profile.</param>
     public ColorProfile(Stream stream)
       : base("icc", stream)
     {
       Initialize();
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ColorProfile class.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
     public ColorProfile(string fileName)
       : base("icc", fileName)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Color space of the profile.
-    ///</summary>
+    /// </summary>
     public ColorSpace ColorSpace
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The AdobeRGB1998 profile.
-    ///</summary>
+    /// </summary>
     public static ColorProfile AdobeRGB1998
     {
       get
@@ -141,9 +141,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// The AppleRGB profile.
-    ///</summary>
+    /// </summary>
     public static ColorProfile AppleRGB
     {
       get
@@ -152,9 +152,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// The CoatedFOGRA39 profile.
-    ///</summary>
+    /// </summary>
     public static ColorProfile CoatedFOGRA39
     {
       get
@@ -163,9 +163,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// The ColorMatchRGB profile.
-    ///</summary>
+    /// </summary>
     public static ColorProfile ColorMatchRGB
     {
       get
@@ -174,9 +174,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// The sRGB profile.
-    ///</summary>
+    /// </summary>
     public static ColorProfile SRGB
     {
       get
@@ -185,9 +185,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// The USWebCoatedSWOP profile.
-    ///</summary>
+    /// </summary>
     public static ColorProfile USWebCoatedSWOP
     {
       get

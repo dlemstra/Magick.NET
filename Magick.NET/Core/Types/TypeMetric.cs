@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Used to obtain font metrics for text string given current font, pointsize, and density settings.
-  ///</summary>
+  /// </summary>
   public sealed partial class TypeMetric
   {
     private TypeMetric(NativeTypeMetric instance)
@@ -37,65 +37,65 @@ namespace ImageMagick
       NativeTypeMetric.DisposeInstance(instance);
     }
 
-    ///<summary>
+    /// <summary>
     /// Ascent, the distance in pixels from the text baseline to the highest/upper grid coordinate
     /// used to place an outline point.
-    ///</summary>
+    /// </summary>
     public double Ascent
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Descent, the distance in pixels from the baseline to the lowest grid coordinate used to
     /// place an outline point. Always a negative value.
-    ///</summary>
+    /// </summary>
     public double Descent
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Maximum horizontal advance in pixels.
-    ///</summary>
+    /// </summary>
     public double MaxHorizontalAdvance
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Text height in pixels.
-    ///</summary>
+    /// </summary>
     public double TextHeight
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Text width in pixels.
-    ///</summary>
+    /// </summary>
     public double TextWidth
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Underline position.
-    ///</summary>
+    /// </summary>
     public double UnderlinePosition
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Underline thickness.
-    ///</summary>
+    /// </summary>
     public double UnderlineThickness
     {
       get;

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Sets the alpha to use when drawing using the fill color or fill texture.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableFillOpacity : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.FillOpacity(Opacity.ToDouble() / 100);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableFillOpacity instance.
-    ///</summary>
-    ///<param name="opacity">The opacity.</param>
+    /// </summary>
+    /// <param name="opacity">The opacity.</param>
     public DrawableFillOpacity(Percentage opacity)
     {
       Opacity = opacity;
     }
 
-    ///<summary>
+    /// <summary>
     /// The alpha.
-    ///</summary>
+    /// </summary>
     public Percentage Opacity
     {
       get;

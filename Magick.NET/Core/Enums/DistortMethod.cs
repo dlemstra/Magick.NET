@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies distortion methods.
-  ///</summary>
+  /// </summary>
   public enum DistortMethod
   {
     /// <summary>

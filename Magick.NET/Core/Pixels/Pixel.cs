@@ -27,9 +27,9 @@ using QuantumType = System.UInt16;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that can be used to access an individual pixel of an image.
-  ///</summary>
+  /// </summary>
   public sealed class Pixel : IEquatable<Pixel>
   {
     private PixelCollection _Collection;
@@ -85,12 +85,12 @@ namespace ImageMagick
         _Collection.SetPixelUnchecked(X, Y, Value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new Pixel instance.
-    ///</summary>
-    ///<param name="x">The X coordinate of the pixel.</param>
-    ///<param name="y">The Y coordinate of the pixel.</param>
-    ///<param name="value">The value of the pixel.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate of the pixel.</param>
+    /// <param name="y">The Y coordinate of the pixel.</param>
+    /// <param name="value">The value of the pixel.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -102,12 +102,12 @@ namespace ImageMagick
       Initialize(x, y, value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new Pixel instance.
-    ///</summary>
-    ///<param name="x">The X coordinate of the pixel.</param>
-    ///<param name="y">The Y coordinate of the pixel.</param>
-    ///<param name="channels">The number of channels.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate of the pixel.</param>
+    /// <param name="y">The Y coordinate of the pixel.</param>
+    /// <param name="channels">The number of channels.</param>
     public Pixel(int x, int y, int channels)
     {
       CheckChannels(channels);
@@ -136,9 +136,9 @@ namespace ImageMagick
       return !Equals(left, right);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the value of the specified channel.
-    ///</summary>
+    /// </summary>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -154,9 +154,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the number of channels that the pixel contains.
-    ///</summary>
+    /// </summary>
     public int Channels
     {
       get
@@ -165,28 +165,28 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// The X coordinate of the pixel.
-    ///</summary>
+    /// </summary>
     public int X
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y coordinate of the pixel.
-    ///</summary>
+    /// </summary>
     public int Y
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current pixel.
-    ///</summary>
-    ///<param name="obj">The object to compare pixel color with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare pixel color with.</param>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -195,10 +195,10 @@ namespace ImageMagick
       return Equals(obj as Pixel);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified pixel is equal to the current pixel.
-    ///</summary>
-    ///<param name="other">The pixel to compare this color with.</param>
+    /// </summary>
+    /// <param name="other">The pixel to compare this color with.</param>
     public bool Equals(Pixel other)
     {
       if (ReferenceEquals(other, null))
@@ -219,10 +219,10 @@ namespace ImageMagick
       return true;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the value of the specified channel.
-    ///</summary>
-    ///<param name="channel">The channel to get the value of.</param>
+    /// </summary>
+    /// <param name="channel">The channel to get the value of.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -234,18 +234,18 @@ namespace ImageMagick
       return Value[channel];
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return Value.GetHashCode();
     }
 
-    ///<summary>
+    /// <summary>
     /// Sets the values of this pixel.
-    ///</summary>
-    ///<param name="values">The values.</param>
+    /// </summary>
+    /// <param name="values">The values.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -258,11 +258,11 @@ namespace ImageMagick
       UpdateCollection();
     }
 
-    ///<summary>
+    /// <summary>
     /// Set the value of the specified channel.
-    ///</summary>
-    ///<param name="channel">The channel to set the value of.</param>
-    ///<param name="value">The value.</param>
+    /// </summary>
+    /// <param name="channel">The channel to set the value of.</param>
+    /// <param name="value">The value.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -275,9 +275,9 @@ namespace ImageMagick
       UpdateCollection();
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the pixel to a color. Assumes the pixel is RGBA.
-    ///</summary>
+    /// </summary>
     public MagickColor ToColor()
     {
       QuantumType[] value = GetValueWithoutIndexChannel();

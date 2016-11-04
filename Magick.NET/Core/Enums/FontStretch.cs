@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies font stretch type.
-  ///</summary>
+  /// </summary>
   public enum FontStretch
   {
     /// <summary>

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that implements IDefine
-  ///</summary>
+  /// </summary>
   public sealed class MagickDefine : IDefine
   {
     /// <summary>
@@ -39,27 +39,27 @@ namespace ImageMagick
       Value = value;
     }
 
-    ///<summary>
+    /// <summary>
     /// The format to set the define for.
-    ///</summary>
+    /// </summary>
     public MagickFormat Format
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The name of the define.
-    ///</summary>
+    /// </summary>
     public string Name
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The value of the define.
-    ///</summary>
+    /// </summary>
     public string Value
     {
       get;

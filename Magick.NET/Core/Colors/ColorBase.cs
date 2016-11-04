@@ -16,15 +16,15 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Base class for colors
-  ///</summary>
+  /// </summary>
   public abstract class ColorBase : IEquatable<ColorBase>, IComparable<ColorBase>
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ColorBase class using the specified color.
-    ///</summary>
-    ///<param name="color">The color to use.</param>
+    /// </summary>
+    /// <param name="color">The color to use.</param>
     protected ColorBase(MagickColor color)
     {
       Value = color;
@@ -124,10 +124,10 @@ namespace ImageMagick
       return left.CompareTo(right) <= 0;
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified color to a MagickColor instance.
-    ///</summary>
-    ///<param name="color">The color to use.</param>
+    /// </summary>
+    /// <param name="color">The color to use.</param>
     public static implicit operator MagickColor(ColorBase color)
     {
       if (color == null)
@@ -136,10 +136,10 @@ namespace ImageMagick
       return color.ToMagickColor();
     }
 
-    ///<summary>
+    /// <summary>
     /// Compares the current instance with another object of the same type.
-    ///</summary>
-    ///<param name="other">The object to compare this color with.</param>
+    /// </summary>
+    /// <param name="other">The object to compare this color with.</param>
     public int CompareTo(ColorBase other)
     {
       if (ReferenceEquals(other, null))
@@ -151,19 +151,19 @@ namespace ImageMagick
       return Value.CompareTo(other.Value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current color.
-    ///</summary>
-    ///<param name="obj">The object to compare this color with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this color with.</param>
     public override bool Equals(object obj)
     {
       return Equals(obj as ColorBase);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified geometry is equal to the current color.
-    ///</summary>
-    ///<param name="other">The color to compare this color with.</param>
+    /// </summary>
+    /// <param name="other">The color to compare this color with.</param>
     public bool Equals(ColorBase other)
     {
       if (ReferenceEquals(other, null))
@@ -178,10 +178,10 @@ namespace ImageMagick
       return Value.Equals(other.Value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified geometry is fuzzy equal to the current color.
-    ///</summary>
-    ///<param name="other">The color to compare this color with.</param>
+    /// </summary>
+    /// <param name="other">The color to compare this color with.</param>
     /// <param name="fuzz">The fuzz factor.</param>
     public bool FuzzyEquals(ColorBase other, Percentage fuzz)
     {
@@ -197,17 +197,17 @@ namespace ImageMagick
       return Value.FuzzyEquals(other.Value, fuzz);
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return Value.GetHashCode();
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the value of this instance to an equivalent MagickColor.
-    ///</summary>
+    /// </summary>
     public MagickColor ToMagickColor()
     {
       UpdateValue();
@@ -215,9 +215,9 @@ namespace ImageMagick
       return new MagickColor(Value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the value of this instance to a hexadecimal string.
-    ///</summary>
+    /// </summary>
     public override string ToString()
     {
       return ToMagickColor().ToString();

@@ -16,11 +16,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Sets the pattern used for stroking object outlines. Only local URLs("#identifier") are
   /// supported at this time. These local URLs are normally created by defining a named stroke
   /// pattern with DrawablePushPattern/DrawablePopPattern.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableStrokePatternUrl : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -29,19 +29,19 @@ namespace ImageMagick
         wand.StrokePatternUrl(Url);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableStrokePatternUrl instance.
-    ///</summary>
-    ///<param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
+    /// </summary>
+    /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
     [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#")]
     public DrawableStrokePatternUrl(string url)
     {
       Url = url;
     }
 
-    ///<summary>
+    /// <summary>
     /// Url specifying pattern ID (e.g. "#pattern_id")
-    ///</summary>
+    /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
     public string Url
     {

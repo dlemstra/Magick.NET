@@ -25,9 +25,9 @@ namespace ImageMagick
     private object _value;
     private string _description;
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ExifTagDescriptionAttribute class.
-    ///</summary>
+    /// </summary>
     /// <param name="value">The value of the exif tag.</param>
     /// <param name="description">The description for the value of the exif tag.</param>
     public ExifTagDescriptionAttribute(object value, string description)

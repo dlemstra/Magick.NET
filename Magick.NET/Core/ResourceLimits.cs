@@ -16,14 +16,14 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that can be used to set the limits to the resources that are being used.
-  ///</summary>
+  /// </summary>
   public static partial class ResourceLimits
   {
-    ///<summary>
+    /// <summary>
     /// Pixel cache limit in bytes. Requests for memory above this limit will fail.
-    ///</summary>
+    /// </summary>
     [CLSCompliant(false)]
     public static ulong Disk
     {
@@ -37,9 +37,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// The maximum height of an image.
-    ///</summary>
+    /// </summary>
     [CLSCompliant(false)]
     public static ulong Height
     {
@@ -53,10 +53,10 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
     /// operations are to/from disk.
-    ///</summary>
+    /// </summary>
     [CLSCompliant(false)]
     public static ulong Memory
     {
@@ -70,9 +70,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Periodically yield the CPU for at least the time specified in milliseconds.
-    ///</summary>
+    /// </summary>
     [CLSCompliant(false)]
     public static ulong Throttle
     {
@@ -86,9 +86,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// The maximum width of an image.
-    ///</summary>
+    /// </summary>
     [CLSCompliant(false)]
     public static ulong Width
     {

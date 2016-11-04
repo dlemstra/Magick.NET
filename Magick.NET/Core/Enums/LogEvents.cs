@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies log events.
-  ///</summary>
+  /// </summary>
   [Flags]
   public enum LogEvents
   {

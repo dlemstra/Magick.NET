@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the filter types.
-  ///</summary>
+  /// </summary>
   public enum FilterType
   {
     /// <summary>

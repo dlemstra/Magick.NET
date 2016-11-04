@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Controls whether text is antialiased. Text is antialiased by default.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableTextAntialias : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,18 +25,18 @@ namespace ImageMagick
         wand.TextAntialias(IsEnabled);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableTextAntialias instance.
-    ///</summary>
-    ///<param name="isEnabled">True if text antialiasing is enabled otherwise false.</param>
+    /// </summary>
+    /// <param name="isEnabled">True if text antialiasing is enabled otherwise false.</param>
     public DrawableTextAntialias(bool isEnabled)
     {
       IsEnabled = isEnabled;
     }
 
-    ///<summary>
+    /// <summary>
     /// True if text antialiasing is enabled otherwise false.
-    ///</summary>
+    /// </summary>
     public bool IsEnabled
     {
       get;

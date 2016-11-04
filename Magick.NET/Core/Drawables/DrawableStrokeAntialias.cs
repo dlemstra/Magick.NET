@@ -14,11 +14,11 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Controls whether stroked outlines are antialiased. Stroked outlines are antialiased by default.
   /// When antialiasing is disabled stroked pixels are thresholded to determine if the stroke color
   /// or underlying canvas color should be used.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableStrokeAntialias : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -27,18 +27,18 @@ namespace ImageMagick
         wand.StrokeAntialias(IsEnabled);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableStrokeAntialias instance.
-    ///</summary>
-    ///<param name="isEnabled">True if stroke antialiasing is enabled otherwise false.</param>
+    /// </summary>
+    /// <param name="isEnabled">True if stroke antialiasing is enabled otherwise false.</param>
     public DrawableStrokeAntialias(bool isEnabled)
     {
       IsEnabled = isEnabled;
     }
 
-    ///<summary>
+    /// <summary>
     /// True if stroke antialiasing is enabled otherwise false.
-    ///</summary>
+    /// </summary>
     public bool IsEnabled
     {
       get;

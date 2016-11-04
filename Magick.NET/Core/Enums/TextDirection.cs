@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specified the direction for text.
-  ///</summary>
+  /// </summary>
   public enum TextDirection
   {
     /// <summary>

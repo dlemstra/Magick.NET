@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies the clip path units.
-  ///</summary>
+  /// </summary>
   public enum ClipPathUnit
   {
     /// <summary>

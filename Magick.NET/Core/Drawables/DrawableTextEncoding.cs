@@ -16,9 +16,9 @@ using System.Text;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulation of the DrawableTextEncoding object.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableTextEncoding : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -27,10 +27,10 @@ namespace ImageMagick
         wand.TextEncoding(Encoding);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableTextEncoding instance.
-    ///</summary>
-    ///<param name="encoding">Encoding to use.</param>
+    /// </summary>
+    /// <param name="encoding">Encoding to use.</param>
     public DrawableTextEncoding(Encoding encoding)
     {
       Throw.IfNull(nameof(encoding), encoding);
@@ -38,9 +38,9 @@ namespace ImageMagick
       Encoding = encoding;
     }
 
-    ///<summary>
+    /// <summary>
     /// The encoding of the text.
-    ///</summary>
+    /// </summary>
     public Encoding Encoding
     {
       get;

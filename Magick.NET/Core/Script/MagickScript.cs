@@ -26,9 +26,9 @@ using System.Xml.Linq;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that can be used to execute a Magick Script Language file.
-  ///</summary>
+  /// </summary>
   [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
   public sealed partial class MagickScript
   {
@@ -238,20 +238,20 @@ namespace ImageMagick
       return true;
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickScript class using the specified IXPathNavigable.
-    ///</summary>
-    ///<param name="xml">The IXPathNavigable that contains the script.</param>
+    /// </summary>
+    /// <param name="xml">The IXPathNavigable that contains the script.</param>
     public MagickScript(IXPathNavigable xml)
     {
       Throw.IfNull(nameof(xml), xml);
       Initialize(xml.CreateNavigator());
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickScript class using the specified filename.
-    ///</summary>
-    ///<param name="fileName">The fully qualified name of the script file, or the relative script file name.</param>
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the script file, or the relative script file name.</param>
     public MagickScript(string fileName)
     {
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
@@ -263,20 +263,20 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickScript class using the specified stream.
-    ///</summary>
-    ///<param name="stream">The stream to read the script data from.</param>
+    /// </summary>
+    /// <param name="stream">The stream to read the script data from.</param>
     public MagickScript(Stream stream)
     {
       Initialize(stream);
     }
 
 #if !(NET20)
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the MagickScript class using the specified XElement.
-    ///</summary>
-    ///<param name="xml">The XElement that contains the script.</param>
+    /// </summary>
+    /// <param name="xml">The XElement that contains the script.</param>
     public MagickScript(XElement xml)
     {
       Throw.IfNull(nameof(xml), xml);
@@ -285,28 +285,28 @@ namespace ImageMagick
     }
 #endif
 
-    ///<summary>
+    /// <summary>
     /// The variables of this script.
-    ///</summary>
+    /// </summary>
     public ScriptVariables Variables
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Event that will be raised when the script needs an image to be read.
-    ///</summary>
+    /// </summary>
     public event EventHandler<ScriptReadEventArgs> Read;
 
-    ///<summary>
+    /// <summary>
     /// Event that will be raised when the script needs an image to be written.
-    ///</summary>
+    /// </summary>
     public event EventHandler<ScriptWriteEventArgs> Write;
 
-    ///<summary>
+    /// <summary>
     /// Executes the script and returns the resulting image.
-    ///</summary>
+    /// </summary>
     public MagickImage Execute()
     {
       XmlElement element = (XmlElement)_Script.SelectSingleNode("/msl/*");
@@ -319,10 +319,10 @@ namespace ImageMagick
         throw new NotSupportedException(element.Name);
     }
 
-    ///<summary>
+    /// <summary>
     /// Executes the script using the specified image.
-    ///</summary>
-    ///<param name="image">The image to execute the script on.</param>
+    /// </summary>
+    /// <param name="image">The image to execute the script on.</param>
     public void Execute(MagickImage image)
     {
       Throw.IfNull(nameof(image), image);

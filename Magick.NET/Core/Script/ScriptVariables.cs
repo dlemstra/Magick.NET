@@ -19,9 +19,9 @@ using System.Xml;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains variables for a script
-  ///</summary>
+  /// </summary>
   public sealed class ScriptVariables
   {
     static readonly Regex _Names = new Regex("\\{[$](?<name>[0-9a-zA-Z_-]{1,16})\\}", RegexOptions.Compiled);
@@ -152,9 +152,9 @@ namespace ImageMagick
       GetNames(script.DocumentElement);
     }
 
-    ///<summary>
+    /// <summary>
     /// Get or set the specified variable.
-    ///</summary>
+    /// </summary>
     public object this[string name]
     {
       get
@@ -167,9 +167,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// The names of the variables.
-    ///</summary>
+    /// </summary>
     public IEnumerable<string> Names
     {
       get
@@ -178,10 +178,10 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the value of the variable with the specified name.
-    ///</summary>
-    ///<param name="name">The name of the variable</param>
+    /// </summary>
+    /// <param name="name">The name of the variable</param>
     public object Get(string name)
     {
       Throw.IfNullOrEmpty(nameof(name), name);
@@ -189,11 +189,11 @@ namespace ImageMagick
       return _Variables[name];
     }
 
-    ///<summary>
+    /// <summary>
     /// Set the value of the variable with the specified name.
-    ///</summary>
-    ///<param name="name">The name of the variable</param>
-    ///<param name="value">The value of the variable</param>
+    /// </summary>
+    /// <param name="name">The name of the variable</param>
+    /// <param name="value">The value of the variable</param>
     public void Set(string name, object value)
     {
       Throw.IfNullOrEmpty(nameof(name), name);

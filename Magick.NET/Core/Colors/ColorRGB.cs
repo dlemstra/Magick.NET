@@ -26,26 +26,26 @@ using QuantumType = System.UInt16;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that represents a RGB color.
-  ///</summary>
+  /// </summary>
   public sealed partial class ColorRGB : ColorBase
   {
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ColorBase class using the specified color.
-    ///</summary>
-    ///<param name="value">The color to use.</param>
+    /// </summary>
+    /// <param name="value">The color to use.</param>
     public ColorRGB(MagickColor value)
       : base(value)
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the ColorRGB class.
-    ///</summary>
-    ///<param name="red">Red component value of this color.</param>
-    ///<param name="green">Green component value of this color.</param>
-    ///<param name="blue">Blue component value of this color.</param>
+    /// </summary>
+    /// <param name="red">Red component value of this color.</param>
+    /// <param name="green">Green component value of this color.</param>
+    /// <param name="blue">Blue component value of this color.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -54,9 +54,9 @@ namespace ImageMagick
     {
     }
 
-    ///<summary>
+    /// <summary>
     /// Blue component value of this color.
-    ///</summary>
+    /// </summary>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -72,9 +72,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Green component value of this color.
-    ///</summary>
+    /// </summary>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -90,9 +90,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Red component value of this color.
-    ///</summary>
+    /// </summary>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -108,17 +108,17 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified MagickColor to an instance of this type.
-    ///</summary>
+    /// </summary>
     public static implicit operator ColorRGB(MagickColor color)
     {
       return FromMagickColor(color);
     }
 
-    ///<summary>
+    /// <summary>
     /// Converts the specified MagickColor to an instance of this type.
-    ///</summary>
+    /// </summary>
     public static ColorRGB FromMagickColor(MagickColor color)
     {
       if (color == null)

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulates a convolution kernel.
-  ///</summary>
+  /// </summary>
   public sealed class ConvolveMatrix : DoubleMatrix
   {
     private static void CheckOrder(int order)
@@ -25,21 +25,21 @@ namespace ImageMagick
       Throw.IfTrue(nameof(order), order % 2 == 0, "Order must be an odd number.");
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new ConvolveMatrix instance with the specified order.
-    ///</summary>
-    ///<param name="order">The order.</param>
+    /// </summary>
+    /// <param name="order">The order.</param>
     public ConvolveMatrix(int order)
       : base(order, null)
     {
       CheckOrder(order);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new ConvolveMatrix instance with the specified order.
-    ///</summary>
-    ///<param name="order">The order.</param>
-    ///<param name="values">The values to initialize the matrix with.</param>
+    /// </summary>
+    /// <param name="order">The order.</param>
+    /// <param name="values">The values to initialize the matrix with.</param>
     public ConvolveMatrix(int order, params double[] values)
       : base(order, values)
     {

@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// The sparse color methods.
-  ///</summary>
+  /// </summary>
   public enum SparseColorMethod
   {
     /// <summary>

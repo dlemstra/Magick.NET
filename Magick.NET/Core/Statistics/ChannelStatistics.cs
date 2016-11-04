@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulation of the ImageMagick ImageChannelStatistics object.
-  ///</summary>
+  /// </summary>
   public sealed partial class ChannelStatistics : IEquatable<ChannelStatistics>
   {
     private ChannelStatistics(PixelChannel channel, IntPtr instance)
@@ -49,126 +49,126 @@ namespace ImageMagick
       return new ChannelStatistics(channel, instance);
     }
 
-    ///<summary>
+    /// <summary>
     /// The channel.
-    ///</summary>
+    /// </summary>
     public PixelChannel Channel
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Depth of the channel.
-    ///</summary>
+    /// </summary>
     public int Depth
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Entropy.
-    ///</summary>
+    /// </summary>
     public double Entropy
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Kurtosis.
-    ///</summary>
+    /// </summary>
     public double Kurtosis
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Maximum value observed.
-    ///</summary>
+    /// </summary>
     public double Maximum
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Average (mean) value observed.
-    ///</summary>
+    /// </summary>
     public double Mean
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Minimum value observed.
-    ///</summary>
+    /// </summary>
     public double Minimum
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Skewness.
-    ///</summary>
+    /// </summary>
     public double Skewness
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Standard deviation, sqrt(variance).
-    ///</summary>
+    /// </summary>
     public double StandardDeviation
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Sum.
-    ///</summary>
+    /// </summary>
     public double Sum
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Sum cubed.
-    ///</summary>
+    /// </summary>
     public double SumCubed
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Sum fourth power.
-    ///</summary>
+    /// </summary>
     public double SumFourthPower
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Sum squared.
-    ///</summary>
+    /// </summary>
     public double SumSquared
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Variance.
-    ///</summary>
+    /// </summary>
     public double Variance
     {
       get;
@@ -197,10 +197,10 @@ namespace ImageMagick
       return !object.Equals(left, right);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current channel statistics.
-    ///</summary>
-    ///<param name="obj">The object to compare this channel statistics with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this channel statistics with.</param>
     public override bool Equals(object obj)
     {
       if (obj == null)
@@ -209,10 +209,10 @@ namespace ImageMagick
       return Equals(obj as ChannelStatistics);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified channel statistics is equal to the current channel statistics.
-    ///</summary>
-    ///<param name="other">The channel statistics to compare this channel statistics with.</param>
+    /// </summary>
+    /// <param name="other">The channel statistics to compare this channel statistics with.</param>
     public bool Equals(ChannelStatistics other)
     {
       if (ReferenceEquals(other, null))
@@ -237,9 +237,9 @@ namespace ImageMagick
         Variance.Equals(other.Variance);
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return

@@ -16,9 +16,9 @@ using System;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Arguments for the Warning event.
-  ///</summary>
+  /// </summary>
   public sealed class WarningEventArgs : EventArgs
   {
     /// <summary>

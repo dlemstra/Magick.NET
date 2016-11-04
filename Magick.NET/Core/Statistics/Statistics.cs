@@ -17,9 +17,9 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Encapsulation of the ImageMagick ImageStatistics object.
-  ///</summary>
+  /// </summary>
   public sealed partial class Statistics : IEquatable<Statistics>
   {
     private Dictionary<PixelChannel, ChannelStatistics> _Channels;
@@ -51,17 +51,17 @@ namespace ImageMagick
         NativeStatistics.DisposeList(list);
     }
 
-    ///<summary>
+    /// <summary>
     /// Statistics for the all the channels.
-    ///</summary>
+    /// </summary>
     public ChannelStatistics Composite()
     {
       return GetChannel(PixelChannel.Composite);
     }
 
-    ///<summary>
+    /// <summary>
     /// Statistics for the specified channel.
-    ///</summary>
+    /// </summary>
     public ChannelStatistics GetChannel(PixelChannel channel)
     {
       ChannelStatistics channelStatistics;
@@ -91,10 +91,10 @@ namespace ImageMagick
       return !Equals(left, right);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current image statistics.
-    ///</summary>
-    ///<param name="obj">The object to compare this image statistics with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this image statistics with.</param>
     public override bool Equals(object obj)
     {
       if (obj == null)
@@ -103,10 +103,10 @@ namespace ImageMagick
       return Equals(obj as Statistics);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified image statistics is equal to the current image statistics.
-    ///</summary>
-    ///<param name="other">The image statistics to compare this image statistics with.</param>
+    /// </summary>
+    /// <param name="other">The image statistics to compare this image statistics with.</param>
     public bool Equals(Statistics other)
     {
 
@@ -131,9 +131,9 @@ namespace ImageMagick
       return true;
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       int hashCode = _Channels.GetHashCode();

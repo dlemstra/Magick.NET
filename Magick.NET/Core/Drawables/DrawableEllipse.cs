@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws an ellipse on the image.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableEllipse : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -25,15 +25,15 @@ namespace ImageMagick
         wand.Ellipse(OriginX, OriginY, RadiusX, RadiusY, StartDegrees, EndDegrees);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableEllipse instance.
-    ///</summary>
-    ///<param name="originX">The origin X coordinate.</param>
-    ///<param name="originY">The origin Y coordinate.</param>
-    ///<param name="radiusX">The X radius.</param>
-    ///<param name="radiusY">The Y radius.</param>
-    ///<param name="startDegrees">The starting degrees of rotation.</param>
-    ///<param name="endDegrees">The ending degrees of rotation.</param>
+    /// </summary>
+    /// <param name="originX">The origin X coordinate.</param>
+    /// <param name="originY">The origin Y coordinate.</param>
+    /// <param name="radiusX">The X radius.</param>
+    /// <param name="radiusY">The Y radius.</param>
+    /// <param name="startDegrees">The starting degrees of rotation.</param>
+    /// <param name="endDegrees">The ending degrees of rotation.</param>
     public DrawableEllipse(double originX, double originY, double radiusX, double radiusY, double startDegrees, double endDegrees)
     {
       OriginX = originX;
@@ -44,54 +44,54 @@ namespace ImageMagick
       EndDegrees = endDegrees;
     }
 
-    ///<summary>
+    /// <summary>
     /// The ending degrees of rotation.
-    ///</summary>
+    /// </summary>
     public double EndDegrees
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The origin X coordinate.
-    ///</summary>
+    /// </summary>
     public double OriginX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The origin X coordinate.
-    ///</summary>
+    /// </summary>
     public double OriginY
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X radius.
-    ///</summary>
+    /// </summary>
     public double RadiusX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y radius.
-    ///</summary>
+    /// </summary>
     public double RadiusY
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The starting degrees of rotation.
-    ///</summary>
+    /// </summary>
     public double StartDegrees
     {
       get;

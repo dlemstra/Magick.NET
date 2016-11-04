@@ -14,9 +14,9 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies fill rule.
-  ///</summary>
+  /// </summary>
   public enum FillRule
   {
     /// <summary>

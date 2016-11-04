@@ -14,10 +14,10 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a horizontal line path from the current point to the target point using relative
   /// coordinates. The target point then becomes the new current point.
-  ///</summary>
+  /// </summary>
   public sealed class PathLineToHorizontalRel : IPath
   {
     void IPath.Draw(IDrawingWand wand)
@@ -26,10 +26,10 @@ namespace ImageMagick
         wand.PathLineToHorizontalRel(X);
     }
 
-    ///<summary>
+    /// <summary>
     /// Initializes a new instance of the PathLineToHorizontalRel class.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
     public PathLineToHorizontalRel(double x)
     {
       X = x;

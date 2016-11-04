@@ -14,10 +14,10 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws color on image using the current fill color, starting at specified position, and using
   /// specified paint method.
-  ///</summary>
+  /// </summary>
   public sealed class DrawableColor : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -26,12 +26,12 @@ namespace ImageMagick
         wand.Color(X, Y, PaintMethod);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableColor instance.
-    ///</summary>
-    ///<param name="x">The X coordinate.</param>
-    ///<param name="y">The Y coordinate.</param>
-    ///<param name="paintMethod">The paint method to use.</param>
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
+    /// <param name="paintMethod">The paint method to use.</param>
     public DrawableColor(double x, double y, PaintMethod paintMethod)
     {
       X = x;
@@ -39,27 +39,27 @@ namespace ImageMagick
       PaintMethod = paintMethod;
     }
 
-    ///<summary>
+    /// <summary>
     /// The PaintMethod to use.
-    ///</summary>
+    /// </summary>
     public PaintMethod PaintMethod
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The X coordinate.
-    ///</summary>
+    /// </summary>
     public double X
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The Y coordinate.
-    ///</summary>
+    /// </summary>
     public double Y
     {
       get;

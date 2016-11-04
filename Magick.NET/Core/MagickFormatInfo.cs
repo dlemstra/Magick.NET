@@ -19,9 +19,9 @@ using System.IO;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that contains information about an image format.
-  ///</summary>
+  /// </summary>
   public sealed partial class MagickFormatInfo : IEquatable<MagickFormatInfo>
   {
     private static readonly Dictionary<MagickFormat, MagickFormatInfo> _All = LoadFormats();
@@ -133,91 +133,91 @@ namespace ImageMagick
       return !Equals(left, right);
     }
 
-    ///<summary>
+    /// <summary>
     /// The format can read multithreaded.
-    ///</summary>
+    /// </summary>
     public bool CanReadMultithreaded
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The format can write multithreaded.
-    ///</summary>
+    /// </summary>
     public bool CanWriteMultithreaded
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The description of the format.
-    ///</summary>
+    /// </summary>
     public string Description
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The format.
-    ///</summary>
+    /// </summary>
     public MagickFormat Format
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Format supports multiple frames.
-    ///</summary>
+    /// </summary>
     public bool IsMultiFrame
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Format is readable.
-    ///</summary>
+    /// </summary>
     public bool IsReadable
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Format is writable.
-    ///</summary>
+    /// </summary>
     public bool IsWritable
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The mime type.
-    ///</summary>
+    /// </summary>
     public string MimeType
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The module.
-    ///</summary>
+    /// </summary>
     public MagickFormat Module
     {
       get;
       private set;
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the format information. The extension of the supplied file is used to determine
     /// the format.
-    ///</summary>
+    /// </summary>
     /// <param name="file">The file to check.</param>
     public static MagickFormatInfo Create(FileInfo file)
     {
@@ -233,10 +233,10 @@ namespace ImageMagick
       return Create(format.Value);
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the format information of the specified format.
-    ///</summary>
-    ///<param name="format">The image format.</param>
+    /// </summary>
+    /// <param name="format">The image format.</param>
     public static MagickFormatInfo Create(MagickFormat format)
     {
       if (!_All.ContainsKey(format))
@@ -245,10 +245,10 @@ namespace ImageMagick
       return _All[format];
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns the format information. The extension of the supplied file name is used to
     /// determine the format.
-    ///</summary>
+    /// </summary>
     /// <param name="fileName">The name of the file to check.</param>
     public static MagickFormatInfo Create(string fileName)
     {
@@ -258,19 +258,19 @@ namespace ImageMagick
       return Create(new FileInfo(filePath));
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified object is equal to the current MagickFormatInfo.
-    ///</summary>
-    ///<param name="obj">The object to compare this MagickFormatInfo with.</param>
+    /// </summary>
+    /// <param name="obj">The object to compare this MagickFormatInfo with.</param>
     public override bool Equals(object obj)
     {
       return Equals(obj as MagickFormatInfo);
     }
 
-    ///<summary>
+    /// <summary>
     /// Determines whether the specified MagickFormatInfo is equal to the current MagickFormatInfo.
-    ///</summary>
-    ///<param name="other">The MagickFormatInfo to compare this MagickFormatInfo with.</param>
+    /// </summary>
+    /// <param name="other">The MagickFormatInfo to compare this MagickFormatInfo with.</param>
     public bool Equals(MagickFormatInfo other)
     {
       if (ReferenceEquals(other, null))
@@ -282,26 +282,26 @@ namespace ImageMagick
       return Format == other.Format;
     }
 
-    ///<summary>
+    /// <summary>
     /// Serves as a hash of this type.
-    ///</summary>
+    /// </summary>
     public override int GetHashCode()
     {
       return Module.GetHashCode();
     }
 
-    ///<summary>
+    /// <summary>
     /// Returns a string that represents the current format.
-    ///</summary>
+    /// </summary>
     public override string ToString()
     {
       return string.Format(CultureInfo.InvariantCulture, "{0}: {1} ({2}R{3}W{4}M)", Format, Description,
         IsReadable ? "+" : "-", IsWritable ? "+" : "-", IsMultiFrame ? "+" : "-");
     }
 
-    ///<summary>
+    /// <summary>
     /// Unregisters this format.
-    ///</summary>
+    /// </summary>
     public bool Unregister()
     {
       return NativeMagickFormatInfo.Unregister(EnumHelper.GetName(Format));

@@ -14,10 +14,10 @@
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Draws a rectangle given two coordinates and using the current stroke, stroke width, and fill
   /// settings.
-  ///</summary>
+  /// </summary>
   public sealed partial class DrawableRectangle : IDrawable
   {
     void IDrawable.Draw(IDrawingWand wand)
@@ -26,13 +26,13 @@ namespace ImageMagick
         wand.Rectangle(UpperLeftX, UpperLeftY, LowerRightX, LowerRightY);
     }
 
-    ///<summary>
+    /// <summary>
     /// Creates a new DrawableRectangle instance.
-    ///</summary>
-    ///<param name="upperLeftX">The upper left X coordinate.</param>
-    ///<param name="upperLeftY">The upper left Y coordinate.</param>
-    ///<param name="lowerRightX">The lower right X coordinate.</param>
-    ///<param name="lowerRightY">The lower right Y coordinate.</param>
+    /// </summary>
+    /// <param name="upperLeftX">The upper left X coordinate.</param>
+    /// <param name="upperLeftY">The upper left Y coordinate.</param>
+    /// <param name="lowerRightX">The lower right X coordinate.</param>
+    /// <param name="lowerRightY">The lower right Y coordinate.</param>
     public DrawableRectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY)
     {
       UpperLeftX = upperLeftX;
@@ -41,36 +41,36 @@ namespace ImageMagick
       LowerRightY = lowerRightY;
     }
 
-    ///<summary>
+    /// <summary>
     /// The upper left X coordinate.
-    ///</summary>
+    /// </summary>
     public double LowerRightX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The upper left Y coordinate.
-    ///</summary>
+    /// </summary>
     public double LowerRightY
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The upper left X coordinate.
-    ///</summary>
+    /// </summary>
     public double UpperLeftX
     {
       get;
       set;
     }
 
-    ///<summary>
+    /// <summary>
     /// The upper left Y coordinate.
-    ///</summary>
+    /// </summary>
     public double UpperLeftY
     {
       get;

@@ -16,9 +16,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Specifies font weight.
-  ///</summary>
+  /// </summary>
   public enum FontWeight
   {
     /// <summary>
