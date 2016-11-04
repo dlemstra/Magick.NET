@@ -25,7 +25,7 @@ namespace ImageMagick
     {
       ExifTag.ImageWidth, ExifTag.ImageLength, ExifTag.BitsPerSample, ExifTag.Compression,
       ExifTag.PhotometricInterpretation, ExifTag.Thresholding, ExifTag.CellWidth,
-      ExifTag.CellLength, ExifTag.FillOrder,ExifTag.ImageDescription, ExifTag.Make,
+      ExifTag.CellLength, ExifTag.FillOrder, ExifTag.ImageDescription, ExifTag.Make,
       ExifTag.Model, ExifTag.StripOffsets, ExifTag.Orientation, ExifTag.SamplesPerPixel,
       ExifTag.RowsPerStrip, ExifTag.StripByteCounts, ExifTag.MinSampleValue,
       ExifTag.MaxSampleValue, ExifTag.XResolution, ExifTag.YResolution,
