@@ -22,6 +22,7 @@
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA1005" Action="None" />
+    <Rule Id="SA1008" Action="None" />
     <Rule Id="SA1101" Action="None" />
     <Rule Id="SA1503" Action="None" />
     <Rule Id="SA1633" Action="None" />
