@@ -651,7 +651,7 @@ namespace ImageMagick
     /// <summary>
     /// Converts this instance to a byte array.
     /// </summary>
-    public static explicit operator byte[] (MagickImage image)
+    public static explicit operator byte[](MagickImage image)
     {
       Throw.IfNull(nameof(image), image);
 

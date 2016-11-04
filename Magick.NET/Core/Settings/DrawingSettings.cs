@@ -139,7 +139,7 @@ namespace ImageMagick
 
       clone.Affine = Affine;
       clone.FillPattern = MagickImage.Clone(FillPattern);
-      clone._StrokeDashArray = _StrokeDashArray != null ? (double[]) _StrokeDashArray.Clone() : null;
+      clone._StrokeDashArray = _StrokeDashArray != null ? (double[])_StrokeDashArray.Clone() : null;
       clone.StrokePattern = MagickImage.Clone(StrokePattern);
       clone.Text = Text;
 
