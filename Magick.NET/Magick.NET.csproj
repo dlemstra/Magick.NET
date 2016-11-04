@@ -24,6 +24,7 @@
     <DocumentationFile>bin\DebugQ8\x86\Magick.NET-Q8-x86.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ8|x64'">
     <OutputPath>bin\DebugQ8\x64</OutputPath>
@@ -50,6 +51,7 @@
     <DocumentationFile>bin\DebugQ16\x86\Magick.NET-Q16-x86.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|x64'">
     <OutputPath>bin\DebugQ16\x64</OutputPath>
@@ -76,6 +78,7 @@
     <DocumentationFile>bin\DebugQ16-HDRI\x86\Magick.NET-Q16-HDRI-x86.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16-HDRI|x64'">
     <OutputPath>bin\DebugQ16-HDRI\x64</OutputPath>
@@ -102,6 +105,7 @@
     <DocumentationFile>bin\ReleaseQ8\x86\Magick.NET-Q8-x86.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x64'">
     <OutputPath>bin\ReleaseQ8\x64</OutputPath>
@@ -156,6 +160,7 @@
     <DocumentationFile>bin\ReleaseQ16-HDRI\x86\Magick.NET-Q16-HDRI-x86.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
     <OutputPath>bin\ReleaseQ16-HDRI\x64</OutputPath>
@@ -566,6 +571,10 @@
     <Compile Include="Types\MagickGeometry.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Magick.NET.ruleset">
+      <Link>Magick.NET.ruleset</Link>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Core\Native\Colors\MagickColor.json" />
     <None Include="Core\Native\Colors\MagickColorCollection.json" />
     <None Include="Core\Native\Drawables\DrawingWand.json" />
@@ -619,8 +628,14 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Magick.NET.snk" />
+    <None Include="packages.config" />
+    <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -18,6 +18,7 @@ runtimes
 /Magick.NET.Samples/Samples/Magick.NET/Scripts/*.pp
 /ImageMagick/Source/ImageMagick
 /ipch
+/packages
 /Publish/Archive/*
 /Publish/NuGet/*.nupkg
 /Publish/NuGet/ApiKey.txt
