@@ -70,8 +70,7 @@ namespace ImageMagick
     private MagickReadSettings CreateReadSettings(MagickReadSettings readSettings)
     {
       if (readSettings != null && readSettings.FrameCount.HasValue)
-        Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1,
-          "The FrameCount can only be set to 1 when a MagickImage is being read.");
+        Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1, "The FrameCount can only be set to 1 when a MagickImage is being read.");
 
       MagickReadSettings newReadSettings = null;
       if (readSettings == null)
@@ -651,7 +650,7 @@ namespace ImageMagick
     /// <summary>
     /// Converts this instance to a byte array.
     /// </summary>
-    public static explicit operator byte[](MagickImage image)
+    public static explicit operator byte[] (MagickImage image)
     {
       Throw.IfNull(nameof(image), image);
 
@@ -6324,8 +6323,7 @@ namespace ImageMagick
     /// </summary>
     public override string ToString()
     {
-      return string.Format(CultureInfo.InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}",
-        Format, Width, Height, Depth, ColorSpace, FormatedFileSize());
+      return string.Format(CultureInfo.InvariantCulture, "{0} {1}x{2} {3}-bit {4} {5}", Format, Width, Height, Depth, ColorSpace, FormatedFileSize());
     }
 
     /// <summary>

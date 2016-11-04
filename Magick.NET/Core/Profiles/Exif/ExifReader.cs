@@ -234,8 +234,7 @@ namespace ImageMagick
       }
     }
 
-    private static TDataType[] ToArray<TDataType>(ExifDataType dataType, Byte[] data,
-      ConverterMethod<TDataType> converter)
+    private static TDataType[] ToArray<TDataType>(ExifDataType dataType, Byte[] data, ConverterMethod<TDataType> converter)
     {
       int dataTypeSize = (int)ExifValue.GetSize(dataType);
       int length = data.Length / dataTypeSize;

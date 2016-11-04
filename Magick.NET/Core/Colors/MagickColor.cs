@@ -124,14 +124,11 @@ namespace ImageMagick
         return ToString();
 
       if (_IsCmyk)
-        return string.Format(CultureInfo.InvariantCulture, "cmyk({0},{1},{2},{3})",
-          R, G, B, K);
+        return string.Format(CultureInfo.InvariantCulture, "cmyk({0},{1},{2},{3})", R, G, B, K);
 #if (Q8)
-      return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}",
-        R, G, B);
+      return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", R, G, B);
 #elif (Q16) || (Q16HDRI)
-      return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}",
-        (ushort)R, (ushort)G, (ushort)B);
+      return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}", (ushort)R, (ushort)G, (ushort)B);
 #else
 #error Not implemented!
 #endif
@@ -548,14 +545,11 @@ namespace ImageMagick
     public override string ToString()
     {
       if (_IsCmyk)
-        return string.Format(CultureInfo.InvariantCulture, "cmyka({0},{1},{2},{3},{4:0.0###})",
-          R, G, B, K, (double)A / Quantum.Max);
+        return string.Format(CultureInfo.InvariantCulture, "cmyka({0},{1},{2},{3},{4:0.0###})", R, G, B, K, (double)A / Quantum.Max);
 #if (Q8)
-      return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}",
-        R, G, B, A);
+      return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", R, G, B, A);
 #elif (Q16) || (Q16HDRI)
-      return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}{3:X4}",
-        (ushort)R, (ushort)G, (ushort)B, (ushort)A);
+      return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}{3:X4}", (ushort)R, (ushort)G, (ushort)B, (ushort)A);
 #else
 #error Not implemented!
 #endif
