@@ -1,7 +1,7 @@
 ﻿//=================================================================================================
 // Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
-// Licensed under the ImageMagick License (the "License"); you may not use this file except in 
+// Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
 //
 //   http://www.imagemagick.org/script/license.php
@@ -196,7 +196,7 @@ namespace ImageMagick
     /// the specified culture-specific format information.
     /// </summary>
     /// <param name="provider">
-    /// An object that supplies culture-specific formatting information. 
+    /// An object that supplies culture-specific formatting information.
     /// </param>
     /// <returns></returns>
     public string ToString(IFormatProvider provider)

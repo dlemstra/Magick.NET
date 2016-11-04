@@ -1,7 +1,7 @@
 //=================================================================================================
 // Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
-// Licensed under the ImageMagick License (the "License"); you may not use this file except in 
+// Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
 //
 //   http://www.imagemagick.org/script/license.php
@@ -17,7 +17,7 @@ using System.Collections.Generic;
 namespace ImageMagick
 {
   /// <summary>
-  /// Draws a set of paths 
+  /// Draws a set of paths
   /// </summary>
   public sealed class DrawablePath : IDrawable
   {

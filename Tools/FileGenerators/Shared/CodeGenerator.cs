@@ -87,7 +87,10 @@ namespace FileGenerator
 
     protected void WriteLine()
     {
+      int indent = Indent;
+      Indent = 0;
       _Writer.WriteLine();
+      Indent = indent;
     }
 
     protected void WriteLine(string value)
