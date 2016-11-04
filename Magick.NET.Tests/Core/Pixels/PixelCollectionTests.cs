@@ -23,7 +23,7 @@ using QuantumType = System.Byte;
 #elif Q16
 using QuantumType = System.UInt16;
 #elif Q16HDRI
-	using QuantumType = System.Single;
+using QuantumType = System.Single;
 #else
 #error Not implemented!
 #endif
