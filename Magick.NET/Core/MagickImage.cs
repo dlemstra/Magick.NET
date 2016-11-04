@@ -53,8 +53,8 @@ namespace ImageMagick
       double y = whitePoint.ToDouble();
 
       double pixels = Width * Height;
-      x *= (pixels / 100.0);
-      y *= (pixels / 100.0);
+      x *= pixels / 100.0;
+      y *= pixels / 100.0;
       y = pixels - y;
 
       return new PointD(x, y);
@@ -2405,8 +2405,8 @@ namespace ImageMagick
       if (ReferenceEquals(other, null))
         return 1;
 
-      int left = (Width * Height);
-      int right = (other.Width * other.Height);
+      int left = Width * Height;
+      int right = other.Width * other.Height;
 
       if (left == right)
         return 0;

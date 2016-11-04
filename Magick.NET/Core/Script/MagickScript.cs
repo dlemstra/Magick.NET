@@ -20,7 +20,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 using System.Xml.XPath;
 
-#if !(NET20)
+#if !NET20
 using System.Xml.Linq;
 #endif
 
@@ -272,7 +272,7 @@ namespace ImageMagick
       Initialize(stream);
     }
 
-#if !(NET20)
+#if !NET20
     /// <summary>
     /// Initializes a new instance of the MagickScript class using the specified XElement.
     /// </summary>

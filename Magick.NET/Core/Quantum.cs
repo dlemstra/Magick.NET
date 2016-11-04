@@ -33,7 +33,7 @@ namespace ImageMagick
   {
     internal static QuantumType Convert(byte value)
     {
-#if (Q16) || (Q16HDRI)
+#if Q16 || Q16HDRI
       return (QuantumType)(257UL * value);
 #else
       return value;
@@ -60,10 +60,10 @@ namespace ImageMagick
       return (QuantumType)value;
     }
 
-#if (!Q16)
+#if !Q16
     internal static QuantumType Convert(ushort value)
     {
-#if (Q8)
+#if Q8
       return (QuantumType)((value + 128U) / 257U);
 #elif Q16HDRI
       return (QuantumType)value;

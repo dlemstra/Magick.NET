@@ -165,7 +165,7 @@ namespace ImageMagick
       if (exception == null)
         return false;
 
-      return (exception is MagickErrorException);
+      return exception is MagickErrorException;
     }
   }
 }

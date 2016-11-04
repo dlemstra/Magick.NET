@@ -26,7 +26,7 @@ namespace ImageMagick
       NativeQuantizeSettings instance = new NativeQuantizeSettings();
       instance.SetColors(Colors);
       instance.SetColorSpace(ColorSpace);
-      instance.SetDitherMethod((DitherMethod.HasValue ? DitherMethod.Value : ImageMagick.DitherMethod.No));
+      instance.SetDitherMethod(DitherMethod.HasValue ? DitherMethod.Value : ImageMagick.DitherMethod.No);
       instance.SetMeasureErrors(MeasureErrors);
       instance.SetTreeDepth(TreeDepth);
 

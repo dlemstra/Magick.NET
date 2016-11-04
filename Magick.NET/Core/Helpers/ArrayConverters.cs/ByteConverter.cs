@@ -59,10 +59,10 @@ namespace ImageMagick
       if (test == -1)
         return 0;
 
-      int result = (data[offset++] << 24);
-      result = (result | (data[offset++] << 16));
-      result = (result | (data[offset++] << 8));
-      result = (result | (data[offset++]));
+      int result = data[offset++] << 24;
+      result = result | (data[offset++] << 16);
+      result = result | (data[offset++] << 8);
+      result = result | data[offset++];
       return (int)(result & 0xffffffff);
     }
 

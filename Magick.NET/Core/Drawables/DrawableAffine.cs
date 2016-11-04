@@ -169,7 +169,7 @@ namespace ImageMagick
 
       affine.ScaleX = Math.Cos(DegreesToRadians(Math.IEEERemainder(angle, 360.0)));
       affine.ScaleY = Math.Cos(DegreesToRadians(Math.IEEERemainder(angle, 360.0)));
-      affine.ShearX = (-Math.Sin(DegreesToRadians(Math.IEEERemainder(angle, 360.0))));
+      affine.ShearX = -Math.Sin(DegreesToRadians(Math.IEEERemainder(angle, 360.0)));
       affine.ShearY = Math.Sin(DegreesToRadians(Math.IEEERemainder(angle, 360.0)));
 
       Transform(affine);

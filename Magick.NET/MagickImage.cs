@@ -149,7 +149,7 @@ namespace ImageMagick
         format = MediaPixelFormats.Cmyk32;
       }
 
-      int step = (format.BitsPerPixel / 8);
+      int step = format.BitsPerPixel / 8;
       int stride = Width * step;
 
       using (PixelCollection pixels = GetPixels())

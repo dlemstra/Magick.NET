@@ -330,10 +330,10 @@ namespace ImageMagick
       uint thumbnailOffset = ifdOffset + ifdLength + exifLength + gpsLength;
 
       if (exifLength > 0)
-        _Values[exifIndex].Value = (ifdOffset + ifdLength);
+        _Values[exifIndex].Value = ifdOffset + ifdLength;
 
       if (gpsLength > 0)
-        _Values[gpsIndex].Value = (ifdOffset + ifdLength + exifLength);
+        _Values[gpsIndex].Value = ifdOffset + ifdLength + exifLength;
 
       i = Write(BitConverter.GetBytes(ifdOffset), result, i);
       i = WriteHeaders(_IfdIndexes, result, i);

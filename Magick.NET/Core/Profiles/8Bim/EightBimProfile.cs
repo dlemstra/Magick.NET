@@ -83,7 +83,7 @@ namespace ImageMagick
           return;
 
         short id = ByteConverter.ToShort(Data, ref i);
-        bool isClipPath = (id > 1999 && id < 2998);
+        bool isClipPath = id > 1999 && id < 2998;
 
         string name = null;
         int length = Data[i++];

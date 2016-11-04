@@ -17,7 +17,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.XPath;
 
-#if !(NET20)
+#if !NET20
 using System.Xml.Linq;
 #endif
 
@@ -78,7 +78,7 @@ namespace ImageMagick
       }
     }
 
-#if !(NET20)
+#if !NET20
     /// <summary>
     /// Initializes a new instance of the XmpProfile class.
     /// </summary>
@@ -136,7 +136,7 @@ namespace ImageMagick
       return new XmpProfile(document);
     }
 
-#if !(NET20)
+#if !NET20
     /// <summary>
     /// Creates an instance from the specified IXPathNavigable.
     /// </summary>
@@ -160,7 +160,7 @@ namespace ImageMagick
       }
     }
 
-#if !(NET20)
+#if !NET20
     /// <summary>
     /// Converts this instance to a XDocument.
     /// </summary>

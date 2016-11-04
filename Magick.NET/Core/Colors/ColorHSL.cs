@@ -58,9 +58,9 @@ namespace ImageMagick
           Hue = 4.0 + (quantumScale * red - quantumScale * green) / c;
         Hue *= 60.0 / 360.0;
         if (Lightness <= 0.5)
-          Saturation = c / (2.0 * (Lightness));
+          Saturation = c / (2.0 * Lightness);
         else
-          Saturation = c / (2.0 - 2.0 * (Lightness));
+          Saturation = c / (2.0 - (2.0 * Lightness));
       }
     }
 

@@ -63,7 +63,7 @@ namespace ImageMagick
       Count = (int)instance.Count;
     }
 
-#if !(Q8)
+#if !Q8
     private void Initialize(byte red, byte green, byte blue, byte alpha)
     {
       R = Quantum.Convert(red);
@@ -125,9 +125,9 @@ namespace ImageMagick
 
       if (_IsCmyk)
         return string.Format(CultureInfo.InvariantCulture, "cmyk({0},{1},{2},{3})", R, G, B, K);
-#if (Q8)
+#if Q8
       return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", R, G, B);
-#elif (Q16) || (Q16HDRI)
+#elif Q16 || Q16HDRI
       return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}", (ushort)R, (ushort)G, (ushort)B);
 #else
 #error Not implemented!
@@ -546,9 +546,9 @@ namespace ImageMagick
     {
       if (_IsCmyk)
         return string.Format(CultureInfo.InvariantCulture, "cmyka({0},{1},{2},{3},{4:0.0###})", R, G, B, K, (double)A / Quantum.Max);
-#if (Q8)
+#if Q8
       return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", R, G, B, A);
-#elif (Q16) || (Q16HDRI)
+#elif Q16 || Q16HDRI
       return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}{3:X4}", (ushort)R, (ushort)G, (ushort)B, (ushort)A);
 #else
 #error Not implemented!

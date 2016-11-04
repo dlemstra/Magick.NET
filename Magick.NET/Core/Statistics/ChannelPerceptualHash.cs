@@ -43,7 +43,7 @@ namespace ImageMagick
         if (!int.TryParse(hash.Substring(i * 5, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out hex))
           throw new ArgumentException("Invalid hash specified", nameof(hash));
 
-        double value = (ushort)hex / Math.Pow(10.0, (hex >> 17));
+        double value = (ushort)hex / Math.Pow(10.0, hex >> 17);
         if ((hex & (1 << 16)) != 0)
           value = -value;
         if (i < 7)
@@ -71,7 +71,7 @@ namespace ImageMagick
           hex++;
         }
 
-        hex = (hex << 1);
+        hex = hex << 1;
         if (value < 0.0)
           hex |= 1;
         hex = (hex << 16) + (int)(value < 0.0 ? -(value - 0.5) : value + 0.5);
@@ -162,8 +162,8 @@ namespace ImageMagick
 
       for (int i = 0; i < 7; i++)
       {
-        ssd += ((_SrgbHuPhash[i] - other._SrgbHuPhash[i]) * (_SrgbHuPhash[i] - other._SrgbHuPhash[i]));
-        ssd += ((_HclpHuPhash[i] - other._HclpHuPhash[i]) * (_HclpHuPhash[i] - other._HclpHuPhash[i]));
+        ssd += (_SrgbHuPhash[i] - other._SrgbHuPhash[i]) * (_SrgbHuPhash[i] - other._SrgbHuPhash[i]);
+        ssd += (_HclpHuPhash[i] - other._HclpHuPhash[i]) * (_HclpHuPhash[i] - other._HclpHuPhash[i]);
       }
 
       return ssd;

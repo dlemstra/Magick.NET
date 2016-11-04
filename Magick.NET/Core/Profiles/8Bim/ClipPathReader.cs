@@ -93,7 +93,7 @@ namespace ImageMagick
         if (xx > 2147483647)
           x = (int)(xx - 4294967295U - 1);
 
-        result[i] = new PointD(((double)x * _Width / 4096 / 4096), ((double)y * _Height / 4096 / 4096));
+        result[i] = new PointD((double)x * _Width / 4096 / 4096, (double)y * _Height / 4096 / 4096);
       }
 
       return result;

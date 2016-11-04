@@ -78,7 +78,7 @@ namespace ImageMagick
         Data[i++] = 2;
         Data[i++] = (byte)value.Tag;
         Data[i++] = (byte)(value.Length >> 8);
-        Data[i++] = (byte)(value.Length);
+        Data[i++] = (byte)value.Length;
         if (value.Length > 0)
         {
           Buffer.BlockCopy(value.ToByteArray(), 0, Data, i, value.Length);

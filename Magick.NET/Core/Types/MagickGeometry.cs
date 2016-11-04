@@ -372,8 +372,8 @@ namespace ImageMagick
       if (ReferenceEquals(other, null))
         return 1;
 
-      int left = (Width * Height);
-      int right = (other.Width * other.Height);
+      int left = Width * Height;
+      int right = other.Width * other.Height;
 
       if (left == right)
         return 0;
