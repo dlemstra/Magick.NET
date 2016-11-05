@@ -125,7 +125,6 @@ namespace ImageMagick
       }
     }
 
-
     /// <summary>
     /// Converts the specified MagickColor to an instance of this type.
     /// </summary>

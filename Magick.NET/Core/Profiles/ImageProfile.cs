@@ -139,7 +139,6 @@ namespace ImageMagick
     /// <param name="obj">The object to compare this image profile with.</param>
     public override bool Equals(object obj)
     {
-
       if (ReferenceEquals(this, obj))
         return true;
 

@@ -567,7 +567,6 @@ namespace ImageMagick
     /// </summary>
     public override string ToString()
     {
-
       if (_Value == null)
         return null;
 

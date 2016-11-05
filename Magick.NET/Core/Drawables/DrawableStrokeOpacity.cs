@@ -19,7 +19,6 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableStrokeOpacity : IDrawable
   {
-
     void IDrawable.Draw(IDrawingWand wand)
     {
       if (wand != null)

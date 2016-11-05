@@ -1214,7 +1214,6 @@ namespace ImageMagick
     /// </summary>
     Ycbcra,
 
-
     /// <summary>
     /// CCIR 601 4:1:1 or 4:2:2
     /// </summary>

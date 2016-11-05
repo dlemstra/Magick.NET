@@ -36,7 +36,6 @@ namespace ImageMagick
     /// </summary>
     GPSIFDOffset = 0x8825,
 
-
     /// <summary>
     /// ImageWidth
     /// </summary>
@@ -284,7 +283,6 @@ namespace ImageMagick
     /// Copyright
     /// </summary>
     Copyright = 0x8298,
-
 
     /// <summary>
     /// DocumentName
@@ -616,7 +614,6 @@ namespace ImageMagick
     /// ImageLayer
     /// </summary>
     ImageLayer = 0x87AC,
-
 
     /// <summary>
     /// ExposureTime
@@ -1010,7 +1007,6 @@ namespace ImageMagick
     /// ImageUniqueID
     /// </summary>
     ImageUniqueID = 0xA420,
-
 
     /// <summary>
     /// GPSVersionID

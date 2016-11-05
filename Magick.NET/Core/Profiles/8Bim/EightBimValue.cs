@@ -111,7 +111,6 @@ namespace ImageMagick
     /// </summary>
     public override int GetHashCode()
     {
-
       return
         _Data.GetHashCode() ^
         ID.GetHashCode();

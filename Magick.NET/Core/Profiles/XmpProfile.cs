@@ -66,7 +66,6 @@ namespace ImageMagick
     public XmpProfile(IXPathNavigable document)
       : base("xmp")
     {
-
       Throw.IfNull(nameof(document), document);
 
       MemoryStream memStream = new MemoryStream();

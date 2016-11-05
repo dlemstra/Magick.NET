@@ -92,7 +92,6 @@ namespace ImageMagick
 
         formatInfo = Create(instance, "TIF");
         result[formatInfo.Format] = formatInfo;
-
       }
       finally
       {

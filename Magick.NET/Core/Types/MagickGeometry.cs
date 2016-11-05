@@ -368,7 +368,6 @@ namespace ImageMagick
     /// <param name="other">The object to compare this geometry with.</param>
     public int CompareTo(MagickGeometry other)
     {
-
       if (ReferenceEquals(other, null))
         return 1;
 

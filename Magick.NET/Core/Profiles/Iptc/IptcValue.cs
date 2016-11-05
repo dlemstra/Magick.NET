@@ -86,7 +86,6 @@ namespace ImageMagick
       }
       set
       {
-
         if (string.IsNullOrEmpty(value))
           _Data = new byte[0];
         else

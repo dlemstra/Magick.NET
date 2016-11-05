@@ -19,7 +19,6 @@ namespace ImageMagick
   /// </summary>
   public enum VirtualPixelMethod
   {
-
     /// <summary>
     /// Undefined
     /// </summary>

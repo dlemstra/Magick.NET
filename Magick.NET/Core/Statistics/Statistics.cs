@@ -109,7 +109,6 @@ namespace ImageMagick
     /// <param name="other">The image statistics to compare this image statistics with.</param>
     public bool Equals(Statistics other)
     {
-
       if (ReferenceEquals(other, null))
         return false;
 

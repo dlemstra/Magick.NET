@@ -46,7 +46,6 @@ namespace ImageMagick
       if (nestedCount == 0)
         return result;
 
-
       for (int i = 0; i < nestedCount; i++)
       {
         IntPtr nested = NativeMagickExceptionHelper.Related(exception, i);

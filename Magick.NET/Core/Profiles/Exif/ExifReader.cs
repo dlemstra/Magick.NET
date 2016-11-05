@@ -275,7 +275,6 @@ namespace ImageMagick
 
     private ushort ToShort(byte[] data)
     {
-
       if (!ValidateArray(data, 2))
         return default(ushort);
 

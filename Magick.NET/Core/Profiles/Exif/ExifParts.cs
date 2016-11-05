@@ -22,7 +22,6 @@ namespace ImageMagick
   [Flags]
   public enum ExifParts
   {
-
     /// <summary>
     /// None
     /// </summary>

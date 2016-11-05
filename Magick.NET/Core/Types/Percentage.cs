@@ -217,7 +217,6 @@ namespace ImageMagick
     /// <param name="obj">The object to compare this percentage with.</param>
     public override bool Equals(object obj)
     {
-
       if (obj == null)
         return false;
 
