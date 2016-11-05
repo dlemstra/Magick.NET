@@ -116,7 +116,7 @@ namespace ImageMagick
 
         if (SamplingFactors != null)
         {
-          string value = "";
+          string value = string.Empty;
           foreach (MagickGeometry samplingFactor in SamplingFactors)
           {
             if (value.Length != 0)

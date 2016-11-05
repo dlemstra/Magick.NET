@@ -107,7 +107,7 @@ namespace ImageMagick
     {
       decimal fileSize = FileSize;
 
-      string suffix = "";
+      string suffix = string.Empty;
       if (fileSize > 1073741824)
       {
         fileSize /= 1073741824;
@@ -4525,7 +4525,7 @@ namespace ImageMagick
     /// <exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, Kernel kernel)
     {
-      Morphology(method, kernel, "");
+      Morphology(method, kernel, string.Empty);
     }
 
     /// <summary>
@@ -4537,7 +4537,7 @@ namespace ImageMagick
     /// <exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, Kernel kernel, Channels channels)
     {
-      Morphology(method, kernel, "", channels);
+      Morphology(method, kernel, string.Empty, channels);
     }
 
     /// <summary>
@@ -4550,7 +4550,7 @@ namespace ImageMagick
     /// <exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, Kernel kernel, Channels channels, int iterations)
     {
-      Morphology(method, kernel, "", channels, iterations);
+      Morphology(method, kernel, string.Empty, channels, iterations);
     }
 
     /// <summary>
@@ -4562,7 +4562,7 @@ namespace ImageMagick
     /// <exception cref="MagickException"/>
     public void Morphology(MorphologyMethod method, Kernel kernel, int iterations)
     {
-      Morphology(method, kernel, "", ImageMagick.Channels.Composite, iterations);
+      Morphology(method, kernel, string.Empty, ImageMagick.Channels.Composite, iterations);
     }
 
     /// <summary>
@@ -6278,7 +6278,7 @@ namespace ImageMagick
     {
       byte[] bytes = ToByteArray();
       if (bytes == null)
-        return "";
+        return string.Empty;
 
       return Convert.ToBase64String(bytes);
     }
@@ -6291,7 +6291,7 @@ namespace ImageMagick
     {
       byte[] bytes = ToByteArray(format);
       if (bytes == null)
-        return "";
+        return string.Empty;
 
       return Convert.ToBase64String(bytes);
     }

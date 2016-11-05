@@ -56,7 +56,7 @@ namespace ImageMagick
         return null;
 
       if (strbuf.Length == 0)
-        return "";
+        return string.Empty;
 
       return Encoding.UTF8.GetString(strbuf, 0, strbuf.Length);
     }

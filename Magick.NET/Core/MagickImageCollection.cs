@@ -1206,7 +1206,7 @@ namespace ImageMagick
     {
       byte[] bytes = ToByteArray();
       if (bytes == null)
-        return "";
+        return string.Empty;
 
       return Convert.ToBase64String(bytes);
     }
@@ -1219,7 +1219,7 @@ namespace ImageMagick
     {
       byte[] bytes = ToByteArray(format);
       if (bytes == null)
-        return "";
+        return string.Empty;
 
       return Convert.ToBase64String(bytes);
     }

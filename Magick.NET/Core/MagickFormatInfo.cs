@@ -54,7 +54,7 @@ namespace ImageMagick
 
     private static MagickFormat GetFormat(string format)
     {
-      format = format.Replace("-", "");
+      format = format.Replace("-", string.Empty);
       if (format == "3FR")
         format = "ThreeFr";
 

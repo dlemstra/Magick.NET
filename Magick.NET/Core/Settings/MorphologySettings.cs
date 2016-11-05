@@ -26,7 +26,7 @@ namespace ImageMagick
     {
       Channels = Channels.Composite;
       Iterations = 1;
-      KernelArguments = "";
+      KernelArguments = string.Empty;
     }
 
     /// <summary>

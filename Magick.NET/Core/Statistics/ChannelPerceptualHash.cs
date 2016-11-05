@@ -55,7 +55,7 @@ namespace ImageMagick
 
     private void SetHash()
     {
-      _Hash = "";
+      _Hash = string.Empty;
       for (int i = 0; i < 14; i++)
       {
         double value;

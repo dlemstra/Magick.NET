@@ -44,7 +44,7 @@ namespace ImageMagick
       {
         using (XmlReader xmlReader = XmlReader.Create(resourceStream))
         {
-          settings.Schemas.Add("", xmlReader);
+          settings.Schemas.Add(string.Empty, xmlReader);
         }
       }
 
