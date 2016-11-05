@@ -26,7 +26,7 @@ You can also download the precompiled .lib files from [DropBox](https://www.drop
 
 ### Build Magick.NET (.NET 4.0 x86/x64)
 
-You are now ready to build ImageMagick. You can do this my opening the `Magick.NET.sln` solution.
+You are now ready to build ImageMagick. You can do this by opening the `Magick.NET.sln` solution.
 This solution contains various Release configurations (Q8/Q16/Q16-HDRI) to build Magick.NET with the Quantum that you prefer.
 The unit tests can be build by switching to one of the Test configurations.
 
