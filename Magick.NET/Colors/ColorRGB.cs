@@ -16,10 +16,13 @@ using System.Drawing;
 
 namespace ImageMagick
 {
+  /// <content>
+  /// Contains code that is not compatible with .NET Core.
+  /// </content>
   public sealed partial class ColorRGB
   {
     /// <summary>
-    /// Initializes a new instance of the ColorRGB class using the specified color.
+    /// Initializes a new instance of the <see cref="ColorRGB"/> class.
     /// </summary>
     /// <param name="color">The color to use.</param>
     public ColorRGB(Color color)

@@ -16,10 +16,13 @@ using System.Drawing;
 
 namespace ImageMagick
 {
+  /// <content>
+  /// Contains code that is not compatible with .NET Core.
+  /// </content>
   public sealed partial class DrawableRectangle
   {
     /// <summary>
-    /// Creates a new DrawableRectangle instance.
+    /// Initializes a new instance of the <see cref="DrawableRectangle"/> class.
     /// </summary>
     /// <param name="rectangle">The rectangle to use.</param>
     public DrawableRectangle(Rectangle rectangle)

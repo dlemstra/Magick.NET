@@ -36,6 +36,9 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
+  /// <content>
+  /// Contains code that is not compatible with .NET Core.
+  /// </content>
   public sealed partial class MagickImage
   {
     private static bool IsSupportedImageFormat(ImageFormat format)

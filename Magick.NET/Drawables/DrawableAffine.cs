@@ -16,10 +16,13 @@ using System.Drawing.Drawing2D;
 
 namespace ImageMagick
 {
+  /// <content>
+  /// Contains code that is not compatible with .NET Core.
+  /// </content>
   public sealed partial class DrawableAffine
   {
     /// <summary>
-    /// Creates a new DrawableAffine instance using the specified Matrix.
+    /// Initializes a new instance of the <see cref="DrawableAffine"/> class.
     /// </summary>
     /// <param name="matrix">The matrix.</param>
     public DrawableAffine(Matrix matrix)

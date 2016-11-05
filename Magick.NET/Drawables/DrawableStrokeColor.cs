@@ -16,10 +16,13 @@ using System.Drawing;
 
 namespace ImageMagick
 {
+  /// <content>
+  /// Contains code that is not compatible with .NET Core.
+  /// </content>
   public sealed partial class DrawableStrokeColor
   {
     /// <summary>
-    /// Creates a new DrawableStrokeColor instance.
+    /// Initializes a new instance of the <see cref="DrawableStrokeColor"/> class.
     /// </summary>
     /// <param name="color">The color to use.</param>
     public DrawableStrokeColor(Color color)
