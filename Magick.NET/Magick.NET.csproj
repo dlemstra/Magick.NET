@@ -540,7 +540,7 @@
     <Compile Include="Core\Types\MagickErrorInfo.cs" />
     <Compile Include="Core\Types\MagickGeometry.cs" />
     <Compile Include="Core\Types\MagickRectangle.cs" />
-    <Compile Include="Core\Types\MagickSearchResults.cs" />
+    <Compile Include="Core\Types\MagickSearchResult.cs" />
     <Compile Include="Core\Types\OffsetInfo.cs" />
     <Compile Include="Core\OpenCL\OpenCLDevice.cs" />
     <Compile Include="Core\Types\Percentage.cs" />
