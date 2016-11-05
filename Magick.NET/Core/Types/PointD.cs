@@ -46,7 +46,7 @@ namespace ImageMagick
     internal static PointD FromPointInfo(PointInfo point)
     {
       if (point == null)
-        return new PointD();
+        return default(PointD);
 
       return new PointD(point.X, point.Y);
     }

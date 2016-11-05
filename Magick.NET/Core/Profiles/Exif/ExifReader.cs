@@ -303,7 +303,7 @@ namespace ImageMagick
     private Rational ToRational(byte[] data)
     {
       if (!ValidateArray(data, 8, 4))
-        return new Rational();
+        return default(Rational);
 
       uint numerator = BitConverter.ToUInt32(data, 0);
       uint denominator = BitConverter.ToUInt32(data, 4);
@@ -327,7 +327,7 @@ namespace ImageMagick
     private SignedRational ToSignedRational(byte[] data)
     {
       if (!ValidateArray(data, 8, 4))
-        return new SignedRational();
+        return default(SignedRational);
 
       int numerator = BitConverter.ToInt32(data, 0);
       int denominator = BitConverter.ToInt32(data, 4);
