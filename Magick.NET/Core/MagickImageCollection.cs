@@ -69,13 +69,12 @@ namespace ImageMagick
       }
     }
 
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "PixelStorage")]
     private static MagickSettings CreateSettings(MagickReadSettings readSettings)
     {
       if (readSettings == null)
         return new MagickSettings();
 
-      Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage != null, "PixelStorage is not supported for images with multiple frames/layers.");
+      Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage != null, "Settings the pixel storage is not supported for images with multiple frames/layers.");
 
       return new MagickReadSettings(readSettings);
     }

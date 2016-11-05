@@ -34,7 +34,7 @@ namespace ImageMagick
   /// <summary>
   /// Class that represents an ImageMagick image.
   /// </summary>
-  [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
+  [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Cannot avoid it here.")]
   public sealed partial class MagickImage : IEquatable<MagickImage>, IComparable<MagickImage>
   {
     private ProgressDelegate _NativeProgress;
@@ -65,12 +65,10 @@ namespace ImageMagick
       return CreateList(images, Settings.Clone());
     }
 
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "FrameCount")]
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "MagickImage")]
     private MagickReadSettings CreateReadSettings(MagickReadSettings readSettings)
     {
       if (readSettings != null && readSettings.FrameCount.HasValue)
-        Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1, "The FrameCount can only be set to 1 when a MagickImage is being read.");
+        Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1, "The frame count can only be set to 1 when a single image is being read.");
 
       MagickReadSettings newReadSettings = null;
       if (readSettings == null)
