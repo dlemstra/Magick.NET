@@ -12,14 +12,11 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace ImageMagick
 {
   /// <summary>
   /// Interface for defines that are used when writing an image.
   /// </summary>
-  [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
   public interface IWriteDefines : IDefines
   {
     /// <summary>
