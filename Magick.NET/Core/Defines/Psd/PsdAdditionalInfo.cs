@@ -23,10 +23,12 @@ namespace ImageMagick
     /// None
     /// </summary>
     None,
+
     /// <summary>
     /// All
     /// </summary>
     All,
+
     /// <summary>
     /// Only select the info that does not use geometry.
     /// </summary>

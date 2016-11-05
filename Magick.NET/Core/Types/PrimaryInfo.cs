@@ -36,6 +36,7 @@ namespace ImageMagick
       instance.Z = Z;
       return instance;
     }
+
     /// <summary>
     /// Initializes a new instance of the PrimaryInfo class.
     /// </summary>

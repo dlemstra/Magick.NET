@@ -153,6 +153,7 @@ namespace ImageMagick
           if (result != null)
             return result;
         }
+
         return null;
       }
     }

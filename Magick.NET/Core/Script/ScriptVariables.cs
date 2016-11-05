@@ -86,6 +86,7 @@ namespace ImageMagick
       {
         result[index++] = double.Parse(child.InnerText, CultureInfo.InvariantCulture);
       }
+
       return result;
     }
 
@@ -108,6 +109,7 @@ namespace ImageMagick
       {
         result[index++] = child.InnerText;
       }
+
       return result;
     }
 

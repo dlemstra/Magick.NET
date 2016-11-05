@@ -175,12 +175,14 @@ namespace ImageMagick
       {
         uint oldIndex = _Index;
         _Index = ToLong(data) + _StartIndex;
+
         if (RemainingLength < size)
         {
           _InvalidTags.Add(tag);
           _Index = oldIndex;
           return null;
         }
+
         value = ConvertValue(dataType, GetBytes(size), numberOfComponents);
         _Index = oldIndex;
       }

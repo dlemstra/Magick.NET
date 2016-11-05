@@ -109,6 +109,7 @@ namespace ImageMagick
 
           destination = new IntPtr(destination.ToInt64() + data.Stride);
         }
+
         bitmap.UnlockBits(data);
         return bitmap;
       }
