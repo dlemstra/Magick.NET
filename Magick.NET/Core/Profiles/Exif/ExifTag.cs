@@ -12,7 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
-// Descriptions from: http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html
+/* Descriptions from: http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html */
 
 namespace ImageMagick
 {
