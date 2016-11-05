@@ -42,12 +42,12 @@ namespace ImageMagick
       double translateX = TranslateX;
       double translateY = TranslateY;
 
-      ScaleX = scaleX * affine.ScaleX + shearY * affine.ShearX;
-      ScaleY = shearX * affine.ShearY + scaleY * affine.ScaleY;
-      ShearX = shearX * affine.ScaleX + scaleY * affine.ShearX;
-      ShearY = scaleX * affine.ShearY + shearY * affine.ScaleY;
-      TranslateX = scaleX * affine.TranslateX + shearY * affine.TranslateY + translateX;
-      TranslateY = shearX * affine.TranslateX + scaleY * affine.TranslateY + translateY;
+      ScaleX = (scaleX * affine.ScaleX) + (shearY * affine.ShearX);
+      ScaleY = (shearX * affine.ShearY) + (scaleY * affine.ScaleY);
+      ShearX = (shearX * affine.ScaleX) + (scaleY * affine.ShearX);
+      ShearY = (scaleX * affine.ShearY) + (shearY * affine.ScaleY);
+      TranslateX = (scaleX * affine.TranslateX) + (shearY * affine.TranslateY) + translateX;
+      TranslateY = (shearX * affine.TranslateX) + (scaleY * affine.TranslateY) + translateY;
     }
 
     /// <summary>

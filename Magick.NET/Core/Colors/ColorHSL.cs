@@ -48,14 +48,14 @@ namespace ImageMagick
       {
         if (max == (quantumScale * red))
         {
-          Hue = (quantumScale * green - quantumScale * blue) / c;
+          Hue = ((quantumScale * green) - (quantumScale * blue)) / c;
           if ((quantumScale * green) < (quantumScale * blue))
             Hue += 6.0;
         }
         else if (max == (quantumScale * green))
-          Hue = 2.0 + (quantumScale * blue - quantumScale * red) / c;
+          Hue = 2.0 + (((quantumScale * blue) - (quantumScale * red)) / c);
         else
-          Hue = 4.0 + (quantumScale * red - quantumScale * green) / c;
+          Hue = 4.0 + (((quantumScale * red) - (quantumScale * green)) / c);
         Hue *= 60.0 / 360.0;
         if (Lightness <= 0.5)
           Saturation = c / (2.0 * Lightness);
@@ -80,11 +80,11 @@ namespace ImageMagick
       if (Lightness <= 0.5)
         c = 2.0 * Lightness * Saturation;
       else
-        c = (2.0 - 2.0 * Lightness) * Saturation;
-      double min = Lightness - 0.5 * c;
+        c = (2.0 - (2.0 * Lightness)) * Saturation;
+      double min = Lightness - (0.5 * c);
       h -= 360.0 * Math.Floor(h / 360.0);
       h /= 60.0;
-      double x = c * (1.0 - Math.Abs(h - 2.0 * Math.Floor(h / 2.0) - 1.0));
+      double x = c * (1.0 - Math.Abs(h - (2.0 * Math.Floor(h / 2.0)) - 1.0));
       switch ((int)Math.Floor(h))
       {
         case 0:
