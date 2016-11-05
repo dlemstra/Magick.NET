@@ -22,7 +22,7 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawablePolygon : IDrawable
   {
-    PointDCoordinates _Coordinates;
+    private PointDCoordinates _Coordinates;
 
     void IDrawable.Draw(IDrawingWand wand)
     {

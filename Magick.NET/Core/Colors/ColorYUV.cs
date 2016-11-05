@@ -35,7 +35,7 @@ namespace ImageMagick
     private double _V;
     private double _Y;
 
-    ColorYUV(MagickColor color)
+    private ColorYUV(MagickColor color)
       : base(color)
     {
       _Y = (0.29900 * color.R) + (0.58700 * color.G) + (0.11400 * color.B);
