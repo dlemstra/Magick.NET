@@ -28,7 +28,7 @@ namespace ImageMagick
     private static readonly object _SyncRoot = new object();
     private static Dictionary<string, ColorProfile> _Profiles = new Dictionary<string, ColorProfile>();
 
-    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
     private static ColorSpace DetermineColorSpace(string colorSpace)
     {
       switch (colorSpace)

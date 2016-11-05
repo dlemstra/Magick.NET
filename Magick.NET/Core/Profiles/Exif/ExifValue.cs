@@ -26,7 +26,7 @@ namespace ImageMagick
   {
     private object _Value;
 
-    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
     private void CheckValue(object value)
     {
       if (value == null)
@@ -196,7 +196,7 @@ namespace ImageMagick
       _Value = value;
     }
 
-    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
     internal static ExifValue Create(ExifTag tag, object value)
     {
       Throw.IfTrue(nameof(tag), tag == ExifTag.Unknown, "Invalid Tag");

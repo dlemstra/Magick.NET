@@ -19,7 +19,7 @@ namespace ImageMagick
   /// <summary>
   /// Specifies the pixel channels.
   /// </summary>
-  [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags")]
+  [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags", Justification = "Flags won't work in this situation.")]
   public enum PixelChannel
   {
     /// <summary>

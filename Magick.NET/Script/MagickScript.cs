@@ -21,7 +21,7 @@ namespace ImageMagick
 {
   public sealed partial class MagickScript
   {
-    [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
+    [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "No harm in doing that here.")]
     private static XmlReaderSettings CreateXmlReaderSettings()
     {
       XmlReaderSettings settings = new XmlReaderSettings();

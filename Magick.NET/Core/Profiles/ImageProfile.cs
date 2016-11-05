@@ -36,7 +36,7 @@ namespace ImageMagick
     /// <summary>
     /// The data of this profile
     /// </summary>
-    [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
+    [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays",  Justification = "Subclasses need access to this array.")]
     protected byte[] Data
     {
       get;

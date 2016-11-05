@@ -40,7 +40,7 @@ namespace ImageMagick
     void Ellipse(double originX, double originY, double radiusX, double radiusY, double startDegrees, double endDegrees);
     void FillColor(MagickColor color);
     void FillOpacity(double value);
-    [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#")]
+    [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "Url won't work in all situations.")]
     void FillPatternUrl(string url);
     void FillRule(FillRule value);
     void Font(string fontName);
@@ -92,7 +92,7 @@ namespace ImageMagick
     void StrokeLineJoin(LineJoin value);
     void StrokeMiterLimit(int value);
     void StrokeOpacity(double value);
-    [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#")]
+    [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "Url won't work in all situations.")]
     void StrokePatternUrl(string url);
     void StrokeWidth(double value);
     void Text(double x, double y, string value);

@@ -21,7 +21,7 @@ namespace ImageMagick
   /// Specifies channel types.
   /// </summary>
   [Flags]
-  [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
+  [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces", Justification = "No real collision.")]
   public enum Channels
   {
     /// <summary>

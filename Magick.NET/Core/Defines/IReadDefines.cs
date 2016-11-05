@@ -19,7 +19,7 @@ namespace ImageMagick
   /// <summary>
   /// Interface for defines that are used when reading an image.
   /// </summary>
-  [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
+  [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces", Justification = "This is just a marker interface.")]
   public interface IReadDefines : IDefines
   {
   }

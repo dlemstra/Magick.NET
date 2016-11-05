@@ -29,7 +29,7 @@ namespace ImageMagick
   /// <summary>
   /// Class that can be used to execute a Magick Script Language file.
   /// </summary>
-  [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
+  [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Cannot avoid it here.")]
   public sealed partial class MagickScript
   {
     private static readonly XmlReaderSettings _ReaderSettings = CreateXmlReaderSettings();
@@ -210,7 +210,7 @@ namespace ImageMagick
       Variables = new ScriptVariables(_Script);
     }
 
-    [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
+    [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "No harm in doing that here.")]
     private void Initialize(XPathNavigator navigator)
     {
       using (MemoryStream memStream = new MemoryStream())

@@ -33,7 +33,7 @@ namespace ImageMagick
     /// Creates a new DrawableFillPatternUrl instance.
     /// </summary>
     /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
-    [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#")]
+    [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "Url won't work in all situations.")]
     public DrawableFillPatternUrl(string url)
     {
       Url = url;
@@ -42,7 +42,7 @@ namespace ImageMagick
     /// <summary>
     /// Url specifying pattern ID (e.g. "#pattern_id").
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
+    [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Url won't work in all situations.")]
     public string Url
     {
       get;

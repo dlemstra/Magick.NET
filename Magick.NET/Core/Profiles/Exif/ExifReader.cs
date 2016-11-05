@@ -82,7 +82,7 @@ namespace ImageMagick
       }
     }
 
-    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
     private object ConvertValue(ExifDataType dataType, byte[] data, uint numberOfComponents)
     {
       if (data == null || data.Length == 0)

@@ -39,7 +39,7 @@ namespace ImageMagick
     /// <summary>
     /// Ultra light (200)
     /// </summary>
-    [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "UltraLight")]
+    [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "UltraLight", Justification = "Name should be consistant with the rest.")]
     UltraLight = 200,
 
     /// <summary>
@@ -65,7 +65,7 @@ namespace ImageMagick
     /// <summary>
     /// Demi bold (600)
     /// </summary>
-    [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "DemiBold")]
+    [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "DemiBold", Justification = "Name should be consistant with the rest.")]
     DemiBold = 600,
 
     /// <summary>
@@ -81,7 +81,7 @@ namespace ImageMagick
     /// <summary>
     /// Extra bold (800)
     /// </summary>
-    [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "ExtraBold")]
+    [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "ExtraBold", Justification = "Name should be consistant with the rest.")]
     ExtraBold = 800,
 
     /// <summary>

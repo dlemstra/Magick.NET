@@ -3609,7 +3609,7 @@ namespace ImageMagick
     /// Retrieve the 8bim profile from the image.
     /// </summary>
     /// <exception cref="MagickException"/>
-    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Cannot be modified directly.")]
     public EightBimProfile Get8BimProfile()
     {
       StringInfo info = _NativeInstance.GetProfile("8bim");
@@ -3669,7 +3669,7 @@ namespace ImageMagick
     /// Retrieve the exif profile from the image.
     /// </summary>
     /// <exception cref="MagickException"/>
-    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Cannot be modified directly.")]
     public ExifProfile GetExifProfile()
     {
       StringInfo info = _NativeInstance.GetProfile("exif");
@@ -3694,7 +3694,7 @@ namespace ImageMagick
     /// Retrieve the iptc profile from the image.
     /// </summary>
     /// <exception cref="MagickException"/>
-    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Cannot be modified directly.")]
     public IptcProfile GetIptcProfile()
     {
       StringInfo info = _NativeInstance.GetProfile("iptc");
@@ -3708,7 +3708,7 @@ namespace ImageMagick
     /// Returns a pixel collection that can be used to read or modify the pixels of this image.
     /// </summary>
     /// <exception cref="MagickException"/>
-    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Cannot be modified directly.")]
     public PixelCollection GetPixels()
     {
       if (Settings.Ping)
@@ -3737,7 +3737,7 @@ namespace ImageMagick
     /// Retrieve the xmp profile from the image.
     /// </summary>
     /// <exception cref="MagickException"/>
-    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Cannot be modified directly.")]
     public XmpProfile GetXmpProfile()
     {
       StringInfo info = _NativeInstance.GetProfile("xmp");
@@ -5001,7 +5001,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="size">The size of the edges.</param>
     /// <exception cref="MagickException"/>
-    [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate")]
+    [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate", Justification = "This is not an event.")]
     public void Raise(int size)
     {
       _NativeInstance.RaiseOrLower(size, true);
