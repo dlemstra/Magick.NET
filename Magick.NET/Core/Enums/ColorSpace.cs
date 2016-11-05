@@ -12,6 +12,8 @@
 // limitations under the License.
 //=================================================================================================
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace ImageMagick
 {
   /// <summary>
@@ -132,11 +134,13 @@ namespace ImageMagick
     /// <summary>
     /// scRGB
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:Element must begin with upper-case letter", Justification = "Special case that starts lowercase.")]
     scRGB,
 
     /// <summary>
     /// sRGB
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:Element must begin with upper-case letter", Justification = "Special case that starts lowercase.")]
     sRGB,
 
     /// <summary>
