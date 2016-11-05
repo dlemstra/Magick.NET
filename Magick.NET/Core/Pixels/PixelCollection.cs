@@ -13,8 +13,8 @@
 //=================================================================================================
 
 using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 
 #if Q8
 using QuantumType = System.Byte;
