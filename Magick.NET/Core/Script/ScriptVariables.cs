@@ -24,7 +24,7 @@ namespace ImageMagick
   /// </summary>
   public sealed class ScriptVariables
   {
-    static readonly Regex _Names = new Regex("\\{[$](?<name>[0-9a-zA-Z_-]{1,16})\\}", RegexOptions.Compiled);
+    private static readonly Regex _Names = new Regex("\\{[$](?<name>[0-9a-zA-Z_-]{1,16})\\}", RegexOptions.Compiled);
 
     private Dictionary<string, object> _Variables;
 
