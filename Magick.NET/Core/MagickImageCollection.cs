@@ -1215,8 +1215,21 @@ namespace ImageMagick
     /// <summary>
     /// Converts this instance to a <see cref="byte"/> array.
     /// </summary>
+    /// <param name="defines">The defines to set.</param>
+    /// <returns>A <see cref="byte"/> array.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public byte[] ToByteArray(IWriteDefines defines)
+    {
+      SetDefines(defines);
+      return ToByteArray(defines);
+    }
+
+    /// <summary>
+    /// Converts this instance to a <see cref="byte"/> array.
+    /// </summary>
     /// <returns>A <see cref="byte"/> array.</returns>
     /// <param name="format">The format to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public byte[] ToByteArray(MagickFormat format)
     {
       SetFormat(format);

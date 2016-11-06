@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ImageMagick;
+using ImageMagick.Defines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 #if Q8
@@ -3560,6 +3561,36 @@ namespace Magick.NET.Tests
         image.Thumbnail(100, 100);
         Assert.AreEqual(100, image.Width);
         Assert.AreEqual(23, image.Height);
+      }
+    }
+
+    [TestMethod, TestCategory(_Category)]
+    public void Test_ToByteArray()
+    {
+      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      {
+        byte[] bytes = image.ToByteArray(new DdsWriteDefines()
+        {
+          Compression = DdsCompression.Dxt5
+        });
+
+        image.Read(bytes);
+        Assert.AreEqual(CompressionMethod.DXT5, image.CompressionMethod);
+        Assert.AreEqual(MagickFormat.Dds, image.Format);
+
+        bytes = image.ToByteArray(MagickFormat.Jpg);
+
+        image.Read(bytes);
+        Assert.AreEqual(MagickFormat.Jpeg, image.Format);
+
+        bytes = image.ToByteArray(new DdsWriteDefines()
+        {
+          Compression = DdsCompression.Dxt5
+        });
+
+        image.Read(bytes);
+        Assert.AreEqual(CompressionMethod.DXT1, image.CompressionMethod);
+        Assert.AreEqual(MagickFormat.Dds, image.Format);
       }
     }
 

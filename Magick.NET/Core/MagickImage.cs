@@ -6358,8 +6358,21 @@ namespace ImageMagick
     /// <summary>
     /// Converts this instance to a <see cref="byte"/> array.
     /// </summary>
+    /// <param name="defines">The defines to set.</param>
+    /// <returns>A <see cref="byte"/> array.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public byte[] ToByteArray(IWriteDefines defines)
+    {
+      Settings.SetDefines(defines);
+      return ToByteArray(defines.Format);
+    }
+
+    /// <summary>
+    /// Converts this instance to a <see cref="byte"/> array.
+    /// </summary>
     /// <param name="format">The format to use.</param>
     /// <returns>A <see cref="byte"/> array.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public byte[] ToByteArray(MagickFormat format)
     {
       Format = format;
