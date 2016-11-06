@@ -38,6 +38,7 @@
     <DocumentationFile>bin\DebugQ8\x64\Magick.NET-Q8-x64.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|x86'">
     <OutputPath>bin\DebugQ16\x86</OutputPath>
@@ -65,6 +66,7 @@
     <DocumentationFile>bin\DebugQ16\x64\Magick.NET-Q16-x64.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16-HDRI|x86'">
     <OutputPath>bin\DebugQ16-HDRI\x86</OutputPath>
@@ -92,6 +94,7 @@
     <DocumentationFile>bin\DebugQ16-HDRI\x64\Magick.NET-Q16-HDRI-x64.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|x86'">
     <OutputPath>bin\ReleaseQ8\x86</OutputPath>
@@ -119,6 +122,7 @@
     <DocumentationFile>bin\ReleaseQ8\x64\Magick.NET-Q8-x64.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x86'">
     <OutputPath>bin\ReleaseQ16\x86</OutputPath>
@@ -147,6 +151,7 @@
     <DocumentationFile>bin\ReleaseQ16\x64\Magick.NET-Q16-x64.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
     <OutputPath>bin\ReleaseQ16-HDRI\x86</OutputPath>
@@ -174,6 +179,7 @@
     <DocumentationFile>bin\ReleaseQ16-HDRI\x64\Magick.NET-Q16-HDRI-x64.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
