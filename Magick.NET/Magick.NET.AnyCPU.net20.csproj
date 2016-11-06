@@ -23,6 +23,7 @@
     <DocumentationFile>bin\DebugQ8\AnyCPU.net20\Magick.NET-Q8-AnyCPU.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|AnyCPU.net20'">
     <OutputPath>bin\DebugQ16\AnyCPU.net20</OutputPath>
@@ -36,6 +37,7 @@
     <DocumentationFile>bin\DebugQ16\AnyCPU.net20\Magick.NET-Q16-AnyCPU.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16-HDRI|AnyCPU.net20'">
     <OutputPath>bin\DebugQ16-HDRI\AnyCPU.net20</OutputPath>
@@ -49,6 +51,7 @@
     <DocumentationFile>bin\DebugQ16-HDRI\AnyCPU.net20\Magick.NET-Q16-HDRI-AnyCPU.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ8|AnyCPU.net20'">
     <OutputPath>bin\ReleaseQ8\AnyCPU.net20</OutputPath>
@@ -62,6 +65,7 @@
     <DocumentationFile>bin\ReleaseQ8\AnyCPU.net20\Magick.NET-Q8-AnyCPU.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|AnyCPU.net20'">
     <OutputPath>bin\ReleaseQ16\AnyCPU.net20</OutputPath>
@@ -90,6 +94,7 @@
     <DocumentationFile>bin\ReleaseQ16-HDRI\AnyCPU.net20\Magick.NET-Q16-HDRI-AnyCPU.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -454,7 +459,7 @@
     <Compile Include="Core\Types\MagickErrorInfo.cs" />
     <Compile Include="Core\Types\MagickGeometry.cs" />
     <Compile Include="Core\Types\MagickRectangle.cs" />
-    <Compile Include="Core\Types\MagickSearchResults.cs" />
+    <Compile Include="Core\Types\MagickSearchResult.cs" />
     <Compile Include="Core\Types\OffsetInfo.cs" />
     <Compile Include="Core\OpenCL\OpenCLDevice.cs" />
     <Compile Include="Core\Types\Percentage.cs" />
@@ -485,6 +490,10 @@
     <Compile Include="Types\MagickGeometry.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Magick.NET.ruleset">
+      <Link>Magick.NET.ruleset</Link>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Core\Native\Colors\MagickColor.json" />
     <None Include="Core\Native\Colors\MagickColorCollection.json" />
     <None Include="Core\Native\Drawables\DrawingWand.json" />
@@ -538,8 +547,14 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Magick.NET.snk" />
+    <None Include="packages.config" />
+    <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
