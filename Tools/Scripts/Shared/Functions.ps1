@@ -20,6 +20,7 @@ function BuildSolution($solution, $properties)
   $location = $(Get-Location)
   Set-Location $directory
 
+  nuget restore $filename
   msbuild $filename /m:4 /t:Rebuild ("/p:$($properties)")
   CheckExitCode "Failed to build: $($path)"
 
