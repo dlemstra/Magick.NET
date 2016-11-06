@@ -31,7 +31,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ID of the 8bim value
+    /// Gets the ID of the 8bim value
     /// </summary>
     public short ID
     {
@@ -40,31 +40,30 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified EightBimValue instances are considered equal.
+    /// Determines whether the specified <see cref="EightBimValue"/> instances are considered equal.
     /// </summary>
-    /// <param name="left">The first EightBimValue to compare.</param>
-    /// <param name="right"> The second EightBimValue to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="EightBimValue"/> to compare.</param>
+    /// <param name="right"> The second <see cref="EightBimValue"/> to compare.</param>
     public static bool operator ==(EightBimValue left, EightBimValue right)
     {
       return Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified EightBimValue instances are not considered equal.
+    /// Determines whether the specified <see cref="EightBimValue"/> instances are not considered equal.
     /// </summary>
-    /// <param name="left">The first EightBimValue to compare.</param>
-    /// <param name="right"> The second EightBimValue to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="EightBimValue"/> to compare.</param>
+    /// <param name="right"> The second <see cref="EightBimValue"/> to compare.</param>
     public static bool operator !=(EightBimValue left, EightBimValue right)
     {
       return !Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified object is equal to the current 8bim value.
+    /// Determines whether the specified object is equal to the current <see cref="EightBimValue"/>.
     /// </summary>
     /// <param name="obj">The object to compare this 8bim value with.</param>
+    /// <returns>True when the specified object is equal to the current <see cref="EightBimValue"/>.</returns>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -74,9 +73,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified 8bim value is equal to the current 8bim value.
+    /// Determines whether the specified <see cref="EightBimValue"/> is equal to the current <see cref="EightBimValue"/>.
     /// </summary>
-    /// <param name="other">The exif value to compare this 8bim value with.</param>
+    /// <param name="other">The <see cref="EightBimValue"/> to compare this <see cref="EightBimValue"/> with.</param>
+    /// <returns>True when the specified <see cref="EightBimValue"/> is equal to the current <see cref="EightBimValue"/>.</returns>
     public bool Equals(EightBimValue other)
     {
       if (ReferenceEquals(other, null))
@@ -109,6 +109,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       return
@@ -119,6 +120,7 @@ namespace ImageMagick
     /// <summary>
     /// Converts this instance to a byte array.
     /// </summary>
+    /// <returns>A <see cref="byte"/> array.</returns>
     public byte[] ToByteArray()
     {
       byte[] data = new byte[_Data.Length];
@@ -129,6 +131,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns a string that represents the current value.
     /// </summary>
+    /// <returns>A string that represents the current value.</returns>
     public override string ToString()
     {
       return ToString(Encoding.UTF8);
@@ -137,6 +140,8 @@ namespace ImageMagick
     /// <summary>
     /// Returns a string that represents the current value with the specified encoding.
     /// </summary>
+    /// <param name="encoding">The encoding to use.</param>
+    /// <returns>A string that represents the current value with the specified encoding.</returns>
     public string ToString(Encoding encoding)
     {
       Throw.IfNull(nameof(encoding), encoding);

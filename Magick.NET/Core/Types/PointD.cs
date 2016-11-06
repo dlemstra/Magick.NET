@@ -52,7 +52,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PointD struct using the specified x and y.
+    /// Initializes a new instance of the <see cref="PointD"/> struct.
     /// </summary>
     /// <param name="xy">The x and y.</param>
     public PointD(double xy)
@@ -62,7 +62,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PointD struct using the specified x and y.
+    /// Initializes a new instance of the <see cref="PointD"/> struct.
     /// </summary>
     /// <param name="x">The x.</param>
     /// <param name="y">The y.</param>
@@ -73,7 +73,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PointD class using the specified string.
+    /// Initializes a new instance of the <see cref="PointD"/> struct.
     /// </summary>
     /// <param name="value">PointD specifications in the form: &lt;x&gt;x&lt;y&gt; (where x, y are numbers)</param>
     public PointD(string value)
@@ -85,7 +85,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The x-coordinate of this Point.
+    /// Gets the x-coordinate of this Point.
     /// </summary>
     public double X
     {
@@ -96,7 +96,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The y-coordinate of this Point.
+    /// Gets the y-coordinate of this Point.
     /// </summary>
     public double Y
     {
@@ -107,31 +107,30 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified PointD instances are considered equal.
+    /// Determines whether the specified <see cref="PointD"/> instances are considered equal.
     /// </summary>
-    /// <param name="left">The first PointD to compare.</param>
-    /// <param name="right"> The second PointD to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="PointD"/> to compare.</param>
+    /// <param name="right"> The second <see cref="PointD"/> to compare.</param>
     public static bool operator ==(PointD left, PointD right)
     {
       return Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified PointD instances are not considered equal.
+    /// Determines whether the specified <see cref="PointD"/> instances are not considered equal.
     /// </summary>
-    /// <param name="left">The first PointD to compare.</param>
-    /// <param name="right"> The second PointD to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="PointD"/> to compare.</param>
+    /// <param name="right"> The second <see cref="PointD"/> to compare.</param>
     public static bool operator !=(PointD left, PointD right)
     {
       return !Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified object is equal to the current point.
+    /// Determines whether the specified object is equal to the current <see cref="PointD"/>.
     /// </summary>
-    /// <param name="obj">The object to compare this point with.</param>
+    /// <param name="obj">The object to compare this <see cref="PointD"/> with.</param>
+    /// <returns>True when the specified object is equal to the current <see cref="PointD"/>.</returns>
     public override bool Equals(object obj)
     {
       if (obj == null)
@@ -144,9 +143,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified point is equal to the current point.
+    /// Determines whether the specified <see cref="PointD"/> is equal to the current <see cref="PointD"/>.
     /// </summary>
-    /// <param name="other">The point to compare this point with.</param>
+    /// <param name="other">The <see cref="PointD"/> to compare this <see cref="PointD"/> with.</param>
+    /// <returns>True when the specified <see cref="PointD"/> is equal to the current <see cref="PointD"/>.</returns>
     public bool Equals(PointD other)
     {
       return
@@ -157,6 +157,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       return
@@ -167,6 +168,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns a string that represents the current PointD.
     /// </summary>
+    /// <returns>A string that represents the current PointD.</returns>
     public override string ToString()
     {
       return string.Format(CultureInfo.InvariantCulture, "{0}x{1}", _X, _Y);

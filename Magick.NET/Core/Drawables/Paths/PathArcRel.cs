@@ -30,14 +30,8 @@ namespace ImageMagick
   {
     private PathArcCoordinates _Coordinates;
 
-    void IPath.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.PathArcRel(_Coordinates.ToList());
-    }
-
     /// <summary>
-    /// Initializes a new instance of the PathArcRel class.
+    /// Initializes a new instance of the <see cref="PathArcRel"/> class.
     /// </summary>
     /// <param name="pathArcs">The coordinates to use.</param>
     public PathArcRel(params PathArc[] pathArcs)
@@ -46,12 +40,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathArcRel class.
+    /// Initializes a new instance of the <see cref="PathArcRel"/> class.
     /// </summary>
     /// <param name="pathArcs">The coordinates to use.</param>
     public PathArcRel(IEnumerable<PathArc> pathArcs)
     {
       _Coordinates = new PathArcCoordinates(pathArcs);
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IPath.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PathArcRel(_Coordinates.ToList());
     }
   }
 }

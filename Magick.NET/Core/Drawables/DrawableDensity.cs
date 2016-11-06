@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableDensity : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Density(Density);
-    }
-
     /// <summary>
-    /// Creates a new DrawableDensity instance.
+    /// Initializes a new instance of the <see cref="DrawableDensity"/> class.
     /// </summary>
     /// <param name="density">The vertical and horizontal resolution.</param>
     public DrawableDensity(double density)
@@ -35,7 +29,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableDensity instance.
+    /// Initializes a new instance of the <see cref="DrawableDensity"/> class.
     /// </summary>
     /// <param name="pointDensity">The vertical and horizontal resolution.</param>
     public DrawableDensity(PointD pointDensity)
@@ -44,12 +38,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The vertical and horizontal resolution.
+    /// Gets or sets the vertical and horizontal resolution.
     /// </summary>
     public PointD Density
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Density(Density);
     }
   }
 }

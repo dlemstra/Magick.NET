@@ -23,14 +23,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableFillPatternUrl : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.FillPatternUrl(Url);
-    }
-
     /// <summary>
-    /// Creates a new DrawableFillPatternUrl instance.
+    /// Initializes a new instance of the <see cref="DrawableFillPatternUrl"/> class.
     /// </summary>
     /// <param name="url">Url specifying pattern ID (e.g. "#pattern_id").</param>
     [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "Url won't work in all situations.")]
@@ -40,13 +34,23 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Url specifying pattern ID (e.g. "#pattern_id").
+    /// Gets or sets the url specifying pattern ID (e.g. "#pattern_id").
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Url won't work in all situations.")]
     public string Url
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.FillPatternUrl(Url);
     }
   }
 }

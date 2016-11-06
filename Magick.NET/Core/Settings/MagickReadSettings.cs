@@ -105,7 +105,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Defines that should be set before the image is read.
+    /// Gets or sets the defines that should be set before the image is read.
     /// </summary>
     public IReadDefines Defines
     {
@@ -114,7 +114,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The index of the image to read from a multi layer/frame image.
+    /// Gets or sets the index of the image to read from a multi layer/frame image.
     /// </summary>
     public int? FrameIndex
     {
@@ -123,7 +123,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The number of images to read from a multi layer/frame image.
+    /// Gets or sets the number of images to read from a multi layer/frame image.
     /// </summary>
     public int? FrameCount
     {
@@ -132,7 +132,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The height.
+    /// Gets or sets the height.
     /// </summary>
     public int? Height
     {
@@ -141,7 +141,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The settings for pixel storage.
+    /// Gets or sets the settings for pixel storage.
     /// </summary>
     public PixelStorageSettings PixelStorage
     {
@@ -150,7 +150,8 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Use monochrome reader. This is supported by: PCL, PDF, PS and XPS.
+    /// Gets or sets a value indicating whether the monochrome reader shoul be used. This is
+    /// supported by: PCL, PDF, PS and XPS.
     /// </summary>
     public bool UseMonochrome
     {
@@ -165,7 +166,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The width.
+    /// Gets or sets the width.
     /// </summary>
     public int? Width
     {

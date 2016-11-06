@@ -29,14 +29,8 @@ namespace ImageMagick
     private PointD _ControlPoint;
     private PointD _End;
 
-    void IPath.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.PathSmoothCurveToRel(_ControlPoint, _End);
-    }
-
     /// <summary>
-    /// Initializes a new instance of the PathSmoothCurveToRel class.
+    /// Initializes a new instance of the <see cref="PathSmoothCurveToRel"/> class.
     /// </summary>
     /// <param name="x2">X coordinate of second point</param>
     /// <param name="y2">Y coordinate of second point</param>
@@ -48,7 +42,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathSmoothCurveToRel class.
+    /// Initializes a new instance of the <see cref="PathSmoothCurveToRel"/> class.
     /// </summary>
     /// <param name="controlPoint">Coordinate of second point</param>
     /// <param name="end">Coordinate of final point</param>
@@ -56,6 +50,16 @@ namespace ImageMagick
     {
       _ControlPoint = controlPoint;
       _End = end;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IPath.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PathSmoothCurveToRel(_ControlPoint, _End);
     }
   }
 }

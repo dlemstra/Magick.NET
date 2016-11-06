@@ -22,14 +22,8 @@ namespace ImageMagick
   /// </summary>
   public sealed partial class DrawableViewbox : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Viewbox(UpperLeftX, UpperLeftY, LowerRightX, LowerRightY);
-    }
-
     /// <summary>
-    /// Creates a new DrawableViewbox instance.
+    /// Initializes a new instance of the <see cref="DrawableViewbox"/> class.
     /// </summary>
     /// <param name="upperLeftX">The upper left X coordinate.</param>
     /// <param name="upperLeftY">The upper left Y coordinate.</param>
@@ -44,7 +38,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The upper left X coordinate.
+    /// Gets or sets the upper left X coordinate.
     /// </summary>
     public double LowerRightX
     {
@@ -53,7 +47,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The upper left Y coordinate.
+    /// Gets or sets the upper left Y coordinate.
     /// </summary>
     public double LowerRightY
     {
@@ -62,7 +56,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The upper left X coordinate.
+    /// Gets or sets the upper left X coordinate.
     /// </summary>
     public double UpperLeftX
     {
@@ -71,12 +65,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The upper left Y coordinate.
+    /// Gets or sets the upper left Y coordinate.
     /// </summary>
     public double UpperLeftY
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Viewbox(UpperLeftX, UpperLeftY, LowerRightX, LowerRightY);
     }
   }
 }

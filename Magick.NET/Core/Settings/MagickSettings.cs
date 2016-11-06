@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 
@@ -135,7 +134,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Number of scenes.
+    /// Gets or sets the number of scenes.
     /// </summary>
     protected int NumberScenes
     {
@@ -144,7 +143,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Use monochrome reader.
+    /// Gets or sets a value indicating whether a monochrome reader should be used.
     /// </summary>
     protected bool Monochrome
     {
@@ -165,7 +164,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The size of the image.
+    /// Gets or sets the size of the image.
     /// </summary>
     protected string Size
     {
@@ -174,7 +173,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Active scene
+    /// Gets or sets the active scene.
     /// </summary>
     protected int Scene
     {
@@ -183,7 +182,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The scenes of the image.
+    /// Gets or sets scenes of the image.
     /// </summary>
     protected string Scenes
     {
@@ -200,9 +199,9 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Copies the settings from the specified settings.
+    /// Copies the settings from the specified <see cref="MagickSettings"/>.
     /// </summary>
-    /// <param name="settings"></param>
+    /// <param name="settings">The settings to copy the data from.</param>
     protected void Copy(MagickSettings settings)
     {
       if (settings == null)
@@ -250,7 +249,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="format">The format to set the define for.</param>
     /// <param name="name">The name of the define.</param>
-    /// <returns></returns>
+    /// <returns>A string for the specified format and name.</returns>
     protected static string ParseDefine(MagickFormat format, string name)
     {
       if (format == MagickFormat.Unknown)
@@ -265,7 +264,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Affine to use when annotating with text or drawing.
+    /// Gets or sets the affine to use when annotating with text or drawing.
     /// </summary>
     public DrawableAffine Affine
     {
@@ -280,7 +279,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Background color.
+    /// Gets or sets the background color.
     /// </summary>
     public MagickColor BackgroundColor
     {
@@ -289,7 +288,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Border color.
+    /// Gets or sets the border color.
     /// </summary>
     public MagickColor BorderColor
     {
@@ -304,7 +303,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Color space.
+    /// Gets or sets the color space.
     /// </summary>
     public ColorSpace ColorSpace
     {
@@ -313,7 +312,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Color type of the image.
+    /// Gets or sets the color type of the image.
     /// </summary>
     public ColorType ColorType
     {
@@ -322,7 +321,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Compression method to use.
+    /// Gets or sets the compression method to use.
     /// </summary>
     public CompressionMethod CompressionMethod
     {
@@ -331,7 +330,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Enable printing of debug messages from ImageMagick when a debugger is attached.
+    /// Gets or sets a value indicating whether printing of debug messages from ImageMagick is enabled when a debugger is attached.
     /// </summary>
     public bool Debug
     {
@@ -340,7 +339,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Vertical and horizontal resolution in pixels.
+    /// Gets or sets the vertical and horizontal resolution in pixels.
     /// </summary>
     public Density Density
     {
@@ -349,7 +348,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Endianness (little like Intel or big like SPARC) for image formats which support
+    /// Gets or sets the endianness (little like Intel or big like SPARC) for image formats which support
     /// endian-specific options.
     /// </summary>
     public Endian Endian
@@ -359,7 +358,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Fill color
+    /// Gets or sets the fill color.
     /// </summary>
     public MagickColor FillColor
     {
@@ -375,7 +374,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Fill pattern
+    /// Gets or sets the fill pattern.
     /// </summary>
     public MagickImage FillPattern
     {
@@ -390,7 +389,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Rule to use when filling drawn objects.
+    /// Gets or sets the rule to use when filling drawn objects.
     /// </summary>
     public FillRule FillRule
     {
@@ -405,7 +404,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Text rendering font.
+    /// Gets or sets the text rendering font.
     /// </summary>
     public string Font
     {
@@ -421,7 +420,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Text font family.
+    /// Gets or sets the text font family.
     /// </summary>
     public string FontFamily
     {
@@ -437,7 +436,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Font point size.
+    /// Gets or sets the font point size.
     /// </summary>
     public double FontPointsize
     {
@@ -453,7 +452,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Font style.
+    /// Gets or sets the font style.
     /// </summary>
     public FontStyleType FontStyle
     {
@@ -469,7 +468,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Font weight.
+    /// Gets or sets the font weight.
     /// </summary>
     public FontWeight FontWeight
     {
@@ -491,7 +490,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The format of the image.
+    /// Gets or sets the the format of the image.
     /// </summary>
     public MagickFormat Format
     {
@@ -500,7 +499,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Preferred size and location of an image canvas.
+    /// Gets or sets the preferred size and location of an image canvas.
     /// </summary>
     public MagickGeometry Page
     {
@@ -509,7 +508,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Enabled/disable stroke anti-aliasing.
+    /// Gets or sets a value indicating whether  stroke anti-aliasing is enabled or disabled.
     /// </summary>
     public bool StrokeAntiAlias
     {
@@ -524,7 +523,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Color to use when drawing object outlines.
+    /// Gets or sets the color to use when drawing object outlines.
     /// </summary>
     public MagickColor StrokeColor
     {
@@ -540,7 +539,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specify the pattern of dashes and gaps used to stroke paths. This represents a
+    /// Gets or sets the pattern of dashes and gaps used to stroke paths. This represents a
     /// zero-terminated array of numbers that specify the lengths of alternating dashes and gaps
     /// in pixels. If a zero value is not found it will be added. If an odd number of values is
     /// provided, then the list of values is repeated to yield an even number of values.
@@ -558,8 +557,8 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// While drawing using a dash pattern, specify distance into the dash pattern to start the
-    /// dash (default 0).
+    /// Gets or sets the distance into the dash pattern to start the dash (default 0) while
+    /// drawing using a dash pattern,.
     /// </summary>
     public double StrokeDashOffset
     {
@@ -574,7 +573,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specify the shape to be used at the end of open subpaths when they are stroked.
+    /// Gets or sets the shape to be used at the end of open subpaths when they are stroked.
     /// </summary>
     public LineCap StrokeLineCap
     {
@@ -589,7 +588,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specify the shape to be used at the corners of paths (or other vector shapes) when they
+    /// Gets or sets the shape to be used at the corners of paths (or other vector shapes) when they
     /// are stroked.
     /// </summary>
     public LineJoin StrokeLineJoin
@@ -605,7 +604,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specify miter limit. When two line segments meet at a sharp angle and miter joins have
+    /// Gets or sets the miter limit. When two line segments meet at a sharp angle and miter joins have
     /// been specified for 'lineJoin', it is possible for the miter to extend far beyond the thickness
     /// of the line stroking the path. The miterLimit' imposes a limit on the ratio of the miter
     /// length to the 'lineWidth'. The default value is 4.
@@ -623,7 +622,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Pattern image to use while stroking object outlines.
+    /// Gets or sets the pattern image to use while stroking object outlines.
     /// </summary>
     public MagickImage StrokePattern
     {
@@ -638,7 +637,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Stroke width for drawing lines, circles, ellipses, etc.
+    /// Gets or sets the stroke width for drawing lines, circles, ellipses, etc.
     /// </summary>
     public double StrokeWidth
     {
@@ -654,7 +653,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Anti-alias Postscript and TrueType fonts (default true).
+    /// Gets or sets a value indicating whether Postscript and TrueType fonts should be anti-aliased (default true).
     /// </summary>
     public bool TextAntiAlias
     {
@@ -669,7 +668,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Render text right-to-left or left-to-right.
+    /// Gets or sets text direction (right-to-left or left-to-right).
     /// </summary>
     public TextDirection TextDirection
     {
@@ -684,7 +683,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Annotation text encoding (e.g. "UTF-16").
+    /// Gets or sets the text annotation encoding (e.g. "UTF-16").
     /// </summary>
     public Encoding TextEncoding
     {
@@ -699,7 +698,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Annotation text gravity.
+    /// Gets or sets the text annotation gravity.
     /// </summary>
     public Gravity TextGravity
     {
@@ -715,7 +714,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Text inter-line spacing.
+    /// Gets or sets the text inter-line spacing.
     /// </summary>
     public double TextInterlineSpacing
     {
@@ -731,7 +730,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Text inter-word spacing.
+    /// Gets or sets the text inter-word spacing.
     /// </summary>
     public double TextInterwordSpacing
     {
@@ -747,7 +746,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Text inter-character kerning.
+    /// Gets or sets the text inter-character kerning.
     /// </summary>
     public double TextKerning
     {
@@ -763,7 +762,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Text undercolor box.
+    /// Gets or sets the text undercolor box.
     /// </summary>
     public MagickColor TextUnderColor
     {
@@ -779,7 +778,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Turn verbose output on/off.
+    /// Gets or sets a value indicating whether verbose output os turned on or off.
     /// </summary>
     public bool Verbose
     {
@@ -792,6 +791,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="format">The format to get the option for.</param>
     /// <param name="name">The name of the option.</param>
+    /// <returns>The value of a format-specific option.</returns>
     public string GetDefine(MagickFormat format, string name)
     {
       Throw.IfNullOrEmpty(nameof(name), name);
@@ -803,6 +803,7 @@ namespace ImageMagick
     /// Returns the value of a format-specific option.
     /// </summary>
     /// <param name="name">The name of the option.</param>
+    /// <returns>The value of a format-specific option.</returns>
     public string GetDefine(string name)
     {
       Throw.IfNullOrEmpty(nameof(name), name);

@@ -25,19 +25,23 @@ namespace ImageMagick
   {
     private double[] _Dash;
 
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeDashArray(_Dash);
-    }
-
     /// <summary>
-    /// Creates a new DrawableDashArray instance.
+    /// Initializes a new instance of the <see cref="DrawableStrokeDashArray"/> class.
     /// </summary>
     /// <param name="dash">An array containing the dash information.</param>
     public DrawableStrokeDashArray(params double[] dash)
     {
       _Dash = dash;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.StrokeDashArray(_Dash);
     }
   }
 }

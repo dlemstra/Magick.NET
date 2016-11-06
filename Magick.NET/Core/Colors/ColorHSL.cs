@@ -126,7 +126,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorHSL class.
+    /// Initializes a new instance of the <see cref="ColorHSL"/> class.
     /// </summary>
     /// <param name="hue">Hue component value of this color.</param>
     /// <param name="saturation">Saturation component value of this color.</param>
@@ -140,7 +140,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Hue component value of this color.
+    /// Gets or sets the hue component value of this color.
     /// </summary>
     public double Hue
     {
@@ -149,7 +149,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Lightness component value of this color.
+    /// Gets or sets the lightness component value of this color.
     /// </summary>
     public double Lightness
     {
@@ -158,7 +158,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    ///  Saturation component value of this color.
+    /// Gets or sets the saturation component value of this color.
     /// </summary>
     public double Saturation
     {
@@ -167,16 +167,20 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
     /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorHSL"/> instance.</returns>
     public static implicit operator ColorHSL(MagickColor color)
     {
       return FromMagickColor(color);
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
     /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorHSL"/> instance.</returns>
     public static ColorHSL FromMagickColor(MagickColor color)
     {
       if (color == null)

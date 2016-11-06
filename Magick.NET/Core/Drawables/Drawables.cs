@@ -25,11 +25,6 @@ namespace ImageMagick
   {
     private Collection<IDrawable> _Drawables;
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Drawables"/> class.
     /// </summary>
@@ -42,6 +37,7 @@ namespace ImageMagick
     /// Draw on the specified image.
     /// </summary>
     /// <param name="image">The image to draw on.</param>
+    /// <returns>The current instance.</returns>
     public Drawables Draw(MagickImage image)
     {
       Throw.IfNull("image", image);
@@ -51,9 +47,18 @@ namespace ImageMagick
     }
 
     /// <summary>
+    /// Returns an enumerator that iterates through the collection.
+    /// </summary>
+    /// <returns>An enumerator.</returns>
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
+    }
+
+    /// <summary>
     /// Creates a new <see cref="Paths"/> instance.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A new <see cref="Paths"/> instance.</returns>
     public Paths Paths()
     {
       return new Paths(this);
@@ -62,7 +67,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns an enumerator that iterates through the collection.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>An enumerator.</returns>
     public IEnumerator<IDrawable> GetEnumerator()
     {
       return _Drawables.GetEnumerator();

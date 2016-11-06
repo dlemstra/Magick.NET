@@ -20,7 +20,7 @@ namespace ImageMagick
   public sealed class SparseColorArg
   {
     /// <summary>
-    /// Initializes a new instance of the SparseColorArg class.
+    /// Initializes a new instance of the <see cref="SparseColorArg"/> class.
     /// </summary>
     /// <param name="x">The X position.</param>
     /// <param name="y">The Y position.</param>
@@ -35,7 +35,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The X position.
+    /// Gets or sets the X position.
     /// </summary>
     public double X
     {
@@ -44,7 +44,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y position.
+    /// Gets or sets the Y position.
     /// </summary>
     public double Y
     {
@@ -53,7 +53,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The color.
+    /// Gets or sets the color.
     /// </summary>
     public MagickColor Color
     {

@@ -54,7 +54,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorYUV class.
+    /// Initializes a new instance of the <see cref="ColorYUV"/> class.
     /// </summary>
     /// <param name="y">Y component value of this color.</param>
     /// <param name="u">U component value of this color.</param>
@@ -72,7 +72,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// U component value of this color. (value beteeen -0.5 and 0.5)
+    /// Gets or sets the U component value of this color. (value beteeen -0.5 and 0.5)
     /// </summary>
     public double U
     {
@@ -90,7 +90,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// V component value of this color. (value beteeen -0.5 and 0.5)
+    /// Gets or sets the V component value of this color. (value beteeen -0.5 and 0.5)
     /// </summary>
     public double V
     {
@@ -108,7 +108,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Y component value of this color. (value beteeen 0.0 and 1.0)
+    /// Gets or sets the Y component value of this color. (value beteeen 0.0 and 1.0)
     /// </summary>
     public double Y
     {
@@ -126,16 +126,20 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
     /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorYUV"/> instance.</returns>
     public static implicit operator ColorYUV(MagickColor color)
     {
       return FromMagickColor(color);
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
     /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorYUV"/> instance.</returns>
     public static ColorYUV FromMagickColor(MagickColor color)
     {
       if (color == null)

@@ -51,7 +51,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorGray class.
+    /// Initializes a new instance of the <see cref="ColorGray"/> class.
     /// </summary>
     /// <param name="shade">Value between 0.0 - 1.0.</param>
     public ColorGray(double shade)
@@ -63,7 +63,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The shade of this color (value between 0.0 - 1.0).
+    /// Gets or sets the shade of this color (value between 0.0 - 1.0).
     /// </summary>
     public double Shade
     {
@@ -81,16 +81,20 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
     /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorGray"/> instance.</returns>
     public static implicit operator ColorGray(MagickColor color)
     {
       return FromMagickColor(color);
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
     /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorGray"/> instance.</returns>
     public static ColorGray FromMagickColor(MagickColor color)
     {
       if (color == null)

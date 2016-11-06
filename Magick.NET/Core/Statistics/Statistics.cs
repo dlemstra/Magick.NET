@@ -52,16 +52,19 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Statistics for the all the channels.
+    /// Returns the statistics for the all the channels.
     /// </summary>
+    /// <returns>The statistics for the all the channels.</returns>
     public ChannelStatistics Composite()
     {
       return GetChannel(PixelChannel.Composite);
     }
 
     /// <summary>
-    /// Statistics for the specified channel.
+    /// Returns the statistics for the specified channel.
     /// </summary>
+    /// <param name="channel">The channel to get the statistics for.</param>
+    /// <returns>The statistics for the specified channel.</returns>
     public ChannelStatistics GetChannel(PixelChannel channel)
     {
       ChannelStatistics channelStatistics;
@@ -70,31 +73,30 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified Statistics instances are considered equal.
+    /// Determines whether the specified <see cref="Statistics"/> instances are considered equal.
     /// </summary>
-    /// <param name="left">The first Statistics to compare.</param>
-    /// <param name="right"> The second Statistics to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="Statistics"/> to compare.</param>
+    /// <param name="right"> The second <see cref="Statistics"/> to compare.</param>
     public static bool operator ==(Statistics left, Statistics right)
     {
       return Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified Statistics instances are not considered equal.
+    /// Determines whether the specified <see cref="Statistics"/> instances are not considered equal.
     /// </summary>
-    /// <param name="left">The first Statistics to compare.</param>
-    /// <param name="right"> The second Statistics to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="Statistics"/> to compare.</param>
+    /// <param name="right"> The second <see cref="Statistics"/> to compare.</param>
     public static bool operator !=(Statistics left, Statistics right)
     {
       return !Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified object is equal to the current image statistics.
+    /// Determines whether the specified object is equal to the current <see cref="Statistics"/>.
     /// </summary>
-    /// <param name="obj">The object to compare this image statistics with.</param>
+    /// <param name="obj">The object to compare this <see cref="Statistics"/> with.</param>
+    /// <returns>Truw when the specified object is equal to the current <see cref="Statistics"/>.</returns>
     public override bool Equals(object obj)
     {
       if (obj == null)
@@ -104,9 +106,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified image statistics is equal to the current image statistics.
+    /// Determines whether the specified image statistics is equal to the current <see cref="Statistics"/>.
     /// </summary>
-    /// <param name="other">The image statistics to compare this image statistics with.</param>
+    /// <param name="other">The image statistics to compare this <see cref="Statistics"/> with.</param>
+    /// <returns>True when the specified image statistics is equal to the current <see cref="Statistics"/>.</returns>
     public bool Equals(Statistics other)
     {
       if (ReferenceEquals(other, null))
@@ -133,6 +136,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       int hashCode = _Channels.GetHashCode();

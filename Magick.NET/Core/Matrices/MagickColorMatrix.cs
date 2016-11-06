@@ -25,7 +25,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new MagickColorMatrix instance with the specified order of 1 to 6.
+    /// Initializes a new instance of the <see cref="MagickColorMatrix"/> class.
     /// </summary>
     /// <param name="order">The order (1 to 6).</param>
     public MagickColorMatrix(int order)
@@ -35,7 +35,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new MagickColorMatrix instance with the specified order of 1 to 6.
+    /// Initializes a new instance of the <see cref="MagickColorMatrix"/> class.
     /// </summary>
     /// <param name="order">The order (1 to 6).</param>
     /// <param name="values">The values to initialize the matrix with.</param>

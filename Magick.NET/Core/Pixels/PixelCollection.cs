@@ -120,8 +120,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the pixel at the specified coordinate.
+    /// Gets the pixel at the specified coordinate.
     /// </summary>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
     public Pixel this[int x, int y]
     {
       get
@@ -131,7 +133,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the number of channels that the image contains.
+    /// Gets the number of channels that the image contains.
     /// </summary>
     public int Channels
     {
@@ -156,6 +158,7 @@ namespace ImageMagick
     /// <param name="y">The Y coordinate of the area.</param>
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
+    /// <returns>A <see cref="QuantumType"/> array.</returns>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -170,6 +173,7 @@ namespace ImageMagick
     /// Returns the pixel of the specified area
     /// </summary>
     /// <param name="geometry">The geometry of the area.</param>
+    /// <returns>A <see cref="QuantumType"/> array.</returns>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -180,6 +184,10 @@ namespace ImageMagick
       return GetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height);
     }
 
+    /// <summary>
+    ///  Returns an enumerator that iterates through the collection.
+    /// </summary>
+    /// <returns>A pixel enumerator.</returns>
     IEnumerator IEnumerable.GetEnumerator()
     {
       return GetEnumerator();
@@ -188,7 +196,7 @@ namespace ImageMagick
     /// <summary>
     ///  Returns an enumerator that iterates through the collection.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A pixel enumerator.</returns>
     public IEnumerator<Pixel> GetEnumerator()
     {
       return new PixelCollectionEnumerator(this, _Image.Width, _Image.Height);
@@ -198,16 +206,18 @@ namespace ImageMagick
     /// Returns the index of the specified channel. Returns -1 if not found.
     /// </summary>
     /// <param name="channel">The channel to get the index of.</param>
+    /// <returns>The index of the specified channel. Returns -1 if not found.</returns>
     public int GetIndex(PixelChannel channel)
     {
       return _Image.ChannelOffset(channel);
     }
 
     /// <summary>
-    /// Returns the pixel at the specified coordinate.
+    /// Returns the <see cref="Pixel"/> at the specified coordinate.
     /// </summary>
     /// <param name="x">The X coordinate of the pixel.</param>
     /// <param name="y">The Y coordinate of the pixel.</param>
+    /// <returns>The <see cref="Pixel"/> at the specified coordinate.</returns>
     public Pixel GetPixel(int x, int y)
     {
       CheckIndex(x, y);
@@ -220,6 +230,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="x">The X coordinate of the pixel.</param>
     /// <param name="y">The Y coordinate of the pixel.</param>
+    /// <returns>A <see cref="QuantumType"/> array.</returns>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -233,6 +244,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns the values of the pixels as an array.
     /// </summary>
+    /// <returns>A <see cref="QuantumType"/> array.</returns>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -443,6 +455,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns the values of the pixels as an array.
     /// </summary>
+    /// <returns>A <see cref="QuantumType"/> array.</returns>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -459,6 +472,7 @@ namespace ImageMagick
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    /// <returns>A <see cref="byte"/> array.</returns>
     public byte[] ToByteArray(int x, int y, int width, int height, string mapping)
     {
       Throw.IfNullOrEmpty(nameof(mapping), mapping);
@@ -475,6 +489,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="geometry">The geometry of the area.</param>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    /// <returns>A <see cref="byte"/> array.</returns>
     public byte[] ToByteArray(MagickGeometry geometry, string mapping)
     {
       Throw.IfNull(nameof(geometry), geometry);
@@ -486,7 +501,7 @@ namespace ImageMagick
     /// Returns the values of the pixels as an array.
     /// </summary>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
-    /// <returns></returns>
+    /// <returns>A <see cref="byte"/> array.</returns>
     public byte[] ToByteArray(string mapping)
     {
       return ToByteArray(0, 0, _Image.Width, _Image.Height, mapping);
@@ -500,6 +515,7 @@ namespace ImageMagick
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    /// <returns>An <see cref="ushort"/> array.</returns>
     [CLSCompliant(false)]
     public ushort[] ToShortArray(int x, int y, int width, int height, string mapping)
     {
@@ -517,6 +533,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="geometry">The geometry of the area.</param>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
+    /// <returns>An <see cref="ushort"/> array.</returns>
     [CLSCompliant(false)]
     public ushort[] ToShortArray(MagickGeometry geometry, string mapping)
     {
@@ -529,7 +546,7 @@ namespace ImageMagick
     /// Returns the values of the pixels as an array.
     /// </summary>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
-    /// <returns></returns>
+    /// <returns>An <see cref="ushort"/> array.</returns>
     [CLSCompliant(false)]
     public ushort[] ToShortArray(string mapping)
     {

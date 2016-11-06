@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableArc : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Arc(StartX, StartY, EndX, EndY, StartDegrees, EndDegrees);
-    }
-
     /// <summary>
-    /// Creates a new DrawableArc instance.
+    /// Initializes a new instance of the <see cref="DrawableArc"/> class.
     /// </summary>
     /// <param name="startX">The starting X coordinate of the bounding rectangle.</param>
     /// <param name="startY">The starting Y coordinate of thebounding rectangle.</param>
@@ -45,7 +39,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ending degrees of rotation.
+    /// Gets or sets the ending degrees of rotation.
     /// </summary>
     public double EndDegrees
     {
@@ -54,7 +48,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ending X coordinate of the bounding rectangle.
+    /// Gets or sets the ending X coordinate of the bounding rectangle.
     /// </summary>
     public double EndX
     {
@@ -63,7 +57,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ending Y coordinate of the bounding rectangle.
+    /// Gets or sets the ending Y coordinate of the bounding rectangle.
     /// </summary>
     public double EndY
     {
@@ -72,7 +66,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The starting degrees of rotation.
+    /// Gets or sets the starting degrees of rotation.
     /// </summary>
     public double StartDegrees
     {
@@ -81,7 +75,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The starting X coordinate of the bounding rectangle.
+    /// Gets or sets the starting X coordinate of the bounding rectangle.
     /// </summary>
     public double StartX
     {
@@ -90,12 +84,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The starting Y coordinate of the bounding rectangle.
+    /// Gets or sets the starting Y coordinate of the bounding rectangle.
     /// </summary>
     public double StartY
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Arc(StartX, StartY, EndX, EndY, StartDegrees, EndDegrees);
     }
   }
 }

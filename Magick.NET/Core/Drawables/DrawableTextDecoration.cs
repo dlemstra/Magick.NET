@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableTextDecoration : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.TextDecoration(Decoration);
-    }
-
     /// <summary>
-    /// Creates a new DrawableTextDecoration instance.
+    /// Initializes a new instance of the <see cref="DrawableTextDecoration"/> class.
     /// </summary>
     /// <param name="decoration">The text decoration.</param>
     public DrawableTextDecoration(TextDecoration decoration)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The text decoration
+    /// Gets or sets the text decoration
     /// </summary>
     public TextDecoration Decoration
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.TextDecoration(Decoration);
     }
   }
 }

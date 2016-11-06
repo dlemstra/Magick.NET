@@ -20,14 +20,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class PathLineToVerticalRel : IPath
   {
-    void IPath.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.PathLineToVerticalRel(Y);
-    }
-
     /// <summary>
-    /// Initializes a new instance of the PathLineToVerticalRel class.
+    /// Initializes a new instance of the <see cref="PathLineToVerticalRel"/> class.
     /// </summary>
     /// <param name="y">The Y coordinate.</param>
     public PathLineToVerticalRel(double y)
@@ -36,12 +30,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y coordinate.
+    /// Gets or sets the Y coordinate.
     /// </summary>
     public double Y
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IPath.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PathLineToVerticalRel(Y);
     }
   }
 }

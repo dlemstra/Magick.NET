@@ -27,14 +27,8 @@ namespace ImageMagick
   {
     private PointD _End;
 
-    void IPath.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.PathSmoothQuadraticCurveToAbs(_End);
-    }
-
     /// <summary>
-    /// Initializes a new instance of the PathSmoothQuadraticCurveToAbs class.
+    /// Initializes a new instance of the <see cref="PathSmoothQuadraticCurveToAbs"/> class.
     /// </summary>
     /// <param name="x">X coordinate of final point</param>
     /// <param name="y">Y coordinate of final point</param>
@@ -44,12 +38,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathSmoothQuadraticCurveToAbs class.
+    /// Initializes a new instance of the <see cref="PathSmoothQuadraticCurveToAbs"/> class.
     /// </summary>
     /// <param name="end">Coordinate of final point</param>
     public PathSmoothQuadraticCurveToAbs(PointD end)
     {
       _End = end;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IPath.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PathSmoothQuadraticCurveToAbs(_End);
     }
   }
 }

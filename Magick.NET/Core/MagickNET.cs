@@ -70,10 +70,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the format information of the specified format based on the extension of the
-    /// file.
+    /// Returns the format information of the specified format based on the extension of the file.
     /// </summary>
     /// <param name="file">The file to get the format for.</param>
+    /// <returns>The format information.</returns>
     public static MagickFormatInfo GetFormatInformation(FileInfo file)
     {
       return MagickFormatInfo.Create(file);
@@ -83,6 +83,7 @@ namespace ImageMagick
     /// Returns the format information of the specified format.
     /// </summary>
     /// <param name="format">The image format.</param>
+    /// <returns>The format information.</returns>
     public static MagickFormatInfo GetFormatInformation(MagickFormat format)
     {
       return MagickFormatInfo.Create(format);
@@ -93,6 +94,7 @@ namespace ImageMagick
     /// file. If that fails the format will be determined by 'pinging' the file.
     /// </summary>
     /// <param name="fileName">The name of the file to get the format for.</param>
+    /// <returns>The format information.</returns>
     public static MagickFormatInfo GetFormatInformation(string fileName)
     {
       return MagickFormatInfo.Create(fileName);
@@ -193,7 +195,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the features reported by ImageMagick.
+    /// Gets the features reported by ImageMagick.
     /// </summary>
     public static string Features
     {
@@ -204,7 +206,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns information about the supported formats.
+    /// Gets the information about the supported formats.
     /// </summary>
     public static IEnumerable<MagickFormatInfo> SupportedFormats
     {
@@ -215,7 +217,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the version of Magick.NET.
+    /// Gets the version of Magick.NET.
     /// </summary>
     public static string Version
     {

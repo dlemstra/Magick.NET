@@ -72,7 +72,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the Density class using the specified x and y.
+    /// Initializes a new instance of the <see cref="Density"/> class.
     /// </summary>
     /// <param name="xy">The x and y.</param>
     public Density(double xy)
@@ -81,7 +81,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the Density class using the specified x and y and units.
+    /// Initializes a new instance of the <see cref="Density"/> class.
     /// </summary>
     /// <param name="xy">The x and y.</param>
     /// <param name="units">The units.</param>
@@ -91,7 +91,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the Density class using the specified x and y.
+    /// Initializes a new instance of the <see cref="Density"/> class.
     /// </summary>
     /// <param name="x">The x.</param>
     /// <param name="y">The y.</param>
@@ -101,7 +101,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the Density class using the specified x and y and units.
+    /// Initializes a new instance of the <see cref="Density"/> class.
     /// </summary>
     /// <param name="x">The x.</param>
     /// <param name="y">The y.</param>
@@ -114,7 +114,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the Density class using the specified string.
+    /// Initializes a new instance of the <see cref="Density"/> class.
     /// </summary>
     /// <param name="value">Density specifications in the form: &lt;x&gt;x&lt;y&gt;[inch/cm] (where x, y are numbers)</param>
     public Density(string value)
@@ -123,7 +123,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The units.
+    /// Gets the units.
     /// </summary>
     public DensityUnit Units
     {
@@ -132,7 +132,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The x resolution.
+    /// Gets the x resolution.
     /// </summary>
     public double X
     {
@@ -141,7 +141,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The y resolution.
+    /// Gets the y resolution.
     /// </summary>
     public double Y
     {
@@ -150,31 +150,30 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified v instances are considered equal.
+    /// Determines whether the specified <see cref="Density"/> instances are considered equal.
     /// </summary>
-    /// <param name="left">The first v to compare.</param>
-    /// <param name="right"> The second Density to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="Density"/> to compare.</param>
+    /// <param name="right"> The second <see cref="Density"/> to compare.</param>
     public static bool operator ==(Density left, Density right)
     {
       return Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified Density instances are not considered equal.
+    /// Determines whether the specified <see cref="Density"/> instances are not considered equal.
     /// </summary>
-    /// <param name="left">The first Density to compare.</param>
-    /// <param name="right"> The second Density to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="Density"/> to compare.</param>
+    /// <param name="right"> The second <see cref="Density"/> to compare.</param>
     public static bool operator !=(Density left, Density right)
     {
       return !Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified object is equal to the current density.
+    /// Determines whether the specified object is equal to the <see cref="Density"/>.
     /// </summary>
-    /// <param name="obj">The object to compare this density with.</param>
+    /// <param name="obj">The object to compare this <see cref="Density"/> with.</param>
+    /// <returns>True when the specified object is equal to the <see cref="Density"/>.</returns>
     public override bool Equals(object obj)
     {
       if (obj == null)
@@ -187,9 +186,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified density is equal to the current density.
+    /// Determines whether the specified <see cref="Density"/> is equal to the current <see cref="Density"/>.
     /// </summary>
-    /// <param name="other">The density to compare this density with.</param>
+    /// <param name="other">The <see cref="Density"/> to compare this <see cref="Density"/> with.</param>
+    /// <returns>True when the specified <see cref="Density"/> is equal to the current <see cref="Density"/>.</returns>
     public bool Equals(Density other)
     {
       if (ReferenceEquals(other, null))
@@ -207,6 +207,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       return
@@ -216,16 +217,19 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns a string that represents the current Density.
+    /// Returns a string that represents the current <see cref="Density"/>.
     /// </summary>
+    /// <returns>A string that represents the current <see cref="Density"/>.</returns>
     public override string ToString()
     {
       return ToString(Units);
     }
 
     /// <summary>
-    /// Returns a string that represents the current Density.
+    /// Returns a string that represents the current <see cref="Density"/>.
     /// </summary>
+    /// <param name="units">The units to use.</param>
+    /// <returns>A string that represents the current <see cref="Density"/>.</returns>
     public string ToString(DensityUnit units)
     {
       string result = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", X, Y);

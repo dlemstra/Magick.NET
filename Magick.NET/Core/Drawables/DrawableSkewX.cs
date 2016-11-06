@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableSkewX : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.SkewX(Angle);
-    }
-
     /// <summary>
-    /// Creates a new DrawableSkewX instance.
+    /// Initializes a new instance of the <see cref="DrawableSkewX"/> class.
     /// </summary>
     /// <param name="angle">The angle.</param>
     public DrawableSkewX(double angle)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The angle.
+    /// Gets or sets the angle.
     /// </summary>
     public double Angle
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.SkewX(Angle);
     }
   }
 }

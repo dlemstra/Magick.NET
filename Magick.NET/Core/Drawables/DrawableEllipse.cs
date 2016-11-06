@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableEllipse : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Ellipse(OriginX, OriginY, RadiusX, RadiusY, StartDegrees, EndDegrees);
-    }
-
     /// <summary>
-    /// Creates a new DrawableEllipse instance.
+    /// Initializes a new instance of the <see cref="DrawableEllipse"/> class.
     /// </summary>
     /// <param name="originX">The origin X coordinate.</param>
     /// <param name="originY">The origin Y coordinate.</param>
@@ -45,7 +39,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ending degrees of rotation.
+    /// Gets or sets the ending degrees of rotation.
     /// </summary>
     public double EndDegrees
     {
@@ -54,7 +48,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The origin X coordinate.
+    /// Gets or sets the origin X coordinate.
     /// </summary>
     public double OriginX
     {
@@ -63,7 +57,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The origin X coordinate.
+    /// Gets or sets the origin X coordinate.
     /// </summary>
     public double OriginY
     {
@@ -72,7 +66,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The X radius.
+    /// Gets or sets the X radius.
     /// </summary>
     public double RadiusX
     {
@@ -81,7 +75,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y radius.
+    /// Gets or sets the Y radius.
     /// </summary>
     public double RadiusY
     {
@@ -90,12 +84,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The starting degrees of rotation.
+    /// Gets or sets the starting degrees of rotation.
     /// </summary>
     public double StartDegrees
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Ellipse(OriginX, OriginY, RadiusX, RadiusY, StartDegrees, EndDegrees);
     }
   }
 }

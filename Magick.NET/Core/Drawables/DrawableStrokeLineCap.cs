@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableStrokeLineCap : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeLineCap(LineCap);
-    }
-
     /// <summary>
-    /// Creates a new DrawableStrokeLineCap instance.
+    /// Initializes a new instance of the <see cref="DrawableStrokeLineCap"/> class.
     /// </summary>
     /// <param name="lineCap">The line cap.</param>
     public DrawableStrokeLineCap(LineCap lineCap)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The line cap.
+    /// Gets or sets the line cap.
     /// </summary>
     public LineCap LineCap
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.StrokeLineCap(LineCap);
     }
   }
 }

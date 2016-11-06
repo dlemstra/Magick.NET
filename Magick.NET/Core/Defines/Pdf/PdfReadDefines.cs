@@ -23,7 +23,7 @@ namespace ImageMagick
   public sealed class PdfReadDefines : DefineCreator, IReadDefines
   {
     /// <summary>
-    /// Initializes a new instance of the PdfReadDefines class.
+    /// Initializes a new instance of the <see cref="PdfReadDefines"/> class.
     /// </summary>
     public PdfReadDefines()
       : base(MagickFormat.Pdf)
@@ -31,7 +31,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Scale the image the specified size
+    /// Gets or sets the size where the image should be scaled to (pdf:fit-page).
     /// </summary>
     public MagickGeometry FitPage
     {
@@ -40,7 +40,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Force use of the crop box.
+    /// Gets or sets a value indicating whether use of the cropbox should be forced (pdf:use-trimbox).
     /// </summary>
     public bool? UseCropBox
     {
@@ -49,7 +49,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Force use of the trim box.
+    /// Gets or sets a value indicating whether use of the trimbox should be forced (pdf:use-trimbox).
     /// </summary>
     public bool? UseTrimBox
     {
@@ -58,7 +58,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The defines that should be set as a define on an image
+    /// Gets the defines that should be set as a define on an image.
     /// </summary>
     public override IEnumerable<IDefine> Defines
     {

@@ -20,14 +20,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class PathLineToHorizontalRel : IPath
   {
-    void IPath.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.PathLineToHorizontalRel(X);
-    }
-
     /// <summary>
-    /// Initializes a new instance of the PathLineToHorizontalRel class.
+    /// Initializes a new instance of the <see cref="PathLineToHorizontalRel"/> class.
     /// </summary>
     /// <param name="x">The X coordinate.</param>
     public PathLineToHorizontalRel(double x)
@@ -36,12 +30,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The X coordinate.
+    /// Gets or sets the X coordinate.
     /// </summary>
     public double X
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IPath.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PathLineToHorizontalRel(X);
     }
   }
 }

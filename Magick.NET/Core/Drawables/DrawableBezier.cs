@@ -23,14 +23,8 @@ namespace ImageMagick
   {
     private PointDCoordinates _Coordinates;
 
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Bezier(_Coordinates.ToList());
-    }
-
     /// <summary>
-    /// Creates a new DrawableBezier instance.
+    /// Initializes a new instance of the <see cref="DrawableBezier"/> class.
     /// </summary>
     /// <param name="coordinates">The coordinates.</param>
     public DrawableBezier(params PointD[] coordinates)
@@ -39,7 +33,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableBezier instance.
+    /// Initializes a new instance of the <see cref="DrawableBezier"/> class.
     /// </summary>
     /// <param name="coordinates">The coordinates.</param>
     public DrawableBezier(IEnumerable<PointD> coordinates)
@@ -48,7 +42,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The coordinates.
+    /// Gets the coordinates.
     /// </summary>
     public IEnumerable<PointD> Coordinates
     {
@@ -56,6 +50,16 @@ namespace ImageMagick
       {
         return _Coordinates.ToList();
       }
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Bezier(_Coordinates.ToList());
     }
   }
 }

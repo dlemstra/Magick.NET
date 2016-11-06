@@ -22,8 +22,9 @@ namespace ImageMagick.ImageOptimizers
   public interface ILosslessImageOptimizer
   {
     /// <summary>
-    /// When set to true various compression types will be used to find the smallest file. This
-    /// process will take extra time because the file has to be written multiple times.
+    /// Gets or sets a value indicating whether various compression types will be used to find
+    /// the smallest file. This process will take extra time because the file has to be written
+    /// multiple times.
     /// </summary>
     bool OptimalCompression
     {

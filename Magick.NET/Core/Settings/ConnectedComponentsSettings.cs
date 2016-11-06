@@ -20,7 +20,7 @@ namespace ImageMagick
   public sealed class ConnectedComponentsSettings
   {
     /// <summary>
-    /// Eliminate small objects by merging them with their larger neighbors.
+    /// Gets or sets the threshold that eliminate small objects by merging them with their larger neighbors.
     /// </summary>
     public double? AreaThreshold
     {
@@ -29,7 +29,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// How many neighbors to visit, choose from 4 or 8.
+    /// Gets or sets how many neighbors to visit, choose from 4 or 8.
     /// </summary>
     public int Connectivity
     {
@@ -38,7 +38,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Replace the object color in the labeled image with the mean-color from the source image.
+    /// Gets or sets a value indicating whether the object color in the labeled image will be replaced with the mean-color from the source image.
     /// </summary>
     public bool MeanColor
     {

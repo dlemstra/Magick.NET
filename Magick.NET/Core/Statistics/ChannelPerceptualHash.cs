@@ -107,7 +107,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ChannelPerceptualHash class
+    /// Initializes a new instance of the <see cref="ChannelPerceptualHash"/> class.
     /// </summary>
     /// <param name="channel">The channel.></param>
     /// <param name="srgbHuPhash">SRGB hu perceptual hash.</param>
@@ -122,7 +122,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The channel.
+    /// Gets the channel.
     /// </summary>
     public PixelChannel Channel
     {
@@ -133,6 +133,8 @@ namespace ImageMagick
     /// <summary>
     /// SRGB hu perceptual hash.
     /// </summary>
+    /// <param name="index">The index to use.</param>
+    /// <returns>The SRGB hu perceptual hash.</returns>
     public double SrgbHuPhash(int index)
     {
       Throw.IfOutOfRange(nameof(index), index, 7);
@@ -143,6 +145,8 @@ namespace ImageMagick
     /// <summary>
     /// Hclp hu perceptual hash.
     /// </summary>
+    /// <param name="index">The index to use.</param>
+    /// <returns>The Hclp hu perceptual hash.</returns>
     public double HclpHuPhash(int index)
     {
       Throw.IfOutOfRange(nameof(index), index, 7);
@@ -153,7 +157,8 @@ namespace ImageMagick
     /// <summary>
     /// Returns the sum squared difference between this hash and the other hash.
     /// </summary>
-    /// <param name="other">The ChannelPerceptualHash to get the distance of.</param>
+    /// <param name="other">The <see cref="ChannelPerceptualHash"/> to get the distance of.</param>
+    /// <returns>The sum squared difference between this hash and the other hash.</returns>
     public double SumSquaredDistance(ChannelPerceptualHash other)
     {
       Throw.IfNull(nameof(other), other);
@@ -172,6 +177,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns a string representation of this hash.
     /// </summary>
+    /// <returns>A string representation of this hash.</returns>
     public override string ToString()
     {
       return _Hash;

@@ -35,9 +35,9 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns all the OpenCL devices.
+    /// Gets all the OpenCL devices.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A <see cref="OpenCLDevice"/> iteration.</returns>
     public static IEnumerable<OpenCLDevice> Devices
     {
       get
@@ -62,7 +62,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Gets or sets wether OpenCL is enabled.
+    /// Gets or sets a value indicating whether OpenCL is enabled.
     /// </summary>
     public static bool IsEnabled
     {

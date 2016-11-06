@@ -115,7 +115,6 @@ namespace ImageMagick
     /// </summary>
     /// <param name="left">The first MagickFormatInfo to compare.</param>
     /// <param name="right"> The second MagickFormatInfo to compare.</param>
-    /// <returns></returns>
     public static bool operator ==(MagickFormatInfo left, MagickFormatInfo right)
     {
       return Equals(left, right);
@@ -126,14 +125,13 @@ namespace ImageMagick
     /// </summary>
     /// <param name="left">The first MagickFormatInfo to compare.</param>
     /// <param name="right"> The second MagickFormatInfo to compare.</param>
-    /// <returns></returns>
     public static bool operator !=(MagickFormatInfo left, MagickFormatInfo right)
     {
       return !Equals(left, right);
     }
 
     /// <summary>
-    /// The format can read multithreaded.
+    /// Gets a value indicating whether the format can be read multithreaded.
     /// </summary>
     public bool CanReadMultithreaded
     {
@@ -142,7 +140,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The format can write multithreaded.
+    /// Gets a value indicating whether the format can be written multithreaded.
     /// </summary>
     public bool CanWriteMultithreaded
     {
@@ -151,7 +149,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The description of the format.
+    /// Gets the description of the format.
     /// </summary>
     public string Description
     {
@@ -160,7 +158,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The format.
+    /// Gets the format.
     /// </summary>
     public MagickFormat Format
     {
@@ -169,7 +167,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Format supports multiple frames.
+    /// Gets a value indicating whether the format supports multiple frames.
     /// </summary>
     public bool IsMultiFrame
     {
@@ -178,7 +176,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Format is readable.
+    /// Gets a value indicating whether the format is readable.
     /// </summary>
     public bool IsReadable
     {
@@ -187,7 +185,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Format is writable.
+    /// Gets a value indicating whether the format is writable.
     /// </summary>
     public bool IsWritable
     {
@@ -196,7 +194,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The mime type.
+    /// Gets the mime type.
     /// </summary>
     public string MimeType
     {
@@ -205,7 +203,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The module.
+    /// Gets the module.
     /// </summary>
     public MagickFormat Module
     {
@@ -218,6 +216,7 @@ namespace ImageMagick
     /// the format.
     /// </summary>
     /// <param name="file">The file to check.</param>
+    /// <returns>The format information.</returns>
     public static MagickFormatInfo Create(FileInfo file)
     {
       Throw.IfNull(nameof(file), file);
@@ -236,6 +235,7 @@ namespace ImageMagick
     /// Returns the format information of the specified format.
     /// </summary>
     /// <param name="format">The image format.</param>
+    /// <returns>The format information.</returns>
     public static MagickFormatInfo Create(MagickFormat format)
     {
       if (!_All.ContainsKey(format))
@@ -249,6 +249,7 @@ namespace ImageMagick
     /// determine the format.
     /// </summary>
     /// <param name="fileName">The name of the file to check.</param>
+    /// <returns>The format information.</returns>
     public static MagickFormatInfo Create(string fileName)
     {
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
@@ -258,18 +259,20 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified object is equal to the current MagickFormatInfo.
+    /// Determines whether the specified object is equal to the current <see cref="MagickFormatInfo"/>.
     /// </summary>
-    /// <param name="obj">The object to compare this MagickFormatInfo with.</param>
+    /// <param name="obj">The object to compare this <see cref="MagickFormatInfo"/> with.</param>
+    /// <returns>True when the specified object is equal to the current <see cref="MagickFormatInfo"/>.</returns>
     public override bool Equals(object obj)
     {
       return Equals(obj as MagickFormatInfo);
     }
 
     /// <summary>
-    /// Determines whether the specified MagickFormatInfo is equal to the current MagickFormatInfo.
+    /// Determines whether the specified <see cref="MagickFormatInfo"/> is equal to the current <see cref="MagickFormatInfo"/>.
     /// </summary>
-    /// <param name="other">The MagickFormatInfo to compare this MagickFormatInfo with.</param>
+    /// <param name="other">The <see cref="MagickFormatInfo"/> to compare this <see cref="MagickFormatInfo"/> with.</param>
+    /// <returns>True when the specified <see cref="MagickFormatInfo"/> is equal to the current <see cref="MagickFormatInfo"/>.</returns>
     public bool Equals(MagickFormatInfo other)
     {
       if (ReferenceEquals(other, null))
@@ -284,6 +287,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       return Module.GetHashCode();
@@ -292,6 +296,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns a string that represents the current format.
     /// </summary>
+    /// <returns>A string that represents the current format.</returns>
     public override string ToString()
     {
       return string.Format(CultureInfo.InvariantCulture, "{0}: {1} ({2}R{3}W{4}M)", Format, Description, IsReadable ? "+" : "-", IsWritable ? "+" : "-", IsMultiFrame ? "+" : "-");
@@ -300,6 +305,7 @@ namespace ImageMagick
     /// <summary>
     /// Unregisters this format.
     /// </summary>
+    /// <returns>True when the format was found and unregistered.</returns>
     public bool Unregister()
     {
       return NativeMagickFormatInfo.Unregister(EnumHelper.GetName(Format));

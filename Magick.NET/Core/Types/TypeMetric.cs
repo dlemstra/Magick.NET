@@ -38,7 +38,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Ascent, the distance in pixels from the text baseline to the highest/upper grid coordinate
+    /// Gets the ascent, the distance in pixels from the text baseline to the highest/upper grid coordinate
     /// used to place an outline point.
     /// </summary>
     public double Ascent
@@ -48,7 +48,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Descent, the distance in pixels from the baseline to the lowest grid coordinate used to
+    /// Gets the descent, the distance in pixels from the baseline to the lowest grid coordinate used to
     /// place an outline point. Always a negative value.
     /// </summary>
     public double Descent
@@ -58,7 +58,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Maximum horizontal advance in pixels.
+    /// Gets the maximum horizontal advance in pixels.
     /// </summary>
     public double MaxHorizontalAdvance
     {
@@ -67,7 +67,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Text height in pixels.
+    /// Gets the text height in pixels.
     /// </summary>
     public double TextHeight
     {
@@ -76,7 +76,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Text width in pixels.
+    /// Gets the text width in pixels.
     /// </summary>
     public double TextWidth
     {
@@ -85,7 +85,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Underline position.
+    /// Gets the underline position.
     /// </summary>
     public double UnderlinePosition
     {
@@ -94,7 +94,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Underline thickness.
+    /// Gets the underline thickness.
     /// </summary>
     public double UnderlineThickness
     {

@@ -155,8 +155,9 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Get or set the specified variable.
+    /// Get or sets the specified variable.
     /// </summary>
+    /// <param name="name">The name of the variable.</param>
     public object this[string name]
     {
       get
@@ -170,7 +171,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The names of the variables.
+    /// Gets the names of the variables.
     /// </summary>
     public IEnumerable<string> Names
     {
@@ -184,6 +185,7 @@ namespace ImageMagick
     /// Returns the value of the variable with the specified name.
     /// </summary>
     /// <param name="name">The name of the variable</param>
+    /// <returns>Am <see cref="object"/>.</returns>
     public object Get(string name)
     {
       Throw.IfNullOrEmpty(nameof(name), name);

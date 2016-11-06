@@ -32,7 +32,7 @@ namespace ImageMagick
   public sealed partial class ColorRGB : ColorBase
   {
     /// <summary>
-    /// Initializes a new instance of the ColorBase class using the specified color.
+    /// Initializes a new instance of the <see cref="ColorRGB"/> class.
     /// </summary>
     /// <param name="value">The color to use.</param>
     public ColorRGB(MagickColor value)
@@ -41,7 +41,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorRGB class.
+    /// Initializes a new instance of the <see cref="ColorRGB"/> class.
     /// </summary>
     /// <param name="red">Red component value of this color.</param>
     /// <param name="green">Green component value of this color.</param>
@@ -55,7 +55,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Blue component value of this color.
+    /// Gets or sets the blue component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -73,7 +73,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Green component value of this color.
+    /// Gets or sets the green component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -91,7 +91,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Red component value of this color.
+    /// Gets or sets the red component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -109,16 +109,20 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
     /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorRGB"/> instance.</returns>
     public static implicit operator ColorRGB(MagickColor color)
     {
       return FromMagickColor(color);
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
     /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorRGB"/> instance.</returns>
     public static ColorRGB FromMagickColor(MagickColor color)
     {
       if (color == null)

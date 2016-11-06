@@ -22,7 +22,7 @@ namespace ImageMagick
   public sealed partial class MagickColor
   {
     /// <summary>
-    /// Initializes a new instance of the MagickColor class using the specified color.
+    /// Initializes a new instance of the <see cref="MagickColor"/> class.
     /// </summary>
     /// <param name="color">The color to use.</param>
     public MagickColor(Color color)
@@ -31,8 +31,9 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to a Color instance.
+    /// Converts the specified <see cref="MagickColor"/> to a <see cref="Color"/> instance.
     /// </summary>
+    /// <param name="color">The <see cref="MagickColor"/> to convert.</param>
     public static implicit operator Color(MagickColor color)
     {
       if (ReferenceEquals(color, null))
@@ -42,8 +43,9 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Converts the specified color to an MagickColor instance.
+    /// Converts the specified <see cref="Color"/> to a <see cref="MagickColor"/> instance.
     /// </summary>
+    /// <param name="color">The <see cref="Color"/> to convert.</param>
     public static implicit operator MagickColor(Color color)
     {
       return new MagickColor(color);
@@ -52,6 +54,7 @@ namespace ImageMagick
     /// <summary>
     /// Converts the value of this instance to an equivalent Color.
     /// </summary>
+    /// <returns>A <see cref="Color"/> instance.</returns>
     public Color ToColor()
     {
       return Color.FromArgb(Quantum.ScaleToByte(A), Quantum.ScaleToByte(R), Quantum.ScaleToByte(G), Quantum.ScaleToByte(B));

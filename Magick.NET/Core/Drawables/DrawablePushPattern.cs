@@ -22,14 +22,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawablePushPattern : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.PushPattern(ID, X, Y, Width, Height);
-    }
-
     /// <summary>
-    /// Creates a new DrawablePushPattern instance.
+    /// Initializes a new instance of the <see cref="DrawablePushPattern"/> class.
     /// </summary>
     /// <param name="id">The ID of the pattern.</param>
     /// <param name="x">The X coordinate.</param>
@@ -46,7 +40,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ID of the pattern.
+    /// Gets or sets the ID of the pattern.
     /// </summary>
     public string ID
     {
@@ -55,7 +49,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The height
+    /// Gets or sets the height
     /// </summary>
     public double Height
     {
@@ -64,7 +58,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The width
+    /// Gets or sets the width
     /// </summary>
     public double Width
     {
@@ -73,7 +67,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The X coordinate.
+    /// Gets or sets the X coordinate.
     /// </summary>
     public double X
     {
@@ -82,12 +76,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y coordinate.
+    /// Gets or sets the Y coordinate.
     /// </summary>
     public double Y
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PushPattern(ID, X, Y, Width, Height);
     }
   }
 }

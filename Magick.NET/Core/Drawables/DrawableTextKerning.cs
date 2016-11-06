@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableTextKerning : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.TextKerning(Kerning);
-    }
-
     /// <summary>
-    /// Creates a new DrawableTextKerning instance.
+    /// Initializes a new instance of the <see cref="DrawableTextKerning"/> class.
     /// </summary>
     /// <param name="kerning">Kerning to use.</param>
     public DrawableTextKerning(double kerning)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Kerning to use.
+    /// Gets or sets the text kerning to use.
     /// </summary>
     public double Kerning
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.TextKerning(Kerning);
     }
   }
 }

@@ -28,7 +28,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The name of the clipping path.
+    /// Gets the name of the clipping path.
     /// </summary>
     public string Name
     {
@@ -37,7 +37,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The path of the clipping path.
+    /// Gets the path of the clipping path.
     /// </summary>
     public IXPathNavigable Path
     {

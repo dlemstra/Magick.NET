@@ -23,25 +23,8 @@ namespace ImageMagick
   {
     private static readonly string[] _FontExtensions = new string[] { ".ttf", ".tcc", ".pfb", ".pfm", ".otf" };
 
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand == null)
-        return;
-
-      foreach (string extension in _FontExtensions)
-      {
-        if (Family.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
-        {
-          wand.Font(Family);
-          return;
-        }
-      }
-
-      wand.FontFamily(Family, Style, Weight, Stretch);
-    }
-
     /// <summary>
-    /// Creates a new DrawableFont instance.
+    /// Initializes a new instance of the <see cref="DrawableFont"/> class.
     /// </summary>
     /// <param name="family">The font family or the full path to the font file.</param>
     public DrawableFont(string family)
@@ -50,7 +33,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableFont instance.
+    /// Initializes a new instance of the <see cref="DrawableFont"/> class.
     /// </summary>
     /// <param name="family">The font family or the full path to the font file.</param>
     /// <param name="style">The style of the font.</param>
@@ -67,7 +50,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The font family or the full path to the font file.
+    /// Gets or sets the font family or the full path to the font file.
     /// </summary>
     public string Family
     {
@@ -76,7 +59,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The style of the font,
+    /// Gets or sets the style of the font,
     /// </summary>
     public FontStyleType Style
     {
@@ -85,7 +68,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The weight of the font,
+    /// Gets or sets the weight of the font,
     /// </summary>
     public FontWeight Weight
     {
@@ -94,12 +77,33 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// FontStretch
+    /// Gets or sets the font stretching.
     /// </summary>
     public FontStretch Stretch
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand == null)
+        return;
+
+      foreach (string extension in _FontExtensions)
+      {
+        if (Family.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
+        {
+          wand.Font(Family);
+          return;
+        }
+      }
+
+      wand.FontFamily(Family, Style, Weight, Stretch);
     }
   }
 }

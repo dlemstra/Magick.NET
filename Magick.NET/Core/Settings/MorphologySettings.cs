@@ -20,7 +20,7 @@ namespace ImageMagick
   public sealed class MorphologySettings
   {
     /// <summary>
-    /// Initializes a new instance of the MorphologySettings class.
+    /// Initializes a new instance of the <see cref="MorphologySettings"/> class.
     /// </summary>
     public MorphologySettings()
     {
@@ -30,7 +30,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The channels to apply the kernel to.
+    /// Gets or sets the channels to apply the kernel to.
     /// </summary>
     public Channels Channels
     {
@@ -39,7 +39,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The bias to use when the method is Convolve.
+    /// Gets or sets the bias to use when the method is Convolve.
     /// </summary>
     public Percentage? ConvolveBias
     {
@@ -48,7 +48,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The scale to use when the method is Convolve.
+    /// Gets or sets the scale to use when the method is Convolve.
     /// </summary>
     public MagickGeometry ConvolveScale
     {
@@ -57,7 +57,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The number of iterations.
+    /// Gets or sets the number of iterations.
     /// </summary>
     public int Iterations
     {
@@ -66,7 +66,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Built-in kernel.
+    /// Gets or sets built-in kernel.
     /// </summary>
     public Kernel Kernel
     {
@@ -75,7 +75,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Kernel arguments.
+    /// Gets or sets kernel arguments.
     /// </summary>
     public string KernelArguments
     {
@@ -84,7 +84,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The morphology method.
+    /// Gets or sets the morphology method.
     /// </summary>
     public MorphologyMethod Method
     {
@@ -93,7 +93,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// User suplied kernel.
+    /// Gets or sets user suplied kernel.
     /// </summary>
     public string UserKernel
     {

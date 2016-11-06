@@ -30,6 +30,9 @@ namespace ImageMagick
     {
     }
 
+    /// <summary>
+    /// Gets the format where the defines are for.
+    /// </summary>
     MagickFormat IWriteDefines.Format
     {
       get
@@ -39,7 +42,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies the tiff alpha (tiff:alpha).
+    /// Gets or sets the tiff alpha (tiff:alpha).
     /// </summary>
     public TiffAlpha? Alpha
     {
@@ -48,7 +51,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies the endianness of the tiff file (tiff:endian).
+    /// Gets or sets the endianness of the tiff file (tiff:endian).
     /// </summary>
     public Endian? Endian
     {
@@ -57,7 +60,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies the endianness of the tiff file (tiff:fill-order).
+    /// Gets or sets the endianness of the tiff file (tiff:fill-order).
     /// </summary>
     public Endian? FillOrder
     {
@@ -66,7 +69,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies the rows per strip (tiff:rows-per-strip).
+    /// Gets or sets the rows per strip (tiff:rows-per-strip).
     /// </summary>
     public int? RowsPerStrip
     {
@@ -75,7 +78,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies the tile geometry (tiff:tile-geometry).
+    /// Gets or sets the tile geometry (tiff:tile-geometry).
     /// </summary>
     public MagickGeometry TileGeometry
     {
@@ -84,7 +87,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The defines that should be set a an define on an image
+    /// Gets the defines that should be set as a define on an image.
     /// </summary>
     public override IEnumerable<IDefine> Defines
     {

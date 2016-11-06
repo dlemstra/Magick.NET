@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableTextInterlineSpacing : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.TextInterlineSpacing(Spacing);
-    }
-
     /// <summary>
-    /// Creates a new DrawableTextInterlineSpacing instance.
+    /// Initializes a new instance of the <see cref="DrawableTextInterlineSpacing"/> class.
     /// </summary>
     /// <param name="spacing">Spacing to use.</param>
     public DrawableTextInterlineSpacing(double spacing)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Spacing to use.
+    /// Gets or sets the spacing to use.
     /// </summary>
     public double Spacing
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.TextInterlineSpacing(Spacing);
     }
   }
 }

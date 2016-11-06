@@ -28,7 +28,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The originator of this event.
+    /// Gets the originator of this event.
     /// </summary>
     public string Origin
     {
@@ -37,7 +37,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Progress percentage.
+    /// Gets the rogress percentage.
     /// </summary>
     public Percentage Progress
     {
@@ -46,7 +46,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// When set to true the current operation will be canceled.
+    /// Gets or sets a value indicating whether the current operation will be canceled.
     /// </summary>
     public bool Cancel
     {

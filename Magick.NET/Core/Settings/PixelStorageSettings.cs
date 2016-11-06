@@ -47,7 +47,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The mapping of the pixels (e.g. RGB/RGBA/ARGB).
+    /// Gets or sets the mapping of the pixels (e.g. RGB/RGBA/ARGB).
     /// </summary>
     public string Mapping
     {
@@ -56,7 +56,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The pixel storage type.
+    /// Gets or sets the pixel storage type.
     /// </summary>
     public StorageType StorageType
     {

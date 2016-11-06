@@ -30,6 +30,9 @@ namespace ImageMagick
     {
     }
 
+    /// <summary>
+    /// Gets the format where the defines are for.
+    /// </summary>
     MagickFormat IWriteDefines.Format
     {
       get
@@ -39,7 +42,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies the dtc method that will be used (jpeg:dct-method).
+    /// Gets or sets the dtc method that will be used (jpeg:dct-method).
     /// </summary>
     public DctMethod? DctMethod
     {
@@ -48,7 +51,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Search for compression quality that does not exceed the specified extent in kilobytes. (jpeg:extent).
+    /// Gets or sets the compression quality that does not exceed the specified extent in kilobytes (jpeg:extent).
     /// </summary>
     public int? Extent
     {
@@ -57,7 +60,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Enables or disables optimize coding (jpeg:optimize-coding).
+    /// Gets or sets a value indicating whether optimize coding is enabled or disabled (jpeg:optimize-coding).
     /// </summary>
     public bool? OptimizeCoding
     {
@@ -66,7 +69,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Set quality scaling for luminance and chrominance separately (jpeg:quality).
+    /// Gets or sets the quality scaling for luminance and chrominance separately (jpeg:quality).
     /// </summary>
     public MagickGeometry Quality
     {
@@ -75,7 +78,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// File name that contains custom quantization tables (jpeg:q-table).
+    /// Gets or sets the file name that contains custom quantization tables (jpeg:q-table).
     /// </summary>
     public string QuantizationTables
     {
@@ -84,7 +87,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Set jpeg sampling factor (jpeg:sampling-factor).
+    /// Gets or sets jpeg sampling factor (jpeg:sampling-factor).
     /// </summary>
     public IEnumerable<MagickGeometry> SamplingFactors
     {
@@ -93,7 +96,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The defines that should be set as a define on an image
+    /// Gets the defines that should be set as a define on an image.
     /// </summary>
     public override IEnumerable<IDefine> Defines
     {

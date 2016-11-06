@@ -22,12 +22,6 @@ namespace ImageMagick
   /// </summary>
   public sealed partial class DrawableAffine : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Affine(ScaleX, ScaleY, ShearX, ShearY, TranslateX, TranslateY);
-    }
-
     private static double DegreesToRadians(double x)
     {
       return Math.PI * x / 180.0;
@@ -51,7 +45,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableAffine instance.
+    /// Initializes a new instance of the <see cref="DrawableAffine"/> class.
     /// </summary>
     public DrawableAffine()
     {
@@ -59,7 +53,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableAffine instance.
+    /// Initializes a new instance of the <see cref="DrawableAffine"/> class.
     /// </summary>
     /// <param name="scaleX">The X coordinate scaling element.</param>
     /// <param name="scaleY">The Y coordinate scaling element.</param>
@@ -78,7 +72,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The X coordinate scaling element.
+    /// Gets or sets the X coordinate scaling element.
     /// </summary>
     public double ScaleX
     {
@@ -87,7 +81,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y coordinate scaling element.
+    /// Gets or sets the Y coordinate scaling element.
     /// </summary>
     public double ScaleY
     {
@@ -96,7 +90,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The X coordinate shearing element.
+    /// Gets or sets the X coordinate shearing element.
     /// </summary>
     public double ShearX
     {
@@ -105,7 +99,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y coordinate shearing element.
+    /// Gets or sets the Y coordinate shearing element.
     /// </summary>
     public double ShearY
     {
@@ -114,7 +108,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The X coordinate of the translation element.
+    /// Gets or sets the X coordinate of the translation element.
     /// </summary>
     public double TranslateX
     {
@@ -123,12 +117,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y coordinate of the translation element.
+    /// Gets or sets the Y coordinate of the translation element.
     /// </summary>
     public double TranslateY
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Affine(ScaleX, ScaleY, ShearX, ShearY, TranslateX, TranslateY);
     }
 
     /// <summary>

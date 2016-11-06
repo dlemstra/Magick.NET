@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableCircle : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Circle(OriginX, OriginY, PerimeterX, PerimeterY);
-    }
-
     /// <summary>
-    /// Creates a new DrawableCircle instance.
+    /// Initializes a new instance of the <see cref="DrawableCircle"/> class.
     /// </summary>
     /// <param name="originX">The origin X coordinate.</param>
     /// <param name="originY">The origin Y coordinate.</param>
@@ -41,7 +35,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The origin X coordinate.
+    /// Gets or sets the origin X coordinate.
     /// </summary>
     public double OriginX
     {
@@ -50,7 +44,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The origin X coordinate.
+    /// Gets or sets the origin X coordinate.
     /// </summary>
     public double OriginY
     {
@@ -59,7 +53,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The perimeter X coordinate.
+    /// Gets or sets the perimeter X coordinate.
     /// </summary>
     public double PerimeterX
     {
@@ -68,12 +62,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The perimeter X coordinate.
+    /// Gets or sets the perimeter X coordinate.
     /// </summary>
     public double PerimeterY
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Circle(OriginX, OriginY, PerimeterX, PerimeterY);
     }
   }
 }

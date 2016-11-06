@@ -50,16 +50,19 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Moments for the all the channels.
+    /// Gets the moments for the all the channels.
     /// </summary>
+    /// <returns>The moments for the all the channels.</returns>
     public ChannelMoments Composite()
     {
       return GetChannel(PixelChannel.Composite);
     }
 
     /// <summary>
-    /// Moments for the specified channel.
+    /// Gets the moments for the specified channel.
     /// </summary>
+    /// <param name="channel">The channel to get the moments for.</param>
+    /// <returns>The moments for the specified channel.</returns>
     public ChannelMoments GetChannel(PixelChannel channel)
     {
       ChannelMoments moments;

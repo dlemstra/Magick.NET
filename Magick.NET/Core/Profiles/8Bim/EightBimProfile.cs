@@ -127,7 +127,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the EightBimProfile class.
+    /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
     /// </summary>
     /// <param name="data">The byte array to read the 8bim profile from.</param>
     public EightBimProfile(byte[] data)
@@ -136,7 +136,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the EightBimProfile class.
+    /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
     /// </summary>
     /// <param name="fileName">The fully qualified name of the 8bim profile file, or the relative
     /// 8bim profile file name.</param>
@@ -146,7 +146,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the EightBimProfile class.
+    /// Initializes a new instance of the <see cref="EightBimProfile"/> class.
     /// </summary>
     /// <param name="stream">The stream to read the 8bim profile from.</param>
     public EightBimProfile(Stream stream)
@@ -155,7 +155,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the clipping paths this image contains.
+    /// Gets the clipping paths this image contains.
     /// </summary>
     public IEnumerable<ClipPath> ClipPaths
     {
@@ -168,7 +168,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the values of this 8bim profile.
+    /// Gets the values of this 8bim profile.
     /// </summary>
     public IEnumerable<EightBimValue> Values
     {

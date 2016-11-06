@@ -48,7 +48,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorMono class.
+    /// Initializes a new instance of the <see cref="ColorMono"/> class.
     /// </summary>
     /// <param name="isBlack">Specifies if the color is black or white.</param>
     public ColorMono(bool isBlack)
@@ -58,7 +58,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies if the color is black or white.
+    /// Gets or sets a value indicating whether the color is black or white.
     /// </summary>
     public bool IsBlack
     {
@@ -67,16 +67,20 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
     /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorMono"/> instance.</returns>
     public static implicit operator ColorMono(MagickColor color)
     {
       return FromMagickColor(color);
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
     /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorMono"/> instance.</returns>
     public static ColorMono FromMagickColor(MagickColor color)
     {
       if (color == null)

@@ -24,6 +24,7 @@ namespace ImageMagick
   public interface IDrawingWand
   {
 #pragma warning disable 1591
+#pragma warning disable SA1600 // Elements must be documented
 
     void Affine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY);
     void Alpha(double x, double y, PaintMethod paintMethod);
@@ -108,6 +109,7 @@ namespace ImageMagick
     void Translation(double x, double y);
     void Viewbox(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY);
 
+#pragma warning restore SA1600 // Elements must be documented
 #pragma warning restore 1591
   }
 }

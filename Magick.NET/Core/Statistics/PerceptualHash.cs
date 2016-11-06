@@ -73,8 +73,9 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PerceptualHash class with the specified hash.
+    /// Initializes a new instance of the <see cref="PerceptualHash"/> class.
     /// </summary>
+    /// <param name="perceptualHash">The</param>
     public PerceptualHash(string perceptualHash)
       : this()
     {
@@ -87,8 +88,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Perceptual hash for the specified channel.
+    /// Returns the perceptual hash for the specified channel.
     /// </summary>
+    /// <param name="channel">The channel to get the has for.</param>
+    /// <returns>The perceptual hash for the specified channel.</returns>
     public ChannelPerceptualHash GetChannel(PixelChannel channel)
     {
       ChannelPerceptualHash perceptualHash;
@@ -99,7 +102,8 @@ namespace ImageMagick
     /// <summary>
     /// Returns the sum squared difference between this hash and the other hash.
     /// </summary>
-    /// <param name="other">The PerceptualHash to get the distance of.</param>
+    /// <param name="other">The <see cref="PerceptualHash"/> to get the distance of.</param>
+    /// <returns>The sum squared difference between this hash and the other hash.</returns>
     public double SumSquaredDistance(PerceptualHash other)
     {
       Throw.IfNull(nameof(other), other);
@@ -113,6 +117,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns a string representation of this hash.
     /// </summary>
+    /// <returns>A <see cref="string"/>.</returns>
     public override string ToString()
     {
       return

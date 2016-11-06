@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableClipUnits : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.ClipUnits(Units);
-    }
-
     /// <summary>
-    /// Creates a new DrawableClipUnits instance.
+    /// Initializes a new instance of the <see cref="DrawableClipUnits"/> class.
     /// </summary>
     /// <param name="units">The clip path units.</param>
     public DrawableClipUnits(ClipPathUnit units)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The clip path units.
+    /// Gets or sets the clip path units.
     /// </summary>
     public ClipPathUnit Units
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.ClipUnits(Units);
     }
   }
 }

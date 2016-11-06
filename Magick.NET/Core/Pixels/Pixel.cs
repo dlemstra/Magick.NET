@@ -86,7 +86,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new Pixel instance.
+    /// Initializes a new instance of the <see cref="Pixel"/> class.
     /// </summary>
     /// <param name="x">The X coordinate of the pixel.</param>
     /// <param name="y">The Y coordinate of the pixel.</param>
@@ -103,7 +103,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new Pixel instance.
+    /// Initializes a new instance of the <see cref="Pixel"/> class.
     /// </summary>
     /// <param name="x">The X coordinate of the pixel.</param>
     /// <param name="y">The Y coordinate of the pixel.</param>
@@ -115,22 +115,20 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified Pixel instances are considered equal.
+    /// Determines whether the specified <see cref="Pixel"/> instances are considered equal.
     /// </summary>
-    /// <param name="left">The first Pixel to compare.</param>
-    /// <param name="right"> The second Pixel to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
+    /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
     public static bool operator ==(Pixel left, Pixel right)
     {
       return Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified Pixel instances are considered equal.
+    /// Determines whether the specified <see cref="Pixel"/> instances are not considered equal.
     /// </summary>
-    /// <param name="left">The first Pixel to compare.</param>
-    /// <param name="right"> The second Pixel to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="Pixel"/> to compare.</param>
+    /// <param name="right"> The second <see cref="Pixel"/> to compare.</param>
     public static bool operator !=(Pixel left, Pixel right)
     {
       return !Equals(left, right);
@@ -139,6 +137,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns the value of the specified channel.
     /// </summary>
+    /// <param name="channel">The channel to get the value for.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -155,7 +154,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the number of channels that the pixel contains.
+    /// Gets the number of channels that the pixel contains.
     /// </summary>
     public int Channels
     {
@@ -166,7 +165,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The X coordinate of the pixel.
+    /// Gets the X coordinate of the pixel.
     /// </summary>
     public int X
     {
@@ -175,7 +174,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y coordinate of the pixel.
+    /// Gets the Y coordinate of the pixel.
     /// </summary>
     public int Y
     {
@@ -187,6 +186,7 @@ namespace ImageMagick
     /// Determines whether the specified object is equal to the current pixel.
     /// </summary>
     /// <param name="obj">The object to compare pixel color with.</param>
+    /// <returns>True when the specified object is equal to the current pixel.</returns>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -199,6 +199,7 @@ namespace ImageMagick
     /// Determines whether the specified pixel is equal to the current pixel.
     /// </summary>
     /// <param name="other">The pixel to compare this color with.</param>
+    /// <returns>True when the specified pixel is equal to the current pixel.</returns>
     public bool Equals(Pixel other)
     {
       if (ReferenceEquals(other, null))
@@ -223,6 +224,7 @@ namespace ImageMagick
     /// Returns the value of the specified channel.
     /// </summary>
     /// <param name="channel">The channel to get the value of.</param>
+    /// <returns>The value of the specified channel.</returns>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -237,6 +239,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       return Value.GetHashCode();
@@ -278,6 +281,7 @@ namespace ImageMagick
     /// <summary>
     /// Converts the pixel to a color. Assumes the pixel is RGBA.
     /// </summary>
+    /// <returns>A <see cref="MagickColor"/> instance.</returns>
     public MagickColor ToColor()
     {
       QuantumType[] value = GetValueWithoutIndexChannel();

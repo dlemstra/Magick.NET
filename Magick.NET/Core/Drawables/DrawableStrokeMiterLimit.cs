@@ -22,14 +22,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableStrokeMiterLimit : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeMiterLimit(Miterlimit);
-    }
-
     /// <summary>
-    /// Creates a new DrawableMiterLimit instance.
+    /// Initializes a new instance of the <see cref="DrawableStrokeMiterLimit"/> class.
     /// </summary>
     /// <param name="miterlimit">The miter limit.</param>
     public DrawableStrokeMiterLimit(int miterlimit)
@@ -38,12 +32,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The miter limit.
+    /// Gets or sets the miter limit.
     /// </summary>
     public int Miterlimit
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.StrokeMiterLimit(Miterlimit);
     }
   }
 }

@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableStrokeDashOffset : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeDashOffset(Offset);
-    }
-
     /// <summary>
-    /// Creates a new DrawableStrokeDashOffset instance.
+    /// Initializes a new instance of the <see cref="DrawableStrokeDashOffset"/> class.
     /// </summary>
     /// <param name="offset">The dash offset.</param>
     public DrawableStrokeDashOffset(double offset)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The dash offset.
+    /// Gets or sets the dash offset.
     /// </summary>
     public double Offset
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.StrokeDashOffset(Offset);
     }
   }
 }

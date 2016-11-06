@@ -240,7 +240,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the MagickScript class using the specified IXPathNavigable.
+    /// Initializes a new instance of the <see cref="MagickScript"/> class.
     /// </summary>
     /// <param name="xml">The IXPathNavigable that contains the script.</param>
     public MagickScript(IXPathNavigable xml)
@@ -250,7 +250,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the MagickScript class using the specified filename.
+    /// Initializes a new instance of the <see cref="MagickScript"/> class.
     /// </summary>
     /// <param name="fileName">The fully qualified name of the script file, or the relative script file name.</param>
     public MagickScript(string fileName)
@@ -265,7 +265,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the MagickScript class using the specified stream.
+    /// Initializes a new instance of the <see cref="MagickScript"/> class.
     /// </summary>
     /// <param name="stream">The stream to read the script data from.</param>
     public MagickScript(Stream stream)
@@ -275,9 +275,9 @@ namespace ImageMagick
 
 #if !NET20
     /// <summary>
-    /// Initializes a new instance of the MagickScript class using the specified XElement.
+    /// Initializes a new instance of the <see cref="MagickScript"/> class.
     /// </summary>
-    /// <param name="xml">The XElement that contains the script.</param>
+    /// <param name="xml">The <see cref="XElement"/> that contains the script.</param>
     public MagickScript(XElement xml)
     {
       Throw.IfNull(nameof(xml), xml);
@@ -287,7 +287,7 @@ namespace ImageMagick
 #endif
 
     /// <summary>
-    /// The variables of this script.
+    /// Gets the variables of this script.
     /// </summary>
     public ScriptVariables Variables
     {
@@ -308,6 +308,7 @@ namespace ImageMagick
     /// <summary>
     /// Executes the script and returns the resulting image.
     /// </summary>
+    /// <returns>A <see cref="MagickImage"/>.</returns>
     public MagickImage Execute()
     {
       XmlElement element = (XmlElement)_Script.SelectSingleNode("/msl/*");

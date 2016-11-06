@@ -51,7 +51,7 @@ namespace ImageMagick.ImageOptimizers
     }
 
     /// <summary>
-    /// Initializes a new instance of the JpegOptimizer class.
+    /// Initializes a new instance of the <see cref="JpegOptimizer"/> class.
     /// </summary>
     public JpegOptimizer()
     {
@@ -59,7 +59,7 @@ namespace ImageMagick.ImageOptimizers
     }
 
     /// <summary>
-    /// The format that the optimizer supports.
+    /// Gets the format that the optimizer supports.
     /// </summary>
     public MagickFormatInfo Format
     {
@@ -70,8 +70,9 @@ namespace ImageMagick.ImageOptimizers
     }
 
     /// <summary>
-    /// When set to true various compression types will be used to find the smallest file. This
-    /// process will take extra time because the file has to be written multiple times.
+    /// Gets or sets a value indicating whether various compression types will be used to find
+    /// the smallest file. This process will take extra time because the file has to be written
+    /// multiple times.
     /// </summary>
     public bool OptimalCompression
     {
@@ -80,7 +81,7 @@ namespace ImageMagick.ImageOptimizers
     }
 
     /// <summary>
-    /// When set to true a progressive jpeg file will be created.
+    /// Gets or sets a value indicating whether a progressive jpeg file will be created.
     /// </summary>
     public bool Progressive
     {

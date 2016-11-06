@@ -28,7 +28,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ID of the image.
+    /// Gets the ID of the image.
     /// </summary>
     public string Id
     {
@@ -37,7 +37,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The image that was read.
+    /// Gets or sets the image that was read.
     /// </summary>
     public MagickImage Image
     {
@@ -46,7 +46,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The read settings for the image.
+    /// Gets the read settings for the image.
     /// </summary>
     public MagickReadSettings Settings
     {

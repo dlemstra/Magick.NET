@@ -22,7 +22,7 @@ namespace ImageMagick
   public static partial class ResourceLimits
   {
     /// <summary>
-    /// Pixel cache limit in bytes. Requests for memory above this limit will fail.
+    /// Gets or sets the pixel cache limit in bytes. Requests for memory above this limit will fail.
     /// </summary>
     [CLSCompliant(false)]
     public static ulong Disk
@@ -38,7 +38,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The maximum height of an image.
+    /// Gets or sets the maximum height of an image.
     /// </summary>
     [CLSCompliant(false)]
     public static ulong Height
@@ -54,7 +54,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
+    /// Gets or sets the pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
     /// operations are to/from disk.
     /// </summary>
     [CLSCompliant(false)]
@@ -71,7 +71,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Periodically yield the CPU for at least the time specified in milliseconds.
+    /// Gets or sets the time specified in milliseconds to periodically yield the CPU for.
     /// </summary>
     [CLSCompliant(false)]
     public static ulong Throttle
@@ -87,7 +87,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The maximum width of an image.
+    /// Gets or sets the maximum width of an image.
     /// </summary>
     [CLSCompliant(false)]
     public static ulong Width

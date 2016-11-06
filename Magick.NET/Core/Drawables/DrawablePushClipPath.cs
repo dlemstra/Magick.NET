@@ -20,14 +20,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawablePushClipPath : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.PushClipPath(ClipPath);
-    }
-
     /// <summary>
-    /// Creates a new DrawablePushClipPath instance.
+    /// Initializes a new instance of the <see cref="DrawablePushClipPath"/> class.
     /// </summary>
     /// <param name="clipPath">The ID of the clip path.</param>
     public DrawablePushClipPath(string clipPath)
@@ -36,12 +30,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ID of the clip path.
+    /// Gets or sets the ID of the clip path.
     /// </summary>
     public string ClipPath
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PushClipPath(ClipPath);
     }
   }
 }

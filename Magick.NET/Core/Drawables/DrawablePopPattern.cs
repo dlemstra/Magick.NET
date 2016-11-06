@@ -19,17 +19,21 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawablePopPattern : IDrawable
   {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DrawablePopPattern"/> class.
+    /// </summary>
+    public DrawablePopPattern()
+    {
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
     void IDrawable.Draw(IDrawingWand wand)
     {
       if (wand != null)
         wand.PopPattern();
-    }
-
-    /// <summary>
-    /// Creates a new DrawablePopPattern instance.
-    /// </summary>
-    public DrawablePopPattern()
-    {
     }
   }
 }

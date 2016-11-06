@@ -31,7 +31,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies if the exif profile should be ignored (tiff:exif-properties).
+    /// Gets or sets a value indicating whether the exif profile should be ignored (tiff:exif-properties).
     /// </summary>
     public bool? IgnoreExifPoperties
     {
@@ -40,7 +40,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies the tiff tags that should be ignored (tiff:ignore-tags).
+    /// Gets or sets the tiff tags that should be ignored (tiff:ignore-tags).
     /// </summary>
     public IEnumerable<string> IgnoreTags
     {
@@ -49,7 +49,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The defines that should be set as a define on an image
+    /// Gets the defines that should be set as a define on an image.
     /// </summary>
     public override IEnumerable<IDefine> Defines
     {

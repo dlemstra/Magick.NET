@@ -21,14 +21,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableStrokeAntialias : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeAntialias(IsEnabled);
-    }
-
     /// <summary>
-    /// Creates a new DrawableStrokeAntialias instance.
+    /// Initializes a new instance of the <see cref="DrawableStrokeAntialias"/> class.
     /// </summary>
     /// <param name="isEnabled">True if stroke antialiasing is enabled otherwise false.</param>
     public DrawableStrokeAntialias(bool isEnabled)
@@ -37,12 +31,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// True if stroke antialiasing is enabled otherwise false.
+    /// Gets or sets a value indicating whether stroke antialiasing is enabled or disabled.
     /// </summary>
     public bool IsEnabled
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.StrokeAntialias(IsEnabled);
     }
   }
 }

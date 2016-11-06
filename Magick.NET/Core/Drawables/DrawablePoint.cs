@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawablePoint : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Point(X, Y);
-    }
-
     /// <summary>
-    /// Creates a new DrawablePoint instance.
+    /// Initializes a new instance of the <see cref="DrawablePoint"/> class.
     /// </summary>
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
@@ -37,7 +31,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The X coordinate.
+    /// Gets or sets the X coordinate.
     /// </summary>
     public double X
     {
@@ -46,12 +40,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y coordinate.
+    /// Gets or sets the Y coordinate.
     /// </summary>
     public double Y
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Point(X, Y);
     }
   }
 }

@@ -30,6 +30,9 @@ namespace ImageMagick
     {
     }
 
+    /// <summary>
+    /// Gets the format where the defines are for.
+    /// </summary>
     MagickFormat IWriteDefines.Format
     {
       get
@@ -39,7 +42,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Enables or disables cluser fit (dds:cluster-fit).
+    /// Gets or sets a value indicating whether cluser fit is enabled or disabled (dds:cluster-fit).
     /// </summary>
     public bool? ClusterFit
     {
@@ -48,7 +51,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies the compression that will be used (dds:compression).
+    /// Gets or sets the compression that will be used (dds:compression).
     /// </summary>
     public DdsCompression? Compression
     {
@@ -57,7 +60,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies the number of mipmaps, zero will disable writing mipmaps (dds:mipmaps).
+    /// Gets or sets the the number of mipmaps, zero will disable writing mipmaps (dds:mipmaps).
     /// </summary>
     public int? Mipmaps
     {
@@ -66,7 +69,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Enables or disables weight by alpha when cluster fit is used (dds:weight-by-alpha).
+    /// Gets or sets a value indicating whether weight by alpha is enabled or disabled when cluster fit is used (dds:weight-by-alpha).
     /// </summary>
     public bool? WeightByAlpha
     {
@@ -75,7 +78,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The defines that should be set as a define on an image
+    /// Gets the defines that should be set as a define on an image.
     /// </summary>
     public override IEnumerable<IDefine> Defines
     {

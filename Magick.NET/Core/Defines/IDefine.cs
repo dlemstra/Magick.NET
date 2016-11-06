@@ -20,7 +20,7 @@ namespace ImageMagick
   public interface IDefine
   {
     /// <summary>
-    /// The format to set the define for.
+    /// Gets the format to set the define for.
     /// </summary>
     MagickFormat Format
     {
@@ -28,7 +28,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The name of the define.
+    /// Gets the name of the define.
     /// </summary>
     string Name
     {
@@ -36,7 +36,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The value of the define.
+    /// Gets the value of the define.
     /// </summary>
     string Value
     {

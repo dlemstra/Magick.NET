@@ -20,7 +20,7 @@ namespace ImageMagick
   public interface IImageOptimizer
   {
     /// <summary>
-    /// The format that the optimizer supports.
+    /// Gets the format that the optimizer supports.
     /// </summary>
     MagickFormatInfo Format
     {

@@ -34,7 +34,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The data of this profile
+    /// Gets or sets the data of this profile.
     /// </summary>
     [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays",  Justification = "Subclasses need access to this array.")]
     protected byte[] Data
@@ -44,7 +44,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ImageProfile class.
+    /// Initializes a new instance of the <see cref="ImageProfile"/> class.
     /// </summary>
     /// <param name="name">The name of the profile.</param>
     protected ImageProfile(string name)
@@ -61,7 +61,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ImageProfile class.
+    /// Initializes a new instance of the <see cref="ImageProfile"/> class.
     /// </summary>
     /// <param name="name">The name of the profile.</param>
     /// <param name="data">A byte array containing the profile.</param>
@@ -75,7 +75,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ImageProfile class.
+    /// Initializes a new instance of the <see cref="ImageProfile"/> class.
     /// </summary>
     /// <param name="name">The name of the profile.</param>
     /// <param name="stream">A stream containing the profile.</param>
@@ -88,7 +88,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ImageProfile class.
+    /// Initializes a new instance of the <see cref="ImageProfile"/> class.
     /// </summary>
     /// <param name="name">The name of the profile.</param>
     /// <param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
@@ -103,7 +103,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The name of the profile.
+    /// Gets the name of the profile.
     /// </summary>
     public string Name
     {
@@ -112,31 +112,30 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified ImageProfile instances are considered equal.
+    /// Determines whether the specified <see cref="ImageProfile"/> instances are considered equal.
     /// </summary>
-    /// <param name="left">The first ImageProfile to compare.</param>
-    /// <param name="right"> The second ImageProfile to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="ImageProfile"/> to compare.</param>
+    /// <param name="right"> The second <see cref="ImageProfile"/> to compare.</param>
     public static bool operator ==(ImageProfile left, ImageProfile right)
     {
       return Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified ImageProfile instances are not considered equal.
+    /// Determines whether the specified <see cref="ImageProfile"/> instances are not considered equal.
     /// </summary>
-    /// <param name="left">The first ImageProfile to compare.</param>
-    /// <param name="right"> The second ImageProfile to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="ImageProfile"/> to compare.</param>
+    /// <param name="right"> The second <see cref="ImageProfile"/> to compare.</param>
     public static bool operator !=(ImageProfile left, ImageProfile right)
     {
       return !Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified object is equal to the current image profile.
+    /// Determines whether the specified object is equal to the current <see cref="ImageProfile"/>.
     /// </summary>
-    /// <param name="obj">The object to compare this image profile with.</param>
+    /// <param name="obj">The object to compare this <see cref="ImageProfile"/> with.</param>
+    /// <returns>True when the specified object is equal to the current <see cref="ImageProfile"/>.</returns>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -146,9 +145,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified image compare is equal to the current image profile.
+    /// Determines whether the specified image compare is equal to the current <see cref="ImageProfile"/>.
     /// </summary>
-    /// <param name="other">The image profile to compare this image profile with.</param>
+    /// <param name="other">The image profile to compare this <see cref="ImageProfile"/> with.</param>
+    /// <returns>True when the specified image compare is equal to the current <see cref="ImageProfile"/>.</returns>
     public bool Equals(ImageProfile other)
     {
       if (ReferenceEquals(other, null))
@@ -183,6 +183,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       return
@@ -193,6 +194,7 @@ namespace ImageMagick
     /// <summary>
     /// Converts this instance to a byte array.
     /// </summary>
+    /// <returns>A <see cref="byte"/> array.</returns>
     public byte[] ToByteArray()
     {
       UpdateData();

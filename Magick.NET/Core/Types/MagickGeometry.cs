@@ -189,7 +189,6 @@ namespace ImageMagick
     /// </summary>
     /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
     /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-    /// <returns></returns>
     public static bool operator ==(MagickGeometry left, MagickGeometry right)
     {
       return Equals(left, right);
@@ -200,18 +199,16 @@ namespace ImageMagick
     /// </summary>
     /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
     /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-    /// <returns></returns>
     public static bool operator !=(MagickGeometry left, MagickGeometry right)
     {
       return !Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the first MagickGeometry is more than the second MagickGeometry.
+    /// Determines whether the first <see cref="MagickGeometry"/>  is more than the second <see cref="MagickGeometry"/>.
     /// </summary>
     /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
     /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-    /// <returns></returns>
     public static bool operator >(MagickGeometry left, MagickGeometry right)
     {
       if (ReferenceEquals(left, null))
@@ -221,11 +218,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the first <see cref="MagickGeometry"/> is less than the second MagickGeometry.
+    /// Determines whether the first <see cref="MagickGeometry"/> is less than the second <see cref="MagickGeometry"/>.
     /// </summary>
     /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
     /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-    /// <returns></returns>
     public static bool operator <(MagickGeometry left, MagickGeometry right)
     {
       if (ReferenceEquals(left, null))
@@ -235,11 +231,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the first <see cref="MagickGeometry"/> is more than or equal to the second MagickGeometry.
+    /// Determines whether the first <see cref="MagickGeometry"/> is more than or equal to the second <see cref="MagickGeometry"/>.
     /// </summary>
     /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
     /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-    /// <returns></returns>
     public static bool operator >=(MagickGeometry left, MagickGeometry right)
     {
       if (ReferenceEquals(left, null))
@@ -253,7 +248,6 @@ namespace ImageMagick
     /// </summary>
     /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
     /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
-    /// <returns></returns>
     public static bool operator <=(MagickGeometry left, MagickGeometry right)
     {
       if (ReferenceEquals(left, null))
@@ -273,7 +267,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Resize the image based on the smallest fitting dimension (^).
+    /// Gets or sets a value indicating whether the image is resized based on the smallest fitting dimension (^).
     /// </summary>
     public bool FillArea
     {
@@ -282,7 +276,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Resize if image is greater than size (&gt;)
+    /// Gets or sets a value indicating whether the image is resized if image is greater than size (&gt;)
     /// </summary>
     public bool Greater
     {
@@ -291,7 +285,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The height of the geometry.
+    /// Gets or sets the height of the geometry.
     /// </summary>
     public int Height
     {
@@ -300,7 +294,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Resize without preserving aspect ratio (!)
+    /// Gets or sets a value indicating whether the image is resized without preserving aspect ratio (!)
     /// </summary>
     public bool IgnoreAspectRatio
     {
@@ -309,7 +303,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// True if width and height are expressed as percentages.
+    /// Gets or sets a value indicating whether the width and height are expressed as percentages.
     /// </summary>
     public bool IsPercentage
     {
@@ -318,7 +312,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Resize if image is less than size (&lt;)
+    /// Gets or sets a value indicating whether the image is resized if the image is less than size (&lt;)
     /// </summary>
     public bool Less
     {
@@ -327,7 +321,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Resize using a pixel area count limit (@).
+    /// Gets or sets a value indicating whether the image is resized using a pixel area count limit (@).
     /// </summary>
     public bool LimitPixels
     {
@@ -336,7 +330,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The width of the geometry.
+    /// Gets or sets the width of the geometry.
     /// </summary>
     public int Width
     {
@@ -345,7 +339,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// X offset from origin
+    /// Gets or sets the X offset from origin.
     /// </summary>
     public int X
     {
@@ -354,7 +348,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Y offset from origin
+    /// Gets or sets the Y offset from origin.
     /// </summary>
     public int Y
     {
@@ -366,6 +360,7 @@ namespace ImageMagick
     /// Compares the current instance with another object of the same type.
     /// </summary>
     /// <param name="other">The object to compare this geometry with.</param>
+    /// <returns>A signed number indicating the relative values of this instance and value.</returns>
     public int CompareTo(MagickGeometry other)
     {
       if (ReferenceEquals(other, null))
@@ -381,9 +376,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified object is equal to the current geometry.
+    /// Determines whether the specified object is equal to the current <see cref="MagickGeometry"/>.
     /// </summary>
-    /// <param name="obj">The object to compare this geometry with.</param>
+    /// <param name="obj">The object to compare this <see cref="MagickGeometry"/> with.</param>
+    /// <returns>True when the specified object is equal to the current <see cref="MagickGeometry"/>.</returns>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -393,9 +389,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified geometry is equal to the current geometry.
+    /// Determines whether the specified <see cref="MagickGeometry"/> is equal to the current <see cref="MagickGeometry"/>.
     /// </summary>
-    /// <param name="other">The geometry to compare this geometry with.</param>
+    /// <param name="other">The <see cref="MagickGeometry"/> to compare this <see cref="MagickGeometry"/> with.</param>
+    /// <returns>True when the specified <see cref="MagickGeometry"/> is equal to the current <see cref="MagickGeometry"/>.</returns>
     public bool Equals(MagickGeometry other)
     {
       if (ReferenceEquals(other, null))
@@ -420,6 +417,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       return
@@ -436,17 +434,18 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns a <see cref="PointD"/> that represents the position of the current geometry.
+    /// Returns a <see cref="PointD"/> that represents the position of the current <see cref="MagickGeometry"/>.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A <see cref="PointD"/> that represents the position of the current <see cref="MagickGeometry"/>.</returns>
     public PointD ToPoint()
     {
       return new PointD(X, Y);
     }
 
     /// <summary>
-    /// Returns a string that represents the current geometry.
+    /// Returns a string that represents the current <see cref="MagickGeometry"/>.
     /// </summary>
+    /// <returns>A string that represents the current <see cref="MagickGeometry"/>.</returns>
     public override string ToString()
     {
       string result = null;

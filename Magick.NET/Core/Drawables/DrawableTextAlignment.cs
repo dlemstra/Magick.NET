@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableTextAlignment : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.TextAlignment(Alignment);
-    }
-
     /// <summary>
-    /// Creates a new DrawableTextAntialias instance.
+    /// Initializes a new instance of the <see cref="DrawableTextAlignment"/> class.
     /// </summary>
     /// <param name="alignment">Text alignment.</param>
     public DrawableTextAlignment(TextAlignment alignment)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// True if text antialiasing is enabled otherwise false.
+    /// Gets or sets text alignment.
     /// </summary>
     public TextAlignment Alignment
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.TextAlignment(Alignment);
     }
   }
 }

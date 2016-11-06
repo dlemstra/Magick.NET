@@ -21,17 +21,21 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawablePopGraphicContext : IDrawable
   {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DrawablePopGraphicContext"/> class.
+    /// </summary>
+    public DrawablePopGraphicContext()
+    {
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
     void IDrawable.Draw(IDrawingWand wand)
     {
       if (wand != null)
         wand.PopGraphicContext();
-    }
-
-    /// <summary>
-    /// Creates a new DrawablePopGraphicContext instance.
-    /// </summary>
-    public DrawablePopGraphicContext()
-    {
     }
   }
 }

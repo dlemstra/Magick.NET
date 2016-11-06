@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed partial class DrawableTextUnderColor : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.TextUnderColor(Color);
-    }
-
     /// <summary>
-    /// Creates a new DrawableTextUnderColor instance.
+    /// Initializes a new instance of the <see cref="DrawableTextUnderColor"/> class.
     /// </summary>
     /// <param name="color">The color to use.</param>
     public DrawableTextUnderColor(MagickColor color)
@@ -37,12 +31,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The color to use.
+    /// Gets or sets the color to use.
     /// </summary>
     public MagickColor Color
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.TextUnderColor(Color);
     }
   }
 }

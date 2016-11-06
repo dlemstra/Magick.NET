@@ -42,7 +42,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The average duration of all executions in microseconds.
+    /// Gets the average duration of all executions in microseconds.
     /// </summary>
     public long AverageDuration
     {
@@ -56,7 +56,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The number of times that this kernel was executed.
+    /// Gets the number of times that this kernel was executed.
     /// </summary>
     public long Count
     {
@@ -65,7 +65,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The maximum duration of a single execution in microseconds.
+    /// Gets the maximum duration of a single execution in microseconds.
     /// </summary>
     public long MaximumDuration
     {
@@ -74,7 +74,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The minimum duration of a single execution in microseconds.
+    /// Gets the minimum duration of a single execution in microseconds.
     /// </summary>
     public long MinimumDuration
     {
@@ -83,7 +83,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The name of the device.
+    /// Gets the name of the device.
     /// </summary>
     public string Name
     {
@@ -92,7 +92,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The total duration of all executions in microseconds.
+    /// Gets the total duration of all executions in microseconds.
     /// </summary>
     public long TotalDuration
     {

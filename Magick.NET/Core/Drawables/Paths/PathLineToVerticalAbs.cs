@@ -20,14 +20,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class PathLineToVerticalAbs : IPath
   {
-    void IPath.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.PathLineToVerticalAbs(Y);
-    }
-
     /// <summary>
-    /// Initializes a new instance of the PathLinetoVerticalAbs class.
+    /// Initializes a new instance of the <see cref="PathLineToVerticalAbs"/> class.
     /// </summary>
     /// <param name="y">The Y coordinate.</param>
     public PathLineToVerticalAbs(double y)
@@ -36,12 +30,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y coordinate.
+    /// Gets or sets the Y coordinate.
     /// </summary>
     public double Y
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IPath.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PathLineToVerticalAbs(Y);
     }
   }
 }

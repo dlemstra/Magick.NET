@@ -49,14 +49,14 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the MontageSettings class.
+    /// Initializes a new instance of the <see cref="MontageSettings"/> class.
     /// </summary>
     public MontageSettings()
     {
     }
 
     /// <summary>
-    /// Color that thumbnails are composed on
+    /// Gets or sets the color of the background that thumbnails are composed on.
     /// </summary>
     public MagickColor BackgroundColor
     {
@@ -65,7 +65,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Frame border color
+    /// Gets or sets the frame border color.
     /// </summary>
     public MagickColor BorderColor
     {
@@ -74,7 +74,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Pixels between thumbnail and surrounding frame
+    /// Gets or sets the pixels between thumbnail and surrounding frame.
     /// </summary>
     public int BorderWidth
     {
@@ -83,7 +83,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Fill color
+    /// Gets or sets the fill color.
     /// </summary>
     public MagickColor FillColor
     {
@@ -92,7 +92,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Label font
+    /// Gets or sets the label font.
     /// </summary>
     public string Font
     {
@@ -101,7 +101,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Font point size
+    /// Gets or sets the font point size.
     /// </summary>
     public int FontPointsize
     {
@@ -110,7 +110,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Frame geometry (width &amp; height frame thickness)
+    /// Gets or sets the frame geometry (width &amp; height frame thickness).
     /// </summary>
     public MagickGeometry FrameGeometry
     {
@@ -119,7 +119,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Thumbnail width &amp; height plus border width &amp; height
+    /// Gets or sets the thumbnail width &amp; height plus border width &amp; height.
     /// </summary>
     public MagickGeometry Geometry
     {
@@ -128,7 +128,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Thumbnail position (e.g. SouthWestGravity)
+    /// Gets or sets the thumbnail position (e.g. SouthWestGravity).
     /// </summary>
     public Gravity Gravity
     {
@@ -137,7 +137,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Thumbnail label (applied to image prior to montage)
+    /// Gets or sets the thumbnail label (applied to image prior to montage).
     /// </summary>
     public string Label
     {
@@ -146,7 +146,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Enable drop-shadows on thumbnails
+    /// Gets or sets a value indicating whether drop-shadows on thumbnails are enabled or disabled.
     /// </summary>
     public bool Shadow
     {
@@ -155,7 +155,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Outline color
+    /// Gets or sets the outline color.
     /// </summary>
     public MagickColor StrokeColor
     {
@@ -164,7 +164,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Background texture image
+    /// Gets or sets the background texture image.
     /// </summary>
     public string TextureFileName
     {
@@ -173,7 +173,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Frame geometry (width &amp; height frame thickness)
+    /// Gets or sets the frame geometry (width &amp; height frame thickness).
     /// </summary>
     public MagickGeometry TileGeometry
     {
@@ -182,7 +182,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Montage title
+    /// Gets or sets the montage title.
     /// </summary>
     public string Title
     {
@@ -191,7 +191,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Transparent color
+    /// Gets or sets the transparent color.
     /// </summary>
     public MagickColor TransparentColor
     {

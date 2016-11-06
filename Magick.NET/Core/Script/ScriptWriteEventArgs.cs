@@ -28,7 +28,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ID of the image.
+    /// Gets the ID of the image.
     /// </summary>
     public string Id
     {
@@ -37,7 +37,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The image that needs to be written.
+    /// Gets the image that needs to be written.
     /// </summary>
     public MagickImage Image
     {

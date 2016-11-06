@@ -22,7 +22,7 @@ namespace ImageMagick
     /// <summary>
     /// Draws this instance with the drawing wand.
     /// </summary>
-    /// <param name="wand"></param>
+    /// <param name="wand">The want to draw on.</param>
     void Draw(IDrawingWand wand);
   }
 }

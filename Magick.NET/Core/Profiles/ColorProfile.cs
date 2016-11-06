@@ -93,7 +93,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorProfile class.
+    /// Initializes a new instance of the <see cref="ColorProfile"/> class.
     /// </summary>
     /// <param name="data">A byte array containing the profile.</param>
     public ColorProfile(Byte[] data)
@@ -103,7 +103,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorProfile class.
+    /// Initializes a new instance of the <see cref="ColorProfile"/> class.
     /// </summary>
     /// <param name="stream">A stream containing the profile.</param>
     public ColorProfile(Stream stream)
@@ -113,7 +113,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorProfile class.
+    /// Initializes a new instance of the <see cref="ColorProfile"/> class.
     /// </summary>
     /// <param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
     public ColorProfile(string fileName)
@@ -122,7 +122,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Color space of the profile.
+    /// Gets the color space of the profile.
     /// </summary>
     public ColorSpace ColorSpace
     {
@@ -131,7 +131,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The AdobeRGB1998 profile.
+    /// Gets the AdobeRGB1998 profile.
     /// </summary>
     public static ColorProfile AdobeRGB1998
     {
@@ -142,7 +142,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The AppleRGB profile.
+    /// Gets the AppleRGB profile.
     /// </summary>
     public static ColorProfile AppleRGB
     {
@@ -153,7 +153,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The CoatedFOGRA39 profile.
+    /// Gets the CoatedFOGRA39 profile.
     /// </summary>
     public static ColorProfile CoatedFOGRA39
     {
@@ -164,7 +164,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ColorMatchRGB profile.
+    /// Gets the ColorMatchRGB profile.
     /// </summary>
     public static ColorProfile ColorMatchRGB
     {
@@ -175,7 +175,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The sRGB profile.
+    /// Gets the sRGB profile.
     /// </summary>
     public static ColorProfile SRGB
     {
@@ -186,7 +186,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The USWebCoatedSWOP profile.
+    /// Gets the USWebCoatedSWOP profile.
     /// </summary>
     public static ColorProfile USWebCoatedSWOP
     {

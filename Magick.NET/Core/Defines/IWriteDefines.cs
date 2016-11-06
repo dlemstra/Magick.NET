@@ -20,7 +20,7 @@ namespace ImageMagick
   public interface IWriteDefines : IDefines
   {
     /// <summary>
-    /// The format where the defines are for.
+    /// Gets the format where the defines are for.
     /// </summary>
     MagickFormat Format
     {

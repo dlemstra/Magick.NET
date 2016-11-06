@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableClipRule : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.ClipRule(FillRule);
-    }
-
     /// <summary>
-    /// Creates a new DrawableClipRule instance.
+    /// Initializes a new instance of the <see cref="DrawableClipRule"/> class.
     /// </summary>
     /// <param name="fillRule">The rule to use when filling drawn objects.</param>
     public DrawableClipRule(FillRule fillRule)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The rule to use when filling drawn objects.
+    /// Gets or sets the rule to use when filling drawn objects.
     /// </summary>
     public FillRule FillRule
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.ClipRule(FillRule);
     }
   }
 }

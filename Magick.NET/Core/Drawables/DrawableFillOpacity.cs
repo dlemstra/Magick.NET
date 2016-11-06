@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableFillOpacity : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.FillOpacity(Opacity.ToDouble() / 100);
-    }
-
     /// <summary>
-    /// Creates a new DrawableFillOpacity instance.
+    /// Initializes a new instance of the <see cref="DrawableFillOpacity"/> class.
     /// </summary>
     /// <param name="opacity">The opacity.</param>
     public DrawableFillOpacity(Percentage opacity)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The alpha.
+    /// Gets or sets the alpha.
     /// </summary>
     public Percentage Opacity
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.FillOpacity(Opacity.ToDouble() / 100);
     }
   }
 }

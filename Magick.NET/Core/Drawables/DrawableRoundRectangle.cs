@@ -20,14 +20,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableRoundRectangle : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.RoundRectangle(CenterX, CenterY, Width, Height, CornerWidth, CornerHeight);
-    }
-
     /// <summary>
-    /// Creates a new DrawableRoundRectangle instance.
+    /// Initializes a new instance of the <see cref="DrawableRoundRectangle"/> class.
     /// </summary>
     /// <param name="centerX">The center X coordinate.</param>
     /// <param name="centerY">The center Y coordinate.</param>
@@ -46,7 +40,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The center X coordinate.
+    /// Gets or sets the center X coordinate.
     /// </summary>
     public double CenterX
     {
@@ -55,7 +49,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The center Y coordinate.
+    /// Gets or sets the center Y coordinate.
     /// </summary>
     public double CenterY
     {
@@ -64,7 +58,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The corner height.
+    /// Gets or sets the corner height.
     /// </summary>
     public double CornerHeight
     {
@@ -73,7 +67,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The corner width.
+    /// Gets or sets the corner width.
     /// </summary>
     public double CornerWidth
     {
@@ -82,7 +76,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The height.
+    /// Gets or sets the height.
     /// </summary>
     public double Height
     {
@@ -91,12 +85,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The width.
+    /// Gets or sets the width.
     /// </summary>
     public double Width
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.RoundRectangle(CenterX, CenterY, Width, Height, CornerWidth, CornerHeight);
     }
   }
 }

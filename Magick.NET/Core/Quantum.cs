@@ -87,7 +87,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the Quantum depth.
+    /// Gets the Quantum depth.
     /// </summary>
     public static int Depth
     {
@@ -98,7 +98,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the maximum value of the quantum.
+    /// Gets the maximum value of the quantum.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]

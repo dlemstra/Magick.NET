@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableTextDirection : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.TextDirection(Direction);
-    }
-
     /// <summary>
-    /// Creates a new DrawableTextDirection instance.
+    /// Initializes a new instance of the <see cref="DrawableTextDirection"/> class.
     /// </summary>
     /// <param name="direction">Direction to use.</param>
     public DrawableTextDirection(TextDirection direction)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Direction to use.
+    /// Gets or sets the direction to use.
     /// </summary>
     public TextDirection Direction
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.TextDirection(Direction);
     }
   }
 }

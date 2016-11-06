@@ -21,17 +21,21 @@ namespace ImageMagick
   /// </summary>
   public sealed class PathClose : IPath
   {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PathClose"/> class.
+    /// </summary>
+    public PathClose()
+    {
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
     void IPath.Draw(IDrawingWand wand)
     {
       if (wand != null)
         wand.PathClose();
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the PathClose class.
-    /// </summary>
-    public PathClose()
-    {
     }
   }
 }

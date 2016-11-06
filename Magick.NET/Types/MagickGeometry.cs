@@ -16,13 +16,13 @@ using System.Drawing;
 
 namespace ImageMagick
 {
-  /// <summary>
-  /// Encapsulation of the ImageMagick geometry object.
-  /// </summary>
+  /// <content>
+  /// Contains code that is not compatible with .NET Core.
+  /// </content>
   public sealed partial class MagickGeometry
   {
     /// <summary>
-    /// Initializes a new instance of the MagickGeometry class using the specified rectangle.
+    /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
     /// </summary>
     /// <param name="rectangle">The rectangle to use.</param>
     public MagickGeometry(Rectangle rectangle)

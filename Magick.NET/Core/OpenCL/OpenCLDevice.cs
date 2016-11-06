@@ -42,7 +42,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The benchmark score of the device.
+    /// Gets the benchmark score of the device.
     /// </summary>
     public double BenchmarkScore
     {
@@ -53,7 +53,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The type of the device.
+    /// Gets the type of the device.
     /// </summary>
     public OpenCLDeviceType DeviceType
     {
@@ -64,7 +64,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The name of the device.
+    /// Gets the name of the device.
     /// </summary>
     public string Name
     {
@@ -75,7 +75,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies if the device is enabled or disabled.
+    /// Gets or sets a value indicating whether the device is enabled or disabled.
     /// </summary>
     public bool IsEnabled
     {
@@ -90,9 +90,9 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns all the kernel profile records for this devices.
+    /// Gets all the kernel profile records for this devices.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A <see cref="IEnumerable{OpenCLKernelProfileRecord}"/>.</returns>
     public IEnumerable<OpenCLKernelProfileRecord> KernelProfileRecords
     {
       get
@@ -117,7 +117,8 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies if kernel profiling is enabled. This can be used to get information about the OpenCL performance.
+    /// Gets or sets a value indicating whether kernel profiling is enabled.
+    /// This can be used to get information about the OpenCL performance.
     /// </summary>
     public bool ProfileKernels
     {
@@ -133,7 +134,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The OpenCL version supported by the device.
+    /// Gets the OpenCL version supported by the device.
     /// </summary>
     public string Version
     {

@@ -26,14 +26,8 @@ namespace ImageMagick
     private PointD _ControlPointEnd;
     private PointD _End;
 
-    void IPath.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.PathCurveToAbs(_ControlPointStart, _ControlPointEnd, _End);
-    }
-
     /// <summary>
-    /// Initializes a new instance of the PathCurveToAbs class.
+    /// Initializes a new instance of the <see cref="PathCurveToAbs"/> class.
     /// </summary>
     /// <param name="x1">X coordinate of control point for curve beginning</param>
     /// <param name="y1">Y coordinate of control point for curve beginning</param>
@@ -47,7 +41,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathCurveToAbs class.
+    /// Initializes a new instance of the <see cref="PathCurveToAbs"/> class.
     /// </summary>
     /// <param name="controlPointStart">Coordinate of control point for curve beginning</param>
     /// <param name="controlPointEnd">Coordinate of control point for curve ending</param>
@@ -57,6 +51,16 @@ namespace ImageMagick
       _ControlPointStart = controlPointStart;
       _ControlPointEnd = controlPointEnd;
       _End = end;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IPath.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PathCurveToAbs(_ControlPointStart, _ControlPointEnd, _End);
     }
   }
 }

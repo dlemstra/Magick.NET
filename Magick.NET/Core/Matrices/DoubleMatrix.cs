@@ -37,10 +37,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new ConvolveMatrix instance with the specified order.
+    /// Initializes a new instance of the <see cref="DoubleMatrix"/> class.
     /// </summary>
-    /// <param name="order"></param>
-    /// <param name="values"></param>
+    /// <param name="order">The order.</param>
+    /// <param name="values">The values to initialize the matrix with.</param>
     protected DoubleMatrix(int order, double[] values)
     {
       Order = order;
@@ -56,6 +56,8 @@ namespace ImageMagick
     /// <summary>
     /// Get or set the value at the specified x/y position.
     /// </summary>
+    /// <param name="x">The x position</param>
+    /// <param name="y">The y position</param>
     public double this[int x, int y]
     {
       get
@@ -69,7 +71,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the order of the matrix.
+    /// Gets the order of the matrix.
     /// </summary>
     public int Order
     {
@@ -78,10 +80,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the value at the specified x/y position.
+    /// Gets the value at the specified x/y position.
     /// </summary>
     /// <param name="x">The x position</param>
     /// <param name="y">The y position</param>
+    /// <returns>The value at the specified x/y position.</returns>
     public double GetValue(int x, int y)
     {
       return _Values[GetIndex(x, y)];
@@ -135,6 +138,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns a string that represents the current DoubleMatrix.
     /// </summary>
+    /// <returns>The double array.</returns>
     public double[] ToArray()
     {
       return _Values;

@@ -21,17 +21,21 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawablePushGraphicContext : IDrawable
   {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DrawablePushGraphicContext"/> class.
+    /// </summary>
+    public DrawablePushGraphicContext()
+    {
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
     void IDrawable.Draw(IDrawingWand wand)
     {
       if (wand != null)
         wand.PushGraphicContext();
-    }
-
-    /// <summary>
-    /// Creates a new DrawablePushGraphicContext instance.
-    /// </summary>
-    public DrawablePushGraphicContext()
-    {
     }
   }
 }

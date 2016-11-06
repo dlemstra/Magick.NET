@@ -50,7 +50,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The channel.
+    /// Gets the channel.
     /// </summary>
     public PixelChannel Channel
     {
@@ -59,7 +59,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Depth of the channel.
+    /// Gets the depth of the channel.
     /// </summary>
     public int Depth
     {
@@ -68,7 +68,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Entropy.
+    /// Gets the entropy.
     /// </summary>
     public double Entropy
     {
@@ -77,7 +77,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Kurtosis.
+    /// Gets the kurtosis.
     /// </summary>
     public double Kurtosis
     {
@@ -86,7 +86,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Maximum value observed.
+    /// Gets the maximum value observed.
     /// </summary>
     public double Maximum
     {
@@ -95,7 +95,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Average (mean) value observed.
+    /// Gets the average (mean) value observed.
     /// </summary>
     public double Mean
     {
@@ -104,7 +104,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Minimum value observed.
+    /// Gets the minimum value observed.
     /// </summary>
     public double Minimum
     {
@@ -113,7 +113,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Skewness.
+    /// Gets the skewness.
     /// </summary>
     public double Skewness
     {
@@ -122,7 +122,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Standard deviation, sqrt(variance).
+    /// Gets the standard deviation, sqrt(variance).
     /// </summary>
     public double StandardDeviation
     {
@@ -131,7 +131,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Sum.
+    /// Gets the sum.
     /// </summary>
     public double Sum
     {
@@ -140,7 +140,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Sum cubed.
+    /// Gets the sum cubed.
     /// </summary>
     public double SumCubed
     {
@@ -149,7 +149,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Sum fourth power.
+    /// Gets the sum fourth power.
     /// </summary>
     public double SumFourthPower
     {
@@ -158,7 +158,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Sum squared.
+    /// Gets the sum squared.
     /// </summary>
     public double SumSquared
     {
@@ -167,7 +167,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Variance.
+    /// Gets the variance.
     /// </summary>
     public double Variance
     {
@@ -176,31 +176,30 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified ChannelStatistics instances are considered equal.
+    /// Determines whether the specified <see cref="ChannelStatistics"/> instances are considered equal.
     /// </summary>
-    /// <param name="left">The first ChannelStatistics to compare.</param>
-    /// <param name="right"> The second ChannelStatistics to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="ChannelStatistics"/> to compare.</param>
+    /// <param name="right"> The second <see cref="ChannelStatistics"/> to compare.</param>
     public static bool operator ==(ChannelStatistics left, ChannelStatistics right)
     {
-      return object.Equals(left, right);
+      return Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified ChannelStatistics instances are not considered equal.
+    /// Determines whether the specified <see cref="ChannelStatistics"/> instances are not considered equal.
     /// </summary>
-    /// <param name="left">The first ChannelStatistics to compare.</param>
-    /// <param name="right"> The second ChannelStatistics to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="ChannelStatistics"/> to compare.</param>
+    /// <param name="right"> The second <see cref="ChannelStatistics"/> to compare.</param>
     public static bool operator !=(ChannelStatistics left, ChannelStatistics right)
     {
-      return !object.Equals(left, right);
+      return !Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified object is equal to the current channel statistics.
+    /// Determines whether the specified object is equal to the current <see cref="ChannelStatistics"/>.
     /// </summary>
-    /// <param name="obj">The object to compare this channel statistics with.</param>
+    /// <param name="obj">The object to compare this <see cref="ChannelStatistics"/> with.</param>
+    /// <returns>True when the specified object is equal to the current <see cref="ChannelStatistics"/>.</returns>
     public override bool Equals(object obj)
     {
       if (obj == null)
@@ -210,9 +209,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified channel statistics is equal to the current channel statistics.
+    /// Determines whether the specified <see cref="ChannelStatistics"/> is equal to the current <see cref="ChannelStatistics"/>.
     /// </summary>
-    /// <param name="other">The channel statistics to compare this channel statistics with.</param>
+    /// <param name="other">The channel statistics to compare this <see cref="ChannelStatistics"/> with.</param>
+    /// <returns>True when the specified <see cref="ChannelStatistics"/> is equal to the current <see cref="ChannelStatistics"/>.</returns>
     public bool Equals(ChannelStatistics other)
     {
       if (ReferenceEquals(other, null))
@@ -240,6 +240,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       return

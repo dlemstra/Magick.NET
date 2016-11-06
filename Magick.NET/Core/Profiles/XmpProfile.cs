@@ -51,7 +51,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the XmpProfile class.
+    /// Initializes a new instance of the <see cref="XmpProfile"/> class.
     /// </summary>
     /// <param name="data">A byte array containing the profile.</param>
     public XmpProfile(Byte[] data)
@@ -60,7 +60,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the XmpProfile class.
+    /// Initializes a new instance of the <see cref="XmpProfile"/> class.
     /// </summary>
     /// <param name="document">A document containing the profile.</param>
     public XmpProfile(IXPathNavigable document)
@@ -79,7 +79,7 @@ namespace ImageMagick
 
 #if !NET20
     /// <summary>
-    /// Initializes a new instance of the XmpProfile class.
+    /// Initializes a new instance of the <see cref="XmpProfile"/> class.
     /// </summary>
     /// <param name="document">A document containing the profile.</param>
     public XmpProfile(XDocument document)
@@ -98,7 +98,7 @@ namespace ImageMagick
 #endif
 
     /// <summary>
-    /// Initializes a new instance of the XmpProfile class.
+    /// Initializes a new instance of the <see cref="XmpProfile"/> class.
     /// </summary>
     /// <param name="stream">A stream containing the profile.</param>
     public XmpProfile(Stream stream)
@@ -107,7 +107,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the XmpProfile class.
+    /// Initializes a new instance of the <see cref="XmpProfile"/> class.
     /// </summary>
     /// <param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
     public XmpProfile(string fileName)
@@ -118,6 +118,7 @@ namespace ImageMagick
     /// <summary>
     /// Creates a XmlReader that can be used to read the data of the profile.
     /// </summary>
+    /// <returns>A <see cref="XmlReader"/>.</returns>
     public XmlReader CreateReader()
     {
       MemoryStream memStream = new MemoryStream(Data, 0, Data.Length);
@@ -130,6 +131,7 @@ namespace ImageMagick
     /// Creates an instance from the specified IXPathNavigable.
     /// </summary>
     /// <param name="document">A document containing the profile.</param>
+    /// <returns>A <see cref="XmpProfile"/>.</returns>
     public static XmpProfile FromIXPathNavigable(IXPathNavigable document)
     {
       return new XmpProfile(document);
@@ -140,6 +142,7 @@ namespace ImageMagick
     /// Creates an instance from the specified IXPathNavigable.
     /// </summary>
     /// <param name="document">A document containing the profile.</param>
+    /// <returns>A <see cref="XmpProfile"/>.</returns>
     public static XmpProfile FromXDocument(XDocument document)
     {
       return new XmpProfile(document);
@@ -149,6 +152,7 @@ namespace ImageMagick
     /// <summary>
     /// Converts this instance to an IXPathNavigable.
     /// </summary>
+    /// <returns>A <see cref="IXPathNavigable"/>.</returns>
     public IXPathNavigable ToIXPathNavigable()
     {
       using (XmlReader reader = CreateReader())
@@ -163,6 +167,7 @@ namespace ImageMagick
     /// <summary>
     /// Converts this instance to a XDocument.
     /// </summary>
+    /// <returns>A <see cref="XDocument"/>.</returns>
     public XDocument ToXDocument()
     {
       using (XmlReader reader = CreateReader())

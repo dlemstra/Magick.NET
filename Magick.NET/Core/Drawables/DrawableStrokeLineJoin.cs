@@ -20,14 +20,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableStrokeLineJoin : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeLineJoin(LineJoin);
-    }
-
     /// <summary>
-    /// Creates a new DrawableStrokeLineJoin instance.
+    /// Initializes a new instance of the <see cref="DrawableStrokeLineJoin"/> class.
     /// </summary>
     /// <param name="lineJoin">The line join.</param>
     public DrawableStrokeLineJoin(LineJoin lineJoin)
@@ -36,12 +30,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The line join.
+    /// Gets or sets the line join.
     /// </summary>
     public LineJoin LineJoin
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.StrokeLineJoin(LineJoin);
     }
   }
 }

@@ -38,7 +38,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PrimaryInfo class.
+    /// Initializes a new instance of the <see cref="PrimaryInfo"/> class.
     /// </summary>
     /// <param name="x">The x value.</param>
     /// <param name="y">The y value.</param>
@@ -51,7 +51,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// X value.
+    /// Gets the X value.
     /// </summary>
     public double X
     {
@@ -60,7 +60,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Y value.
+    /// Gets the Y value.
     /// </summary>
     public double Y
     {
@@ -69,7 +69,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Z value.
+    /// Gets the Z value.
     /// </summary>
     public double Z
     {
@@ -78,9 +78,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified primary info is equal to the current primary info.
+    /// Determines whether the specified <see cref="PrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.
     /// </summary>
-    /// <param name="other">The primary info to compare this primary info with.</param>
+    /// <param name="other">The <see cref="PrimaryInfo"/> to compare this <see cref="PrimaryInfo"/> with.</param>
+    /// <returns>True when the specified <see cref="PrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.</returns>
     public bool Equals(PrimaryInfo other)
     {
       if (ReferenceEquals(other, null))
@@ -98,6 +99,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       return

@@ -23,7 +23,7 @@ namespace ImageMagick
   public sealed class PngReadDefines : DefineCreator, IReadDefines
   {
     /// <summary>
-    /// Initializes a new instance of the PngReadDefines class.
+    /// Initializes a new instance of the <see cref="PngReadDefines"/> class.
     /// </summary>
     public PngReadDefines()
       : base(MagickFormat.Png)
@@ -31,8 +31,9 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// By default, the PNG decoder and encoder examine any ICC profile that is present, either
-    /// from an iCCP chunk in the PNG input or supplied via an option, and if the profile is
+    /// Gets or sets a value indicating whether the PNG decoder and encoder examine any ICC profile
+    /// that is present. By default, the PNG decoder and encoder examine any ICC profile that is present,
+    /// either from an iCCP chunk in the PNG input or supplied via an option, and if the profile is
     /// recognized to be the sRGB profile, converts it to the sRGB chunk. You can use this option
     /// to prevent this from happening; in such cases the iCCP chunk will be read. (png:preserve-iCCP)
     /// </summary>
@@ -43,7 +44,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies the profile that should be skipped when the image is read (profile:skip).
+    /// Gets or sets the profile(s) that should be skipped when the image is read (profile:skip).
     /// </summary>
     public ProfileTypes? SkipProfiles
     {
@@ -52,9 +53,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The PNG specification requires that any multi-byte integers be stored in network byte
-    /// order (MSB-LSB endian). This option allows you to fix any invalid PNG files that have
-    /// 16-bit samples stored incorrectly in little-endian order (LSB-MSB). (png:swap-bytes)
+    /// Gets or sets a value indicating whether the bytes should be swapped. The PNG specification
+    /// requires that any multi-byte integers be stored in network byte order (MSB-LSB endian).
+    /// This option allows you to fix any invalid PNG files that have 16-bit samples stored
+    /// incorrectly in little-endian order (LSB-MSB). (png:swap-bytes)
     /// </summary>
     public bool SwapBytes
     {
@@ -63,7 +65,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The defines that should be set as a define on an image
+    /// Gets the defines that should be set as a define on an image.
     /// </summary>
     public override IEnumerable<IDefine> Defines
     {

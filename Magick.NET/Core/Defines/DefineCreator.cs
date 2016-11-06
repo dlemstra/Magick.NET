@@ -37,7 +37,7 @@ namespace ImageMagick.Defines
     /// </summary>
     /// <param name="name">The name of the define.</param>
     /// <param name="value">The value of the define.</param>
-    /// <returns></returns>
+    /// <returns>A <see cref="MagickDefine"/> instance.</returns>
     protected MagickDefine CreateDefine(string name, bool value)
     {
       return new MagickDefine(Format, name, value.ToString());
@@ -48,7 +48,7 @@ namespace ImageMagick.Defines
     /// </summary>
     /// <param name="name">The name of the define.</param>
     /// <param name="value">The value of the define.</param>
-    /// <returns></returns>
+    /// <returns>A <see cref="MagickDefine"/> instance.</returns>
     protected MagickDefine CreateDefine(string name, int value)
     {
       return new MagickDefine(Format, name, value.ToString(CultureInfo.InvariantCulture));
@@ -59,7 +59,7 @@ namespace ImageMagick.Defines
     /// </summary>
     /// <param name="name">The name of the define.</param>
     /// <param name="value">The value of the define.</param>
-    /// <returns></returns>
+    /// <returns>A <see cref="MagickDefine"/> instance.</returns>
     protected MagickDefine CreateDefine(string name, MagickGeometry value)
     {
       if (value == null)
@@ -73,7 +73,7 @@ namespace ImageMagick.Defines
     /// </summary>
     /// <param name="name">The name of the define.</param>
     /// <param name="value">The value of the define.</param>
-    /// <returns></returns>
+    /// <returns>A <see cref="MagickDefine"/> instance.</returns>
     protected MagickDefine CreateDefine(string name, string value)
     {
       return new MagickDefine(Format, name, value);
@@ -84,14 +84,15 @@ namespace ImageMagick.Defines
     /// </summary>
     /// <param name="name">The name of the define.</param>
     /// <param name="value">The value of the define.</param>
-    /// <returns></returns>
+    /// <typeparam name="TEnum">The type of the enumeration.</typeparam>
+    /// <returns>A <see cref="MagickDefine"/> instance.</returns>
     protected MagickDefine CreateDefine<TEnum>(string name, TEnum value)
     {
       return new MagickDefine(Format, name, Enum.GetName(typeof(TEnum), value));
     }
 
     /// <summary>
-    /// The format where the defines are for.
+    /// Gets the format where the defines are for.
     /// </summary>
     protected MagickFormat Format
     {
@@ -100,7 +101,7 @@ namespace ImageMagick.Defines
     }
 
     /// <summary>
-    /// The defines that should be set as a define on an image
+    /// Gets the defines that should be set as a define on an image.
     /// </summary>
     public abstract IEnumerable<IDefine> Defines
     {

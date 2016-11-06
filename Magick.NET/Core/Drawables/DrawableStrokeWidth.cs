@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableStrokeWidth : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeWidth(Width);
-    }
-
     /// <summary>
-    /// Creates a new DrawableStrokeWidth instance.
+    /// Initializes a new instance of the <see cref="DrawableStrokeWidth"/> class.
     /// </summary>
     /// <param name="width">The width.</param>
     public DrawableStrokeWidth(double width)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The width.
+    /// Gets or sets the width.
     /// </summary>
     public double Width
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.StrokeWidth(Width);
     }
   }
 }

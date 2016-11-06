@@ -29,7 +29,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The offset for the best match.
+    /// Gets the offset for the best match.
     /// </summary>
     public MagickGeometry BestMatch
     {
@@ -38,7 +38,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// A similarity image such that an exact match location is completely white and if none of
+    /// Gets the a similarity image such that an exact match location is completely white and if none of
     /// the pixels match, black, otherwise some gray level in-between.
     /// </summary>
     public MagickImage SimilarityImage
@@ -48,7 +48,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Similarity metric.
+    /// Gets or sets the similarity metric.
     /// </summary>
     public double SimilarityMetric
     {
@@ -57,7 +57,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Disposes the MagickSearchResult instance.
+    /// Disposes the <see cref="MagickSearchResult"/> instance.
     /// </summary>
     public void Dispose()
     {

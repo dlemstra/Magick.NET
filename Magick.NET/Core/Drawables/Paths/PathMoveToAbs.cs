@@ -22,14 +22,8 @@ namespace ImageMagick
   {
     private PointD _Coordinate;
 
-    void IPath.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.PathMoveToAbs(_Coordinate.X, _Coordinate.Y);
-    }
-
     /// <summary>
-    /// Initializes a new instance of the PathMoveToAbs class.
+    /// Initializes a new instance of the <see cref="PathMoveToAbs"/> class.
     /// </summary>
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
@@ -39,12 +33,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathMoveToAbs class.
+    /// Initializes a new instance of the <see cref="PathMoveToAbs"/> class.
     /// </summary>
     /// <param name="coordinate">The coordinate to use.</param>
     public PathMoveToAbs(PointD coordinate)
     {
       _Coordinate = coordinate;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IPath.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PathMoveToAbs(_Coordinate.X, _Coordinate.Y);
     }
   }
 }

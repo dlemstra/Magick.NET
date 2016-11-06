@@ -53,7 +53,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorCMYK class.
+    /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
     /// </summary>
     /// <param name="cyan">Cyan component value of this color.</param>
     /// <param name="magenta">Magenta component value of this color.</param>
@@ -65,20 +65,20 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorCMYK class.
+    /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
     /// </summary>
     /// <param name="cyan">Cyan component value of this color.</param>
     /// <param name="magenta">Magenta component value of this color.</param>
     /// <param name="yellow">Yellow component value of this color.</param>
     /// <param name="key">Key (black) component value of this color.</param>
-    /// <param name="alpha">Key (black) component value of this color.</param>
+    /// <param name="alpha">Alpha component value of this color.</param>
     public ColorCMYK(Percentage cyan, Percentage magenta, Percentage yellow, Percentage key, Percentage alpha)
       : base(new MagickColor(cyan.ToQuantum(), magenta.ToQuantum(), yellow.ToQuantum(), key.ToQuantum(), alpha.ToQuantum()))
     {
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorCMYK class.
+    /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
     /// </summary>
     /// <param name="cyan">Cyan component value of this color.</param>
     /// <param name="magenta">Magenta component value of this color.</param>
@@ -93,13 +93,13 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorCMYK class.
+    /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
     /// </summary>
     /// <param name="cyan">Cyan component value of this color.</param>
     /// <param name="magenta">Magenta component value of this color.</param>
     /// <param name="yellow">Yellow component value of this color.</param>
     /// <param name="key">Key (black) component value of this color.</param>
-    /// <param name="alpha">Key (black) component value of this color.</param>
+    /// <param name="alpha">Alpha component value of this color.</param>
 #if Q16
     [CLSCompliant(false)]
 #endif
@@ -110,18 +110,16 @@ namespace ImageMagick
 
 #if Q8
     /// <summary>
-    /// Initializes a new instance of the MagickColor class using the specified CMYK hex string or
-    /// name of the color (http://www.imagemagick.org/script/color.php).
-    /// For example: #F000, #FF000000
+    /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
     /// </summary>
-    /// <param name="color">The RGBA/CMYK hex string or name of the color.</param>
+    /// <param name="color">The CMYK hex string or name of the color (http://www.imagemagick.org/script/color.php).
+    /// For example: #F000, #FF000000</param>
 #elif Q16 || Q16HDRI
     /// <summary>
-    /// Initializes a new instance of the MagickColor class using the specified CMYK hex string or
-    /// name of the color (http://www.imagemagick.org/script/color.php).
-    /// For example: #F000, #FF000000, #FFFF000000000000
+    /// Initializes a new instance of the <see cref="ColorCMYK"/> class.
     /// </summary>
-    /// <param name="color">The RGBA/CMYK hex string or name of the color.</param>
+    /// <param name="color">The CMYK hex string or name of the color (http://www.imagemagick.org/script/color.php).
+    /// For example: #F000, #FF000000, #FFFF000000000000</param>
 #else
 #error Not implemented!
 #endif
@@ -131,7 +129,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Alpha component value of this color.
+    /// Gets or sets the alpha component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -149,7 +147,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Cyan component value of this color.
+    /// Gets or sets the cyan component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -167,7 +165,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Key (black) component value of this color.
+    /// Gets or sets the key (black) component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -185,7 +183,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Magenta component value of this color.
+    /// Gets or sets the magenta component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -203,7 +201,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Yellow component value of this color.
+    /// Gets or sets the yellow component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -221,16 +219,20 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
     /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorCMYK"/> instance.</returns>
     public static implicit operator ColorCMYK(MagickColor color)
     {
       return FromMagickColor(color);
     }
 
     /// <summary>
-    /// Converts the specified MagickColor to an instance of this type.
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
     /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorCMYK"/> instance.</returns>
     public static ColorCMYK FromMagickColor(MagickColor color)
     {
       if (color == null)

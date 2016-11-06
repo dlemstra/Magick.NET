@@ -34,7 +34,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the QuantizeSettings class.
+    /// Initializes a new instance of the <see cref="QuantizeSettings"/> class.
     /// </summary>
     public QuantizeSettings()
     {
@@ -43,7 +43,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Maximum number of colors to quantize to.
+    /// Gets or sets the maximum number of colors to quantize to.
     /// </summary>
     public int Colors
     {
@@ -52,7 +52,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Colorspace to quantize in.
+    /// Gets or sets the colorspace to quantize in.
     /// </summary>
     public ColorSpace ColorSpace
     {
@@ -61,7 +61,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Dither method to use.
+    /// Gets or sets the dither method to use.
     /// </summary>
     public DitherMethod? DitherMethod
     {
@@ -70,7 +70,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Measure errors.
+    /// Gets or sets a value indicating whether errors should be measured.
     /// </summary>
     public bool MeasureErrors
     {
@@ -79,7 +79,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Quantization tree-depth.
+    /// Gets or setsthe quantization tree-depth.
     /// </summary>
     public int TreeDepth
     {

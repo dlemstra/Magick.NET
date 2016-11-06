@@ -16,10 +16,13 @@ using System.Drawing;
 
 namespace ImageMagick
 {
+  /// <content>
+  /// Contains code that is not compatible with .NET Core.
+  /// </content>
   public sealed partial class DrawableBorderColor
   {
     /// <summary>
-    /// Creates a new DrawableColor instance.
+    /// Initializes a new instance of the <see cref="DrawableBorderColor"/> class.
     /// </summary>
     /// <param name="color">The color of the border.</param>
     public DrawableBorderColor(Color color)

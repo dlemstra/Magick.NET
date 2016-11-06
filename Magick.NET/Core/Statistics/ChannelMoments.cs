@@ -53,7 +53,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The centroid.
+    /// Gets the centroid.
     /// </summary>
     public PointD Centroid
     {
@@ -62,7 +62,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The channel of this moment.
+    /// Gets the channel of this moment.
     /// </summary>
     public PixelChannel Channel
     {
@@ -71,7 +71,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ellipse axis.
+    /// Gets the ellipse axis.
     /// </summary>
     public PointD EllipseAxis
     {
@@ -80,7 +80,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ellipse angle.
+    /// Gets the ellipse angle.
     /// </summary>
     public double EllipseAngle
     {
@@ -89,7 +89,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ellipse eccentricity.
+    /// Gets the ellipse eccentricity.
     /// </summary>
     public double EllipseEccentricity
     {
@@ -98,7 +98,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ellipse intensity.
+    /// Gets the ellipse intensity.
     /// </summary>
     public double EllipseIntensity
     {
@@ -107,8 +107,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Hu invariants.
+    /// Returns the Hu invariants.
     /// </summary>
+    /// <param name="index">The index to use.</param>
+    /// <returns>The Hu invariants.</returns>
     public double HuInvariants(int index)
     {
       Throw.IfOutOfRange(nameof(index), index, 8);

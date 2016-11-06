@@ -85,7 +85,6 @@ namespace ImageMagick
     /// </summary>
     /// <param name="left">The first <see cref="SignedRational"/>  to compare.</param>
     /// <param name="right"> The second <see cref="SignedRational"/>  to compare.</param>
-    /// <returns></returns>
     public static bool operator ==(SignedRational left, SignedRational right)
     {
       return Equals(left, right);
@@ -96,7 +95,6 @@ namespace ImageMagick
     /// </summary>
     /// <param name="left">The first <see cref="SignedRational"/> to compare.</param>
     /// <param name="right"> The second <see cref="SignedRational"/> to compare.</param>
-    /// <returns></returns>
     public static bool operator !=(SignedRational left, SignedRational right)
     {
       return !Equals(left, right);
@@ -124,6 +122,7 @@ namespace ImageMagick
     /// Determines whether the specified <see cref="object"/> is equal to this <see cref="SignedRational"/>.
     /// </summary>
     /// <param name="obj">The <see cref="object"/> to compare this <see cref="SignedRational"/> with.</param>
+    /// <returns>True when the specified <see cref="object"/> is equal to this <see cref="SignedRational"/>.</returns>
     public override bool Equals(object obj)
     {
       if (obj is SignedRational)
@@ -136,6 +135,7 @@ namespace ImageMagick
     /// Determines whether the specified <see cref="SignedRational"/> is equal to this <see cref="SignedRational"/>.
     /// </summary>
     /// <param name="other">The <see cref="SignedRational"/> to compare this <see cref="SignedRational"/> with.</param>
+    /// <returns>True when the specified <see cref="SignedRational"/> is equal to this <see cref="SignedRational"/>.</returns>
     public bool Equals(SignedRational other)
     {
       BigRational left = new BigRational(Numerator, Denominator);
@@ -148,6 +148,7 @@ namespace ImageMagick
     /// Converts the specified <see cref="double"/> to an instance of this type.
     /// </summary>
     /// <param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
+    /// <returns>The <see cref="SignedRational"/>.</returns>
     public static SignedRational FromDouble(double value)
     {
       return new SignedRational(value, false);
@@ -158,6 +159,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="value">The <see cref="double"/> to convert to an instance of this type.</param>
     /// <param name="bestPrecision">Specifies if the instance should be created with the best precision possible.</param>
+    /// <returns>The <see cref="SignedRational"/>.</returns>
     public static SignedRational FromDouble(double value, bool bestPrecision)
     {
       return new SignedRational(value, bestPrecision);
@@ -166,6 +168,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       BigRational self = new BigRational(Numerator, Denominator);
@@ -186,6 +189,7 @@ namespace ImageMagick
     /// <summary>
     /// Converts the numeric value of this instance to its equivalent string representation.
     /// </summary>
+    /// <returns>A string representation of this value.</returns>
     public override string ToString()
     {
       return ToString(CultureInfo.InvariantCulture);
@@ -198,7 +202,7 @@ namespace ImageMagick
     /// <param name="provider">
     /// An object that supplies culture-specific formatting information.
     /// </param>
-    /// <returns></returns>
+    /// <returns>A string representation of this value.</returns>
     public string ToString(IFormatProvider provider)
     {
       BigRational rational = new BigRational(Numerator, Denominator);

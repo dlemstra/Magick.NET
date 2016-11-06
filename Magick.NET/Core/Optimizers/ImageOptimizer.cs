@@ -70,8 +70,9 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// When set to true various compression types will be used to find the smallest file. This
-    /// process will take extra time because the file has to be written multiple times.
+    /// Gets or sets a value indicating whether various compression types will be used to find
+    /// the smallest file. This process will take extra time because the file has to be written
+    /// multiple times.
     /// </summary>
     public bool OptimalCompression
     {
@@ -80,20 +81,20 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns true if the supplied file name is supported based on the extension of the file.
+    /// Returns true when the supplied file name is supported based on the extension of the file.
     /// </summary>
     /// <param name="file">The file to check.</param>
-    /// <returns></returns>
+    /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
     public bool IsSupported(FileInfo file)
     {
       return IsSupported(MagickFormatInfo.Create(file));
     }
 
     /// <summary>
-    /// Returns true if the supplied formation information is supported.
+    /// Returns true when the supplied formation information is supported.
     /// </summary>
     /// <param name="formatInfo">The format information to check.</param>
-    /// <returns></returns>
+    /// <returns>True when the supplied formation information is supported.</returns>
     public bool IsSupported(MagickFormatInfo formatInfo)
     {
       if (formatInfo == null)
@@ -109,10 +110,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns true if the supplied file name is supported based on the extension of the file.
+    /// Returns true when the supplied file name is supported based on the extension of the file.
     /// </summary>
     /// <param name="fileName">The name of the file to check.</param>
-    /// <returns></returns>
+    /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
     public bool IsSupported(string fileName)
     {
       return IsSupported(MagickFormatInfo.Create(fileName));

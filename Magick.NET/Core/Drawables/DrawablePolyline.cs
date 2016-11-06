@@ -24,14 +24,8 @@ namespace ImageMagick
   {
     private PointDCoordinates _Coordinates;
 
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Polyline(_Coordinates.ToList());
-    }
-
     /// <summary>
-    /// Creates a new DrawablePolyline instance.
+    /// Initializes a new instance of the <see cref="DrawablePolyline"/> class.
     /// </summary>
     /// <param name="coordinates">The coordinates.</param>
     public DrawablePolyline(params PointD[] coordinates)
@@ -40,12 +34,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawablePolyline instance.
+    /// Initializes a new instance of the <see cref="DrawablePolyline"/> class.
     /// </summary>
     /// <param name="coordinates">The coordinates.</param>
     public DrawablePolyline(IEnumerable<PointD> coordinates)
     {
       _Coordinates = new PointDCoordinates(coordinates, 3);
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Polyline(_Coordinates.ToList());
     }
   }
 }

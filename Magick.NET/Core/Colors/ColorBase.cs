@@ -22,7 +22,7 @@ namespace ImageMagick
   public abstract class ColorBase : IEquatable<ColorBase>, IComparable<ColorBase>
   {
     /// <summary>
-    /// Initializes a new instance of the ColorBase class using the specified color.
+    /// Initializes a new instance of the <see cref="ColorBase"/> class.
     /// </summary>
     /// <param name="color">The color to use.</param>
     protected ColorBase(MagickColor color)
@@ -31,7 +31,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The actual color of this instance.
+    /// Gets the actual color of this instance.
     /// </summary>
     protected MagickColor Value
     {
@@ -47,33 +47,30 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified ColorBase instances are considered equal.
+    /// Determines whether the specified <see cref="ColorBase"/> instances are considered equal.
     /// </summary>
-    /// <param name="left">The first ColorBase to compare.</param>
-    /// <param name="right"> The second ColorBase to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
+    /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
     public static bool operator ==(ColorBase left, ColorBase right)
     {
       return Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified ColorBase instances are not considered equal.
+    /// Determines whether the specified <see cref="ColorBase"/> instances are not considered equal.
     /// </summary>
-    /// <param name="left">The first ColorBase to compare.</param>
-    /// <param name="right"> The second ColorBase to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
+    /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
     public static bool operator !=(ColorBase left, ColorBase right)
     {
       return !Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the first ColorBase is more than the second ColorBase.
+    /// Determines whether the first <see cref="ColorBase"/> is more than the second <see cref="ColorBase"/>
     /// </summary>
-    /// <param name="left">The first ColorBase to compare.</param>
-    /// <param name="right"> The second ColorBase to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
+    /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
     public static bool operator >(ColorBase left, ColorBase right)
     {
       if (ReferenceEquals(left, null))
@@ -83,11 +80,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the first ColorBase is less than the second ColorBase.
+    /// Determines whether the first <see cref="ColorBase"/> is less than the second <see cref="ColorBase"/>.
     /// </summary>
-    /// <param name="left">The first ColorBase to compare.</param>
-    /// <param name="right"> The second ColorBase to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
+    /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
     public static bool operator <(ColorBase left, ColorBase right)
     {
       if (ReferenceEquals(left, null))
@@ -97,11 +93,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the first ColorBase is more than or equal to the second ColorBase.
+    /// Determines whether the first <see cref="ColorBase"/> is more than or equal to the second <see cref="ColorBase"/>.
     /// </summary>
-    /// <param name="left">The first ColorBase to compare.</param>
-    /// <param name="right"> The second ColorBase to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
+    /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
     public static bool operator >=(ColorBase left, ColorBase right)
     {
       if (ReferenceEquals(left, null))
@@ -111,11 +106,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the first ColorBase is less than or equal to the second ColorBase.
+    /// Determines whether the first <see cref="ColorBase"/> is less than or equal to the second <see cref="ColorBase"/>.
     /// </summary>
-    /// <param name="left">The first ColorBase to compare.</param>
-    /// <param name="right"> The second ColorBase to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
+    /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
     public static bool operator <=(ColorBase left, ColorBase right)
     {
       if (ReferenceEquals(left, null))
@@ -125,7 +119,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Converts the specified color to a MagickColor instance.
+    /// Converts the specified color to a <see cref="MagickColor"/> instance.
     /// </summary>
     /// <param name="color">The color to use.</param>
     public static implicit operator MagickColor(ColorBase color)
@@ -140,6 +134,7 @@ namespace ImageMagick
     /// Compares the current instance with another object of the same type.
     /// </summary>
     /// <param name="other">The object to compare this color with.</param>
+    /// <returns>A signed number indicating the relative values of this instance and value.</returns>
     public int CompareTo(ColorBase other)
     {
       if (ReferenceEquals(other, null))
@@ -152,18 +147,20 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified object is equal to the current color.
+    /// Determines whether the specified object is equal to the current instance.
     /// </summary>
     /// <param name="obj">The object to compare this color with.</param>
+    /// <returns>True when the specified object is equal to the current instance.</returns>
     public override bool Equals(object obj)
     {
       return Equals(obj as ColorBase);
     }
 
     /// <summary>
-    /// Determines whether the specified geometry is equal to the current color.
+    /// Determines whether the specified color is equal to the current color.
     /// </summary>
     /// <param name="other">The color to compare this color with.</param>
+    /// <returns>True when the specified color is equal to the current instance.</returns>
     public bool Equals(ColorBase other)
     {
       if (ReferenceEquals(other, null))
@@ -179,10 +176,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified geometry is fuzzy equal to the current color.
+    /// Determines whether the specified color is fuzzy equal to the current color.
     /// </summary>
     /// <param name="other">The color to compare this color with.</param>
     /// <param name="fuzz">The fuzz factor.</param>
+    /// <returns>True when the specified color is fuzzy equal to the current instance.</returns>
     public bool FuzzyEquals(ColorBase other, Percentage fuzz)
     {
       if (ReferenceEquals(other, null))
@@ -200,14 +198,16 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       return Value.GetHashCode();
     }
 
     /// <summary>
-    /// Converts the value of this instance to an equivalent MagickColor.
+    /// Converts the value of this instance to an equivalent <see cref="MagickColor"/>.
     /// </summary>
+    /// <returns>A <see cref="MagickColor"/> instance.</returns>
     public MagickColor ToMagickColor()
     {
       UpdateValue();
@@ -218,6 +218,7 @@ namespace ImageMagick
     /// <summary>
     /// Converts the value of this instance to a hexadecimal string.
     /// </summary>
+    /// <returns>The <see cref="string"/>.</returns>
     public override string ToString()
     {
       return ToMagickColor().ToString();

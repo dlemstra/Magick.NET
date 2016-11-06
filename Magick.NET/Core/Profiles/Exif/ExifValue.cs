@@ -459,7 +459,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The data type of the exif value.
+    /// Gets the data type of the exif value.
     /// </summary>
     public ExifDataType DataType
     {
@@ -468,7 +468,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns true if the value is an array.
+    /// Gets a value indicating whether the value is an array.
     /// </summary>
     public bool IsArray
     {
@@ -477,7 +477,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The tag of the exif value.
+    /// Gets the tag of the exif value.
     /// </summary>
     public ExifTag Tag
     {
@@ -486,7 +486,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The value.
+    /// Gets or sets the value.
     /// </summary>
     public object Value
     {
@@ -502,31 +502,30 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified ExifValue instances are considered equal.
+    /// Determines whether the specified <see cref="ExifValue"/> instances are considered equal.
     /// </summary>
-    /// <param name="left">The first ExifValue to compare.</param>
-    /// <param name="right"> The second ExifValue to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="ExifValue"/> to compare.</param>
+    /// <param name="right"> The second <see cref="ExifValue"/>to compare.</param>
     public static bool operator ==(ExifValue left, ExifValue right)
     {
       return Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified ExifValue instances are not considered equal.
+    /// Determines whether the specified <see cref="ExifValue"/> instances are not considered equal.
     /// </summary>
-    /// <param name="left">The first ExifValue to compare.</param>
-    /// <param name="right"> The second ExifValue to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="ExifValue"/> to compare.</param>
+    /// <param name="right"> The second <see cref="ExifValue"/> to compare.</param>
     public static bool operator !=(ExifValue left, ExifValue right)
     {
       return !Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified object is equal to the current exif value.
+    /// Determines whether the specified object is equal to the current <see cref="ExifValue"/>.
     /// </summary>
-    /// <param name="obj">The object to compare this exif value with.</param>
+    /// <param name="obj">The object to compare this <see cref="ExifValue"/> with.</param>
+    /// <returns>True when the specified object is equal to the current <see cref="ExifValue"/>.</returns>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -536,9 +535,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified exif value is equal to the current exif value.
+    /// Determines whether the specified exif value is equal to the current <see cref="ExifValue"/>.
     /// </summary>
-    /// <param name="other">The exif value to compare this exif value with.</param>
+    /// <param name="other">The exif value to compare this <see cref="ExifValue"/> with.</param>
+    /// <returns>True when the specified exif value is equal to the current <see cref="ExifValue"/>.</returns>
     public bool Equals(ExifValue other)
     {
       if (ReferenceEquals(other, null))
@@ -556,6 +556,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       int hashCode = Tag.GetHashCode() ^ DataType.GetHashCode();
@@ -565,6 +566,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns a string that represents the current value.
     /// </summary>
+    /// <returns>A string that represents the current value.</returns>
     public override string ToString()
     {
       if (_Value == null)

@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableStrokeOpacity : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeOpacity((double)Opacity / 100);
-    }
-
     /// <summary>
-    /// Creates a new DrawableStrokeOpacity instance.
+    /// Initializes a new instance of the <see cref="DrawableStrokeOpacity"/> class.
     /// </summary>
     /// <param name="opacity">The opacity.</param>
     public DrawableStrokeOpacity(Percentage opacity)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The opacity.
+    /// Gets or sets the opacity.
     /// </summary>
     public Percentage Opacity
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.StrokeOpacity((double)Opacity / 100);
     }
   }
 }

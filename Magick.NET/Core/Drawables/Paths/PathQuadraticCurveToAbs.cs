@@ -24,14 +24,8 @@ namespace ImageMagick
     private PointD _ControlPoint;
     private PointD _End;
 
-    void IPath.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.PathQuadraticCurveToAbs(_ControlPoint, _End);
-    }
-
     /// <summary>
-    /// Initializes a new instance of the PathQuadraticCurveToAbs class.
+    /// Initializes a new instance of the <see cref="PathQuadraticCurveToAbs"/> class.
     /// </summary>
     /// <param name="x1">X coordinate of control point</param>
     /// <param name="y1">Y coordinate of control point</param>
@@ -43,7 +37,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathQuadraticCurveToAbs class.
+    /// Initializes a new instance of the <see cref="PathQuadraticCurveToAbs"/> class.
     /// </summary>
     /// <param name="controlPoint">Coordinate of control point</param>
     /// <param name="end">Coordinate of final point</param>
@@ -51,6 +45,16 @@ namespace ImageMagick
     {
       _ControlPoint = controlPoint;
       _End = end;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IPath.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PathQuadraticCurveToAbs(_ControlPoint, _End);
     }
   }
 }

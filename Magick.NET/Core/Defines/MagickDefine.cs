@@ -20,8 +20,10 @@ namespace ImageMagick
   public sealed class MagickDefine : IDefine
   {
     /// <summary>
-    /// Initializes a new instance of the MagickDefine class.
+    /// Initializes a new instance of the <see cref="MagickDefine"/> class.
     /// </summary>
+    /// <param name="name">The name of the define.</param>
+    /// <param name="value">The value of the define.</param>
     public MagickDefine(string name, string value)
     {
       Format = MagickFormat.Unknown;
@@ -30,8 +32,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the MagickDefine class.
+    /// Initializes a new instance of the <see cref="MagickDefine"/> class.
     /// </summary>
+    /// <param name="format">The format of the define.</param>
+    /// <param name="name">The name of the define.</param>
+    /// <param name="value">The value of the define.</param>
     public MagickDefine(MagickFormat format, string name, string value)
     {
       Format = format;
@@ -40,7 +45,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The format to set the define for.
+    /// Gets the format to set the define for.
     /// </summary>
     public MagickFormat Format
     {
@@ -49,7 +54,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The name of the define.
+    /// Gets the name of the define.
     /// </summary>
     public string Name
     {
@@ -58,7 +63,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The value of the define.
+    /// Gets the value of the define.
     /// </summary>
     public string Value
     {

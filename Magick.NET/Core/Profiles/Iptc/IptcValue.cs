@@ -50,7 +50,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The encoding to use for the Value.
+    /// Gets or sets the encoding to use for the Value.
     /// </summary>
     public Encoding Encoding
     {
@@ -67,7 +67,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The tag of the iptc value.
+    /// Gets the tag of the iptc value.
     /// </summary>
     public IptcTag Tag
     {
@@ -76,7 +76,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The value.
+    /// Gets or sets the value.
     /// </summary>
     public string Value
     {
@@ -94,31 +94,30 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified IptcValue instances are considered equal.
+    /// Determines whether the specified <see cref="IptcValue"/> instances are considered equal.
     /// </summary>
-    /// <param name="left">The first IptcValue to compare.</param>
-    /// <param name="right"> The second IptcValue to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="IptcValue"/> to compare.</param>
+    /// <param name="right"> The second <see cref="IptcValue"/> to compare.</param>
     public static bool operator ==(IptcValue left, IptcValue right)
     {
-      return object.Equals(left, right);
+      return Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified ImageProfile instances are not considered equal.
+    /// Determines whether the specified <see cref="IptcValue"/> instances are not considered equal.
     /// </summary>
-    /// <param name="left">The first IptcValue to compare.</param>
-    /// <param name="right"> The second IptcValue to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="IptcValue"/> to compare.</param>
+    /// <param name="right"> The second <see cref="IptcValue"/> to compare.</param>
     public static bool operator !=(IptcValue left, IptcValue right)
     {
-      return !object.Equals(left, right);
+      return !Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified object is equal to the current iptc value.
+    /// Determines whether the specified object is equal to the current <see cref="IptcValue"/>.
     /// </summary>
-    /// <param name="obj">The object to compare this iptc value with.</param>
+    /// <param name="obj">The object to compare this <see cref="IptcValue"/> with.</param>
+    /// <returns>True when the specified object is equal to the current <see cref="IptcValue"/>.</returns>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -128,9 +127,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified iptc value is equal to the current iptc value.
+    /// Determines whether the specified iptc value is equal to the current <see cref="IptcValue"/>.
     /// </summary>
-    /// <param name="other">The iptc value to compare this iptc value with.</param>
+    /// <param name="other">The iptc value to compare this <see cref="IptcValue"/> with.</param>
+    /// <returns>True when the specified iptc value is equal to the current <see cref="IptcValue"/>.</returns>
     public bool Equals(IptcValue other)
     {
       if (ReferenceEquals(other, null))
@@ -163,6 +163,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       return
@@ -173,6 +174,7 @@ namespace ImageMagick
     /// <summary>
     /// Converts this instance to a byte array.
     /// </summary>
+    /// <returns>A <see cref="byte"/> array.</returns>
     public byte[] ToByteArray()
     {
       byte[] result = new byte[_Data.Length];
@@ -183,6 +185,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns a string that represents the current value.
     /// </summary>
+    /// <returns>A string that represents the current value.</returns>
     public override string ToString()
     {
       return Value;
@@ -191,6 +194,8 @@ namespace ImageMagick
     /// <summary>
     /// Returns a string that represents the current value with the specified encoding.
     /// </summary>
+    /// <param name="encoding">The encoding to use.</param>
+    /// <returns>A string that represents the current value with the specified encoding.</returns>
     public string ToString(Encoding encoding)
     {
       Throw.IfNull(nameof(encoding), encoding);

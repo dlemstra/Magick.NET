@@ -28,7 +28,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Type of the log message.
+    /// Gets the type of the log message.
     /// </summary>
     public LogEvents EventType
     {
@@ -37,7 +37,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Type of the log message.
+    /// Gets the type of the log message.
     /// </summary>
     public string Message
     {

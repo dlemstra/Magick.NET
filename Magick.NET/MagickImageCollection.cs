@@ -12,16 +12,15 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
 namespace ImageMagick
 {
+  /// <content>
+  /// Contains code that is not compatible with .NET Core.
+  /// </content>
   public sealed partial class MagickImageCollection
   {
     private void SetFormat(ImageFormat format)
@@ -30,17 +29,20 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Converts the images in this instance to a bitmap using ImageFormat.Tiff.
+    /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Tiff"/>.
     /// </summary>
+    /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Tiff"/>.</returns>
     public Bitmap ToBitmap()
     {
       return ToBitmap(ImageFormat.Tiff);
     }
 
     /// <summary>
-    /// Converts the images in this instance to a bitmap using the specified ImageFormat.
+    /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
     /// Supported formats are: Gif, Icon, Tiff.
     /// </summary>
+    /// <param name="imageFormat">The image format.</param>
+    /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
     public Bitmap ToBitmap(ImageFormat imageFormat)
     {
       SetFormat(imageFormat);

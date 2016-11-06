@@ -140,14 +140,14 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the MagickColor class.
+    /// Initializes a new instance of the <see cref="MagickColor"/> class.
     /// </summary>
     public MagickColor()
     {
     }
 
     /// <summary>
-    /// Initializes a new instance of the ColorBase class using the specified color.
+    /// Initializes a new instance of the <see cref="MagickColor"/> class.
     /// </summary>
     /// <param name="color">The color to use.</param>
     public MagickColor(MagickColor color)
@@ -163,14 +163,14 @@ namespace ImageMagick
 
 #if Q8
     /// <summary>
-    /// Initializes a new instance of the MagickColor class.
+    /// Initializes a new instance of the <see cref="MagickColor"/> class.
     /// </summary>
     /// <param name="red">Red component value of this color (0-255).</param>
     /// <param name="green">Green component value of this color (0-255).</param>
     /// <param name="blue">Blue component value of this color (0-255).</param>
 #elif Q16 || Q16HDRI
     /// <summary>
-    /// Initializes a new instance of the MagickColor class.
+    /// Initializes a new instance of the <see cref="MagickColor"/> class.
     /// </summary>
     /// <param name="red">Red component value of this color (0-65535).</param>
     /// <param name="green">Green component value of this color (0-65535).</param>
@@ -186,7 +186,7 @@ namespace ImageMagick
 
 #if Q8
     /// <summary>
-    /// Initializes a new instance of the MagickColor class.
+    /// Initializes a new instance of the <see cref="MagickColor"/> class.
     /// </summary>
     /// <param name="red">Red component value of this color (0-255).</param>
     /// <param name="green">Green component value of this color (0-255).</param>
@@ -194,7 +194,7 @@ namespace ImageMagick
     /// <param name="alpha">Alpha component value of this color (0-255).</param>
 #elif Q16 || Q16HDRI
     /// <summary>
-    /// Initializes a new instance of the MagickColor class.
+    /// Initializes a new instance of the <see cref="MagickColor"/> class.
     /// </summary>
     /// <param name="red">Red component value of this color (0-65535).</param>
     /// <param name="green">Green component value of this color (0-65535).</param>
@@ -210,7 +210,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the MagickColor class.
+    /// Initializes a new instance of the <see cref="MagickColor"/> class.
     /// </summary>
     /// <param name="cyan">Cyan component value of this color.</param>
     /// <param name="magenta">Magenta component value of this color.</param>
@@ -229,18 +229,16 @@ namespace ImageMagick
 
 #if Q8
     /// <summary>
-    /// Initializes a new instance of the MagickColor class using the specified RGBA hex string or
-    /// name of the color (http://www.imagemagick.org/script/color.php).
-    /// For example: #F00, #F00C, #FF0000, #FF0000CC
+    /// Initializes a new instance of the <see cref="MagickColor"/> class.
     /// </summary>
-    /// <param name="color">The RGBA/CMYK hex string or name of the color.</param>
+    /// <param name="color">The RGBA/CMYK hex string or name of the color (http://www.imagemagick.org/script/color.php).
+    /// For example: #F000, #FF000000</param>
 #elif Q16 || Q16HDRI
     /// <summary>
-    /// Initializes a new instance of the MagickColor class using the specified RGBA hex string or
-    /// name of the color (http://www.imagemagick.org/script/color.php).
-    /// For example: #F00, #F00C, #FF0000, #FF0000CC, #FFFF00000000, #FFFF00000000CCCC
+    /// Initializes a new instance of the <see cref="MagickColor"/> class.
     /// </summary>
-    /// <param name="color">The RGBA/CMYK hex string or name of the color.</param>
+    /// <param name="color">The RGBA/CMYK hex string or name of the color (http://www.imagemagick.org/script/color.php).
+    /// For example: #F000, #FF000000, #FFFF000000000000</param>
 #else
 #error Not implemented!
 #endif
@@ -268,33 +266,30 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified MagickColor instances are considered equal.
+    /// Determines whether the specified <see cref="MagickColor"/> instances are considered equal.
     /// </summary>
-    /// <param name="left">The first MagickColor to compare.</param>
-    /// <param name="right"> The second MagickColor to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
+    /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
     public static bool operator ==(MagickColor left, MagickColor right)
     {
       return Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the specified MagickColor instances are not considered equal.
+    /// Determines whether the specified <see cref="MagickColor"/> instances are not considered equal.
     /// </summary>
-    /// <param name="left">The first MagickColor to compare.</param>
-    /// <param name="right"> The second MagickColor to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
+    /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
     public static bool operator !=(MagickColor left, MagickColor right)
     {
       return !Equals(left, right);
     }
 
     /// <summary>
-    /// Determines whether the first MagickColor is more than the second MagickColor.
+    /// Determines whether the first <see cref="MagickColor"/> is more than the second <see cref="MagickColor"/>.
     /// </summary>
-    /// <param name="left">The first MagickColor to compare.</param>
-    /// <param name="right"> The second MagickColor to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
+    /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
     public static bool operator >(MagickColor left, MagickColor right)
     {
       if (ReferenceEquals(left, null))
@@ -304,11 +299,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the first MagickColor is less than the second MagickColor.
+    /// Determines whether the first <see cref="MagickColor"/> is less than the second <see cref="MagickColor"/>.
     /// </summary>
-    /// <param name="left">The first MagickColor to compare.</param>
-    /// <param name="right"> The second MagickColor to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
+    /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
     public static bool operator <(MagickColor left, MagickColor right)
     {
       if (ReferenceEquals(left, null))
@@ -318,11 +312,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the first MagickColor is more than or equal to the second MagickColor.
+    /// Determines whether the first <see cref="MagickColor"/> is more than or equal to the second <see cref="MagickColor"/>.
     /// </summary>
-    /// <param name="left">The first MagickColor to compare.</param>
-    /// <param name="right"> The second MagickColor to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
+    /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
     public static bool operator >=(MagickColor left, MagickColor right)
     {
       if (ReferenceEquals(left, null))
@@ -332,11 +325,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the first MagickColor is less than or equal to the second MagickColor.
+    /// Determines whether the first <see cref="MagickColor"/> is less than or equal to the second <see cref="MagickColor"/>.
     /// </summary>
-    /// <param name="left">The first MagickColor to compare.</param>
-    /// <param name="right"> The second MagickColor to compare.</param>
-    /// <returns></returns>
+    /// <param name="left">The first <see cref="MagickColor"/> to compare.</param>
+    /// <param name="right"> The second <see cref="MagickColor"/> to compare.</param>
     public static bool operator <=(MagickColor left, MagickColor right)
     {
       if (ReferenceEquals(left, null))
@@ -346,7 +338,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Alpha component value of this color.
+    /// Gets or sets the alpha component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -358,7 +350,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Blue component value of this color.
+    /// Gets or sets the blue component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -370,7 +362,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Green component value of this color.
+    /// Gets or sets the green component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -382,7 +374,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Key (black) component value of this color.
+    /// Gets or sets the key (black) component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -394,7 +386,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Red component value of this color.
+    /// Gets or sets the red component value of this color.
     /// </summary>
 #if Q16
     [CLSCompliant(false)]
@@ -409,6 +401,7 @@ namespace ImageMagick
     /// Compares the current instance with another object of the same type.
     /// </summary>
     /// <param name="other">The color to compare this color with.</param>
+    /// <returns>A signed number indicating the relative values of this instance and value.</returns>
     public int CompareTo(MagickColor other)
     {
       if (ReferenceEquals(other, null))
@@ -451,6 +444,7 @@ namespace ImageMagick
     /// Determines whether the specified object is equal to the current color.
     /// </summary>
     /// <param name="obj">The object to compare this color with.</param>
+    /// <returns>True when the specified object is equal to the current color.</returns>
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(this, obj))
@@ -463,6 +457,7 @@ namespace ImageMagick
     /// Determines whether the specified color is equal to the current color.
     /// </summary>
     /// <param name="other">The color to compare this color with.</param>
+    /// <returns>True when the specified color is equal to the current color.</returns>
     public bool Equals(MagickColor other)
     {
       if (ReferenceEquals(other, null))
@@ -481,12 +476,13 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new MagickColor instance from the specified 8-bit color values (red, green,
+    /// Creates a new <see cref="MagickColor"/> instance from the specified 8-bit color values (red, green,
     /// and blue). The alpha value is implicitly 255 (fully opaque).
     /// </summary>
     /// <param name="red">Red component value of this color.</param>
     /// <param name="green">Green component value of this color.</param>
     /// <param name="blue">Blue component value of this color.</param>
+    /// <returns>A <see cref="MagickColor"/> instance.</returns>
     public static MagickColor FromRgb(byte red, byte green, byte blue)
     {
       MagickColor color = new MagickColor();
@@ -495,13 +491,14 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new MagickColor instance from the specified 8-bit color values (red, green,
+    /// Creates a new <see cref="MagickColor"/> instance from the specified 8-bit color values (red, green,
     /// blue and alpha).
     /// </summary>
     /// <param name="red">Red component value of this color.</param>
     /// <param name="green">Green component value of this color.</param>
     /// <param name="blue">Blue component value of this color.</param>
     /// <param name="alpha">Alpha component value of this color.</param>
+    /// <returns>A <see cref="MagickColor"/> instance.</returns>
     public static MagickColor FromRgba(byte red, byte green, byte blue, byte alpha)
     {
       MagickColor color = new MagickColor();
@@ -510,10 +507,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Determines whether the specified geometry is fuzzy equal to the current color.
+    /// Determines whether the specified color is fuzzy equal to the current color.
     /// </summary>
     /// <param name="other">The color to compare this color with.</param>
     /// <param name="fuzz">The fuzz factor.</param>
+    /// <returns>True when the specified color is fuzzy equal to the current instance.</returns>
     public bool FuzzyEquals(MagickColor other, Percentage fuzz)
     {
       if (ReferenceEquals(other, null))
@@ -528,6 +526,7 @@ namespace ImageMagick
     /// <summary>
     /// Serves as a hash of this type.
     /// </summary>
+    /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
       return
@@ -542,6 +541,7 @@ namespace ImageMagick
     /// <summary>
     /// Converts the value of this instance to a hexadecimal string.
     /// </summary>
+    /// <returns>The <see cref="string"/>.</returns>
     public override string ToString()
     {
       if (_IsCmyk)

@@ -21,12 +21,6 @@ namespace ImageMagick
   {
     private MagickImage _Image;
 
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Composite(X, Y, Width, Height, Compose, _Image);
-    }
-
     private DrawableComposite(MagickImage image)
     {
       Throw.IfNull(nameof(image), image);
@@ -35,7 +29,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableCompositeImage instance.
+    /// Initializes a new instance of the <see cref="DrawableComposite"/> class.
     /// </summary>
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
@@ -51,7 +45,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableCompositeImage instance.
+    /// Initializes a new instance of the <see cref="DrawableComposite"/> class.
     /// </summary>
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
@@ -68,7 +62,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableCompositeImage instance.
+    /// Initializes a new instance of the <see cref="DrawableComposite"/> class.
     /// </summary>
     /// <param name="offset">The offset from origin.</param>
     /// <param name="image">The image to draw.</param>
@@ -85,7 +79,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableCompositeImage instance.
+    /// Initializes a new instance of the <see cref="DrawableComposite"/> class.
     /// </summary>
     /// <param name="offset">The offset from origin.</param>
     /// <param name="compose">The algorithm to use.</param>
@@ -103,7 +97,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The height to scale the image to.
+    /// Gets or sets the height to scale the image to.
     /// </summary>
     public CompositeOperator Compose
     {
@@ -112,7 +106,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The height to scale the image to.
+    /// Gets or sets the height to scale the image to.
     /// </summary>
     public double Height
     {
@@ -121,7 +115,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The width to scale the image to.
+    /// Gets or sets the width to scale the image to.
     /// </summary>
     public double Width
     {
@@ -130,7 +124,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The X coordinate.
+    /// Gets or sets the X coordinate.
     /// </summary>
     public double X
     {
@@ -139,12 +133,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y coordinate.
+    /// Gets or sets the Y coordinate.
     /// </summary>
     public double Y
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Composite(X, Y, Width, Height, Compose, _Image);
     }
   }
 }

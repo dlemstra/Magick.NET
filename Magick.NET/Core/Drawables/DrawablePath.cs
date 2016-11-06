@@ -23,6 +23,39 @@ namespace ImageMagick
   {
     private List<IPath> _Paths;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DrawablePath"/> class.
+    /// </summary>
+    /// <param name="paths">The paths to use.</param>
+    public DrawablePath(params IPath[] paths)
+    {
+      _Paths = new List<IPath>(paths);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DrawablePath"/> class.
+    /// </summary>
+    /// <param name="paths">The paths to use.</param>
+    public DrawablePath(IEnumerable<IPath> paths)
+    {
+      _Paths = new List<IPath>(paths);
+    }
+
+    /// <summary>
+    /// Gets the paths to use.
+    /// </summary>
+    public IEnumerable<IPath> Paths
+    {
+      get
+      {
+        return _Paths;
+      }
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
     void IDrawable.Draw(IDrawingWand wand)
     {
       if (wand == null)
@@ -32,35 +65,6 @@ namespace ImageMagick
       foreach (IPath path in _Paths)
         path.Draw(wand);
       wand.PathFinish();
-    }
-
-    /// <summary>
-    /// Creates a new DrawablePath instance.
-    /// </summary>
-    /// <param name="paths">The paths to use.</param>
-    public DrawablePath(params IPath[] paths)
-    {
-      _Paths = new List<IPath>(paths);
-    }
-
-    /// <summary>
-    /// Creates a new DrawablePath instance.
-    /// </summary>
-    /// <param name="paths">The paths to use.</param>
-    public DrawablePath(IEnumerable<IPath> paths)
-    {
-      _Paths = new List<IPath>(paths);
-    }
-
-    /// <summary>
-    /// >The paths to use.
-    /// </summary>
-    public IEnumerable<IPath> Paths
-    {
-      get
-      {
-        return _Paths;
-      }
     }
   }
 }

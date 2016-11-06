@@ -26,14 +26,14 @@ namespace ImageMagick
   public sealed class PathArc
   {
     /// <summary>
-    /// Initializes a new instance of the PathArc class.
+    /// Initializes a new instance of the <see cref="PathArc"/> class.
     /// </summary>
     public PathArc()
     {
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathArc class.
+    /// Initializes a new instance of the <see cref="PathArc"/> class.
     /// </summary>
     /// <param name="x">The X offset from origin.</param>
     /// <param name="y">The Y offset from origin.</param>
@@ -55,7 +55,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The X radius.
+    /// Gets or sets the X radius.
     /// </summary>
     public double RadiusX
     {
@@ -64,7 +64,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y radius.
+    /// Gets or sets the Y radius.
     /// </summary>
     public double RadiusY
     {
@@ -73,7 +73,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Indicates how the ellipse as a whole is rotated relative to the current coordinate system.
+    /// Gets or sets how the ellipse as a whole is rotated relative to the current coordinate system.
     /// </summary>
     public double RotationX
     {
@@ -82,7 +82,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// If true then draw the larger of the available arcs.
+    /// Gets or sets a value indicating whetherthe larger of the available arcs should be drawn.
     /// </summary>
     public bool UseLargeArc
     {
@@ -91,7 +91,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// If true then draw the arc matching a clock-wise rotation.
+    /// Gets or sets a value indicating whether the arc should be drawn matching a clock-wise rotation.
     /// </summary>
     public bool UseSweep
     {
@@ -100,7 +100,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The X offset from origin.
+    /// Gets or sets the X offset from origin.
     /// </summary>
     public double X
     {
@@ -109,7 +109,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The Y offset from origin.
+    /// Gets or sets the Y offset from origin.
     /// </summary>
     public double Y
     {

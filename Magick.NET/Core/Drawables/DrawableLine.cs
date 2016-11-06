@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableLine : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.Line(StartX, StartY, EndX, EndY);
-    }
-
     /// <summary>
-    /// Creates a new DrawableLine instance.
+    /// Initializes a new instance of the <see cref="DrawableLine"/> class.
     /// </summary>
     /// <param name="startX">The starting X coordinate.</param>
     /// <param name="startY">The starting Y coordinate.</param>
@@ -41,7 +35,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ending X coordinate.
+    /// Gets or sets the ending X coordinate.
     /// </summary>
     public double EndX
     {
@@ -50,7 +44,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The ending Y coordinate.
+    /// Gets or sets the ending Y coordinate.
     /// </summary>
     public double EndY
     {
@@ -59,7 +53,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The starting X coordinate.
+    /// Gets or sets the starting X coordinate.
     /// </summary>
     public double StartX
     {
@@ -68,12 +62,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The starting Y coordinate.
+    /// Gets or sets the starting Y coordinate.
     /// </summary>
     public double StartY
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.Line(StartX, StartY, EndX, EndY);
     }
   }
 }

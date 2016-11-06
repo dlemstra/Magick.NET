@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableTextAntialias : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.TextAntialias(IsEnabled);
-    }
-
     /// <summary>
-    /// Creates a new DrawableTextAntialias instance.
+    /// Initializes a new instance of the <see cref="DrawableTextAntialias"/> class.
     /// </summary>
     /// <param name="isEnabled">True if text antialiasing is enabled otherwise false.</param>
     public DrawableTextAntialias(bool isEnabled)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// True if text antialiasing is enabled otherwise false.
+    /// Gets or sets a value indicating whether text antialiasing is enabled or disabled.
     /// </summary>
     public bool IsEnabled
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.TextAntialias(IsEnabled);
     }
   }
 }

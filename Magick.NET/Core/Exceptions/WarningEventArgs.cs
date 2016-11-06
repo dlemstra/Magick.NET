@@ -22,7 +22,7 @@ namespace ImageMagick
   public sealed class WarningEventArgs : EventArgs
   {
     /// <summary>
-    /// Initializes a new instance of the WarningEventArgs class.
+    /// Initializes a new instance of the <see cref="WarningEventArgs"/> class.
     /// </summary>
     /// <param name="exception">The MagickWarningException that was thrown.</param>
     public WarningEventArgs(MagickWarningException exception)
@@ -31,7 +31,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The message of the exception
+    /// Gets the message of the exception
     /// </summary>
     public string Message
     {
@@ -42,7 +42,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The MagickWarningException that was thrown
+    /// Gets the MagickWarningException that was thrown
     /// </summary>
     public MagickWarningException Exception
     {

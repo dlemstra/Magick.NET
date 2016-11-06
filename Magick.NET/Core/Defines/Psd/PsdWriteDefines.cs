@@ -30,6 +30,9 @@ namespace ImageMagick
     {
     }
 
+    /// <summary>
+    /// Gets the format where the defines are for.
+    /// </summary>
     MagickFormat IWriteDefines.Format
     {
       get
@@ -39,7 +42,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Specifies which additional info should be written to the output file.
+    /// Gets or sets which additional info should be written to the output file.
     /// </summary>
     public PsdAdditionalInfo AdditionalInfo
     {
@@ -48,7 +51,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The defines that should be set as a define on an image.
+    /// Gets the defines that should be set as a define on an image.
     /// </summary>
     public override IEnumerable<IDefine> Defines
     {

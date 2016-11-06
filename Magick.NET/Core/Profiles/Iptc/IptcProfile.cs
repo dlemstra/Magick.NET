@@ -88,7 +88,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the IptcProfile class.
+    /// Initializes a new instance of the <see cref="IptcProfile"/> class.
     /// </summary>
     public IptcProfile()
       : base("iptc")
@@ -96,7 +96,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the IptcProfile class.
+    /// Initializes a new instance of the <see cref="IptcProfile"/> class.
     /// </summary>
     /// <param name="data">The byte array to read the iptc profile from.</param>
     public IptcProfile(byte[] data)
@@ -105,7 +105,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the IptcProfile class.
+    /// Initializes a new instance of the <see cref="IptcProfile"/> class.
     /// </summary>
     /// <param name="fileName">The fully qualified name of the iptc profile file, or the relative
     /// iptc profile file name.</param>
@@ -115,7 +115,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the IptcProfile class.
+    /// Initializes a new instance of the <see cref="IptcProfile"/> class.
     /// </summary>
     /// <param name="stream">The stream to read the iptc profile from.</param>
     public IptcProfile(Stream stream)
@@ -124,7 +124,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Returns the values of this iptc profile.
+    /// Gets the values of this iptc profile.
     /// </summary>
     public IEnumerable<IptcValue> Values
     {
@@ -139,6 +139,7 @@ namespace ImageMagick
     /// Returns the value with the specified tag.
     /// </summary>
     /// <param name="tag">The tag of the iptc value.</param>
+    /// <returns>The value with the specified tag.</returns>
     public IptcValue GetValue(IptcTag tag)
     {
       foreach (IptcValue iptcValue in Values)
@@ -154,6 +155,7 @@ namespace ImageMagick
     /// Removes the value with the specified tag.
     /// </summary>
     /// <param name="tag">The tag of the iptc value.</param>
+    /// <returns>True when the value was fount and removed.</returns>
     public bool RemoveValue(IptcTag tag)
     {
       Initialize();

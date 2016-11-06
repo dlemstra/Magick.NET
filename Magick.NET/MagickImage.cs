@@ -53,10 +53,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the MagickImage class using the specified bitmap.
+    /// Initializes a new instance of the <see cref="MagickImage"/> class.
     /// </summary>
     /// <param name="bitmap">The bitmap to use.</param>
-    /// <exception cref="MagickException"/>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public MagickImage(Bitmap bitmap)
       : this()
     {
@@ -67,7 +67,7 @@ namespace ImageMagick
     /// Read single image frame.
     /// </summary>
     /// <param name="bitmap">The bitmap to read the image from.</param>
-    /// <exception cref="MagickException"/>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(Bitmap bitmap)
     {
       Throw.IfNull(nameof(bitmap), bitmap);
@@ -85,8 +85,9 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Converts this instance to a bitmap using ImageFormat.Bitmap.
+    /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Bmp"/>.
     /// </summary>
+    /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
     public Bitmap ToBitmap()
     {
       if (ColorSpace == ColorSpace.CMYK)
@@ -119,9 +120,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Converts this instance to a bitmap using the specified ImageFormat. Supported formats are:
-    /// Bmp, Gif, Icon, Jpeg, Png, Tiff.
+    /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
+    /// Supported formats are: Bmp, Gif, Icon, Jpeg, Png, Tiff.
     /// </summary>
+    /// <param name="imageFormat">The image format.</param>
+    /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/></returns>
     public Bitmap ToBitmap(ImageFormat imageFormat)
     {
       Format = MagickFormatInfo.GetFormat(imageFormat);
@@ -135,8 +138,9 @@ namespace ImageMagick
 
 #if !NET20
     /// <summary>
-    /// Converts this instance to a BitmapSource.
+    /// Converts this instance to a <see cref="BitmapSource"/>.
     /// </summary>
+    /// <returns>A <see cref="BitmapSource"/>.</returns>
     public BitmapSource ToBitmapSource()
     {
       string mapping = "RGB";

@@ -60,7 +60,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The height of the area.
+    /// Gets the height of the area.
     /// </summary>
     public int Height
     {
@@ -69,7 +69,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The width of the area.
+    /// Gets the width of the area.
     /// </summary>
     public int Width
     {
@@ -78,7 +78,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// X offset from origin
+    /// Gets the X offset from origin.
     /// </summary>
     public int X
     {
@@ -87,7 +87,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Y offset from origin
+    /// Gets the Y offset from origin.
     /// </summary>
     public int Y
     {
@@ -98,6 +98,7 @@ namespace ImageMagick
     /// <summary>
     /// Returns the geometry of the area of this connected component.
     /// </summary>
+    /// <returns>The geometry of the area of this connected component.</returns>
     public MagickGeometry ToGeometry()
     {
       return new MagickGeometry(X, Y, Width, Height);
@@ -106,7 +107,8 @@ namespace ImageMagick
     /// <summary>
     /// Returns the geometry of the area of this connected component.
     /// </summary>
-    /// <param name="extent">The number of pixels to extent the image width.</param>
+    /// <param name="extent">The number of pixels to extent the image with.</param>
+    /// <returns>The geometry of the area of this connected component.</returns>
     public MagickGeometry ToGeometry(int extent)
     {
       int extra;

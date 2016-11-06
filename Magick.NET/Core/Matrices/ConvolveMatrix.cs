@@ -26,7 +26,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new ConvolveMatrix instance with the specified order.
+    /// Initializes a new instance of the <see cref="ConvolveMatrix"/> class.
     /// </summary>
     /// <param name="order">The order.</param>
     public ConvolveMatrix(int order)
@@ -36,7 +36,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new ConvolveMatrix instance with the specified order.
+    /// Initializes a new instance of the <see cref="ConvolveMatrix"/> class.
     /// </summary>
     /// <param name="order">The order.</param>
     /// <param name="values">The values to initialize the matrix with.</param>

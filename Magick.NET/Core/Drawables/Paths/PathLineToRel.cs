@@ -24,14 +24,8 @@ namespace ImageMagick
   {
     private PointDCoordinates _Coordinates;
 
-    void IPath.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.PathLineToRel(_Coordinates.ToList());
-    }
-
     /// <summary>
-    /// Initializes a new instance of the PathLineToRel class.
+    /// Initializes a new instance of the <see cref="PathLineToRel"/> class.
     /// </summary>
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
@@ -41,7 +35,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathLineToRel class.
+    /// Initializes a new instance of the <see cref="PathLineToRel"/> class.
     /// </summary>
     /// <param name="coordinates">The coordinates to use.</param>
     public PathLineToRel(params PointD[] coordinates)
@@ -50,12 +44,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathLineToRel class.
+    /// Initializes a new instance of the <see cref="PathLineToRel"/> class.
     /// </summary>
     /// <param name="coordinates">The coordinates to use.</param>
     public PathLineToRel(IEnumerable<PointD> coordinates)
     {
       _Coordinates = new PointDCoordinates(coordinates);
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IPath.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.PathLineToRel(_Coordinates.ToList());
     }
   }
 }

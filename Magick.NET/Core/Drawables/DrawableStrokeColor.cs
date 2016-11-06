@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed partial class DrawableStrokeColor : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.StrokeColor(Color);
-    }
-
     /// <summary>
-    /// Creates a new DrawableStrokeColor instance.
+    /// Initializes a new instance of the <see cref="DrawableStrokeColor"/> class.
     /// </summary>
     /// <param name="color">The color to use.</param>
     public DrawableStrokeColor(MagickColor color)
@@ -37,12 +31,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The color to use.
+    /// Gets or sets the color to use.
     /// </summary>
     public MagickColor Color
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.StrokeColor(Color);
     }
   }
 }

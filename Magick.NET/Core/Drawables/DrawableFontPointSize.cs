@@ -19,14 +19,8 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableFontPointSize : IDrawable
   {
-    void IDrawable.Draw(IDrawingWand wand)
-    {
-      if (wand != null)
-        wand.FontPointSize(PointSize);
-    }
-
     /// <summary>
-    /// Creates a new DrawablePointSize instance.
+    /// Initializes a new instance of the <see cref="DrawableFontPointSize"/> class.
     /// </summary>
     /// <param name="pointSize">The point size.</param>
     public DrawableFontPointSize(double pointSize)
@@ -35,12 +29,22 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// The point size.
+    /// Gets or sets the point size.
     /// </summary>
     public double PointSize
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawable.Draw(IDrawingWand wand)
+    {
+      if (wand != null)
+        wand.FontPointSize(PointSize);
     }
   }
 }

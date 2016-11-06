@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -94,15 +93,16 @@ namespace ImageMagick.ImageOptimizers
     }
 
     /// <summary>
-    /// Initializes a new instance of the PngOptimizer class.
+    /// Initializes a new instance of the <see cref="PngOptimizer"/> class.
     /// </summary>
     public PngOptimizer()
     {
     }
 
     /// <summary>
-    /// When set to true various compression types will be used to find the smallest file. This
-    /// process will take extra time because the file has to be written multiple times.
+    /// Gets or sets a value indicating whether various compression types will be used to find
+    /// the smallest file. This process will take extra time because the file has to be written
+    /// multiple times.
     /// </summary>
     public bool OptimalCompression
     {
@@ -111,7 +111,7 @@ namespace ImageMagick.ImageOptimizers
     }
 
     /// <summary>
-    /// The format that the optimizer supports.
+    /// Gets the format that the optimizer supports.
     /// </summary>
     public MagickFormatInfo Format
     {
