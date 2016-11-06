@@ -1,7 +1,7 @@
 ﻿//=================================================================================================
 // Copyright 2013-2016 Dirk Lemstra <https://magick.codeplex.com/>
 //
-// Licensed under the ImageMagick License (the "License"); you may not use this file except in 
+// Licensed under the ImageMagick License (the "License"); you may not use this file except in
 // compliance with the License. You may obtain a copy of the License at
 //
 //   http://www.imagemagick.org/script/license.php
@@ -17,9 +17,9 @@ using System.IO;
 
 namespace ImageMagick
 {
-  ///<summary>
+  /// <summary>
   /// Class that can be used to initialize the AnyCPU version of Magick.NET.
-  ///</summary>
+  /// </summary>
   public static class MagickAnyCPU
   {
     private static string _CacheDirectory = Path.GetTempPath();
@@ -32,9 +32,9 @@ namespace ImageMagick
       }
     }
 
-    ///<summary>
-    /// Sets the directory that will be used by Magick.NET to store the embedded assemblies.
-    ///</summary>
+    /// <summary>
+    /// Gets or sets the directory that will be used by Magick.NET to store the embedded assemblies.
+    /// </summary>
     public static string CacheDirectory
     {
       get
@@ -50,9 +50,9 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Setting this to true will change the security permissions of the embeded library that is
-    /// written to disk. Only set this to true when multiple application pools with different
-    /// idententies need to execute the same library.
+    /// Gets or sets a value indicating whether the security permissions of the embeded library
+    /// should be changed when it is written to disk. Only set this to true when multiple
+    /// application pools with different idententies need to execute the same library.
     /// </summary>
     public static bool HasSharedCacheDirectory
     {
