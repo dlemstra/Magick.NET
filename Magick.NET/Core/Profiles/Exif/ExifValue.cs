@@ -298,6 +298,7 @@ namespace ImageMagick
         case ExifTag.TimeZoneOffset:
           exifValue = new ExifValue(tag, ExifDataType.Long, true);
           break;
+        case ExifTag.SubfileType:
         case ExifTag.SubIFDOffset:
         case ExifTag.GPSIFDOffset:
         case ExifTag.T4Options:
@@ -483,7 +484,6 @@ namespace ImageMagick
         case ExifTag.ImageLayer:
           exifValue = CreateNumber(tag, type, true);
           break;
-        case ExifTag.SubfileType:
         case ExifTag.ImageWidth:
         case ExifTag.ImageLength:
         case ExifTag.TileWidth:
