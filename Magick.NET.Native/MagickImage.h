@@ -207,6 +207,8 @@ MAGICK_NET_EXPORT void MagickImage_ClipPath(Image *, const char *, const MagickB
 
 MAGICK_NET_EXPORT Image *MagickImage_Clone(const Image *, ExceptionInfo **);
 
+MAGICK_NET_EXPORT Image *MagickImage_CloneArea(const Image *, const size_t , const size_t , ExceptionInfo **);
+
 MAGICK_NET_EXPORT void MagickImage_Clut(Image *, Image *, const size_t, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImage_ColorDecisionList(Image *, const char *, ExceptionInfo **);

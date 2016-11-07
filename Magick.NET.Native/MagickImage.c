@@ -963,6 +963,21 @@ MAGICK_NET_EXPORT Image *MagickImage_Clone(const Image *instance, ExceptionInfo 
   return image;
 }
 
+MAGICK_NET_EXPORT Image *MagickImage_CloneArea(const Image *instance, const size_t width, const size_t height, ExceptionInfo **exception)
+{
+  Image
+    *image;
+
+  if (instance == (const Image *)NULL)
+    return (Image *)NULL;
+
+  MAGICK_NET_GET_EXCEPTION;
+  image = CloneImage(instance, width, height, MagickTrue, exceptionInfo);
+  SyncImage(image, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+  return image;
+}
+
 MAGICK_NET_EXPORT void MagickImage_Clut(Image *instance, Image *clutImage, const size_t method, const size_t channels, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;

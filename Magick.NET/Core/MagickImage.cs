@@ -2172,11 +2172,14 @@ namespace ImageMagick
     /// </summary>
     /// <param name="geometry">The area to clone.</param>
     /// <returns>A clone of the current image.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public MagickImage Clone(MagickGeometry geometry)
     {
       Throw.IfNull(nameof(geometry), geometry);
 
-      MagickImage clone = new MagickImage("xc:none", geometry.Width, geometry.Height);
+      MagickImage clone = new MagickImage();
+      clone.SetInstance(new NativeMagickImage(_NativeInstance.CloneArea(geometry.Width, geometry.Height)));
+      clone.SetSettings(Settings);
       clone.CopyPixels(this, geometry, 0, 0);
 
       return clone;

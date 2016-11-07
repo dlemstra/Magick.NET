@@ -671,6 +671,23 @@
       "throws": true
     },
     {
+      "name": "CloneArea",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "arguments":
+      [
+        {
+          "name": "width",
+          "type": "size_t"
+        },
+        {
+          "name": "height",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
       "name": "Clut",
       "throws": true,
       "arguments":

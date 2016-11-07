@@ -273,6 +273,8 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Clone(IntPtr Instance, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MagickImage_CloneArea(IntPtr Instance, UIntPtr width, UIntPtr height, out IntPtr exception);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_Clut(IntPtr Instance, IntPtr image, UIntPtr method, UIntPtr channels, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_ColorDecisionList(IntPtr Instance, IntPtr fileName, out IntPtr exception);
@@ -809,6 +811,8 @@ namespace ImageMagick
         public static extern void MagickImage_ClipPath(IntPtr Instance, IntPtr pathName, [MarshalAs(UnmanagedType.Bool)] bool inside, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Clone(IntPtr Instance, out IntPtr exception);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MagickImage_CloneArea(IntPtr Instance, UIntPtr width, UIntPtr height, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_Clut(IntPtr Instance, IntPtr image, UIntPtr method, UIntPtr channels, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -2381,6 +2385,17 @@ namespace ImageMagick
           result = NativeMethods.X64.MagickImage_Clone(Instance, out exception);
         else
           result = NativeMethods.X86.MagickImage_Clone(Instance, out exception);
+        CheckException(exception, result);
+        return result;
+      }
+      public IntPtr CloneArea(int width, int height)
+      {
+        IntPtr exception = IntPtr.Zero;
+        IntPtr result;
+        if (NativeLibrary.Is64Bit)
+          result = NativeMethods.X64.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+        else
+          result = NativeMethods.X86.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
         CheckException(exception, result);
         return result;
       }
