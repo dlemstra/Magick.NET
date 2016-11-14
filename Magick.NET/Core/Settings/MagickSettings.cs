@@ -30,7 +30,7 @@ namespace ImageMagick
 
     private INativeInstance CreateNativeInstance()
     {
-      string format = Format != MagickFormat.Unknown ? EnumHelper.GetName(Format).ToUpperInvariant() : null;
+      string format = GetFormat();
       string fileName = FileName;
       if (!string.IsNullOrEmpty(fileName) && !string.IsNullOrEmpty(format))
         fileName = format + ":" + fileName;
@@ -64,6 +64,19 @@ namespace ImageMagick
         instance.SetOption(key, _Options[key]);
 
       return instance;
+    }
+
+    private string GetFormat()
+    {
+      switch (Format)
+      {
+        case MagickFormat.Unknown:
+          return null;
+        case MagickFormat.ThreeFr:
+          return "3FR";
+        default:
+          return EnumHelper.GetName(Format).ToUpperInvariant();
+      }
     }
 
     private static MagickFormat GetModule(MagickFormat format)
