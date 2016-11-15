@@ -1875,17 +1875,17 @@ MAGICK_NET_EXPORT void MagickImage_RegionMask(Image *instance, const RectangleIn
 
 MAGICK_NET_EXPORT void MagickImage_RemoveArtifact(Image *instance, const char *name)
 {
-  DestroyString(RemoveImageArtifact(instance, name));
+  (void)DeleteImageArtifact(instance, name);
 }
 
 MAGICK_NET_EXPORT void MagickImage_RemoveAttribute(Image *instance, const char *name)
 {
-  DestroyString(RemoveImageProperty(instance, name));
+  (void)DeleteImageProperty(instance, name);
 }
 
 MAGICK_NET_EXPORT void MagickImage_RemoveProfile(Image *instance, const char *name)
 {
-  DestroyStringInfo(RemoveImageProfile(instance, name));
+  (void)DeleteImageProfile(instance, name);
 }
 
 MAGICK_NET_EXPORT void MagickImage_ResetArtifactIterator(const Image *instance)
