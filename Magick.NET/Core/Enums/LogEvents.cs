@@ -125,6 +125,6 @@ namespace ImageMagick
     /// <summary>
     /// All log events except Trace.
     /// </summary>
-    All = 0x7fffffff
+    All = 0x7fff7fff
   }
 }
