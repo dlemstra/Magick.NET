@@ -25,31 +25,31 @@ namespace ImageMagick.Defines
     /// <summary>
     /// App profile
     /// </summary>
-    App = 0,
+    App = 1,
 
     /// <summary>
     /// 8bim profile
     /// </summary>
-    EightBim = 1,
+    EightBim = 2,
 
     /// <summary>
     /// Exif profile
     /// </summary>
-    Exif = 2,
+    Exif = 4,
 
     /// <summary>
     /// Icc profile
     /// </summary>
-    Icc = 4,
+    Icc = 8,
 
     /// <summary>
     /// Iptc profile
     /// </summary>
-    Iptc = 8,
+    Iptc = 16,
 
     /// <summary>
     /// Iptc profile
     /// </summary>
-    Xmp = 16,
+    Xmp = 32,
   }
 }
