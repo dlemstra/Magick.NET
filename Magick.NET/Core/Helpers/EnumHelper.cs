@@ -43,7 +43,8 @@ namespace ImageMagick
     public static bool HasFlag<TEnum>(TEnum value, TEnum flag)
       where TEnum : struct, IConvertible
     {
-      return (value.ToUInt32(CultureInfo.InvariantCulture) & flag.ToUInt32(CultureInfo.InvariantCulture)) != 0;
+      uint flagValue = flag.ToUInt32(CultureInfo.InvariantCulture);
+      return (value.ToUInt32(CultureInfo.InvariantCulture) & flagValue) == flagValue;
     }
 
     public static TEnum Parse<TEnum>(int value, TEnum defaultValue)
