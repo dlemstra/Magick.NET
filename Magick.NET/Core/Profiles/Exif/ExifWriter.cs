@@ -308,7 +308,7 @@ namespace ImageMagick
 
     private Collection<int> GetIndexes(ExifParts part, ExifTag[] tags)
     {
-      if (((int)_AllowedParts & (int)part) == 0)
+      if (!EnumHelper.HasFlag(_AllowedParts, part))
         return new Collection<int>();
 
       Collection<int> result = new Collection<int>();
