@@ -797,6 +797,18 @@ namespace Magick.NET.Tests
         Assert.AreEqual(2, images.Count);
         ColorAssert.AreEqual(MagickColors.Gold, images[0], 348, 648);
       }
+
+      using (MagickImageCollection images = new MagickImageCollection())
+      {
+        images.Ping(Files.ImageMagickTXT, settings);
+
+        Assert.AreEqual(2, images.Count);
+
+        ExceptionAssert.Throws<InvalidOperationException>(() =>
+        {
+          ColorAssert.AreEqual(MagickColors.Gold, images[0], 348, 648);
+        });
+      }
     }
 
     [TestMethod, TestCategory(_Category)]

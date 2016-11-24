@@ -958,6 +958,18 @@ namespace ImageMagick
     /// <summary>
     /// Read only metadata and not the pixel data from all image frames.
     /// </summary>
+    /// <param name="data">The byte array to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Ping(byte[] data, MagickReadSettings readSettings)
+    {
+      Clear();
+      AddImages(data, readSettings, true);
+    }
+
+    /// <summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    /// </summary>
     /// <param name="file">The file to read the frames from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(FileInfo file)
@@ -965,6 +977,19 @@ namespace ImageMagick
       Throw.IfNull(nameof(file), file);
 
       Ping(file.FullName);
+    }
+
+    /// <summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    /// </summary>
+    /// <param name="file">The file to read the frames from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Ping(FileInfo file, MagickReadSettings readSettings)
+    {
+      Throw.IfNull(nameof(file), file);
+
+      Ping(file.FullName, readSettings);
     }
 
     /// <summary>
@@ -980,12 +1005,35 @@ namespace ImageMagick
     /// <summary>
     /// Read only metadata and not the pixel data from all image frames.
     /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Ping(Stream stream, MagickReadSettings readSettings)
+    {
+      Ping(StreamHelper.ToByteArray(stream), readSettings);
+    }
+
+    /// <summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    /// </summary>
     /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(string fileName)
     {
       Clear();
       AddImages(fileName, null, true);
+    }
+
+    /// <summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Ping(string fileName, MagickReadSettings readSettings)
+    {
+      Clear();
+      AddImages(fileName, readSettings, true);
     }
 
     /// <summary>
