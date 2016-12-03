@@ -89,6 +89,11 @@ namespace Magick.NET.Tests
             Assert.AreEqual(value, pixelA.G);
             Assert.AreEqual(value, pixelA.B);
             Assert.AreEqual(Quantum.Max, pixelA.A);
+
+            MagickColor pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
+            Assert.AreEqual(Quantum.Max - value, pixelC.R);
+            Assert.AreEqual(Quantum.Max - value, pixelC.G);
+            Assert.AreEqual(Quantum.Max - value, pixelC.B);
           }
         }
       }
