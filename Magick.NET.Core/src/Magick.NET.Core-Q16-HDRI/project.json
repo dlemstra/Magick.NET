@@ -1,5 +1,5 @@
 {
-  "version": "7.0.3.901",
+  "version": "7.0.3.902",
   "title": "Magick.NET.Core-Q16-HDRI",
   "authors":
   [
@@ -45,7 +45,7 @@
   },
   "dependencies":
   {
-    "Magick.NET.Core-Q16-HDRI.Native": "7.0.3.901"
+    "Magick.NET.Core-Q16-HDRI.Native": "7.0.3.902"
   },
   "frameworks":
   {
