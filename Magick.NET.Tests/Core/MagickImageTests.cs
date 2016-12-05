@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
         image.Clip("Pad A", inside);
         image.Alpha(AlphaOption.Opaque);
 
-        using (MagickImage mask = image.ReadMask)
+        using (MagickImage mask = image.WriteMask)
         {
           Assert.IsNotNull(mask);
           Assert.AreEqual(false, mask.HasAlpha);
@@ -88,7 +88,6 @@ namespace Magick.NET.Tests
             Assert.AreEqual(value, pixelA.R);
             Assert.AreEqual(value, pixelA.G);
             Assert.AreEqual(value, pixelA.B);
-            Assert.AreEqual(Quantum.Max, pixelA.A);
 
             MagickColor pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
             Assert.AreEqual(Quantum.Max - value, pixelC.R);
@@ -733,8 +732,8 @@ namespace Magick.NET.Tests
     [TestMethod, TestCategory(_Category)]
     public void Test_Clip()
     {
-      Test_Clip(false, Quantum.Max);
-      Test_Clip(true, 0);
+      Test_Clip(false, 0);
+      Test_Clip(true, Quantum.Max);
     }
 
     [TestMethod, TestCategory(_Category)]
@@ -2807,7 +2806,7 @@ namespace Magick.NET.Tests
       {
         using (MagickImage green = new MagickImage("xc:green", 100, 100))
         {
-          green.RegionMask(new MagickGeometry(10, 10, 50, 50));
+          red.RegionMask(new MagickGeometry(10, 10, 50, 50));
 
           green.Composite(red, CompositeOperator.SrcOver);
 
@@ -2815,7 +2814,7 @@ namespace Magick.NET.Tests
           ColorAssert.AreEqual(MagickColors.Red, green, 10, 10);
           ColorAssert.AreEqual(MagickColors.Green, green, 60, 60);
 
-          green.RemoveRegionMask();
+          red.RemoveRegionMask();
 
           green.Composite(red, CompositeOperator.SrcOver);
 
