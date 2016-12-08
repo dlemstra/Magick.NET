@@ -28,6 +28,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("7.0.3.902")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
-#if (NET20)
-[assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
-#endif
