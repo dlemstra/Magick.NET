@@ -39,7 +39,7 @@ namespace FileGenerator.Native
 
     private void CreateClasses()
     {
-      var directory = new DirectoryInfo(PathHelper.GetFullPath(@"\Magick.NET\Core"));
+      var directory = new DirectoryInfo(PathHelper.GetFullPath(@"\Magick.NET\Native"));
 
       IEnumerable<MagickClass> classes = CreateClasses(directory.GetFiles("*.json", SearchOption.AllDirectories));
 

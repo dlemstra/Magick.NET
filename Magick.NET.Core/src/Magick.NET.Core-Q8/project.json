@@ -27,7 +27,8 @@
     "allowUnsafe": true,
     "compile":
     [
-      "../../../Magick.NET/Core/**/*.cs"
+      "../../../Magick.NET/Core/**/*.cs",
+      "../../../Magick.NET/Native/**/*.cs"
     ],
     "define":
     [
