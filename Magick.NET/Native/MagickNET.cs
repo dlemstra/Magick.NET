@@ -35,10 +35,13 @@ namespace ImageMagick
     private delegate void LogDelegate(UIntPtr type, IntPtr value);
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickNET+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickNET_Features_Get();
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -48,10 +51,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickNET_SetRandomSeed(long value);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickNET+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickNET_Features_Get();
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -61,6 +68,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickNET_SetRandomSeed(long value);
       }
+      #endif
     }
     private static class NativeMagickNET
     {
@@ -69,36 +77,68 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickNET_Features_Get();
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickNET_Features_Get();
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickNET_Features_Get();
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickNET_Features_Get();
+          #endif
           return UTF8Marshaler.NativeToManaged(result);
         }
       }
       public static void SetLogDelegate(LogDelegate method)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickNET_SetLogDelegate(method);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickNET_SetLogDelegate(method);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickNET_SetLogDelegate(method);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickNET_SetLogDelegate(method);
+        #endif
       }
       public static void SetLogEvents(string events)
       {
         using (INativeInstance eventsNative = UTF8Marshaler.CreateInstance(events))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickNET_SetLogEvents(eventsNative.Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickNET_SetLogEvents(eventsNative.Instance);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickNET_SetLogEvents(eventsNative.Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickNET_SetLogEvents(eventsNative.Instance);
+          #endif
         }
       }
       public static void SetRandomSeed(long value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickNET_SetRandomSeed(value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickNET_SetRandomSeed(value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickNET_SetRandomSeed(value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickNET_SetRandomSeed(value);
+        #endif
       }
     }
   }

@@ -33,20 +33,28 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.Environment+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Environment_SetEnv(IntPtr name, IntPtr value);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.Environment+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Environment_SetEnv(IntPtr name, IntPtr value);
       }
+      #endif
     }
     private static class NativeEnvironment
     {
@@ -56,10 +64,18 @@ namespace ImageMagick
         {
           using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.Environment_SetEnv(nameNative.Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.Environment_SetEnv(nameNative.Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.Environment_SetEnv(nameNative.Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.Environment_SetEnv(nameNative.Instance, valueNative.Instance);
+            #endif
           }
         }
       }

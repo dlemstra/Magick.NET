@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.ConnectedComponent+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ConnectedComponent_DisposeList(IntPtr list);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -52,10 +55,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr ConnectedComponent_GetY(IntPtr instance);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.ConnectedComponent+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ConnectedComponent_DisposeList(IntPtr list);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -71,57 +78,114 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr ConnectedComponent_GetY(IntPtr instance);
       }
+      #endif
     }
     private static class NativeConnectedComponent
     {
       public static void DisposeList(IntPtr list)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.ConnectedComponent_DisposeList(list);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.ConnectedComponent_DisposeList(list);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.ConnectedComponent_DisposeList(list);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.ConnectedComponent_DisposeList(list);
+        #endif
       }
       public static double GetArea(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.ConnectedComponent_GetArea(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.ConnectedComponent_GetArea(instance);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.ConnectedComponent_GetArea(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.ConnectedComponent_GetArea(instance);
+        #endif
       }
       public static int GetHeight(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return (int)NativeMethods.X64.ConnectedComponent_GetHeight(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        return (int)NativeMethods.X64.ConnectedComponent_GetHeight(instance);
+        #endif
+        #if ANYCPU
         else
-          return (int)NativeMethods.X86.ConnectedComponent_GetHeight(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        return (int)NativeMethods.X86.ConnectedComponent_GetHeight(instance);
+        #endif
       }
       public static IntPtr GetInstance(IntPtr list, int index)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.ConnectedComponent_GetInstance(list, (UIntPtr)index);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.ConnectedComponent_GetInstance(list, (UIntPtr)index);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.ConnectedComponent_GetInstance(list, (UIntPtr)index);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.ConnectedComponent_GetInstance(list, (UIntPtr)index);
+        #endif
       }
       public static int GetWidth(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return (int)NativeMethods.X64.ConnectedComponent_GetWidth(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        return (int)NativeMethods.X64.ConnectedComponent_GetWidth(instance);
+        #endif
+        #if ANYCPU
         else
-          return (int)NativeMethods.X86.ConnectedComponent_GetWidth(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        return (int)NativeMethods.X86.ConnectedComponent_GetWidth(instance);
+        #endif
       }
       public static int GetX(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return (int)NativeMethods.X64.ConnectedComponent_GetX(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        return (int)NativeMethods.X64.ConnectedComponent_GetX(instance);
+        #endif
+        #if ANYCPU
         else
-          return (int)NativeMethods.X86.ConnectedComponent_GetX(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        return (int)NativeMethods.X86.ConnectedComponent_GetX(instance);
+        #endif
       }
       public static int GetY(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return (int)NativeMethods.X64.ConnectedComponent_GetY(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        return (int)NativeMethods.X64.ConnectedComponent_GetY(instance);
+        #endif
+        #if ANYCPU
         else
-          return (int)NativeMethods.X86.ConnectedComponent_GetY(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        return (int)NativeMethods.X86.ConnectedComponent_GetY(instance);
+        #endif
       }
     }
   }

@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.Quantum+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr Quantum_Depth_Get();
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -44,10 +47,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern byte Quantum_ScaleToByte(QuantumType value);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.Quantum+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr Quantum_Depth_Get();
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -55,6 +62,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern byte Quantum_ScaleToByte(QuantumType value);
       }
+      #endif
     }
     private static class NativeQuantum
     {
@@ -63,10 +71,18 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.Quantum_Depth_Get();
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.Quantum_Depth_Get();
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.Quantum_Depth_Get();
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.Quantum_Depth_Get();
+          #endif
           return (int)result;
         }
       }
@@ -75,19 +91,35 @@ namespace ImageMagick
         get
         {
           QuantumType result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.Quantum_Max_Get();
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.Quantum_Max_Get();
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.Quantum_Max_Get();
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.Quantum_Max_Get();
+          #endif
           return result;
         }
       }
       public static byte ScaleToByte(QuantumType value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.Quantum_ScaleToByte(value);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.Quantum_ScaleToByte(value);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.Quantum_ScaleToByte(value);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.Quantum_ScaleToByte(value);
+        #endif
       }
     }
   }

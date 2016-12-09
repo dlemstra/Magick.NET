@@ -35,10 +35,13 @@ namespace ImageMagick
     private delegate bool ProgressDelegate(IntPtr origin, long offset, ulong extent, IntPtr userData);
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickImage+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Create(IntPtr settings, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -574,10 +577,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_WriteFile(IntPtr Instance, IntPtr settings, out IntPtr exception);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickImage+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_Create(IntPtr settings, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1113,6 +1120,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_WriteFile(IntPtr Instance, IntPtr settings, out IntPtr exception);
       }
+      #endif
     }
     private NativeMagickImage _NativeInstance;
     private sealed class NativeMagickImage : NativeInstance
@@ -1124,20 +1132,36 @@ namespace ImageMagick
       }
       public static void DisposeInstance(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Dispose(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Dispose(instance);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Dispose(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Dispose(instance);
+        #endif
       }
       public NativeMagickImage(MagickSettings settings)
       {
         using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            _Instance = NativeMethods.X64.MagickImage_Create(settingsNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          _Instance = NativeMethods.X64.MagickImage_Create(settingsNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            _Instance = NativeMethods.X86.MagickImage_Create(settingsNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          _Instance = NativeMethods.X86.MagickImage_Create(settingsNative.Instance, out exception);
+          #endif
           CheckException(exception, _Instance);
           if (_Instance == IntPtr.Zero)
             throw new InvalidOperationException();
@@ -1167,20 +1191,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_AlphaColor_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_AlphaColor_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_AlphaColor_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_AlphaColor_Get(Instance);
+          #endif
           return MagickColor.CreateInstance(result);
         }
         set
         {
           using (INativeInstance valueNative = MagickColor.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_AlphaColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_AlphaColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_AlphaColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_AlphaColor_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -1189,18 +1229,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_AnimationDelay_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_AnimationDelay_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_AnimationDelay_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_AnimationDelay_Get(Instance);
+          #endif
           return (int)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public int AnimationIterations
@@ -1208,18 +1264,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_AnimationIterations_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_AnimationIterations_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_AnimationIterations_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_AnimationIterations_Get(Instance);
+          #endif
           return (int)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public MagickColor BackgroundColor
@@ -1227,20 +1299,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_BackgroundColor_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_BackgroundColor_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_BackgroundColor_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_BackgroundColor_Get(Instance);
+          #endif
           return MagickColor.CreateInstance(result);
         }
         set
         {
           using (INativeInstance valueNative = MagickColor.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -1249,10 +1337,18 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_BaseHeight_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_BaseHeight_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_BaseHeight_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_BaseHeight_Get(Instance);
+          #endif
           return (int)result;
         }
       }
@@ -1261,10 +1357,18 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_BaseWidth_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_BaseWidth_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_BaseWidth_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_BaseWidth_Get(Instance);
+          #endif
           return (int)result;
         }
       }
@@ -1273,18 +1377,34 @@ namespace ImageMagick
         get
         {
           bool result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_BlackPointCompensation_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_BlackPointCompensation_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_BlackPointCompensation_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_BlackPointCompensation_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_BlackPointCompensation_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_BlackPointCompensation_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_BlackPointCompensation_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_BlackPointCompensation_Set(Instance, value);
+          #endif
         }
       }
       public MagickColor BorderColor
@@ -1292,20 +1412,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_BorderColor_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_BorderColor_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_BorderColor_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_BorderColor_Get(Instance);
+          #endif
           return MagickColor.CreateInstance(result);
         }
         set
         {
           using (INativeInstance valueNative = MagickColor.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -1314,10 +1450,18 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_BoundingBox_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_BoundingBox_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_BoundingBox_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_BoundingBox_Get(Instance);
+          #endif
           return MagickRectangle.CreateInstance(result);
         }
       }
@@ -1326,10 +1470,18 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ChannelCount_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ChannelCount_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ChannelCount_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ChannelCount_Get(Instance);
+          #endif
           return (int)result;
         }
       }
@@ -1338,20 +1490,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ChromaBluePrimary_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ChromaBluePrimary_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ChromaBluePrimary_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ChromaBluePrimary_Get(Instance);
+          #endif
           return PrimaryInfo.CreateInstance(result);
         }
         set
         {
           using (INativeInstance valueNative = PrimaryInfo.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -1360,20 +1528,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ChromaGreenPrimary_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ChromaGreenPrimary_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ChromaGreenPrimary_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ChromaGreenPrimary_Get(Instance);
+          #endif
           return PrimaryInfo.CreateInstance(result);
         }
         set
         {
           using (INativeInstance valueNative = PrimaryInfo.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -1382,20 +1566,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ChromaRedPrimary_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ChromaRedPrimary_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ChromaRedPrimary_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ChromaRedPrimary_Get(Instance);
+          #endif
           return PrimaryInfo.CreateInstance(result);
         }
         set
         {
           using (INativeInstance valueNative = PrimaryInfo.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -1404,20 +1604,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ChromaWhitePoint_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ChromaWhitePoint_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ChromaWhitePoint_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ChromaWhitePoint_Get(Instance);
+          #endif
           return PrimaryInfo.CreateInstance(result);
         }
         set
         {
           using (INativeInstance valueNative = PrimaryInfo.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -1427,20 +1643,36 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ClassType_Get(Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ClassType_Get(Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ClassType_Get(Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ClassType_Get(Instance, out exception);
+          #endif
           CheckException(exception);
           return (ClassType)result;
         }
         set
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -1450,20 +1682,36 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ColorFuzz_Get(Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ColorFuzz_Get(Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ColorFuzz_Get(Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ColorFuzz_Get(Instance, out exception);
+          #endif
           CheckException(exception);
           return result;
         }
         set
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_ColorFuzz_Set(Instance, value, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_ColorFuzz_Set(Instance, value, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_ColorFuzz_Set(Instance, value, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_ColorFuzz_Set(Instance, value, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -1473,20 +1721,36 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ColormapSize_Get(Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ColormapSize_Get(Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ColormapSize_Get(Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ColormapSize_Get(Instance, out exception);
+          #endif
           CheckException(exception);
           return (int)result;
         }
         set
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -1496,20 +1760,36 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ColorSpace_Get(Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ColorSpace_Get(Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ColorSpace_Get(Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ColorSpace_Get(Instance, out exception);
+          #endif
           CheckException(exception);
           return (ColorSpace)result;
         }
         set
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -1519,20 +1799,36 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ColorType_Get(Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ColorType_Get(Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ColorType_Get(Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ColorType_Get(Instance, out exception);
+          #endif
           CheckException(exception);
           return (ColorType)result;
         }
         set
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -1541,18 +1837,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Compose_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Compose_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Compose_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Compose_Get(Instance);
+          #endif
           return (CompositeOperator)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_Compose_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_Compose_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_Compose_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_Compose_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public CompressionMethod CompressionMethod
@@ -1560,18 +1872,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_CompressionMethod_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_CompressionMethod_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_CompressionMethod_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_CompressionMethod_Get(Instance);
+          #endif
           return (CompressionMethod)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_CompressionMethod_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_CompressionMethod_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_CompressionMethod_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_CompressionMethod_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public int Depth
@@ -1579,18 +1907,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Depth_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Depth_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Depth_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Depth_Get(Instance);
+          #endif
           return (int)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_Depth_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_Depth_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_Depth_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_Depth_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public Endian Endian
@@ -1598,18 +1942,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Endian_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Endian_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Endian_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Endian_Get(Instance);
+          #endif
           return (Endian)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_Endian_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_Endian_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_Endian_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_Endian_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public string EncodingGeometry
@@ -1617,10 +1977,18 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_EncodingGeometry_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_EncodingGeometry_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_EncodingGeometry_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_EncodingGeometry_Get(Instance);
+          #endif
           return UTF8Marshaler.NativeToManaged(result);
         }
       }
@@ -1629,20 +1997,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_FileName_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_FileName_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_FileName_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_FileName_Get(Instance);
+          #endif
           return UTF8Marshaler.NativeToManaged(result);
         }
         set
         {
           using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_FileName_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_FileName_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_FileName_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_FileName_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -1651,10 +2035,18 @@ namespace ImageMagick
         get
         {
           long result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_FileSize_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_FileSize_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_FileSize_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_FileSize_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -1663,18 +2055,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_FilterType_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_FilterType_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_FilterType_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_FilterType_Get(Instance);
+          #endif
           return (FilterType)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public string Format
@@ -1682,20 +2090,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Format_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Format_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Format_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Format_Get(Instance);
+          #endif
           return UTF8Marshaler.NativeToManaged(result);
         }
         set
         {
           using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_Format_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_Format_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_Format_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_Format_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -1704,10 +2128,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Gamma_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Gamma_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Gamma_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Gamma_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -1716,18 +2148,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_GifDisposeMethod_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_GifDisposeMethod_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_GifDisposeMethod_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_GifDisposeMethod_Get(Instance);
+          #endif
           return (GifDisposeMethod)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public int Height
@@ -1735,10 +2183,18 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Height_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Height_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Height_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Height_Get(Instance);
+          #endif
           return (int)result;
         }
       }
@@ -1748,20 +2204,36 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           bool result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_HasAlpha_Get(Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_HasAlpha_Get(Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_HasAlpha_Get(Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_HasAlpha_Get(Instance, out exception);
+          #endif
           CheckException(exception);
           return result;
         }
         set
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_HasAlpha_Set(Instance, value, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_HasAlpha_Set(Instance, value, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_HasAlpha_Set(Instance, value, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_HasAlpha_Set(Instance, value, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -1770,18 +2242,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Interlace_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Interlace_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Interlace_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Interlace_Get(Instance);
+          #endif
           return (Interlace)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public PixelInterpolateMethod Interpolate
@@ -1789,18 +2277,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Interpolate_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Interpolate_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Interpolate_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Interpolate_Get(Instance);
+          #endif
           return (PixelInterpolateMethod)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public bool IsOpaque
@@ -1809,10 +2313,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           bool result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_IsOpaque_Get(Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_IsOpaque_Get(Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_IsOpaque_Get(Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_IsOpaque_Get(Instance, out exception);
+          #endif
           CheckException(exception);
           return result;
         }
@@ -1822,10 +2334,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_MeanErrorPerPixel_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_MeanErrorPerPixel_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_MeanErrorPerPixel_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_MeanErrorPerPixel_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -1834,10 +2354,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_NormalizedMaximumError_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_NormalizedMaximumError_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_NormalizedMaximumError_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_NormalizedMaximumError_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -1846,10 +2374,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_NormalizedMeanError_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_NormalizedMeanError_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_NormalizedMeanError_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_NormalizedMeanError_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -1858,18 +2394,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Orientation_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Orientation_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Orientation_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Orientation_Get(Instance);
+          #endif
           return (OrientationType)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public MagickRectangle Page
@@ -1877,20 +2429,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Page_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Page_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Page_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Page_Get(Instance);
+          #endif
           return MagickRectangle.CreateInstance(result);
         }
         set
         {
           using (INativeInstance valueNative = MagickRectangle.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_Page_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_Page_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_Page_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_Page_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -1899,18 +2467,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Quality_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Quality_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Quality_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Quality_Get(Instance);
+          #endif
           return (int)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_Quality_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_Quality_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_Quality_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_Quality_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public MagickImage ReadMask
@@ -1919,20 +2503,36 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ReadMask_Get(Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ReadMask_Get(Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ReadMask_Get(Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ReadMask_Get(Instance, out exception);
+          #endif
           CheckException(exception);
           return MagickImage.Create(result);
         }
         set
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_ReadMask_Set(Instance, MagickImage.GetInstance(value), out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_ReadMask_Set(Instance, MagickImage.GetInstance(value), out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_ReadMask_Set(Instance, MagickImage.GetInstance(value), out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_ReadMask_Set(Instance, MagickImage.GetInstance(value), out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -1941,18 +2541,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_RenderingIntent_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_RenderingIntent_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_RenderingIntent_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_RenderingIntent_Get(Instance);
+          #endif
           return (RenderingIntent)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public DensityUnit ResolutionUnits
@@ -1960,18 +2576,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ResolutionUnits_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ResolutionUnits_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ResolutionUnits_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ResolutionUnits_Get(Instance);
+          #endif
           return (DensityUnit)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public double ResolutionX
@@ -1979,18 +2611,34 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ResolutionX_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ResolutionX_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ResolutionX_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ResolutionX_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_ResolutionX_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_ResolutionX_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_ResolutionX_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_ResolutionX_Set(Instance, value);
+          #endif
         }
       }
       public double ResolutionY
@@ -1998,18 +2646,34 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ResolutionY_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ResolutionY_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ResolutionY_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ResolutionY_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_ResolutionY_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_ResolutionY_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_ResolutionY_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_ResolutionY_Set(Instance, value);
+          #endif
         }
       }
       public string Signature
@@ -2018,10 +2682,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Signature_Get(Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Signature_Get(Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Signature_Get(Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Signature_Get(Instance, out exception);
+          #endif
           CheckException(exception);
           return UTF8Marshaler.NativeToManaged(result);
         }
@@ -2032,10 +2704,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_TotalColors_Get(Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_TotalColors_Get(Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_TotalColors_Get(Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_TotalColors_Get(Instance, out exception);
+          #endif
           CheckException(exception);
           return (int)result;
         }
@@ -2046,20 +2726,36 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
+          #endif
           CheckException(exception);
           return (VirtualPixelMethod)result;
         }
         set
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -2068,10 +2764,18 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Width_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Width_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Width_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Width_Get(Instance);
+          #endif
           return (int)result;
         }
       }
@@ -2081,20 +2785,36 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_WriteMask_Get(Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_WriteMask_Get(Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_WriteMask_Get(Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_WriteMask_Get(Instance, out exception);
+          #endif
           CheckException(exception);
           return MagickImage.Create(result);
         }
         set
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_WriteMask_Set(Instance, MagickImage.GetInstance(value), out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_WriteMask_Set(Instance, MagickImage.GetInstance(value), out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_WriteMask_Set(Instance, MagickImage.GetInstance(value), out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_WriteMask_Set(Instance, MagickImage.GetInstance(value), out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -2102,10 +2822,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2113,10 +2841,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_AdaptiveResize(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_AdaptiveResize(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_AdaptiveResize(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_AdaptiveResize(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2124,10 +2860,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2135,10 +2879,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2146,10 +2898,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2158,10 +2918,18 @@ namespace ImageMagick
         using (INativeInstance nameNative = UTF8Marshaler.CreateInstance(name))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_AddProfile(Instance, nameNative.Instance, datum, (UIntPtr)length, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_AddProfile(Instance, nameNative.Instance, datum, (UIntPtr)length, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_AddProfile(Instance, nameNative.Instance, datum, (UIntPtr)length, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_AddProfile(Instance, nameNative.Instance, datum, (UIntPtr)length, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -2169,10 +2937,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2185,10 +2961,18 @@ namespace ImageMagick
             using (INativeInstance boundingAreaNative = UTF8Marshaler.CreateInstance(boundingArea))
             {
               IntPtr exception = IntPtr.Zero;
+              #if ANYCPU
               if (NativeLibrary.Is64Bit)
-                NativeMethods.X64.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
+              #endif
+              #if WIN64 || ANYCPU
+              NativeMethods.X64.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
+              #endif
+              #if ANYCPU
               else
-                NativeMethods.X86.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
+              #endif
+              #if !WIN64 || ANYCPU
+              NativeMethods.X86.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
+              #endif
               CheckException(exception);
             }
           }
@@ -2201,10 +2985,18 @@ namespace ImageMagick
           using (INativeInstance textNative = UTF8Marshaler.CreateInstance(text))
           {
             IntPtr exception = IntPtr.Zero;
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
             CheckException(exception);
           }
         }
@@ -2212,29 +3004,53 @@ namespace ImageMagick
       public void AutoGamma(Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_AutoGamma(Instance, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_AutoGamma(Instance, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_AutoGamma(Instance, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_AutoGamma(Instance, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception);
       }
       public void AutoLevel(Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_AutoLevel(Instance, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_AutoLevel(Instance, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_AutoLevel(Instance, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_AutoLevel(Instance, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception);
       }
       public void AutoOrient()
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_AutoOrient(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_AutoOrient(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_AutoOrient(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_AutoOrient(Instance, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2243,10 +3059,18 @@ namespace ImageMagick
         using (INativeInstance thresholdNative = UTF8Marshaler.CreateInstance(threshold))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -2254,10 +3078,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_BlueShift(Instance, factor, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_BlueShift(Instance, factor, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_BlueShift(Instance, factor, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_BlueShift(Instance, factor, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2265,10 +3097,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Blur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Blur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Blur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Blur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2278,10 +3118,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Border(Instance, valueNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Border(Instance, valueNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Border(Instance, valueNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Border(Instance, valueNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -2289,38 +3137,70 @@ namespace ImageMagick
       public void BrightnessContrast(double brightness, double contrast, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_BrightnessContrast(Instance, brightness, contrast, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_BrightnessContrast(Instance, brightness, contrast, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_BrightnessContrast(Instance, brightness, contrast, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_BrightnessContrast(Instance, brightness, contrast, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception);
       }
       public void CannyEdge(double radius, double sigma, double lower, double upper)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
       public int ChannelOffset(PixelChannel channel)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return (int)NativeMethods.X64.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+        #endif
+        #if WIN64 || ANYCPU
+        return (int)NativeMethods.X64.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+        #endif
+        #if ANYCPU
         else
-          return (int)NativeMethods.X86.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+        #endif
+        #if !WIN64 || ANYCPU
+        return (int)NativeMethods.X86.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+        #endif
       }
       public void Charcoal(double radius, double sigma)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Charcoal(Instance, radius, sigma, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Charcoal(Instance, radius, sigma, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Charcoal(Instance, radius, sigma, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Charcoal(Instance, radius, sigma, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2330,10 +3210,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -2341,28 +3229,52 @@ namespace ImageMagick
       public void Clamp()
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Clamp(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Clamp(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Clamp(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Clamp(Instance, out exception);
+        #endif
         CheckException(exception);
       }
       public void ClampChannel(Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_ClampChannel(Instance, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_ClampChannel(Instance, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_ClampChannel(Instance, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_ClampChannel(Instance, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception);
       }
       public void Clip()
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Clip(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Clip(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Clip(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Clip(Instance, out exception);
+        #endif
         CheckException(exception);
       }
       public void ClipPath(string pathName, bool inside)
@@ -2370,10 +3282,18 @@ namespace ImageMagick
         using (INativeInstance pathNameNative = UTF8Marshaler.CreateInstance(pathName))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -2381,10 +3301,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Clone(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Clone(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Clone(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Clone(Instance, out exception);
+        #endif
         CheckException(exception, result);
         return result;
       }
@@ -2392,20 +3320,36 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
         CheckException(exception, result);
         return result;
       }
       public void Clut(MagickImage image, PixelInterpolateMethod method, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception);
       }
       public void ColorDecisionList(string fileName)
@@ -2413,10 +3357,18 @@ namespace ImageMagick
         using (INativeInstance fileNameNative = UTF8Marshaler.CreateInstance(fileName))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -2428,10 +3380,18 @@ namespace ImageMagick
           {
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              result = NativeMethods.X64.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
+            #endif
+            #if WIN64 || ANYCPU
+            result = NativeMethods.X64.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
+            #endif
+            #if ANYCPU
             else
-              result = NativeMethods.X86.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
+            #endif
+            #if !WIN64 || ANYCPU
+            result = NativeMethods.X86.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
+            #endif
             CheckException(exception, result);
             Instance = result;
           }
@@ -2441,29 +3401,53 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
+        #endif
         CheckException(exception, result);
         return result;
       }
       public void Contrast(bool enhance)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Contrast(Instance, enhance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Contrast(Instance, enhance, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Contrast(Instance, enhance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Contrast(Instance, enhance, out exception);
+        #endif
         CheckException(exception);
       }
       public void ContrastStretch(double blackPoint, double whitePoint, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception);
       }
       public void ColorMatrix(DoubleMatrix matrix)
@@ -2472,10 +3456,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -2484,39 +3476,71 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         double result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception);
         return result;
       }
       public void Composite(MagickImage image, int x, int y, CompositeOperator compose)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, out exception);
+        #endif
         CheckException(exception);
       }
       public void CompositeGravity(MagickImage image, Gravity gravity, CompositeOperator compose)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (UIntPtr)compose, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (UIntPtr)compose, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (UIntPtr)compose, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (UIntPtr)compose, out exception);
+        #endif
         CheckException(exception);
       }
       public void ConnectedComponents(int connectivity, out IntPtr objects)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2526,10 +3550,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -2541,10 +3573,18 @@ namespace ImageMagick
           using (INativeInstance offsetNative = OffsetInfo.CreateInstance(offset))
           {
             IntPtr exception = IntPtr.Zero;
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
+            #endif
             CheckException(exception);
           }
         }
@@ -2555,10 +3595,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Crop(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Crop(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Crop(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Crop(Instance, geometryNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -2569,10 +3617,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
+          #endif
           CheckException(exception);
           return result;
         }
@@ -2580,10 +3636,18 @@ namespace ImageMagick
       public void CycleColormap(int amount)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
+        #endif
         CheckException(exception);
       }
       public void Decipher(string passphrase)
@@ -2591,10 +3655,18 @@ namespace ImageMagick
         using (INativeInstance passphraseNative = UTF8Marshaler.CreateInstance(passphrase))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -2602,10 +3674,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Deskew(Instance, threshold, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Deskew(Instance, threshold, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Deskew(Instance, threshold, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Deskew(Instance, threshold, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2613,10 +3693,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Despeckle(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Despeckle(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Despeckle(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Despeckle(Instance, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2624,10 +3712,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         UIntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_DetermineColorType(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_DetermineColorType(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_DetermineColorType(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_DetermineColorType(Instance, out exception);
+        #endif
         CheckException(exception);
         return (ColorType)result;
       }
@@ -2635,10 +3731,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, arguments, (UIntPtr)length, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, arguments, (UIntPtr)length, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, arguments, (UIntPtr)length, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, arguments, (UIntPtr)length, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2646,10 +3750,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Edge(Instance, radius, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Edge(Instance, radius, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Edge(Instance, radius, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Edge(Instance, radius, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2657,10 +3769,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Emboss(Instance, radius, sigma, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Emboss(Instance, radius, sigma, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Emboss(Instance, radius, sigma, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Emboss(Instance, radius, sigma, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2669,10 +3789,18 @@ namespace ImageMagick
         using (INativeInstance passphraseNative = UTF8Marshaler.CreateInstance(passphrase))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -2680,40 +3808,72 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Enhance(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Enhance(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Enhance(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Enhance(Instance, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
       public void Equalize()
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Equalize(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Equalize(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Equalize(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Equalize(Instance, out exception);
+        #endif
         CheckException(exception);
       }
       public bool Equals(MagickImage image)
       {
         IntPtr exception = IntPtr.Zero;
         bool result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
         CheckException(exception);
         return result;
       }
       public void EvaluateFunction(Channels channels, EvaluateFunction evaluateFunction, double[] values, int length)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, values, (UIntPtr)length, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, values, (UIntPtr)length, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, values, (UIntPtr)length, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, values, (UIntPtr)length, out exception);
+        #endif
         CheckException(exception);
       }
       public void EvaluateGeometry(Channels channels, MagickRectangle geometry, EvaluateOperator evaluateOperator, double value)
@@ -2721,20 +3881,36 @@ namespace ImageMagick
         using (INativeInstance geometryNative = MagickRectangle.CreateInstance(geometry))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_EvaluateGeometry(Instance, (UIntPtr)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_EvaluateGeometry(Instance, (UIntPtr)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_EvaluateGeometry(Instance, (UIntPtr)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_EvaluateGeometry(Instance, (UIntPtr)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
+          #endif
           CheckException(exception);
         }
       }
       public void EvaluateOperator(Channels channels, EvaluateOperator evaluateOperator, double value)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_EvaluateOperator(Instance, (UIntPtr)channels, (UIntPtr)evaluateOperator, value, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_EvaluateOperator(Instance, (UIntPtr)channels, (UIntPtr)evaluateOperator, value, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_EvaluateOperator(Instance, (UIntPtr)channels, (UIntPtr)evaluateOperator, value, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_EvaluateOperator(Instance, (UIntPtr)channels, (UIntPtr)evaluateOperator, value, out exception);
+        #endif
         CheckException(exception);
       }
       public void Extent(string geometry)
@@ -2743,10 +3919,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Extent(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Extent(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Extent(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Extent(Instance, geometryNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -2757,10 +3941,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ExtentGravity(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ExtentGravity(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ExtentGravity(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ExtentGravity(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -2769,10 +3961,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Flip(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Flip(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Flip(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Flip(Instance, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2783,10 +3983,18 @@ namespace ImageMagick
           using (INativeInstance targetNative = MagickColor.CreateInstance(target))
           {
             IntPtr exception = IntPtr.Zero;
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
+            #endif
             CheckException(exception);
           }
         }
@@ -2795,10 +4003,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Flop(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Flop(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Flop(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Flop(Instance, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2808,10 +4024,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewLines, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewLines, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewLines, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewLines, out exception);
+          #endif
           MagickException magickException = MagickExceptionHelper.Create(exception);
           if (MagickExceptionHelper.IsError(magickException))
           {
@@ -2831,10 +4055,18 @@ namespace ImageMagick
           {
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              result = NativeMethods.X64.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
+            #endif
+            #if WIN64 || ANYCPU
+            result = NativeMethods.X64.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
+            #endif
+            #if ANYCPU
             else
-              result = NativeMethods.X86.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
+            #endif
+            #if !WIN64 || ANYCPU
+            result = NativeMethods.X86.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
+            #endif
             CheckException(exception);
             return UTF8Marshaler.NativeToManagedAndRelinquish(result);
           }
@@ -2846,10 +4078,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -2860,10 +4100,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Fx(Instance, expressionNative.Instance, (UIntPtr)channels, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Fx(Instance, expressionNative.Instance, (UIntPtr)channels, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Fx(Instance, expressionNative.Instance, (UIntPtr)channels, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Fx(Instance, expressionNative.Instance, (UIntPtr)channels, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -2871,20 +4119,36 @@ namespace ImageMagick
       public void GammaCorrect(double gamma, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_GammaCorrect(Instance, gamma, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_GammaCorrect(Instance, gamma, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_GammaCorrect(Instance, gamma, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_GammaCorrect(Instance, gamma, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception);
       }
       public void GaussianBlur(double radius, double sigma, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_GaussianBlur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_GaussianBlur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_GaussianBlur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_GaussianBlur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -2892,10 +4156,18 @@ namespace ImageMagick
       {
         using (INativeInstance nameNative = UTF8Marshaler.CreateInstance(name))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickImage_GetArtifact(Instance, nameNative.Instance));
+          #endif
+          #if WIN64 || ANYCPU
+          return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickImage_GetArtifact(Instance, nameNative.Instance));
+          #endif
+          #if ANYCPU
           else
-            return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickImage_GetArtifact(Instance, nameNative.Instance));
+          #endif
+          #if !WIN64 || ANYCPU
+          return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickImage_GetArtifact(Instance, nameNative.Instance));
+          #endif
         }
       }
       public string GetAttribute(string name)
@@ -2904,57 +4176,113 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
+          #endif
           CheckException(exception);
           return UTF8Marshaler.NativeToManaged(result);
         }
       }
       public int GetBitDepth(Channels channels)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return (int)NativeMethods.X64.MagickImage_GetBitDepth(Instance, (UIntPtr)channels);
+        #endif
+        #if WIN64 || ANYCPU
+        return (int)NativeMethods.X64.MagickImage_GetBitDepth(Instance, (UIntPtr)channels);
+        #endif
+        #if ANYCPU
         else
-          return (int)NativeMethods.X86.MagickImage_GetBitDepth(Instance, (UIntPtr)channels);
+        #endif
+        #if !WIN64 || ANYCPU
+        return (int)NativeMethods.X86.MagickImage_GetBitDepth(Instance, (UIntPtr)channels);
+        #endif
       }
       public MagickColor GetColormap(int index)
       {
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_GetColormap(Instance, (UIntPtr)index);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_GetColormap(Instance, (UIntPtr)index);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_GetColormap(Instance, (UIntPtr)index);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_GetColormap(Instance, (UIntPtr)index);
+        #endif
         return MagickColor.CreateInstance(result);
       }
       public static IntPtr GetNext(IntPtr image)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.MagickImage_GetNext(image);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.MagickImage_GetNext(image);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.MagickImage_GetNext(image);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.MagickImage_GetNext(image);
+        #endif
       }
       public string GetNextArtifactName()
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickImage_GetNextArtifactName(Instance));
+        #endif
+        #if WIN64 || ANYCPU
+        return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickImage_GetNextArtifactName(Instance));
+        #endif
+        #if ANYCPU
         else
-          return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickImage_GetNextArtifactName(Instance));
+        #endif
+        #if !WIN64 || ANYCPU
+        return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickImage_GetNextArtifactName(Instance));
+        #endif
       }
       public string GetNextAttributeName()
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickImage_GetNextAttributeName(Instance));
+        #endif
+        #if WIN64 || ANYCPU
+        return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickImage_GetNextAttributeName(Instance));
+        #endif
+        #if ANYCPU
         else
-          return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickImage_GetNextAttributeName(Instance));
+        #endif
+        #if !WIN64 || ANYCPU
+        return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickImage_GetNextAttributeName(Instance));
+        #endif
       }
       public string GetNextProfileName()
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickImage_GetNextProfileName(Instance));
+        #endif
+        #if WIN64 || ANYCPU
+        return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickImage_GetNextProfileName(Instance));
+        #endif
+        #if ANYCPU
         else
-          return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickImage_GetNextProfileName(Instance));
+        #endif
+        #if !WIN64 || ANYCPU
+        return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickImage_GetNextProfileName(Instance));
+        #endif
       }
       public StringInfo GetProfile(string name)
       {
@@ -2962,10 +4290,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
+          #endif
           CheckException(exception);
           return StringInfo.CreateInstance(result);
         }
@@ -2973,46 +4309,86 @@ namespace ImageMagick
       public void Grayscale(PixelIntensityMethod method)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
+        #endif
         CheckException(exception);
       }
       public void HaldClut(MagickImage image)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
         CheckException(exception);
       }
       public bool HasChannel(PixelChannel channel)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.MagickImage_HasChannel(Instance, (UIntPtr)channel);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.MagickImage_HasChannel(Instance, (UIntPtr)channel);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.MagickImage_HasChannel(Instance, (UIntPtr)channel);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.MagickImage_HasChannel(Instance, (UIntPtr)channel);
+        #endif
       }
       public bool HasProfile(string name)
       {
         using (INativeInstance nameNative = UTF8Marshaler.CreateInstance(name))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            return NativeMethods.X64.MagickImage_HasProfile(Instance, nameNative.Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          return NativeMethods.X64.MagickImage_HasProfile(Instance, nameNative.Instance);
+          #endif
+          #if ANYCPU
           else
-            return NativeMethods.X86.MagickImage_HasProfile(Instance, nameNative.Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          return NativeMethods.X86.MagickImage_HasProfile(Instance, nameNative.Instance);
+          #endif
         }
       }
       public IntPtr Histogram(out UIntPtr length)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Histogram(Instance, out length, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Histogram(Instance, out length, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Histogram(Instance, out length, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Histogram(Instance, out length, out exception);
+        #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
         {
@@ -3027,10 +4403,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3038,10 +4422,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3049,19 +4441,35 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
       public void Level(double blackPoint, double whitePoint, double gamma, Channels channels)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels);
+        #endif
       }
       public void LevelColors(MagickColor blackColor, MagickColor whiteColor, Channels channels, bool invert)
       {
@@ -3070,28 +4478,52 @@ namespace ImageMagick
           using (INativeInstance whiteColorNative = MagickColor.CreateInstance(whiteColor))
           {
             IntPtr exception = IntPtr.Zero;
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (UIntPtr)channels, invert, out exception);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (UIntPtr)channels, invert, out exception);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (UIntPtr)channels, invert, out exception);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (UIntPtr)channels, invert, out exception);
+            #endif
             CheckException(exception);
           }
         }
       }
       public void Levelize(double blackPoint, double whitePoint, double gamma, Channels channels)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels);
+        #endif
       }
       public void LinearStretch(double blackPoint, double whitePoint)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
+        #endif
         CheckException(exception);
       }
       public void LiquidRescale(string geometry)
@@ -3100,10 +4532,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_LiquidRescale(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_LiquidRescale(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_LiquidRescale(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_LiquidRescale(Instance, geometryNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -3112,10 +4552,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_LocalContrast(Instance, radius, strength, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_LocalContrast(Instance, radius, strength, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_LocalContrast(Instance, radius, strength, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_LocalContrast(Instance, radius, strength, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3123,10 +4571,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Magnify(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Magnify(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Magnify(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Magnify(Instance, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3136,10 +4592,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           bool result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+          #endif
           CheckException(exception);
           return result;
         }
@@ -3148,10 +4612,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Minify(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Minify(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Minify(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Minify(Instance, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3159,10 +4631,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Moments(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Moments(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Moments(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Moments(Instance, out exception);
+        #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
         {
@@ -3178,10 +4658,18 @@ namespace ImageMagick
         using (INativeInstance modulateNative = UTF8Marshaler.CreateInstance(modulate))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -3191,10 +4679,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -3203,39 +4699,71 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
       public void Negate(bool onlyGrayscale, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Negate(Instance, onlyGrayscale, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Negate(Instance, onlyGrayscale, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Negate(Instance, onlyGrayscale, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Negate(Instance, onlyGrayscale, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception);
       }
       public void Normalize()
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Normalize(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Normalize(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Normalize(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Normalize(Instance, out exception);
+        #endif
         CheckException(exception);
       }
       public void OilPaint(double radius, double sigma)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_OilPaint(Instance, radius, sigma, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_OilPaint(Instance, radius, sigma, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_OilPaint(Instance, radius, sigma, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_OilPaint(Instance, radius, sigma, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3246,10 +4774,18 @@ namespace ImageMagick
           using (INativeInstance fillNative = MagickColor.CreateInstance(fill))
           {
             IntPtr exception = IntPtr.Zero;
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
+            #endif
             CheckException(exception);
           }
         }
@@ -3259,30 +4795,54 @@ namespace ImageMagick
         using (INativeInstance thresholdMapNative = UTF8Marshaler.CreateInstance(thresholdMap))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (UIntPtr)channels, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (UIntPtr)channels, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (UIntPtr)channels, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (UIntPtr)channels, out exception);
+          #endif
           CheckException(exception);
         }
       }
       public void Perceptible(double epsilon, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Perceptible(Instance, epsilon, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Perceptible(Instance, epsilon, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Perceptible(Instance, epsilon, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Perceptible(Instance, epsilon, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception);
       }
       public IntPtr PerceptualHash()
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_PerceptualHash(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_PerceptualHash(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_PerceptualHash(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_PerceptualHash(Instance, out exception);
+        #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
         {
@@ -3301,10 +4861,18 @@ namespace ImageMagick
           {
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              result = NativeMethods.X64.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
+            #endif
+            #if WIN64 || ANYCPU
+            result = NativeMethods.X64.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
+            #endif
+            #if ANYCPU
             else
-              result = NativeMethods.X86.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
+            #endif
+            #if !WIN64 || ANYCPU
+            result = NativeMethods.X86.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
+            #endif
             CheckException(exception, result);
             Instance = result;
           }
@@ -3313,10 +4881,18 @@ namespace ImageMagick
       public void Posterize(int levels, DitherMethod method, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception);
       }
       public void Quantize(QuantizeSettings settings)
@@ -3324,29 +4900,53 @@ namespace ImageMagick
         using (INativeInstance settingsNative = QuantizeSettings.CreateInstance(settings))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
+          #endif
           CheckException(exception);
         }
       }
       public void RaiseOrLower(int size, bool raise)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
+        #endif
         CheckException(exception);
       }
       public void RandomThreshold(double low, double high, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception);
       }
       public void ReadBlob(MagickSettings settings, byte[] data, int length)
@@ -3355,10 +4955,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, data, (UIntPtr)length, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, data, (UIntPtr)length, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ReadBlob(settingsNative.Instance, data, (UIntPtr)length, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ReadBlob(settingsNative.Instance, data, (UIntPtr)length, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -3369,10 +4977,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ReadFile(settingsNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ReadFile(settingsNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ReadFile(settingsNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ReadFile(settingsNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -3383,10 +4999,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -3396,10 +5020,18 @@ namespace ImageMagick
         using (INativeInstance regionNative = MagickRectangle.CreateInstance(region))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -3407,61 +5039,117 @@ namespace ImageMagick
       {
         using (INativeInstance nameNative = UTF8Marshaler.CreateInstance(name))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
+          #endif
         }
       }
       public void RemoveAttribute(string name)
       {
         using (INativeInstance nameNative = UTF8Marshaler.CreateInstance(name))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
+          #endif
         }
       }
       public void RemoveProfile(string name)
       {
         using (INativeInstance nameNative = UTF8Marshaler.CreateInstance(name))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_RemoveProfile(Instance, nameNative.Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_RemoveProfile(Instance, nameNative.Instance);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_RemoveProfile(Instance, nameNative.Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_RemoveProfile(Instance, nameNative.Instance);
+          #endif
         }
       }
       public void ResetArtifactIterator()
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_ResetArtifactIterator(Instance);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_ResetArtifactIterator(Instance);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_ResetArtifactIterator(Instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_ResetArtifactIterator(Instance);
+        #endif
       }
       public void ResetAttributeIterator()
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_ResetAttributeIterator(Instance);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_ResetAttributeIterator(Instance);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_ResetAttributeIterator(Instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_ResetAttributeIterator(Instance);
+        #endif
       }
       public void ResetProfileIterator()
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_ResetProfileIterator(Instance);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_ResetProfileIterator(Instance);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_ResetProfileIterator(Instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_ResetProfileIterator(Instance);
+        #endif
       }
       public void Resample(double resolutionX, double resolutionY)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3471,10 +5159,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -3483,10 +5179,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3494,10 +5198,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Rotate(Instance, degrees, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Rotate(Instance, degrees, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Rotate(Instance, degrees, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Rotate(Instance, degrees, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3505,10 +5217,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_RotationalBlur(Instance, angle, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_RotationalBlur(Instance, angle, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_RotationalBlur(Instance, angle, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_RotationalBlur(Instance, angle, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3518,10 +5238,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -3532,10 +5260,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -3543,20 +5279,36 @@ namespace ImageMagick
       public void Segment(ColorSpace colorSpace, double clusterThreshold, double smoothingThreshold)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
+        #endif
         CheckException(exception);
       }
       public void SelectiveBlur(double radius, double sigma, double threshold, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3564,10 +5316,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Separate(Instance, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Separate(Instance, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Separate(Instance, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Separate(Instance, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception, result);
         return result;
       }
@@ -3575,20 +5335,36 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_SepiaTone(Instance, threshold, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_SepiaTone(Instance, threshold, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_SepiaTone(Instance, threshold, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_SepiaTone(Instance, threshold, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
       public void SetAlpha(AlphaOption value)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
+        #endif
         CheckException(exception);
       }
       public void SetArtifact(string name, string value)
@@ -3597,10 +5373,18 @@ namespace ImageMagick
         {
           using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -3611,30 +5395,54 @@ namespace ImageMagick
           using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
           {
             IntPtr exception = IntPtr.Zero;
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
+            #endif
             CheckException(exception);
           }
         }
       }
       public void SetBitDepth(Channels channels, int value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_SetBitDepth(Instance, (UIntPtr)channels, (UIntPtr)value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_SetBitDepth(Instance, (UIntPtr)channels, (UIntPtr)value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_SetBitDepth(Instance, (UIntPtr)channels, (UIntPtr)value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_SetBitDepth(Instance, (UIntPtr)channels, (UIntPtr)value);
+        #endif
       }
       public void SetColormap(int index, MagickColor color)
       {
         using (INativeInstance colorNative = MagickColor.CreateInstance(color))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_SetColormap(Instance, (UIntPtr)index, colorNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_SetColormap(Instance, (UIntPtr)index, colorNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_SetColormap(Instance, (UIntPtr)index, colorNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_SetColormap(Instance, (UIntPtr)index, colorNative.Instance, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -3642,35 +5450,67 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         bool result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
         CheckException(exception);
         return result;
       }
       public void SetNext(IntPtr image)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_SetNext(Instance, image);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_SetNext(Instance, image);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_SetNext(Instance, image);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_SetNext(Instance, image);
+        #endif
       }
       public void SetProgressDelegate(ProgressDelegate method)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_SetProgressDelegate(Instance, method);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_SetProgressDelegate(Instance, method);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_SetProgressDelegate(Instance, method);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_SetProgressDelegate(Instance, method);
+        #endif
       }
       public void Shade(double azimuth, double elevation, bool colorShading, Channels channels)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3678,10 +5518,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3689,10 +5537,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Sharpen(Instance, radius, sigma, (UIntPtr)channel, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Sharpen(Instance, radius, sigma, (UIntPtr)channel, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Sharpen(Instance, radius, sigma, (UIntPtr)channel, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Sharpen(Instance, radius, sigma, (UIntPtr)channel, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3700,10 +5556,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3711,30 +5575,54 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
       public void SigmoidalContrast(bool sharpen, double contrast, double midpoint)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, out exception);
+        #endif
         CheckException(exception);
       }
       public void SparseColor(Channels channel, SparseColorMethod method, double[] values, int length)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, values, (UIntPtr)length, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, values, (UIntPtr)length, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, values, (UIntPtr)length, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, values, (UIntPtr)length, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3742,20 +5630,36 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
       public void Solarize(double factor)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Solarize(Instance, factor, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Solarize(Instance, factor, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Solarize(Instance, factor, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Solarize(Instance, factor, out exception);
+        #endif
         CheckException(exception);
       }
       public void Splice(MagickRectangle geometry)
@@ -3764,10 +5668,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -3776,10 +5688,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3787,10 +5707,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3798,10 +5726,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Statistics(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Statistics(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Statistics(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Statistics(Instance, out exception);
+        #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
         {
@@ -3816,10 +5752,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3827,20 +5771,36 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
       public void Strip()
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Strip(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Strip(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Strip(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Strip(Instance, out exception);
+        #endif
         CheckException(exception);
       }
       public IntPtr SubImageSearch(MagickImage reference, ErrorMetric metric, double similarityThreshold, out MagickRectangle offset, out double similarityMetric)
@@ -3850,10 +5810,18 @@ namespace ImageMagick
           IntPtr offsetNativeOut = offsetNative.Instance;
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
+          #endif
           offset = MagickRectangle.CreateInstance(offsetNative);
           CheckException(exception, result);
           return result;
@@ -3863,29 +5831,53 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
       public void Texture(MagickImage image)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
+        #endif
         CheckException(exception);
       }
       public void Threshold(double threshold)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickImage_Threshold(Instance, threshold, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickImage_Threshold(Instance, threshold, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickImage_Threshold(Instance, threshold, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickImage_Threshold(Instance, threshold, out exception);
+        #endif
         CheckException(exception);
       }
       public void Thumbnail(string geometry)
@@ -3894,10 +5886,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
+          #endif
           CheckException(exception, result);
           Instance = result;
         }
@@ -3910,10 +5910,18 @@ namespace ImageMagick
           {
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              result = NativeMethods.X64.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
+            #endif
+            #if WIN64 || ANYCPU
+            result = NativeMethods.X64.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
+            #endif
+            #if ANYCPU
             else
-              result = NativeMethods.X86.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
+            #endif
+            #if !WIN64 || ANYCPU
+            result = NativeMethods.X86.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
+            #endif
             CheckException(exception, result);
             Instance = result;
           }
@@ -3924,10 +5932,18 @@ namespace ImageMagick
         using (INativeInstance colorNative = MagickColor.CreateInstance(color))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -3938,10 +5954,18 @@ namespace ImageMagick
           using (INativeInstance colorHighNative = MagickColor.CreateInstance(colorHigh))
           {
             IntPtr exception = IntPtr.Zero;
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
+            #endif
             CheckException(exception);
           }
         }
@@ -3950,10 +5974,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Transpose(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Transpose(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Transpose(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Transpose(Instance, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3961,10 +5993,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Transverse(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Transverse(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Transverse(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Transverse(Instance, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3972,10 +6012,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Trim(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Trim(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Trim(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Trim(Instance, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -3983,10 +6031,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_UniqueColors(Instance, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_UniqueColors(Instance, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_UniqueColors(Instance, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_UniqueColors(Instance, out exception);
+        #endif
         CheckException(exception, result);
         return result;
       }
@@ -3994,10 +6050,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (UIntPtr)channels, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (UIntPtr)channels, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (UIntPtr)channels, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (UIntPtr)channels, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -4005,10 +6069,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -4016,10 +6088,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -4027,10 +6107,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
+        #endif
         CheckException(exception, result);
         Instance = result;
       }
@@ -4039,10 +6127,18 @@ namespace ImageMagick
         using (INativeInstance thresholdNative = UTF8Marshaler.CreateInstance(threshold))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+          #endif
           CheckException(exception);
         }
       }
@@ -4052,10 +6148,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickImage_WriteBlob(Instance, settingsNative.Instance, out length, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_WriteBlob(Instance, settingsNative.Instance, out length, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickImage_WriteBlob(Instance, settingsNative.Instance, out length, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_WriteBlob(Instance, settingsNative.Instance, out length, out exception);
+          #endif
           MagickException magickException = MagickExceptionHelper.Create(exception);
           if (MagickExceptionHelper.IsError(magickException))
           {
@@ -4072,10 +6176,18 @@ namespace ImageMagick
         using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
         {
           IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
+          #endif
           CheckException(exception);
         }
       }

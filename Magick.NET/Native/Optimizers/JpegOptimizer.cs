@@ -33,20 +33,28 @@ namespace ImageMagick.ImageOptimizers
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.JpegOptimizer+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr JpegOptimizer_Optimize(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.JpegOptimizer+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr JpegOptimizer_Optimize(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive);
       }
+      #endif
     }
     private static class NativeJpegOptimizer
     {
@@ -56,10 +64,18 @@ namespace ImageMagick.ImageOptimizers
         {
           using (INativeInstance outputNative = UTF8Marshaler.CreateInstance(output))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              return (int)NativeMethods.X64.JpegOptimizer_Optimize(inputNative.Instance, outputNative.Instance, progressive);
+            #endif
+            #if WIN64 || ANYCPU
+            return (int)NativeMethods.X64.JpegOptimizer_Optimize(inputNative.Instance, outputNative.Instance, progressive);
+            #endif
+            #if ANYCPU
             else
-              return (int)NativeMethods.X86.JpegOptimizer_Optimize(inputNative.Instance, outputNative.Instance, progressive);
+            #endif
+            #if !WIN64 || ANYCPU
+            return (int)NativeMethods.X86.JpegOptimizer_Optimize(inputNative.Instance, outputNative.Instance, progressive);
+            #endif
           }
         }
       }

@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickExceptionHelper+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickExceptionHelper_Description(IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -50,10 +53,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr MagickExceptionHelper_Severity(IntPtr exception);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickExceptionHelper+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickExceptionHelper_Description(IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -67,50 +74,99 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr MagickExceptionHelper_Severity(IntPtr exception);
       }
+      #endif
     }
     private static class NativeMagickExceptionHelper
     {
       public static string Description(IntPtr exception)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickExceptionHelper_Description(exception));
+        #endif
+        #if WIN64 || ANYCPU
+        return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickExceptionHelper_Description(exception));
+        #endif
+        #if ANYCPU
         else
-          return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickExceptionHelper_Description(exception));
+        #endif
+        #if !WIN64 || ANYCPU
+        return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickExceptionHelper_Description(exception));
+        #endif
       }
       public static void Dispose(IntPtr exception)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickExceptionHelper_Dispose(exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickExceptionHelper_Dispose(exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickExceptionHelper_Dispose(exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickExceptionHelper_Dispose(exception);
+        #endif
       }
       public static string Message(IntPtr exception)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickExceptionHelper_Message(exception));
+        #endif
+        #if WIN64 || ANYCPU
+        return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickExceptionHelper_Message(exception));
+        #endif
+        #if ANYCPU
         else
-          return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickExceptionHelper_Message(exception));
+        #endif
+        #if !WIN64 || ANYCPU
+        return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickExceptionHelper_Message(exception));
+        #endif
       }
       public static IntPtr Related(IntPtr exception, int index)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.MagickExceptionHelper_Related(exception, (UIntPtr)index);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.MagickExceptionHelper_Related(exception, (UIntPtr)index);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.MagickExceptionHelper_Related(exception, (UIntPtr)index);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.MagickExceptionHelper_Related(exception, (UIntPtr)index);
+        #endif
       }
       public static int RelatedCount(IntPtr exception)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return (int)NativeMethods.X64.MagickExceptionHelper_RelatedCount(exception);
+        #endif
+        #if WIN64 || ANYCPU
+        return (int)NativeMethods.X64.MagickExceptionHelper_RelatedCount(exception);
+        #endif
+        #if ANYCPU
         else
-          return (int)NativeMethods.X86.MagickExceptionHelper_RelatedCount(exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        return (int)NativeMethods.X86.MagickExceptionHelper_RelatedCount(exception);
+        #endif
       }
       public static int Severity(IntPtr exception)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return (int)NativeMethods.X64.MagickExceptionHelper_Severity(exception);
+        #endif
+        #if WIN64 || ANYCPU
+        return (int)NativeMethods.X64.MagickExceptionHelper_Severity(exception);
+        #endif
+        #if ANYCPU
         else
-          return (int)NativeMethods.X86.MagickExceptionHelper_Severity(exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        return (int)NativeMethods.X86.MagickExceptionHelper_Severity(exception);
+        #endif
       }
     }
   }

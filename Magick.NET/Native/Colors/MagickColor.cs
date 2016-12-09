@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickColor+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickColor_Create();
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -70,10 +73,14 @@ namespace ImageMagick
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MagickColor_Initialize(IntPtr Instance, IntPtr value);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickColor+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickColor_Create();
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -107,6 +114,7 @@ namespace ImageMagick
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MagickColor_Initialize(IntPtr Instance, IntPtr value);
       }
+      #endif
     }
     private sealed class NativeMagickColor : NativeInstance
     {
@@ -117,17 +125,33 @@ namespace ImageMagick
       }
       public static void DisposeInstance(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickColor_Dispose(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickColor_Dispose(instance);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickColor_Dispose(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickColor_Dispose(instance);
+        #endif
       }
       public NativeMagickColor()
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          _Instance = NativeMethods.X64.MagickColor_Create();
+        #endif
+        #if WIN64 || ANYCPU
+        _Instance = NativeMethods.X64.MagickColor_Create();
+        #endif
+        #if ANYCPU
         else
-          _Instance = NativeMethods.X86.MagickColor_Create();
+        #endif
+        #if !WIN64 || ANYCPU
+        _Instance = NativeMethods.X86.MagickColor_Create();
+        #endif
         if (_Instance == IntPtr.Zero)
           throw new InvalidOperationException();
       }
@@ -155,10 +179,18 @@ namespace ImageMagick
         get
         {
           ulong result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickColor_Count_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickColor_Count_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickColor_Count_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickColor_Count_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -167,18 +199,34 @@ namespace ImageMagick
         get
         {
           QuantumType result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickColor_Red_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickColor_Red_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickColor_Red_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickColor_Red_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickColor_Red_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickColor_Red_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickColor_Red_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickColor_Red_Set(Instance, value);
+          #endif
         }
       }
       public QuantumType Green
@@ -186,18 +234,34 @@ namespace ImageMagick
         get
         {
           QuantumType result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickColor_Green_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickColor_Green_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickColor_Green_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickColor_Green_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickColor_Green_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickColor_Green_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickColor_Green_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickColor_Green_Set(Instance, value);
+          #endif
         }
       }
       public QuantumType Blue
@@ -205,18 +269,34 @@ namespace ImageMagick
         get
         {
           QuantumType result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickColor_Blue_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickColor_Blue_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickColor_Blue_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickColor_Blue_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickColor_Blue_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickColor_Blue_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickColor_Blue_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickColor_Blue_Set(Instance, value);
+          #endif
         }
       }
       public QuantumType Alpha
@@ -224,18 +304,34 @@ namespace ImageMagick
         get
         {
           QuantumType result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickColor_Alpha_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickColor_Alpha_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickColor_Alpha_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickColor_Alpha_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickColor_Alpha_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickColor_Alpha_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickColor_Alpha_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickColor_Alpha_Set(Instance, value);
+          #endif
         }
       }
       public QuantumType Black
@@ -243,38 +339,70 @@ namespace ImageMagick
         get
         {
           QuantumType result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickColor_Black_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickColor_Black_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickColor_Black_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickColor_Black_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickColor_Black_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickColor_Black_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickColor_Black_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickColor_Black_Set(Instance, value);
+          #endif
         }
       }
       public bool FuzzyEquals(MagickColor other, QuantumType fuzz)
       {
         using (INativeInstance otherNative = MagickColor.CreateInstance(other))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            return NativeMethods.X64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+          #endif
+          #if WIN64 || ANYCPU
+          return NativeMethods.X64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+          #endif
+          #if ANYCPU
           else
-            return NativeMethods.X86.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+          #endif
+          #if !WIN64 || ANYCPU
+          return NativeMethods.X86.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+          #endif
         }
       }
       public bool Initialize(string value)
       {
         using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            return NativeMethods.X64.MagickColor_Initialize(Instance, valueNative.Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          return NativeMethods.X64.MagickColor_Initialize(Instance, valueNative.Instance);
+          #endif
+          #if ANYCPU
           else
-            return NativeMethods.X86.MagickColor_Initialize(Instance, valueNative.Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          return NativeMethods.X86.MagickColor_Initialize(Instance, valueNative.Instance);
+          #endif
         }
       }
     }

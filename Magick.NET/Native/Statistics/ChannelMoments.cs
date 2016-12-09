@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.ChannelMoments+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr ChannelMoments_Centroid_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -50,10 +53,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern double ChannelMoments_GetHuInvariants(IntPtr Instance, UIntPtr index);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.ChannelMoments+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr ChannelMoments_Centroid_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -67,6 +74,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern double ChannelMoments_GetHuInvariants(IntPtr Instance, UIntPtr index);
       }
+      #endif
     }
     private sealed class NativeChannelMoments : ConstNativeInstance
     {
@@ -93,10 +101,18 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.ChannelMoments_Centroid_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.ChannelMoments_Centroid_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.ChannelMoments_Centroid_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.ChannelMoments_Centroid_Get(Instance);
+          #endif
           return PointInfo.CreateInstance(result);
         }
       }
@@ -105,10 +121,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.ChannelMoments_EllipseAngle_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.ChannelMoments_EllipseAngle_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.ChannelMoments_EllipseAngle_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.ChannelMoments_EllipseAngle_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -117,10 +141,18 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.ChannelMoments_EllipseAxis_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.ChannelMoments_EllipseAxis_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.ChannelMoments_EllipseAxis_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.ChannelMoments_EllipseAxis_Get(Instance);
+          #endif
           return PointInfo.CreateInstance(result);
         }
       }
@@ -129,10 +161,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.ChannelMoments_EllipseEccentricity_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.ChannelMoments_EllipseEccentricity_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.ChannelMoments_EllipseEccentricity_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.ChannelMoments_EllipseEccentricity_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -141,19 +181,35 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.ChannelMoments_EllipseIntensity_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.ChannelMoments_EllipseIntensity_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.ChannelMoments_EllipseIntensity_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.ChannelMoments_EllipseIntensity_Get(Instance);
+          #endif
           return result;
         }
       }
       public double GetHuInvariants(int index)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+        #endif
       }
     }
   }

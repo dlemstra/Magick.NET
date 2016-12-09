@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.ResourceLimits+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong ResourceLimits_Disk_Get();
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -58,10 +61,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ResourceLimits_Width_Set(ulong value);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.ResourceLimits+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong ResourceLimits_Disk_Get();
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -83,6 +90,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ResourceLimits_Width_Set(ulong value);
       }
+      #endif
     }
     private static class NativeResourceLimits
     {
@@ -91,18 +99,34 @@ namespace ImageMagick
         get
         {
           ulong result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.ResourceLimits_Disk_Get();
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.ResourceLimits_Disk_Get();
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.ResourceLimits_Disk_Get();
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.ResourceLimits_Disk_Get();
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.ResourceLimits_Disk_Set(value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.ResourceLimits_Disk_Set(value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.ResourceLimits_Disk_Set(value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.ResourceLimits_Disk_Set(value);
+          #endif
         }
       }
       public static ulong Height
@@ -110,18 +134,34 @@ namespace ImageMagick
         get
         {
           ulong result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.ResourceLimits_Height_Get();
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.ResourceLimits_Height_Get();
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.ResourceLimits_Height_Get();
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.ResourceLimits_Height_Get();
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.ResourceLimits_Height_Set(value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.ResourceLimits_Height_Set(value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.ResourceLimits_Height_Set(value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.ResourceLimits_Height_Set(value);
+          #endif
         }
       }
       public static ulong Memory
@@ -129,18 +169,34 @@ namespace ImageMagick
         get
         {
           ulong result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.ResourceLimits_Memory_Get();
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.ResourceLimits_Memory_Get();
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.ResourceLimits_Memory_Get();
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.ResourceLimits_Memory_Get();
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.ResourceLimits_Memory_Set(value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.ResourceLimits_Memory_Set(value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.ResourceLimits_Memory_Set(value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.ResourceLimits_Memory_Set(value);
+          #endif
         }
       }
       public static ulong Throttle
@@ -148,18 +204,34 @@ namespace ImageMagick
         get
         {
           ulong result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.ResourceLimits_Throttle_Get();
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.ResourceLimits_Throttle_Get();
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.ResourceLimits_Throttle_Get();
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.ResourceLimits_Throttle_Get();
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.ResourceLimits_Throttle_Set(value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.ResourceLimits_Throttle_Set(value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.ResourceLimits_Throttle_Set(value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.ResourceLimits_Throttle_Set(value);
+          #endif
         }
       }
       public static ulong Width
@@ -167,18 +239,34 @@ namespace ImageMagick
         get
         {
           ulong result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.ResourceLimits_Width_Get();
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.ResourceLimits_Width_Get();
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.ResourceLimits_Width_Get();
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.ResourceLimits_Width_Get();
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.ResourceLimits_Width_Set(value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.ResourceLimits_Width_Set(value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.ResourceLimits_Width_Set(value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.ResourceLimits_Width_Set(value);
+          #endif
         }
       }
     }

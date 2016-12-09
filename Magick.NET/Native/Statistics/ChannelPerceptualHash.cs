@@ -33,24 +33,32 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.ChannelPerceptualHash+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern double ChannelPerceptualHash_GetSrgbHuPhash(IntPtr Instance, UIntPtr index);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern double ChannelPerceptualHash_GetHclpHuPhash(IntPtr Instance, UIntPtr index);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.ChannelPerceptualHash+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern double ChannelPerceptualHash_GetSrgbHuPhash(IntPtr Instance, UIntPtr index);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern double ChannelPerceptualHash_GetHclpHuPhash(IntPtr Instance, UIntPtr index);
       }
+      #endif
     }
     private sealed class NativeChannelPerceptualHash : ConstNativeInstance
     {
@@ -74,17 +82,33 @@ namespace ImageMagick
       }
       public double GetSrgbHuPhash(int index)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.ChannelPerceptualHash_GetSrgbHuPhash(Instance, (UIntPtr)index);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.ChannelPerceptualHash_GetSrgbHuPhash(Instance, (UIntPtr)index);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.ChannelPerceptualHash_GetSrgbHuPhash(Instance, (UIntPtr)index);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.ChannelPerceptualHash_GetSrgbHuPhash(Instance, (UIntPtr)index);
+        #endif
       }
       public double GetHclpHuPhash(int index)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.ChannelPerceptualHash_GetHclpHuPhash(Instance, (UIntPtr)index);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.ChannelPerceptualHash_GetHclpHuPhash(Instance, (UIntPtr)index);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.ChannelPerceptualHash_GetHclpHuPhash(Instance, (UIntPtr)index);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.ChannelPerceptualHash_GetHclpHuPhash(Instance, (UIntPtr)index);
+        #endif
       }
     }
   }

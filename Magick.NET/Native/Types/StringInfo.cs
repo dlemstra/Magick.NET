@@ -33,24 +33,32 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.StringInfo+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr StringInfo_Datum_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr StringInfo_Length_Get(IntPtr instance);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.StringInfo+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr StringInfo_Datum_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr StringInfo_Length_Get(IntPtr instance);
       }
+      #endif
     }
     private sealed class NativeStringInfo : ConstNativeInstance
     {
@@ -77,10 +85,18 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.StringInfo_Datum_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.StringInfo_Datum_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.StringInfo_Datum_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.StringInfo_Datum_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -89,10 +105,18 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.StringInfo_Length_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.StringInfo_Length_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.StringInfo_Length_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.StringInfo_Length_Get(Instance);
+          #endif
           return (int)result;
         }
       }

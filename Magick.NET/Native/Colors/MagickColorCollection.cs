@@ -33,40 +33,64 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickColorCollection+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickColorCollection_DisposeList(IntPtr list);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickColorCollection_GetInstance(IntPtr list, UIntPtr index);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickColorCollection+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickColorCollection_DisposeList(IntPtr list);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickColorCollection_GetInstance(IntPtr list, UIntPtr index);
       }
+      #endif
     }
     private static class NativeMagickColorCollection
     {
       public static void DisposeList(IntPtr list)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickColorCollection_DisposeList(list);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickColorCollection_DisposeList(list);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickColorCollection_DisposeList(list);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickColorCollection_DisposeList(list);
+        #endif
       }
       public static IntPtr GetInstance(IntPtr list, int index)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.MagickColorCollection_GetInstance(list, (UIntPtr)index);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.MagickColorCollection_GetInstance(list, (UIntPtr)index);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.MagickColorCollection_GetInstance(list, (UIntPtr)index);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.MagickColorCollection_GetInstance(list, (UIntPtr)index);
+        #endif
       }
     }
   }

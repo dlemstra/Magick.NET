@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.QuantizeSettings+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr QuantizeSettings_Create();
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -52,10 +55,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void QuantizeSettings_SetTreeDepth(IntPtr Instance, UIntPtr value);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.QuantizeSettings+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr QuantizeSettings_Create();
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -71,6 +78,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void QuantizeSettings_SetTreeDepth(IntPtr Instance, UIntPtr value);
       }
+      #endif
     }
     private sealed class NativeQuantizeSettings : NativeInstance
     {
@@ -81,17 +89,33 @@ namespace ImageMagick
       }
       public static void DisposeInstance(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.QuantizeSettings_Dispose(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.QuantizeSettings_Dispose(instance);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.QuantizeSettings_Dispose(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.QuantizeSettings_Dispose(instance);
+        #endif
       }
       public NativeQuantizeSettings()
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          _Instance = NativeMethods.X64.QuantizeSettings_Create();
+        #endif
+        #if WIN64 || ANYCPU
+        _Instance = NativeMethods.X64.QuantizeSettings_Create();
+        #endif
+        #if ANYCPU
         else
-          _Instance = NativeMethods.X86.QuantizeSettings_Create();
+        #endif
+        #if !WIN64 || ANYCPU
+        _Instance = NativeMethods.X86.QuantizeSettings_Create();
+        #endif
         if (_Instance == IntPtr.Zero)
           throw new InvalidOperationException();
       }
@@ -112,38 +136,78 @@ namespace ImageMagick
       }
       public void SetColors(int value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.QuantizeSettings_SetColors(Instance, (UIntPtr)value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.QuantizeSettings_SetColors(Instance, (UIntPtr)value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.QuantizeSettings_SetColors(Instance, (UIntPtr)value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.QuantizeSettings_SetColors(Instance, (UIntPtr)value);
+        #endif
       }
       public void SetColorSpace(ColorSpace value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.QuantizeSettings_SetColorSpace(Instance, (UIntPtr)value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.QuantizeSettings_SetColorSpace(Instance, (UIntPtr)value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.QuantizeSettings_SetColorSpace(Instance, (UIntPtr)value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.QuantizeSettings_SetColorSpace(Instance, (UIntPtr)value);
+        #endif
       }
       public void SetDitherMethod(DitherMethod value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.QuantizeSettings_SetDitherMethod(Instance, (UIntPtr)value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.QuantizeSettings_SetDitherMethod(Instance, (UIntPtr)value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.QuantizeSettings_SetDitherMethod(Instance, (UIntPtr)value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.QuantizeSettings_SetDitherMethod(Instance, (UIntPtr)value);
+        #endif
       }
       public void SetMeasureErrors(bool value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.QuantizeSettings_SetMeasureErrors(Instance, value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.QuantizeSettings_SetMeasureErrors(Instance, value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.QuantizeSettings_SetMeasureErrors(Instance, value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.QuantizeSettings_SetMeasureErrors(Instance, value);
+        #endif
       }
       public void SetTreeDepth(int value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.QuantizeSettings_SetTreeDepth(Instance, (UIntPtr)value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.QuantizeSettings_SetTreeDepth(Instance, (UIntPtr)value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.QuantizeSettings_SetTreeDepth(Instance, (UIntPtr)value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.QuantizeSettings_SetTreeDepth(Instance, (UIntPtr)value);
+        #endif
       }
     }
     internal static INativeInstance CreateInstance(QuantizeSettings instance)

@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickSettings+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickSettings_Create();
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -117,10 +120,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_SetSize(IntPtr Instance, IntPtr value);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickSettings+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickSettings_Create();
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -201,6 +208,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickSettings_SetSize(IntPtr Instance, IntPtr value);
       }
+      #endif
     }
     private sealed class NativeMagickSettings : NativeInstance
     {
@@ -211,17 +219,33 @@ namespace ImageMagick
       }
       public static void DisposeInstance(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickSettings_Dispose(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickSettings_Dispose(instance);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickSettings_Dispose(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickSettings_Dispose(instance);
+        #endif
       }
       public NativeMagickSettings()
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          _Instance = NativeMethods.X64.MagickSettings_Create();
+        #endif
+        #if WIN64 || ANYCPU
+        _Instance = NativeMethods.X64.MagickSettings_Create();
+        #endif
+        #if ANYCPU
         else
-          _Instance = NativeMethods.X86.MagickSettings_Create();
+        #endif
+        #if !WIN64 || ANYCPU
+        _Instance = NativeMethods.X86.MagickSettings_Create();
+        #endif
         if (_Instance == IntPtr.Zero)
           throw new InvalidOperationException();
       }
@@ -245,20 +269,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_BackgroundColor_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_BackgroundColor_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_BackgroundColor_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_BackgroundColor_Get(Instance);
+          #endif
           return MagickColor.CreateInstance(result);
         }
         set
         {
           using (INativeInstance valueNative = MagickColor.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -267,18 +307,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_ColorSpace_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_ColorSpace_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_ColorSpace_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_ColorSpace_Get(Instance);
+          #endif
           return (ColorSpace)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_ColorSpace_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_ColorSpace_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_ColorSpace_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_ColorSpace_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public ColorType ColorType
@@ -286,18 +342,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_ColorType_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_ColorType_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_ColorType_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_ColorType_Get(Instance);
+          #endif
           return (ColorType)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_ColorType_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_ColorType_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_ColorType_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_ColorType_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public CompressionMethod CompressionMethod
@@ -305,18 +377,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_CompressionMethod_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_CompressionMethod_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_CompressionMethod_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_CompressionMethod_Get(Instance);
+          #endif
           return (CompressionMethod)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_CompressionMethod_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_CompressionMethod_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_CompressionMethod_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_CompressionMethod_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public bool Debug
@@ -324,18 +412,34 @@ namespace ImageMagick
         get
         {
           bool result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_Debug_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_Debug_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_Debug_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_Debug_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_Debug_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_Debug_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_Debug_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_Debug_Set(Instance, value);
+          #endif
         }
       }
       public string Density
@@ -343,20 +447,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_Density_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_Density_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_Density_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_Density_Get(Instance);
+          #endif
           return UTF8Marshaler.NativeToManaged(result);
         }
         set
         {
           using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickSettings_Density_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickSettings_Density_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickSettings_Density_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickSettings_Density_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -365,18 +485,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_Endian_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_Endian_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_Endian_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_Endian_Get(Instance);
+          #endif
           return (Endian)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_Endian_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_Endian_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_Endian_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_Endian_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public string Format
@@ -384,20 +520,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_Format_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_Format_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_Format_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_Format_Get(Instance);
+          #endif
           return UTF8Marshaler.NativeToManaged(result);
         }
         set
         {
           using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickSettings_Format_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickSettings_Format_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickSettings_Format_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickSettings_Format_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -406,20 +558,36 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_Font_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_Font_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_Font_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_Font_Get(Instance);
+          #endif
           return UTF8Marshaler.NativeToManaged(result);
         }
         set
         {
           using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickSettings_Font_Set(Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickSettings_Font_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickSettings_Font_Set(Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickSettings_Font_Set(Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -428,18 +596,34 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_FontPointsize_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_FontPointsize_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_FontPointsize_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_FontPointsize_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_FontPointsize_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_FontPointsize_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_FontPointsize_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_FontPointsize_Set(Instance, value);
+          #endif
         }
       }
       public bool Monochrome
@@ -447,18 +631,34 @@ namespace ImageMagick
         get
         {
           bool result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_Monochrome_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_Monochrome_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_Monochrome_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_Monochrome_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_Monochrome_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_Monochrome_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_Monochrome_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_Monochrome_Set(Instance, value);
+          #endif
         }
       }
       public Interlace Interlace
@@ -466,18 +666,34 @@ namespace ImageMagick
         get
         {
           UIntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_Interlace_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_Interlace_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_Interlace_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_Interlace_Get(Instance);
+          #endif
           return (Interlace)result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_Interlace_Set(Instance, (UIntPtr)value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_Interlace_Set(Instance, (UIntPtr)value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_Interlace_Set(Instance, (UIntPtr)value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_Interlace_Set(Instance, (UIntPtr)value);
+          #endif
         }
       }
       public bool Verbose
@@ -485,43 +701,83 @@ namespace ImageMagick
         get
         {
           bool result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickSettings_Verbose_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickSettings_Verbose_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickSettings_Verbose_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickSettings_Verbose_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_Verbose_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_Verbose_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_Verbose_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_Verbose_Set(Instance, value);
+          #endif
         }
       }
       public void SetColorFuzz(double value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickSettings_SetColorFuzz(Instance, value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickSettings_SetColorFuzz(Instance, value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickSettings_SetColorFuzz(Instance, value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickSettings_SetColorFuzz(Instance, value);
+        #endif
       }
       public void SetFileName(string value)
       {
         using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_SetFileName(Instance, valueNative.Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_SetFileName(Instance, valueNative.Instance);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_SetFileName(Instance, valueNative.Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_SetFileName(Instance, valueNative.Instance);
+          #endif
         }
       }
       public void SetNumberScenes(int value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickSettings_SetNumberScenes(Instance, (UIntPtr)value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickSettings_SetNumberScenes(Instance, (UIntPtr)value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickSettings_SetNumberScenes(Instance, (UIntPtr)value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickSettings_SetNumberScenes(Instance, (UIntPtr)value);
+        #endif
       }
       public void SetOption(string key, string value)
       {
@@ -529,10 +785,18 @@ namespace ImageMagick
         {
           using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
           {
+            #if ANYCPU
             if (NativeLibrary.Is64Bit)
-              NativeMethods.X64.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
             else
-              NativeMethods.X86.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
+            #endif
           }
         }
       }
@@ -540,51 +804,99 @@ namespace ImageMagick
       {
         using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_SetPage(Instance, valueNative.Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_SetPage(Instance, valueNative.Instance);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_SetPage(Instance, valueNative.Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_SetPage(Instance, valueNative.Instance);
+          #endif
         }
       }
       public void SetPing(bool value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickSettings_SetPing(Instance, value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickSettings_SetPing(Instance, value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickSettings_SetPing(Instance, value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickSettings_SetPing(Instance, value);
+        #endif
       }
       public void SetQuality(int value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickSettings_SetQuality(Instance, (UIntPtr)value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickSettings_SetQuality(Instance, (UIntPtr)value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickSettings_SetQuality(Instance, (UIntPtr)value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickSettings_SetQuality(Instance, (UIntPtr)value);
+        #endif
       }
       public void SetScenes(string value)
       {
         using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_SetScenes(Instance, valueNative.Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_SetScenes(Instance, valueNative.Instance);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_SetScenes(Instance, valueNative.Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_SetScenes(Instance, valueNative.Instance);
+          #endif
         }
       }
       public void SetScene(int value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickSettings_SetScene(Instance, (UIntPtr)value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickSettings_SetScene(Instance, (UIntPtr)value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickSettings_SetScene(Instance, (UIntPtr)value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickSettings_SetScene(Instance, (UIntPtr)value);
+        #endif
       }
       public void SetSize(string value)
       {
         using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.MagickSettings_SetSize(Instance, valueNative.Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickSettings_SetSize(Instance, valueNative.Instance);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.MagickSettings_SetSize(Instance, valueNative.Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickSettings_SetSize(Instance, valueNative.Instance);
+          #endif
         }
       }
     }

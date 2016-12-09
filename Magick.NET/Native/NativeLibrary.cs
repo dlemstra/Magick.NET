@@ -18,19 +18,31 @@ namespace ImageMagick
 {
   internal static class NativeLibrary
   {
+#if !WIN64 || ANYCPU
 #if Q8
-    public const string X64Name = "Magick.NET-Q8-x64.Native.dll";
     public const string X86Name = "Magick.NET-Q8-x86.Native.dll";
 #elif Q16
-    public const string X64Name = "Magick.NET-Q16-x64.Native.dll";
     public const string X86Name = "Magick.NET-Q16-x86.Native.dll";
 #elif Q16HDRI
-    public const string X64Name = "Magick.NET-Q16-HDRI-x64.Native.dll";
     public const string X86Name = "Magick.NET-Q16-HDRI-x86.Native.dll";
 #else
 #error Not implemented!
 #endif
+#endif
 
+#if WIN64 || ANYCPU
+#if Q8
+    public const string X64Name = "Magick.NET-Q8-x64.Native.dll";
+#elif Q16
+    public const string X64Name = "Magick.NET-Q16-x64.Native.dll";
+#elif Q16HDRI
+    public const string X64Name = "Magick.NET-Q16-HDRI-x64.Native.dll";
+#else
+#error Not implemented!
+#endif
+#endif
+
+#if ANYCPU
     public static bool Is64Bit
     {
       get
@@ -38,5 +50,6 @@ namespace ImageMagick
         return IntPtr.Size == 8;
       }
     }
+#endif
   }
 }

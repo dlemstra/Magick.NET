@@ -102,17 +102,24 @@ namespace FileGenerator.Native
 
     private void WriteNativeMethods()
     {
+      if (_Platform == "X64")
+        WriteLine("#if WIN64 || ANYCPU");
+      else
+        WriteLine("#if !WIN64 || ANYCPU");
       WriteLine("public static class " + _Platform);
       WriteStartColon();
       WriteNativeMethodsStaticConstructor();
       WriteDllImports();
       WriteEndColon();
+      WriteLine("#endif");
     }
 
     private void WriteNativeMethodsStaticConstructor()
     {
+      WriteLine("#if ANYCPU");
       WriteLine(@"[SuppressMessage(""Microsoft.Performance"", ""CA1810: InitializeReferenceTypeStaticFieldsInline"", Scope = ""member"", Target = ""ImageMagick." + Class.Name + @"+NativeMethods." + _Platform + @"#.cctor()"")]");
       WriteLine("static " + _Platform + "() { NativeLibraryLoader.Load(); }");
+      WriteLine("#endif");
     }
 
     private void WriteMarshal(MagickType type)

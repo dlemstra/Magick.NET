@@ -16,6 +16,7 @@ using System.Diagnostics;
 
 namespace ImageMagick
 {
+#if ANYCPU
   internal static class NativeLibraryLoader
   {
     [Conditional("ONLY_HERE_FOR_ANYCPU")]
@@ -23,4 +24,5 @@ namespace ImageMagick
     {
     }
   }
+#endif
 }

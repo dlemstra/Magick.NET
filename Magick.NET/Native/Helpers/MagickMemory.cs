@@ -33,29 +33,45 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickMemory+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickMemory_Relinquish(IntPtr value);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickMemory+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickMemory_Relinquish(IntPtr value);
       }
+      #endif
     }
     private static class NativeMagickMemory
     {
       public static void Relinquish(IntPtr value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickMemory_Relinquish(value);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickMemory_Relinquish(value);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickMemory_Relinquish(value);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickMemory_Relinquish(value);
+        #endif
       }
     }
   }

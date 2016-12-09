@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickGeometry+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickGeometry_Create();
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -52,10 +55,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr MagickGeometry_Initialize(IntPtr Instance, IntPtr value);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickGeometry+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickGeometry_Create();
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -71,6 +78,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr MagickGeometry_Initialize(IntPtr Instance, IntPtr value);
       }
+      #endif
     }
     private sealed class NativeMagickGeometry : NativeInstance
     {
@@ -81,17 +89,33 @@ namespace ImageMagick
       }
       public static void DisposeInstance(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickGeometry_Dispose(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickGeometry_Dispose(instance);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickGeometry_Dispose(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickGeometry_Dispose(instance);
+        #endif
       }
       public NativeMagickGeometry()
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          _Instance = NativeMethods.X64.MagickGeometry_Create();
+        #endif
+        #if WIN64 || ANYCPU
+        _Instance = NativeMethods.X64.MagickGeometry_Create();
+        #endif
+        #if ANYCPU
         else
-          _Instance = NativeMethods.X86.MagickGeometry_Create();
+        #endif
+        #if !WIN64 || ANYCPU
+        _Instance = NativeMethods.X86.MagickGeometry_Create();
+        #endif
         if (_Instance == IntPtr.Zero)
           throw new InvalidOperationException();
       }
@@ -119,10 +143,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickGeometry_X_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickGeometry_X_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickGeometry_X_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickGeometry_X_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -131,10 +163,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickGeometry_Y_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickGeometry_Y_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickGeometry_Y_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickGeometry_Y_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -143,10 +183,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickGeometry_Width_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickGeometry_Width_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickGeometry_Width_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickGeometry_Width_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -155,10 +203,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickGeometry_Height_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickGeometry_Height_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickGeometry_Height_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickGeometry_Height_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -166,10 +222,18 @@ namespace ImageMagick
       {
         using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            return (GeometryFlags)NativeMethods.X64.MagickGeometry_Initialize(Instance, valueNative.Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          return (GeometryFlags)NativeMethods.X64.MagickGeometry_Initialize(Instance, valueNative.Instance);
+          #endif
+          #if ANYCPU
           else
-            return (GeometryFlags)NativeMethods.X86.MagickGeometry_Initialize(Instance, valueNative.Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          return (GeometryFlags)NativeMethods.X86.MagickGeometry_Initialize(Instance, valueNative.Instance);
+          #endif
         }
       }
     }

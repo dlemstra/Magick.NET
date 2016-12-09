@@ -33,40 +33,64 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.PerceptualHash+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void PerceptualHash_DisposeList(IntPtr list);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PerceptualHash_GetInstance(IntPtr image, IntPtr list, UIntPtr channel);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.PerceptualHash+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void PerceptualHash_DisposeList(IntPtr list);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PerceptualHash_GetInstance(IntPtr image, IntPtr list, UIntPtr channel);
       }
+      #endif
     }
     private static class NativePerceptualHash
     {
       public static void DisposeList(IntPtr list)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.PerceptualHash_DisposeList(list);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.PerceptualHash_DisposeList(list);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.PerceptualHash_DisposeList(list);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.PerceptualHash_DisposeList(list);
+        #endif
       }
       public static IntPtr GetInstance(MagickImage image, IntPtr list, PixelChannel channel)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.PerceptualHash_GetInstance(MagickImage.GetInstance(image), list, (UIntPtr)channel);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.PerceptualHash_GetInstance(MagickImage.GetInstance(image), list, (UIntPtr)channel);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.PerceptualHash_GetInstance(MagickImage.GetInstance(image), list, (UIntPtr)channel);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.PerceptualHash_GetInstance(MagickImage.GetInstance(image), list, (UIntPtr)channel);
+        #endif
       }
     }
   }

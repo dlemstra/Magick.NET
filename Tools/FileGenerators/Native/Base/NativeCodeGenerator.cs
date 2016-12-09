@@ -189,8 +189,21 @@ namespace FileGenerator.Native
 
     protected void WriteNativeIfContent(string action)
     {
-      WriteIf("NativeLibrary.Is64Bit", string.Format(action, "X64"));
-      WriteElse(string.Format(action, "X86"));
+      WriteLine("#if ANYCPU");
+      WriteLine("if (NativeLibrary.Is64Bit)");
+      WriteLine("#endif");
+
+      WriteLine("#if WIN64 || ANYCPU");
+      WriteLine(string.Format(action, "X64"));
+      WriteLine("#endif");
+
+      WriteLine("#if ANYCPU");
+      WriteLine("else");
+      WriteLine("#endif");
+
+      WriteLine("#if !WIN64 || ANYCPU");
+      WriteLine(string.Format(action, "X86"));
+      WriteLine("#endif");
     }
 
     protected void WriteThrowStart()

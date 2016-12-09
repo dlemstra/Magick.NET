@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.PrimaryInfo+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PrimaryInfo_Create();
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -54,10 +57,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void PrimaryInfo_Z_Set(IntPtr instance, double value);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.PrimaryInfo+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PrimaryInfo_Create();
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -75,6 +82,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void PrimaryInfo_Z_Set(IntPtr instance, double value);
       }
+      #endif
     }
     private sealed class NativePrimaryInfo : NativeInstance
     {
@@ -85,17 +93,33 @@ namespace ImageMagick
       }
       public static void DisposeInstance(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.PrimaryInfo_Dispose(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.PrimaryInfo_Dispose(instance);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.PrimaryInfo_Dispose(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.PrimaryInfo_Dispose(instance);
+        #endif
       }
       public NativePrimaryInfo()
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          _Instance = NativeMethods.X64.PrimaryInfo_Create();
+        #endif
+        #if WIN64 || ANYCPU
+        _Instance = NativeMethods.X64.PrimaryInfo_Create();
+        #endif
+        #if ANYCPU
         else
-          _Instance = NativeMethods.X86.PrimaryInfo_Create();
+        #endif
+        #if !WIN64 || ANYCPU
+        _Instance = NativeMethods.X86.PrimaryInfo_Create();
+        #endif
         if (_Instance == IntPtr.Zero)
           throw new InvalidOperationException();
       }
@@ -123,18 +147,34 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.PrimaryInfo_X_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.PrimaryInfo_X_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.PrimaryInfo_X_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.PrimaryInfo_X_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.PrimaryInfo_X_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.PrimaryInfo_X_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.PrimaryInfo_X_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.PrimaryInfo_X_Set(Instance, value);
+          #endif
         }
       }
       public double Y
@@ -142,18 +182,34 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.PrimaryInfo_Y_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.PrimaryInfo_Y_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.PrimaryInfo_Y_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.PrimaryInfo_Y_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.PrimaryInfo_Y_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.PrimaryInfo_Y_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.PrimaryInfo_Y_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.PrimaryInfo_Y_Set(Instance, value);
+          #endif
         }
       }
       public double Z
@@ -161,18 +217,34 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.PrimaryInfo_Z_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.PrimaryInfo_Z_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.PrimaryInfo_Z_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.PrimaryInfo_Z_Get(Instance);
+          #endif
           return result;
         }
         set
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            NativeMethods.X64.PrimaryInfo_Z_Set(Instance, value);
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.PrimaryInfo_Z_Set(Instance, value);
+          #endif
+          #if ANYCPU
           else
-            NativeMethods.X86.PrimaryInfo_Z_Set(Instance, value);
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.PrimaryInfo_Z_Set(Instance, value);
+          #endif
         }
       }
     }

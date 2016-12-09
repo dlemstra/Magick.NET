@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.TypeMetric+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void TypeMetric_Dispose(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -54,10 +57,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern double TypeMetric_UnderlineThickness_Get(IntPtr instance);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.TypeMetric+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void TypeMetric_Dispose(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -75,6 +82,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern double TypeMetric_UnderlineThickness_Get(IntPtr instance);
       }
+      #endif
     }
     private sealed class NativeTypeMetric : NativeInstance
     {
@@ -85,10 +93,18 @@ namespace ImageMagick
       }
       public static void DisposeInstance(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.TypeMetric_Dispose(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.TypeMetric_Dispose(instance);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.TypeMetric_Dispose(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.TypeMetric_Dispose(instance);
+        #endif
       }
       public NativeTypeMetric(IntPtr instance)
       {
@@ -114,10 +130,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.TypeMetric_Ascent_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.TypeMetric_Ascent_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.TypeMetric_Ascent_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.TypeMetric_Ascent_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -126,10 +150,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.TypeMetric_Descent_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.TypeMetric_Descent_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.TypeMetric_Descent_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.TypeMetric_Descent_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -138,10 +170,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.TypeMetric_MaxHorizontalAdvance_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.TypeMetric_MaxHorizontalAdvance_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.TypeMetric_MaxHorizontalAdvance_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.TypeMetric_MaxHorizontalAdvance_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -150,10 +190,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.TypeMetric_TextHeight_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.TypeMetric_TextHeight_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.TypeMetric_TextHeight_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.TypeMetric_TextHeight_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -162,10 +210,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.TypeMetric_TextWidth_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.TypeMetric_TextWidth_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.TypeMetric_TextWidth_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.TypeMetric_TextWidth_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -174,10 +230,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.TypeMetric_UnderlinePosition_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.TypeMetric_UnderlinePosition_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.TypeMetric_UnderlinePosition_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.TypeMetric_UnderlinePosition_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -186,10 +250,18 @@ namespace ImageMagick
         get
         {
           double result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.TypeMetric_UnderlineThickness_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.TypeMetric_UnderlineThickness_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.TypeMetric_UnderlineThickness_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.TypeMetric_UnderlineThickness_Get(Instance);
+          #endif
           return result;
         }
       }

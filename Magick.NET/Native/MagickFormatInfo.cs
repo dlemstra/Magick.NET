@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickFormatInfo+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickFormatInfo_Description_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -72,10 +75,14 @@ namespace ImageMagick
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MagickFormatInfo_Unregister(IntPtr name);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.MagickFormatInfo+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickFormatInfo_Description_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -111,6 +118,7 @@ namespace ImageMagick
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MagickFormatInfo_Unregister(IntPtr name);
       }
+      #endif
     }
     private sealed class NativeMagickFormatInfo : ConstNativeInstance
     {
@@ -133,10 +141,18 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickFormatInfo_Description_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickFormatInfo_Description_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickFormatInfo_Description_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickFormatInfo_Description_Get(Instance);
+          #endif
           return UTF8Marshaler.NativeToManaged(result);
         }
       }
@@ -145,10 +161,18 @@ namespace ImageMagick
         get
         {
           bool result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickFormatInfo_CanReadMultithreaded_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickFormatInfo_CanReadMultithreaded_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickFormatInfo_CanReadMultithreaded_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickFormatInfo_CanReadMultithreaded_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -157,10 +181,18 @@ namespace ImageMagick
         get
         {
           bool result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickFormatInfo_CanWriteMultithreaded_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickFormatInfo_CanWriteMultithreaded_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickFormatInfo_CanWriteMultithreaded_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickFormatInfo_CanWriteMultithreaded_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -169,10 +201,18 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickFormatInfo_Format_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickFormatInfo_Format_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickFormatInfo_Format_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickFormatInfo_Format_Get(Instance);
+          #endif
           return UTF8Marshaler.NativeToManaged(result);
         }
       }
@@ -181,10 +221,18 @@ namespace ImageMagick
         get
         {
           bool result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickFormatInfo_IsMultiFrame_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickFormatInfo_IsMultiFrame_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickFormatInfo_IsMultiFrame_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickFormatInfo_IsMultiFrame_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -193,10 +241,18 @@ namespace ImageMagick
         get
         {
           bool result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickFormatInfo_IsReadable_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickFormatInfo_IsReadable_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickFormatInfo_IsReadable_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickFormatInfo_IsReadable_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -205,10 +261,18 @@ namespace ImageMagick
         get
         {
           bool result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickFormatInfo_IsWritable_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickFormatInfo_IsWritable_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickFormatInfo_IsWritable_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickFormatInfo_IsWritable_Get(Instance);
+          #endif
           return result;
         }
       }
@@ -217,10 +281,18 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickFormatInfo_MimeType_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickFormatInfo_MimeType_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickFormatInfo_MimeType_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickFormatInfo_MimeType_Get(Instance);
+          #endif
           return UTF8Marshaler.NativeToManaged(result);
         }
       }
@@ -229,10 +301,18 @@ namespace ImageMagick
         get
         {
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickFormatInfo_Module_Get(Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickFormatInfo_Module_Get(Instance);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickFormatInfo_Module_Get(Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickFormatInfo_Module_Get(Instance);
+          #endif
           return UTF8Marshaler.NativeToManaged(result);
         }
       }
@@ -240,10 +320,18 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickFormatInfo_CreateList(out length, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickFormatInfo_CreateList(out length, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickFormatInfo_CreateList(out length, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickFormatInfo_CreateList(out length, out exception);
+        #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
         {
@@ -256,19 +344,35 @@ namespace ImageMagick
       }
       public static void DisposeList(IntPtr instance, int length)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.MagickFormatInfo_DisposeList(instance, (UIntPtr)length);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.MagickFormatInfo_DisposeList(instance, (UIntPtr)length);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.MagickFormatInfo_DisposeList(instance, (UIntPtr)length);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.MagickFormatInfo_DisposeList(instance, (UIntPtr)length);
+        #endif
       }
       public void GetInfo(IntPtr list, int index)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.MagickFormatInfo_GetInfo(list, (UIntPtr)index, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.MagickFormatInfo_GetInfo(list, (UIntPtr)index, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.MagickFormatInfo_GetInfo(list, (UIntPtr)index, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.MagickFormatInfo_GetInfo(list, (UIntPtr)index, out exception);
+        #endif
         CheckException(exception);
         Instance = result;
       }
@@ -278,10 +382,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
+          #endif
           CheckException(exception);
           Instance = result;
         }
@@ -290,10 +402,18 @@ namespace ImageMagick
       {
         using (INativeInstance nameNative = UTF8Marshaler.CreateInstance(name))
         {
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            return NativeMethods.X64.MagickFormatInfo_Unregister(nameNative.Instance);
+          #endif
+          #if WIN64 || ANYCPU
+          return NativeMethods.X64.MagickFormatInfo_Unregister(nameNative.Instance);
+          #endif
+          #if ANYCPU
           else
-            return NativeMethods.X86.MagickFormatInfo_Unregister(nameNative.Instance);
+          #endif
+          #if !WIN64 || ANYCPU
+          return NativeMethods.X86.MagickFormatInfo_Unregister(nameNative.Instance);
+          #endif
         }
       }
     }

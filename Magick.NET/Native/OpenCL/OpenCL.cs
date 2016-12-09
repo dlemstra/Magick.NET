@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.OpenCL+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr OpenCL_GetDevices(out UIntPtr length);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -45,10 +48,14 @@ namespace ImageMagick
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool OpenCL_SetEnabled([MarshalAs(UnmanagedType.Bool)] bool value);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.OpenCL+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr OpenCL_GetDevices(out UIntPtr length);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -57,29 +64,54 @@ namespace ImageMagick
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool OpenCL_SetEnabled([MarshalAs(UnmanagedType.Bool)] bool value);
       }
+      #endif
     }
     private static class NativeOpenCL
     {
       public static IntPtr GetDevices(out UIntPtr length)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.OpenCL_GetDevices(out length);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.OpenCL_GetDevices(out length);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.OpenCL_GetDevices(out length);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.OpenCL_GetDevices(out length);
+        #endif
       }
       public static IntPtr GetDevice(IntPtr list, int index)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.OpenCL_GetDevice(list, (UIntPtr)index);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.OpenCL_GetDevice(list, (UIntPtr)index);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.OpenCL_GetDevice(list, (UIntPtr)index);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.OpenCL_GetDevice(list, (UIntPtr)index);
+        #endif
       }
       public static bool SetEnabled(bool value)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          return NativeMethods.X64.OpenCL_SetEnabled(value);
+        #endif
+        #if WIN64 || ANYCPU
+        return NativeMethods.X64.OpenCL_SetEnabled(value);
+        #endif
+        #if ANYCPU
         else
-          return NativeMethods.X86.OpenCL_SetEnabled(value);
+        #endif
+        #if !WIN64 || ANYCPU
+        return NativeMethods.X86.OpenCL_SetEnabled(value);
+        #endif
       }
     }
   }

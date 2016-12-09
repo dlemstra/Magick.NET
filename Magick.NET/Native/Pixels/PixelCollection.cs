@@ -33,10 +33,13 @@ namespace ImageMagick
   {
     private static class NativeMethods
     {
+      #if WIN64 || ANYCPU
       public static class X64
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.PixelCollection+NativeMethods.X64#.cctor()")]
         static X64() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PixelCollection_Create(IntPtr image, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -50,10 +53,14 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PixelCollection_ToShortArray(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr mapping, out IntPtr exception);
       }
+      #endif
+      #if !WIN64 || ANYCPU
       public static class X86
       {
+        #if ANYCPU
         [SuppressMessage("Microsoft.Performance", "CA1810: InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "ImageMagick.PixelCollection+NativeMethods.X86#.cctor()")]
         static X86() { NativeLibraryLoader.Load(); }
+        #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PixelCollection_Create(IntPtr image, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -67,6 +74,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PixelCollection_ToShortArray(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr mapping, out IntPtr exception);
       }
+      #endif
     }
     private NativePixelCollection _NativeInstance;
     private sealed class NativePixelCollection : NativeInstance
@@ -78,18 +86,34 @@ namespace ImageMagick
       }
       public static void DisposeInstance(IntPtr instance)
       {
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.PixelCollection_Dispose(instance);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.PixelCollection_Dispose(instance);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.PixelCollection_Dispose(instance);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.PixelCollection_Dispose(instance);
+        #endif
       }
       public NativePixelCollection(MagickImage image)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          _Instance = NativeMethods.X64.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        _Instance = NativeMethods.X64.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
+        #endif
+        #if ANYCPU
         else
-          _Instance = NativeMethods.X86.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        _Instance = NativeMethods.X86.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
+        #endif
         CheckException(exception, _Instance);
         if (_Instance == IntPtr.Zero)
           throw new InvalidOperationException();
@@ -113,20 +137,36 @@ namespace ImageMagick
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          result = NativeMethods.X64.PixelCollection_GetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        result = NativeMethods.X64.PixelCollection_GetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
+        #if ANYCPU
         else
-          result = NativeMethods.X86.PixelCollection_GetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        result = NativeMethods.X86.PixelCollection_GetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
+        #endif
         CheckException(exception);
         return result;
       }
       public void SetArea(int x, int y, int width, int height, QuantumType[] values, int length)
       {
         IntPtr exception = IntPtr.Zero;
+        #if ANYCPU
         if (NativeLibrary.Is64Bit)
-          NativeMethods.X64.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, values, (UIntPtr)length, out exception);
+        #endif
+        #if WIN64 || ANYCPU
+        NativeMethods.X64.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, values, (UIntPtr)length, out exception);
+        #endif
+        #if ANYCPU
         else
-          NativeMethods.X86.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, values, (UIntPtr)length, out exception);
+        #endif
+        #if !WIN64 || ANYCPU
+        NativeMethods.X86.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, values, (UIntPtr)length, out exception);
+        #endif
         CheckException(exception);
       }
       public IntPtr ToByteArray(int x, int y, int width, int height, string mapping)
@@ -135,10 +175,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.PixelCollection_ToByteArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.PixelCollection_ToByteArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.PixelCollection_ToByteArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.PixelCollection_ToByteArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
+          #endif
           MagickException magickException = MagickExceptionHelper.Create(exception);
           if (MagickExceptionHelper.IsError(magickException))
           {
@@ -156,10 +204,18 @@ namespace ImageMagick
         {
           IntPtr exception = IntPtr.Zero;
           IntPtr result;
+          #if ANYCPU
           if (NativeLibrary.Is64Bit)
-            result = NativeMethods.X64.PixelCollection_ToShortArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.PixelCollection_ToShortArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
+          #endif
+          #if ANYCPU
           else
-            result = NativeMethods.X86.PixelCollection_ToShortArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.PixelCollection_ToShortArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
+          #endif
           MagickException magickException = MagickExceptionHelper.Create(exception);
           if (MagickExceptionHelper.IsError(magickException))
           {
