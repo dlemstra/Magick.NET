@@ -27,5 +27,11 @@ namespace ImageMagick
       Throw.IfFalse(nameof(path), Directory.Exists(path), "Unable to find directory: {0}", path);
       return path;
     }
+
+    public static void Delete(FileInfo file)
+    {
+      if (file.Exists)
+        file.Delete();
+    }
   }
 }

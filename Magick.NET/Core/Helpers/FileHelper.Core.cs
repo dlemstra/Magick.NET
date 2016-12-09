@@ -23,27 +23,5 @@ namespace ImageMagick
     {
       return fileName;
     }
-
-    public static void Delete(FileInfo file)
-    {
-      if (!file.Exists)
-        return;
-
-      int retries = 10;
-
-      while (retries != 0)
-      {
-        try
-        {
-          file.Delete();
-          return;
-        }
-        catch (IOException)
-        {
-          retries--;
-          Task.Delay(1).Wait();
-        }
-      }
-    }
   }
 }
