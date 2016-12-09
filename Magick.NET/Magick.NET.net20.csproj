@@ -192,8 +192,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Colors\ColorRGB.cs" />
-    <Compile Include="Colors\MagickColor.cs" />
+    <Compile Include="Framework\Colors\ColorRGB.cs" />
+    <Compile Include="Framework\Colors\MagickColor.cs" />
     <Compile Include="Core\Colors\ColorBase.cs" />
     <Compile Include="Core\Colors\ColorCMYK.cs" />
     <Compile Include="Core\Colors\ColorGray.cs" />
@@ -554,23 +554,23 @@
     <Compile Include="Core\Types\SparseColorArg.cs" />
     <Compile Include="Core\Types\StringInfo.cs" />
     <Compile Include="Core\Types\TypeMetric.cs" />
-    <Compile Include="Drawables\DrawableAffine.cs" />
-    <Compile Include="Drawables\DrawableBorderColor.cs" />
-    <Compile Include="Drawables\DrawableFillColor.cs" />
-    <Compile Include="Drawables\DrawableRectangle.cs" />
-    <Compile Include="Drawables\DrawableStrokeColor.cs" />
-    <Compile Include="Drawables\DrawableTextUnderColor.cs" />
-    <Compile Include="Drawables\DrawableViewbox.cs" />
-    <Compile Include="Drawables\Generated\Drawables.cs" />
-    <Compile Include="Helpers\TypeHelper.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helpers\FileHelper.cs" />
-    <Compile Include="MagickImage.cs" />
-    <Compile Include="MagickFormatInfo.cs" />
-    <Compile Include="MagickImageCollection.cs" />
+    <Compile Include="Framework\Drawables\DrawableAffine.cs" />
+    <Compile Include="Framework\Drawables\DrawableBorderColor.cs" />
+    <Compile Include="Framework\Drawables\DrawableFillColor.cs" />
+    <Compile Include="Framework\Drawables\DrawableRectangle.cs" />
+    <Compile Include="Framework\Drawables\DrawableStrokeColor.cs" />
+    <Compile Include="Framework\Drawables\DrawableTextUnderColor.cs" />
+    <Compile Include="Framework\Drawables\DrawableViewbox.cs" />
+    <Compile Include="Framework\Drawables\Generated\Drawables.cs" />
+    <Compile Include="Framework\Helpers\TypeHelper.cs" />
+    <Compile Include="Framework\GlobalSuppressions.cs" />
+    <Compile Include="Framework\Helpers\FileHelper.cs" />
+    <Compile Include="Framework\MagickImage.cs" />
+    <Compile Include="Framework\MagickFormatInfo.cs" />
+    <Compile Include="Framework\MagickImageCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Script\MagickScript.cs" />
-    <Compile Include="Types\MagickGeometry.cs" />
+    <Compile Include="Framework\Script\MagickScript.cs" />
+    <Compile Include="Framework\Types\MagickGeometry.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Magick.NET.ruleset">
@@ -638,6 +638,7 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
