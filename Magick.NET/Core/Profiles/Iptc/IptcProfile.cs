@@ -45,7 +45,7 @@ namespace ImageMagick
 
         i++;
 
-        IptcTag tag = EnumHelper.Parse((int)Data[i++], IptcTag.Unknown);
+        IptcTag tag = (IptcTag)Data[i++];
 
         short count = ByteConverter.ToShort(Data, ref i);
 
