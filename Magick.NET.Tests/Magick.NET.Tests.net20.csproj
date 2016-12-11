@@ -149,9 +149,9 @@
   <ItemGroup>
     <Compile Include="Core\Coders\MslTests.cs" />
     <Compile Include="Core\Coders\MvgTests.cs" />
-    <Compile Include="Coders\PdfTests.cs" />
-    <Compile Include="Coders\TiffTests.cs" />
-    <Compile Include="Colors\MagickColorTests.cs" />
+    <Compile Include="Framework\Coders\PdfTests.cs" />
+    <Compile Include="Framework\Coders\TiffTests.cs" />
+    <Compile Include="Framework\Colors\MagickColorTests.cs" />
     <Compile Include="Core\Assert\ColorAssert.cs" />
     <Compile Include="Core\Assert\ExceptionAssert.cs" />
     <Compile Include="Core\Coders\BgrTests.cs" />
@@ -188,7 +188,7 @@
     <Compile Include="Core\FakePartialStream.cs" />
     <Compile Include="Core\Types\RationalTests.cs" />
     <Compile Include="Core\Types\SignedRationalTests.cs" />
-    <Compile Include="Ghostscript.cs" />
+    <Compile Include="Framework\Ghostscript.cs" />
     <Compile Include="Core\MagickFormatInfoTests.cs" />
     <Compile Include="Core\MagickImageCollectionTests.cs" />
     <Compile Include="Core\MagickImageInfoTests.cs" />
@@ -227,9 +227,9 @@
     <Compile Include="Core\Types\PercentageTests.cs" />
     <Compile Include="Core\Types\DensityTests.cs" />
     <Compile Include="Core\Types\PointDTests.cs" />
-    <Compile Include="MagickImageCollectionTests.cs" />
-    <Compile Include="MagickImageTests.cs" />
-    <Compile Include="MagickNETTests.cs" />
+    <Compile Include="Framework\MagickImageCollectionTests.cs" />
+    <Compile Include="Framework\MagickImageTests.cs" />
+    <Compile Include="Framework\MagickNETTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\MagickScriptTests.cs" />
     <Compile Include="Core\Assert\OpenCLValue.cs" />
