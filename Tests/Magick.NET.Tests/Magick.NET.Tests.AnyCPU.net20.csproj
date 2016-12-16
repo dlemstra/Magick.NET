@@ -231,11 +231,11 @@
     <Compile Include="Framework\MagickImageTests.cs" />
     <Compile Include="Framework\MagickNETTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Script\MagickScriptTests.cs" />
+    <Compile Include="Framework\Script\MagickScriptTests.cs" />
     <Compile Include="Core\Assert\OpenCLValue.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Magick.NET\Magick.NET.AnyCPU.net20.csproj">
+    <ProjectReference Include="..\..\Source\Magick.NET\Magick.NET.csproj">
       <Project>{daae3844-6435-4912-8f69-9f7a9242b4ac}</Project>
       <Name>Magick.NET</Name>
     </ProjectReference>
@@ -249,7 +249,7 @@
     <None Include="Core\Script\ImageProfile.msl" />
     <None Include="Core\Script\Resize.msl" />
     <None Include="Core\Script\Variables.msl" />
-    <None Include="Script\Invalid.msl" />
+    <None Include="Framework\Script\Invalid.msl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\Replacements\" />
