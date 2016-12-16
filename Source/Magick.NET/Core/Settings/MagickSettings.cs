@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 
@@ -855,10 +856,11 @@ namespace ImageMagick
     /// </summary>
     /// <param name="format">The format to set the define for.</param>
     /// <param name="name">The name of the define.</param>
-    /// <param name="value">The value of the define.</param>
-    public void SetDefine(MagickFormat format, string name, bool value)
+    /// <param name="flag">The value of the define.</param>
+    [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "flag", Justification = "We use flag to avoid name conflict with other overload in MagickScript.")]
+    public void SetDefine(MagickFormat format, string name, bool flag)
     {
-      SetDefine(format, name, value ? "true" : "false");
+      SetDefine(format, name, flag ? "true" : "false");
     }
 
     /// <summary>
