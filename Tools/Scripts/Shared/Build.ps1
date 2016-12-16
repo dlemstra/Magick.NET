@@ -19,7 +19,7 @@ function Build($build)
 function BuildCoreLibrary($directory)
 {
   $location = $(Get-Location)
-  Set-Location "Magick.NET.Core\src\$directory"
+  Set-Location "Publish\Magick.NET.Core\src\$directory"
 
   dotnet restore
 
@@ -53,13 +53,13 @@ function BuildCore($name)
 {
   $directory = $name.Split('\', [System.StringSplitOptions]::RemoveEmptyEntries) | Select-Object -Last 1
 
-  if (Test-Path "Magick.NET.Core\test\$directory.Tests")
+  if (Test-Path "Publish\Magick.NET.Core\test\$directory.Tests")
   {
     BuildCoreLibrary $directory
   }
   else
   {
-    BuildCoreNative "Magick.NET.Core\src\$directory"
+    BuildCoreNative "Publish\Magick.NET.Core\src\$directory"
   }
 }
 
@@ -73,7 +73,7 @@ function CopyNativeLibrary($directory, $platform, $binDir)
     [Void](New-Item $target -itemtype directory)
   }
 
-  Copy-Item "Magick.NET.Native\bin\Release$quantum\$binDir\*.Native.dll" "$directory\runtimes\win7-$platform\native"
+  Copy-Item "Source\Magick.NET.Native\bin\Release$quantum\$binDir\*.Native.dll" "$directory\runtimes\win7-$platform\native"
 }
 
 function TestCoreLibrary($directory)

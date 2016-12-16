@@ -117,7 +117,7 @@ namespace FileGenerator.Drawables
     {
       DrawablesGenerator generator = new DrawablesGenerator();
       generator._ForCore = false;
-      generator.CreateWriter(PathHelper.GetFullPath(@"Magick.NET\Framework\Drawables\Generated\Drawables.cs"));
+      generator.CreateWriter(PathHelper.GetFullPath(@"Source\Magick.NET\Framework\Drawables\Generated\Drawables.cs"));
       Generate(generator);
     }
 
@@ -125,7 +125,7 @@ namespace FileGenerator.Drawables
     {
       DrawablesGenerator generator = new DrawablesGenerator();
       generator._ForCore = true;
-      generator.CreateWriter(PathHelper.GetFullPath(@"Magick.NET\Core\Drawables\Generated\Drawables.cs"));
+      generator.CreateWriter(PathHelper.GetFullPath(@"Source\Magick.NET\Core\Drawables\Generated\Drawables.cs"));
       Generate(generator);
     }
   }

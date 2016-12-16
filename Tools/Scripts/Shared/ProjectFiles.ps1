@@ -19,25 +19,25 @@ function AddProjectFile($xml, $xpath, $name, $attribute, $file)
 
 function CreateAnyCPUProjectFiles()
 {
-  $path = FullPath "Magick.NET\Magick.NET.csproj"
+  $path = FullPath "Source\Magick.NET\Magick.NET.csproj"
   $xml = [xml](get-content $path)
   SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "ANYCPU;" + $_.InnerText}
   PatchAnyCPUProjectFile $xml "AnyCPU"
 
-  $csproj = FullPath "Magick.NET\Magick.NET.AnyCPU.csproj"
+  $csproj = FullPath "Source\Magick.NET\Magick.NET.AnyCPU.csproj"
   Write-Host "Creating file: $csproj"
   $xml.Save($csproj)
 
-  $path = FullPath "Magick.NET.Tests\Magick.NET.Tests.csproj"
+  $path = FullPath "Tests\Magick.NET.Tests\Magick.NET.Tests.csproj"
   $xml = [xml](get-content $path)
   SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "ANYCPU;" + $_.InnerText}
   PatchAnyCPUTestProjectFile $xml "AnyCPU" "Magick.NET.AnyCPU.csproj"
 
-  $csproj = FullPath "Magick.NET.Tests\Magick.NET.Tests.AnyCPU.csproj"
+  $csproj = FullPath "Tests\Magick.NET.Tests\Magick.NET.Tests.AnyCPU.csproj"
   Write-Host "Creating file: $csproj"
   $xml.Save($csproj)
 
-  $path = FullPath "Magick.NET.Web\Magick.NET.Web.csproj"
+  $path = FullPath "Source\Magick.NET.Web\Magick.NET.Web.csproj"
   $xml = [xml](get-content $path)
   SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "ANYCPU;" + $_.InnerText}
   SelectNodes $xml "//msb:PropertyGroup[contains(@Condition, '|x64')]" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
@@ -48,14 +48,14 @@ function CreateAnyCPUProjectFiles()
   SelectNodes $xml "//msb:PlatformTarget" | Foreach {$_.InnerText = "AnyCPU"}
   SelectNodes $xml "//msb:ProjectReference[@Include = '..\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\Magick.NET\Magick.NET.AnyCPU.csproj")}
 
-  $csproj = FullPath "Magick.NET.Web\Magick.NET.Web.AnyCPU.csproj"
+  $csproj = FullPath "Source\Magick.NET.Web\Magick.NET.Web.AnyCPU.csproj"
   Write-Host "Creating file: $csproj"
   $xml.Save($csproj)
 }
 
 function CreateNet20ProjectFiles()
 {
-  $path = FullPath "Magick.NET\Magick.NET.csproj"
+  $path = FullPath "Source\Magick.NET\Magick.NET.csproj"
   $xml = [xml](get-content $path)
   SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "NET20;" + $_.InnerText}
   SelectNodes $xml "//msb:DocumentationFile" | Foreach {$_.InnerText = $_.InnerText.Replace("x86\", "x86.net20\")}
@@ -64,11 +64,11 @@ function CreateNet20ProjectFiles()
   SelectNodes $xml "//msb:OutputPath" | Foreach {$_.InnerText = $_.InnerText.Replace("x64", "x64.net20")}
   PatchNet20ProjectFile $xml
 
-  $csproj = FullPath "Magick.NET\Magick.NET.net20.csproj"
+  $csproj = FullPath "Source\Magick.NET\Magick.NET.net20.csproj"
   Write-Host "Creating file: $csproj"
   $xml.Save($csproj)
 
-  $path = FullPath "Magick.NET.Tests\Magick.NET.Tests.csproj"
+  $path = FullPath "Tests\Magick.NET.Tests\Magick.NET.Tests.csproj"
   $xml = [xml](get-content $path)
   SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "NET20;" + $_.InnerText}
   SelectNodes $xml "//msb:OutputPath" | Foreach {$_.InnerText = $_.InnerText.Replace("x86", "x86.net20")}
@@ -76,27 +76,27 @@ function CreateNet20ProjectFiles()
   SelectNodes $xml "//msb:BaseIntermediateOutputPath" | Foreach {$_.InnerText = $_.InnerText.Replace("net40-client", "net20")}
   PatchNet20TestProjectFile $xml
 
-  $csproj = FullPath "Magick.NET.Tests\Magick.NET.Tests.net20.csproj"
+  $csproj = FullPath "Tests\Magick.NET.Tests\Magick.NET.Tests.net20.csproj"
   Write-Host "Creating file: $csproj"
   $xml.Save($csproj)
 
-  $path = FullPath "Magick.NET\Magick.NET.csproj"
+  $path = FullPath "Source\Magick.NET\Magick.NET.csproj"
   $xml = [xml](get-content $path)
   SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "NET20;ANYCPU;" + $_.InnerText}
   PatchAnyCPUProjectFile $xml "AnyCPU.net20"
   PatchNet20ProjectFile $xml
 
-  $csproj = FullPath "Magick.NET\Magick.NET.AnyCPU.net20.csproj"
+  $csproj = FullPath "Source\Magick.NET\Magick.NET.AnyCPU.net20.csproj"
   Write-Host "Creating file: $csproj"
   $xml.Save($csproj)
 
-  $path = FullPath "Magick.NET.Tests\Magick.NET.Tests.csproj"
+  $path = FullPath "Tests\Magick.NET.Tests\Magick.NET.Tests.csproj"
   $xml = [xml](get-content $path)
   SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "NET20;ANYCPU;" + $_.InnerText}
   PatchAnyCPUTestProjectFile $xml "AnyCPU.net20" "Magick.NET.AnyCPU.net20.csproj"
   PatchNet20TestProjectFile $xml
 
-  $csproj = FullPath "Magick.NET.Tests\Magick.NET.Tests.AnyCPU.net20.csproj"
+  $csproj = FullPath "Tests\Magick.NET.Tests\Magick.NET.Tests.AnyCPU.net20.csproj"
   Write-Host "Creating file: $csproj"
   $xml.Save($csproj)
 }
@@ -119,7 +119,7 @@ function PatchAnyCPUProjectFile($xml, $binDir)
 function PatchAnyCPUTestProjectFile($xml, $binDir, $projectFile)
 {
   SelectNodes $xml "//msb:OutputPath" | Foreach {$_.InnerText = $_.InnerText.Replace("x86", $binDir)}
-  SelectNodes $xml "//msb:ProjectReference[@Include = '..\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\Magick.NET\$projectFile")}
+  SelectNodes $xml "//msb:ProjectReference[@Include = '..\Source\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\Source\Magick.NET\$projectFile")}
 }
 
 function PatchNet20ProjectFile($xml)
@@ -133,6 +133,6 @@ function PatchNet20ProjectFile($xml)
 function PatchNet20TestProjectFile($xml)
 {
   SelectNodes $xml "//msb:Reference[@Include='PresentationCore' or @Include='WindowsBase']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
-  SelectNodes $xml "//msb:ProjectReference[@Include = '..\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\Magick.NET\Magick.NET.net20.csproj")}
+  SelectNodes $xml "//msb:ProjectReference[@Include = '..\Source\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\Source\Magick.NET\Magick.NET.net20.csproj")}
   SelectNodes $xml "//msb:TargetFrameworkVersion" | Foreach {$_.InnerText = "v3.5"}
 }

@@ -178,7 +178,7 @@ function CopyFiles($folder)
       continue
     }
 
-    Copy-Item $xmlFile Magick.NET.Native\Resources\xml
+    Copy-Item $xmlFile Source\Magick.NET.Native\Resources\xml
   }
 }
 

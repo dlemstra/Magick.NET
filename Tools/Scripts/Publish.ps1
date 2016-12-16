@@ -36,7 +36,7 @@ function BuildAll($builds)
       $platform = "/Platform:$($build.Platform)"
     }
 
-    $dll = "Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Tests.dll"
+    $dll = "Tests\Magick.NET.Tests\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Tests.dll"
     vstest.console.exe /inIsolation $platform $dll
     CheckExitCode ("Test failed for Magick.NET-" + $build.Quantum + "-" + $build.Platform + " (" + $build.FrameworkName + ")")
   }
@@ -74,7 +74,7 @@ function CleanupZipFolder()
 
 function CopyCorePackage($name)
 {
-  $source = "Magick.NET.Core\src\$name\bin\Release\$name.$version.nupkg"
+  $source = "Publish\Magick.NET.Core\src\$name\bin\Release\$name.$version.nupkg"
   $destination = "Publish\NuGet"
 
   Copy-Item $source $destination
@@ -84,14 +84,14 @@ function CopyPdbFiles($builds)
 {
   foreach ($build in $builds)
   {
-    $source = "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).pdb"
+    $source = "Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).pdb"
     $destination = "Publish\Pdb\$($build.FrameworkName).Magick.NET-$($build.Quantum)-$($build.Platform).pdb"
 
     Copy-Item $source $destination
 
     if ($build.Platform -ne "AnyCPU")
     {
-      $source = "Magick.NET.Native$($build.Suffix)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
+      $source = "Source\Magick.NET.Native$($build.Suffix)\bin\Release$($build.Quantum)\$($build.Platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
       if (Test-Path $source)
       {
         $destination = "Publish\Pdb\$($build.FrameworkName).Magick.NET-$($build.Quantum)-$($build.Platform).Native.pdb"
@@ -120,7 +120,7 @@ function CopyZipFiles($builds)
 
     Copy-Item "Copyright.txt" $rootDir
     Copy-Item "Publish\Readme.txt" $rootDir
-    Copy-Item "Magick.NET\Resources\Release$($build.Quantum)\MagickScript.xsd" $rootDir
+    Copy-Item "Source\Magick.NET\Resources\Release$($build.Quantum)\MagickScript.xsd" $rootDir
 
 
     $dir = "$rootDir\$($build.FrameworkName)\Magick.NET"
@@ -129,12 +129,12 @@ function CopyZipFiles($builds)
       [void](New-Item $dir -type directory)
     }
 
-    Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).dll" $dir
-    Copy-Item "Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).xml" $dir
+    Copy-Item "Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).dll" $dir
+    Copy-Item "Source\Magick.NET\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET-$($build.Quantum)-$($build.Platform).xml" $dir
 
     if ($build.Platform -ne "AnyCPU")
     {
-      Copy-Item "Magick.NET.Native\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" $dir
+      Copy-Item "Source\Magick.NET.Native\bin\Release$($build.Quantum)\$($platform)\Magick.NET-$($build.Quantum)-$($build.Platform).Native.dll" $dir
     }
 
     if ($build.Framework -ne "v4.0")
@@ -148,8 +148,8 @@ function CopyZipFiles($builds)
       [void](New-Item $dir -type directory)
     }
 
-    Copy-Item "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).dll" $dir
-    Copy-Item "Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).xml" $dir
+    Copy-Item "Source\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).dll" $dir
+    Copy-Item "Source\Magick.NET.Web\bin\Release$($build.Quantum)\$($build.Platform)$($build.Suffix)\Magick.NET.Web-$($build.Quantum)-$($build.Platform).xml" $dir
   }
 }
 
@@ -181,7 +181,7 @@ function CreateNuGetPackageWithSamples($build, $id)
   $xml.package.metadata.dependencies.dependency.version = $version
 
   $id = "Magick.NET-$($build.Quantum)-$($build.Platform).Sample"
-  $samples = FullPath "Magick.NET.Samples\Samples\Magick.NET"
+  $samples = FullPath "Samples\Magick.NET.Samples\Samples\Magick.NET"
   $files = Get-ChildItem -File -Path $samples\* -Exclude *.cs,*.msl,*.vb -Recurse
   $offset = $files[0].FullName.LastIndexOf("\Magick.NET.Samples\") + 20
   foreach($file in $files)
@@ -197,7 +197,7 @@ function CreateNuGetPackageWithSamples($build, $id)
 
 function CreatePreProcessedFiles()
 {
-  $samples = FullPath "Magick.NET.Samples\Samples\Magick.NET"
+  $samples = FullPath "Samples\Magick.NET.Samples\Samples\Magick.NET"
   $files = Get-ChildItem -Path $samples\* -Include *.cs,*.msl,*.vb -Recurse
   foreach($file in $files)
   {
@@ -265,7 +265,7 @@ function PublishCoreDepth($quantum)
   CopyCorePackage "Magick.NET.Core-$quantum.Native"
   CopyCorePackage "Magick.NET.Core-$quantum"
 
-  $source = "Magick.NET.Core\src\Magick.NET.Core-$quantum\bin\Debug\netstandard1.3\Magick.NET.Core-$quantum.pdb"
+  $source = "Publish\Magick.NET.Core\src\Magick.NET.Core-$quantum\bin\Debug\netstandard1.3\Magick.NET.Core-$quantum.pdb"
   $destination = "Publish\Pdb\dotnet.Magick.NET.Core-$quantum.pdb"
   Copy-Item $source $destination
 }
