@@ -24,7 +24,7 @@ namespace ImageMagick
       return new PixelStorageSettings()
       {
         Mapping = Mapping,
-        StorageType = StorageType
+        StorageType = StorageType,
       };
     }
 

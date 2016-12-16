@@ -31,7 +31,7 @@ namespace ImageMagick
     private static readonly string[] _ImageMagickFiles = new string[]
     {
       "coder.xml", "colors.xml", "configure.xml", "delegates.xml", "english.xml", "locale.xml",
-      "log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml"
+      "log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml",
     };
 
     private static void CheckImageMagickFiles(string path)

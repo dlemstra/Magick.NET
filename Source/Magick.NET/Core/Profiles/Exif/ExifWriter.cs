@@ -149,7 +149,7 @@ namespace ImageMagick
       ExifTag.XPKeywords,
       ExifTag.XPSubject,
       ExifTag.GDALMetadata,
-      ExifTag.GDALNoData
+      ExifTag.GDALNoData,
     };
 
     private static readonly ExifTag[] _ExifTags = new ExifTag[92]
@@ -245,7 +245,7 @@ namespace ImageMagick
       ExifTag.LensInfo,
       ExifTag.LensMake,
       ExifTag.LensModel,
-      ExifTag.LensSerialNumber
+      ExifTag.LensSerialNumber,
     };
 
     private static readonly ExifTag[] _GPSTags = new ExifTag[31]
@@ -280,7 +280,7 @@ namespace ImageMagick
       ExifTag.GPSProcessingMethod,
       ExifTag.GPSAreaInformation,
       ExifTag.GPSDateStamp,
-      ExifTag.GPSDifferential
+      ExifTag.GPSDifferential,
     };
 
     private const int _StartIndex = 6;
