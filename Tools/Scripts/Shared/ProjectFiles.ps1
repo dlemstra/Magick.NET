@@ -119,7 +119,7 @@ function PatchAnyCPUProjectFile($xml, $binDir)
 function PatchAnyCPUTestProjectFile($xml, $binDir, $projectFile)
 {
   SelectNodes $xml "//msb:OutputPath" | Foreach {$_.InnerText = $_.InnerText.Replace("x86", $binDir)}
-  SelectNodes $xml "//msb:ProjectReference[@Include = '..\Source\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\Source\Magick.NET\$projectFile")}
+  SelectNodes $xml "//msb:ProjectReference[@Include = '..\..\Source\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\..\Source\Magick.NET\$projectFile")}
 }
 
 function PatchNet20ProjectFile($xml)
@@ -133,6 +133,6 @@ function PatchNet20ProjectFile($xml)
 function PatchNet20TestProjectFile($xml)
 {
   SelectNodes $xml "//msb:Reference[@Include='PresentationCore' or @Include='WindowsBase']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
-  SelectNodes $xml "//msb:ProjectReference[@Include = '..\Source\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\Source\Magick.NET\Magick.NET.net20.csproj")}
+  SelectNodes $xml "//msb:ProjectReference[@Include = '..\..\Source\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\..\Source\Magick.NET\Magick.NET.net20.csproj")}
   SelectNodes $xml "//msb:TargetFrameworkVersion" | Foreach {$_.InnerText = "v3.5"}
 }

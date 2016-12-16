@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.AnyCPU", "Magick.NET\Magick.NET.AnyCPU.csproj", "{DAAE3844-6435-4912-8F69-9F7A9242B4AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.AnyCPU", "Source\Magick.NET\Magick.NET.AnyCPU.csproj", "{DAAE3844-6435-4912-8F69-9F7A9242B4AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Tests.AnyCPU", "Magick.NET.Tests\Magick.NET.Tests.AnyCPU.csproj", "{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Tests.AnyCPU", "Tests\Magick.NET.Tests\Magick.NET.Tests.AnyCPU.csproj", "{C34FB9EF-028A-4190-91AF-6FBD3EC78DAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Web.AnyCPU", "Magick.NET.Web\Magick.NET.Web.AnyCPU.csproj", "{FAEF6535-4D08-4538-89DC-EE56176F6803}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magick.NET.Web.AnyCPU", "Source\Magick.NET.Web\Magick.NET.Web.AnyCPU.csproj", "{FAEF6535-4D08-4538-89DC-EE56176F6803}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

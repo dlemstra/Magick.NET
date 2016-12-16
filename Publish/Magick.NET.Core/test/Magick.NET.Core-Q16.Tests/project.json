@@ -4,7 +4,7 @@
   {
     "compile":
     [
-      "../../../Magick.NET.Tests/Core/**/*.cs"
+      "../../../../Tests/Magick.NET.Tests/Core/**/*.cs"
     ],
     "define":
     [

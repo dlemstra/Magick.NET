@@ -27,8 +27,8 @@
     "allowUnsafe": true,
     "compile":
     [
-      "../../../Magick.NET/Core/**/*.cs",
-      "../../../Magick.NET/Native/**/*.cs"
+      "../../../../Source/Magick.NET/Core/**/*.cs",
+      "../../../../Source/Magick.NET/Native/**/*.cs"
     ],
     "define":
     [
@@ -38,10 +38,10 @@
     "optimize": true,
     "warningsAsErrors": true,
     "xmlDoc": true,
-    "keyFile": "../../../Magick.NET/Magick.NET.snk",
+    "keyFile": "../../../../Source/Magick.NET/Magick.NET.snk",
     "embed":
     [
-      "../../../Magick.NET/Resources/ColorProfiles/**/*"
+      "../../../../Source/Magick.NET/Resources/ColorProfiles/**/*"
     ]
   },
   "dependencies":

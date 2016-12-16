@@ -26,8 +26,8 @@ namespace Magick.NET.Tests
       if (Directory.Exists(directory + "Images"))
         return directory;
 
-      /* for mstest.exe */
-      return Path.GetFullPath(@"..\..\..\Magick.NET.Tests\");
+      /* For .NET Core projects */
+      return Path.GetFullPath(@"..\..\..\..\Tests\Magick.NET.Tests\");
     }
 
     public static string CirclePNG

@@ -237,7 +237,7 @@
     <Compile Include="Core\Assert\OpenCLValue.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\Magick.NET\Magick.NET.csproj">
+    <ProjectReference Include="..\..\Source\Magick.NET\Magick.NET.AnyCPU.csproj">
       <Project>{daae3844-6435-4912-8f69-9f7a9242b4ac}</Project>
       <Name>Magick.NET</Name>
     </ProjectReference>
