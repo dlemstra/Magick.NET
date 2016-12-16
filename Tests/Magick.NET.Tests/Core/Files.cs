@@ -274,7 +274,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"..\Logo\Magick.NET.svg";
+          return _Root + @"..\..\Logo\Magick.NET.svg";
         }
       }
     }
@@ -344,7 +344,7 @@ namespace Magick.NET.Tests
       {
         get
         {
-          return _Root + @"Script\Invalid.msl";
+          return _Root + @"Framework\Script\Invalid.msl";
         }
       }
 
