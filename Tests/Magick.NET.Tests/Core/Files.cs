@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.IO;
 
 namespace Magick.NET.Tests
@@ -22,12 +23,21 @@ namespace Magick.NET.Tests
 
     private static string GetRoot()
     {
-      string directory = Path.GetFullPath(@"..\..\..\");
-      if (Directory.Exists(directory + "Images"))
-        return directory;
+      string[] paths =
+      {
+        @"..\..\..\",
+        @"..\..\..\..\Tests\Magick.NET.Tests\", // .NET Core
+        @"..\..\..\..\..\Tests\Magick.NET.Tests\", // Code coverage
+      };
 
-      /* For .NET Core projects */
-      return Path.GetFullPath(@"..\..\..\..\Tests\Magick.NET.Tests\");
+      foreach (string path in paths)
+      {
+        string directory = Path.GetFullPath(path);
+        if (Directory.Exists(directory + "Images"))
+          return directory;
+      }
+
+      throw new InvalidOperationException("Unable to find the images folder.");
     }
 
     public static string CirclePNG

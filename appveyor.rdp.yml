@@ -49,6 +49,7 @@ test_script:
   - Test.cmd %im_platform%
 
 after_test:
+  - CodeCoverage.cmd %im_quantum% %im_platform%
   - Publish.cmd %im_quantum% %im_platform%
 
 init:
