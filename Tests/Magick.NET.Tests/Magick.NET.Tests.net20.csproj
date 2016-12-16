@@ -250,6 +250,7 @@
     <None Include="Core\Script\Resize.msl" />
     <None Include="Core\Script\Variables.msl" />
     <None Include="Framework\Script\Invalid.msl" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\Replacements\" />
