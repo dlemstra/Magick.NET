@@ -135,7 +135,7 @@ namespace ImageMagick
       string[] xmlFiles =
       {
         "coder.xml", "colors.xml", "configure.xml", "delegates.xml", "english.xml", "locale.xml",
-        "log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml"
+        "log.xml", "magic.xml", "policy.xml", "thresholds.xml", "type.xml", "type-ghostscript.xml",
       };
 
       foreach (string xmlFile in xmlFiles)
