@@ -23,7 +23,12 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Transparent()
     {
-      MagickColor transparent = MagickColors.Transparent;
+      MagickColor transparent = null;
+      Color transparentColor = transparent;
+
+      Assert.AreEqual(Color.Empty, transparentColor);
+
+      transparent = MagickColors.Transparent;
 
       ColorAssert.IsTransparent(transparent.A);
       ColorAssert.AreEqual(Color.Transparent, transparent);
@@ -32,6 +37,12 @@ namespace Magick.NET.Tests
 
       ColorAssert.IsTransparent(transparent.A);
       ColorAssert.AreEqual(Color.Transparent, transparent);
+
+      transparentColor = transparent;
+      Assert.AreEqual(Color.Transparent.R, transparentColor.R);
+      Assert.AreEqual(Color.Transparent.G, transparentColor.G);
+      Assert.AreEqual(Color.Transparent.B, transparentColor.B);
+      Assert.AreEqual(Color.Transparent.A, transparentColor.A);
     }
   }
 }
