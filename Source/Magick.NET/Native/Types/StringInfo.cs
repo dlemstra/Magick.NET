@@ -62,22 +62,15 @@ namespace ImageMagick
     }
     private sealed class NativeStringInfo : ConstNativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
       public NativeStringInfo(IntPtr instance)
       {
-        _Instance = instance;
+        Instance = instance;
       }
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(StringInfo).ToString());
-          return _Instance;
-        }
-        set
-        {
-          _Instance = value;
+          return nameof(StringInfo);
         }
       }
       public IntPtr Datum

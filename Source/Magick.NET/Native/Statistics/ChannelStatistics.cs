@@ -106,22 +106,15 @@ namespace ImageMagick
     }
     private sealed class NativeChannelStatistics : ConstNativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
       public NativeChannelStatistics(IntPtr instance)
       {
-        _Instance = instance;
+        Instance = instance;
       }
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(ChannelStatistics).ToString());
-          return _Instance;
-        }
-        set
-        {
-          _Instance = value;
+          return nameof(ChannelStatistics);
         }
       }
       public int Depth

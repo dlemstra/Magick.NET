@@ -122,18 +122,11 @@ namespace ImageMagick
     }
     private sealed class NativeMagickFormatInfo : ConstNativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(MagickFormatInfo).ToString());
-          return _Instance;
-        }
-        set
-        {
-          _Instance = value;
+          return nameof(MagickFormatInfo);
         }
       }
       public string Description

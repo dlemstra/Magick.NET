@@ -74,18 +74,11 @@ namespace ImageMagick
     }
     private sealed class NativeOpenCLKernelProfileRecord : ConstNativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(OpenCLKernelProfileRecord).ToString());
-          return _Instance;
-        }
-        set
-        {
-          _Instance = value;
+          return nameof(OpenCLKernelProfileRecord);
         }
       }
       public long Count

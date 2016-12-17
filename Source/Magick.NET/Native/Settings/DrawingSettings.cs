@@ -270,7 +270,6 @@ namespace ImageMagick
     }
     private sealed class NativeDrawingSettings : NativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
       protected override void Dispose(IntPtr instance)
       {
         DisposeInstance(instance);
@@ -296,30 +295,22 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        _Instance = NativeMethods.X64.DrawingSettings_Create();
+        Instance = NativeMethods.X64.DrawingSettings_Create();
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        _Instance = NativeMethods.X86.DrawingSettings_Create();
+        Instance = NativeMethods.X86.DrawingSettings_Create();
         #endif
-        if (_Instance == IntPtr.Zero)
+        if (Instance == IntPtr.Zero)
           throw new InvalidOperationException();
       }
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(DrawingSettings).ToString());
-          return _Instance;
-        }
-        set
-        {
-          if (_Instance != IntPtr.Zero)
-            Dispose(_Instance);
-          _Instance = value;
+          return nameof(DrawingSettings);
         }
       }
       public MagickColor BorderColor

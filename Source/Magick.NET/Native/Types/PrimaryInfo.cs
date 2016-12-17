@@ -86,7 +86,6 @@ namespace ImageMagick
     }
     private sealed class NativePrimaryInfo : NativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
       protected override void Dispose(IntPtr instance)
       {
         DisposeInstance(instance);
@@ -112,34 +111,26 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        _Instance = NativeMethods.X64.PrimaryInfo_Create();
+        Instance = NativeMethods.X64.PrimaryInfo_Create();
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        _Instance = NativeMethods.X86.PrimaryInfo_Create();
+        Instance = NativeMethods.X86.PrimaryInfo_Create();
         #endif
-        if (_Instance == IntPtr.Zero)
+        if (Instance == IntPtr.Zero)
           throw new InvalidOperationException();
       }
       public NativePrimaryInfo(IntPtr instance)
       {
-        _Instance = instance;
+        Instance = instance;
       }
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(PrimaryInfo).ToString());
-          return _Instance;
-        }
-        set
-        {
-          if (_Instance != IntPtr.Zero)
-            Dispose(_Instance);
-          _Instance = value;
+          return nameof(PrimaryInfo);
         }
       }
       public double X

@@ -86,7 +86,6 @@ namespace ImageMagick
     }
     private sealed class NativeTypeMetric : NativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
       protected override void Dispose(IntPtr instance)
       {
         DisposeInstance(instance);
@@ -108,21 +107,13 @@ namespace ImageMagick
       }
       public NativeTypeMetric(IntPtr instance)
       {
-        _Instance = instance;
+        Instance = instance;
       }
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(TypeMetric).ToString());
-          return _Instance;
-        }
-        set
-        {
-          if (_Instance != IntPtr.Zero)
-            Dispose(_Instance);
-          _Instance = value;
+          return nameof(TypeMetric);
         }
       }
       public double Ascent

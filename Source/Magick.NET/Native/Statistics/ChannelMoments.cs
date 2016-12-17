@@ -78,22 +78,15 @@ namespace ImageMagick
     }
     private sealed class NativeChannelMoments : ConstNativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
       public NativeChannelMoments(IntPtr instance)
       {
-        _Instance = instance;
+        Instance = instance;
       }
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(ChannelMoments).ToString());
-          return _Instance;
-        }
-        set
-        {
-          _Instance = value;
+          return nameof(ChannelMoments);
         }
       }
       public PointInfo Centroid

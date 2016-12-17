@@ -79,7 +79,6 @@ namespace ImageMagick
     private NativePixelCollection _NativeInstance;
     private sealed class NativePixelCollection : NativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
       protected override void Dispose(IntPtr instance)
       {
         DisposeInstance(instance);
@@ -106,31 +105,23 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        _Instance = NativeMethods.X64.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
+        Instance = NativeMethods.X64.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        _Instance = NativeMethods.X86.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
+        Instance = NativeMethods.X86.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
         #endif
-        CheckException(exception, _Instance);
-        if (_Instance == IntPtr.Zero)
+        CheckException(exception, Instance);
+        if (Instance == IntPtr.Zero)
           throw new InvalidOperationException();
       }
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(PixelCollection).ToString());
-          return _Instance;
-        }
-        set
-        {
-          if (_Instance != IntPtr.Zero)
-            Dispose(_Instance);
-          _Instance = value;
+          return nameof(PixelCollection);
         }
       }
       public IntPtr GetArea(int x, int y, int width, int height)

@@ -387,7 +387,6 @@ namespace ImageMagick
     private NativeDrawingWand _NativeInstance;
     private sealed class NativeDrawingWand : NativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
       protected override void Dispose(IntPtr instance)
       {
         DisposeInstance(instance);
@@ -415,31 +414,23 @@ namespace ImageMagick
           if (NativeLibrary.Is64Bit)
           #endif
           #if WIN64 || ANYCPU
-          _Instance = NativeMethods.X64.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
+          Instance = NativeMethods.X64.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
           #endif
           #if ANYCPU
           else
           #endif
           #if !WIN64 || ANYCPU
-          _Instance = NativeMethods.X86.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
+          Instance = NativeMethods.X86.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
           #endif
-          if (_Instance == IntPtr.Zero)
+          if (Instance == IntPtr.Zero)
             throw new InvalidOperationException();
         }
       }
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(DrawingWand).ToString());
-          return _Instance;
-        }
-        set
-        {
-          if (_Instance != IntPtr.Zero)
-            Dispose(_Instance);
-          _Instance = value;
+          return nameof(DrawingWand);
         }
       }
       public void Affine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)

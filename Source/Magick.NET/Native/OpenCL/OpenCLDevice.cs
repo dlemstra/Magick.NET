@@ -92,18 +92,11 @@ namespace ImageMagick
     }
     private sealed class NativeOpenCLDevice : ConstNativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(OpenCLDevice).ToString());
-          return _Instance;
-        }
-        set
-        {
-          _Instance = value;
+          return nameof(OpenCLDevice);
         }
       }
       public double BenchmarkScore

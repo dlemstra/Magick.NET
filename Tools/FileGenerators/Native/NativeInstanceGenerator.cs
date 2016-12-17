@@ -94,12 +94,12 @@ namespace FileGenerator.Native
         WriteThrowStart(Class.Constructor.Throws);
 
         arguments = GetNativeArgumentsCall(Class.Constructor.Arguments);
-        WriteNativeIfContent("_Instance = NativeMethods.{0}." + Class.Name + "_Create(" + arguments + ");");
+        WriteNativeIfContent("Instance = NativeMethods.{0}." + Class.Name + "_Create(" + arguments + ");");
 
         if (Class.Constructor.Throws)
-          WriteLine("CheckException(exception, _Instance);");
+          WriteLine("CheckException(exception, Instance);");
 
-        WriteIf("_Instance == IntPtr.Zero", "throw new InvalidOperationException();");
+        WriteIf("Instance == IntPtr.Zero", "throw new InvalidOperationException();");
 
         WriteCreateEnd(Class.Constructor.Arguments);
 
@@ -111,7 +111,7 @@ namespace FileGenerator.Native
 
       WriteLine("public Native" + Class.Name + "(IntPtr instance)");
       WriteStartColon();
-      WriteLine("_Instance = instance;");
+      WriteLine("Instance = instance;");
       WriteEndColon();
     }
 
@@ -234,23 +234,16 @@ namespace FileGenerator.Native
       WriteEndColon();
     }
 
-    private void WriteInstance()
+    private void WriteTypeName()
     {
       if (!Class.HasInstance)
         return;
 
-      WriteLine("public override IntPtr Instance");
+      WriteLine("protected override string TypeName");
       WriteStartColon();
       WriteLine("get");
       WriteStartColon();
-      WriteIf("_Instance == IntPtr.Zero", "throw new ObjectDisposedException(typeof(" + Class.Name + ").ToString());");
-      WriteLine("return _Instance;");
-      WriteEndColon();
-      WriteLine("set");
-      WriteStartColon();
-      if (!Class.IsConst)
-        WriteIf("_Instance != IntPtr.Zero", "Dispose(_Instance);");
-      WriteLine("_Instance = value;");
+      WriteLine("return nameof(" + Class.Name + ");");
       WriteEndColon();
       WriteEndColon();
     }
@@ -438,14 +431,11 @@ namespace FileGenerator.Native
         WriteLine("private " + (IsNativeStatic ? "static" : "sealed") + " class Native" + Class.Name + baseClass);
         WriteStartColon();
 
-        if (Class.HasInstance)
-          WriteLine("private IntPtr _Instance = IntPtr.Zero;");
-
         WriteDispose();
 
         WriteConstructors();
 
-        WriteInstance();
+        WriteTypeName();
       }
 
       WriteProperties();

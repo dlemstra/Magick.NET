@@ -82,7 +82,6 @@ namespace ImageMagick
     }
     private sealed class NativeQuantizeSettings : NativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
       protected override void Dispose(IntPtr instance)
       {
         DisposeInstance(instance);
@@ -108,30 +107,22 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        _Instance = NativeMethods.X64.QuantizeSettings_Create();
+        Instance = NativeMethods.X64.QuantizeSettings_Create();
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        _Instance = NativeMethods.X86.QuantizeSettings_Create();
+        Instance = NativeMethods.X86.QuantizeSettings_Create();
         #endif
-        if (_Instance == IntPtr.Zero)
+        if (Instance == IntPtr.Zero)
           throw new InvalidOperationException();
       }
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(QuantizeSettings).ToString());
-          return _Instance;
-        }
-        set
-        {
-          if (_Instance != IntPtr.Zero)
-            Dispose(_Instance);
-          _Instance = value;
+          return nameof(QuantizeSettings);
         }
       }
       public void SetColors(int value)

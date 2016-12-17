@@ -67,7 +67,6 @@ namespace ImageMagick
     private NativePointInfoCollection _NativeInstance;
     private sealed class NativePointInfoCollection : NativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
       protected override void Dispose(IntPtr instance)
       {
         DisposeInstance(instance);
@@ -93,30 +92,22 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        _Instance = NativeMethods.X64.PointInfoCollection_Create((UIntPtr)length);
+        Instance = NativeMethods.X64.PointInfoCollection_Create((UIntPtr)length);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        _Instance = NativeMethods.X86.PointInfoCollection_Create((UIntPtr)length);
+        Instance = NativeMethods.X86.PointInfoCollection_Create((UIntPtr)length);
         #endif
-        if (_Instance == IntPtr.Zero)
+        if (Instance == IntPtr.Zero)
           throw new InvalidOperationException();
       }
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(PointInfoCollection).ToString());
-          return _Instance;
-        }
-        set
-        {
-          if (_Instance != IntPtr.Zero)
-            Dispose(_Instance);
-          _Instance = value;
+          return nameof(PointInfoCollection);
         }
       }
       public void Set(int index, double x, double y)

@@ -62,22 +62,15 @@ namespace ImageMagick
     }
     private sealed class NativePointInfo : ConstNativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
       public NativePointInfo(IntPtr instance)
       {
-        _Instance = instance;
+        Instance = instance;
       }
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(PointInfo).ToString());
-          return _Instance;
-        }
-        set
-        {
-          _Instance = value;
+          return nameof(PointInfo);
         }
       }
       public double X

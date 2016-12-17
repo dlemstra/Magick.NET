@@ -1125,7 +1125,6 @@ namespace ImageMagick
     private NativeMagickImage _NativeInstance;
     private sealed class NativeMagickImage : NativeInstance
     {
-      private IntPtr _Instance = IntPtr.Zero;
       protected override void Dispose(IntPtr instance)
       {
         DisposeInstance(instance);
@@ -1154,36 +1153,28 @@ namespace ImageMagick
           if (NativeLibrary.Is64Bit)
           #endif
           #if WIN64 || ANYCPU
-          _Instance = NativeMethods.X64.MagickImage_Create(settingsNative.Instance, out exception);
+          Instance = NativeMethods.X64.MagickImage_Create(settingsNative.Instance, out exception);
           #endif
           #if ANYCPU
           else
           #endif
           #if !WIN64 || ANYCPU
-          _Instance = NativeMethods.X86.MagickImage_Create(settingsNative.Instance, out exception);
+          Instance = NativeMethods.X86.MagickImage_Create(settingsNative.Instance, out exception);
           #endif
-          CheckException(exception, _Instance);
-          if (_Instance == IntPtr.Zero)
+          CheckException(exception, Instance);
+          if (Instance == IntPtr.Zero)
             throw new InvalidOperationException();
         }
       }
       public NativeMagickImage(IntPtr instance)
       {
-        _Instance = instance;
+        Instance = instance;
       }
-      public override IntPtr Instance
+      protected override string TypeName
       {
         get
         {
-          if (_Instance == IntPtr.Zero)
-            throw new ObjectDisposedException(typeof(MagickImage).ToString());
-          return _Instance;
-        }
-        set
-        {
-          if (_Instance != IntPtr.Zero)
-            Dispose(_Instance);
-          _Instance = value;
+          return nameof(MagickImage);
         }
       }
       public MagickColor AlphaColor

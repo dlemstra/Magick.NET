@@ -16,8 +16,10 @@ using System;
 
 namespace ImageMagick
 {
-  internal abstract class NativeInstance : ConstNativeInstance, INativeInstance, IDisposable
+  internal abstract class NativeInstance : NativeHelper, INativeInstance, IDisposable
   {
+    private IntPtr _Instance = IntPtr.Zero;
+
     private class ZeroInstance : INativeInstance
     {
       public IntPtr Instance
@@ -33,6 +35,11 @@ namespace ImageMagick
       }
     }
 
+    protected abstract string TypeName
+    {
+      get;
+    }
+
     protected abstract void Dispose(IntPtr instance);
 
     protected void CheckException(IntPtr exception, IntPtr result)
@@ -46,6 +53,23 @@ namespace ImageMagick
       }
 
       RaiseWarning(magickException);
+    }
+
+    public IntPtr Instance
+    {
+      get
+      {
+        if (_Instance == IntPtr.Zero)
+          throw new ObjectDisposedException(TypeName);
+
+        return _Instance;
+      }
+      set
+      {
+        if (_Instance != IntPtr.Zero)
+          Dispose(_Instance);
+        _Instance = value;
+      }
     }
 
     public static INativeInstance Zero
