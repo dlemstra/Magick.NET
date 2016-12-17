@@ -233,6 +233,7 @@
     <Compile Include="Framework\MagickImageCollectionTests.cs" />
     <Compile Include="Framework\MagickImageTests.cs" />
     <Compile Include="Framework\MagickNETTests.cs" />
+    <Compile Include="Framework\Types\MagickGeometryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Framework\Script\MagickScriptTests.cs" />
     <Compile Include="Core\Assert\OpenCLValue.cs" />

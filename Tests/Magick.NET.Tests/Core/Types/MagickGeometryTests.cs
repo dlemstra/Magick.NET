@@ -19,7 +19,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
   [TestClass]
-  public class MagickGeometryTests
+  public partial class MagickGeometryTests
   {
     [TestMethod]
     public void Test_Constructor()
