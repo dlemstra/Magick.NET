@@ -90,11 +90,6 @@ namespace Magick.NET.Tests
       }
     }
 
-    public static void IsNotTransparent(MagickColor color)
-    {
-      Assert.AreEqual(255, color.A);
-    }
-
     public static void IsTransparent(float alpha)
     {
       Assert.AreEqual(0, alpha);
