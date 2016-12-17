@@ -153,6 +153,21 @@ namespace Magick.NET.Tests
       }
     }
 
+    [TestMethod]
+    public void Test_CheckForBaseDirectory()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        ArgumentException exception = ExceptionAssert.Throws<ArgumentException>(() =>
+        {
+          image.Read("~/test.gif");
+        });
+
+        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        Assert.IsTrue(exception.Message.Contains(baseDirectory));
+      }
+    }
+
 #if !(NET20)
     [TestMethod]
     public void Test_ToBitmapSource()

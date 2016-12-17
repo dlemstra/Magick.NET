@@ -29,25 +29,28 @@ namespace Magick.NET.Tests
         Assert.Fail(message);
     }
 
-    public static void Throws<TException>(Action action)
+    public static TException Throws<TException>(Action action)
        where TException : Exception
     {
-      Throws<TException>(action, "Exception of type {0} was not thrown.", typeof(TException).Name);
+      return Throws<TException>(action, "Exception of type {0} was not thrown.", typeof(TException).Name);
     }
 
-    public static void Throws<TException>(Action action, string message, params object[] arguments)
+    public static TException Throws<TException>(Action action, string message, params object[] arguments)
        where TException : Exception
     {
       try
       {
         action();
         Fail(message, arguments);
+        return null;
       }
       catch (TException exception)
       {
         Type type = exception.GetType();
         if (type != typeof(TException))
           Fail("Exception of type {0} was not thrown an exception of type {1} was thrown.", typeof(TException).Name, type.Name);
+
+        return exception;
       }
       catch (Exception)
       {
