@@ -52,5 +52,5 @@ after_test:
   - CodeCoverage.cmd %im_quantum% %im_platform%
   - Publish.cmd %im_quantum% %im_platform%
 
-init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
