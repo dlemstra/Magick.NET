@@ -72,10 +72,7 @@ namespace Magick.NET.Tests
     {
       OpenCLDevice device = GetEnabledDevice();
       if (device == null)
-      {
         Assert.Inconclusive("No OpenCL devices detected.");
-        return;
-      }
 
       device.ProfileKernels = true;
 
