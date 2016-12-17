@@ -30,6 +30,7 @@ using QuantumType = System.Single;
 
 #if !(NET20)
 using System.Windows.Media.Imaging;
+using MediaPixelFormats = System.Windows.Media.PixelFormats;
 #endif
 
 namespace Magick.NET.Tests
@@ -189,6 +190,7 @@ namespace Magick.NET.Tests
       using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
       {
         BitmapSource bitmap = image.ToBitmapSource();
+        Assert.AreEqual(MediaPixelFormats.Rgb24, bitmap.Format);
         bitmap.CopyPixels(pixels, 60, 0);
 
         Assert.AreEqual(255, pixels[0]);
@@ -198,6 +200,7 @@ namespace Magick.NET.Tests
         image.ColorSpace = ColorSpace.CMYK;
 
         bitmap = image.ToBitmapSource();
+        Assert.AreEqual(MediaPixelFormats.Cmyk32, bitmap.Format);
         bitmap.CopyPixels(pixels, 60, 0);
 
         Assert.AreEqual(0, pixels[0]);
@@ -209,11 +212,23 @@ namespace Magick.NET.Tests
         image.AddProfile(ColorProfile.SRGB);
 
         bitmap = image.ToBitmapSource();
+        Assert.AreEqual(MediaPixelFormats.Rgb24, bitmap.Format);
         bitmap.CopyPixels(pixels, 60, 0);
 
         Assert.AreEqual(237, pixels[0]);
         Assert.AreEqual(28, pixels[1]);
         Assert.AreEqual(36, pixels[2]);
+
+        image.HasAlpha = true;
+
+        bitmap = image.ToBitmapSource();
+        Assert.AreEqual(MediaPixelFormats.Bgra32, bitmap.Format);
+        bitmap.CopyPixels(pixels, 60, 0);
+
+        Assert.AreEqual(36, pixels[0]);
+        Assert.AreEqual(28, pixels[1]);
+        Assert.AreEqual(237, pixels[2]);
+        Assert.AreEqual(255, pixels[3]);
       }
     }
 #endif
