@@ -18,7 +18,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Magick.NET.Tests
 {
   [TestClass]
-  public class ColorRGBTests : ColorBaseTests<ColorRGB>
+  public partial class ColorRGBTests : ColorBaseTests<ColorRGB>
   {
     [TestMethod]
     public void Test_IComparable()

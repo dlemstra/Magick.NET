@@ -154,6 +154,7 @@
     <Compile Include="Core\Replacements\ExcludeFromCodeCoverage.cs" />
     <Compile Include="Framework\Coders\PdfTests.cs" />
     <Compile Include="Framework\Coders\TiffTests.cs" />
+    <Compile Include="Framework\Colors\ColorRGBTests.cs" />
     <Compile Include="Framework\Colors\MagickColorTests.cs" />
     <Compile Include="Core\Assert\ColorAssert.cs" />
     <Compile Include="Core\Assert\ExceptionAssert.cs" />
