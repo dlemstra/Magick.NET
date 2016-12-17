@@ -159,7 +159,7 @@ namespace ImageMagick
       if (RemainingLength < 12)
         return null;
 
-      ExifTag tag = EnumHelper.Parse(GetShort(), ExifTag.Unknown);
+      ExifTag tag = (ExifTag)GetShort();
       ExifDataType dataType = EnumHelper.Parse(GetShort(), ExifDataType.Unknown);
       object value = null;
 

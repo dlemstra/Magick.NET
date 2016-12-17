@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -44,6 +45,17 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_InvalidTag()
+    {
+      var exifProfile = new ExifProfile();
+
+      ExceptionAssert.Throws<NotSupportedException>(() =>
+      {
+        exifProfile.SetValue((ExifTag)42, 42);
+      });
+    }
+
+    [TestMethod]
     public void Test_Properties()
     {
       ExifValue value = GetExifValue();
@@ -53,6 +65,26 @@ namespace Magick.NET.Tests
       Assert.AreEqual(false, value.IsArray);
       Assert.AreEqual("Communications", value.ToString());
       Assert.AreEqual("Communications", value.Value);
+    }
+
+    [TestMethod]
+    public void Test_UnknownExifTag()
+    {
+      var exifProfile = new ExifProfile();
+      exifProfile.SetValue(ExifTag.ImageWidth, 42);
+
+      var bytes = exifProfile.ToByteArray();
+      bytes[16] = 42;
+
+      exifProfile = new ExifProfile(bytes);
+
+      ExifTag unkownTag = (ExifTag)298;
+      ExifValue value = exifProfile.GetValue(unkownTag);
+      Assert.AreEqual(42, value.Value);
+      Assert.AreEqual("42", value.ToString());
+
+      bytes = exifProfile.ToByteArray();
+      Assert.AreEqual(0, bytes.Length);
     }
   }
 }
