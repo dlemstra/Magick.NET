@@ -12,10 +12,12 @@
 //=================================================================================================
 
 using ImageMagick;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Magick.NET.Tests
 {
-  public static class OpenCLValue
+  [ExcludeFromCodeCoverage]
+  internal static class OpenCLValue
   {
     private static bool HasEnabledOpenCLDevices
     {

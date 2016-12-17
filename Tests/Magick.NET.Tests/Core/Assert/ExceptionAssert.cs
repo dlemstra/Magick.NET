@@ -15,10 +15,12 @@
 using System;
 using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Magick.NET.Tests
 {
-  public static class ExceptionAssert
+  [ExcludeFromCodeCoverage]
+  internal static class ExceptionAssert
   {
     private static void Fail(string message, params object[] arguments)
     {

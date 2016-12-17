@@ -14,6 +14,7 @@
 
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -27,7 +28,8 @@ using QuantumType = System.Single;
 
 namespace Magick.NET.Tests
 {
-  public static class ColorAssert
+  [ExcludeFromCodeCoverage]
+  internal static class ColorAssert
   {
     private static void AreEqual(MagickColor expected, Pixel actual)
     {

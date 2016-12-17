@@ -13,10 +13,12 @@
 //=================================================================================================
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace Magick.NET.Tests
 {
+  [ExcludeFromCodeCoverage]
   internal class FakePartialStream : Stream
   {
     private readonly Stream _InnerStream;
