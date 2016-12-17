@@ -12,7 +12,6 @@
 //=================================================================================================
 
 using ImageMagick;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Magick.NET.Tests
 {

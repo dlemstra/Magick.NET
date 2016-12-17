@@ -151,6 +151,7 @@
   <ItemGroup>
     <Compile Include="Core\Coders\MslTests.cs" />
     <Compile Include="Core\Coders\MvgTests.cs" />
+    <Compile Include="Core\Replacements\ExcludeFromCodeCoverage.cs" />
     <Compile Include="Framework\Coders\PdfTests.cs" />
     <Compile Include="Framework\Coders\TiffTests.cs" />
     <Compile Include="Framework\Colors\MagickColorTests.cs" />
@@ -254,9 +255,7 @@
     <None Include="Framework\Script\Invalid.msl" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Replacements\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

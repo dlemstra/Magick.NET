@@ -14,7 +14,6 @@
 
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Diagnostics.CodeAnalysis;
 
 #if Q8
 using QuantumType = System.Byte;
