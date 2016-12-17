@@ -178,6 +178,13 @@ namespace Magick.NET.Tests
 
         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         Assert.IsTrue(exception.Message.Contains(baseDirectory));
+
+        exception = ExceptionAssert.Throws<ArgumentException>(() =>
+        {
+          image.Read("~");
+        });
+
+        Assert.IsTrue(exception.Message.Contains("~"));
       }
     }
 
