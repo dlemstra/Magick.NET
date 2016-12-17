@@ -126,12 +126,13 @@ namespace Magick.NET.Tests
           image.ToBitmap(ImageFormat.Exif);
         });
 
-        Bitmap bitmap = image.ToBitmap();
-        Assert.AreEqual(ImageFormat.MemoryBmp, bitmap.RawFormat);
-        ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(0, 0));
-        ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(5, 5));
-        ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(9, 9));
-        bitmap.Dispose();
+        using (Bitmap bitmap = image.ToBitmap())
+        {
+          Assert.AreEqual(ImageFormat.MemoryBmp, bitmap.RawFormat);
+          ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(0, 0));
+          ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(5, 5));
+          ColorAssert.AreEqual(MagickColors.Red, bitmap.GetPixel(9, 9));
+        }
 
         Test_ToBitmap(image, ImageFormat.Bmp);
         Test_ToBitmap(image, ImageFormat.Gif);
@@ -143,13 +144,24 @@ namespace Magick.NET.Tests
 
       using (MagickImage image = new MagickImage(new MagickColor(0, Quantum.Max, Quantum.Max, 0), 10, 10))
       {
-        Bitmap bitmap = image.ToBitmap();
-        Assert.AreEqual(ImageFormat.MemoryBmp, bitmap.RawFormat);
-        MagickColor color = MagickColor.FromRgba(0, 255, 255, 0);
-        ColorAssert.AreEqual(color, bitmap.GetPixel(0, 0));
-        ColorAssert.AreEqual(color, bitmap.GetPixel(5, 5));
-        ColorAssert.AreEqual(color, bitmap.GetPixel(9, 9));
-        bitmap.Dispose();
+        using (Bitmap bitmap = image.ToBitmap())
+        {
+          Assert.AreEqual(ImageFormat.MemoryBmp, bitmap.RawFormat);
+          MagickColor color = MagickColor.FromRgba(0, 255, 255, 0);
+          ColorAssert.AreEqual(color, bitmap.GetPixel(0, 0));
+          ColorAssert.AreEqual(color, bitmap.GetPixel(5, 5));
+          ColorAssert.AreEqual(color, bitmap.GetPixel(9, 9));
+        }
+      }
+
+      using (MagickImage image = new MagickImage(Files.CMYKJPG))
+      {
+        using (Bitmap bitmap = image.ToBitmap())
+        {
+          Assert.AreEqual(ImageFormat.MemoryBmp, bitmap.RawFormat);
+
+          ColorAssert.AreEqual(new MagickColor("#26ffb1"), bitmap.GetPixel(1142, 42));
+        }
       }
     }
 

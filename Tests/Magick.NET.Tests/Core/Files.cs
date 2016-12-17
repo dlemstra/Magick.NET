@@ -48,6 +48,14 @@ namespace Magick.NET.Tests
       }
     }
 
+    public static string CMYKJPG
+    {
+      get
+      {
+        return _Root + @"Images\CMYK.jpg";
+      }
+    }
+
     public static string CorruptPNG
     {
       get
