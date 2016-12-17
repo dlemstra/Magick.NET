@@ -21,9 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class MagickFormatInfoTests
   {
-    private const string _Category = "MagickFormatInfo";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       MagickFormatInfo first = MagickFormatInfo.Create(MagickFormat.Png);
@@ -34,7 +32,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first.Equals((object)second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Properties()
     {
       MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(MagickFormat.Gradient);
@@ -94,7 +92,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(MagickFormat.Xps, formatInfo.Module);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Unregister()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))

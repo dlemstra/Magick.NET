@@ -20,7 +20,7 @@ namespace Magick.NET.Tests
 {
   public partial class MagickScriptsTests
   {
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_InvalidScript()
     {
       ExceptionAssert.Throws<XmlSchemaValidationException>(delegate ()

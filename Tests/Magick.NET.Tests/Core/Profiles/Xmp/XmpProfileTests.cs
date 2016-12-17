@@ -25,8 +25,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public sealed class XmpProfileTests
   {
-    private const string _Category = "XmpProfile";
-
     private static void TestIXPathNavigable(IXPathNavigable document)
     {
       Assert.IsNotNull(document);
@@ -50,7 +48,7 @@ namespace Magick.NET.Tests
     }
 #endif
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_CreateReader()
     {
       using (MagickImage image = new MagickImage(Files.InvitationTif))
@@ -67,7 +65,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FromIXPathNavigable()
     {
       using (MagickImage image = new MagickImage(Files.InvitationTif))
@@ -99,7 +97,7 @@ namespace Magick.NET.Tests
     }
 
 #if !(NET20)
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FromXDocument()
     {
       using (MagickImage image = new MagickImage(Files.InvitationTif))
@@ -131,7 +129,7 @@ namespace Magick.NET.Tests
     }
 #endif
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToIXPathNavigable()
     {
       using (MagickImage image = new MagickImage(Files.InvitationTif))
@@ -145,7 +143,7 @@ namespace Magick.NET.Tests
     }
 
 #if !(NET20)
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToXDocument()
     {
       using (MagickImage image = new MagickImage(Files.InvitationTif))

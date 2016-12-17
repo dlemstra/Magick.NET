@@ -22,9 +22,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public sealed class ImageProfileTests
   {
-    private const string _Category = "ImageProfile";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
@@ -53,7 +51,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -79,7 +77,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToByteArray()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))

@@ -20,8 +20,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public sealed class ColorProfileTests
   {
-    private const string _Category = "ColorProfile";
-
     private static void TestEmbeddedResource(ColorProfile profile)
     {
       Assert.IsNotNull(profile);
@@ -35,7 +33,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(3144, profile.ToByteArray().Length);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ColorSpace()
     {
       Assert.AreEqual(ColorSpace.sRGB, ColorProfile.AdobeRGB1998.ColorSpace);
@@ -46,7 +44,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(ColorSpace.CMYK, ColorProfile.USWebCoatedSWOP.ColorSpace);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_EmbeddedResources()
     {
       TestEmbeddedResource(ColorProfile.AdobeRGB1998);
@@ -57,7 +55,7 @@ namespace Magick.NET.Tests
       TestEmbeddedResource(ColorProfile.USWebCoatedSWOP);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ICM()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -70,7 +68,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Info()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -84,7 +82,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Remove()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -106,7 +104,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_WithImage()
     {
       using (MagickImage image = new MagickImage())

@@ -24,8 +24,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class IptcProfileTests
   {
-    private const string _Category = "IptcProfile";
-
     private static void TestProfileValues(IptcProfile profile)
     {
       TestProfileValues(profile, 18);
@@ -49,7 +47,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(expected, value.Value);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SetEncoding()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -67,7 +65,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SetValue()
     {
       using (MemoryStream memStream = new MemoryStream())
@@ -145,7 +143,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Values()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))

@@ -20,9 +20,7 @@ namespace Magick.NET.Tests.Coders
   [TestClass]
   public class RgbTests
   {
-    private const string _Category = "RgbTests";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Read_Bytes()
     {
 #if Q8

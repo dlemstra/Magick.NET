@@ -23,9 +23,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class MagickSettingsTests
   {
-    private const string _Category = "MagickSettings";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Affine()
     {
       using (MagickImage image = new MagickImage(MagickColors.White, 300, 300))
@@ -41,7 +39,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_BackgroundColor()
     {
       using (MagickImage image = new MagickImage())
@@ -57,7 +55,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_BorderColor()
     {
       using (MagickImage image = new MagickImage(MagickColors.MediumTurquoise, 10, 10))
@@ -74,7 +72,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ColorSpace()
     {
       using (MagickImage image = new MagickImage())
@@ -90,7 +88,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ColorType()
     {
       using (MagickImage image = new MagickImage())
@@ -117,7 +115,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Compression()
     {
       using (MagickImage image = new MagickImage())
@@ -142,7 +140,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Debug()
     {
       using (MagickImage image = new MagickImage())
@@ -151,7 +149,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Density()
     {
       using (MagickImage image = new MagickImage())
@@ -167,7 +165,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Endian()
     {
       using (MagickImage image = new MagickImage(Files.NoisePNG))
@@ -192,7 +190,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FillColor()
     {
       using (MagickImage image = new MagickImage(MagickColors.Transparent, 100, 100))
@@ -223,7 +221,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FillPattern()
     {
       using (MagickImage image = new MagickImage(MagickColors.Transparent, 500, 500))
@@ -243,7 +241,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FillRule()
     {
       using (MagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
@@ -268,7 +266,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Font()
     {
       using (MagickImage image = new MagickImage())
@@ -285,7 +283,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Interlace()
     {
       using (MagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 60))
@@ -312,7 +310,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FontFamily()
     {
       using (MagickImage image = new MagickImage())
@@ -334,7 +332,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Page()
     {
       using (MagickImage image = new MagickImage())
@@ -350,7 +348,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_StrokeAntiAlias()
     {
       using (MagickImage image = new MagickImage(MagickColors.Purple, 300, 300))
@@ -366,7 +364,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_StrokeDashArray()
     {
       using (MagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
@@ -387,7 +385,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_StrokeLineCap()
     {
       using (MagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
@@ -404,7 +402,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_StrokeLineJoin()
     {
       using (MagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
@@ -421,7 +419,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_StrokeMiterLimit()
     {
       using (MagickImage image = new MagickImage(MagickColors.SkyBlue, 100, 60))
@@ -438,7 +436,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_StrokePattern()
     {
       using (MagickImage image = new MagickImage(MagickColors.Red, 250, 100))
@@ -459,7 +457,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_StrokeWidth()
     {
       using (MagickImage image = new MagickImage(MagickColors.Purple, 300, 300))
@@ -477,7 +475,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_TextAntiAlias()
     {
       using (MagickImage image = new MagickImage(MagickColors.Azure, 300, 300))
@@ -492,7 +490,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_TextDirection()
     {
       using (MagickImage image = new MagickImage())
@@ -501,7 +499,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_TextEncoding()
     {
       using (MagickImage image = new MagickImage(MagickColors.Azure, 300, 300))
@@ -510,7 +508,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_TextGravity()
     {
       using (MagickImage image = new MagickImage("xc:red", 300, 300))
@@ -529,7 +527,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_TextInterlineSpacing()
     {
       using (MagickImage image = new MagickImage())
@@ -550,7 +548,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_TextInterwordSpacing()
     {
       using (MagickImage image = new MagickImage())
@@ -571,7 +569,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_TextKerning()
     {
       using (MagickImage image = new MagickImage())
@@ -592,7 +590,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_TextUnderColor()
     {
       using (MagickImage image = new MagickImage())
@@ -610,7 +608,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Verbose()
     {
       using (MagickImage image = new MagickImage())

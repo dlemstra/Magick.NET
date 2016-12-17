@@ -21,15 +21,13 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PerceptualHashTests
   {
-    private const string _Category = "PerceptualHash";
-
     private void TestChannel(ChannelPerceptualHash channel, int index, double srgbHuPhashWithOpenCL, double srgbHuPhashWithoutOpenCL, double hclpHuPhashWithOpenCL, double hclpHuPhashWithoutOpenCL)
     {
       OpenCLValue.Assert(srgbHuPhashWithOpenCL, srgbHuPhashWithoutOpenCL, channel.SrgbHuPhash(index), 0.0001);
       OpenCLValue.Assert(hclpHuPhashWithOpenCL, hclpHuPhashWithoutOpenCL, channel.HclpHuPhash(index), 0.0001);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Channel()
     {
       using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
@@ -135,7 +133,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
@@ -159,7 +157,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToString()
     {
       using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
@@ -184,7 +182,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SumSquaredDistance()
     {
       using (MagickImage image = new MagickImage(Files.ImageMagickJPG))

@@ -20,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public partial class OpenCLTests
   {
-    private const string _Category = "OpenCL";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IsEnabled()
     {
       Assert.AreEqual(OpenCL.IsEnabled, true);

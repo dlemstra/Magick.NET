@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,8 +20,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class DrawableDensityTests
   {
-    private const string _Category = "DrawableDensityTests";
-
     private MagickImage CreateImage(int? density)
     {
       MagickImage image = new MagickImage(MagickColors.Purple, 500, 500);
@@ -39,7 +36,7 @@ namespace Magick.NET.Tests
       return image;
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ImageSize()
     {
       using (MagickImage image = CreateImage(null))

@@ -19,7 +19,7 @@ namespace Magick.NET.Tests
 {
   public partial class MagickNETTests
   {
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Version()
     {
 #if ANYCPU

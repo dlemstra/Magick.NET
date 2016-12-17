@@ -20,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class SignedRationalTests
   {
-    private const string _Category = "SignedRational";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       SignedRational rational = new SignedRational(7, -55);
@@ -50,7 +48,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(1, rational.Denominator);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       SignedRational first = new SignedRational(3, 2);
@@ -71,7 +69,7 @@ namespace Magick.NET.Tests
       Assert.IsFalse(first.Equals(second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Fraction()
     {
       SignedRational first = new SignedRational(1.0 / 1600);
@@ -79,7 +77,7 @@ namespace Magick.NET.Tests
       Assert.IsFalse(first.Equals(second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToDouble()
     {
       SignedRational rational = new SignedRational(0, 0);
@@ -92,7 +90,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(double.NegativeInfinity, rational.ToDouble());
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToString()
     {
       SignedRational rational = new SignedRational(0, 0);

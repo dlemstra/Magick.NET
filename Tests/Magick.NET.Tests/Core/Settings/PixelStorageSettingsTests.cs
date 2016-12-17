@@ -21,8 +21,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PixelStorageSettingsTests
   {
-    private const string _Category = "PixelStorageSettings";
-
     private static MagickReadSettings CreateSettings()
     {
       MagickReadSettings settings = new MagickReadSettings();
@@ -33,7 +31,7 @@ namespace Magick.NET.Tests
       return settings;
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Collection_Exceptions()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -48,7 +46,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Image_Exceptions()
     {
       ExceptionAssert.Throws<ArgumentException>(delegate ()
@@ -94,7 +92,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Image_Read()
     {
       MagickReadSettings settings = CreateSettings();

@@ -20,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ColorMonoTests : ColorBaseTests<ColorMono>
   {
-    private const string _Category = "ColorMono";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IComparable()
     {
       ColorMono first = new ColorMono(true);
@@ -38,7 +36,7 @@ namespace Magick.NET.Tests
       Test_IComparable_Equal(first, second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       ColorMono first = new ColorMono(true);
@@ -54,7 +52,7 @@ namespace Magick.NET.Tests
       Test_IEquatable_NotEqual(first, second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ColorMono()
     {
       ColorMono mono = new ColorMono(false);

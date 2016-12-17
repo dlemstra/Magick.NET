@@ -21,8 +21,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PsdWriteDefinesTests
   {
-    private const string _Category = "PsdWriteDefines";
-
     private static void CheckProfile(MagickImage image, int expectedLength)
     {
       var profile = image.GetProfile("psd:additional-info");
@@ -42,7 +40,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AdditionalInfo()
     {
 

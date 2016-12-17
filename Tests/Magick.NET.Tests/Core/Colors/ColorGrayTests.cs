@@ -21,9 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ColorGrayTests : ColorBaseTests<ColorGray>
   {
-    private const string _Category = "ColorGray";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IComparable()
     {
       ColorGray first = new ColorGray(0.5);
@@ -39,7 +37,7 @@ namespace Magick.NET.Tests
       Test_IComparable_Equal(first, second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       ColorGray first = new ColorGray(0.2);
@@ -55,7 +53,7 @@ namespace Magick.NET.Tests
       Test_IEquatable_NotEqual(first, second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ColorGray()
     {
       ColorGray gray = new ColorGray(1);
@@ -71,7 +69,7 @@ namespace Magick.NET.Tests
       ColorAssert.AreEqual(MagickColors.Black, gray.ToMagickColor());
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentException>(() =>

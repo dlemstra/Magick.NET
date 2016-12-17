@@ -22,9 +22,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PathTests
   {
-    private const string _Category = "PathTests";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Paths()
     {
       using (MagickImage image = new MagickImage(MagickColors.Transparent, 100, 100))
@@ -54,7 +52,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Path_Exceptions()
     {
       ExceptionAssert.Throws<ArgumentException>(delegate ()

@@ -22,9 +22,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class DrawableTests
   {
-    private const string _Category = "DrawableTests";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Drawables()
     {
       PointD[] coordinates = new PointD[3];
@@ -99,7 +97,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Drawables_Exceptions()
     {
       ExceptionAssert.Throws<ArgumentException>(delegate ()

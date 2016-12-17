@@ -20,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class DrawablesTests
   {
-    private const string _Category = "DrawablesTests";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Draw()
     {
       using (MagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 100))

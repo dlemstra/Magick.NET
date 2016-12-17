@@ -20,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ResourceLimitsTests
   {
-    private const string _Category = "ResourceLimits";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Values()
     {
       Assert.AreEqual(ulong.MaxValue, ResourceLimits.Disk);

@@ -23,8 +23,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ImageOptimizerTests : IImageOptimizerTests
   {
-    private const string _Category = "ImageOptimizer";
-
     private void Test_LosslessCompressWithTempFile(string fileName)
     {
       string tempFile = Path.GetTempFileName();
@@ -46,13 +44,13 @@ namespace Magick.NET.Tests
       return new ImageOptimizer();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_InvalidArguments()
     {
       Test_LosslessCompress_InvalidArguments();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IsSupported()
     {
       ImageOptimizer optimizer = new ImageOptimizer();
@@ -79,7 +77,7 @@ namespace Magick.NET.Tests
       Assert.IsFalse(optimizer.IsSupported(Files.InvitationTif));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_LosslessCompress()
     {
       Test_LosslessCompress_Smaller(Files.FujiFilmFinePixS1ProGIF);

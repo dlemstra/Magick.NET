@@ -21,8 +21,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ExifValueTests
   {
-    private const string _Category = "ExifValue";
-
     private static ExifValue GetExifValue()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -34,7 +32,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       ExifValue first = GetExifValue();
@@ -45,7 +43,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first.Equals((object)second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Properties()
     {
       ExifValue value = GetExifValue();

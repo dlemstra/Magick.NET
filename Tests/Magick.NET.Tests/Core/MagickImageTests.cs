@@ -35,8 +35,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public partial class MagickImageTests
   {
-    private const string _Category = "MagickImage";
-
     private MagickImage CreatePallete()
     {
       using (MagickImageCollection images = new MagickImageCollection())
@@ -155,7 +153,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AdaptiveBlur()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -172,7 +170,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AdaptiveResize()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -185,7 +183,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AdaptiveSharpen()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -201,7 +199,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AdaptiveThreshold()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -211,7 +209,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AddNoise()
     {
       MagickNET.SetRandomSeed(1337);
@@ -232,7 +230,7 @@ namespace Magick.NET.Tests
       MagickNET.SetRandomSeed(-1);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AddProfile()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -257,7 +255,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AffineTransform()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
@@ -269,7 +267,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Alpha()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
@@ -290,7 +288,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AlphaColor()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -303,7 +301,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Annotate()
     {
       using (MagickImage image = new MagickImage(MagickColors.Thistle, 200, 50))
@@ -329,7 +327,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Artifact()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -377,7 +375,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Attribute()
     {
       using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
@@ -428,7 +426,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AutoGamma()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -439,7 +437,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AutoOrient()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
@@ -472,7 +470,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_BlackPointCompensation()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
@@ -495,7 +493,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_BlackThreshold()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -506,7 +504,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_BackgroundColor()
     {
       using (MagickImage image = new MagickImage("xc:red", 1, 1))
@@ -526,7 +524,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_BitDepth()
     {
       using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
@@ -538,7 +536,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_BlueShift()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -564,7 +562,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_BrightnessContrast()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
@@ -576,7 +574,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_CannyEdge_HoughLine()
     {
       using (MagickImage image = new MagickImage(Files.ConnectedComponentsPNG))
@@ -600,7 +598,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Charcoal()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -610,7 +608,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Chop()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
@@ -621,7 +619,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Channels()
     {
       PixelChannel[] rgb = new PixelChannel[]
@@ -689,7 +687,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Chromaticity()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -714,7 +712,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ClassType()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -729,14 +727,14 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Clip()
     {
       Test_Clip(false, 0);
       Test_Clip(true, Quantum.Max);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Clone()
     {
       using (MagickImage first = new MagickImage(Files.SnakewarePNG))
@@ -753,7 +751,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Clone_Area()
     {
       using (MagickImage icon = new MagickImage(Files.MagickNETIconPNG))
@@ -804,7 +802,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Clut()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -817,7 +815,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Colorize()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
@@ -828,7 +826,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ColorAlpha()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -842,7 +840,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ColorMap()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -861,7 +859,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ColorMatrix()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Rose))
@@ -874,7 +872,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ColorType()
     {
       using (MagickImage image = new MagickImage(Files.WireframeTIF))
@@ -908,7 +906,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Compare()
     {
       MagickImage first = new MagickImage(Files.ImageMagickJPG);
@@ -956,7 +954,7 @@ namespace Magick.NET.Tests
       Assert.AreNotEqual(0, distortion);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Composite_Blur()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -969,7 +967,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Composite_ChangeMask()
     {
       using (MagickImage background = new MagickImage("xc:red", 100, 100))
@@ -997,7 +995,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Composite_Copy()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -1020,7 +1018,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Composite_Gravity()
     {
       MagickColor backgroundColor = MagickColors.LightBlue;
@@ -1075,7 +1073,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ConnectedComponents()
     {
       using (MagickImage image = new MagickImage(Files.ConnectedComponentsPNG))
@@ -1130,7 +1128,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentException>(delegate ()
@@ -1164,7 +1162,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Contrast()
     {
       using (MagickImage first = new MagickImage(Files.Builtin.Wizard))
@@ -1179,7 +1177,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ContrastStretch()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
@@ -1192,7 +1190,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Convolve()
     {
       using (MagickImage image = new MagickImage("xc:", 1, 1))
@@ -1219,7 +1217,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_CopyPixels()
     {
       using (MagickImage source = new MagickImage(MagickColors.White, 100, 100))
@@ -1315,7 +1313,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_CropToTiles()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -1339,7 +1337,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_CycleColormap()
     {
       using (MagickImage first = new MagickImage(Files.Builtin.Logo))
@@ -1363,7 +1361,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Define()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -1389,7 +1387,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Density()
     {
       using (MagickImage image = new MagickImage(Files.EightBimTIF))
@@ -1400,7 +1398,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Deskew()
     {
       using (MagickImage image = new MagickImage(Files.LetterJPG))
@@ -1415,7 +1413,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Despeckle()
     {
       using (MagickImage image = new MagickImage(Files.NoisePNG))
@@ -1431,7 +1429,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_DetermineColorType()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -1443,7 +1441,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Dispose()
     {
       MagickImage image = new MagickImage();
@@ -1455,7 +1453,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Distort()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -1481,7 +1479,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Drawable()
     {
       using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
@@ -1492,7 +1490,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Encipher_Decipher()
     {
       using (MagickImage original = new MagickImage(Files.SnakewarePNG))
@@ -1519,7 +1517,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Edge()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -1535,7 +1533,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Emboss()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
@@ -1557,7 +1555,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Enhance()
     {
       using (MagickImage enhanced = new MagickImage(Files.NoisePNG))
@@ -1571,7 +1569,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Equalize()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -1583,7 +1581,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Evaluate()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -1619,7 +1617,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Extent()
     {
       using (MagickImage image = new MagickImage())
@@ -1640,7 +1638,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FlipFlop()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -1672,7 +1670,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FontTypeMetrics()
     {
       using (MagickImage image = new MagickImage(MagickColors.Transparent, 100, 100))
@@ -1702,7 +1700,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FormatExpression()
     {
       using (MagickImage image = new MagickImage(Files.RedPNG))
@@ -1727,7 +1725,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FormatInfo()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -1740,7 +1738,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Frame()
     {
       int frameSize = 100;
@@ -1774,7 +1772,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Fx()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -1817,7 +1815,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_GammaCorrect()
     {
       MagickImage first = new MagickImage(Files.InvitationTif);
@@ -1832,7 +1830,7 @@ namespace Magick.NET.Tests
       second.Dispose();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_GaussianBlur()
     {
       using (MagickImage gaussian = new MagickImage(Files.Builtin.Wizard))
@@ -1857,7 +1855,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Grayscale()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -1872,7 +1870,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_HaldClut()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -1887,7 +1885,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_HasClippingPath()
     {
       using (MagickImage noPath = new MagickImage(Files.MagickNETIconPNG))
@@ -1901,7 +1899,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Histogram()
     {
       MagickImage image = new MagickImage(Files.RedPNG);
@@ -1929,7 +1927,7 @@ namespace Magick.NET.Tests
       image.Dispose();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IComparable()
     {
       MagickImage first = new MagickImage(MagickColors.Red, 10, 5);
@@ -1966,7 +1964,7 @@ namespace Magick.NET.Tests
       second.Dispose();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       MagickImage first = new MagickImage(MagickColors.Red, 10, 10);
@@ -1995,7 +1993,7 @@ namespace Magick.NET.Tests
       Assert.IsFalse(first != null);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Implode()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -2012,7 +2010,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Interlace()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -2033,7 +2031,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IsOpaque()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -2051,7 +2049,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Kuwahara()
     {
       using (MagickImage image = new MagickImage(Files.NoisePNG))
@@ -2064,7 +2062,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Level()
     {
       using (MagickImage first = new MagickImage(Files.MagickNETIconPNG))
@@ -2112,7 +2110,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_LevelColors()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -2142,7 +2140,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_LinearStretch()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -2197,7 +2195,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_LocalContrast()
     {
       using (MagickImage image = new MagickImage(Files.NoisePNG))
@@ -2212,7 +2210,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_LiquidRescale()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -2226,7 +2224,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Magnify()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -2237,7 +2235,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Map()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -2267,7 +2265,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Minify()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -2278,7 +2276,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Modulate()
     {
       using (MagickImage image = new MagickImage(Files.TestPNG))
@@ -2305,7 +2303,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Morphology()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -2339,7 +2337,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_MotionBlur()
     {
       using (MagickImage motionBlurred = new MagickImage(Files.Builtin.Logo))
@@ -2353,7 +2351,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Normalize()
     {
       using (MagickImageCollection images = new MagickImageCollection())
@@ -2393,7 +2391,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_OilPaint()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -2403,7 +2401,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_OrderedDither()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -2416,7 +2414,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Opaque()
     {
       using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
@@ -2434,7 +2432,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Perceptible()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -2446,7 +2444,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Ping()
     {
       MagickImage image = new MagickImage();
@@ -2502,7 +2500,7 @@ namespace Magick.NET.Tests
       image.Dispose();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Polaroid()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -2525,7 +2523,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Posterize()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -2546,7 +2544,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Profile()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -2571,7 +2569,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ProfileNames()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -2592,7 +2590,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Progress()
     {
       Percentage progress = new Percentage(0);
@@ -2628,7 +2626,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Quantize()
     {
       QuantizeSettings settings = new QuantizeSettings();
@@ -2657,7 +2655,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_RandomThreshold()
     {
       using (MagickImage image = new MagickImage(Files.TestPNG))
@@ -2672,7 +2670,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Raise_Lower()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -2692,7 +2690,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Read()
     {
       MagickImage image = new MagickImage();
@@ -2799,7 +2797,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_RegionMask()
     {
       using (MagickImage red = new MagickImage("xc:red", 100, 100))
@@ -2825,7 +2823,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Resample()
     {
       using (MagickImage image = new MagickImage("xc:red", 100, 100))
@@ -2839,7 +2837,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Resize()
     {
       using (MagickImage image = new MagickImage())
@@ -2896,7 +2894,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Roll()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -2910,7 +2908,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Rotate()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -2925,7 +2923,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_RotationalBlur()
     {
       using (MagickImage image = new MagickImage(Files.TestPNG))
@@ -2967,7 +2965,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Sample()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -2978,7 +2976,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Scale()
     {
       using (MagickImage image = new MagickImage(Files.CirclePNG))
@@ -2991,7 +2989,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Segment()
     {
       using (MagickImage image = new MagickImage(Files.TestPNG))
@@ -3004,7 +3002,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SelectiveBlur()
     {
       using (MagickImage image = new MagickImage(Files.NoisePNG))
@@ -3018,7 +3016,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Separate()
     {
       using (MagickImage rose = new MagickImage(Files.Builtin.Rose))
@@ -3043,7 +3041,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Separate_Composite()
     {
       using (MagickImage logo = new MagickImage(Files.Builtin.Logo))
@@ -3064,7 +3062,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SepiaTone()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3089,7 +3087,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SetAttenuate()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3099,7 +3097,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SetHighlightColor()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3115,7 +3113,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SetLowlightColor()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3131,7 +3129,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Shade()
     {
       using (MagickImage image = new MagickImage())
@@ -3159,7 +3157,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Shadow()
     {
       using (MagickImage image = new MagickImage())
@@ -3199,7 +3197,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Sharpen()
     {
       using (MagickImage image = new MagickImage(Files.NoisePNG))
@@ -3214,7 +3212,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Shave()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3226,7 +3224,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Shear()
     {
       using (MagickImage image = new MagickImage(Files.TestPNG))
@@ -3249,7 +3247,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SigmoidalContrast()
     {
       using (MagickImage image = new MagickImage(Files.NoisePNG))
@@ -3263,7 +3261,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Signature()
     {
       using (MagickImage image = new MagickImage())
@@ -3274,7 +3272,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SparseColors()
     {
       MagickReadSettings settings = new MagickReadSettings();
@@ -3323,7 +3321,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Sketch()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -3338,7 +3336,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Solarize()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3351,7 +3349,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Splice()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -3366,7 +3364,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Spread()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -3380,7 +3378,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Statistic()
     {
       using (MagickImage image = new MagickImage(Files.NoisePNG))
@@ -3393,7 +3391,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Stegano()
     {
       using (MagickImage message = new MagickImage("label:Magick.NET is the best!", 200, 20))
@@ -3427,7 +3425,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Stereo()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3444,7 +3442,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Swirl()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3461,7 +3459,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SubImageSearch()
     {
       using (MagickImageCollection images = new MagickImageCollection())
@@ -3486,7 +3484,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Texture()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -3502,7 +3500,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Tile()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3517,7 +3515,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Tint()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3531,7 +3529,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Threshold()
     {
       using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
@@ -3546,7 +3544,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Thumbnail()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -3557,7 +3555,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToByteArray()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -3587,7 +3585,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToString()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
@@ -3601,7 +3599,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_TotalColors()
     {
       using (MagickImage image = new MagickImage())
@@ -3613,7 +3611,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Transparent()
     {
       MagickColor red = new MagickColor("red");
@@ -3641,7 +3639,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_TransparentChroma()
     {
       using (MagickImage image = new MagickImage(Files.TestPNG))
@@ -3665,7 +3663,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Transpose()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3681,7 +3679,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Transverse()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3697,7 +3695,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Trim()
     {
       using (MagickImage image = new MagickImage("xc:fuchsia", 50, 50))
@@ -3721,7 +3719,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_TransformColorSpace()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -3736,7 +3734,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_UniqueColors()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3749,7 +3747,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_UnsharpMask()
     {
       using (MagickImage image = new MagickImage(Files.NoisePNG))
@@ -3769,7 +3767,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Vignette()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3782,7 +3780,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_VirtualPixelMethod()
     {
       using (MagickImage image = new MagickImage())
@@ -3793,7 +3791,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Wave()
     {
       using (MagickImage image = new MagickImage(Files.TestPNG))
@@ -3813,7 +3811,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_WaveletDenoise()
     {
       using (MagickImage image = new MagickImage(Files.NoisePNG))
@@ -3837,7 +3835,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Warning()
     {
       int count = 0;
@@ -3867,7 +3865,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_WhiteThreshold()
     {
       using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
@@ -3878,7 +3876,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Write()
     {
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()

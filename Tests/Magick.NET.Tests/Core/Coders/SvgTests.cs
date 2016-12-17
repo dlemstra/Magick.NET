@@ -21,9 +21,7 @@ namespace Magick.NET.Tests.Coders
   [TestClass]
   public partial class SvgTests
   {
-    private const string _Category = "SvgTests";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Dimensions()
     {
       using (MagickImage image = new MagickImage())

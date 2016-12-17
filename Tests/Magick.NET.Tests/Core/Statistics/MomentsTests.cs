@@ -21,9 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class MomentsTests
   {
-    private const string _Category = "Moments";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Moments()
     {
       using (MagickImage image = new MagickImage(Files.ImageMagickJPG))

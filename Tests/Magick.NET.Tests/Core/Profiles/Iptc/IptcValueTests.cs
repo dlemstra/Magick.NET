@@ -23,8 +23,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class IptcValueTests
   {
-    private const string _Category = "IptcValue";
-
     private static IptcValue GetIptcValue()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -34,7 +32,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Encoding()
     {
       IptcValue value = GetIptcValue();
@@ -56,7 +54,7 @@ namespace Magick.NET.Tests
       Assert.AreNotEqual("Communications", value.Value);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       IptcValue first = GetIptcValue();
@@ -67,7 +65,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first.Equals((object)second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Properties()
     {
       IptcValue value = GetIptcValue();
@@ -78,7 +76,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(14, value.ToByteArray().Length);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToString()
     {
       IptcValue value = GetIptcValue();

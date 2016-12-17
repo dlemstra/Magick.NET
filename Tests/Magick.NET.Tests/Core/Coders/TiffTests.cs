@@ -21,8 +21,6 @@ namespace Magick.NET.Tests.Coders
   [TestClass]
   public partial class TiffTests
   {
-    private const string _Category = "TiffTests";
-
     private static void TestValue(IptcProfile profile, IptcTag tag, string expectedValue)
     {
       IptcValue value = profile.GetValue(tag);
@@ -30,7 +28,7 @@ namespace Magick.NET.Tests.Coders
       Assert.AreEqual(expectedValue, value.Value);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IgnoreTags()
     {
       using (MagickImage image = new MagickImage())
@@ -49,7 +47,7 @@ namespace Magick.NET.Tests.Coders
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IptcProfile()
     {
       using (MagickImage input = new MagickImage(Files.MagickNETIconPNG))

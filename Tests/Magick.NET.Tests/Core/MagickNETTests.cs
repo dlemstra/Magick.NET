@@ -23,9 +23,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public partial class MagickNETTests
   {
-    private const string _Category = "MagickNET";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Features()
     {
 #if Q8 || Q16
@@ -45,7 +43,7 @@ namespace Magick.NET.Tests
 #endif
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Initialize()
     {
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
@@ -77,7 +75,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Log()
     {
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
@@ -112,7 +110,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_MagickFormats()
     {
       List<string> missingFormats = new List<string>();
@@ -131,7 +129,7 @@ namespace Magick.NET.Tests
         Assert.Fail("Cannot find MagickFormatInfo for: " + string.Join(", ", missingFormats.ToArray()));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_RandomSeed()
     {
       using (MagickImage first = new MagickImage("plasma:red", 10, 10))
@@ -153,7 +151,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SupportedFormats()
     {
       foreach (MagickFormatInfo formatInfo in MagickNET.SupportedFormats)
@@ -162,7 +160,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Version_Quantum()
     {
 #if Q8
@@ -176,7 +174,7 @@ namespace Magick.NET.Tests
 #endif
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SetTempDirectory()
     {
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()

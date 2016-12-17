@@ -25,9 +25,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PdfReadDefinesTests
   {
-    private const string _Category = "PdfReadDefinesTests";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_UseCropBox_UseTrimBox()
     {
       PdfReadDefines defines = new PdfReadDefines()
@@ -45,7 +43,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FitPage()
     {
       MagickReadSettings settings = new MagickReadSettings()

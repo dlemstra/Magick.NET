@@ -21,9 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PngReadDefinesTests
   {
-    private const string _Category = "PngReadDefines";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_PreserveiCCP_SwapBytes()
     {
       PngReadDefines defines = new PngReadDefines()
@@ -55,7 +53,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SkipProfiles()
     {
       MagickReadSettings settings = new MagickReadSettings()

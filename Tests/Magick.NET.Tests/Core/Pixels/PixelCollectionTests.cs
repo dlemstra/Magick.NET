@@ -34,8 +34,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public sealed class PixelCollectionTests
   {
-    private const string _Category = "PixelCollection";
-
     private static void TestPixels(MagickImage image, MagickColor color)
     {
       TestPixels(image, color, color);
@@ -90,7 +88,7 @@ namespace Magick.NET.Tests
       ColorAssert.AreEqual(color, magickColor);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Enumerator()
     {
       using (MagickImage image = new MagickImage(Files.ConnectedComponentsPNG, 10, 10))
@@ -124,7 +122,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_GetArea()
     {
       using (MagickImage image = new MagickImage(MagickColors.Fuchsia, 10, 10))
@@ -146,7 +144,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_GetValue()
     {
       using (MagickImage image = new MagickImage(MagickColors.Red, 5, 10))
@@ -162,7 +160,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_GetValues()
     {
       using (MagickImage image = new MagickImage(MagickColors.PowderBlue, 1, 1))
@@ -180,7 +178,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEnumerable()
     {
       using (MagickImage image = new MagickImage(MagickColors.Red, 5, 10))
@@ -192,7 +190,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IndexOutOfRange()
     {
       using (MagickImage image = new MagickImage(MagickColors.Red, 5, 10))
@@ -252,7 +250,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Set()
     {
       using (MagickImage image = new MagickImage(MagickColors.Red, 5, 10))
@@ -321,7 +319,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SetResult()
     {
       using (MagickImage image = new MagickImage(MagickColors.Red, 10, 2))
@@ -359,7 +357,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToByteArray()
     {
       using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
@@ -377,7 +375,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToShortArray()
     {
       using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))

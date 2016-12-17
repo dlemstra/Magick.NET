@@ -21,9 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PointDTests
   {
-    private const string _Category = "PointD";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       PointD point = new PointD();
@@ -74,7 +72,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual("1x2.5", point.ToString());
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       PointD first = new PointD(50.0);

@@ -21,9 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class JpegReadDefinesTests
   {
-    private const string _Category = "JpegReadDefines";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_BlockSmoothing_DctMethod_FancyUpsampling()
     {
       MagickReadSettings settings = new MagickReadSettings()
@@ -46,7 +44,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Colors_Size()
     {
       MagickReadSettings settings = new MagickReadSettings()
@@ -69,7 +67,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SkipProfiles()
     {
       MagickReadSettings settings = new MagickReadSettings()

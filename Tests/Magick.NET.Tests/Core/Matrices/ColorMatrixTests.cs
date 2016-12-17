@@ -21,9 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ColorMatrixTests
   {
-    private const string _Category = "ColorMatrix";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentException>(delegate ()
@@ -70,7 +68,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SetColumn()
     {
       MagickColorMatrix matrix = new MagickColorMatrix(2);
@@ -84,7 +82,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(8, matrix.GetValue(1, 1));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SetRow()
     {
       MagickColorMatrix matrix = new MagickColorMatrix(2);
@@ -98,7 +96,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(8, matrix.GetValue(1, 1));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Value()
     {
       MagickColorMatrix matrix = new MagickColorMatrix(2);

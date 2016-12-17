@@ -20,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ColorRGBTests : ColorBaseTests<ColorRGB>
   {
-    private const string _Category = "ColorRGB";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IComparable()
     {
       ColorRGB first = new ColorRGB(MagickColors.Red);
@@ -46,7 +44,7 @@ namespace Magick.NET.Tests
       Test_IComparable_Equal(first, second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       ColorRGB first = new ColorRGB(MagickColors.Red);

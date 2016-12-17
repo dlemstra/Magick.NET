@@ -20,8 +20,6 @@ namespace Magick.NET.Tests.Coders
   [TestClass]
   public partial class PdfTests
   {
-    private const string _Category = "PdfTests";
-
     private static void Test_Image(MagickImage image)
     {
       Assert.AreEqual(765, image.Width);
@@ -29,7 +27,7 @@ namespace Magick.NET.Tests.Coders
       Assert.AreEqual(MagickFormat.Ai, image.Format);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Format()
     {
       using (MagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))

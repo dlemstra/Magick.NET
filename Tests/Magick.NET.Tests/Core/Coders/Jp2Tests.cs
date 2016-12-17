@@ -20,9 +20,7 @@ namespace Magick.NET.Tests.Coders
   [TestClass]
   public class Jp2Tests
   {
-    private const string _Category = "Jp2Tests";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Dimensions()
     {
       using (MagickImage image = new MagickImage(Files.Coders.GrimJp2))

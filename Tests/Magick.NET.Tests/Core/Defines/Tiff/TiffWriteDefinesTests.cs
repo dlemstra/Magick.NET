@@ -22,8 +22,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class TiffWriteDefinesTests
   {
-    private const string _Category = "TiffWriteDefines";
-
     private static MagickImage WriteTiff(MagickImage image)
     {
       using (MemoryStream memStream = new MemoryStream())
@@ -35,7 +33,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Alpha_Endian()
     {
       TiffWriteDefines defines = new TiffWriteDefines()
@@ -57,7 +55,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FillOrder_RowsPerStrip()
     {
       TiffWriteDefines defines = new TiffWriteDefines()

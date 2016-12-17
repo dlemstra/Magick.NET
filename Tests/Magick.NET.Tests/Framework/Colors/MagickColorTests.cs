@@ -20,7 +20,7 @@ namespace Magick.NET.Tests
 {
   public partial class MagickColorTests
   {
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Transparent()
     {
       MagickColor transparent = MagickColors.Transparent;

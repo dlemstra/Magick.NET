@@ -20,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PathsTests
   {
-    private const string _Category = "PathsTests";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Draw_Drawables()
     {
       using (MagickImage image = new MagickImage(MagickColors.Green, 100, 10))
@@ -41,7 +39,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Draw_Paths()
     {
       using (MagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 3))

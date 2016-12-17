@@ -24,8 +24,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ExifProfileTests
   {
-    private const string _Category = "ExifProfile";
-
     private static void TestProfile(ExifProfile profile)
     {
       Assert.IsNotNull(profile);
@@ -75,7 +73,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(expected, value.ToString());
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       using (MemoryStream memStream = new MemoryStream())
@@ -110,7 +108,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor_Empty()
     {
       using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
@@ -123,7 +121,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Fraction()
     {
       using (MemoryStream memStream = new MemoryStream())
@@ -176,7 +174,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Infinity()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -208,7 +206,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_SetValue()
     {
       Rational[] latitude = new Rational[] { new Rational(12.3), new Rational(4.56), new Rational(789.0) };
@@ -320,7 +318,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Thumbnail()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -338,7 +336,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Values()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))

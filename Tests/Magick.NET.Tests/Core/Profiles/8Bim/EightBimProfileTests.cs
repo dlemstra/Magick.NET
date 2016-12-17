@@ -22,8 +22,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class EightBimProfileTests
   {
-    private const string _Category = "EightBimProfile";
-
     private static void TestProfileValues(EightBimProfile profile)
     {
       Assert.IsNotNull(profile);
@@ -55,7 +53,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(@"<svg width=""200"" height=""200""><g><path fill=""#00000000"" stroke=""#00000000"" stroke-width=""0"" stroke-antialiasing=""false"" d=""M 52 144&#xA;L 130 57&#xA;L 157 121&#xA;L 131 106&#xA;L 52 144 Z&#xA;"" /></g></svg>", doc.ToString(SaveOptions.DisableFormatting));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ClippingPaths()
     {
       using (MagickImage image = new MagickImage(Files.EightBimTIF))
@@ -75,7 +73,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Values()
     {
       using (MagickImage image = new MagickImage(Files.EightBimTIF))

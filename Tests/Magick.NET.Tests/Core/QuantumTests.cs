@@ -20,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class QuantumTests
   {
-    private const string _Category = "QuantumTests";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Depth()
     {
 #if Q8
@@ -34,7 +32,7 @@ namespace Magick.NET.Tests
 #endif
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Max()
     {
 #if Q8

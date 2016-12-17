@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
 {
   public partial class MagickImageCollectionTests
   {
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToBitmap()
     {
       using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))

@@ -24,8 +24,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public partial class MagickScriptsTests
   {
-    private const string _Category = "MagickScript";
-
     private void CollectionScriptRead(object sender, ScriptReadEventArgs arguments)
     {
       switch (arguments.Id)
@@ -78,7 +76,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(59, result.Height);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
@@ -97,7 +95,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Execute_Collection()
     {
       MagickScript script = new MagickScript(Files.Scripts.Collection);
@@ -111,7 +109,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(128, image.Height);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Execute_Defines()
     {
       MagickScript script = new MagickScript(Files.Scripts.Defines);
@@ -124,7 +122,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(700, image.Height);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Execute_Distort()
     {
       MagickScript script = new MagickScript(Files.Scripts.Distort);
@@ -135,7 +133,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(500, image.Height);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Execute_Draw()
     {
       XmlDocument doc = new XmlDocument();
@@ -152,7 +150,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Execute_Events()
     {
       MagickScript script = new MagickScript(Files.Scripts.Events);
@@ -194,7 +192,7 @@ namespace Magick.NET.Tests
       script.Execute();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Execute_ImageProfile()
     {
       MagickScript script = new MagickScript(Files.Scripts.ImageProfile);
@@ -213,7 +211,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Execute_Resize()
     {
       MagickScript script = new MagickScript(Files.Scripts.Resize);
@@ -231,7 +229,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Execute_Variables()
     {
       MagickScript script = new MagickScript(Files.Scripts.Variables);

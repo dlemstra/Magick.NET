@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor_Bitmap()
     {
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
@@ -75,7 +75,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Bitmap()
     {
       using (Bitmap bitmap = new Bitmap(400, 400, PixelFormat.Format24bppRgb))
@@ -88,7 +88,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Read_Bitmap()
     {
       using (MagickImage image = new MagickImage())
@@ -116,7 +116,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToBitmap()
     {
       using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
@@ -154,7 +154,7 @@ namespace Magick.NET.Tests
     }
 
 #if !(NET20)
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToBitmapSource()
     {
       byte[] pixels = new byte[600];

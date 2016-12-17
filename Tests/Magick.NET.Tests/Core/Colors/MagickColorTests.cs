@@ -31,8 +31,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public partial class MagickColorTests
   {
-    private const string _Category = "MagickColor";
-
     private void TestColor(string hexValue, double red, double green, double blue, bool isTransparent, double delta)
     {
       MagickColor color = new MagickColor(hexValue);
@@ -52,7 +50,7 @@ namespace Magick.NET.Tests
       TestColor(hexValue, red, green, blue, isTransparent, 0.01);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IComparable()
     {
       MagickColor first = new MagickColor(MagickColors.White);
@@ -85,7 +83,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first >= second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
@@ -123,7 +121,7 @@ namespace Magick.NET.Tests
       TestColor("rgba(100%, 0%, 0%, 0.0)", Quantum.Max, 0, 0, true);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_FuzzyEquals()
     {
       MagickColor first = new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
@@ -140,7 +138,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first.FuzzyEquals(second, (Percentage)30));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       MagickColor first = new MagickColor(MagickColors.Red);
@@ -162,7 +160,7 @@ namespace Magick.NET.Tests
       Assert.IsFalse(first.Equals(second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToColor()
     {
       MagickColor color = new MagickColor(MagickColors.Red);
@@ -171,7 +169,7 @@ namespace Magick.NET.Tests
       ColorAssert.AreEqual(MagickColors.Red, color);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToString()
     {
       MagickColor color = new MagickColor(MagickColors.Red);

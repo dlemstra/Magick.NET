@@ -20,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PsdReadDefinesTests
   {
-    private const string _Category = "PsdReadDefines";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AlphaUnblend()
     {
       MagickReadSettings settings = new MagickReadSettings()

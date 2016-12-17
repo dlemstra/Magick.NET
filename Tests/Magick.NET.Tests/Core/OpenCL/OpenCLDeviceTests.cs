@@ -21,8 +21,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public partial class OpenCLDeviceTests
   {
-    private const string _Category = "OpenCLDevice";
-
     private OpenCLDevice GetEnabledDevice()
     {
       foreach (OpenCLDevice device in OpenCL.Devices)
@@ -34,7 +32,7 @@ namespace Magick.NET.Tests
       return null;
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_BenchmarkScore()
     {
       foreach (OpenCLDevice device in OpenCL.Devices)
@@ -43,7 +41,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_DeviceType()
     {
       foreach (OpenCLDevice device in OpenCL.Devices)
@@ -52,7 +50,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IsEnabled()
     {
       foreach (OpenCLDevice device in OpenCL.Devices)
@@ -67,7 +65,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_KernelProfileRecords()
     {
       OpenCLDevice device = GetEnabledDevice();
@@ -99,7 +97,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Name()
     {
       foreach (OpenCLDevice device in OpenCL.Devices)
@@ -108,7 +106,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Version()
     {
       foreach (OpenCLDevice device in OpenCL.Devices)

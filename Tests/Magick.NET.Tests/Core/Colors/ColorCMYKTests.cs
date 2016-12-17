@@ -21,9 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ColorCMYKTests : ColorBaseTests<ColorCMYK>
   {
-    private const string _Category = "ColorCMYK";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IComparable()
     {
       ColorCMYK first = new ColorCMYK(0, 0, 0, 0);
@@ -39,7 +37,7 @@ namespace Magick.NET.Tests
       Test_IComparable_Equal(first, second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       ColorCMYK first = new ColorCMYK(0, Quantum.Max, 0, 0);
@@ -55,7 +53,7 @@ namespace Magick.NET.Tests
       Test_IEquatable_NotEqual(first, second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ColorCMYK()
     {
       ColorCMYK first = new ColorCMYK(0, 0, 0, 0);

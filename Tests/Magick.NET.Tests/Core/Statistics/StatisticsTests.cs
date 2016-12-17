@@ -20,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class StatisticsTests
   {
-    private const string _Category = "Statistics";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       MagickImage image = new MagickImage(Files.SnakewarePNG);
@@ -48,7 +46,7 @@ namespace Magick.NET.Tests
       Assert.IsFalse(first.Equals(second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Statistics()
     {
       MagickImage image = new MagickImage(Files.SnakewarePNG);

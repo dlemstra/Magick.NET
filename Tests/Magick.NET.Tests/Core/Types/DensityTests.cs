@@ -21,9 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class DensityTests
   {
-    private const string _Category = "Density";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       Density density = new Density(5);
@@ -100,7 +98,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual("2.5x1 inch", density.ToString());
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       Density first = new Density(50.0);

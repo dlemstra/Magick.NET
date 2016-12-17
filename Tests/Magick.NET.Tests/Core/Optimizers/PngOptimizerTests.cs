@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.IO;
 using ImageMagick;
 using ImageMagick.ImageOptimizers;
@@ -23,32 +22,30 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PngOptimizerTests : IImageOptimizerTests
   {
-    private const string _Category = "PngOptimizer";
-
     protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
     {
       return new PngOptimizer();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_InvalidArguments()
     {
       Test_LosslessCompress_InvalidArguments();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_LosslessCompress()
     {
       Test_LosslessCompress_Smaller(Files.SnakewarePNG);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_LosslessCompress_InvalidFile()
     {
       Test_LosslessCompress_InvalidFile(Files.ImageMagickJPG);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_RemoveAlpha()
     {
       string tempFile = GetTemporaryFileName(".png");

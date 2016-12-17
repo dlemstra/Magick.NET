@@ -21,9 +21,7 @@ namespace Magick.NET.Tests.Coders
   [TestClass]
   public class MvgTests
   {
-    private const string _Category = "MvgTests";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Disabled()
     {
       using (MemoryStream memStream = new MemoryStream())

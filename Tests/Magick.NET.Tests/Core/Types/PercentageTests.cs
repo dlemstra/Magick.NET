@@ -20,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PercentageTests
   {
-    private const string _Category = "Percentage";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       Percentage percentage = new Percentage();
@@ -38,7 +36,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual("-25%", percentage.ToString());
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IComparable()
     {
       Percentage first = new Percentage(100);
@@ -73,7 +71,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first >= second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       Percentage first = new Percentage(50.0);
@@ -84,7 +82,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first.Equals((object)second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Multiplication()
     {
       Percentage percentage = new Percentage();

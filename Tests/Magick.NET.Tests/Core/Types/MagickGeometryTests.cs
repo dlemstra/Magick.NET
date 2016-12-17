@@ -21,9 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class MagickGeometryTests
   {
-    private const string _Category = "MagickGeometry";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
@@ -106,7 +104,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(true, geometry.IsPercentage);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IComparable()
     {
       MagickGeometry first = new MagickGeometry(10, 5);
@@ -140,7 +138,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first >= second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       MagickGeometry first = new MagickGeometry(10, 5);
@@ -162,7 +160,7 @@ namespace Magick.NET.Tests
       Assert.IsFalse(first.Equals(second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToPoint()
     {
       PointD point = new MagickGeometry(10, 5).ToPoint();
@@ -176,7 +174,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(2, point.Y);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToString()
     {
       MagickGeometry geometry = new MagickGeometry(10, 5);

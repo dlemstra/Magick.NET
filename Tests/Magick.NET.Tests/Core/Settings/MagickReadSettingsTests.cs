@@ -21,9 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class MagickReadSettingsTests
   {
-    private const string _Category = "MagickReadSettings";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentNullException>(() =>
@@ -32,7 +30,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Collection_Read()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -64,7 +62,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Image_Exceptions()
     {
       ExceptionAssert.Throws<ArgumentException>(delegate ()
@@ -75,7 +73,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Image_Read_Density()
     {
       using (MagickImage image = new MagickImage())
@@ -92,7 +90,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Image_Read_FrameIndex()
     {
       using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
@@ -136,7 +134,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Image_Read_Dimensions()
     {
       using (MagickImage image = new MagickImage())

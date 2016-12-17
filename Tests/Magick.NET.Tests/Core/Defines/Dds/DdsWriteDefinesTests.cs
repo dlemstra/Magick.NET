@@ -22,8 +22,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class DdsWriteDefinesTests
   {
-    private const string _Category = "DdsWriteDefines";
-
     private static MagickImage WriteDds(MagickImage input)
     {
       using (MemoryStream memStream = new MemoryStream())
@@ -36,7 +34,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ClusterFit_Mipmaps_WeightByAlpha()
     {
       DdsWriteDefines defines = new DdsWriteDefines()
@@ -56,7 +54,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Compression()
     {
       DdsWriteDefines defines = new DdsWriteDefines()

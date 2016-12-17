@@ -20,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class RationalTests
   {
-    private const string _Category = "Rational";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       Rational rational = new Rational(7, 55);
@@ -46,7 +44,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(1U, rational.Denominator);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       Rational first = new Rational(3, 2);
@@ -67,7 +65,7 @@ namespace Magick.NET.Tests
       Assert.IsFalse(first.Equals(second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Fraction()
     {
       Rational first = new Rational(1.0 / 1600);
@@ -75,7 +73,7 @@ namespace Magick.NET.Tests
       Assert.IsFalse(first.Equals(second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToDouble()
     {
       Rational rational = new Rational(0, 0);
@@ -85,7 +83,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(double.PositiveInfinity, rational.ToDouble());
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToString()
     {
       Rational rational = new Rational(0, 0);

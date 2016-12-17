@@ -20,9 +20,7 @@ namespace Magick.NET.Tests.Coders
   [TestClass]
   public class PSDTests
   {
-    private const string _Category = "PSDTests";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Colors()
     {
       using (MagickImage image = new MagickImage(Files.Coders.PlayerPSD))

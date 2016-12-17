@@ -22,7 +22,7 @@ namespace Magick.NET.Tests.Coders
   {
     private delegate void ReadDelegate();
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Multithreading()
     {
       ReadDelegate action = delegate ()

@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,9 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ColorHSLTests : ColorBaseTests<ColorHSL>
   {
-    private const string _Category = "ColorHSL";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IComparable()
     {
       ColorHSL first = new ColorHSL(0.4, 0.3, 0.2);
@@ -39,7 +36,7 @@ namespace Magick.NET.Tests
       Test_IComparable_Equal(first, second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       ColorHSL first = new ColorHSL(1.0, 0.5, 0.5);

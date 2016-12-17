@@ -21,8 +21,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class EightBimValueTests
   {
-    private const string _Category = "EightBimValue";
-
     private static EightBimValue Get8BimValue()
     {
       using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
@@ -32,7 +30,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       EightBimValue first = Get8BimValue();
@@ -43,7 +41,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first.Equals((object)second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToByteArray()
     {
       EightBimValue value = Get8BimValue();

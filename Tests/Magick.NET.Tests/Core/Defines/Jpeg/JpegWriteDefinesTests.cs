@@ -22,9 +22,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class JpegWriteDefinesTests
   {
-    private const string _Category = "JpegWriteDefines";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_DctMethod_OptimizeCoding_Quality_QuantizationTables_SamplingFactors()
     {
       JpegWriteDefines defines = new JpegWriteDefines()
@@ -52,7 +50,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Extent()
     {
       JpegWriteDefines defines = new JpegWriteDefines()

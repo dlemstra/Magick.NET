@@ -30,9 +30,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public sealed class PixelTests
   {
-    private const string _Category = "Pixel";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       Pixel first = new Pixel(0, 0, 3);
@@ -61,7 +59,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first.Equals((object)second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_GetAndSetChannel()
     {
       QuantumType half = (QuantumType)(Quantum.Max / 2.0);
@@ -82,7 +80,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(Quantum.Max, first.GetChannel(2));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToColor()
     {
       QuantumType half = (QuantumType)(Quantum.Max / 2.0);

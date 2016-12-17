@@ -34,8 +34,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public partial class MagickImageCollectionTests
   {
-    private const string _Category = "MagickImageCollection";
-
     private static void Test_Ping(MagickImageCollection collection)
     {
       Assert.AreEqual(1, collection.Count);
@@ -59,7 +57,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_AddRange()
     {
       using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
@@ -79,7 +77,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Append()
     {
       int width = 70;
@@ -116,7 +114,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Clone()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -134,7 +132,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Coalesce()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -162,7 +160,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Combine()
     {
       using (MagickImage rose = new MagickImage(Files.Builtin.Rose))
@@ -188,7 +186,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentException>(delegate ()
@@ -217,7 +215,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_CopyTo()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -253,7 +251,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Deconstruct()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -287,7 +285,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Dispose()
     {
       MagickImage image = new MagickImage(MagickColors.Red, 10, 10);
@@ -303,7 +301,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Evaluate()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -335,7 +333,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Flatten()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -358,7 +356,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Index()
     {
       using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
@@ -376,7 +374,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Map()
     {
       using (MagickImageCollection colors = new MagickImageCollection())
@@ -423,7 +421,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Merge()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -443,7 +441,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Montage()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -469,7 +467,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Morph()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -493,7 +491,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Mosaic()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -514,7 +512,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Optimize()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -542,7 +540,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_OptimizePlus()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -582,7 +580,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_OptimizeTransparency()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -611,7 +609,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Quantize()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -648,7 +646,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Smush()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -679,7 +677,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Ping()
     {
       MagickImageCollection collection = new MagickImageCollection();
@@ -735,7 +733,7 @@ namespace Magick.NET.Tests
       collection.Dispose();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Read()
     {
       MagickImageCollection collection = new MagickImageCollection();
@@ -782,7 +780,7 @@ namespace Magick.NET.Tests
       collection.Dispose();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ReadSettings()
     {
       MagickReadSettings settings = new MagickReadSettings();
@@ -811,7 +809,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Remove()
     {
       using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
@@ -830,7 +828,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_RePage()
     {
       using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
@@ -855,7 +853,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Reverse()
     {
       using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
@@ -868,7 +866,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_ToBase64()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -880,7 +878,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_TrimBounds()
     {
       using (MagickImageCollection collection = new MagickImageCollection())
@@ -906,7 +904,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Warning()
     {
       int count = 0;
@@ -936,7 +934,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Write()
     {
       long fileSize;

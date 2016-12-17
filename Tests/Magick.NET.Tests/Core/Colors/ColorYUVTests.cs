@@ -21,9 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ColorYUVTests : ColorBaseTests<ColorYUV>
   {
-    private const string _Category = "ColorYUV";
-
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IComparable()
     {
       ColorYUV first = new ColorYUV(0.2, 0.3, 0.4);
@@ -39,7 +37,7 @@ namespace Magick.NET.Tests
       Test_IComparable_Equal(first, second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       ColorYUV first = new ColorYUV(0.1, -0.2, -0.3);
@@ -55,7 +53,7 @@ namespace Magick.NET.Tests
       Test_IEquatable_NotEqual(first, second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentException>(delegate ()

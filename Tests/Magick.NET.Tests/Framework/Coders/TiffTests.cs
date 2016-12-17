@@ -22,7 +22,7 @@ namespace Magick.NET.Tests.Coders
 {
   public partial class TiffTests
   {
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Image_ByteArray()
     {
       using (Image img = Image.FromFile(Files.Coders.PageTIF))

@@ -21,8 +21,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ConvolveMatrixTests
   {
-    private const string _Category = "ConvolveMatrix";
-
     private static void Test_Values(ConvolveMatrix matrix)
     {
       Assert.AreEqual(0.0, matrix.GetValue(0, 0));
@@ -36,7 +34,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(2.2, matrix.GetValue(2, 2));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentException>(delegate ()

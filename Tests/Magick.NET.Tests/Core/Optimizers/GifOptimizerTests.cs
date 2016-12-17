@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using ImageMagick;
 using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,27 +20,25 @@ namespace Magick.NET.Tests
   [TestClass]
   public class GifOptimizerTests : IImageOptimizerTests
   {
-    private const string _Category = "GifOptimizer";
-
     protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
     {
       return new GifOptimizer();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_InvalidArguments()
     {
       Test_LosslessCompress_InvalidArguments();
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_LosslessCompress()
     {
       Test_LosslessCompress_NotSmaller(Files.RoseSparkleGIF);
       Test_LosslessCompress_Smaller(Files.FujiFilmFinePixS1ProGIF);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_LosslessCompress_InvalidFile()
     {
       Test_LosslessCompress_InvalidFile(Files.InvitationTif);

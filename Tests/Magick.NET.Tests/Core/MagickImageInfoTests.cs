@@ -24,8 +24,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class MagickImageInfoTests
   {
-    private const string _Category = "MagickImageInfo";
-
     private MagickImageInfo CreateMagickImageInfo(MagickColor color, int width, int height)
     {
       using (MemoryStream memStream = new MemoryStream())
@@ -41,7 +39,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Constructor()
     {
       ExceptionAssert.Throws<ArgumentException>(delegate ()
@@ -75,7 +73,7 @@ namespace Magick.NET.Tests
       });
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Count()
     {
       IEnumerable<MagickImageInfo> info = MagickImageInfo.ReadCollection(Files.RoseSparkleGIF);
@@ -91,7 +89,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(DensityUnit.Undefined, first.Density.Units);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IComparable()
     {
       MagickImageInfo first = CreateMagickImageInfo(MagickColors.Red, 10, 5);
@@ -125,7 +123,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first >= second);
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_IEquatable()
     {
       MagickImageInfo first = CreateMagickImageInfo(MagickColors.Red, 10, 10);
@@ -147,7 +145,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first.Equals(second));
     }
 
-    [TestMethod, TestCategory(_Category)]
+    [TestMethod]
     public void Test_Read()
     {
       MagickImageInfo imageInfo = new MagickImageInfo();
