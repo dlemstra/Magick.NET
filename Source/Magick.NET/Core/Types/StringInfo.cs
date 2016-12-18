@@ -18,12 +18,6 @@ namespace ImageMagick
 {
   internal partial class StringInfo
   {
-    public int Length
-    {
-      get;
-      private set;
-    }
-
     public byte[] Datum
     {
       get;
@@ -38,7 +32,6 @@ namespace ImageMagick
       NativeStringInfo native = new NativeStringInfo(instance);
 
       StringInfo result = new StringInfo();
-      result.Length = native.Length;
       result.Datum = ByteConverter.ToArray(native.Datum, native.Length);
 
       return result;

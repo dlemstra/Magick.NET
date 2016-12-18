@@ -99,10 +99,5 @@ namespace ImageMagick
 
       return new MagickRectangle(geometry.X, geometry.Y, width, height);
     }
-
-    public static string ToString(MagickRectangle value)
-    {
-      return value == null ? null : value.ToString();
-    }
   }
 }
