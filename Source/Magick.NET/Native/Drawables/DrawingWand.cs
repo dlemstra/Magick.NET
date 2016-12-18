@@ -389,10 +389,6 @@ namespace ImageMagick
     {
       protected override void Dispose(IntPtr instance)
       {
-        DisposeInstance(instance);
-      }
-      public static void DisposeInstance(IntPtr instance)
-      {
         #if ANYCPU
         if (NativeLibrary.Is64Bit)
         #endif

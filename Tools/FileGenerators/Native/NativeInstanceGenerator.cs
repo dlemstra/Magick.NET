@@ -214,13 +214,19 @@ namespace FileGenerator.Native
       if (Class.IsConst || !Class.HasInstance)
         return;
 
+
       WriteLine("protected override void Dispose(IntPtr instance)");
       WriteStartColon();
-      WriteLine("DisposeInstance(instance);");
-      WriteEndColon();
 
-      WriteLine("public static void DisposeInstance(IntPtr instance)");
-      WriteStartColon();
+      if (Class.HasNoConstructor)
+      {
+        WriteLine("DisposeInstance(instance);");
+        WriteEndColon();
+
+        WriteLine("public static void DisposeInstance(IntPtr instance)");
+        WriteStartColon();
+      }
+
       WriteNativeIfContent("NativeMethods.{0}." + Class.Name + "_Dispose(instance);");
       WriteEndColon();
     }
