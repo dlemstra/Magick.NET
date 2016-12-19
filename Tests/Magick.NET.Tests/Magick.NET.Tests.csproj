@@ -192,6 +192,13 @@
     <Compile Include="Core\FakePartialStream.cs" />
     <Compile Include="Core\Types\RationalTests.cs" />
     <Compile Include="Core\Types\SignedRationalTests.cs" />
+    <Compile Include="Framework\Drawables\DrawableAffineTests.cs" />
+    <Compile Include="Framework\Drawables\DrawableViewboxTests.cs" />
+    <Compile Include="Framework\Drawables\DrawableTextUnderColorTests.cs" />
+    <Compile Include="Framework\Drawables\DrawableStrokeColorTests.cs" />
+    <Compile Include="Framework\Drawables\DrawableFillColorTests.cs" />
+    <Compile Include="Framework\Drawables\DrawableBorderColorTests.cs" />
+    <Compile Include="Framework\Drawables\DrawableRectangleTests.cs" />
     <Compile Include="Framework\Ghostscript.cs" />
     <Compile Include="Core\MagickFormatInfoTests.cs" />
     <Compile Include="Core\MagickImageCollectionTests.cs" />

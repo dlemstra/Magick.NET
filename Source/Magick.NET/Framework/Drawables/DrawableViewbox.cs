@@ -24,13 +24,22 @@ namespace ImageMagick
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableViewbox"/> class.
     /// </summary>
-    /// <param name="rectangle">The rectangle to use.</param>
+    /// <param name="rectangle">The <see cref="Rectangle"/> to use.</param>
     public DrawableViewbox(Rectangle rectangle)
     {
       UpperLeftX = rectangle.X;
       UpperLeftY = rectangle.Y;
       LowerRightX = rectangle.Right;
       LowerRightY = rectangle.Bottom;
+    }
+
+    /// <summary>
+    /// Converts the specified <see cref="Rectangle"/> to an instance of this type.
+    /// </summary>
+    /// <param name="rectangle">The <see cref="Rectangle"/> to use.</param>
+    public static explicit operator DrawableViewbox(Rectangle rectangle)
+    {
+      return new DrawableViewbox(rectangle);
     }
   }
 }
