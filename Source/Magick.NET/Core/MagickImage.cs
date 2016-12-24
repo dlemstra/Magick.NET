@@ -279,8 +279,7 @@ namespace ImageMagick
 
     private void OnWarning(object sender, WarningEventArgs arguments)
     {
-      if (_Warning != null)
-        _Warning(this, arguments);
+      _Warning?.Invoke(this, arguments);
     }
 
     private void Read(byte[] data, MagickReadSettings readSettings, bool ping)
