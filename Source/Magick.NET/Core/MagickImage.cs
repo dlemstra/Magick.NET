@@ -282,32 +282,30 @@ namespace ImageMagick
       _Warning?.Invoke(this, arguments);
     }
 
-    private void Read(byte[] data, MagickReadSettings readSettings, bool ping)
+    private void Read(byte[] data, int length, MagickReadSettings readSettings, bool ping)
     {
-      Throw.IfNullOrEmpty(nameof(data), data);
-
       MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
       SetSettings(newReadSettings);
 
       if (newReadSettings.PixelStorage != null)
       {
-        ReadPixels(data, readSettings);
+        ReadPixels(data, length, readSettings);
         return;
       }
 
       Settings.Ping = ping;
-      _NativeInstance.ReadBlob(Settings, data, data.Length);
+      _NativeInstance.ReadBlob(Settings, data, length);
     }
 
-    private void ReadPixels(byte[] data, MagickReadSettings readSettings)
+    private void ReadPixels(byte[] data, int length, MagickReadSettings readSettings)
     {
       Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
       Throw.IfNull(nameof(readSettings), readSettings.Width, "Width should be defined when pixel storage is set.");
       Throw.IfNull(nameof(readSettings), readSettings.Height, "Height should be defined when pixel storage is set.");
       Throw.IfNullOrEmpty(nameof(readSettings), readSettings.PixelStorage.Mapping, "Pixel storage mapping should be defined.");
 
-      int length = GetExpectedLength(readSettings);
-      Throw.IfTrue(nameof(data), data.Length != length, "The array length is " + data.Length + " but should be " + length + ".");
+      int expectedLength = GetExpectedLength(readSettings);
+      Throw.IfTrue(nameof(data), length < expectedLength, "The array length is " + length + " but should be at least " + expectedLength + ".");
 
       _NativeInstance.ReadPixels(readSettings.Width.Value, readSettings.Height.Value, readSettings.PixelStorage.Mapping, readSettings.PixelStorage.StorageType, data);
     }
@@ -323,7 +321,7 @@ namespace ImageMagick
       if (newReadSettings.PixelStorage != null)
       {
         byte[] data = File.ReadAllBytes(filePath);
-        ReadPixels(data, readSettings);
+        ReadPixels(data, data.Length, readSettings);
         return;
       }
 
@@ -4917,7 +4915,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(byte[] data)
     {
-      Read(data, null, true);
+      Ping(data, null);
     }
 
     /// <summary>
@@ -4928,7 +4926,9 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(byte[] data, MagickReadSettings readSettings)
     {
-      Read(data, readSettings, true);
+      Throw.IfNullOrEmpty(nameof(data), data);
+
+      Read(data, data.Length, readSettings, true);
     }
 
     /// <summary>
@@ -4963,7 +4963,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(Stream stream)
     {
-      Read(StreamHelper.ToByteArray(stream), null, true);
+      Read(stream, null);
     }
 
     /// <summary>
@@ -4974,7 +4974,10 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(Stream stream, MagickReadSettings readSettings)
     {
-      Read(StreamHelper.ToByteArray(stream), readSettings, true);
+      using (Bytes bytes = new Bytes(stream))
+      {
+        Read(bytes.Data, bytes.Length, readSettings, true);
+      }
     }
 
     /// <summary>
@@ -5172,7 +5175,9 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(byte[] data, MagickReadSettings readSettings)
     {
-      Read(data, readSettings, false);
+      Throw.IfNullOrEmpty(nameof(data), data);
+
+      Read(data, data.Length, readSettings, false);
     }
 
     /// <summary>
@@ -5246,9 +5251,10 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(Stream stream, MagickReadSettings readSettings)
     {
-      Throw.IfNull(nameof(stream), stream);
-
-      Read(StreamHelper.ToByteArray(stream), readSettings);
+      using (Bytes bytes = new Bytes(stream))
+      {
+        Read(bytes.Data, bytes.Length, readSettings, false);
+      }
     }
 
     /// <summary>

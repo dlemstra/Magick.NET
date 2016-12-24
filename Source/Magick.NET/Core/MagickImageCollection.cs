@@ -28,14 +28,12 @@ namespace ImageMagick
     private EventHandler<WarningEventArgs> _Warning;
     private NativeMagickImageCollection _NativeInstance;
 
-    private void AddImages(byte[] data, MagickReadSettings readSettings, bool ping)
+    private void AddImages(byte[] data, int length, MagickReadSettings readSettings, bool ping)
     {
-      Throw.IfNullOrEmpty(nameof(data), data);
-
       MagickSettings settings = CreateSettings(readSettings);
       settings.Ping = ping;
 
-      IntPtr result = _NativeInstance.ReadBlob(settings, data, data.Length);
+      IntPtr result = _NativeInstance.ReadBlob(settings, data, length);
       AddImages(result, settings);
     }
 
@@ -268,7 +266,7 @@ namespace ImageMagick
     /// Converts the specified instance to a byte array.
     /// </summary>
     /// <param name="collection">The <see cref="MagickImageCollection"/> to convert.</param>
-    public static explicit operator byte[](MagickImageCollection collection)
+    public static explicit operator byte[] (MagickImageCollection collection)
     {
       Throw.IfNull(nameof(collection), collection);
 
@@ -365,7 +363,9 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AddRange(byte[] data, MagickReadSettings readSettings)
     {
-      AddImages(data, readSettings, false);
+      Throw.IfNullOrEmpty(nameof(data), data);
+
+      AddImages(data, data.Length, readSettings, false);
     }
 
     /// <summary>
@@ -438,7 +438,10 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AddRange(Stream stream, MagickReadSettings readSettings)
     {
-      AddRange(StreamHelper.ToByteArray(stream), readSettings);
+      using (Bytes bytes = new Bytes(stream))
+      {
+        AddImages(bytes.Data, bytes.Length, readSettings, false);
+      }
     }
 
     /// <summary>
@@ -951,8 +954,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(byte[] data)
     {
-      Clear();
-      AddImages(data, null, true);
+      Ping(data, null);
     }
 
     /// <summary>
@@ -963,8 +965,10 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(byte[] data, MagickReadSettings readSettings)
     {
+      Throw.IfNullOrEmpty(nameof(data), data);
+
       Clear();
-      AddImages(data, readSettings, true);
+      AddImages(data, data.Length, readSettings, true);
     }
 
     /// <summary>
@@ -999,7 +1003,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(Stream stream)
     {
-      Ping(StreamHelper.ToByteArray(stream));
+      Ping(stream, null);
     }
 
     /// <summary>
@@ -1010,7 +1014,11 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(Stream stream, MagickReadSettings readSettings)
     {
-      Ping(StreamHelper.ToByteArray(stream), readSettings);
+      Clear();
+      using (Bytes bytes = new Bytes(stream))
+      {
+        AddImages(bytes.Data, bytes.Length, null, true);
+      }
     }
 
     /// <summary>
@@ -1117,8 +1125,10 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(byte[] data, MagickReadSettings readSettings)
     {
+      Throw.IfNullOrEmpty(nameof(data), data);
+
       Clear();
-      AddImages(data, readSettings, false);
+      AddImages(data, data.Length, readSettings, false);
     }
 
     /// <summary>
@@ -1139,7 +1149,11 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(Stream stream, MagickReadSettings readSettings)
     {
-      Read(StreamHelper.ToByteArray(stream), readSettings);
+      Clear();
+      using (Bytes bytes = new Bytes(stream))
+      {
+        AddImages(bytes.Data, bytes.Length, readSettings, false);
+      }
     }
 
     /// <summary>

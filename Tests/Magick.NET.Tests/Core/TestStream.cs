@@ -18,34 +18,40 @@ using System.IO;
 namespace Magick.NET.Tests
 {
   [ExcludeFromCodeCoverage]
-  internal class FakePartialStream : Stream
+  internal class TestStream : Stream
   {
-    private readonly Stream _InnerStream;
-    private bool _FirstReadDone = false;
+    private readonly bool _canRead;
+    private readonly bool _canSeek;
 
-    public override bool CanRead => true;
-    public override bool CanSeek => true; // Not really, but for our tests this suffices
+    public TestStream(bool canRead, bool canSeek)
+    {
+      _canRead = canRead;
+      _canSeek = CanSeek;
+    }
+
+    public override bool CanRead => _canRead;
+    public override bool CanSeek => _canSeek;
     public override bool CanWrite => false;
-    public override long Length => _InnerStream.Length;
+
+    public override long Length
+    {
+      get
+      {
+        throw new NotImplementedException();
+      }
+    }
 
     public override long Position
     {
       get
       {
-        return _InnerStream.Position;
+        throw new NotImplementedException();
       }
+
       set
       {
-        throw new NotSupportedException();
+        throw new NotImplementedException();
       }
-    }
-
-    public FakePartialStream(Stream innerStream)
-    {
-      if (!innerStream.CanRead || !innerStream.CanSeek)
-        throw new ArgumentException("Inner stream must support reading and seeking.");
-
-      _InnerStream = innerStream;
     }
 
     public override void Flush()
@@ -55,10 +61,7 @@ namespace Magick.NET.Tests
 
     public override int Read(byte[] buffer, int offset, int count)
     {
-      if (_FirstReadDone)
-        return _InnerStream.Read(buffer, offset, count);
-      else
-        return _InnerStream.Read(buffer, offset, count / 2);
+      throw new NotImplementedException();
     }
 
     public override long Seek(long offset, SeekOrigin origin)

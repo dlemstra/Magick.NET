@@ -196,6 +196,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Types\Bytes.cs" />
     <Compile Include="Framework\Colors\ColorRGB.cs" />
     <Compile Include="Framework\Colors\MagickColor.cs" />
     <Compile Include="Core\Colors\ColorBase.cs" />
@@ -417,7 +418,6 @@
     <Compile Include="Core\Helpers\FileHelper.cs" />
     <Compile Include="Core\Helpers\MagickConverter.cs" />
     <Compile Include="Core\Helpers\MagickMemory.cs" />
-    <Compile Include="Core\Helpers\StreamHelper.cs" />
     <Compile Include="Core\Helpers\Throw.cs" />
     <Compile Include="Core\Helpers\UTF8Marshaler.cs" />
     <Compile Include="Core\Helpers\ValidatedNotNullAttribute.cs" />

@@ -2775,11 +2775,25 @@ namespace Magick.NET.Tests
         image.Read(fs);
 
         fs.Position = 0;
-        using (FakePartialStream fakeStream = new FakePartialStream(fs))
+        using (PartialStream partialStream = new PartialStream(fs, true))
         {
           using (MagickImage testImage = new MagickImage())
           {
-            testImage.Read(fakeStream);
+            testImage.Read(partialStream);
+
+            Assert.AreEqual(image.Width, testImage.Width);
+            Assert.AreEqual(image.Height, testImage.Height);
+            Assert.AreEqual(image.Format, testImage.Format);
+            Assert.AreEqual(0.0, image.Compare(testImage, ErrorMetric.RootMeanSquared));
+          }
+        }
+
+        fs.Position = 0;
+        using (PartialStream partialStream = new PartialStream(fs, false))
+        {
+          using (MagickImage testImage = new MagickImage())
+          {
+            testImage.Read(partialStream);
 
             Assert.AreEqual(image.Width, testImage.Width);
             Assert.AreEqual(image.Height, testImage.Height);
@@ -2789,11 +2803,35 @@ namespace Magick.NET.Tests
         }
       }
 
+      using (FileStream fs = File.OpenRead(Files.Logos.MagickNETSVG))
+      {
+        byte[] buffer = new byte[fs.Length + 1];
+        fs.Read(buffer, 0, (int)fs.Length);
+
+        using (MemoryStream memStream = new MemoryStream(buffer, 0, (int)fs.Length))
+        {
+          image.Read(memStream, new MagickReadSettings()
+          {
+            Density = new Density(72)
+          });
+
+          ColorAssert.AreEqual(new MagickColor("#231f20"), image, 129, 101);
+        }
+      }
+
       image.Dispose();
 
       ExceptionAssert.Throws<ObjectDisposedException>(delegate ()
       {
         image.BackgroundColor = MagickColors.PaleGreen;
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        using (TestStream testStream = new TestStream(false, true))
+        {
+          new MagickImage(testStream);
+        }
       });
     }
 

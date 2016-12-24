@@ -36,7 +36,7 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the data of this profile.
     /// </summary>
-    [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays",  Justification = "Subclasses need access to this array.")]
+    [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Subclasses need access to this array.")]
     protected byte[] Data
     {
       get;
@@ -84,7 +84,10 @@ namespace ImageMagick
       Throw.IfNullOrEmpty(nameof(name), name);
 
       Name = name;
-      Data = StreamHelper.ToByteArray(stream);
+      using (Bytes bytes = new Bytes(stream, false))
+      {
+        Data = bytes.Data;
+      }
     }
 
     /// <summary>
