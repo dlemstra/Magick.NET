@@ -13,6 +13,7 @@ lib
 packages
 runtimes
 /ImageMagick/Source/ImageMagick
+/ipch
 /Publish/Archive/*
 /Publish/NuGet/*.nupkg
 /Publish/NuGet/ApiKey.txt
