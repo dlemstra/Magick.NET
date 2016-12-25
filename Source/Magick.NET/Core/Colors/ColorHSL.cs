@@ -46,13 +46,13 @@ namespace ImageMagick
       }
       else
       {
-        if (max == (quantumScale * red))
+        if (Math.Abs(max - (quantumScale * red)) < double.Epsilon)
         {
           Hue = ((quantumScale * green) - (quantumScale * blue)) / c;
           if ((quantumScale * green) < (quantumScale * blue))
             Hue += 6.0;
         }
-        else if (max == (quantumScale * green))
+        else if (Math.Abs(max - (quantumScale * green)) < double.Epsilon)
           Hue = 2.0 + (((quantumScale * blue) - (quantumScale * red)) / c);
         else
           Hue = 4.0 + (((quantumScale * red) - (quantumScale * green)) / c);
