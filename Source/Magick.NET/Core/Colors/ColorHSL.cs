@@ -73,7 +73,7 @@ namespace ImageMagick
     /// <summary>
     /// Updates the color value in an inherited class.
     /// </summary>
-    protected override void UpdateValue()
+    protected override void UpdateColor()
     {
       double c;
       double h = Hue * 360.0;
@@ -88,39 +88,39 @@ namespace ImageMagick
       switch ((int)Math.Floor(h))
       {
         case 0:
-          Value.R = (QuantumType)(Quantum.Max * (min + c));
-          Value.G = (QuantumType)(Quantum.Max * (min + x));
-          Value.B = (QuantumType)(Quantum.Max * min);
+          Color.R = (QuantumType)(Quantum.Max * (min + c));
+          Color.G = (QuantumType)(Quantum.Max * (min + x));
+          Color.B = (QuantumType)(Quantum.Max * min);
           break;
         case 1:
-          Value.R = (QuantumType)(Quantum.Max * (min + x));
-          Value.G = (QuantumType)(Quantum.Max * (min + c));
-          Value.B = (QuantumType)(Quantum.Max * min);
+          Color.R = (QuantumType)(Quantum.Max * (min + x));
+          Color.G = (QuantumType)(Quantum.Max * (min + c));
+          Color.B = (QuantumType)(Quantum.Max * min);
           break;
         case 2:
-          Value.R = (QuantumType)(Quantum.Max * min);
-          Value.G = (QuantumType)(Quantum.Max * (min + c));
-          Value.B = (QuantumType)(Quantum.Max * (min + x));
+          Color.R = (QuantumType)(Quantum.Max * min);
+          Color.G = (QuantumType)(Quantum.Max * (min + c));
+          Color.B = (QuantumType)(Quantum.Max * (min + x));
           break;
         case 3:
-          Value.R = (QuantumType)(Quantum.Max * min);
-          Value.G = (QuantumType)(Quantum.Max * (min + x));
-          Value.B = (QuantumType)(Quantum.Max * (min + c));
+          Color.R = (QuantumType)(Quantum.Max * min);
+          Color.G = (QuantumType)(Quantum.Max * (min + x));
+          Color.B = (QuantumType)(Quantum.Max * (min + c));
           break;
         case 4:
-          Value.R = (QuantumType)(Quantum.Max * (min + x));
-          Value.G = (QuantumType)(Quantum.Max * min);
-          Value.B = (QuantumType)(Quantum.Max * (min + c));
+          Color.R = (QuantumType)(Quantum.Max * (min + x));
+          Color.G = (QuantumType)(Quantum.Max * min);
+          Color.B = (QuantumType)(Quantum.Max * (min + c));
           break;
         case 5:
-          Value.R = (QuantumType)(Quantum.Max * (min + c));
-          Value.G = (QuantumType)(Quantum.Max * min);
-          Value.B = (QuantumType)(Quantum.Max * (min + x));
+          Color.R = (QuantumType)(Quantum.Max * (min + c));
+          Color.G = (QuantumType)(Quantum.Max * min);
+          Color.B = (QuantumType)(Quantum.Max * (min + x));
           break;
         default:
-          Value.R = 0;
-          Value.G = 0;
-          Value.B = 0;
+          Color.R = 0;
+          Color.G = 0;
+          Color.B = 0;
           break;
       }
     }

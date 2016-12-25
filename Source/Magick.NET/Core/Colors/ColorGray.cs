@@ -42,12 +42,12 @@ namespace ImageMagick
     /// <summary>
     /// Updates the color value in an inherited class.
     /// </summary>
-    protected override void UpdateValue()
+    protected override void UpdateColor()
     {
       QuantumType gray = Quantum.ScaleToQuantum(Shade);
-      Value.R = gray;
-      Value.G = gray;
-      Value.B = gray;
+      Color.R = gray;
+      Color.G = gray;
+      Color.B = gray;
     }
 
     /// <summary>

@@ -27,13 +27,13 @@ namespace ImageMagick
     /// <param name="color">The color to use.</param>
     protected ColorBase(MagickColor color)
     {
-      Value = color;
+      Color = color;
     }
 
     /// <summary>
     /// Gets the actual color of this instance.
     /// </summary>
-    protected MagickColor Value
+    protected MagickColor Color
     {
       get;
       private set;
@@ -42,7 +42,7 @@ namespace ImageMagick
     /// <summary>
     /// Updates the color value from an inherited class.
     /// </summary>
-    protected virtual void UpdateValue()
+    protected virtual void UpdateColor()
     {
     }
 
@@ -140,10 +140,10 @@ namespace ImageMagick
       if (ReferenceEquals(other, null))
         return 1;
 
-      UpdateValue();
-      other.UpdateValue();
+      UpdateColor();
+      other.UpdateColor();
 
-      return Value.CompareTo(other.Value);
+      return Color.CompareTo(other.Color);
     }
 
     /// <summary>
@@ -169,10 +169,10 @@ namespace ImageMagick
       if (ReferenceEquals(this, other))
         return true;
 
-      UpdateValue();
-      other.UpdateValue();
+      UpdateColor();
+      other.UpdateColor();
 
-      return Value.Equals(other.Value);
+      return Color.Equals(other.Color);
     }
 
     /// <summary>
@@ -189,10 +189,10 @@ namespace ImageMagick
       if (ReferenceEquals(this, other))
         return true;
 
-      UpdateValue();
-      other.UpdateValue();
+      UpdateColor();
+      other.UpdateColor();
 
-      return Value.FuzzyEquals(other.Value, fuzz);
+      return Color.FuzzyEquals(other.Color, fuzz);
     }
 
     /// <summary>
@@ -201,7 +201,7 @@ namespace ImageMagick
     /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
-      return Value.GetHashCode();
+      return Color.GetHashCode();
     }
 
     /// <summary>
@@ -210,9 +210,9 @@ namespace ImageMagick
     /// <returns>A <see cref="MagickColor"/> instance.</returns>
     public MagickColor ToMagickColor()
     {
-      UpdateValue();
+      UpdateColor();
 
-      return new MagickColor(Value);
+      return new MagickColor(Color);
     }
 
     /// <summary>

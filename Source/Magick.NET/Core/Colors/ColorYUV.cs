@@ -46,11 +46,11 @@ namespace ImageMagick
     /// <summary>
     /// Updates the color value in an inherited class.
     /// </summary>
-    protected override void UpdateValue()
+    protected override void UpdateColor()
     {
-      Value.R = Quantum.ScaleToQuantum(_Y + (1.13980 * _V));
-      Value.G = Quantum.ScaleToQuantum(_Y - (0.39380 * _U) - (0.58050 * _V));
-      Value.B = Quantum.ScaleToQuantum(_Y + (2.02790 * _U));
+      Color.R = Quantum.ScaleToQuantum(_Y + (1.13980 * _V));
+      Color.G = Quantum.ScaleToQuantum(_Y - (0.39380 * _U) - (0.58050 * _V));
+      Color.B = Quantum.ScaleToQuantum(_Y + (2.02790 * _U));
     }
 
     /// <summary>

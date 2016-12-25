@@ -138,11 +138,11 @@ namespace ImageMagick
     {
       get
       {
-        return Value.A;
+        return Color.A;
       }
       set
       {
-        Value.A = value;
+        Color.A = value;
       }
     }
 
@@ -156,11 +156,11 @@ namespace ImageMagick
     {
       get
       {
-        return Value.R;
+        return Color.R;
       }
       set
       {
-        Value.R = value;
+        Color.R = value;
       }
     }
 
@@ -174,11 +174,11 @@ namespace ImageMagick
     {
       get
       {
-        return Value.K;
+        return Color.K;
       }
       set
       {
-        Value.K = value;
+        Color.K = value;
       }
     }
 
@@ -192,11 +192,11 @@ namespace ImageMagick
     {
       get
       {
-        return Value.G;
+        return Color.G;
       }
       set
       {
-        Value.G = value;
+        Color.G = value;
       }
     }
 
@@ -210,11 +210,11 @@ namespace ImageMagick
     {
       get
       {
-        return Value.B;
+        return Color.B;
       }
       set
       {
-        Value.B = value;
+        Color.B = value;
       }
     }
 

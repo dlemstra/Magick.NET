@@ -39,12 +39,12 @@ namespace ImageMagick
     /// <summary>
     /// Updates the color value in an inherited class.
     /// </summary>
-    protected override void UpdateValue()
+    protected override void UpdateColor()
     {
       QuantumType color = IsBlack ? (QuantumType)0.0 : Quantum.Max;
-      Value.R = color;
-      Value.G = color;
-      Value.B = color;
+      Color.R = color;
+      Color.G = color;
+      Color.B = color;
     }
 
     /// <summary>
