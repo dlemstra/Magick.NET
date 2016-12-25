@@ -22,6 +22,21 @@ namespace Magick.NET.Tests
   public class PngReadDefinesTests
   {
     [TestMethod]
+    public void Test_Empty()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.SetDefines(new PngReadDefines()
+        {
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
+        Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
+      }
+    }
+
+    [TestMethod]
     public void Test_PreserveiCCP_SwapBytes()
     {
       PngReadDefines defines = new PngReadDefines()

@@ -21,6 +21,29 @@ namespace Magick.NET.Tests
   public class TiffReadDefinesTests
   {
     [TestMethod]
+    public void Test_Empty()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.SetDefines(new TiffReadDefines()
+        {
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
+
+        image.Settings.SetDefines(new TiffReadDefines()
+        {
+          IgnoreExifPoperties = false,
+          IgnoreTags = new string[] { }
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
+      }
+    }
+
+    [TestMethod]
     public void Test_IgnoreExifPoperties()
     {
       MagickReadSettings settings = new MagickReadSettings()

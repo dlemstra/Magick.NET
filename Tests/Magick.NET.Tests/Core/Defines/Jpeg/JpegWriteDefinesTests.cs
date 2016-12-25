@@ -23,6 +23,33 @@ namespace Magick.NET.Tests
   public class JpegWriteDefinesTests
   {
     [TestMethod]
+    public void Test_Empty()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.SetDefines(new JpegWriteDefines()
+        {
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "quality"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
+
+        image.Settings.SetDefines(new JpegWriteDefines()
+        {
+          QuantizationTables = "",
+          SamplingFactors = new MagickGeometry[] { }
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
+      }
+    }
+
+    [TestMethod]
     public void Test_DctMethod_OptimizeCoding_Quality_QuantizationTables_SamplingFactors()
     {
       JpegWriteDefines defines = new JpegWriteDefines()

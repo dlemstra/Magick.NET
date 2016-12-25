@@ -41,6 +41,19 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_Empty()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.SetDefines(new PsdWriteDefines()
+        {
+        });
+
+        Assert.AreEqual("None", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
+      }
+    }
+
+    [TestMethod]
     public void Test_AdditionalInfo()
     {
 

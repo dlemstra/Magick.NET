@@ -21,6 +21,26 @@ namespace Magick.NET.Tests
   public class PsdReadDefinesTests
   {
     [TestMethod]
+    public void Test_Empty()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.SetDefines(new PsdReadDefines()
+        {
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
+
+        image.Settings.SetDefines(new PsdReadDefines()
+        {
+          AlphaUnblend = true
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
+      }
+    }
+
+    [TestMethod]
     public void Test_AlphaUnblend()
     {
       MagickReadSettings settings = new MagickReadSettings()

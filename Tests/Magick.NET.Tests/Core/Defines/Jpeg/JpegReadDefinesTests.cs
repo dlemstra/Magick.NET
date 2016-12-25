@@ -22,6 +22,24 @@ namespace Magick.NET.Tests
   public class JpegReadDefinesTests
   {
     [TestMethod]
+    public void Test_Empty()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.SetDefines(new JpegReadDefines()
+        {
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "colors"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Jpeg, "size"));
+        Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
+      }
+    }
+
+    [TestMethod]
     public void Test_BlockSmoothing_DctMethod_FancyUpsampling()
     {
       MagickReadSettings settings = new MagickReadSettings()

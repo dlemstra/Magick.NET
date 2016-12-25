@@ -12,12 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.Collections;
-using System.IO;
-using System.Linq;
 using ImageMagick;
-using ImageMagick.Defines;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
@@ -25,6 +20,21 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PdfReadDefinesTests
   {
+    [TestMethod]
+    public void Test_Empty()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.SetDefines(new PdfReadDefines()
+        {
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
+      }
+    }
+
     [TestMethod]
     public void Test_UseCropBox_UseTrimBox()
     {

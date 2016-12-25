@@ -34,6 +34,32 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_Empty()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.SetDefines(new TiffWriteDefines()
+        {
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "alpha"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "endian"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
+
+        image.Settings.SetDefines(new TiffWriteDefines()
+        {
+          Endian = Endian.Undefined,
+          FillOrder = Endian.Undefined
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Tiff, "endian"));
+      }
+    }
+
+    [TestMethod]
     public void Test_Alpha_Endian()
     {
       TiffWriteDefines defines = new TiffWriteDefines()

@@ -35,6 +35,22 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_Empty()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Settings.SetDefines(new DdsWriteDefines()
+        {
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+        Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
+      }
+    }
+
+    [TestMethod]
     public void Test_ClusterFit_Mipmaps_WeightByAlpha()
     {
       DdsWriteDefines defines = new DdsWriteDefines()

@@ -61,7 +61,8 @@ namespace ImageMagick
         if (IgnoreTags != null)
         {
           List<string> tags = new List<string>(IgnoreTags);
-          yield return CreateDefine("ignore-tags", string.Join(",", tags.ToArray()));
+          if (tags.Count > 0)
+            yield return CreateDefine("ignore-tags", string.Join(",", tags.ToArray()));
         }
       }
     }
