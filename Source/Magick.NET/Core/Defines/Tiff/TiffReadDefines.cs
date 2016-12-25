@@ -58,12 +58,9 @@ namespace ImageMagick
         if (IgnoreExifPoperties.Equals(true))
           yield return CreateDefine("exif-properties", false);
 
-        if (IgnoreTags != null)
-        {
-          List<string> tags = new List<string>(IgnoreTags);
-          if (tags.Count > 0)
-            yield return CreateDefine("ignore-tags", string.Join(",", tags.ToArray()));
-        }
+        MagickDefine ignoreTags = CreateDefine("ignore-tags", IgnoreTags);
+        if (ignoreTags != null)
+          yield return ignoreTags;
       }
     }
   }
