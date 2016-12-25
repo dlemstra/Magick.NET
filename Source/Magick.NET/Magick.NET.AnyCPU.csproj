@@ -114,6 +114,7 @@
     <Compile Include="..\Magick.NET.AnyCPU\NativeLibraryLoader.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Colors\ColorHSV.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2ProgressionOrder.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2WriteDefines.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2ReadDefines.cs" />
