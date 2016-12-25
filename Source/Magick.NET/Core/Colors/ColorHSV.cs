@@ -181,5 +181,20 @@ namespace ImageMagick
 
       return new ColorHSV(color);
     }
+
+    /// <summary>
+    /// Performs a hue shift with the specified degrees.
+    /// </summary>
+    /// <param name="degrees">The degrees.</param>
+    public void HueShift(double degrees)
+    {
+      if (degrees < 0.0)
+        return;
+
+      Hue += degrees / 360.0;
+
+      if (Hue >= 1.0)
+        Hue -= 1.0;
+    }
   }
 }

@@ -59,5 +59,17 @@ namespace Magick.NET.Tests
 
       Test_IEquatable_NotEqual(first, second);
     }
+
+    [TestMethod]
+    public void Test_ComplementaryColor()
+    {
+      ColorRGB red = MagickColors.Red;
+      ColorRGB aqua = red.ComplementaryColor();
+      ColorAssert.AreEqual(MagickColors.Aqua, aqua);
+
+      ColorRGB lime = MagickColors.Lime;
+      ColorRGB fuchsia = lime.ComplementaryColor();
+      ColorAssert.AreEqual(MagickColors.Fuchsia, fuchsia);
+    }
   }
 }
