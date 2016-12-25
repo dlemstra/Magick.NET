@@ -93,6 +93,25 @@ namespace ImageMagick.Defines
     }
 
     /// <summary>
+    /// Create a define with the specified name and value.
+    /// </summary>
+    /// <param name="name">The name of the define.</param>
+    /// <param name="value">The value of the define.</param>
+    /// <typeparam name="T">The type of the enumerable.</typeparam>
+    /// <returns>A <see cref="MagickDefine"/> instance.</returns>
+    protected MagickDefine CreateDefine<T>(string name, IEnumerable<T> value)
+    {
+      if (value == null)
+        return null;
+
+      List<T> values = new List<T>(value);
+      if (values.Count == 0)
+        return null;
+
+      return new MagickDefine(Format, name, string.Join(",", values));
+    }
+
+    /// <summary>
     /// Gets the format where the defines are for.
     /// </summary>
     protected MagickFormat Format
