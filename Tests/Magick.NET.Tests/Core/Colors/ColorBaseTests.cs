@@ -77,7 +77,7 @@ namespace Magick.NET.Tests
       MagickColor actual = color;
       Assert.AreEqual(actual, expected);
 
-      Assert.IsNull((T)null);
+      Assert.IsNull((MagickColor)(T)null);
     }
 
     protected static void Test_ToString(T color, MagickColor expected)
