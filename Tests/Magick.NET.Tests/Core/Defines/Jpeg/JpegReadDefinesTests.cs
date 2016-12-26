@@ -48,7 +48,8 @@ namespace Magick.NET.Tests
         {
           BlockSmoothing = true,
           DctMethod = DctMethod.Slow,
-          FancyUpsampling = false
+          FancyUpsampling = false,
+          SkipProfiles = (ProfileTypes)64
         }
       };
 
@@ -59,6 +60,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual("True", image.Settings.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
         Assert.AreEqual("Slow", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
         Assert.AreEqual("False", image.Settings.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
+        Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
       }
     }
 

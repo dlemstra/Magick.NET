@@ -33,6 +33,13 @@ namespace Magick.NET.Tests
         Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
         Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
         Assert.AreEqual(null, image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
+
+        image.Settings.SetDefines(new PngReadDefines()
+        {
+          SkipProfiles = (ProfileTypes)64
+        });
+
+        Assert.AreEqual(null, image.Settings.GetDefine("profile:skip"));
       }
     }
 
