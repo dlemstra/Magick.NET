@@ -44,7 +44,7 @@ namespace ImageMagick
     /// </summary>
     protected override void UpdateColor()
     {
-      QuantumType gray = Quantum.ScaleToQuantum(Shade);
+      QuantumType gray = Quantum.ScaleToQuantum(_Shade);
       Color.R = gray;
       Color.G = gray;
       Color.B = gray;
@@ -59,7 +59,7 @@ namespace ImageMagick
     {
       Throw.IfTrue(nameof(shade), shade < 0.0 || shade > 1.0, "Invalid shade specified");
 
-      Shade = shade;
+      _Shade = shade;
     }
 
     /// <summary>
