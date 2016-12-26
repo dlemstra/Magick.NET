@@ -81,6 +81,9 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first <= second);
       Assert.IsFalse(first > second);
       Assert.IsTrue(first >= second);
+
+      second = MagickColors.White.Clone();
+      Assert.AreEqual(0, first.CompareTo(second));
     }
 
     [TestMethod]

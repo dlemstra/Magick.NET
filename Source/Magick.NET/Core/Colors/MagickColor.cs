@@ -398,6 +398,15 @@ namespace ImageMagick
     }
 
     /// <summary>
+    /// Creates a clone of the current color.
+    /// </summary>
+    /// <returns>A clone of the current color.</returns>
+    public MagickColor Clone()
+    {
+      return new MagickColor(this);
+    }
+
+    /// <summary>
     /// Compares the current instance with another object of the same type.
     /// </summary>
     /// <param name="other">The color to compare this color with.</param>
