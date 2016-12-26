@@ -20,7 +20,7 @@ namespace ImageMagick
   /// <summary>
   /// Class for defines that are used when a dds image is written.
   /// </summary>
-  public sealed class DdsWriteDefines : DefineCreator, IWriteDefines
+  public sealed class DdsWriteDefines : WriteDefinesCreator
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DdsWriteDefines"/> class.
@@ -28,17 +28,6 @@ namespace ImageMagick
     public DdsWriteDefines()
       : base(MagickFormat.Dds)
     {
-    }
-
-    /// <summary>
-    /// Gets the format where the defines are for.
-    /// </summary>
-    MagickFormat IWriteDefines.Format
-    {
-      get
-      {
-        return Format;
-      }
     }
 
     /// <summary>

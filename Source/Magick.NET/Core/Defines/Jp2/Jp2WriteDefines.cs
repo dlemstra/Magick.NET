@@ -20,7 +20,7 @@ namespace ImageMagick
   /// <summary>
   /// Class for defines that are used when a jp2 image is written.
   /// </summary>
-  public sealed class Jp2WriteDefines : DefineCreator, IWriteDefines
+  public sealed class Jp2WriteDefines : WriteDefinesCreator
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="Jp2WriteDefines"/> class.
@@ -28,17 +28,6 @@ namespace ImageMagick
     public Jp2WriteDefines()
       : base(MagickFormat.Jp2)
     {
-    }
-
-    /// <summary>
-    /// Gets the format where the defines are for.
-    /// </summary>
-    MagickFormat IWriteDefines.Format
-    {
-      get
-      {
-        return Format;
-      }
     }
 
     /// <summary>

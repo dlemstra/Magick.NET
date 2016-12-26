@@ -20,7 +20,7 @@ namespace ImageMagick
   /// <summary>
   /// Class for defines that are used when a pdf image is read.
   /// </summary>
-  public sealed class PdfReadDefines : DefineCreator, IReadDefines
+  public sealed class PdfReadDefines : ReadDefinesCreator
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="PdfReadDefines"/> class.

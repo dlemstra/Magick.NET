@@ -20,7 +20,7 @@ namespace ImageMagick
   /// <summary>
   /// Class for defines that are used when a psd image is written.
   /// </summary>
-  public sealed class PsdWriteDefines : DefineCreator, IWriteDefines
+  public sealed class PsdWriteDefines : WriteDefinesCreator
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="PsdWriteDefines"/> class.
@@ -28,17 +28,6 @@ namespace ImageMagick
     public PsdWriteDefines()
       : base(MagickFormat.Psd)
     {
-    }
-
-    /// <summary>
-    /// Gets the format where the defines are for.
-    /// </summary>
-    MagickFormat IWriteDefines.Format
-    {
-      get
-      {
-        return Format;
-      }
     }
 
     /// <summary>

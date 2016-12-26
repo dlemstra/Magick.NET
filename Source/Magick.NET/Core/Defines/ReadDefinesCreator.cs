@@ -12,43 +12,20 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Collections.Generic;
-using ImageMagick.Defines;
-
-namespace ImageMagick
+namespace ImageMagick.Defines
 {
   /// <summary>
-  /// Class for defines that are used when a psd image is read.
+  /// Base class that can create write defines.
   /// </summary>
-  public sealed class PsdReadDefines : ReadDefinesCreator
+  public abstract class ReadDefinesCreator : DefinesCreator, IReadDefines
   {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PsdReadDefines"/> class.
+    /// Initializes a new instance of the <see cref="ReadDefinesCreator"/> class.
     /// </summary>
-    public PsdReadDefines()
-      : base(MagickFormat.Psd)
+    /// <param name="format">The format where the defines are for.</param>
+    protected ReadDefinesCreator(MagickFormat format)
+      : base(format)
     {
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether alpha unblending should be enabled or disabled (psd:alpha-unblend).
-    /// </summary>
-    public bool? AlphaUnblend
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets the defines that should be set as a define on an image.
-    /// </summary>
-    public override IEnumerable<IDefine> Defines
-    {
-      get
-      {
-        if (AlphaUnblend.Equals(false))
-          yield return CreateDefine("alpha-unblend", false);
-      }
     }
   }
 }

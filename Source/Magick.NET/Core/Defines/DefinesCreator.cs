@@ -21,13 +21,13 @@ namespace ImageMagick.Defines
   /// <summary>
   /// Base class that can create defines.
   /// </summary>
-  public abstract class DefineCreator : IDefines
+  public abstract class DefinesCreator : IDefines
   {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DefineCreator"/> class.
+    /// Initializes a new instance of the <see cref="DefinesCreator"/> class.
     /// </summary>
     /// <param name="format">The format where the defines are for.</param>
-    protected DefineCreator(MagickFormat format)
+    protected DefinesCreator(MagickFormat format)
     {
       Format = format;
     }

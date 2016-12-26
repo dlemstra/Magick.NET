@@ -20,7 +20,7 @@ namespace ImageMagick
   /// <summary>
   /// Class for defines that are used when a tiff image is read.
   /// </summary>
-  public sealed class TiffReadDefines : DefineCreator, IReadDefines
+  public sealed class TiffReadDefines : ReadDefinesCreator
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="TiffReadDefines"/> class.

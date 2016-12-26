@@ -197,9 +197,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Colors\ColorHSV.cs" />
+    <Compile Include="Core\Defines\DefinesCreator.cs" />
+    <Compile Include="Core\Defines\ReadDefinesCreator.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2ProgressionOrder.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2WriteDefines.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2ReadDefines.cs" />
+    <Compile Include="Core\Defines\WriteDefinesCreator.cs" />
     <Compile Include="Core\Types\Bytes.cs" />
     <Compile Include="Framework\Colors\ColorRGB.cs" />
     <Compile Include="Framework\Colors\MagickColor.cs" />
@@ -216,7 +219,6 @@
     <Compile Include="Core\Colors\MagickColors.cs" />
     <Compile Include="Core\Defines\Dds\DdsCompression.cs" />
     <Compile Include="Core\Defines\Dds\DdsWriteDefines.cs" />
-    <Compile Include="Core\Defines\DefineCreator.cs" />
     <Compile Include="Core\Defines\IDefine.cs" />
     <Compile Include="Core\Defines\IDefines.cs" />
     <Compile Include="Core\Defines\IWriteDefines.cs" />

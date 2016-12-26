@@ -20,7 +20,7 @@ namespace ImageMagick
   /// <summary>
   /// Class for defines that are used when a tiff image is written.
   /// </summary>
-  public sealed class TiffWriteDefines : DefineCreator, IWriteDefines
+  public sealed class TiffWriteDefines : WriteDefinesCreator
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="TiffWriteDefines"/> class.
@@ -28,17 +28,6 @@ namespace ImageMagick
     public TiffWriteDefines()
       : base(MagickFormat.Tiff)
     {
-    }
-
-    /// <summary>
-    /// Gets the format where the defines are for.
-    /// </summary>
-    MagickFormat IWriteDefines.Format
-    {
-      get
-      {
-        return Format;
-      }
     }
 
     /// <summary>

@@ -20,7 +20,7 @@ namespace ImageMagick
   /// <summary>
   /// Class for defines that are used when a jp2 image is read.
   /// </summary>
-  public sealed class Jp2ReadDefines : DefineCreator, IReadDefines
+  public sealed class Jp2ReadDefines : ReadDefinesCreator
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="Jp2ReadDefines"/> class.
