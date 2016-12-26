@@ -295,7 +295,17 @@ namespace ImageMagick
       if (value.Length == 2)
         return new MagickColor(value[0], value[0], value[0], value[1]);
 
-      if (value.Length == 3 || (_Collection != null && _Collection.GetIndex(PixelChannel.Alpha) == -1))
+      bool hasBlackChannel = _Collection != null && _Collection.GetIndex(PixelChannel.Black) != -1;
+
+      if (hasBlackChannel)
+      {
+        if (value.Length == 4)
+          return new MagickColor(value[0], value[1], value[2], value[3], Quantum.Max);
+
+        return new MagickColor(value[0], value[1], value[2], value[3], value[4]);
+      }
+
+      if (value.Length == 3)
         return new MagickColor(value[0], value[1], value[2]);
 
       return new MagickColor(value[0], value[1], value[2], value[3]);
