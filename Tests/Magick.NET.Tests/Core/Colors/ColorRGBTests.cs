@@ -21,6 +21,16 @@ namespace Magick.NET.Tests
   public partial class ColorRGBTests : ColorBaseTests<ColorRGB>
   {
     [TestMethod]
+    public void Test_GetHashCode()
+    {
+      ColorRGB first = new ColorRGB(MagickColors.Red);
+      int hashCode = first.GetHashCode();
+
+      first.G = Quantum.Max;
+      Assert.AreNotEqual(hashCode, first.GetHashCode());
+    }
+
+    [TestMethod]
     public void Test_IComparable()
     {
       ColorRGB first = new ColorRGB(MagickColors.Red);

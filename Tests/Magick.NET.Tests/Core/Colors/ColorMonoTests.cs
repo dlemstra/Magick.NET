@@ -21,6 +21,16 @@ namespace Magick.NET.Tests
   public class ColorMonoTests : ColorBaseTests<ColorMono>
   {
     [TestMethod]
+    public void Test_GetHashCode()
+    {
+      ColorMono first = new ColorMono(true);
+      int hashCode = first.GetHashCode();
+
+      first.IsBlack = false;
+      Assert.AreNotEqual(hashCode, first.GetHashCode());
+    }
+
+    [TestMethod]
     public void Test_IComparable()
     {
       ColorMono first = new ColorMono(true);

@@ -201,6 +201,8 @@ namespace ImageMagick
     /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
     {
+      UpdateColor();
+
       return Color.GetHashCode();
     }
 

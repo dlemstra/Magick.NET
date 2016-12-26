@@ -22,6 +22,16 @@ namespace Magick.NET.Tests
   public class ColorYUVTests : ColorBaseTests<ColorYUV>
   {
     [TestMethod]
+    public void Test_GetHashCode()
+    {
+      ColorYUV first = new ColorYUV(0.0, 0.0, 0.0);
+      int hashCode = first.GetHashCode();
+
+      first.Y = 1.0;
+      Assert.AreNotEqual(hashCode, first.GetHashCode());
+    }
+
+    [TestMethod]
     public void Test_IComparable()
     {
       ColorYUV first = new ColorYUV(0.2, 0.3, 0.4);

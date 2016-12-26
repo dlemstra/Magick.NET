@@ -21,6 +21,16 @@ namespace Magick.NET.Tests
   public class ColorHSVTests : ColorBaseTests<ColorHSV>
   {
     [TestMethod]
+    public void Test_GetHashCode()
+    {
+      ColorHSV first = new ColorHSV(0.0, 0.0, 0.0);
+      int hashCode = first.GetHashCode();
+
+      first.Hue = first.Saturation = first.Value = 1.0;
+      Assert.AreNotEqual(hashCode, first.GetHashCode());
+    }
+
+    [TestMethod]
     public void Test_IComparable()
     {
       ColorHSV first = new ColorHSV(0.4, 0.3, 0.2);

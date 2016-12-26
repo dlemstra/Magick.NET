@@ -22,6 +22,16 @@ namespace Magick.NET.Tests
   public class ColorGrayTests : ColorBaseTests<ColorGray>
   {
     [TestMethod]
+    public void Test_GetHashCode()
+    {
+      ColorGray first = new ColorGray(0);
+      int hashCode = first.GetHashCode();
+
+      first.Shade = 1;
+      Assert.AreNotEqual(hashCode, first.GetHashCode());
+    }
+
+    [TestMethod]
     public void Test_IComparable()
     {
       ColorGray first = new ColorGray(0.5);
