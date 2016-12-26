@@ -29,7 +29,8 @@
     },
     {
       "name": "IsCMYK",
-      "type": "bool"
+      "type": "bool",
+      "readonly": true
     }
   ],
   "methods":
