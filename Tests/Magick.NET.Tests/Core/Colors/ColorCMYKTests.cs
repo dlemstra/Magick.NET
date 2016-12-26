@@ -64,6 +64,20 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_ImplicitOperator()
+    {
+      ColorCMYK color = new ColorCMYK(Quantum.Max, 0, 0, 0);
+      Test_ImplicitOperator(color, new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max));
+    }
+
+    [TestMethod]
+    public void Test_ToString()
+    {
+      ColorCMYK color = new ColorCMYK(Quantum.Max, 0, 0, 0);
+      Test_ToString(color, new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max));
+    }
+
+    [TestMethod]
     public void Test_ColorCMYK()
     {
       ColorCMYK first = new ColorCMYK(0, 0, 0, 0);

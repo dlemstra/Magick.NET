@@ -71,5 +71,18 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first.Equals(first));
       Assert.IsTrue(first.Equals((object)first));
     }
+
+    protected static void Test_ImplicitOperator(T color, MagickColor expected)
+    {
+      MagickColor actual = color;
+      Assert.AreEqual(actual, expected);
+
+      Assert.IsNull((T)null);
+    }
+
+    protected static void Test_ToString(T color, MagickColor expected)
+    {
+      Assert.AreEqual(color.ToString(), expected.ToString());
+    }
   }
 }

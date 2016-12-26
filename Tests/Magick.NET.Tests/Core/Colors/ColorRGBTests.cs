@@ -71,6 +71,20 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_ImplicitOperator()
+    {
+      ColorRGB color = new ColorRGB(0, Quantum.Max, Quantum.Max);
+      Test_ImplicitOperator(color, MagickColors.Cyan);
+    }
+
+    [TestMethod]
+    public void Test_ToString()
+    {
+      ColorRGB color = new ColorRGB(0, Quantum.Max, Quantum.Max);
+      Test_ToString(color, MagickColors.Cyan);
+    }
+
+    [TestMethod]
     public void Test_ComplementaryColor()
     {
       ColorRGB red = MagickColors.Red;

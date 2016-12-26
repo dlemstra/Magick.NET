@@ -64,6 +64,20 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_ImplicitOperator()
+    {
+      ColorGray color = new ColorGray(1.0);
+      Test_ImplicitOperator(color, MagickColors.White);
+    }
+
+    [TestMethod]
+    public void Test_ToString()
+    {
+      ColorGray color = new ColorGray(1.0);
+      Test_ToString(color, MagickColors.White);
+    }
+
+    [TestMethod]
     public void Test_ColorGray()
     {
       ColorGray gray = new ColorGray(1);

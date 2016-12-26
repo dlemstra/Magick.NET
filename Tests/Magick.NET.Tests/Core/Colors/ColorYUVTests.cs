@@ -62,5 +62,19 @@ namespace Magick.NET.Tests
 
       Test_IEquatable_NotEqual(first, second);
     }
+
+    [TestMethod]
+    public void Test_ImplicitOperator()
+    {
+      ColorYUV color = new ColorYUV(0.413189, 0.789, 1.0156);
+      Test_ImplicitOperator(color, MagickColors.Fuchsia);
+    }
+
+    [TestMethod]
+    public void Test_ToString()
+    {
+      ColorYUV color = new ColorYUV(0.413189, 0.789, 1.0156);
+      Test_ToString(color, MagickColors.Fuchsia);
+    }
   }
 }

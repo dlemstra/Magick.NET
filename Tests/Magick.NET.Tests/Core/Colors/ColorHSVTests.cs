@@ -61,5 +61,19 @@ namespace Magick.NET.Tests
 
       Test_IEquatable_NotEqual(first, second);
     }
+
+    [TestMethod]
+    public void Test_ImplicitOperator()
+    {
+      ColorHSV color = new ColorHSV(1.0, 1.0, 1.0);
+      Test_ImplicitOperator(color, MagickColors.Red);
+    }
+
+    [TestMethod]
+    public void Test_ToString()
+    {
+      ColorHSV color = new ColorHSV(1.0, 1.0, 1.0);
+      Test_ToString(color, MagickColors.Red);
+    }
   }
 }

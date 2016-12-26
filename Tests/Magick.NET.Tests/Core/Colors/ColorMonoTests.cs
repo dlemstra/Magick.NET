@@ -63,6 +63,20 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_ImplicitOperator()
+    {
+      ColorMono color = new ColorMono(true);
+      Test_ImplicitOperator(color, MagickColors.Black);
+    }
+
+    [TestMethod]
+    public void Test_ToString()
+    {
+      ColorMono color = new ColorMono(true);
+      Test_ToString(color, MagickColors.Black);
+    }
+
+    [TestMethod]
     public void Test_ColorMono()
     {
       ColorMono mono = new ColorMono(false);

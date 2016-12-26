@@ -47,6 +47,20 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_ImplicitOperator()
+    {
+      ColorHSL color = new ColorHSL(1.0, 1.0, 1.0);
+      Test_ImplicitOperator(color, MagickColors.White);
+    }
+
+    [TestMethod]
+    public void Test_ToString()
+    {
+      ColorHSL color = new ColorHSL(1.0, 1.0, 1.0);
+      Test_ToString(color, MagickColors.White);
+    }
+
+    [TestMethod]
     public void Test_IEquatable()
     {
       ColorHSL first = new ColorHSL(1.0, 0.5, 0.5);
