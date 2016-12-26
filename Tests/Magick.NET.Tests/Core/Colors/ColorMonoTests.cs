@@ -65,8 +65,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ImplicitOperator()
     {
-      ColorMono color = new ColorMono(true);
-      Test_ImplicitOperator(color, MagickColors.Black);
+      ColorMono expected = new ColorMono(true);
+      ColorMono actual = MagickColors.Black;
+      Assert.AreEqual(actual, expected);
+
+      Assert.IsNull(ColorMono.FromMagickColor(null));
     }
 
     [TestMethod]
@@ -90,6 +93,17 @@ namespace Magick.NET.Tests
       MagickColor black = new MagickColor("#000");
       Assert.AreEqual(black, mono.ToMagickColor());
       ColorAssert.AreEqual(MagickColors.Black, mono.ToMagickColor());
+
+      mono = ColorMono.FromMagickColor(MagickColors.Black);
+      Assert.IsTrue(mono.IsBlack);
+
+      mono = ColorMono.FromMagickColor(MagickColors.White);
+      Assert.IsFalse(mono.IsBlack);
+
+      ExceptionAssert.ThrowsArgumentException(() =>
+      {
+        ColorMono.FromMagickColor(MagickColors.Gray);
+      }, "color", "Invalid");
     }
   }
 }

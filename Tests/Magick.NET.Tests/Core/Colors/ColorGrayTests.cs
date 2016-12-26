@@ -66,8 +66,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ImplicitOperator()
     {
-      ColorGray color = new ColorGray(1.0);
-      Test_ImplicitOperator(color, MagickColors.White);
+      ColorGray expected = new ColorGray(1.0);
+      ColorGray actual = MagickColors.White;
+      Assert.AreEqual(actual, expected);
+
+      Assert.IsNull(ColorGray.FromMagickColor(null));
     }
 
     [TestMethod]

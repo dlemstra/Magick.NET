@@ -83,8 +83,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ImplicitOperator()
     {
-      ColorRGB color = new ColorRGB(0, Quantum.Max, Quantum.Max);
-      Test_ImplicitOperator(color, MagickColors.Cyan);
+      ColorRGB expected = new ColorRGB(0, Quantum.Max, Quantum.Max);
+      ColorRGB actual = MagickColors.Cyan;
+      Assert.AreEqual(actual, expected);
+
+      Assert.IsNull(ColorRGB.FromMagickColor(null));
     }
 
     [TestMethod]

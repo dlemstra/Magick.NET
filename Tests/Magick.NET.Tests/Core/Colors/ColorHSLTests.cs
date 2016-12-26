@@ -49,8 +49,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ImplicitOperator()
     {
-      ColorHSL color = new ColorHSL(1.0, 1.0, 1.0);
-      Test_ImplicitOperator(color, MagickColors.White);
+      ColorHSL expected = new ColorHSL(1.0, 1.0, 1.0);
+      ColorHSL actual = MagickColors.White;
+      Assert.AreEqual(actual, expected);
+
+      Assert.IsNull(ColorHSL.FromMagickColor(null));
     }
 
     [TestMethod]

@@ -34,6 +34,12 @@ namespace ImageMagick
     private ColorMono(MagickColor color)
       : base(color)
     {
+      if (color == MagickColors.Black)
+        IsBlack = true;
+      else if (color == MagickColors.White)
+        IsBlack = false;
+      else
+        throw new ArgumentException("Invalid color specified.", nameof(color));
     }
 
     /// <summary>
@@ -52,7 +58,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="isBlack">Specifies if the color is black or white.</param>
     public ColorMono(bool isBlack)
-      : base(new MagickColor(0, 0, 0))
+      : base(isBlack ? MagickColors.Black : MagickColors.White)
     {
       IsBlack = isBlack;
     }

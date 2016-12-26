@@ -66,8 +66,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ImplicitOperator()
     {
-      ColorCMYK color = new ColorCMYK(Quantum.Max, 0, 0, 0);
-      Test_ImplicitOperator(color, new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max));
+      ColorCMYK expected = new ColorCMYK(Quantum.Max, 0, 0, 0);
+      ColorCMYK actual = new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max);
+      Assert.AreEqual(actual, expected);
+
+      Assert.IsNull(ColorCMYK.FromMagickColor(null));
     }
 
     [TestMethod]
@@ -138,7 +141,7 @@ namespace Magick.NET.Tests
 
       ExceptionAssert.Throws<ArgumentException>(() =>
       {
-        new ColorCMYK("#fff");
+        new ColorCMYK("white");
       });
 
       ExceptionAssert.Throws<ArgumentException>(() =>
@@ -154,6 +157,11 @@ namespace Magick.NET.Tests
       ExceptionAssert.Throws<ArgumentException>(() =>
       {
         new ColorCMYK("#ffff0000fffff0000fffff");
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(() =>
+      {
+        new ColorCMYK("#fff");
       });
     }
   }
