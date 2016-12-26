@@ -153,6 +153,7 @@
     <Compile Include="Core\Coders\MvgTests.cs" />
     <Compile Include="Core\Coders\PngTests.cs" />
     <Compile Include="Core\Colors\ColorHSVTests.cs" />
+    <Compile Include="Core\Defines\DefinesCreatorTests.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2WriteDefines.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2ReadDefinesTests.cs" />
     <Compile Include="Core\TestStream.cs" />

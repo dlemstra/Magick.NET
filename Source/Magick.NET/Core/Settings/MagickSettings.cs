@@ -900,7 +900,8 @@ namespace ImageMagick
 
       foreach (IDefine define in defines.Defines)
       {
-        SetDefine(define.Format, define.Name, define.Value);
+        if (define != null)
+          SetDefine(define.Format, define.Name, define.Value);
       }
     }
   }
