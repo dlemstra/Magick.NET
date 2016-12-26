@@ -67,7 +67,10 @@ namespace Magick.NET.Tests
     {
       ColorMono expected = new ColorMono(true);
       ColorMono actual = MagickColors.Black;
-      Assert.AreEqual(actual, expected);
+      Assert.AreEqual(expected, actual);
+
+      MagickColor magickColor = actual;
+      Assert.AreEqual(magickColor, MagickColors.Black);
 
       Assert.IsNull(ColorMono.FromMagickColor(null));
     }

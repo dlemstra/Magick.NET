@@ -85,7 +85,10 @@ namespace Magick.NET.Tests
     {
       ColorRGB expected = new ColorRGB(0, Quantum.Max, Quantum.Max);
       ColorRGB actual = MagickColors.Cyan;
-      Assert.AreEqual(actual, expected);
+      Assert.AreEqual(expected, actual);
+
+      MagickColor magickColor = actual;
+      Assert.AreEqual(magickColor, MagickColors.Cyan);
 
       Assert.IsNull(ColorRGB.FromMagickColor(null));
     }

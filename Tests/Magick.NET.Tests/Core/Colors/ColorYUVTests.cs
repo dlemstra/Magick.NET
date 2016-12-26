@@ -66,9 +66,9 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ImplicitOperator()
     {
-      ColorYUV expected = new ColorYUV(0.413189, 0.789, 1.0156);
+      ColorYUV expected = new ColorYUV(0.413189, 0.789, 1.015);
       ColorYUV actual = MagickColors.Fuchsia;
-      Assert.AreEqual(actual, expected);
+      Assert.AreEqual(expected, actual);
 
       Assert.IsNull(ColorYUV.FromMagickColor(null));
     }

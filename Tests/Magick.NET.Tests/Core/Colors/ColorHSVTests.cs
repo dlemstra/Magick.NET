@@ -67,7 +67,10 @@ namespace Magick.NET.Tests
     {
       ColorHSV expected = new ColorHSV(1.0, 1.0, 1.0);
       ColorHSV actual = MagickColors.Red;
-      Assert.AreEqual(actual, expected);
+      Assert.AreEqual(expected, actual);
+
+      MagickColor magickColor = actual;
+      Assert.AreEqual(magickColor, MagickColors.Red);
 
       Assert.IsNull(ColorHSV.FromMagickColor(null));
     }
