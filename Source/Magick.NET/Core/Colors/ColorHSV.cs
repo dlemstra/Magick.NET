@@ -31,6 +31,10 @@ namespace ImageMagick
   /// </summary>
   public sealed class ColorHSV : ColorBase
   {
+    private double _Hue;
+    private double _Saturation;
+    private double _Value;
+
     private void Initialize(double red, double green, double blue)
     {
       double quantumScale = 1.0 / Quantum.Max;
@@ -38,26 +42,26 @@ namespace ImageMagick
       double min = Math.Min(red, Math.Max(green, blue)) * quantumScale;
       double c = max - min;
 
-      Value = max;
+      _Value = max;
       if (c <= 0.0)
       {
-        Hue = 0.0;
-        Saturation = 0.0;
+        _Hue = 0.0;
+        _Saturation = 0.0;
       }
       else
       {
         if (Math.Abs(max - (quantumScale * red)) < double.Epsilon)
         {
-          Hue = ((quantumScale * green) - (quantumScale * blue)) / c;
+          _Hue = ((quantumScale * green) - (quantumScale * blue)) / c;
           if ((quantumScale * green) < (quantumScale * blue))
-            Hue += 6.0;
+            _Hue += 6.0;
         }
         else if (Math.Abs(max - (quantumScale * green)) < double.Epsilon)
-          Hue = 2.0 + (((quantumScale * blue) - (quantumScale * red)) / c);
+          _Hue = 2.0 + (((quantumScale * blue) - (quantumScale * red)) / c);
         else if (Math.Abs(max - (quantumScale * blue)) < double.Epsilon)
-          Hue = 4.0 + (((quantumScale * red) - (quantumScale * green)) / c);
-        Hue *= 60.0 / 360.0;
-        Saturation = c / max;
+          _Hue = 4.0 + (((quantumScale * red) - (quantumScale * green)) / c);
+        _Hue *= 60.0 / 360.0;
+        _Saturation = c / max;
       }
     }
 
@@ -72,9 +76,9 @@ namespace ImageMagick
     /// </summary>
     protected override void UpdateColor()
     {
-      double h = Hue * 360.0;
-      double c = Value * Saturation;
-      double min = Value - c;
+      double h = _Hue * 360.0;
+      double c = _Value * _Saturation;
+      double min = _Value - c;
       h -= 360.0 * Math.Floor(h / 360.0);
       h /= 60.0;
       double x = c * (1.0 - Math.Abs(h - (2.0 * Math.Floor(h / 2.0)) - 1.0));
@@ -127,9 +131,9 @@ namespace ImageMagick
     public ColorHSV(double hue, double saturation, double value)
           : base(new MagickColor(0, 0, 0))
     {
-      Hue = hue;
-      Saturation = saturation;
-      Value = value;
+      _Hue = hue;
+      _Saturation = saturation;
+      _Value = value;
     }
 
     /// <summary>
@@ -137,8 +141,14 @@ namespace ImageMagick
     /// </summary>
     public double Hue
     {
-      get;
-      set;
+      get
+      {
+        return _Hue;
+      }
+      set
+      {
+        _Hue = value;
+      }
     }
 
     /// <summary>
@@ -146,8 +156,14 @@ namespace ImageMagick
     /// </summary>
     public double Saturation
     {
-      get;
-      set;
+      get
+      {
+        return _Saturation;
+      }
+      set
+      {
+        _Saturation = value;
+      }
     }
 
     /// <summary>
@@ -155,8 +171,14 @@ namespace ImageMagick
     /// </summary>
     public double Value
     {
-      get;
-      set;
+      get
+      {
+        return _Value;
+      }
+      set
+      {
+        _Value = value;
+      }
     }
 
     /// <summary>
@@ -191,10 +213,10 @@ namespace ImageMagick
       if (degrees < 0.0)
         return;
 
-      Hue += degrees / 360.0;
+      _Hue += degrees / 360.0;
 
-      if (Hue >= 1.0)
-        Hue -= 1.0;
+      if (_Hue >= 1.0)
+        _Hue -= 1.0;
     }
   }
 }
