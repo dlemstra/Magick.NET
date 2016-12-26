@@ -1017,7 +1017,7 @@ namespace ImageMagick
       Clear();
       using (Bytes bytes = new Bytes(stream))
       {
-        AddImages(bytes.Data, bytes.Length, null, true);
+        AddImages(bytes.Data, bytes.Length, readSettings, true);
       }
     }
 
