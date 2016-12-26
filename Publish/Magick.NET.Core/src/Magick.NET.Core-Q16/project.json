@@ -1,5 +1,5 @@
 {
-  "version": "7.0.3.902",
+  "version": "7.0.4.100",
   "title": "Magick.NET.Core-Q16",
   "authors":
   [
@@ -46,7 +46,7 @@
   },
   "dependencies":
   {
-    "Magick.NET.Core-Q16.Native": "7.0.3.902"
+    "Magick.NET.Core-Q16.Native": "7.0.4.100"
   },
   "frameworks":
   {
