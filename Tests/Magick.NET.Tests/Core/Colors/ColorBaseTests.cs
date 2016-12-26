@@ -17,10 +17,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
 {
-  public abstract class ColorBaseTests<T>
-    where T : ColorBase
+  public abstract class ColorBaseTests<TColor>
+    where TColor : ColorBase
   {
-    protected static void Test_IComparable(T first)
+    protected static void Test_IComparable(TColor first)
     {
       Assert.AreEqual(0, first.CompareTo(first));
       Assert.AreEqual(1, first.CompareTo(null));
@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
       Assert.IsFalse(null >= first);
     }
 
-    protected static void Test_IComparable_Equal(T first, T second)
+    protected static void Test_IComparable_Equal(TColor first, TColor second)
     {
       Assert.AreEqual(0, first.CompareTo(second));
       Assert.IsFalse(first < second);
@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first >= second);
     }
 
-    protected static void Test_IComparable_FirstLower(T first, T second)
+    protected static void Test_IComparable_FirstLower(TColor first, TColor second)
     {
       Assert.AreEqual(-1, first.CompareTo(second));
       Assert.IsTrue(first < second);
@@ -52,19 +52,19 @@ namespace Magick.NET.Tests
       Assert.IsFalse(first >= second);
     }
 
-    protected static void Test_IEquatable_NotEqual(T first, T second)
+    protected static void Test_IEquatable_NotEqual(TColor first, TColor second)
     {
       Assert.IsTrue(first != second);
       Assert.IsFalse(first.Equals(second));
     }
 
-    protected static void Test_IEquatable_Equal(T first, T second)
+    protected static void Test_IEquatable_Equal(TColor first, TColor second)
     {
       Assert.IsTrue(first == second);
       Assert.IsTrue(first.Equals(second));
     }
 
-    protected static void Test_IEquatable_NullAndSelf(T first)
+    protected static void Test_IEquatable_NullAndSelf(TColor first)
     {
       Assert.IsFalse(first == null);
       Assert.IsFalse(first.Equals(null));
@@ -72,15 +72,15 @@ namespace Magick.NET.Tests
       Assert.IsTrue(first.Equals((object)first));
     }
 
-    protected static void Test_ImplicitOperator(T color, MagickColor expected)
+    protected static void Test_ImplicitOperator(TColor color, MagickColor expected)
     {
       MagickColor actual = color;
       Assert.AreEqual(actual, expected);
 
-      Assert.IsNull((MagickColor)(T)null);
+      Assert.IsNull((MagickColor)(TColor)null);
     }
 
-    protected static void Test_ToString(T color, MagickColor expected)
+    protected static void Test_ToString(TColor color, MagickColor expected)
     {
       Assert.AreEqual(color.ToString(), expected.ToString());
     }
