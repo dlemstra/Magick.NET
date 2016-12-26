@@ -273,14 +273,14 @@ namespace Magick.NET.Tests
 
         Assert.AreEqual(20, collection[1].Width);
         Assert.AreEqual(20, collection[1].Height);
-        Assert.AreEqual(new MagickGeometry(0, 0, 20, 20), collection[1].Page);
+        Assert.AreEqual(new MagickGeometry(0, 0, 10, 20), collection[1].Page);
         ColorAssert.AreEqual(MagickColors.Red, collection[1], 3, 3);
 
         collection.Deconstruct();
 
         Assert.AreEqual(10, collection[1].Width);
         Assert.AreEqual(20, collection[1].Height);
-        Assert.AreEqual(new MagickGeometry(10, 0, 20, 20), collection[1].Page);
+        Assert.AreEqual(new MagickGeometry(10, 0, 10, 20), collection[1].Page);
         ColorAssert.AreEqual(MagickColors.Purple, collection[1], 3, 3);
       }
     }

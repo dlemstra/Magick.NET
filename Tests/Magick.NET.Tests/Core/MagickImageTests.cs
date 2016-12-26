@@ -2364,26 +2364,20 @@ namespace Magick.NET.Tests
           ColorAssert.AreEqual(new MagickColor("gray70"), colorRange, 0, 0);
           ColorAssert.AreEqual(new MagickColor("blue"), colorRange, 101, 0);
 
-#if Q8
-          ColorAssert.AreEqual(new MagickColor("#4e4e4e"), colorRange, 0, 99);
-          ColorAssert.AreEqual(new MagickColor("#000081"), colorRange, 101, 99);
-#elif Q16 || Q16HDRI
-          ColorAssert.AreEqual(new MagickColor("#4e534e534e53"), colorRange, 0, 99);
-          ColorAssert.AreEqual(new MagickColor("#0000000081c6"), colorRange, 101, 99);
-#else
-#error Not implemented!
-#endif
+          ColorAssert.AreEqual(new MagickColor("gray30"), colorRange, 0, 99);
+          ColorAssert.AreEqual(new MagickColor("navy"), colorRange, 101, 99);
+
           colorRange.Normalize();
 
           ColorAssert.AreEqual(new MagickColor("white"), colorRange, 0, 0);
           ColorAssert.AreEqual(new MagickColor("blue"), colorRange, 101, 0);
 
 #if Q8
-          ColorAssert.AreEqual(new MagickColor("#686868"), colorRange, 0, 99);
-          ColorAssert.AreEqual(new MagickColor("#0000b4"), colorRange, 101, 99);
+          ColorAssert.AreEqual(new MagickColor("gray40"), colorRange, 0, 99);
+          ColorAssert.AreEqual(new MagickColor("#0000b3"), colorRange, 101, 99);
 #elif Q16 || Q16HDRI
-          ColorAssert.AreEqual(new MagickColor("#67a367a367a3"), colorRange, 0, 99);
-          ColorAssert.AreEqual(new MagickColor("#00000000b4f6"), colorRange, 101, 99);
+          ColorAssert.AreEqual(new MagickColor("#662e662e662e"), colorRange, 0, 99);
+          ColorAssert.AreEqual(new MagickColor("#00000000b317"), colorRange, 101, 99);
 #else
 #error Not implemented!
 #endif

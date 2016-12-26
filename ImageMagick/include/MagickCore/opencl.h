@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2016 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2017 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
   You may not use this file except in compliance with the License.
@@ -45,6 +45,7 @@ typedef struct _MagickCLDevice* MagickCLDevice;
 
 extern MagickExport const char
   *GetOpenCLDeviceName(const MagickCLDevice),
+  *GetOpenCLDeviceVendorName(const MagickCLDevice),
   *GetOpenCLDeviceVersion(const MagickCLDevice);
 
 extern MagickExport const KernelProfileRecord

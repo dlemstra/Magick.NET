@@ -1869,6 +1869,7 @@ MAGICK_NET_EXPORT Image *MagickImage_ReadPixels(const size_t width, const size_t
 MAGICK_NET_EXPORT void MagickImage_RegionMask(Image *instance, const RectangleInfo *region, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
+  (void)SetImageRegionMask(instance, ReadPixelMask, region, exceptionInfo);
   (void)SetImageRegionMask(instance, WritePixelMask, region, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }

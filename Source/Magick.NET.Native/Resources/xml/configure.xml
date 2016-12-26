@@ -7,14 +7,14 @@
 ]>
 <configuremap>
   <configure name="NAME" value="ImageMagick"/>
-  <configure name="LIB_VERSION" value="0x703"/>
-  <configure name="LIB_VERSION_NUMBER" value="7,0,3,9"/>
-  <configure name="RELEASE_DATE" value="2016-11-30"/>
-  <configure name="VERSION" value="7.0.3"/>
+  <configure name="LIB_VERSION" value="0x704"/>
+  <configure name="LIB_VERSION_NUMBER" value="7,0,4,1"/>
+  <configure name="RELEASE_DATE" value="2017-01-15"/>
+  <configure name="VERSION" value="7.0.4"/>
   <configure name="CC" value="vs10"/>
   <configure name="HOST" value="Windows"/>
   <configure name="DELEGATES" value="bzlib freetype jpeg jp2 lcms png tiff x11 xml wmf zlib"/>
   <configure name="FEATURES" value="OpenMP"/>
-  <configure name="COPYRIGHT" value="Copyright (C) 1999-2016 ImageMagick Studio LLC"/>
+  <configure name="COPYRIGHT" value="Copyright (C) 1999-2017 ImageMagick Studio LLC"/>
   <configure name="WEBSITE" value="http://www.imagemagick.org"/>
 </configuremap>
