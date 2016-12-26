@@ -215,7 +215,7 @@ namespace ImageMagick
 
       _Hue += degrees / 360.0;
 
-      if (_Hue >= 1.0)
+      while (_Hue >= 1.0)
         _Hue -= 1.0;
     }
   }

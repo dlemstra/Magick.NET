@@ -12,9 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -604,6 +602,15 @@ namespace Magick.NET.Tests
         Assert.AreEqual(15, image.Height);
 
         ColorAssert.AreEqual(MagickColors.Purple, image, 0, 0);
+        ColorAssert.AreEqual(MagickColors.White, image, 24, 0);
+
+        image.Settings.TextUnderColor = null;
+        image.Read("label:First");
+
+        Assert.AreEqual(25, image.Width);
+        Assert.AreEqual(15, image.Height);
+
+        ColorAssert.AreEqual(MagickColors.White, image, 0, 0);
         ColorAssert.AreEqual(MagickColors.White, image, 24, 0);
       }
     }

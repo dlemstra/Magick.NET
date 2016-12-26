@@ -102,5 +102,17 @@ namespace Magick.NET.Tests
       Assert.AreEqual(2, color.Saturation);
       Assert.AreEqual(3, color.Value);
     }
+
+    [TestMethod]
+    public void Test_HueShift()
+    {
+      ColorHSV color = new ColorHSV(0.3, 0.2, 0.1);
+
+      color.HueShift(-0.99);
+      Assert.AreEqual(0.3, color.Hue);
+
+      color.HueShift(720);
+      Assert.AreEqual(0.3, color.Hue, 0.00001);
+    }
   }
 }

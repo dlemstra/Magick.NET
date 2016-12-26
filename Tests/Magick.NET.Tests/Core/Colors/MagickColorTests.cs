@@ -109,6 +109,16 @@ namespace Magick.NET.Tests
         new MagickColor("#GGFFF");
       });
 
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new MagickColor("#FGF");
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        new MagickColor("#FFFG000000000000");
+      });
+
       TestColor("#FF", Quantum.Max, Quantum.Max, Quantum.Max, false);
       TestColor("#F00", Quantum.Max, 0, 0, false);
       TestColor("#0F00", 0, Quantum.Max, 0, true);
@@ -117,7 +127,7 @@ namespace Magick.NET.Tests
 
       TestColor("#0000FFFF0000", 0, Quantum.Max, 0, false);
       TestColor("#000080000000", 0, (QuantumType)((Quantum.Max / 2.0) + 0.5), 0, false);
-      TestColor("#FFFF000000000000", Quantum.Max, 0, 0, true);
+      TestColor("#FFFf000000000000", Quantum.Max, 0, 0, true);
 
       float half = Quantum.Max * 0.5f;
       TestColor("gray(50%) ", half, half, half, false, 1);

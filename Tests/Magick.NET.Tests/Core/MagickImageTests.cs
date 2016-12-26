@@ -2764,6 +2764,13 @@ namespace Magick.NET.Tests
       Assert.AreEqual(50, image.Height);
       ColorAssert.AreEqual(red, image, 5, 5);
 
+      red = new MagickColor("cmyk(0,99,100,0)");
+
+      image.Read(red, 50, 50);
+      Assert.AreEqual(50, image.Width);
+      Assert.AreEqual(50, image.Height);
+      ColorAssert.AreEqual(red, image, 10, 10);
+
       using (FileStream fs = File.OpenRead(Files.ImageMagickJPG))
       {
         image.Read(fs);

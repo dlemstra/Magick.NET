@@ -92,7 +92,7 @@ namespace ImageMagick
         Initialize(colors[0], colors[0], colors[0], Quantum.Max);
       else if (colors.Count == 3)
         Initialize(colors[0], colors[1], colors[2], Quantum.Max);
-      else if (colors.Count == 4)
+      else
         Initialize(colors[0], colors[1], colors[2], colors[3]);
     }
 
