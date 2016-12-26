@@ -128,6 +128,11 @@ namespace Magick.NET.Tests
     public void Test_FuzzyEquals()
     {
       MagickColor first = new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
+
+      Assert.IsFalse(first.FuzzyEquals(null, (Percentage)0));
+
+      Assert.IsTrue(first.FuzzyEquals(first, (Percentage)0));
+
       MagickColor second = new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
 
       Assert.IsTrue(first.FuzzyEquals(second, (Percentage)0));

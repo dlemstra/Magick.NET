@@ -528,6 +528,9 @@ namespace ImageMagick
       if (ReferenceEquals(other, null))
         return false;
 
+      if (ReferenceEquals(this, other))
+        return true;
+
       using (NativeMagickColor instance = CreateNativeInstance())
       {
         return instance.FuzzyEquals(other, fuzz.ToQuantum());
