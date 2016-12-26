@@ -68,6 +68,11 @@ namespace ImageMagick
         public static extern void MagickColor_Black_Set(IntPtr instance, QuantumType value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool MagickColor_IsCMYK_Get(IntPtr instance);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MagickColor_IsCMYK_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MagickColor_FuzzyEquals(IntPtr Instance, IntPtr other, QuantumType fuzz);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -107,6 +112,11 @@ namespace ImageMagick
         public static extern QuantumType MagickColor_Black_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickColor_Black_Set(IntPtr instance, QuantumType value);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool MagickColor_IsCMYK_Get(IntPtr instance);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MagickColor_IsCMYK_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MagickColor_FuzzyEquals(IntPtr Instance, IntPtr other, QuantumType fuzz);
@@ -353,6 +363,41 @@ namespace ImageMagick
           #endif
           #if !WIN64 || ANYCPU
           NativeMethods.X86.MagickColor_Black_Set(Instance, value);
+          #endif
+        }
+      }
+      public bool IsCMYK
+      {
+        get
+        {
+          bool result;
+          #if ANYCPU
+          if (NativeLibrary.Is64Bit)
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickColor_IsCMYK_Get(Instance);
+          #endif
+          #if ANYCPU
+          else
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickColor_IsCMYK_Get(Instance);
+          #endif
+          return result;
+        }
+        set
+        {
+          #if ANYCPU
+          if (NativeLibrary.Is64Bit)
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickColor_IsCMYK_Set(Instance, value);
+          #endif
+          #if ANYCPU
+          else
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickColor_IsCMYK_Set(Instance, value);
           #endif
         }
       }

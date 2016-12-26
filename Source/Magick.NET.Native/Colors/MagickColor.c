@@ -69,7 +69,7 @@ MAGICK_NET_EXPORT void MagickColor_Blue_Set(PixelInfo *instance, const Quantum v
 
 MAGICK_NET_EXPORT Quantum MagickColor_Alpha_Get(const PixelInfo *instance)
 {
-  return  (Quantum)instance->alpha;
+  return (Quantum)instance->alpha;
 }
 
 MAGICK_NET_EXPORT void MagickColor_Alpha_Set(PixelInfo *instance, const Quantum value)
@@ -86,6 +86,11 @@ MAGICK_NET_EXPORT Quantum MagickColor_Black_Get(const PixelInfo *instance)
 MAGICK_NET_EXPORT void MagickColor_Black_Set(PixelInfo *instance, const Quantum value)
 {
   instance->black = value;
+}
+
+MAGICK_NET_EXPORT MagickBooleanType MagickColor_IsCMYK_Get(const PixelInfo *color)
+{
+  return color->colorspace == CMYKColorspace ? MagickTrue : MagickFalse;
 }
 
 MAGICK_NET_EXPORT PixelInfo *MagickColor_Clone(const PixelInfo *color)

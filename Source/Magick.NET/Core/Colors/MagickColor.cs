@@ -60,6 +60,7 @@ namespace ImageMagick
       A = instance.Alpha;
       K = instance.Black;
 
+      _IsCmyk = instance.IsCMYK;
       Count = (int)instance.Count;
     }
 

@@ -26,6 +26,10 @@
     {
       "name": "Black",
       "type": "QuantumType"
+    },
+    {
+      "name": "IsCMYK",
+      "type": "bool"
     }
   ],
   "methods":

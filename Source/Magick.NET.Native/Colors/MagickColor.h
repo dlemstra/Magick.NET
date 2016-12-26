@@ -34,6 +34,8 @@ MAGICK_NET_EXPORT void MagickColor_Alpha_Set(PixelInfo *, const Quantum);
 MAGICK_NET_EXPORT Quantum MagickColor_Black_Get(const PixelInfo *);
 MAGICK_NET_EXPORT void MagickColor_Black_Set(PixelInfo *, const Quantum);
 
+MAGICK_NET_EXPORT MagickBooleanType MagickColor_IsCMYK_Get(const PixelInfo *);
+
 MAGICK_NET_EXPORT PixelInfo *MagickColor_Clone(const PixelInfo *);
 
 MAGICK_NET_EXPORT MagickBooleanType MagickColor_FuzzyEquals(const PixelInfo *, const PixelInfo *, const Quantum fuzz);
