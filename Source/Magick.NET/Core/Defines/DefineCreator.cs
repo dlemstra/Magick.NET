@@ -104,11 +104,16 @@ namespace ImageMagick.Defines
       if (value == null)
         return null;
 
-      List<T> values = new List<T>(value);
+      List<string> values = new List<string>();
+      foreach (T val in value)
+      {
+        values.Add(val.ToString());
+      }
+
       if (values.Count == 0)
         return null;
 
-      return new MagickDefine(Format, name, string.Join(",", values));
+      return new MagickDefine(Format, name, string.Join(",", values.ToArray()));
     }
 
     /// <summary>
