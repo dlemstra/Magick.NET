@@ -93,24 +93,35 @@ namespace Magick.NET.Tests
       Assert.AreEqual(0, color.M);
       Assert.AreEqual(0, color.Y);
       Assert.AreEqual(0, color.K);
+      Assert.AreEqual(Quantum.Max, color.A);
 
       color.M = 2;
       Assert.AreEqual(1, color.C);
       Assert.AreEqual(2, color.M);
       Assert.AreEqual(0, color.Y);
       Assert.AreEqual(0, color.K);
+      Assert.AreEqual(Quantum.Max, color.A);
 
       color.Y = 3;
       Assert.AreEqual(1, color.C);
       Assert.AreEqual(2, color.M);
       Assert.AreEqual(3, color.Y);
       Assert.AreEqual(0, color.K);
+      Assert.AreEqual(Quantum.Max, color.A);
 
       color.K = 4;
       Assert.AreEqual(1, color.C);
       Assert.AreEqual(2, color.M);
       Assert.AreEqual(3, color.Y);
       Assert.AreEqual(4, color.K);
+      Assert.AreEqual(Quantum.Max, color.A);
+
+      color.A = 5;
+      Assert.AreEqual(1, color.C);
+      Assert.AreEqual(2, color.M);
+      Assert.AreEqual(3, color.Y);
+      Assert.AreEqual(4, color.K);
+      Assert.AreEqual(5, color.A);
     }
 
     [TestMethod]
