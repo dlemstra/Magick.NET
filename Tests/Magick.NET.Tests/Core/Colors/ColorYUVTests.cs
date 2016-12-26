@@ -66,20 +66,20 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Constructor()
     {
-      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      ExceptionAssert.ThrowsArgumentException(delegate ()
       {
         new ColorYUV(1.01, -0.5, 0.5);
-      });
+      }, "y", " Y ");
 
-      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      ExceptionAssert.ThrowsArgumentException(delegate ()
       {
         new ColorYUV(1.0, -0.51, 0.5);
-      });
+      }, "u", " U ");
 
-      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      ExceptionAssert.ThrowsArgumentException(delegate ()
       {
         new ColorYUV(1.0, -0.5, 0.51);
-      });
+      }, "v", " V ");
     }
   }
 }
