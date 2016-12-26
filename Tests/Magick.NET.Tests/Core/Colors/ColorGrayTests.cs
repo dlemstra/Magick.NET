@@ -90,6 +90,12 @@ namespace Magick.NET.Tests
 
       color.Shade = 1;
       Assert.AreEqual(1, color.Shade);
+
+      color.Shade = -0.99;
+      Assert.AreEqual(1, color.Shade);
+
+      color.Shade = 1.01;
+      Assert.AreEqual(1, color.Shade);
     }
 
     [TestMethod]
