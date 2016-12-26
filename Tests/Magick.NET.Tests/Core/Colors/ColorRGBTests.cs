@@ -98,6 +98,27 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_Properties()
+    {
+      ColorRGB color = new ColorRGB(0, 0, 0);
+
+      color.R = 1;
+      Assert.AreEqual(1, color.R);
+      Assert.AreEqual(0, color.G);
+      Assert.AreEqual(0, color.B);
+
+      color.G = 2;
+      Assert.AreEqual(1, color.R);
+      Assert.AreEqual(2, color.G);
+      Assert.AreEqual(0, color.B);
+
+      color.B = 3;
+      Assert.AreEqual(1, color.R);
+      Assert.AreEqual(2, color.G);
+      Assert.AreEqual(3, color.B);
+    }
+
+    [TestMethod]
     public void Test_ComplementaryColor()
     {
       ColorRGB red = MagickColors.Red;

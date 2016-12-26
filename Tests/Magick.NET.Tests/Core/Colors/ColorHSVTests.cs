@@ -78,5 +78,26 @@ namespace Magick.NET.Tests
       ColorHSV color = new ColorHSV(1.0, 1.0, 1.0);
       Test_ToString(color, MagickColors.Red);
     }
+
+    [TestMethod]
+    public void Test_Properties()
+    {
+      ColorHSV color = new ColorHSV(0, 0, 0);
+
+      color.Hue = 1;
+      Assert.AreEqual(1, color.Hue);
+      Assert.AreEqual(0, color.Saturation);
+      Assert.AreEqual(0, color.Value);
+
+      color.Saturation = 2;
+      Assert.AreEqual(1, color.Hue);
+      Assert.AreEqual(2, color.Saturation);
+      Assert.AreEqual(0, color.Value);
+
+      color.Value = 3;
+      Assert.AreEqual(1, color.Hue);
+      Assert.AreEqual(2, color.Saturation);
+      Assert.AreEqual(3, color.Value);
+    }
   }
 }

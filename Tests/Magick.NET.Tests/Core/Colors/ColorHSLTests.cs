@@ -47,6 +47,22 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_IEquatable()
+    {
+      ColorHSL first = new ColorHSL(1.0, 0.5, 0.5);
+
+      Test_IEquatable_NullAndSelf(first);
+
+      ColorHSL second = new ColorHSL(1.0, 0.5, 0.5);
+
+      Test_IEquatable_Equal(first, second);
+
+      second = new ColorHSL(1.0, 0.5, 1.0);
+
+      Test_IEquatable_NotEqual(first, second);
+    }
+
+    [TestMethod]
     public void Test_ImplicitOperator()
     {
       ColorHSL expected = new ColorHSL(1.0, 1.0, 1.0);
@@ -64,19 +80,24 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
-    public void Test_IEquatable()
+    public void Test_Properties()
     {
-      ColorHSL first = new ColorHSL(1.0, 0.5, 0.5);
+      ColorHSL color = new ColorHSL(0, 0, 0);
 
-      Test_IEquatable_NullAndSelf(first);
+      color.Hue = 1;
+      Assert.AreEqual(1, color.Hue);
+      Assert.AreEqual(0, color.Saturation);
+      Assert.AreEqual(0, color.Lightness);
 
-      ColorHSL second = new ColorHSL(1.0, 0.5, 0.5);
+      color.Saturation = 2;
+      Assert.AreEqual(1, color.Hue);
+      Assert.AreEqual(2, color.Saturation);
+      Assert.AreEqual(0, color.Lightness);
 
-      Test_IEquatable_Equal(first, second);
-
-      second = new ColorHSL(1.0, 0.5, 1.0);
-
-      Test_IEquatable_NotEqual(first, second);
+      color.Lightness = 3;
+      Assert.AreEqual(1, color.Hue);
+      Assert.AreEqual(2, color.Saturation);
+      Assert.AreEqual(3, color.Lightness);
     }
   }
 }

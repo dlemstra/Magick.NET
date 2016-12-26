@@ -81,6 +81,36 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_Properties()
+    {
+      ColorCMYK color = new ColorCMYK(0, 0, 0, 0);
+
+      color.C = 1;
+      Assert.AreEqual(1, color.C);
+      Assert.AreEqual(0, color.M);
+      Assert.AreEqual(0, color.Y);
+      Assert.AreEqual(0, color.K);
+
+      color.M = 2;
+      Assert.AreEqual(1, color.C);
+      Assert.AreEqual(2, color.M);
+      Assert.AreEqual(0, color.Y);
+      Assert.AreEqual(0, color.K);
+
+      color.Y = 3;
+      Assert.AreEqual(1, color.C);
+      Assert.AreEqual(2, color.M);
+      Assert.AreEqual(3, color.Y);
+      Assert.AreEqual(0, color.K);
+
+      color.K = 4;
+      Assert.AreEqual(1, color.C);
+      Assert.AreEqual(2, color.M);
+      Assert.AreEqual(3, color.Y);
+      Assert.AreEqual(4, color.K);
+    }
+
+    [TestMethod]
     public void Test_ColorCMYK()
     {
       ColorCMYK first = new ColorCMYK(0, 0, 0, 0);

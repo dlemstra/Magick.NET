@@ -79,5 +79,26 @@ namespace Magick.NET.Tests
       ColorYUV color = new ColorYUV(0.413189, 0.789, 1.0156);
       Test_ToString(color, MagickColors.Fuchsia);
     }
+
+    [TestMethod]
+    public void Test_Properties()
+    {
+      ColorYUV color = new ColorYUV(0, 0, 0);
+
+      color.Y = 1;
+      Assert.AreEqual(1, color.Y);
+      Assert.AreEqual(0, color.U);
+      Assert.AreEqual(0, color.V);
+
+      color.U = 2;
+      Assert.AreEqual(1, color.Y);
+      Assert.AreEqual(2, color.U);
+      Assert.AreEqual(0, color.V);
+
+      color.V = 3;
+      Assert.AreEqual(1, color.Y);
+      Assert.AreEqual(2, color.U);
+      Assert.AreEqual(3, color.V);
+    }
   }
 }

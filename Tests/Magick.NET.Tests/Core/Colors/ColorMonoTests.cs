@@ -80,6 +80,15 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_Properties()
+    {
+      ColorMono color = new ColorMono(true);
+
+      color.IsBlack = false;
+      Assert.AreEqual(false, color.IsBlack);
+    }
+
+    [TestMethod]
     public void Test_ColorMono()
     {
       ColorMono mono = new ColorMono(false);

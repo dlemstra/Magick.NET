@@ -81,6 +81,15 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_Properties()
+    {
+      ColorGray color = new ColorGray(0);
+
+      color.Shade = 1;
+      Assert.AreEqual(1, color.Shade);
+    }
+
+    [TestMethod]
     public void Test_ColorGray()
     {
       ColorGray gray = new ColorGray(1);
