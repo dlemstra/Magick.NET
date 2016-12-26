@@ -159,6 +159,7 @@ namespace ImageMagick
       B = color.B;
       A = color.A;
       K = color.K;
+      _IsCmyk = color._IsCmyk;
     }
 
 #if Q8
