@@ -149,6 +149,7 @@
   <ItemGroup>
     <Compile Include="Core\Coders\MslTests.cs" />
     <Compile Include="Core\Coders\MvgTests.cs" />
+    <Compile Include="Core\Coders\PngTests.cs" />
     <Compile Include="Core\Colors\ColorHSVTests.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2WriteDefines.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2ReadDefinesTests.cs" />
