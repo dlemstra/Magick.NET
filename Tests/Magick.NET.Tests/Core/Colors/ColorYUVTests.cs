@@ -62,24 +62,5 @@ namespace Magick.NET.Tests
 
       Test_IEquatable_NotEqual(first, second);
     }
-
-    [TestMethod]
-    public void Test_Constructor()
-    {
-      ExceptionAssert.ThrowsArgumentException(delegate ()
-      {
-        new ColorYUV(1.01, -0.5, 0.5);
-      }, "y", " Y ");
-
-      ExceptionAssert.ThrowsArgumentException(delegate ()
-      {
-        new ColorYUV(1.0, -0.51, 0.5);
-      }, "u", " U ");
-
-      ExceptionAssert.ThrowsArgumentException(delegate ()
-      {
-        new ColorYUV(1.0, -0.5, 0.51);
-      }, "v", " V ");
-    }
   }
 }

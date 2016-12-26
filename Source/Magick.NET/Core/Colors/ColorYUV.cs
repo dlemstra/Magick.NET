@@ -38,9 +38,9 @@ namespace ImageMagick
     private ColorYUV(MagickColor color)
       : base(color)
     {
-      _Y = (0.29900 * color.R) + (0.58700 * color.G) + (0.11400 * color.B);
-      _U = (-0.14740 * color.R) - (0.28950 * color.G) + (0.43690 * color.B);
-      _V = (0.61500 * color.R) - (0.51500 * color.G) - (0.10000 * color.B);
+      _Y = (1.0 / Quantum.Max) * ((0.298839 * color.R) + (0.586811 * color.G) + (0.11435 * color.B));
+      _U = ((1.0 / Quantum.Max) * ((-0.147 * color.R) - (0.289 * color.G) + (0.436 * color.B))) + 0.5;
+      _V = ((1.0 / Quantum.Max) * ((0.615 * color.R) - (0.515 * color.G) - (0.1 * color.B))) + 0.5;
     }
 
     /// <summary>
@@ -48,9 +48,9 @@ namespace ImageMagick
     /// </summary>
     protected override void UpdateColor()
     {
-      Color.R = Quantum.ScaleToQuantum(_Y + (1.13980 * _V));
-      Color.G = Quantum.ScaleToQuantum(_Y - (0.39380 * _U) - (0.58050 * _V));
-      Color.B = Quantum.ScaleToQuantum(_Y + (2.02790 * _U));
+      Color.R = Quantum.ScaleToQuantum(_Y - (3.945707070708279e-05 * (_U - 0.5)) + (1.1398279671717170825 * (_V - 0.5)));
+      Color.G = Quantum.ScaleToQuantum(_Y - (0.3946101641414141437 * (_U - 0.5)) - (0.5805003156565656797 * (_V - 0.5)));
+      Color.B = Quantum.ScaleToQuantum(_Y + (2.0319996843434342537 * (_U - 0.5)) - (4.813762626262513e-04 * (_V - 0.5)));
     }
 
     /// <summary>
@@ -62,10 +62,6 @@ namespace ImageMagick
     public ColorYUV(double y, double u, double v)
       : base(new MagickColor(0, 0, 0))
     {
-      Throw.IfTrue(nameof(y), y < 0.0 || y > 1.0, "Invalid Y component.");
-      Throw.IfTrue(nameof(u), u < -0.5 || u > 0.5, "Invalid U component.");
-      Throw.IfTrue(nameof(v), v < -0.5 || v > 0.5, "Invalid V component.");
-
       _Y = y;
       _U = u;
       _V = v;
@@ -82,9 +78,6 @@ namespace ImageMagick
       }
       set
       {
-        if (value < -0.5 || value > 0.5)
-          return;
-
         _U = value;
       }
     }
@@ -100,9 +93,6 @@ namespace ImageMagick
       }
       set
       {
-        if (value < -0.5 || value > 0.5)
-          return;
-
         _V = value;
       }
     }
@@ -118,9 +108,6 @@ namespace ImageMagick
       }
       set
       {
-        if (value < 0.0 || value > 1.0)
-          return;
-
         _Y = value;
       }
     }

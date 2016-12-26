@@ -73,7 +73,7 @@ namespace ImageMagick
 
     internal static QuantumType ScaleToQuantum(double value)
     {
-      return (QuantumType)(value * Max);
+      return (QuantumType)Math.Min(Math.Max(0, value * Max), Max);
     }
 
     internal static byte ScaleToByte(QuantumType value)
