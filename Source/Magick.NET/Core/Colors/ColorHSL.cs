@@ -92,34 +92,34 @@ namespace ImageMagick
       switch ((int)Math.Floor(h))
       {
         case 0:
-          Color.R = (QuantumType)(Quantum.Max * (min + c));
-          Color.G = (QuantumType)(Quantum.Max * (min + x));
-          Color.B = (QuantumType)(Quantum.Max * min);
+          Color.R = Quantum.ScaleToQuantum(min + c);
+          Color.G = Quantum.ScaleToQuantum(min + x);
+          Color.B = Quantum.ScaleToQuantum(min);
           break;
         case 1:
-          Color.R = (QuantumType)(Quantum.Max * (min + x));
-          Color.G = (QuantumType)(Quantum.Max * (min + c));
-          Color.B = (QuantumType)(Quantum.Max * min);
+          Color.R = Quantum.ScaleToQuantum(min + x);
+          Color.G = Quantum.ScaleToQuantum(min + c);
+          Color.B = Quantum.ScaleToQuantum(min);
           break;
         case 2:
-          Color.R = (QuantumType)(Quantum.Max * min);
-          Color.G = (QuantumType)(Quantum.Max * (min + c));
-          Color.B = (QuantumType)(Quantum.Max * (min + x));
+          Color.R = Quantum.ScaleToQuantum(min);
+          Color.G = Quantum.ScaleToQuantum(min + c);
+          Color.B = Quantum.ScaleToQuantum(min + x);
           break;
         case 3:
-          Color.R = (QuantumType)(Quantum.Max * min);
-          Color.G = (QuantumType)(Quantum.Max * (min + x));
-          Color.B = (QuantumType)(Quantum.Max * (min + c));
+          Color.R = Quantum.ScaleToQuantum(min);
+          Color.G = Quantum.ScaleToQuantum(min + x);
+          Color.B = Quantum.ScaleToQuantum(min + c);
           break;
         case 4:
-          Color.R = (QuantumType)(Quantum.Max * (min + x));
-          Color.G = (QuantumType)(Quantum.Max * min);
-          Color.B = (QuantumType)(Quantum.Max * (min + c));
+          Color.R = Quantum.ScaleToQuantum(min + x);
+          Color.G = Quantum.ScaleToQuantum(min);
+          Color.B = Quantum.ScaleToQuantum(min + c);
           break;
         case 5:
-          Color.R = (QuantumType)(Quantum.Max * (min + c));
-          Color.G = (QuantumType)(Quantum.Max * min);
-          Color.B = (QuantumType)(Quantum.Max * (min + x));
+          Color.R = Quantum.ScaleToQuantum(min + c);
+          Color.G = Quantum.ScaleToQuantum(min);
+          Color.B = Quantum.ScaleToQuantum(min + x);
           break;
         default:
           Color.R = 0;
