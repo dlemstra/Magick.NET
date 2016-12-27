@@ -131,6 +131,16 @@ namespace Magick.NET.Tests
       ColorRGB lime = MagickColors.Lime;
       ColorRGB fuchsia = lime.ComplementaryColor();
       ColorAssert.AreEqual(MagickColors.Fuchsia, fuchsia);
+
+      ColorRGB green = new MagickColor("#9aa01e");
+      ColorRGB blue = green.ComplementaryColor();
+#if Q8
+      ColorAssert.AreEqual(new MagickColor("#231ea0"), blue);
+#elif Q16 || Q16HDRI
+      ColorAssert.AreEqual(new MagickColor("#24231e1ea0a0"), blue);
+#else
+#error Not implemented!
+#endif
     }
 
     [TestMethod]

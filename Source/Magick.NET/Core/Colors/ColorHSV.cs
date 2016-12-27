@@ -37,32 +37,29 @@ namespace ImageMagick
 
     private void Initialize(double red, double green, double blue)
     {
-      double quantumScale = 1.0 / Quantum.Max;
-      double max = Math.Max(red, Math.Max(green, blue)) * quantumScale;
-      double min = Math.Min(red, Math.Max(green, blue)) * quantumScale;
-      double c = max - min;
+      _Hue = 0.0;
+      _Saturation = 0.0;
+      _Value = 0.0;
 
-      _Value = max;
-      if (c <= 0.0)
-      {
-        _Hue = 0.0;
-        _Saturation = 0.0;
-      }
+      double min = Math.Min(Math.Min(red, green), blue);
+      double max = Math.Max(Math.Max(red, green), blue);
+
+      if (Math.Abs(max) < double.Epsilon)
+        return;
+      double delta = max - min;
+      _Saturation = delta / max;
+      _Value = (1.0 / Quantum.Max) * max;
+      if (Math.Abs(delta) < double.Epsilon)
+        return;
+      if (Math.Abs(red - max) < double.Epsilon)
+        _Hue = (green - blue) / delta;
+      else if (Math.Abs(green - max) < double.Epsilon)
+        _Hue = 2.0 + ((blue - red) / delta);
       else
-      {
-        if (Math.Abs(max - (quantumScale * red)) < double.Epsilon)
-        {
-          _Hue = ((quantumScale * green) - (quantumScale * blue)) / c;
-          if ((quantumScale * green) < (quantumScale * blue))
-            _Hue += 6.0;
-        }
-        else if (Math.Abs(max - (quantumScale * green)) < double.Epsilon)
-          _Hue = 2.0 + (((quantumScale * blue) - (quantumScale * red)) / c);
-        else if (Math.Abs(max - (quantumScale * blue)) < double.Epsilon)
-          _Hue = 4.0 + (((quantumScale * red) - (quantumScale * green)) / c);
-        _Hue *= 60.0 / 360.0;
-        _Saturation = c / max;
-      }
+        _Hue = 4.0 + ((red - green) / delta);
+      _Hue /= 6.0;
+      if (_Hue < 0.0)
+        _Hue += 1.0;
     }
 
     private ColorHSV(MagickColor color)
@@ -76,48 +73,49 @@ namespace ImageMagick
     /// </summary>
     protected override void UpdateColor()
     {
-      double h = _Hue * 360.0;
-      double c = _Value * _Saturation;
-      double min = _Value - c;
-      h -= 360.0 * Math.Floor(h / 360.0);
-      h /= 60.0;
-      double x = c * (1.0 - Math.Abs(h - (2.0 * Math.Floor(h / 2.0)) - 1.0));
-      switch ((int)Math.Floor(h))
+      if (Math.Abs(_Saturation) < double.Epsilon)
+      {
+        Color.R = Color.G = Color.B = Quantum.ScaleToQuantum(_Value);
+        return;
+      }
+
+      double h = 6.0 * (_Hue - Math.Floor(_Hue));
+      double f = h - Math.Floor(h);
+      double p = _Value * (1.0 - _Saturation);
+      double q = _Value * (1.0 - (_Saturation * f));
+      double t = _Value * (1.0 - (_Saturation * (1.0 - f)));
+      switch ((int)h)
       {
         case 0:
-          Color.R = (QuantumType)(Quantum.Max * (min + c));
-          Color.G = (QuantumType)(Quantum.Max * (min + x));
-          Color.B = (QuantumType)(Quantum.Max * min);
+        default:
+          Color.R = Quantum.ScaleToQuantum(_Value);
+          Color.G = Quantum.ScaleToQuantum(t);
+          Color.B = Quantum.ScaleToQuantum(p);
           break;
         case 1:
-          Color.R = (QuantumType)(Quantum.Max * (min + x));
-          Color.G = (QuantumType)(Quantum.Max * (min + c));
-          Color.B = (QuantumType)(Quantum.Max * min);
+          Color.R = Quantum.ScaleToQuantum(q);
+          Color.G = Quantum.ScaleToQuantum(_Value);
+          Color.B = Quantum.ScaleToQuantum(p);
           break;
         case 2:
-          Color.R = (QuantumType)(Quantum.Max * min);
-          Color.G = (QuantumType)(Quantum.Max * (min + c));
-          Color.B = (QuantumType)(Quantum.Max * (min + x));
+          Color.R = Quantum.ScaleToQuantum(p);
+          Color.G = Quantum.ScaleToQuantum(_Value);
+          Color.B = Quantum.ScaleToQuantum(t);
           break;
         case 3:
-          Color.R = (QuantumType)(Quantum.Max * min);
-          Color.G = (QuantumType)(Quantum.Max * (min + x));
-          Color.B = (QuantumType)(Quantum.Max * (min + c));
+          Color.R = Quantum.ScaleToQuantum(p);
+          Color.G = Quantum.ScaleToQuantum(q);
+          Color.B = Quantum.ScaleToQuantum(_Value);
           break;
         case 4:
-          Color.R = (QuantumType)(Quantum.Max * (min + x));
-          Color.G = (QuantumType)(Quantum.Max * min);
-          Color.B = (QuantumType)(Quantum.Max * (min + c));
+          Color.R = Quantum.ScaleToQuantum(t);
+          Color.G = Quantum.ScaleToQuantum(p);
+          Color.B = Quantum.ScaleToQuantum(_Value);
           break;
         case 5:
-          Color.R = (QuantumType)(Quantum.Max * (min + c));
-          Color.G = (QuantumType)(Quantum.Max * min);
-          Color.B = (QuantumType)(Quantum.Max * (min + x));
-          break;
-        default:
-          Color.R = 0;
-          Color.G = 0;
-          Color.B = 0;
+          Color.R = Quantum.ScaleToQuantum(_Value);
+          Color.G = Quantum.ScaleToQuantum(p);
+          Color.B = Quantum.ScaleToQuantum(q);
           break;
       }
     }
@@ -217,6 +215,9 @@ namespace ImageMagick
 
       while (_Hue >= 1.0)
         _Hue -= 1.0;
+
+      while (_Hue < 0.0)
+        _Hue += 1.0;
     }
   }
 }
