@@ -91,6 +91,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(magickColor, MagickColors.Cyan);
 
       Assert.IsNull(ColorRGB.FromMagickColor(null));
+      Assert.IsNull((MagickColor)(ColorRGB)(null));
     }
 
     [TestMethod]
