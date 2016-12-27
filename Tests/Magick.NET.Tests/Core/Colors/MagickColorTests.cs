@@ -84,6 +84,30 @@ namespace Magick.NET.Tests
 
       second = MagickColors.White.Clone();
       Assert.AreEqual(0, first.CompareTo(second));
+
+      QuantumType half = (QuantumType)(Quantum.Max / 2.0);
+      first = new MagickColor(half, half, half, half, half);
+
+      second = new MagickColor(half, 0, half, half, half);
+      Assert.AreEqual(1, first.CompareTo(second));
+
+      second = new MagickColor(half, half, Quantum.Max, half, half);
+      Assert.AreEqual(-1, first.CompareTo(second));
+
+      second = new MagickColor(half, half, 0, half, half);
+      Assert.AreEqual(1, first.CompareTo(second));
+
+      second = new MagickColor(half, half, half, Quantum.Max, half);
+      Assert.AreEqual(-1, first.CompareTo(second));
+
+      second = new MagickColor(half, half, half, 0, half);
+      Assert.AreEqual(1, first.CompareTo(second));
+
+      second = new MagickColor(half, half, half, half, Quantum.Max);
+      Assert.AreEqual(-1, first.CompareTo(second));
+
+      second = new MagickColor(half, half, half, half, 0);
+      Assert.AreEqual(1, first.CompareTo(second));
     }
 
     [TestMethod]
