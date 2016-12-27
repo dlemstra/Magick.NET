@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ImageMagick
 {
@@ -35,9 +36,10 @@ namespace ImageMagick
       for (int i = 0; i < length; i++)
       {
         IntPtr instance = NativeMagickColorCollection.GetInstance(list, i);
+        Debug.Assert(instance != IntPtr.Zero);
+
         MagickColor color = MagickColor.CreateInstance(instance);
-        if (color != null)
-          colors[color] = color.Count;
+        colors[color] = color.Count;
       }
 
       return colors;
