@@ -92,6 +92,7 @@ namespace ImageMagick
       switch ((int)Math.Floor(h))
       {
         case 0:
+        default:
           Color.R = Quantum.ScaleToQuantum(min + c);
           Color.G = Quantum.ScaleToQuantum(min + x);
           Color.B = Quantum.ScaleToQuantum(min);
@@ -120,11 +121,6 @@ namespace ImageMagick
           Color.R = Quantum.ScaleToQuantum(min + c);
           Color.G = Quantum.ScaleToQuantum(min);
           Color.B = Quantum.ScaleToQuantum(min + x);
-          break;
-        default:
-          Color.R = 0;
-          Color.G = 0;
-          Color.B = 0;
           break;
       }
     }

@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
 
       Test_IEquatable_Equal(first, second);
 
-      second = new ColorHSL(1.0, 0.5, 1.0);
+      second = new ColorHSL(0.2, 0.5, 1.0);
 
       Test_IEquatable_NotEqual(first, second);
     }
@@ -101,6 +101,40 @@ namespace Magick.NET.Tests
       Assert.AreEqual(1, color.Hue);
       Assert.AreEqual(2, color.Saturation);
       Assert.AreEqual(3, color.Lightness);
+    }
+
+    [TestMethod]
+    public void Test_ColorHSL()
+    {
+      ColorHSL color = new MagickColor("#010203");
+      ColorAssert.AreEqual(new MagickColor("#010203"), color);
+
+      color = new MagickColor("#aabbcc");
+      ColorAssert.AreEqual(new MagickColor("#aabbcc"), color);
+
+      color = new MagickColor("#e0d8d9");
+      ColorAssert.AreEqual(new MagickColor("#e0d9da"), color);
+
+      color = new MagickColor("#e0d9d8");
+      ColorAssert.AreEqual(new MagickColor("#e0dad9"), color);
+
+      color = new MagickColor("#bbccbb");
+#if Q8
+      ColorAssert.AreEqual(new MagickColor("#bacbba"), color);
+#elif Q16 || Q16HDRI
+      ColorAssert.AreEqual(new MagickColor("#bbbacccbbbba"), color);
+#else
+#error Not implemented!
+#endif
+
+      color = new MagickColor("#bbaacc");
+#if Q8
+      ColorAssert.AreEqual(new MagickColor("#cbbacb"), color);
+#elif Q16 || Q16HDRI
+      ColorAssert.AreEqual(new MagickColor("#cccbbbbacccb"), color);
+#else
+#error Not implemented!
+#endif
     }
   }
 }
