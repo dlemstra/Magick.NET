@@ -208,9 +208,6 @@ namespace ImageMagick
     /// <param name="degrees">The degrees.</param>
     public void HueShift(double degrees)
     {
-      if (degrees < 0.0)
-        return;
-
       _Hue += degrees / 360.0;
 
       while (_Hue >= 1.0)

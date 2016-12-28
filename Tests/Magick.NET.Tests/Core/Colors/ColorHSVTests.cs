@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
 
       Test_IEquatable_Equal(first, second);
 
-      second = new ColorHSV(1.0, 0.5, 1.0);
+      second = new ColorHSV(0.2, 0.5, 0.5);
 
       Test_IEquatable_NotEqual(first, second);
     }
@@ -108,10 +108,10 @@ namespace Magick.NET.Tests
     {
       ColorHSV color = new ColorHSV(0.3, 0.2, 0.1);
 
-      color.HueShift(-0.99);
-      Assert.AreEqual(0.3, color.Hue);
-
       color.HueShift(720);
+      Assert.AreEqual(0.3, color.Hue, 0.00001);
+
+      color.HueShift(-720);
       Assert.AreEqual(0.3, color.Hue, 0.00001);
     }
   }
