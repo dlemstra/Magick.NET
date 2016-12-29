@@ -14,6 +14,7 @@
 
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections;
 
 namespace Magick.NET.Tests
 {
@@ -58,6 +59,19 @@ namespace Magick.NET.Tests
         ColorAssert.AreEqual(MagickColors.Black, image, 90, 1);
         ColorAssert.AreEqual(MagickColors.Fuchsia, image, 90, 2);
       }
+    }
+
+    [TestMethod]
+    public void Test_Paths()
+    {
+      Paths paths = null;
+
+      Drawables drawables = paths;
+      Assert.IsNull(paths);
+
+      paths = new Paths();
+      IEnumerator enumerator = ((IEnumerable)paths).GetEnumerator();
+      Assert.IsFalse(enumerator.MoveNext());
     }
   }
 }
