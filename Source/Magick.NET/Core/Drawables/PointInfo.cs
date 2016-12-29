@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ImageMagick
 {
@@ -42,8 +43,8 @@ namespace ImageMagick
 
     public void Dispose()
     {
-      if (_NativeInstance != null)
-        _NativeInstance.Dispose();
+      Debug.Assert(_NativeInstance != null);
+      _NativeInstance.Dispose();
     }
   }
 }
