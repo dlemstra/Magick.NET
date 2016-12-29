@@ -16,6 +16,7 @@ using System;
 using System.Text;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Magick.NET.Tests
 {
@@ -40,7 +41,11 @@ namespace Magick.NET.Tests
         image.Draw(new DrawableAffine(0, 0, 1, 1, 2, 2));
         image.Draw(new DrawableAlpha(0, 0, PaintMethod.Floodfill));
         image.Draw(new DrawableArc(0, 0, 10, 10, 45, 90));
-        image.Draw(new DrawableBezier(coordinates));
+
+        var bezier = new DrawableBezier(coordinates.ToList());
+        Assert.AreEqual(3, bezier.Coordinates.Count());
+        image.Draw(bezier);
+
         image.Draw(new DrawableBorderColor(MagickColors.Fuchsia));
         image.Draw(new DrawableCircle(0, 0, 50, 50));
         image.Draw(new DrawableClipPath("foo"));
@@ -61,13 +66,16 @@ namespace Magick.NET.Tests
         image.Draw(new DrawableFillColor(MagickColors.Red));
         image.Draw(new DrawableFillOpacity(new Percentage(50)));
         image.Draw(new DrawableFillRule(FillRule.EvenOdd));
+        image.Draw(new DrawableFont("Arial.ttf"));
         image.Draw(new DrawableFont("Arial"));
         image.Draw(new DrawableGravity(Gravity.Center));
         image.Draw(new DrawableLine(20, 20, 40, 40));
         image.Draw(new DrawablePoint(60, 60));
         image.Draw(new DrawableFontPointSize(5));
         image.Draw(new DrawablePolygon(coordinates));
+        image.Draw(new DrawablePolygon(coordinates.ToList()));
         image.Draw(new DrawablePolyline(coordinates));
+        image.Draw(new DrawablePolyline(coordinates.ToList()));
         image.Draw(new DrawableRectangle(30, 30, 70, 70));
         image.Draw(new DrawableRotation(180));
         image.Draw(new DrawableRoundRectangle(50, 50, 30, 30, 70, 70));

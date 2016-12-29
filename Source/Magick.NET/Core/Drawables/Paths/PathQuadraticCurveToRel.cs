@@ -54,7 +54,7 @@ namespace ImageMagick
     void IPath.Draw(IDrawingWand wand)
     {
       if (wand != null)
-        wand.PathQuadraticCurveToAbs(_ControlPoint, _End);
+        wand.PathQuadraticCurveToRel(_ControlPoint, _End);
     }
   }
 }

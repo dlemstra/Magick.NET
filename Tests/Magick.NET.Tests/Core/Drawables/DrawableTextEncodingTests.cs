@@ -12,33 +12,25 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Drawing.Drawing2D;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+using System.Text;
 
 namespace Magick.NET.Tests
 {
-  public partial class DrawableAffineTests
+  [TestClass]
+  public partial class DrawableTextEncodingTests
   {
     [TestMethod]
-    public void Test_Constructor_Matrix()
+    public void Test_Encoding()
     {
-      Matrix matrix = null;
+      DrawableTextEncoding encoding = new DrawableTextEncoding(Encoding.UTF8);
+      encoding.Encoding = null;
 
-      ExceptionAssert.Throws<ArgumentNullException>(() =>
+      using (MagickImage image = new MagickImage(MagickColors.Firebrick, 10, 10))
       {
-        new DrawableAffine(matrix);
-      });
-
-      matrix = new Matrix(11, 12, 21, 22, 0, 1);
-      DrawableAffine affine = new DrawableAffine(matrix);
-      Assert.AreEqual(11, affine.ScaleX);
-      Assert.AreEqual(12, affine.ScaleY);
-      Assert.AreEqual(21, affine.ShearX);
-      Assert.AreEqual(22, affine.ShearY);
-      Assert.AreEqual(0, affine.TranslateX);
-      Assert.AreEqual(1, affine.TranslateY);
+        image.Draw(encoding);
+      }
     }
   }
 }

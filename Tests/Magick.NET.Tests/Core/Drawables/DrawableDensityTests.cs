@@ -51,5 +51,13 @@ namespace Magick.NET.Tests
         Assert.AreEqual(24, image.Height);
       }
     }
+
+    [TestMethod]
+    public void Test_Constructor()
+    {
+      DrawableDensity density = new DrawableDensity(new PointD(4, 2));
+      Assert.AreEqual(4, density.Density.X);
+      Assert.AreEqual(2, density.Density.Y);
+    }
   }
 }
