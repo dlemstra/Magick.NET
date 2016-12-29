@@ -22,6 +22,11 @@ namespace Magick.NET.Tests
   [TestClass]
   public class DrawableTests
   {
+    private void Test_Drawables_Draw(IDrawable drawable)
+    {
+      drawable.Draw(null);
+    }
+
     [TestMethod]
     public void Test_Drawables()
     {
@@ -95,6 +100,83 @@ namespace Magick.NET.Tests
         image.Draw(new DrawablePushGraphicContext(), new DrawablePopGraphicContext());
         image.Draw(new DrawablePushPattern("test", 30, 30, 10, 10), new DrawablePopPattern(), new DrawableFillPatternUrl("#test"), new DrawableStrokePatternUrl("#test"));
       }
+    }
+
+    [TestMethod]
+    public void Test_Drawables_Draw()
+    {
+      PointD[] coordinates = new PointD[3];
+      coordinates[0] = new PointD(0, 0);
+      coordinates[1] = new PointD(50, 50);
+      coordinates[2] = new PointD(99, 99);
+
+      Test_Drawables_Draw(new DrawableAffine(0, 0, 1, 1, 2, 2));
+      Test_Drawables_Draw(new DrawableAlpha(0, 0, PaintMethod.Floodfill));
+      Test_Drawables_Draw(new DrawableArc(0, 0, 10, 10, 45, 90));
+      Test_Drawables_Draw(new DrawableBezier(coordinates));
+      Test_Drawables_Draw(new DrawableBorderColor(MagickColors.Fuchsia));
+      Test_Drawables_Draw(new DrawableCircle(0, 0, 50, 50));
+      Test_Drawables_Draw(new DrawableClipPath("foo"));
+      Test_Drawables_Draw(new DrawableClipRule(FillRule.Nonzero));
+      Test_Drawables_Draw(new DrawableClipUnits(ClipPathUnit.UserSpaceOnUse));
+      Test_Drawables_Draw(new DrawableColor(0, 0, PaintMethod.Floodfill));
+
+      using (MagickImage compositeImage = new MagickImage(new MagickColor("red"), 50, 50))
+      {
+        Test_Drawables_Draw(new DrawableComposite(0, 0, compositeImage));
+        Test_Drawables_Draw(new DrawableComposite(0, 0, CompositeOperator.Over, compositeImage));
+        Test_Drawables_Draw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), compositeImage));
+        Test_Drawables_Draw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), CompositeOperator.Over, compositeImage));
+      }
+
+      Test_Drawables_Draw(new DrawableDensity(97));
+      Test_Drawables_Draw(new DrawableEllipse(10, 10, 4, 4, 0, 360));
+      Test_Drawables_Draw(new DrawableFillColor(MagickColors.Red));
+      Test_Drawables_Draw(new DrawableFillOpacity(new Percentage(50)));
+      Test_Drawables_Draw(new DrawableFillRule(FillRule.EvenOdd));
+      Test_Drawables_Draw(new DrawableFont("Arial"));
+      Test_Drawables_Draw(new DrawableGravity(Gravity.Center));
+      Test_Drawables_Draw(new DrawableLine(20, 20, 40, 40));
+      Test_Drawables_Draw(new DrawablePoint(60, 60));
+      Test_Drawables_Draw(new DrawableFontPointSize(5));
+      Test_Drawables_Draw(new DrawablePolygon(coordinates));
+      Test_Drawables_Draw(new DrawablePolyline(coordinates));
+      Test_Drawables_Draw(new DrawableRectangle(30, 30, 70, 70));
+      Test_Drawables_Draw(new DrawableRotation(180));
+      Test_Drawables_Draw(new DrawableRoundRectangle(50, 50, 30, 30, 70, 70));
+      Test_Drawables_Draw(new DrawableScaling(15, 15));
+      Test_Drawables_Draw(new DrawableSkewX(90));
+      Test_Drawables_Draw(new DrawableSkewY(90));
+      Test_Drawables_Draw(new DrawableStrokeAntialias(true));
+      Test_Drawables_Draw(new DrawableStrokeColor(MagickColors.Purple));
+      Test_Drawables_Draw(new DrawableStrokeDashArray(new double[2] { 10, 20 }));
+      Test_Drawables_Draw(new DrawableStrokeDashOffset(2));
+      Test_Drawables_Draw(new DrawableStrokeLineCap(LineCap.Square));
+      Test_Drawables_Draw(new DrawableStrokeLineJoin(LineJoin.Bevel));
+      Test_Drawables_Draw(new DrawableStrokeMiterLimit(5));
+      Test_Drawables_Draw(new DrawableStrokeOpacity(new Percentage(80)));
+      Test_Drawables_Draw(new DrawableStrokeWidth(4));
+      Test_Drawables_Draw(new DrawableText(0, 60, "test"));
+      Test_Drawables_Draw(new DrawableTextAlignment(TextAlignment.Center));
+      Test_Drawables_Draw(new DrawableTextAntialias(true));
+      Test_Drawables_Draw(new DrawableTextDecoration(TextDecoration.LineThrough));
+      Test_Drawables_Draw(new DrawableTextDirection(TextDirection.RightToLeft));
+      Test_Drawables_Draw(new DrawableTextEncoding(Encoding.ASCII));
+      Test_Drawables_Draw(new DrawableTextInterlineSpacing(4));
+      Test_Drawables_Draw(new DrawableTextInterwordSpacing(6));
+      Test_Drawables_Draw(new DrawableTextKerning(2));
+      Test_Drawables_Draw(new DrawableTextUnderColor(MagickColors.Yellow));
+      Test_Drawables_Draw(new DrawableTranslation(65, 65));
+      Test_Drawables_Draw(new DrawableViewbox(0, 0, 100, 100));
+
+      Test_Drawables_Draw(new DrawablePushClipPath("#1"));
+      Test_Drawables_Draw(new DrawablePopClipPath());
+      Test_Drawables_Draw(new DrawablePushGraphicContext());
+      Test_Drawables_Draw(new DrawablePopGraphicContext());
+      Test_Drawables_Draw(new DrawablePushPattern("test", 30, 30, 10, 10));
+      Test_Drawables_Draw(new DrawablePopPattern());
+      Test_Drawables_Draw(new DrawableFillPatternUrl("#test"));
+      Test_Drawables_Draw(new DrawableStrokePatternUrl("#test"));
     }
 
     [TestMethod]
