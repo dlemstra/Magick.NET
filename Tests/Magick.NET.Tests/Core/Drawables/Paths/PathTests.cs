@@ -22,6 +22,11 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PathTests
   {
+    private void Test_Paths_Draw(IPath path)
+    {
+      path.Draw(null);
+    }
+
     [TestMethod]
     public void Test_Paths()
     {
@@ -50,6 +55,30 @@ namespace Magick.NET.Tests
 
         image.Draw(new DrawablePath(paths));
       }
+    }
+
+    [TestMethod]
+    public void Test_Paths_Draw()
+    {
+      Test_Paths_Draw(new PathArcAbs(new PathArc(50, 50, 20, 20, 45, true, false)));
+      Test_Paths_Draw(new PathArcRel(new PathArc(10, 10, 5, 5, 40, false, true)));
+      Test_Paths_Draw(new PathClose());
+      Test_Paths_Draw(new PathCurveToAbs(80, 80, 10, 10, 60, 60));
+      Test_Paths_Draw(new PathCurveToRel(30, 30, 60, 60, 90, 90));
+      Test_Paths_Draw(new PathLineToAbs(new PointD(70, 70)));
+      Test_Paths_Draw(new PathLineToHorizontalAbs(20));
+      Test_Paths_Draw(new PathLineToHorizontalRel(90));
+      Test_Paths_Draw(new PathLineToRel(new PointD(0, 0)));
+      Test_Paths_Draw(new PathLineToVerticalAbs(70));
+      Test_Paths_Draw(new PathLineToVerticalRel(30));
+      Test_Paths_Draw(new PathMoveToAbs(new PointD(50, 50)));
+      Test_Paths_Draw(new PathMoveToRel(new PointD(20, 20)));
+      Test_Paths_Draw(new PathQuadraticCurveToAbs(70, 70, 30, 30));
+      Test_Paths_Draw(new PathQuadraticCurveToRel(10, 10, 40, 40));
+      Test_Paths_Draw(new PathSmoothCurveToAbs(new PointD(0, 0), new PointD(30, 30)));
+      Test_Paths_Draw(new PathSmoothCurveToRel(new PointD(60, 60), new PointD(10, 10)));
+      Test_Paths_Draw(new PathSmoothQuadraticCurveToAbs(50, 50));
+      Test_Paths_Draw(new PathSmoothQuadraticCurveToRel(80, 80));
     }
 
     [TestMethod]
