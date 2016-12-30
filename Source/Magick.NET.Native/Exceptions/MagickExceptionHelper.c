@@ -20,9 +20,9 @@ static inline size_t AreExceptionsEqual(const ExceptionInfo *a, const ExceptionI
   if ((a->severity != b->severity) ||
     (LocaleCompare(a->reason, b->reason) != 0) ||
     (LocaleCompare(a->description, b->description) != 0))
-    return MagickTrue;
+    return MagickFalse;
 
-  return MagickFalse;
+  return MagickTrue;
 }
 
 MAGICK_NET_EXPORT const char *MagickExceptionHelper_Description(const ExceptionInfo *instance)
@@ -54,7 +54,7 @@ MAGICK_NET_EXPORT const ExceptionInfo *MagickExceptionHelper_Related(const Excep
   while (index > 0)
   {
     p = (const ExceptionInfo *)GetValueFromLinkedList((LinkedListInfo *)instance->exceptions, --index);
-    if (AreExceptionsEqual(p, q) != MagickFalse)
+    if (AreExceptionsEqual(p, q) == MagickFalse)
     {
       if (count == idx)
         return p;
@@ -86,7 +86,7 @@ MAGICK_NET_EXPORT size_t MagickExceptionHelper_RelatedCount(const ExceptionInfo 
   while (index > 0)
   {
     p = (const ExceptionInfo *)GetValueFromLinkedList((LinkedListInfo *)instance->exceptions, --index);
-    if (AreExceptionsEqual(p, q) != MagickFalse)
+    if (AreExceptionsEqual(p, q) == MagickFalse)
     {
       q = p;
       count++;
