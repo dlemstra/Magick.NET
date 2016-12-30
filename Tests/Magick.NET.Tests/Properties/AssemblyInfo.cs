@@ -16,17 +16,15 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-//=================================================================================================
 [assembly: AssemblyTitle("Magick.NET.Tests")]
 [assembly: AssemblyProduct("Magick.NET")]
 [assembly: AssemblyDescription("Magick.NET.Tests")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyCopyright("Copyright © 2013-2016 Dirk Lemstra")]
 [assembly: AssemblyTrademark("")]
-//=================================================================================================
+
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("7.0.0.0")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
-//=================================================================================================
