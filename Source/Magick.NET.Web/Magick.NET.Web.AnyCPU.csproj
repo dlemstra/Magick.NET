@@ -53,7 +53,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Magick.NET.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -82,13 +82,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Magick.NET.snk" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Magick.NET\Magick.NET.AnyCPU.csproj">
       <Project>{daae3844-6435-4912-8f69-9f7a9242b4ac}</Project>
       <Name>Magick.NET</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Magick.NET.snk">
+      <Link>Magick.NET.snk</Link>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

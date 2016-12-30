@@ -100,7 +100,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Magick.NET.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -496,6 +496,9 @@
     <Compile Include="Framework\Types\MagickGeometry.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Magick.NET.snk">
+      <Link>Magick.NET.snk</Link>
+    </None>
     <None Include="..\Magick.NET.ruleset">
       <Link>Magick.NET.ruleset</Link>
       <SubType>Designer</SubType>
@@ -552,7 +555,6 @@
     <EmbeddedResource Include="Resources\ReleaseQ8\MagickScript.xsd" Condition="'$(Configuration)' == 'ReleaseQ8' Or '$(Configuration)' == 'DebugQ8'">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="Magick.NET.snk" />
     <AdditionalFiles Include="stylecop.json" />
     <None Include="packages.config" />
   </ItemGroup>

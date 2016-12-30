@@ -125,6 +125,12 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -262,6 +268,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Magick.NET.snk">
+      <Link>Magick.NET.snk</Link>
+    </None>
     <None Include="Core\Script\Collection.msl" />
     <None Include="Core\Script\Defines.msl" />
     <None Include="Core\Script\Distort.msl" />
