@@ -165,6 +165,7 @@
     <Compile Include="Core\Drawables\DrawableAffineTests.cs" />
     <Compile Include="Core\Drawables\DrawablePathTests.cs" />
     <Compile Include="Core\Drawables\DrawableTextEncodingTests.cs" />
+    <Compile Include="Core\Exceptions\MagickExceptionTests.cs" />
     <Compile Include="Core\TestStream.cs" />
     <Compile Include="Core\Replacements\ExcludeFromCodeCoverage.cs" />
     <Compile Include="Framework\Coders\PdfTests.cs" />

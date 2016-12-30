@@ -29,9 +29,6 @@ namespace ImageMagick
     internal void SetRelatedException(List<MagickException> relatedExceptions)
     {
       _RelatedExceptions = relatedExceptions;
-
-      if (_RelatedExceptions.Count > 0)
-        _RelatedExceptions.RemoveAt(0);
     }
 
     /// <summary>
