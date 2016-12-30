@@ -36,6 +36,7 @@ namespace Magick.NET.Tests.Core.Exceptions
 
         var warning = relatedExceptions[0] as MagickCoderWarningException;
         Assert.IsNotNull(warning);
+        Assert.AreEqual(0, warning.RelatedExceptions.Count());
       }
     }
   }
