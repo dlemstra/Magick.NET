@@ -27,7 +27,7 @@ namespace ImageMagick.ImageOptimizers
     {
       MagickFormat format = image.FormatInfo.Module;
       if (format != MagickFormat.Png)
-        throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString(), null);
+        throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
     }
 
     private static void CheckTransparency(MagickImage image)

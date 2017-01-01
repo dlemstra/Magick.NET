@@ -22,12 +22,11 @@ namespace ImageMagick
   {
     private static List<MagickException> CreateRelatedExceptions(IntPtr exception)
     {
-      List<MagickException> result = new List<MagickException>();
-
       int nestedCount = NativeMagickExceptionHelper.RelatedCount(exception);
       if (nestedCount == 0)
-        return result;
+        return null;
 
+      List<MagickException> result = new List<MagickException>();
       for (int i = 0; i < nestedCount; i++)
       {
         IntPtr nested = NativeMagickExceptionHelper.Related(exception, i);
@@ -39,83 +38,83 @@ namespace ImageMagick
 
     [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Cannot avoid it here.")]
     [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Cannot avoid it here.")]
-    private static MagickException Create(ExceptionSeverity severity, string message, MagickException innerExceptions)
+    private static MagickException Create(ExceptionSeverity severity, string message)
     {
       switch (severity)
       {
         case ExceptionSeverity.BlobWarning:
-          return new MagickBlobWarningException(message, innerExceptions);
+          return new MagickBlobWarningException(message);
         case ExceptionSeverity.CacheWarning:
-          return new MagickCacheWarningException(message, innerExceptions);
+          return new MagickCacheWarningException(message);
         case ExceptionSeverity.CoderWarning:
-          return new MagickCoderWarningException(message, innerExceptions);
+          return new MagickCoderWarningException(message);
         case ExceptionSeverity.ConfigureWarning:
-          return new MagickConfigureWarningException(message, innerExceptions);
+          return new MagickConfigureWarningException(message);
         case ExceptionSeverity.CorruptImageWarning:
-          return new MagickCorruptImageWarningException(message, innerExceptions);
+          return new MagickCorruptImageWarningException(message);
         case ExceptionSeverity.DelegateWarning:
-          return new MagickDelegateWarningException(message, innerExceptions);
+          return new MagickDelegateWarningException(message);
         case ExceptionSeverity.DrawWarning:
-          return new MagickDrawWarningException(message, innerExceptions);
+          return new MagickDrawWarningException(message);
         case ExceptionSeverity.FileOpenWarning:
-          return new MagickFileOpenWarningException(message, innerExceptions);
+          return new MagickFileOpenWarningException(message);
         case ExceptionSeverity.ImageWarning:
-          return new MagickImageWarningException(message, innerExceptions);
+          return new MagickImageWarningException(message);
         case ExceptionSeverity.MissingDelegateWarning:
-          return new MagickMissingDelegateWarningException(message, innerExceptions);
+          return new MagickMissingDelegateWarningException(message);
         case ExceptionSeverity.ModuleWarning:
-          return new MagickModuleWarningException(message, innerExceptions);
+          return new MagickModuleWarningException(message);
         case ExceptionSeverity.OptionWarning:
-          return new MagickOptionWarningException(message, innerExceptions);
+          return new MagickOptionWarningException(message);
         case ExceptionSeverity.PolicyWarning:
-          return new MagickPolicyWarningException(message, innerExceptions);
+          return new MagickPolicyWarningException(message);
         case ExceptionSeverity.RegistryWarning:
-          return new MagickRegistryWarningException(message, innerExceptions);
+          return new MagickRegistryWarningException(message);
         case ExceptionSeverity.ResourceLimitWarning:
-          return new MagickResourceLimitWarningException(message, innerExceptions);
+          return new MagickResourceLimitWarningException(message);
         case ExceptionSeverity.StreamWarning:
-          return new MagickStreamWarningException(message, innerExceptions);
+          return new MagickStreamWarningException(message);
         case ExceptionSeverity.TypeWarning:
-          return new MagickTypeWarningException(message, innerExceptions);
+          return new MagickTypeWarningException(message);
         case ExceptionSeverity.BlobError:
-          return new MagickBlobErrorException(message, innerExceptions);
+          return new MagickBlobErrorException(message);
         case ExceptionSeverity.CacheError:
-          return new MagickCacheErrorException(message, innerExceptions);
+          return new MagickCacheErrorException(message);
         case ExceptionSeverity.CoderError:
-          return new MagickCoderErrorException(message, innerExceptions);
+          return new MagickCoderErrorException(message);
         case ExceptionSeverity.ConfigureError:
-          return new MagickConfigureErrorException(message, innerExceptions);
+          return new MagickConfigureErrorException(message);
         case ExceptionSeverity.CorruptImageError:
-          return new MagickCorruptImageErrorException(message, innerExceptions);
+          return new MagickCorruptImageErrorException(message);
         case ExceptionSeverity.DelegateError:
-          return new MagickDelegateErrorException(message, innerExceptions);
+          return new MagickDelegateErrorException(message);
         case ExceptionSeverity.DrawError:
-          return new MagickDrawErrorException(message, innerExceptions);
+          return new MagickDrawErrorException(message);
         case ExceptionSeverity.FileOpenError:
-          return new MagickFileOpenErrorException(message, innerExceptions);
+          return new MagickFileOpenErrorException(message);
         case ExceptionSeverity.ImageError:
-          return new MagickImageErrorException(message, innerExceptions);
+          return new MagickImageErrorException(message);
         case ExceptionSeverity.MissingDelegateError:
-          return new MagickMissingDelegateErrorException(message, innerExceptions);
+          return new MagickMissingDelegateErrorException(message);
         case ExceptionSeverity.ModuleError:
-          return new MagickModuleErrorException(message, innerExceptions);
+          return new MagickModuleErrorException(message);
         case ExceptionSeverity.OptionError:
-          return new MagickOptionErrorException(message, innerExceptions);
+          return new MagickOptionErrorException(message);
         case ExceptionSeverity.PolicyError:
-          return new MagickPolicyErrorException(message, innerExceptions);
+          return new MagickPolicyErrorException(message);
         case ExceptionSeverity.RegistryError:
-          return new MagickRegistryErrorException(message, innerExceptions);
+          return new MagickRegistryErrorException(message);
         case ExceptionSeverity.ResourceLimitError:
-          return new MagickResourceLimitErrorException(message, innerExceptions);
+          return new MagickResourceLimitErrorException(message);
         case ExceptionSeverity.StreamError:
-          return new MagickStreamErrorException(message, innerExceptions);
+          return new MagickStreamErrorException(message);
         case ExceptionSeverity.TypeError:
-          return new MagickTypeErrorException(message, innerExceptions);
+          return new MagickTypeErrorException(message);
         default:
           if (severity < ExceptionSeverity.Error)
-            return new MagickWarningException(message, innerExceptions);
+            return new MagickWarningException(message);
           else
-            return new MagickErrorException(message, innerExceptions);
+            return new MagickErrorException(message);
       }
     }
 
@@ -151,9 +150,8 @@ namespace ImageMagick
         message += " (" + description + ")";
 
       List<MagickException> innerExceptions = CreateRelatedExceptions(exception);
-      MagickException innerException = innerExceptions.Count > 0 ? innerExceptions[0] : null;
 
-      MagickException result = Create(severity, message, innerException);
+      MagickException result = Create(severity, message);
       result.SetRelatedException(innerExceptions);
 
       return result;

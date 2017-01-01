@@ -30,10 +30,10 @@ namespace ImageMagick.ImageOptimizers
         int result = NativeJpegOptimizer.Optimize(file.FullName, output.FullName, progressive);
 
         if (result == 1)
-          throw new MagickCorruptImageErrorException("Unable to decompress the jpeg file.", null);
+          throw new MagickCorruptImageErrorException("Unable to decompress the jpeg file.");
 
         if (result == 2)
-          throw new MagickCorruptImageErrorException("Unable to compress the jpeg file.", null);
+          throw new MagickCorruptImageErrorException("Unable to compress the jpeg file.");
 
         if (result != 0)
           return;
