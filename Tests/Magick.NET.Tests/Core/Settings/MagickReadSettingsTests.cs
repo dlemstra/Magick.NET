@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
     {
       ExceptionAssert.Throws<ArgumentNullException>(() =>
       {
-        MagickReadSettings settings = new MagickReadSettings(null);
+        MagickReadSettings settings = new MagickReadSettings((IReadDefines)null);
       });
     }
 

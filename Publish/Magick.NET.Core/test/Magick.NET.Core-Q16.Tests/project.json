@@ -2,6 +2,7 @@
   "testRunner": "xunit",
   "buildOptions":
   {
+    "allowUnsafe": true,
     "compile":
     [
       "../../../../Tests/Magick.NET.Tests/Core/**/*.cs"
@@ -10,7 +11,8 @@
     [
       "Q16",
       "ANYCPU"
-    ]
+    ],
+    "keyFile": "../../../../Magick.NET.snk"
   },
   "dependencies":
   {

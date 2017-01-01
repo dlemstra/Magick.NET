@@ -20,24 +20,6 @@ namespace ImageMagick
 {
   internal static partial class MagickExceptionHelper
   {
-    private static MagickException CreateException(IntPtr exception)
-    {
-      ExceptionSeverity severity = (ExceptionSeverity)NativeMagickExceptionHelper.Severity(exception);
-      string message = NativeMagickExceptionHelper.Message(exception);
-      string description = NativeMagickExceptionHelper.Description(exception);
-
-      if (!string.IsNullOrEmpty(description))
-        message += " (" + description + ")";
-
-      List<MagickException> innerExceptions = CreateRelatedExceptions(exception);
-      MagickException innerException = innerExceptions.Count > 0 ? innerExceptions[0] : null;
-
-      MagickException result = Create(severity, message, innerException);
-      result.SetRelatedException(innerExceptions);
-
-      return result;
-    }
-
     private static List<MagickException> CreateRelatedExceptions(IntPtr exception)
     {
       List<MagickException> result = new List<MagickException>();
@@ -157,6 +139,24 @@ namespace ImageMagick
       NativeMagickExceptionHelper.Dispose(exception);
 
       return magickException;
+    }
+
+    public static MagickException CreateException(IntPtr exception)
+    {
+      ExceptionSeverity severity = (ExceptionSeverity)NativeMagickExceptionHelper.Severity(exception);
+      string message = NativeMagickExceptionHelper.Message(exception);
+      string description = NativeMagickExceptionHelper.Description(exception);
+
+      if (!string.IsNullOrEmpty(description))
+        message += " (" + description + ")";
+
+      List<MagickException> innerExceptions = CreateRelatedExceptions(exception);
+      MagickException innerException = innerExceptions.Count > 0 ? innerExceptions[0] : null;
+
+      MagickException result = Create(severity, message, innerException);
+      result.SetRelatedException(innerExceptions);
+
+      return result;
     }
 
     public static bool IsError(MagickException exception)
