@@ -38,7 +38,7 @@
     "optimize": true,
     "warningsAsErrors": true,
     "xmlDoc": true,
-    "keyFile": "../../../../Source/Magick.NET/Magick.NET.snk",
+    "keyFile": "../../../../Magick.NET.snk",
     "embed":
     [
       "../../../../Source/Magick.NET/Resources/ColorProfiles/**/*"
