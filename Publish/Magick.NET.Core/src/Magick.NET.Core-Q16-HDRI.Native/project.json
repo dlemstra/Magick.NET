@@ -6,7 +6,7 @@
     "Dirk Lemstra"
   ],
   "description": "Dependency for Magick.NET.Core-Q16-HDRI that should be installed instead of this package.",
-  "copyright": "Copyright 2013-2016 Dirk Lemstra",
+  "copyright": "Copyright 2013-2017 Dirk Lemstra",
   "packOptions":
   {
     "licenseUrl": "https://magick.codeplex.com/license",
