@@ -16,6 +16,9 @@ using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if NET20
+using System.Security.Permissions;
+#endif
 
 #if Q8
 #if WIN64 && NET20
