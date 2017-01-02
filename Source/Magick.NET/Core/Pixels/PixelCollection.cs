@@ -478,9 +478,19 @@ namespace ImageMagick
       Throw.IfNullOrEmpty(nameof(mapping), mapping);
 
       CheckArea(x, y, width, height);
-      IntPtr nativeResult = _NativeInstance.ToByteArray(x, y, width, height, mapping);
-      byte[] result = ByteConverter.ToArray(nativeResult, width * height * mapping.Length);
-      MagickMemory.Relinquish(nativeResult);
+      IntPtr nativeResult = IntPtr.Zero;
+      byte[] result = null;
+
+      try
+      {
+        nativeResult = _NativeInstance.ToByteArray(x, y, width, height, mapping);
+        result = ByteConverter.ToArray(nativeResult, width * height * mapping.Length);
+      }
+      finally
+      {
+        MagickMemory.Relinquish(nativeResult);
+      }
+
       return result;
     }
 
@@ -522,9 +532,19 @@ namespace ImageMagick
       Throw.IfNullOrEmpty(nameof(mapping), mapping);
 
       CheckArea(x, y, width, height);
-      IntPtr nativeResult = _NativeInstance.ToShortArray(x, y, width, height, mapping);
-      ushort[] result = ShortConverter.ToArray(nativeResult, width * height * mapping.Length);
-      MagickMemory.Relinquish(nativeResult);
+      IntPtr nativeResult = IntPtr.Zero;
+      ushort[] result = null;
+
+      try
+      {
+        nativeResult = _NativeInstance.ToShortArray(x, y, width, height, mapping);
+        result = ShortConverter.ToArray(nativeResult, width * height * mapping.Length);
+      }
+      finally
+      {
+        MagickMemory.Relinquish(nativeResult);
+      }
+
       return result;
     }
 
