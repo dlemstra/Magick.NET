@@ -96,6 +96,19 @@ namespace Magick.NET.Tests.Core.Exceptions
 
       Test_CreateException(486, typeof(MagickErrorException));
       Test_CreateException(700, typeof(MagickErrorException));
+
+      /* These are just here to test all the if branches that are created */
+      Test_CreateException(306, typeof(MagickWarningException));
+      Test_CreateException(324, typeof(MagickWarningException));
+      Test_CreateException(326, typeof(MagickWarningException));
+      Test_CreateException(344, typeof(MagickWarningException));
+      Test_CreateException(364, typeof(MagickWarningException));
+      Test_CreateException(404, typeof(MagickErrorException));
+      Test_CreateException(406, typeof(MagickErrorException));
+      Test_CreateException(424, typeof(MagickErrorException));
+      Test_CreateException(426, typeof(MagickErrorException));
+      Test_CreateException(444, typeof(MagickErrorException));
+      Test_CreateException(464, typeof(MagickErrorException));
     }
 
     [TestMethod]
