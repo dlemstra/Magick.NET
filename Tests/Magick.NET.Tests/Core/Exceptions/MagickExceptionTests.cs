@@ -16,7 +16,7 @@ using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
-namespace Magick.NET.Tests.Core.Exceptions
+namespace Magick.NET.Tests
 {
   [TestClass]
   public class MagickExceptionTests

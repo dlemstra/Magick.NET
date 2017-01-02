@@ -18,7 +18,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Magick.NET.Tests.Core.Exceptions
+namespace Magick.NET.Tests
 {
   [TestClass]
   public class ExceptionHelperTests

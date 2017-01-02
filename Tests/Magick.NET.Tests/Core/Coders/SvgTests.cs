@@ -16,7 +16,7 @@ using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 
-namespace Magick.NET.Tests.Coders
+namespace Magick.NET.Tests
 {
   [TestClass]
   public partial class SvgTests
