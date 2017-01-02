@@ -167,6 +167,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\Helpers\QuantumConverterTests.cs" />
+    <Compile Include="Core\Helpers\ShortConverterTests.cs" />
+    <Compile Include="Core\Helpers\ByteConverterTests.cs" />
     <Compile Include="Core\Coders\MslTests.cs" />
     <Compile Include="Core\Coders\MvgTests.cs" />
     <Compile Include="Core\Coders\PngTests.cs" />

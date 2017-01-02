@@ -83,12 +83,12 @@ namespace ImageMagick
 
       for (int i = 0; i < 3; i++)
       {
-        uint yy = (uint)ByteConverter.ToInt(data, ref _Index);
+        uint yy = (uint)ByteConverter.ToUInt(data, ref _Index);
         int y = (int)yy;
         if (yy > 2147483647)
           y = (int)(yy - 4294967295U - 1);
 
-        uint xx = (uint)ByteConverter.ToInt(data, ref _Index);
+        uint xx = (uint)ByteConverter.ToUInt(data, ref _Index);
         int x = (int)xx;
         if (xx > 2147483647)
           x = (int)(xx - 4294967295U - 1);

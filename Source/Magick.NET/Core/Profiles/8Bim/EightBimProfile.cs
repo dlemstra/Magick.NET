@@ -33,6 +33,10 @@ namespace ImageMagick
 
     private ClipPath CreateClipPath(string name, int offset, int length)
     {
+      string d = GetClipPath(offset, length);
+      if (string.IsNullOrEmpty(d))
+        return null;
+
       XmlDocument doc = new XmlDocument();
       doc.CreateXmlDeclaration("1.0", "iso-8859-1", null);
 
@@ -47,7 +51,6 @@ namespace ImageMagick
       XmlHelper.SetAttribute(path, "stroke", "#00000000");
       XmlHelper.SetAttribute(path, "stroke-width", "0");
       XmlHelper.SetAttribute(path, "stroke-antialiasing", "false");
-      string d = GetClipPath(offset, length);
       XmlHelper.SetAttribute(path, "d", d);
 
       return new ClipPath(name, doc.CreateNavigator());
@@ -98,7 +101,7 @@ namespace ImageMagick
         if ((length & 0x01) == 0)
           i++;
 
-        length = ByteConverter.ToInt(Data, ref i);
+        length = ByteConverter.ToUInt(Data, ref i);
         if (i + length > Data.Length)
           return;
 
@@ -108,7 +111,11 @@ namespace ImageMagick
         if (length != 0)
         {
           if (isClipPath)
-            _ClipPaths.Add(CreateClipPath(name, i, length));
+          {
+            ClipPath clipPath = CreateClipPath(name, i, length);
+            if (clipPath != null)
+              _ClipPaths.Add(clipPath);
+          }
 
           byte[] data = new byte[length];
           Array.Copy(Data, i, data, 0, length);

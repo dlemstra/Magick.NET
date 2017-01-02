@@ -50,20 +50,18 @@ namespace ImageMagick
       return buffer;
     }
 
-    public static int ToInt(byte[] data, ref int offset)
+    public static int ToUInt(byte[] data, ref int offset)
     {
       if (offset + 4 > data.Length)
         return 0;
 
-      int test = (int)BitConverter.ToUInt32(data, offset);
-      if (test == -1)
-        return 0;
+      int value = data[offset++] << 24;
+      value = value | (data[offset++] << 16);
+      value = value | (data[offset++] << 8);
+      value = value | data[offset++];
 
-      int result = data[offset++] << 24;
-      result = result | (data[offset++] << 16);
-      result = result | (data[offset++] << 8);
-      result = result | data[offset++];
-      return (int)(result & 0xffffffff);
+      int result = (int)(value & 0xffffffff);
+      return result < 0 ? 0 : result;
     }
 
     public static short ToShort(byte[] data, ref int offset)

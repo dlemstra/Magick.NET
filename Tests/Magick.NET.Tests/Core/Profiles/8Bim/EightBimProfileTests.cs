@@ -12,10 +12,12 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Linq;
 using System.Xml.Linq;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace Magick.NET.Tests
 {
@@ -27,6 +29,12 @@ namespace Magick.NET.Tests
       Assert.IsNotNull(profile);
 
       Assert.AreEqual(25, profile.Values.Count());
+
+      EightBimValue firstValue = profile.Values.First();
+      Assert.AreEqual(1061, firstValue.ID);
+
+      byte[] bytes = new byte[16] { 154, 137, 173, 93, 40, 109, 186, 33, 2, 200, 203, 169, 103, 5, 63, 219 };
+      CollectionAssert.AreEqual(bytes, firstValue.ToByteArray());
 
       foreach (EightBimValue value in profile.Values)
       {
@@ -51,6 +59,24 @@ namespace Magick.NET.Tests
       doc = XDocument.Load(second.Path.CreateNavigator().ReadSubtree());
 
       Assert.AreEqual(@"<svg width=""200"" height=""200""><g><path fill=""#00000000"" stroke=""#00000000"" stroke-width=""0"" stroke-antialiasing=""false"" d=""M 52 144&#xA;L 130 57&#xA;L 157 121&#xA;L 131 106&#xA;L 52 144 Z&#xA;"" /></g></svg>", doc.ToString(SaveOptions.DisableFormatting));
+    }
+
+    private static byte[] ToBytes(params object[] objects)
+    {
+      List<byte> bytes = new List<byte>();
+      foreach (object obj in objects)
+      {
+        if (obj is byte)
+          bytes.Add((byte)obj);
+        else if (obj is char)
+          bytes.Add((byte)(char)obj);
+        else if (obj is short)
+          bytes.AddRange(BitConverter.GetBytes((short)obj).Reverse());
+        else if (obj is int)
+          bytes.AddRange(BitConverter.GetBytes((int)obj).Reverse());
+      }
+
+      return bytes.ToArray();
     }
 
     [TestMethod]
@@ -90,6 +116,26 @@ namespace Magick.NET.Tests
           TestProfileValues(profile);
         }
       }
+    }
+
+    [TestMethod]
+    public void Test_CorruptProfile()
+    {
+      byte[] bytes = ToBytes('8', 'B', 'I', 'M', (short)42, (byte)0, 1);
+
+      EightBimProfile profile = new EightBimProfile(bytes);
+      Assert.AreEqual(0, profile.Values.Count());
+
+      bytes = ToBytes('8', 'B', 'I', 'M', (short)42, (short)0, -1);
+
+      profile = new EightBimProfile(bytes);
+      Assert.AreEqual(0, profile.Values.Count());
+
+      bytes = ToBytes('8', 'B', 'I', 'M', (short)2000, (short)0, 1, (byte)0);
+
+      profile = new EightBimProfile(bytes);
+      Assert.AreEqual(1, profile.Values.Count());
+      Assert.AreEqual(0, profile.ClipPaths.Count());
     }
   }
 }
