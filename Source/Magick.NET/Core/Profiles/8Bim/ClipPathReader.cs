@@ -29,7 +29,7 @@ namespace ImageMagick
     private PointD[] _Last;
     private int _Width;
 
-    private void AddPath(Byte[] data)
+    private void AddPath(byte[] data)
     {
       if (_KnotCount == 0)
       {
@@ -77,7 +77,7 @@ namespace ImageMagick
         _Path.AppendFormat(CultureInfo.InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###} Z\n", _Last[2].X, _Last[2].Y, _First[0].X, _First[0].Y, _First[1].X, _First[1].Y);
     }
 
-    private PointD[] CreatePoint(Byte[] data)
+    private PointD[] CreatePoint(byte[] data)
     {
       PointD[] result = new PointD[3];
 
@@ -109,7 +109,7 @@ namespace ImageMagick
       _Last = new PointD[3];
     }
 
-    private void SetKnotCount(Byte[] data)
+    private void SetKnotCount(byte[] data)
     {
       if (_KnotCount != 0)
       {
@@ -127,7 +127,7 @@ namespace ImageMagick
       _Height = height;
     }
 
-    public string Read(Byte[] data, int offset, int length)
+    public string Read(byte[] data, int offset, int length)
     {
       Reset(offset);
 
