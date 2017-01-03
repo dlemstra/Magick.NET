@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
     [AssemblyInitialize]
     public static void Initialize(TestContext context)
     {
-      MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs9.19\bin");
+      MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs9.20\bin");
     }
   }
 }
