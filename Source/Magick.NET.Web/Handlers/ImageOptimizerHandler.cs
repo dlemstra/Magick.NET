@@ -26,7 +26,7 @@ namespace ImageMagick.Web.Handlers
 
     private void CreateOptimizedFile(string cacheFileName)
     {
-      string tempFile = GetTempFileName();
+      string tempFile = DetermineTempFileName();
       try
       {
         File.Copy(UrlResolver.FileName, tempFile);
@@ -68,6 +68,7 @@ namespace ImageMagick.Web.Handlers
     /// <summary>
     /// Optimizes the specified file.
     /// </summary>
+    /// <param name="fileName">The file name of the file to optimize.</param>
     protected static void OptimizeFile(string fileName)
     {
       _ImageOptimizer.LosslessCompress(fileName);
@@ -76,6 +77,9 @@ namespace ImageMagick.Web.Handlers
     /// <summary>
     /// Writes the file to the response.
     /// </summary>
+    /// <param name="context">An HttpContext object that provides references to the intrinsic
+    /// server objects (for example, Request, Response, Session, and Server) used to service
+    /// HTTP requests.</param>
     protected override void WriteFile(HttpContext context)
     {
       string fileName = GetOptimizedFileName();

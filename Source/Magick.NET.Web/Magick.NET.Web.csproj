@@ -24,6 +24,7 @@
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-Q8-x86</AssemblyName>
     <DocumentationFile>bin\ReleaseQ8\x86\Magick.NET.Web-Q8-x86.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseQ8|x64' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +38,7 @@
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-Q8-x64</AssemblyName>
     <DocumentationFile>bin\ReleaseQ8\x64\Magick.NET.Web-Q8-x64.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x86'">
     <OutputPath>bin\ReleaseQ16\x86\</OutputPath>
@@ -49,6 +51,7 @@
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-Q16-x86</AssemblyName>
     <DocumentationFile>bin\ReleaseQ16\x86\Magick.NET.Web-Q16-x86.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16|x64'">
     <OutputPath>bin\ReleaseQ16\x64\</OutputPath>
@@ -61,6 +64,7 @@
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-Q16-x64</AssemblyName>
     <DocumentationFile>bin\ReleaseQ16\x64\Magick.NET.Web-Q16-x64.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x86'">
     <OutputPath>bin\ReleaseQ16-HDRI\x86\</OutputPath>
@@ -73,6 +77,7 @@
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-Q16-HDRI-x86</AssemblyName>
     <DocumentationFile>bin\ReleaseQ16-HDRI\x86\Magick.NET.Web-Q16-HDRI-x86.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseQ16-HDRI|x64'">
     <OutputPath>bin\ReleaseQ16-HDRI\x64\</OutputPath>
@@ -85,6 +90,7 @@
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>Magick.NET.Web-Q16-HDRI-x64</AssemblyName>
     <DocumentationFile>bin\ReleaseQ16-HDRI\x64\Magick.NET.Web-Q16-HDRI-x64.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -128,6 +134,18 @@
     <None Include="..\..\Magick.NET.snk">
       <Link>Magick.NET.snk</Link>
     </None>
+    <None Include="..\Magick.NET.ruleset">
+      <Link>Magick.NET.ruleset</Link>
+    </None>
+    <AdditionalFiles Include="..\stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.0-beta001\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.0-beta001\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.0-beta001\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

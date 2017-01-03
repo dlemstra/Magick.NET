@@ -15,6 +15,7 @@
 using System;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -45,7 +46,7 @@ namespace ImageMagick.Web
     /// <summary>
     /// Called after deserialization.
     /// </summary>
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IUrlResolver")]
+    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IUrlResolver", Justification = "This is the correct spelling.")]
     protected override void PostDeserialize()
     {
       base.PostDeserialize();
@@ -53,7 +54,7 @@ namespace ImageMagick.Web
       UrlResolverType = Type.GetType(TypeName, true, true);
 
       if (!typeof(IUrlResolver).IsAssignableFrom(UrlResolverType))
-        throw new ConfigurationErrorsException("The type '" + TypeName + "' does not implement the interface IUrlResolver.");
+        throw new ConfigurationErrorsException("The type '" + TypeName + "' does not implement the interface " + nameof(IUrlResolver));
 
       ConstructorInfo ctor = UrlResolverType.GetConstructor(new Type[] { });
       NewExpression newExp = Expression.New(ctor);
@@ -61,7 +62,7 @@ namespace ImageMagick.Web
     }
 
     /// <summary>
-    /// Returns the type of the url resolver.
+    /// Gets the type of the url resolver.
     /// </summary>
     public Type UrlResolverType
     {

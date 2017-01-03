@@ -13,7 +13,6 @@
 //=================================================================================================
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -115,8 +114,10 @@ namespace ImageMagick.Web.Handlers
     }
 
     /// <summary>
-    /// Initializes a new instance of the MagickHandler class.
+    /// Initializes a new instance of the <see cref="MagickHandler"/> class.
     /// </summary>
+    /// <param name="urlResolver">The url resolver that was used.</param>
+    /// <param name="formatInfo">The format information.</param>
     protected MagickHandler(IUrlResolver urlResolver, MagickFormatInfo formatInfo)
     {
       UrlResolver = urlResolver;
@@ -126,10 +127,13 @@ namespace ImageMagick.Web.Handlers
     /// <summary>
     /// Writes the file to the response.
     /// </summary>
+    /// <param name="context">An HttpContext object that provides references to the intrinsic
+    /// server objects (for example, Request, Response, Session, and Server) used to service
+    /// HTTP requests.</param>
     protected abstract void WriteFile(HttpContext context);
 
     /// <summary>
-    /// Returns the format information for the file that was resolved with the IUrlResolver.
+    /// Gets the format information for the file that was resolved with the IUrlResolver.
     /// </summary>
     protected MagickFormatInfo FormatInfo
     {
@@ -138,7 +142,7 @@ namespace ImageMagick.Web.Handlers
     }
 
     /// <summary>
-    /// Returns the IUrlResolver that was used.
+    /// Gets the IUrlResolver that was used.
     /// </summary>
     protected IUrlResolver UrlResolver
     {
@@ -150,6 +154,8 @@ namespace ImageMagick.Web.Handlers
     /// Returns true if the cache file is newer then the file name that was resolved by the
     /// IUrlResolver.
     /// </summary>
+    /// <param name="cacheFileName">The file name of the cache file.</param>
+    /// <returns>True if the cache file is newer</returns>
     protected bool CanUseCache(string cacheFileName)
     {
       _Lock.EnterReadLock();
@@ -175,7 +181,7 @@ namespace ImageMagick.Web.Handlers
     /// <param name="directoryName">The name of the subdirectory to store the files in.</param>
     /// <param name="subdirectoryKey">The key that will be used to create MD5 hash and that
     /// will be used as a sub directory.</param>
-    /// <returns></returns>
+    /// <returns>The file name that can be used to cache the result.</returns>
     protected string GetCacheFileName(string directoryName, string subdirectoryKey)
     {
       string cacheDirectory = MagickWebSettings.CacheDirectory + directoryName + "\\" + CalculateMD5(subdirectoryKey) + "\\";
@@ -189,9 +195,8 @@ namespace ImageMagick.Web.Handlers
     /// <summary>
     /// Returns the file name for a temporary file.
     /// </summary>
-    /// <returns></returns>
-    [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
-    protected static string GetTempFileName()
+    /// <returns>The file name for a temporary file.</returns>
+    protected static string DetermineTempFileName()
     {
       return MagickWebSettings.TempDirectory + Guid.NewGuid();
     }
@@ -200,6 +205,8 @@ namespace ImageMagick.Web.Handlers
     /// Moves to the specified source file name to the destination file name. This is happening
     /// in a lock to avoid problems when an other request is reading the file.
     /// </summary>
+    /// <param name="fileName">The name of the file to move to the cache.</param>
+    /// <param name="cacheFileName">The file name of the cache file.</param>
     protected static void MoveToCache(string fileName, string cacheFileName)
     {
       try
@@ -220,6 +227,10 @@ namespace ImageMagick.Web.Handlers
     /// <summary>
     /// Writes the specified file to the response.
     /// </summary>
+    /// <param name="context">An HttpContext object that provides references to the intrinsic
+    /// server objects (for example, Request, Response, Session, and Server) used to service
+    /// HTTP requests.</param>
+    /// <param name="fileName">The file name of the file to write to the response.</param>
     protected static void WriteFile(HttpContext context, string fileName)
     {
       if (context == null)

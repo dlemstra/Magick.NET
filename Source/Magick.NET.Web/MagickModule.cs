@@ -26,7 +26,7 @@ namespace ImageMagick.Web
   /// </summary>
   public sealed class MagickModule : IHttpModule
   {
-    private static IEnumerable<IUrlResolver> _ScriptUrlResolvers
+    private static IEnumerable<IUrlResolver> ScriptUrlResolvers
     {
       get
       {
@@ -41,7 +41,7 @@ namespace ImageMagick.Web
     {
       Uri url = (Uri)context.Items["ImageMagick.Web.MagickModule.Url"];
 
-      foreach (IUrlResolver scriptUrlResolver in _ScriptUrlResolvers)
+      foreach (IUrlResolver scriptUrlResolver in ScriptUrlResolvers)
       {
         if (scriptUrlResolver.Resolve(url))
           return CreateHttpHandler(scriptUrlResolver);

@@ -21,23 +21,23 @@ namespace ImageMagick.Web
   /// Class that contains the settings for the url resolvers.
   /// </summary>
   [ConfigurationCollection(typeof(UrlResolverSettings), AddItemName = "urlResolver")]
-  [SuppressMessage("Microsoft.Design", "CA1010:CollectionsShouldImplementGenericInterface")]
+  [SuppressMessage("Microsoft.Design", "CA1010:CollectionsShouldImplementGenericInterface", Justification = "The interface will not used.")]
   public class UrlResolverSettingsCollection : ConfigurationElementCollection
   {
     /// <summary>
-    /// Initializes a new instance of the UrlResolverSettings class.
+    /// Initializes a new instance of the <see cref="UrlResolverSettings"/> class.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A new instance of the <see cref="UrlResolverSettings"/>  class.</returns>
     protected override ConfigurationElement CreateNewElement()
     {
       return new UrlResolverSettings();
     }
 
     /// <summary>
-    /// Gets the element key for a specified UrlResolverSettings element.
+    /// Gets the element key for a specified <see cref="UrlResolverSettings"/> element.
     /// </summary>
-    /// <param name="element">The UrlResolverSettings to return the key for.</param>
-    /// <returns></returns>
+    /// <param name="element">The <see cref="UrlResolverSettings"/>  to return the key for.</param>
+    /// <returns>The element key for a specified <see cref="UrlResolverSettings"/> element</returns>
     protected override object GetElementKey(ConfigurationElement element)
     {
       return ((UrlResolverSettings)element).TypeName;

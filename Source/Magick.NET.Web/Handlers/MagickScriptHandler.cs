@@ -23,7 +23,6 @@ namespace ImageMagick.Web.Handlers
   /// </summary>
   public class MagickScriptHandler : ImageOptimizerHandler
   {
-
     private void CreateScriptedFile(IXPathNavigable xml, string cacheFileName)
     {
       MagickScript script = new MagickScript(xml);
@@ -59,7 +58,7 @@ namespace ImageMagick.Web.Handlers
 
     private void WriteToCache(MagickImage image, string cacheFileName)
     {
-      string tempFile = GetTempFileName();
+      string tempFile = DetermineTempFileName();
 
       try
       {
@@ -85,6 +84,9 @@ namespace ImageMagick.Web.Handlers
     /// <summary>
     /// Writes the file to the response.
     /// </summary>
+    /// <param name="context">An HttpContext object that provides references to the intrinsic
+    /// server objects (for example, Request, Response, Session, and Server) used to service
+    /// HTTP requests.</param>
     protected override void WriteFile(HttpContext context)
     {
       string fileName = GetScriptedFileName();

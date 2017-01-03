@@ -42,10 +42,10 @@ namespace ImageMagick.Web.Handlers
       return cacheFileName;
     }
 
-    [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
+    [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Code is much cleaner this way.")]
     private void CreateCompressedFile(string encoding, string cacheFileName)
     {
-      string tempFile = GetTempFileName();
+      string tempFile = DetermineTempFileName();
 
       try
       {
@@ -122,6 +122,9 @@ namespace ImageMagick.Web.Handlers
     /// <summary>
     /// Writes the file to the response.
     /// </summary>
+    /// <param name="context">An HttpContext object that provides references to the intrinsic
+    /// server objects (for example, Request, Response, Session, and Server) used to service
+    /// HTTP requests.</param>
     protected override void WriteFile(HttpContext context)
     {
       string fileName = GetCompressedFileName(context);

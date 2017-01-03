@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.Configuration;
 
 namespace ImageMagick.Web
@@ -23,7 +22,7 @@ namespace ImageMagick.Web
   public class ResourceLimitsSettings : ConfigurationElement
   {
     /// <summary>
-    /// The maximum height of an image.
+    /// Gets the maximum height of an image.
     /// </summary>
     [ConfigurationProperty("height")]
     public int? Height
@@ -35,7 +34,7 @@ namespace ImageMagick.Web
     }
 
     /// <summary>
-	 /// The maximum width of an image.
+    /// Gets the maximum width of an image.
     /// </summary>
     [ConfigurationProperty("width")]
     public int? Width

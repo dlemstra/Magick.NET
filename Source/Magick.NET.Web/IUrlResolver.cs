@@ -23,7 +23,7 @@ namespace ImageMagick.Web
   public interface IUrlResolver
   {
     /// <summary>
-    /// The name of the file.
+    /// Gets the name of the file.
     /// </summary>
     string FileName
     {
@@ -31,7 +31,7 @@ namespace ImageMagick.Web
     }
 
     /// <summary>
-    /// The format of the output image.
+    /// Gets the format of the output image.
     /// </summary>
     MagickFormat Format
     {
@@ -39,7 +39,7 @@ namespace ImageMagick.Web
     }
 
     /// <summary>
-    /// The script to use.
+    /// Gets the script to use.
     /// </summary>
     IXPathNavigable Script
     {
@@ -50,6 +50,7 @@ namespace ImageMagick.Web
     /// Returns true if the specified url could be resolved to a file name and script.
     /// </summary>
     /// <param name="url">The url to resolve.</param>
+    /// <returns>True if the specified url could be resolved to a file name and script.</returns>
     bool Resolve(Uri url);
   }
 }

@@ -25,7 +25,7 @@ namespace ImageMagick.Web
   public sealed class MagickWebSettings : ConfigurationSection
   {
     [ConfigurationProperty("cacheDirectory", IsRequired = true)]
-    private string _CacheDirectory
+    private string BaseCacheDirectory
     {
       get
       {
@@ -38,7 +38,7 @@ namespace ImageMagick.Web
     }
 
     [ConfigurationProperty("clientCache")]
-    private HttpClientCache _ClientCache
+    private HttpClientCache BaseClientCache
     {
       get
       {
@@ -47,7 +47,7 @@ namespace ImageMagick.Web
     }
 
     [ConfigurationProperty("enableGzip", DefaultValue = true)]
-    private bool _EnableGzip
+    private bool BaseEnableGzip
     {
       get
       {
@@ -55,8 +55,8 @@ namespace ImageMagick.Web
       }
     }
 
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "magick")]
-    private static MagickWebSettings _Instance
+    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "magick", Justification = "This is the correct spelling.")]
+    private static MagickWebSettings Instance
     {
       get
       {
@@ -69,7 +69,7 @@ namespace ImageMagick.Web
     }
 
     [ConfigurationProperty("optimizeImages", DefaultValue = true)]
-    private bool _OptimizeImages
+    private bool BaseOptimizeImages
     {
       get
       {
@@ -78,7 +78,7 @@ namespace ImageMagick.Web
     }
 
     [ConfigurationProperty("resourcelimits")]
-    private ResourceLimitsSettings _ResourceLimits
+    private ResourceLimitsSettings BaseResourceLimits
     {
       get
       {
@@ -87,7 +87,7 @@ namespace ImageMagick.Web
     }
 
     [ConfigurationProperty("showVersion", DefaultValue = false)]
-    private bool _ShowVersion
+    private bool BaseShowVersion
     {
       get
       {
@@ -96,7 +96,7 @@ namespace ImageMagick.Web
     }
 
     [ConfigurationProperty("tempDirectory")]
-    private string _TempDirectory
+    private string BaseTempDirectory
     {
       get
       {
@@ -109,7 +109,7 @@ namespace ImageMagick.Web
     }
 
     [ConfigurationProperty("useOpenCL", DefaultValue = false)]
-    private bool _UseOpenCL
+    private bool BaseUseOpenCL
     {
       get
       {
@@ -118,7 +118,7 @@ namespace ImageMagick.Web
     }
 
     [ConfigurationProperty("urlResolvers")]
-    private UrlResolverSettingsCollection _UrlResolvers
+    private UrlResolverSettingsCollection BaseUrlResolvers
     {
       get
       {
@@ -157,106 +157,106 @@ namespace ImageMagick.Web
     {
       base.PostDeserialize();
 
-      _CacheDirectory = GetDirectory(_CacheDirectory);
-      _TempDirectory = GetTempDirectory(_TempDirectory);
+      BaseCacheDirectory = GetDirectory(BaseCacheDirectory);
+      BaseTempDirectory = GetTempDirectory(BaseTempDirectory);
     }
 
     /// <summary>
-    /// Returns the directory that contains scripted images.
+    /// Gets the directory that contains scripted images.
     /// </summary>
     public static string CacheDirectory
     {
       get
       {
-        return _Instance._CacheDirectory;
+        return Instance.BaseCacheDirectory;
       }
     }
 
     /// <summary>
-    /// Returns the client cache settings.
+    /// Gets the client cache settings.
     /// </summary>
     public static HttpClientCache ClientCache
     {
       get
       {
-        return _Instance._ClientCache;
+        return Instance.BaseClientCache;
       }
     }
 
     /// <summary>
-    /// Returns true if the gzip compression should be enabled.
+    /// Gets a value indicating whether the gzip compression should be enabled.
     /// </summary>
     public static bool EnableGzip
     {
       get
       {
-        return _Instance._EnableGzip;
+        return Instance.BaseEnableGzip;
       }
     }
 
     /// <summary>
-    /// Returns true if the images should be optimized.
+    /// Gets a value indicating whether the images should be optimized.
     /// </summary>
     public static bool OptimizeImages
     {
       get
       {
-        return _Instance._OptimizeImages;
+        return Instance.BaseOptimizeImages;
       }
     }
 
     /// <summary>
-    /// Returns settings for the resource limits
+    /// Gets the settings for the resource limits
     /// </summary>
     public static ResourceLimitsSettings ResourceLimits
     {
       get
       {
-        return _Instance._ResourceLimits;
+        return Instance.BaseResourceLimits;
       }
     }
 
     /// <summary>
-    /// Returns true if the version can be shown in the http headers.
+    /// Gets a value indicating whether the version can be shown in the http headers.
     /// </summary>
     public static bool ShowVersion
     {
       get
       {
-        return _Instance._ShowVersion;
+        return Instance.BaseShowVersion;
       }
     }
 
     /// <summary>
-    /// Returns the directory that will be used to store temporary files.
+    /// Gets the directory that will be used to store temporary files.
     /// </summary>
     public static string TempDirectory
     {
       get
       {
-        return _Instance._TempDirectory;
+        return Instance.BaseTempDirectory;
       }
     }
 
     /// <summary>
-    /// Returns true if OpenCL acceleration should be used.
+    /// Gets a value indicating whether OpenCL acceleration should be used.
     /// </summary>
     public static bool UseOpenCL
     {
       get
       {
-        return _Instance._UseOpenCL;
+        return Instance.BaseUseOpenCL;
       }
     }
 
     /// <summary>
-    /// Returns the url resolvers.
+    /// Gets the url resolvers.
     /// </summary>
     public static UrlResolverSettingsCollection UrlResolvers
     {
       get
       {
-        return _Instance._UrlResolvers;
+        return Instance.BaseUrlResolvers;
       }
     }
   }
