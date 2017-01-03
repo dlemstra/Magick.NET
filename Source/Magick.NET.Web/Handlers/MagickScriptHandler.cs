@@ -64,7 +64,7 @@ namespace ImageMagick.Web.Handlers
       {
         image.Write(tempFile);
 
-        if (CanOptimize(FormatInfo))
+        if (CanOptimize(Settings, FormatInfo))
           OptimizeFile(tempFile);
 
         MoveToCache(tempFile, cacheFileName);
@@ -76,8 +76,8 @@ namespace ImageMagick.Web.Handlers
       }
     }
 
-    internal MagickScriptHandler(IUrlResolver urlResolver, MagickFormatInfo formatInfo)
-      : base(urlResolver, formatInfo)
+    internal MagickScriptHandler(MagickWebSettings settings, IUrlResolver urlResolver, MagickFormatInfo formatInfo)
+      : base(settings, urlResolver, formatInfo)
     {
     }
 

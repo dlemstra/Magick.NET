@@ -30,14 +30,14 @@ namespace ImageMagick.Web.Handlers
   public abstract class MagickHandler : IHttpHandler, IRequiresSessionState
   {
     private static readonly ReaderWriterLockSlim _Lock = new ReaderWriterLockSlim();
-    private static readonly string _Version = InitializeVersion();
+    private static volatile string _Version;
 
-    private static void AddCacheControlHeader(HttpResponse response)
+    private void AddCacheControlHeader(HttpResponse response)
     {
-      if (MagickWebSettings.ClientCache.CacheControlMode == CacheControlMode.NoControl)
+      if (Settings.ClientCache.CacheControlMode == CacheControlMode.NoControl)
         return;
 
-      response.Cache.SetMaxAge(MagickWebSettings.ClientCache.CacheControlMaxAge);
+      response.Cache.SetMaxAge(Settings.ClientCache.CacheControlMaxAge);
       response.Cache.SetCacheability(HttpCacheability.Public);
     }
 
@@ -57,13 +57,13 @@ namespace ImageMagick.Web.Handlers
       }
     }
 
-    private static string InitializeVersion()
+    private void InitializeVersion()
     {
-      if (!MagickWebSettings.ShowVersion)
-        return null;
+      if (!Settings.ShowVersion || _Version != null)
+        return;
 
       object version = typeof(MagickHandler).Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
-      return ((AssemblyFileVersionAttribute)version).Version;
+      _Version = ((AssemblyFileVersionAttribute)version).Version;
     }
 
     private static bool Write304(HttpContext content, DateTime fileDate)
@@ -116,12 +116,16 @@ namespace ImageMagick.Web.Handlers
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickHandler"/> class.
     /// </summary>
+    /// <param name="settings">The settings to use.</param>
     /// <param name="urlResolver">The url resolver that was used.</param>
     /// <param name="formatInfo">The format information.</param>
-    protected MagickHandler(IUrlResolver urlResolver, MagickFormatInfo formatInfo)
+    protected MagickHandler(MagickWebSettings settings, IUrlResolver urlResolver, MagickFormatInfo formatInfo)
     {
+      Settings = settings;
       UrlResolver = urlResolver;
       FormatInfo = formatInfo;
+
+      InitializeVersion();
     }
 
     /// <summary>
@@ -138,7 +142,6 @@ namespace ImageMagick.Web.Handlers
     protected MagickFormatInfo FormatInfo
     {
       get;
-      private set;
     }
 
     /// <summary>
@@ -147,7 +150,14 @@ namespace ImageMagick.Web.Handlers
     protected IUrlResolver UrlResolver
     {
       get;
-      private set;
+    }
+
+    /// <summary>
+    /// Gets the settings that should be used.
+    /// </summary>
+    protected MagickWebSettings Settings
+    {
+      get;
     }
 
     /// <summary>
@@ -184,7 +194,7 @@ namespace ImageMagick.Web.Handlers
     /// <returns>The file name that can be used to cache the result.</returns>
     protected string GetCacheFileName(string directoryName, string subdirectoryKey)
     {
-      string cacheDirectory = MagickWebSettings.CacheDirectory + directoryName + "\\" + CalculateMD5(subdirectoryKey) + "\\";
+      string cacheDirectory = Settings.CacheDirectory + directoryName + "\\" + CalculateMD5(subdirectoryKey) + "\\";
 
       if (!Directory.Exists(cacheDirectory))
         Directory.CreateDirectory(cacheDirectory);
@@ -196,9 +206,9 @@ namespace ImageMagick.Web.Handlers
     /// Returns the file name for a temporary file.
     /// </summary>
     /// <returns>The file name for a temporary file.</returns>
-    protected static string DetermineTempFileName()
+    protected string DetermineTempFileName()
     {
-      return MagickWebSettings.TempDirectory + Guid.NewGuid();
+      return Settings.TempDirectory + Guid.NewGuid();
     }
 
     /// <summary>
@@ -231,7 +241,7 @@ namespace ImageMagick.Web.Handlers
     /// server objects (for example, Request, Response, Session, and Server) used to service
     /// HTTP requests.</param>
     /// <param name="fileName">The file name of the file to write to the response.</param>
-    protected static void WriteFile(HttpContext context, string fileName)
+    protected void WriteFile(HttpContext context, string fileName)
     {
       if (context == null)
         return;

@@ -24,108 +24,6 @@ namespace ImageMagick.Web
   /// </summary>
   public sealed class MagickWebSettings : ConfigurationSection
   {
-    [ConfigurationProperty("cacheDirectory", IsRequired = true)]
-    private string BaseCacheDirectory
-    {
-      get
-      {
-        return (string)this["cacheDirectory"];
-      }
-      set
-      {
-        this["cacheDirectory"] = value;
-      }
-    }
-
-    [ConfigurationProperty("clientCache")]
-    private HttpClientCache BaseClientCache
-    {
-      get
-      {
-        return (HttpClientCache)this["clientCache"];
-      }
-    }
-
-    [ConfigurationProperty("enableGzip", DefaultValue = true)]
-    private bool BaseEnableGzip
-    {
-      get
-      {
-        return (bool)this["enableGzip"];
-      }
-    }
-
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "magick", Justification = "This is the correct spelling.")]
-    private static MagickWebSettings Instance
-    {
-      get
-      {
-        MagickWebSettings section = ConfigurationManager.GetSection("magick.net.web") as MagickWebSettings;
-        if (section == null)
-          throw new ConfigurationErrorsException("Unable to find section magick.net.web");
-
-        return section;
-      }
-    }
-
-    [ConfigurationProperty("optimizeImages", DefaultValue = true)]
-    private bool BaseOptimizeImages
-    {
-      get
-      {
-        return (bool)this["optimizeImages"];
-      }
-    }
-
-    [ConfigurationProperty("resourcelimits")]
-    private ResourceLimitsSettings BaseResourceLimits
-    {
-      get
-      {
-        return (ResourceLimitsSettings)this["resourcelimits"];
-      }
-    }
-
-    [ConfigurationProperty("showVersion", DefaultValue = false)]
-    private bool BaseShowVersion
-    {
-      get
-      {
-        return (bool)this["showVersion"];
-      }
-    }
-
-    [ConfigurationProperty("tempDirectory")]
-    private string BaseTempDirectory
-    {
-      get
-      {
-        return (string)this["tempDirectory"];
-      }
-      set
-      {
-        this["tempDirectory"] = value;
-      }
-    }
-
-    [ConfigurationProperty("useOpenCL", DefaultValue = false)]
-    private bool BaseUseOpenCL
-    {
-      get
-      {
-        return (bool)this["useOpenCL"];
-      }
-    }
-
-    [ConfigurationProperty("urlResolvers")]
-    private UrlResolverSettingsCollection BaseUrlResolvers
-    {
-      get
-      {
-        return (UrlResolverSettingsCollection)this["urlResolvers"];
-      }
-    }
-
     private static string GetDirectory(string directory)
     {
       string result = directory;
@@ -157,106 +55,138 @@ namespace ImageMagick.Web
     {
       base.PostDeserialize();
 
-      BaseCacheDirectory = GetDirectory(BaseCacheDirectory);
-      BaseTempDirectory = GetTempDirectory(BaseTempDirectory);
+      CacheDirectory = GetDirectory(CacheDirectory);
+      TempDirectory = GetTempDirectory(TempDirectory);
+    }
+
+    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "magick", Justification = "This is the correct spelling.")]
+    internal static MagickWebSettings Instance
+    {
+      get
+      {
+        MagickWebSettings section = ConfigurationManager.GetSection("magick.net.web") as MagickWebSettings;
+        if (section == null)
+          throw new ConfigurationErrorsException("Unable to find section magick.net.web");
+
+        return section;
+      }
     }
 
     /// <summary>
     /// Gets the directory that contains scripted images.
     /// </summary>
-    public static string CacheDirectory
+    [ConfigurationProperty("cacheDirectory", IsRequired = true)]
+    public string CacheDirectory
     {
       get
       {
-        return Instance.BaseCacheDirectory;
+        return (string)this["cacheDirectory"];
+      }
+
+      private set
+      {
+        this["cacheDirectory"] = value;
       }
     }
 
     /// <summary>
     /// Gets the client cache settings.
     /// </summary>
-    public static HttpClientCache ClientCache
+    [ConfigurationProperty("clientCache")]
+    public HttpClientCache ClientCache
     {
       get
       {
-        return Instance.BaseClientCache;
+        return (HttpClientCache)this["clientCache"];
       }
     }
 
     /// <summary>
     /// Gets a value indicating whether the gzip compression should be enabled.
     /// </summary>
-    public static bool EnableGzip
+    [ConfigurationProperty("enableGzip", DefaultValue = true)]
+    public bool EnableGzip
     {
       get
       {
-        return Instance.BaseEnableGzip;
+        return (bool)this["enableGzip"];
       }
     }
 
     /// <summary>
     /// Gets a value indicating whether the images should be optimized.
     /// </summary>
-    public static bool OptimizeImages
+    [ConfigurationProperty("optimizeImages", DefaultValue = true)]
+    public bool OptimizeImages
     {
       get
       {
-        return Instance.BaseOptimizeImages;
+        return (bool)this["optimizeImages"];
       }
     }
 
     /// <summary>
     /// Gets the settings for the resource limits
     /// </summary>
-    public static ResourceLimitsSettings ResourceLimits
+    [ConfigurationProperty("resourcelimits")]
+    public ResourceLimitsSettings ResourceLimits
     {
       get
       {
-        return Instance.BaseResourceLimits;
+        return (ResourceLimitsSettings)this["resourcelimits"];
       }
     }
 
     /// <summary>
     /// Gets a value indicating whether the version can be shown in the http headers.
     /// </summary>
-    public static bool ShowVersion
+    [ConfigurationProperty("showVersion", DefaultValue = false)]
+    public bool ShowVersion
     {
       get
       {
-        return Instance.BaseShowVersion;
+        return (bool)this["showVersion"];
       }
     }
 
     /// <summary>
     /// Gets the directory that will be used to store temporary files.
     /// </summary>
-    public static string TempDirectory
+    [ConfigurationProperty("tempDirectory")]
+    public string TempDirectory
     {
       get
       {
-        return Instance.BaseTempDirectory;
+        return (string)this["tempDirectory"];
+      }
+
+      private set
+      {
+        this["tempDirectory"] = value;
       }
     }
 
     /// <summary>
     /// Gets a value indicating whether OpenCL acceleration should be used.
     /// </summary>
-    public static bool UseOpenCL
+    [ConfigurationProperty("useOpenCL", DefaultValue = false)]
+    public bool UseOpenCL
     {
       get
       {
-        return Instance.BaseUseOpenCL;
+        return (bool)this["useOpenCL"];
       }
     }
 
     /// <summary>
     /// Gets the url resolvers.
     /// </summary>
-    public static UrlResolverSettingsCollection UrlResolvers
+    [ConfigurationProperty("urlResolvers")]
+    public UrlResolverSettingsCollection UrlResolvers
     {
       get
       {
-        return Instance.BaseUrlResolvers;
+        return (UrlResolverSettingsCollection)this["urlResolvers"];
       }
     }
   }

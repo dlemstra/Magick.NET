@@ -26,18 +26,20 @@ namespace ImageMagick.Web
   /// </summary>
   public sealed class MagickModule : IHttpModule
   {
-    private static IEnumerable<IUrlResolver> ScriptUrlResolvers
+    private readonly MagickWebSettings _settings;
+
+    private IEnumerable<IUrlResolver> ScriptUrlResolvers
     {
       get
       {
-        foreach (UrlResolverSettings settings in MagickWebSettings.UrlResolvers)
+        foreach (UrlResolverSettings settings in _settings.UrlResolvers)
         {
           yield return settings.CreateInstance();
         }
       }
     }
 
-    private static IHttpHandler HandleRequest(HttpContext context)
+    private IHttpHandler HandleRequest(HttpContext context)
     {
       Uri url = (Uri)context.Items["ImageMagick.Web.MagickModule.Url"];
 
@@ -50,7 +52,7 @@ namespace ImageMagick.Web
       return null;
     }
 
-    private static IHttpHandler CreateHttpHandler(IUrlResolver urlResolver)
+    private IHttpHandler CreateHttpHandler(IUrlResolver urlResolver)
     {
       if (string.IsNullOrEmpty(urlResolver.FileName) || !File.Exists(urlResolver.FileName))
         return null;
@@ -60,30 +62,30 @@ namespace ImageMagick.Web
         return null;
 
       if (urlResolver.Script != null)
-        return new MagickScriptHandler(urlResolver, formatInfo);
+        return new MagickScriptHandler(_settings, urlResolver, formatInfo);
 
-      if (ImageOptimizerHandler.CanOptimize(formatInfo))
-        return new ImageOptimizerHandler(urlResolver, formatInfo);
+      if (ImageOptimizerHandler.CanOptimize(_settings, formatInfo))
+        return new ImageOptimizerHandler(_settings, urlResolver, formatInfo);
 
-      if (GzipHandler.CanCompress(formatInfo))
-        return new GzipHandler(urlResolver, formatInfo);
+      if (GzipHandler.CanCompress(_settings, formatInfo))
+        return new GzipHandler(_settings, urlResolver, formatInfo);
 
       return null;
     }
 
-    private static void InitOpenCL()
+    private void InitOpenCL()
     {
-      if (!MagickWebSettings.UseOpenCL)
+      if (!_settings.UseOpenCL)
         OpenCL.IsEnabled = false;
     }
 
-    private static void InitResourceLimits()
+    private void InitResourceLimits()
     {
-      if (MagickWebSettings.ResourceLimits.Width != null)
-        ResourceLimits.Width = (ulong)MagickWebSettings.ResourceLimits.Width.Value;
+      if (_settings.ResourceLimits.Width != null)
+        ResourceLimits.Width = (ulong)_settings.ResourceLimits.Width.Value;
 
-      if (MagickWebSettings.ResourceLimits.Height != null)
-        ResourceLimits.Height = (ulong)MagickWebSettings.ResourceLimits.Height.Value;
+      if (_settings.ResourceLimits.Height != null)
+        ResourceLimits.Height = (ulong)_settings.ResourceLimits.Height.Value;
     }
 
     private void OnBeginRequest(object sender, EventArgs arguments)
@@ -109,6 +111,23 @@ namespace ImageMagick.Web
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="MagickModule"/> class.
+    /// </summary>
+    public MagickModule()
+      : this(MagickWebSettings.Instance)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MagickModule"/> class.
+    /// </summary>
+    /// <param name="settings">The settings to use.</param>
+    public MagickModule(MagickWebSettings settings)
+    {
+      _settings = settings;
+    }
+
+    /// <summary>
     /// Initializes the module and prepares it to handle requests.
     /// </summary>
     /// <param name="context">An HttpApplication that provides access to the methods, properties,
@@ -118,7 +137,7 @@ namespace ImageMagick.Web
       if (context == null)
         return;
 
-      if (MagickWebSettings.UrlResolvers.Count == 0)
+      if (_settings.UrlResolvers.Count == 0)
         throw new ConfigurationErrorsException("Define at least one url resolver.");
 
       context.BeginRequest += OnBeginRequest;

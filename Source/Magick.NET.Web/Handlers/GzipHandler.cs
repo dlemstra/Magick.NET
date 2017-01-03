@@ -106,14 +106,14 @@ namespace ImageMagick.Web.Handlers
       }
     }
 
-    internal GzipHandler(IUrlResolver urlResolver, MagickFormatInfo formatInfo)
-      : base(urlResolver, formatInfo)
+    internal GzipHandler(MagickWebSettings settings, IUrlResolver urlResolver, MagickFormatInfo formatInfo)
+      : base(settings, urlResolver, formatInfo)
     {
     }
 
-    internal static bool CanCompress(MagickFormatInfo formatInfo)
+    internal static bool CanCompress(MagickWebSettings settings, MagickFormatInfo formatInfo)
     {
-      if (!MagickWebSettings.EnableGzip)
+      if (!settings.EnableGzip)
         return false;
 
       return formatInfo.Format == MagickFormat.Svg;

@@ -52,14 +52,14 @@ namespace ImageMagick.Web.Handlers
       return cacheFileName;
     }
 
-    internal ImageOptimizerHandler(IUrlResolver urlResolver, MagickFormatInfo formatInfo)
-      : base(urlResolver, formatInfo)
+    internal ImageOptimizerHandler(MagickWebSettings settings, IUrlResolver urlResolver, MagickFormatInfo formatInfo)
+      : base(settings, urlResolver, formatInfo)
     {
     }
 
-    internal static bool CanOptimize(MagickFormatInfo formatInfo)
+    internal static bool CanOptimize(MagickWebSettings settings, MagickFormatInfo formatInfo)
     {
-      if (!MagickWebSettings.OptimizeImages)
+      if (!settings.OptimizeImages)
         return false;
 
       return _ImageOptimizer.IsSupported(formatInfo);
