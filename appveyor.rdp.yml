@@ -12,7 +12,7 @@ matrix:
 
 cache:
   - C:\Magick.NET.libs -> ImageMagick\Source\Checkout.cmd
-  - C:\Program Files (x86)\gs -> Tools\AppVeyor\Install.cmd
+  - C:\Program Files (x86)\gs -> Tools\Scripts\AppVeyor\InstallGhostscript.ps1 
 
 environment:
 
