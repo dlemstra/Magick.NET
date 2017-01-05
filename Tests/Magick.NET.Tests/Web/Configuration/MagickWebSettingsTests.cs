@@ -15,6 +15,7 @@
 using ImageMagick.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Configuration;
 using System.Linq;
 
 namespace Magick.NET.Tests
@@ -29,8 +30,23 @@ namespace Magick.NET.Tests
       Assert.Inconclusive("Only testing this with the Q8-x86 build.");
 #endif
 
-      MagickWebSettings settings = MagickWebSettings.Instance;
+      MagickWebSettings settings = null;
+      try
+      {
+        settings = MagickWebSettings.Instance;
+      }
+      catch (ConfigurationErrorsException)
+      {
+        // Here for code coverage.
 
+        ExeConfigurationFileMap map = new ExeConfigurationFileMap();
+        map.ExeConfigFilename = @"Magick.NET.Tests.dll.config";
+        Configuration config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+
+        settings = config.GetSection("magick.net.web") as MagickWebSettings;
+      }
+
+      Assert.IsNotNull(settings);
       Assert.IsTrue(settings.CacheDirectory.EndsWith(@"\cache\"));
       Assert.IsFalse(settings.CanCreateDirectories);
       Assert.AreEqual(new TimeSpan(1, 0, 0, 0), settings.ClientCache.CacheControlMaxAge);
