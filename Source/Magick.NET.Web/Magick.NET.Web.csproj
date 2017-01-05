@@ -121,6 +121,7 @@
     <Compile Include="Handlers\MagickHandler.cs" />
     <Compile Include="Handlers\MagickScriptHandler.cs" />
     <Compile Include="IUrlResolver.cs" />
+    <Compile Include="MagickModuleBase.cs" />
     <Compile Include="MagickModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

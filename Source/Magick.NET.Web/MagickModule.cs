@@ -24,7 +24,7 @@ namespace ImageMagick.Web
   /// <summary>
   /// Httpmodule that uses various handlers to resize/optimize/compress images.
   /// </summary>
-  public sealed class MagickModule : IHttpModule
+  public sealed class MagickModule : MagickModuleBase
   {
     private const string UrlKey = "ImageMagick.Web.MagickModule.Url";
 
@@ -41,7 +41,7 @@ namespace ImageMagick.Web
       }
     }
 
-    private IHttpHandler HandleRequest(HttpContext context)
+    private IHttpHandler HandleRequest(HttpContextBase context)
     {
       Uri url = (Uri)context.Items[UrlKey];
 
@@ -90,26 +90,37 @@ namespace ImageMagick.Web
         ResourceLimits.Height = (ulong)_settings.ResourceLimits.Height.Value;
     }
 
-    private void OnBeginRequest(object sender, EventArgs arguments)
+    internal MagickModule(MagickWebSettings settings)
     {
-      HttpContext context = ((HttpApplication)sender).Context;
+      _settings = settings;
+    }
+
+    internal override void OnBeginRequest(HttpContextBase context)
+    {
       context.Items[UrlKey] = context.Request.Url;
     }
 
-    private void OnPostAuthorizeRequest(object sender, EventArgs arguments)
+    internal override void OnPostAuthorizeRequest(HttpContextBase context)
     {
-      HttpContext context = ((HttpApplication)sender).Context;
       IHttpHandler newHandler = HandleRequest(context);
       if (newHandler != null)
         context.RemapHandler(newHandler);
     }
 
-    private void OnPostMapRequestHandler(object sender, EventArgs arguments)
+    internal override void OnPostMapRequestHandler(HttpContextBase context)
     {
-      HttpContext context = ((HttpApplication)sender).Context;
       IHttpHandler newHandler = HandleRequest(context);
       if (newHandler != null)
         context.Handler = newHandler;
+    }
+
+    internal override void Initialize()
+    {
+      if (_settings.UrlResolvers.Count == 0)
+        throw new ConfigurationErrorsException("Define at least one url resolver.");
+
+      InitOpenCL();
+      InitResourceLimits();
     }
 
     /// <summary>
@@ -117,46 +128,6 @@ namespace ImageMagick.Web
     /// </summary>
     public MagickModule()
       : this(MagickWebSettings.Instance)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MagickModule"/> class.
-    /// </summary>
-    /// <param name="settings">The settings to use.</param>
-    public MagickModule(MagickWebSettings settings)
-    {
-      _settings = settings;
-    }
-
-    /// <summary>
-    /// Initializes the module and prepares it to handle requests.
-    /// </summary>
-    /// <param name="context">An HttpApplication that provides access to the methods, properties,
-    /// and events common to all application objects within an ASP.NET application</param>
-    public void Init(HttpApplication context)
-    {
-      if (context == null)
-        return;
-
-      if (_settings.UrlResolvers.Count == 0)
-        throw new ConfigurationErrorsException("Define at least one url resolver.");
-
-      context.BeginRequest += OnBeginRequest;
-
-      if (HttpRuntime.UsingIntegratedPipeline)
-        context.PostAuthorizeRequest += OnPostAuthorizeRequest;
-      else
-        context.PostMapRequestHandler += OnPostMapRequestHandler;
-
-      InitOpenCL();
-      InitResourceLimits();
-    }
-
-    /// <summary>
-    /// Disposes of the resources (other than memory) used by the module.
-    /// </summary>
-    public void Dispose()
     {
     }
   }
