@@ -137,6 +137,6 @@ function PatchNet20TestProjectFile($xml)
   SelectNodes $xml "//msb:ProjectReference[@Include = '..\..\Source\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\..\Source\Magick.NET\Magick.NET.net20.csproj")}
   SelectNodes $xml "//msb:TargetFrameworkVersion" | Foreach {$_.InnerText = "v3.5"}
   SelectNodes $xml "//msb:Reference[@Include = 'System.configuration']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
-  SelectNodes $xml "//msb:ProjectReference[@Include = '..\..\Source\Magick.NET.Web\Magick.NET.Web.csproj']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
+  SelectNodes $xml "//msb:ProjectReference[starts-with(@Include, '..\..\Source\Magick.NET.Web\')]" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
   SelectNodes $xml "//msb:Compile[starts-with(@Include, 'Web\')]" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
 }

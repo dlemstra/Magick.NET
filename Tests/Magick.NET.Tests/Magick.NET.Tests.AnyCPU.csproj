@@ -295,7 +295,7 @@
     <Compile Include="Web\TestUrlResolver.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Source\Magick.NET.Web\Magick.NET.Web.AnyCPU.csproj">
+    <ProjectReference Include="..\..\Source\Magick.NET.Web\Magick.NET.Web.AnyCPU.csproj">
       <Project>{FAEF6535-4D08-4538-89DC-EE56176F6803}</Project>
       <Name>Magick.NET.Web</Name>
     </ProjectReference>
@@ -308,7 +308,6 @@
     <None Include="..\..\Magick.NET.snk">
       <Link>Magick.NET.snk</Link>
     </None>
-    <None Include="app.config" />
     <None Include="Core\Script\Collection.msl" />
     <None Include="Core\Script\Defines.msl" />
     <None Include="Core\Script\Distort.msl" />
