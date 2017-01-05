@@ -50,6 +50,10 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Properties()
     {
+#if !Q8 || WIN64 || ANYCPU
+      Assert.Inconclusive("Only testing this with the Q8-x86 build.");
+#endif
+
       string config = @"<?xml version=""1.0"" encoding=""utf-8"" ?>
 <configuration>
   <configSections>
