@@ -139,5 +139,4 @@ function PatchNet20TestProjectFile($xml)
   SelectNodes $xml "//msb:Reference[@Include = 'System.configuration']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
   SelectNodes $xml "//msb:ProjectReference[@Include = '..\..\Source\Magick.NET.Web\Magick.NET.Web.csproj']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
   SelectNodes $xml "//msb:Compile[starts-with(@Include, 'Web\')]" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
-  SelectNodes $xml "//msb:None[@Include = 'app.config']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
 }

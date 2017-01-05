@@ -308,7 +308,6 @@
     <None Include="..\..\Magick.NET.snk">
       <Link>Magick.NET.snk</Link>
     </None>
-    <None Include="app.config" />
     <None Include="Core\Script\Collection.msl" />
     <None Include="Core\Script\Defines.msl" />
     <None Include="Core\Script\Distort.msl" />

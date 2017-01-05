@@ -16,6 +16,7 @@ using ImageMagick.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 
 namespace Magick.NET.Tests
@@ -23,30 +24,45 @@ namespace Magick.NET.Tests
   [TestClass]
   public class MagickWebSettingsTests
   {
+    private MagickWebSettings LoadSettings(string config)
+    {
+      string tempFile = Path.GetTempFileName();
+      try
+      {
+        File.WriteAllText(tempFile, config);
+
+        ExeConfigurationFileMap map = new ExeConfigurationFileMap();
+        map.ExeConfigFilename = tempFile;
+        Configuration exeConfig = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+
+        MagickWebSettings settings = exeConfig.GetSection("magick.net.web") as MagickWebSettings;
+        Assert.IsNotNull(settings);
+
+        return settings;
+      }
+      finally
+      {
+        if (File.Exists(tempFile))
+          File.Delete(tempFile);
+      }
+    }
+
     [TestMethod]
     public void Test_Properties()
     {
-#if !Q8 || WIN64 || ANYCPU
-      Assert.Inconclusive("Only testing this with the Q8-x86 build.");
-#endif
+      string config = @"<?xml version=""1.0"" encoding=""utf-8"" ?>
+<configuration>
+  <configSections>
+    <section name=""magick.net.web"" type=""ImageMagick.Web.MagickWebSettings, Magick.NET.Web-Q8-x86""/>
+  </configSections>
+  <magick.net.web canCreateDirectories=""false"" cacheDirectory=""~\cache"" tempDirectory=""c:\temp\"">
+    <urlResolvers>
+      <urlResolver type=""Magick.NET.Tests.TestUrlResolver, Magick.NET.Tests""/>
+    </urlResolvers>
+  </magick.net.web>
+</configuration>";
 
-      MagickWebSettings settings = null;
-      try
-      {
-        settings = MagickWebSettings.Instance;
-      }
-      catch (ConfigurationErrorsException)
-      {
-        // Here for code coverage.
-
-        ExeConfigurationFileMap map = new ExeConfigurationFileMap();
-        map.ExeConfigFilename = @"Magick.NET.Tests.dll.config";
-        Configuration config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
-
-        settings = config.GetSection("magick.net.web") as MagickWebSettings;
-      }
-
-      Assert.IsNotNull(settings);
+      MagickWebSettings settings = LoadSettings(config);
       Assert.IsTrue(settings.CacheDirectory.EndsWith(@"\cache\"));
       Assert.IsFalse(settings.CanCreateDirectories);
       Assert.AreEqual(new TimeSpan(1, 0, 0, 0), settings.ClientCache.CacheControlMaxAge);
