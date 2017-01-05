@@ -24,7 +24,7 @@ namespace ImageMagick.Web
   /// </summary>
   public sealed class MagickWebSettings : ConfigurationSection
   {
-    private static string GetDirectory(string directory)
+    private string GetDirectory(string directory)
     {
       string result = directory;
 
@@ -34,13 +34,16 @@ namespace ImageMagick.Web
       if (result[result.Length - 1] != '\\')
         result += "\\";
 
-      if (!Directory.Exists(result))
-        Directory.CreateDirectory(result);
+      if (CanCreateDirectories)
+      {
+        if (!Directory.Exists(result))
+          Directory.CreateDirectory(result);
+      }
 
       return result;
     }
 
-    private static string GetTempDirectory(string tempDirectory)
+    private string GetTempDirectory(string tempDirectory)
     {
       if (string.IsNullOrEmpty(tempDirectory))
         return Path.GetTempPath();
@@ -86,6 +89,18 @@ namespace ImageMagick.Web
       private set
       {
         this["cacheDirectory"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether the directories should be created when they do not exist.
+    /// </summary>
+    [ConfigurationProperty("canCreateDirectories", DefaultValue = true)]
+    public bool CanCreateDirectories
+    {
+      get
+      {
+        return (bool)this["canCreateDirectories"];
       }
     }
 
