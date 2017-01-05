@@ -158,6 +158,7 @@
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -290,8 +291,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Framework\Script\MagickScriptTests.cs" />
     <Compile Include="Core\Assert\OpenCLValue.cs" />
+    <Compile Include="Web\Configuration\MagickWebSettingsTests.cs" />
+    <Compile Include="Web\TestUrlResolver.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Source\Magick.NET.Web\Magick.NET.Web.csproj">
+      <Project>{FAEF6535-4D08-4538-89DC-EE56176F6803}</Project>
+      <Name>Magick.NET.Web</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Source\Magick.NET\Magick.NET.csproj">
       <Project>{daae3844-6435-4912-8f69-9f7a9242b4ac}</Project>
       <Name>Magick.NET</Name>
@@ -301,6 +308,7 @@
     <None Include="..\..\Magick.NET.snk">
       <Link>Magick.NET.snk</Link>
     </None>
+    <None Include="app.config" />
     <None Include="Core\Script\Collection.msl" />
     <None Include="Core\Script\Defines.msl" />
     <None Include="Core\Script\Distort.msl" />

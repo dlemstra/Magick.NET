@@ -31,7 +31,7 @@ function CreateAnyCPUProjectFiles()
   $path = FullPath "Tests\Magick.NET.Tests\Magick.NET.Tests.csproj"
   $xml = [xml](get-content $path)
   SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "ANYCPU;" + $_.InnerText}
-  PatchAnyCPUTestProjectFile $xml "AnyCPU" "Magick.NET.AnyCPU.csproj"
+  PatchAnyCPUTestProjectFile $xml "AnyCPU" "Magick.NET.AnyCPU.csproj" "Magick.NET.Web.AnyCPU.csproj"
 
   $csproj = FullPath "Tests\Magick.NET.Tests\Magick.NET.Tests.AnyCPU.csproj"
   Write-Host "Creating file: $csproj"
@@ -93,7 +93,7 @@ function CreateNet20ProjectFiles()
   $path = FullPath "Tests\Magick.NET.Tests\Magick.NET.Tests.csproj"
   $xml = [xml](get-content $path)
   SelectNodes $xml "//msb:DefineConstants"  | Foreach {$_.InnerText = "NET20;ANYCPU;" + $_.InnerText}
-  PatchAnyCPUTestProjectFile $xml "AnyCPU.net20" "Magick.NET.AnyCPU.net20.csproj"
+  PatchAnyCPUTestProjectFile $xml "AnyCPU.net20" "Magick.NET.AnyCPU.net20.csproj" ""
   PatchNet20TestProjectFile $xml
 
   $csproj = FullPath "Tests\Magick.NET.Tests\Magick.NET.Tests.AnyCPU.net20.csproj"
@@ -116,10 +116,11 @@ function PatchAnyCPUProjectFile($xml, $binDir)
   AddProjectFile $xml "" "Import" "Project" "..\Magick.NET.AnyCPU\Magick.NET.AnyCPU.targets"
 }
 
-function PatchAnyCPUTestProjectFile($xml, $binDir, $projectFile)
+function PatchAnyCPUTestProjectFile($xml, $binDir, $projectFile, $webProjectFile)
 {
   SelectNodes $xml "//msb:OutputPath" | Foreach {$_.InnerText = $_.InnerText.Replace("x86", $binDir)}
   SelectNodes $xml "//msb:ProjectReference[@Include = '..\..\Source\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\..\Source\Magick.NET\$projectFile")}
+  SelectNodes $xml "//msb:ProjectReference[@Include = '..\..\Source\Magick.NET.Web\Magick.NET.Web.csproj']" | Foreach {$_.SetAttribute("Include", "..\..\Source\Magick.NET.Web\$webProjectFile")}
 }
 
 function PatchNet20ProjectFile($xml)
@@ -135,4 +136,8 @@ function PatchNet20TestProjectFile($xml)
   SelectNodes $xml "//msb:Reference[@Include='PresentationCore' or @Include='WindowsBase']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
   SelectNodes $xml "//msb:ProjectReference[@Include = '..\..\Source\Magick.NET\Magick.NET.csproj']" | Foreach {$_.SetAttribute("Include", "..\..\Source\Magick.NET\Magick.NET.net20.csproj")}
   SelectNodes $xml "//msb:TargetFrameworkVersion" | Foreach {$_.InnerText = "v3.5"}
+  SelectNodes $xml "//msb:Reference[@Include = 'System.configuration']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
+  SelectNodes $xml "//msb:ProjectReference[@Include = '..\..\Source\Magick.NET.Web\Magick.NET.Web.csproj']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
+  SelectNodes $xml "//msb:Compile[starts-with(@Include, 'Web\')]" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
+  SelectNodes $xml "//msb:None[@Include = 'app.config']" | Foreach {[void]$_.ParentNode.RemoveChild($_)}
 }

@@ -290,6 +290,10 @@
     <Compile Include="Core\Assert\OpenCLValue.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Source\Magick.NET.Web\">
+      <Project>{FAEF6535-4D08-4538-89DC-EE56176F6803}</Project>
+      <Name>Magick.NET.Web</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Source\Magick.NET\Magick.NET.AnyCPU.net20.csproj">
       <Project>{daae3844-6435-4912-8f69-9f7a9242b4ac}</Project>
       <Name>Magick.NET</Name>
