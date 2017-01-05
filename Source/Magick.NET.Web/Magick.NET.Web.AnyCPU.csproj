@@ -58,6 +58,44 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Magick.NET.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ8|AnyCPU'">
+    <OutputPath>bin\DebugQ8\AnyCPU\</OutputPath>
+    <DefineConstants>ANYCPU;DEBUG;CODE_ANALYSIS;TRACE;Q8</DefineConstants>
+    <DocumentationFile>bin\DebugQ8\AnyCPU\Magick.NET.Web-Q8-AnyCPU.xml</DocumentationFile>
+    <Optimize>false</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>Magick.NET.Web-Q8-AnyCPU</AssemblyName>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16|AnyCPU'">
+    <OutputPath>bin\DebugQ16\AnyCPU\</OutputPath>
+    <DefineConstants>ANYCPU;DEBUG;CODE_ANALYSIS;TRACE;CODE_ANALYSIS;Q16</DefineConstants>
+    <DocumentationFile>bin\DebugQ16\AnyCPU\Magick.NET.Web-Q16-AnyCPU.xml</DocumentationFile>
+    <Optimize>false</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>Magick.NET.Web-Q16-AnyCPU</AssemblyName>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugQ16-HDRI|AnyCPU'">
+    <OutputPath>bin\DebugQ16-HDRI\AnyCPU\</OutputPath>
+    <DefineConstants>ANYCPU;DEBUG;TRACE;Q16HDRI</DefineConstants>
+    <DocumentationFile>bin\DebugQ16-HDRI\AnyCPU\Magick.NET.Web-Q16-HDRI-AnyCPU.xml</DocumentationFile>
+    <Optimize>false</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>Magick.NET.Web-Q16-HDRI-AnyCPU</AssemblyName>
+    <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
