@@ -20,17 +20,33 @@ namespace Magick.NET.Tests
 {
   public sealed class TestHttpContextBase : HttpContextBase
   {
+    private IHttpHandler _Handler;
     private Dictionary<object, object> _Items;
     private HttpRequestBase _Request;
 
+    public TestHttpContextBase()
+      : this("https://www.imagemagick.org")
+    {
+    }
+
     public TestHttpContextBase(string url)
     {
+      _Handler = null;
       _Items = new Dictionary<object, object>();
       _Request = new TestHttpRequest(url);
     }
 
-    public override HttpRequestBase Request => _Request;
+    public override IHttpHandler Handler => _Handler;
 
     public override IDictionary Items => _Items;
+
+    public override HttpRequestBase Request => _Request;
+
+    public IHttpHandler RemapedHandler { get; private set; }
+
+    public override void RemapHandler(IHttpHandler handler)
+    {
+      RemapedHandler = handler;
+    }
   }
 }

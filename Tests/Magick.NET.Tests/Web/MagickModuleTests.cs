@@ -17,12 +17,23 @@ using ImageMagick.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Configuration;
 using System.Linq;
+using System.Web;
 
 namespace Magick.NET.Tests.Web
 {
   [TestClass]
   public class MagickModuleTests
   {
+    private static MagickModule CreateModule()
+    {
+      return CreateModule(@"
+<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
+  <urlResolvers>
+    <urlResolver type=""Magick.NET.Tests.TestUrlResolver, Magick.NET.Tests""/>
+  </urlResolvers>
+</magick.net.web>");
+    }
+
     private static MagickModule CreateModule(string config)
     {
       MagickWebSettings settings = TestSectionLoader.Load(config);
@@ -30,27 +41,29 @@ namespace Magick.NET.Tests.Web
     }
 
     [TestMethod]
+    public void Test_Init()
+    {
+      MagickModule module = CreateModule();
+      module.Init(null);
+      module.Init(new HttpApplication());
+      module.Dispose();
+    }
+
+    [TestMethod]
     public void Test_Initialize()
     {
-      string config = @"
-<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"">
-  <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.TestUrlResolver, Magick.NET.Tests""/>
-  </urlResolvers>
-</magick.net.web>";
-
       bool isEnabled = OpenCL.IsEnabled;
       ulong width = ResourceLimits.Width;
       ulong height = ResourceLimits.Height;
 
-      MagickModule module = CreateModule(config);
+      MagickModule module = CreateModule();
       module.Initialize();
 
       Assert.AreEqual(isEnabled, OpenCL.IsEnabled);
       Assert.AreEqual(width, ResourceLimits.Width);
       Assert.AreEqual(height, ResourceLimits.Height);
 
-      config = @"
+      string config = @"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
   <resourceLimits width=""10000"" height=""20000""/>
   <urlResolvers>
@@ -69,21 +82,36 @@ namespace Magick.NET.Tests.Web
     [TestMethod]
     public void Test_OnBeginRequest()
     {
-      string config = @"
-<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"">
-  <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.TestUrlResolver, Magick.NET.Tests""/>
-  </urlResolvers>
-</magick.net.web>";
-
       string url = "https://magick.codeplex.com/";
 
-      MagickModule module = CreateModule(config);
+      MagickModule module = CreateModule();
       TestHttpContextBase context = new TestHttpContextBase(url);
       module.OnBeginRequest(context);
 
       Assert.AreEqual(1, context.Items.Count);
       Assert.AreEqual(url, context.Items.Values.Cast<object>().First().ToString());
+    }
+
+    [TestMethod]
+    public void Test_OnPostAuthorizeRequest()
+    {
+      MagickModule module = CreateModule();
+      TestHttpContextBase context = new TestHttpContextBase();
+      module.OnBeginRequest(context);
+      module.OnPostAuthorizeRequest(context);
+
+      Assert.IsNull(context.RemapedHandler);
+    }
+
+    [TestMethod]
+    public void Test_OnPostMapRequestHandler()
+    {
+      MagickModule module = CreateModule();
+      TestHttpContextBase context = new TestHttpContextBase();
+      module.OnBeginRequest(context);
+      module.OnPostMapRequestHandler(context);
+
+      Assert.IsNull(context.Handler);
     }
 
     [TestMethod]
