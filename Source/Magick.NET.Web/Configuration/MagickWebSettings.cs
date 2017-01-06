@@ -143,12 +143,12 @@ namespace ImageMagick.Web
     /// <summary>
     /// Gets the settings for the resource limits
     /// </summary>
-    [ConfigurationProperty("resourcelimits")]
+    [ConfigurationProperty("resourceLimits")]
     public ResourceLimitsSettings ResourceLimits
     {
       get
       {
-        return (ResourceLimitsSettings)this["resourcelimits"];
+        return (ResourceLimitsSettings)this["resourceLimits"];
       }
     }
 
