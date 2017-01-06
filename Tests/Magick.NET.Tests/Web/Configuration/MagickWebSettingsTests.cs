@@ -26,25 +26,8 @@ namespace Magick.NET.Tests
   {
     private MagickWebSettings LoadSettings(string config)
     {
-      string tempFile = Path.GetTempFileName();
-      try
-      {
-        File.WriteAllText(tempFile, config);
-
-        ExeConfigurationFileMap map = new ExeConfigurationFileMap();
-        map.ExeConfigFilename = tempFile;
-        Configuration exeConfig = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
-
-        MagickWebSettings settings = exeConfig.GetSection("magick.net.web") as MagickWebSettings;
-        Assert.IsNotNull(settings);
-
-        return settings;
-      }
-      finally
-      {
-        if (File.Exists(tempFile))
-          File.Delete(tempFile);
-      }
+      TestSectionLoader sectionLoader = new TestSectionLoader();
+      return sectionLoader.Load(config);
     }
 
     [TestMethod]
@@ -110,6 +93,8 @@ namespace Magick.NET.Tests
         Assert.AreEqual(0, urlResolverSettings.Count());
 
         Assert.IsTrue(Directory.Exists(tempDir));
+
+        settings = LoadSettings(config);
       }
       finally
       {

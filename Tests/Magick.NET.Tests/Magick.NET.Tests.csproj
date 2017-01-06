@@ -292,6 +292,7 @@
     <Compile Include="Framework\Script\MagickScriptTests.cs" />
     <Compile Include="Core\Assert\OpenCLValue.cs" />
     <Compile Include="Web\Configuration\MagickWebSettingsTests.cs" />
+    <Compile Include="Web\Configuration\TestSectionLoader.cs" />
     <Compile Include="Web\TestUrlResolver.cs" />
   </ItemGroup>
   <ItemGroup>

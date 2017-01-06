@@ -184,6 +184,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ISectionLoader.cs" />
+    <Compile Include="Configuration\SectionLoader.cs" />
     <Compile Include="Configuration\ResourceLimitsSettings.cs" />
     <Compile Include="Configuration\CacheControlMode.cs" />
     <Compile Include="Configuration\HttpClientCache.cs" />

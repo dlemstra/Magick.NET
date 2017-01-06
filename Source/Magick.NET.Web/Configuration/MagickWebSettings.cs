@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -24,6 +25,13 @@ namespace ImageMagick.Web
   /// </summary>
   public sealed class MagickWebSettings : ConfigurationSection
   {
+    private static Lazy<MagickWebSettings> _instance = new Lazy<MagickWebSettings>(CreateInstance);
+
+    private static MagickWebSettings CreateInstance()
+    {
+      return CreateInstance(new SectionLoader());
+    }
+
     private string GetDirectory(string directory)
     {
       string result = directory;
@@ -63,15 +71,21 @@ namespace ImageMagick.Web
     }
 
     [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "magick", Justification = "This is the correct spelling.")]
+    internal static MagickWebSettings CreateInstance(ISectionLoader sectionLoader)
+    {
+      MagickWebSettings section = sectionLoader.GetSection("magick.net.web");
+
+      if (section == null)
+        throw new ConfigurationErrorsException("Unable to find section magick.net.web");
+
+      return section;
+    }
+
     internal static MagickWebSettings Instance
     {
       get
       {
-        MagickWebSettings section = ConfigurationManager.GetSection("magick.net.web") as MagickWebSettings;
-        if (section == null)
-          throw new ConfigurationErrorsException("Unable to find section magick.net.web");
-
-        return section;
+        return _instance.Value;
       }
     }
 
