@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
     private string CreateConfig(string config)
     {
 #if Q8
-#if _M_X64
+#if WIN64
       string libraryName = "Magick.NET.Web-Q8-x64";
 #elif ANYCPU
       string libraryName = "Magick.NET.Web-Q8-AnyCPU";
@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
       string libraryName = "Magick.NET.Web-Q8-x86";
 #endif
 #elif Q16
-#if _M_X64
+#if WIN64
       string libraryName = "Magick.NET.Web-Q16-x64";
 #elif ANYCPU
       string libraryName = "Magick.NET.Web-Q16-AnyCPU";
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
       string libraryName = "Magick.NET.Web-Q16-x86";
 #endif
 #elif Q16HDRI
-#if _M_X64
+#if WIN64
       string libraryName = "Magick.NET.Web-Q16-HDRI-x64";
 #elif ANYCPU
       string libraryName = "Magick.NET.Web-Q16-HDRI-AnyCPU";
