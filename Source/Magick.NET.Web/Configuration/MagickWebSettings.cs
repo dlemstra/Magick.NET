@@ -25,7 +25,7 @@ namespace ImageMagick.Web
   /// </summary>
   public sealed class MagickWebSettings : ConfigurationSection
   {
-    private static Lazy<MagickWebSettings> _instance = new Lazy<MagickWebSettings>(CreateInstance);
+    private static Lazy<MagickWebSettings> _Instance = new Lazy<MagickWebSettings>(CreateInstance);
 
     private static MagickWebSettings CreateInstance()
     {
@@ -85,7 +85,7 @@ namespace ImageMagick.Web
     {
       get
       {
-        return _instance.Value;
+        return _Instance.Value;
       }
     }
 

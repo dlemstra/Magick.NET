@@ -163,6 +163,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
@@ -293,6 +294,9 @@
     <Compile Include="Core\Assert\OpenCLValue.cs" />
     <Compile Include="Web\Configuration\MagickWebSettingsTests.cs" />
     <Compile Include="Web\Configuration\TestSectionLoader.cs" />
+    <Compile Include="Web\MagickModuleTests.cs" />
+    <Compile Include="Web\TestHttpContextBase.cs" />
+    <Compile Include="Web\TestHttpRequest.cs" />
     <Compile Include="Web\TestUrlResolver.cs" />
   </ItemGroup>
   <ItemGroup>

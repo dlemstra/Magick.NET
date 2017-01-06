@@ -28,13 +28,13 @@ namespace ImageMagick.Web
   {
     private const string UrlKey = "ImageMagick.Web.MagickModule.Url";
 
-    private readonly MagickWebSettings _settings;
+    private readonly MagickWebSettings _Settings;
 
     private IEnumerable<IUrlResolver> ScriptUrlResolvers
     {
       get
       {
-        foreach (UrlResolverSettings settings in _settings.UrlResolvers)
+        foreach (UrlResolverSettings settings in _Settings.UrlResolvers)
         {
           yield return settings.CreateInstance();
         }
@@ -64,35 +64,35 @@ namespace ImageMagick.Web
         return null;
 
       if (urlResolver.Script != null)
-        return new MagickScriptHandler(_settings, urlResolver, formatInfo);
+        return new MagickScriptHandler(_Settings, urlResolver, formatInfo);
 
-      if (ImageOptimizerHandler.CanOptimize(_settings, formatInfo))
-        return new ImageOptimizerHandler(_settings, urlResolver, formatInfo);
+      if (ImageOptimizerHandler.CanOptimize(_Settings, formatInfo))
+        return new ImageOptimizerHandler(_Settings, urlResolver, formatInfo);
 
-      if (GzipHandler.CanCompress(_settings, formatInfo))
-        return new GzipHandler(_settings, urlResolver, formatInfo);
+      if (GzipHandler.CanCompress(_Settings, formatInfo))
+        return new GzipHandler(_Settings, urlResolver, formatInfo);
 
       return null;
     }
 
     private void InitOpenCL()
     {
-      if (!_settings.UseOpenCL)
+      if (!_Settings.UseOpenCL)
         OpenCL.IsEnabled = false;
     }
 
     private void InitResourceLimits()
     {
-      if (_settings.ResourceLimits.Width != null)
-        ResourceLimits.Width = (ulong)_settings.ResourceLimits.Width.Value;
+      if (_Settings.ResourceLimits.Width != null)
+        ResourceLimits.Width = (ulong)_Settings.ResourceLimits.Width.Value;
 
-      if (_settings.ResourceLimits.Height != null)
-        ResourceLimits.Height = (ulong)_settings.ResourceLimits.Height.Value;
+      if (_Settings.ResourceLimits.Height != null)
+        ResourceLimits.Height = (ulong)_Settings.ResourceLimits.Height.Value;
     }
 
     internal MagickModule(MagickWebSettings settings)
     {
-      _settings = settings;
+      _Settings = settings;
     }
 
     internal override void OnBeginRequest(HttpContextBase context)
@@ -116,7 +116,7 @@ namespace ImageMagick.Web
 
     internal override void Initialize()
     {
-      if (_settings.UrlResolvers.Count == 0)
+      if (_Settings.UrlResolvers.Count == 0)
         throw new ConfigurationErrorsException("Define at least one url resolver.");
 
       InitOpenCL();

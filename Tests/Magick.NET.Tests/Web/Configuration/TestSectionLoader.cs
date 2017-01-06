@@ -21,23 +21,56 @@ namespace Magick.NET.Tests
 {
   internal sealed class TestSectionLoader : ISectionLoader
   {
-    private string _tempFile;
+    private string _TempFile;
 
-    MagickWebSettings ISectionLoader.GetSection(string name)
+    private string CreateConfig(string config)
     {
-      ExeConfigurationFileMap map = new ExeConfigurationFileMap();
-      map.ExeConfigFilename = _tempFile;
-      Configuration config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+#if Q8
+#if _M_X64
+      string libraryName = "Magick.NET.Web-Q8-x64";
+#elif ANYCPU
+      string libraryName = "Magick.NET.Web-Q8-AnyCPU";
+#else
+      string libraryName = "Magick.NET.Web-Q8-x86";
+#endif
+#elif Q16
+#if _M_X64
+      string libraryName = "Magick.NET.Web-Q16-x64";
+#elif ANYCPU
+      string libraryName = "Magick.NET.Web-Q16-AnyCPU";
+#else
+      string libraryName = "Magick.NET.Web-Q16-x86";
+#endif
+#elif Q16HDRI
+#if _M_X64
+      string libraryName = "Magick.NET.Web-Q16-HDRI-x64";
+#elif ANYCPU
+      string libraryName = "Magick.NET.Web-Q16-HDRI-AnyCPU";
+#else
+      string libraryName = "Magick.NET.Web-Q16-HDRI-x86";
+#endif
+#else
+#error Not implemented!
+#endif
 
-      return config.GetSection(name) as MagickWebSettings;
+      return $@"<?xml version=""1.0"" encoding=""utf-8"" ?>
+<configuration>
+  <configSections>
+    <section name=""magick.net.web"" type=""ImageMagick.Web.MagickWebSettings, {libraryName}""/>
+  </configSections>
+  {config}
+</configuration>
+";
     }
 
-    public MagickWebSettings Load(string config)
+    private MagickWebSettings LoadSettings(string config)
     {
-      _tempFile = Path.GetTempFileName();
+      config = CreateConfig(config);
+
+      _TempFile = Path.GetTempFileName();
       try
       {
-        File.WriteAllText(_tempFile, config);
+        File.WriteAllText(_TempFile, config);
 
         MagickWebSettings settings = MagickWebSettings.CreateInstance(this);
         Assert.IsNotNull(settings);
@@ -46,9 +79,24 @@ namespace Magick.NET.Tests
       }
       finally
       {
-        if (File.Exists(_tempFile))
-          File.Delete(_tempFile);
+        if (File.Exists(_TempFile))
+          File.Delete(_TempFile);
       }
+    }
+
+    MagickWebSettings ISectionLoader.GetSection(string name)
+    {
+      ExeConfigurationFileMap map = new ExeConfigurationFileMap();
+      map.ExeConfigFilename = _TempFile;
+      Configuration config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+
+      return config.GetSection(name) as MagickWebSettings;
+    }
+
+    public static MagickWebSettings Load(string config)
+    {
+      TestSectionLoader sectionLoader = new TestSectionLoader();
+      return sectionLoader.LoadSettings(config);
     }
   }
 }

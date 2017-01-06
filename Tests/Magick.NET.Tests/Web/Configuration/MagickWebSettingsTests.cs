@@ -24,12 +24,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class MagickWebSettingsTests
   {
-    private MagickWebSettings LoadSettings(string config)
-    {
-      TestSectionLoader sectionLoader = new TestSectionLoader();
-      return sectionLoader.Load(config);
-    }
-
     [TestMethod]
     public void Test_Exceptions()
     {
@@ -38,45 +32,29 @@ namespace Magick.NET.Tests
         MagickWebSettings settings = MagickWebSettings.Instance;
       });
 
-
-      string config = $@"<?xml version=""1.0"" encoding=""utf-8"" ?>
-<configuration>
-  <configSections>
-    <section name=""magick.net.web"" type=""ImageMagick.Web.MagickWebSettings, Magick.NET.Web-Q8-x86""/>
-  </configSections>
-  <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
-    <urlResolvers>
-      <urlResolver type=""Magick.NET.Tests.MagickWebSettingsTests, Magick.NET.Tests""/>
-    </urlResolvers>
-  </magick.net.web>
-</configuration>";
+      string config = @"
+<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
+  <urlResolvers>
+    <urlResolver type=""Magick.NET.Tests.MagickWebSettingsTests, Magick.NET.Tests""/>
+  </urlResolvers>
+</magick.net.web>";
 
       ExceptionAssert.Throws<ConfigurationErrorsException>(() =>
       {
-        LoadSettings(config);
+        TestSectionLoader.Load(config);
       });
     }
 
     [TestMethod]
     public void Test_Defaults()
     {
-#if !Q8 || WIN64 || ANYCPU
-      Assert.Inconclusive("Only testing this with the Q8-x86 build.");
-#endif
-
       string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()) + "\\";
 
       try
       {
-        string config = $@"<?xml version=""1.0"" encoding=""utf-8"" ?>
-<configuration>
-  <configSections>
-    <section name=""magick.net.web"" type=""ImageMagick.Web.MagickWebSettings, Magick.NET.Web-Q8-x86""/>
-  </configSections>
-  <magick.net.web cacheDirectory=""{tempDir}""/>
-</configuration>";
+        string config = $@"<magick.net.web cacheDirectory=""{tempDir}""/>";
 
-        MagickWebSettings settings = LoadSettings(config);
+        MagickWebSettings settings = TestSectionLoader.Load(config);
         Assert.AreEqual(tempDir, settings.CacheDirectory);
         Assert.IsTrue(settings.CanCreateDirectories);
         Assert.AreEqual(new TimeSpan(1, 0, 0, 0), settings.ClientCache.CacheControlMaxAge);
@@ -94,7 +72,7 @@ namespace Magick.NET.Tests
 
         Assert.IsTrue(Directory.Exists(tempDir));
 
-        settings = LoadSettings(config);
+        settings = TestSectionLoader.Load(config);
       }
       finally
       {
@@ -106,25 +84,16 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Properties()
     {
-#if !Q8 || WIN64 || ANYCPU
-      Assert.Inconclusive("Only testing this with the Q8-x86 build.");
-#endif
+      string config = @"
+<magick.net.web canCreateDirectories=""false"" cacheDirectory=""~\cache"" tempDirectory=""c:\temp\"" enableGzip=""false"" optimizeImages=""false"" showVersion=""true"" useOpenCL=""true"">
+  <clientCache cacheControlMaxAge=""4:2:0"" cacheControlMode=""NoControl""/>
+  <resourceLimits width=""1"" height=""2""/>
+  <urlResolvers>
+    <urlResolver type=""Magick.NET.Tests.TestUrlResolver, Magick.NET.Tests""/>
+  </urlResolvers>
+</magick.net.web>";
 
-      string config = @"<?xml version=""1.0"" encoding=""utf-8"" ?>
-<configuration>
-  <configSections>
-    <section name=""magick.net.web"" type=""ImageMagick.Web.MagickWebSettings, Magick.NET.Web-Q8-x86""/>
-  </configSections>
-  <magick.net.web canCreateDirectories=""false"" cacheDirectory=""~\cache"" tempDirectory=""c:\temp\"" enableGzip=""false"" optimizeImages=""false"" showVersion=""true"" useOpenCL=""true"">
-    <clientCache cacheControlMaxAge=""4:2:0"" cacheControlMode=""NoControl""/>
-    <resourceLimits width=""1"" height=""2""/>
-    <urlResolvers>
-      <urlResolver type=""Magick.NET.Tests.TestUrlResolver, Magick.NET.Tests""/>
-    </urlResolvers>
-  </magick.net.web>
-</configuration>";
-
-      MagickWebSettings settings = LoadSettings(config);
+      MagickWebSettings settings = TestSectionLoader.Load(config);
       Assert.IsTrue(settings.CacheDirectory.EndsWith(@"\cache\"));
       Assert.IsFalse(settings.CanCreateDirectories);
       Assert.AreEqual(new TimeSpan(4, 2, 0), settings.ClientCache.CacheControlMaxAge);
