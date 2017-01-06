@@ -48,6 +48,15 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_Exceptions()
+    {
+      ExceptionAssert.Throws<ConfigurationErrorsException>(() =>
+      {
+          MagickWebSettings settings = MagickWebSettings.Instance;
+      });
+    }
+
+    [TestMethod]
     public void Test_Properties()
     {
 #if !Q8 || WIN64 || ANYCPU
