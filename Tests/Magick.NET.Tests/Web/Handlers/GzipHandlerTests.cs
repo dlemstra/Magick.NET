@@ -19,6 +19,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 
 namespace Magick.NET.Tests
@@ -123,10 +124,34 @@ namespace Magick.NET.Tests
           handler.ProcessRequest(context);
         }
 
-        Assert.IsTrue(new FileInfo(outputFile).Length < new FileInfo(resolver.FileName).Length);
+        cacheFile.Refresh();
+
+        Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
+
+        Thread.Sleep(50);
+
+        File.Delete(resolver.FileName);
+        using (Stream input = File.OpenRead(Files.Logos.MagickNETSVG))
+        {
+          using (Stream output = File.OpenWrite(resolver.FileName))
+          {
+            input.CopyTo(output);
+          }
+        }
+
+        using (StreamWriter writer = new StreamWriter(outputFile))
+        {
+          request.SetHeaders("Accept-Encoding", "deflate");
+          HttpResponse response = new HttpResponse(writer);
+          HttpContext context = new HttpContext(request, response);
+
+          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
+          handler.ProcessRequest(context);
+        }
 
         cacheFile.Refresh();
-        Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
+
+        Assert.AreNotEqual(lastWriteTime, cacheFile.LastWriteTime);
       }
       finally
       {

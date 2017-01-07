@@ -64,7 +64,9 @@ namespace ImageMagick.Web.Handlers
       {
         image.Write(tempFile);
 
-        if (CanOptimize(Settings, FormatInfo))
+        MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(UrlResolver.Format);
+
+        if (CanOptimize(Settings, formatInfo))
           OptimizeFile(tempFile);
 
         MoveToCache(tempFile, cacheFileName);

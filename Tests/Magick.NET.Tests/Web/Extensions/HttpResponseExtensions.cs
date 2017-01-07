@@ -19,29 +19,29 @@ using System.Web;
 namespace Magick.NET.Tests
 {
   [ExcludeFromCodeCoverage]
-  internal static class HttpRequestExtensions
+  internal static class HttpResponseExtensions
   {
-    public static void SetHeaders(this HttpRequest self, params string[] headerValues)
+    public static string GetHeader(this HttpResponse self, string headerName)
     {
-      var headers = self.Headers;
-      var type = headers.GetType();
-
+      var type = self.GetType();
       var flags = BindingFlags.Instance | BindingFlags.NonPublic;
 
-      var isReadOnly = type.GetProperty("IsReadOnly", flags | BindingFlags.FlattenHierarchy);
-      isReadOnly.SetValue(headers, false, null);
+      var customHeaders = type.GetField("_customHeaders", flags);
+      var arrayList = customHeaders.GetValue(self) as ArrayList;
+      if (arrayList.Count == 0)
+        return null;
 
-      type.InvokeMember("InvalidateCachedArrays", flags | BindingFlags.InvokeMethod, null, headers, null);
+      var headerType = arrayList[0].GetType();
+      var name = headerType.GetProperty("Name", flags);
+      var value = headerType.GetProperty("Value", flags);
 
-      type.InvokeMember("BaseClear", flags | BindingFlags.InvokeMethod, null, headers, null);
-
-      for (int i = 0; i < headerValues.Length - 1; i += 2)
+      foreach (var header in arrayList)
       {
-        var value = new object[] { headerValues[i], new ArrayList { headerValues[i + 1] } };
-        type.InvokeMember("BaseAdd", flags | BindingFlags.InvokeMethod, null, headers, value);
+        if (headerName.Equals(name.GetValue(header, null)))
+          return (string)value.GetValue(header, null);
       }
 
-      isReadOnly.SetValue(headers, true, null);
+      return null;
     }
   }
 }

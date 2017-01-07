@@ -293,9 +293,13 @@
     <Compile Include="Framework\Script\MagickScriptTests.cs" />
     <Compile Include="Core\Assert\OpenCLValue.cs" />
     <Compile Include="Web\Configuration\MagickWebSettingsTests.cs" />
+    <Compile Include="Web\Extensions\HttpCachePolicyExtensions.cs" />
+    <Compile Include="Web\Extensions\HttpResponseExtensions.cs" />
     <Compile Include="Web\Extensions\HttpRequestExtensions.cs" />
+    <Compile Include="Web\Handlers\MagickHandlerTests.cs" />
     <Compile Include="Web\Handlers\MagickScriptHandlerTests.cs" />
     <Compile Include="Web\Handlers\GzipHandlerTests.cs" />
+    <Compile Include="Web\Helpers\TestMagickHandler.cs" />
     <Compile Include="Web\Helpers\TestSectionLoader.cs" />
     <Compile Include="Web\MagickModuleBaseTests.cs" />
     <Compile Include="Web\MagickModuleTests.cs" />

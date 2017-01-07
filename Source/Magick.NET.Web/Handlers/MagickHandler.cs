@@ -74,15 +74,8 @@ namespace ImageMagick.Web.Handlers
 
       modificationDate = modificationDate.ToUniversalTime();
 
-      string modifiedSince = null;
-      try
-      {
-        content.Response.Cache.SetLastModified(modificationDate);
-        modifiedSince = content.Request.Headers["If-Modified-Since"];
-      }
-      catch (ThreadAbortException)
-      {
-      }
+      content.Response.Cache.SetLastModified(modificationDate);
+      string modifiedSince = content.Request.Headers["If-Modified-Since"];
 
       if (string.IsNullOrEmpty(modifiedSince))
         return false;
@@ -100,14 +93,8 @@ namespace ImageMagick.Web.Handlers
 
       if (success && modifiedDate == modificationDate)
       {
-        try
-        {
-          content.Response.StatusCode = 304;
-          return true;
-        }
-        catch (ThreadAbortException)
-        {
-        }
+        content.Response.StatusCode = 304;
+        return true;
       }
 
       return false;
@@ -243,7 +230,7 @@ namespace ImageMagick.Web.Handlers
     /// <param name="fileName">The file name of the file to write to the response.</param>
     protected void WriteFile(HttpContext context, string fileName)
     {
-      if (context == null)
+      if (context == null || string.IsNullOrEmpty(fileName))
         return;
 
       _Lock.EnterReadLock();

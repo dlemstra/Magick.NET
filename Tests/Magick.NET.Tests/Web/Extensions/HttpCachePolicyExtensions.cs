@@ -12,36 +12,31 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Collections;
+using System;
 using System.Reflection;
 using System.Web;
 
 namespace Magick.NET.Tests
 {
   [ExcludeFromCodeCoverage]
-  internal static class HttpRequestExtensions
+  internal static class HttpCachePolicyExtensions
   {
-    public static void SetHeaders(this HttpRequest self, params string[] headerValues)
+    public static HttpCacheability GetCacheability(this HttpCachePolicy self)
     {
-      var headers = self.Headers;
-      var type = headers.GetType();
-
+      var type = self.GetType();
       var flags = BindingFlags.Instance | BindingFlags.NonPublic;
 
-      var isReadOnly = type.GetProperty("IsReadOnly", flags | BindingFlags.FlattenHierarchy);
-      isReadOnly.SetValue(headers, false, null);
+      var cacheability = type.GetField("_cacheability", flags);
+      return (HttpCacheability)cacheability.GetValue(self);
+    }
 
-      type.InvokeMember("InvalidateCachedArrays", flags | BindingFlags.InvokeMethod, null, headers, null);
+    public static DateTime GetLastModified(this HttpCachePolicy self)
+    {
+      var type = self.GetType();
+      var flags = BindingFlags.Instance | BindingFlags.NonPublic;
 
-      type.InvokeMember("BaseClear", flags | BindingFlags.InvokeMethod, null, headers, null);
-
-      for (int i = 0; i < headerValues.Length - 1; i += 2)
-      {
-        var value = new object[] { headerValues[i], new ArrayList { headerValues[i + 1] } };
-        type.InvokeMember("BaseAdd", flags | BindingFlags.InvokeMethod, null, headers, value);
-      }
-
-      isReadOnly.SetValue(headers, true, null);
+      var cacheability = type.GetField("_utcLastModified", flags);
+      return (DateTime)cacheability.GetValue(self);
     }
   }
 }
