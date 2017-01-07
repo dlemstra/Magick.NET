@@ -22,16 +22,26 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web;
-using System.Xml.Linq;
-using System.Xml.XPath;
 
 namespace Magick.NET.Tests
 {
   [TestClass]
-  public class MagickScriptHandlerTests
+  public class ImageOptimizerHandlerTests
   {
     private MagickFormatInfo JpgFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Jpg);
     private Encoding Encoding = System.Text.Encoding.GetEncoding(1252);
+
+    [TestMethod]
+    public void Test_CanCompress()
+    {
+      string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" optimizeImages=""false""/>";
+
+      MagickWebSettings settings = TestSectionLoader.Load(config);
+
+      bool canCompress = GzipHandler.CanCompress(settings, JpgFormatInfo);
+
+      Assert.IsFalse(canCompress);
+    }
 
     [TestMethod]
     public void Test_ProcessRequest()
@@ -46,52 +56,28 @@ namespace Magick.NET.Tests
 
         TestUrlResolver resolver = new TestUrlResolver();
         resolver.FileName = Path.Combine(tempDir, "test.jpg");
-        resolver.Format = MagickFormat.Png;
-        resolver.Script = XElement.Load(Files.Scripts.Resize).CreateNavigator();
+        resolver.Format = MagickFormat.Jpg;
 
-        File.Copy(Files.ImageMagickJPG, resolver.FileName);
+        using (MagickImage image = new MagickImage("logo:"))
+        {
+          image.Write(resolver.FileName);
+        }
 
         HttpRequest request = new HttpRequest("foo", "https://bar", "");
 
-        string outputFile = Path.Combine(tempDir, "output.png");
+        string outputFile = Path.Combine(tempDir, "output.jpg");
 
         using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
         {
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
 
-          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
+          ImageOptimizerHandler handler = new ImageOptimizerHandler(settings, resolver, JpgFormatInfo);
           handler.ProcessRequest(context);
         }
 
-        using (MagickImage image = new MagickImage(outputFile))
-        {
-          Assert.AreEqual(MagickFormat.Png, image.Format);
-          Assert.AreEqual(62, image.Width);
-          Assert.AreEqual(59, image.Height);
-        }
+        Assert.IsTrue(new FileInfo(outputFile).Length < new FileInfo(resolver.FileName).Length);
         Assert.AreEqual(3, tempDir.GetFiles().Count());
-
-        resolver.Format = MagickFormat.Tiff;
-
-        outputFile = Path.Combine(tempDir, "output.tiff");
-
-        using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
-        {
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
-
-          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
-          handler.ProcessRequest(context);
-        }
-
-        using (MagickImage image = new MagickImage(outputFile))
-        {
-          Assert.AreEqual(MagickFormat.Tiff, image.Format);
-          Assert.AreEqual(62, image.Width);
-          Assert.AreEqual(59, image.Height);
-        }
-        Assert.AreEqual(5, tempDir.GetFiles().Count());
 
         File.Delete(outputFile);
 
@@ -99,35 +85,26 @@ namespace Magick.NET.Tests
 
         DateTime lastWriteTime = cacheFile.LastWriteTime;
 
-        using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
+        using (StreamWriter writer = new StreamWriter(outputFile))
         {
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
 
-          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
+          ImageOptimizerHandler handler = new ImageOptimizerHandler(settings, resolver, JpgFormatInfo);
           handler.ProcessRequest(context);
         }
 
-        using (MagickImage image = new MagickImage(outputFile))
-        {
-          Assert.AreEqual(MagickFormat.Tiff, image.Format);
-          Assert.AreEqual(62, image.Width);
-          Assert.AreEqual(59, image.Height);
-        }
-        Assert.AreEqual(5, tempDir.GetFiles().Count());
-
         cacheFile.Refresh();
+
         Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
+        Assert.AreEqual(3, tempDir.GetFiles().Count());
 
         Thread.Sleep(50);
 
         File.Delete(resolver.FileName);
-        using (Stream input = File.OpenRead(Files.ImageMagickJPG))
+        using (MagickImage image = new MagickImage("logo:"))
         {
-          using (Stream output = File.OpenWrite(resolver.FileName))
-          {
-            input.CopyTo(output);
-          }
+          image.Write(resolver.FileName);
         }
 
         using (StreamWriter writer = new StreamWriter(outputFile))
@@ -135,14 +112,14 @@ namespace Magick.NET.Tests
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
 
-          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
+          ImageOptimizerHandler handler = new ImageOptimizerHandler(settings, resolver, JpgFormatInfo);
           handler.ProcessRequest(context);
         }
 
         cacheFile.Refresh();
 
         Assert.AreNotEqual(lastWriteTime, cacheFile.LastWriteTime);
-        Assert.AreEqual(5, tempDir.GetFiles().Count());
+        Assert.AreEqual(3, tempDir.GetFiles().Count());
       }
       finally
       {

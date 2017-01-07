@@ -71,6 +71,7 @@ namespace Magick.NET.Tests
         }
 
         CollectionAssert.AreEqual(File.ReadAllBytes(resolver.FileName), File.ReadAllBytes(outputFile));
+        Assert.AreEqual(2, tempDir.GetFiles().Count());
 
         using (StreamWriter writer = new StreamWriter(outputFile))
         {
@@ -83,6 +84,7 @@ namespace Magick.NET.Tests
         }
 
         CollectionAssert.AreEqual(File.ReadAllBytes(resolver.FileName), File.ReadAllBytes(outputFile));
+        Assert.AreEqual(2, tempDir.GetFiles().Count());
 
         using (StreamWriter writer = new StreamWriter(outputFile))
         {
@@ -95,6 +97,7 @@ namespace Magick.NET.Tests
         }
 
         Assert.IsTrue(new FileInfo(outputFile).Length < new FileInfo(resolver.FileName).Length);
+        Assert.AreEqual(3, tempDir.GetFiles().Count());
 
         using (StreamWriter writer = new StreamWriter(outputFile))
         {
@@ -107,10 +110,11 @@ namespace Magick.NET.Tests
         }
 
         Assert.IsTrue(new FileInfo(outputFile).Length < new FileInfo(resolver.FileName).Length);
+        Assert.AreEqual(4, tempDir.GetFiles().Count());
 
         File.Delete(outputFile);
 
-        FileInfo cacheFile = new DirectoryInfo(tempDir).GetFiles("*.*", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
+        FileInfo cacheFile = tempDir.GetFiles().First();
 
         DateTime lastWriteTime = cacheFile.LastWriteTime;
 
@@ -127,6 +131,7 @@ namespace Magick.NET.Tests
         cacheFile.Refresh();
 
         Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
+        Assert.AreEqual(4, tempDir.GetFiles().Count());
 
         Thread.Sleep(50);
 
@@ -152,6 +157,7 @@ namespace Magick.NET.Tests
         cacheFile.Refresh();
 
         Assert.AreNotEqual(lastWriteTime, cacheFile.LastWriteTime);
+        Assert.AreEqual(4, tempDir.GetFiles().Count());
       }
       finally
       {
