@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
@@ -78,32 +79,23 @@ namespace ImageMagick.Web.Handlers
       if (encoding == "gzip")
         return new GZipStream(stream, CompressionMode.Compress);
 
-      if (encoding == "deflate")
-        return new DeflateStream(stream, CompressionMode.Compress);
-
-      throw new NotSupportedException(encoding);
+      Debug.Assert(encoding == "deflate");
+      return new DeflateStream(stream, CompressionMode.Compress);
     }
 
     private static string GetEncoding(HttpRequest request)
     {
-      try
-      {
-        string encoding = request.Headers["Accept-Encoding"];
-        if (string.IsNullOrEmpty(encoding))
-          return null;
-
-        if (encoding.Contains("gzip"))
-          return "gzip";
-
-        if (encoding.Contains("deflate"))
-          return "deflate";
-
+      string encoding = request.Headers["Accept-Encoding"];
+      if (string.IsNullOrEmpty(encoding))
         return null;
-      }
-      catch (ThreadAbortException)
-      {
-        return null;
-      }
+
+      if (encoding.Contains("gzip"))
+        return "gzip";
+
+      if (encoding.Contains("deflate"))
+        return "deflate";
+
+      return null;
     }
 
     internal GzipHandler(MagickWebSettings settings, IUrlResolver urlResolver, MagickFormatInfo formatInfo)
