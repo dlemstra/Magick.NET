@@ -14,9 +14,13 @@
 
 using ImageMagick;
 using ImageMagick.Web;
+using ImageMagick.Web.Handlers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace Magick.NET.Tests.Web
 {
@@ -98,6 +102,43 @@ namespace Magick.NET.Tests.Web
       module.OnPostAuthorizeRequest(context);
 
       Assert.IsNull(context.RemapedHandler);
+
+      TestUrlResolver.Result = new TestUrlResolverResult()
+      {
+        FileName = "c:\foo.bar"
+      };
+
+      module.OnPostAuthorizeRequest(context);
+      Assert.IsNull(context.RemapedHandler);
+
+      string tempFile = Path.GetTempFileName();
+      try
+      {
+        TestUrlResolver.Result.FileName = tempFile;
+
+        module.OnPostAuthorizeRequest(context);
+        Assert.IsNull(context.RemapedHandler);
+
+        TestUrlResolver.Result.Format = MagickFormat.Stegano;
+
+        module.OnPostAuthorizeRequest(context);
+        Assert.IsNull(context.RemapedHandler);
+
+        TestUrlResolver.Result.Format = MagickFormat.Tiff;
+
+        module.OnPostAuthorizeRequest(context);
+        Assert.IsNull(context.RemapedHandler);
+
+        TestUrlResolver.Result.Format = MagickFormat.Svg;
+
+        module.OnPostAuthorizeRequest(context);
+        Assert.IsNotNull(context.RemapedHandler);
+        Assert.AreEqual(context.RemapedHandler.GetType(), typeof(GzipHandler));
+      }
+      finally
+      {
+        File.Delete(tempFile);
+      }
     }
 
     [TestMethod]
@@ -109,6 +150,31 @@ namespace Magick.NET.Tests.Web
       module.OnPostMapRequestHandler(context);
 
       Assert.IsNull(context.Handler);
+
+      string tempFile = Path.GetTempFileName();
+      try
+      {
+        TestUrlResolver.Result = new TestUrlResolverResult()
+        {
+          FileName = tempFile,
+          Format = MagickFormat.Jpg
+        };
+
+        module.OnPostMapRequestHandler(context);
+        Assert.IsNotNull(context.Handler);
+        Assert.AreEqual(context.Handler.GetType(), typeof(ImageOptimizerHandler));
+
+        TestUrlResolver.Result.Format = MagickFormat.Tiff;
+        TestUrlResolver.Result.Script = XElement.Parse("<test/>").CreateNavigator();
+
+        module.OnPostMapRequestHandler(context);
+        Assert.IsNotNull(context.Handler);
+        Assert.AreEqual(context.Handler.GetType(), typeof(MagickScriptHandler));
+      }
+      finally
+      {
+        File.Delete(tempFile);
+      }
     }
 
     [TestMethod]

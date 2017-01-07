@@ -22,12 +22,7 @@ namespace Magick.NET.Tests
   [ExcludeFromCodeCoverage]
   public sealed class TestUrlResolver : IUrlResolver
   {
-    public static TestUrlResolverResult Result = new TestUrlResolverResult
-    {
-      FileName = null,
-      Format = MagickFormat.Unknown,
-      Script = null
-    };
+    public static TestUrlResolverResult Result;
 
     public string FileName
     {

@@ -21,7 +21,6 @@ namespace Magick.NET.Tests
   [ExcludeFromCodeCoverage]
   public sealed class TestHttpContextBase : HttpContextBase
   {
-    private IHttpHandler _Handler;
     private Dictionary<object, object> _Items;
     private HttpRequestBase _Request;
 
@@ -32,12 +31,11 @@ namespace Magick.NET.Tests
 
     public TestHttpContextBase(string url)
     {
-      _Handler = null;
       _Items = new Dictionary<object, object>();
       _Request = new TestHttpRequest(url);
     }
 
-    public override IHttpHandler Handler => _Handler;
+    public override IHttpHandler Handler { get; set; }
 
     public override IDictionary Items => _Items;
 
