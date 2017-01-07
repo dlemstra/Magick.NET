@@ -17,7 +17,6 @@ using ImageMagick.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Configuration;
 using System.Linq;
-using System.Web;
 
 namespace Magick.NET.Tests.Web
 {
@@ -41,29 +40,27 @@ namespace Magick.NET.Tests.Web
     }
 
     [TestMethod]
-    public void Test_Init()
-    {
-      MagickModule module = CreateModule();
-      module.Init(null);
-      module.Init(new HttpApplication());
-      module.Dispose();
-    }
-
-    [TestMethod]
     public void Test_Initialize()
     {
+      string config = @"
+<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"">
+  <urlResolvers>
+    <urlResolver type=""Magick.NET.Tests.TestUrlResolver, Magick.NET.Tests""/>
+  </urlResolvers>
+</magick.net.web>";
+
       bool isEnabled = OpenCL.IsEnabled;
       ulong width = ResourceLimits.Width;
       ulong height = ResourceLimits.Height;
 
-      MagickModule module = CreateModule();
+      MagickModule module = CreateModule(config);
       module.Initialize();
 
       Assert.AreEqual(isEnabled, OpenCL.IsEnabled);
       Assert.AreEqual(width, ResourceLimits.Width);
       Assert.AreEqual(height, ResourceLimits.Height);
 
-      string config = @"
+      config = @"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
   <resourceLimits width=""10000"" height=""20000""/>
   <urlResolvers>

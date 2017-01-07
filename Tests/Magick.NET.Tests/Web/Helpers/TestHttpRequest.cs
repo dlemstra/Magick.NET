@@ -12,41 +12,21 @@
 // limitations under the License.
 //=================================================================================================
 
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Web;
 
 namespace Magick.NET.Tests
 {
-  public sealed class TestHttpContextBase : HttpContextBase
+  [ExcludeFromCodeCoverage]
+  public sealed class TestHttpRequest : HttpRequestBase
   {
-    private IHttpHandler _Handler;
-    private Dictionary<object, object> _Items;
-    private HttpRequestBase _Request;
+    private readonly Uri _Url;
 
-    public TestHttpContextBase()
-      : this("https://www.imagemagick.org")
+    public TestHttpRequest(string url)
     {
+      _Url = new Uri(url);
     }
 
-    public TestHttpContextBase(string url)
-    {
-      _Handler = null;
-      _Items = new Dictionary<object, object>();
-      _Request = new TestHttpRequest(url);
-    }
-
-    public override IHttpHandler Handler => _Handler;
-
-    public override IDictionary Items => _Items;
-
-    public override HttpRequestBase Request => _Request;
-
-    public IHttpHandler RemapedHandler { get; private set; }
-
-    public override void RemapHandler(IHttpHandler handler)
-    {
-      RemapedHandler = handler;
-    }
+    public override Uri Url => _Url;
   }
 }

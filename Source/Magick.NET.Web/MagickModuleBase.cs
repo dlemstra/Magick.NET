@@ -28,6 +28,11 @@ namespace ImageMagick.Web
     {
     }
 
+    /// <summary>
+    /// Gets a value indicating whether an intergrated pipeline is used.
+    /// </summary>
+    protected abstract bool UsingIntegratedPipeline { get; }
+
     internal abstract void OnBeginRequest(HttpContextBase context);
 
     internal abstract void OnPostAuthorizeRequest(HttpContextBase context);
@@ -48,7 +53,7 @@ namespace ImageMagick.Web
 
       context.BeginRequest += (sender, e) => OnBeginRequest(new HttpContextWrapper(((HttpApplication)sender).Context));
 
-      if (HttpRuntime.UsingIntegratedPipeline)
+      if (UsingIntegratedPipeline)
         context.PostAuthorizeRequest += (sender, e) => OnPostAuthorizeRequest(new HttpContextWrapper(((HttpApplication)sender).Context));
       else
         context.PostMapRequestHandler += (sender, e) => OnPostMapRequestHandler(new HttpContextWrapper(((HttpApplication)sender).Context));

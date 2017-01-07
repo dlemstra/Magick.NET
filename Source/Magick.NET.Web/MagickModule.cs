@@ -95,6 +95,15 @@ namespace ImageMagick.Web
       _Settings = settings;
     }
 
+    /// <inheritdoc/>
+    protected override bool UsingIntegratedPipeline
+    {
+      get
+      {
+        return HttpRuntime.UsingIntegratedPipeline;
+      }
+    }
+
     internal override void OnBeginRequest(HttpContextBase context)
     {
       context.Items[UrlKey] = context.Request.Url;

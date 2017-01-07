@@ -12,20 +12,41 @@
 // limitations under the License.
 //=================================================================================================
 
+using ImageMagick.Web;
 using System;
 using System.Web;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests.Web
 {
-  public class TestHttpRequest : HttpRequestBase
+  [ExcludeFromCodeCoverage]
+  public class TestMagickModule : MagickModuleBase
   {
-    private readonly Uri _Url;
+    private readonly bool _UsingIntegratedPipeline;
 
-    public TestHttpRequest(string url)
+    public TestMagickModule(bool usingIntegratedPipeline)
     {
-      _Url = new Uri(url);
+      _UsingIntegratedPipeline = usingIntegratedPipeline;
     }
 
-    public override Uri Url => _Url;
+    protected override bool UsingIntegratedPipeline => _UsingIntegratedPipeline;
+
+    internal override void Initialize()
+    {
+      IsInitialized = true;
+    }
+
+    internal override void OnBeginRequest(HttpContextBase context)
+    {
+    }
+
+    internal override void OnPostAuthorizeRequest(HttpContextBase context)
+    {
+    }
+
+    internal override void OnPostMapRequestHandler(HttpContextBase context)
+    {
+    }
+
+    public bool IsInitialized { get; private set; }
   }
 }

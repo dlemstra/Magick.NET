@@ -19,7 +19,8 @@ using System.IO;
 
 namespace Magick.NET.Tests
 {
-  internal sealed class TestSectionLoader : ISectionLoader
+  [ExcludeFromCodeCoverage]
+  public sealed class TestSectionLoader : ISectionLoader
   {
     private string _TempFile;
 

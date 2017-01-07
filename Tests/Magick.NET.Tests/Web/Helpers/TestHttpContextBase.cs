@@ -12,33 +12,42 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
-using System.Xml.XPath;
-using ImageMagick;
-using ImageMagick.Web;
+using System.Collections;
+using System.Collections.Generic;
+using System.Web;
 
 namespace Magick.NET.Tests
 {
-  public sealed class TestUrlResolver : IUrlResolver
+  [ExcludeFromCodeCoverage]
+  public sealed class TestHttpContextBase : HttpContextBase
   {
-    public string FileName
+    private IHttpHandler _Handler;
+    private Dictionary<object, object> _Items;
+    private HttpRequestBase _Request;
+
+    public TestHttpContextBase()
+      : this("https://www.imagemagick.org")
     {
-      get;
     }
 
-    public MagickFormat Format
+    public TestHttpContextBase(string url)
     {
-      get;
+      _Handler = null;
+      _Items = new Dictionary<object, object>();
+      _Request = new TestHttpRequest(url);
     }
 
-    public IXPathNavigable Script
-    {
-      get;
-    }
+    public override IHttpHandler Handler => _Handler;
 
-    public bool Resolve(Uri url)
+    public override IDictionary Items => _Items;
+
+    public override HttpRequestBase Request => _Request;
+
+    public IHttpHandler RemapedHandler { get; private set; }
+
+    public override void RemapHandler(IHttpHandler handler)
     {
-      return false;
+      RemapedHandler = handler;
     }
   }
 }
