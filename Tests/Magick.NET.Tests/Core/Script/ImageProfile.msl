@@ -1,4 +1,4 @@
-<msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
+<msl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\..\..\..\Source\Magick.NET\Resources\ReleaseQ16\MagickScript.xsd">
   <read>
     <addProfile>
       <profile>
