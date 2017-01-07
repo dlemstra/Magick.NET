@@ -19,26 +19,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace Magick.NET.Tests
 {
   [TestClass]
-  public class GzipHandlerTests
+  public class MagickScriptHandlerTests
   {
-    private MagickFormatInfo SvgFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Svg);
-
-    [TestMethod]
-    public void Test_CanCompress()
-    {
-      string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" enableGzip=""false""/>";
-
-      MagickWebSettings settings = TestSectionLoader.Load(config);
-
-      bool canCompress = GzipHandler.CanCompress(settings, SvgFormatInfo);
-
-      Assert.IsFalse(canCompress);
-    }
+    private MagickFormatInfo JpgFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Jpg);
+    private Encoding Encoding = System.Text.Encoding.GetEncoding(1252);
 
     [TestMethod]
     public void Test_ProcessRequest()
@@ -52,60 +44,51 @@ namespace Magick.NET.Tests
         MagickWebSettings settings = TestSectionLoader.Load(config);
 
         TestUrlResolver resolver = new TestUrlResolver();
-        resolver.FileName = Path.Combine(tempDir, "test.svg");
+        resolver.FileName = Path.Combine(tempDir, "test.jpg");
+        resolver.Format = MagickFormat.Png;
+        resolver.Script = XElement.Load(Files.Scripts.Resize).CreateNavigator();
 
-        File.Copy(Files.Logos.MagickNETSVG, resolver.FileName);
+        File.Copy(Files.ImageMagickJPG, resolver.FileName);
 
         HttpRequest request = new HttpRequest("foo", "https://bar", "");
 
-        string outputFile = Path.Combine(tempDir, "output");
+        string outputFile = Path.Combine(tempDir, "output.png");
 
-        using (StreamWriter writer = new StreamWriter(outputFile))
+        using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
         {
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
 
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
+          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
           handler.ProcessRequest(context);
         }
 
-        CollectionAssert.AreEqual(File.ReadAllBytes(resolver.FileName), File.ReadAllBytes(outputFile));
-
-        using (StreamWriter writer = new StreamWriter(outputFile))
+        using (MagickImage image = new MagickImage(outputFile))
         {
-          request.SetHeaders("Accept-Encoding", "invalid");
+          Assert.AreEqual(MagickFormat.Png, image.Format);
+          Assert.AreEqual(62, image.Width);
+          Assert.AreEqual(59, image.Height);
+        }
+
+        resolver.Format = MagickFormat.Tiff;
+
+        outputFile = Path.Combine(tempDir, "output.tiff");
+
+        using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
+        {
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
 
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
+          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
           handler.ProcessRequest(context);
         }
 
-        CollectionAssert.AreEqual(File.ReadAllBytes(resolver.FileName), File.ReadAllBytes(outputFile));
-
-        using (StreamWriter writer = new StreamWriter(outputFile))
+        using (MagickImage image = new MagickImage(outputFile))
         {
-          request.SetHeaders("Accept-Encoding", "gzip");
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
-
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
-          handler.ProcessRequest(context);
+          Assert.AreEqual(MagickFormat.Tiff, image.Format);
+          Assert.AreEqual(62, image.Width);
+          Assert.AreEqual(59, image.Height);
         }
-
-        Assert.IsTrue(new FileInfo(outputFile).Length < new FileInfo(resolver.FileName).Length);
-
-        using (StreamWriter writer = new StreamWriter(outputFile))
-        {
-          request.SetHeaders("Accept-Encoding", "deflate");
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
-
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
-          handler.ProcessRequest(context);
-        }
-
-        Assert.IsTrue(new FileInfo(outputFile).Length < new FileInfo(resolver.FileName).Length);
 
         File.Delete(outputFile);
 
@@ -113,17 +96,21 @@ namespace Magick.NET.Tests
 
         DateTime lastWriteTime = cacheFile.LastWriteTime;
 
-        using (StreamWriter writer = new StreamWriter(outputFile))
+        using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
         {
-          request.SetHeaders("Accept-Encoding", "deflate");
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
 
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
+          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
           handler.ProcessRequest(context);
         }
 
-        Assert.IsTrue(new FileInfo(outputFile).Length < new FileInfo(resolver.FileName).Length);
+        using (MagickImage image = new MagickImage(outputFile))
+        {
+          Assert.AreEqual(MagickFormat.Tiff, image.Format);
+          Assert.AreEqual(62, image.Width);
+          Assert.AreEqual(59, image.Height);
+        }
 
         cacheFile.Refresh();
         Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
