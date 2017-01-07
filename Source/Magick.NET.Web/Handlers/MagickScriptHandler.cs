@@ -40,17 +40,6 @@ namespace ImageMagick.Web.Handlers
       return GetCacheFileName("MagickScript", xml.CreateNavigator().OuterXml);
     }
 
-    private string GetScriptedFileName()
-    {
-      IXPathNavigable xml = UrlResolver.Script;
-
-      string cacheFileName = GetCacheFileName(xml);
-      if (!CanUseCache(cacheFileName))
-        CreateScriptedFile(xml, cacheFileName);
-
-      return cacheFileName;
-    }
-
     private void OnScriptRead(object sender, ScriptReadEventArgs arguments)
     {
       arguments.Image = new MagickImage(UrlResolver.FileName, arguments.Settings);
@@ -83,16 +72,16 @@ namespace ImageMagick.Web.Handlers
     {
     }
 
-    /// <summary>
-    /// Writes the file to the response.
-    /// </summary>
-    /// <param name="context">An HttpContext object that provides references to the intrinsic
-    /// server objects (for example, Request, Response, Session, and Server) used to service
-    /// HTTP requests.</param>
-    protected override void WriteFile(HttpContext context)
+    /// <inheritdoc/>
+    protected override string GetFileName(HttpContext context)
     {
-      string fileName = GetScriptedFileName();
-      WriteFile(context, fileName);
+      IXPathNavigable xml = UrlResolver.Script;
+
+      string cacheFileName = GetCacheFileName(xml);
+      if (!CanUseCache(cacheFileName))
+        CreateScriptedFile(xml, cacheFileName);
+
+      return cacheFileName;
     }
   }
 }

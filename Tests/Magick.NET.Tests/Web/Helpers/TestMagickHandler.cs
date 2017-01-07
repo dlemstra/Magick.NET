@@ -28,9 +28,9 @@ namespace Magick.NET.Tests
       FileName = Files.MagickNETIconPNG;
     }
 
-    protected override void WriteFile(HttpContext context)
+    protected override string GetFileName(HttpContext context)
     {
-      WriteFile(context, FileName);
+      return FileName;
     }
 
     public string FileName { get; set; }

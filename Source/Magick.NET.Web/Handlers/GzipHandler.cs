@@ -12,12 +12,10 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
-using System.Threading;
 using System.Web;
 
 namespace ImageMagick.Web.Handlers
@@ -27,22 +25,6 @@ namespace ImageMagick.Web.Handlers
   /// </summary>
   public sealed class GzipHandler : MagickHandler
   {
-    private string GetCompressedFileName(HttpContext context)
-    {
-      string encoding = GetEncoding(context.Request);
-      if (string.IsNullOrEmpty(encoding))
-        return UrlResolver.FileName;
-
-      string cacheFileName = GetCacheFileName("Compressed", encoding);
-      if (!CanUseCache(cacheFileName))
-        CreateCompressedFile(encoding, cacheFileName);
-
-      context.Response.AppendHeader("Content-Encoding", encoding);
-      context.Response.AppendHeader("Vary", "Accept-Encoding");
-
-      return cacheFileName;
-    }
-
     [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Code is much cleaner this way.")]
     private void CreateCompressedFile(string encoding, string cacheFileName)
     {
@@ -111,16 +93,24 @@ namespace ImageMagick.Web.Handlers
       return formatInfo.Format == MagickFormat.Svg;
     }
 
-    /// <summary>
-    /// Writes the file to the response.
-    /// </summary>
-    /// <param name="context">An HttpContext object that provides references to the intrinsic
-    /// server objects (for example, Request, Response, Session, and Server) used to service
-    /// HTTP requests.</param>
-    protected override void WriteFile(HttpContext context)
+    /// <inheritdoc/>
+    [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Context will not be null.")]
+    protected override string GetFileName(HttpContext context)
     {
-      string fileName = GetCompressedFileName(context);
-      WriteFile(context, fileName);
+      Debug.Assert(context != null);
+
+      string encoding = GetEncoding(context.Request);
+      if (string.IsNullOrEmpty(encoding))
+        return UrlResolver.FileName;
+
+      string cacheFileName = GetCacheFileName("Compressed", encoding);
+      if (!CanUseCache(cacheFileName))
+        CreateCompressedFile(encoding, cacheFileName);
+
+      context.Response.AppendHeader("Content-Encoding", encoding);
+      context.Response.AppendHeader("Vary", "Accept-Encoding");
+
+      return cacheFileName;
     }
   }
 }

@@ -66,6 +66,25 @@ namespace ImageMagick.Web.Handlers
       _Version = ((AssemblyFileVersionAttribute)version).Version;
     }
 
+    private void WriteFile(HttpContext context, string fileName)
+    {
+      _Lock.EnterReadLock();
+
+      try
+      {
+        AddCacheControlHeader(context.Response);
+
+        if (Write304(context, File.GetLastWriteTime(fileName)))
+          return;
+
+        context.Response.TransmitFile(fileName);
+      }
+      finally
+      {
+        _Lock.ExitReadLock();
+      }
+    }
+
     private static bool Write304(HttpContext content, DateTime fileDate)
     {
       DateTime modificationDate = new DateTime(fileDate.Year, fileDate.Month, fileDate.Day, fileDate.Hour, fileDate.Minute, fileDate.Second);
@@ -116,12 +135,13 @@ namespace ImageMagick.Web.Handlers
     }
 
     /// <summary>
-    /// Writes the file to the response.
+    /// Returns the file name that should be send to the response.
     /// </summary>
     /// <param name="context">An HttpContext object that provides references to the intrinsic
     /// server objects (for example, Request, Response, Session, and Server) used to service
     /// HTTP requests.</param>
-    protected abstract void WriteFile(HttpContext context);
+    /// <returns>The file name that should be send to the response.</returns>
+    protected abstract string GetFileName(HttpContext context);
 
     /// <summary>
     /// Gets the format information for the file that was resolved with the IUrlResolver.
@@ -222,35 +242,6 @@ namespace ImageMagick.Web.Handlers
     }
 
     /// <summary>
-    /// Writes the specified file to the response.
-    /// </summary>
-    /// <param name="context">An HttpContext object that provides references to the intrinsic
-    /// server objects (for example, Request, Response, Session, and Server) used to service
-    /// HTTP requests.</param>
-    /// <param name="fileName">The file name of the file to write to the response.</param>
-    protected void WriteFile(HttpContext context, string fileName)
-    {
-      if (context == null || string.IsNullOrEmpty(fileName))
-        return;
-
-      _Lock.EnterReadLock();
-
-      try
-      {
-        AddCacheControlHeader(context.Response);
-
-        if (Write304(context, File.GetLastWriteTime(fileName)))
-          return;
-
-        context.Response.TransmitFile(fileName);
-      }
-      finally
-      {
-        _Lock.ExitReadLock();
-      }
-    }
-
-    /// <summary>
     /// Gets a value indicating whether another request can use the IHttpHandler instance.
     /// </summary>
     public bool IsReusable
@@ -278,7 +269,10 @@ namespace ImageMagick.Web.Handlers
       if (!string.IsNullOrEmpty(_Version))
         context.Response.AddHeader("X-Magick", _Version);
 
-      WriteFile(context);
+      string filename = GetFileName(context);
+
+      if (!string.IsNullOrEmpty(filename))
+        WriteFile(context, filename);
     }
   }
 }

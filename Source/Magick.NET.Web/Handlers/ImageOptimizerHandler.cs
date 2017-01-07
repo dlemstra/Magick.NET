@@ -42,16 +42,6 @@ namespace ImageMagick.Web.Handlers
       }
     }
 
-    private string GetOptimizedFileName()
-    {
-      string cacheFileName = GetCacheFileName("Optimized", UrlResolver.Format.ToString());
-
-      if (!CanUseCache(cacheFileName))
-        CreateOptimizedFile(cacheFileName);
-
-      return cacheFileName;
-    }
-
     internal ImageOptimizerHandler(MagickWebSettings settings, IUrlResolver urlResolver, MagickFormatInfo formatInfo)
       : base(settings, urlResolver, formatInfo)
     {
@@ -74,16 +64,15 @@ namespace ImageMagick.Web.Handlers
       _ImageOptimizer.LosslessCompress(fileName);
     }
 
-    /// <summary>
-    /// Writes the file to the response.
-    /// </summary>
-    /// <param name="context">An HttpContext object that provides references to the intrinsic
-    /// server objects (for example, Request, Response, Session, and Server) used to service
-    /// HTTP requests.</param>
-    protected override void WriteFile(HttpContext context)
+    /// <inheritdoc/>
+    protected override string GetFileName(HttpContext context)
     {
-      string fileName = GetOptimizedFileName();
-      WriteFile(context, fileName);
+      string cacheFileName = GetCacheFileName("Optimized", UrlResolver.Format.ToString());
+
+      if (!CanUseCache(cacheFileName))
+        CreateOptimizedFile(cacheFileName);
+
+      return cacheFileName;
     }
   }
 }
