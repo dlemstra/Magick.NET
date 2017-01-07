@@ -24,7 +24,7 @@ namespace ImageMagick.Web.Handlers
   /// <summary>
   /// IHttpHandler that can be used to compress files before they are written to the response.
   /// </summary>
-  public class GzipHandler : MagickHandler
+  public sealed class GzipHandler : MagickHandler
   {
     private string GetCompressedFileName(HttpContext context)
     {

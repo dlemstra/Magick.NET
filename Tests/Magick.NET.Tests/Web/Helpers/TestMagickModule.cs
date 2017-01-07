@@ -13,7 +13,6 @@
 //=================================================================================================
 
 using ImageMagick.Web;
-using System;
 using System.Web;
 
 namespace Magick.NET.Tests.Web
@@ -21,14 +20,12 @@ namespace Magick.NET.Tests.Web
   [ExcludeFromCodeCoverage]
   public class TestMagickModule : MagickModuleBase
   {
-    private readonly bool _UsingIntegratedPipeline;
-
     public TestMagickModule(bool usingIntegratedPipeline)
     {
-      _UsingIntegratedPipeline = usingIntegratedPipeline;
+      UsingIntegratedPipeline = usingIntegratedPipeline;
     }
 
-    protected override bool UsingIntegratedPipeline => _UsingIntegratedPipeline;
+    protected override bool UsingIntegratedPipeline { get; }
 
     internal override void Initialize()
     {

@@ -103,10 +103,12 @@ namespace Magick.NET.Tests.Web
 
       Assert.IsNull(context.RemapedHandler);
 
-      TestUrlResolver.Result = new TestUrlResolverResult()
-      {
-        FileName = "c:\foo.bar"
-      };
+      TestUrlResolver.Result = new TestUrlResolverResult();
+
+      module.OnPostAuthorizeRequest(context);
+      Assert.IsNull(context.RemapedHandler);
+
+      TestUrlResolver.Result.FileName = "c:\foo.bar";
 
       module.OnPostAuthorizeRequest(context);
       Assert.IsNull(context.RemapedHandler);
@@ -145,6 +147,8 @@ namespace Magick.NET.Tests.Web
     public void Test_OnPostMapRequestHandler()
     {
       MagickModule module = CreateModule();
+      module.Init(new TestHttpApplication());
+
       TestHttpContextBase context = new TestHttpContextBase();
       module.OnBeginRequest(context);
       module.OnPostMapRequestHandler(context);

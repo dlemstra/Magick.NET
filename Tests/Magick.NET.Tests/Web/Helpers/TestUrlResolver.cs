@@ -27,19 +27,19 @@ namespace Magick.NET.Tests
     public string FileName
     {
       get;
-      private set;
+      set;
     }
 
     public MagickFormat Format
     {
       get;
-      private set;
+      set;
     }
 
     public IXPathNavigable Script
     {
       get;
-      private set;
+      set;
     }
 
     public bool Resolve(Uri url)
