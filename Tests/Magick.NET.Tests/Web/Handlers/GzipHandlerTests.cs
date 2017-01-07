@@ -133,7 +133,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
         Assert.AreEqual(4, tempDir.GetFiles().Count());
 
-        Thread.Sleep(50);
+        Thread.Sleep(100);
 
         File.Delete(resolver.FileName);
         using (Stream input = File.OpenRead(Files.Logos.MagickNETSVG))

@@ -119,7 +119,7 @@ namespace Magick.NET.Tests
         cacheFile.Refresh();
         Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
 
-        Thread.Sleep(50);
+        Thread.Sleep(100);
 
         File.Delete(resolver.FileName);
         using (Stream input = File.OpenRead(Files.ImageMagickJPG))

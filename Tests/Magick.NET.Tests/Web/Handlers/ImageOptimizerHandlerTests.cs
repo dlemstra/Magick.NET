@@ -32,13 +32,13 @@ namespace Magick.NET.Tests
     private Encoding Encoding = System.Text.Encoding.GetEncoding(1252);
 
     [TestMethod]
-    public void Test_CanCompress()
+    public void Test_CanOptimize()
     {
       string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" optimizeImages=""false""/>";
 
       MagickWebSettings settings = TestSectionLoader.Load(config);
 
-      bool canCompress = GzipHandler.CanCompress(settings, JpgFormatInfo);
+      bool canCompress = ImageOptimizerHandler.CanOptimize(settings, JpgFormatInfo);
 
       Assert.IsFalse(canCompress);
     }
@@ -99,7 +99,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
         Assert.AreEqual(3, tempDir.GetFiles().Count());
 
-        Thread.Sleep(50);
+        Thread.Sleep(100);
 
         File.Delete(resolver.FileName);
         using (MagickImage image = new MagickImage("logo:"))
