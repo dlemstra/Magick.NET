@@ -20,7 +20,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -119,16 +118,8 @@ namespace Magick.NET.Tests
         cacheFile.Refresh();
         Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
 
-        Thread.Sleep(100);
-
-        File.Delete(resolver.FileName);
-        using (Stream input = File.OpenRead(Files.ImageMagickJPG))
-        {
-          using (Stream output = File.OpenWrite(resolver.FileName))
-          {
-            input.CopyTo(output);
-          }
-        }
+        File.SetLastWriteTime(cacheFile.FullName, new DateTime(1979, 11, 19));
+        lastWriteTime = cacheFile.LastWriteTime;
 
         using (StreamWriter writer = new StreamWriter(outputFile))
         {
