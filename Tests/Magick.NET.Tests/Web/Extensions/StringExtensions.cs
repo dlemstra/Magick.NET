@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
   {
     public static IEnumerable<FileInfo> GetFiles(this string self)
     {
-      return new DirectoryInfo(self).GetFiles("*.*", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime);
+      return new DirectoryInfo(self).GetFiles("*.*", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTimeUtc);
     }
   }
 }

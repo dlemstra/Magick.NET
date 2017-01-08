@@ -74,7 +74,7 @@ namespace ImageMagick.Web.Handlers
       {
         AddCacheControlHeader(context.Response);
 
-        if (Write304(context, File.GetLastWriteTime(fileName)))
+        if (Write304(context, File.GetLastWriteTimeUtc(fileName)))
           return;
 
         context.Response.TransmitFile(fileName);
@@ -87,11 +87,9 @@ namespace ImageMagick.Web.Handlers
 
     private static bool Write304(HttpContext content, DateTime fileDate)
     {
-      DateTime modificationDate = new DateTime(fileDate.Year, fileDate.Month, fileDate.Day, fileDate.Hour, fileDate.Minute, fileDate.Second);
-      if (modificationDate > DateTime.Now)
-        modificationDate = DateTime.Now;
-
-      modificationDate = modificationDate.ToUniversalTime();
+      DateTime modificationDate = new DateTime(fileDate.Year, fileDate.Month, fileDate.Day, fileDate.Hour, fileDate.Minute, fileDate.Second, DateTimeKind.Utc);
+      if (modificationDate > DateTime.UtcNow)
+        modificationDate = DateTime.UtcNow;
 
       content.Response.Cache.SetLastModified(modificationDate);
       string modifiedSince = content.Request.Headers["If-Modified-Since"];
@@ -182,8 +180,8 @@ namespace ImageMagick.Web.Handlers
         if (!File.Exists(cacheFileName))
           return false;
 
-        DateTime fileDate = File.GetLastWriteTime(UrlResolver.FileName);
-        DateTime cacheDate = File.GetLastWriteTime(cacheFileName);
+        DateTime fileDate = File.GetLastWriteTimeUtc(UrlResolver.FileName);
+        DateTime cacheDate = File.GetLastWriteTimeUtc(cacheFileName);
         return fileDate <= cacheDate;
       }
       finally

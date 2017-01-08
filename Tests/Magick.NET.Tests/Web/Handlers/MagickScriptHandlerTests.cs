@@ -88,7 +88,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(0, File.ReadAllBytes(outputFile).Count());
         Assert.AreEqual(3, tempDir.GetFiles().Count());
 
-        cacheFile.LastWriteTime = new DateTime(1979, 11, 19);
+        cacheFile.LastWriteTimeUtc = new DateTime(1979, 11, 19);
 
         using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
         {
@@ -122,13 +122,14 @@ namespace Magick.NET.Tests
           handler.ProcessRequest(context);
         }
 
+        Assert.AreEqual(5, tempDir.GetFiles().Count());
+
         using (MagickImage image = new MagickImage(outputFile))
         {
           Assert.AreEqual(MagickFormat.Tiff, image.Format);
           Assert.AreEqual(62, image.Width);
           Assert.AreEqual(59, image.Height);
         }
-        Assert.AreEqual(5, tempDir.GetFiles().Count());
       }
       finally
       {
