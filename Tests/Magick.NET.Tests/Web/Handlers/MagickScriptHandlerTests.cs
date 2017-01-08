@@ -113,13 +113,13 @@ namespace Magick.NET.Tests
           Assert.AreEqual(62, image.Width);
           Assert.AreEqual(59, image.Height);
         }
-        Assert.AreEqual(5, tempDir.GetFiles().Count());
 
         cacheFile.Refresh();
         Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
+        Assert.AreEqual(5, tempDir.GetFiles().Count());
 
-        File.SetLastWriteTime(cacheFile.FullName, new DateTime(1979, 11, 19));
-        lastWriteTime = cacheFile.LastWriteTime;
+        lastWriteTime = new DateTime(1979, 11, 19);
+        File.SetLastWriteTime(cacheFile.FullName, lastWriteTime);
 
         using (StreamWriter writer = new StreamWriter(outputFile))
         {

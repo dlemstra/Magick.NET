@@ -132,8 +132,8 @@ namespace Magick.NET.Tests
         Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
         Assert.AreEqual(4, tempDir.GetFiles().Count());
 
-        File.SetLastWriteTime(cacheFile.FullName, new DateTime(1979, 11, 19));
-        lastWriteTime = cacheFile.LastWriteTime;
+        lastWriteTime = new DateTime(1979, 11, 19);
+        File.SetLastWriteTime(cacheFile.FullName, lastWriteTime);
 
         using (StreamWriter writer = new StreamWriter(outputFile))
         {
