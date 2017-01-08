@@ -98,6 +98,39 @@ namespace Magick.NET.Tests
         Assert.IsTrue(new FileInfo(outputFile).Length < new FileInfo(resolver.FileName).Length);
         Assert.AreEqual(3, tempDir.GetFiles().Count());
 
+        File.Delete(outputFile);
+
+        FileInfo cacheFile = tempDir.GetFiles().First();
+        File.WriteAllText(cacheFile.FullName, "");
+
+        using (StreamWriter writer = new StreamWriter(outputFile))
+        {
+          request.SetHeaders("Accept-Encoding", "gzip");
+          HttpResponse response = new HttpResponse(writer);
+          HttpContext context = new HttpContext(request, response);
+
+          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
+          handler.ProcessRequest(context);
+        }
+
+        Assert.AreEqual(0, File.ReadAllBytes(outputFile).Count());
+        Assert.AreEqual(3, tempDir.GetFiles().Count());
+
+        cacheFile.LastWriteTime = new DateTime(1979, 11, 19);
+
+        using (StreamWriter writer = new StreamWriter(outputFile))
+        {
+          request.SetHeaders("Accept-Encoding", "gzip");
+          HttpResponse response = new HttpResponse(writer);
+          HttpContext context = new HttpContext(request, response);
+
+          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
+          handler.ProcessRequest(context);
+        }
+
+        Assert.AreNotEqual(0, File.ReadAllBytes(cacheFile.FullName).Count());
+        Assert.AreEqual(3, tempDir.GetFiles().Count());
+
         using (StreamWriter writer = new StreamWriter(outputFile))
         {
           request.SetHeaders("Accept-Encoding", "deflate");
@@ -109,39 +142,6 @@ namespace Magick.NET.Tests
         }
 
         Assert.IsTrue(new FileInfo(outputFile).Length < new FileInfo(resolver.FileName).Length);
-        Assert.AreEqual(4, tempDir.GetFiles().Count());
-
-        File.Delete(outputFile);
-
-        FileInfo cacheFile = tempDir.GetFiles().First();
-        File.WriteAllText(cacheFile.FullName, "");
-
-        using (StreamWriter writer = new StreamWriter(outputFile))
-        {
-          request.SetHeaders("Accept-Encoding", "deflate");
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
-
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
-          handler.ProcessRequest(context);
-        }
-
-        Assert.AreEqual(0, File.ReadAllBytes(cacheFile.FullName).Count());
-        Assert.AreEqual(4, tempDir.GetFiles().Count());
-
-        cacheFile.SetLastWriteTime(new DateTime(1979, 11, 19));
-
-        using (StreamWriter writer = new StreamWriter(outputFile))
-        {
-          request.SetHeaders("Accept-Encoding", "deflate");
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
-
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
-          handler.ProcessRequest(context);
-        }
-
-        Assert.AreNotEqual(0, File.ReadAllBytes(cacheFile.FullName).Count());
         Assert.AreEqual(4, tempDir.GetFiles().Count());
       }
       finally

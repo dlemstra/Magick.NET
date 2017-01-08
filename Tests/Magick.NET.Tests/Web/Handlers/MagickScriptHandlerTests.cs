@@ -71,6 +71,44 @@ namespace Magick.NET.Tests
         }
         Assert.AreEqual(3, tempDir.GetFiles().Count());
 
+        File.Delete(outputFile);
+
+        FileInfo cacheFile = tempDir.GetFiles().First();
+        File.WriteAllText(cacheFile.FullName, "");
+
+        using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
+        {
+          HttpResponse response = new HttpResponse(writer);
+          HttpContext context = new HttpContext(request, response);
+
+          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
+          handler.ProcessRequest(context);
+        }
+
+        Assert.AreEqual(0, File.ReadAllBytes(outputFile).Count());
+        Assert.AreEqual(3, tempDir.GetFiles().Count());
+
+        cacheFile.LastWriteTime = new DateTime(1979, 11, 19);
+
+        using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
+        {
+          HttpResponse response = new HttpResponse(writer);
+          HttpContext context = new HttpContext(request, response);
+
+          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
+          handler.ProcessRequest(context);
+        }
+
+        Assert.AreNotEqual(0, File.ReadAllBytes(cacheFile.FullName).Count());
+        Assert.AreEqual(3, tempDir.GetFiles().Count());
+
+        using (MagickImage image = new MagickImage(outputFile))
+        {
+          Assert.AreEqual(MagickFormat.Png, image.Format);
+          Assert.AreEqual(62, image.Width);
+          Assert.AreEqual(59, image.Height);
+        }
+
         resolver.Format = MagickFormat.Tiff;
 
         outputFile = Path.Combine(tempDir, "output.tiff");
@@ -91,44 +129,6 @@ namespace Magick.NET.Tests
           Assert.AreEqual(59, image.Height);
         }
         Assert.AreEqual(5, tempDir.GetFiles().Count());
-
-        File.Delete(outputFile);
-
-        FileInfo cacheFile = tempDir.GetFiles().First();
-        File.WriteAllText(cacheFile.FullName, "");
-
-        using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
-        {
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
-
-          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
-          handler.ProcessRequest(context);
-        }
-
-        Assert.AreEqual(0, File.ReadAllBytes(cacheFile.FullName).Count());
-        Assert.AreEqual(5, tempDir.GetFiles().Count());
-
-        cacheFile.SetLastWriteTime(new DateTime(1979, 11, 19));
-
-        using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
-        {
-          HttpResponse response = new HttpResponse(writer);
-          HttpContext context = new HttpContext(request, response);
-
-          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
-          handler.ProcessRequest(context);
-        }
-
-        Assert.AreNotEqual(0, File.ReadAllBytes(cacheFile.FullName).Count());
-        Assert.AreEqual(5, tempDir.GetFiles().Count());
-
-        using (MagickImage image = new MagickImage(outputFile))
-        {
-          Assert.AreEqual(MagickFormat.Tiff, image.Format);
-          Assert.AreEqual(62, image.Width);
-          Assert.AreEqual(59, image.Height);
-        }
       }
       finally
       {
