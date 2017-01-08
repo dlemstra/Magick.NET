@@ -95,8 +95,7 @@ namespace Magick.NET.Tests
         File.Delete(outputFile);
 
         FileInfo cacheFile = tempDir.GetFiles().First();
-
-        DateTime lastWriteTime = cacheFile.LastWriteTime;
+        File.WriteAllText(cacheFile.FullName, "");
 
         using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
         {
@@ -107,21 +106,12 @@ namespace Magick.NET.Tests
           handler.ProcessRequest(context);
         }
 
-        using (MagickImage image = new MagickImage(outputFile))
-        {
-          Assert.AreEqual(MagickFormat.Tiff, image.Format);
-          Assert.AreEqual(62, image.Width);
-          Assert.AreEqual(59, image.Height);
-        }
-
-        cacheFile.Refresh();
-        Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
+        Assert.AreEqual(0, File.ReadAllBytes(cacheFile.FullName).Count());
         Assert.AreEqual(5, tempDir.GetFiles().Count());
 
-        lastWriteTime = new DateTime(2001, 1, 1);
-        cacheFile.SetLastWriteTime(lastWriteTime);
+        cacheFile.SetLastWriteTime(new DateTime(1979, 11, 19));
 
-        using (StreamWriter writer = new StreamWriter(outputFile))
+        using (StreamWriter writer = new StreamWriter(outputFile, false, Encoding))
         {
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
@@ -130,8 +120,15 @@ namespace Magick.NET.Tests
           handler.ProcessRequest(context);
         }
 
-        Assert.IsFalse(cacheFile.LastWriteTimeEqualTo(lastWriteTime));
+        Assert.AreNotEqual(0, File.ReadAllBytes(cacheFile.FullName).Count());
         Assert.AreEqual(5, tempDir.GetFiles().Count());
+
+        using (MagickImage image = new MagickImage(outputFile))
+        {
+          Assert.AreEqual(MagickFormat.Tiff, image.Format);
+          Assert.AreEqual(62, image.Width);
+          Assert.AreEqual(59, image.Height);
+        }
       }
       finally
       {

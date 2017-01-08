@@ -21,21 +21,6 @@ namespace Magick.NET.Tests
   [ExcludeFromCodeCoverage]
   internal static class FileInfoExtensions
   {
-    public static bool LastWriteTimeEqualTo(this FileInfo self, DateTime lastWriteTime)
-    {
-      int i = 0;
-      while (i < 60)
-      {
-        if (File.GetLastWriteTime(self.FullName) != lastWriteTime)
-          return false;
-
-        Thread.Sleep(100);
-        i++;
-      }
-
-      return true;
-    }
-
     public static void SetLastWriteTime(this FileInfo self, DateTime lastWriteTime)
     {
       File.SetLastWriteTime(self.FullName, lastWriteTime);

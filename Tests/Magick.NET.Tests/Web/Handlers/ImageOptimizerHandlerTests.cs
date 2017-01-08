@@ -81,8 +81,7 @@ namespace Magick.NET.Tests
         File.Delete(outputFile);
 
         FileInfo cacheFile = tempDir.GetFiles().First();
-
-        DateTime lastWriteTime = cacheFile.LastWriteTime;
+        File.WriteAllText(cacheFile.FullName, "");
 
         using (StreamWriter writer = new StreamWriter(outputFile))
         {
@@ -93,13 +92,10 @@ namespace Magick.NET.Tests
           handler.ProcessRequest(context);
         }
 
-        cacheFile.Refresh();
-
-        Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
+        Assert.AreEqual(0, File.ReadAllBytes(cacheFile.FullName).Count());
         Assert.AreEqual(3, tempDir.GetFiles().Count());
 
-        lastWriteTime = new DateTime(2001, 1, 1);
-        cacheFile.SetLastWriteTime(lastWriteTime);
+        cacheFile.SetLastWriteTime(new DateTime(1979, 11, 19));
 
         using (StreamWriter writer = new StreamWriter(outputFile))
         {
@@ -110,7 +106,7 @@ namespace Magick.NET.Tests
           handler.ProcessRequest(context);
         }
 
-        Assert.IsFalse(cacheFile.LastWriteTimeEqualTo(lastWriteTime));
+        Assert.AreNotEqual(0, File.ReadAllBytes(cacheFile.FullName).Count());
         Assert.AreEqual(3, tempDir.GetFiles().Count());
       }
       finally

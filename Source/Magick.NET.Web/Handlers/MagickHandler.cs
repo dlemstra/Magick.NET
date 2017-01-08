@@ -230,12 +230,10 @@ namespace ImageMagick.Web.Handlers
       {
         _Lock.EnterWriteLock();
 
-        FileInfo cacheFile = new FileInfo(cacheFileName);
-        if (cacheFile.Exists)
-          cacheFile.Delete();
+        if (File.Exists(cacheFileName))
+          File.Delete(cacheFileName);
 
         File.Move(fileName, cacheFileName);
-        cacheFile.LastWriteTime = DateTime.Now;
       }
       finally
       {
