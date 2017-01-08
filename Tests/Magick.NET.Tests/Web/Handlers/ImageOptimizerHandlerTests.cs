@@ -98,8 +98,8 @@ namespace Magick.NET.Tests
         Assert.AreEqual(lastWriteTime, cacheFile.LastWriteTime);
         Assert.AreEqual(3, tempDir.GetFiles().Count());
 
-        lastWriteTime = new DateTime(1979, 11, 19);
-        File.SetLastWriteTime(cacheFile.FullName, lastWriteTime);
+        lastWriteTime = new DateTime(2001, 1, 1);
+        cacheFile.SetLastWriteTime(lastWriteTime);
 
         using (StreamWriter writer = new StreamWriter(outputFile))
         {
@@ -110,9 +110,7 @@ namespace Magick.NET.Tests
           handler.ProcessRequest(context);
         }
 
-        cacheFile.Refresh();
-
-        Assert.AreNotEqual(lastWriteTime, cacheFile.LastWriteTime);
+        Assert.IsFalse(cacheFile.LastWriteTimeEqualTo(lastWriteTime));
         Assert.AreEqual(3, tempDir.GetFiles().Count());
       }
       finally

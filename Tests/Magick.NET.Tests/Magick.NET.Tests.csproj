@@ -293,6 +293,7 @@
     <Compile Include="Framework\Script\MagickScriptTests.cs" />
     <Compile Include="Core\Assert\OpenCLValue.cs" />
     <Compile Include="Web\Configuration\MagickWebSettingsTests.cs" />
+    <Compile Include="Web\Extensions\FileInfoExtensions.cs" />
     <Compile Include="Web\Extensions\StringExtensions.cs" />
     <Compile Include="Web\Extensions\HttpCachePolicyExtensions.cs" />
     <Compile Include="Web\Extensions\HttpResponseExtensions.cs" />
