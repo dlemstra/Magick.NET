@@ -94,6 +94,20 @@ namespace Magick.NET.Tests
 
         Assert.AreEqual(0, File.ReadAllBytes(outputFile).Count());
         Assert.AreEqual(3, tempDir.GetFiles().Count());
+
+        cacheFile.LastWriteTimeUtc = new DateTime(1979, 11, 19);
+
+        using (StreamWriter writer = new StreamWriter(outputFile))
+        {
+          HttpResponse response = new HttpResponse(writer);
+          HttpContext context = new HttpContext(request, response);
+
+          ImageOptimizerHandler handler = new ImageOptimizerHandler(settings, resolver, JpgFormatInfo);
+          handler.ProcessRequest(context);
+        }
+
+        Assert.AreNotEqual(0, File.ReadAllBytes(outputFile).Count());
+        Assert.AreEqual(3, tempDir.GetFiles().Count());
       }
       finally
       {
