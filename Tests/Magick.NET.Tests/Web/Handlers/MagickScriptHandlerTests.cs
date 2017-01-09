@@ -137,5 +137,68 @@ namespace Magick.NET.Tests
           Directory.Delete(tempDir, true);
       }
     }
+
+    [TestMethod]
+    public void Test_Optimize()
+    {
+      string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+
+      try
+      {
+        string config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}"" optimizeImages=""false""/>";
+
+        MagickWebSettings settings = TestSectionLoader.Load(config);
+
+        TestUrlResolver resolver = new TestUrlResolver();
+        resolver.FileName = Path.Combine(tempDir, "test.jpg");
+        resolver.Format = MagickFormat.Jpg;
+        resolver.Script = XElement.Load(Files.Scripts.Draw).CreateNavigator();
+
+        File.Copy(Files.ImageMagickJPG, resolver.FileName);
+
+        HttpRequest request = new HttpRequest("foo", "https://bar", "");
+
+        FileInfo outputFile = new FileInfo(Path.Combine(tempDir, "output.jpg"));
+
+        using (StreamWriter writer = new StreamWriter(outputFile.FullName, false, Encoding))
+        {
+          HttpResponse response = new HttpResponse(writer);
+          HttpContext context = new HttpContext(request, response);
+
+          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
+          handler.ProcessRequest(context);
+        }
+
+        outputFile.Refresh();
+        long lengthWithoutOptimization = outputFile.Length;
+
+        foreach (FileInfo file in tempDir.GetFiles())
+        {
+          file.Delete();
+        }
+
+        File.Copy(Files.ImageMagickJPG, resolver.FileName);
+
+        config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}""/>";
+        settings = TestSectionLoader.Load(config);
+
+        using (StreamWriter writer = new StreamWriter(outputFile.FullName, false, Encoding))
+        {
+          HttpResponse response = new HttpResponse(writer);
+          HttpContext context = new HttpContext(request, response);
+
+          MagickScriptHandler handler = new MagickScriptHandler(settings, resolver, JpgFormatInfo);
+          handler.ProcessRequest(context);
+        }
+
+        outputFile.Refresh();
+        Assert.IsTrue(outputFile.Length < lengthWithoutOptimization);
+      }
+      finally
+      {
+        if (Directory.Exists(tempDir))
+          Directory.Delete(tempDir, true);
+      }
+    }
   }
 }
