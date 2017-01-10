@@ -20,16 +20,17 @@ namespace ImageMagick.Web.Handlers
   /// <summary>
   /// IHttpHandler that can be used to optimize image before they are written to the response.
   /// </summary>
-  public class ImageOptimizerHandler : MagickHandler
+  internal class ImageOptimizerHandler : MagickHandler
   {
     private static ImageOptimizer _ImageOptimizer = new ImageOptimizer();
 
     private void CreateOptimizedFile(string cacheFileName)
     {
       string tempFile = DetermineTempFileName();
+
       try
       {
-        File.Copy(UrlResolver.FileName, tempFile);
+        ImageData.SaveImage(tempFile);
 
         OptimizeFile(tempFile);
 
@@ -40,11 +41,6 @@ namespace ImageMagick.Web.Handlers
         if (File.Exists(tempFile))
           File.Delete(tempFile);
       }
-    }
-
-    internal ImageOptimizerHandler(MagickWebSettings settings, IUrlResolver urlResolver, MagickFormatInfo formatInfo)
-      : base(settings, urlResolver, formatInfo)
-    {
     }
 
     internal static bool CanOptimize(MagickWebSettings settings, MagickFormatInfo formatInfo)
@@ -67,12 +63,18 @@ namespace ImageMagick.Web.Handlers
     /// <inheritdoc/>
     protected override string GetFileName(HttpContext context)
     {
-      string cacheFileName = GetCacheFileName("Optimized", UrlResolver.Format.ToString());
+      MagickFormat format = ImageData.FormatInfo.Format;
+      string cacheFileName = GetCacheFileName("Optimized", format.ToString(), format);
 
       if (!CanUseCache(cacheFileName))
         CreateOptimizedFile(cacheFileName);
 
       return cacheFileName;
+    }
+
+    public ImageOptimizerHandler(MagickWebSettings settings, IImageData imageData)
+      : base(settings, imageData)
+    {
     }
   }
 }

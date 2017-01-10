@@ -27,7 +27,7 @@ namespace ImageMagick.Web.Handlers
   /// <summary>
   /// Base class for IHttpHandlers that use the IUrlResolver class.
   /// </summary>
-  public abstract class MagickHandler : IHttpHandler, IRequiresSessionState
+  internal abstract class MagickHandler : IHttpHandler, IRequiresSessionState
   {
     private static readonly ReaderWriterLockSlim _Lock = new ReaderWriterLockSlim();
     private static volatile string _Version;
@@ -121,13 +121,11 @@ namespace ImageMagick.Web.Handlers
     /// Initializes a new instance of the <see cref="MagickHandler"/> class.
     /// </summary>
     /// <param name="settings">The settings to use.</param>
-    /// <param name="urlResolver">The url resolver that was used.</param>
-    /// <param name="formatInfo">The format information.</param>
-    protected MagickHandler(MagickWebSettings settings, IUrlResolver urlResolver, MagickFormatInfo formatInfo)
+    /// <param name="imageData">The image data.</param>
+    protected MagickHandler(MagickWebSettings settings, IImageData imageData)
     {
       Settings = settings;
-      UrlResolver = urlResolver;
-      FormatInfo = formatInfo;
+      ImageData = imageData;
 
       InitializeVersion();
     }
@@ -142,17 +140,9 @@ namespace ImageMagick.Web.Handlers
     protected abstract string GetFileName(HttpContext context);
 
     /// <summary>
-    /// Gets the format information for the file that was resolved with the IUrlResolver.
+    /// Gets the data of the image.
     /// </summary>
-    protected MagickFormatInfo FormatInfo
-    {
-      get;
-    }
-
-    /// <summary>
-    /// Gets the IUrlResolver that was used.
-    /// </summary>
-    protected IUrlResolver UrlResolver
+    protected IImageData ImageData
     {
       get;
     }
@@ -180,9 +170,8 @@ namespace ImageMagick.Web.Handlers
         if (!File.Exists(cacheFileName))
           return false;
 
-        DateTime fileDate = File.GetLastWriteTimeUtc(UrlResolver.FileName);
         DateTime cacheDate = File.GetLastWriteTimeUtc(cacheFileName);
-        return fileDate <= cacheDate;
+        return ImageData.ModifiedTimeUtc <= cacheDate;
       }
       finally
       {
@@ -196,15 +185,16 @@ namespace ImageMagick.Web.Handlers
     /// <param name="directoryName">The name of the subdirectory to store the files in.</param>
     /// <param name="subdirectoryKey">The key that will be used to create MD5 hash and that
     /// will be used as a sub directory.</param>
+    /// <param name="format">The output format.</param>
     /// <returns>The file name that can be used to cache the result.</returns>
-    protected string GetCacheFileName(string directoryName, string subdirectoryKey)
+    protected string GetCacheFileName(string directoryName, string subdirectoryKey, MagickFormat format)
     {
       string cacheDirectory = Settings.CacheDirectory + directoryName + "\\" + CalculateMD5(subdirectoryKey) + "\\";
 
       if (!Directory.Exists(cacheDirectory))
         Directory.CreateDirectory(cacheDirectory);
 
-      return cacheDirectory + CalculateMD5(UrlResolver.FileName) + "." + UrlResolver.Format;
+      return cacheDirectory + CalculateMD5(ImageData.ImageId) + "." + format;
     }
 
     /// <summary>
@@ -214,6 +204,15 @@ namespace ImageMagick.Web.Handlers
     protected string DetermineTempFileName()
     {
       return Settings.TempDirectory + Guid.NewGuid();
+    }
+
+    /// <summary>
+    /// Returns the mime type of the output image.
+    /// </summary>
+    /// <returns>The mime type of the output image.</returns>
+    protected virtual string GetMimeType()
+    {
+      return ImageData.FormatInfo.MimeType;
     }
 
     /// <summary>
@@ -262,7 +261,7 @@ namespace ImageMagick.Web.Handlers
       if (context == null)
         return;
 
-      context.Response.ContentType = FormatInfo.MimeType;
+      context.Response.ContentType = GetMimeType();
 
       if (!string.IsNullOrEmpty(_Version))
         context.Response.AddHeader("X-Magick", _Version);

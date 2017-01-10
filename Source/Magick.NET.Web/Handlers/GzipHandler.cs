@@ -23,7 +23,7 @@ namespace ImageMagick.Web.Handlers
   /// <summary>
   /// IHttpHandler that can be used to compress files before they are written to the response.
   /// </summary>
-  public sealed class GzipHandler : MagickHandler
+  internal sealed class GzipHandler : MagickHandler
   {
     [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Code is much cleaner this way.")]
     private void CreateCompressedFile(string encoding, string cacheFileName)
@@ -36,7 +36,7 @@ namespace ImageMagick.Web.Handlers
         {
           using (Stream output = CreateCompressStream(fs, encoding))
           {
-            using (FileStream input = File.OpenRead(UrlResolver.FileName))
+            using (Stream input = ImageData.ReadImage())
             {
               byte[] buffer = new byte[81920];
               int len;
@@ -80,8 +80,8 @@ namespace ImageMagick.Web.Handlers
       return null;
     }
 
-    internal GzipHandler(MagickWebSettings settings, IUrlResolver urlResolver, MagickFormatInfo formatInfo)
-      : base(settings, urlResolver, formatInfo)
+    internal GzipHandler(MagickWebSettings settings, IImageData imageData)
+      : base(settings, imageData)
     {
     }
 
@@ -101,9 +101,9 @@ namespace ImageMagick.Web.Handlers
 
       string encoding = GetEncoding(context.Request);
       if (string.IsNullOrEmpty(encoding))
-        return UrlResolver.FileName;
+        return null;
 
-      string cacheFileName = GetCacheFileName("Compressed", encoding);
+      string cacheFileName = GetCacheFileName("Compressed", encoding, ImageData.FormatInfo.Format);
       if (!CanUseCache(cacheFileName))
         CreateCompressedFile(encoding, cacheFileName);
 

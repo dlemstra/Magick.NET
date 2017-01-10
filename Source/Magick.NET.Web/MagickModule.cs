@@ -27,10 +27,9 @@ namespace ImageMagick.Web
   public sealed class MagickModule : MagickModuleBase
   {
     private const string UrlKey = "ImageMagick.Web.MagickModule.Url";
-
     private readonly MagickWebSettings _Settings;
 
-    private IEnumerable<IUrlResolver> ScriptUrlResolvers
+    private IEnumerable<IUrlResolver> UrlResolvers
     {
       get
       {
@@ -45,10 +44,10 @@ namespace ImageMagick.Web
     {
       Uri url = (Uri)context.Items[UrlKey];
 
-      foreach (IUrlResolver scriptUrlResolver in ScriptUrlResolvers)
+      foreach (IUrlResolver urlResolver in UrlResolvers)
       {
-        if (scriptUrlResolver.Resolve(url))
-          return CreateHttpHandler(scriptUrlResolver);
+        if (urlResolver.Resolve(url))
+          return CreateHttpHandler(urlResolver);
       }
 
       return null;
@@ -56,21 +55,23 @@ namespace ImageMagick.Web
 
     private IHttpHandler CreateHttpHandler(IUrlResolver urlResolver)
     {
-      if (string.IsNullOrEmpty(urlResolver.FileName) || !File.Exists(urlResolver.FileName))
-        return null;
-
       MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(urlResolver.Format);
-      if (formatInfo == null || string.IsNullOrEmpty(formatInfo.MimeType))
+      if (formatInfo == null || !formatInfo.IsReadable)
         return null;
 
-      if (urlResolver.Script != null)
-        return new MagickScriptHandler(_Settings, urlResolver, formatInfo);
+      IImageData imageData = ImageData.Create(urlResolver, formatInfo);
+      if (!imageData.IsValid)
+        return null;
+
+      IScriptData scriptData = urlResolver as IScriptData;
+      if (IsValid(scriptData))
+        return new MagickScriptHandler(_Settings, imageData, scriptData);
 
       if (ImageOptimizerHandler.CanOptimize(_Settings, formatInfo))
-        return new ImageOptimizerHandler(_Settings, urlResolver, formatInfo);
+        return new ImageOptimizerHandler(_Settings, imageData);
 
       if (GzipHandler.CanCompress(_Settings, formatInfo))
-        return new GzipHandler(_Settings, urlResolver, formatInfo);
+        return new GzipHandler(_Settings, imageData);
 
       return null;
     }
@@ -88,6 +89,17 @@ namespace ImageMagick.Web
 
       if (_Settings.ResourceLimits.Height != null)
         ResourceLimits.Height = (ulong)_Settings.ResourceLimits.Height.Value;
+    }
+
+    private static bool IsValid(IScriptData scriptData)
+    {
+      if (scriptData == null)
+        return false;
+
+      if (scriptData.Script == null)
+        return false;
+
+      return true;
     }
 
     internal MagickModule(MagickWebSettings settings)

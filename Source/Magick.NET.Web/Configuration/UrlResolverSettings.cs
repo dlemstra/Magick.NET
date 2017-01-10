@@ -28,6 +28,22 @@ namespace ImageMagick.Web
     private delegate IUrlResolver IUrlResolverConstructor();
     private IUrlResolverConstructor _Constructor;
 
+    private void CreateConstructor(Type type)
+    {
+      ConstructorInfo ctor = type.GetConstructor(new Type[] { });
+      NewExpression newExp = Expression.New(ctor);
+      _Constructor = (IUrlResolverConstructor)Expression.Lambda(typeof(IUrlResolverConstructor), newExp).Compile();
+    }
+
+    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IUrlResolver", Justification = "This is the correct spelling.")]
+    private void CheckType(Type type)
+    {
+      if (typeof(IFileUrlResolver).IsAssignableFrom(type))
+        return;
+
+      throw new ConfigurationErrorsException("The type '" + TypeName + "' should implement one of the following interfaces: " + nameof(IUrlResolver));
+    }
+
     [ConfigurationProperty("type", IsRequired = true)]
     internal string TypeName
     {
@@ -45,28 +61,13 @@ namespace ImageMagick.Web
     /// <summary>
     /// Called after deserialization.
     /// </summary>
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IUrlResolver", Justification = "This is the correct spelling.")]
     protected override void PostDeserialize()
     {
       base.PostDeserialize();
 
-      UrlResolverType = Type.GetType(TypeName, true, true);
-
-      if (!typeof(IUrlResolver).IsAssignableFrom(UrlResolverType))
-        throw new ConfigurationErrorsException("The type '" + TypeName + "' does not implement the interface " + nameof(IUrlResolver));
-
-      ConstructorInfo ctor = UrlResolverType.GetConstructor(new Type[] { });
-      NewExpression newExp = Expression.New(ctor);
-      _Constructor = (IUrlResolverConstructor)Expression.Lambda(typeof(IUrlResolverConstructor), newExp).Compile();
-    }
-
-    /// <summary>
-    /// Gets the type of the url resolver.
-    /// </summary>
-    public Type UrlResolverType
-    {
-      get;
-      private set;
+      Type type = Type.GetType(TypeName, true, true);
+      CheckType(type);
+      CreateConstructor(type);
     }
   }
 }

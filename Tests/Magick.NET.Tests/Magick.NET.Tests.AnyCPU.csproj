@@ -293,24 +293,26 @@
     <Compile Include="Framework\Script\MagickScriptTests.cs" />
     <Compile Include="Core\Assert\OpenCLValue.cs" />
     <Compile Include="Web\Configuration\MagickWebSettingsTests.cs" />
+    <Compile Include="Web\Extensions\IImageDataExtensions.cs" />
     <Compile Include="Web\Extensions\StringExtensions.cs" />
     <Compile Include="Web\Extensions\HttpCachePolicyExtensions.cs" />
     <Compile Include="Web\Extensions\HttpResponseExtensions.cs" />
     <Compile Include="Web\Extensions\HttpRequestExtensions.cs" />
-    <Compile Include="Web\Handlers\MagickHandlerTests.cs" />
-    <Compile Include="Web\Handlers\ImageOptimizerHandlerTests.cs" />
-    <Compile Include="Web\Handlers\MagickScriptHandlerTests.cs" />
     <Compile Include="Web\Handlers\GzipHandlerTests.cs" />
+    <Compile Include="Web\Handlers\ImageOptimizerHandlerTests.cs" />
+    <Compile Include="Web\Handlers\MagickHandlerTests.cs" />
+    <Compile Include="Web\Handlers\MagickScriptHandlerTests.cs" />
     <Compile Include="Web\Helpers\TestMagickHandler.cs" />
     <Compile Include="Web\Helpers\TestSectionLoader.cs" />
-    <Compile Include="Web\MagickModuleBaseTests.cs" />
-    <Compile Include="Web\MagickModuleTests.cs" />
     <Compile Include="Web\Helpers\TestHttpApplication.cs" />
     <Compile Include="Web\Helpers\TestHttpContextBase.cs" />
     <Compile Include="Web\Helpers\TestHttpRequest.cs" />
     <Compile Include="Web\Helpers\TestMagickModule.cs" />
+    <Compile Include="Web\Helpers\TestScriptData.cs" />
     <Compile Include="Web\Helpers\TestUrlResolverResult.cs" />
     <Compile Include="Web\Helpers\TestUrlResolver.cs" />
+    <Compile Include="Web\MagickModuleBaseTests.cs" />
+    <Compile Include="Web\MagickModuleTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Magick.NET.Web\Magick.NET.Web.AnyCPU.csproj">

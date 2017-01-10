@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class MagickHandlerTests
   {
-    private MagickFormatInfo PngFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Png);
+    private IImageData imageData => new FileImageData(null, MagickNET.GetFormatInformation(MagickFormat.Png));
 
     [TestMethod]
     public void Test_CacheControlMode()
@@ -47,13 +47,13 @@ namespace Magick.NET.Tests
           HttpContext context = new HttpContext(request, response);
 
           MagickWebSettings settings = TestSectionLoader.Load(configNoCache);
-          TestMagickHandler handler = new TestMagickHandler(settings, null, PngFormatInfo);
+          TestMagickHandler handler = new TestMagickHandler(settings, imageData);
           handler.ProcessRequest(context);
 
           Assert.AreNotEqual(HttpCacheability.Public, response.Cache.GetCacheability());
 
           settings = TestSectionLoader.Load(configCache);
-          handler = new TestMagickHandler(settings, null, PngFormatInfo);
+          handler = new TestMagickHandler(settings, imageData);
           handler.ProcessRequest(context);
 
           Assert.AreEqual(HttpCacheability.Public, response.Cache.GetCacheability());
@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
 
       MagickWebSettings settings = TestSectionLoader.Load(config);
 
-      TestMagickHandler handler = new TestMagickHandler(settings, null, PngFormatInfo);
+      TestMagickHandler handler = new TestMagickHandler(settings, imageData);
 
       HttpRequest request = new HttpRequest("foo", "https://bar", "");
 
@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
 
       MagickWebSettings settings = TestSectionLoader.Load(config);
 
-      TestMagickHandler handler = new TestMagickHandler(settings, null, PngFormatInfo);
+      TestMagickHandler handler = new TestMagickHandler(settings, imageData);
 
       HttpRequest request = new HttpRequest("foo", "https://bar", "");
 
@@ -160,7 +160,7 @@ namespace Magick.NET.Tests
 
       MagickWebSettings settings = TestSectionLoader.Load(config);
 
-      TestMagickHandler handler = new TestMagickHandler(settings, null, PngFormatInfo);
+      TestMagickHandler handler = new TestMagickHandler(settings, imageData);
 
       HttpRequest request = new HttpRequest("foo", "https://bar", "");
 

@@ -14,35 +14,37 @@
 
 using System.IO;
 using System.Web;
-using System.Xml.XPath;
 
 namespace ImageMagick.Web.Handlers
 {
   /// <summary>
   /// IHttpHandler that can be used to send a scripted image to the response.
   /// </summary>
-  public class MagickScriptHandler : ImageOptimizerHandler
+  internal class MagickScriptHandler : ImageOptimizerHandler
   {
-    private void CreateScriptedFile(IXPathNavigable xml, string cacheFileName)
+    private readonly IScriptData _ScriptResolver;
+
+    private void CreateScriptedFile(string cacheFileName)
     {
-      MagickScript script = new MagickScript(xml);
+      MagickScript script = new MagickScript(_ScriptResolver.Script);
       script.Read += OnScriptRead;
 
       using (MagickImage image = script.Execute())
       {
-        image.Format = UrlResolver.Format;
+        image.Format = _ScriptResolver.OutputFormat;
         WriteToCache(image, cacheFileName);
       }
     }
 
-    private string GetCacheFileName(IXPathNavigable xml)
+    private string GetCacheFileName()
     {
-      return GetCacheFileName("MagickScript", xml.CreateNavigator().OuterXml);
+      string outerXml = _ScriptResolver.Script.CreateNavigator().OuterXml;
+      return GetCacheFileName("MagickScript", outerXml, _ScriptResolver.OutputFormat);
     }
 
     private void OnScriptRead(object sender, ScriptReadEventArgs arguments)
     {
-      arguments.Image = new MagickImage(UrlResolver.FileName, arguments.Settings);
+      arguments.Image = ImageData.ReadImage(arguments.Settings);
     }
 
     private void WriteToCache(MagickImage image, string cacheFileName)
@@ -53,7 +55,7 @@ namespace ImageMagick.Web.Handlers
       {
         image.Write(tempFile);
 
-        MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(UrlResolver.Format);
+        MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(_ScriptResolver.OutputFormat);
 
         if (CanOptimize(Settings, formatInfo))
           OptimizeFile(tempFile);
@@ -67,21 +69,26 @@ namespace ImageMagick.Web.Handlers
       }
     }
 
-    internal MagickScriptHandler(MagickWebSettings settings, IUrlResolver urlResolver, MagickFormatInfo formatInfo)
-      : base(settings, urlResolver, formatInfo)
+    internal MagickScriptHandler(MagickWebSettings settings, IImageData imageData, IScriptData scriptResolver)
+      : base(settings, imageData)
     {
+      _ScriptResolver = scriptResolver;
     }
 
     /// <inheritdoc/>
     protected override string GetFileName(HttpContext context)
     {
-      IXPathNavigable xml = UrlResolver.Script;
-
-      string cacheFileName = GetCacheFileName(xml);
+      string cacheFileName = GetCacheFileName();
       if (!CanUseCache(cacheFileName))
-        CreateScriptedFile(xml, cacheFileName);
+        CreateScriptedFile(cacheFileName);
 
       return cacheFileName;
+    }
+
+    protected override string GetMimeType()
+    {
+      MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(_ScriptResolver.OutputFormat);
+      return formatInfo.MimeType;
     }
   }
 }

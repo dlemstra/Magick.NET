@@ -12,23 +12,28 @@
 // limitations under the License.
 //=================================================================================================
 
-using ImageMagick;
+using System;
 
-namespace Magick.NET.Tests
+namespace ImageMagick.Web
 {
-  [ExcludeFromCodeCoverage]
-  public sealed class TestUrlResolverResult
+  /// <summary>
+  /// Defines an interface that is used to resolve a file and script from the specified request.
+  /// </summary>
+  public interface IUrlResolver
   {
-    public string FileName
+    /// <summary>
+    /// Gets the format of the resolved image.
+    /// </summary>
+    MagickFormat Format
     {
       get;
-      set;
     }
 
-    public MagickFormat Format
-    {
-      get;
-      set;
-    }
+    /// <summary>
+    /// Returns true if the specified url could be resolved to a file name and script.
+    /// </summary>
+    /// <param name="url">The url to resolve.</param>
+    /// <returns>True if the specified url could be resolved to a file name and script.</returns>
+    bool Resolve(Uri url);
   }
 }

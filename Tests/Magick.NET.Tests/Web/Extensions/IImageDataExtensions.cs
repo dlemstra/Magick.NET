@@ -12,23 +12,24 @@
 // limitations under the License.
 //=================================================================================================
 
-using ImageMagick;
+using ImageMagick.Web;
+using System.IO;
 
 namespace Magick.NET.Tests
 {
   [ExcludeFromCodeCoverage]
-  public sealed class TestUrlResolverResult
+  internal static class IImageDataExtensions
   {
-    public string FileName
+    public static byte[] GetBytes(this IImageData imageData)
     {
-      get;
-      set;
-    }
-
-    public MagickFormat Format
-    {
-      get;
-      set;
+      using (Stream stream = imageData.ReadImage())
+      {
+        using (MemoryStream memStream = new MemoryStream())
+        {
+          stream.CopyTo(memStream);
+          return memStream.ToArray();
+        }
+      }
     }
   }
 }

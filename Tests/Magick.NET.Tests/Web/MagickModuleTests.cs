@@ -168,8 +168,11 @@ namespace Magick.NET.Tests.Web
         Assert.IsNotNull(context.Handler);
         Assert.AreEqual(context.Handler.GetType(), typeof(ImageOptimizerHandler));
 
-        TestUrlResolver.Result.Format = MagickFormat.Tiff;
-        TestUrlResolver.Result.Script = XElement.Parse("<test/>").CreateNavigator();
+        TestUrlResolver.ScriptResult = new TestScriptData()
+        {
+          OutputFormat = MagickFormat.Tiff,
+          Script = XElement.Parse("<test/>").CreateNavigator()
+        };
 
         module.OnPostMapRequestHandler(context);
         Assert.IsNotNull(context.Handler);

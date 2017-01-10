@@ -12,23 +12,42 @@
 // limitations under the License.
 //=================================================================================================
 
-using ImageMagick;
+using System;
+using System.IO;
 
-namespace Magick.NET.Tests
+namespace ImageMagick.Web
 {
-  [ExcludeFromCodeCoverage]
-  public sealed class TestUrlResolverResult
+  internal class FileImageData : IImageData
   {
-    public string FileName
+    private readonly string _FileName;
+
+    public FileImageData(string fileName, MagickFormatInfo formatInfo)
     {
-      get;
-      set;
+      _FileName = fileName;
+      FormatInfo = formatInfo;
     }
 
-    public MagickFormat Format
+    public MagickFormatInfo FormatInfo { get; }
+
+    public string ImageId => _FileName;
+
+    public bool IsValid => !string.IsNullOrEmpty(_FileName) && File.Exists(_FileName);
+
+    public DateTime ModifiedTimeUtc => File.GetLastWriteTime(_FileName);
+
+    public Stream ReadImage()
     {
-      get;
-      set;
+      return File.OpenRead(_FileName);
+    }
+
+    public MagickImage ReadImage(MagickReadSettings settings)
+    {
+      return new MagickImage(_FileName, settings);
+    }
+
+    public void SaveImage(string fileName)
+    {
+      File.Copy(_FileName, fileName);
     }
   }
 }

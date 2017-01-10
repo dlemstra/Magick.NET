@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using ImageMagick;
 using ImageMagick.Web;
 using ImageMagick.Web.Handlers;
 using System.Web;
@@ -20,10 +19,10 @@ using System.Web;
 namespace Magick.NET.Tests
 {
   [ExcludeFromCodeCoverage]
-  public sealed class TestMagickHandler : MagickHandler
+  internal sealed class TestMagickHandler : MagickHandler
   {
-    public TestMagickHandler(MagickWebSettings settings, IUrlResolver urlResolver, MagickFormatInfo formatInfo)
-      : base(settings, urlResolver, formatInfo)
+    public TestMagickHandler(MagickWebSettings settings, IImageData imageData)
+      : base(settings, imageData)
     {
       FileName = Files.MagickNETIconPNG;
     }

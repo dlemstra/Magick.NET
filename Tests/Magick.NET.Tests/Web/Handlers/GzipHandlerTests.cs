@@ -28,20 +28,7 @@ namespace Magick.NET.Tests
   {
     private MagickFormatInfo SvgFormatInfo => MagickNET.GetFormatInformation(MagickFormat.Svg);
 
-    [TestMethod]
-    public void Test_CanCompress()
-    {
-      string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" enableGzip=""false""/>";
-
-      MagickWebSettings settings = TestSectionLoader.Load(config);
-
-      bool canCompress = GzipHandler.CanCompress(settings, SvgFormatInfo);
-
-      Assert.IsFalse(canCompress);
-    }
-    
-    [TestMethod]
-    public void Test_ProcessRequest()
+    private void Test_ProcessRequest(IImageData imageData)
     {
       string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
 
@@ -50,11 +37,6 @@ namespace Magick.NET.Tests
         string config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}""/>";
 
         MagickWebSettings settings = TestSectionLoader.Load(config);
-
-        TestUrlResolver resolver = new TestUrlResolver();
-        resolver.FileName = Path.Combine(tempDir, "test.svg");
-
-        File.Copy(Files.Logos.MagickNETSVG, resolver.FileName);
 
         HttpRequest request = new HttpRequest("foo", "https://bar", "");
 
@@ -65,12 +47,12 @@ namespace Magick.NET.Tests
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
 
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
+          GzipHandler handler = new GzipHandler(settings, imageData);
           handler.ProcessRequest(context);
         }
 
-        CollectionAssert.AreEqual(File.ReadAllBytes(resolver.FileName), File.ReadAllBytes(outputFile));
-        Assert.AreEqual(2, tempDir.GetFiles().Count());
+        Assert.AreEqual(0, new FileInfo(outputFile).Length);
+        Assert.AreEqual(1, tempDir.GetFiles().Count());
 
         using (StreamWriter writer = new StreamWriter(outputFile))
         {
@@ -78,12 +60,12 @@ namespace Magick.NET.Tests
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
 
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
+          GzipHandler handler = new GzipHandler(settings, imageData);
           handler.ProcessRequest(context);
         }
 
-        CollectionAssert.AreEqual(File.ReadAllBytes(resolver.FileName), File.ReadAllBytes(outputFile));
-        Assert.AreEqual(2, tempDir.GetFiles().Count());
+        Assert.AreEqual(0, new FileInfo(outputFile).Length);
+        Assert.AreEqual(1, tempDir.GetFiles().Count());
 
         using (StreamWriter writer = new StreamWriter(outputFile))
         {
@@ -91,12 +73,13 @@ namespace Magick.NET.Tests
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
 
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
+          GzipHandler handler = new GzipHandler(settings, imageData);
           handler.ProcessRequest(context);
         }
 
-        Assert.IsTrue(new FileInfo(outputFile).Length < new FileInfo(resolver.FileName).Length);
-        Assert.AreEqual(3, tempDir.GetFiles().Count());
+        byte[] imageBytes = imageData.GetBytes();
+        Assert.IsTrue(new FileInfo(outputFile).Length < imageBytes.Length);
+        Assert.AreEqual(2, tempDir.GetFiles().Count());
 
         File.Delete(outputFile);
 
@@ -109,12 +92,12 @@ namespace Magick.NET.Tests
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
 
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
+          GzipHandler handler = new GzipHandler(settings, imageData);
           handler.ProcessRequest(context);
         }
 
         Assert.AreEqual(0, File.ReadAllBytes(outputFile).Count());
-        Assert.AreEqual(3, tempDir.GetFiles().Count());
+        Assert.AreEqual(2, tempDir.GetFiles().Count());
 
         cacheFile.LastWriteTimeUtc = new DateTime(1979, 11, 19);
 
@@ -124,12 +107,12 @@ namespace Magick.NET.Tests
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
 
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
+          GzipHandler handler = new GzipHandler(settings, imageData);
           handler.ProcessRequest(context);
         }
 
         Assert.AreNotEqual(0, File.ReadAllBytes(cacheFile.FullName).Count());
-        Assert.AreEqual(3, tempDir.GetFiles().Count());
+        Assert.AreEqual(2, tempDir.GetFiles().Count());
 
         using (StreamWriter writer = new StreamWriter(outputFile))
         {
@@ -137,18 +120,37 @@ namespace Magick.NET.Tests
           HttpResponse response = new HttpResponse(writer);
           HttpContext context = new HttpContext(request, response);
 
-          GzipHandler handler = new GzipHandler(settings, resolver, SvgFormatInfo);
+          GzipHandler handler = new GzipHandler(settings, imageData);
           handler.ProcessRequest(context);
         }
 
-        Assert.IsTrue(new FileInfo(outputFile).Length < new FileInfo(resolver.FileName).Length);
-        Assert.AreEqual(4, tempDir.GetFiles().Count());
+        Assert.IsTrue(new FileInfo(outputFile).Length < imageBytes.Length);
+        Assert.AreEqual(3, tempDir.GetFiles().Count());
       }
       finally
       {
         if (Directory.Exists(tempDir))
           Directory.Delete(tempDir, true);
       }
+    }
+
+    [TestMethod]
+    public void Test_CanCompress()
+    {
+      string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" enableGzip=""false""/>";
+
+      MagickWebSettings settings = TestSectionLoader.Load(config);
+
+      bool canCompress = GzipHandler.CanCompress(settings, SvgFormatInfo);
+
+      Assert.IsFalse(canCompress);
+    }
+
+    [TestMethod]
+    public void Test_ProcessRequest()
+    {
+      FileImageData fileImageData = new FileImageData(Files.Logos.MagickNETSVG, SvgFormatInfo);
+      Test_ProcessRequest(fileImageData);
     }
   }
 }

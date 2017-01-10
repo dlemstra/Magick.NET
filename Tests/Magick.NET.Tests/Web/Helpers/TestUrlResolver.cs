@@ -13,16 +13,17 @@
 //=================================================================================================
 
 using System;
-using System.Xml.XPath;
 using ImageMagick;
 using ImageMagick.Web;
+using System.Xml.XPath;
 
 namespace Magick.NET.Tests
 {
   [ExcludeFromCodeCoverage]
-  public sealed class TestUrlResolver : IUrlResolver
+  public sealed class TestUrlResolver : IFileUrlResolver, IScriptData
   {
     public static TestUrlResolverResult Result;
+    public static TestScriptData ScriptResult;
 
     public string FileName
     {
@@ -31,6 +32,12 @@ namespace Magick.NET.Tests
     }
 
     public MagickFormat Format
+    {
+      get;
+      set;
+    }
+
+    public MagickFormat OutputFormat
     {
       get;
       set;
@@ -49,7 +56,12 @@ namespace Magick.NET.Tests
 
       FileName = Result.FileName;
       Format = Result.Format;
-      Script = Result.Script;
+
+      if (ScriptResult != null)
+      {
+        OutputFormat = ScriptResult.OutputFormat;
+        Script = ScriptResult.Script;
+      }
 
       return true;
     }

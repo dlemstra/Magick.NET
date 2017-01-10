@@ -197,7 +197,12 @@
     <Compile Include="Handlers\ImageOptimizerHandler.cs" />
     <Compile Include="Handlers\MagickHandler.cs" />
     <Compile Include="Handlers\MagickScriptHandler.cs" />
-    <Compile Include="IUrlResolver.cs" />
+    <Compile Include="ImageData\FileImageData.cs" />
+    <Compile Include="ImageData\IImageData.cs" />
+    <Compile Include="ImageData\ImageData.cs" />
+    <Compile Include="Resolvers\IFileUrlResolver.cs" />
+    <Compile Include="IScriptData.cs" />
+    <Compile Include="Resolvers\IUrlResolver.cs" />
     <Compile Include="MagickModuleBase.cs" />
     <Compile Include="MagickModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

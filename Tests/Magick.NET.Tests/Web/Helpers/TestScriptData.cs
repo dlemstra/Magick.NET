@@ -12,20 +12,22 @@
 // limitations under the License.
 //=================================================================================================
 
+using System.Xml.XPath;
 using ImageMagick;
+using ImageMagick.Web;
 
 namespace Magick.NET.Tests
 {
   [ExcludeFromCodeCoverage]
-  public sealed class TestUrlResolverResult
+  public sealed class TestScriptData : IScriptData
   {
-    public string FileName
+    public MagickFormat OutputFormat
     {
       get;
       set;
     }
 
-    public MagickFormat Format
+    public IXPathNavigable Script
     {
       get;
       set;

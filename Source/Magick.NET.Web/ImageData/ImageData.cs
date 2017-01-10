@@ -12,23 +12,18 @@
 // limitations under the License.
 //=================================================================================================
 
-using ImageMagick;
+using System.Diagnostics;
 
-namespace Magick.NET.Tests
+namespace ImageMagick.Web
 {
-  [ExcludeFromCodeCoverage]
-  public sealed class TestUrlResolverResult
+  internal static class ImageData
   {
-    public string FileName
+    internal static IImageData Create(IUrlResolver urlResolver, MagickFormatInfo formatInfo)
     {
-      get;
-      set;
-    }
+      IFileUrlResolver fileUrlResolver = urlResolver as IFileUrlResolver;
 
-    public MagickFormat Format
-    {
-      get;
-      set;
+      Debug.Assert(fileUrlResolver != null);
+      return new FileImageData(fileUrlResolver.FileName, formatInfo);
     }
   }
 }
