@@ -22,7 +22,14 @@ namespace Magick.NET.Tests
   [ExcludeFromCodeCoverage]
   public sealed class TestStreamUrlResolver : IStreamUrlResolver
   {
+    public static bool Result = false;
+
     private string _FileName;
+
+    public TestStreamUrlResolver()
+    {
+      _FileName = "foo.jpg";
+    }
 
     public TestStreamUrlResolver(string fileName)
     {
@@ -39,7 +46,7 @@ namespace Magick.NET.Tests
 
     public bool Resolve(Uri url)
     {
-      throw new NotImplementedException();
+      return Result;
     }
   }
 }

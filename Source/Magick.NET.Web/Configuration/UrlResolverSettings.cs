@@ -35,13 +35,17 @@ namespace ImageMagick.Web
       _Constructor = (IUrlResolverConstructor)Expression.Lambda(typeof(IUrlResolverConstructor), newExp).Compile();
     }
 
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IUrlResolver", Justification = "This is the correct spelling.")]
+    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IFileUrlResolver", Justification = "This is the correct spelling.")]
+    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "IStreamUrlResolver", Justification = "This is the correct spelling.")]
     private void CheckType(Type type)
     {
       if (typeof(IFileUrlResolver).IsAssignableFrom(type))
         return;
 
-      throw new ConfigurationErrorsException("The type '" + TypeName + "' should implement one of the following interfaces: " + nameof(IUrlResolver));
+      if (typeof(IStreamUrlResolver).IsAssignableFrom(type))
+        return;
+
+      throw new ConfigurationErrorsException("The type '" + TypeName + "' should implement one of the following interfaces: " + nameof(IFileUrlResolver) + "," + nameof(IStreamUrlResolver));
     }
 
     [ConfigurationProperty("type", IsRequired = true)]

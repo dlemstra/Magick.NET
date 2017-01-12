@@ -27,12 +27,22 @@ namespace Magick.NET.Tests.Web
   [TestClass]
   public class MagickModuleTests
   {
-    private static MagickModule CreateModule()
+    private static MagickModule CreateFileModule()
     {
       return CreateModule(@"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
   <urlResolvers>
     <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
+  </urlResolvers>
+</magick.net.web>");
+    }
+
+    private static MagickModule CreateStreamModule()
+    {
+      return CreateModule(@"
+<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
+  <urlResolvers>
+    <urlResolver type=""Magick.NET.Tests.TestStreamUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>");
     }
@@ -85,7 +95,7 @@ namespace Magick.NET.Tests.Web
     {
       string url = "https://magick.codeplex.com/";
 
-      MagickModule module = CreateModule();
+      MagickModule module = CreateFileModule();
       TestHttpContextBase context = new TestHttpContextBase(url);
       module.OnBeginRequest(context);
 
@@ -94,9 +104,9 @@ namespace Magick.NET.Tests.Web
     }
 
     [TestMethod]
-    public void Test_OnPostAuthorizeRequest()
+    public void Test_OnPostAuthorizeRequestFile()
     {
-      MagickModule module = CreateModule();
+      MagickModule module = CreateFileModule();
       TestHttpContextBase context = new TestHttpContextBase();
       module.OnBeginRequest(context);
       module.OnPostAuthorizeRequest(context);
@@ -144,9 +154,9 @@ namespace Magick.NET.Tests.Web
     }
 
     [TestMethod]
-    public void Test_OnPostMapRequestHandler()
+    public void Test_OnPostMapRequestHandlerFile()
     {
-      MagickModule module = CreateModule();
+      MagickModule module = CreateFileModule();
       module.Init(new TestHttpApplication());
 
       TestHttpContextBase context = new TestHttpContextBase();
@@ -182,6 +192,25 @@ namespace Magick.NET.Tests.Web
       {
         File.Delete(tempFile);
       }
+    }
+
+    [TestMethod]
+    public void Test_OnPostMapRequestHandlerStream()
+    {
+      MagickModule module = CreateStreamModule();
+      module.Init(new TestHttpApplication());
+
+      TestHttpContextBase context = new TestHttpContextBase();
+      module.OnBeginRequest(context);
+      module.OnPostMapRequestHandler(context);
+
+      Assert.IsNull(context.Handler);
+
+      TestStreamUrlResolver.Result = true;
+
+      module.OnPostMapRequestHandler(context);
+      Assert.IsNotNull(context.Handler);
+      Assert.AreEqual(context.Handler.GetType(), typeof(ImageOptimizerHandler));
     }
 
     [TestMethod]
