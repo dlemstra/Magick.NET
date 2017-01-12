@@ -122,6 +122,12 @@ namespace Magick.NET.Tests
 
         IImageData imageData = new FileImageData(tempFile, JpgFormatInfo);
         Test_ProcessRequest(imageData);
+
+        File.SetLastWriteTimeUtc(tempFile, new DateTime(2001, 1, 1));
+
+        TestStreamUrlResolver resolver = new TestStreamUrlResolver(tempFile);
+        imageData = new StreamImageData(resolver, JpgFormatInfo);
+        Test_ProcessRequest(imageData);
       }
       finally
       {

@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
   <clientCache cacheControlMaxAge=""4:2:0"" cacheControlMode=""NoControl""/>
   <resourceLimits width=""1"" height=""2""/>
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.TestUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>";
 
@@ -110,7 +110,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(1, urlResolverSettings.Count());
 
       IUrlResolver urlResolver = urlResolverSettings.First().CreateInstance();
-      Assert.AreEqual(urlResolver.GetType(), typeof(TestUrlResolver));
+      Assert.AreEqual(urlResolver.GetType(), typeof(TestFileUrlResolver));
     }
   }
 }

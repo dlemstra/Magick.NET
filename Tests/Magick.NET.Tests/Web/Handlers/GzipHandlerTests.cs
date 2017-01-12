@@ -149,8 +149,12 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ProcessRequest()
     {
-      FileImageData fileImageData = new FileImageData(Files.Logos.MagickNETSVG, SvgFormatInfo);
-      Test_ProcessRequest(fileImageData);
+      IImageData imageData = new FileImageData(Files.Logos.MagickNETSVG, SvgFormatInfo);
+      Test_ProcessRequest(imageData);
+
+      TestStreamUrlResolver resolver = new TestStreamUrlResolver(Files.Logos.MagickNETSVG);
+      imageData = new StreamImageData(resolver, SvgFormatInfo);
+      Test_ProcessRequest(imageData);
     }
   }
 }

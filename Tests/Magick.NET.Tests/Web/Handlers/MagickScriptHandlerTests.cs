@@ -186,53 +186,37 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Optimize()
     {
-      string tempFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".jpg");
-
-      try
+      IScriptData scriptData = new TestScriptData()
       {
-        File.Copy(Files.ImageMagickJPG, tempFile);
+        OutputFormat = MagickFormat.Jpg,
+        Script = XElement.Load(Files.Scripts.Draw).CreateNavigator()
+      };
 
-        IImageData imageData = new FileImageData(tempFile, JpgFormatInfo);
+      IImageData imageData = new FileImageData(Files.ImageMagickJPG, JpgFormatInfo);
+      Test_Optimize(imageData, scriptData);
 
-        IScriptData scriptData = new TestScriptData()
-        {
-          OutputFormat = MagickFormat.Jpg,
-          Script = XElement.Load(Files.Scripts.Draw).CreateNavigator()
-        };
-
-        Test_Optimize(imageData, scriptData);
-      }
-      finally
-      {
-        if (File.Exists(tempFile))
-          File.Delete(tempFile);
-      }
+      TestStreamUrlResolver resolver = new TestStreamUrlResolver(Files.ImageMagickJPG);
+      imageData = new StreamImageData(resolver, JpgFormatInfo);
+      Test_Optimize(imageData, scriptData);
     }
 
     [TestMethod]
     public void Test_ProcessRequest()
     {
-      string tempFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".jpg");
-
-      try
+      TestScriptData scriptData = new TestScriptData()
       {
-        File.Copy(Files.ImageMagickJPG, tempFile);
+        OutputFormat = MagickFormat.Png,
+        Script = XElement.Load(Files.Scripts.Resize).CreateNavigator()
+      };
 
-        IImageData imageData = new FileImageData(tempFile, JpgFormatInfo);
+      IImageData imageData = new FileImageData(Files.ImageMagickJPG, JpgFormatInfo);
+      Test_ProcessRequest(imageData, scriptData);
 
-        TestScriptData scriptData = new TestScriptData()
-        {
-          OutputFormat = MagickFormat.Png,
-          Script = XElement.Load(Files.Scripts.Resize).CreateNavigator()
-        };
+      scriptData.OutputFormat = MagickFormat.Png;
 
-        Test_ProcessRequest(imageData, scriptData);
-      }
-      finally
-      {
-        if (File.Exists(tempFile))
-          File.Delete(tempFile);
-      }
+      TestStreamUrlResolver resolver = new TestStreamUrlResolver(Files.ImageMagickJPG);
+      imageData = new StreamImageData(resolver, JpgFormatInfo);
+      Test_ProcessRequest(imageData, scriptData);
     }
   }
 }

@@ -32,7 +32,7 @@ namespace Magick.NET.Tests.Web
       return CreateModule(@"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.TestUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>");
     }
@@ -49,7 +49,7 @@ namespace Magick.NET.Tests.Web
       string config = @"
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" useOpenCL=""true"">
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.TestUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>";
 
@@ -68,7 +68,7 @@ namespace Magick.NET.Tests.Web
 <magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"">
   <resourceLimits width=""10000"" height=""20000""/>
   <urlResolvers>
-    <urlResolver type=""Magick.NET.Tests.TestUrlResolver, Magick.NET.Tests""/>
+    <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
   </urlResolvers>
 </magick.net.web>";
 
@@ -103,12 +103,12 @@ namespace Magick.NET.Tests.Web
 
       Assert.IsNull(context.RemapedHandler);
 
-      TestUrlResolver.Result = new TestUrlResolverResult();
+      TestFileUrlResolver.Result = new TestFileUrlResolverResult();
 
       module.OnPostAuthorizeRequest(context);
       Assert.IsNull(context.RemapedHandler);
 
-      TestUrlResolver.Result.FileName = "c:\foo.bar";
+      TestFileUrlResolver.Result.FileName = "c:\foo.bar";
 
       module.OnPostAuthorizeRequest(context);
       Assert.IsNull(context.RemapedHandler);
@@ -116,22 +116,22 @@ namespace Magick.NET.Tests.Web
       string tempFile = Path.GetTempFileName();
       try
       {
-        TestUrlResolver.Result.FileName = tempFile;
+        TestFileUrlResolver.Result.FileName = tempFile;
 
         module.OnPostAuthorizeRequest(context);
         Assert.IsNull(context.RemapedHandler);
 
-        TestUrlResolver.Result.Format = MagickFormat.Stegano;
+        TestFileUrlResolver.Result.Format = MagickFormat.Stegano;
 
         module.OnPostAuthorizeRequest(context);
         Assert.IsNull(context.RemapedHandler);
 
-        TestUrlResolver.Result.Format = MagickFormat.Tiff;
+        TestFileUrlResolver.Result.Format = MagickFormat.Tiff;
 
         module.OnPostAuthorizeRequest(context);
         Assert.IsNull(context.RemapedHandler);
 
-        TestUrlResolver.Result.Format = MagickFormat.Svg;
+        TestFileUrlResolver.Result.Format = MagickFormat.Svg;
 
         module.OnPostAuthorizeRequest(context);
         Assert.IsNotNull(context.RemapedHandler);
@@ -158,7 +158,7 @@ namespace Magick.NET.Tests.Web
       string tempFile = Path.GetTempFileName();
       try
       {
-        TestUrlResolver.Result = new TestUrlResolverResult()
+        TestFileUrlResolver.Result = new TestFileUrlResolverResult()
         {
           FileName = tempFile,
           Format = MagickFormat.Jpg
@@ -168,7 +168,7 @@ namespace Magick.NET.Tests.Web
         Assert.IsNotNull(context.Handler);
         Assert.AreEqual(context.Handler.GetType(), typeof(ImageOptimizerHandler));
 
-        TestUrlResolver.ScriptResult = new TestScriptData()
+        TestFileUrlResolver.ScriptResult = new TestScriptData()
         {
           OutputFormat = MagickFormat.Tiff,
           Script = XElement.Parse("<test/>").CreateNavigator()

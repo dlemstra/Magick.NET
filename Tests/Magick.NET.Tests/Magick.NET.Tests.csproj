@@ -309,8 +309,9 @@
     <Compile Include="Web\Helpers\TestHttpRequest.cs" />
     <Compile Include="Web\Helpers\TestMagickModule.cs" />
     <Compile Include="Web\Helpers\TestScriptData.cs" />
-    <Compile Include="Web\Helpers\TestUrlResolverResult.cs" />
-    <Compile Include="Web\Helpers\TestUrlResolver.cs" />
+    <Compile Include="Web\Helpers\TestFileUrlResolverResult.cs" />
+    <Compile Include="Web\Helpers\TestFileUrlResolver.cs" />
+    <Compile Include="Web\Helpers\TestStreamUrlResolver.cs" />
     <Compile Include="Web\MagickModuleBaseTests.cs" />
     <Compile Include="Web\MagickModuleTests.cs" />
   </ItemGroup>

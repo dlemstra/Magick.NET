@@ -20,9 +20,9 @@ using System.Xml.XPath;
 namespace Magick.NET.Tests
 {
   [ExcludeFromCodeCoverage]
-  public sealed class TestUrlResolver : IFileUrlResolver, IScriptData
+  public sealed class TestFileUrlResolver : IFileUrlResolver, IScriptData
   {
-    public static TestUrlResolverResult Result;
+    public static TestFileUrlResolverResult Result;
     public static TestScriptData ScriptResult;
 
     public string FileName

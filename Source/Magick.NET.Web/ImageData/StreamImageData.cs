@@ -17,37 +17,46 @@ using System.IO;
 
 namespace ImageMagick.Web
 {
-  internal sealed class FileImageData : IImageData
+  internal sealed class StreamImageData : IImageData
   {
-    private readonly string _FileName;
+    private readonly IStreamUrlResolver _Resolver;
 
-    public FileImageData(string fileName, MagickFormatInfo formatInfo)
+    public StreamImageData(IStreamUrlResolver resolver, MagickFormatInfo formatInfo)
     {
-      _FileName = fileName;
+      _Resolver = resolver;
       FormatInfo = formatInfo;
     }
 
     public MagickFormatInfo FormatInfo { get; }
 
-    public string ImageId => _FileName;
+    public string ImageId => _Resolver.ImageId;
 
-    public bool IsValid => !string.IsNullOrEmpty(_FileName) && File.Exists(_FileName);
+    public bool IsValid => !string.IsNullOrEmpty(_Resolver.ImageId);
 
-    public DateTime ModifiedTimeUtc => File.GetLastWriteTime(_FileName);
+    public DateTime ModifiedTimeUtc => _Resolver.ModifiedTimeUtc;
 
     public Stream ReadImage()
     {
-      return File.OpenRead(_FileName);
+      return _Resolver.OpenStream();
     }
 
     public MagickImage ReadImage(MagickReadSettings settings)
     {
-      return new MagickImage(_FileName, settings);
+      using (Stream stream = _Resolver.OpenStream())
+      {
+        return new MagickImage(stream, settings);
+      }
     }
 
     public void SaveImage(string fileName)
     {
-      File.Copy(_FileName, fileName);
+      using (FileStream output = File.OpenWrite(fileName))
+      {
+        using (Stream input = _Resolver.OpenStream())
+        {
+          input.CopyTo(output);
+        }
+      }
     }
   }
 }

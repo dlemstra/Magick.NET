@@ -12,19 +12,34 @@
 // limitations under the License.
 //=================================================================================================
 
-namespace ImageMagick.Web
+using System;
+using ImageMagick;
+using ImageMagick.Web;
+using System.IO;
+
+namespace Magick.NET.Tests
 {
-  /// <summary>
-  /// Defines an interface that is used to resolve a file from the specified request.
-  /// </summary>
-  public interface IFileUrlResolver : IUrlResolver
+  [ExcludeFromCodeCoverage]
+  public sealed class TestStreamUrlResolver : IStreamUrlResolver
   {
-    /// <summary>
-    /// Gets the name of the file.
-    /// </summary>
-    string FileName
+    private string _FileName;
+
+    public TestStreamUrlResolver(string fileName)
     {
-      get;
+      _FileName = fileName;
+    }
+
+    public MagickFormat Format => MagickFormatInfo.Create(_FileName).Format;
+
+    public string ImageId => _FileName;
+
+    public DateTime ModifiedTimeUtc => File.GetLastWriteTime(_FileName);
+
+    public Stream OpenStream() => File.OpenRead(_FileName);
+
+    public bool Resolve(Uri url)
+    {
+      throw new NotImplementedException();
     }
   }
 }
