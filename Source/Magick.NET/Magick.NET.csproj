@@ -197,6 +197,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Colors\ColorHSV.cs" />
+    <Compile Include="Core\Defines\Bmp\BmpWriteDefines.cs" />
+    <Compile Include="Core\Defines\Bmp\BmpSubtype.cs" />
     <Compile Include="Core\Defines\DefinesCreator.cs" />
     <Compile Include="Core\Defines\ReadDefinesCreator.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2ProgressionOrder.cs" />

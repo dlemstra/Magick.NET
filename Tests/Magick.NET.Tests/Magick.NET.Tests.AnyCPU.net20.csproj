@@ -178,6 +178,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\Defines\Bmp\BmpWriteDefinesTests.cs" />
     <Compile Include="Core\Helpers\QuantumConverterTests.cs" />
     <Compile Include="Core\Helpers\ShortConverterTests.cs" />
     <Compile Include="Core\Helpers\ByteConverterTests.cs" />
