@@ -1903,13 +1903,12 @@ namespace Magick.NET.Tests
     public void Test_Histogram()
     {
       MagickImage image = new MagickImage();
-      ExceptionAssert.Throws<MagickResourceLimitErrorException>(() =>
-      {
-        image.Histogram();
-      });
+      Dictionary<MagickColor, int> histogram = image.Histogram();
+      Assert.IsNotNull(histogram);
+      Assert.AreEqual(0, histogram.Count);
 
       image = new MagickImage(Files.RedPNG);
-      Dictionary<MagickColor, int> histogram = image.Histogram();
+      histogram = image.Histogram();
 
       Assert.IsNotNull(histogram);
       Assert.AreEqual(3, histogram.Count);

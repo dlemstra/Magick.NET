@@ -1532,7 +1532,7 @@ MAGICK_NET_EXPORT PixelInfo *MagickImage_Histogram(const Image *instance, size_t
 
   MAGICK_NET_GET_EXCEPTION;
   result = GetImageHistogram(instance, length, exceptionInfo);
-  if (length == 0)
+  if (*length == 0)
     result = (PixelInfo*)RelinquishMagickMemory(result);
   MAGICK_NET_SET_EXCEPTION;
   return result;
