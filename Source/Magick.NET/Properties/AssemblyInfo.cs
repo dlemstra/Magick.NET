@@ -69,7 +69,7 @@ using System.Security.Permissions;
 [assembly: AssemblyProduct("Magick.NET")]
 [assembly: AssemblyDescription("Magick.NET")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright © 2013-2016 Dirk Lemstra")]
+[assembly: AssemblyCopyright("Copyright © 2013-2017 Dirk Lemstra")]
 [assembly: AssemblyTrademark("")]
 
 [assembly: AssemblyConfiguration("Release")]
