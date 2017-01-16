@@ -21,7 +21,7 @@ namespace ImageMagick.ImageOptimizers
   /// <summary>
   /// Class that can be used to optimize png files.
   /// </summary>
-  public sealed class PngOptimizer : IImageOptimizer, ILosslessImageOptimizer
+  public sealed class PngOptimizer : IImageOptimizer
   {
     private static void CheckFormat(MagickImage image)
     {

@@ -21,7 +21,7 @@ namespace ImageMagick
   /// <summary>
   /// Class that can be used to optimize an image.
   /// </summary>
-  public sealed class ImageOptimizer : ILosslessImageOptimizer
+  public sealed class ImageOptimizer
   {
     private Collection<IImageOptimizer> _Optimizers = CreateImageOptimizers();
 
@@ -36,7 +36,7 @@ namespace ImageMagick
 
     private void DoLosslessCompress(FileInfo file)
     {
-      ILosslessImageOptimizer optimizer = GetOptimizer(file);
+      IImageOptimizer optimizer = GetOptimizer(file);
       if (optimizer == null)
         return;
 
@@ -54,7 +54,7 @@ namespace ImageMagick
       return MagickNET.GetFormatInformation(imageInfo.Format);
     }
 
-    private ILosslessImageOptimizer GetOptimizer(FileInfo file)
+    private IImageOptimizer GetOptimizer(FileInfo file)
     {
       MagickFormatInfo info = GetFormatInformation(file);
       if (info == null)
@@ -63,7 +63,7 @@ namespace ImageMagick
       foreach (IImageOptimizer optimizer in _Optimizers)
       {
         if (optimizer.Format.Module == info.Module)
-          return optimizer as ILosslessImageOptimizer;
+          return optimizer;
       }
 
       return null;

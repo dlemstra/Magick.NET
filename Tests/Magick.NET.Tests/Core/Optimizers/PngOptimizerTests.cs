@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PngOptimizerTests : IImageOptimizerTests
   {
-    protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
+    protected override IImageOptimizer CreateImageOptimizer()
     {
       return new PngOptimizer();
     }

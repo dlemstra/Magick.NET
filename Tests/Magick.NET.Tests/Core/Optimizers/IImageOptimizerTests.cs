@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
       FileInfo tempFile = CreateTemporaryFile(fileName);
       try
       {
-        ILosslessImageOptimizer optimizer = CreateLosslessImageOptimizer();
+        IImageOptimizer optimizer = CreateImageOptimizer();
         Assert.IsNotNull(optimizer);
 
         long before = tempFile.Length;
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    protected abstract ILosslessImageOptimizer CreateLosslessImageOptimizer();
+    protected abstract IImageOptimizer CreateImageOptimizer();
 
     protected static string GetTemporaryFileName(string extension)
     {
@@ -81,7 +81,7 @@ namespace Magick.NET.Tests
       {
         ExceptionAssert.Throws<MagickCorruptImageErrorException>(delegate ()
         {
-          ILosslessImageOptimizer optimizer = CreateLosslessImageOptimizer();
+          IImageOptimizer optimizer = CreateImageOptimizer();
           Assert.IsNotNull(optimizer);
 
           optimizer.LosslessCompress(tempFile);
@@ -95,7 +95,7 @@ namespace Magick.NET.Tests
 
     protected void Test_LosslessCompress_InvalidArguments()
     {
-      ILosslessImageOptimizer optimizer = CreateLosslessImageOptimizer();
+      IImageOptimizer optimizer = CreateImageOptimizer();
       Assert.IsNotNull(optimizer);
 
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()

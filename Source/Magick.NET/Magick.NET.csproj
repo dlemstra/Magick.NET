@@ -485,7 +485,6 @@
     <Compile Include="Core\OpenCL\OpenCLKernelProfileRecord.cs" />
     <Compile Include="Core\Optimizers\GifOptimizer.cs" />
     <Compile Include="Core\Optimizers\IImageOptimizer.cs" />
-    <Compile Include="Core\Optimizers\ILosslessImageOptimizer.cs" />
     <Compile Include="Core\Optimizers\ImageOptimizer.cs" />
     <Compile Include="Core\Optimizers\JpegOptimizer.cs" />
     <Compile Include="Core\Optimizers\PngOptimizer.cs" />

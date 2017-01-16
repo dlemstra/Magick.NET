@@ -20,7 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class JpegOptimizerTests : IImageOptimizerTests
   {
-    protected override ILosslessImageOptimizer CreateLosslessImageOptimizer()
+    protected override IImageOptimizer CreateImageOptimizer()
     {
       return new JpegOptimizer();
     }

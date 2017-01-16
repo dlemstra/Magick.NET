@@ -12,7 +12,9 @@
 // limitations under the License.
 //=================================================================================================
 
-namespace ImageMagick
+using System.IO;
+
+namespace ImageMagick.ImageOptimizers
 {
   /// <summary>
   /// Interface for classes that can optimize an image.
@@ -26,5 +28,30 @@ namespace ImageMagick
     {
       get;
     }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether various compression types will be used to find
+    /// the smallest file. This process will take extra time because the file has to be written
+    /// multiple times.
+    /// </summary>
+    bool OptimalCompression
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// Performs lossless compression on speified the file. If the new file size is not smaller
+    /// the file won't be overwritten.
+    /// </summary>
+    /// <param name="file">The image file to optimize</param>
+    void LosslessCompress(FileInfo file);
+
+    /// <summary>
+    /// Performs lossless compression on speified the file. If the new file size is not smaller
+    /// the file won't be overwritten.
+    /// </summary>
+    /// <param name="fileName">The image file to optimize</param>
+    void LosslessCompress(string fileName);
   }
 }

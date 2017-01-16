@@ -19,7 +19,7 @@ namespace ImageMagick.ImageOptimizers
   /// <summary>
   /// Class that can be used to optimize gif files.
   /// </summary>
-  public sealed class GifOptimizer : IImageOptimizer, ILosslessImageOptimizer
+  public sealed class GifOptimizer : IImageOptimizer
   {
     private static void CheckFormat(MagickImage image)
     {

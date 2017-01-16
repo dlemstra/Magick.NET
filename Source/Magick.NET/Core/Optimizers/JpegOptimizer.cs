@@ -19,7 +19,7 @@ namespace ImageMagick.ImageOptimizers
   /// <summary>
   /// Class that can be used to optimize jpeg files.
   /// </summary>
-  public sealed partial class JpegOptimizer : IImageOptimizer, ILosslessImageOptimizer
+  public sealed partial class JpegOptimizer : IImageOptimizer
   {
     private static void LosslessCompress(FileInfo file, bool progressive)
     {
