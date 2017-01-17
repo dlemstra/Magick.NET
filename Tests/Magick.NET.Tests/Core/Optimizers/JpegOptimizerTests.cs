@@ -28,19 +28,24 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_InvalidArguments()
     {
+      Test_Compress_InvalidArguments();
       Test_LosslessCompress_InvalidArguments();
     }
 
     [TestMethod]
-    public void Test_LosslessCompress()
+    public void Test_InvalidFile()
     {
-      Test_LosslessCompress_Smaller(Files.ImageMagickJPG);
+      Test_Compress_InvalidFile(Files.SnakewarePNG);
+      Test_LosslessCompress_InvalidFile(Files.SnakewarePNG);
     }
 
     [TestMethod]
-    public void Test_LosslessCompress_InvalidFile()
+    public void Test_Compress_LosslessCompress()
     {
-      Test_LosslessCompress_InvalidFile(Files.SnakewarePNG);
+      long compress = Test_Compress_Smaller(Files.ImageMagickJPG);
+      long losslessCompress = Test_LosslessCompress_Smaller(Files.ImageMagickJPG);
+
+      Assert.IsTrue(compress < losslessCompress, "{0} is not smaller than {1}", compress, losslessCompress);
     }
   }
 }

@@ -28,7 +28,22 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_InvalidArguments()
     {
+      Test_Compress_InvalidArguments();
       Test_LosslessCompress_InvalidArguments();
+    }
+
+    [TestMethod]
+    public void Test_InvalidFile()
+    {
+      Test_Compress_InvalidFile(Files.InvitationTif);
+      Test_LosslessCompress_InvalidFile(Files.InvitationTif);
+    }
+
+    [TestMethod]
+    public void Test_Compress()
+    {
+      Test_Compress_NotSmaller(Files.RoseSparkleGIF);
+      Test_Compress_Smaller(Files.FujiFilmFinePixS1ProGIF);
     }
 
     [TestMethod]
@@ -36,12 +51,6 @@ namespace Magick.NET.Tests
     {
       Test_LosslessCompress_NotSmaller(Files.RoseSparkleGIF);
       Test_LosslessCompress_Smaller(Files.FujiFilmFinePixS1ProGIF);
-    }
-
-    [TestMethod]
-    public void Test_LosslessCompress_InvalidFile()
-    {
-      Test_LosslessCompress_InvalidFile(Files.InvitationTif);
     }
   }
 }

@@ -12,6 +12,7 @@
 // limitations under the License.
 //=================================================================================================
 
+using System.Collections.ObjectModel;
 using System.IO;
 
 namespace ImageMagick.ImageOptimizers
@@ -21,33 +22,65 @@ namespace ImageMagick.ImageOptimizers
   /// </summary>
   public sealed partial class JpegOptimizer : IImageOptimizer
   {
-    private static void LosslessCompress(FileInfo file, bool progressive)
+    private void DoCompress(FileInfo file, bool lossless)
     {
-      FileInfo output = new FileInfo(Path.GetTempFileName());
+      Collection<FileInfo> tempFiles = new Collection<FileInfo>();
 
       try
       {
-        int result = NativeJpegOptimizer.Optimize(file.FullName, output.FullName, progressive);
+        FileInfo bestFile = null;
 
-        if (result == 1)
-          throw new MagickCorruptImageErrorException("Unable to decompress the jpeg file.");
+        FileInfo tempFile = new FileInfo(Path.GetTempFileName());
+        tempFiles.Add(tempFile);
 
-        if (result == 2)
-          throw new MagickCorruptImageErrorException("Unable to compress the jpeg file.");
-
-        if (result != 0)
+        if (!DoCompress(file, tempFile, Progressive, lossless))
           return;
 
-        output.Refresh();
-        if (output.Length < file.Length)
-          output.CopyTo(file.FullName, true);
+        bestFile = tempFile;
 
-        file.Refresh();
+        if (OptimalCompression)
+        {
+          tempFile = new FileInfo(Path.GetTempFileName());
+          tempFiles.Add(tempFile);
+
+          if (!DoCompress(file, tempFile, !Progressive, lossless))
+            return;
+
+          if (bestFile.Length > tempFile.Length)
+            bestFile = tempFile;
+        }
+
+        if (bestFile.Length < file.Length)
+        {
+          bestFile.CopyTo(file.FullName, true);
+          file.Refresh();
+        }
       }
       finally
       {
-        FileHelper.Delete(output);
+        foreach (FileInfo tempFile in tempFiles)
+        {
+          if (tempFile.Exists)
+            tempFile.Delete();
+        }
       }
+    }
+
+    private static bool DoCompress(FileInfo file, FileInfo output, bool progressive, bool lossless)
+    {
+      int result = NativeJpegOptimizer.Compress(file.FullName, output.FullName, progressive, lossless);
+
+      if (result == 1)
+        throw new MagickCorruptImageErrorException("Unable to decompress the jpeg file.");
+
+      if (result == 2)
+        throw new MagickCorruptImageErrorException("Unable to compress the jpeg file.");
+
+      if (result != 0)
+        return false;
+
+      output.Refresh();
+      return true;
     }
 
     /// <summary>
@@ -90,30 +123,55 @@ namespace ImageMagick.ImageOptimizers
     }
 
     /// <summary>
-    /// Performs lossless compression on speified the file. If the new file size is not smaller
+    /// Performs compression on the specified the file. With some formats the image will be decoded
+    /// and encoded and this will result in a small quality reduction. If the new file size is not
+    /// smaller the file won't be overwritten.
+    /// </summary>
+    /// <param name="file">The image file to compress.</param>
+    public void Compress(FileInfo file)
+    {
+      Throw.IfNull(nameof(file), file);
+
+      DoCompress(file, false);
+    }
+
+    /// <summary>
+    /// Performs compression on the specified the file. With some formats the image will be decoded
+    /// and encoded and this will result in a small quality reduction. If the new file size is not
+    /// smaller the file won't be overwritten.
+    /// </summary>
+    /// <param name="fileName">The file name of the image to compress.</param>
+    public void Compress(string fileName)
+    {
+      string filePath = FileHelper.CheckForBaseDirectory(fileName);
+      Throw.IfInvalidFileName(filePath);
+
+      DoCompress(new FileInfo(fileName), false);
+    }
+
+    /// <summary>
+    /// Performs lossless compression on the specified the file. If the new file size is not smaller
     /// the file won't be overwritten.
     /// </summary>
-    /// <param name="fileName">The png file to optimize</param>
+    /// <param name="file">The jpeg file to compress.</param>
+    public void LosslessCompress(FileInfo file)
+    {
+      Throw.IfNull(nameof(file), file);
+
+      DoCompress(file, true);
+    }
+
+    /// <summary>
+    /// Performs lossless compression on the specified file. If the new file size is not smaller
+    /// the file won't be overwritten.
+    /// </summary>
+    /// <param name="fileName">The file name of the jpg image to compress.</param>
     public void LosslessCompress(string fileName)
     {
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
       Throw.IfInvalidFileName(filePath);
 
-      LosslessCompress(new FileInfo(fileName));
-    }
-
-    /// <summary>
-    /// Performs lossless compression on speified the file. If the new file size is not smaller
-    /// the file won't be overwritten.
-    /// </summary>
-    /// <param name="file">The png file to optimize</param>
-    public void LosslessCompress(FileInfo file)
-    {
-      Throw.IfNull(nameof(file), file);
-
-      LosslessCompress(file, Progressive);
-      if (OptimalCompression)
-        LosslessCompress(file, !Progressive);
+      DoCompress(new FileInfo(fileName), true);
     }
   }
 }

@@ -78,7 +78,8 @@ namespace ImageMagick.ImageOptimizers
         {
           foreach (FileInfo tempFile in tempFiles)
           {
-            FileHelper.Delete(tempFile);
+            if (tempFile.Exists)
+              tempFile.Delete();
           }
         }
       }
@@ -122,29 +123,51 @@ namespace ImageMagick.ImageOptimizers
     }
 
     /// <summary>
-    /// Performs lossless compression on the file. If the new file size is not smaller the file
-    /// won't be overwritten.
+    /// Performs compression on the specified the file. With some formats the image will be decoded
+    /// and encoded and this will result in a small quality reduction. If the new file size is not
+    /// smaller the file won't be overwritten.
     /// </summary>
-    /// <param name="fileName">The png file to optimize</param>
-    public void LosslessCompress(string fileName)
+    /// <param name="file">The png file to compress.</param>
+    public void Compress(FileInfo file)
     {
-      string filePath = FileHelper.CheckForBaseDirectory(fileName);
-      Throw.IfInvalidFileName(filePath);
-
-      DoLosslessCompress(new FileInfo(filePath));
+      LosslessCompress(file);
     }
 
     /// <summary>
-    /// Performs lossless compression on the file. If the new file size is not smaller the file
-    /// won't be overwritten.
+    /// Performs compression on the specified the file. With some formats the image will be decoded
+    /// and encoded and this will result in a small quality reduction. If the new file size is not
+    /// smaller the file won't be overwritten.
     /// </summary>
-    /// <param name="file">The png file to optimize</param>
+    /// <param name="fileName">The file name of the png image to compress.</param>
+    public void Compress(string fileName)
+    {
+      LosslessCompress(fileName);
+    }
+
+    /// <summary>
+    /// Performs lossless compression on the specified the file. If the new file size is not smaller
+    /// the file won't be overwritten.
+    /// </summary>
+    /// <param name="file">The png file to optimize.</param>
     public void LosslessCompress(FileInfo file)
     {
       Throw.IfNull(nameof(file), file);
 
       DoLosslessCompress(file);
       file.Refresh();
+    }
+
+    /// <summary>
+    /// Performs lossless compression on the specified the file. If the new file size is not smaller
+    /// the file won't be overwritten.
+    /// </summary>
+    /// <param name="fileName">The png file to optimize.</param>
+    public void LosslessCompress(string fileName)
+    {
+      string filePath = FileHelper.CheckForBaseDirectory(fileName);
+      Throw.IfInvalidFileName(filePath);
+
+      DoLosslessCompress(new FileInfo(filePath));
     }
   }
 }

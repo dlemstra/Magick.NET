@@ -30,7 +30,33 @@ namespace Magick.NET.Tests
       return new FileInfo(tempFile);
     }
 
-    private void Test_LosslessCompress(string fileName, bool resultIsSmaller)
+    private long Test_Compress(string fileName, bool resultIsSmaller)
+    {
+      FileInfo tempFile = CreateTemporaryFile(fileName);
+      try
+      {
+        IImageOptimizer optimizer = CreateImageOptimizer();
+        Assert.IsNotNull(optimizer);
+
+        long before = tempFile.Length;
+        optimizer.Compress(tempFile);
+
+        long after = tempFile.Length;
+
+        if (resultIsSmaller)
+          Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
+        else
+          Assert.AreEqual(before, after);
+
+        return after;
+      }
+      finally
+      {
+        tempFile.Delete();
+      }
+    }
+
+    private long Test_LosslessCompress(string fileName, bool resultIsSmaller)
     {
       FileInfo tempFile = CreateTemporaryFile(fileName);
       try
@@ -47,6 +73,8 @@ namespace Magick.NET.Tests
           Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
         else
           Assert.AreEqual(before, after);
+
+        return after;
       }
       finally
       {
@@ -64,9 +92,64 @@ namespace Magick.NET.Tests
       return tempFile + extension;
     }
 
-    protected void Test_LosslessCompress_Smaller(string fileName)
+    protected long Test_Compress_Smaller(string fileName)
     {
-      Test_LosslessCompress(fileName, true);
+      return Test_Compress(fileName, true);
+    }
+
+    protected void Test_Compress_NotSmaller(string fileName)
+    {
+      Test_Compress(fileName, false);
+    }
+
+    protected void Test_Compress_InvalidFile(string fileName)
+    {
+      FileInfo tempFile = CreateTemporaryFile(fileName);
+      try
+      {
+        ExceptionAssert.Throws<MagickCorruptImageErrorException>(delegate ()
+        {
+          IImageOptimizer optimizer = CreateImageOptimizer();
+          Assert.IsNotNull(optimizer);
+
+          optimizer.Compress(tempFile);
+        });
+      }
+      finally
+      {
+        tempFile.Delete();
+      }
+    }
+
+    protected void Test_Compress_InvalidArguments()
+    {
+      IImageOptimizer optimizer = CreateImageOptimizer();
+      Assert.IsNotNull(optimizer);
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        optimizer.Compress((FileInfo)null);
+      });
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        optimizer.Compress((string)null);
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        optimizer.Compress("");
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        optimizer.Compress(Files.Missing);
+      });
+    }
+
+    protected long Test_LosslessCompress_Smaller(string fileName)
+    {
+      return Test_LosslessCompress(fileName, true);
     }
 
     protected void Test_LosslessCompress_NotSmaller(string fileName)

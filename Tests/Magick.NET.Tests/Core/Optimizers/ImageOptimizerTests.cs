@@ -15,7 +15,6 @@
 using System;
 using System.IO;
 using ImageMagick;
-using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magick.NET.Tests
@@ -23,22 +22,6 @@ namespace Magick.NET.Tests
   [TestClass]
   public class ImageOptimizerTests
   {
-    private void Test_LosslessCompressWithTempFile(string fileName)
-    {
-      string tempFile = Path.GetTempFileName();
-
-      try
-      {
-        File.Copy(fileName, tempFile, true);
-        Test_LosslessCompress_Smaller(tempFile);
-      }
-      finally
-      {
-        if (File.Exists(tempFile))
-          File.Delete(tempFile);
-      }
-    }
-
     private static FileInfo CreateTemporaryFile(string fileName)
     {
       string tempFile = GetTemporaryFileName(Path.GetExtension(fileName));
@@ -55,7 +38,60 @@ namespace Magick.NET.Tests
       return tempFile + extension;
     }
 
-    private void Test_LosslessCompress(string fileName, bool resultIsSmaller)
+    private void Test_CompressWithTempFile(string fileName)
+    {
+      string tempFile = Path.GetTempFileName();
+
+      try
+      {
+        File.Copy(fileName, tempFile, true);
+        Test_Compress_Smaller(tempFile);
+      }
+      finally
+      {
+        if (File.Exists(tempFile))
+          File.Delete(tempFile);
+      }
+    }
+
+    protected void Test_Compress_Smaller(string fileName)
+    {
+      FileInfo tempFile = CreateTemporaryFile(fileName);
+      try
+      {
+        ImageOptimizer optimizer = new ImageOptimizer();
+        Assert.IsNotNull(optimizer);
+
+        long before = tempFile.Length;
+        optimizer.Compress(tempFile);
+
+        long after = tempFile.Length;
+
+        Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
+      }
+      finally
+      {
+        tempFile.Delete();
+      }
+    }
+
+    private void Test_LosslessCompressWithTempFile(string fileName)
+    {
+      string tempFile = Path.GetTempFileName();
+
+      try
+      {
+        File.Copy(fileName, tempFile, true);
+        Test_LosslessCompress_Smaller(tempFile);
+      }
+      finally
+      {
+        if (File.Exists(tempFile))
+          File.Delete(tempFile);
+      }
+    }
+
+    private void Test_LosslessCompress_Smaller(string fileName)
     {
       FileInfo tempFile = CreateTemporaryFile(fileName);
       try
@@ -68,10 +104,7 @@ namespace Magick.NET.Tests
 
         long after = tempFile.Length;
 
-        if (resultIsSmaller)
-          Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
-        else
-          Assert.AreEqual(before, after);
+        Assert.IsTrue(after < before, "{0} is not smaller than {1}", after, before);
       }
       finally
       {
@@ -79,21 +112,31 @@ namespace Magick.NET.Tests
       }
     }
 
-    protected void Test_LosslessCompress_Smaller(string fileName)
-    {
-      Test_LosslessCompress(fileName, true);
-    }
-
-    protected void Test_LosslessCompress_NotSmaller(string fileName)
-    {
-      Test_LosslessCompress(fileName, false);
-    }
-
     [TestMethod]
     public void Test_InvalidArguments()
     {
       ImageOptimizer optimizer = new ImageOptimizer();
       Assert.IsNotNull(optimizer);
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        optimizer.Compress((FileInfo)null);
+      });
+
+      ExceptionAssert.Throws<ArgumentNullException>(delegate ()
+      {
+        optimizer.Compress((string)null);
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        optimizer.Compress("");
+      });
+
+      ExceptionAssert.Throws<ArgumentException>(delegate ()
+      {
+        optimizer.Compress(Files.Missing);
+      });
 
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
       {
@@ -141,6 +184,16 @@ namespace Magick.NET.Tests
       Assert.IsTrue(optimizer.IsSupported(Files.SnakewarePNG));
       Assert.IsTrue(optimizer.IsSupported(Files.Missing));
       Assert.IsFalse(optimizer.IsSupported(Files.InvitationTif));
+    }
+
+    [TestMethod]
+    public void Test_Compress()
+    {
+      Test_Compress_Smaller(Files.FujiFilmFinePixS1ProGIF);
+      Test_Compress_Smaller(Files.ImageMagickJPG);
+      Test_Compress_Smaller(Files.SnakewarePNG);
+      Test_CompressWithTempFile(Files.ImageMagickJPG);
+      Test_CompressWithTempFile(Files.SnakewarePNG);
     }
 
     [TestMethod]

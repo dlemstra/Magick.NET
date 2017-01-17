@@ -5,7 +5,7 @@
   "methods":
   [
     {
-      "name": "Optimize",
+      "name": "Compress",
       "type": "size_t",
       "static": true,
       "arguments":
@@ -20,6 +20,10 @@
         },
         {
           "name": "progressive",
+          "type": "bool"
+        },
+        {
+          "name": "lossless",
           "type": "bool"
         }
       ]

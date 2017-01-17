@@ -41,17 +41,33 @@ namespace ImageMagick.ImageOptimizers
     }
 
     /// <summary>
-    /// Performs lossless compression on speified the file. If the new file size is not smaller
+    /// Performs compression on the specified the file. With some formats the image will be decoded
+    /// and encoded and this will result in a small quality reduction. If the new file size is not
+    /// smaller the file won't be overwritten.
+    /// </summary>
+    /// <param name="file">The image file to compress.</param>
+    void Compress(FileInfo file);
+
+    /// <summary>
+    /// Performs compression on the specified the file. With some formats the image will be decoded
+    /// and encoded and this will result in a small quality reduction. If the new file size is not
+    /// smaller the file won't be overwritten.
+    /// </summary>
+    /// <param name="fileName">The file name of the image to compress.</param>
+    void Compress(string fileName);
+
+    /// <summary>
+    /// Performs lossless compression on the specified the file. If the new file size is not smaller
     /// the file won't be overwritten.
     /// </summary>
-    /// <param name="file">The image file to optimize</param>
+    /// <param name="file">The image file to compress.</param>
     void LosslessCompress(FileInfo file);
 
     /// <summary>
-    /// Performs lossless compression on speified the file. If the new file size is not smaller
+    /// Performs lossless compression on the specified file. If the new file size is not smaller
     /// the file won't be overwritten.
     /// </summary>
-    /// <param name="fileName">The image file to optimize</param>
+    /// <param name="fileName">The file name of the image to compress.</param>
     void LosslessCompress(string fileName);
   }
 }

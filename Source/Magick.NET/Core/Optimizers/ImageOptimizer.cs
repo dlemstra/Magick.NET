@@ -44,6 +44,16 @@ namespace ImageMagick
       optimizer.LosslessCompress(file);
     }
 
+    private void DoCompress(FileInfo file)
+    {
+      IImageOptimizer optimizer = GetOptimizer(file);
+      if (optimizer == null)
+        return;
+
+      optimizer.OptimalCompression = OptimalCompression;
+      optimizer.Compress(file);
+    }
+
     private static MagickFormatInfo GetFormatInformation(FileInfo file)
     {
       MagickFormatInfo info = MagickNET.GetFormatInformation(file);
@@ -78,6 +88,33 @@ namespace ImageMagick
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Performs compression on the specified the file. With some formats the image will be decoded
+    /// and encoded and this will result in a small quality reduction. If the new file size is not
+    /// smaller the file won't be overwritten.
+    /// </summary>
+    /// <param name="file">The image file to compress</param>
+    public void Compress(FileInfo file)
+    {
+      Throw.IfNull(nameof(file), file);
+
+      DoCompress(file);
+    }
+
+    /// <summary>
+    /// Performs compression on the specified the file. With some formats the image will be decoded
+    /// and encoded and this will result in a small quality reduction. If the new file size is not
+    /// smaller the file won't be overwritten.
+    /// </summary>
+    /// <param name="fileName">The file name of the image to compress</param>
+    public void Compress(string fileName)
+    {
+      string filePath = FileHelper.CheckForBaseDirectory(fileName);
+      Throw.IfInvalidFileName(filePath);
+
+      DoCompress(new FileInfo(filePath));
     }
 
     /// <summary>
@@ -120,10 +157,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Performs lossless compression on the file. If the new file size is not smaller the file
-    /// won't be overwritten.
+    /// Performs lossless compression on the specified the file. If the new file size is not smaller
+    /// the file won't be overwritten.
     /// </summary>
-    /// <param name="file">The image file to optimize</param>
+    /// <param name="file">The image file to compress</param>
     public void LosslessCompress(FileInfo file)
     {
       Throw.IfNull(nameof(file), file);
@@ -132,10 +169,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Performs lossless compression on speified the file. If the new file size is not smaller
+    /// Performs lossless compression on the specified file. If the new file size is not smaller
     /// the file won't be overwritten.
     /// </summary>
-    /// <param name="fileName">The name of the image file to optimize</param>
+    /// <param name="fileName">The file name of the image to compress</param>
     public void LosslessCompress(string fileName)
     {
       string filePath = FileHelper.CheckForBaseDirectory(fileName);

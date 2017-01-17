@@ -30,19 +30,21 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_InvalidArguments()
     {
+      Test_Compress_InvalidArguments();
       Test_LosslessCompress_InvalidArguments();
+    }
+
+    [TestMethod]
+    public void Test_InvalidFile()
+    {
+      Test_Compress_InvalidFile(Files.ImageMagickJPG);
+      Test_LosslessCompress_InvalidFile(Files.ImageMagickJPG);
     }
 
     [TestMethod]
     public void Test_LosslessCompress()
     {
       Test_LosslessCompress_Smaller(Files.SnakewarePNG);
-    }
-
-    [TestMethod]
-    public void Test_LosslessCompress_InvalidFile()
-    {
-      Test_LosslessCompress_InvalidFile(Files.ImageMagickJPG);
     }
 
     [TestMethod]
