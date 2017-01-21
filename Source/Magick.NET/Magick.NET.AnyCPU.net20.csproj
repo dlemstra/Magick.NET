@@ -21,7 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <AssemblyName>Magick.NET-Q8-AnyCPU</AssemblyName>
     <DocumentationFile>bin\DebugQ8\AnyCPU.net20\Magick.NET-Q8-AnyCPU.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -35,7 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <AssemblyName>Magick.NET-Q16-AnyCPU</AssemblyName>
     <DocumentationFile>bin\DebugQ16\AnyCPU.net20\Magick.NET-Q16-AnyCPU.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -49,7 +49,7 @@
     <ErrorReport>prompt</ErrorReport>
     <AssemblyName>Magick.NET-Q16-HDRI-AnyCPU</AssemblyName>
     <DocumentationFile>bin\DebugQ16-HDRI\AnyCPU.net20\Magick.NET-Q16-HDRI-AnyCPU.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>

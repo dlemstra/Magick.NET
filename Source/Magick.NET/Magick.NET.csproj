@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <AssemblyName>Magick.NET-Q8-x86</AssemblyName>
     <DocumentationFile>bin\DebugQ8\x86\Magick.NET-Q8-x86.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -36,7 +36,7 @@
     <ErrorReport>prompt</ErrorReport>
     <AssemblyName>Magick.NET-Q8-x64</AssemblyName>
     <DocumentationFile>bin\DebugQ8\x64\Magick.NET-Q8-x64.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -50,7 +50,7 @@
     <ErrorReport>prompt</ErrorReport>
     <AssemblyName>Magick.NET-Q16-x86</AssemblyName>
     <DocumentationFile>bin\DebugQ16\x86\Magick.NET-Q16-x86.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -64,7 +64,7 @@
     <ErrorReport>prompt</ErrorReport>
     <AssemblyName>Magick.NET-Q16-x64</AssemblyName>
     <DocumentationFile>bin\DebugQ16\x64\Magick.NET-Q16-x64.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -78,7 +78,7 @@
     <ErrorReport>prompt</ErrorReport>
     <AssemblyName>Magick.NET-Q16-HDRI-x86</AssemblyName>
     <DocumentationFile>bin\DebugQ16-HDRI\x86\Magick.NET-Q16-HDRI-x86.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -92,7 +92,7 @@
     <ErrorReport>prompt</ErrorReport>
     <AssemblyName>Magick.NET-Q16-HDRI-x64</AssemblyName>
     <DocumentationFile>bin\DebugQ16-HDRI\x64\Magick.NET-Q16-HDRI-x64.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>..\Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
