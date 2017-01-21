@@ -85,14 +85,6 @@ namespace ImageMagick.Web.Handlers
     {
     }
 
-    internal static bool CanCompress(MagickWebSettings settings, MagickFormatInfo formatInfo)
-    {
-      if (!settings.EnableGzip)
-        return false;
-
-      return formatInfo.Format == MagickFormat.Svg;
-    }
-
     /// <inheritdoc/>
     [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Context will not be null.")]
     protected override string GetFileName(HttpContext context)

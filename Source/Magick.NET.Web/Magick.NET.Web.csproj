@@ -184,6 +184,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\OptimizationSettings.cs" />
     <Compile Include="Configuration\ISectionLoader.cs" />
     <Compile Include="Configuration\SectionLoader.cs" />
     <Compile Include="Configuration\ResourceLimitsSettings.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Handlers\ImageOptimizerHandler.cs" />
     <Compile Include="Handlers\MagickHandler.cs" />
     <Compile Include="Handlers\MagickScriptHandler.cs" />
+    <Compile Include="Handlers\HandlerHelper.cs" />
     <Compile Include="ImageData\StreamImageData.cs" />
     <Compile Include="ImageData\FileImageData.cs" />
     <Compile Include="ImageData\IImageData.cs" />

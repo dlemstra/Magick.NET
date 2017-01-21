@@ -60,7 +60,9 @@ namespace Magick.NET.Tests
         Assert.AreEqual(new TimeSpan(1, 0, 0, 0), settings.ClientCache.CacheControlMaxAge);
         Assert.AreEqual(CacheControlMode.UseMaxAge, settings.ClientCache.CacheControlMode);
         Assert.IsTrue(settings.EnableGzip);
-        Assert.IsTrue(settings.OptimizeImages);
+        Assert.IsTrue(settings.Optimization.IsEnabled);
+        Assert.IsTrue(settings.Optimization.Lossless);
+        Assert.IsFalse(settings.Optimization.OptimalCompression);
         Assert.IsNull(settings.ResourceLimits.Height);
         Assert.IsNull(settings.ResourceLimits.Width);
         Assert.IsFalse(settings.ShowVersion);
@@ -85,8 +87,9 @@ namespace Magick.NET.Tests
     public void Test_Properties()
     {
       string config = @"
-<magick.net.web canCreateDirectories=""false"" cacheDirectory=""~\cache"" tempDirectory=""c:\temp\"" enableGzip=""false"" optimizeImages=""false"" showVersion=""true"" useOpenCL=""true"">
+<magick.net.web canCreateDirectories=""false"" cacheDirectory=""~\cache"" tempDirectory=""c:\temp\"" enableGzip=""false"" showVersion=""true"" useOpenCL=""true"">
   <clientCache cacheControlMaxAge=""4:2:0"" cacheControlMode=""NoControl""/>
+  <optimization enabled=""false"" lossless=""false"" optimalCompression=""true""/>
   <resourceLimits width=""1"" height=""2""/>
   <urlResolvers>
     <urlResolver type=""Magick.NET.Tests.TestFileUrlResolver, Magick.NET.Tests""/>
@@ -99,7 +102,9 @@ namespace Magick.NET.Tests
       Assert.AreEqual(new TimeSpan(4, 2, 0), settings.ClientCache.CacheControlMaxAge);
       Assert.AreEqual(CacheControlMode.NoControl, settings.ClientCache.CacheControlMode);
       Assert.IsFalse(settings.EnableGzip);
-      Assert.IsFalse(settings.OptimizeImages);
+      Assert.IsFalse(settings.Optimization.IsEnabled);
+      Assert.IsFalse(settings.Optimization.Lossless);
+      Assert.IsTrue(settings.Optimization.OptimalCompression);
       Assert.AreEqual(1, settings.ResourceLimits.Width);
       Assert.AreEqual(2, settings.ResourceLimits.Height);
       Assert.IsTrue(settings.ShowVersion);

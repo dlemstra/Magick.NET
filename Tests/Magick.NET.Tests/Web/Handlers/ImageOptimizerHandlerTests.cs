@@ -96,18 +96,6 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
-    public void Test_CanOptimize()
-    {
-      string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" optimizeImages=""false""/>";
-
-      MagickWebSettings settings = TestSectionLoader.Load(config);
-
-      bool canCompress = ImageOptimizerHandler.CanOptimize(settings, JpgFormatInfo);
-
-      Assert.IsFalse(canCompress);
-    }
-
-    [TestMethod]
     public void Test_ProcessRequest()
     {
       string tempFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".jpg");

@@ -40,19 +40,6 @@ namespace ImageMagick.Web
       }
     }
 
-    private IHttpHandler HandleRequest(HttpContextBase context)
-    {
-      Uri url = (Uri)context.Items[UrlKey];
-
-      foreach (IUrlResolver urlResolver in UrlResolvers)
-      {
-        if (urlResolver.Resolve(url))
-          return CreateHttpHandler(urlResolver);
-      }
-
-      return null;
-    }
-
     private IHttpHandler CreateHttpHandler(IUrlResolver urlResolver)
     {
       MagickFormatInfo formatInfo = MagickNET.GetFormatInformation(urlResolver.Format);
@@ -67,11 +54,24 @@ namespace ImageMagick.Web
       if (IsValid(scriptData))
         return new MagickScriptHandler(_Settings, imageData, scriptData);
 
-      if (ImageOptimizerHandler.CanOptimize(_Settings, formatInfo))
+      if (HandlerHelper.CanOptimize(_Settings, formatInfo))
         return new ImageOptimizerHandler(_Settings, imageData);
 
-      if (GzipHandler.CanCompress(_Settings, formatInfo))
+      if (HandlerHelper.CanCompress(_Settings, formatInfo))
         return new GzipHandler(_Settings, imageData);
+
+      return null;
+    }
+
+    private IHttpHandler HandleRequest(HttpContextBase context)
+    {
+      Uri url = (Uri)context.Items[UrlKey];
+
+      foreach (IUrlResolver urlResolver in UrlResolvers)
+      {
+        if (urlResolver.Resolve(url))
+          return CreateHttpHandler(urlResolver);
+      }
 
       return null;
     }

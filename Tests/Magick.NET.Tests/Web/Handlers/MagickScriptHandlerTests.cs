@@ -136,7 +136,10 @@ namespace Magick.NET.Tests
 
       try
       {
-        string config = $@"<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}"" optimizeImages=""false""/>";
+        string config = $@"
+<magick.net.web cacheDirectory=""{tempDir}"" tempDirectory=""{tempDir}"">
+  <optimization enabled=""false""/>
+</magick.net.web>";
 
         MagickWebSettings settings = TestSectionLoader.Load(config);
 

@@ -135,18 +135,6 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
-    public void Test_CanCompress()
-    {
-      string config = @"<magick.net.web canCreateDirectories=""false"" cacheDirectory=""c:\cache"" enableGzip=""false""/>";
-
-      MagickWebSettings settings = TestSectionLoader.Load(config);
-
-      bool canCompress = GzipHandler.CanCompress(settings, SvgFormatInfo);
-
-      Assert.IsFalse(canCompress);
-    }
-
-    [TestMethod]
     public void Test_ProcessRequest()
     {
       IImageData imageData = new FileImageData(Files.Logos.MagickNETSVG, SvgFormatInfo);

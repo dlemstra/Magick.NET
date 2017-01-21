@@ -143,14 +143,14 @@ namespace ImageMagick.Web
     }
 
     /// <summary>
-    /// Gets a value indicating whether the images should be optimized.
+    /// Gets the settings for the image optimization.
     /// </summary>
-    [ConfigurationProperty("optimizeImages", DefaultValue = true)]
-    public bool OptimizeImages
+    [ConfigurationProperty("optimization")]
+    public OptimizationSettings Optimization
     {
       get
       {
-        return (bool)this["optimizeImages"];
+        return (OptimizationSettings)this["optimization"];
       }
     }
 
