@@ -5972,6 +5972,18 @@ namespace ImageMagick
     /// Sparse color image, given a set of coordinates, interpolates the colors found at those
     /// coordinates, across the whole image, using various methods.
     /// </summary>
+    /// <param name="method">The sparse color method to use.</param>
+    /// <param name="args">The sparse color arguments.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void SparseColor(SparseColorMethod method, params SparseColorArg[] args)
+    {
+      SparseColor(ImageMagick.Channels.Composite, method, (IEnumerable<SparseColorArg>)args);
+    }
+
+    /// <summary>
+    /// Sparse color image, given a set of coordinates, interpolates the colors found at those
+    /// coordinates, across the whole image, using various methods.
+    /// </summary>
     /// <param name="channels">The channel(s) to use.</param>
     /// <param name="method">The sparse color method to use.</param>
     /// <param name="args">The sparse color arguments.</param>
@@ -6006,6 +6018,19 @@ namespace ImageMagick
       Throw.IfTrue(nameof(args), arguments.Count == 0, "Value cannot be empty");
 
       _NativeInstance.SparseColor(channels, method, arguments.ToArray(), arguments.Count);
+    }
+
+    /// <summary>
+    /// Sparse color image, given a set of coordinates, interpolates the colors found at those
+    /// coordinates, across the whole image, using various methods.
+    /// </summary>
+    /// <param name="channels">The channel(s) to use.</param>
+    /// <param name="method">The sparse color method to use.</param>
+    /// <param name="args">The sparse color arguments.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void SparseColor(Channels channels, SparseColorMethod method, params SparseColorArg[] args)
+    {
+      SparseColor(channels, method, (IEnumerable<SparseColorArg>)args);
     }
 
     /// <summary>
