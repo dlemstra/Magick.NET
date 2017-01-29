@@ -52,11 +52,9 @@ typedef enum
   ZipStream,
   BZipStream,
   FifoStream,
-  BlobStream
+  BlobStream,
+  UserStream
 } StreamType;
-
-typedef int
-  *(*BlobFifo)(const Image *,const void *,const size_t);
 
 extern MagickExport BlobInfo
   *CloneBlobInfo(const BlobInfo *),

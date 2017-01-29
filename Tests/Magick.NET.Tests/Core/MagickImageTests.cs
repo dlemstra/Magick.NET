@@ -2162,9 +2162,9 @@ namespace Magick.NET.Tests
           using (MagickImage histogram = new MagickImage(memStream))
           {
 #if Q8
-            ColorAssert.AreEqual(MagickColors.Red, histogram, 66, 11);
+            ColorAssert.AreEqual(MagickColors.Red, histogram, 66, 12);
             ColorAssert.AreEqual(MagickColors.Lime, histogram, 95, 122);
-            ColorAssert.AreEqual(MagickColors.Blue, histogram, 204, 80);
+            ColorAssert.AreEqual(MagickColors.Blue, histogram, 204, 81);
 #elif Q16 || Q16HDRI
             ColorAssert.AreEqual(MagickColors.Red, histogram, 34, 182);
             ColorAssert.AreEqual(MagickColors.Lime, histogram, 122, 193);
@@ -2850,7 +2850,7 @@ namespace Magick.NET.Tests
       {
         using (MagickImage green = new MagickImage("xc:green", 100, 100))
         {
-          red.RegionMask(new MagickGeometry(10, 10, 50, 50));
+          green.RegionMask(new MagickGeometry(10, 10, 50, 50));
 
           green.Composite(red, CompositeOperator.SrcOver);
 
@@ -2858,7 +2858,7 @@ namespace Magick.NET.Tests
           ColorAssert.AreEqual(MagickColors.Red, green, 10, 10);
           ColorAssert.AreEqual(MagickColors.Green, green, 60, 60);
 
-          red.RemoveRegionMask();
+          green.RemoveRegionMask();
 
           green.Composite(red, CompositeOperator.SrcOver);
 
@@ -3185,9 +3185,9 @@ namespace Magick.NET.Tests
 
         image.Shade();
 
-        ColorAssert.AreEqual(new MagickColor("#800080008000"), image, 64, 48);
+        ColorAssert.AreEqual(new MagickColor("#7fff7fff7fff"), image, 64, 48);
         ColorAssert.AreEqual(MagickColors.Black, image, 118, 48);
-        ColorAssert.AreEqual(new MagickColor("#800080008000"), image, 148, 48);
+        ColorAssert.AreEqual(new MagickColor("#7fff7fff7fff"), image, 148, 48);
       }
 
       using (MagickImage image = new MagickImage())
@@ -3459,7 +3459,7 @@ namespace Magick.NET.Tests
 
             using (MagickImage hiddenMessage = new MagickImage(tempFile, settings))
             {
-              Assert.AreEqual(0, message.Compare(hiddenMessage, ErrorMetric.RootMeanSquared));
+              Assert.AreEqual(0, message.Compare(hiddenMessage, ErrorMetric.RootMeanSquared), 0.001);
             }
           }
           finally

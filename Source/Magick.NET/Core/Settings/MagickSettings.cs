@@ -75,6 +75,10 @@ namespace ImageMagick
           return null;
         case MagickFormat.ThreeFr:
           return "3FR";
+        case MagickFormat.ThreeG2:
+          return "3G2";
+        case MagickFormat.ThreeGp:
+          return "3GP";
         default:
           return EnumHelper.GetName(Format).ToUpperInvariant();
       }

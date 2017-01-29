@@ -30,6 +30,16 @@ namespace ImageMagick
     ThreeFr,
 
     /// <summary>
+    /// Media Container
+    /// </summary>
+    ThreeG2,
+
+    /// <summary>
+    /// Media Container
+    /// </summary>
+    ThreeGp,
+
+    /// <summary>
     /// Raw alpha samples
     /// </summary>
     A,

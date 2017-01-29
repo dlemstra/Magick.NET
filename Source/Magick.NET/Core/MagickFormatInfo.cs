@@ -57,6 +57,10 @@ namespace ImageMagick
       format = format.Replace("-", string.Empty);
       if (format == "3FR")
         format = "ThreeFr";
+      else if (format == "3G2")
+        format = "ThreeG2";
+      else if (format == "3GP")
+        format = "ThreeGp";
 
       return EnumHelper.Parse(format, MagickFormat.Unknown);
     }
