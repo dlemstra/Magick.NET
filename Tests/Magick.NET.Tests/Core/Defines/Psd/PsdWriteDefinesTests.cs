@@ -56,7 +56,6 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_AdditionalInfo()
     {
-
       using (MagickImageCollection images = new MagickImageCollection())
       {
         images.Read(Files.Coders.LayerStylesSamplePSD);
