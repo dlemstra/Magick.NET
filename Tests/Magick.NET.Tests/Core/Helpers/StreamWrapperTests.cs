@@ -14,6 +14,7 @@
 
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
 
 namespace Magick.NET.Tests.Core.Helpers
@@ -21,6 +22,17 @@ namespace Magick.NET.Tests.Core.Helpers
   [TestClass]
   public class StreamWrapperTests
   {
+    [TestMethod]
+    public void Test_Dispose()
+    {
+      using (TestStream stream = new TestStream(true, true, true))
+      {
+        StreamWrapper streamWrapper = StreamWrapper.CreateForReading(stream);
+        streamWrapper.Dispose();
+        streamWrapper.Dispose();
+      }
+    }
+
     [TestMethod]
     public void Test_Exceptions()
     {
@@ -46,6 +58,19 @@ namespace Magick.NET.Tests.Core.Helpers
         {
           StreamWrapper.CreateForWriting(stream);
         }, "stream", "readable");
+      }
+    }
+
+    [TestMethod]
+    public void Test_Read()
+    {
+      using (MemoryStream memStream = new MemoryStream())
+      {
+        using (StreamWrapper streamWrapper = StreamWrapper.CreateForReading(memStream))
+        {
+          int count = streamWrapper.Read(IntPtr.Zero, UIntPtr.Zero, IntPtr.Zero);
+          Assert.AreEqual(0, count);
+        }
       }
     }
 
@@ -81,6 +106,19 @@ namespace Magick.NET.Tests.Core.Helpers
               image.Read(stream);
             });
           }
+        }
+      }
+    }
+
+    [TestMethod]
+    public void Test_Write()
+    {
+      using (MemoryStream memStream = new MemoryStream())
+      {
+        using (StreamWrapper streamWrapper = StreamWrapper.CreateForReading(memStream))
+        {
+          int count = streamWrapper.Write(IntPtr.Zero, UIntPtr.Zero, IntPtr.Zero);
+          Assert.AreEqual(0, count);
         }
       }
     }
