@@ -35,6 +35,55 @@
           "type": "Instance"
         }
       ]
+    },
+    {
+      "name": "ReadWriteStream",
+      "type": "int",
+      "arguments":
+      [
+        {
+          "name": "data",
+          "type": "Instance"
+        },
+        {
+          "name": "length",
+          "type": "size_t"
+        },
+        {
+          "name": "user_data",
+          "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "SeekStream",
+      "type": "long",
+      "arguments":
+      [
+        {
+          "name": "offset",
+          "type": "long"
+        },
+        {
+          "name": "whence",
+          "type": "ssize_t"
+        },
+        {
+          "name": "user_data",
+          "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "TellStream",
+      "type": "long",
+      "arguments":
+      [
+        {
+          "name": "user_data",
+          "type": "Instance"
+        }
+      ]
     }
   ],
   "properties":
@@ -1936,6 +1985,31 @@
       ]
     },
     {
+      "name": "ReadStream",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "settings",
+          "type": "MagickSettings"
+        },
+        {
+          "name": "reader",
+          "type": "ReadWriteStreamDelegate"
+        },
+        {
+          "name": "seeker",
+          "type": "SeekStreamDelegate"
+        },
+        {
+          "name": "teller",
+          "type": "TellStreamDelegate"
+        }
+      ]
+    },
+    {
       "name": "RegionMask",
       "throws": true,
       "arguments":
@@ -2765,12 +2839,18 @@
       ]
     },
     {
-      "name": "WriteBlob",
-      "type": "Instance",
-      "cleanup":
-      {
-        "name": "MagickMemory.Relinquish"
-      },
+      "name": "WriteFile",
+      "throws": true,
+      "arguments":
+      [
+        {
+          "name": "settings",
+          "type": "MagickSettings"
+        }
+      ]
+    },
+    {
+      "name": "WriteStream",
       "throws": true,
       "arguments":
       [
@@ -2779,20 +2859,20 @@
           "type": "MagickSettings"
         },
         {
-          "name": "length",
-          "type": "size_t",
-          "out": true
-        }
-      ]
-    },
-    {
-      "name": "WriteFile",
-      "throws": true,
-      "arguments":
-      [
+          "name": "reader",
+          "type": "ReadWriteStreamDelegate"
+        },
         {
-          "name": "settings",
-          "type": "MagickSettings"
+          "name": "writer",
+          "type": "ReadWriteStreamDelegate"
+        },
+        {
+          "name": "seeker",
+          "type": "SeekStreamDelegate"
+        },
+        {
+          "name": "teller",
+          "type": "TellStreamDelegate"
         }
       ]
     }

@@ -195,7 +195,11 @@
     <Compile Include="Core\Exceptions\ExceptionHelperTests.cs" />
     <Compile Include="Core\Exceptions\ExceptionInfo.cs" />
     <Compile Include="Core\Exceptions\MagickExceptionTests.cs" />
-    <Compile Include="Core\TestStream.cs" />
+    <Compile Include="Core\Helpers\StreamWrapperTests.cs" />
+    <Compile Include="Helpers\WriteExceptionStream.cs" />
+    <Compile Include="Helpers\ReadExceptionStream.cs" />
+    <Compile Include="Helpers\SeekExceptionStream.cs" />
+    <Compile Include="Helpers\TestStream.cs" />
     <Compile Include="Core\Replacements\ExcludeFromCodeCoverage.cs" />
     <Compile Include="Framework\Coders\PdfTests.cs" />
     <Compile Include="Framework\Coders\TiffTests.cs" />
@@ -232,9 +236,9 @@
     <Compile Include="Core\Drawables\Paths\PathTests.cs" />
     <Compile Include="Core\Drawables\DrawablesTests.cs" />
     <Compile Include="Core\Drawables\DrawableTests.cs" />
-    <Compile Include="Core\Files.cs" />
+    <Compile Include="Helpers\Files.cs" />
     <Compile Include="Core\Profiles\Exif\ExifTagDescriptionAttributeTests.cs" />
-    <Compile Include="Core\PartialStream.cs" />
+    <Compile Include="Helpers\PartialStream.cs" />
     <Compile Include="Core\Types\RationalTests.cs" />
     <Compile Include="Core\Types\SignedRationalTests.cs" />
     <Compile Include="Framework\Drawables\DrawableAffineTests.cs" />

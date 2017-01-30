@@ -123,6 +123,7 @@
     <Compile Include="Core\Defines\Jp2\Jp2WriteDefines.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2ReadDefines.cs" />
     <Compile Include="Core\Defines\WriteDefinesCreator.cs" />
+    <Compile Include="Core\Helpers\StreamWrapper.cs" />
     <Compile Include="Core\Types\Bytes.cs" />
     <Compile Include="Framework\Colors\ColorRGB.cs" />
     <Compile Include="Framework\Colors\MagickColor.cs" />

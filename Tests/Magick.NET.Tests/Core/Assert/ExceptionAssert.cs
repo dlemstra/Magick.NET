@@ -63,7 +63,7 @@ namespace Magick.NET.Tests
       ArgumentException exception = Throws<ArgumentException>(action);
       Assert.AreEqual(paramName, exception.ParamName);
       bool containsMessage = exception.Message.Contains(messagePart);
-      Assert.IsTrue(containsMessage, "Message does not contain: " + messagePart);
+      Assert.IsTrue(containsMessage, "Message does not contain: " + messagePart + "." + Environment.NewLine + Environment.NewLine + exception.Message);
     }
   }
 }

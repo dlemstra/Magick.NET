@@ -2836,7 +2836,7 @@ namespace Magick.NET.Tests
 
       ExceptionAssert.Throws<ArgumentException>(delegate ()
       {
-        using (TestStream testStream = new TestStream(false, true))
+        using (TestStream testStream = new TestStream(false, true, true))
         {
           new MagickImage(testStream);
         }
@@ -3986,11 +3986,13 @@ namespace Magick.NET.Tests
 
       using (MagickImage image = new MagickImage(Files.SnakewarePNG))
       {
+        long fileSize = image.FileSize;
+
         using (MemoryStream memStream = new MemoryStream())
         {
           image.Write(memStream);
 
-          Assert.AreEqual(image.FileSize, memStream.Length);
+          Assert.AreEqual(fileSize, memStream.Length);
 
           using (MagickImage result = new MagickImage(memStream))
           {

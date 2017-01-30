@@ -31,6 +31,12 @@ namespace ImageMagick
 {
   public partial class MagickImageCollection
   {
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate int ReadWriteStreamDelegate(IntPtr data, UIntPtr length, IntPtr user_data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate long SeekStreamDelegate(long offset, IntPtr whence, IntPtr user_data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate long TellStreamDelegate(IntPtr user_data);
     private static class NativeMethods
     {
       #if WIN64 || ANYCPU
@@ -75,11 +81,13 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImageCollection_ReadFile(IntPtr settings, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MagickImageCollection_ReadStream(IntPtr settings, ReadWriteStreamDelegate reader, SeekStreamDelegate seeker, TellStreamDelegate teller, out IntPtr exception);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImageCollection_Smush(IntPtr image, IntPtr offset, [MarshalAs(UnmanagedType.Bool)] bool stack, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImageCollection_WriteBlob(IntPtr image, IntPtr settings, out UIntPtr length, out IntPtr exception);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImageCollection_WriteFile(IntPtr image, IntPtr settings, out IntPtr exception);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MagickImageCollection_WriteStream(IntPtr image, IntPtr settings, ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, out IntPtr exception);
       }
       #endif
       #if !WIN64 || ANYCPU
@@ -124,11 +132,13 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImageCollection_ReadFile(IntPtr settings, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MagickImageCollection_ReadStream(IntPtr settings, ReadWriteStreamDelegate reader, SeekStreamDelegate seeker, TellStreamDelegate teller, out IntPtr exception);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImageCollection_Smush(IntPtr image, IntPtr offset, [MarshalAs(UnmanagedType.Bool)] bool stack, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImageCollection_WriteBlob(IntPtr image, IntPtr settings, out UIntPtr length, out IntPtr exception);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImageCollection_WriteFile(IntPtr image, IntPtr settings, out IntPtr exception);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MagickImageCollection_WriteStream(IntPtr image, IntPtr settings, ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, out IntPtr exception);
       }
       #endif
     }
@@ -553,6 +563,35 @@ namespace ImageMagick
           return result;
         }
       }
+      public IntPtr ReadStream(MagickSettings settings, ReadWriteStreamDelegate reader, SeekStreamDelegate seeker, TellStreamDelegate teller)
+      {
+        using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
+        {
+          IntPtr exception = IntPtr.Zero;
+          IntPtr result;
+          #if ANYCPU
+          if (NativeLibrary.Is64Bit)
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+          #endif
+          #if ANYCPU
+          else
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+          #endif
+          MagickException magickException = MagickExceptionHelper.Create(exception);
+          if (MagickExceptionHelper.IsError(magickException))
+          {
+            if (result != IntPtr.Zero)
+              Dispose(result);
+            throw magickException;
+          }
+          RaiseWarning(magickException);
+          return result;
+        }
+      }
       public IntPtr Smush(MagickImage image, int offset, bool stack)
       {
         IntPtr exception = IntPtr.Zero;
@@ -579,35 +618,6 @@ namespace ImageMagick
         RaiseWarning(magickException);
         return result;
       }
-      public IntPtr WriteBlob(MagickImage image, MagickSettings settings, out UIntPtr length)
-      {
-        using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
-        {
-          IntPtr exception = IntPtr.Zero;
-          IntPtr result;
-          #if ANYCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if WIN64 || ANYCPU
-          result = NativeMethods.X64.MagickImageCollection_WriteBlob(MagickImage.GetInstance(image), settingsNative.Instance, out length, out exception);
-          #endif
-          #if ANYCPU
-          else
-          #endif
-          #if !WIN64 || ANYCPU
-          result = NativeMethods.X86.MagickImageCollection_WriteBlob(MagickImage.GetInstance(image), settingsNative.Instance, out length, out exception);
-          #endif
-          MagickException magickException = MagickExceptionHelper.Create(exception);
-          if (MagickExceptionHelper.IsError(magickException))
-          {
-            if (result != IntPtr.Zero)
-              MagickMemory.Relinquish(result);
-            throw magickException;
-          }
-          RaiseWarning(magickException);
-          return result;
-        }
-      }
       public void WriteFile(MagickImage image, MagickSettings settings)
       {
         using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
@@ -626,6 +636,35 @@ namespace ImageMagick
           NativeMethods.X86.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
           #endif
           CheckException(exception);
+        }
+      }
+      public IntPtr WriteStream(MagickImage image, MagickSettings settings, ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller)
+      {
+        using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
+        {
+          IntPtr exception = IntPtr.Zero;
+          IntPtr result;
+          #if ANYCPU
+          if (NativeLibrary.Is64Bit)
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, reader, writer, seeker, teller, out exception);
+          #endif
+          #if ANYCPU
+          else
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, reader, writer, seeker, teller, out exception);
+          #endif
+          MagickException magickException = MagickExceptionHelper.Create(exception);
+          if (MagickExceptionHelper.IsError(magickException))
+          {
+            if (result != IntPtr.Zero)
+              Dispose(result);
+            throw magickException;
+          }
+          RaiseWarning(magickException);
+          return result;
         }
       }
     }

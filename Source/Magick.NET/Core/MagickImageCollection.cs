@@ -50,6 +50,38 @@ namespace ImageMagick
       AddImages(result, settings);
     }
 
+    private void AddImages(Stream stream, MagickReadSettings readSettings, bool ping)
+    {
+      Throw.IfNull(nameof(stream), stream);
+
+      Bytes bytes = Bytes.FromStreamBuffer(stream);
+      if (bytes != null)
+      {
+        AddImages(bytes.Data, bytes.Length, readSettings, ping);
+        return;
+      }
+
+      MagickSettings settings = CreateSettings(readSettings);
+      settings.Ping = ping;
+      settings.FileName = null;
+
+      using (StreamWrapper wrapper = StreamWrapper.CreateForReading(stream))
+      {
+        ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(wrapper.Read);
+        SeekStreamDelegate seekStream = null;
+        TellStreamDelegate tellStream = null;
+
+        if (stream.CanSeek)
+        {
+          seekStream = new SeekStreamDelegate(wrapper.Seek);
+          tellStream = new TellStreamDelegate(wrapper.Tell);
+        }
+
+        IntPtr result = _NativeInstance.ReadStream(settings, readStream, seekStream, tellStream);
+        AddImages(result, settings);
+      }
+    }
+
     private void AddImages(IntPtr result, MagickSettings settings)
     {
       foreach (MagickImage image in MagickImage.CreateList(result, settings))
@@ -438,10 +470,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AddRange(Stream stream, MagickReadSettings readSettings)
     {
-      using (Bytes bytes = new Bytes(stream))
-      {
-        AddImages(bytes.Data, bytes.Length, readSettings, false);
-      }
+      AddImages(stream, readSettings, false);
     }
 
     /// <summary>
@@ -1015,10 +1044,7 @@ namespace ImageMagick
     public void Ping(Stream stream, MagickReadSettings readSettings)
     {
       Clear();
-      using (Bytes bytes = new Bytes(stream))
-      {
-        AddImages(bytes.Data, bytes.Length, readSettings, true);
-      }
+      AddImages(stream, readSettings, true);
     }
 
     /// <summary>
@@ -1150,10 +1176,7 @@ namespace ImageMagick
     public void Read(Stream stream, MagickReadSettings readSettings)
     {
       Clear();
-      using (Bytes bytes = new Bytes(stream))
-      {
-        AddImages(bytes.Data, bytes.Length, readSettings, false);
-      }
+      AddImages(stream, readSettings, false);
     }
 
     /// <summary>
@@ -1392,9 +1415,20 @@ namespace ImageMagick
       {
         AttachImages();
 
-        UIntPtr length;
-        IntPtr data = _NativeInstance.WriteBlob(_Images[0], settings, out length);
-        MagickMemory.WriteBytes(data, length, stream);
+        using (StreamWrapper wrapper = StreamWrapper.CreateForWriting(stream))
+        {
+          ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(wrapper.Read);
+          ReadWriteStreamDelegate writeStream = new ReadWriteStreamDelegate(wrapper.Write);
+          SeekStreamDelegate seekStream = null;
+          TellStreamDelegate tellStream = null;
+          if (stream.CanSeek)
+          {
+            seekStream = new SeekStreamDelegate(wrapper.Seek);
+            tellStream = new TellStreamDelegate(wrapper.Tell);
+          }
+
+          _NativeInstance.WriteStream(_Images[0], settings, readStream, writeStream, seekStream, tellStream);
+        }
       }
       finally
       {

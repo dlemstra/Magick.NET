@@ -207,7 +207,7 @@ MAGICK_NET_EXPORT void MagickImage_ClipPath(Image *, const char *, const MagickB
 
 MAGICK_NET_EXPORT Image *MagickImage_Clone(const Image *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_CloneArea(const Image *, const size_t , const size_t , ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_CloneArea(const Image *, const size_t, const size_t, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImage_Clut(Image *, Image *, const size_t, const size_t, ExceptionInfo **);
 
@@ -385,6 +385,8 @@ MAGICK_NET_EXPORT Image *MagickImage_ReadFile(const ImageInfo *, ExceptionInfo *
 
 MAGICK_NET_EXPORT Image *MagickImage_ReadPixels(const size_t, const size_t, const char *, const size_t, const unsigned char *, ExceptionInfo **);
 
+MAGICK_NET_EXPORT Image *MagickImage_ReadStream(const ImageInfo *, const BlobHandler, const BlobSeeker, const BlobTeller, ExceptionInfo **);
+
 MAGICK_NET_EXPORT void MagickImage_RegionMask(Image *, const RectangleInfo *, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImage_RemoveArtifact(Image *, const char *);
@@ -503,6 +505,6 @@ MAGICK_NET_EXPORT Image *MagickImage_WaveletDenoise(const Image *, const double,
 
 MAGICK_NET_EXPORT void MagickImage_WhiteThreshold(Image *, const char *, const size_t, ExceptionInfo **);
 
-MAGICK_NET_EXPORT unsigned char *MagickImage_WriteBlob(Image *, const ImageInfo *, size_t *, ExceptionInfo **);
-
 MAGICK_NET_EXPORT void MagickImage_WriteFile(Image *, const ImageInfo *, ExceptionInfo **);
+
+MAGICK_NET_EXPORT void MagickImage_WriteStream(Image *, const ImageInfo *, const BlobHandler, const BlobHandler, const BlobSeeker, const BlobTeller, ExceptionInfo **);

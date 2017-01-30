@@ -19,21 +19,43 @@ using System.IO;
 namespace Magick.NET.Tests
 {
   [ExcludeFromCodeCoverage]
-  internal sealed class PartialStream : TestStream
+  internal class TestStream : Stream
   {
-    private bool _FirstReadDone = false;
-    private readonly Stream InnerStream;
+    private readonly bool _CanRead;
+    private readonly bool _CanSeek;
+    private readonly bool _CanWrite;
 
-    public PartialStream(Stream innerStream, bool canSeek)
-      : base(true, canSeek)
+    protected readonly Stream InnerStream;
+
+    public TestStream(bool canRead, bool canWrite, bool canSeek)
+    {
+      _CanRead = canRead;
+      _CanWrite = canWrite;
+      _CanSeek = canSeek;
+    }
+
+    protected TestStream(Stream innerStream, bool canSeek)
     {
       Assert.IsTrue(innerStream.CanRead);
       Assert.IsTrue(innerStream.CanSeek);
 
       InnerStream = innerStream;
+      _CanRead = true;
+      _CanWrite = true;
+      _CanSeek = canSeek;
     }
 
-    public override long Length => InnerStream.Length;
+    public override bool CanRead => _CanRead;
+    public override bool CanSeek => _CanSeek;
+    public override bool CanWrite => _CanWrite;
+
+    public override long Length
+    {
+      get
+      {
+        return InnerStream.Length;
+      }
+    }
 
     public override long Position
     {
@@ -41,19 +63,36 @@ namespace Magick.NET.Tests
       {
         return InnerStream.Position;
       }
+
       set
       {
-        throw new NotSupportedException();
+        throw new NotImplementedException();
       }
+    }
+
+    public override void Flush()
+    {
+      throw new NotImplementedException();
     }
 
     public override int Read(byte[] buffer, int offset, int count)
     {
-      if (_FirstReadDone)
-        return InnerStream.Read(buffer, offset, count);
+      return InnerStream.Read(buffer, offset, count);
+    }
 
-      _FirstReadDone = true;
-      return InnerStream.Read(buffer, offset, count / 2);
+    public override long Seek(long offset, SeekOrigin origin)
+    {
+      return InnerStream.Seek(offset, origin);
+    }
+
+    public override void SetLength(long value)
+    {
+      throw new NotImplementedException();
+    }
+
+    public override void Write(byte[] buffer, int offset, int count)
+    {
+      InnerStream.Write(buffer, offset, count);
     }
   }
 }

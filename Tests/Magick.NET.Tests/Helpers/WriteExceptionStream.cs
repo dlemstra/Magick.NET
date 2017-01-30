@@ -13,14 +13,21 @@
 //=================================================================================================
 
 using System;
+using System.IO;
 
-namespace ImageMagick
+namespace Magick.NET.Tests
 {
-  internal static partial class MagickMemory
+  [ExcludeFromCodeCoverage]
+  internal sealed class WriteExceptionStream : TestStream
   {
-    public static void Relinquish(IntPtr value)
+    public WriteExceptionStream(Stream innerStream)
+      : base(innerStream, true)
     {
-      NativeMagickMemory.Relinquish(value);
+    }
+
+    public override void Write(byte[] buffer, int offset, int count)
+    {
+      throw new InvalidOperationException();
     }
   }
 }

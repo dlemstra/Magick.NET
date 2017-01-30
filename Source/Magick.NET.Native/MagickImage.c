@@ -1868,6 +1868,24 @@ MAGICK_NET_EXPORT Image *MagickImage_ReadPixels(const size_t width, const size_t
   return image;
 }
 
+MAGICK_NET_EXPORT Image *MagickImage_ReadStream(const ImageInfo *settings, const BlobHandler reader, const BlobSeeker seeker, const BlobTeller teller, ExceptionInfo **exception)
+{
+  Image
+    *image;
+
+  UserBlobInfo
+    info;
+
+  ResetMagickMemory(&info, 0, sizeof(info));
+  info.reader = reader;
+  info.seeker = seeker;
+  info.teller = teller;
+  MAGICK_NET_GET_EXCEPTION;
+  image = UserBlobToImage(settings, &info, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+  return(image);
+}
+
 MAGICK_NET_EXPORT void MagickImage_RegionMask(Image *instance, const RectangleInfo *region, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
@@ -2473,20 +2491,24 @@ MAGICK_NET_EXPORT void MagickImage_WhiteThreshold(Image *instance, const char *t
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT unsigned char *MagickImage_WriteBlob(Image *instance, const ImageInfo *settings, size_t *length, ExceptionInfo **exception)
-{
-  unsigned char
-    *data;
-
-  MAGICK_NET_GET_EXCEPTION;
-  data = (unsigned char *)ImageToBlob(settings, instance, length, exceptionInfo);
-  MAGICK_NET_SET_EXCEPTION;
-  return data;
-}
-
 MAGICK_NET_EXPORT void MagickImage_WriteFile(Image *instance, const ImageInfo *settings, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
   WriteImage(settings, instance, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+}
+
+MAGICK_NET_EXPORT void MagickImage_WriteStream(Image *instance, const ImageInfo *settings, const BlobHandler reader, const BlobHandler writer, const BlobSeeker seeker, const BlobTeller teller, ExceptionInfo **exception)
+{
+  UserBlobInfo
+    info;
+
+  ResetMagickMemory(&info, 0, sizeof(info));
+  info.reader = reader;
+  info.writer = writer;
+  info.seeker = seeker;
+  info.teller = teller;
+  MAGICK_NET_GET_EXCEPTION;
+  ImageToUserBlob(settings, instance, &info, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }

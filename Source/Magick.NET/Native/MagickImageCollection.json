@@ -1,6 +1,58 @@
 ﻿{
   "dynamic": "NativeToManaged",
   "instance": false,
+  "delegates":
+  [
+    {
+      "name": "ReadWriteStream",
+      "type": "int",
+      "arguments":
+      [
+        {
+          "name": "data",
+          "type": "Instance"
+        },
+        {
+          "name": "length",
+          "type": "size_t"
+        },
+        {
+          "name": "user_data",
+          "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "SeekStream",
+      "type": "long",
+      "arguments":
+      [
+        {
+          "name": "offset",
+          "type": "long"
+        },
+        {
+          "name": "whence",
+          "type": "ssize_t"
+        },
+        {
+          "name": "user_data",
+          "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "TellStream",
+      "type": "long",
+      "arguments":
+      [
+        {
+          "name": "user_data",
+          "type": "Instance"
+        }
+      ]
+    }
+  ],
   "methods":
   [
     {
@@ -277,6 +329,32 @@
       ]
     },
     {
+      "name": "ReadStream",
+      "type": "Instance",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments":
+      [
+        {
+          "name": "settings",
+          "type": "MagickSettings"
+        },
+        {
+          "name": "reader",
+          "type": "ReadWriteStreamDelegate"
+        },
+        {
+          "name": "seeker",
+          "type": "SeekStreamDelegate"
+        },
+        {
+          "name": "teller",
+          "type": "TellStreamDelegate"
+        }
+      ]
+    },
+    {
       "name": "Smush",
       "type": "Instance",
       "instance": true,
@@ -299,32 +377,6 @@
       ]
     },
     {
-      "name": "WriteBlob",
-      "type": "Instance",
-      "static": true,
-      "throws": true,
-      "cleanup":
-      {
-        "name": "MagickMemory.Relinquish"
-      },
-      "arguments":
-      [
-        {
-          "name": "image",
-          "type": "MagickImage"
-        },
-        {
-          "name": "settings",
-          "type": "MagickSettings"
-        },
-        {
-          "name": "length",
-          "type": "size_t",
-          "out": true
-        }
-      ]
-    },
-    {
       "name": "WriteFile",
       "throws": true,
       "static": true,
@@ -337,6 +389,39 @@
         {
           "name": "settings",
           "type": "MagickSettings"
+        }
+      ]
+    },
+    {
+      "name": "WriteStream",
+      "type": "Instance",
+      "static": true,
+      "throws": true,
+      "arguments":
+      [
+        {
+          "name": "image",
+          "type": "MagickImage"
+        },
+        {
+          "name": "settings",
+          "type": "MagickSettings"
+        },
+        {
+          "name": "reader",
+          "type": "ReadWriteStreamDelegate"
+        },
+        {
+          "name": "writer",
+          "type": "ReadWriteStreamDelegate"
+        },
+        {
+          "name": "seeker",
+          "type": "SeekStreamDelegate"
+        },
+        {
+          "name": "teller",
+          "type": "TellStreamDelegate"
         }
       ]
     }

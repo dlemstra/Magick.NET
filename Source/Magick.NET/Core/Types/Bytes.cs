@@ -17,72 +17,84 @@ using System.IO;
 
 namespace ImageMagick
 {
-  internal sealed class Bytes : IDisposable
+  internal sealed class Bytes
   {
-    private MemoryStream _stream;
+    private const int BufferSize = 8192;
+
+    private Bytes()
+    {
+    }
 
     private static void CheckLength(long length)
     {
-      Throw.IfTrue(nameof(length), length > int.MaxValue, "Streams with a length larger than 2147483591 are not supported, read from file instead.");
+      Throw.IfFalse(nameof(length), IsSupportedLength(length), "Streams with a length larger than 2147483591 are not supported, read from file instead.");
     }
 
-    private bool Initialize(MemoryStream memStream, bool memStreamOptimization)
+    private static bool IsSupportedLength(long length)
     {
-      if (memStream == null)
-        return false;
-
-      CheckLength(memStream.Length);
-
-      if (memStreamOptimization)
-      {
-        try
-        {
-          Data = memStream.GetBuffer();
-          Length = (int)memStream.Length;
-
-          return true;
-        }
-        catch (UnauthorizedAccessException)
-        {
-        }
-      }
-
-      Data = memStream.ToArray();
-      Length = Data.Length;
-
-      return true;
+      return length <= int.MaxValue;
     }
 
-    private void Initialize(Stream stream, bool memStreamOptimization)
+    private void SetData(Stream stream)
     {
       MemoryStream memStream = stream as MemoryStream;
-      if (Initialize(memStream, memStreamOptimization))
+      if (memStream != null)
+      {
+        SetDataWithMemoryStream(memStream);
         return;
+      }
 
       Throw.IfFalse(nameof(stream), stream.CanRead, "The stream is not readable.");
 
       if (stream.CanSeek)
       {
-        InitializeWithSeekableStream(stream);
+        SetDataWithSeekableStream(stream);
         return;
       }
 
-      int bufferSize = 8192;
-      _stream = new MemoryStream();
-
-      byte[] buffer = new byte[bufferSize];
-      int length;
-      while ((length = stream.Read(buffer, 0, bufferSize)) != 0)
+      byte[] buffer = new byte[BufferSize];
+      using (MemoryStream tempStream = new MemoryStream())
       {
-        CheckLength(_stream.Length + length);
+        int length;
+        while ((length = stream.Read(buffer, 0, BufferSize)) != 0)
+        {
+          CheckLength(tempStream.Length + length);
 
-        _stream.Write(buffer, 0, length);
+          tempStream.Write(buffer, 0, length);
+        }
+
+        SetDataWithMemoryStream(tempStream);
       }
-
-      Initialize(_stream, true);
     }
 
-    private void InitializeWithSeekableStream(Stream stream)
+    private void SetDataWithMemoryStream(MemoryStream memStream)
+    {
+      if (SetDataWithMemoryStreamBuffer(memStream))
+        return;
+
+      Data = memStream.ToArray();
+      Length = Data.Length;
+    }
+
+    private bool SetDataWithMemoryStreamBuffer(MemoryStream memStream)
+    {
+      if (!IsSupportedLength(memStream.Length))
+        return false;
+
+      try
+      {
+        Data = memStream.GetBuffer();
+        Length = (int)memStream.Length;
+        return true;
+      }
+      catch (UnauthorizedAccessException)
+      {
+      }
+
+      return false;
+    }
+
+    private void SetDataWithSeekableStream(Stream stream)
     {
       CheckLength(stream.Length);
 
@@ -98,15 +110,24 @@ namespace ImageMagick
     }
 
     public Bytes(Stream stream)
-      : this(stream, true)
-    {
-    }
-
-    public Bytes(Stream stream, bool memStreamOptimization)
     {
       Throw.IfNull(nameof(stream), stream);
 
-      Initialize(stream, memStreamOptimization);
+      SetData(stream);
+    }
+
+    public static Bytes FromStreamBuffer(Stream stream)
+    {
+      MemoryStream memStream = stream as MemoryStream;
+
+      if (memStream == null)
+        return null;
+
+      Bytes bytes = new Bytes();
+      if (bytes.SetDataWithMemoryStreamBuffer(memStream))
+        return bytes;
+
+      return null;
     }
 
     public byte[] Data
@@ -119,15 +140,6 @@ namespace ImageMagick
     {
       get;
       private set;
-    }
-
-    public void Dispose()
-    {
-      if (_stream == null)
-        return;
-
-      _stream.Dispose();
-      _stream = null;
     }
   }
 }

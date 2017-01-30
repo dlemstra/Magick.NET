@@ -13,14 +13,21 @@
 //=================================================================================================
 
 using System;
+using System.IO;
 
-namespace ImageMagick
+namespace Magick.NET.Tests
 {
-  internal static partial class MagickMemory
+  [ExcludeFromCodeCoverage]
+  internal sealed class SeekExceptionStream : TestStream
   {
-    public static void Relinquish(IntPtr value)
+    public SeekExceptionStream(Stream innerStream)
+      : base(innerStream, true)
     {
-      NativeMagickMemory.Relinquish(value);
+    }
+
+    public override long Seek(long offset, SeekOrigin origin)
+    {
+      throw new InvalidOperationException();
     }
   }
 }

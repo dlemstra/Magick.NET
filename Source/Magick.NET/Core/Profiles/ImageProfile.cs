@@ -84,10 +84,9 @@ namespace ImageMagick
       Throw.IfNullOrEmpty(nameof(name), name);
 
       Name = name;
-      using (Bytes bytes = new Bytes(stream, false))
-      {
-        Data = bytes.Data;
-      }
+
+      Bytes bytes = new Bytes(stream);
+      Data = bytes.Data;
     }
 
     /// <summary>

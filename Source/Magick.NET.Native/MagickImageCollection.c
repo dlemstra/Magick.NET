@@ -216,6 +216,24 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_ReadFile(ImageInfo *settings, Exc
   return images;
 }
 
+MAGICK_NET_EXPORT Image *MagickImageCollection_ReadStream(const ImageInfo *settings, const BlobHandler reader, const BlobSeeker seeker, const BlobTeller teller, ExceptionInfo **exception)
+{
+  Image
+    *images;
+
+  UserBlobInfo
+    info;
+
+  ResetMagickMemory(&info, 0, sizeof(info));
+  info.reader = reader;
+  info.seeker = seeker;
+  info.teller = teller;
+  MAGICK_NET_GET_EXCEPTION;
+  images = UserBlobToImage(settings, &info, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+  return images;
+}
+
 MAGICK_NET_EXPORT Image *MagickImageCollection_Smush(const Image *image, const ssize_t offset, const MagickBooleanType stack, ExceptionInfo **exception)
 {
   Image
@@ -227,20 +245,24 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_Smush(const Image *image, const s
   return result;
 }
 
-MAGICK_NET_EXPORT unsigned char *MagickImageCollection_WriteBlob(Image *image, const ImageInfo *settings, size_t *length, ExceptionInfo **exception)
-{
-  unsigned char
-    *data;
-
-  MAGICK_NET_GET_EXCEPTION;
-  data = (unsigned char *)ImagesToBlob(settings, image, length, exceptionInfo);
-  MAGICK_NET_SET_EXCEPTION;
-  return data;
-}
-
 MAGICK_NET_EXPORT void MagickImageCollection_WriteFile(Image *image, const ImageInfo *settings, ExceptionInfo **exception)
 {
   MAGICK_NET_GET_EXCEPTION;
   WriteImages(settings, image, settings->filename, exceptionInfo);
+  MAGICK_NET_SET_EXCEPTION;
+}
+
+MAGICK_NET_EXPORT void MagickImageCollection_WriteStream(Image *image, const ImageInfo *settings, const BlobHandler reader, const BlobHandler writer, const BlobSeeker seeker, const BlobTeller teller, ExceptionInfo **exception)
+{
+  UserBlobInfo
+    info;
+
+  ResetMagickMemory(&info, 0, sizeof(info));
+  info.reader = reader;
+  info.writer = writer;
+  info.seeker = seeker;
+  info.teller = teller;
+  MAGICK_NET_GET_EXCEPTION;
+  ImagesToUserBlob(settings, image, &info, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
 }

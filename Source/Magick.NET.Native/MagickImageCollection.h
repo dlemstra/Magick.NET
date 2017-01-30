@@ -47,8 +47,10 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_ReadBlob(const ImageInfo *, const
 
 MAGICK_NET_EXPORT Image *MagickImageCollection_ReadFile(ImageInfo *, ExceptionInfo **);
 
+MAGICK_NET_EXPORT Image *MagickImageCollection_ReadStream(const ImageInfo *, const BlobHandler, const BlobSeeker, const BlobTeller, ExceptionInfo **);
+
 MAGICK_NET_EXPORT Image *MagickImageCollection_Smush(const Image *, const ssize_t, const MagickBooleanType, ExceptionInfo **);
 
-MAGICK_NET_EXPORT unsigned char *MagickImageCollection_WriteBlob(Image *, const ImageInfo *, size_t *, ExceptionInfo **);
-
 MAGICK_NET_EXPORT void MagickImageCollection_WriteFile(Image *, const ImageInfo *, ExceptionInfo **);
+
+MAGICK_NET_EXPORT void MagickImageCollection_WriteStream(Image *, const ImageInfo *, const BlobHandler, const BlobHandler, const BlobSeeker, const BlobTeller, ExceptionInfo **);

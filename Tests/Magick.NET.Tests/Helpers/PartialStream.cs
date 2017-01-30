@@ -12,15 +12,27 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
+using System.IO;
 
-namespace ImageMagick
+namespace Magick.NET.Tests
 {
-  internal static partial class MagickMemory
+  [ExcludeFromCodeCoverage]
+  internal sealed class PartialStream : TestStream
   {
-    public static void Relinquish(IntPtr value)
+    private bool _FirstReadDone = false;
+
+    public PartialStream(Stream innerStream, bool canSeek)
+      : base(innerStream, canSeek)
     {
-      NativeMagickMemory.Relinquish(value);
+    }
+
+    public override int Read(byte[] buffer, int offset, int count)
+    {
+      if (_FirstReadDone)
+        return InnerStream.Read(buffer, offset, count);
+
+      _FirstReadDone = true;
+      return InnerStream.Read(buffer, offset, count / 2);
     }
   }
 }

@@ -33,6 +33,12 @@ namespace ImageMagick
   {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate bool ProgressDelegate(IntPtr origin, long offset, ulong extent, IntPtr userData);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate int ReadWriteStreamDelegate(IntPtr data, UIntPtr length, IntPtr user_data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate long SeekStreamDelegate(long offset, IntPtr whence, IntPtr user_data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate long TellStreamDelegate(IntPtr user_data);
     private static class NativeMethods
     {
       #if WIN64 || ANYCPU
@@ -454,6 +460,8 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, byte[] data, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate reader, SeekStreamDelegate seeker, TellStreamDelegate teller, out IntPtr exception);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_RegionMask(IntPtr Instance, IntPtr region, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_RemoveArtifact(IntPtr Instance, IntPtr name);
@@ -573,9 +581,9 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_WhiteThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImage_WriteBlob(IntPtr Instance, IntPtr settings, out UIntPtr length, out IntPtr exception);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_WriteFile(IntPtr Instance, IntPtr settings, out IntPtr exception);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MagickImage_WriteStream(IntPtr Instance, IntPtr settings, ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, out IntPtr exception);
       }
       #endif
       #if !WIN64 || ANYCPU
@@ -997,6 +1005,8 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, byte[] data, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate reader, SeekStreamDelegate seeker, TellStreamDelegate teller, out IntPtr exception);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_RegionMask(IntPtr Instance, IntPtr region, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_RemoveArtifact(IntPtr Instance, IntPtr name);
@@ -1116,9 +1126,9 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_WhiteThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImage_WriteBlob(IntPtr Instance, IntPtr settings, out UIntPtr length, out IntPtr exception);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_WriteFile(IntPtr Instance, IntPtr settings, out IntPtr exception);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MagickImage_WriteStream(IntPtr Instance, IntPtr settings, ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller, out IntPtr exception);
       }
       #endif
     }
@@ -5002,6 +5012,28 @@ namespace ImageMagick
           Instance = result;
         }
       }
+      public void ReadStream(MagickSettings settings, ReadWriteStreamDelegate reader, SeekStreamDelegate seeker, TellStreamDelegate teller)
+      {
+        using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
+        {
+          IntPtr exception = IntPtr.Zero;
+          IntPtr result;
+          #if ANYCPU
+          if (NativeLibrary.Is64Bit)
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+          #endif
+          #if ANYCPU
+          else
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+          #endif
+          CheckException(exception, result);
+          Instance = result;
+        }
+      }
       public void RegionMask(MagickRectangle region)
       {
         using (INativeInstance regionNative = MagickRectangle.CreateInstance(region))
@@ -6129,35 +6161,6 @@ namespace ImageMagick
           CheckException(exception);
         }
       }
-      public IntPtr WriteBlob(MagickSettings settings, out UIntPtr length)
-      {
-        using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
-        {
-          IntPtr exception = IntPtr.Zero;
-          IntPtr result;
-          #if ANYCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if WIN64 || ANYCPU
-          result = NativeMethods.X64.MagickImage_WriteBlob(Instance, settingsNative.Instance, out length, out exception);
-          #endif
-          #if ANYCPU
-          else
-          #endif
-          #if !WIN64 || ANYCPU
-          result = NativeMethods.X86.MagickImage_WriteBlob(Instance, settingsNative.Instance, out length, out exception);
-          #endif
-          MagickException magickException = MagickExceptionHelper.Create(exception);
-          if (MagickExceptionHelper.IsError(magickException))
-          {
-            if (result != IntPtr.Zero)
-              MagickMemory.Relinquish(result);
-            throw magickException;
-          }
-          RaiseWarning(magickException);
-          return result;
-        }
-      }
       public void WriteFile(MagickSettings settings)
       {
         using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
@@ -6174,6 +6177,26 @@ namespace ImageMagick
           #endif
           #if !WIN64 || ANYCPU
           NativeMethods.X86.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
+          #endif
+          CheckException(exception);
+        }
+      }
+      public void WriteStream(MagickSettings settings, ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, SeekStreamDelegate seeker, TellStreamDelegate teller)
+      {
+        using (INativeInstance settingsNative = MagickSettings.CreateInstance(settings))
+        {
+          IntPtr exception = IntPtr.Zero;
+          #if ANYCPU
+          if (NativeLibrary.Is64Bit)
+          #endif
+          #if WIN64 || ANYCPU
+          NativeMethods.X64.MagickImage_WriteStream(Instance, settingsNative.Instance, reader, writer, seeker, teller, out exception);
+          #endif
+          #if ANYCPU
+          else
+          #endif
+          #if !WIN64 || ANYCPU
+          NativeMethods.X86.MagickImage_WriteStream(Instance, settingsNative.Instance, reader, writer, seeker, teller, out exception);
           #endif
           CheckException(exception);
         }

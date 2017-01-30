@@ -297,17 +297,44 @@ namespace ImageMagick
       _NativeInstance.ReadBlob(Settings, data, length);
     }
 
-    private void ReadPixels(byte[] data, int length, MagickReadSettings readSettings)
+    private void Read(Stream stream, MagickReadSettings readSettings, bool ping)
     {
-      Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
-      Throw.IfNull(nameof(readSettings), readSettings.Width, "Width should be defined when pixel storage is set.");
-      Throw.IfNull(nameof(readSettings), readSettings.Height, "Height should be defined when pixel storage is set.");
-      Throw.IfNullOrEmpty(nameof(readSettings), readSettings.PixelStorage.Mapping, "Pixel storage mapping should be defined.");
+      Throw.IfNull(nameof(stream), stream);
 
-      int expectedLength = GetExpectedLength(readSettings);
-      Throw.IfTrue(nameof(data), length < expectedLength, "The array length is " + length + " but should be at least " + expectedLength + ".");
+      Bytes bytes = Bytes.FromStreamBuffer(stream);
+      if (bytes != null)
+      {
+        Read(bytes.Data, bytes.Length, readSettings, ping);
+        return;
+      }
 
-      _NativeInstance.ReadPixels(readSettings.Width.Value, readSettings.Height.Value, readSettings.PixelStorage.Mapping, readSettings.PixelStorage.StorageType, data);
+      MagickReadSettings newReadSettings = CreateReadSettings(readSettings);
+      SetSettings(newReadSettings);
+
+      if (newReadSettings.PixelStorage != null)
+      {
+        bytes = new Bytes(stream);
+        ReadPixels(bytes.Data, bytes.Length, readSettings);
+        return;
+      }
+
+      Settings.Ping = ping;
+      Settings.FileName = null;
+
+      using (StreamWrapper wrapper = StreamWrapper.CreateForReading(stream))
+      {
+        ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(wrapper.Read);
+        SeekStreamDelegate seekStream = null;
+        TellStreamDelegate tellStream = null;
+
+        if (stream.CanSeek)
+        {
+          seekStream = new SeekStreamDelegate(wrapper.Seek);
+          tellStream = new TellStreamDelegate(wrapper.Tell);
+        }
+
+        _NativeInstance.ReadStream(Settings, readStream, seekStream, tellStream);
+      }
     }
 
     private void Read(string fileName, MagickReadSettings readSettings, bool ping)
@@ -329,6 +356,19 @@ namespace ImageMagick
       Settings.FileName = filePath;
 
       _NativeInstance.ReadFile(Settings);
+    }
+
+    private void ReadPixels(byte[] data, int length, MagickReadSettings readSettings)
+    {
+      Throw.IfTrue(nameof(readSettings), readSettings.PixelStorage.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
+      Throw.IfNull(nameof(readSettings), readSettings.Width, "Width should be defined when pixel storage is set.");
+      Throw.IfNull(nameof(readSettings), readSettings.Height, "Height should be defined when pixel storage is set.");
+      Throw.IfNullOrEmpty(nameof(readSettings), readSettings.PixelStorage.Mapping, "Pixel storage mapping should be defined.");
+
+      int expectedLength = GetExpectedLength(readSettings);
+      Throw.IfTrue(nameof(data), length < expectedLength, "The array length is " + length + " but should be at least " + expectedLength + ".");
+
+      _NativeInstance.ReadPixels(readSettings.Width.Value, readSettings.Height.Value, readSettings.PixelStorage.Mapping, readSettings.PixelStorage.StorageType, data);
     }
 
     private void SetInstance(NativeMagickImage instance)
@@ -4974,10 +5014,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(Stream stream, MagickReadSettings readSettings)
     {
-      using (Bytes bytes = new Bytes(stream))
-      {
-        Read(bytes.Data, bytes.Length, readSettings, true);
-      }
+      Read(stream, readSettings, true);
     }
 
     /// <summary>
@@ -5251,10 +5288,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(Stream stream, MagickReadSettings readSettings)
     {
-      using (Bytes bytes = new Bytes(stream))
-      {
-        Read(bytes.Data, bytes.Length, readSettings, false);
-      }
+      Read(stream, readSettings, false);
     }
 
     /// <summary>
@@ -6752,9 +6786,20 @@ namespace ImageMagick
 
       Settings.FileName = null;
 
-      UIntPtr length;
-      IntPtr data = _NativeInstance.WriteBlob(Settings, out length);
-      MagickMemory.WriteBytes(data, length, stream);
+      using (StreamWrapper wrapper = StreamWrapper.CreateForWriting(stream))
+      {
+        ReadWriteStreamDelegate readStream = new ReadWriteStreamDelegate(wrapper.Read);
+        ReadWriteStreamDelegate writeStream = new ReadWriteStreamDelegate(wrapper.Write);
+        SeekStreamDelegate seekStream = null;
+        TellStreamDelegate tellStream = null;
+        if (stream.CanSeek)
+        {
+          seekStream = new SeekStreamDelegate(wrapper.Seek);
+          tellStream = new TellStreamDelegate(wrapper.Tell);
+        }
+
+        _NativeInstance.WriteStream(Settings, readStream, writeStream, seekStream, tellStream);
+      }
     }
 
     /// <summary>
