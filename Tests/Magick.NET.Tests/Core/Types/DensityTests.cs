@@ -119,5 +119,17 @@ namespace Magick.NET.Tests
       Assert.IsFalse(first.Equals(null));
       Assert.IsFalse(first.Equals((object)null));
     }
+
+    [TestMethod]
+    public void Test_ToGeometry()
+    {
+      Density density = new Density(50.0);
+
+      MagickGeometry geometry = density.ToGeometry(0.5, 2.0);
+      Assert.AreEqual(0, geometry.X);
+      Assert.AreEqual(0, geometry.Y);
+      Assert.AreEqual(25, geometry.Width);
+      Assert.AreEqual(100, geometry.Height);
+    }
   }
 }
