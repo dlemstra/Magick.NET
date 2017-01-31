@@ -195,6 +195,7 @@
     <Compile Include="Core\Exceptions\ExceptionHelperTests.cs" />
     <Compile Include="Core\Exceptions\ExceptionInfo.cs" />
     <Compile Include="Core\Exceptions\MagickExceptionTests.cs" />
+    <Compile Include="Core\Helpers\EnumHelperTests.cs" />
     <Compile Include="Core\Helpers\StreamWrapperTests.cs" />
     <Compile Include="Helpers\WriteExceptionStream.cs" />
     <Compile Include="Helpers\ReadExceptionStream.cs" />
