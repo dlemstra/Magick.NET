@@ -2835,53 +2835,6 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Crop image (subregion of original image). You should call RePage afterwards unless you
-    /// need the Page information.
-    /// </summary>
-    /// <param name="geometry">The subregion to crop.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Crop(MagickGeometry geometry)
-    {
-      Throw.IfNull(nameof(geometry), geometry);
-
-      _NativeInstance.Crop(MagickRectangle.FromGeometry(geometry, this));
-    }
-
-    /// <summary>
-    /// Creates tiles of the current image in the specified dimension.
-    /// </summary>
-    /// <param name="width">The width of the tile.</param>
-    /// <param name="height">The height of the tile.</param>
-    /// <returns>New title of the current image.</returns>
-    public IEnumerable<MagickImage> CropToTiles(int width, int height)
-    {
-      return CropToTiles(new MagickGeometry(width, height));
-    }
-
-    /// <summary>
-    /// Creates tiles of the current image in the specified dimension.
-    /// </summary>
-    /// <param name="geometry">The size of the tile.</param>
-    /// <returns>New title of the current image.</returns>
-    public IEnumerable<MagickImage> CropToTiles(MagickGeometry geometry)
-    {
-      Throw.IfNull(nameof(geometry), geometry);
-
-      IntPtr images = _NativeInstance.CropToTiles(MagickGeometry.ToString(geometry));
-      return CreateList(images);
-    }
-
-    /// <summary>
-    /// Displaces an image's colormap by a given number of positions.
-    /// </summary>
-    /// <param name="amount">Displace the colormap this amount.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void CycleColormap(int amount)
-    {
-      _NativeInstance.CycleColormap(amount);
-    }
-
-    /// <summary>
     /// Crop image (subregion of original image) using CropPosition.Center. You should call
     /// RePage afterwards unless you need the Page information.
     /// </summary>
@@ -2962,6 +2915,65 @@ namespace ImageMagick
       }
 
       Crop(geometry);
+    }
+
+    /// <summary>
+    /// Crop image (subregion of original image). You should call RePage afterwards unless you
+    /// need the Page information.
+    /// </summary>
+    /// <param name="geometry">The subregion to crop.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Crop(MagickGeometry geometry)
+    {
+      Throw.IfNull(nameof(geometry), geometry);
+
+      _NativeInstance.Crop(MagickRectangle.FromGeometry(geometry, this));
+    }
+
+    /// <summary>
+    /// Crop image (subregion of original image). You should call RePage afterwards unless you
+    /// need the Page information.
+    /// </summary>
+    /// <param name="geometry">The subregion to crop.</param>
+    /// <param name="gravity">The position where the cropping should start from.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Crop(MagickGeometry geometry, Gravity gravity)
+    {
+      Crop(geometry.Width, geometry.Height, gravity);
+    }
+
+    /// <summary>
+    /// Creates tiles of the current image in the specified dimension.
+    /// </summary>
+    /// <param name="width">The width of the tile.</param>
+    /// <param name="height">The height of the tile.</param>
+    /// <returns>New title of the current image.</returns>
+    public IEnumerable<MagickImage> CropToTiles(int width, int height)
+    {
+      return CropToTiles(new MagickGeometry(width, height));
+    }
+
+    /// <summary>
+    /// Creates tiles of the current image in the specified dimension.
+    /// </summary>
+    /// <param name="geometry">The size of the tile.</param>
+    /// <returns>New title of the current image.</returns>
+    public IEnumerable<MagickImage> CropToTiles(MagickGeometry geometry)
+    {
+      Throw.IfNull(nameof(geometry), geometry);
+
+      IntPtr images = _NativeInstance.CropToTiles(MagickGeometry.ToString(geometry));
+      return CreateList(images);
+    }
+
+    /// <summary>
+    /// Displaces an image's colormap by a given number of positions.
+    /// </summary>
+    /// <param name="amount">Displace the colormap this amount.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void CycleColormap(int amount)
+    {
+      _NativeInstance.CycleColormap(amount);
     }
 
     /// <summary>
