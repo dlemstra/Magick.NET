@@ -48,21 +48,47 @@ namespace ImageMagick
         return null;
       switch(element.Name[0])
       {
+        case 'b':
+        {
+          return CreateBmpWriteDefines(element);
+        }
         case 'd':
         {
           return CreateDdsWriteDefines(element);
         }
         case 'j':
         {
-          switch(element.Name[4])
+          switch(element.Name[2])
           {
-            case 'R':
+            case '2':
             {
-              return CreateJpegReadDefines(element);
+              switch(element.Name[3])
+              {
+                case 'R':
+                {
+                  return CreateJp2ReadDefines(element);
+                }
+                case 'W':
+                {
+                  return CreateJp2WriteDefines(element);
+                }
+              }
+              break;
             }
-            case 'W':
+            case 'e':
             {
-              return CreateJpegWriteDefines(element);
+              switch(element.Name[4])
+              {
+                case 'R':
+                {
+                  return CreateJpegReadDefines(element);
+                }
+                case 'W':
+                {
+                  return CreateJpegWriteDefines(element);
+                }
+              }
+              break;
             }
           }
           break;
@@ -115,6 +141,14 @@ namespace ImageMagick
       }
       throw new NotSupportedException(element.Name);
     }
+    private IDefines CreateBmpWriteDefines(XmlElement element)
+    {
+      if (element == null)
+        return null;
+      BmpWriteDefines result = new BmpWriteDefines();
+      result.Subtype = Variables.GetValue<Nullable<ImageMagick.Defines.BmpSubtype>>(element, "subtype");
+      return result;
+    }
     private IDefines CreateDdsWriteDefines(XmlElement element)
     {
       if (element == null)
@@ -124,6 +158,26 @@ namespace ImageMagick
       result.Compression = Variables.GetValue<Nullable<ImageMagick.Defines.DdsCompression>>(element, "compression");
       result.Mipmaps = Variables.GetValue<Nullable<Int32>>(element, "mipmaps");
       result.WeightByAlpha = Variables.GetValue<Nullable<Boolean>>(element, "weightByAlpha");
+      return result;
+    }
+    private IDefines CreateJp2ReadDefines(XmlElement element)
+    {
+      if (element == null)
+        return null;
+      Jp2ReadDefines result = new Jp2ReadDefines();
+      result.QualityLayers = Variables.GetValue<Nullable<Int32>>(element, "qualityLayers");
+      result.ReduceFactor = Variables.GetValue<Nullable<Int32>>(element, "reduceFactor");
+      return result;
+    }
+    private IDefines CreateJp2WriteDefines(XmlElement element)
+    {
+      if (element == null)
+        return null;
+      Jp2WriteDefines result = new Jp2WriteDefines();
+      result.NumberResolutions = Variables.GetValue<Nullable<Int32>>(element, "numberResolutions");
+      result.ProgressionOrder = Variables.GetValue<Nullable<ImageMagick.Defines.Jp2ProgressionOrder>>(element, "progressionOrder");
+      result.Quality = Variables.GetSingleArray(element["quality"]);
+      result.Rate = Variables.GetSingleArray(element["rate"]);
       return result;
     }
     private IDefines CreateJpegReadDefines(XmlElement element)

@@ -135,6 +135,7 @@ namespace FileGenerator.MagickScript
         case "IEnumerable<MagickGeometry>":
         case "IEnumerable<PathArc>":
         case "IEnumerable<PointD>":
+        case "IEnumerable<Single>":
         case "IEnumerable<SparseColorArg>":
         case "IEnumerable<String>":
         case "ImageProfile":
@@ -316,10 +317,11 @@ namespace FileGenerator.MagickScript
         case "IPath[]":
         case "MagickImage[]":
         case "MagickImageCollection":
+        case "Matrix":
         case "PathArc[]":
         case "PointD[]":
-        case "Matrix":
         case "Rectangle":
+        case "SparseColorArg[]":
         case "Stream":
           return false;
         default:

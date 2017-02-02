@@ -2249,6 +2249,8 @@ namespace ImageMagick
       }
       if (OnlyContains(arguments, "geometry"))
         image.Crop((MagickGeometry)arguments["geometry"]);
+      else if (OnlyContains(arguments, "geometry", "gravity"))
+        image.Crop((MagickGeometry)arguments["geometry"], (Gravity)arguments["gravity"]);
       else if (OnlyContains(arguments, "width", "height"))
         image.Crop((Int32)arguments["width"], (Int32)arguments["height"]);
       else if (OnlyContains(arguments, "width", "height", "gravity"))
@@ -2256,7 +2258,7 @@ namespace ImageMagick
       else if (OnlyContains(arguments, "x", "y", "width", "height"))
         image.Crop((Int32)arguments["x"], (Int32)arguments["y"], (Int32)arguments["width"], (Int32)arguments["height"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'crop', allowed combinations are: [geometry] [width, height] [width, height, gravity] [x, y, width, height]");
+        throw new ArgumentException("Invalid argument combination for 'crop', allowed combinations are: [geometry] [geometry, gravity] [width, height] [width, height, gravity] [x, y, width, height]");
     }
     private void ExecuteCycleColormap(XmlElement element, MagickImage image)
     {
@@ -3404,6 +3406,8 @@ namespace ImageMagick
           arguments["contrast"] = Variables.GetValue<double>(attribute);
         else if (attribute.Name == "midpoint")
           arguments["midpoint"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "midpointPercentage")
+          arguments["midpointPercentage"] = Variables.GetValue<Percentage>(attribute);
         else if (attribute.Name == "sharpen")
           arguments["sharpen"] = Variables.GetValue<Boolean>(attribute);
       }
@@ -3411,12 +3415,16 @@ namespace ImageMagick
         image.SigmoidalContrast((double)arguments["contrast"]);
       else if (OnlyContains(arguments, "contrast", "midpoint"))
         image.SigmoidalContrast((double)arguments["contrast"], (double)arguments["midpoint"]);
+      else if (OnlyContains(arguments, "contrast", "midpointPercentage"))
+        image.SigmoidalContrast((double)arguments["contrast"], (Percentage)arguments["midpointPercentage"]);
       else if (OnlyContains(arguments, "sharpen", "contrast"))
         image.SigmoidalContrast((Boolean)arguments["sharpen"], (double)arguments["contrast"]);
       else if (OnlyContains(arguments, "sharpen", "contrast", "midpoint"))
         image.SigmoidalContrast((Boolean)arguments["sharpen"], (double)arguments["contrast"], (double)arguments["midpoint"]);
+      else if (OnlyContains(arguments, "sharpen", "contrast", "midpointPercentage"))
+        image.SigmoidalContrast((Boolean)arguments["sharpen"], (double)arguments["contrast"], (Percentage)arguments["midpointPercentage"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'sigmoidalContrast', allowed combinations are: [contrast] [contrast, midpoint] [sharpen, contrast] [sharpen, contrast, midpoint]");
+        throw new ArgumentException("Invalid argument combination for 'sigmoidalContrast', allowed combinations are: [contrast] [contrast, midpoint] [contrast, midpointPercentage] [sharpen, contrast] [sharpen, contrast, midpoint] [sharpen, contrast, midpointPercentage]");
     }
     private void ExecuteSketch(XmlElement element, MagickImage image)
     {

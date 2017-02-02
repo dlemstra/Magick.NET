@@ -90,6 +90,29 @@ namespace ImageMagick
       return result;
     }
 
+    internal float[] GetSingleArray(XmlElement element)
+    {
+      if (element == null)
+        return null;
+
+      XmlAttribute attribute = element.Attributes["variable"];
+      if (attribute != null)
+      {
+        string[] names = GetNames(attribute.Value);
+        if (names != null)
+          return (float[])_Variables[names[0]];
+      }
+
+      float[] result = new float[element.ChildNodes.Count];
+      int index = 0;
+      foreach (XmlElement child in element.ChildNodes)
+      {
+        result[index++] = float.Parse(child.InnerText, CultureInfo.InvariantCulture);
+      }
+
+      return result;
+    }
+
     internal string[] GetStringArray(XmlElement element)
     {
       if (element == null)

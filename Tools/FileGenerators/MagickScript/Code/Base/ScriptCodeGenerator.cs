@@ -280,6 +280,9 @@ namespace FileGenerator.MagickScript
         case "IEnumerable<PointD>":
           Write("CreatePointDs");
           break;
+        case "IEnumerable<Single>":
+          Write("Variables.GetSingleArray");
+          break;
         case "IEnumerable<SparseColorArg>":
           Write("CreateSparseColorArgs");
           break;
@@ -398,6 +401,7 @@ namespace FileGenerator.MagickScript
       {
         case "Double[]":
         case "IEnumerable<Double>":
+        case "IEnumerable<Single>":
         case "IEnumerable<String>":
         case "MagickImage":
           Write("element");

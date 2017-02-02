@@ -58,6 +58,21 @@
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
+  <xs:simpleType name="BmpSubtype">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="ARGB1555" />
+          <xs:enumeration value="ARGB4444" />
+          <xs:enumeration value="RGB555" />
+          <xs:enumeration value="RGB565" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="var" />
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
   <xs:simpleType name="Channels">
     <xs:union>
       <xs:simpleType>
@@ -602,6 +617,22 @@
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
+  <xs:simpleType name="Jp2ProgressionOrder">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="CPRL" />
+          <xs:enumeration value="LRCP" />
+          <xs:enumeration value="PCRL" />
+          <xs:enumeration value="RLCP" />
+          <xs:enumeration value="RPCL" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="var" />
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
   <xs:simpleType name="Kernel">
     <xs:union>
       <xs:simpleType>
@@ -886,6 +917,8 @@
           <xs:enumeration value="Text" />
           <xs:enumeration value="Tga" />
           <xs:enumeration value="ThreeFr" />
+          <xs:enumeration value="ThreeG2" />
+          <xs:enumeration value="ThreeGp" />
           <xs:enumeration value="Thumbnail" />
           <xs:enumeration value="Tif" />
           <xs:enumeration value="Tiff" />
@@ -1262,11 +1295,22 @@
   <xs:complexType name="colorProfile">
     <xs:attribute name="name" type="ColorProfile" />
   </xs:complexType>
+  <xs:complexType name="bmpWriteDefines">
+    <xs:attribute name="subtype" type="BmpSubtype" />
+  </xs:complexType>
   <xs:complexType name="ddsWriteDefines">
     <xs:attribute name="clusterFit" type="bool" />
     <xs:attribute name="compression" type="DdsCompression" />
     <xs:attribute name="mipmaps" type="int" />
     <xs:attribute name="weightByAlpha" type="bool" />
+  </xs:complexType>
+  <xs:complexType name="jp2ReadDefines">
+    <xs:attribute name="qualityLayers" type="int" />
+    <xs:attribute name="reduceFactor" type="int" />
+  </xs:complexType>
+  <xs:complexType name="jp2WriteDefines">
+    <xs:attribute name="numberResolutions" type="int" />
+    <xs:attribute name="progressionOrder" type="Jp2ProgressionOrder" />
   </xs:complexType>
   <xs:complexType name="jpegReadDefines">
     <xs:attribute name="blockSmoothing" type="bool" />
@@ -2752,6 +2796,7 @@
           <xs:complexType>
             <xs:attribute name="contrast" use="required" type="double" />
             <xs:attribute name="midpoint" type="double" />
+            <xs:attribute name="midpointPercentage" type="double" />
             <xs:attribute name="sharpen" type="bool" />
           </xs:complexType>
         </xs:element>
@@ -3018,7 +3063,10 @@
   <xs:group name="iDefines">
     <xs:sequence>
       <xs:choice>
+        <xs:element name="bmpWriteDefines" type="bmpWriteDefines" />
         <xs:element name="ddsWriteDefines" type="ddsWriteDefines" />
+        <xs:element name="jp2ReadDefines" type="jp2ReadDefines" />
+        <xs:element name="jp2WriteDefines" type="jp2WriteDefines" />
         <xs:element name="jpegReadDefines" type="jpegReadDefines" />
         <xs:element name="jpegWriteDefines" type="jpegWriteDefines" />
         <xs:element name="pdfReadDefines" type="pdfReadDefines" />
@@ -3500,6 +3548,7 @@
   <xs:group name="iReadDefines">
     <xs:sequence>
       <xs:choice>
+        <xs:element name="jp2ReadDefines" type="jp2ReadDefines" />
         <xs:element name="jpegReadDefines" type="jpegReadDefines" />
         <xs:element name="pdfReadDefines" type="pdfReadDefines" />
         <xs:element name="pngReadDefines" type="pngReadDefines" />
