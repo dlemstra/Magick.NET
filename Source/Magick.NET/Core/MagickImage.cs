@@ -5976,7 +5976,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SigmoidalContrast(bool sharpen, double contrast)
     {
-      SigmoidalContrast(sharpen, contrast, Quantum.Max / 2.0);
+      SigmoidalContrast(sharpen, contrast, Quantum.Max * 0.5);
     }
 
     /// <summary>
@@ -6000,6 +6000,29 @@ namespace ImageMagick
     public void SigmoidalContrast(bool sharpen, double contrast, double midpoint)
     {
       _NativeInstance.SigmoidalContrast(sharpen, contrast, midpoint);
+    }
+
+    /// <summary>
+    /// adjust the image contrast with a non-linear sigmoidal contrast algorithm
+    /// </summary>
+    /// <param name="contrast">The contrast to use.</param>
+    /// <param name="midpointPercentage">The midpoint to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void SigmoidalContrast(double contrast, Percentage midpointPercentage)
+    {
+      SigmoidalContrast(true, contrast, midpointPercentage);
+    }
+
+    /// <summary>
+    /// adjust the image contrast with a non-linear sigmoidal contrast algorithm
+    /// </summary>
+    /// <param name="sharpen">Specifies if sharpening should be used.</param>
+    /// <param name="contrast">The contrast to use.</param>
+    /// <param name="midpointPercentage">The midpoint to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void SigmoidalContrast(bool sharpen, double contrast, Percentage midpointPercentage)
+    {
+      SigmoidalContrast(sharpen, contrast, midpointPercentage.ToQuantum());
     }
 
     /// <summary>
