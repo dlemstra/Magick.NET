@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Sets the fill rule to use while drawing polygons.
   /// </summary>
-  public sealed class DrawableFillRule : IDrawable
+  public sealed class DrawableFillRule : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableFillRule"/> class.
@@ -41,7 +41,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.FillRule(FillRule);

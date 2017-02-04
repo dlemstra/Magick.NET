@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Sets the color used for stroking object outlines.
   /// </summary>
-  public sealed partial class DrawableStrokeColor : IDrawable
+  public sealed partial class DrawableStrokeColor : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokeColor"/> class.
@@ -43,7 +43,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.StrokeColor(Color);

@@ -18,7 +18,7 @@ namespace ImageMagick
   /// Draws a vertical line path from the current point to the target point using absolute
   /// coordinates. The target point then becomes the new current point.
   /// </summary>
-  public sealed class PathLineToVerticalAbs : IPath
+  public sealed class PathLineToVerticalAbs : IPath, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="PathLineToVerticalAbs"/> class.
@@ -42,7 +42,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IPath.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.PathLineToVerticalAbs(Y);

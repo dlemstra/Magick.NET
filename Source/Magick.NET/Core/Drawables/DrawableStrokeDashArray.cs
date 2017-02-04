@@ -21,7 +21,7 @@ namespace ImageMagick
   /// an even number of values. To remove an existing dash array, pass a null dasharray. A typical
   /// stroke dash array might contain the members 5 3 2.
   /// </summary>
-  public sealed class DrawableStrokeDashArray : IDrawable
+  public sealed class DrawableStrokeDashArray : IDrawable, IDrawingWand
   {
     private double[] _Dash;
 
@@ -38,7 +38,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.StrokeDashArray(_Dash);

@@ -18,7 +18,7 @@ namespace ImageMagick
   /// Draws a rounted rectangle given two coordinates, x &amp; y corner radiuses and using the current
   /// stroke, stroke width, and fill settings.
   /// </summary>
-  public sealed class DrawableRoundRectangle : IDrawable
+  public sealed class DrawableRoundRectangle : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableRoundRectangle"/> class.
@@ -97,7 +97,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.RoundRectangle(CenterX, CenterY, Width, Height, CornerWidth, CornerHeight);

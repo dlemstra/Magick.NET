@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Encapsulation of the DrawableDensity object.
   /// </summary>
-  public sealed class DrawableDensity : IDrawable
+  public sealed class DrawableDensity : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableDensity"/> class.
@@ -50,7 +50,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Density(Density);

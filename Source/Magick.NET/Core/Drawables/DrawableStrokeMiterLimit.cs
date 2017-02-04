@@ -20,7 +20,7 @@ namespace ImageMagick
   /// beyond the thickness of the line stroking the path. The 'DrawableStrokeMiterLimit' imposes a
   /// limit on the ratio of the miter length to the 'DrawableStrokeLineWidth'.
   /// </summary>
-  public sealed class DrawableStrokeMiterLimit : IDrawable
+  public sealed class DrawableStrokeMiterLimit : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokeMiterLimit"/> class.
@@ -44,7 +44,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.StrokeMiterLimit(Miterlimit);

@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
       DrawablePath path = new DrawablePath();
       Assert.AreEqual(0, path.Paths.Count());
 
-      ((IDrawable)path).Draw(null);
+      ((IDrawingWand)path).Draw(null);
     }
   }
 }

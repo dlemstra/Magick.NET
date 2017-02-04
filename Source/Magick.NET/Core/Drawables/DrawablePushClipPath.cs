@@ -18,7 +18,7 @@ namespace ImageMagick
   /// Starts a clip path definition which is comprized of any number of drawing commands and
   /// terminated by a DrawablePopClipPath.
   /// </summary>
-  public sealed class DrawablePushClipPath : IDrawable
+  public sealed class DrawablePushClipPath : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePushClipPath"/> class.
@@ -42,7 +42,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.PushClipPath(ClipPath);

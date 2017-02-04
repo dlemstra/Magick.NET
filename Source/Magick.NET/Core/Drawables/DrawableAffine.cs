@@ -20,7 +20,7 @@ namespace ImageMagick
   /// Adjusts the current affine transformation matrix with the specified affine transformation
   /// matrix. Note that the current affine transform is adjusted rather than replaced.
   /// </summary>
-  public sealed partial class DrawableAffine : IDrawable
+  public sealed partial class DrawableAffine : IDrawable, IDrawingWand
   {
     private static double DegreesToRadians(double x)
     {
@@ -129,7 +129,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Affine(ScaleX, ScaleY, ShearX, ShearY, TranslateX, TranslateY);

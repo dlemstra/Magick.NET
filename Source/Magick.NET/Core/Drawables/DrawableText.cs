@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Draws text on the image.
   /// </summary>
-  public sealed class DrawableText : IDrawable
+  public sealed class DrawableText : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableText"/> class.
@@ -65,7 +65,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Text(X, Y, Value);

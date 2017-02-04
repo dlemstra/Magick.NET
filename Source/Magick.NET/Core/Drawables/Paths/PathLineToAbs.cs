@@ -20,7 +20,7 @@ namespace ImageMagick
   /// Draws a line path from the current point to the given coordinate using absolute coordinates.
   /// The coordinate then becomes the new current point.
   /// </summary>
-  public sealed class PathLineToAbs : IPath
+  public sealed class PathLineToAbs : IPath, IDrawingWand
   {
     private PointDCoordinates _Coordinates;
 
@@ -56,7 +56,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IPath.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.PathLineToAbs(_Coordinates.ToList());

@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Terminates a pattern definition.
   /// </summary>
-  public sealed class DrawablePopPattern : IDrawable
+  public sealed class DrawablePopPattern : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePopPattern"/> class.
@@ -30,7 +30,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.PopPattern();

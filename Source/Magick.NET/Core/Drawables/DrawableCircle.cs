@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Draws a circle on the image.
   /// </summary>
-  public sealed class DrawableCircle : IDrawable
+  public sealed class DrawableCircle : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableCircle"/> class.
@@ -74,7 +74,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Circle(OriginX, OriginY, PerimeterX, PerimeterY);

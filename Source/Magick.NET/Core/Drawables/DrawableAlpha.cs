@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Paints on the image's alpha channel in order to set effected pixels to transparent.
   /// </summary>
-  public sealed class DrawableAlpha : IDrawable
+  public sealed class DrawableAlpha : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableAlpha"/> class.
@@ -63,7 +63,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Alpha(X, Y, PaintMethod);

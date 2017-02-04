@@ -18,7 +18,7 @@ namespace ImageMagick
   /// Applies a translation to the current coordinate system which moves the coordinate system
   /// origin to the specified coordinate.
   /// </summary>
-  public sealed class DrawableTranslation : IDrawable
+  public sealed class DrawableTranslation : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableTranslation"/> class.
@@ -53,7 +53,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Translation(X, Y);

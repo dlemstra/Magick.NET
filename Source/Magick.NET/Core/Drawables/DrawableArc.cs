@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Draws an arc falling within a specified bounding rectangle on the image.
   /// </summary>
-  public sealed class DrawableArc : IDrawable
+  public sealed class DrawableArc : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableArc"/> class.
@@ -96,7 +96,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Arc(StartX, StartY, EndX, EndY, StartDegrees, EndDegrees);

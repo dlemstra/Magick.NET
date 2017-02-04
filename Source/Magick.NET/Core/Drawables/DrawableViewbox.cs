@@ -20,7 +20,7 @@ namespace ImageMagick
   /// or MVG formats, the viewbox is use to specify the size of the canvas image that a viewer
   /// will render the vector data on.
   /// </summary>
-  public sealed partial class DrawableViewbox : IDrawable
+  public sealed partial class DrawableViewbox : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableViewbox"/> class.
@@ -77,7 +77,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Viewbox(UpperLeftX, UpperLeftY, LowerRightX, LowerRightY);

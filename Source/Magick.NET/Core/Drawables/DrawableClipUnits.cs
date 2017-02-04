@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Sets the interpretation of clip path units.
   /// </summary>
-  public sealed class DrawableClipUnits : IDrawable
+  public sealed class DrawableClipUnits : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableClipUnits"/> class.
@@ -41,7 +41,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.ClipUnits(Units);

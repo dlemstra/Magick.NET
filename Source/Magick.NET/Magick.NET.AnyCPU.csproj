@@ -123,6 +123,7 @@
     <Compile Include="Core\Defines\Jp2\Jp2WriteDefines.cs" />
     <Compile Include="Core\Defines\Jp2\Jp2ReadDefines.cs" />
     <Compile Include="Core\Defines\WriteDefinesCreator.cs" />
+    <Compile Include="Core\Drawables\IDrawingWand.cs" />
     <Compile Include="Core\Helpers\StreamWrapper.cs" />
     <Compile Include="Core\Types\Bytes.cs" />
     <Compile Include="Framework\Colors\ColorRGB.cs" />
@@ -223,7 +224,6 @@
     <Compile Include="Core\Drawables\DrawingWand.cs" />
     <Compile Include="Core\Drawables\Generated\Drawables.cs" />
     <Compile Include="Core\Drawables\IDrawable.cs" />
-    <Compile Include="Core\Drawables\IDrawingWand.cs" />
     <Compile Include="Core\Drawables\Paths\Args\PathArc.cs" />
     <Compile Include="Core\Drawables\Paths\Generated\Paths.cs" />
     <Compile Include="Core\Drawables\Paths\IPath.cs" />

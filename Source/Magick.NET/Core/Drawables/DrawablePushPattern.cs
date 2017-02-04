@@ -20,7 +20,7 @@ namespace ImageMagick
   /// height, and becomes its own drawing space. Anything which can be drawn may be used in a
   /// pattern definition. Named patterns may be used as stroke or brush definitions.
   /// </summary>
-  public sealed class DrawablePushPattern : IDrawable
+  public sealed class DrawablePushPattern : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePushPattern"/> class.
@@ -88,7 +88,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.PushPattern(ID, X, Y, Width, Height);

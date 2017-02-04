@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Draws a point using the current fill color.
   /// </summary>
-  public sealed class DrawablePoint : IDrawable
+  public sealed class DrawablePoint : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePoint"/> class.
@@ -52,7 +52,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Point(X, Y);

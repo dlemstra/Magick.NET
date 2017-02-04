@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Specifies a text alignment to be applied when annotating with text.
   /// </summary>
-  public sealed class DrawableTextAlignment : IDrawable
+  public sealed class DrawableTextAlignment : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableTextAlignment"/> class.
@@ -41,7 +41,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.TextAlignment(Alignment);

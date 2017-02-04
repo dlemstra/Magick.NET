@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Encapsulation of the DrawableGravity object.
   /// </summary>
-  public sealed class DrawableGravity : IDrawable
+  public sealed class DrawableGravity : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableGravity"/> class.
@@ -41,7 +41,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Gravity(Gravity);

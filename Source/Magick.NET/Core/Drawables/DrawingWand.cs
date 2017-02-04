@@ -20,7 +20,7 @@ using System.Text;
 
 namespace ImageMagick
 {
-  internal sealed partial class DrawingWand : IDisposable, IDrawingWand
+  internal sealed partial class DrawingWand : IDisposable
   {
     public DrawingWand(MagickImage image)
     {
@@ -31,7 +31,7 @@ namespace ImageMagick
     {
       foreach (IDrawable drawable in drawables)
       {
-        drawable.Draw(this);
+        ((IDrawingWand)drawable).Draw(this);
       }
 
       _NativeInstance.Render();

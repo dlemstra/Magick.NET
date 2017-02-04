@@ -18,7 +18,7 @@ namespace ImageMagick
   /// Draws color on image using the current fill color, starting at specified position, and using
   /// specified paint method.
   /// </summary>
-  public sealed class DrawableColor : IDrawable
+  public sealed class DrawableColor : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableColor"/> class.
@@ -64,7 +64,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Color(X, Y, PaintMethod);

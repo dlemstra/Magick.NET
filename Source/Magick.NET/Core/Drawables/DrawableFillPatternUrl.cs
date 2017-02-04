@@ -21,7 +21,7 @@ namespace ImageMagick
   /// supported at this time. These local URLs are normally created by defining a named fill pattern
   /// with DrawablePushPattern/DrawablePopPattern.
   /// </summary>
-  public sealed class DrawableFillPatternUrl : IDrawable
+  public sealed class DrawableFillPatternUrl : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableFillPatternUrl"/> class.
@@ -47,7 +47,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.FillPatternUrl(Url);

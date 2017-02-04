@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Specifies the alpha of stroked object outlines.
   /// </summary>
-  public sealed class DrawableStrokeOpacity : IDrawable
+  public sealed class DrawableStrokeOpacity : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokeOpacity"/> class.
@@ -41,7 +41,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.StrokeOpacity((double)Opacity / 100);

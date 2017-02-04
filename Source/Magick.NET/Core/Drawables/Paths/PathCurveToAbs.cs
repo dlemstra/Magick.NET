@@ -20,7 +20,7 @@ namespace ImageMagick
   /// absolute coordinates. At the end of the command, the new current point becomes the final (x, y)
   /// coordinate pair used in the polybezier.
   /// </summary>
-  public sealed class PathCurveToAbs : IPath
+  public sealed class PathCurveToAbs : IPath, IDrawingWand
   {
     private PointD _ControlPointStart;
     private PointD _ControlPointEnd;
@@ -57,7 +57,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IPath.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.PathCurveToAbs(_ControlPointStart, _ControlPointEnd, _End);

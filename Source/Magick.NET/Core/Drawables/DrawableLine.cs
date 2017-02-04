@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Draws a line on the image using the current stroke color, stroke alpha, and stroke width.
   /// </summary>
-  public sealed class DrawableLine : IDrawable
+  public sealed class DrawableLine : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableLine"/> class.
@@ -74,7 +74,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Line(StartX, StartY, EndX, EndY);

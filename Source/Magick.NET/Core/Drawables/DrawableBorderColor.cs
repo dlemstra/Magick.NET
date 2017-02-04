@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Sets the border color to be used for drawing bordered objects.
   /// </summary>
-  public sealed partial class DrawableBorderColor : IDrawable
+  public sealed partial class DrawableBorderColor : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableBorderColor"/> class.
@@ -43,7 +43,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.BorderColor(Color);

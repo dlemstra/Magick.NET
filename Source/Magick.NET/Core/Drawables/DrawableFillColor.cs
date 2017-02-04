@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Sets the fill color to be used for drawing filled objects.
   /// </summary>
-  public sealed partial class DrawableFillColor : IDrawable
+  public sealed partial class DrawableFillColor : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableFillColor"/> class.
@@ -43,7 +43,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.FillColor(Color);

@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Draws an ellipse on the image.
   /// </summary>
-  public sealed class DrawableEllipse : IDrawable
+  public sealed class DrawableEllipse : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableEllipse"/> class.
@@ -96,7 +96,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Ellipse(OriginX, OriginY, RadiusX, RadiusY, StartDegrees, EndDegrees);

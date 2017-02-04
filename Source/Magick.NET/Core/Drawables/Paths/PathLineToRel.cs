@@ -20,7 +20,7 @@ namespace ImageMagick
   /// Draws a line path from the current point to the given coordinate using relative coordinates.
   /// The coordinate then becomes the new current point.
   /// </summary>
-  public sealed class PathLineToRel : IPath
+  public sealed class PathLineToRel : IPath, IDrawingWand
   {
     private PointDCoordinates _Coordinates;
 
@@ -56,7 +56,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IPath.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.PathLineToRel(_Coordinates.ToList());

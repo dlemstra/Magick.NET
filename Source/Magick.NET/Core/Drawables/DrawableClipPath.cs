@@ -18,7 +18,7 @@ namespace ImageMagick
   /// Associates a named clipping path with the image. Only the areas drawn on by the clipping path
   /// will be modified as ssize_t as it remains in effect.
   /// </summary>
-  public sealed class DrawableClipPath : IDrawable
+  public sealed class DrawableClipPath : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableClipPath"/> class.
@@ -44,7 +44,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.ClipPath(ClipPath);

@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Encapsulation of the DrawableCompositeImage object.
   /// </summary>
-  public sealed class DrawableComposite : IDrawable
+  public sealed class DrawableComposite : IDrawable, IDrawingWand
   {
     private MagickImage _Image;
 
@@ -145,7 +145,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Composite(X, Y, Width, Height, Compose, _Image);

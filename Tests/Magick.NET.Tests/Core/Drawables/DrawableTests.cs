@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
   {
     private void Test_Drawables_Draw(IDrawable drawable)
     {
-      drawable.Draw(null);
+      ((IDrawingWand)drawable).Draw(null);
     }
 
     [TestMethod]

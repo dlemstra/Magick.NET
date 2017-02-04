@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Applies the specified rotation to the current coordinate space.
   /// </summary>
-  public sealed class DrawableRotation : IDrawable
+  public sealed class DrawableRotation : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableRotation"/> class.
@@ -41,7 +41,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Rotation(Angle);

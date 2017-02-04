@@ -18,7 +18,7 @@ namespace ImageMagick
   /// Adjusts the scaling factor to apply in the horizontal and vertical directions to the current
   /// coordinate space.
   /// </summary>
-  public sealed class DrawableScaling : IDrawable
+  public sealed class DrawableScaling : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableScaling"/> class.
@@ -53,7 +53,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Scaling(X, Y);

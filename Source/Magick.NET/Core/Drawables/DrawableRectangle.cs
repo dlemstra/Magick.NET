@@ -18,7 +18,7 @@ namespace ImageMagick
   /// Draws a rectangle given two coordinates and using the current stroke, stroke width, and fill
   /// settings.
   /// </summary>
-  public sealed partial class DrawableRectangle : IDrawable
+  public sealed partial class DrawableRectangle : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableRectangle"/> class.
@@ -75,7 +75,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Rectangle(UpperLeftX, UpperLeftY, LowerRightX, LowerRightY);

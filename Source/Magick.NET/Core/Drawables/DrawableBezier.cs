@@ -19,7 +19,7 @@ namespace ImageMagick
   /// <summary>
   /// Draws a bezier curve through a set of points on the image.
   /// </summary>
-  public sealed class DrawableBezier : IDrawable
+  public sealed class DrawableBezier : IDrawable, IDrawingWand
   {
     private PointDCoordinates _Coordinates;
 
@@ -56,7 +56,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.Bezier(_Coordinates.ToList());

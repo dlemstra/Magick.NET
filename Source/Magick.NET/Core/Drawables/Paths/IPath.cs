@@ -15,14 +15,9 @@
 namespace ImageMagick
 {
   /// <summary>
-  /// Interface for paths.
+  /// Marker interface for paths.
   /// </summary>
   public interface IPath
   {
-    /// <summary>
-    /// Draws this instance with the drawing wand.
-    /// </summary>
-    /// <param name="wand">The want to draw on.</param>
-    void Draw(IDrawingWand wand);
   }
 }

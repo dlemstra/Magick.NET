@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
   {
     private void Test_Paths_Draw(IPath path)
     {
-      path.Draw(null);
+      ((IDrawingWand)path).Draw(null);
     }
 
     [TestMethod]

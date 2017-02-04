@@ -19,7 +19,7 @@ namespace ImageMagick
   /// <summary>
   /// Draws a set of paths
   /// </summary>
-  public sealed class DrawablePath : IDrawable
+  public sealed class DrawablePath : IDrawable, IDrawingWand
   {
     private List<IPath> _Paths;
 
@@ -56,14 +56,14 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand == null)
         return;
 
       wand.PathStart();
       foreach (IPath path in _Paths)
-        path.Draw(wand);
+        ((IDrawingWand)path).Draw(wand);
       wand.PathFinish();
     }
   }

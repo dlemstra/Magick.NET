@@ -18,7 +18,7 @@ namespace ImageMagick
   /// Starts a new sub-path at the given coordinate using absolute coordinates. The current point
   /// then becomes the specified coordinate.
   /// </summary>
-  public sealed class PathMoveToAbs : IPath
+  public sealed class PathMoveToAbs : IPath, IDrawingWand
   {
     private PointD _Coordinate;
 
@@ -45,7 +45,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IPath.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.PathMoveToAbs(_Coordinate.X, _Coordinate.Y);

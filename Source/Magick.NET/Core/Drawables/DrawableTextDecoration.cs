@@ -17,7 +17,7 @@ namespace ImageMagick
   /// <summary>
   /// Specifies a decoration to be applied when annotating with text.
   /// </summary>
-  public sealed class DrawableTextDecoration : IDrawable
+  public sealed class DrawableTextDecoration : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableTextDecoration"/> class.
@@ -41,7 +41,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.TextDecoration(Decoration);

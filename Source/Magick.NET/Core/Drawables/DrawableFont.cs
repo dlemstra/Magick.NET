@@ -19,7 +19,7 @@ namespace ImageMagick
   /// <summary>
   /// Sets the font family, style, weight and stretch to use when annotating with text.
   /// </summary>
-  public sealed class DrawableFont : IDrawable
+  public sealed class DrawableFont : IDrawable, IDrawingWand
   {
     private static readonly string[] _FontExtensions = new string[] { ".ttf", ".tcc", ".pfb", ".pfm", ".otf" };
 
@@ -89,7 +89,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand == null)
         return;

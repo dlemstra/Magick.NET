@@ -19,7 +19,7 @@ namespace ImageMagick
   /// When antialiasing is disabled stroked pixels are thresholded to determine if the stroke color
   /// or underlying canvas color should be used.
   /// </summary>
-  public sealed class DrawableStrokeAntialias : IDrawable
+  public sealed class DrawableStrokeAntialias : IDrawable, IDrawingWand
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokeAntialias"/> class.
@@ -43,7 +43,7 @@ namespace ImageMagick
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawable.Draw(IDrawingWand wand)
+    void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
         wand.StrokeAntialias(IsEnabled);
