@@ -21,9 +21,10 @@ namespace ImageMagick
   public sealed partial class Drawables
   {
     /// <summary>
-    /// Creates a new DrawableAffine instance using the specified Matrix.
+    /// Adds a new instance of the <see cref="DrawableAffine" /> class to the <see cref="Drawables" />.
     /// </summary>
     /// <param name="matrix">The matrix.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
     public Drawables Affine(Matrix matrix)
     {
       _Drawables.Add(new DrawableAffine(matrix));
@@ -31,9 +32,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableColor instance.
+    /// Adds a new instance of the <see cref="DrawableBorderColor" /> class to the <see cref="Drawables" />.
     /// </summary>
     /// <param name="color">The color of the border.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
     public Drawables BorderColor(Color color)
     {
       _Drawables.Add(new DrawableBorderColor(color));
@@ -41,9 +43,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableFillColor instance.
+    /// Adds a new instance of the <see cref="DrawableFillColor" /> class to the <see cref="Drawables" />.
     /// </summary>
     /// <param name="color">The color to use.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
     public Drawables FillColor(Color color)
     {
       _Drawables.Add(new DrawableFillColor(color));
@@ -51,9 +54,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableRectangle instance.
+    /// Adds a new instance of the <see cref="DrawableRectangle" /> class to the <see cref="Drawables" />.
     /// </summary>
-    /// <param name="rectangle">The rectangle to use.</param>
+    /// <param name="rectangle">The <see cref="T:System.Drawing.Rectangle" /> to use.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
     public Drawables Rectangle(Rectangle rectangle)
     {
       _Drawables.Add(new DrawableRectangle(rectangle));
@@ -61,9 +65,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableStrokeColor instance.
+    /// Adds a new instance of the <see cref="DrawableStrokeColor" /> class to the <see cref="Drawables" />.
     /// </summary>
     /// <param name="color">The color to use.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
     public Drawables StrokeColor(Color color)
     {
       _Drawables.Add(new DrawableStrokeColor(color));
@@ -71,9 +76,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableTextUnderColor instance.
+    /// Adds a new instance of the <see cref="DrawableTextUnderColor" /> class to the <see cref="Drawables" />.
     /// </summary>
     /// <param name="color">The color to use.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
     public Drawables TextUnderColor(Color color)
     {
       _Drawables.Add(new DrawableTextUnderColor(color));
@@ -81,9 +87,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Creates a new DrawableViewbox instance.
+    /// Adds a new instance of the <see cref="DrawableViewbox" /> class to the <see cref="Drawables" />.
     /// </summary>
-    /// <param name="rectangle">The rectangle to use.</param>
+    /// <param name="rectangle">The <see cref="T:System.Drawing.Rectangle" /> to use.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
     public Drawables Viewbox(Rectangle rectangle)
     {
       _Drawables.Add(new DrawableViewbox(rectangle));

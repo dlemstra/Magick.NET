@@ -21,9 +21,10 @@ namespace ImageMagick
   public sealed partial class Paths
   {
     /// <summary>
-    /// Initializes a new instance of the PathArcAbs class.
+    /// Adds a new instance of the <see cref="PathArcAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="pathArcs">The coordinates to use.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths ArcAbs(params PathArc[] pathArcs)
     {
       _Paths.Add(new PathArcAbs(pathArcs));
@@ -31,9 +32,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathArcAbs class.
+    /// Adds a new instance of the <see cref="PathArcAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="pathArcs">The coordinates to use.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths ArcAbs(IEnumerable<PathArc> pathArcs)
     {
       _Paths.Add(new PathArcAbs(pathArcs));
@@ -41,9 +43,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathArcRel class.
+    /// Adds a new instance of the <see cref="PathArcRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="pathArcs">The coordinates to use.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths ArcRel(params PathArc[] pathArcs)
     {
       _Paths.Add(new PathArcRel(pathArcs));
@@ -51,9 +54,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathArcRel class.
+    /// Adds a new instance of the <see cref="PathArcRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="pathArcs">The coordinates to use.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths ArcRel(IEnumerable<PathArc> pathArcs)
     {
       _Paths.Add(new PathArcRel(pathArcs));
@@ -61,8 +65,9 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathClose class.
+    /// Adds a new instance of the <see cref="PathClose" /> class to the <see cref="Paths" />.
     /// </summary>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths Close()
     {
       _Paths.Add(new PathClose());
@@ -70,11 +75,12 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathCurveToAbs class.
+    /// Adds a new instance of the <see cref="PathCurveToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="controlPointStart">Coordinate of control point for curve beginning</param>
     /// <param name="controlPointEnd">Coordinate of control point for curve ending</param>
     /// <param name="end">Coordinate of the end of the curve</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths CurveToAbs(PointD controlPointStart, PointD controlPointEnd, PointD end)
     {
       _Paths.Add(new PathCurveToAbs(controlPointStart, controlPointEnd, end));
@@ -82,7 +88,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathCurveToAbs class.
+    /// Adds a new instance of the <see cref="PathCurveToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x1">X coordinate of control point for curve beginning</param>
     /// <param name="y1">Y coordinate of control point for curve beginning</param>
@@ -90,6 +96,7 @@ namespace ImageMagick
     /// <param name="y2">Y coordinate of control point for curve ending</param>
     /// <param name="x">X coordinate of the end of the curve</param>
     /// <param name="y">Y coordinate of the end of the curve</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths CurveToAbs(double x1, double y1, double x2, double y2, double x, double y)
     {
       _Paths.Add(new PathCurveToAbs(x1, y1, x2, y2, x, y));
@@ -97,11 +104,12 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathCurveToRel class.
+    /// Adds a new instance of the <see cref="PathCurveToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="controlPointStart">Coordinate of control point for curve beginning</param>
     /// <param name="controlPointEnd">Coordinate of control point for curve ending</param>
     /// <param name="end">Coordinate of the end of the curve</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths CurveToRel(PointD controlPointStart, PointD controlPointEnd, PointD end)
     {
       _Paths.Add(new PathCurveToRel(controlPointStart, controlPointEnd, end));
@@ -109,7 +117,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathCurveToRel class.
+    /// Adds a new instance of the <see cref="PathCurveToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x1">X coordinate of control point for curve beginning</param>
     /// <param name="y1">Y coordinate of control point for curve beginning</param>
@@ -117,6 +125,7 @@ namespace ImageMagick
     /// <param name="y2">Y coordinate of control point for curve ending</param>
     /// <param name="x">X coordinate of the end of the curve</param>
     /// <param name="y">Y coordinate of the end of the curve</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths CurveToRel(double x1, double y1, double x2, double y2, double x, double y)
     {
       _Paths.Add(new PathCurveToRel(x1, y1, x2, y2, x, y));
@@ -124,9 +133,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathLineToAbs class.
+    /// Adds a new instance of the <see cref="PathLineToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="coordinates">The coordinates to use.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths LineToAbs(params PointD[] coordinates)
     {
       _Paths.Add(new PathLineToAbs(coordinates));
@@ -134,9 +144,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathLineToAbs class.
+    /// Adds a new instance of the <see cref="PathLineToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="coordinates">The coordinates to use.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths LineToAbs(IEnumerable<PointD> coordinates)
     {
       _Paths.Add(new PathLineToAbs(coordinates));
@@ -144,10 +155,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathLineToAbs class.
+    /// Adds a new instance of the <see cref="PathLineToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths LineToAbs(double x, double y)
     {
       _Paths.Add(new PathLineToAbs(x, y));
@@ -155,9 +167,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathLineToHorizontalAbs class.
+    /// Adds a new instance of the <see cref="PathLineToHorizontalAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x">The X coordinate.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths LineToHorizontalAbs(double x)
     {
       _Paths.Add(new PathLineToHorizontalAbs(x));
@@ -165,9 +178,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathLineToHorizontalRel class.
+    /// Adds a new instance of the <see cref="PathLineToHorizontalRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x">The X coordinate.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths LineToHorizontalRel(double x)
     {
       _Paths.Add(new PathLineToHorizontalRel(x));
@@ -175,9 +189,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathLineToRel class.
+    /// Adds a new instance of the <see cref="PathLineToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="coordinates">The coordinates to use.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths LineToRel(params PointD[] coordinates)
     {
       _Paths.Add(new PathLineToRel(coordinates));
@@ -185,9 +200,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathLineToRel class.
+    /// Adds a new instance of the <see cref="PathLineToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="coordinates">The coordinates to use.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths LineToRel(IEnumerable<PointD> coordinates)
     {
       _Paths.Add(new PathLineToRel(coordinates));
@@ -195,10 +211,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathLineToRel class.
+    /// Adds a new instance of the <see cref="PathLineToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths LineToRel(double x, double y)
     {
       _Paths.Add(new PathLineToRel(x, y));
@@ -206,9 +223,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathLinetoVerticalAbs class.
+    /// Adds a new instance of the <see cref="PathLineToVerticalAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="y">The Y coordinate.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths LineToVerticalAbs(double y)
     {
       _Paths.Add(new PathLineToVerticalAbs(y));
@@ -216,9 +234,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathLineToVerticalRel class.
+    /// Adds a new instance of the <see cref="PathLineToVerticalRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="y">The Y coordinate.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths LineToVerticalRel(double y)
     {
       _Paths.Add(new PathLineToVerticalRel(y));
@@ -226,9 +245,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathMoveToAbs class.
+    /// Adds a new instance of the <see cref="PathMoveToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="coordinate">The coordinate to use.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths MoveToAbs(PointD coordinate)
     {
       _Paths.Add(new PathMoveToAbs(coordinate));
@@ -236,10 +256,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathMoveToAbs class.
+    /// Adds a new instance of the <see cref="PathMoveToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths MoveToAbs(double x, double y)
     {
       _Paths.Add(new PathMoveToAbs(x, y));
@@ -247,9 +268,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathMoveToRel class.
+    /// Adds a new instance of the <see cref="PathMoveToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="coordinate">The coordinate to use.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths MoveToRel(PointD coordinate)
     {
       _Paths.Add(new PathMoveToRel(coordinate));
@@ -257,10 +279,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathMoveToRel class.
+    /// Adds a new instance of the <see cref="PathMoveToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths MoveToRel(double x, double y)
     {
       _Paths.Add(new PathMoveToRel(x, y));
@@ -268,10 +291,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathQuadraticCurveToAbs class.
+    /// Adds a new instance of the <see cref="PathQuadraticCurveToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="controlPoint">Coordinate of control point</param>
     /// <param name="end">Coordinate of final point</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths QuadraticCurveToAbs(PointD controlPoint, PointD end)
     {
       _Paths.Add(new PathQuadraticCurveToAbs(controlPoint, end));
@@ -279,12 +303,13 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathQuadraticCurveToAbs class.
+    /// Adds a new instance of the <see cref="PathQuadraticCurveToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x1">X coordinate of control point</param>
     /// <param name="y1">Y coordinate of control point</param>
     /// <param name="x">X coordinate of final point</param>
     /// <param name="y">Y coordinate of final point</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths QuadraticCurveToAbs(double x1, double y1, double x, double y)
     {
       _Paths.Add(new PathQuadraticCurveToAbs(x1, y1, x, y));
@@ -292,10 +317,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathQuadraticCurveToRel class.
+    /// Adds a new instance of the <see cref="PathQuadraticCurveToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="controlPoint">Coordinate of control point</param>
     /// <param name="end">Coordinate of final point</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths QuadraticCurveToRel(PointD controlPoint, PointD end)
     {
       _Paths.Add(new PathQuadraticCurveToRel(controlPoint, end));
@@ -303,12 +329,13 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathQuadraticCurveToRel class.
+    /// Adds a new instance of the <see cref="PathQuadraticCurveToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x1">X coordinate of control point</param>
     /// <param name="y1">Y coordinate of control point</param>
     /// <param name="x">X coordinate of final point</param>
     /// <param name="y">Y coordinate of final point</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths QuadraticCurveToRel(double x1, double y1, double x, double y)
     {
       _Paths.Add(new PathQuadraticCurveToRel(x1, y1, x, y));
@@ -316,10 +343,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathSmoothCurveToAbs class.
+    /// Adds a new instance of the <see cref="PathSmoothCurveToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="controlPoint">Coordinate of second point</param>
     /// <param name="end">Coordinate of final point</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths SmoothCurveToAbs(PointD controlPoint, PointD end)
     {
       _Paths.Add(new PathSmoothCurveToAbs(controlPoint, end));
@@ -327,12 +355,13 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathSmoothCurveToAbs class.
+    /// Adds a new instance of the <see cref="PathSmoothCurveToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x2">X coordinate of second point</param>
     /// <param name="y2">Y coordinate of second point</param>
     /// <param name="x">X coordinate of final point</param>
     /// <param name="y">Y coordinate of final point</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths SmoothCurveToAbs(double x2, double y2, double x, double y)
     {
       _Paths.Add(new PathSmoothCurveToAbs(x2, y2, x, y));
@@ -340,10 +369,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathSmoothCurveToRel class.
+    /// Adds a new instance of the <see cref="PathSmoothCurveToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="controlPoint">Coordinate of second point</param>
     /// <param name="end">Coordinate of final point</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths SmoothCurveToRel(PointD controlPoint, PointD end)
     {
       _Paths.Add(new PathSmoothCurveToRel(controlPoint, end));
@@ -351,12 +381,13 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathSmoothCurveToRel class.
+    /// Adds a new instance of the <see cref="PathSmoothCurveToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x2">X coordinate of second point</param>
     /// <param name="y2">Y coordinate of second point</param>
     /// <param name="x">X coordinate of final point</param>
     /// <param name="y">Y coordinate of final point</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths SmoothCurveToRel(double x2, double y2, double x, double y)
     {
       _Paths.Add(new PathSmoothCurveToRel(x2, y2, x, y));
@@ -364,9 +395,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathSmoothQuadraticCurveToAbs class.
+    /// Adds a new instance of the <see cref="PathSmoothQuadraticCurveToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="end">Coordinate of final point</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths SmoothQuadraticCurveToAbs(PointD end)
     {
       _Paths.Add(new PathSmoothQuadraticCurveToAbs(end));
@@ -374,10 +406,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathSmoothQuadraticCurveToAbs class.
+    /// Adds a new instance of the <see cref="PathSmoothQuadraticCurveToAbs" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x">X coordinate of final point</param>
     /// <param name="y">Y coordinate of final point</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths SmoothQuadraticCurveToAbs(double x, double y)
     {
       _Paths.Add(new PathSmoothQuadraticCurveToAbs(x, y));
@@ -385,9 +418,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathSmoothQuadraticCurveToRel class.
+    /// Adds a new instance of the <see cref="PathSmoothQuadraticCurveToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="end">Coordinate of final point</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths SmoothQuadraticCurveToRel(PointD end)
     {
       _Paths.Add(new PathSmoothQuadraticCurveToRel(end));
@@ -395,10 +429,11 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the PathSmoothQuadraticCurveToRel class.
+    /// Adds a new instance of the <see cref="PathSmoothQuadraticCurveToRel" /> class to the <see cref="Paths" />.
     /// </summary>
     /// <param name="x">X coordinate of final point</param>
     /// <param name="y">Y coordinate of final point</param>
+    /// <returns>The <see cref="Paths" /> instance.</returns>
     public Paths SmoothQuadraticCurveToRel(double x, double y)
     {
       _Paths.Add(new PathSmoothQuadraticCurveToRel(x, y));

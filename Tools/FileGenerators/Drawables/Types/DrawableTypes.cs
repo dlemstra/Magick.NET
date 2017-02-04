@@ -25,6 +25,33 @@ namespace FileGenerator.Drawables
   {
     private XDocument _Comments;
 
+    private static void ModifyComment(XElement comment, string typeName, string className)
+    {
+      var cref = new XElement("see", new XAttribute("cref", className));
+
+      var summary = comment.Element("summary");
+      summary.RemoveAll();
+      summary.Add(
+        new XText(Environment.NewLine),
+        new XText("Adds a new instance of the "),
+        new XElement("see",
+          new XAttribute("cref", typeName)
+        ),
+        new XText($" class to the "),
+        cref,
+        new XText("."),
+        new XText(Environment.NewLine)
+      );
+
+      comment.Add(
+        new XElement("returns",
+          new XText("The "),
+          cref,
+          new XText(" instance.")
+        )
+      );
+    }
+
     private IEnumerable<ConstructorInfo[]> GetInterfaceConstructors(string interfaceName)
     {
       return from type in GetInterfaceTypes(interfaceName)
@@ -55,7 +82,7 @@ namespace FileGenerator.Drawables
       LoadComments();
     }
 
-    public IEnumerable<string> GetCommentLines(ConstructorInfo constructor)
+    public IEnumerable<string> GetCommentLines(ConstructorInfo constructor, string className)
     {
       string memberName = "M:" + constructor.DeclaringType.FullName + ".#" + constructor.ToString().Substring(6);
       memberName = memberName.Replace("()", "");
@@ -72,6 +99,8 @@ namespace FileGenerator.Drawables
       var comment = _Comments.XPathSelectElement("/doc/members/member[@name='" + memberName + "']");
       if (comment == null)
         throw new NotImplementedException(memberName);
+
+      ModifyComment(comment, constructor.DeclaringType.Name, className);
 
       foreach (var node in comment.Nodes())
       {

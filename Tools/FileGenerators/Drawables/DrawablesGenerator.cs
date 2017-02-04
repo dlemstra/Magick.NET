@@ -59,7 +59,7 @@ namespace FileGenerator.Drawables
       var name = constructor.DeclaringType.Name.Substring(8);
       var parameters = constructor.GetParameters();
 
-      foreach (string commentLine in Types.GetCommentLines(constructor))
+      foreach (string commentLine in Types.GetCommentLines(constructor, "Drawables"))
         WriteLine(commentLine);
       Write("public Drawables " + name + "(");
       WriteParameterDeclaration(parameters);

@@ -33,7 +33,7 @@ namespace FileGenerator.Drawables
       var name = constructor.DeclaringType.Name.Substring(4);
       var parameters = constructor.GetParameters();
 
-      foreach (string commentLine in Types.GetCommentLines(constructor))
+      foreach (string commentLine in Types.GetCommentLines(constructor, "Paths"))
         WriteLine(commentLine);
       Write("public Paths " + name + "(");
       WriteParameterDeclaration(parameters);
@@ -72,7 +72,7 @@ namespace FileGenerator.Drawables
     public static void Generate()
     {
       PathsGenerator generator = new PathsGenerator();
-      generator.CreateWriter(PathHelper.GetFullPath(@"Magick.NET\Core\Drawables\Paths\Generated\Paths.cs"));
+      generator.CreateWriter(PathHelper.GetFullPath(@"Source\Magick.NET\Core\Drawables\Paths\Generated\Paths.cs"));
       generator.WriteStart("ImageMagick");
       generator.WritePaths();
       generator.WriteEnd();
