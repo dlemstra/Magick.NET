@@ -216,20 +216,23 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_ReadFile(ImageInfo *settings, Exc
   return images;
 }
 
-MAGICK_NET_EXPORT Image *MagickImageCollection_ReadStream(const ImageInfo *settings, const BlobHandler reader, const BlobSeeker seeker, const BlobTeller teller, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImageCollection_ReadStream(ImageInfo *settings, const CustomStreamHandler reader, const CustomStreamSeeker seeker, const CustomStreamTeller teller, ExceptionInfo **exception)
 {
   Image
     *images;
 
-  UserBlobInfo
-    info;
+  CustomStreamInfo
+    *info;
 
-  ResetMagickMemory(&info, 0, sizeof(info));
-  info.reader = reader;
-  info.seeker = seeker;
-  info.teller = teller;
   MAGICK_NET_GET_EXCEPTION;
-  images = UserBlobToImage(settings, &info, exceptionInfo);
+  info = AcquireCustomStreamInfo(exceptionInfo);
+  SetCustomStreamReader(info, reader);
+  SetCustomStreamSeeker(info, seeker);
+  SetCustomStreamTeller(info, teller);
+  SetImageInfoCustomStream(settings, info);
+  images = CustomStreamToImage(settings, exceptionInfo);
+  SetImageInfoCustomStream(settings, (CustomStreamInfo *)NULL);
+  info = DestroyCustomStreamInfo(info);
   MAGICK_NET_SET_EXCEPTION;
   return images;
 }
@@ -252,17 +255,20 @@ MAGICK_NET_EXPORT void MagickImageCollection_WriteFile(Image *image, const Image
   MAGICK_NET_SET_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT void MagickImageCollection_WriteStream(Image *image, const ImageInfo *settings, const BlobHandler reader, const BlobHandler writer, const BlobSeeker seeker, const BlobTeller teller, ExceptionInfo **exception)
+MAGICK_NET_EXPORT void MagickImageCollection_WriteStream(Image *image, ImageInfo *settings, const CustomStreamHandler reader, const CustomStreamHandler writer, const CustomStreamSeeker seeker, const CustomStreamTeller teller, ExceptionInfo **exception)
 {
-  UserBlobInfo
-    info;
+  CustomStreamInfo
+    *info;
 
-  ResetMagickMemory(&info, 0, sizeof(info));
-  info.reader = reader;
-  info.writer = writer;
-  info.seeker = seeker;
-  info.teller = teller;
   MAGICK_NET_GET_EXCEPTION;
-  ImagesToUserBlob(settings, image, &info, exceptionInfo);
+  info = AcquireCustomStreamInfo(exceptionInfo);
+  SetCustomStreamReader(info, reader);
+  SetCustomStreamWriter(info, writer);
+  SetCustomStreamSeeker(info, seeker);
+  SetCustomStreamTeller(info, teller);
+  SetImageInfoCustomStream(settings, info);
+  ImagesToCustomStream(settings, image, exceptionInfo);
+  SetImageInfoCustomStream(settings, (CustomStreamInfo *)NULL);
+  info = DestroyCustomStreamInfo(info);
   MAGICK_NET_SET_EXCEPTION;
 }

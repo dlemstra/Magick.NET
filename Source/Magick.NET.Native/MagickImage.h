@@ -385,7 +385,7 @@ MAGICK_NET_EXPORT Image *MagickImage_ReadFile(const ImageInfo *, ExceptionInfo *
 
 MAGICK_NET_EXPORT Image *MagickImage_ReadPixels(const size_t, const size_t, const char *, const size_t, const unsigned char *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImage_ReadStream(const ImageInfo *, const BlobHandler, const BlobSeeker, const BlobTeller, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImage_ReadStream(ImageInfo *, const CustomStreamHandler, const CustomStreamSeeker, const CustomStreamTeller, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImage_RegionMask(Image *, const RectangleInfo *, ExceptionInfo **);
 
@@ -507,4 +507,4 @@ MAGICK_NET_EXPORT void MagickImage_WhiteThreshold(Image *, const char *, const s
 
 MAGICK_NET_EXPORT void MagickImage_WriteFile(Image *, const ImageInfo *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT void MagickImage_WriteStream(Image *, const ImageInfo *, const BlobHandler, const BlobHandler, const BlobSeeker, const BlobTeller, ExceptionInfo **);
+MAGICK_NET_EXPORT void MagickImage_WriteStream(Image *, ImageInfo *, const CustomStreamHandler, const CustomStreamHandler, const CustomStreamSeeker, const CustomStreamTeller, ExceptionInfo **);

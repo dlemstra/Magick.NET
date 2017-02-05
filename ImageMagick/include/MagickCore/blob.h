@@ -18,11 +18,6 @@
 #ifndef MAGICKCORE_BLOB_H
 #define MAGICKCORE_BLOB_H
 
-typedef struct _UserBlobInfo UserBlobInfo;
-
-#include "MagickCore/image.h"
-#include "MagickCore/stream.h"
-
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
@@ -37,29 +32,23 @@ typedef enum
 } MapMode;
 
 typedef ssize_t
-  (*BlobHandler)(const unsigned char *,const size_t,const void *);
+  (*CustomStreamHandler)(const unsigned char *,const size_t,const void *);
 
 typedef size_t
-  (*BlobSeeker)(const MagickOffsetType offset,const int whence,const void *);
+  (*CustomStreamSeeker)(const MagickOffsetType,const int,const void *);
 
 typedef MagickOffsetType
-  (*BlobTeller)(const void *);
+  (*CustomStreamTeller)(const void *);
 
-struct _UserBlobInfo
-{
-  BlobHandler
-    reader,
-    writer;
+typedef struct _CustomStreamInfo
+  CustomStreamInfo;
 
-  BlobSeeker
-    seeker;
+#include "MagickCore/image.h"
+#include "MagickCore/stream.h"
 
-  BlobTeller
-    teller;
-
-  void
-    *data;
-};
+extern MagickExport CustomStreamInfo
+  *AcquireCustomStreamInfo(ExceptionInfo *),
+  *DestroyCustomStreamInfo(CustomStreamInfo *);
 
 extern MagickExport FILE
   *GetBlobFileHandle(const Image *);
@@ -67,8 +56,7 @@ extern MagickExport FILE
 extern MagickExport Image
   *BlobToImage(const ImageInfo *,const void *,const size_t,ExceptionInfo *),
   *PingBlob(const ImageInfo *,const void *,const size_t,ExceptionInfo *),
-  *UserBlobToImage(const ImageInfo *image_info,UserBlobInfo *user_info,
-    ExceptionInfo *exception);
+  *CustomStreamToImage(const ImageInfo *,ExceptionInfo *);
 
 extern MagickExport MagickBooleanType
   BlobToFile(char *,const void *,const size_t,ExceptionInfo *),
@@ -93,10 +81,15 @@ extern MagickExport void
   DuplicateBlob(Image *,const Image *),
   *FileToBlob(const char *,const size_t,size_t *,ExceptionInfo *),
   *ImageToBlob(const ImageInfo *,Image *,size_t *,ExceptionInfo *),
-  ImageToUserBlob(const ImageInfo *,Image *,UserBlobInfo *,ExceptionInfo *),
+  ImageToCustomStream(const ImageInfo *,Image *,ExceptionInfo *),
   *ImagesToBlob(const ImageInfo *,Image *,size_t *,ExceptionInfo *),
-  ImagesToUserBlob(const ImageInfo *,Image *,UserBlobInfo *,ExceptionInfo *),
-  SetBlobExempt(Image *,const MagickBooleanType);
+  ImagesToCustomStream(const ImageInfo *,Image *,ExceptionInfo *),
+  SetBlobExempt(Image *,const MagickBooleanType),
+  SetCustomStreamData(CustomStreamInfo *,void *),
+  SetCustomStreamReader(CustomStreamInfo *,CustomStreamHandler),
+  SetCustomStreamSeeker(CustomStreamInfo *,CustomStreamSeeker),
+  SetCustomStreamTeller(CustomStreamInfo *,CustomStreamTeller),
+  SetCustomStreamWriter(CustomStreamInfo *,CustomStreamHandler);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

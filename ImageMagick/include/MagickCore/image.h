@@ -18,9 +18,6 @@
 #ifndef MAGICKCORE_IMAGE_H
 #define MAGICKCORE_IMAGE_H
 
-#include "MagickCore/color.h"
-#include "MagickCore/pixel.h"
-
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
@@ -478,8 +475,8 @@ struct _ImageInfo
   size_t
     signature;
 
-  UserBlobInfo
-    *user_info;
+  CustomStreamInfo
+    *custom_stream;
 };
 
 extern MagickExport ChannelType
@@ -564,7 +561,8 @@ extern MagickExport void
   DisassociateImageStream(Image *),
   GetImageInfo(ImageInfo *),
   SetImageInfoBlob(ImageInfo *,const void *,const size_t),
-  SetImageInfoFile(ImageInfo *,FILE *);
+  SetImageInfoFile(ImageInfo *,FILE *),
+  SetImageInfoCustomStream(ImageInfo *,CustomStreamInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }
