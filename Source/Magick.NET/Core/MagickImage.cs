@@ -2939,6 +2939,8 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Crop(MagickGeometry geometry, Gravity gravity)
     {
+      Throw.IfNull(nameof(geometry), geometry);
+
       Crop(geometry.Width, geometry.Height, gravity);
     }
 
