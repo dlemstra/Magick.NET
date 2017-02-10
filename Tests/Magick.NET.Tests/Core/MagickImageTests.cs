@@ -302,6 +302,38 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_AnimationDelay()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.AnimationDelay = 60;
+        Assert.AreEqual(60, image.AnimationDelay);
+
+        image.AnimationDelay = -1;
+        Assert.AreEqual(60, image.AnimationDelay);
+
+        image.AnimationDelay = 0;
+        Assert.AreEqual(0, image.AnimationDelay);
+      }
+    }
+
+    [TestMethod]
+    public void Test_AnimationIterations()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.AnimationIterations = 60;
+        Assert.AreEqual(60, image.AnimationIterations);
+
+        image.AnimationIterations = -1;
+        Assert.AreEqual(60, image.AnimationIterations);
+
+        image.AnimationIterations = 0;
+        Assert.AreEqual(0, image.AnimationIterations);
+      }
+    }
+
+    [TestMethod]
     public void Test_Annotate()
     {
       using (MagickImage image = new MagickImage(MagickColors.Thistle, 200, 50))

@@ -754,7 +754,8 @@ namespace ImageMagick
       }
       set
       {
-        _NativeInstance.AnimationDelay = value;
+        if (value >= 0)
+          _NativeInstance.AnimationDelay = value;
       }
     }
 
@@ -769,7 +770,8 @@ namespace ImageMagick
       }
       set
       {
-        _NativeInstance.AnimationIterations = value;
+        if (value >= 0)
+          _NativeInstance.AnimationIterations = value;
       }
     }
 
