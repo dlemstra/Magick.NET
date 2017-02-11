@@ -13,6 +13,7 @@
 //=================================================================================================
 
 using System;
+using System.Reflection;
 using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -162,6 +163,25 @@ namespace Magick.NET.Tests
 
         Assert.AreEqual(30, image.Width);
         Assert.AreEqual(40, image.Height);
+      }
+    }
+
+    [TestMethod]
+    public void Test_Image_Read_Scenes()
+    {
+      using (MagickImage image = new MagickImage())
+      {
+        image.Read(Files.RoseSparkleGIF);
+
+        Type type = image.Settings.GetType();
+        BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+        int numberScenes = (int)type.GetProperty("NumberScenes", flags).GetValue(image.Settings, null);
+        int scene = (int)type.GetProperty("Scene", flags).GetValue(image.Settings, null);
+        string scenes = (string)type.GetProperty("Scenes", flags).GetValue(image.Settings, null);
+
+        Assert.AreEqual(1, numberScenes);
+        Assert.AreEqual(0, scene);
+        Assert.AreEqual("0-1", scenes);
       }
     }
   }

@@ -76,7 +76,7 @@ namespace ImageMagick
       else
         newReadSettings = new MagickReadSettings(readSettings);
 
-      newReadSettings.FrameCount = 1;
+      newReadSettings.ForceSingleFrame();
 
       return newReadSettings;
     }

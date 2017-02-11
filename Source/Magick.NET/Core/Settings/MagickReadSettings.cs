@@ -88,6 +88,12 @@ namespace ImageMagick
       PixelStorage = settings.PixelStorage?.Clone();
     }
 
+    internal void ForceSingleFrame()
+    {
+      FrameCount = 1;
+      ApplyFrame(this);
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickReadSettings"/> class.
     /// </summary>
