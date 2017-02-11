@@ -33,35 +33,35 @@ namespace ImageMagick
       return string.Format(CultureInfo.InvariantCulture, "{0}-{1}", frame, frame + FrameCount.Value);
     }
 
-    private void ApplyDefines(MagickReadSettings settings)
+    private void ApplyDefines()
     {
-      if (settings.Defines == null)
+      if (Defines == null)
         return;
 
-      foreach (IDefine define in settings.Defines.Defines)
+      foreach (IDefine define in Defines.Defines)
       {
         SetOption(GetDefineKey(define), define.Value);
       }
     }
 
-    private void ApplyDimensions(MagickReadSettings settings)
+    private void ApplyDimensions()
     {
-      if (settings.Width.HasValue && settings.Height.HasValue)
-        Size = settings.Width + "x" + settings.Height;
-      else if (settings.Width.HasValue)
-        Size = settings.Width + "x";
-      else if (settings.Height.HasValue)
-        Size = "x" + settings.Height;
+      if (Width.HasValue && Height.HasValue)
+        Size = Width + "x" + Height;
+      else if (Width.HasValue)
+        Size = Width + "x";
+      else if (Height.HasValue)
+        Size = "x" + Height;
     }
 
-    private void ApplyFrame(MagickReadSettings settings)
+    private void ApplyFrame()
     {
-      if (!settings.FrameIndex.HasValue && !settings.FrameCount.HasValue)
+      if (!FrameIndex.HasValue && !FrameCount.HasValue)
         return;
 
-      Scenes = settings.GetScenes();
-      Scene = settings.FrameIndex.HasValue ? settings.FrameIndex.Value : 0;
-      NumberScenes = settings.FrameCount.HasValue ? settings.FrameCount.Value : 1;
+      Scenes = GetScenes();
+      Scene = FrameIndex.HasValue ? FrameIndex.Value : 0;
+      NumberScenes = FrameCount.HasValue ? FrameCount.Value : 1;
     }
 
     private static string GetDefineKey(IDefine define)
@@ -70,6 +70,18 @@ namespace ImageMagick
         return define.Name;
 
       return EnumHelper.GetName(define.Format) + ":" + define.Name;
+    }
+
+    private void Copy(MagickReadSettings settings)
+    {
+      base.Copy(settings);
+
+      Defines = settings.Defines;
+      FrameIndex = settings.FrameIndex;
+      FrameCount = settings.FrameCount;
+      Height = settings.Height;
+      Width = settings.Width;
+      PixelStorage = settings.PixelStorage?.Clone();
     }
 
     internal MagickReadSettings(MagickSettings settings)
@@ -81,17 +93,15 @@ namespace ImageMagick
     {
       Copy(settings);
 
-      ApplyDefines(settings);
-      ApplyDimensions(settings);
-      ApplyFrame(settings);
-
-      PixelStorage = settings.PixelStorage?.Clone();
+      ApplyDefines();
+      ApplyDimensions();
+      ApplyFrame();
     }
 
     internal void ForceSingleFrame()
     {
       FrameCount = 1;
-      ApplyFrame(this);
+      ApplyFrame();
     }
 
     /// <summary>
