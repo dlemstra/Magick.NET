@@ -2220,9 +2220,13 @@ namespace Magick.NET.Tests
             ColorAssert.AreEqual(MagickColors.Red, histogram, 102, 183);
             ColorAssert.AreEqual(MagickColors.Lime, histogram, 147, 188);
             ColorAssert.AreEqual(MagickColors.Blue, histogram, 195, 190);
-#elif Q16 || Q16HDRI
+#elif Q16
             ColorAssert.AreEqual(MagickColors.Red, histogram, 221, 182);
             ColorAssert.AreEqual(MagickColors.Lime, histogram, 11, 184);
+            ColorAssert.AreEqual(MagickColors.Blue, histogram, 45, 194);
+#elif Q16HDRI
+            ColorAssert.AreEqual(MagickColors.Red, histogram, 221, 182);
+            ColorAssert.AreEqual(MagickColors.Lime, histogram, 12, 184);
             ColorAssert.AreEqual(MagickColors.Blue, histogram, 45, 194);
 #else
 #error Not implemented!
