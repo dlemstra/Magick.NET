@@ -5689,6 +5689,33 @@ namespace ImageMagick
     }
 
     /// <summary>
+    /// Selectively blur pixels within a contrast threshold. It is similar to the unsharpen mask
+    /// that sharpens everything with contrast above a certain threshold.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
+    /// <param name="thresholdPercentage">Only pixels within this contrast threshold are included in the blur operation.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void SelectiveBlur(double radius, double sigma, Percentage thresholdPercentage)
+    {
+      SelectiveBlur(radius, sigma, thresholdPercentage, ImageMagick.Channels.Composite);
+    }
+
+    /// <summary>
+    /// Selectively blur pixels within a contrast threshold. It is similar to the unsharpen mask
+    /// that sharpens everything with contrast above a certain threshold.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
+    /// <param name="thresholdPercentage">Only pixels within this contrast threshold are included in the blur operation.</param>
+    /// <param name="channels">The channel(s) to blur.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void SelectiveBlur(double radius, double sigma, Percentage thresholdPercentage, Channels channels)
+    {
+      _NativeInstance.SelectiveBlur(radius, sigma, thresholdPercentage.ToQuantum(), channels);
+    }
+
+    /// <summary>
     /// Separates the channels from the image and returns it as grayscale images.
     /// </summary>
     /// <returns>The channels from the image as grayscale images.</returns>
