@@ -4053,7 +4053,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage)
     {
-      InverseLevel(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum());
+      InverseLevel(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType());
     }
 
     /// <summary>
@@ -4084,7 +4084,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, Channels channels)
     {
-      InverseLevel(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), channels);
+      InverseLevel(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), channels);
     }
 
     /// <summary>
@@ -4115,7 +4115,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint)
     {
-      InverseLevel(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), midpoint);
+      InverseLevel(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), midpoint);
     }
 
     /// <summary>
@@ -4148,7 +4148,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint, Channels channels)
     {
-      InverseLevel(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), midpoint, channels);
+      InverseLevel(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), midpoint, channels);
     }
 
     /// <summary>
@@ -4260,7 +4260,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage)
     {
-      Level(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum());
+      Level(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType());
     }
 
     /// <summary>
@@ -4289,7 +4289,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, Channels channels)
     {
-      Level(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), channels);
+      Level(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), channels);
     }
 
     /// <summary>
@@ -4318,7 +4318,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double gamma)
     {
-      Level(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), gamma);
+      Level(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), gamma);
     }
 
     /// <summary>
@@ -4349,7 +4349,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double gamma, Channels channels)
     {
-      Level(blackPointPercentage.ToQuantum(), whitePointPercentage.ToQuantum(), gamma, channels);
+      Level(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), gamma, channels);
     }
 
     /// <summary>
@@ -5176,7 +5176,7 @@ namespace ImageMagick
       Throw.IfNegative(nameof(percentageLow), percentageLow);
       Throw.IfNegative(nameof(percentageHigh), percentageHigh);
 
-      RandomThreshold(percentageLow.ToQuantum(), percentageHigh.ToQuantum(), channels);
+      RandomThreshold(percentageLow.ToQuantumType(), percentageHigh.ToQuantumType(), channels);
     }
 
     /// <summary>
@@ -6751,7 +6751,7 @@ namespace ImageMagick
     /// <param name="thresholdPercentage">The threshold for smoothing</param>
     public void WaveletDenoise(Percentage thresholdPercentage)
     {
-      WaveletDenoise(thresholdPercentage.ToQuantum(), 0.0);
+      WaveletDenoise(thresholdPercentage.ToQuantumType(), 0.0);
     }
 
     /// <summary>
@@ -6761,7 +6761,7 @@ namespace ImageMagick
     /// <param name="softness">Attenuate the smoothing threshold.</param>
     public void WaveletDenoise(Percentage thresholdPercentage, double softness)
     {
-      WaveletDenoise(thresholdPercentage.ToQuantum(), softness);
+      WaveletDenoise(thresholdPercentage.ToQuantumType(), softness);
     }
 
     /// <summary>

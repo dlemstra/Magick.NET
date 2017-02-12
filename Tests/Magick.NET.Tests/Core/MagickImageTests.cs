@@ -2194,9 +2194,9 @@ namespace Magick.NET.Tests
           using (MagickImage histogram = new MagickImage(memStream))
           {
 #if Q8
-            ColorAssert.AreEqual(MagickColors.Red, histogram, 66, 12);
+            ColorAssert.AreEqual(MagickColors.Red, histogram, 65, 12);
             ColorAssert.AreEqual(MagickColors.Lime, histogram, 95, 122);
-            ColorAssert.AreEqual(MagickColors.Blue, histogram, 204, 81);
+            ColorAssert.AreEqual(MagickColors.Blue, histogram, 205, 81);
 #elif Q16 || Q16HDRI
             ColorAssert.AreEqual(MagickColors.Red, histogram, 34, 182);
             ColorAssert.AreEqual(MagickColors.Lime, histogram, 122, 193);
@@ -2217,12 +2217,12 @@ namespace Magick.NET.Tests
           using (MagickImage histogram = new MagickImage(memStream))
           {
 #if Q8
-            ColorAssert.AreEqual(MagickColors.Red, histogram, 103, 183);
+            ColorAssert.AreEqual(MagickColors.Red, histogram, 102, 183);
             ColorAssert.AreEqual(MagickColors.Lime, histogram, 147, 188);
-            ColorAssert.AreEqual(MagickColors.Blue, histogram, 194, 190);
+            ColorAssert.AreEqual(MagickColors.Blue, histogram, 195, 190);
 #elif Q16 || Q16HDRI
             ColorAssert.AreEqual(MagickColors.Red, histogram, 221, 182);
-            ColorAssert.AreEqual(MagickColors.Lime, histogram, 12, 183);
+            ColorAssert.AreEqual(MagickColors.Lime, histogram, 11, 184);
             ColorAssert.AreEqual(MagickColors.Blue, histogram, 45, 194);
 #else
 #error Not implemented!

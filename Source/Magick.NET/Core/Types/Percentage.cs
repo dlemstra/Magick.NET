@@ -39,7 +39,12 @@ namespace ImageMagick
       return new Percentage((value / Quantum.Max) * 100);
     }
 
-    internal QuantumType ToQuantum()
+    internal double ToQuantum()
+    {
+      return Quantum.Max * (_Value / 100);
+    }
+
+    internal QuantumType ToQuantumType()
     {
       return (QuantumType)(Quantum.Max * (_Value / 100));
     }

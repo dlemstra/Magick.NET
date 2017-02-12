@@ -60,7 +60,7 @@ namespace ImageMagick
     /// <param name="yellow">Yellow component value of this color.</param>
     /// <param name="key">Key (black) component value of this color.</param>
     public ColorCMYK(Percentage cyan, Percentage magenta, Percentage yellow, Percentage key)
-      : base(new MagickColor(cyan.ToQuantum(), magenta.ToQuantum(), yellow.ToQuantum(), key.ToQuantum(), Quantum.Max))
+      : base(new MagickColor(cyan.ToQuantumType(), magenta.ToQuantumType(), yellow.ToQuantumType(), key.ToQuantumType(), Quantum.Max))
     {
     }
 
@@ -73,7 +73,7 @@ namespace ImageMagick
     /// <param name="key">Key (black) component value of this color.</param>
     /// <param name="alpha">Alpha component value of this color.</param>
     public ColorCMYK(Percentage cyan, Percentage magenta, Percentage yellow, Percentage key, Percentage alpha)
-      : base(new MagickColor(cyan.ToQuantum(), magenta.ToQuantum(), yellow.ToQuantum(), key.ToQuantum(), alpha.ToQuantum()))
+      : base(new MagickColor(cyan.ToQuantumType(), magenta.ToQuantumType(), yellow.ToQuantumType(), key.ToQuantumType(), alpha.ToQuantumType()))
     {
     }
 

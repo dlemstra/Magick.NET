@@ -533,7 +533,7 @@ namespace ImageMagick
 
       using (NativeMagickColor instance = CreateNativeInstance())
       {
-        return instance.FuzzyEquals(other, fuzz.ToQuantum());
+        return instance.FuzzyEquals(other, fuzz.ToQuantumType());
       }
     }
 
