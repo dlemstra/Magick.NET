@@ -2725,7 +2725,8 @@
             <xs:attribute name="channels" type="Channels" />
             <xs:attribute name="radius" use="required" type="double" />
             <xs:attribute name="sigma" use="required" type="double" />
-            <xs:attribute name="threshold" use="required" type="double" />
+            <xs:attribute name="threshold" type="double" />
+            <xs:attribute name="thresholdPercentage" type="double" />
           </xs:complexType>
         </xs:element>
         <xs:element name="sepiaTone">

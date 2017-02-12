@@ -3255,13 +3255,19 @@ namespace ImageMagick
           arguments["sigma"] = Variables.GetValue<double>(attribute);
         else if (attribute.Name == "threshold")
           arguments["threshold"] = Variables.GetValue<double>(attribute);
+        else if (attribute.Name == "thresholdPercentage")
+          arguments["thresholdPercentage"] = Variables.GetValue<Percentage>(attribute);
       }
       if (OnlyContains(arguments, "radius", "sigma", "threshold"))
         image.SelectiveBlur((double)arguments["radius"], (double)arguments["sigma"], (double)arguments["threshold"]);
       else if (OnlyContains(arguments, "radius", "sigma", "threshold", "channels"))
         image.SelectiveBlur((double)arguments["radius"], (double)arguments["sigma"], (double)arguments["threshold"], (Channels)arguments["channels"]);
+      else if (OnlyContains(arguments, "radius", "sigma", "thresholdPercentage"))
+        image.SelectiveBlur((double)arguments["radius"], (double)arguments["sigma"], (Percentage)arguments["thresholdPercentage"]);
+      else if (OnlyContains(arguments, "radius", "sigma", "thresholdPercentage", "channels"))
+        image.SelectiveBlur((double)arguments["radius"], (double)arguments["sigma"], (Percentage)arguments["thresholdPercentage"], (Channels)arguments["channels"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'selectiveBlur', allowed combinations are: [radius, sigma, threshold] [radius, sigma, threshold, channels]");
+        throw new ArgumentException("Invalid argument combination for 'selectiveBlur', allowed combinations are: [radius, sigma, threshold] [radius, sigma, threshold, channels] [radius, sigma, thresholdPercentage] [radius, sigma, thresholdPercentage, channels]");
     }
     private void ExecuteSepiaTone(XmlElement element, MagickImage image)
     {
