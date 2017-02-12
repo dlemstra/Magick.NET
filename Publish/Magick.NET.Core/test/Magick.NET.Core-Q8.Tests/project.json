@@ -17,7 +17,7 @@
   },
   "dependencies":
   {
-    "Magick.NET.Core-Q8": "7.0.4.700",
+    "Magick.NET.Core-Q8": "7.0.4.701",
     "xunit": "2.2.0-beta4-build3444",
     "dotnet-test-xunit": "1.0.0-rc2-build10015"
   },
