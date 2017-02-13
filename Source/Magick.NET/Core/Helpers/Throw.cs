@@ -129,7 +129,7 @@ namespace ImageMagick
     public static void IfOutOfRange(string paramName, int min, int max, int value, string message, params object[] args)
     {
       if (value < min || value > max)
-        throw new ArgumentOutOfRangeException(FormatMessage(message, args), paramName);
+        throw new ArgumentOutOfRangeException(paramName, FormatMessage(message, args));
     }
 
     public static void IfTrue(string paramName, bool condition, string message, params object[] args)
