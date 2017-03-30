@@ -99,8 +99,7 @@ namespace ImageMagick
     {
       SetOption(key, value);
 
-      if (Artifact != null)
-        Artifact(this, new ArtifactEventArgs(key, value));
+      Artifact?.Invoke(this, new ArtifactEventArgs(key, value));
     }
 
     internal MagickSettings()
