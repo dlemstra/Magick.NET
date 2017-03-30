@@ -177,6 +177,7 @@ MAGICK_NET_EXPORT void MagickSettings_SetFileName(ImageInfo *instance, const cha
     *instance->filename = '\0';
   else
     CopyMagickString(instance->filename, value, MaxTextExtent);
+  SetImageOption(instance, "filename", value);
 }
 
 MAGICK_NET_EXPORT void MagickSettings_SetNumberScenes(ImageInfo *instance, const size_t value)

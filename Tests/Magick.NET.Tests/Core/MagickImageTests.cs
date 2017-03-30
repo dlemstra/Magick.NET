@@ -2880,6 +2880,15 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_Read_Pango()
+    {
+      string fileName = "pango:<span font=\"Arial\">" + new string('*', 4500) + "</span>";
+      using (MagickImage image = new MagickImage(fileName))
+      {
+      }
+    }
+
+    [TestMethod]
     public void Test_RegionMask()
     {
       using (MagickImage red = new MagickImage("xc:red", 100, 100))
