@@ -577,7 +577,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public MagickImage Combine()
     {
-      return Combine(Channels.All);
+      return Combine(ColorSpace.sRGB);
     }
 
     /// <summary>
@@ -585,17 +585,17 @@ namespace ImageMagick
     /// in the sequence is assigned in order to the specified channels of the combined image.
     /// The typical ordering would be image 1 => Red, 2 => Green, 3 => Blue, etc.
     /// </summary>
-    /// <param name="channels">The channel(s) to combine.</param>
+    /// <param name="colorSpace">The image colorspace.</param>
     /// <returns>The images combined into a single image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImage Combine(Channels channels)
+    public MagickImage Combine(ColorSpace colorSpace)
     {
       ThrowIfEmpty();
 
       try
       {
         AttachImages();
-        IntPtr image = _NativeInstance.Combine(_Images[0], channels);
+        IntPtr image = _NativeInstance.Combine(_Images[0], colorSpace);
         return MagickImage.Create(image, _Images[0].Settings);
       }
       finally

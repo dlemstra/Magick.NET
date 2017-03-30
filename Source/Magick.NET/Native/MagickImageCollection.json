@@ -100,8 +100,8 @@
           "type": "MagickImage"
         },
         {
-          "name": "channels",
-          "type": "Channels"
+          "name": "colorSpace",
+          "type": "ColorSpace"
         }
       ]
     },

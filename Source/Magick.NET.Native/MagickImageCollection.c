@@ -67,15 +67,14 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_Coalesce(const Image *images, Exc
   return result;
 }
 
-MAGICK_NET_EXPORT Image *MagickImageCollection_Combine(Image *images, const size_t channels, ExceptionInfo **exception)
+MAGICK_NET_EXPORT Image *MagickImageCollection_Combine(Image *images, const ColorspaceType colorSpace, ExceptionInfo **exception)
 {
   Image
     *result;
 
   MAGICK_NET_GET_EXCEPTION;
-  SetChannelMask(channels);
-  result = CombineImages(images, images->colorspace, exceptionInfo);
-  RestoreChannelMask;
+  images->colorspace = colorSpace;
+  result = CombineImages(images, colorSpace, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return result;
 }

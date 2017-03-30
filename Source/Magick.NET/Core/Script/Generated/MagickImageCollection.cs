@@ -279,14 +279,14 @@ namespace ImageMagick
       Hashtable arguments = new Hashtable();
       foreach (XmlAttribute attribute in element.Attributes)
       {
-        arguments[attribute.Name] = Variables.GetValue<Channels>(attribute);
+        arguments[attribute.Name] = Variables.GetValue<ColorSpace>(attribute);
       }
       if (arguments.Count == 0)
         return collection.Combine();
-      else if (OnlyContains(arguments, "channels"))
-        return collection.Combine((Channels)arguments["channels"]);
+      else if (OnlyContains(arguments, "colorSpace"))
+        return collection.Combine((ColorSpace)arguments["colorSpace"]);
       else
-        throw new ArgumentException("Invalid argument combination for 'combine', allowed combinations are: [] [channels]");
+        throw new ArgumentException("Invalid argument combination for 'combine', allowed combinations are: [] [colorSpace]");
     }
     private MagickImage ExecuteEvaluate(XmlElement element, MagickImageCollection collection)
     {

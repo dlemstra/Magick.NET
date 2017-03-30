@@ -81,6 +81,7 @@
           <xs:enumeration value="Alpha" />
           <xs:enumeration value="Black" />
           <xs:enumeration value="Blue" />
+          <xs:enumeration value="CMYK" />
           <xs:enumeration value="Composite" />
           <xs:enumeration value="Cyan" />
           <xs:enumeration value="Default" />
@@ -3018,7 +3019,7 @@
               <xs:element name="appendVertically" type="empty" />
               <xs:element name="combine">
                 <xs:complexType>
-                  <xs:attribute name="channels" type="Channels" />
+                  <xs:attribute name="colorSpace" type="ColorSpace" />
                 </xs:complexType>
               </xs:element>
               <xs:element name="evaluate">

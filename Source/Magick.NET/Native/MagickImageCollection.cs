@@ -51,7 +51,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImageCollection_Coalesce(IntPtr image, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImageCollection_Combine(IntPtr image, UIntPtr channels, out IntPtr exception);
+        public static extern IntPtr MagickImageCollection_Combine(IntPtr image, UIntPtr colorSpace, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImageCollection_Deconstruct(IntPtr image, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -102,7 +102,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImageCollection_Coalesce(IntPtr image, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImageCollection_Combine(IntPtr image, UIntPtr channels, out IntPtr exception);
+        public static extern IntPtr MagickImageCollection_Combine(IntPtr image, UIntPtr colorSpace, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MagickImageCollection_Deconstruct(IntPtr image, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -196,7 +196,7 @@ namespace ImageMagick
         RaiseWarning(magickException);
         return result;
       }
-      public IntPtr Combine(MagickImage image, Channels channels)
+      public IntPtr Combine(MagickImage image, ColorSpace colorSpace)
       {
         IntPtr exception = IntPtr.Zero;
         IntPtr result;
@@ -204,13 +204,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        result = NativeMethods.X64.MagickImageCollection_Combine(MagickImage.GetInstance(image), (UIntPtr)channels, out exception);
+        result = NativeMethods.X64.MagickImageCollection_Combine(MagickImage.GetInstance(image), (UIntPtr)colorSpace, out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        result = NativeMethods.X86.MagickImageCollection_Combine(MagickImage.GetInstance(image), (UIntPtr)channels, out exception);
+        result = NativeMethods.X86.MagickImageCollection_Combine(MagickImage.GetInstance(image), (UIntPtr)colorSpace, out exception);
         #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))

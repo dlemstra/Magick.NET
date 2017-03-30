@@ -17,7 +17,7 @@ MAGICK_NET_EXPORT Image *MagickImageCollection_Append(const Image *, const Magic
 
 MAGICK_NET_EXPORT Image *MagickImageCollection_Coalesce(const Image *, ExceptionInfo **);
 
-MAGICK_NET_EXPORT Image *MagickImageCollection_Combine(Image *, const size_t, ExceptionInfo **);
+MAGICK_NET_EXPORT Image *MagickImageCollection_Combine(Image *, const ColorspaceType, ExceptionInfo **);
 
 MAGICK_NET_EXPORT void MagickImageCollection_Dispose(Image *);
 

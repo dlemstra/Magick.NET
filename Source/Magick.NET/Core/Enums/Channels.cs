@@ -105,6 +105,11 @@ namespace ImageMagick
     RGB = Red | Green | Blue,
 
     /// <summary>
+    /// CMYK
+    /// </summary>
+    CMYK = Cyan | Magenta | Yellow | Black,
+
+    /// <summary>
     /// Grays
     /// </summary>
     Grays = 0x0400,

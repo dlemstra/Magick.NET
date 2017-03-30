@@ -161,7 +161,7 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
-    public void Test_Combine()
+    public void Test_Combine_sRGB()
     {
       using (MagickImage rose = new MagickImage(Files.Builtin.Rose))
       {
@@ -182,6 +182,23 @@ namespace Magick.NET.Tests
 
           image = collection.Combine();
           Assert.AreEqual(rose.TotalColors, image.TotalColors);
+        }
+      }
+    }
+
+    [TestMethod]
+    public void Test_Combine_CMYK()
+    {
+      using (MagickImage cmyk = new MagickImage(Files.CMYKJPG))
+      {
+        using (MagickImageCollection collection = new MagickImageCollection())
+        {
+          collection.AddRange(cmyk.Separate(Channels.CMYK));
+
+          Assert.AreEqual(4, collection.Count);
+
+          MagickImage image = collection.Combine(ColorSpace.CMYK);
+          Assert.AreEqual(0.0, cmyk.Compare(image, ErrorMetric.RootMeanSquared));
         }
       }
     }
