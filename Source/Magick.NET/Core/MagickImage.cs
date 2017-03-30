@@ -728,21 +728,6 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Gets or sets the transparent color.
-    /// </summary>
-    public MagickColor AlphaColor
-    {
-      get
-      {
-        return _NativeInstance.AlphaColor;
-      }
-      set
-      {
-        _NativeInstance.AlphaColor = value;
-      }
-    }
-
-    /// <summary>
     /// Gets or sets the time in 1/100ths of a second which must expire before splaying the next image in an
     /// animated sequence.
     /// </summary>
@@ -1363,6 +1348,21 @@ namespace ImageMagick
           RemoveAttribute("Label");
         else
           SetAttribute("Label", value);
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets the matte color.
+    /// </summary>
+    public MagickColor MatteColor
+    {
+      get
+      {
+        return _NativeInstance.MatteColor;
+      }
+      set
+      {
+        _NativeInstance.MatteColor = value;
       }
     }
 

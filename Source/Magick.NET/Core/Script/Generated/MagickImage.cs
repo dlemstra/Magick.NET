@@ -45,20 +45,6 @@ namespace ImageMagick
         {
           switch(element.Name[1])
           {
-            case 'l':
-            {
-              if (element.Name.Length == 5)
-              {
-                ExecuteAlpha(element, image);
-                return;
-              }
-              if (element.Name.Length == 10)
-              {
-                ExecuteAlphaColor(element, image);
-                return;
-              }
-              break;
-            }
             case 'n':
             {
               switch(element.Name[2])
@@ -138,6 +124,11 @@ namespace ImageMagick
                 }
               }
               break;
+            }
+            case 'l':
+            {
+              ExecuteAlpha(element, image);
+              return;
             }
             case 'u':
             {
@@ -842,6 +833,62 @@ namespace ImageMagick
           }
           break;
         }
+        case 'm':
+        {
+          switch(element.Name[1])
+          {
+            case 'a':
+            {
+              switch(element.Name[2])
+              {
+                case 't':
+                {
+                  ExecuteMatteColor(element, image);
+                  return;
+                }
+                case 'g':
+                {
+                  ExecuteMagnify(image);
+                  return;
+                }
+              }
+              break;
+            }
+            case 'e':
+            {
+              ExecuteMedianFilter(element, image);
+              return;
+            }
+            case 'i':
+            {
+              ExecuteMinify(image);
+              return;
+            }
+            case 'o':
+            {
+              switch(element.Name[2])
+              {
+                case 'd':
+                {
+                  ExecuteModulate(element, image);
+                  return;
+                }
+                case 'r':
+                {
+                  ExecuteMorphology(element, image);
+                  return;
+                }
+                case 't':
+                {
+                  ExecuteMotionBlur(element, image);
+                  return;
+                }
+              }
+              break;
+            }
+          }
+          break;
+        }
         case 'o':
         {
           switch(element.Name[1])
@@ -1347,50 +1394,6 @@ namespace ImageMagick
           ExecuteKuwahara(element, image);
           return;
         }
-        case 'm':
-        {
-          switch(element.Name[1])
-          {
-            case 'a':
-            {
-              ExecuteMagnify(image);
-              return;
-            }
-            case 'e':
-            {
-              ExecuteMedianFilter(element, image);
-              return;
-            }
-            case 'i':
-            {
-              ExecuteMinify(image);
-              return;
-            }
-            case 'o':
-            {
-              switch(element.Name[2])
-              {
-                case 'd':
-                {
-                  ExecuteModulate(element, image);
-                  return;
-                }
-                case 'r':
-                {
-                  ExecuteMorphology(element, image);
-                  return;
-                }
-                case 't':
-                {
-                  ExecuteMotionBlur(element, image);
-                  return;
-                }
-              }
-              break;
-            }
-          }
-          break;
-        }
         case 'n':
         {
           switch(element.Name[1])
@@ -1517,10 +1520,6 @@ namespace ImageMagick
       }
       throw new NotSupportedException(element.Name);
     }
-    private void ExecuteAlphaColor(XmlElement element, MagickImage image)
-    {
-      image.AlphaColor = Variables.GetValue<MagickColor>(element, "value");
-    }
     private void ExecuteAnimationDelay(XmlElement element, MagickImage image)
     {
       image.AnimationDelay = Variables.GetValue<Int32>(element, "value");
@@ -1628,6 +1627,10 @@ namespace ImageMagick
     private void ExecuteLabel(XmlElement element, MagickImage image)
     {
       image.Label = Variables.GetValue<String>(element, "value");
+    }
+    private void ExecuteMatteColor(XmlElement element, MagickImage image)
+    {
+      image.MatteColor = Variables.GetValue<MagickColor>(element, "value");
     }
     private void ExecuteOrientation(XmlElement element, MagickImage image)
     {

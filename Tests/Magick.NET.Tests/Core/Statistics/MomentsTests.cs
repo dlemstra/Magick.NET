@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(PixelChannel.Red, first.Channel);
         Assert.AreEqual(56.59, first.Centroid.X, 0.01);
         Assert.AreEqual(56.00, first.Centroid.Y, 0.01);
-        Assert.AreEqual(-31.07, first.EllipseAngle, 0.01);
+        Assert.AreEqual(148.92, first.EllipseAngle, 0.01);
         Assert.AreEqual(73.53, first.EllipseAxis.X, 0.01);
         Assert.AreEqual(66.82, first.EllipseAxis.Y, 0.01);
         Assert.AreEqual(0.30, first.EllipseEccentricity, 0.01);

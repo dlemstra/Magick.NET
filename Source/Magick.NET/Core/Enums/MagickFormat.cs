@@ -800,6 +800,11 @@ namespace ImageMagick
     Pgm,
 
     /// <summary>
+    /// JPEG 2000 uncompressed format
+    /// </summary>
+    Pgx,
+
+    /// <summary>
     /// Personal Icon
     /// </summary>
     Picon,

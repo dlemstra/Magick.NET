@@ -77,7 +77,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(215.79, red.Mean, 0.01);
       Assert.AreEqual(0, red.Minimum);
       Assert.AreEqual(0.32, red.Skewness, 0.01);
-      Assert.AreEqual(253.67, red.StandardDeviation, 0.01);
+      Assert.AreEqual(253.68, red.StandardDeviation, 0.01);
       Assert.AreEqual(215.79, red.Sum, 0.01);
       Assert.AreEqual(57013088.69, red.SumCubed, 0.01);
       Assert.AreEqual(29304727586.71, red.SumFourthPower, 0.01);

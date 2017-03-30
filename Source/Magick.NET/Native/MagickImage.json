@@ -89,10 +89,6 @@
   "properties":
   [
     {
-      "name": "AlphaColor",
-      "type": "MagickColor"
-    },
-    {
       "name": "AnimationDelay",
       "type": "size_t"
     },
@@ -243,6 +239,10 @@
       "type": "bool",
       "readonly": true,
       "throws": true
+    },
+    {
+      "name": "MatteColor",
+      "type": "MagickColor"
     },
     {
       "name": "MeanErrorPerPixel",

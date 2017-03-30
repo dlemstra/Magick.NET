@@ -53,10 +53,6 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_Dispose(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImage_AlphaColor_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickImage_AlphaColor_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr MagickImage_AnimationDelay_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_AnimationDelay_Set(IntPtr instance, UIntPtr value);
@@ -177,6 +173,10 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MagickImage_IsOpaque_Get(IntPtr instance, out IntPtr exception);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MagickImage_MatteColor_Get(IntPtr instance);
+        [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MagickImage_MatteColor_Set(IntPtr instance, IntPtr value);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern double MagickImage_MeanErrorPerPixel_Get(IntPtr instance);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -598,10 +598,6 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_Dispose(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MagickImage_AlphaColor_Get(IntPtr instance);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MagickImage_AlphaColor_Set(IntPtr instance, IntPtr value);
-        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr MagickImage_AnimationDelay_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MagickImage_AnimationDelay_Set(IntPtr instance, UIntPtr value);
@@ -722,6 +718,10 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MagickImage_IsOpaque_Get(IntPtr instance, out IntPtr exception);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MagickImage_MatteColor_Get(IntPtr instance);
+        [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MagickImage_MatteColor_Set(IntPtr instance, IntPtr value);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern double MagickImage_MeanErrorPerPixel_Get(IntPtr instance);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1181,44 +1181,6 @@ namespace ImageMagick
         get
         {
           return nameof(MagickImage);
-        }
-      }
-      public MagickColor AlphaColor
-      {
-        get
-        {
-          IntPtr result;
-          #if ANYCPU
-          if (NativeLibrary.Is64Bit)
-          #endif
-          #if WIN64 || ANYCPU
-          result = NativeMethods.X64.MagickImage_AlphaColor_Get(Instance);
-          #endif
-          #if ANYCPU
-          else
-          #endif
-          #if !WIN64 || ANYCPU
-          result = NativeMethods.X86.MagickImage_AlphaColor_Get(Instance);
-          #endif
-          return MagickColor.CreateInstance(result);
-        }
-        set
-        {
-          using (INativeInstance valueNative = MagickColor.CreateInstance(value))
-          {
-            #if ANYCPU
-            if (NativeLibrary.Is64Bit)
-            #endif
-            #if WIN64 || ANYCPU
-            NativeMethods.X64.MagickImage_AlphaColor_Set(Instance, valueNative.Instance);
-            #endif
-            #if ANYCPU
-            else
-            #endif
-            #if !WIN64 || ANYCPU
-            NativeMethods.X86.MagickImage_AlphaColor_Set(Instance, valueNative.Instance);
-            #endif
-          }
         }
       }
       public int AnimationDelay
@@ -2324,6 +2286,44 @@ namespace ImageMagick
           #endif
           CheckException(exception);
           return result;
+        }
+      }
+      public MagickColor MatteColor
+      {
+        get
+        {
+          IntPtr result;
+          #if ANYCPU
+          if (NativeLibrary.Is64Bit)
+          #endif
+          #if WIN64 || ANYCPU
+          result = NativeMethods.X64.MagickImage_MatteColor_Get(Instance);
+          #endif
+          #if ANYCPU
+          else
+          #endif
+          #if !WIN64 || ANYCPU
+          result = NativeMethods.X86.MagickImage_MatteColor_Get(Instance);
+          #endif
+          return MagickColor.CreateInstance(result);
+        }
+        set
+        {
+          using (INativeInstance valueNative = MagickColor.CreateInstance(value))
+          {
+            #if ANYCPU
+            if (NativeLibrary.Is64Bit)
+            #endif
+            #if WIN64 || ANYCPU
+            NativeMethods.X64.MagickImage_MatteColor_Set(Instance, valueNative.Instance);
+            #endif
+            #if ANYCPU
+            else
+            #endif
+            #if !WIN64 || ANYCPU
+            NativeMethods.X86.MagickImage_MatteColor_Set(Instance, valueNative.Instance);
+            #endif
+          }
         }
       }
       public double MeanErrorPerPixel

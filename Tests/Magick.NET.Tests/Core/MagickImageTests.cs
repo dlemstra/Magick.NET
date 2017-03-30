@@ -289,19 +289,6 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
-    public void Test_AlphaColor()
-    {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
-      {
-        image.AlphaColor = MagickColors.PaleGoldenrod;
-        image.Frame();
-
-        ColorAssert.AreEqual(MagickColors.PaleGoldenrod, image, 10, 10);
-        ColorAssert.AreEqual(MagickColors.PaleGoldenrod, image, 680, 520);
-      }
-    }
-
-    [TestMethod]
     public void Test_AnimationDelay()
     {
       using (MagickImage image = new MagickImage())
@@ -2303,6 +2290,19 @@ namespace Magick.NET.Tests
         ColorAssert.AreEqual(MagickColors.Fuchsia, image, 0, 0);
         ColorAssert.AreEqual(MagickColors.Lime, image, 455, 396);
         ColorAssert.AreEqual(MagickColors.Gold, image, 505, 451);
+      }
+    }
+
+    [TestMethod]
+    public void Test_MatteColor()
+    {
+      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      {
+        image.MatteColor = MagickColors.PaleGoldenrod;
+        image.Frame();
+
+        ColorAssert.AreEqual(MagickColors.PaleGoldenrod, image, 10, 10);
+        ColorAssert.AreEqual(MagickColors.PaleGoldenrod, image, 680, 520);
       }
     }
 

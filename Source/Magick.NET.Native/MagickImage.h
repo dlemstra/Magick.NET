@@ -17,9 +17,6 @@ MAGICK_NET_EXPORT Image *MagickImage_Create(const ImageInfo *, ExceptionInfo **)
 
 MAGICK_NET_EXPORT void MagickImage_Dispose(Image *);
 
-MAGICK_NET_EXPORT PixelInfo *MagickImage_AlphaColor_Get(const Image *);
-MAGICK_NET_EXPORT void MagickImage_AlphaColor_Set(Image *, const PixelInfo *);
-
 MAGICK_NET_EXPORT size_t MagickImage_AnimationDelay_Get(const Image *);
 MAGICK_NET_EXPORT void MagickImage_AnimationDelay_Set(Image *, const size_t);
 
@@ -112,6 +109,9 @@ MAGICK_NET_EXPORT size_t MagickImage_Interlace_Get(const Image *);
 MAGICK_NET_EXPORT void MagickImage_Interlace_Set(Image *, const size_t);
 
 MAGICK_NET_EXPORT MagickBooleanType MagickImage_IsOpaque_Get(const Image *, ExceptionInfo **);
+
+MAGICK_NET_EXPORT PixelInfo *MagickImage_MatteColor_Get(const Image *);
+MAGICK_NET_EXPORT void MagickImage_MatteColor_Set(Image *, const PixelInfo *);
 
 MAGICK_NET_EXPORT double MagickImage_MeanErrorPerPixel_Get(const Image *);
 

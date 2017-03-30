@@ -876,6 +876,7 @@
           <xs:enumeration value="Pfb" />
           <xs:enumeration value="Pfm" />
           <xs:enumeration value="Pgm" />
+          <xs:enumeration value="Pgx" />
           <xs:enumeration value="Picon" />
           <xs:enumeration value="Pict" />
           <xs:enumeration value="Pix" />
@@ -1925,11 +1926,6 @@
   <xs:group name="actions">
     <xs:sequence>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="alphaColor">
-          <xs:complexType>
-            <xs:attribute name="value" use="required" type="color" />
-          </xs:complexType>
-        </xs:element>
         <xs:element name="animationDelay">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="int" />
@@ -2047,6 +2043,11 @@
         <xs:element name="label">
           <xs:complexType>
             <xs:attribute name="value" use="required" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="matteColor">
+          <xs:complexType>
+            <xs:attribute name="value" use="required" type="color" />
           </xs:complexType>
         </xs:element>
         <xs:element name="orientation">

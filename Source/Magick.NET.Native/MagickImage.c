@@ -91,17 +91,6 @@ MAGICK_NET_EXPORT void MagickImage_Dispose(Image *instance)
   DestroyImage(instance);
 }
 
-MAGICK_NET_EXPORT PixelInfo *MagickImage_AlphaColor_Get(const Image *instance)
-{
-  return MagickColor_Clone(&instance->alpha_color);
-}
-
-MAGICK_NET_EXPORT void MagickImage_AlphaColor_Set(Image *instance, const PixelInfo *value)
-{
-  if (value != (PixelInfo *)NULL)
-    instance->alpha_color = *value;
-}
-
 MAGICK_NET_EXPORT size_t MagickImage_AnimationDelay_Get(const Image *instance)
 {
   return instance->delay;
@@ -493,6 +482,17 @@ MAGICK_NET_EXPORT MagickBooleanType MagickImage_IsOpaque_Get(const Image *instan
   result = IsImageOpaque(instance, exceptionInfo);
   MAGICK_NET_SET_EXCEPTION;
   return result;
+}
+
+MAGICK_NET_EXPORT PixelInfo *MagickImage_MatteColor_Get(const Image *instance)
+{
+  return MagickColor_Clone(&instance->matte_color);
+}
+
+MAGICK_NET_EXPORT void MagickImage_MatteColor_Set(Image *instance, const PixelInfo *value)
+{
+  if (value != (PixelInfo *)NULL)
+    instance->matte_color = *value;
 }
 
 MAGICK_NET_EXPORT double MagickImage_MeanErrorPerPixel_Get(const Image *instance)
