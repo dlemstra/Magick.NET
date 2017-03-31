@@ -72,7 +72,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Density"/> class.
+    /// Initializes a new instance of the <see cref="Density"/> class with the density set to inches.
     /// </summary>
     /// <param name="xy">The x and y.</param>
     public Density(double xy)
@@ -91,7 +91,7 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Density"/> class.
+    /// Initializes a new instance of the <see cref="Density"/> class with the density set to inches.
     /// </summary>
     /// <param name="x">The x.</param>
     /// <param name="y">The y.</param>
