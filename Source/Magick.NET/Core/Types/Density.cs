@@ -221,7 +221,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="width">The width in cm or inches.</param>
     /// <param name="height">The height in cm or inches.</param>
-    /// <returns>A <see cref="MagickGeometry"/> based on the specified width and height.</returns>
+    /// <returns>A <see cref="MagickGeometry"/> based on the specified width and height in cm or inches.</returns>
     public MagickGeometry ToGeometry(double width, double height)
     {
       int pixelWidth = (int)(width * X);
