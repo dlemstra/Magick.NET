@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
       string[] paths =
       {
         @"..\..\..\",
-        @"..\..\..\..\Tests\Magick.NET.Tests\", // .NET Core
+        @"..\..\..\..\..\..\..\Tests\Magick.NET.Tests\", // .NET Core
         @"..\..\..\..\..\Tests\Magick.NET.Tests\", // Code coverage
       };
 
@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
           return directory;
       }
 
-      throw new InvalidOperationException("Unable to find the images folder.");
+      throw new InvalidOperationException("Unable to find the images folder, current directory is: " + Path.GetFullPath("."));
     }
 
     public static string CirclePNG
