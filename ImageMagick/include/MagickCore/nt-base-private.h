@@ -135,6 +135,7 @@ extern MagickPrivate int
   NTSystemCommand(const char *,char *);
 
 extern MagickPrivate ssize_t
+  NTGetPageSize(void),
   NTSystemConfiguration(int),
   NTTellDirectory(DIR *);
 
@@ -142,8 +143,7 @@ extern MagickPrivate MagickBooleanType
   NTGatherRandomData(const size_t,unsigned char *),
   NTGetExecutionPath(char *,const size_t),
   NTGetModulePath(const char *,char *),
-  NTReportEvent(const char *,const MagickBooleanType),
-  NTReportException(const char *,const MagickBooleanType);
+  NTReportEvent(const char *,const MagickBooleanType);
 
 extern MagickPrivate struct dirent
   *NTReadDirectory(DIR *);
