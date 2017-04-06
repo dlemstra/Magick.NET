@@ -96,6 +96,14 @@ namespace Magick.NET.Tests
       }
     }
 
+    public static string ExifUndefType
+    {
+      get
+      {
+        return _Root + @"Images\ExifUndefType.jpg";
+      }
+    }
+
     public static string FujiFilmFinePixS1ProPNG
     {
       get

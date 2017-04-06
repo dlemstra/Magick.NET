@@ -13,7 +13,6 @@
 //=================================================================================================
 
 using System;
-using System.Collections;
 using System.IO;
 using System.Linq;
 using ImageMagick;
@@ -351,6 +350,22 @@ namespace Magick.NET.Tests
 
           profile = emptyImage.GetExifProfile();
           TestProfile(profile);
+        }
+      }
+    }
+
+    [TestMethod]
+    public void Test_ExifTypeUndefined()
+    {
+      using (MagickImage image = new MagickImage(Files.ExifUndefType))
+      {
+        ExifProfile profile = image.GetExifProfile();
+        Assert.IsNotNull(profile);
+
+        foreach(ExifValue value in profile.Values)
+        {
+          if (value.DataType == ExifDataType.Undefined)
+            Assert.AreEqual(4, value.NumberOfComponents);
         }
       }
     }

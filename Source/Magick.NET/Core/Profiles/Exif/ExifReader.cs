@@ -166,7 +166,10 @@ namespace ImageMagick
       if (dataType == ExifDataType.Unknown)
         return new ExifValue(tag, dataType, value, false);
 
-      uint numberOfComponents = (uint)GetLong();
+      uint numberOfComponents = GetLong();
+
+      if (dataType == ExifDataType.Undefined && numberOfComponents == 0)
+        numberOfComponents = 4;
 
       uint size = numberOfComponents * ExifValue.GetSize(dataType);
       byte[] data = GetBytes(4);
