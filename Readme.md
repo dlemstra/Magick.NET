@@ -28,7 +28,7 @@ Every commit to Magick.NET is automatically build and tested with the help of [A
 
 ## Donate
 
-If you have an uncontrollable urge to give me something for the time and effort I am putting into this project then please buy me something from my [amazon wish list](http://www.amazon.co.uk/registry/wishlist/1C3TE3001VQZE) or send me an amazon gift card. If you prefer to use PayPal then [contact](https://www.codeplex.com/site/users/view/dlemstra) me to get my information. Click [here](https://magick.codeplex.com/wikipage?title=Donations) to see who already donated something.
+If you have an uncontrollable urge to give me something for the time and effort I am putting into this project then please buy me something from my [amazon wish list](http://www.amazon.co.uk/registry/wishlist/1C3TE3001VQZE) or send me an amazon gift card. If you prefer to use PayPal then [click here](https://www.paypal.me/DirkLemstra).
 
 ----
 _A special thanks goes out to [Snakeware](https://www.snakeware.nl) who let me spend company time on this project._
