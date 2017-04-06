@@ -26,7 +26,7 @@ function BuildCoreLibrary($directory)
   dotnet build --configuration Release
   CheckExitCode "Failed to build $directory"
 
-  dotnet pack --configuration Release
+  dotnet pack --no-build --configuration Release
 
   TestCoreLibrary $directory
 
@@ -43,7 +43,7 @@ function BuildCoreNative($directory)
 
   dotnet restore
 
-  dotnet pack --configuration Release
+  dotnet pack --no-build --configuration Release
   CheckExitCode "Failed to pack $directory"
 
   Set-Location $location
@@ -87,6 +87,6 @@ function TestCoreLibrary($directory)
   # restore does not copy this file
   Copy-Item "..\..\src\$directory.Native\runtimes\win7-x64\native\*.Native.dll" "bin\Debug\netcoreapp1.3"
 
-  dotnet test
+  dotnet test --configuration
   CheckExitCode "Failed to test $directory"
 }
