@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Dependency for Magick.NET.Core-Q16 that should be installed instead of this package.</Description>
+    <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
+    <AssemblyTitle>Magick.NET.Core-Q16.Native</AssemblyTitle>
+    <VersionPrefix>7.0.5.500</VersionPrefix>
+    <Authors>Dirk Lemstra</Authors>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <AssemblyName>Magick.NET.Core-Q16.Native</AssemblyName>
+    <PackageId>Magick.NET.Core-Q16.Native</PackageId>
+    <PackageTags>ImageMagick Magick.NET.Core.Native Image Convert Resize Draw Effects</PackageTags>
+    <PackageIconUrl>http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=752622e7b2e069b698a47df994dd4aaaf1d8aebe&amp;itemId=Magick.NET.Tests%2fImages%2fMagick.NET.icon.png</PackageIconUrl>
+    <PackageProjectUrl>https://magick.codeplex.com/documentation</PackageProjectUrl>
+    <PackageLicenseUrl>https://magick.codeplex.com/license</PackageLicenseUrl>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="runtimes\**\*" PackagePath="%(Identity)" />
+  </ItemGroup>
+  
+</Project>

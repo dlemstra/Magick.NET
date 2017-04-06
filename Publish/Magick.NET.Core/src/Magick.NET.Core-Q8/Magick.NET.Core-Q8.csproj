@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://magick.codeplex.com/documentation before installing to help you decide the best version.</Description>
+    <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
+    <AssemblyTitle>Magick.NET.Core-Q8</AssemblyTitle>
+    <VersionPrefix>7.0.5.500</VersionPrefix>
+    <Authors>Dirk Lemstra</Authors>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <DefineConstants>$(DefineConstants);Q8;ANYCPU</DefineConstants>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>Magick.NET.Core-Q8</AssemblyName>
+    <AssemblyOriginatorKeyFile>../../../../Magick.NET.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <PackageId>Magick.NET.Core-Q8</PackageId>
+    <PackageTags>ImageMagick Magick.NET.Core Image Convert Resize Draw Effects</PackageTags>
+    <PackageIconUrl>http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=magick&amp;changeSetId=752622e7b2e069b698a47df994dd4aaaf1d8aebe&amp;itemId=Magick.NET.Tests%2fImages%2fMagick.NET.icon.png</PackageIconUrl>
+    <PackageProjectUrl>https://magick.codeplex.com/documentation</PackageProjectUrl>
+    <PackageLicenseUrl>https://magick.codeplex.com/license</PackageLicenseUrl>
+    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\..\..\Source\Magick.NET\Core\**\*.cs;..\..\..\..\Source\Magick.NET\Native\**\*.cs" Exclude="bin\**;obj\**;**\*.xproj;packages\**" />
+    <EmbeddedResource Include="..\..\..\..\Source\Magick.NET\Resources\ColorProfiles\**\*" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Magick.NET.Core-Q8.Native\Magick.NET.Core-Q8.Native.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    <PackageReference Include="System.Collections.NonGeneric" Version="4.0.1" />
+    <PackageReference Include="System.Xml.XDocument" Version="4.0.11" />
+    <PackageReference Include="System.Xml.XmlDocument" Version="4.0.1" />
+    <PackageReference Include="System.Xml.XPath.XDocument" Version="4.0.1" />
+    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.0.1" />
+  </ItemGroup>
+
+</Project>
