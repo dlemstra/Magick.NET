@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
     public void Test_Values()
     {
       Assert.AreEqual(ulong.MaxValue, ResourceLimits.Disk);
-      if (ResourceLimits.Memory < 1000000000U)
+      if (ResourceLimits.Memory < 100000000U)
         Assert.Fail("Invalid memory limit: {0}", ResourceLimits.Memory);
       Assert.AreEqual(10000000U, ResourceLimits.Height);
       Assert.AreEqual(0U, ResourceLimits.Throttle);
@@ -38,8 +38,8 @@ namespace Magick.NET.Tests
       Assert.AreEqual(100000U, ResourceLimits.Height);
       ResourceLimits.Height = 10000000U;
 
-      ResourceLimits.Memory = 100000000U;
-      Assert.AreEqual(100000000U, ResourceLimits.Memory);
+      ResourceLimits.Memory = 10000000U;
+      Assert.AreEqual(10000000U, ResourceLimits.Memory);
       ResourceLimits.Memory = 8585838592U;
 
       ResourceLimits.Throttle = 1U;
