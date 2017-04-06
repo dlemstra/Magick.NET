@@ -167,23 +167,11 @@ function UpdateAssemblyInfos($version)
 
 function UpdateCoreProject($directory, $version)
 {
-  $path = FullPath "Publish\Magick.NET.Core\src\$directory\project.json"
-  $testPath = FullPath "Publish\Magick.NET.Core\test\$directory.Tests\project.json"
+  $path = FullPath "Publish\Magick.NET.Core\src\$directory\$directory.csproj"
 
   $content = [IO.File]::ReadAllText($path, [System.Text.Encoding]::Default)
-  $content = SetVersion $content "`"version`": `"" "`"" $version
-  If (Test-Path $testPath)
-  {
-    $content = SetVersion $content "$directory`.Native`": `"" "`"" $version
-  }
+  $content = SetVersion $content "`<VersionPrefix`>" "`<" $version
   [IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::Default)
-
-  If (Test-Path $testPath)
-  {
-    $content = [IO.File]::ReadAllText($testPath, [System.Text.Encoding]::Default)
-    $content = SetVersion $content "`"$directory`": `"" "`"" $version
-    [IO.File]::WriteAllText($testPath, $content, [System.Text.Encoding]::Default)
-  }
 }
 
 function UpdateCoreProjects($version)
