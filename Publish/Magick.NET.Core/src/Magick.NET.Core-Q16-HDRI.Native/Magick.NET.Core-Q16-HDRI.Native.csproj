@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>Dependency for Magick.NET.Core-Q16-HDRI that should be installed instead of this package.</Description>
     <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
     <AssemblyTitle>Magick.NET.Core-Q16-HDRI.Native</AssemblyTitle>
-    <VersionPrefix>7.0.5.500</VersionPrefix>
+    <VersionPrefix>7.0.5.501</VersionPrefix>
     <Authors>Dirk Lemstra</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>
     <AssemblyName>Magick.NET.Core-Q16-HDRI.Native</AssemblyName>
