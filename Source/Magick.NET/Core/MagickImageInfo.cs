@@ -258,6 +258,15 @@ namespace ImageMagick
     }
 
     /// <summary>
+    /// Gets the JPEG/MIFF/PNG compression level.
+    /// </summary>
+    public int Quality
+    {
+      get;
+      private set;
+    }
+
+    /// <summary>
     /// Gets the width of the image.
     /// </summary>
     public int Width
@@ -348,6 +357,7 @@ namespace ImageMagick
       Format = image.Format;
       Height = image.Height;
       Interlace = image.Interlace;
+      Quality = image.Quality;
       Width = image.Width;
     }
 

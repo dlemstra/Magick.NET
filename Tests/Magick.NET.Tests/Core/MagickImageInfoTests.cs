@@ -87,6 +87,8 @@ namespace Magick.NET.Tests
       Assert.AreEqual(0, first.Density.X);
       Assert.AreEqual(0, first.Density.Y);
       Assert.AreEqual(DensityUnit.Undefined, first.Density.Units);
+      Assert.AreEqual(Interlace.NoInterlace, first.Interlace);
+      Assert.AreEqual(0, first.Quality);
     }
 
     [TestMethod]
@@ -193,10 +195,11 @@ namespace Magick.NET.Tests
       Assert.AreEqual(CompressionMethod.JPEG, imageInfo.CompressionMethod);
       Assert.AreEqual(MagickFormat.Jpeg, imageInfo.Format);
       Assert.AreEqual(118, imageInfo.Height);
-      Assert.AreEqual(Interlace.NoInterlace, imageInfo.Interlace);
       Assert.AreEqual(72, imageInfo.Density.X);
       Assert.AreEqual(72, imageInfo.Density.Y);
       Assert.AreEqual(DensityUnit.PixelsPerInch, imageInfo.Density.Units);
+      Assert.AreEqual(Interlace.NoInterlace, imageInfo.Interlace);
+      Assert.AreEqual(100, imageInfo.Quality);
       Assert.AreEqual(123, imageInfo.Width);
     }
   }
