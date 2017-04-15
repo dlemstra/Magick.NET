@@ -12,7 +12,6 @@
 // limitations under the License.
 //=================================================================================================
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -21,7 +20,7 @@ namespace ImageMagick
   /// <summary>
   /// Class that contains basic information about an image.
   /// </summary>
-  public sealed class MagickImageInfo : IEquatable<MagickImageInfo>, IComparable<MagickImageInfo>
+  public sealed class MagickImageInfo : IMagickImageInfo
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickImageInfo"/> class.
@@ -280,7 +279,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="other">The object to compare this image information with.</param>
     /// <returns>A signed number indicating the relative values of this instance and value.</returns>
-    public int CompareTo(MagickImageInfo other)
+    public int CompareTo(IMagickImageInfo other)
     {
       if (ReferenceEquals(other, null))
         return 1;
@@ -304,7 +303,7 @@ namespace ImageMagick
       if (ReferenceEquals(this, obj))
         return true;
 
-      return Equals(obj as MagickImageInfo);
+      return Equals(obj as IMagickImageInfo);
     }
 
     /// <summary>
@@ -312,7 +311,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="other">The image to compare this <see cref="MagickImageInfo"/> with.</param>
     /// <returns>True when the specified <see cref="MagickImageInfo"/> is equal to the current <see cref="MagickImageInfo"/>.</returns>
-    public bool Equals(MagickImageInfo other)
+    public bool Equals(IMagickImageInfo other)
     {
       if (ReferenceEquals(other, null))
         return false;
@@ -483,7 +482,7 @@ namespace ImageMagick
     /// <param name="data">The byte array to read the information from.</param>
     /// <returns>A <see cref="MagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public static IEnumerable<MagickImageInfo> ReadCollection(byte[] data)
+    public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data)
     {
       using (MagickImageCollection images = new MagickImageCollection())
       {
@@ -504,7 +503,7 @@ namespace ImageMagick
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <returns>A <see cref="MagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public static IEnumerable<MagickImageInfo> ReadCollection(byte[] data, MagickReadSettings readSettings)
+    public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data, MagickReadSettings readSettings)
     {
       using (MagickImageCollection images = new MagickImageCollection())
       {
@@ -524,7 +523,7 @@ namespace ImageMagick
     /// <param name="file">The file to read the frames from.</param>
     /// <returns>A <see cref="MagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public static IEnumerable<MagickImageInfo> ReadCollection(FileInfo file)
+    public static IEnumerable<IMagickImageInfo> ReadCollection(FileInfo file)
     {
       Throw.IfNull(nameof(file), file);
 
@@ -538,7 +537,7 @@ namespace ImageMagick
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <returns>A <see cref="MagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public static IEnumerable<MagickImageInfo> ReadCollection(FileInfo file, MagickReadSettings readSettings)
+    public static IEnumerable<IMagickImageInfo> ReadCollection(FileInfo file, MagickReadSettings readSettings)
     {
       Throw.IfNull(nameof(file), file);
 
@@ -572,7 +571,7 @@ namespace ImageMagick
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <returns>A <see cref="MagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public static IEnumerable<MagickImageInfo> ReadCollection(Stream stream, MagickReadSettings readSettings)
+    public static IEnumerable<IMagickImageInfo> ReadCollection(Stream stream, MagickReadSettings readSettings)
     {
       using (MagickImageCollection images = new MagickImageCollection())
       {
@@ -592,7 +591,7 @@ namespace ImageMagick
     /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
     /// <returns>A <see cref="MagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public static IEnumerable<MagickImageInfo> ReadCollection(string fileName)
+    public static IEnumerable<IMagickImageInfo> ReadCollection(string fileName)
     {
       using (MagickImageCollection images = new MagickImageCollection())
       {
@@ -613,7 +612,7 @@ namespace ImageMagick
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <returns>A <see cref="MagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public static IEnumerable<MagickImageInfo> ReadCollection(string fileName, MagickReadSettings readSettings)
+    public static IEnumerable<IMagickImageInfo> ReadCollection(string fileName, MagickReadSettings readSettings)
     {
       using (MagickImageCollection images = new MagickImageCollection())
       {

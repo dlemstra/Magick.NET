@@ -39,6 +39,11 @@ namespace Magick.NET.Tests
       }
     }
 
+    private IMagickImageInfo CreateIMagickImageInfo(MagickColor color, int width, int height)
+    {
+      return CreateMagickImageInfo(color, width, height);
+    }
+
     [TestMethod]
     public void Test_Constructor()
     {
@@ -76,10 +81,10 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Count()
     {
-      IEnumerable<MagickImageInfo> info = MagickImageInfo.ReadCollection(Files.RoseSparkleGIF);
+      IEnumerable<IMagickImageInfo> info = MagickImageInfo.ReadCollection(Files.RoseSparkleGIF);
       Assert.AreEqual(3, info.Count());
 
-      MagickImageInfo first = info.First();
+      IMagickImageInfo first = info.First();
       Assert.AreEqual(ColorSpace.sRGB, first.ColorSpace);
       Assert.AreEqual(MagickFormat.Gif, first.Format);
       Assert.AreEqual(70, first.Width);
@@ -128,29 +133,26 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_IEquatable()
     {
-      MagickImageInfo first = CreateMagickImageInfo(MagickColors.Red, 10, 10);
+      IMagickImageInfo first = CreateIMagickImageInfo(MagickColors.Red, 10, 10);
 
-      Assert.IsFalse(first == null);
       Assert.IsFalse(first.Equals(null));
       Assert.IsTrue(first.Equals(first));
       Assert.IsTrue(first.Equals((object)first));
 
-      MagickImageInfo second = CreateMagickImageInfo(MagickColors.Red, 10, 10);
+      IMagickImageInfo second = CreateIMagickImageInfo(MagickColors.Red, 10, 10);
 
-      Assert.IsTrue(first == second);
       Assert.IsTrue(first.Equals(second));
       Assert.IsTrue(first.Equals((object)second));
 
-      second = CreateMagickImageInfo(MagickColors.Green, 10, 10);
+      second = CreateIMagickImageInfo(MagickColors.Green, 10, 10);
 
-      Assert.IsTrue(first == second);
       Assert.IsTrue(first.Equals(second));
     }
 
     [TestMethod]
     public void Test_Read()
     {
-      MagickImageInfo imageInfo = new MagickImageInfo();
+      IMagickImageInfo imageInfo = new MagickImageInfo();
 
       ExceptionAssert.Throws<ArgumentException>(delegate ()
       {
