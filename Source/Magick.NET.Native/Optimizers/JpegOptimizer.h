@@ -13,4 +13,4 @@
 //=================================================================================================
 #pragma once
 
-MAGICK_NET_EXPORT size_t JpegOptimizer_Compress(const char *, const char *, const MagickBooleanType, const MagickBooleanType);
+MAGICK_NET_EXPORT size_t JpegOptimizer_Compress(const char *, const char *, const MagickBooleanType, const MagickBooleanType, const MagickBooleanType quality);

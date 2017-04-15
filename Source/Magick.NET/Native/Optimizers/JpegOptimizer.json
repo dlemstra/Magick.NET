@@ -25,6 +25,10 @@
         {
           "name": "lossless",
           "type": "bool"
+        },
+        {
+          "name": "quality",
+          "type": "size_t"
         }
       ]
     }

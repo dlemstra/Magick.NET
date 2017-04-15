@@ -41,7 +41,7 @@ namespace ImageMagick.ImageOptimizers
         static X64() { NativeLibraryLoader.Load(); }
         #endif
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr JpegOptimizer_Compress(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless);
+        public static extern UIntPtr JpegOptimizer_Compress(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality);
       }
       #endif
       #if !WIN64 || ANYCPU
@@ -52,13 +52,13 @@ namespace ImageMagick.ImageOptimizers
         static X86() { NativeLibraryLoader.Load(); }
         #endif
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern UIntPtr JpegOptimizer_Compress(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless);
+        public static extern UIntPtr JpegOptimizer_Compress(IntPtr input, IntPtr output, [MarshalAs(UnmanagedType.Bool)] bool progressive, [MarshalAs(UnmanagedType.Bool)] bool lossless, UIntPtr quality);
       }
       #endif
     }
     private static class NativeJpegOptimizer
     {
-      public static int Compress(string input, string output, bool progressive, bool lossless)
+      public static int Compress(string input, string output, bool progressive, bool lossless, int quality)
       {
         using (INativeInstance inputNative = UTF8Marshaler.CreateInstance(input))
         {
@@ -68,13 +68,13 @@ namespace ImageMagick.ImageOptimizers
             if (NativeLibrary.Is64Bit)
             #endif
             #if WIN64 || ANYCPU
-            return (int)NativeMethods.X64.JpegOptimizer_Compress(inputNative.Instance, outputNative.Instance, progressive, lossless);
+            return (int)NativeMethods.X64.JpegOptimizer_Compress(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality);
             #endif
             #if ANYCPU
             else
             #endif
             #if !WIN64 || ANYCPU
-            return (int)NativeMethods.X86.JpegOptimizer_Compress(inputNative.Instance, outputNative.Instance, progressive, lossless);
+            return (int)NativeMethods.X86.JpegOptimizer_Compress(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality);
             #endif
           }
         }

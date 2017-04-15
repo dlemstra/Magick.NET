@@ -22,14 +22,6 @@ namespace Magick.NET.Tests
 {
   public abstract class IImageOptimizerTests
   {
-    private static FileInfo CreateTemporaryFile(string fileName)
-    {
-      string tempFile = GetTemporaryFileName(Path.GetExtension(fileName));
-      File.Copy(fileName, tempFile, true);
-
-      return new FileInfo(tempFile);
-    }
-
     private long Test_Compress(string fileName, bool resultIsSmaller)
     {
       FileInfo tempFile = CreateTemporaryFile(fileName);
@@ -83,6 +75,14 @@ namespace Magick.NET.Tests
     }
 
     protected abstract IImageOptimizer CreateImageOptimizer();
+
+    protected static FileInfo CreateTemporaryFile(string fileName)
+    {
+      string tempFile = GetTemporaryFileName(Path.GetExtension(fileName));
+      File.Copy(fileName, tempFile, true);
+
+      return new FileInfo(tempFile);
+    }
 
     protected static string GetTemporaryFileName(string extension)
     {

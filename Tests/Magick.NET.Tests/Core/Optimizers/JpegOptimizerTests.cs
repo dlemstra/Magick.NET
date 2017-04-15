@@ -12,8 +12,10 @@
 // limitations under the License.
 //=================================================================================================
 
+using ImageMagick;
 using ImageMagick.ImageOptimizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 
 namespace Magick.NET.Tests
 {
@@ -46,6 +48,32 @@ namespace Magick.NET.Tests
       long losslessCompress = Test_LosslessCompress_Smaller(Files.ImageMagickJPG);
 
       Assert.IsTrue(compress < losslessCompress, "{0} is not smaller than {1}", compress, losslessCompress);
+    }
+
+    [TestMethod]
+    public void Test_Compress_Quality()
+    {
+      FileInfo tempFile = CreateTemporaryFile(Files.ImageMagickJPG);
+
+      try
+      {
+        JpegOptimizer optimizer = new JpegOptimizer();
+        optimizer.Compress(tempFile);
+
+        IMagickImageInfo info = new MagickImageInfo(tempFile);
+        Assert.AreEqual(85, info.Quality);
+
+        File.Copy(Files.ImageMagickJPG, tempFile.FullName, true);
+
+        optimizer.Compress(tempFile, 40);
+
+        info = new MagickImageInfo(tempFile);
+        Assert.AreEqual(40, info.Quality);
+      }
+      finally
+      {
+        tempFile.Delete();
+      }
     }
   }
 }

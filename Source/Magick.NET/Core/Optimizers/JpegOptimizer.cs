@@ -22,7 +22,7 @@ namespace ImageMagick.ImageOptimizers
   /// </summary>
   public sealed partial class JpegOptimizer : IImageOptimizer
   {
-    private void DoCompress(FileInfo file, bool lossless)
+    private void DoCompress(FileInfo file, bool lossless, int quality)
     {
       Collection<FileInfo> tempFiles = new Collection<FileInfo>();
 
@@ -33,7 +33,7 @@ namespace ImageMagick.ImageOptimizers
         FileInfo tempFile = new FileInfo(Path.GetTempFileName());
         tempFiles.Add(tempFile);
 
-        if (!DoCompress(file, tempFile, Progressive, lossless))
+        if (!DoCompress(file, tempFile, Progressive, lossless, quality))
           return;
 
         bestFile = tempFile;
@@ -43,7 +43,7 @@ namespace ImageMagick.ImageOptimizers
           tempFile = new FileInfo(Path.GetTempFileName());
           tempFiles.Add(tempFile);
 
-          if (!DoCompress(file, tempFile, !Progressive, lossless))
+          if (!DoCompress(file, tempFile, !Progressive, lossless, quality))
             return;
 
           if (bestFile.Length > tempFile.Length)
@@ -66,9 +66,9 @@ namespace ImageMagick.ImageOptimizers
       }
     }
 
-    private static bool DoCompress(FileInfo file, FileInfo output, bool progressive, bool lossless)
+    private static bool DoCompress(FileInfo file, FileInfo output, bool progressive, bool lossless, int quality)
     {
-      int result = NativeJpegOptimizer.Compress(file.FullName, output.FullName, progressive, lossless);
+      int result = NativeJpegOptimizer.Compress(file.FullName, output.FullName, progressive, lossless, quality);
 
       if (result == 1)
         throw new MagickCorruptImageErrorException("Unable to decompress the jpeg file.");
@@ -130,9 +130,21 @@ namespace ImageMagick.ImageOptimizers
     /// <param name="file">The image file to compress.</param>
     public void Compress(FileInfo file)
     {
+      Compress(file, 0);
+    }
+
+    /// <summary>
+    /// Performs compression on the specified the file. With some formats the image will be decoded
+    /// and encoded and this will result in a small quality reduction. If the new file size is not
+    /// smaller the file won't be overwritten.
+    /// </summary>
+    /// <param name="file">The image file to compress.</param>
+    /// <param name="quality">The jpeg quality.</param>
+    public void Compress(FileInfo file, int quality)
+    {
       Throw.IfNull(nameof(file), file);
 
-      DoCompress(file, false);
+      DoCompress(file, false, quality);
     }
 
     /// <summary>
@@ -143,10 +155,22 @@ namespace ImageMagick.ImageOptimizers
     /// <param name="fileName">The file name of the image to compress.</param>
     public void Compress(string fileName)
     {
+      Compress(fileName, 0);
+    }
+
+    /// <summary>
+    /// Performs compression on the specified the file. With some formats the image will be decoded
+    /// and encoded and this will result in a small quality reduction. If the new file size is not
+    /// smaller the file won't be overwritten.
+    /// </summary>
+    /// <param name="fileName">The file name of the image to compress.</param>
+    /// <param name="quality">The jpeg quality.</param>
+    public void Compress(string fileName, int quality)
+    {
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
       Throw.IfInvalidFileName(filePath);
 
-      DoCompress(new FileInfo(fileName), false);
+      DoCompress(new FileInfo(fileName), false, quality);
     }
 
     /// <summary>
@@ -158,7 +182,7 @@ namespace ImageMagick.ImageOptimizers
     {
       Throw.IfNull(nameof(file), file);
 
-      DoCompress(file, true);
+      DoCompress(file, true, 0);
     }
 
     /// <summary>
@@ -171,7 +195,7 @@ namespace ImageMagick.ImageOptimizers
       string filePath = FileHelper.CheckForBaseDirectory(fileName);
       Throw.IfInvalidFileName(filePath);
 
-      DoCompress(new FileInfo(fileName), true);
+      DoCompress(new FileInfo(fileName), true, 0);
     }
   }
 }
