@@ -1875,6 +1875,19 @@ namespace Magick.NET.Tests
     }
 
     [TestMethod]
+    public void Test_GetClippingPath()
+    {
+      using (MagickImage image = new MagickImage(Files.InvitationTif))
+      {
+        string clippingPath = image.GetClippingPath();
+        Assert.IsNotNull(clippingPath);
+
+        clippingPath = image.GetClippingPath("#1");
+        Assert.IsNotNull(clippingPath);
+      }
+    }
+
+    [TestMethod]
     public void Test_Grayscale()
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
@@ -3185,6 +3198,29 @@ namespace Magick.NET.Tests
       {
         image.SetAttenuate(5.6);
         Assert.AreEqual("5.6", image.GetArtifact("attenuate"));
+      }
+    }
+
+    [TestMethod]
+    public void Test_SetClippingPath()
+    {
+      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      {
+        Assert.IsFalse(image.HasClippingPath);
+
+        using (MagickImage path = new MagickImage(Files.InvitationTif))
+        {
+          string clippingPath = path.GetClippingPath();
+
+          image.SetClippingPath(clippingPath);
+
+          Assert.IsTrue(image.HasClippingPath);
+
+          image.SetClippingPath(clippingPath, "test");
+
+          Assert.IsNotNull(image.GetClippingPath("test"));
+          Assert.IsNull(image.GetClippingPath("#2"));
+        }
       }
     }
 

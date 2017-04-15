@@ -1255,7 +1255,7 @@ namespace ImageMagick
     {
       get
       {
-        return !string.IsNullOrEmpty(GetAttribute("8BIM:1999,2998:#1"));
+        return !string.IsNullOrEmpty(GetClippingPath());
       }
     }
 
@@ -3708,6 +3708,27 @@ namespace ImageMagick
     }
 
     /// <summary>
+    /// Returns the default clipping path. Null will be returned if the image has no clipping path.
+    /// </summary>
+    /// <returns>The default clipping path. Null will be returned if the image has no clipping path.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public string GetClippingPath()
+    {
+      return GetClippingPath("#1");
+    }
+
+    /// <summary>
+    /// Returns the clipping path with the specified name. Null will be returned if the image has no clipping path.
+    /// </summary>
+    /// <param name="pathName">Name of clipping path resource. If name is preceded by #, use clipping path numbered by name.</param>
+    /// <returns>The clipping path with the specified name. Null will be returned if the image has no clipping path.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public string GetClippingPath(string pathName)
+    {
+      return GetAttribute("8BIM:1999,2998:" + pathName);
+    }
+
+    /// <summary>
     /// Returns the color at colormap position index.
     /// </summary>
     /// <param name="index">The position index.</param>
@@ -5793,6 +5814,27 @@ namespace ImageMagick
       Throw.IfNull(nameof(value), value);
 
       _NativeInstance.SetAttribute(name, value);
+    }
+
+    /// <summary>
+    /// Sets the default clipping path.
+    /// </summary>
+    /// <param name="value">The clipping path.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void SetClippingPath(string value)
+    {
+      SetClippingPath(value, "#1");
+    }
+
+    /// <summary>
+    /// Sets the clipping path with the specified name.
+    /// </summary>
+    /// <param name="value">The clipping path.</param>
+    /// <param name="pathName">Name of clipping path resource. If name is preceded by #, use clipping path numbered by name.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void SetClippingPath(string value, string pathName)
+    {
+      SetAttribute("8BIM:1999,2998:" + pathName, value);
     }
 
     /// <summary>
