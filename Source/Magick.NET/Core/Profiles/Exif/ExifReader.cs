@@ -222,7 +222,11 @@ namespace ImageMagick
 
     private string GetString(uint length)
     {
-      return ToString(GetBytes(length));
+      byte[] data = GetBytes(length);
+      if (data == null || data.Length == 0)
+        return null;
+
+      return ToString(data);
     }
 
     private void GetThumbnail(uint offset)
