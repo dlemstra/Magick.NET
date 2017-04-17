@@ -18,7 +18,7 @@ Magick.NET is build with the following libraries:
 - openjpeg 2.1.2 (28 September 2016)
 - pango 1.40.1 (11 April 2016)
 - pixman 0.30.2
-- png 1.6.26 (20 October 2016)
+- png 1.6.29 (16 March 2017)
 - tiff 4.0.7 (19 November 2016)
 - ttf 2.6.3 (7 February 2016)
 - webp 0.51.1 (7 July 2016)
