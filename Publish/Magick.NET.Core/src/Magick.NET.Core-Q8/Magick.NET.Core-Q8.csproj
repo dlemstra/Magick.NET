@@ -4,7 +4,7 @@
     <Description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://magick.codeplex.com/documentation before installing to help you decide the best version.</Description>
     <Copyright>Copyright 2013-2017 Dirk Lemstra</Copyright>
     <AssemblyTitle>Magick.NET.Core-Q8</AssemblyTitle>
-    <VersionPrefix>7.0.5.501</VersionPrefix>
+    <VersionPrefix>7.0.5.502</VersionPrefix>
     <Authors>Dirk Lemstra</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>
     <DefineConstants>$(DefineConstants);Q8;ANYCPU</DefineConstants>
