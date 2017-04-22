@@ -5526,9 +5526,10 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Rotate image counter-clockwise by specified number of degrees.
+    /// Rotate image clockwise by specified number of degrees.
     /// </summary>
-    /// <param name="degrees">The number of degrees to rotate.</param>
+    /// <remarks>Specify a negative number for <see cref="degrees"/> to rotate counter-clockwise.</remarks>
+    /// <param name="degrees">The number of degrees to rotate (positive to rotate clockwise, negative to rotate counter-clockwise).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Rotate(double degrees)
     {
