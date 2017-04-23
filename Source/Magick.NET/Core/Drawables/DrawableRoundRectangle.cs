@@ -23,38 +23,20 @@ namespace ImageMagick
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableRoundRectangle"/> class.
     /// </summary>
-    /// <param name="centerX">The center X coordinate.</param>
-    /// <param name="centerY">The center Y coordinate.</param>
-    /// <param name="width">The width.</param>
-    /// <param name="height">The height.</param>
+    /// <param name="upperLeftX">The upper left X coordinate.</param>
+    /// <param name="upperLeftY">The upper left Y coordinate.</param>
+    /// <param name="lowerRightX">The lower right X coordinate.</param>
+    /// <param name="lowerRightY">The lower right Y coordinate.</param>
     /// <param name="cornerWidth">The corner width.</param>
     /// <param name="cornerHeight">The corner height.</param>
-    public DrawableRoundRectangle(double centerX, double centerY, double width, double height, double cornerWidth, double cornerHeight)
+    public DrawableRoundRectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, double cornerWidth, double cornerHeight)
     {
-      CenterX = centerX;
-      CenterY = centerY;
-      Width = width;
-      Height = height;
+      UpperLeftX = upperLeftX;
+      UpperLeftY = upperLeftY;
+      LowerRightX = lowerRightX;
+      LowerRightY = lowerRightY;
       CornerWidth = cornerWidth;
       CornerHeight = cornerHeight;
-    }
-
-    /// <summary>
-    /// Gets or sets the center X coordinate.
-    /// </summary>
-    public double CenterX
-    {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets or sets the center Y coordinate.
-    /// </summary>
-    public double CenterY
-    {
-      get;
-      set;
     }
 
     /// <summary>
@@ -76,18 +58,36 @@ namespace ImageMagick
     }
 
     /// <summary>
-    /// Gets or sets the height.
+    /// Gets or sets the lower right X coordinate.
     /// </summary>
-    public double Height
+    public double LowerRightX
     {
       get;
       set;
     }
 
     /// <summary>
-    /// Gets or sets the width.
+    /// Gets or sets the lower right Y coordinate.
     /// </summary>
-    public double Width
+    public double LowerRightY
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// Gets or sets the upper left X coordinate.
+    /// </summary>
+    public double UpperLeftX
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// Gets or sets the upper left Y coordinate.
+    /// </summary>
+    public double UpperLeftY
     {
       get;
       set;
@@ -100,7 +100,7 @@ namespace ImageMagick
     void IDrawingWand.Draw(DrawingWand wand)
     {
       if (wand != null)
-        wand.RoundRectangle(CenterX, CenterY, Width, Height, CornerWidth, CornerHeight);
+        wand.RoundRectangle(UpperLeftX, UpperLeftY, LowerRightX, LowerRightY, CornerWidth, CornerHeight);
     }
   }
 }

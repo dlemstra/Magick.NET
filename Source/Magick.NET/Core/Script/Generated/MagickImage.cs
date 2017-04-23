@@ -1163,8 +1163,20 @@ namespace ImageMagick
                     }
                     case 'C':
                     {
-                      ExecuteSetColormap(element, image);
-                      return;
+                      switch(element.Name[4])
+                      {
+                        case 'l':
+                        {
+                          ExecuteSetClippingPath(element, image);
+                          return;
+                        }
+                        case 'o':
+                        {
+                          ExecuteSetColormap(element, image);
+                          return;
+                        }
+                      }
+                      break;
                     }
                     case 'H':
                     {
@@ -3302,6 +3314,20 @@ namespace ImageMagick
       String name_ = Variables.GetValue<String>(element, "name");
       String value_ = Variables.GetValue<String>(element, "value");
       image.SetAttribute(name_, value_);
+    }
+    private void ExecuteSetClippingPath(XmlElement element, MagickImage image)
+    {
+      Hashtable arguments = new Hashtable();
+      foreach (XmlAttribute attribute in element.Attributes)
+      {
+        arguments[attribute.Name] = Variables.GetValue<String>(attribute);
+      }
+      if (OnlyContains(arguments, "value"))
+        image.SetClippingPath((String)arguments["value"]);
+      else if (OnlyContains(arguments, "value", "pathName"))
+        image.SetClippingPath((String)arguments["value"], (String)arguments["pathName"]);
+      else
+        throw new ArgumentException("Invalid argument combination for 'setClippingPath', allowed combinations are: [value] [value, pathName]");
     }
     private void ExecuteSetColormap(XmlElement element, MagickImage image)
     {

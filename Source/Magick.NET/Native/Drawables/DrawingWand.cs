@@ -157,7 +157,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingWand_Rotation(IntPtr Instance, double angle, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingWand_RoundRectangle(IntPtr Instance, double centerX, double centerY, double width, double height, double cornerWidth, double cornerHeight, out IntPtr exception);
+        public static extern void DrawingWand_RoundRectangle(IntPtr Instance, double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, double cornerWidth, double cornerHeight, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingWand_Scaling(IntPtr Instance, double x, double y, out IntPtr exception);
         [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -332,7 +332,7 @@ namespace ImageMagick
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingWand_Rotation(IntPtr Instance, double angle, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DrawingWand_RoundRectangle(IntPtr Instance, double centerX, double centerY, double width, double height, double cornerWidth, double cornerHeight, out IntPtr exception);
+        public static extern void DrawingWand_RoundRectangle(IntPtr Instance, double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, double cornerWidth, double cornerHeight, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DrawingWand_Scaling(IntPtr Instance, double x, double y, out IntPtr exception);
         [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1411,20 +1411,20 @@ namespace ImageMagick
         #endif
         CheckException(exception);
       }
-      public void RoundRectangle(double centerX, double centerY, double width, double height, double cornerWidth, double cornerHeight)
+      public void RoundRectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, double cornerWidth, double cornerHeight)
       {
         IntPtr exception = IntPtr.Zero;
         #if ANYCPU
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        NativeMethods.X64.DrawingWand_RoundRectangle(Instance, centerX, centerY, width, height, cornerWidth, cornerHeight, out exception);
+        NativeMethods.X64.DrawingWand_RoundRectangle(Instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight, out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        NativeMethods.X86.DrawingWand_RoundRectangle(Instance, centerX, centerY, width, height, cornerWidth, cornerHeight, out exception);
+        NativeMethods.X86.DrawingWand_RoundRectangle(Instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight, out exception);
         #endif
         CheckException(exception);
       }

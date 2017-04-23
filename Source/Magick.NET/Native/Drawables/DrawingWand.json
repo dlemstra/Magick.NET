@@ -926,19 +926,19 @@
       "arguments":
       [
         {
-          "name": "centerX",
+          "name": "upperLeftX",
           "type": "double"
         },
         {
-          "name": "centerY",
+          "name": "upperLeftY",
           "type": "double"
         },
         {
-          "name": "width",
+          "name": "lowerRightX",
           "type": "double"
         },
         {
-          "name": "height",
+          "name": "lowerRightY",
           "type": "double"
         },
         {

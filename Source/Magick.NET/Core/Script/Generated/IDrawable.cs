@@ -716,13 +716,13 @@ namespace ImageMagick
     }
     private void ExecuteDrawableRoundRectangle(XmlElement element, Collection<IDrawable> drawables)
     {
-      double centerX_ = Variables.GetValue<double>(element, "centerX");
-      double centerY_ = Variables.GetValue<double>(element, "centerY");
-      double width_ = Variables.GetValue<double>(element, "width");
-      double height_ = Variables.GetValue<double>(element, "height");
+      double upperLeftX_ = Variables.GetValue<double>(element, "upperLeftX");
+      double upperLeftY_ = Variables.GetValue<double>(element, "upperLeftY");
+      double lowerRightX_ = Variables.GetValue<double>(element, "lowerRightX");
+      double lowerRightY_ = Variables.GetValue<double>(element, "lowerRightY");
       double cornerWidth_ = Variables.GetValue<double>(element, "cornerWidth");
       double cornerHeight_ = Variables.GetValue<double>(element, "cornerHeight");
-      drawables.Add(new DrawableRoundRectangle(centerX_, centerY_, width_, height_, cornerWidth_, cornerHeight_));
+      drawables.Add(new DrawableRoundRectangle(upperLeftX_, upperLeftY_, lowerRightX_, lowerRightY_, cornerWidth_, cornerHeight_));
     }
     private void ExecuteDrawableScaling(XmlElement element, Collection<IDrawable> drawables)
     {

@@ -2753,6 +2753,12 @@
             <xs:attribute name="value" use="required" type="xs:string" />
           </xs:complexType>
         </xs:element>
+        <xs:element name="setClippingPath">
+          <xs:complexType>
+            <xs:attribute name="pathName" type="xs:string" />
+            <xs:attribute name="value" use="required" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
         <xs:element name="setColormap">
           <xs:complexType>
             <xs:attribute name="color" use="required" type="color" />
@@ -3268,12 +3274,12 @@
         </xs:element>
         <xs:element name="roundRectangle">
           <xs:complexType>
-            <xs:attribute name="centerX" use="required" type="double" />
-            <xs:attribute name="centerY" use="required" type="double" />
             <xs:attribute name="cornerHeight" use="required" type="double" />
             <xs:attribute name="cornerWidth" use="required" type="double" />
-            <xs:attribute name="height" use="required" type="double" />
-            <xs:attribute name="width" use="required" type="double" />
+            <xs:attribute name="lowerRightX" use="required" type="double" />
+            <xs:attribute name="lowerRightY" use="required" type="double" />
+            <xs:attribute name="upperLeftX" use="required" type="double" />
+            <xs:attribute name="upperLeftY" use="required" type="double" />
           </xs:complexType>
         </xs:element>
         <xs:element name="scaling">

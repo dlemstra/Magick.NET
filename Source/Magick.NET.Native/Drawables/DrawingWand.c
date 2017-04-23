@@ -398,9 +398,9 @@ MAGICK_NET_EXPORT void DrawingWand_Rotation(DrawingWand *instance, const double 
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 
-MAGICK_NET_EXPORT void DrawingWand_RoundRectangle(DrawingWand *instance, const double centerX, const double centerY, const double width, const double height, const double cornerWidth, const double cornerHeight, ExceptionInfo **exception)
+MAGICK_NET_EXPORT void DrawingWand_RoundRectangle(DrawingWand *instance, const double upperLeftX, const double upperLeftY, const double lowerRightX, const double lowerRightY, const double cornerWidth, const double cornerHeight, ExceptionInfo **exception)
 {
-  DrawRoundRectangle(instance, centerX, centerY, width, height, cornerWidth, cornerHeight);
+  DrawRoundRectangle(instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight);
   MAGICK_NET_SET_DRAW_EXCEPTION;
 }
 

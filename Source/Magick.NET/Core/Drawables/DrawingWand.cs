@@ -350,9 +350,9 @@ namespace ImageMagick
       _NativeInstance.Rotation(angle);
     }
 
-    public void RoundRectangle(double centerX, double centerY, double width, double height, double cornerWidth, double cornerHeight)
+    public void RoundRectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, double cornerWidth, double cornerHeight)
     {
-      _NativeInstance.RoundRectangle(centerX, centerY, width, height, cornerWidth, cornerHeight);
+      _NativeInstance.RoundRectangle(upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight);
     }
 
     public void Scaling(double x, double y)
