@@ -1,5 +1,8 @@
 # Breaking changes.
 
+### Magick.NET 7.0.5.?:
+ - Fixed the property names of DrawableRoundRectangle.
+
 ### Magick.NET 7.0.1.901:
  - The ExifProfile no longer has a BestPrecision property and uses a Rational and SignedRational struct instead of a double.
 
