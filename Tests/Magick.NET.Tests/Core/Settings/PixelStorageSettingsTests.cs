@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Collection_Exceptions()
     {
-      using (MagickImageCollection collection = new MagickImageCollection())
+      using (IMagickImageCollection collection = new MagickImageCollection())
       {
         MagickReadSettings settings = new MagickReadSettings();
         settings.PixelStorage = new PixelStorageSettings();

@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(expectedLength, actualLength);
     }
 
-    private static void WriteAndCheckProfile(MagickImageCollection images, PsdWriteDefines defines, int expectedLength)
+    private static void WriteAndCheckProfile(IMagickImageCollection images, PsdWriteDefines defines, int expectedLength)
     {
       using (MemoryStream memStream = new MemoryStream())
       {
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_AdditionalInfo()
     {
-      using (MagickImageCollection images = new MagickImageCollection())
+      using (IMagickImageCollection images = new MagickImageCollection())
       {
         images.Read(Files.Coders.LayerStylesSamplePSD);
 

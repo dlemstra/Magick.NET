@@ -30,7 +30,7 @@ namespace ImageMagick.ImageOptimizers
 
     private static void DoLosslessCompress(FileInfo file)
     {
-      using (MagickImageCollection images = new MagickImageCollection(file))
+      using (IMagickImageCollection images = new MagickImageCollection(file))
       {
         if (images.Count == 1)
         {

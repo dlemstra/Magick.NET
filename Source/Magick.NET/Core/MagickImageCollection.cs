@@ -22,7 +22,7 @@ namespace ImageMagick
   /// <summary>
   /// Represents the collection of images.
   /// </summary>
-  public sealed partial class MagickImageCollection : IDisposable, IList<MagickImage>
+  public sealed partial class MagickImageCollection : IMagickImageCollection
   {
     private List<MagickImage> _Images;
     private EventHandler<WarningEventArgs> _Warning;
@@ -420,7 +420,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="images">A collection of MagickImages.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void AddRange(MagickImageCollection images)
+    public void AddRange(IMagickImageCollection images)
     {
       Throw.IfNull(nameof(images), images);
 
@@ -837,7 +837,7 @@ namespace ImageMagick
         DetachImages();
       }
 
-      using (MagickImageCollection collection = new MagickImageCollection())
+      using (IMagickImageCollection collection = new MagickImageCollection())
       {
         collection.AddRange(MagickImage.CreateList(images, _Images[0].Settings));
         if (settings.TransparentColor != null)

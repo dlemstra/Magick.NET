@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
   {
     private MagickImage CreatePallete()
     {
-      using (MagickImageCollection images = new MagickImageCollection())
+      using (IMagickImageCollection images = new MagickImageCollection())
       {
         images.Add(new MagickImage(MagickColors.Red, 1, 1));
         images.Add(new MagickImage(MagickColors.Blue, 1, 1));
@@ -1660,7 +1660,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_FlipFlop()
     {
-      using (MagickImageCollection collection = new MagickImageCollection())
+      using (IMagickImageCollection collection = new MagickImageCollection())
       {
         collection.Add(new MagickImage(MagickColors.DodgerBlue, 10, 10));
         collection.Add(new MagickImage(MagickColors.Firebrick, 10, 10));
@@ -2408,7 +2408,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Normalize()
     {
-      using (MagickImageCollection images = new MagickImageCollection())
+      using (IMagickImageCollection images = new MagickImageCollection())
       {
         images.Add(new MagickImage("gradient:gray70-gray30", 100, 100));
         images.Add(new MagickImage("gradient:blue-navy", 50, 100));
@@ -3589,7 +3589,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_SubImageSearch()
     {
-      using (MagickImageCollection images = new MagickImageCollection())
+      using (IMagickImageCollection images = new MagickImageCollection())
       {
         images.Add(new MagickImage(MagickColors.Green, 2, 2));
         images.Add(new MagickImage(MagickColors.Red, 2, 2));

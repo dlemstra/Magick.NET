@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Collection_Read()
     {
-      using (MagickImageCollection collection = new MagickImageCollection())
+      using (IMagickImageCollection collection = new MagickImageCollection())
       {
         MagickReadSettings settings = new MagickReadSettings();
         settings.Density = new Density(150);

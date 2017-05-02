@@ -484,7 +484,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data)
     {
-      using (MagickImageCollection images = new MagickImageCollection())
+      using (IMagickImageCollection images = new MagickImageCollection())
       {
         images.Ping(data);
         foreach (MagickImage image in images)
@@ -505,7 +505,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data, MagickReadSettings readSettings)
     {
-      using (MagickImageCollection images = new MagickImageCollection())
+      using (IMagickImageCollection images = new MagickImageCollection())
       {
         images.Ping(data, readSettings);
         foreach (MagickImage image in images)
@@ -552,7 +552,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<MagickImageInfo> ReadCollection(Stream stream)
     {
-      using (MagickImageCollection images = new MagickImageCollection())
+      using (IMagickImageCollection images = new MagickImageCollection())
       {
         images.Ping(stream);
         foreach (MagickImage image in images)
@@ -573,7 +573,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<IMagickImageInfo> ReadCollection(Stream stream, MagickReadSettings readSettings)
     {
-      using (MagickImageCollection images = new MagickImageCollection())
+      using (IMagickImageCollection images = new MagickImageCollection())
       {
         images.Ping(stream, readSettings);
         foreach (MagickImage image in images)
@@ -593,7 +593,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<IMagickImageInfo> ReadCollection(string fileName)
     {
-      using (MagickImageCollection images = new MagickImageCollection())
+      using (IMagickImageCollection images = new MagickImageCollection())
       {
         images.Ping(fileName);
         foreach (MagickImage image in images)
@@ -614,7 +614,7 @@ namespace ImageMagick
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<IMagickImageInfo> ReadCollection(string fileName, MagickReadSettings readSettings)
     {
-      using (MagickImageCollection images = new MagickImageCollection())
+      using (IMagickImageCollection images = new MagickImageCollection())
       {
         images.Ping(fileName, readSettings);
         foreach (MagickImage image in images)

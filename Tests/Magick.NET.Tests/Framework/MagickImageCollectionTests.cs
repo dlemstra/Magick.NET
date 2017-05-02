@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ToBitmap()
     {
-      using (MagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
+      using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
       {
         Assert.AreEqual(3, collection.Count);
 
