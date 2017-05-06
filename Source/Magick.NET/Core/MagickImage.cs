@@ -35,7 +35,7 @@ namespace ImageMagick
   /// Class that represents an ImageMagick image.
   /// </summary>
   [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Cannot avoid it here.")]
-  public sealed partial class MagickImage : IEquatable<MagickImage>, IComparable<MagickImage>
+  public sealed partial class MagickImage : IEquatable<MagickImage>, IComparable<MagickImage>, INativeInstance
   {
     private ProgressDelegate _NativeProgress;
     private EventHandler<ProgressEventArgs> _Progress;
@@ -724,6 +724,15 @@ namespace ImageMagick
       remove
       {
         _Warning -= value;
+      }
+    }
+
+    /// <inheritdoc/>
+    IntPtr INativeInstance.Instance
+    {
+      get
+      {
+        return _NativeInstance.Instance;
       }
     }
 

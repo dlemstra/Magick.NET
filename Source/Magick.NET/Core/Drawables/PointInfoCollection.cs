@@ -12,12 +12,13 @@
 // limitations under the License.
 //=================================================================================================
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace ImageMagick
 {
-  internal sealed partial class PointInfoCollection
+  internal sealed partial class PointInfoCollection : INativeInstance
   {
     private PointInfoCollection(int count)
     {
@@ -39,6 +40,14 @@ namespace ImageMagick
     {
       get;
       private set;
+    }
+
+    IntPtr INativeInstance.Instance
+    {
+      get
+      {
+        return _NativeInstance.Instance;
+      }
     }
 
     public void Dispose()

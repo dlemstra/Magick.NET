@@ -233,10 +233,10 @@ namespace FileGenerator.Native
 
     private void WriteGetInstance()
     {
-      WriteLine("internal static IntPtr GetInstance(" + Class.Name + " instance)");
+      WriteLine("internal static IntPtr GetInstance(INativeInstance instance)");
       WriteStartColon();
       WriteIf("instance == null", "return IntPtr.Zero;");
-      WriteLine("return instance._NativeInstance.Instance;");
+      WriteLine("return instance.Instance;");
       WriteEndColon();
     }
 

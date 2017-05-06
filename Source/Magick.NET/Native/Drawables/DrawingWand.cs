@@ -1849,11 +1849,11 @@ namespace ImageMagick
         CheckException(exception);
       }
     }
-    internal static IntPtr GetInstance(DrawingWand instance)
+    internal static IntPtr GetInstance(INativeInstance instance)
     {
       if (instance == null)
         return IntPtr.Zero;
-      return instance._NativeInstance.Instance;
+      return instance.Instance;
     }
   }
 }

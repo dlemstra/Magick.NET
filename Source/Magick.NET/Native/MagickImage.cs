@@ -6202,11 +6202,11 @@ namespace ImageMagick
         }
       }
     }
-    internal static IntPtr GetInstance(MagickImage instance)
+    internal static IntPtr GetInstance(INativeInstance instance)
     {
       if (instance == null)
         return IntPtr.Zero;
-      return instance._NativeInstance.Instance;
+      return instance.Instance;
     }
   }
 }

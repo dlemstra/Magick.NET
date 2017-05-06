@@ -331,7 +331,7 @@
     <Compile Include="Core\Drawables\Paths\PathSmoothCurveToRel.cs" />
     <Compile Include="Core\Drawables\Paths\PathSmoothQuadraticCurveToAbs.cs" />
     <Compile Include="Core\Drawables\Paths\PathSmoothQuadraticCurveToRel.cs" />
-    <Compile Include="Core\Drawables\PointInfo.cs" />
+    <Compile Include="Core\Drawables\PointInfoCollection.cs" />
     <Compile Include="Core\Enums\AlphaOption.cs" />
     <Compile Include="Core\Enums\Channels.cs" />
     <Compile Include="Core\Enums\ClassType.cs" />
