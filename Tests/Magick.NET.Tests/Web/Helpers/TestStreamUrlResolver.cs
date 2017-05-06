@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
 
     public string ImageId => _FileName;
 
-    public DateTime ModifiedTimeUtc => File.GetLastWriteTime(_FileName);
+    public DateTime ModifiedTimeUtc => File.GetLastWriteTimeUtc(_FileName);
 
     public Stream OpenStream() => File.OpenRead(_FileName);
 

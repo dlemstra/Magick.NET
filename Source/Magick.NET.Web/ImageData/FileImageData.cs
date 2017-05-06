@@ -33,7 +33,7 @@ namespace ImageMagick.Web
 
     public bool IsValid => !string.IsNullOrEmpty(_FileName) && File.Exists(_FileName);
 
-    public DateTime ModifiedTimeUtc => File.GetLastWriteTime(_FileName);
+    public DateTime ModifiedTimeUtc => File.GetLastWriteTimeUtc(_FileName);
 
     public Stream ReadImage()
     {
