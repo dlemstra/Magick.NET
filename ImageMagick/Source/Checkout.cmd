@@ -16,7 +16,4 @@ exit /b 1
 :EXECUTE
 %BASH% --login -i -c "./Checkout.sh %REPOS% \"%DATE%\""
 
-call "%vs140comntools%vsvars32.bat"
-powershell -ExecutionPolicy Unrestricted ..\..\Tools\Scripts\GenerateLibrariesDoc.ps1
-
 pause
