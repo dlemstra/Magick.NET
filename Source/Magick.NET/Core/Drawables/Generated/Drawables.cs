@@ -165,7 +165,7 @@ namespace ImageMagick
     /// <param name="offset">The offset from origin.</param>
     /// <param name="image">The image to draw.</param>
     /// <returns>The <see cref="Drawables" /> instance.</returns>
-    public Drawables Composite(MagickGeometry offset, MagickImage image)
+    public Drawables Composite(MagickGeometry offset, IMagickImage image)
     {
       _Drawables.Add(new DrawableComposite(offset, image));
       return this;
@@ -178,7 +178,7 @@ namespace ImageMagick
     /// <param name="y">The Y coordinate.</param>
     /// <param name="image">The image to draw.</param>
     /// <returns>The <see cref="Drawables" /> instance.</returns>
-    public Drawables Composite(double x, double y, MagickImage image)
+    public Drawables Composite(double x, double y, IMagickImage image)
     {
       _Drawables.Add(new DrawableComposite(x, y, image));
       return this;
@@ -191,7 +191,7 @@ namespace ImageMagick
     /// <param name="compose">The algorithm to use.</param>
     /// <param name="image">The image to draw.</param>
     /// <returns>The <see cref="Drawables" /> instance.</returns>
-    public Drawables Composite(MagickGeometry offset, CompositeOperator compose, MagickImage image)
+    public Drawables Composite(MagickGeometry offset, CompositeOperator compose, IMagickImage image)
     {
       _Drawables.Add(new DrawableComposite(offset, compose, image));
       return this;
@@ -205,7 +205,7 @@ namespace ImageMagick
     /// <param name="compose">The algorithm to use.</param>
     /// <param name="image">The image to draw.</param>
     /// <returns>The <see cref="Drawables" /> instance.</returns>
-    public Drawables Composite(double x, double y, CompositeOperator compose, MagickImage image)
+    public Drawables Composite(double x, double y, CompositeOperator compose, IMagickImage image)
     {
       _Drawables.Add(new DrawableComposite(x, y, compose, image));
       return this;
@@ -526,16 +526,16 @@ namespace ImageMagick
     /// <summary>
     /// Adds a new instance of the <see cref="DrawableRoundRectangle" /> class to the <see cref="Drawables" />.
     /// </summary>
-    /// <param name="centerX">The center X coordinate.</param>
-    /// <param name="centerY">The center Y coordinate.</param>
-    /// <param name="width">The width.</param>
-    /// <param name="height">The height.</param>
+    /// <param name="upperLeftX">The upper left X coordinate.</param>
+    /// <param name="upperLeftY">The upper left Y coordinate.</param>
+    /// <param name="lowerRightX">The lower right X coordinate.</param>
+    /// <param name="lowerRightY">The lower right Y coordinate.</param>
     /// <param name="cornerWidth">The corner width.</param>
     /// <param name="cornerHeight">The corner height.</param>
     /// <returns>The <see cref="Drawables" /> instance.</returns>
-    public Drawables RoundRectangle(double centerX, double centerY, double width, double height, double cornerWidth, double cornerHeight)
+    public Drawables RoundRectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, double cornerWidth, double cornerHeight)
     {
-      _Drawables.Add(new DrawableRoundRectangle(centerX, centerY, width, height, cornerWidth, cornerHeight));
+      _Drawables.Add(new DrawableRoundRectangle(upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight));
       return this;
     }
 
