@@ -202,6 +202,7 @@
     <Compile Include="Core\Defines\Jp2\Jp2ReadDefines.cs" />
     <Compile Include="Core\Defines\WriteDefinesCreator.cs" />
     <Compile Include="Core\Drawables\IDrawingWand.cs" />
+    <Compile Include="Core\Extensions\ExtensionAttribute.cs" />
     <Compile Include="Core\Extensions\INativeInstanceExtensions.cs" />
     <Compile Include="Core\Helpers\StreamWrapper.cs" />
     <Compile Include="Core\IMagickImageCollection.cs" />
