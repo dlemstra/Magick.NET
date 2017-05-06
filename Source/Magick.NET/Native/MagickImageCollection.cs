@@ -152,13 +152,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        result = NativeMethods.X64.MagickImageCollection_Append(MagickImage.GetInstance(image), stack, out exception);
+        result = NativeMethods.X64.MagickImageCollection_Append(image.GetInstance(), stack, out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        result = NativeMethods.X86.MagickImageCollection_Append(MagickImage.GetInstance(image), stack, out exception);
+        result = NativeMethods.X86.MagickImageCollection_Append(image.GetInstance(), stack, out exception);
         #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
@@ -178,13 +178,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        result = NativeMethods.X64.MagickImageCollection_Coalesce(MagickImage.GetInstance(image), out exception);
+        result = NativeMethods.X64.MagickImageCollection_Coalesce(image.GetInstance(), out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        result = NativeMethods.X86.MagickImageCollection_Coalesce(MagickImage.GetInstance(image), out exception);
+        result = NativeMethods.X86.MagickImageCollection_Coalesce(image.GetInstance(), out exception);
         #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
@@ -204,13 +204,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        result = NativeMethods.X64.MagickImageCollection_Combine(MagickImage.GetInstance(image), (UIntPtr)colorSpace, out exception);
+        result = NativeMethods.X64.MagickImageCollection_Combine(image.GetInstance(), (UIntPtr)colorSpace, out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        result = NativeMethods.X86.MagickImageCollection_Combine(MagickImage.GetInstance(image), (UIntPtr)colorSpace, out exception);
+        result = NativeMethods.X86.MagickImageCollection_Combine(image.GetInstance(), (UIntPtr)colorSpace, out exception);
         #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
@@ -230,13 +230,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        result = NativeMethods.X64.MagickImageCollection_Deconstruct(MagickImage.GetInstance(image), out exception);
+        result = NativeMethods.X64.MagickImageCollection_Deconstruct(image.GetInstance(), out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        result = NativeMethods.X86.MagickImageCollection_Deconstruct(MagickImage.GetInstance(image), out exception);
+        result = NativeMethods.X86.MagickImageCollection_Deconstruct(image.GetInstance(), out exception);
         #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
@@ -271,13 +271,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        result = NativeMethods.X64.MagickImageCollection_Evaluate(MagickImage.GetInstance(image), (UIntPtr)evaluateOperator, out exception);
+        result = NativeMethods.X64.MagickImageCollection_Evaluate(image.GetInstance(), (UIntPtr)evaluateOperator, out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        result = NativeMethods.X86.MagickImageCollection_Evaluate(MagickImage.GetInstance(image), (UIntPtr)evaluateOperator, out exception);
+        result = NativeMethods.X86.MagickImageCollection_Evaluate(image.GetInstance(), (UIntPtr)evaluateOperator, out exception);
         #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
@@ -297,13 +297,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        result = NativeMethods.X64.MagickImageCollection_Flatten(MagickImage.GetInstance(image), out exception);
+        result = NativeMethods.X64.MagickImageCollection_Flatten(image.GetInstance(), out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        result = NativeMethods.X86.MagickImageCollection_Flatten(MagickImage.GetInstance(image), out exception);
+        result = NativeMethods.X86.MagickImageCollection_Flatten(image.GetInstance(), out exception);
         #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
@@ -324,13 +324,13 @@ namespace ImageMagick
           if (NativeLibrary.Is64Bit)
           #endif
           #if WIN64 || ANYCPU
-          NativeMethods.X64.MagickImageCollection_Map(MagickImage.GetInstance(image), settingsNative.Instance, MagickImage.GetInstance(remapImage), out exception);
+          NativeMethods.X64.MagickImageCollection_Map(image.GetInstance(), settingsNative.Instance, remapImage.GetInstance(), out exception);
           #endif
           #if ANYCPU
           else
           #endif
           #if !WIN64 || ANYCPU
-          NativeMethods.X86.MagickImageCollection_Map(MagickImage.GetInstance(image), settingsNative.Instance, MagickImage.GetInstance(remapImage), out exception);
+          NativeMethods.X86.MagickImageCollection_Map(image.GetInstance(), settingsNative.Instance, remapImage.GetInstance(), out exception);
           #endif
           CheckException(exception);
         }
@@ -343,13 +343,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        result = NativeMethods.X64.MagickImageCollection_Merge(MagickImage.GetInstance(image), (UIntPtr)method, out exception);
+        result = NativeMethods.X64.MagickImageCollection_Merge(image.GetInstance(), (UIntPtr)method, out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        result = NativeMethods.X86.MagickImageCollection_Merge(MagickImage.GetInstance(image), (UIntPtr)method, out exception);
+        result = NativeMethods.X86.MagickImageCollection_Merge(image.GetInstance(), (UIntPtr)method, out exception);
         #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
@@ -371,13 +371,13 @@ namespace ImageMagick
           if (NativeLibrary.Is64Bit)
           #endif
           #if WIN64 || ANYCPU
-          result = NativeMethods.X64.MagickImageCollection_Montage(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+          result = NativeMethods.X64.MagickImageCollection_Montage(image.GetInstance(), settingsNative.Instance, out exception);
           #endif
           #if ANYCPU
           else
           #endif
           #if !WIN64 || ANYCPU
-          result = NativeMethods.X86.MagickImageCollection_Montage(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+          result = NativeMethods.X86.MagickImageCollection_Montage(image.GetInstance(), settingsNative.Instance, out exception);
           #endif
           MagickException magickException = MagickExceptionHelper.Create(exception);
           if (MagickExceptionHelper.IsError(magickException))
@@ -398,13 +398,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        result = NativeMethods.X64.MagickImageCollection_Morph(MagickImage.GetInstance(image), (UIntPtr)frames, out exception);
+        result = NativeMethods.X64.MagickImageCollection_Morph(image.GetInstance(), (UIntPtr)frames, out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        result = NativeMethods.X86.MagickImageCollection_Morph(MagickImage.GetInstance(image), (UIntPtr)frames, out exception);
+        result = NativeMethods.X86.MagickImageCollection_Morph(image.GetInstance(), (UIntPtr)frames, out exception);
         #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
@@ -424,13 +424,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        result = NativeMethods.X64.MagickImageCollection_Optimize(MagickImage.GetInstance(image), out exception);
+        result = NativeMethods.X64.MagickImageCollection_Optimize(image.GetInstance(), out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        result = NativeMethods.X86.MagickImageCollection_Optimize(MagickImage.GetInstance(image), out exception);
+        result = NativeMethods.X86.MagickImageCollection_Optimize(image.GetInstance(), out exception);
         #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
@@ -450,13 +450,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        result = NativeMethods.X64.MagickImageCollection_OptimizePlus(MagickImage.GetInstance(image), out exception);
+        result = NativeMethods.X64.MagickImageCollection_OptimizePlus(image.GetInstance(), out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        result = NativeMethods.X86.MagickImageCollection_OptimizePlus(MagickImage.GetInstance(image), out exception);
+        result = NativeMethods.X86.MagickImageCollection_OptimizePlus(image.GetInstance(), out exception);
         #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
@@ -475,13 +475,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        NativeMethods.X64.MagickImageCollection_OptimizeTransparency(MagickImage.GetInstance(image), out exception);
+        NativeMethods.X64.MagickImageCollection_OptimizeTransparency(image.GetInstance(), out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        NativeMethods.X86.MagickImageCollection_OptimizeTransparency(MagickImage.GetInstance(image), out exception);
+        NativeMethods.X86.MagickImageCollection_OptimizeTransparency(image.GetInstance(), out exception);
         #endif
         CheckException(exception);
       }
@@ -494,13 +494,13 @@ namespace ImageMagick
           if (NativeLibrary.Is64Bit)
           #endif
           #if WIN64 || ANYCPU
-          NativeMethods.X64.MagickImageCollection_Quantize(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+          NativeMethods.X64.MagickImageCollection_Quantize(image.GetInstance(), settingsNative.Instance, out exception);
           #endif
           #if ANYCPU
           else
           #endif
           #if !WIN64 || ANYCPU
-          NativeMethods.X86.MagickImageCollection_Quantize(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+          NativeMethods.X86.MagickImageCollection_Quantize(image.GetInstance(), settingsNative.Instance, out exception);
           #endif
           CheckException(exception);
         }
@@ -600,13 +600,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        result = NativeMethods.X64.MagickImageCollection_Smush(MagickImage.GetInstance(image), (IntPtr)offset, stack, out exception);
+        result = NativeMethods.X64.MagickImageCollection_Smush(image.GetInstance(), (IntPtr)offset, stack, out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        result = NativeMethods.X86.MagickImageCollection_Smush(MagickImage.GetInstance(image), (IntPtr)offset, stack, out exception);
+        result = NativeMethods.X86.MagickImageCollection_Smush(image.GetInstance(), (IntPtr)offset, stack, out exception);
         #endif
         MagickException magickException = MagickExceptionHelper.Create(exception);
         if (MagickExceptionHelper.IsError(magickException))
@@ -627,13 +627,13 @@ namespace ImageMagick
           if (NativeLibrary.Is64Bit)
           #endif
           #if WIN64 || ANYCPU
-          NativeMethods.X64.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+          NativeMethods.X64.MagickImageCollection_WriteFile(image.GetInstance(), settingsNative.Instance, out exception);
           #endif
           #if ANYCPU
           else
           #endif
           #if !WIN64 || ANYCPU
-          NativeMethods.X86.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+          NativeMethods.X86.MagickImageCollection_WriteFile(image.GetInstance(), settingsNative.Instance, out exception);
           #endif
           CheckException(exception);
         }
@@ -648,13 +648,13 @@ namespace ImageMagick
           if (NativeLibrary.Is64Bit)
           #endif
           #if WIN64 || ANYCPU
-          result = NativeMethods.X64.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, reader, writer, seeker, teller, out exception);
+          result = NativeMethods.X64.MagickImageCollection_WriteStream(image.GetInstance(), settingsNative.Instance, reader, writer, seeker, teller, out exception);
           #endif
           #if ANYCPU
           else
           #endif
           #if !WIN64 || ANYCPU
-          result = NativeMethods.X86.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, reader, writer, seeker, teller, out exception);
+          result = NativeMethods.X86.MagickImageCollection_WriteStream(image.GetInstance(), settingsNative.Instance, reader, writer, seeker, teller, out exception);
           #endif
           MagickException magickException = MagickExceptionHelper.Create(exception);
           if (MagickExceptionHelper.IsError(magickException))

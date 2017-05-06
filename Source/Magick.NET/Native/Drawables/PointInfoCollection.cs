@@ -122,11 +122,5 @@ namespace ImageMagick
         #endif
       }
     }
-    internal static IntPtr GetInstance(INativeInstance instance)
-    {
-      if (instance == null)
-        return IntPtr.Zero;
-      return instance.Instance;
-    }
   }
 }

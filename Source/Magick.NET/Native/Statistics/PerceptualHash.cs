@@ -83,13 +83,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        return NativeMethods.X64.PerceptualHash_GetInstance(MagickImage.GetInstance(image), list, (UIntPtr)channel);
+        return NativeMethods.X64.PerceptualHash_GetInstance(image.GetInstance(), list, (UIntPtr)channel);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        return NativeMethods.X86.PerceptualHash_GetInstance(MagickImage.GetInstance(image), list, (UIntPtr)channel);
+        return NativeMethods.X86.PerceptualHash_GetInstance(image.GetInstance(), list, (UIntPtr)channel);
         #endif
       }
     }

@@ -231,15 +231,6 @@ namespace FileGenerator.Native
       WriteEndColon();
     }
 
-    private void WriteGetInstance()
-    {
-      WriteLine("internal static IntPtr GetInstance(INativeInstance instance)");
-      WriteStartColon();
-      WriteIf("instance == null", "return IntPtr.Zero;");
-      WriteLine("return instance.Instance;");
-      WriteEndColon();
-    }
-
     private void WriteTypeName()
     {
       if (!Class.HasInstance)
@@ -333,7 +324,7 @@ namespace FileGenerator.Native
           if (NeedsCreate(property.Type))
             value = "valueNative.Instance";
           else if (property.Type.HasInstance)
-            value = property.Type.Managed + ".GetInstance(value)";
+            value = "value.GetInstance()";
 
           arguments = !Class.IsStatic ? "Instance, " : "";
 
@@ -455,8 +446,6 @@ namespace FileGenerator.Native
 
       if (IsDynamic(Class.Name))
         WriteCreateInstance();
-      else
-        WriteGetInstance();
     }
   }
 }

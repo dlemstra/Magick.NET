@@ -449,10 +449,7 @@ namespace ImageMagick
 
     internal void SetNext(MagickImage image)
     {
-      if (image == null)
-        _NativeInstance.SetNext(IntPtr.Zero);
-      else
-        _NativeInstance.SetNext(GetInstance(image));
+      _NativeInstance.SetNext(image.GetInstance());
     }
 
     /// <summary>

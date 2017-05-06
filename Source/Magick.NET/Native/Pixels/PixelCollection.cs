@@ -97,13 +97,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        Instance = NativeMethods.X64.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
+        Instance = NativeMethods.X64.PixelCollection_Create(image.GetInstance(), out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        Instance = NativeMethods.X86.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
+        Instance = NativeMethods.X86.PixelCollection_Create(image.GetInstance(), out exception);
         #endif
         CheckException(exception, Instance);
         if (Instance == IntPtr.Zero)
@@ -181,12 +181,6 @@ namespace ImageMagick
           return result;
         }
       }
-    }
-    internal static IntPtr GetInstance(INativeInstance instance)
-    {
-      if (instance == null)
-        return IntPtr.Zero;
-      return instance.Instance;
     }
   }
 }

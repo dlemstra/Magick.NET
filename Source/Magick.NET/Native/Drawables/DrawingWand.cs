@@ -410,13 +410,13 @@ namespace ImageMagick
           if (NativeLibrary.Is64Bit)
           #endif
           #if WIN64 || ANYCPU
-          Instance = NativeMethods.X64.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
+          Instance = NativeMethods.X64.DrawingWand_Create(image.GetInstance(), settingsNative.Instance);
           #endif
           #if ANYCPU
           else
           #endif
           #if !WIN64 || ANYCPU
-          Instance = NativeMethods.X86.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
+          Instance = NativeMethods.X86.DrawingWand_Create(image.GetInstance(), settingsNative.Instance);
           #endif
           if (Instance == IntPtr.Zero)
             throw new InvalidOperationException();
@@ -487,13 +487,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        NativeMethods.X64.DrawingWand_Bezier(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
+        NativeMethods.X64.DrawingWand_Bezier(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        NativeMethods.X86.DrawingWand_Bezier(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
+        NativeMethods.X86.DrawingWand_Bezier(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
         #endif
         CheckException(exception);
       }
@@ -612,13 +612,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        NativeMethods.X64.DrawingWand_Composite(Instance, x, y, width, height, (UIntPtr)compositeOperator, MagickImage.GetInstance(image), out exception);
+        NativeMethods.X64.DrawingWand_Composite(Instance, x, y, width, height, (UIntPtr)compositeOperator, image.GetInstance(), out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        NativeMethods.X86.DrawingWand_Composite(Instance, x, y, width, height, (UIntPtr)compositeOperator, MagickImage.GetInstance(image), out exception);
+        NativeMethods.X86.DrawingWand_Composite(Instance, x, y, width, height, (UIntPtr)compositeOperator, image.GetInstance(), out exception);
         #endif
         CheckException(exception);
       }
@@ -1242,13 +1242,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        NativeMethods.X64.DrawingWand_Polygon(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
+        NativeMethods.X64.DrawingWand_Polygon(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        NativeMethods.X86.DrawingWand_Polygon(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
+        NativeMethods.X86.DrawingWand_Polygon(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
         #endif
         CheckException(exception);
       }
@@ -1259,13 +1259,13 @@ namespace ImageMagick
         if (NativeLibrary.Is64Bit)
         #endif
         #if WIN64 || ANYCPU
-        NativeMethods.X64.DrawingWand_Polyline(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
+        NativeMethods.X64.DrawingWand_Polyline(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
         #endif
         #if ANYCPU
         else
         #endif
         #if !WIN64 || ANYCPU
-        NativeMethods.X86.DrawingWand_Polyline(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
+        NativeMethods.X86.DrawingWand_Polyline(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
         #endif
         CheckException(exception);
       }
@@ -1848,12 +1848,6 @@ namespace ImageMagick
         #endif
         CheckException(exception);
       }
-    }
-    internal static IntPtr GetInstance(INativeInstance instance)
-    {
-      if (instance == null)
-        return IntPtr.Zero;
-      return instance.Instance;
     }
   }
 }
