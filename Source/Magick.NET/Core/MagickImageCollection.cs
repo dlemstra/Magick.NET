@@ -560,9 +560,9 @@ namespace ImageMagick
     /// Creates a clone of the current image collection.
     /// </summary>
     /// <returns>A clone of the current image collection.</returns>
-    public MagickImageCollection Clone()
+    public IMagickImageCollection Clone()
     {
-      MagickImageCollection result = new MagickImageCollection();
+      IMagickImageCollection result = new MagickImageCollection();
       foreach (MagickImage image in this)
         result.Add(image.Clone());
 

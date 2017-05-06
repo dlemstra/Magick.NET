@@ -119,7 +119,7 @@ namespace ImageMagick
     /// Creates a clone of the current image collection.
     /// </summary>
     /// <returns>A clone of the current image collection.</returns>
-    MagickImageCollection Clone();
+    IMagickImageCollection Clone();
 
     /// <summary>
     /// Combines the images into a single image. The typical ordering would be
