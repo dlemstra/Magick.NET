@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
           handler.ProcessRequest(context);
         }
 
-        using (MagickImage image = new MagickImage(outputFile))
+        using (IMagickImage image = new MagickImage(outputFile))
         {
           Assert.AreEqual(MagickFormat.Png, image.Format);
           Assert.AreEqual(62, image.Width);
@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
         Assert.AreNotEqual(0, File.ReadAllBytes(cacheFile.FullName).Count());
         Assert.AreEqual(2, tempDir.GetFiles().Count());
 
-        using (MagickImage image = new MagickImage(outputFile))
+        using (IMagickImage image = new MagickImage(outputFile))
         {
           Assert.AreEqual(MagickFormat.Png, image.Format);
           Assert.AreEqual(62, image.Width);
@@ -116,7 +116,7 @@ namespace Magick.NET.Tests
 
         Assert.AreEqual(4, tempDir.GetFiles().Count());
 
-        using (MagickImage image = new MagickImage(outputFile))
+        using (IMagickImage image = new MagickImage(outputFile))
         {
           Assert.AreEqual(MagickFormat.Tiff, image.Format);
           Assert.AreEqual(62, image.Width);

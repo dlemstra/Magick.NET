@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Empty()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefines(new PdfReadDefines()
         {
@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
         UseTrimBox = false
       };
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefines(defines);
 
@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
         }
       };
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
 

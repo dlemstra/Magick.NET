@@ -97,7 +97,7 @@ namespace Magick.NET.Tests
     {
       MagickReadSettings settings = CreateSettings();
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         byte[] data = new byte[]
           {

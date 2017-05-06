@@ -19,9 +19,9 @@ namespace ImageMagick
   /// </summary>
   public sealed class DrawableComposite : IDrawable, IDrawingWand
   {
-    private MagickImage _Image;
+    private IMagickImage _Image;
 
-    private DrawableComposite(MagickImage image)
+    private DrawableComposite(IMagickImage image)
     {
       Throw.IfNull(nameof(image), image);
 
@@ -34,7 +34,7 @@ namespace ImageMagick
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
     /// <param name="image">The image to draw.</param>
-    public DrawableComposite(double x, double y, MagickImage image)
+    public DrawableComposite(double x, double y, IMagickImage image)
       : this(image)
     {
       X = x;
@@ -51,7 +51,7 @@ namespace ImageMagick
     /// <param name="y">The Y coordinate.</param>
     /// <param name="compose">The algorithm to use.</param>
     /// <param name="image">The image to draw.</param>
-    public DrawableComposite(double x, double y, CompositeOperator compose, MagickImage image)
+    public DrawableComposite(double x, double y, CompositeOperator compose, IMagickImage image)
       : this(image)
     {
       X = x;
@@ -66,7 +66,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="offset">The offset from origin.</param>
     /// <param name="image">The image to draw.</param>
-    public DrawableComposite(MagickGeometry offset, MagickImage image)
+    public DrawableComposite(MagickGeometry offset, IMagickImage image)
       : this(image)
     {
       Throw.IfNull(nameof(offset), offset);
@@ -84,7 +84,7 @@ namespace ImageMagick
     /// <param name="offset">The offset from origin.</param>
     /// <param name="compose">The algorithm to use.</param>
     /// <param name="image">The image to draw.</param>
-    public DrawableComposite(MagickGeometry offset, CompositeOperator compose, MagickImage image)
+    public DrawableComposite(MagickGeometry offset, CompositeOperator compose, IMagickImage image)
       : this(image)
     {
       Throw.IfNull("offset", offset);

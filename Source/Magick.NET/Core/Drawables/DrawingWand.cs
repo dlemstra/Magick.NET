@@ -90,7 +90,7 @@ namespace ImageMagick
       _NativeInstance.Color(x, y, paintMethod);
     }
 
-    public void Composite(double x, double y, double width, double height, CompositeOperator compositeOperator, MagickImage image)
+    public void Composite(double x, double y, double width, double height, CompositeOperator compositeOperator, IMagickImage image)
     {
       _NativeInstance.Composite(x, y, width, height, compositeOperator, image);
     }

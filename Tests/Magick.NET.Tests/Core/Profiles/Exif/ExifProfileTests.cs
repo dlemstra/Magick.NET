@@ -77,7 +77,7 @@ namespace Magick.NET.Tests
     {
       using (MemoryStream memStream = new MemoryStream())
       {
-        using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+        using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
         {
           ExifProfile profile = image.GetExifProfile();
           Assert.IsNull(profile);
@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
         }
 
         memStream.Position = 0;
-        using (MagickImage image = new MagickImage(memStream))
+        using (IMagickImage image = new MagickImage(memStream))
         {
           ExifProfile profile = image.GetExifProfile();
 
@@ -110,7 +110,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Constructor_Empty()
     {
-      using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+      using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
       {
         using (MemoryStream memStream = new MemoryStream())
         {
@@ -127,7 +127,7 @@ namespace Magick.NET.Tests
       {
         double exposureTime = 1.0 / 1600;
 
-        using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+        using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
         {
           ExifProfile profile = image.GetExifProfile();
 
@@ -138,7 +138,7 @@ namespace Magick.NET.Tests
         }
 
         memStream.Position = 0;
-        using (MagickImage image = new MagickImage(memStream))
+        using (IMagickImage image = new MagickImage(memStream))
         {
           ExifProfile profile = image.GetExifProfile();
 
@@ -150,7 +150,7 @@ namespace Magick.NET.Tests
         }
 
         memStream.Position = 0;
-        using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+        using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
         {
           ExifProfile profile = image.GetExifProfile();
 
@@ -161,7 +161,7 @@ namespace Magick.NET.Tests
         }
 
         memStream.Position = 0;
-        using (MagickImage image = new MagickImage(memStream))
+        using (IMagickImage image = new MagickImage(memStream))
         {
           ExifProfile profile = image.GetExifProfile();
 
@@ -176,7 +176,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Infinity()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         ExifProfile profile = image.GetExifProfile();
         profile.SetValue(ExifTag.ExposureBiasValue, new SignedRational(double.PositiveInfinity));
@@ -212,7 +212,7 @@ namespace Magick.NET.Tests
 
       using (MemoryStream memStream = new MemoryStream())
       {
-        using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+        using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
         {
           ExifProfile profile = image.GetExifProfile();
           profile.SetValue(ExifTag.Software, "Magick.NET");
@@ -269,7 +269,7 @@ namespace Magick.NET.Tests
         }
 
         memStream.Position = 0;
-        using (MagickImage image = new MagickImage(memStream))
+        using (IMagickImage image = new MagickImage(memStream))
         {
           ExifProfile profile = image.GetExifProfile();
 
@@ -300,7 +300,7 @@ namespace Magick.NET.Tests
         }
 
         memStream.Position = 0;
-        using (MagickImage image = new MagickImage(memStream))
+        using (IMagickImage image = new MagickImage(memStream))
         {
           ExifProfile profile = image.GetExifProfile();
 
@@ -320,12 +320,12 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Thumbnail()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         ExifProfile profile = image.GetExifProfile();
         Assert.IsNotNull(profile);
 
-        using (MagickImage thumbnail = profile.CreateThumbnail())
+        using (IMagickImage thumbnail = profile.CreateThumbnail())
         {
           Assert.IsNotNull(thumbnail);
           Assert.AreEqual(128, thumbnail.Width);
@@ -338,12 +338,12 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Values()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         ExifProfile profile = image.GetExifProfile();
         TestProfile(profile);
 
-        using (MagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
+        using (IMagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
         {
           Assert.IsNull(emptyImage.GetExifProfile());
           emptyImage.AddProfile(profile);
@@ -357,7 +357,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ExifTypeUndefined()
     {
-      using (MagickImage image = new MagickImage(Files.ExifUndefType))
+      using (IMagickImage image = new MagickImage(Files.ExifUndefType))
       {
         ExifProfile profile = image.GetExifProfile();
         Assert.IsNotNull(profile);

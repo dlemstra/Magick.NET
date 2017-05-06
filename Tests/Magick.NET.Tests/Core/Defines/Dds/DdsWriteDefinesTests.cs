@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class DdsWriteDefinesTests
   {
-    private static MagickImage WriteDds(MagickImage input)
+    private static IMagickImage WriteDds(IMagickImage input)
     {
       using (MemoryStream memStream = new MemoryStream())
       {
@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Empty()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefines(new DdsWriteDefines()
         {
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
         WeightByAlpha = false,
       };
 
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Settings.SetDefines(defines);
 
@@ -78,16 +78,16 @@ namespace Magick.NET.Tests
         Compression = DdsCompression.None
       };
 
-      using (MagickImage input = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
       {
-        using (MagickImage output = WriteDds(input))
+        using (IMagickImage output = WriteDds(input))
         {
           Assert.AreEqual(CompressionMethod.DXT1, output.CompressionMethod);
         }
 
         input.Settings.SetDefines(defines);
 
-        using (MagickImage output = WriteDds(input))
+        using (IMagickImage output = WriteDds(input))
         {
           Assert.AreEqual(CompressionMethod.NoCompression, output.CompressionMethod);
         }

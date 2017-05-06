@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_CorruptImage()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Purple, 4, 2))
+      using (IMagickImage image = new MagickImage(MagickColors.Purple, 4, 2))
       {
         try
         {

@@ -101,7 +101,7 @@ namespace Magick.NET.Tests
       string tempFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".jpg");
       try
       {
-        using (MagickImage image = new MagickImage("logo:"))
+        using (IMagickImage image = new MagickImage("logo:"))
         {
           image.Write(tempFile);
         }

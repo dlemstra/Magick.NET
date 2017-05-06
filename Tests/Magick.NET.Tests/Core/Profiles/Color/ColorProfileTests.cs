@@ -58,7 +58,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ICM()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         ColorProfile profile = image.GetColorProfile();
         Assert.IsNull(profile);
@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Info()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.AddProfile(ColorProfile.USWebCoatedSWOP);
 
@@ -85,7 +85,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Remove()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         ColorProfile profile = image.GetColorProfile();
         Assert.IsNull(profile);
@@ -107,7 +107,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_WithImage()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.AddProfile(ColorProfile.USWebCoatedSWOP);
         ExceptionAssert.Throws<MagickCacheErrorException>(delegate ()

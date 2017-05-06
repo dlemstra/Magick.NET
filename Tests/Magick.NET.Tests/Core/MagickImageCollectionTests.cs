@@ -70,7 +70,7 @@ namespace Magick.NET.Tests
         collection.AddRange(collection);
         Assert.AreEqual(12, collection.Count);
 
-        List<MagickImage> images = new List<MagickImage>();
+        List<IMagickImage> images = new List<IMagickImage>();
         images.Add(new MagickImage("xc:red", 100, 100));
         collection.AddRange(images);
         Assert.AreEqual(13, collection.Count);
@@ -163,7 +163,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Combine_sRGB()
     {
-      using (MagickImage rose = new MagickImage(Files.Builtin.Rose))
+      using (IMagickImage rose = new MagickImage(Files.Builtin.Rose))
       {
         using (IMagickImageCollection collection = new MagickImageCollection())
         {
@@ -189,7 +189,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Combine_CMYK()
     {
-      using (MagickImage cmyk = new MagickImage(Files.CMYKJPG))
+      using (IMagickImage cmyk = new MagickImage(Files.CMYKJPG))
       {
         using (IMagickImageCollection collection = new MagickImageCollection())
         {
@@ -305,7 +305,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Dispose()
     {
-      MagickImage image = new MagickImage(MagickColors.Red, 10, 10);
+      IMagickImage image = new MagickImage(MagickColors.Red, 10, 10);
 
       IMagickImageCollection collection = new MagickImageCollection();
       collection.Add(image);
@@ -361,7 +361,7 @@ namespace Magick.NET.Tests
         });
 
         collection.Add(new MagickImage(MagickColors.Brown, 10, 10));
-        MagickImage center = new MagickImage(MagickColors.Fuchsia, 4, 4);
+        IMagickImage center = new MagickImage(MagickColors.Fuchsia, 4, 4);
         center.Page = new MagickGeometry(3, 3, 4, 4);
         collection.Add(center);
 
@@ -541,7 +541,7 @@ namespace Magick.NET.Tests
 
         collection.Add(new MagickImage(MagickColors.Red, 11, 11));
 
-        MagickImage image = new MagickImage(MagickColors.Red, 11, 11);
+        IMagickImage image = new MagickImage(MagickColors.Red, 11, 11);
         using (var pixels = image.GetPixels())
         {
           pixels.Set(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
@@ -573,7 +573,7 @@ namespace Magick.NET.Tests
         collection.Add(new MagickImage(MagickColors.Red, 11, 11));
         collection.Add(new MagickImage(MagickColors.Red, 11, 11));
 
-        MagickImage image = new MagickImage(MagickColors.Red, 11, 11);
+        IMagickImage image = new MagickImage(MagickColors.Red, 11, 11);
         using (var pixels = image.GetPixels())
         {
           pixels.Set(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
@@ -609,7 +609,7 @@ namespace Magick.NET.Tests
 
         collection.Add(new MagickImage(MagickColors.Red, 11, 11));
 
-        MagickImage image = new MagickImage(MagickColors.Red, 11, 11);
+        IMagickImage image = new MagickImage(MagickColors.Red, 11, 11);
         using (var pixels = image.GetPixels())
         {
           pixels.Set(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
@@ -955,7 +955,7 @@ namespace Magick.NET.Tests
     public void Test_Write()
     {
       long fileSize;
-      using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
+      using (IMagickImage image = new MagickImage(Files.RoseSparkleGIF))
       {
         fileSize = image.FileSize;
       }

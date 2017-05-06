@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Draw()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 100))
+      using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 100, 100))
       {
         Drawables drawables = new Drawables()
           .FillColor(MagickColors.Red)

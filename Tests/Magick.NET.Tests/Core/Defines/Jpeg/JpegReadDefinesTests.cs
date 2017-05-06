@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Empty()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefines(new JpegReadDefines()
         {
@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
         }
       };
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Read(Files.ImageMagickJPG, settings);
 
@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
         }
       };
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Read(Files.ImageMagickJPG, settings);
 
@@ -98,7 +98,7 @@ namespace Magick.NET.Tests
         }
       };
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Read(Files.FujiFilmFinePixS1ProJPG);
         Assert.IsNotNull(image.GetIptcProfile());

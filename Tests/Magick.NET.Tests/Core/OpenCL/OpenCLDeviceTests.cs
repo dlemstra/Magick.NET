@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
 
       device.ProfileKernels = true;
 
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         image.Resize(500, 500);
         image.Resize(100, 100);

@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Empty()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefines(new PngReadDefines()
         {
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
         SwapBytes = false
       };
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefines(defines);
 
@@ -66,7 +66,7 @@ namespace Magick.NET.Tests
         SwapBytes = true
       };
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefines(defines);
 
@@ -86,7 +86,7 @@ namespace Magick.NET.Tests
         }
       };
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Read(Files.FujiFilmFinePixS1ProPNG);
         Assert.IsNotNull(image.GetExifProfile());

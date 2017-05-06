@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_SetEncoding()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         IptcProfile profile = image.GetIptcProfile();
         TestProfileValues(profile);
@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
         for (int i = 0; i < 255; i++)
           credit += i.ToString() + ".";
 
-        using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+        using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
         {
           IptcProfile profile = image.GetIptcProfile();
           TestProfileValues(profile);
@@ -109,7 +109,7 @@ namespace Magick.NET.Tests
           memStream.Position = 0;
         }
 
-        using (MagickImage image = new MagickImage(memStream))
+        using (IMagickImage image = new MagickImage(memStream))
         {
           IptcProfile profile = image.GetIptcProfile();
           TestProfileValues(profile, 19);
@@ -146,12 +146,12 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Values()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         IptcProfile profile = image.GetIptcProfile();
         TestProfileValues(profile);
 
-        using (MagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
+        using (IMagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
         {
           Assert.IsNull(emptyImage.GetIptcProfile());
           emptyImage.AddProfile(profile);

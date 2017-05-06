@@ -95,7 +95,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Unregister()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         using (MemoryStream memoryStream = new MemoryStream())
         {

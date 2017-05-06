@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
     {
       using (MemoryStream memStream = new MemoryStream())
       {
-        using (MagickImage image = new MagickImage(color, width, height))
+        using (IMagickImage image = new MagickImage(color, width, height))
         {
           image.Format = MagickFormat.Png;
           image.Write(memStream);

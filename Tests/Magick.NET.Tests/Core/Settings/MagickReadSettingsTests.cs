@@ -77,7 +77,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Image_Read_Density()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         MagickReadSettings settings = new MagickReadSettings();
         settings.Density = new Density(300);
@@ -94,10 +94,10 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Image_Read_FrameIndex()
     {
-      using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
+      using (IMagickImage image = new MagickImage(Files.RoseSparkleGIF))
       {
-        MagickImage imageA = new MagickImage();
-        MagickImage imageB = new MagickImage();
+        IMagickImage imageA = new MagickImage();
+        IMagickImage imageB = new MagickImage();
 
         MagickReadSettings settings = new MagickReadSettings();
 
@@ -138,7 +138,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Image_Read_Dimensions()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         MagickReadSettings settings = new MagickReadSettings();
         settings.Width = 10;
@@ -169,7 +169,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Image_Read_Scenes()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Read(Files.RoseSparkleGIF);
 

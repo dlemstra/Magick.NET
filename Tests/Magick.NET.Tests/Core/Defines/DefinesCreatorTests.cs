@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Null()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefines(new TestDefine());
 

@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Empty()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefines(new PsdReadDefines()
         {
@@ -51,7 +51,7 @@ namespace Magick.NET.Tests
         }
       };
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Read(Files.Coders.PlayerPSD, settings);
 
@@ -59,7 +59,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual("False", define);
       }
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         settings.Defines = new PsdReadDefines()
         {

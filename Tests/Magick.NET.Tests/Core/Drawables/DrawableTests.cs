@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
       coordinates[1] = new PointD(50, 50);
       coordinates[2] = new PointD(99, 99);
 
-      using (MagickImage image = new MagickImage(MagickColors.Transparent, 100, 100))
+      using (IMagickImage image = new MagickImage(MagickColors.Transparent, 100, 100))
       {
         image.Draw(new DrawableAffine(0, 0, 1, 1, 2, 2));
         image.Draw(new DrawableAlpha(0, 0, PaintMethod.Floodfill));
@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
         image.Draw(new DrawableClipUnits(ClipPathUnit.UserSpaceOnUse));
         image.Draw(new DrawableColor(0, 0, PaintMethod.Floodfill));
 
-        using (MagickImage compositeImage = new MagickImage(new MagickColor("red"), 50, 50))
+        using (IMagickImage compositeImage = new MagickImage(new MagickColor("red"), 50, 50))
         {
           image.Draw(new DrawableComposite(0, 0, compositeImage));
           image.Draw(new DrawableComposite(0, 0, CompositeOperator.Over, compositeImage));
@@ -129,7 +129,7 @@ namespace Magick.NET.Tests
       Test_Drawables_Draw(new DrawableClipUnits(ClipPathUnit.UserSpaceOnUse));
       Test_Drawables_Draw(new DrawableColor(0, 0, PaintMethod.Floodfill));
 
-      using (MagickImage compositeImage = new MagickImage(new MagickColor("red"), 50, 50))
+      using (IMagickImage compositeImage = new MagickImage(new MagickColor("red"), 50, 50))
       {
         Test_Drawables_Draw(new DrawableComposite(0, 0, compositeImage));
         Test_Drawables_Draw(new DrawableComposite(0, 0, CompositeOperator.Over, compositeImage));
@@ -242,7 +242,7 @@ namespace Magick.NET.Tests
 
       ExceptionAssert.Throws<MagickDrawErrorException>(delegate ()
       {
-        using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
+        using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
         {
           image.Draw(new DrawableFillPatternUrl("#fail"));
         }

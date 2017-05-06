@@ -34,12 +34,12 @@ namespace Magick.NET.Tests
   [TestClass]
   public sealed class PixelCollectionTests
   {
-    private static void TestPixels(MagickImage image, MagickColor color)
+    private static void TestPixels(IMagickImage image, MagickColor color)
     {
       TestPixels(image, color, color);
     }
 
-    private static void TestPixels(MagickImage image, MagickColor firstRow, MagickColor secondRow)
+    private static void TestPixels(IMagickImage image, MagickColor firstRow, MagickColor secondRow)
     {
       using (PixelCollection pixels = image.GetPixels())
       {
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
         image.Write(memStream);
         memStream.Position = 0;
 
-        using (MagickImage output = new MagickImage(memStream))
+        using (IMagickImage output = new MagickImage(memStream))
         {
           using (PixelCollection pixels = output.GetPixels())
           {
@@ -91,7 +91,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Enumerator()
     {
-      using (MagickImage image = new MagickImage(Files.ConnectedComponentsPNG, 10, 10))
+      using (IMagickImage image = new MagickImage(Files.ConnectedComponentsPNG, 10, 10))
       {
         Pixel pixel = image.GetPixels().First(p => p.ToColor() == MagickColors.Black);
         Assert.IsNotNull(pixel);
@@ -125,7 +125,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_GetArea()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Fuchsia, 10, 10))
+      using (IMagickImage image = new MagickImage(MagickColors.Fuchsia, 10, 10))
       {
         using (PixelCollection pixels = image.GetPixels())
         {
@@ -147,7 +147,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_GetValue()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+      using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
       {
         using (PixelCollection pixels = image.GetPixels())
         {
@@ -163,7 +163,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_GetValues()
     {
-      using (MagickImage image = new MagickImage(MagickColors.PowderBlue, 1, 1))
+      using (IMagickImage image = new MagickImage(MagickColors.PowderBlue, 1, 1))
       {
         Assert.AreEqual(3, image.ChannelCount);
 
@@ -181,7 +181,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_IEnumerable()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+      using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
       {
         using (PixelCollection pixels = image.GetPixels())
         {
@@ -193,7 +193,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_IndexOutOfRange()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+      using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
       {
         using (PixelCollection pixels = image.GetPixels())
         {
@@ -253,7 +253,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Set()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Red, 5, 10))
+      using (IMagickImage image = new MagickImage(MagickColors.Red, 5, 10))
       {
         using (PixelCollection pixels = image.GetPixels())
         {
@@ -318,7 +318,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_SetResult()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Red, 10, 2))
+      using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 2))
       {
         using (PixelCollection pixels = image.GetPixels())
         {
@@ -332,7 +332,7 @@ namespace Magick.NET.Tests
         TestPixels(image, new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max));
       }
 
-      using (MagickImage image = new MagickImage(MagickColors.Black, 10, 2))
+      using (IMagickImage image = new MagickImage(MagickColors.Black, 10, 2))
       {
         using (PixelCollection pixels = image.GetPixels())
         {
@@ -356,7 +356,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ToByteArray()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
+      using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
       {
         using (PixelCollection pixels = image.GetPixels())
         {

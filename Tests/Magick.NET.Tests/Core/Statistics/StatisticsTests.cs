@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_IEquatable()
     {
-      MagickImage image = new MagickImage(Files.SnakewarePNG);
+      IMagickImage image = new MagickImage(Files.SnakewarePNG);
 
       Statistics first = image.Statistics();
 
@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Statistics()
     {
-      MagickImage image = new MagickImage(Files.SnakewarePNG);
+      IMagickImage image = new MagickImage(Files.SnakewarePNG);
 
       Statistics statistics = image.Statistics();
 

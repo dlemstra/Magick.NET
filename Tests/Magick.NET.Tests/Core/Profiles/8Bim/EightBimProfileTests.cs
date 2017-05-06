@@ -82,12 +82,12 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ClippingPaths()
     {
-      using (MagickImage image = new MagickImage(Files.EightBimTIF))
+      using (IMagickImage image = new MagickImage(Files.EightBimTIF))
       {
         EightBimProfile profile = image.Get8BimProfile();
         TestProfile(profile);
 
-        using (MagickImage emptyImage = new MagickImage(Files.EightBimTIF))
+        using (IMagickImage emptyImage = new MagickImage(Files.EightBimTIF))
         {
           emptyImage.Strip();
           Assert.IsNull(emptyImage.GetIptcProfile());
@@ -102,12 +102,12 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Values()
     {
-      using (MagickImage image = new MagickImage(Files.EightBimTIF))
+      using (IMagickImage image = new MagickImage(Files.EightBimTIF))
       {
         EightBimProfile profile = image.Get8BimProfile();
         TestProfileValues(profile);
 
-        using (MagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
+        using (IMagickImage emptyImage = new MagickImage(Files.ImageMagickJPG))
         {
           Assert.IsNull(emptyImage.Get8BimProfile());
           emptyImage.AddProfile(profile);

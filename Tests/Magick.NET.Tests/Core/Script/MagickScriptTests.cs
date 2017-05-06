@@ -144,7 +144,7 @@ namespace Magick.NET.Tests
 
       MagickScript script = new MagickScript(doc.CreateNavigator());
 
-      using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+      using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
       {
         script.Execute(image);
       }
@@ -197,7 +197,7 @@ namespace Magick.NET.Tests
     {
       MagickScript script = new MagickScript(Files.Scripts.ImageProfile);
 
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         ColorProfile colorProfile = image.GetColorProfile();
         Assert.IsNull(colorProfile);
@@ -240,7 +240,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual("color", names[2]);
       Assert.AreEqual("fillColor", names[3]);
 
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         ExceptionAssert.Throws<ArgumentNullException>(delegate ()
         {

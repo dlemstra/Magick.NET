@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class TiffWriteDefinesTests
   {
-    private static MagickImage WriteTiff(MagickImage image)
+    private static IMagickImage WriteTiff(IMagickImage image)
     {
       using (MemoryStream memStream = new MemoryStream())
       {
@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Empty()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefines(new TiffWriteDefines()
         {
@@ -68,12 +68,12 @@ namespace Magick.NET.Tests
         Endian = Endian.MSB,
       };
 
-      using (MagickImage input = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage input = new MagickImage(Files.Builtin.Logo))
       {
         input.Settings.SetDefines(defines);
         input.Alpha(AlphaOption.Set);
 
-        using (MagickImage output = WriteTiff(input))
+        using (IMagickImage output = WriteTiff(input))
         {
           Assert.AreEqual("associated", output.GetAttribute("tiff:alpha"));
           Assert.AreEqual("msb", output.GetAttribute("tiff:endian"));
@@ -91,7 +91,7 @@ namespace Magick.NET.Tests
         TileGeometry = new MagickGeometry(100, 100)
       };
 
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Settings.SetDefines(defines);
 

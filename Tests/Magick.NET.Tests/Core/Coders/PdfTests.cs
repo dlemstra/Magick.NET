@@ -20,7 +20,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public partial class PdfTests
   {
-    private static void Test_Image(MagickImage image)
+    private static void Test_Image(IMagickImage image)
     {
       Assert.AreEqual(765, image.Width);
       Assert.AreEqual(361, image.Height);
@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Format()
     {
-      using (MagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
+      using (IMagickImage image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
       {
         Test_Image(image);
       }

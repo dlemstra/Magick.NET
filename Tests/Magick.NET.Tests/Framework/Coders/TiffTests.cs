@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
           bytes = memStream.GetBuffer();
         }
 
-        using (MagickImage image = new MagickImage(bytes))
+        using (IMagickImage image = new MagickImage(bytes))
         {
           image.CompressionMethod = CompressionMethod.Group4;
 
@@ -43,9 +43,9 @@ namespace Magick.NET.Tests
             image.Write(memStream);
             memStream.Position = 0;
 
-            using (MagickImage before = new MagickImage(Files.Coders.PageTIF))
+            using (IMagickImage before = new MagickImage(Files.Coders.PageTIF))
             {
-              using (MagickImage after = new MagickImage(memStream))
+              using (IMagickImage after = new MagickImage(memStream))
               {
                 Assert.AreEqual(0.0, before.Compare(after, ErrorMetric.RootMeanSquared));
               }

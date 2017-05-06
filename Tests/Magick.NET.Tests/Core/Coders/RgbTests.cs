@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
       };
 
       settings.Format = MagickFormat.Rgba;
-      using (MagickImage image = new MagickImage(bytes, settings))
+      using (IMagickImage image = new MagickImage(bytes, settings))
       {
         using (PixelCollection pixels = image.GetPixels())
         {
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
       }
 
       settings.Format = MagickFormat.Rgbo;
-      using (MagickImage image = new MagickImage(bytes, settings))
+      using (IMagickImage image = new MagickImage(bytes, settings))
       {
         using (PixelCollection pixels = image.GetPixels())
         {

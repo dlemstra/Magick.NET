@@ -81,7 +81,7 @@ namespace Magick.NET.Tests.Core.Helpers
       {
         using (ReadExceptionStream stream = new ReadExceptionStream(fs))
         {
-          using (MagickImage image = new MagickImage())
+          using (IMagickImage image = new MagickImage())
           {
             ExceptionAssert.Throws<MagickMissingDelegateErrorException>(() =>
             {
@@ -99,7 +99,7 @@ namespace Magick.NET.Tests.Core.Helpers
       {
         using (SeekExceptionStream stream = new SeekExceptionStream(fs))
         {
-          using (MagickImage image = new MagickImage())
+          using (IMagickImage image = new MagickImage())
           {
             ExceptionAssert.Throws<MagickCorruptImageErrorException>(() =>
             {
@@ -130,7 +130,7 @@ namespace Magick.NET.Tests.Core.Helpers
       {
         using (WriteExceptionStream stream = new WriteExceptionStream(memStream))
         {
-          using (MagickImage image = new MagickImage("logo:"))
+          using (IMagickImage image = new MagickImage("logo:"))
           {
             image.Write(stream);
 

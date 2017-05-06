@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
 {
   public partial class MagickImageTests
   {
-    private static void Test_ToBitmap(MagickImage image, ImageFormat format)
+    private static void Test_ToBitmap(IMagickImage image, ImageFormat format)
     {
       using (Bitmap bmp = image.ToBitmap(format))
       {
@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
 
       using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
       {
-        using (MagickImage image = new MagickImage(bitmap))
+        using (IMagickImage image = new MagickImage(bitmap))
         {
           Assert.AreEqual(286, image.Width);
           Assert.AreEqual(67, image.Height);
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
 
       using (Bitmap bitmap = new Bitmap(50, 100, PixelFormat.Format24bppRgb))
       {
-        using (MagickImage image = new MagickImage(bitmap))
+        using (IMagickImage image = new MagickImage(bitmap))
         {
           Assert.AreEqual(50, image.Width);
           Assert.AreEqual(100, image.Height);
@@ -81,7 +81,7 @@ namespace Magick.NET.Tests
     {
       using (Bitmap bitmap = new Bitmap(400, 400, PixelFormat.Format24bppRgb))
       {
-        using (MagickImage image = new MagickImage(bitmap))
+        using (IMagickImage image = new MagickImage(bitmap))
         {
           Assert.AreEqual(400, image.Width);
           Assert.AreEqual(400, image.Height);
@@ -92,7 +92,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Read_Bitmap()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         ExceptionAssert.Throws<ArgumentNullException>(delegate ()
         {
@@ -120,7 +120,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ToBitmap()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
+      using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
       {
         ExceptionAssert.Throws<NotSupportedException>(delegate ()
         {
@@ -143,7 +143,7 @@ namespace Magick.NET.Tests
         Test_ToBitmap(image, ImageFormat.Tiff);
       }
 
-      using (MagickImage image = new MagickImage(new MagickColor(0, Quantum.Max, Quantum.Max, 0), 10, 10))
+      using (IMagickImage image = new MagickImage(new MagickColor(0, Quantum.Max, Quantum.Max, 0), 10, 10))
       {
         using (Bitmap bitmap = image.ToBitmap())
         {
@@ -155,7 +155,7 @@ namespace Magick.NET.Tests
         }
       }
 
-      using (MagickImage image = new MagickImage(Files.CMYKJPG))
+      using (IMagickImage image = new MagickImage(Files.CMYKJPG))
       {
         using (Bitmap bitmap = image.ToBitmap())
         {
@@ -169,7 +169,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_CheckForBaseDirectory()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         ArgumentException exception = ExceptionAssert.Throws<ArgumentException>(() =>
         {
@@ -194,7 +194,7 @@ namespace Magick.NET.Tests
     {
       byte[] pixels = new byte[600];
 
-      using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
+      using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
       {
         BitmapSource bitmap = image.ToBitmapSource();
         Assert.AreEqual(MediaPixelFormats.Rgb24, bitmap.Format);

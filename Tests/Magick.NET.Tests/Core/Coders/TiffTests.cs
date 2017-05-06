@@ -31,13 +31,13 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_IgnoreTags()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefine(MagickFormat.Tiff, "ignore-tags", "32934");
         image.Read(Files.Coders.IgnoreTagTIF);
       }
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         MagickReadSettings readSettings = new MagickReadSettings(new TiffReadDefines()
         {
@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_IptcProfile()
     {
-      using (MagickImage input = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage input = new MagickImage(Files.MagickNETIconPNG))
       {
         IptcProfile profile = input.GetIptcProfile();
         Assert.IsNull(profile);
@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
           input.Write(memStream);
 
           memStream.Position = 0;
-          using (MagickImage output = new MagickImage(memStream))
+          using (IMagickImage output = new MagickImage(memStream))
           {
             profile = output.GetIptcProfile();
             Assert.IsNotNull(profile);

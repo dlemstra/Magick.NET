@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
   {
     private static EightBimValue Get8BimValue()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         EightBimProfile profile = image.Get8BimProfile();
         return profile.Values.First();

@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Paths()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Transparent, 100, 100))
+      using (IMagickImage image = new MagickImage(MagickColors.Transparent, 100, 100))
       {
         List<IPath> paths = new List<IPath>();
         paths.Add(new PathArcAbs(new PathArc(50, 50, 20, 20, 45, true, false)));

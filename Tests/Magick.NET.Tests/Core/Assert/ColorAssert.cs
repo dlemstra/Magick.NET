@@ -82,7 +82,7 @@ namespace Magick.NET.Tests
         Assert.Fail("Colors are the same (" + actual.ToString() + ")");
     }
 
-    public static void AreNotEqual(MagickColor notExpected, MagickImage image, int x, int y)
+    public static void AreNotEqual(MagickColor notExpected, IMagickImage image, int x, int y)
     {
       using (PixelCollection collection = image.GetPixels())
       {

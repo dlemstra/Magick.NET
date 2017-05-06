@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Empty()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefines(new JpegWriteDefines()
         {
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
         }
       };
 
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Settings.SetDefines(defines);
 
@@ -85,7 +85,7 @@ namespace Magick.NET.Tests
         Extent = 10
       };
 
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         using (MemoryStream memStream = new MemoryStream())
         {

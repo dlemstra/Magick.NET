@@ -66,7 +66,7 @@ namespace Magick.NET.Tests
 
     private static void Test_Clip(bool inside, QuantumType value)
     {
-      using (MagickImage image = new MagickImage(Files.InvitationTif))
+      using (IMagickImage image = new MagickImage(Files.InvitationTif))
       {
         image.Alpha(AlphaOption.Transparent);
         image.Clip("Pad A", inside);
@@ -114,7 +114,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(0.0, area.Compare(part, ErrorMetric.RootMeanSquared));
     }
 
-    private void Test_Component(MagickImage image, ConnectedComponent component, int x, int y, int width, int height)
+    private void Test_Component(IMagickImage image, ConnectedComponent component, int x, int y, int width, int height)
     {
       int delta = 2;
 
@@ -131,7 +131,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    private static void Test_Ping(MagickImage image)
+    private static void Test_Ping(IMagickImage image)
     {
       ExceptionAssert.Throws<InvalidOperationException>(delegate ()
       {
@@ -156,7 +156,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_AdaptiveBlur()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.AdaptiveBlur(10, 5);
 
@@ -173,7 +173,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_AdaptiveResize()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.AdaptiveResize(100, 80);
         Assert.AreEqual(100, image.Width);
@@ -186,7 +186,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_AdaptiveSharpen()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.AdaptiveSharpen(10, 10);
 #if Q8 || Q16
@@ -202,7 +202,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_AdaptiveThreshold()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.AdaptiveThreshold(10, 10);
         ColorAssert.AreEqual(MagickColors.White, image, 50, 75);
@@ -214,12 +214,12 @@ namespace Magick.NET.Tests
     {
       MagickNET.SetRandomSeed(1337);
 
-      using (MagickImage first = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage first = new MagickImage(Files.Builtin.Logo))
       {
         first.AddNoise(NoiseType.Laplacian);
         ColorAssert.AreNotEqual(MagickColors.White, first, 46, 62);
 
-        using (MagickImage second = new MagickImage(Files.Builtin.Logo))
+        using (IMagickImage second = new MagickImage(Files.Builtin.Logo))
         {
           second.AddNoise(NoiseType.Laplacian, 2.0);
           ColorAssert.AreNotEqual(MagickColors.White, first, 46, 62);
@@ -233,7 +233,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_AddProfile()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         ColorProfile profile = image.GetColorProfile();
         Assert.IsNull(profile);
@@ -258,7 +258,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_AffineTransform()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
       {
         DrawableAffine affineMatrix = new DrawableAffine(1, 0.5, 0, 0, 0, 0);
         image.AffineTransform(affineMatrix);
@@ -270,7 +270,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Alpha()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
       {
         Assert.AreEqual(image.HasAlpha, false);
 
@@ -291,7 +291,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_AnimationDelay()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.AnimationDelay = 60;
         Assert.AreEqual(60, image.AnimationDelay);
@@ -307,7 +307,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_AnimationIterations()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.AnimationIterations = 60;
         Assert.AreEqual(60, image.AnimationIterations);
@@ -323,7 +323,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Annotate()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Thistle, 200, 50))
+      using (IMagickImage image = new MagickImage(MagickColors.Thistle, 200, 50))
       {
         image.Settings.FontPointsize = 20;
         image.Settings.FillColor = MagickColors.Purple;
@@ -334,7 +334,7 @@ namespace Magick.NET.Tests
         ColorAssert.AreEqual(MagickColors.Thistle, image, 174, 17);
       }
 
-      using (MagickImage image = new MagickImage(MagickColors.GhostWhite, 200, 200))
+      using (IMagickImage image = new MagickImage(MagickColors.GhostWhite, 200, 200))
       {
         image.Settings.FontPointsize = 30;
         image.Settings.FillColor = MagickColors.Orange;
@@ -349,7 +349,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Artifact()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         ExceptionAssert.Throws<ArgumentException>(delegate ()
         {
@@ -397,7 +397,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Attribute()
     {
-      using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+      using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
       {
         ExceptionAssert.Throws<ArgumentException>(delegate ()
         {
@@ -448,7 +448,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_AutoGamma()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.AutoGamma();
 
@@ -459,7 +459,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_AutoOrient()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
       {
         Assert.AreEqual(600, image.Width);
         Assert.AreEqual(400, image.Height);
@@ -492,7 +492,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_BlackPointCompensation()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
       {
         Assert.AreEqual(false, image.BlackPointCompensation);
         image.RenderingIntent = RenderingIntent.Relative;
@@ -515,7 +515,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_BlackThreshold()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.BlackThreshold(new Percentage(90));
         ColorAssert.AreEqual(MagickColors.Black, image, 43, 74);
@@ -526,14 +526,14 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_BackgroundColor()
     {
-      using (MagickImage image = new MagickImage("xc:red", 1, 1))
+      using (IMagickImage image = new MagickImage("xc:red", 1, 1))
       {
         ColorAssert.AreEqual(new MagickColor("White"), image.BackgroundColor);
       }
 
       MagickColor red = new MagickColor("Red");
 
-      using (MagickImage image = new MagickImage(red, 1, 1))
+      using (IMagickImage image = new MagickImage(red, 1, 1))
       {
         ColorAssert.AreEqual(red, image.BackgroundColor);
 
@@ -546,7 +546,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_BitDepth()
     {
-      using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
+      using (IMagickImage image = new MagickImage(Files.RoseSparkleGIF))
       {
         Assert.AreEqual(8, image.BitDepth());
 
@@ -558,7 +558,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_BlueShift()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         ColorAssert.AreNotEqual(MagickColors.White, image, 180, 80);
 
@@ -584,7 +584,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_BrightnessContrast()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
       {
         ColorAssert.AreNotEqual(MagickColors.White, image, 340, 295);
         image.BrightnessContrast(new Percentage(50), new Percentage(50));
@@ -596,7 +596,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_CannyEdge_HoughLine()
     {
-      using (MagickImage image = new MagickImage(Files.ConnectedComponentsPNG))
+      using (IMagickImage image = new MagickImage(Files.ConnectedComponentsPNG))
       {
         image.Threshold(new Percentage(50));
 
@@ -620,7 +620,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Charcoal()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Charcoal();
         ColorAssert.AreEqual(MagickColors.White, image, 424, 412);
@@ -630,7 +630,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Chop()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
       {
         image.Chop(new MagickGeometry(new Percentage(50), new Percentage(50)));
         Assert.AreEqual(240, image.Width);
@@ -671,7 +671,7 @@ namespace Magick.NET.Tests
         PixelChannel.Cyan, PixelChannel.Magenta, PixelChannel.Yellow, PixelChannel.Black, PixelChannel.Alpha
       };
 
-      using (MagickImage image = new MagickImage(Files.RoseSparkleGIF))
+      using (IMagickImage image = new MagickImage(Files.RoseSparkleGIF))
       {
         CollectionAssert.AreEqual(rgba, image.Channels.ToArray());
 
@@ -680,7 +680,7 @@ namespace Magick.NET.Tests
         CollectionAssert.AreEqual(rgb, image.Channels.ToArray());
       }
 
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         CollectionAssert.AreEqual(grayAlpha, image.Channels.ToArray());
 
@@ -694,7 +694,7 @@ namespace Magick.NET.Tests
         }
       }
 
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         image.ColorSpace = ColorSpace.CMYK;
 
@@ -709,7 +709,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Chromaticity()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         PrimaryInfo info = new PrimaryInfo(0.5, 1.0, 1.5);
 
@@ -734,7 +734,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ClassType()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         Assert.AreEqual(ClassType.Direct, image.ClassType);
 
@@ -756,14 +756,14 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Clone()
     {
-      using (MagickImage first = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage first = new MagickImage(Files.SnakewarePNG))
       {
         using (IMagickImage second = first.Clone())
         {
           Test_Clone(first, second);
         }
 
-        using (MagickImage second = new MagickImage(first))
+        using (IMagickImage second = new MagickImage(first))
         {
           Test_Clone(first, second);
         }
@@ -773,7 +773,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Clone_Area()
     {
-      using (MagickImage icon = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage icon = new MagickImage(Files.MagickNETIconPNG))
       {
         using (IMagickImage area = icon.Clone())
         {
@@ -824,7 +824,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Clut()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         using (IMagickImage clut = CreatePallete())
         {
@@ -837,7 +837,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Colorize()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
       {
         image.Colorize(MagickColors.Purple, new Percentage(50));
 
@@ -848,7 +848,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ColorAlpha()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         MagickColor purple = new MagickColor("purple");
 
@@ -862,12 +862,12 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ColorMap()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         Assert.IsNull(image.GetColormap(0));
       }
 
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProGIF))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProGIF))
       {
         ColorAssert.AreEqual(new MagickColor("#040d14"), image.GetColormap(0));
         image.SetColormap(0, MagickColors.Fuchsia);
@@ -881,7 +881,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ColorMatrix()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Rose))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Rose))
       {
         MagickColorMatrix matrix = new MagickColorMatrix(3, 0, 0, 1, 0, 1, 0, 1, 0, 0);
 
@@ -894,21 +894,21 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ColorType()
     {
-      using (MagickImage image = new MagickImage(Files.WireframeTIF))
+      using (IMagickImage image = new MagickImage(Files.WireframeTIF))
       {
         Assert.AreEqual(ColorType.TrueColor, image.ColorType);
         using (MemoryStream memStream = new MemoryStream())
         {
           image.Write(memStream);
           memStream.Position = 0;
-          using (MagickImage result = new MagickImage(memStream))
+          using (IMagickImage result = new MagickImage(memStream))
           {
             Assert.AreEqual(ColorType.Grayscale, result.ColorType);
           }
         }
       }
 
-      using (MagickImage image = new MagickImage(Files.WireframeTIF))
+      using (IMagickImage image = new MagickImage(Files.WireframeTIF))
       {
         Assert.AreEqual(ColorType.TrueColor, image.ColorType);
         image.PreserveColorType();
@@ -917,7 +917,7 @@ namespace Magick.NET.Tests
           image.Format = MagickFormat.Psd;
           image.Write(memStream);
           memStream.Position = 0;
-          using (MagickImage result = new MagickImage(memStream))
+          using (IMagickImage result = new MagickImage(memStream))
           {
             Assert.AreEqual(ColorType.TrueColor, result.ColorType);
           }
@@ -928,7 +928,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Compare()
     {
-      MagickImage first = new MagickImage(Files.ImageMagickJPG);
+      IMagickImage first = new MagickImage(Files.ImageMagickJPG);
 
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
       {
@@ -952,7 +952,7 @@ namespace Magick.NET.Tests
       distortion = first.Compare(second, ErrorMetric.Absolute);
       Assert.AreNotEqual(0, distortion);
 
-      MagickImage difference = new MagickImage();
+      IMagickImage difference = new MagickImage();
       distortion = first.Compare(second, ErrorMetric.RootMeanSquared, difference);
       Assert.AreNotEqual(0, distortion);
       Assert.AreNotEqual(first, difference);
@@ -976,9 +976,9 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Composite_Blur()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        using (MagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
+        using (IMagickImage blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height))
         {
           image.Warning += ShouldNotRaiseWarning;
           image.Composite(blur, Gravity.Center, CompositeOperator.Blur, "3");
@@ -989,7 +989,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Composite_ChangeMask()
     {
-      using (MagickImage background = new MagickImage("xc:red", 100, 100))
+      using (IMagickImage background = new MagickImage("xc:red", 100, 100))
       {
         background.BackgroundColor = MagickColors.White;
         background.Extent(200, 100);
@@ -1005,7 +1005,7 @@ namespace Magick.NET.Tests
           image.Draw(drawables);
           image.Composite(background, Gravity.Center, CompositeOperator.ChangeMask);
 
-          using (MagickImage result = new MagickImage(MagickColors.Transparent, 200, 100))
+          using (IMagickImage result = new MagickImage(MagickColors.Transparent, 200, 100))
           {
             result.Draw(drawables);
             Assert.AreEqual(0.0634, result.Compare(image, ErrorMetric.RootMeanSquared), 0.001);
@@ -1017,9 +1017,9 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Composite_Copy()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        using (MagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
+        using (IMagickImage yellow = new MagickImage(new MagickColor("#FF0"), 100, 100))
         {
           image.Composite(yellow, new PointD(50, 50), CompositeOperator.Copy);
 
@@ -1043,9 +1043,9 @@ namespace Magick.NET.Tests
       MagickColor backgroundColor = MagickColors.LightBlue;
       MagickColor overlayColor = MagickColors.YellowGreen;
 
-      using (MagickImage background = new MagickImage(backgroundColor, 100, 100))
+      using (IMagickImage background = new MagickImage(backgroundColor, 100, 100))
       {
-        using (MagickImage overlay = new MagickImage(overlayColor, 50, 50))
+        using (IMagickImage overlay = new MagickImage(overlayColor, 50, 50))
         {
           background.Composite(overlay, Gravity.West, CompositeOperator.Over);
 
@@ -1067,9 +1067,9 @@ namespace Magick.NET.Tests
         }
       }
 
-      using (MagickImage background = new MagickImage(backgroundColor, 100, 100))
+      using (IMagickImage background = new MagickImage(backgroundColor, 100, 100))
       {
-        using (MagickImage overlay = new MagickImage(overlayColor, 50, 50))
+        using (IMagickImage overlay = new MagickImage(overlayColor, 50, 50))
         {
           background.Composite(overlay, Gravity.East, CompositeOperator.Over);
 
@@ -1095,7 +1095,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ConnectedComponents()
     {
-      using (MagickImage image = new MagickImage(Files.ConnectedComponentsPNG))
+      using (IMagickImage image = new MagickImage(Files.ConnectedComponentsPNG))
       {
         using (IMagickImage temp = image.Clone())
         {
@@ -1184,12 +1184,12 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Contrast()
     {
-      using (MagickImage first = new MagickImage(Files.Builtin.Wizard))
+      using (IMagickImage first = new MagickImage(Files.Builtin.Wizard))
       {
         first.Contrast(true);
         first.Contrast(false);
 
-        using (MagickImage second = new MagickImage(Files.Builtin.Wizard))
+        using (IMagickImage second = new MagickImage(Files.Builtin.Wizard))
         {
           Assert.AreEqual(0.003, 0.0001, first.Compare(second, ErrorMetric.RootMeanSquared));
         }
@@ -1199,7 +1199,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ContrastStretch()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
       {
         image.ContrastStretch(new Percentage(50), new Percentage(80));
         image.Alpha(AlphaOption.Opaque);
@@ -1212,7 +1212,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Convolve()
     {
-      using (MagickImage image = new MagickImage("xc:", 1, 1))
+      using (IMagickImage image = new MagickImage("xc:", 1, 1))
       {
         image.BorderColor = MagickColors.Black;
         image.Border(5);
@@ -1239,9 +1239,9 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_CopyPixels()
     {
-      using (MagickImage source = new MagickImage(MagickColors.White, 100, 100))
+      using (IMagickImage source = new MagickImage(MagickColors.White, 100, 100))
       {
-        using (MagickImage destination = new MagickImage(MagickColors.Black, 50, 50))
+        using (IMagickImage destination = new MagickImage(MagickColors.Black, 50, 50))
         {
           ExceptionAssert.Throws<ArgumentNullException>(delegate ()
           {
@@ -1335,7 +1335,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_CropToTiles()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         IMagickImage[] tiles = image.CropToTiles(48, 48).ToArray();
         Assert.AreEqual(140, tiles.Length);
@@ -1359,7 +1359,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_CycleColormap()
     {
-      using (MagickImage first = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage first = new MagickImage(Files.Builtin.Logo))
       {
         Assert.AreEqual(256, first.ColormapSize);
 
@@ -1383,7 +1383,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Define()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         string option = "optimize-coding";
 
@@ -1409,7 +1409,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Density()
     {
-      using (MagickImage image = new MagickImage(Files.EightBimTIF))
+      using (IMagickImage image = new MagickImage(Files.EightBimTIF))
       {
         Assert.AreEqual(72, image.Density.X);
         Assert.AreEqual(72, image.Density.Y);
@@ -1420,7 +1420,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Deskew()
     {
-      using (MagickImage image = new MagickImage(Files.LetterJPG))
+      using (IMagickImage image = new MagickImage(Files.LetterJPG))
       {
         image.ColorType = ColorType.Bilevel;
 
@@ -1435,7 +1435,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Despeckle()
     {
-      using (MagickImage image = new MagickImage(Files.NoisePNG))
+      using (IMagickImage image = new MagickImage(Files.NoisePNG))
       {
         MagickColor color = new MagickColor("#d1d1d1d1d1d1");
         ColorAssert.AreNotEqual(color, image, 130, 123);
@@ -1451,7 +1451,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_DetermineColorType()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         Assert.AreEqual(ColorType.TrueColorAlpha, image.ColorType);
 
@@ -1463,7 +1463,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Dispose()
     {
-      MagickImage image = new MagickImage();
+      IMagickImage image = new MagickImage();
       image.Dispose();
 
       ExceptionAssert.Throws<ObjectDisposedException>(delegate ()
@@ -1475,7 +1475,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Distort()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         ExceptionAssert.Throws<ArgumentNullException>(delegate ()
         {
@@ -1501,7 +1501,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Drawable()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
+      using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
       {
         MagickColor yellow = MagickColors.Yellow;
         image.Draw(new DrawableFillColor(yellow), new DrawableRectangle(0, 0, 10, 10));
@@ -1512,7 +1512,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Encipher_Decipher()
     {
-      using (MagickImage original = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage original = new MagickImage(Files.SnakewarePNG))
       {
         using (IMagickImage enciphered = original.Clone())
         {
@@ -1539,7 +1539,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Edge()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         ColorAssert.AreNotEqual(MagickColors.Black, image, 400, 295);
         ColorAssert.AreNotEqual(MagickColors.Blue, image, 455, 126);
@@ -1555,7 +1555,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Emboss()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
       {
         image.Emboss(4, 2);
 
@@ -1577,11 +1577,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Enhance()
     {
-      using (MagickImage enhanced = new MagickImage(Files.NoisePNG))
+      using (IMagickImage enhanced = new MagickImage(Files.NoisePNG))
       {
         enhanced.Enhance();
 
-        using (MagickImage original = new MagickImage(Files.NoisePNG))
+        using (IMagickImage original = new MagickImage(Files.NoisePNG))
         {
           Assert.AreEqual(0.0115, enhanced.Compare(original, ErrorMetric.RootMeanSquared), 0.0003);
         }
@@ -1591,7 +1591,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Equalize()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         image.Equalize();
 
@@ -1603,7 +1603,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Evaluate()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         ExceptionAssert.Throws<ArgumentNullException>(delegate ()
         {
@@ -1639,7 +1639,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Extent()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Read(Files.RedPNG);
         image.Resize(new MagickGeometry(100, 100));
@@ -1692,7 +1692,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_FontTypeMetrics()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Transparent, 100, 100))
+      using (IMagickImage image = new MagickImage(MagickColors.Transparent, 100, 100))
       {
         image.Settings.Font = "Arial";
         image.Settings.FontPointsize = 15;
@@ -1722,7 +1722,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_FormatExpression()
     {
-      using (MagickImage image = new MagickImage(Files.RedPNG))
+      using (IMagickImage image = new MagickImage(Files.RedPNG))
       {
         ExceptionAssert.Throws<ArgumentNullException>(delegate ()
         {
@@ -1738,7 +1738,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual("a48a7f2fdc26e9ccf75b0c85a254c958f004cc182d0ca8c3060c1df734645367", image.FormatExpression("%#"));
       }
 
-      using (MagickImage image = new MagickImage(Files.InvitationTif))
+      using (IMagickImage image = new MagickImage(Files.InvitationTif))
       {
         Assert.AreEqual("sRGB IEC61966-2.1", image.FormatExpression("%[profile:icc]"));
       }
@@ -1747,7 +1747,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_FormatInfo()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         MagickFormatInfo info = image.FormatInfo;
 
@@ -1762,7 +1762,7 @@ namespace Magick.NET.Tests
     {
       int frameSize = 100;
 
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         int expectedWidth = frameSize + image.Width + frameSize;
         int expectedHeight = frameSize + image.Height + frameSize;
@@ -1772,7 +1772,7 @@ namespace Magick.NET.Tests
         Assert.AreEqual(expectedHeight, image.Height);
       }
 
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         int expectedWidth = frameSize + image.Width + frameSize;
         int expectedHeight = frameSize + image.Height + frameSize;
@@ -1784,7 +1784,7 @@ namespace Magick.NET.Tests
 
       ExceptionAssert.Throws<MagickOptionErrorException>(delegate ()
       {
-        using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+        using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
         {
           image.Frame(6, 6, frameSize, frameSize);
         }
@@ -1794,7 +1794,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Fx()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         ExceptionAssert.Throws<ArgumentNullException>(delegate ()
         {
@@ -1837,10 +1837,10 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_GammaCorrect()
     {
-      MagickImage first = new MagickImage(Files.InvitationTif);
+      IMagickImage first = new MagickImage(Files.InvitationTif);
       first.GammaCorrect(2.0);
 
-      MagickImage second = new MagickImage(Files.InvitationTif);
+      IMagickImage second = new MagickImage(Files.InvitationTif);
       second.GammaCorrect(2.0, Channels.Red);
 
       Assert.AreNotEqual(first, second);
@@ -1852,11 +1852,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_GaussianBlur()
     {
-      using (MagickImage gaussian = new MagickImage(Files.Builtin.Wizard))
+      using (IMagickImage gaussian = new MagickImage(Files.Builtin.Wizard))
       {
         gaussian.GaussianBlur(5.5, 10.2);
 
-        using (MagickImage blur = new MagickImage(Files.Builtin.Wizard))
+        using (IMagickImage blur = new MagickImage(Files.Builtin.Wizard))
         {
           blur.Blur(5.5, 10.2);
 
@@ -1877,7 +1877,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_GetClippingPath()
     {
-      using (MagickImage image = new MagickImage(Files.InvitationTif))
+      using (IMagickImage image = new MagickImage(Files.InvitationTif))
       {
         string clippingPath = image.GetClippingPath();
         Assert.IsNotNull(clippingPath);
@@ -1890,7 +1890,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Grayscale()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Grayscale(PixelIntensityMethod.Brightness);
         Assert.AreEqual(1, image.ChannelCount);
@@ -1905,7 +1905,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_HaldClut()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         using (IMagickImage clut = CreatePallete())
         {
@@ -1920,12 +1920,12 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_HasClippingPath()
     {
-      using (MagickImage noPath = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage noPath = new MagickImage(Files.MagickNETIconPNG))
       {
         Assert.IsFalse(noPath.HasClippingPath);
       }
 
-      using (MagickImage hasPath = new MagickImage(Files.InvitationTif))
+      using (IMagickImage hasPath = new MagickImage(Files.InvitationTif))
       {
         Assert.IsTrue(hasPath.HasClippingPath);
       }
@@ -1934,7 +1934,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Histogram()
     {
-      MagickImage image = new MagickImage();
+      IMagickImage image = new MagickImage();
       Dictionary<MagickColor, int> histogram = image.Histogram();
       Assert.IsNotNull(histogram);
       Assert.AreEqual(0, histogram.Count);
@@ -2033,7 +2033,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Implode()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         ColorAssert.AreEqual(new MagickColor("#00000000"), image, 69, 45);
 
@@ -2050,7 +2050,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Interlace()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         Assert.AreEqual(Interlace.NoInterlace, image.Interlace);
 
@@ -2060,7 +2060,7 @@ namespace Magick.NET.Tests
         {
           image.Write(memStream);
           memStream.Position = 0;
-          using (MagickImage result = new MagickImage(memStream))
+          using (IMagickImage result = new MagickImage(memStream))
           {
             Assert.AreEqual(Interlace.Png, result.Interlace);
           }
@@ -2071,14 +2071,14 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_IsOpaque()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         Assert.IsFalse(image.IsOpaque);
         image.ColorAlpha(MagickColors.Purple);
         Assert.IsTrue(image.IsOpaque);
       }
 
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         Assert.IsTrue(image.IsOpaque);
         image.Opaque(MagickColors.White, MagickColors.Transparent);
@@ -2089,7 +2089,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Kuwahara()
     {
-      using (MagickImage image = new MagickImage(Files.NoisePNG))
+      using (IMagickImage image = new MagickImage(Files.NoisePNG))
       {
         image.Kuwahara(13.4, 2.5);
         image.ColorType = ColorType.Bilevel;
@@ -2102,11 +2102,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Level()
     {
-      using (MagickImage first = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage first = new MagickImage(Files.MagickNETIconPNG))
       {
         first.Level(new Percentage(50.0), new Percentage(10.0));
 
-        using (MagickImage second = new MagickImage(Files.MagickNETIconPNG))
+        using (IMagickImage second = new MagickImage(Files.MagickNETIconPNG))
         {
           Assert.AreNotEqual(first, second);
           Assert.AreNotEqual(first.Signature, second.Signature);
@@ -2124,11 +2124,11 @@ namespace Magick.NET.Tests
         }
       }
 
-      using (MagickImage first = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage first = new MagickImage(Files.MagickNETIconPNG))
       {
         first.InverseLevel(new Percentage(50.0), new Percentage(10.0));
 
-        using (MagickImage second = new MagickImage(Files.MagickNETIconPNG))
+        using (IMagickImage second = new MagickImage(Files.MagickNETIconPNG))
         {
           Assert.AreNotEqual(first, second);
           Assert.AreNotEqual(first.Signature, second.Signature);
@@ -2150,20 +2150,20 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_LevelColors()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.LevelColors(MagickColors.Fuchsia, MagickColors.Goldenrod);
         ColorAssert.AreEqual(new MagickColor("#ffffbed24bc3fffa"), image, 42, 75);
         ColorAssert.AreEqual(new MagickColor("#ffffffff0809"), image, 62, 75);
       }
 
-      using (MagickImage first = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage first = new MagickImage(Files.MagickNETIconPNG))
       {
         first.LevelColors(MagickColors.Fuchsia, MagickColors.Goldenrod, Channels.Blue);
         first.InverseLevelColors(MagickColors.Fuchsia, MagickColors.Goldenrod, Channels.Blue);
         first.Alpha(AlphaOption.Background);
 
-        using (MagickImage second = new MagickImage(Files.MagickNETIconPNG))
+        using (IMagickImage second = new MagickImage(Files.MagickNETIconPNG))
         {
           second.Alpha(AlphaOption.Background);
 #if Q8
@@ -2180,7 +2180,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_LinearStretch()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         image.Scale(100, 100);
 
@@ -2191,7 +2191,7 @@ namespace Magick.NET.Tests
           image.Write(memStream);
           memStream.Position = 0;
 
-          using (MagickImage histogram = new MagickImage(memStream))
+          using (IMagickImage histogram = new MagickImage(memStream))
           {
 #if Q8
             ColorAssert.AreEqual(MagickColors.Red, histogram, 65, 12);
@@ -2214,7 +2214,7 @@ namespace Magick.NET.Tests
           image.Write(memStream);
           memStream.Position = 0;
 
-          using (MagickImage histogram = new MagickImage(memStream))
+          using (IMagickImage histogram = new MagickImage(memStream))
           {
 #if Q8
             ColorAssert.AreEqual(MagickColors.Red, histogram, 102, 183);
@@ -2239,7 +2239,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_LocalContrast()
     {
-      using (MagickImage image = new MagickImage(Files.NoisePNG))
+      using (IMagickImage image = new MagickImage(Files.NoisePNG))
       {
         image.LocalContrast(5.0, (Percentage)75);
         image.Clamp();
@@ -2254,7 +2254,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_LiquidRescale()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         MagickGeometry geometry = new MagickGeometry(128, 64);
         geometry.IgnoreAspectRatio = true;
@@ -2268,7 +2268,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Magnify()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.Magnify();
         Assert.AreEqual(image.Width, 256);
@@ -2279,7 +2279,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Map()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         using (IMagickImage colors = CreatePallete())
         {
@@ -2291,7 +2291,7 @@ namespace Magick.NET.Tests
         }
       }
 
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         List<MagickColor> colors = new List<MagickColor>();
         colors.Add(MagickColors.Gold);
@@ -2309,7 +2309,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_MatteColor()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.MatteColor = MagickColors.PaleGoldenrod;
         image.Frame();
@@ -2322,7 +2322,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Minify()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.Minify();
         Assert.AreEqual(image.Width, 64);
@@ -2333,7 +2333,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Modulate()
     {
-      using (MagickImage image = new MagickImage(Files.TestPNG))
+      using (IMagickImage image = new MagickImage(Files.TestPNG))
       {
         image.Modulate(new Percentage(70), new Percentage(30));
 
@@ -2360,7 +2360,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Morphology()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         ExceptionAssert.Throws<MagickOptionErrorException>(delegate ()
         {
@@ -2394,11 +2394,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_MotionBlur()
     {
-      using (MagickImage motionBlurred = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage motionBlurred = new MagickImage(Files.Builtin.Logo))
       {
         motionBlurred.MotionBlur(4.0, 5.4, 10.6);
 
-        using (MagickImage original = new MagickImage(Files.Builtin.Logo))
+        using (IMagickImage original = new MagickImage(Files.Builtin.Logo))
         {
           Assert.AreEqual(0.11019, motionBlurred.Compare(original, ErrorMetric.RootMeanSquared), 0.00001);
         }
@@ -2442,7 +2442,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_OilPaint()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         image.OilPaint(2, 5);
         ColorAssert.AreEqual(new MagickColor("#6a7e85"), image, 180, 98);
@@ -2452,7 +2452,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_OrderedDither()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.OrderedDither("h4x4a");
 
@@ -2465,7 +2465,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Opaque()
     {
-      using (MagickImage image = new MagickImage(MagickColors.Red, 10, 10))
+      using (IMagickImage image = new MagickImage(MagickColors.Red, 10, 10))
       {
         ColorAssert.AreEqual(MagickColors.Red, image, 0, 0);
 
@@ -2483,7 +2483,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Perceptible()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Perceptible(Quantum.Max * 0.4);
 
@@ -2495,7 +2495,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Ping()
     {
-      MagickImage image = new MagickImage();
+      IMagickImage image = new MagickImage();
 
       ExceptionAssert.Throws<ArgumentException>(delegate ()
       {
@@ -2551,7 +2551,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Polaroid()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.BorderColor = MagickColors.Red;
         image.BackgroundColor = MagickColors.Fuchsia;
@@ -2574,7 +2574,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Posterize()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         image.Posterize(5);
 
@@ -2595,7 +2595,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Profile()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         ImageProfile profile = image.GetIptcProfile();
         Assert.IsNotNull(profile);
@@ -2608,7 +2608,7 @@ namespace Magick.NET.Tests
           image.Write(memStream);
           memStream.Position = 0;
 
-          using (MagickImage newImage = new MagickImage(memStream))
+          using (IMagickImage newImage = new MagickImage(memStream))
           {
             profile = newImage.GetIptcProfile();
             Assert.IsNull(profile);
@@ -2620,7 +2620,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ProfileNames()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         IEnumerable<string> names = image.ProfileNames;
         Assert.IsNotNull(names);
@@ -2630,7 +2630,7 @@ namespace Magick.NET.Tests
                                                                     select name).ToArray()));
       }
 
-      using (MagickImage image = new MagickImage(Files.RedPNG))
+      using (IMagickImage image = new MagickImage(Files.RedPNG))
       {
         IEnumerable<string> names = image.ProfileNames;
         Assert.IsNotNull(names);
@@ -2655,7 +2655,7 @@ namespace Magick.NET.Tests
           arguments.Cancel = true;
       };
 
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Progress += progressEvent;
 
@@ -2665,7 +2665,7 @@ namespace Magick.NET.Tests
 
       cancel = true;
 
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Progress += progressEvent;
 
@@ -2688,7 +2688,7 @@ namespace Magick.NET.Tests
       settings.MeasureErrors = true;
       Assert.AreEqual(true, settings.MeasureErrors);
 
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         MagickErrorInfo errorInfo = image.Quantize(settings);
 #if Q8
@@ -2706,7 +2706,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_RandomThreshold()
     {
-      using (MagickImage image = new MagickImage(Files.TestPNG))
+      using (IMagickImage image = new MagickImage(Files.TestPNG))
       {
         image.RandomThreshold((QuantumType)(Quantum.Max / 4), (QuantumType)(Quantum.Max / 2));
 
@@ -2721,7 +2721,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Raise_Lower()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         image.Raise(30);
 
@@ -2729,7 +2729,7 @@ namespace Magick.NET.Tests
         ColorAssert.AreEqual(new MagickColor("#2f2054867aac"), image, 570, 265);
       }
 
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         image.Lower(30);
 
@@ -2741,7 +2741,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Read()
     {
-      MagickImage image = new MagickImage();
+      IMagickImage image = new MagickImage();
 
       ExceptionAssert.Throws<ArgumentException>(delegate ()
       {
@@ -2834,7 +2834,7 @@ namespace Magick.NET.Tests
         fs.Position = 0;
         using (PartialStream partialStream = new PartialStream(fs, true))
         {
-          using (MagickImage testImage = new MagickImage())
+          using (IMagickImage testImage = new MagickImage())
           {
             testImage.Read(partialStream);
 
@@ -2848,7 +2848,7 @@ namespace Magick.NET.Tests
         fs.Position = 0;
         using (PartialStream partialStream = new PartialStream(fs, false))
         {
-          using (MagickImage testImage = new MagickImage())
+          using (IMagickImage testImage = new MagickImage())
           {
             testImage.Read(partialStream);
 
@@ -2896,7 +2896,7 @@ namespace Magick.NET.Tests
     public void Test_Read_Pango()
     {
       string fileName = "pango:<span font=\"Arial\">" + new string('*', 4500) + "</span>";
-      using (MagickImage image = new MagickImage(fileName))
+      using (IMagickImage image = new MagickImage(fileName))
       {
       }
     }
@@ -2904,9 +2904,9 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_RegionMask()
     {
-      using (MagickImage red = new MagickImage("xc:red", 100, 100))
+      using (IMagickImage red = new MagickImage("xc:red", 100, 100))
       {
-        using (MagickImage green = new MagickImage("xc:green", 100, 100))
+        using (IMagickImage green = new MagickImage("xc:green", 100, 100))
         {
           green.RegionMask(new MagickGeometry(10, 10, 50, 50));
 
@@ -2930,7 +2930,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Resample()
     {
-      using (MagickImage image = new MagickImage("xc:red", 100, 100))
+      using (IMagickImage image = new MagickImage("xc:red", 100, 100))
       {
         image.Resample(new PointD(300));
 
@@ -2944,7 +2944,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Resize()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Read(Files.MagickNETIconPNG);
         image.Resize(new MagickGeometry(64, 64));
@@ -3001,7 +3001,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Roll()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.Roll(40, 60);
 
@@ -3015,7 +3015,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Rotate()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         Assert.AreEqual(640, image.Width);
         Assert.AreEqual(480, image.Height);
@@ -3030,7 +3030,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_RotationalBlur()
     {
-      using (MagickImage image = new MagickImage(Files.TestPNG))
+      using (IMagickImage image = new MagickImage(Files.TestPNG))
       {
         image.RotationalBlur(20);
 
@@ -3049,7 +3049,7 @@ namespace Magick.NET.Tests
 #endif
       }
 
-      using (MagickImage image = new MagickImage(Files.TestPNG))
+      using (IMagickImage image = new MagickImage(Files.TestPNG))
       {
         image.RotationalBlur(20, Channels.RGB);
 
@@ -3072,7 +3072,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Sample()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Sample(400, 400);
         Assert.AreEqual(400, image.Width);
@@ -3083,7 +3083,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Scale()
     {
-      using (MagickImage image = new MagickImage(Files.CirclePNG))
+      using (IMagickImage image = new MagickImage(Files.CirclePNG))
       {
         MagickColor color = MagickColor.FromRgba(255, 255, 255, 159);
         ColorAssert.AreEqual(color, image, image.Width / 2, image.Height / 2);
@@ -3096,7 +3096,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Segment()
     {
-      using (MagickImage image = new MagickImage(Files.TestPNG))
+      using (IMagickImage image = new MagickImage(Files.TestPNG))
       {
         image.Segment();
 
@@ -3109,11 +3109,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_SelectiveBlur()
     {
-      using (MagickImage image = new MagickImage(Files.NoisePNG))
+      using (IMagickImage image = new MagickImage(Files.NoisePNG))
       {
         image.SelectiveBlur(5.0, 2.0, Quantum.Max / 2);
 
-        using (MagickImage original = new MagickImage(Files.NoisePNG))
+        using (IMagickImage original = new MagickImage(Files.NoisePNG))
         {
           Assert.AreEqual(0.07777, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00002);
         }
@@ -3123,7 +3123,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Separate()
     {
-      using (MagickImage rose = new MagickImage(Files.Builtin.Rose))
+      using (IMagickImage rose = new MagickImage(Files.Builtin.Rose))
       {
         int i = 0;
         foreach (MagickImage image in rose.Separate())
@@ -3148,7 +3148,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Separate_Composite()
     {
-      using (MagickImage logo = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage logo = new MagickImage(Files.Builtin.Logo))
       {
         using (IMagickImage blue = logo.Separate(Channels.Blue).First())
         {
@@ -3169,7 +3169,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_SepiaTone()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.SepiaTone();
 
@@ -3194,7 +3194,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_SetAttenuate()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.SetAttenuate(5.6);
         Assert.AreEqual("5.6", image.GetArtifact("attenuate"));
@@ -3204,11 +3204,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_SetClippingPath()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         Assert.IsFalse(image.HasClippingPath);
 
-        using (MagickImage path = new MagickImage(Files.InvitationTif))
+        using (IMagickImage path = new MagickImage(Files.InvitationTif))
         {
           string clippingPath = path.GetClippingPath();
 
@@ -3227,7 +3227,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_SetHighlightColor()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.SetHighlightColor(MagickColors.Fuchsia);
 #if Q8
@@ -3243,7 +3243,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_SetLowlightColor()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.SetLowlightColor(MagickColors.Purple);
 #if Q8
@@ -3259,7 +3259,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Shade()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.FontPointsize = 90;
         image.Read("label:Magick.NET");
@@ -3271,7 +3271,7 @@ namespace Magick.NET.Tests
         ColorAssert.AreEqual(new MagickColor("#7fff7fff7fff"), image, 148, 48);
       }
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.FontPointsize = 90;
         image.Read("label:Magick.NET");
@@ -3287,7 +3287,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Shadow()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.BackgroundColor = MagickColors.Transparent;
         image.Settings.FontPointsize = 60;
@@ -3327,12 +3327,12 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Sharpen()
     {
-      using (MagickImage image = new MagickImage(Files.NoisePNG))
+      using (IMagickImage image = new MagickImage(Files.NoisePNG))
       {
         image.Sharpen(10, 20);
         image.Clamp();
 
-        using (MagickImage original = new MagickImage(Files.NoisePNG))
+        using (IMagickImage original = new MagickImage(Files.NoisePNG))
         {
           Assert.AreEqual(0.06675, image.Compare(original, ErrorMetric.RootMeanSquared), 0.00001);
         }
@@ -3342,7 +3342,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Shave()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Shave(20, 40);
 
@@ -3354,7 +3354,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Shear()
     {
-      using (MagickImage image = new MagickImage(Files.TestPNG))
+      using (IMagickImage image = new MagickImage(Files.TestPNG))
       {
         image.BackgroundColor = MagickColors.Firebrick;
         image.VirtualPixelMethod = VirtualPixelMethod.Background;
@@ -3377,11 +3377,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_SigmoidalContrast()
     {
-      using (MagickImage image = new MagickImage(Files.NoisePNG))
+      using (IMagickImage image = new MagickImage(Files.NoisePNG))
       {
         image.SigmoidalContrast(true, 8.0);
 
-        using (MagickImage original = new MagickImage(Files.NoisePNG))
+        using (IMagickImage original = new MagickImage(Files.NoisePNG))
         {
           Assert.AreEqual(0.07361, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00001);
         }
@@ -3391,7 +3391,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Signature()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         Assert.AreEqual(0, image.Width);
         Assert.AreEqual(0, image.Height);
@@ -3406,7 +3406,7 @@ namespace Magick.NET.Tests
       settings.Width = 600;
       settings.Height = 60;
 
-      using (MagickImage image = new MagickImage("xc:", settings))
+      using (IMagickImage image = new MagickImage("xc:", settings))
       {
         ExceptionAssert.Throws<ArgumentNullException>(delegate ()
         {
@@ -3451,7 +3451,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Sketch()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         image.Resize(400, 400);
 
@@ -3466,7 +3466,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Solarize()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Solarize();
 
@@ -3479,7 +3479,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Splice()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         image.BackgroundColor = MagickColors.Fuchsia;
         image.Splice(new MagickGeometry(105, 50, 10, 20));
@@ -3494,11 +3494,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Spread()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         image.Spread(10);
 
-        using (MagickImage original = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+        using (IMagickImage original = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
         {
           Assert.AreEqual(0.121, original.Compare(image, ErrorMetric.RootMeanSquared), 0.002);
         }
@@ -3508,7 +3508,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Statistic()
     {
-      using (MagickImage image = new MagickImage(Files.NoisePNG))
+      using (IMagickImage image = new MagickImage(Files.NoisePNG))
       {
         image.Statistic(StatisticType.Minimum, 10, 1);
 
@@ -3521,9 +3521,9 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Stegano()
     {
-      using (MagickImage message = new MagickImage("label:Magick.NET is the best!", 200, 20))
+      using (IMagickImage message = new MagickImage("label:Magick.NET is the best!", 200, 20))
       {
-        using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
+        using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
         {
           image.Stegano(message);
 
@@ -3538,7 +3538,7 @@ namespace Magick.NET.Tests
             settings.Width = 200;
             settings.Height = 20;
 
-            using (MagickImage hiddenMessage = new MagickImage(tempFile, settings))
+            using (IMagickImage hiddenMessage = new MagickImage(tempFile, settings))
             {
               Assert.AreEqual(0, message.Compare(hiddenMessage, ErrorMetric.RootMeanSquared), 0.001);
             }
@@ -3555,11 +3555,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Stereo()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Flop();
 
-        using (MagickImage rightImage = new MagickImage(Files.Builtin.Logo))
+        using (IMagickImage rightImage = new MagickImage(Files.Builtin.Logo))
         {
           image.Stereo(rightImage);
 
@@ -3572,7 +3572,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Swirl()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Alpha(AlphaOption.Deactivate);
 
@@ -3614,9 +3614,9 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Texture()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
-        using (MagickImage canvas = new MagickImage(MagickColors.Fuchsia, 300, 300))
+        using (IMagickImage canvas = new MagickImage(MagickColors.Fuchsia, 300, 300))
         {
           canvas.Texture(image);
 
@@ -3630,9 +3630,9 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Tile()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        using (MagickImage checkerboard = new MagickImage(Files.Patterns.Checkerboard))
+        using (IMagickImage checkerboard = new MagickImage(Files.Patterns.Checkerboard))
         {
           image.Opaque(MagickColors.White, MagickColors.Transparent);
           image.Tile(checkerboard, CompositeOperator.DstOver);
@@ -3645,7 +3645,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Tint()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Settings.FillColor = MagickColors.Gold;
         image.Tint("1x2");
@@ -3659,7 +3659,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Threshold()
     {
-      using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+      using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
       {
         using (MemoryStream memStream = new MemoryStream())
         {
@@ -3674,7 +3674,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Thumbnail()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         image.Thumbnail(100, 100);
         Assert.AreEqual(100, image.Width);
@@ -3685,7 +3685,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ToByteArray()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         byte[] bytes = image.ToByteArray(new DdsWriteDefines()
         {
@@ -3715,12 +3715,12 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ToString()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Wizard))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Wizard))
       {
         Assert.AreEqual("Gif 480x640 8-bit sRGB 97.34kB", image.ToString());
       }
 
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         Assert.AreEqual("Png 128x128 16-bit sRGB 22.93kB", image.ToString());
       }
@@ -3729,7 +3729,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_TotalColors()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         Assert.AreEqual(0, image.TotalColors);
 
@@ -3745,7 +3745,7 @@ namespace Magick.NET.Tests
       MagickColor transparentRed = new MagickColor("red");
       transparentRed.A = 0;
 
-      using (MagickImage image = new MagickImage(Files.RedPNG))
+      using (IMagickImage image = new MagickImage(Files.RedPNG))
       {
         ColorAssert.AreEqual(red, image, 0, 0);
 
@@ -3755,7 +3755,7 @@ namespace Magick.NET.Tests
         ColorAssert.AreNotEqual(transparentRed, image, image.Width - 1, 0);
       }
 
-      using (MagickImage image = new MagickImage(Files.RedPNG))
+      using (IMagickImage image = new MagickImage(Files.RedPNG))
       {
         ColorAssert.AreEqual(red, image, 0, 0);
 
@@ -3769,7 +3769,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_TransparentChroma()
     {
-      using (MagickImage image = new MagickImage(Files.TestPNG))
+      using (IMagickImage image = new MagickImage(Files.TestPNG))
       {
         image.TransparentChroma(MagickColors.Black, MagickColors.WhiteSmoke);
 
@@ -3779,7 +3779,7 @@ namespace Magick.NET.Tests
         ColorAssert.AreEqual(new MagickColor("#0000808000000000"), image, 74, 79);
       }
 
-      using (MagickImage image = new MagickImage(Files.TestPNG))
+      using (IMagickImage image = new MagickImage(Files.TestPNG))
       {
         image.InverseTransparentChroma(MagickColors.Black, MagickColors.WhiteSmoke);
 
@@ -3793,7 +3793,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Transpose()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Transpose();
 
@@ -3809,7 +3809,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Transverse()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Transverse();
 
@@ -3825,7 +3825,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Trim()
     {
-      using (MagickImage image = new MagickImage("xc:fuchsia", 50, 50))
+      using (IMagickImage image = new MagickImage("xc:fuchsia", 50, 50))
       {
         ColorAssert.AreEqual(MagickColors.Fuchsia, image, 0, 0);
         ColorAssert.AreEqual(MagickColors.Fuchsia, image, 49, 49);
@@ -3849,7 +3849,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_TransformColorSpace()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         Assert.AreEqual(ColorSpace.sRGB, image.ColorSpace);
 
@@ -3864,7 +3864,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_UniqueColors()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         using (IMagickImage uniqueColors = image.UniqueColors())
         {
@@ -3877,11 +3877,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_UnsharpMask()
     {
-      using (MagickImage image = new MagickImage(Files.NoisePNG))
+      using (IMagickImage image = new MagickImage(Files.NoisePNG))
       {
         image.UnsharpMask(7.0, 3.0);
 
-        using (MagickImage original = new MagickImage(Files.NoisePNG))
+        using (IMagickImage original = new MagickImage(Files.NoisePNG))
         {
 #if Q8 || Q16
           Assert.AreEqual(0.06476, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00002);
@@ -3897,7 +3897,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Vignette()
     {
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.BackgroundColor = MagickColors.Aqua;
         image.Vignette();
@@ -3910,7 +3910,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_VirtualPixelMethod()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         Assert.AreEqual(image.VirtualPixelMethod, VirtualPixelMethod.Undefined);
         image.VirtualPixelMethod = VirtualPixelMethod.Random;
@@ -3921,11 +3921,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Wave()
     {
-      using (MagickImage image = new MagickImage(Files.TestPNG))
+      using (IMagickImage image = new MagickImage(Files.TestPNG))
       {
         image.Wave();
 
-        using (MagickImage original = new MagickImage(Files.TestPNG))
+        using (IMagickImage original = new MagickImage(Files.TestPNG))
         {
 #if Q8
           Assert.AreEqual(0.63104, original.Compare(image, ErrorMetric.RootMeanSquared), 0.00001);
@@ -3941,7 +3941,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_WaveletDenoise()
     {
-      using (MagickImage image = new MagickImage(Files.NoisePNG))
+      using (IMagickImage image = new MagickImage(Files.NoisePNG))
       {
 #if Q8
         MagickColor color = new MagickColor("#dd");
@@ -3977,7 +3977,7 @@ namespace Magick.NET.Tests
         count++;
       };
 
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Warning += warningDelegate;
         image.Read(Files.EightBimTIF);
@@ -3995,7 +3995,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_WhiteThreshold()
     {
-      using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+      using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
       {
         image.WhiteThreshold(new Percentage(10));
         ColorAssert.AreEqual(MagickColors.White, image, 43, 74);
@@ -4008,7 +4008,7 @@ namespace Magick.NET.Tests
     {
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
       {
-        using (MagickImage image = new MagickImage())
+        using (IMagickImage image = new MagickImage())
         {
           image.Write((FileInfo)null);
         }
@@ -4016,7 +4016,7 @@ namespace Magick.NET.Tests
 
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
       {
-        using (MagickImage image = new MagickImage())
+        using (IMagickImage image = new MagickImage())
         {
           image.Write(new FileInfo("foo"), null);
         }
@@ -4024,7 +4024,7 @@ namespace Magick.NET.Tests
 
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
       {
-        using (MagickImage image = new MagickImage())
+        using (IMagickImage image = new MagickImage())
         {
           image.Write((string)null);
         }
@@ -4032,7 +4032,7 @@ namespace Magick.NET.Tests
 
       ExceptionAssert.Throws<ArgumentException>(delegate ()
       {
-        using (MagickImage image = new MagickImage())
+        using (IMagickImage image = new MagickImage())
         {
           image.Write("");
         }
@@ -4040,7 +4040,7 @@ namespace Magick.NET.Tests
 
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
       {
-        using (MagickImage image = new MagickImage())
+        using (IMagickImage image = new MagickImage())
         {
           image.Write("foo", null);
         }
@@ -4048,7 +4048,7 @@ namespace Magick.NET.Tests
 
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
       {
-        using (MagickImage image = new MagickImage())
+        using (IMagickImage image = new MagickImage())
         {
           image.Write((Stream)null);
         }
@@ -4056,7 +4056,7 @@ namespace Magick.NET.Tests
 
       ExceptionAssert.Throws<ArgumentNullException>(delegate ()
       {
-        using (MagickImage image = new MagickImage())
+        using (IMagickImage image = new MagickImage())
         {
           using (MemoryStream memStream = new MemoryStream())
           {
@@ -4065,7 +4065,7 @@ namespace Magick.NET.Tests
         }
       });
 
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         long fileSize = image.FileSize;
 
@@ -4075,7 +4075,7 @@ namespace Magick.NET.Tests
 
           Assert.AreEqual(fileSize, memStream.Length);
 
-          using (MagickImage result = new MagickImage(memStream))
+          using (IMagickImage result = new MagickImage(memStream))
           {
             Assert.AreEqual(image.Width, result.Width);
             Assert.AreEqual(image.Height, result.Height);
@@ -4084,7 +4084,7 @@ namespace Magick.NET.Tests
         }
       }
 
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         MagickFormat format = MagickFormat.Bmp;
 
@@ -4092,7 +4092,7 @@ namespace Magick.NET.Tests
         {
           image.Write(memStream, format);
 
-          using (MagickImage result = new MagickImage(memStream))
+          using (IMagickImage result = new MagickImage(memStream))
           {
             Assert.AreEqual(image.Width, result.Width);
             Assert.AreEqual(image.Height, result.Height);
@@ -4104,7 +4104,7 @@ namespace Magick.NET.Tests
       string fileName = Path.GetTempFileName();
       try
       {
-        using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+        using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
         {
           using (MemoryStream memStream = new MemoryStream())
           {
@@ -4124,7 +4124,7 @@ namespace Magick.NET.Tests
       fileName = Path.GetTempFileName();
       try
       {
-        using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+        using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
         {
           using (MemoryStream memStream = new MemoryStream())
           {

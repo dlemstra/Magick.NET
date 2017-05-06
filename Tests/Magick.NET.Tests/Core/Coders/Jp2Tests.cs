@@ -23,19 +23,19 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Dimensions()
     {
-      using (MagickImage image = new MagickImage(Files.Coders.GrimJp2))
+      using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2))
       {
         Assert.AreEqual(2155, image.Width);
         Assert.AreEqual(2687, image.Height);
       }
 
-      using (MagickImage image = new MagickImage(Files.Coders.GrimJp2 + "[0]"))
+      using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2 + "[0]"))
       {
         Assert.AreEqual(2155, image.Width);
         Assert.AreEqual(2687, image.Height);
       }
 
-      using (MagickImage image = new MagickImage(Files.Coders.GrimJp2 + "[1]"))
+      using (IMagickImage image = new MagickImage(Files.Coders.GrimJp2 + "[1]"))
       {
         Assert.AreEqual(256, image.Width);
         Assert.AreEqual(256, image.Height);

@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Moments()
     {
-      using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+      using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
       {
         Moments moments = image.Moments();
         Assert.IsNotNull(moments);

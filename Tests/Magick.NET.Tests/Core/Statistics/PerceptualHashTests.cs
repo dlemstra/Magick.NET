@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Channel()
     {
-      using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+      using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
       {
         PerceptualHash phash = image.PerceptualHash();
         ChannelPerceptualHash channel = phash.GetChannel(PixelChannel.Red);
@@ -160,7 +160,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ToString()
     {
-      using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+      using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
       {
         PerceptualHash phash = image.PerceptualHash();
         string hash = phash.ToString();
@@ -185,11 +185,11 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_SumSquaredDistance()
     {
-      using (MagickImage image = new MagickImage(Files.ImageMagickJPG))
+      using (IMagickImage image = new MagickImage(Files.ImageMagickJPG))
       {
         PerceptualHash phash = image.PerceptualHash();
 
-        using (MagickImage other = new MagickImage(Files.MagickNETIconPNG))
+        using (IMagickImage other = new MagickImage(Files.MagickNETIconPNG))
         {
           other.HasAlpha = false;
           Assert.AreEqual(3, other.ChannelCount);

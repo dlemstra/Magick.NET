@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Empty()
     {
-      using (MagickImage image = new MagickImage())
+      using (IMagickImage image = new MagickImage())
       {
         image.Settings.SetDefines(new BmpWriteDefines()
         {
@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
         Subtype = BmpSubtype.RGB555,
       };
 
-      using (MagickImage image = new MagickImage(Files.Builtin.Logo))
+      using (IMagickImage image = new MagickImage(Files.Builtin.Logo))
       {
         image.Format = MagickFormat.Bmp;
         image.ColorType = ColorType.TrueColor;

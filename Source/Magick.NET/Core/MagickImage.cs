@@ -421,7 +421,7 @@ namespace ImageMagick
 
     internal static IEnumerable<IMagickImage> CreateList(IntPtr images, MagickSettings settings)
     {
-      Collection<MagickImage> result = new Collection<MagickImage>();
+      Collection<IMagickImage> result = new Collection<IMagickImage>();
 
       IntPtr image = images;
 
@@ -532,12 +532,16 @@ namespace ImageMagick
     /// Initializes a new instance of the <see cref="MagickImage"/> class.
     /// </summary>
     /// <param name="image">The image to create a copy of.</param>
-    public MagickImage(MagickImage image)
+    public MagickImage(IMagickImage image)
     {
       Throw.IfNull(nameof(image), image);
 
-      SetSettings(image.Settings.Clone());
-      SetInstance(new NativeMagickImage(image._NativeInstance.Clone()));
+      MagickImage magickImage = image as MagickImage;
+      if (magickImage == null)
+        throw new NotSupportedException();
+
+      SetSettings(magickImage.Settings.Clone());
+      SetInstance(new NativeMagickImage(magickImage._NativeInstance.Clone()));
     }
 
     /// <summary>

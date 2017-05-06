@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
     {
       ReadDelegate action = delegate ()
       {
-        using (MagickImage image = new MagickImage())
+        using (IMagickImage image = new MagickImage())
         {
           image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
           Test_Image(image);

@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
   {
     private static ExifValue GetExifValue()
     {
-      using (MagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+      using (IMagickImage image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
       {
         ExifProfile profile = image.GetExifProfile();
         Assert.IsNotNull(profile);

@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
 
           memStream.Position = 0;
 
-          using (MagickImage image = new MagickImage())
+          using (IMagickImage image = new MagickImage())
           {
             ExceptionAssert.Throws<MagickMissingDelegateErrorException>(delegate ()
             {

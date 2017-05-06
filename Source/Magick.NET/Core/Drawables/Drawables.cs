@@ -38,7 +38,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="image">The image to draw on.</param>
     /// <returns>The current instance.</returns>
-    public Drawables Draw(MagickImage image)
+    public Drawables Draw(IMagickImage image)
     {
       Throw.IfNull("image", image);
 

@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_Log()
     {
-      using (MagickImage image = new MagickImage(Files.SnakewarePNG))
+      using (IMagickImage image = new MagickImage(Files.SnakewarePNG))
       {
         int count = 0;
         EventHandler<LogEventArgs> logDelegate = delegate (object sender, LogEventArgs arguments)
@@ -132,9 +132,9 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_RandomSeed()
     {
-      using (MagickImage first = new MagickImage("plasma:red", 10, 10))
+      using (IMagickImage first = new MagickImage("plasma:red", 10, 10))
       {
-        using (MagickImage second = new MagickImage("plasma:red", 10, 10))
+        using (IMagickImage second = new MagickImage("plasma:red", 10, 10))
         {
           Assert.AreNotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
         }
@@ -142,9 +142,9 @@ namespace Magick.NET.Tests
 
       MagickNET.SetRandomSeed(1337);
 
-      using (MagickImage first = new MagickImage("plasma:red", 10, 10))
+      using (IMagickImage first = new MagickImage("plasma:red", 10, 10))
       {
-        using (MagickImage second = new MagickImage("plasma:red", 10, 10))
+        using (IMagickImage second = new MagickImage("plasma:red", 10, 10))
         {
           Assert.AreEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
         }

@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
 
       try
       {
-        using (MagickImage image = new MagickImage(Files.MagickNETIconPNG))
+        using (IMagickImage image = new MagickImage(Files.MagickNETIconPNG))
         {
           Assert.IsTrue(image.HasAlpha);
           image.ColorAlpha(new MagickColor("yellow"));

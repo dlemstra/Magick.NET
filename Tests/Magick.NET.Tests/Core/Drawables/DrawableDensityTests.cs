@@ -20,9 +20,9 @@ namespace Magick.NET.Tests
   [TestClass]
   public class DrawableDensityTests
   {
-    private MagickImage CreateImage(int? density)
+    private IMagickImage CreateImage(int? density)
     {
-      MagickImage image = new MagickImage(MagickColors.Purple, 500, 500);
+      IMagickImage image = new MagickImage(MagickColors.Purple, 500, 500);
       DrawableFontPointSize pointSize = new DrawableFontPointSize(20);
       DrawableText text = new DrawableText(250, 250, "Magick.NET");
 
@@ -39,13 +39,13 @@ namespace Magick.NET.Tests
     [TestMethod]
     public void Test_ImageSize()
     {
-      using (MagickImage image = CreateImage(null))
+      using (IMagickImage image = CreateImage(null))
       {
         Assert.AreEqual(107, image.Width);
         Assert.AreEqual(19, image.Height);
       }
 
-      using (MagickImage image = CreateImage(97))
+      using (IMagickImage image = CreateImage(97))
       {
         Assert.AreEqual(146, image.Width);
         Assert.AreEqual(24, image.Height);
