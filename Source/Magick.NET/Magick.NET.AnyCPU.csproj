@@ -361,6 +361,7 @@
     <Compile Include="Core\MagickImageCollection.cs" />
     <Compile Include="Core\MagickImageInfo.cs" />
     <Compile Include="Framework\IMagickImageCollection.cs" />
+    <Compile Include="Framework\IMagickImage.cs" />
     <Compile Include="Native\Helpers\Environment.cs" />
     <Compile Include="Native\OpenCL\OpenCL.cs" />
     <Compile Include="Native\OpenCL\OpenCLDevice.cs" />

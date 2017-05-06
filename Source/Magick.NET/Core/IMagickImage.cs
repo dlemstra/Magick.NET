@@ -32,7 +32,7 @@ namespace ImageMagick
   /// <summary>
   /// Interface that represents an ImageMagick image.
   /// </summary>
-  public interface IMagickImage : IEquatable<IMagickImage>, IComparable<IMagickImage>, IDisposable
+  public partial interface IMagickImage : IEquatable<IMagickImage>, IComparable<IMagickImage>, IDisposable
   {
     /// <summary>
     /// Event that will be raised when progress is reported by this image.
