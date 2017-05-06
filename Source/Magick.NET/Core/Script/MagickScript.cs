@@ -138,9 +138,11 @@ namespace ImageMagick
       return ExecuteCollection(element, collection);
     }
 
-    private void ExecuteClone(XmlElement element, MagickImage image)
+    private void ExecuteClone(XmlElement element, IMagickImage image)
     {
-      Execute(element, image.Clone());
+      MagickImage clone = image.Clone() as MagickImage;
+
+      Execute(element, clone);
     }
 
     private MagickImage ExecuteCollection(XmlElement element)

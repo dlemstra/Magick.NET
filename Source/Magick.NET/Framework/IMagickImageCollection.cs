@@ -22,7 +22,7 @@ namespace ImageMagick
   /// <summary>
   /// Represents the collection of images.
   /// </summary>
-  public partial interface IMagickImageCollection : IDisposable, IList<MagickImage>
+  public partial interface IMagickImageCollection
   {
     /// <summary>
     /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Tiff"/>.

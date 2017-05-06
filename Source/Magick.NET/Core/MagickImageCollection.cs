@@ -24,7 +24,7 @@ namespace ImageMagick
   /// </summary>
   public sealed partial class MagickImageCollection : IMagickImageCollection
   {
-    private List<MagickImage> _Images;
+    private List<IMagickImage> _Images;
     private EventHandler<WarningEventArgs> _Warning;
     private NativeMagickImageCollection _NativeInstance;
 
@@ -181,7 +181,7 @@ namespace ImageMagick
     /// </summary>
     public MagickImageCollection()
     {
-      _Images = new List<MagickImage>();
+      _Images = new List<IMagickImage>();
       _NativeInstance = new NativeMagickImageCollection();
       _NativeInstance.Warning += OnWarning;
     }
@@ -324,7 +324,7 @@ namespace ImageMagick
     /// Gets or sets the image at the specified index.
     /// </summary>
     /// <param name="index">The index of the image to get.</param>
-    public MagickImage this[int index]
+    public IMagickImage this[int index]
     {
       get
       {
@@ -362,7 +362,7 @@ namespace ImageMagick
     /// Adds an image to the collection.
     /// </summary>
     /// <param name="item">The image to add.</param>
-    public void Add(MagickImage item)
+    public void Add(IMagickImage item)
     {
       _Images.Add(item);
     }
@@ -405,7 +405,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="images">The images to add to the collection.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void AddRange(IEnumerable<MagickImage> images)
+    public void AddRange(IEnumerable<IMagickImage> images)
     {
       Throw.IfNull(nameof(images), images);
 
@@ -609,7 +609,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="item">The image to check.</param>
     /// <returns>True when the collection contains the specified image.</returns>
-    public bool Contains(MagickImage item)
+    public bool Contains(IMagickImage item)
     {
       return _Images.Contains(item);
     }
@@ -619,7 +619,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="array">The one-dimensional Array that is the destination.</param>
     /// <param name="arrayIndex">The zero-based index in 'destination' at which copying begins.</param>
-    public void CopyTo(MagickImage[] array, int arrayIndex)
+    public void CopyTo(IMagickImage[] array, int arrayIndex)
     {
       if (_Images.Count == 0)
         return;
@@ -721,7 +721,7 @@ namespace ImageMagick
     /// Returns an enumerator that iterates through the images.
     /// </summary>
     /// <returns>An enumerator that iterates through the images.</returns>
-    public IEnumerator<MagickImage> GetEnumerator()
+    public IEnumerator<IMagickImage> GetEnumerator()
     {
       return _Images.GetEnumerator();
     }
@@ -731,7 +731,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="item">The image to check.</param>
     /// <returns>The index of the specified image.</returns>
-    public int IndexOf(MagickImage item)
+    public int IndexOf(IMagickImage item)
     {
       return _Images.IndexOf(item);
     }
@@ -741,7 +741,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="index">The index to insert the image.</param>
     /// <param name="item">The image to insert.</param>
-    public void Insert(int index, MagickImage item)
+    public void Insert(int index, IMagickImage item)
     {
       _Images.Insert(index, item);
     }
@@ -1103,7 +1103,7 @@ namespace ImageMagick
       }
 
       if (settings.MeasureErrors)
-        return MagickImage.CreateErrorInfo(_Images[0]);
+        return _Images[0].CreateErrorInfo();
       else
         return null;
     }
@@ -1206,7 +1206,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="item">The image to remove.</param>
     /// <returns>True when the image was found and removed.</returns>
-    public bool Remove(MagickImage item)
+    public bool Remove(IMagickImage item)
     {
       return _Images.Remove(item);
     }

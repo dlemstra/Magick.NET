@@ -96,7 +96,7 @@ namespace Magick.NET.Tests
       }
     }
 
-    private static void Test_Clone(MagickImage first, MagickImage second)
+    private static void Test_Clone(IMagickImage first, IMagickImage second)
     {
       Assert.AreEqual(first, second);
       second.Format = MagickFormat.Jp2;
@@ -106,7 +106,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(first.Format, MagickFormat.Png);
     }
 
-    private static void Test_Clone_Area(MagickImage area, MagickImage part)
+    private static void Test_Clone_Area(IMagickImage area, IMagickImage part)
     {
       Assert.AreEqual(area.Width, part.Width);
       Assert.AreEqual(area.Height, part.Height);
@@ -123,7 +123,7 @@ namespace Magick.NET.Tests
       Assert.AreEqual(width, component.Width, delta);
       Assert.AreEqual(height, component.Height, delta);
 
-      using (MagickImage area = image.Clone())
+      using (IMagickImage area = image.Clone())
       {
         area.Crop(component.ToGeometry(10));
         Assert.AreEqual(width + 20, area.Width, delta);
@@ -142,7 +142,7 @@ namespace Magick.NET.Tests
       Assert.IsNotNull(profile);
     }
 
-    private static void Test_Separate_Composite(MagickImage image, ColorSpace colorSpace, byte value)
+    private static void Test_Separate_Composite(IMagickImage image, ColorSpace colorSpace, byte value)
     {
       Assert.AreEqual(colorSpace, image.ColorSpace);
 
@@ -684,7 +684,7 @@ namespace Magick.NET.Tests
       {
         CollectionAssert.AreEqual(grayAlpha, image.Channels.ToArray());
 
-        using (MagickImage redChannel = image.Separate(Channels.Red).First())
+        using (IMagickImage redChannel = image.Separate(Channels.Red).First())
         {
           CollectionAssert.AreEqual(gray, redChannel.Channels.ToArray());
 
@@ -758,7 +758,7 @@ namespace Magick.NET.Tests
     {
       using (MagickImage first = new MagickImage(Files.SnakewarePNG))
       {
-        using (MagickImage second = first.Clone())
+        using (IMagickImage second = first.Clone())
         {
           Test_Clone(first, second);
         }
@@ -775,7 +775,7 @@ namespace Magick.NET.Tests
     {
       using (MagickImage icon = new MagickImage(Files.MagickNETIconPNG))
       {
-        using (MagickImage area = icon.Clone())
+        using (IMagickImage area = icon.Clone())
         {
           area.Crop(64, 64, Gravity.Southeast);
           area.RePage();
@@ -787,31 +787,31 @@ namespace Magick.NET.Tests
           Assert.AreEqual(64, area.Width);
           Assert.AreEqual(32, area.Height);
 
-          using (MagickImage part = icon.Clone(new MagickGeometry(64, 64, 64, 32)))
+          using (IMagickImage part = icon.Clone(new MagickGeometry(64, 64, 64, 32)))
           {
             Test_Clone_Area(area, part);
           }
 
-          using (MagickImage part = icon.Clone(64, 64, 64, 32))
+          using (IMagickImage part = icon.Clone(64, 64, 64, 32))
           {
             Test_Clone_Area(area, part);
           }
         }
 
-        using (MagickImage area = icon.Clone())
+        using (IMagickImage area = icon.Clone())
         {
           area.Crop(32, 64, Gravity.Northwest);
 
           Assert.AreEqual(32, area.Width);
           Assert.AreEqual(64, area.Height);
 
-          using (MagickImage part = icon.Clone(32, 64))
+          using (IMagickImage part = icon.Clone(32, 64))
           {
             Test_Clone_Area(area, part);
           }
         }
 
-        using (MagickImage area = icon.Clone(4, 2))
+        using (IMagickImage area = icon.Clone(4, 2))
         {
           Assert.AreEqual(4, area.Width);
           Assert.AreEqual(2, area.Height);
@@ -935,7 +935,7 @@ namespace Magick.NET.Tests
         first.Compare(null);
       });
 
-      MagickImage second = first.Clone();
+      IMagickImage second = first.Clone();
 
       MagickErrorInfo same = first.Compare(second);
       Assert.IsNotNull(same);
@@ -1000,7 +1000,7 @@ namespace Magick.NET.Tests
           new DrawableText(135, 70, "X")
         };
 
-        using (MagickImage image = background.Clone())
+        using (IMagickImage image = background.Clone())
         {
           image.Draw(drawables);
           image.Composite(background, Gravity.Center, CompositeOperator.ChangeMask);
@@ -1097,7 +1097,7 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.ConnectedComponentsPNG))
       {
-        using (MagickImage temp = image.Clone())
+        using (IMagickImage temp = image.Clone())
         {
           temp.Blur(0, 10);
           temp.Threshold((Percentage)50);
@@ -1116,7 +1116,7 @@ namespace Magick.NET.Tests
         }
 
 #if !Q8
-        using (MagickImage temp = image.Clone())
+        using (IMagickImage temp = image.Clone())
         {
           ConnectedComponentsSettings settings = new ConnectedComponentsSettings()
           {
@@ -1337,12 +1337,12 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        MagickImage[] tiles = image.CropToTiles(48, 48).ToArray();
+        IMagickImage[] tiles = image.CropToTiles(48, 48).ToArray();
         Assert.AreEqual(140, tiles.Length);
 
         for (int i = 0; i < tiles.Length; i++)
         {
-          MagickImage tile = tiles[i];
+          IMagickImage tile = tiles[i];
 
           Assert.AreEqual(48, tile.Height);
 
@@ -1363,7 +1363,7 @@ namespace Magick.NET.Tests
       {
         Assert.AreEqual(256, first.ColormapSize);
 
-        using (MagickImage second = first.Clone())
+        using (IMagickImage second = first.Clone())
         {
           second.CycleColormap(128);
           Assert.AreNotEqual(first, second);
@@ -1514,19 +1514,19 @@ namespace Magick.NET.Tests
     {
       using (MagickImage original = new MagickImage(Files.SnakewarePNG))
       {
-        using (MagickImage enciphered = original.Clone())
+        using (IMagickImage enciphered = original.Clone())
         {
           enciphered.Encipher("All your base are belong to us");
           Assert.AreNotEqual(original, enciphered);
 
-          using (MagickImage deciphered = enciphered.Clone())
+          using (IMagickImage deciphered = enciphered.Clone())
           {
             deciphered.Decipher("What you say!!");
             Assert.AreNotEqual(enciphered, deciphered);
             Assert.AreNotEqual(original, deciphered);
           }
 
-          using (MagickImage deciphered = enciphered.Clone())
+          using (IMagickImage deciphered = enciphered.Clone())
           {
             deciphered.Decipher("All your base are belong to us");
             Assert.AreNotEqual(enciphered, deciphered);
@@ -3150,11 +3150,11 @@ namespace Magick.NET.Tests
     {
       using (MagickImage logo = new MagickImage(Files.Builtin.Logo))
       {
-        using (MagickImage blue = logo.Separate(Channels.Blue).First())
+        using (IMagickImage blue = logo.Separate(Channels.Blue).First())
         {
           Test_Separate_Composite(blue, ColorSpace.Gray, 146);
 
-          using (MagickImage green = logo.Separate(Channels.Green).First())
+          using (IMagickImage green = logo.Separate(Channels.Green).First())
           {
             Test_Separate_Composite(green, ColorSpace.Gray, 62);
 
@@ -3866,7 +3866,7 @@ namespace Magick.NET.Tests
     {
       using (MagickImage image = new MagickImage(Files.Builtin.Logo))
       {
-        using (MagickImage uniqueColors = image.UniqueColors())
+        using (IMagickImage uniqueColors = image.UniqueColors())
         {
           Assert.AreEqual(1, uniqueColors.Height);
           Assert.AreEqual(256, uniqueColors.Width);

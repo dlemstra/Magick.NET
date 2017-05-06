@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
   [TestClass]
   public class PsdWriteDefinesTests
   {
-    private static void CheckProfile(MagickImage image, int expectedLength)
+    private static void CheckProfile(IMagickImage image, int expectedLength)
     {
       var profile = image.GetProfile("psd:additional-info");
       int actualLength = profile?.ToByteArray().Length ?? 0;

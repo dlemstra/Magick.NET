@@ -393,7 +393,7 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the fill pattern.
     /// </summary>
-    public MagickImage FillPattern
+    public IMagickImage FillPattern
     {
       get
       {
@@ -641,7 +641,7 @@ namespace ImageMagick
     /// <summary>
     /// Gets or sets the pattern image to use while stroking object outlines.
     /// </summary>
-    public MagickImage StrokePattern
+    public IMagickImage StrokePattern
     {
       get
       {

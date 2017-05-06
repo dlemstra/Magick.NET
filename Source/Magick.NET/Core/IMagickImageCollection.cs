@@ -21,7 +21,7 @@ namespace ImageMagick
   /// <summary>
   /// Represents the collection of images.
   /// </summary>
-  public partial interface IMagickImageCollection : IDisposable, IList<MagickImage>
+  public partial interface IMagickImageCollection : IDisposable, IList<IMagickImage>
   {
     /// <summary>
     /// Event that will we raised when a warning is thrown by ImageMagick.
@@ -55,7 +55,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="images">The images to add to the collection.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AddRange(IEnumerable<MagickImage> images);
+    void AddRange(IEnumerable<IMagickImage> images);
 
     /// <summary>
     /// Adds a Clone of the images from the specified collection to this collection.

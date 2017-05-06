@@ -300,7 +300,7 @@ namespace ImageMagick
     RenderingIntent RenderingIntent { get; set; }
 
     /// <summary>
-    /// Gets the settings for this MagickImage instance.
+    /// Gets the settings for this instance.
     /// </summary>
     MagickSettings Settings { get; }
 
@@ -793,7 +793,7 @@ namespace ImageMagick
     /// Creates a clone of the current image.
     /// </summary>
     /// <returns>A clone of the current image.</returns>
-    MagickImage Clone();
+    IMagickImage Clone();
 
     /// <summary>
     /// Creates a clone of the current image with the specified geometry.
@@ -801,7 +801,7 @@ namespace ImageMagick
     /// <param name="geometry">The area to clone.</param>
     /// <returns>A clone of the current image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage Clone(MagickGeometry geometry);
+    IMagickImage Clone(MagickGeometry geometry);
 
     /// <summary>
     /// Creates a clone of the current image.
@@ -809,7 +809,7 @@ namespace ImageMagick
     /// <param name="width">The width of the area to clone</param>
     /// <param name="height">The height of the area to clone</param>
     /// <returns>A clone of the current image.</returns>
-    MagickImage Clone(int width, int height);
+    IMagickImage Clone(int width, int height);
 
     /// <summary>
     /// Creates a clone of the current image.
@@ -819,14 +819,14 @@ namespace ImageMagick
     /// <param name="width">The width of the area to clone</param>
     /// <param name="height">The height of the area to clone</param>
     /// <returns>A clone of the current image.</returns>
-    MagickImage Clone(int x, int y, int width, int height);
+    IMagickImage Clone(int x, int y, int width, int height);
 
     /// <summary>
     /// Apply a color lookup table (CLUT) to the image.
     /// </summary>
     /// <param name="image">The image to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Clut(MagickImage image);
+    void Clut(IMagickImage image);
 
     /// <summary>
     /// Apply a color lookup table (CLUT) to the image.
@@ -834,7 +834,7 @@ namespace ImageMagick
     /// <param name="image">The image to use.</param>
     /// <param name="method">Pixel interpolate method.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Clut(MagickImage image, PixelInterpolateMethod method);
+    void Clut(IMagickImage image, PixelInterpolateMethod method);
 
     /// <summary>
     /// Apply a color lookup table (CLUT) to the image.
@@ -843,7 +843,7 @@ namespace ImageMagick
     /// <param name="method">Pixel interpolate method.</param>
     /// <param name="channels">The channel(s) to clut.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Clut(MagickImage image, PixelInterpolateMethod method, Channels channels);
+    void Clut(IMagickImage image, PixelInterpolateMethod method, Channels channels);
 
     /// <summary>
     /// Sets the alpha channel to the specified color.
@@ -891,7 +891,7 @@ namespace ImageMagick
     /// <param name="image">The other image to compare with this image.</param>
     /// <returns>The error information.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickErrorInfo Compare(MagickImage image);
+    MagickErrorInfo Compare(IMagickImage image);
 
     /// <summary>
     /// Returns the distortion based on the specified metric.
@@ -900,7 +900,7 @@ namespace ImageMagick
     /// <param name="metric">The metric to use.</param>
     /// <returns>The distortion based on the specified metric.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    double Compare(MagickImage image, ErrorMetric metric);
+    double Compare(IMagickImage image, ErrorMetric metric);
 
     /// <summary>
     /// Returns the distortion based on the specified metric.
@@ -910,7 +910,7 @@ namespace ImageMagick
     /// <param name="channels">The channel(s) to compare.</param>
     /// <returns>The distortion based on the specified metric.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    double Compare(MagickImage image, ErrorMetric metric, Channels channels);
+    double Compare(IMagickImage image, ErrorMetric metric, Channels channels);
 
     /// <summary>
     /// Returns the distortion based on the specified metric.
@@ -920,7 +920,7 @@ namespace ImageMagick
     /// <param name="difference">The image that will contain the difference.</param>
     /// <returns>The distortion based on the specified metric.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    double Compare(MagickImage image, ErrorMetric metric, MagickImage difference);
+    double Compare(IMagickImage image, ErrorMetric metric, IMagickImage difference);
 
     /// <summary>
     /// Returns the distortion based on the specified metric.
@@ -931,14 +931,14 @@ namespace ImageMagick
     /// <param name="channels">The channel(s) to compare.</param>
     /// <returns>The distortion based on the specified metric.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    double Compare(MagickImage image, ErrorMetric metric, MagickImage difference, Channels channels);
+    double Compare(IMagickImage image, ErrorMetric metric, IMagickImage difference, Channels channels);
 
     /// <summary>
     /// Compose an image onto another at specified offset using the 'In' operator.
     /// </summary>
     /// <param name="image">The image to composite with this image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Composite(MagickImage image);
+    void Composite(IMagickImage image);
 
     /// <summary>
     /// Compose an image onto another using the specified algorithm.
@@ -946,7 +946,7 @@ namespace ImageMagick
     /// <param name="image">The image to composite with this image.</param>
     /// <param name="compose">The algorithm to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Composite(MagickImage image, CompositeOperator compose);
+    void Composite(IMagickImage image, CompositeOperator compose);
 
     /// <summary>
     /// Compose an image onto another at specified offset using the specified algorithm.
@@ -955,7 +955,7 @@ namespace ImageMagick
     /// <param name="compose">The algorithm to use.</param>
     /// <param name="args">The arguments for the algorithm (compose:args).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Composite(MagickImage image, CompositeOperator compose, string args);
+    void Composite(IMagickImage image, CompositeOperator compose, string args);
 
     /// <summary>
     /// Compose an image onto another at specified offset using the 'In' operator.
@@ -964,7 +964,7 @@ namespace ImageMagick
     /// <param name="x">The X offset from origin.</param>
     /// <param name="y">The Y offset from origin.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Composite(MagickImage image, int x, int y);
+    void Composite(IMagickImage image, int x, int y);
 
     /// <summary>
     /// Compose an image onto another at specified offset using the specified algorithm.
@@ -974,7 +974,7 @@ namespace ImageMagick
     /// <param name="y">The Y offset from origin.</param>
     /// <param name="compose">The algorithm to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Composite(MagickImage image, int x, int y, CompositeOperator compose);
+    void Composite(IMagickImage image, int x, int y, CompositeOperator compose);
 
     /// <summary>
     /// Compose an image onto another at specified offset using the specified algorithm.
@@ -985,7 +985,7 @@ namespace ImageMagick
     /// <param name="compose">The algorithm to use.</param>
     /// <param name="args">The arguments for the algorithm (compose:args).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Composite(MagickImage image, int x, int y, CompositeOperator compose, string args);
+    void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string args);
 
     /// <summary>
     /// Compose an image onto another at specified offset using the 'In' operator.
@@ -993,7 +993,7 @@ namespace ImageMagick
     /// <param name="image">The image to composite with this image.</param>
     /// <param name="offset">The offset from origin.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Composite(MagickImage image, PointD offset);
+    void Composite(IMagickImage image, PointD offset);
 
     /// <summary>
     /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1002,7 +1002,7 @@ namespace ImageMagick
     /// <param name="offset">The offset from origin.</param>
     /// <param name="compose">The algorithm to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Composite(MagickImage image, PointD offset, CompositeOperator compose);
+    void Composite(IMagickImage image, PointD offset, CompositeOperator compose);
 
     /// <summary>
     /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1012,7 +1012,7 @@ namespace ImageMagick
     /// <param name="compose">The algorithm to use.</param>
     /// <param name="args">The arguments for the algorithm (compose:args).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Composite(MagickImage image, PointD offset, CompositeOperator compose, string args);
+    void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string args);
 
     /// <summary>
     /// Compose an image onto another at specified offset using the 'In' operator.
@@ -1020,7 +1020,7 @@ namespace ImageMagick
     /// <param name="image">The image to composite with this image.</param>
     /// <param name="gravity">The placement gravity.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Composite(MagickImage image, Gravity gravity);
+    void Composite(IMagickImage image, Gravity gravity);
 
     /// <summary>
     /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1029,7 +1029,7 @@ namespace ImageMagick
     /// <param name="gravity">The placement gravity.</param>
     /// <param name="compose">The algorithm to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Composite(MagickImage image, Gravity gravity, CompositeOperator compose);
+    void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose);
 
     /// <summary>
     /// Compose an image onto another at specified offset using the specified algorithm.
@@ -1039,7 +1039,7 @@ namespace ImageMagick
     /// <param name="compose">The algorithm to use.</param>
     /// <param name="args">The arguments for the algorithm (compose:args).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Composite(MagickImage image, Gravity gravity, CompositeOperator compose, string args);
+    void Composite(IMagickImage image, Gravity gravity, CompositeOperator compose, string args);
 
     /// <summary>
     /// Determines the connected-components of the image.
@@ -1115,7 +1115,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="source">The source image to copy the pixels from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void CopyPixels(MagickImage source);
+    void CopyPixels(IMagickImage source);
 
     /// <summary>
     /// Copies pixels from the source image to the destination image.
@@ -1123,7 +1123,7 @@ namespace ImageMagick
     /// <param name="source">The source image to copy the pixels from.</param>
     /// <param name="channels">The channels to copy.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void CopyPixels(MagickImage source, Channels channels);
+    void CopyPixels(IMagickImage source, Channels channels);
 
     /// <summary>
     /// Copies pixels from the source image to the destination image.
@@ -1131,7 +1131,7 @@ namespace ImageMagick
     /// <param name="source">The source image to copy the pixels from.</param>
     /// <param name="geometry">The geometry to copy.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void CopyPixels(MagickImage source, MagickGeometry geometry);
+    void CopyPixels(IMagickImage source, MagickGeometry geometry);
 
     /// <summary>
     /// Copies pixels from the source image to the destination image.
@@ -1140,7 +1140,7 @@ namespace ImageMagick
     /// <param name="geometry">The geometry to copy.</param>
     /// <param name="channels">The channels to copy.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void CopyPixels(MagickImage source, MagickGeometry geometry, Channels channels);
+    void CopyPixels(IMagickImage source, MagickGeometry geometry, Channels channels);
 
     /// <summary>
     /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -1150,7 +1150,7 @@ namespace ImageMagick
     /// <param name="geometry">The geometry to copy.</param>
     /// <param name="offset">The offset to copy the pixels to.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void CopyPixels(MagickImage source, MagickGeometry geometry, PointD offset);
+    void CopyPixels(IMagickImage source, MagickGeometry geometry, PointD offset);
 
     /// <summary>
     /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -1161,7 +1161,7 @@ namespace ImageMagick
     /// <param name="offset">The offset to start the copy from.</param>
     /// <param name="channels">The channels to copy.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void CopyPixels(MagickImage source, MagickGeometry geometry, PointD offset, Channels channels);
+    void CopyPixels(IMagickImage source, MagickGeometry geometry, PointD offset, Channels channels);
 
     /// <summary>
     /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -1172,7 +1172,7 @@ namespace ImageMagick
     /// <param name="x">The X offset to start the copy from.</param>
     /// <param name="y">The Y offset to start the copy from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void CopyPixels(MagickImage source, MagickGeometry geometry, int x, int y);
+    void CopyPixels(IMagickImage source, MagickGeometry geometry, int x, int y);
 
     /// <summary>
     /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -1184,7 +1184,7 @@ namespace ImageMagick
     /// <param name="y">The Y offset to copy the pixels to.</param>
     /// <param name="channels">The channels to copy.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void CopyPixels(MagickImage source, MagickGeometry geometry, int x, int y, Channels channels);
+    void CopyPixels(IMagickImage source, MagickGeometry geometry, int x, int y, Channels channels);
 
     /// <summary>
     /// Crop image (subregion of original image) using CropPosition.Center. You should call
@@ -1239,14 +1239,14 @@ namespace ImageMagick
     /// <param name="width">The width of the tile.</param>
     /// <param name="height">The height of the tile.</param>
     /// <returns>New title of the current image.</returns>
-    IEnumerable<MagickImage> CropToTiles(int width, int height);
+    IEnumerable<IMagickImage> CropToTiles(int width, int height);
 
     /// <summary>
     /// Creates tiles of the current image in the specified dimension.
     /// </summary>
     /// <param name="geometry">The size of the tile.</param>
     /// <returns>New title of the current image.</returns>
-    IEnumerable<MagickImage> CropToTiles(MagickGeometry geometry);
+    IEnumerable<IMagickImage> CropToTiles(MagickGeometry geometry);
 
     /// <summary>
     /// Displaces an image's colormap by a given number of positions.
@@ -1556,7 +1556,7 @@ namespace ImageMagick
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void FloodFill(MagickImage image, int x, int y);
+    void FloodFill(IMagickImage image, int x, int y);
 
     /// <summary>
     /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1567,7 +1567,7 @@ namespace ImageMagick
     /// <param name="y">The Y coordinate.</param>
     /// <param name="target">The target color.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void FloodFill(MagickImage image, int x, int y, MagickColor target);
+    void FloodFill(IMagickImage image, int x, int y, MagickColor target);
 
     /// <summary>
     /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1576,7 +1576,7 @@ namespace ImageMagick
     /// <param name="image">The image to use.</param>
     /// <param name="coordinate">The position of the pixel.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void FloodFill(MagickImage image, PointD coordinate);
+    void FloodFill(IMagickImage image, PointD coordinate);
 
     /// <summary>
     /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1586,7 +1586,7 @@ namespace ImageMagick
     /// <param name="coordinate">The position of the pixel.</param>
     /// <param name="target">The target color.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void FloodFill(MagickImage image, PointD coordinate, MagickColor target);
+    void FloodFill(IMagickImage image, PointD coordinate, MagickColor target);
 
     /// <summary>
     /// Flop image (reflect each scanline in the horizontal direction).
@@ -1803,7 +1803,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="image">The image to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void HaldClut(MagickImage image);
+    void HaldClut(IMagickImage image);
 
     /// <summary>
     /// Creates a color histogram.
@@ -1893,7 +1893,7 @@ namespace ImageMagick
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InverseFloodFill(MagickImage image, int x, int y);
+    void InverseFloodFill(IMagickImage image, int x, int y);
 
     /// <summary>
     /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
@@ -1904,7 +1904,7 @@ namespace ImageMagick
     /// <param name="y">The Y coordinate.</param>
     /// <param name="target">The target color.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InverseFloodFill(MagickImage image, int x, int y, MagickColor target);
+    void InverseFloodFill(IMagickImage image, int x, int y, MagickColor target);
 
     /// <summary>
     /// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -1913,7 +1913,7 @@ namespace ImageMagick
     /// <param name="image">The image to use.</param>
     /// <param name="coordinate">The position of the pixel.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InverseFloodFill(MagickImage image, PointD coordinate);
+    void InverseFloodFill(IMagickImage image, PointD coordinate);
 
     /// <summary>
     /// Flood-fill texture across pixels that do not match the color of the target pixel and are
@@ -1923,7 +1923,7 @@ namespace ImageMagick
     /// <param name="coordinate">The position of the pixel.</param>
     /// <param name="target">The target color.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InverseFloodFill(MagickImage image, PointD coordinate, MagickColor target);
+    void InverseFloodFill(IMagickImage image, PointD coordinate, MagickColor target);
 
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
@@ -2255,7 +2255,7 @@ namespace ImageMagick
     /// <param name="image">The image to use.</param>
     /// <returns>The error informaton.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickErrorInfo Map(MagickImage image);
+    MagickErrorInfo Map(IMagickImage image);
 
     /// <summary>
     /// Remap image colors with closest color from reference image.
@@ -2264,7 +2264,7 @@ namespace ImageMagick
     /// <param name="settings">Quantize settings.</param>
     /// <returns>The error informaton.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickErrorInfo Map(MagickImage image, QuantizeSettings settings);
+    MagickErrorInfo Map(IMagickImage image, QuantizeSettings settings);
 
     /// <summary>
     /// Filter image by replacing each pixel component with the median color in a circular neighborhood.
@@ -3045,7 +3045,7 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The channels from the image as grayscale images.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IEnumerable<MagickImage> Separate();
+    IEnumerable<IMagickImage> Separate();
 
     /// <summary>
     /// Separates the specified channels from the image and returns it as grayscale images.
@@ -3053,7 +3053,7 @@ namespace ImageMagick
     /// <param name="channels">The channel(s) to separates.</param>
     /// <returns>The channels from the image as grayscale images.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IEnumerable<MagickImage> Separate(Channels channels);
+    IEnumerable<IMagickImage> Separate(Channels channels);
 
     /// <summary>
     /// Applies a special effect to the image, similar to the effect achieved in a photo darkroom
@@ -3416,7 +3416,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="watermark">The image to use as a watermark.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Stegano(MagickImage watermark);
+    void Stegano(IMagickImage watermark);
 
     /// <summary>
     /// Create an image which appears in stereo when viewed with red-blue glasses (Red image on
@@ -3424,7 +3424,7 @@ namespace ImageMagick
     /// </summary>
     /// <param name="rightImage">The image to use as the right part of the resulting image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Stereo(MagickImage rightImage);
+    void Stereo(IMagickImage rightImage);
 
     /// <summary>
     /// Strips an image of all profiles and comments.
@@ -3455,7 +3455,7 @@ namespace ImageMagick
     /// <param name="image">The image to search for.</param>
     /// <returns>The result of the search action.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickSearchResult SubImageSearch(MagickImage image);
+    MagickSearchResult SubImageSearch(IMagickImage image);
 
     /// <summary>
     /// Search for the specified image at EVERY possible location in this image. This is slow!
@@ -3466,7 +3466,7 @@ namespace ImageMagick
     /// <param name="metric">The metric to use.</param>
     /// <returns>The result of the search action.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickSearchResult SubImageSearch(MagickImage image, ErrorMetric metric);
+    MagickSearchResult SubImageSearch(IMagickImage image, ErrorMetric metric);
 
     /// <summary>
     /// Search for the specified image at EVERY possible location in this image. This is slow!
@@ -3478,14 +3478,14 @@ namespace ImageMagick
     /// <param name="similarityThreshold">Minimum distortion for (sub)image match.</param>
     /// <returns>The result of the search action.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickSearchResult SubImageSearch(MagickImage image, ErrorMetric metric, double similarityThreshold);
+    MagickSearchResult SubImageSearch(IMagickImage image, ErrorMetric metric, double similarityThreshold);
 
     /// <summary>
     /// Channel a texture on image background.
     /// </summary>
     /// <param name="image">The image to use as a texture on the image background.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Texture(MagickImage image);
+    void Texture(IMagickImage image);
 
     /// <summary>
     /// Threshold image.
@@ -3530,7 +3530,7 @@ namespace ImageMagick
     /// <param name="image">The image to composite with this image.</param>
     /// <param name="compose">The algorithm to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Tile(MagickImage image, CompositeOperator compose);
+    void Tile(IMagickImage image, CompositeOperator compose);
 
     /// <summary>
     /// Compose an image repeated across and down the image.
@@ -3539,7 +3539,7 @@ namespace ImageMagick
     /// <param name="compose">The algorithm to use.</param>
     /// <param name="args">The arguments for the algorithm (compose:args).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Tile(MagickImage image, CompositeOperator compose, string args);
+    void Tile(IMagickImage image, CompositeOperator compose, string args);
 
     /// <summary>
     /// Applies a color vector to each pixel in the image. The length of the vector is 0 for black
@@ -3645,7 +3645,7 @@ namespace ImageMagick
     /// </summary>
     /// <returns>The unique colors of an image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    MagickImage UniqueColors();
+    IMagickImage UniqueColors();
 
     /// <summary>
     /// Replace image with a sharpened version of the original image using the unsharp mask algorithm.

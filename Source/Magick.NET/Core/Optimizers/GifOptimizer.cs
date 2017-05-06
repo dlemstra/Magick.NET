@@ -21,7 +21,7 @@ namespace ImageMagick.ImageOptimizers
   /// </summary>
   public sealed class GifOptimizer : IImageOptimizer
   {
-    private static void CheckFormat(MagickImage image)
+    private static void CheckFormat(IMagickImage image)
     {
       MagickFormat format = image.FormatInfo.Module;
       if (format != MagickFormat.Gif)
@@ -40,7 +40,7 @@ namespace ImageMagick.ImageOptimizers
       }
     }
 
-    private static void DoLosslessCompress(FileInfo file, MagickImage image)
+    private static void DoLosslessCompress(FileInfo file, IMagickImage image)
     {
       CheckFormat(image);
 

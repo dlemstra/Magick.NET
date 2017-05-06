@@ -29,5 +29,26 @@ namespace ImageMagick
 
       return nativeInstance.Instance;
     }
+
+    internal static MagickErrorInfo CreateErrorInfo(this IMagickImage self)
+    {
+      if (self == null)
+        return null;
+
+      MagickImage image = self as MagickImage;
+      if (image == null)
+        throw new NotSupportedException();
+
+      return MagickImage.CreateErrorInfo(image);
+    }
+
+    internal static void SetNext(this IMagickImage self, IMagickImage next)
+    {
+      MagickImage image = self as MagickImage;
+      if (image == null)
+        throw new NotSupportedException();
+
+      image.SetNext(next);
+    }
   }
 }

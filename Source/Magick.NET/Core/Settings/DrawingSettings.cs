@@ -164,7 +164,7 @@ namespace ImageMagick
       set;
     }
 
-    public MagickImage FillPattern
+    public IMagickImage FillPattern
     {
       get;
       set;
@@ -255,7 +255,7 @@ namespace ImageMagick
       set;
     }
 
-    public MagickImage StrokePattern
+    public IMagickImage StrokePattern
     {
       get;
       set;

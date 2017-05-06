@@ -831,7 +831,7 @@ namespace Magick.NET.Tests
     {
       using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
       {
-        MagickImage first = collection[0];
+        IMagickImage first = collection[0];
         collection.Remove(first);
 
         Assert.AreEqual(2, collection.Count);
@@ -875,10 +875,10 @@ namespace Magick.NET.Tests
     {
       using (IMagickImageCollection collection = new MagickImageCollection(Files.RoseSparkleGIF))
       {
-        MagickImage first = collection.First();
+        IMagickImage first = collection.First();
         collection.Reverse();
 
-        MagickImage last = collection.Last();
+        IMagickImage last = collection.Last();
         Assert.IsTrue(last == first);
       }
     }
